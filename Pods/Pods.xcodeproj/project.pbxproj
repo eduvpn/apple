@@ -1,0 +1,1212 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		03AF597E645D4D8F5A0FE0495B14961D /* OIDResponseTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = C3A5F564716C415FAEC90C2AB72A161D /* OIDResponseTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		08AA89D020B5C4FD74D1529A3E972AB9 /* KeychainSwift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E3C114572CAC28C6BCC8196885148F52 /* KeychainSwift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0AA60E03816F83177E8BC368DA0447A6 /* OIDError.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CC3CEB5D4EEEA96E70A1B4F5EBA42A9 /* OIDError.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0CE7F080FD61D35F40AD45E15531CCAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B2E22F0C15FA86450EA1E7B3BCF4E19 /* Foundation.framework */; };
+		0D8EEAB55C090872BB6FF7FD0AEEF3BD /* OIDScopeUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 7E7940CFF2E0CCE7E8A28A90666AB6D9 /* OIDScopeUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0E597BF7C1DEB37C80B8CCCFBCC19BB0 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262DD73CD917F6A5772DCFDD7DBA35AD /* Error.swift */; };
+		11F838C142785DC6F6FB8D43D3306482 /* OIDAuthorizationRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E5717E09480E6F1C77218F00927D77A /* OIDAuthorizationRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		13F1884AE44C5C81EFDDEAA9401CB8A5 /* after.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D225D843A1CBF0B3F17184F9D5CE55 /* after.swift */; };
+		1418AEB849ED8E1487D509F34019D64C /* GlobalState.m in Sources */ = {isa = PBXBuildFile; fileRef = 34CF495B6B923B292FEA944F399E035C /* GlobalState.m */; };
+		15D1DC48F8B0308DF681BE55FE5D4D19 /* OIDError.m in Sources */ = {isa = PBXBuildFile; fileRef = 57ACCCC0701FBE9DD855182AE305F984 /* OIDError.m */; };
+		185C65041FDC920454BB311A4E77C510 /* after.m in Sources */ = {isa = PBXBuildFile; fileRef = D921366AFCF69463E6A04C7D938EFE6D /* after.m */; };
+		186CEB1BBDFDFFB26AD15679C7455E36 /* OIDDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 83ED8614B1C1F1883706B1C0F44CB01D /* OIDDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1A6E2D480F86E924BD2A9D2E5320CAB4 /* OIDScopeUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 3644CC2F18019662D64D44D565F8AF21 /* OIDScopeUtilities.m */; };
+		1AB0FE73291F88918FFF3375A57230F7 /* OIDAuthorizationUICoordinatorIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = CD11E4492564321566234F6DEDF65C01 /* OIDAuthorizationUICoordinatorIOS.m */; };
+		1C2411FDA5DF55BA5F80B24595E8483D /* OIDErrorUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D44FC4C68A3C12F7200C273894A98375 /* OIDErrorUtilities.m */; };
+		1F88E565EEB2AC91B7A19CBD6176C459 /* Pods-EduVPN-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7B04284DEDD585505CEA1380DDEF4B /* Pods-EduVPN-dummy.m */; };
+		1FEDC30E67E4277A2D01117BD949BB95 /* AppAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = 5292F528C1AC5D698F11D4C77AE392F2 /* AppAuth.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		228E8F2CE326FFE76AD72D90892407E2 /* OIDServiceConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A5CB8DBCE3E9AA16DFDC7DA3620031 /* OIDServiceConfiguration.m */; };
+		24403CA324E9C20918BE4B786F92DE4D /* AnyPromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A50832E1239B849FBC10C75B3E1D176 /* AnyPromise.swift */; };
+		29460145BC5A41E9005764D8D817F47D /* OIDAuthorizationService+IOS.h in Headers */ = {isa = PBXBuildFile; fileRef = E32A8B56548A217614F68469102E0774 /* OIDAuthorizationService+IOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2A315212995565031F93111F914B9338 /* hang.m in Sources */ = {isa = PBXBuildFile; fileRef = 99EEBA46EE67FC93DFB29CCB74D22B62 /* hang.m */; };
+		2B836E9E5D2136A6D7971C299C5294AD /* OIDAuthState.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A49DB4E16BA31A879E644F7A578E98 /* OIDAuthState.m */; };
+		2F68A4351D1B621FE673AE7E557788D9 /* when.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CEB2FCF9DD6BD5EDB1599FDFA53F715 /* when.m */; };
+		3111ACCA9D654876DB6D820DE4B0F5E9 /* OIDTokenResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C33130DBEB84DEE8EC3242428192DDF1 /* OIDTokenResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		35B3DD3EF083E2CA9E6963AFA446B17C /* OIDAuthorizationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 92ECEBD7F7E777D78A71D50894281952 /* OIDAuthorizationRequest.m */; };
+		47B20A2C2C476E7872AC97FE23419403 /* OIDResponseTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D83308EA31859D31FE184CFE9C6385 /* OIDResponseTypes.m */; };
+		481DD72E7E9FB172E18747BDDE34818A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B2E22F0C15FA86450EA1E7B3BCF4E19 /* Foundation.framework */; };
+		48AA7CC2E512F5E57F7F51EC6E5B80DA /* OIDAuthorizationService.h in Headers */ = {isa = PBXBuildFile; fileRef = F27C8C5B47EB5C240561E3BE3BB4BAD4 /* OIDAuthorizationService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C7E93BE66DA4B7E425C68B8A5B4E35B /* OIDTokenResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 35A1582F579D53C3FB33A3276DB123F1 /* OIDTokenResponse.m */; };
+		5184620CE45836B563AF1B100DC4C79D /* OIDAuthorizationUICoordinatorIOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 18D52F9D734FC7CC8B4A07E63AC09D75 /* OIDAuthorizationUICoordinatorIOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		553F3E86CD5344B60DEC911ACE2BDF1B /* PromiseKit-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 55BAC3CB916ABE064AD723F90B4660F5 /* PromiseKit-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5568CA110A2B0413C27F571BFB88039F /* OIDServiceDiscovery.h in Headers */ = {isa = PBXBuildFile; fileRef = CF71ABABE8C8610E1D098BF206F67586 /* OIDServiceDiscovery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		56101565E3C082EDF77B3C046E217C09 /* OIDErrorUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C7F37E79A7DFD8F2AD9A1A006798523 /* OIDErrorUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		58460BB73A6F70C0C8BA402052E27038 /* OIDAuthStateChangeDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 3867F455FD2657C87EE28A0C282A00AA /* OIDAuthStateChangeDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5F83C27D4BAAA49B48AD5241200E66B6 /* OIDRegistrationResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 16911BE4398BE7E5D8BAAD4890285921 /* OIDRegistrationResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		63E3E54D78ECF2A2C25FB5F202B96D40 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B2E22F0C15FA86450EA1E7B3BCF4E19 /* Foundation.framework */; };
+		66B08F4E50FD4B7407D94C8EAC6196EF /* Promise+AnyPromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709CECC64E057C829138D06C232645DF /* Promise+AnyPromise.swift */; };
+		66B5232841B372C014D0E8A671D7CCD9 /* Pods-EduVPN-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 827D617C3839BA493C7572F9605CAF06 /* Pods-EduVPN-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		69AFCA751ED709EF7FCD31CD3CE36496 /* race.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCE2BDFA5170DC59F7DD59620558C8C /* race.swift */; };
+		6AE6A3FD01D02EF1DCBAF673FA04883D /* OIDRegistrationResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = F64BA87FFDE86AC154C73BF81C425C56 /* OIDRegistrationResponse.m */; };
+		6B98D40D8990FE05DF46865FD5103E02 /* OIDURLQueryComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 608AA552B1545FD97EA05B081F6BEB25 /* OIDURLQueryComponent.m */; };
+		6BCF48E70B71DBFD05AE6B427ED72E06 /* OIDRegistrationRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 25ABFB4C89B7D8DCD63E746FAD6546F6 /* OIDRegistrationRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D42BB484E9B7C4DA9EF0DA55D2D4D54 /* OIDAuthState.h in Headers */ = {isa = PBXBuildFile; fileRef = 21EADE7CEFB59EF787F744BEA07FA262 /* OIDAuthState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D48617FDEBC67FC33229BA1FAF4B5AF /* OIDScopes.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EEF91697760471306ECD180A3D101E5 /* OIDScopes.m */; };
+		6EF7FD084FAD45F6743A7DE29A0A08EF /* OIDGrantTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 27BFD9BFE19A24E0B76D0A04AA087267 /* OIDGrantTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		75BC68EFCD687B06641D1968F28C45FF /* OIDScopes.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A9E387FEFCC072F8DAF0275B9584A52 /* OIDScopes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BB2CE764095FCCE9A3C8C5327E42B88 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 177602236F6F4D7BE185B821A862BC6D /* SafariServices.framework */; };
+		7C0F17488B3552EAAFC074CFC4491DD5 /* TegKeychainConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA1A2715231111BFDDFE9F42FA2B917 /* TegKeychainConstants.swift */; };
+		7DB119AC04FBFA757F4328F2B3DB8DBA /* OIDTokenUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2BF44802A877CA4490BE3D0327A7AD /* OIDTokenUtilities.m */; };
+		8152598FC4FA1263EFEB5C7BFE9BC659 /* OIDFieldMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = EFF6D5DB28523541BE6340082A90C3D1 /* OIDFieldMapping.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		84135CD603DA992F1DD054F5DF8B6797 /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D56588400B1F74852D087CF44AC19 /* Promise.swift */; };
+		848B857E9A3159E30D05E84D49F424F4 /* OIDServiceDiscovery.m in Sources */ = {isa = PBXBuildFile; fileRef = 37BE1E12057452BA12F8BDABF025C993 /* OIDServiceDiscovery.m */; };
+		8ACE5B6DBCAF5439CB9E64509A58AC18 /* OIDGrantTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 97845C6CBD2AC811E9162341C6DFB799 /* OIDGrantTypes.m */; };
+		9392F57A09025F639565C9533B68DD37 /* AnyPromise.h in Headers */ = {isa = PBXBuildFile; fileRef = 1563EEB761AE00F8A74A87D97B1BCA3A /* AnyPromise.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		952FE82DA478C867E2B9AEB0CECDBD68 /* OIDServiceConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 363FC574DDE5D95A7EF0E5B277804C20 /* OIDServiceConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9972213350EDD6DB8E71036B418EB38A /* OIDFieldMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA248CAC8F116E51C3C0A27CBB00B8B /* OIDFieldMapping.m */; };
+		9A3FE97C5A271BA98D53325DC603D35D /* OIDTokenUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = A47B6B2B1C81971B9BD1CE94282809F0 /* OIDTokenUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9AAAE293D768793C532BE4D434EF2E8B /* OIDAuthorizationResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F102BD0220933C2307CDC8BC75DC9A8 /* OIDAuthorizationResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9ABF5821060EA6BBEABCC18814203419 /* OIDAuthorizationService+IOS.m in Sources */ = {isa = PBXBuildFile; fileRef = B33C4A1451291EC9105E8873B1804C91 /* OIDAuthorizationService+IOS.m */; };
+		A1EFB1A7E8FE6861198F8E565FDD1B65 /* OIDURLQueryComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 0C41F9B1C19E29EEA3C6FF01030AE70E /* OIDURLQueryComponent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9DA5D4B175732A5B10C8219A41DFAD1 /* PromiseKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D2C135C5DF83B654691665A5890D69CB /* PromiseKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AD0E8D5F58B0B824D2631BDA9D541DFE /* KeychainSwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 33FBF4A9D4C41FDE21CA5B65420EEAF1 /* KeychainSwift-dummy.m */; };
+		AD44D2DBE157D0B6E4EC06CE9F6A1A59 /* AppAuth-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B7D7FB783A1784856386F6487D0C77C /* AppAuth-dummy.m */; };
+		AE37C2FDA414489762D9EB438D50C1EC /* DispatchQueue+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59022A77636238D525A64A00ACFD9DBA /* DispatchQueue+Promise.swift */; };
+		AFFFC5B9E5441318CBB13E45A7C60E2E /* join.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5E3A67509EEBECE59038C0B76FE653 /* join.swift */; };
+		B09299A1263BCFC437D5D34A8E147579 /* OIDClientMetadataParameters.h in Headers */ = {isa = PBXBuildFile; fileRef = C381864A7EE72F444EE43E9D9F0516BA /* OIDClientMetadataParameters.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B197A2F991DB5DE9A8E3DD30742FE49C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B2E22F0C15FA86450EA1E7B3BCF4E19 /* Foundation.framework */; };
+		B5F1C2BBFAC26F02FA0BDB89DFCEAC52 /* wrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249A0BAEA9989C768908AF0B8FE908BD /* wrap.swift */; };
+		B699E84064D46465DBC2A239936D8654 /* AppAuth-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 45B36A32E45384F4ECEAE10B6069B30A /* AppAuth-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5CE2DD1DD32594F08050192039A3E8E /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DD7BC3AFBBBFA8DC26A5F0B43B7B0A /* State.swift */; };
+		CAFF12665D2076791671B60186513ED0 /* OIDAuthorizationUICoordinator.h in Headers */ = {isa = PBXBuildFile; fileRef = 7DEC1F47F426C740D148C7CBEF742520 /* OIDAuthorizationUICoordinator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CCBE57237E9F0DBAAF02A5575244F3BE /* KeychainSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A90C384959D5229A5B9AC4A5E8E975 /* KeychainSwift.swift */; };
+		D0A62E15708DB0BF6C5A5DCCDCD1E952 /* dispatch_promise.m in Sources */ = {isa = PBXBuildFile; fileRef = 18259471B13FD95688A58B6E9D615929 /* dispatch_promise.m */; };
+		D58EFE464419177E41930B9900586C77 /* OIDAuthStateErrorDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = EA385B649A2C717E0B989BDD46870C59 /* OIDAuthStateErrorDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D69EBE94EBB402C0225FB8FE8604ED80 /* Zalgo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82342D81D499EE7B484D5AC354A1FCD /* Zalgo.swift */; };
+		D79F6F66386F7F42261B142A76755772 /* OIDAuthorizationResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB4FE11792DC1025B23ECA9B5AFA999 /* OIDAuthorizationResponse.m */; };
+		D98DF4484E63A7DC515FCF99B6AA350D /* OIDTokenRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 578A1BB54EC3B10665709EC4D2CB32B6 /* OIDTokenRequest.m */; };
+		E670153BDF231150598ACAF82673E3AD /* OIDClientMetadataParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 475CEA80CDFC3A1AAAF5E878245A97FE /* OIDClientMetadataParameters.m */; };
+		E708A717DB93AAD3AC3FC413F7B7BEA9 /* OIDRegistrationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5970728366DF95FE2BD28FD93CF7B921 /* OIDRegistrationRequest.m */; };
+		E8E9961074E63AC2C3B8723504ECE83C /* AnyPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DD0A7137E8A607F4AC49E642099236 /* AnyPromise.m */; };
+		E960F664B479E2F09AD3CD56CC30A651 /* fwd.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C41660D55920DC0C39174DC7209206B /* fwd.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA438C1DB3263C437C24748C8529B3A9 /* join.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C10138CDD761B8CCC5634076E472957 /* join.m */; };
+		EBA8B955A11296BD7AA307752FE82ED4 /* KeychainSwiftAccessOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C0E8944E6111D410B1D9653C0A01DF /* KeychainSwiftAccessOptions.swift */; };
+		F19617FCC8BF6F8FDA5B114F44E62571 /* PromiseKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A482EE3DF195747F4C8E7E3204BBF2B /* PromiseKit-dummy.m */; };
+		F27D9B119411BDD01720E0D748D27A69 /* Promise+Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8E15D4DB2B050D06C739D2D6BDC79E /* Promise+Properties.swift */; };
+		F2E96A261B6915D02E7532843525B065 /* OIDTokenRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 5C35B14827436164EF9E0CE615D9342E /* OIDTokenRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F4A400FF5A0859AB5E59FA90F2E27090 /* OIDAuthState+IOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB2A886DF5399611900EED7F1ECA7F7 /* OIDAuthState+IOS.m */; };
+		F9D755FBBE78E48FFB90FC48D6F86B4B /* when.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEC9066E95F242CB006FE964DF05A09 /* when.swift */; };
+		FDF8E09A59C3F54D9F851008C57E340F /* OIDAuthorizationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C37B8B53449A593802525A042F98D6 /* OIDAuthorizationService.m */; };
+		FF7488D3468EE40797A951E1DC93EF6C /* OIDAuthState+IOS.h in Headers */ = {isa = PBXBuildFile; fileRef = C2E02EEF72BDFD1A7F130A9198E9278F /* OIDAuthState+IOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0F0DAF47C9AA59154AF3AC067EAEE002 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 38ACA430605AFB4229712A18BDDF5086;
+			remoteInfo = KeychainSwift;
+		};
+		70DE456E50571CF538F32CEAA04C266C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 842F72DCDC6161BB37D6B901E9301ED8;
+			remoteInfo = AppAuth;
+		};
+		9B68383605A85C70F617359919F4D2B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 677B2C0281C9F94C79456F081542602C;
+			remoteInfo = PromiseKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		07A49DB4E16BA31A879E644F7A578E98 /* OIDAuthState.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDAuthState.m; path = Source/OIDAuthState.m; sourceTree = "<group>"; };
+		0A482EE3DF195747F4C8E7E3204BBF2B /* PromiseKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "PromiseKit-dummy.m"; sourceTree = "<group>"; };
+		0A50832E1239B849FBC10C75B3E1D176 /* AnyPromise.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnyPromise.swift; path = Sources/AnyPromise.swift; sourceTree = "<group>"; };
+		0C41F9B1C19E29EEA3C6FF01030AE70E /* OIDURLQueryComponent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDURLQueryComponent.h; path = Source/OIDURLQueryComponent.h; sourceTree = "<group>"; };
+		0C633DEC75E66F60FD25A46E8B9C178D /* PromiseKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PromiseKit-prefix.pch"; sourceTree = "<group>"; };
+		0E5717E09480E6F1C77218F00927D77A /* OIDAuthorizationRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDAuthorizationRequest.h; path = Source/OIDAuthorizationRequest.h; sourceTree = "<group>"; };
+		1563EEB761AE00F8A74A87D97B1BCA3A /* AnyPromise.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AnyPromise.h; path = Sources/AnyPromise.h; sourceTree = "<group>"; };
+		16911BE4398BE7E5D8BAAD4890285921 /* OIDRegistrationResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDRegistrationResponse.h; path = Source/OIDRegistrationResponse.h; sourceTree = "<group>"; };
+		16A90C384959D5229A5B9AC4A5E8E975 /* KeychainSwift.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KeychainSwift.swift; path = Sources/KeychainSwift.swift; sourceTree = "<group>"; };
+		177602236F6F4D7BE185B821A862BC6D /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/SafariServices.framework; sourceTree = DEVELOPER_DIR; };
+		18259471B13FD95688A58B6E9D615929 /* dispatch_promise.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = dispatch_promise.m; path = Sources/dispatch_promise.m; sourceTree = "<group>"; };
+		18D52F9D734FC7CC8B4A07E63AC09D75 /* OIDAuthorizationUICoordinatorIOS.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDAuthorizationUICoordinatorIOS.h; path = Source/iOS/OIDAuthorizationUICoordinatorIOS.h; sourceTree = "<group>"; };
+		19A5CB8DBCE3E9AA16DFDC7DA3620031 /* OIDServiceConfiguration.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDServiceConfiguration.m; path = Source/OIDServiceConfiguration.m; sourceTree = "<group>"; };
+		1B2E22F0C15FA86450EA1E7B3BCF4E19 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		1CB2A886DF5399611900EED7F1ECA7F7 /* OIDAuthState+IOS.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "OIDAuthState+IOS.m"; path = "Source/iOS/OIDAuthState+IOS.m"; sourceTree = "<group>"; };
+		1CEB2FCF9DD6BD5EDB1599FDFA53F715 /* when.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = when.m; path = Sources/when.m; sourceTree = "<group>"; };
+		1F7B04284DEDD585505CEA1380DDEF4B /* Pods-EduVPN-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-EduVPN-dummy.m"; sourceTree = "<group>"; };
+		21EADE7CEFB59EF787F744BEA07FA262 /* OIDAuthState.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDAuthState.h; path = Source/OIDAuthState.h; sourceTree = "<group>"; };
+		249A0BAEA9989C768908AF0B8FE908BD /* wrap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = wrap.swift; path = Sources/wrap.swift; sourceTree = "<group>"; };
+		25ABFB4C89B7D8DCD63E746FAD6546F6 /* OIDRegistrationRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDRegistrationRequest.h; path = Source/OIDRegistrationRequest.h; sourceTree = "<group>"; };
+		262DD73CD917F6A5772DCFDD7DBA35AD /* Error.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Error.swift; path = Sources/Error.swift; sourceTree = "<group>"; };
+		27BFD9BFE19A24E0B76D0A04AA087267 /* OIDGrantTypes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDGrantTypes.h; path = Source/OIDGrantTypes.h; sourceTree = "<group>"; };
+		33FBF4A9D4C41FDE21CA5B65420EEAF1 /* KeychainSwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "KeychainSwift-dummy.m"; sourceTree = "<group>"; };
+		34CF495B6B923B292FEA944F399E035C /* GlobalState.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GlobalState.m; path = Sources/GlobalState.m; sourceTree = "<group>"; };
+		35354795F3EF211C32E3BCE43E7E172D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		35A1582F579D53C3FB33A3276DB123F1 /* OIDTokenResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDTokenResponse.m; path = Source/OIDTokenResponse.m; sourceTree = "<group>"; };
+		363FC574DDE5D95A7EF0E5B277804C20 /* OIDServiceConfiguration.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDServiceConfiguration.h; path = Source/OIDServiceConfiguration.h; sourceTree = "<group>"; };
+		3644CC2F18019662D64D44D565F8AF21 /* OIDScopeUtilities.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDScopeUtilities.m; path = Source/OIDScopeUtilities.m; sourceTree = "<group>"; };
+		36C0E8944E6111D410B1D9653C0A01DF /* KeychainSwiftAccessOptions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KeychainSwiftAccessOptions.swift; path = Sources/KeychainSwiftAccessOptions.swift; sourceTree = "<group>"; };
+		37BE1E12057452BA12F8BDABF025C993 /* OIDServiceDiscovery.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDServiceDiscovery.m; path = Source/OIDServiceDiscovery.m; sourceTree = "<group>"; };
+		3867F455FD2657C87EE28A0C282A00AA /* OIDAuthStateChangeDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDAuthStateChangeDelegate.h; path = Source/OIDAuthStateChangeDelegate.h; sourceTree = "<group>"; };
+		3AA248CAC8F116E51C3C0A27CBB00B8B /* OIDFieldMapping.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDFieldMapping.m; path = Source/OIDFieldMapping.m; sourceTree = "<group>"; };
+		3AB1752009FF2F2810EAB6A2F59915CA /* Pods-EduVPN-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-EduVPN-resources.sh"; sourceTree = "<group>"; };
+		3F102BD0220933C2307CDC8BC75DC9A8 /* OIDAuthorizationResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDAuthorizationResponse.h; path = Source/OIDAuthorizationResponse.h; sourceTree = "<group>"; };
+		42DD0A7137E8A607F4AC49E642099236 /* AnyPromise.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AnyPromise.m; path = Sources/AnyPromise.m; sourceTree = "<group>"; };
+		45B36A32E45384F4ECEAE10B6069B30A /* AppAuth-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AppAuth-umbrella.h"; sourceTree = "<group>"; };
+		475CEA80CDFC3A1AAAF5E878245A97FE /* OIDClientMetadataParameters.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDClientMetadataParameters.m; path = Source/OIDClientMetadataParameters.m; sourceTree = "<group>"; };
+		4B2BF44802A877CA4490BE3D0327A7AD /* OIDTokenUtilities.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDTokenUtilities.m; path = Source/OIDTokenUtilities.m; sourceTree = "<group>"; };
+		4DB7045E8BCCD06D2520F749D8DFA09F /* AppAuth.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = AppAuth.modulemap; sourceTree = "<group>"; };
+		5292F528C1AC5D698F11D4C77AE392F2 /* AppAuth.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AppAuth.h; path = Source/AppAuth.h; sourceTree = "<group>"; };
+		52C37B8B53449A593802525A042F98D6 /* OIDAuthorizationService.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDAuthorizationService.m; path = Source/OIDAuthorizationService.m; sourceTree = "<group>"; };
+		55BAC3CB916ABE064AD723F90B4660F5 /* PromiseKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PromiseKit-umbrella.h"; sourceTree = "<group>"; };
+		55D83308EA31859D31FE184CFE9C6385 /* OIDResponseTypes.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDResponseTypes.m; path = Source/OIDResponseTypes.m; sourceTree = "<group>"; };
+		578A1BB54EC3B10665709EC4D2CB32B6 /* OIDTokenRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDTokenRequest.m; path = Source/OIDTokenRequest.m; sourceTree = "<group>"; };
+		57ACCCC0701FBE9DD855182AE305F984 /* OIDError.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDError.m; path = Source/OIDError.m; sourceTree = "<group>"; };
+		59022A77636238D525A64A00ACFD9DBA /* DispatchQueue+Promise.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DispatchQueue+Promise.swift"; path = "Sources/DispatchQueue+Promise.swift"; sourceTree = "<group>"; };
+		5970728366DF95FE2BD28FD93CF7B921 /* OIDRegistrationRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDRegistrationRequest.m; path = Source/OIDRegistrationRequest.m; sourceTree = "<group>"; };
+		5C35B14827436164EF9E0CE615D9342E /* OIDTokenRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDTokenRequest.h; path = Source/OIDTokenRequest.h; sourceTree = "<group>"; };
+		608AA552B1545FD97EA05B081F6BEB25 /* OIDURLQueryComponent.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDURLQueryComponent.m; path = Source/OIDURLQueryComponent.m; sourceTree = "<group>"; };
+		6C10138CDD761B8CCC5634076E472957 /* join.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = join.m; path = Sources/join.m; sourceTree = "<group>"; };
+		709CECC64E057C829138D06C232645DF /* Promise+AnyPromise.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Promise+AnyPromise.swift"; path = "Sources/Promise+AnyPromise.swift"; sourceTree = "<group>"; };
+		70DAB15B79B13B83D5FC6913B310E379 /* Pods_EduVPN.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_EduVPN.framework; path = "Pods-EduVPN.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		75A6FD1C2F823B8A7A873394DACF4916 /* PromiseKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = PromiseKit.xcconfig; sourceTree = "<group>"; };
+		79FAAD9B586ED997512FA972C41B2C6F /* KeychainSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = KeychainSwift.framework; path = KeychainSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7DEC1F47F426C740D148C7CBEF742520 /* OIDAuthorizationUICoordinator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDAuthorizationUICoordinator.h; path = Source/OIDAuthorizationUICoordinator.h; sourceTree = "<group>"; };
+		7E7940CFF2E0CCE7E8A28A90666AB6D9 /* OIDScopeUtilities.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDScopeUtilities.h; path = Source/OIDScopeUtilities.h; sourceTree = "<group>"; };
+		827D617C3839BA493C7572F9605CAF06 /* Pods-EduVPN-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-EduVPN-umbrella.h"; sourceTree = "<group>"; };
+		83ED8614B1C1F1883706B1C0F44CB01D /* OIDDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDDefines.h; path = Source/OIDDefines.h; sourceTree = "<group>"; };
+		85000BD1730ADAC716FF31A61C031786 /* Pods-EduVPN-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-EduVPN-acknowledgements.markdown"; sourceTree = "<group>"; };
+		8669D77BB3F300D17BDADCB5E35CCF9C /* Pods-EduVPN.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EduVPN.release.xcconfig"; sourceTree = "<group>"; };
+		89A2C052BF09873D1666805C16E9095D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8C7F37E79A7DFD8F2AD9A1A006798523 /* OIDErrorUtilities.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDErrorUtilities.h; path = Source/OIDErrorUtilities.h; sourceTree = "<group>"; };
+		8CC3CEB5D4EEEA96E70A1B4F5EBA42A9 /* OIDError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDError.h; path = Source/OIDError.h; sourceTree = "<group>"; };
+		8EBCEAC1CBC3666E654042EEE0D0EA29 /* Pods-EduVPN-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EduVPN-acknowledgements.plist"; sourceTree = "<group>"; };
+		8EEF91697760471306ECD180A3D101E5 /* OIDScopes.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDScopes.m; path = Source/OIDScopes.m; sourceTree = "<group>"; };
+		92ECEBD7F7E777D78A71D50894281952 /* OIDAuthorizationRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDAuthorizationRequest.m; path = Source/OIDAuthorizationRequest.m; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		97845C6CBD2AC811E9162341C6DFB799 /* OIDGrantTypes.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDGrantTypes.m; path = Source/OIDGrantTypes.m; sourceTree = "<group>"; };
+		99EEBA46EE67FC93DFB29CCB74D22B62 /* hang.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = hang.m; path = Sources/hang.m; sourceTree = "<group>"; };
+		9A9E387FEFCC072F8DAF0275B9584A52 /* OIDScopes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDScopes.h; path = Source/OIDScopes.h; sourceTree = "<group>"; };
+		9B7D7FB783A1784856386F6487D0C77C /* AppAuth-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "AppAuth-dummy.m"; sourceTree = "<group>"; };
+		9C41660D55920DC0C39174DC7209206B /* fwd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = fwd.h; path = Sources/fwd.h; sourceTree = "<group>"; };
+		A248AF2F7302F2BB7BEE009E01AB2857 /* PromiseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = PromiseKit.framework; path = PromiseKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A43E9CE6936A0596A1F7CBB6FA46B7C3 /* Pods-EduVPN.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-EduVPN.modulemap"; sourceTree = "<group>"; };
+		A47B6B2B1C81971B9BD1CE94282809F0 /* OIDTokenUtilities.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDTokenUtilities.h; path = Source/OIDTokenUtilities.h; sourceTree = "<group>"; };
+		AC8E15D4DB2B050D06C739D2D6BDC79E /* Promise+Properties.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Promise+Properties.swift"; path = "Sources/Promise+Properties.swift"; sourceTree = "<group>"; };
+		B33C4A1451291EC9105E8873B1804C91 /* OIDAuthorizationService+IOS.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "OIDAuthorizationService+IOS.m"; path = "Source/iOS/OIDAuthorizationService+IOS.m"; sourceTree = "<group>"; };
+		B55FA2288A99F1E6096B74644163BF20 /* Pods-EduVPN.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EduVPN.debug.xcconfig"; sourceTree = "<group>"; };
+		B57D56588400B1F74852D087CF44AC19 /* Promise.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Promise.swift; path = Sources/Promise.swift; sourceTree = "<group>"; };
+		B681EDBAA0B46A81B18F905F93B64EA6 /* KeychainSwift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = KeychainSwift.xcconfig; sourceTree = "<group>"; };
+		BE0F8973B657997BDEF7F9F87F95E4C6 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BE9FF3AF8BB48B792EA35217C4CC33E1 /* AppAuth.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AppAuth.xcconfig; sourceTree = "<group>"; };
+		C2E02EEF72BDFD1A7F130A9198E9278F /* OIDAuthState+IOS.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "OIDAuthState+IOS.h"; path = "Source/iOS/OIDAuthState+IOS.h"; sourceTree = "<group>"; };
+		C33130DBEB84DEE8EC3242428192DDF1 /* OIDTokenResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDTokenResponse.h; path = Source/OIDTokenResponse.h; sourceTree = "<group>"; };
+		C381864A7EE72F444EE43E9D9F0516BA /* OIDClientMetadataParameters.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDClientMetadataParameters.h; path = Source/OIDClientMetadataParameters.h; sourceTree = "<group>"; };
+		C3A5F564716C415FAEC90C2AB72A161D /* OIDResponseTypes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDResponseTypes.h; path = Source/OIDResponseTypes.h; sourceTree = "<group>"; };
+		C9EA09900934DBABD52C2F702E211598 /* AppAuth-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AppAuth-prefix.pch"; sourceTree = "<group>"; };
+		CD11E4492564321566234F6DEDF65C01 /* OIDAuthorizationUICoordinatorIOS.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDAuthorizationUICoordinatorIOS.m; path = Source/iOS/OIDAuthorizationUICoordinatorIOS.m; sourceTree = "<group>"; };
+		CF71ABABE8C8610E1D098BF206F67586 /* OIDServiceDiscovery.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDServiceDiscovery.h; path = Source/OIDServiceDiscovery.h; sourceTree = "<group>"; };
+		D2C135C5DF83B654691665A5890D69CB /* PromiseKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PromiseKit.h; path = Sources/PromiseKit.h; sourceTree = "<group>"; };
+		D3AF7C43C2B4C0BF1DB443CAF1E45594 /* AppAuth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = AppAuth.framework; path = AppAuth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D44FC4C68A3C12F7200C273894A98375 /* OIDErrorUtilities.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDErrorUtilities.m; path = Source/OIDErrorUtilities.m; sourceTree = "<group>"; };
+		D921366AFCF69463E6A04C7D938EFE6D /* after.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = after.m; path = Sources/after.m; sourceTree = "<group>"; };
+		DC5C0B1E244D7E3179466643AF9E4C2E /* Pods-EduVPN-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-EduVPN-frameworks.sh"; sourceTree = "<group>"; };
+		E2CFAD4C2D12A0409A7FEAAAED56A398 /* PromiseKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = PromiseKit.modulemap; sourceTree = "<group>"; };
+		E32A8B56548A217614F68469102E0774 /* OIDAuthorizationService+IOS.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "OIDAuthorizationService+IOS.h"; path = "Source/iOS/OIDAuthorizationService+IOS.h"; sourceTree = "<group>"; };
+		E3C114572CAC28C6BCC8196885148F52 /* KeychainSwift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "KeychainSwift-umbrella.h"; sourceTree = "<group>"; };
+		E3C27BCA58565AED8304ABCFA60B1300 /* KeychainSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "KeychainSwift-prefix.pch"; sourceTree = "<group>"; };
+		E687123AF009741432A9AFA96018420E /* KeychainSwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = KeychainSwift.modulemap; sourceTree = "<group>"; };
+		E7DD7BC3AFBBBFA8DC26A5F0B43B7B0A /* State.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = State.swift; path = Sources/State.swift; sourceTree = "<group>"; };
+		E82342D81D499EE7B484D5AC354A1FCD /* Zalgo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Zalgo.swift; path = Sources/Zalgo.swift; sourceTree = "<group>"; };
+		EA385B649A2C717E0B989BDD46870C59 /* OIDAuthStateErrorDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDAuthStateErrorDelegate.h; path = Source/OIDAuthStateErrorDelegate.h; sourceTree = "<group>"; };
+		ECB4FE11792DC1025B23ECA9B5AFA999 /* OIDAuthorizationResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDAuthorizationResponse.m; path = Source/OIDAuthorizationResponse.m; sourceTree = "<group>"; };
+		EDEC9066E95F242CB006FE964DF05A09 /* when.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = when.swift; path = Sources/when.swift; sourceTree = "<group>"; };
+		EEA1A2715231111BFDDFE9F42FA2B917 /* TegKeychainConstants.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TegKeychainConstants.swift; path = Sources/TegKeychainConstants.swift; sourceTree = "<group>"; };
+		EFF6D5DB28523541BE6340082A90C3D1 /* OIDFieldMapping.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDFieldMapping.h; path = Source/OIDFieldMapping.h; sourceTree = "<group>"; };
+		F27C8C5B47EB5C240561E3BE3BB4BAD4 /* OIDAuthorizationService.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDAuthorizationService.h; path = Source/OIDAuthorizationService.h; sourceTree = "<group>"; };
+		F64BA87FFDE86AC154C73BF81C425C56 /* OIDRegistrationResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDRegistrationResponse.m; path = Source/OIDRegistrationResponse.m; sourceTree = "<group>"; };
+		F9D225D843A1CBF0B3F17184F9D5CE55 /* after.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = after.swift; path = Sources/after.swift; sourceTree = "<group>"; };
+		FE5E3A67509EEBECE59038C0B76FE653 /* join.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = join.swift; path = Sources/join.swift; sourceTree = "<group>"; };
+		FE84AA51CE91C098416B18AA31E1468B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FFCE2BDFA5170DC59F7DD59620558C8C /* race.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = race.swift; path = Sources/race.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0A1778F86AE2310253F31BC6B77078E7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				481DD72E7E9FB172E18747BDDE34818A /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4644C6D96A73768B60CF66E22FD3B879 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				63E3E54D78ECF2A2C25FB5F202B96D40 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92851D28D30B09CADBA4A8E391A8B379 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0CE7F080FD61D35F40AD45E15531CCAD /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D970F5038F8758164973C8CB7DFA1BF5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B197A2F991DB5DE9A8E3DD30742FE49C /* Foundation.framework in Frameworks */,
+				7BB2CE764095FCCE9A3C8C5327E42B88 /* SafariServices.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		39D8C2904BF1A046D508A96C4228B7E1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EABD4E51CE84F695BC8AF85C6B77667C /* AppAuth */,
+				A795EDD24D800391A35FA9516D1A784C /* KeychainSwift */,
+				F25644F7851BBCE068ADE8A333538180 /* PromiseKit */,
+				96F5D4DCD41E2E002374A944D1E74496 /* SwiftLint */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		433CD3331B6C3787F473C941B61FC68F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CAD531D5AA8A6D0BD8B08CB70CD863B5 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		47EDE51D82F363088F15E94475C141EF /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				6909544EAB34BD946F663AF6338C5D94 /* Pods-EduVPN */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		52A71A2808B9AD89E2E232E7BF1CCE88 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				4DB7045E8BCCD06D2520F749D8DFA09F /* AppAuth.modulemap */,
+				BE9FF3AF8BB48B792EA35217C4CC33E1 /* AppAuth.xcconfig */,
+				9B7D7FB783A1784856386F6487D0C77C /* AppAuth-dummy.m */,
+				C9EA09900934DBABD52C2F702E211598 /* AppAuth-prefix.pch */,
+				45B36A32E45384F4ECEAE10B6069B30A /* AppAuth-umbrella.h */,
+				89A2C052BF09873D1666805C16E9095D /* Info.plist */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/AppAuth";
+			sourceTree = "<group>";
+		};
+		5BC10188ECBDEA00C6526E7F74BE992F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D3AF7C43C2B4C0BF1DB443CAF1E45594 /* AppAuth.framework */,
+				79FAAD9B586ED997512FA972C41B2C6F /* KeychainSwift.framework */,
+				70DAB15B79B13B83D5FC6913B310E379 /* Pods_EduVPN.framework */,
+				A248AF2F7302F2BB7BEE009E01AB2857 /* PromiseKit.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6909544EAB34BD946F663AF6338C5D94 /* Pods-EduVPN */ = {
+			isa = PBXGroup;
+			children = (
+				35354795F3EF211C32E3BCE43E7E172D /* Info.plist */,
+				A43E9CE6936A0596A1F7CBB6FA46B7C3 /* Pods-EduVPN.modulemap */,
+				85000BD1730ADAC716FF31A61C031786 /* Pods-EduVPN-acknowledgements.markdown */,
+				8EBCEAC1CBC3666E654042EEE0D0EA29 /* Pods-EduVPN-acknowledgements.plist */,
+				1F7B04284DEDD585505CEA1380DDEF4B /* Pods-EduVPN-dummy.m */,
+				DC5C0B1E244D7E3179466643AF9E4C2E /* Pods-EduVPN-frameworks.sh */,
+				3AB1752009FF2F2810EAB6A2F59915CA /* Pods-EduVPN-resources.sh */,
+				827D617C3839BA493C7572F9605CAF06 /* Pods-EduVPN-umbrella.h */,
+				B55FA2288A99F1E6096B74644163BF20 /* Pods-EduVPN.debug.xcconfig */,
+				8669D77BB3F300D17BDADCB5E35CCF9C /* Pods-EduVPN.release.xcconfig */,
+			);
+			name = "Pods-EduVPN";
+			path = "Target Support Files/Pods-EduVPN";
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				433CD3331B6C3787F473C941B61FC68F /* Frameworks */,
+				39D8C2904BF1A046D508A96C4228B7E1 /* Pods */,
+				5BC10188ECBDEA00C6526E7F74BE992F /* Products */,
+				47EDE51D82F363088F15E94475C141EF /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		8275FD8316BE5F4381093EB93FDFE4FD /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				FE84AA51CE91C098416B18AA31E1468B /* Info.plist */,
+				E2CFAD4C2D12A0409A7FEAAAED56A398 /* PromiseKit.modulemap */,
+				75A6FD1C2F823B8A7A873394DACF4916 /* PromiseKit.xcconfig */,
+				0A482EE3DF195747F4C8E7E3204BBF2B /* PromiseKit-dummy.m */,
+				0C633DEC75E66F60FD25A46E8B9C178D /* PromiseKit-prefix.pch */,
+				55BAC3CB916ABE064AD723F90B4660F5 /* PromiseKit-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/PromiseKit";
+			sourceTree = "<group>";
+		};
+		96F5D4DCD41E2E002374A944D1E74496 /* SwiftLint */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = SwiftLint;
+			path = SwiftLint;
+			sourceTree = "<group>";
+		};
+		A795EDD24D800391A35FA9516D1A784C /* KeychainSwift */ = {
+			isa = PBXGroup;
+			children = (
+				16A90C384959D5229A5B9AC4A5E8E975 /* KeychainSwift.swift */,
+				36C0E8944E6111D410B1D9653C0A01DF /* KeychainSwiftAccessOptions.swift */,
+				EEA1A2715231111BFDDFE9F42FA2B917 /* TegKeychainConstants.swift */,
+				BCEF67769D38B09B5DCC797232CDF33F /* Support Files */,
+			);
+			name = KeychainSwift;
+			path = KeychainSwift;
+			sourceTree = "<group>";
+		};
+		BCEF67769D38B09B5DCC797232CDF33F /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				BE0F8973B657997BDEF7F9F87F95E4C6 /* Info.plist */,
+				E687123AF009741432A9AFA96018420E /* KeychainSwift.modulemap */,
+				B681EDBAA0B46A81B18F905F93B64EA6 /* KeychainSwift.xcconfig */,
+				33FBF4A9D4C41FDE21CA5B65420EEAF1 /* KeychainSwift-dummy.m */,
+				E3C27BCA58565AED8304ABCFA60B1300 /* KeychainSwift-prefix.pch */,
+				E3C114572CAC28C6BCC8196885148F52 /* KeychainSwift-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/KeychainSwift";
+			sourceTree = "<group>";
+		};
+		C0D145559FED0A5959ABACE313C0EC32 /* CorePromise */ = {
+			isa = PBXGroup;
+			children = (
+				D921366AFCF69463E6A04C7D938EFE6D /* after.m */,
+				F9D225D843A1CBF0B3F17184F9D5CE55 /* after.swift */,
+				1563EEB761AE00F8A74A87D97B1BCA3A /* AnyPromise.h */,
+				42DD0A7137E8A607F4AC49E642099236 /* AnyPromise.m */,
+				0A50832E1239B849FBC10C75B3E1D176 /* AnyPromise.swift */,
+				18259471B13FD95688A58B6E9D615929 /* dispatch_promise.m */,
+				59022A77636238D525A64A00ACFD9DBA /* DispatchQueue+Promise.swift */,
+				262DD73CD917F6A5772DCFDD7DBA35AD /* Error.swift */,
+				9C41660D55920DC0C39174DC7209206B /* fwd.h */,
+				34CF495B6B923B292FEA944F399E035C /* GlobalState.m */,
+				99EEBA46EE67FC93DFB29CCB74D22B62 /* hang.m */,
+				6C10138CDD761B8CCC5634076E472957 /* join.m */,
+				FE5E3A67509EEBECE59038C0B76FE653 /* join.swift */,
+				B57D56588400B1F74852D087CF44AC19 /* Promise.swift */,
+				709CECC64E057C829138D06C232645DF /* Promise+AnyPromise.swift */,
+				AC8E15D4DB2B050D06C739D2D6BDC79E /* Promise+Properties.swift */,
+				D2C135C5DF83B654691665A5890D69CB /* PromiseKit.h */,
+				FFCE2BDFA5170DC59F7DD59620558C8C /* race.swift */,
+				E7DD7BC3AFBBBFA8DC26A5F0B43B7B0A /* State.swift */,
+				1CEB2FCF9DD6BD5EDB1599FDFA53F715 /* when.m */,
+				EDEC9066E95F242CB006FE964DF05A09 /* when.swift */,
+				249A0BAEA9989C768908AF0B8FE908BD /* wrap.swift */,
+				E82342D81D499EE7B484D5AC354A1FCD /* Zalgo.swift */,
+			);
+			name = CorePromise;
+			sourceTree = "<group>";
+		};
+		CAD531D5AA8A6D0BD8B08CB70CD863B5 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				1B2E22F0C15FA86450EA1E7B3BCF4E19 /* Foundation.framework */,
+				177602236F6F4D7BE185B821A862BC6D /* SafariServices.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		EABD4E51CE84F695BC8AF85C6B77667C /* AppAuth */ = {
+			isa = PBXGroup;
+			children = (
+				5292F528C1AC5D698F11D4C77AE392F2 /* AppAuth.h */,
+				0E5717E09480E6F1C77218F00927D77A /* OIDAuthorizationRequest.h */,
+				92ECEBD7F7E777D78A71D50894281952 /* OIDAuthorizationRequest.m */,
+				3F102BD0220933C2307CDC8BC75DC9A8 /* OIDAuthorizationResponse.h */,
+				ECB4FE11792DC1025B23ECA9B5AFA999 /* OIDAuthorizationResponse.m */,
+				F27C8C5B47EB5C240561E3BE3BB4BAD4 /* OIDAuthorizationService.h */,
+				52C37B8B53449A593802525A042F98D6 /* OIDAuthorizationService.m */,
+				E32A8B56548A217614F68469102E0774 /* OIDAuthorizationService+IOS.h */,
+				B33C4A1451291EC9105E8873B1804C91 /* OIDAuthorizationService+IOS.m */,
+				7DEC1F47F426C740D148C7CBEF742520 /* OIDAuthorizationUICoordinator.h */,
+				18D52F9D734FC7CC8B4A07E63AC09D75 /* OIDAuthorizationUICoordinatorIOS.h */,
+				CD11E4492564321566234F6DEDF65C01 /* OIDAuthorizationUICoordinatorIOS.m */,
+				21EADE7CEFB59EF787F744BEA07FA262 /* OIDAuthState.h */,
+				07A49DB4E16BA31A879E644F7A578E98 /* OIDAuthState.m */,
+				C2E02EEF72BDFD1A7F130A9198E9278F /* OIDAuthState+IOS.h */,
+				1CB2A886DF5399611900EED7F1ECA7F7 /* OIDAuthState+IOS.m */,
+				3867F455FD2657C87EE28A0C282A00AA /* OIDAuthStateChangeDelegate.h */,
+				EA385B649A2C717E0B989BDD46870C59 /* OIDAuthStateErrorDelegate.h */,
+				C381864A7EE72F444EE43E9D9F0516BA /* OIDClientMetadataParameters.h */,
+				475CEA80CDFC3A1AAAF5E878245A97FE /* OIDClientMetadataParameters.m */,
+				83ED8614B1C1F1883706B1C0F44CB01D /* OIDDefines.h */,
+				8CC3CEB5D4EEEA96E70A1B4F5EBA42A9 /* OIDError.h */,
+				57ACCCC0701FBE9DD855182AE305F984 /* OIDError.m */,
+				8C7F37E79A7DFD8F2AD9A1A006798523 /* OIDErrorUtilities.h */,
+				D44FC4C68A3C12F7200C273894A98375 /* OIDErrorUtilities.m */,
+				EFF6D5DB28523541BE6340082A90C3D1 /* OIDFieldMapping.h */,
+				3AA248CAC8F116E51C3C0A27CBB00B8B /* OIDFieldMapping.m */,
+				27BFD9BFE19A24E0B76D0A04AA087267 /* OIDGrantTypes.h */,
+				97845C6CBD2AC811E9162341C6DFB799 /* OIDGrantTypes.m */,
+				25ABFB4C89B7D8DCD63E746FAD6546F6 /* OIDRegistrationRequest.h */,
+				5970728366DF95FE2BD28FD93CF7B921 /* OIDRegistrationRequest.m */,
+				16911BE4398BE7E5D8BAAD4890285921 /* OIDRegistrationResponse.h */,
+				F64BA87FFDE86AC154C73BF81C425C56 /* OIDRegistrationResponse.m */,
+				C3A5F564716C415FAEC90C2AB72A161D /* OIDResponseTypes.h */,
+				55D83308EA31859D31FE184CFE9C6385 /* OIDResponseTypes.m */,
+				9A9E387FEFCC072F8DAF0275B9584A52 /* OIDScopes.h */,
+				8EEF91697760471306ECD180A3D101E5 /* OIDScopes.m */,
+				7E7940CFF2E0CCE7E8A28A90666AB6D9 /* OIDScopeUtilities.h */,
+				3644CC2F18019662D64D44D565F8AF21 /* OIDScopeUtilities.m */,
+				363FC574DDE5D95A7EF0E5B277804C20 /* OIDServiceConfiguration.h */,
+				19A5CB8DBCE3E9AA16DFDC7DA3620031 /* OIDServiceConfiguration.m */,
+				CF71ABABE8C8610E1D098BF206F67586 /* OIDServiceDiscovery.h */,
+				37BE1E12057452BA12F8BDABF025C993 /* OIDServiceDiscovery.m */,
+				5C35B14827436164EF9E0CE615D9342E /* OIDTokenRequest.h */,
+				578A1BB54EC3B10665709EC4D2CB32B6 /* OIDTokenRequest.m */,
+				C33130DBEB84DEE8EC3242428192DDF1 /* OIDTokenResponse.h */,
+				35A1582F579D53C3FB33A3276DB123F1 /* OIDTokenResponse.m */,
+				A47B6B2B1C81971B9BD1CE94282809F0 /* OIDTokenUtilities.h */,
+				4B2BF44802A877CA4490BE3D0327A7AD /* OIDTokenUtilities.m */,
+				0C41F9B1C19E29EEA3C6FF01030AE70E /* OIDURLQueryComponent.h */,
+				608AA552B1545FD97EA05B081F6BEB25 /* OIDURLQueryComponent.m */,
+				52A71A2808B9AD89E2E232E7BF1CCE88 /* Support Files */,
+			);
+			name = AppAuth;
+			path = AppAuth;
+			sourceTree = "<group>";
+		};
+		F25644F7851BBCE068ADE8A333538180 /* PromiseKit */ = {
+			isa = PBXGroup;
+			children = (
+				C0D145559FED0A5959ABACE313C0EC32 /* CorePromise */,
+				8275FD8316BE5F4381093EB93FDFE4FD /* Support Files */,
+			);
+			name = PromiseKit;
+			path = PromiseKit;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		18FEB6ED8D3E058B294E87869C1C01A4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9392F57A09025F639565C9533B68DD37 /* AnyPromise.h in Headers */,
+				E960F664B479E2F09AD3CD56CC30A651 /* fwd.h in Headers */,
+				553F3E86CD5344B60DEC911ACE2BDF1B /* PromiseKit-umbrella.h in Headers */,
+				A9DA5D4B175732A5B10C8219A41DFAD1 /* PromiseKit.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		75747CD6E592A9A10C95095D9FA2A573 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				66B5232841B372C014D0E8A671D7CCD9 /* Pods-EduVPN-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD796741E41F687FE113D6ADBB506930 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B699E84064D46465DBC2A239936D8654 /* AppAuth-umbrella.h in Headers */,
+				1FEDC30E67E4277A2D01117BD949BB95 /* AppAuth.h in Headers */,
+				11F838C142785DC6F6FB8D43D3306482 /* OIDAuthorizationRequest.h in Headers */,
+				9AAAE293D768793C532BE4D434EF2E8B /* OIDAuthorizationResponse.h in Headers */,
+				29460145BC5A41E9005764D8D817F47D /* OIDAuthorizationService+IOS.h in Headers */,
+				48AA7CC2E512F5E57F7F51EC6E5B80DA /* OIDAuthorizationService.h in Headers */,
+				CAFF12665D2076791671B60186513ED0 /* OIDAuthorizationUICoordinator.h in Headers */,
+				5184620CE45836B563AF1B100DC4C79D /* OIDAuthorizationUICoordinatorIOS.h in Headers */,
+				FF7488D3468EE40797A951E1DC93EF6C /* OIDAuthState+IOS.h in Headers */,
+				6D42BB484E9B7C4DA9EF0DA55D2D4D54 /* OIDAuthState.h in Headers */,
+				58460BB73A6F70C0C8BA402052E27038 /* OIDAuthStateChangeDelegate.h in Headers */,
+				D58EFE464419177E41930B9900586C77 /* OIDAuthStateErrorDelegate.h in Headers */,
+				B09299A1263BCFC437D5D34A8E147579 /* OIDClientMetadataParameters.h in Headers */,
+				186CEB1BBDFDFFB26AD15679C7455E36 /* OIDDefines.h in Headers */,
+				0AA60E03816F83177E8BC368DA0447A6 /* OIDError.h in Headers */,
+				56101565E3C082EDF77B3C046E217C09 /* OIDErrorUtilities.h in Headers */,
+				8152598FC4FA1263EFEB5C7BFE9BC659 /* OIDFieldMapping.h in Headers */,
+				6EF7FD084FAD45F6743A7DE29A0A08EF /* OIDGrantTypes.h in Headers */,
+				6BCF48E70B71DBFD05AE6B427ED72E06 /* OIDRegistrationRequest.h in Headers */,
+				5F83C27D4BAAA49B48AD5241200E66B6 /* OIDRegistrationResponse.h in Headers */,
+				03AF597E645D4D8F5A0FE0495B14961D /* OIDResponseTypes.h in Headers */,
+				75BC68EFCD687B06641D1968F28C45FF /* OIDScopes.h in Headers */,
+				0D8EEAB55C090872BB6FF7FD0AEEF3BD /* OIDScopeUtilities.h in Headers */,
+				952FE82DA478C867E2B9AEB0CECDBD68 /* OIDServiceConfiguration.h in Headers */,
+				5568CA110A2B0413C27F571BFB88039F /* OIDServiceDiscovery.h in Headers */,
+				F2E96A261B6915D02E7532843525B065 /* OIDTokenRequest.h in Headers */,
+				3111ACCA9D654876DB6D820DE4B0F5E9 /* OIDTokenResponse.h in Headers */,
+				9A3FE97C5A271BA98D53325DC603D35D /* OIDTokenUtilities.h in Headers */,
+				A1EFB1A7E8FE6861198F8E565FDD1B65 /* OIDURLQueryComponent.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FDCCA8DB9A9A2B78257AAEB7F44C85C3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				08AA89D020B5C4FD74D1529A3E972AB9 /* KeychainSwift-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		2D3B75B406C5A174FD72019E461ABE34 /* Pods-EduVPN */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 56B9D50A69343D1782D45BBA618CA9D8 /* Build configuration list for PBXNativeTarget "Pods-EduVPN" */;
+			buildPhases = (
+				02284631F21DE42209E9D256E32CFD1E /* Sources */,
+				92851D28D30B09CADBA4A8E391A8B379 /* Frameworks */,
+				75747CD6E592A9A10C95095D9FA2A573 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E82DD9305F7834B7F851959B06C11C25 /* PBXTargetDependency */,
+				3E7AF6F5097776AC92D347A8DD787887 /* PBXTargetDependency */,
+				85FBAA326E3F7EF69278B96B286A8CA1 /* PBXTargetDependency */,
+			);
+			name = "Pods-EduVPN";
+			productName = "Pods-EduVPN";
+			productReference = 70DAB15B79B13B83D5FC6913B310E379 /* Pods_EduVPN.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		38ACA430605AFB4229712A18BDDF5086 /* KeychainSwift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 16C5D5A8E6CDB4211B0732F819F55A47 /* Build configuration list for PBXNativeTarget "KeychainSwift" */;
+			buildPhases = (
+				BA64D531146693E66BF1C1CEE1D81BC5 /* Sources */,
+				4644C6D96A73768B60CF66E22FD3B879 /* Frameworks */,
+				FDCCA8DB9A9A2B78257AAEB7F44C85C3 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KeychainSwift;
+			productName = KeychainSwift;
+			productReference = 79FAAD9B586ED997512FA972C41B2C6F /* KeychainSwift.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		677B2C0281C9F94C79456F081542602C /* PromiseKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D9BF025EF37BEE5FC3090BAE2E0F23A3 /* Build configuration list for PBXNativeTarget "PromiseKit" */;
+			buildPhases = (
+				E617DD07C344F15A056C791C08A72DAC /* Sources */,
+				0A1778F86AE2310253F31BC6B77078E7 /* Frameworks */,
+				18FEB6ED8D3E058B294E87869C1C01A4 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PromiseKit;
+			productName = PromiseKit;
+			productReference = A248AF2F7302F2BB7BEE009E01AB2857 /* PromiseKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		842F72DCDC6161BB37D6B901E9301ED8 /* AppAuth */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E2B13FA7D4B69452AF1CCC18E35335D0 /* Build configuration list for PBXNativeTarget "AppAuth" */;
+			buildPhases = (
+				481C433C29100FAA3923DA5FF18BD9FE /* Sources */,
+				D970F5038F8758164973C8CB7DFA1BF5 /* Frameworks */,
+				DD796741E41F687FE113D6ADBB506930 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AppAuth;
+			productName = AppAuth;
+			productReference = D3AF7C43C2B4C0BF1DB443CAF1E45594 /* AppAuth.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = 5BC10188ECBDEA00C6526E7F74BE992F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				842F72DCDC6161BB37D6B901E9301ED8 /* AppAuth */,
+				38ACA430605AFB4229712A18BDDF5086 /* KeychainSwift */,
+				2D3B75B406C5A174FD72019E461ABE34 /* Pods-EduVPN */,
+				677B2C0281C9F94C79456F081542602C /* PromiseKit */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		02284631F21DE42209E9D256E32CFD1E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F88E565EEB2AC91B7A19CBD6176C459 /* Pods-EduVPN-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		481C433C29100FAA3923DA5FF18BD9FE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD44D2DBE157D0B6E4EC06CE9F6A1A59 /* AppAuth-dummy.m in Sources */,
+				35B3DD3EF083E2CA9E6963AFA446B17C /* OIDAuthorizationRequest.m in Sources */,
+				D79F6F66386F7F42261B142A76755772 /* OIDAuthorizationResponse.m in Sources */,
+				9ABF5821060EA6BBEABCC18814203419 /* OIDAuthorizationService+IOS.m in Sources */,
+				FDF8E09A59C3F54D9F851008C57E340F /* OIDAuthorizationService.m in Sources */,
+				1AB0FE73291F88918FFF3375A57230F7 /* OIDAuthorizationUICoordinatorIOS.m in Sources */,
+				F4A400FF5A0859AB5E59FA90F2E27090 /* OIDAuthState+IOS.m in Sources */,
+				2B836E9E5D2136A6D7971C299C5294AD /* OIDAuthState.m in Sources */,
+				E670153BDF231150598ACAF82673E3AD /* OIDClientMetadataParameters.m in Sources */,
+				15D1DC48F8B0308DF681BE55FE5D4D19 /* OIDError.m in Sources */,
+				1C2411FDA5DF55BA5F80B24595E8483D /* OIDErrorUtilities.m in Sources */,
+				9972213350EDD6DB8E71036B418EB38A /* OIDFieldMapping.m in Sources */,
+				8ACE5B6DBCAF5439CB9E64509A58AC18 /* OIDGrantTypes.m in Sources */,
+				E708A717DB93AAD3AC3FC413F7B7BEA9 /* OIDRegistrationRequest.m in Sources */,
+				6AE6A3FD01D02EF1DCBAF673FA04883D /* OIDRegistrationResponse.m in Sources */,
+				47B20A2C2C476E7872AC97FE23419403 /* OIDResponseTypes.m in Sources */,
+				6D48617FDEBC67FC33229BA1FAF4B5AF /* OIDScopes.m in Sources */,
+				1A6E2D480F86E924BD2A9D2E5320CAB4 /* OIDScopeUtilities.m in Sources */,
+				228E8F2CE326FFE76AD72D90892407E2 /* OIDServiceConfiguration.m in Sources */,
+				848B857E9A3159E30D05E84D49F424F4 /* OIDServiceDiscovery.m in Sources */,
+				D98DF4484E63A7DC515FCF99B6AA350D /* OIDTokenRequest.m in Sources */,
+				4C7E93BE66DA4B7E425C68B8A5B4E35B /* OIDTokenResponse.m in Sources */,
+				7DB119AC04FBFA757F4328F2B3DB8DBA /* OIDTokenUtilities.m in Sources */,
+				6B98D40D8990FE05DF46865FD5103E02 /* OIDURLQueryComponent.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA64D531146693E66BF1C1CEE1D81BC5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD0E8D5F58B0B824D2631BDA9D541DFE /* KeychainSwift-dummy.m in Sources */,
+				CCBE57237E9F0DBAAF02A5575244F3BE /* KeychainSwift.swift in Sources */,
+				EBA8B955A11296BD7AA307752FE82ED4 /* KeychainSwiftAccessOptions.swift in Sources */,
+				7C0F17488B3552EAAFC074CFC4491DD5 /* TegKeychainConstants.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E617DD07C344F15A056C791C08A72DAC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				185C65041FDC920454BB311A4E77C510 /* after.m in Sources */,
+				13F1884AE44C5C81EFDDEAA9401CB8A5 /* after.swift in Sources */,
+				E8E9961074E63AC2C3B8723504ECE83C /* AnyPromise.m in Sources */,
+				24403CA324E9C20918BE4B786F92DE4D /* AnyPromise.swift in Sources */,
+				D0A62E15708DB0BF6C5A5DCCDCD1E952 /* dispatch_promise.m in Sources */,
+				AE37C2FDA414489762D9EB438D50C1EC /* DispatchQueue+Promise.swift in Sources */,
+				0E597BF7C1DEB37C80B8CCCFBCC19BB0 /* Error.swift in Sources */,
+				1418AEB849ED8E1487D509F34019D64C /* GlobalState.m in Sources */,
+				2A315212995565031F93111F914B9338 /* hang.m in Sources */,
+				EA438C1DB3263C437C24748C8529B3A9 /* join.m in Sources */,
+				AFFFC5B9E5441318CBB13E45A7C60E2E /* join.swift in Sources */,
+				66B08F4E50FD4B7407D94C8EAC6196EF /* Promise+AnyPromise.swift in Sources */,
+				F27D9B119411BDD01720E0D748D27A69 /* Promise+Properties.swift in Sources */,
+				84135CD603DA992F1DD054F5DF8B6797 /* Promise.swift in Sources */,
+				F19617FCC8BF6F8FDA5B114F44E62571 /* PromiseKit-dummy.m in Sources */,
+				69AFCA751ED709EF7FCD31CD3CE36496 /* race.swift in Sources */,
+				C5CE2DD1DD32594F08050192039A3E8E /* State.swift in Sources */,
+				2F68A4351D1B621FE673AE7E557788D9 /* when.m in Sources */,
+				F9D755FBBE78E48FFB90FC48D6F86B4B /* when.swift in Sources */,
+				B5F1C2BBFAC26F02FA0BDB89DFCEAC52 /* wrap.swift in Sources */,
+				D69EBE94EBB402C0225FB8FE8604ED80 /* Zalgo.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3E7AF6F5097776AC92D347A8DD787887 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = KeychainSwift;
+			target = 38ACA430605AFB4229712A18BDDF5086 /* KeychainSwift */;
+			targetProxy = 0F0DAF47C9AA59154AF3AC067EAEE002 /* PBXContainerItemProxy */;
+		};
+		85FBAA326E3F7EF69278B96B286A8CA1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PromiseKit;
+			target = 677B2C0281C9F94C79456F081542602C /* PromiseKit */;
+			targetProxy = 9B68383605A85C70F617359919F4D2B5 /* PBXContainerItemProxy */;
+		};
+		E82DD9305F7834B7F851959B06C11C25 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AppAuth;
+			target = 842F72DCDC6161BB37D6B901E9301ED8 /* AppAuth */;
+			targetProxy = 70DE456E50571CF538F32CEAA04C266C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		04D1D1F89F0CA540088A436B248A9431 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8669D77BB3F300D17BDADCB5E35CCF9C /* Pods-EduVPN.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-EduVPN/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-EduVPN/Pods-EduVPN.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_EduVPN;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		131FA786D7CE69FE2BF12C70DDD379A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 75A6FD1C2F823B8A7A873394DACF4916 /* PromiseKit.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/PromiseKit/PromiseKit-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/PromiseKit/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/PromiseKit/PromiseKit.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = PromiseKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		1356293D8E5E3E6552B5DB53A0EC6E0A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 75A6FD1C2F823B8A7A873394DACF4916 /* PromiseKit.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/PromiseKit/PromiseKit-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/PromiseKit/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/PromiseKit/PromiseKit.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = PromiseKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		643C76AA582046977B7877822ED7A258 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		72B3DFEBA71D1243C9698BDEAD9F1E4B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B681EDBAA0B46A81B18F905F93B64EA6 /* KeychainSwift.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/KeychainSwift/KeychainSwift-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/KeychainSwift/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/KeychainSwift/KeychainSwift.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = KeychainSwift;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		AA9123CAEC29C20FDFCE8310090FA429 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B55FA2288A99F1E6096B74644163BF20 /* Pods-EduVPN.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-EduVPN/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-EduVPN/Pods-EduVPN.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_EduVPN;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		C03B8870130C98D1B02B59D003687524 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D7EB973816B82EE5223EF9579A32FEF7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B681EDBAA0B46A81B18F905F93B64EA6 /* KeychainSwift.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/KeychainSwift/KeychainSwift-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/KeychainSwift/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/KeychainSwift/KeychainSwift.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = KeychainSwift;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		EB7B9AA05B57360DE96C3BC2B93D16F1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BE9FF3AF8BB48B792EA35217C4CC33E1 /* AppAuth.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/AppAuth/AppAuth-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/AppAuth/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/AppAuth/AppAuth.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = AppAuth;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		FCC4CA65D1CA9918802AF183BFF777BF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BE9FF3AF8BB48B792EA35217C4CC33E1 /* AppAuth.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/AppAuth/AppAuth-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/AppAuth/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/AppAuth/AppAuth.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = AppAuth;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		16C5D5A8E6CDB4211B0732F819F55A47 /* Build configuration list for PBXNativeTarget "KeychainSwift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D7EB973816B82EE5223EF9579A32FEF7 /* Debug */,
+				72B3DFEBA71D1243C9698BDEAD9F1E4B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				643C76AA582046977B7877822ED7A258 /* Debug */,
+				C03B8870130C98D1B02B59D003687524 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		56B9D50A69343D1782D45BBA618CA9D8 /* Build configuration list for PBXNativeTarget "Pods-EduVPN" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA9123CAEC29C20FDFCE8310090FA429 /* Debug */,
+				04D1D1F89F0CA540088A436B248A9431 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D9BF025EF37BEE5FC3090BAE2E0F23A3 /* Build configuration list for PBXNativeTarget "PromiseKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				131FA786D7CE69FE2BF12C70DDD379A2 /* Debug */,
+				1356293D8E5E3E6552B5DB53A0EC6E0A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E2B13FA7D4B69452AF1CCC18E35335D0 /* Build configuration list for PBXNativeTarget "AppAuth" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EB7B9AA05B57360DE96C3BC2B93D16F1 /* Debug */,
+				FCC4CA65D1CA9918802AF183BFF777BF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}
