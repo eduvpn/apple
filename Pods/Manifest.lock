@@ -1,21 +1,32 @@
 PODS:
+  - Alamofire (4.5.0)
   - AppAuth (0.9.1)
   - KeychainSwift (8.0.2)
+  - Moya (8.0.5):
+    - Moya/Core (= 8.0.5)
+  - Moya/Core (8.0.5):
+    - Alamofire (~> 4.1)
+    - Result (~> 3.0)
   - PromiseKit/CorePromise (4.2.2)
+  - Result (3.2.3)
   - SwiftLint (0.20.1)
 
 DEPENDENCIES:
   - AppAuth
   - KeychainSwift
+  - Moya
   - PromiseKit/CorePromise
   - SwiftLint
 
 SPEC CHECKSUMS:
+  Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
   AppAuth: f7d9a2ce4ffe79a62a8b0c1d0938e88d9809b846
   KeychainSwift: 213db04dfe7244988e61f77c72a2afb2f775954a
+  Moya: c37eec09a098ba9991b5a963b291fc5704bdb9ef
   PromiseKit: 00e8886881f151c7e573d06b437915b0bb2970ec
+  Result: 128640a6347e8d2ae48b142556739a2d13f90ce6
   SwiftLint: f60095dc173a3f3ec505bb34f5229c3dfd779a54
 
-PODFILE CHECKSUM: 6e8c9950d31cb2e872cb801038ba9c995659d617
+PODFILE CHECKSUM: 788c2b4006dea4968d0a343e6facd21a6f82d05b
 
 COCOAPODS: 1.2.1

@@ -9,6 +9,7 @@ target 'EduVPN' do
   pod 'PromiseKit/CorePromise'
   pod 'KeychainSwift'
   pod 'AppAuth'
+  pod 'Moya'
 
   post_install do | installer |
     require 'fileutils'

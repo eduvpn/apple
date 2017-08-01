@@ -15,6 +15,7 @@
 		4AAC1F841F2D0E3400DD0252 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AAC1F821F2D0E3400DD0252 /* LaunchScreen.storyboard */; };
 		4AAC1F8F1F2D0E3400DD0252 /* EduVPNTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC1F8E1F2D0E3400DD0252 /* EduVPNTests.swift */; };
 		4AAC1F9E1F2D134200DD0252 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4AAC1F9D1F2D134200DD0252 /* Settings.bundle */; };
+		4ACA042C1F3116D5004B35AA /* Moya+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACA042B1F3116D5004B35AA /* Moya+Promise.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +40,7 @@
 		4AAC1F8E1F2D0E3400DD0252 /* EduVPNTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EduVPNTests.swift; sourceTree = "<group>"; };
 		4AAC1F901F2D0E3400DD0252 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4AAC1F9D1F2D134200DD0252 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		4ACA042B1F3116D5004B35AA /* Moya+Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Moya+Promise.swift"; sourceTree = "<group>"; };
 		6A98FDE8E7D70D8F159D7C95 /* Pods_EduVPN.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EduVPN.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8828097AD8E6A8FAE767E4D9 /* Pods-EduVPN.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPN.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EduVPN/Pods-EduVPN.debug.xcconfig"; sourceTree = "<group>"; };
 		BF41F680EFA1657A481FC709 /* Pods-EduVPN.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPN.release.xcconfig"; path = "Pods/Target Support Files/Pods-EduVPN/Pods-EduVPN.release.xcconfig"; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 		4AAC1F781F2D0E3400DD0252 /* EduVPN */ = {
 			isa = PBXGroup;
 			children = (
+				4ACA04281F311507004B35AA /* Networking */,
 				4AAC1F9C1F2D134200DD0252 /* Resources */,
 				4AAC1F791F2D0E3400DD0252 /* AppDelegate.swift */,
 				4AAC1F7B1F2D0E3400DD0252 /* ViewController.swift */,
@@ -120,6 +123,14 @@
 				4AAC1F9D1F2D134200DD0252 /* Settings.bundle */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		4ACA04281F311507004B35AA /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				4ACA042B1F3116D5004B35AA /* Moya+Promise.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		7E60CE9528B1949A246F1B70 /* Pods */ = {
@@ -317,6 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AAC1F7C1F2D0E3400DD0252 /* ViewController.swift in Sources */,
+				4ACA042C1F3116D5004B35AA /* Moya+Promise.swift in Sources */,
 				4AAC1F7A1F2D0E3400DD0252 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
