@@ -10,7 +10,7 @@ import Foundation
 import Moya
 import Result
 
-struct DynamicTarget: TargetType {
+struct DynamicInstanceService: TargetType {
     let baseURL: URL
 
     var path: String { return "/info.json" }
@@ -27,13 +27,13 @@ struct DynamicTarget: TargetType {
     }
 }
 
-class DynamicInstanceProvider: MoyaProvider<DynamicTarget> {
+class DynamicInstanceProvider: MoyaProvider<DynamicInstanceService> {
     let baseURL: URL
 
     public init(baseURL: URL, endpointClosure: @escaping EndpointClosure = MoyaProvider.defaultEndpointMapping,
                 requestClosure: @escaping RequestClosure = MoyaProvider.defaultRequestMapping,
                 stubClosure: @escaping StubClosure = MoyaProvider.neverStub,
-                manager: Manager = MoyaProvider<DynamicTarget>.defaultAlamofireManager(),
+                manager: Manager = MoyaProvider<DynamicInstanceService>.defaultAlamofireManager(),
                 plugins: [PluginType] = [],
                 trackInflights: Bool = false) {
         self.baseURL = baseURL
@@ -41,8 +41,8 @@ class DynamicInstanceProvider: MoyaProvider<DynamicTarget> {
 
     }
 
-    override func request(_ target: DynamicTarget, completion: @escaping Moya.Completion) -> Cancellable {
-        let dynamicTarget = DynamicTarget(baseURL: baseURL)
+    override func request(_ target: DynamicInstanceService, completion: @escaping Moya.Completion) -> Cancellable {
+        let dynamicTarget = DynamicInstanceService(baseURL: baseURL)
         return super.request(dynamicTarget, completion: completion)
     }
 }
