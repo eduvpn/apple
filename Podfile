@@ -10,6 +10,7 @@ target 'EduVPN' do
   pod 'KeychainSwift'
   pod 'AppAuth'
   pod 'Moya'
+  pod 'AlamofireImage'
 
   post_install do | installer |
     require 'fileutils'

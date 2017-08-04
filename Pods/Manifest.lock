@@ -1,5 +1,7 @@
 PODS:
   - Alamofire (4.5.0)
+  - AlamofireImage (3.2.0):
+    - Alamofire (~> 4.1)
   - AppAuth (0.9.1)
   - KeychainSwift (8.0.2)
   - Moya (8.0.5):
@@ -12,6 +14,7 @@ PODS:
   - SwiftLint (0.20.1)
 
 DEPENDENCIES:
+  - AlamofireImage
   - AppAuth
   - KeychainSwift
   - Moya
@@ -20,6 +23,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
+  AlamofireImage: 157ed682cc81d3b9db4fb90c1f12180ac552d93b
   AppAuth: f7d9a2ce4ffe79a62a8b0c1d0938e88d9809b846
   KeychainSwift: 213db04dfe7244988e61f77c72a2afb2f775954a
   Moya: c37eec09a098ba9991b5a963b291fc5704bdb9ef
@@ -27,6 +31,6 @@ SPEC CHECKSUMS:
   Result: 128640a6347e8d2ae48b142556739a2d13f90ce6
   SwiftLint: f60095dc173a3f3ec505bb34f5229c3dfd779a54
 
-PODFILE CHECKSUM: 788c2b4006dea4968d0a343e6facd21a6f82d05b
+PODFILE CHECKSUM: ca842573dab56a158a2ad551071d29ca221c7903
 
 COCOAPODS: 1.2.1

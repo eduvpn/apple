@@ -1,10 +1,10 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
-FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/Alamofire" "$PODS_CONFIGURATION_BUILD_DIR/AppAuth" "$PODS_CONFIGURATION_BUILD_DIR/KeychainSwift" "$PODS_CONFIGURATION_BUILD_DIR/Moya" "$PODS_CONFIGURATION_BUILD_DIR/PromiseKit" "$PODS_CONFIGURATION_BUILD_DIR/Result"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/Alamofire" "$PODS_CONFIGURATION_BUILD_DIR/AlamofireImage" "$PODS_CONFIGURATION_BUILD_DIR/AppAuth" "$PODS_CONFIGURATION_BUILD_DIR/KeychainSwift" "$PODS_CONFIGURATION_BUILD_DIR/Moya" "$PODS_CONFIGURATION_BUILD_DIR/PromiseKit" "$PODS_CONFIGURATION_BUILD_DIR/Result"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/SwiftLint"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_CFLAGS = $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/Alamofire/Alamofire.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/AppAuth/AppAuth.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/KeychainSwift/KeychainSwift.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Moya/Moya.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/PromiseKit/PromiseKit.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Result/Result.framework/Headers" -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/SwiftLint"
-OTHER_LDFLAGS = $(inherited) -framework "Alamofire" -framework "AppAuth" -framework "KeychainSwift" -framework "Moya" -framework "PromiseKit" -framework "Result"
+OTHER_CFLAGS = $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/Alamofire/Alamofire.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/AlamofireImage/AlamofireImage.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/AppAuth/AppAuth.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/KeychainSwift/KeychainSwift.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Moya/Moya.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/PromiseKit/PromiseKit.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Result/Result.framework/Headers" -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/SwiftLint"
+OTHER_LDFLAGS = $(inherited) -framework "Alamofire" -framework "AlamofireImage" -framework "AppAuth" -framework "KeychainSwift" -framework "Moya" -framework "PromiseKit" -framework "Result"
 OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
 PODS_BUILD_DIR = $BUILD_DIR
 PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)

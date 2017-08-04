@@ -1,26 +1,178 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina3_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--EduVPN-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="connectionTypeViewController" title="EduVPN" id="BYZ-38-t0r" customClass="ConnectionTypeViewController" customModule="EduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="HyS-tw-Pp4">
+                                <rect key="frame" x="16" y="20" width="288" height="460"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CWV-KN-nO1" userLabel="Secure Internet View">
+                                        <rect key="frame" x="0.0" y="0.0" width="288" height="230"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="secure_internet" translatesAutoresizingMaskIntoConstraints="NO" id="FGC-rf-EWG">
+                                                <rect key="frame" x="23.5" y="21" width="240" height="128"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="128" id="38e-P6-ONu"/>
+                                                    <constraint firstAttribute="width" constant="240" id="q4V-Nc-Vuc"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect to the internet securely, for example when using public WiFi." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kUO-0c-vgJ">
+                                                <rect key="frame" x="24" y="157" width="240" height="61"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstItem="FGC-rf-EWG" firstAttribute="centerX" secondItem="CWV-KN-nO1" secondAttribute="centerX" id="LUU-Hs-BIe"/>
+                                            <constraint firstItem="kUO-0c-vgJ" firstAttribute="centerX" secondItem="CWV-KN-nO1" secondAttribute="centerX" id="M6v-pU-FMo"/>
+                                            <constraint firstItem="kUO-0c-vgJ" firstAttribute="top" secondItem="FGC-rf-EWG" secondAttribute="bottom" constant="8" id="Ztv-vS-bdE"/>
+                                            <constraint firstItem="FGC-rf-EWG" firstAttribute="centerY" secondItem="CWV-KN-nO1" secondAttribute="centerY" constant="-30" id="e2F-Lk-XWI"/>
+                                            <constraint firstItem="kUO-0c-vgJ" firstAttribute="width" secondItem="FGC-rf-EWG" secondAttribute="width" id="zoN-C0-m7L"/>
+                                        </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="YEQ-Nn-LHb" appends="YES" id="bFn-mQ-phE"/>
+                                        </connections>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u0P-BA-ng4" userLabel="Secure Access View">
+                                        <rect key="frame" x="0.0" y="230" width="288" height="230"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="secure_access" translatesAutoresizingMaskIntoConstraints="NO" id="Kdl-Wv-NLW">
+                                                <rect key="frame" x="23.5" y="21" width="240" height="128"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="240" id="BMn-He-KhU"/>
+                                                    <constraint firstAttribute="height" constant="128" id="fRD-9z-upM"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Institute access" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TrB-uC-Yx9">
+                                                <rect key="frame" x="84" y="157" width="120" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstItem="Kdl-Wv-NLW" firstAttribute="centerY" secondItem="u0P-BA-ng4" secondAttribute="centerY" constant="-30" id="G7h-Gj-LhV"/>
+                                            <constraint firstItem="Kdl-Wv-NLW" firstAttribute="centerX" secondItem="u0P-BA-ng4" secondAttribute="centerX" id="dH0-fc-S8a"/>
+                                            <constraint firstItem="TrB-uC-Yx9" firstAttribute="top" secondItem="Kdl-Wv-NLW" secondAttribute="bottom" constant="8" id="fRU-Fg-AKP"/>
+                                            <constraint firstItem="TrB-uC-Yx9" firstAttribute="centerX" secondItem="u0P-BA-ng4" secondAttribute="centerX" id="pJC-bt-7t9"/>
+                                        </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="pdY-lu-0N5" appends="YES" id="CqL-hQ-PlP"/>
+                                        </connections>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="HyS-tw-Pp4" secondAttribute="bottom" id="VHh-RP-PjE"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="HyS-tw-Pp4" secondAttribute="trailing" id="fnL-15-jIS"/>
+                            <constraint firstItem="HyS-tw-Pp4" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="mhX-aA-Y24"/>
+                            <constraint firstItem="HyS-tw-Pp4" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="nPc-MK-bjX"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="EduVPN" id="bCS-fl-M2e">
+                        <barButtonItem key="backBarButtonItem" title=" " id="dnB-fO-54a"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="YEQ-Nn-LHb" userLabel="Secure Internet Tap Gesture Recognizer">
+                    <connections>
+                        <action selector="didTapSecureAccess:" destination="BYZ-38-t0r" id="hbc-Q0-tlE"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="pdY-lu-0N5" userLabel="Institute Access Tap Gesture Recognizer">
+                    <connections>
+                        <action selector="didTapInstituteAccess:" destination="BYZ-38-t0r" id="UVj-RP-Ga0"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
+            <point key="canvasLocation" x="576" y="-245"/>
+        </scene>
+        <!--Choose Provider-->
+        <scene sceneID="5Hi-3b-G6q">
+            <objects>
+                <tableViewController storyboardIdentifier="chooseProviderTableViewController" title="Choose Provider" id="Jxg-KJ-i9R" customClass="ChooseProviderTableViewController" customModule="EduVPN" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="bhN-Pl-odX">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProviderCell" id="Fom-sq-y5y" customClass="ProviderTableViewCell" customModule="EduVPN" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fom-sq-y5y" id="hh9-4Q-4Iw">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9JN-6K-WA0">
+                                            <rect key="frame" x="0.0" y="0.0" width="100" height="43.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="100" id="kz5-i5-X0W"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZF-sX-Fan">
+                                            <rect key="frame" x="108" y="8" width="204" height="27.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="ZZF-sX-Fan" firstAttribute="leading" secondItem="9JN-6K-WA0" secondAttribute="trailing" constant="8" id="CYE-nk-qfn"/>
+                                        <constraint firstAttribute="bottom" secondItem="9JN-6K-WA0" secondAttribute="bottom" id="Ct0-TA-IAK"/>
+                                        <constraint firstItem="9JN-6K-WA0" firstAttribute="leading" secondItem="hh9-4Q-4Iw" secondAttribute="leading" id="JaT-xs-GMa"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="ZZF-sX-Fan" secondAttribute="bottom" id="f8q-5z-qSN"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="ZZF-sX-Fan" secondAttribute="trailing" id="rwo-mn-bH6"/>
+                                        <constraint firstItem="9JN-6K-WA0" firstAttribute="top" secondItem="hh9-4Q-4Iw" secondAttribute="top" id="xz2-Rm-3WP"/>
+                                        <constraint firstItem="ZZF-sX-Fan" firstAttribute="top" secondItem="hh9-4Q-4Iw" secondAttribute="topMargin" id="yW4-40-xx2"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="providerImageView" destination="9JN-6K-WA0" id="F0M-DU-ZRU"/>
+                                    <outlet property="providerTitleLabel" destination="ZZF-sX-Fan" id="RmR-gR-Our"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Jxg-KJ-i9R" id="KJD-52-8HE"/>
+                            <outlet property="delegate" destination="Jxg-KJ-i9R" id="LOj-ya-Otd"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Choose Provider" id="qtJ-Vg-vjO"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a3N-PI-nVX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1444" y="-245"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="secure_access" width="295" height="193"/>
+        <image name="secure_internet" width="653" height="392"/>
+    </resources>
+    <color key="tintColor" red="0.0" green="0.70196078431372544" blue="0.81568627450980391" alpha="1" colorSpace="calibratedRGB"/>
 </document>
