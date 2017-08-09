@@ -35,7 +35,7 @@ protocol CredentialStoreAuthorizable {
 struct CredentialStorePlugin: PluginType {
 
     /// The access token to be applied in the header.
-    static public var accessToken: String? = "fetch-me"
+    static public var accessToken: String?
 
     /**
      Prepare a request by adding an authorization header if necessary.

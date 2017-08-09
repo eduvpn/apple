@@ -18,39 +18,16 @@ class ProviderTableViewCell: UITableViewCell {
 }
 
 protocol ChooseProviderTableViewControllerDelegate: class {
-    func chooseProviderTableViewControllerDidSelectProviderType(chooseProviderTableViewController: ChooseProviderTableViewController)
+    func didSelect(instance: InstanceModel, chooseProviderTableViewController: ChooseProviderTableViewController)
 }
 
 class ChooseProviderTableViewController: UITableViewController {
 
     weak var delegate: ChooseProviderTableViewControllerDelegate?
 
-    let instancesFileManager = ApplicationSupportFileManager(filename: "instances.dat")
-    var instances: Instances? {
+    var instances: InstancesModel? {
         didSet {
             self.tableView.reloadData()
-        }
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-
-        if let instancesData: [String: Any] = instancesFileManager.loadFromDisk() {
-            instances = Instances(json: instancesData)
-        }
-
-        print("local instances \(String(describing: instances))")
-
-        let provider = MoyaProvider<StaticService>()
-        _ = provider.request(target: .instances).then { response -> Void in
-
-            self.instances = try response.mapResponseToInstances()
-
-            if self.instances != nil {
-                //Store response to disk
-                self.instancesFileManager.persistToDisk(data: self.instances?.jsonDictionary)
-            }
-
-            print("loaded from network: \(String(describing: self.instances))")
         }
     }
 
@@ -68,5 +45,11 @@ class ChooseProviderTableViewController: UITableViewController {
             providerCell.providerTitleLabel?.text = instance.displayName
         }
         return cell
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let instance = instances!.instances[indexPath.row]
+
+        delegate?.didSelect(instance: instance, chooseProviderTableViewController: self)
     }
 }

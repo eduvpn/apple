@@ -12,12 +12,12 @@ enum AuthorizationType: String {
     case local
 }
 
-struct Instances: JSONSerializable {
+struct InstancesModel: JSONSerializable {
     var authorizationType: AuthorizationType
     var seq: Int
     var signedAt: Date
     var version: Int
-    var instances: [Instance]
+    var instances: [InstanceModel]
 
     init?(json: [String: Any]?) {
         guard let json = json else {
@@ -48,7 +48,7 @@ struct Instances: JSONSerializable {
         self.seq = seq
         self.signedAt = signedAt
         self.version = version
-        self.instances = instances.flatMap { Instance(json:$0) }
+        self.instances = instances.flatMap { InstanceModel(json:$0) }
     }
 
     var jsonDictionary: [String: Any] {
@@ -64,7 +64,7 @@ struct Instances: JSONSerializable {
     }
 }
 
-struct Instance: JSONSerializable {
+struct InstanceModel: JSONSerializable {
     var baseUri: URL
     var displayName: String
     var logoUri: URL

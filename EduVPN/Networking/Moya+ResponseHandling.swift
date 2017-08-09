@@ -17,12 +17,21 @@ let signedAtDateFormatter: DateFormatter = {
 }()
 
 extension Moya.Response {
-    func mapResponseToInstances() throws -> Instances? {
+    func mapResponseToInstances() throws -> InstancesModel? {
         let any = try self.mapJSON()
         guard let array = any as? [String: AnyObject] else {
             throw MoyaError.jsonMapping(self)
         }
 
-        return Instances(json: array)
+        return InstancesModel(json: array)
+    }
+
+    func mapResponseToInstanceInfo() throws -> InstanceInfoModel? {
+        let any = try self.mapJSON()
+        guard let array = any as? [String: AnyObject] else {
+            throw MoyaError.jsonMapping(self)
+        }
+
+        return InstanceInfoModel(json: array)
     }
 }

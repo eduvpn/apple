@@ -9,6 +9,8 @@
 import Foundation
 
 import Moya
+import PromiseKit
+import AppAuth
 
 enum ApiService {
     case profileList
@@ -85,4 +87,47 @@ struct DynamicApiService: TargetType {
     var parameterEncoding: ParameterEncoding { return apiService.parameterEncoding }
     var task: Task { return apiService.task }
     var sampleData: Data { return apiService.sampleData }
+}
+
+class DynamicApiProvider: MoyaProvider<DynamicApiService> {
+    let instanceInfo: InstanceInfoModel
+    let authConfig: OIDServiceConfiguration
+
+    var authState: OIDAuthState?
+
+    var currentAuthorizationFlow: OIDAuthorizationFlowSession?
+
+    public func authorize(presentingViewController: UIViewController) {
+        //TODO enter correct redirect URL
+
+        let request = OIDAuthorizationRequest(configuration: authConfig, clientId: "org.eduvpn.app", scopes: [OIDScopeOpenID, OIDScopeProfile], redirectURL: URL(string: "org.eduvpn.app:/api/callback")!, responseType: OIDResponseTypeCode, additionalParameters: nil)
+
+        currentAuthorizationFlow = OIDAuthState.authState(byPresenting: request, presenting: presentingViewController, callback: { (authState, error) in
+
+            self.authState = authState
+            if let authState = authState {
+                print("Got authorization tokens. Access token: \(authState.lastTokenResponse?.accessToken)")
+            } else {
+                print("Authorization error \(error?.localizedDescription)")
+            }
+        })
+    }
+
+    public init(instanceInfo: InstanceInfoModel, endpointClosure: @escaping EndpointClosure = MoyaProvider.defaultEndpointMapping,
+                requestClosure: @escaping RequestClosure = MoyaProvider.defaultRequestMapping,
+                stubClosure: @escaping StubClosure = MoyaProvider.neverStub,
+                manager: Manager = MoyaProvider<DynamicInstanceService>.defaultAlamofireManager(),
+                plugins: [PluginType] = [],
+                trackInflights: Bool = false) {
+        self.instanceInfo = instanceInfo
+        self.authConfig = OIDServiceConfiguration(authorizationEndpoint: instanceInfo.authorizationEndpoint, tokenEndpoint: instanceInfo.tokenEndpoint)
+        super.init(endpointClosure: endpointClosure, requestClosure: requestClosure, stubClosure: stubClosure, manager: manager, plugins: plugins, trackInflights: trackInflights)
+
+    }
+
+    public func request(target: ApiService,
+                        queue: DispatchQueue? = nil,
+                        progress: Moya.ProgressBlock? = nil) -> Promise<Moya.Response> {
+        return self.request(target: DynamicApiService(baseURL: instanceInfo.apiBaseUrl, apiService: target))
+    }
 }
