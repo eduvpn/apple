@@ -26,10 +26,10 @@ class AppCoordinator: RootViewCoordinator {
     var childCoordinators: [Coordinator] = []
 
     var rootViewController: UIViewController {
-        return self.connectionsViewController
+        return self.connectionsTableViewController
     }
 
-    var connectionsViewController: ConnectionsViewController!
+    var connectionsTableViewController: ConnectionsTableViewController!
 
     /// Window to manage
     let window: UIWindow
@@ -44,7 +44,6 @@ class AppCoordinator: RootViewCoordinator {
     public init(window: UIWindow) {
         self.window = window
 
-//        self.navigationController.viewControllers = [connectionsViewController]
         self.window.rootViewController = self.navigationController
         self.window.makeKeyAndVisible()
     }
@@ -54,9 +53,9 @@ class AppCoordinator: RootViewCoordinator {
     /// Starts the coordinator
     public func start() {
         //start
-        connectionsViewController = storyboard.instantiateViewController(type: ConnectionsViewController.self)
-        connectionsViewController.delegate = self
-        self.navigationController.viewControllers = [connectionsViewController]
+        connectionsTableViewController = storyboard.instantiateViewController(type: ConnectionsTableViewController.self)
+        connectionsTableViewController.delegate = self
+        self.navigationController.viewControllers = [connectionsTableViewController]
     }
 
     fileprivate func authenticate(instance: InstanceModel) {
@@ -67,12 +66,12 @@ class AppCoordinator: RootViewCoordinator {
 
     }
 
-    func showSettingsViewController() {
-        let settingsViewController = storyboard.instantiateViewController(type: SettingsViewController.self)
+    func showSettingsTableViewController() {
+        let settingsTableViewController = storyboard.instantiateViewController(type: SettingsTableViewController.self)
 
-        self.navigationController.pushViewController(settingsViewController, animated: true)
+        self.navigationController.pushViewController(settingsTableViewController, animated: true)
 
-        settingsViewController.delegate = self
+        settingsTableViewController.delegate = self
 
     }
 
@@ -89,6 +88,12 @@ class AppCoordinator: RootViewCoordinator {
                     self.currentDynamicApiProvider?.authorize(presentingViewController: self.navigationController)
                 }
         }
+    }
+
+    fileprivate func showSettings() {
+        let settingsTableViewController = storyboard.instantiateViewController(type: SettingsTableViewController.self)
+        settingsTableViewController.delegate = self
+        self.navigationController.pushViewController(settingsTableViewController, animated: true)
     }
 
     fileprivate func showProfilesViewController() {
@@ -142,12 +147,17 @@ class AppCoordinator: RootViewCoordinator {
     }
 }
 
-extension AppCoordinator: SettingsViewControllerDelegate {
+extension AppCoordinator: SettingsTableViewControllerDelegate {
 
 }
 
-extension AppCoordinator: ConnectionsViewControllerDelegate {
-    func addProvider(connectionsViewController: ConnectionsViewController) {
+extension AppCoordinator: ConnectionsTableViewControllerDelegate {
+
+    func settings(connectionsTableViewController: ConnectionsTableViewController) {
+        showSettings()
+    }
+
+    func addProvider(connectionsTableViewController: ConnectionsTableViewController) {
         showProfilesViewController()
     }
 }
