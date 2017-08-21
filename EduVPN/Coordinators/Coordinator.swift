@@ -11,6 +11,9 @@ import Foundation
 /// The Coordinator protocol
 public protocol Coordinator: class {
 
+    /// Starts the coordinator
+    func start()
+
     /// The array containing any child Coordinators
     var childCoordinators: [Coordinator] { get set }
 

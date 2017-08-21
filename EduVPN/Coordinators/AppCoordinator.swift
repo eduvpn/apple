@@ -14,26 +14,29 @@ import PromiseKit
 /// In this example the AppCoordinator as a rootViewController
 class AppCoordinator: RootViewCoordinator {
 
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
     // MARK: - Properties
-
-    var childCoordinators: [Coordinator] = []
-
-    let instancesFileManager = ApplicationSupportFileManager(filename: "instances.dat")
-
-    var rootViewController: UIViewController {
-        return self.navigationController
-    }
 
     let accessTokenPlugin =  CredentialStorePlugin()
 
     private var currentDynamicApiProvider: DynamicApiProvider?
+    let instancesFileManager = ApplicationSupportFileManager(filename: "instances.dat")
+
+    var childCoordinators: [Coordinator] = []
+
+    var rootViewController: UIViewController {
+        return self.connectionsViewController
+    }
+
+    var connectionsViewController: ConnectionsViewController!
 
     /// Window to manage
     let window: UIWindow
 
-    private lazy var navigationController: UINavigationController = {
-        let navigationController = UINavigationController()
-        return navigationController
+    let navigationController: UINavigationController = {
+        let navController = UINavigationController()
+        return navController
     }()
 
     // MARK: - Init
@@ -41,7 +44,8 @@ class AppCoordinator: RootViewCoordinator {
     public init(window: UIWindow) {
         self.window = window
 
-        self.window.rootViewController = self.rootViewController
+//        self.navigationController.viewControllers = [connectionsViewController]
+        self.window.rootViewController = self.navigationController
         self.window.makeKeyAndVisible()
     }
 
@@ -49,41 +53,68 @@ class AppCoordinator: RootViewCoordinator {
 
     /// Starts the coordinator
     public func start() {
-        self.showConnectionTypeViewController()
-    }
-
-    private func showConnectionTypeViewController() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let connectionTypeViewController = storyboard.instantiateViewController(withIdentifier: "connectionTypeViewController") as? ConnectionTypeViewController {
-            connectionTypeViewController.delegate = self
-            self.navigationController.viewControllers = [connectionTypeViewController]
-        }
-    }
-
-    fileprivate func showChooseProviderTableViewController() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let chooseProviderTableViewController = storyboard.instantiateViewController(withIdentifier: "chooseProviderTableViewController") as? ChooseProviderTableViewController {
-            chooseProviderTableViewController.delegate = self
-            self.navigationController.pushViewController(chooseProviderTableViewController, animated: true)
-
-            if let instancesData: [String: Any] = instancesFileManager.loadFromDisk() {
-                chooseProviderTableViewController.instances = InstancesModel(json: instancesData)
-            }
-
-            let provider = MoyaProvider<StaticService>()
-            _ = provider.request(target: .instances).then { response -> Void in
-
-                if let instances = try response.mapResponseToInstances() {
-                    //Store response to disk
-                    self.instancesFileManager.persistToDisk(data: instances.jsonDictionary)
-                    chooseProviderTableViewController.instances = instances
-                }
-            }
-        }
+        //start
+        connectionsViewController = storyboard.instantiateViewController(type: ConnectionsViewController.self)
+        connectionsViewController.delegate = self
+        self.navigationController.viewControllers = [connectionsViewController]
     }
 
     fileprivate func authenticate(instance: InstanceModel) {
 
+    }
+
+    fileprivate func connect(instance: InstanceModel) {
+
+    }
+
+    func showSettingsViewController() {
+        let settingsViewController = storyboard.instantiateViewController(type: SettingsViewController.self)
+
+        self.navigationController.pushViewController(settingsViewController, animated: true)
+
+        settingsViewController.delegate = self
+
+    }
+
+    fileprivate func refresh(instance: InstanceModel) {
+        //        let provider = DynamicInstanceProvider(baseURL: instance.baseUri)
+        let provider = MoyaProvider<DynamicInstanceService>()
+
+        _ = provider.request(target: DynamicInstanceService(baseURL: instance.baseUri)).then { response -> InstanceInfoModel? in
+            return try response.mapResponseToInstanceInfo()
+            }.then { instanceInfoModel -> Void in
+                if let instanceInfo = instanceInfoModel {
+                    //TODO: plugins: [accessTokenPlugin]
+                    self.currentDynamicApiProvider = DynamicApiProvider(instanceInfo: instanceInfo)
+                    self.currentDynamicApiProvider?.authorize(presentingViewController: self.navigationController)
+                }
+        }
+    }
+
+    fileprivate func showProfilesViewController() {
+        let profilesViewController = storyboard.instantiateViewController(type: ProfilesViewController.self)
+        profilesViewController.delegate = self
+        self.navigationController.pushViewController(profilesViewController, animated: true)
+    }
+
+    fileprivate func showChooseProviderTableViewController() {
+        let chooseProviderTableViewController = storyboard.instantiateViewController(type:ChooseProviderTableViewController.self)
+        chooseProviderTableViewController.delegate = self
+        self.navigationController.pushViewController(chooseProviderTableViewController, animated: true)
+
+        if let instancesData: [String: Any] = instancesFileManager.loadFromDisk() {
+            chooseProviderTableViewController.instances = InstancesModel(json: instancesData)
+        }
+
+        let provider = MoyaProvider<StaticService>()
+        _ = provider.request(target: .instances).then { response -> Void in
+
+            if let instances = try response.mapResponseToInstances() {
+                //Store response to disk
+                self.instancesFileManager.persistToDisk(data: instances.jsonDictionary)
+                chooseProviderTableViewController.instances = instances
+            }
+        }
     }
 
     func resumeAuthorizationFlow(url: URL) -> Bool {
@@ -94,21 +125,6 @@ class AppCoordinator: RootViewCoordinator {
         }
 
         return false
-    }
-
-    fileprivate func refresh(instance: InstanceModel) {
-//        let provider = DynamicInstanceProvider(baseURL: instance.baseUri)
-        let provider = MoyaProvider<DynamicInstanceService>()
-
-        _ = provider.request(target: DynamicInstanceService(baseURL: instance.baseUri)).then { response -> InstanceInfoModel? in
-            return try response.mapResponseToInstanceInfo()
-        }.then { instanceInfoModel -> Void in
-            if let instanceInfo = instanceInfoModel {
-                //TODO: plugins: [accessTokenPlugin]
-                self.currentDynamicApiProvider = DynamicApiProvider(instanceInfo: instanceInfo)
-                self.currentDynamicApiProvider?.authorize(presentingViewController: self.rootViewController)
-            }
-        }
     }
 
     fileprivate func fetchUserMessage() -> Promise<Response>? {
@@ -124,14 +140,20 @@ class AppCoordinator: RootViewCoordinator {
             return response
         }
     }
+}
 
-    fileprivate func connect(instance: InstanceModel) {
+extension AppCoordinator: SettingsViewControllerDelegate {
 
+}
+
+extension AppCoordinator: ConnectionsViewControllerDelegate {
+    func addProvider(connectionsViewController: ConnectionsViewController) {
+        showProfilesViewController()
     }
 }
 
-extension AppCoordinator: ConnectionTypeViewControllerDelegate {
-    func connectionTypeViewControllerDidSelectProviderType(connectionTypeViewController: ConnectionTypeViewController, providerType: ProviderType) {
+extension AppCoordinator: ProfilesViewControllerDelegate {
+    func profilesViewControllerDidSelectProviderType(profilesViewController: ProfilesViewController, providerType: ProviderType) {
         switch providerType {
         case .instituteAccess:
             showChooseProviderTableViewController()

@@ -53,3 +53,5 @@ class ChooseProviderTableViewController: UITableViewController {
         delegate?.didSelect(instance: instance, chooseProviderTableViewController: self)
     }
 }
+
+extension ChooseProviderTableViewController: Identifyable {}

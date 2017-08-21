@@ -25,7 +25,7 @@ extension StaticService: TargetType {
     var path: String {
         switch self {
         case .instances:
-            return "/instances.json"
+            return "/instances-dev.json"
         case .instancesSignature:
             return "/instances.json.sig"
         case .federation:
