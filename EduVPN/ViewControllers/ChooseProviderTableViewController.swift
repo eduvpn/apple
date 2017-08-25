@@ -41,7 +41,9 @@ class ChooseProviderTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProviderCell", for: indexPath)
 
         if let providerCell = cell as? ProviderTableViewCell {
-            providerCell.providerImageView?.af_setImage(withURL: instance.logoUri)
+            if let logoUrl = instance.logoUrl {
+                providerCell.providerImageView?.af_setImage(withURL: logoUrl)
+            }
             providerCell.providerTitleLabel?.text = instance.displayName
         }
         return cell

@@ -10,13 +10,13 @@ import Foundation
 
 enum AuthorizationType: String {
     case local
+    case distributed
 }
 
 struct InstancesModel: JSONSerializable {
     var authorizationType: AuthorizationType
     var seq: Int
     var signedAt: Date
-    var version: Int
     var instances: [InstanceModel]
 
     init?(json: [String: Any]?) {
@@ -32,10 +32,6 @@ struct InstancesModel: JSONSerializable {
             return nil
         }
 
-        guard let version = json["version"] as? Int else {
-            return nil
-        }
-
         guard let dateString = json["signed_at"] as? String, let signedAt = signedAtDateFormatter.date(from: dateString) else {
             return nil
         }
@@ -47,7 +43,6 @@ struct InstancesModel: JSONSerializable {
         self.authorizationType = authorizationType
         self.seq = seq
         self.signedAt = signedAt
-        self.version = version
         self.instances = instances.flatMap { InstanceModel(json:$0) }
     }
 
@@ -55,8 +50,7 @@ struct InstancesModel: JSONSerializable {
         var json = [String: Any]()
 
         json["authorization_type"] = authorizationType.rawValue
-        json["seq"] = version
-        json["version"] = version
+        json["seq"] = seq
         json["signed_at"] = signedAtDateFormatter.string(from: signedAt)
         json["instances"] = self.instances.map({$0.jsonDictionary})
 
@@ -65,9 +59,13 @@ struct InstancesModel: JSONSerializable {
 }
 
 struct InstanceModel: JSONSerializable {
+    var providerType: ProviderType = .unknown
     var baseUri: URL
-    var displayName: String
-    var logoUri: URL
+    var displayNames: [String: String]?
+    var logoUrlStrings: [String: String]?
+
+    var displayName: String?
+    var logoUrl: URL?
 
     init?(json: [String: AnyObject]?) {
         guard let json = json else {
@@ -77,25 +75,53 @@ struct InstanceModel: JSONSerializable {
         guard let baseUriString = json["base_uri"] as? String, let baseUri = URL(string: baseUriString) else {
             return nil
         }
-        guard let displayName = json["display_name"] as? String else {
+
+        if let displayName = json["display_name"] as? String {
+            self.displayName = displayName
+        } else if let displayNames = json["display_name"] as? [String: String] {
+            self.displayNames = displayNames
+            let preferedLocalization = Bundle.preferredLocalizations(from: Array(displayNames.keys))
+            for localeIdentifier in preferedLocalization {
+                if let displayNameCandidate = displayNames[localeIdentifier] {
+                    displayName = displayNameCandidate
+                    break
+                }
+            }
+        } else {
             return nil
         }
 
-        guard let logoUriString = json["logo_uri"] as? String, let logoUri = URL(string: logoUriString) else {
+        if let logoUrlString = json["logo"] as? String {
+            logoUrl = URL(string: logoUrlString)
+        } else if let logoUrlStrings = json["logo"] as? [String: String] {
+            self.logoUrlStrings = logoUrlStrings
+            let preferedLocalization = Bundle.preferredLocalizations(from: Array(logoUrlStrings.keys))
+            for localeIdentifier in preferedLocalization {
+                if let logoUrlStringCandidate = logoUrlStrings[localeIdentifier] {
+                    logoUrl = URL(string: logoUrlStringCandidate)
+                    break
+                }
+            }
+        } else {
             return nil
         }
 
         self.baseUri = baseUri
-        self.displayName = displayName
-        self.logoUri = logoUri
     }
 
     var jsonDictionary: [String: Any] {
         var json = [String: Any]()
 
         json["base_uri"] = baseUri.absoluteString
-        json["display_name"] = displayName
-        json["logo_uri"] = logoUri.absoluteString
+        if let displayNames = displayNames {
+            json["display_name"] = displayNames
+        } else {
+            json["display_name"] = displayName
+        }
+
+        if let logoUrlStrings = logoUrlStrings {
+            json["logo"] = logoUrlStrings
+        }
 
         return json
     }

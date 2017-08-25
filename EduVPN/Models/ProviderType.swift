@@ -9,5 +9,5 @@
 import Foundation
 
 enum ProviderType {
-    case secureInternet, instituteAccess
+    case unknown, secureInternet, instituteAccess
 }

@@ -98,8 +98,6 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
     var currentAuthorizationFlow: OIDAuthorizationFlowSession?
 
     public func authorize(presentingViewController: UIViewController) {
-        //TODO enter correct redirect URL
-
         let request = OIDAuthorizationRequest(configuration: authConfig, clientId: "org.eduvpn.app", scopes: [OIDScopeOpenID, OIDScopeProfile], redirectURL: URL(string: "org.eduvpn.app:/api/callback")!, responseType: OIDResponseTypeCode, additionalParameters: nil)
 
         currentAuthorizationFlow = OIDAuthState.authState(byPresenting: request, presenting: presentingViewController, callback: { (authState, error) in

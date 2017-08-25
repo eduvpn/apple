@@ -169,6 +169,8 @@ extension AppCoordinator: ProfilesViewControllerDelegate {
             showChooseProviderTableViewController()
         case .secureInternet:
             print("...implement me...")
+        case .unknown:
+            print("Unknown provider type chosen")
         }
     }
 }

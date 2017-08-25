@@ -7,12 +7,31 @@
 //
 
 import Foundation
+import AppAuth
+import KeychainSwift
 
 struct InstanceInfoModel {
 
     var authorizationEndpoint: URL
     var tokenEndpoint: URL
     var apiBaseUrl: URL
+    var auth: OIDAuthState? {
+        get {
+            if let data = KeychainSwift().getData("instance-info-authState") {
+                return NSKeyedUnarchiver.unarchiveObject(with: data) as? OIDAuthState
+            } else {
+                return nil
+            }
+        }
+        set {
+            if let newValue = newValue {
+                let data = NSKeyedArchiver.archivedData(withRootObject: newValue)
+                KeychainSwift().set(data, forKey: "instance-info-authState")
+            } else {
+                KeychainSwift().delete("instance-info-authState")
+            }
+        }
+    }//TODO Store this to keychain in better key
 
     init?(json: [String: Any]?) {
         guard let api = json?["api"] as? [String: AnyObject] else {

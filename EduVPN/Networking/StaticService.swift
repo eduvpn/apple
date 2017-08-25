@@ -20,18 +20,18 @@ enum StaticService {
 }
 
 extension StaticService: TargetType {
-    var baseURL: URL { return URL(string: "https://static.eduvpn.nl")! }
+    var baseURL: URL { return URL(string: "https://static.eduvpn.nl/disco")! }
 
     var path: String {
         switch self {
         case .instances:
-            return "/instances-dev.json"
+            return "/secure_internet_dev.json"
         case .instancesSignature:
-            return "/instances.json.sig"
+            return "/secure_internet_dev.json.sig"
         case .federation:
-            return "/federation.json"
+            return "/institute_access_dev.json"
         case .federationSignature:
-            return "/federation.json.sig"
+            return "/institute_access_dev.json.sig"
         }
     }
 
