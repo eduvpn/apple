@@ -32,10 +32,10 @@ protocol CredentialStoreAuthorizable {
  - Note: By default, requests to all `TargetType`s will receive this header. You can control this
  behvaior by conforming to `CredentialStoreAuthorizable`.
  */
-struct CredentialStorePlugin: PluginType {
+class CredentialStorePlugin: PluginType {
 
     /// The access token to be applied in the header.
-    static public var accessToken: String?
+    public var accessToken: String?
 
     /**
      Prepare a request by adding an authorization header if necessary.
@@ -51,7 +51,7 @@ struct CredentialStorePlugin: PluginType {
             return request
         }
 
-        guard let token = CredentialStorePlugin.accessToken else {
+        guard let token = accessToken else {
             return request
         }
 

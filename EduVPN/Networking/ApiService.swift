@@ -12,6 +12,10 @@ import Moya
 import PromiseKit
 import AppAuth
 
+enum ApiServiceError: Swift.Error {
+    case noAuthState
+}
+
 enum ApiService {
     case profileList
     case userInfo
@@ -92,22 +96,32 @@ struct DynamicApiService: TargetType {
 class DynamicApiProvider: MoyaProvider<DynamicApiService> {
     let instanceInfo: InstanceInfoModel
     let authConfig: OIDServiceConfiguration
+    private var credentialStorePlugin: CredentialStorePlugin
 
     var authState: OIDAuthState?
 
     var currentAuthorizationFlow: OIDAuthorizationFlowSession?
 
-    public func authorize(presentingViewController: UIViewController) {
+    public func authorize(presentingViewController: UIViewController) -> Promise<OIDAuthState> {
         let request = OIDAuthorizationRequest(configuration: authConfig, clientId: "org.eduvpn.app", scopes: [OIDScopeOpenID, OIDScopeProfile], redirectURL: URL(string: "org.eduvpn.app:/api/callback")!, responseType: OIDResponseTypeCode, additionalParameters: nil)
+        return Promise(resolvers: { fulfill, reject in
+            currentAuthorizationFlow = OIDAuthState.authState(byPresenting: request, presenting: presentingViewController, callback: { (authState, error) in
 
-        currentAuthorizationFlow = OIDAuthState.authState(byPresenting: request, presenting: presentingViewController, callback: { (authState, error) in
+                if let error = error {
+                    print("Authorization error \(error.localizedDescription)")
+                    reject(error)
+                    return
+                }
 
-            self.authState = authState
-            if let authState = authState {
-                print("Got authorization tokens. Access token: \(authState.lastTokenResponse?.accessToken)")
-            } else {
-                print("Authorization error \(error?.localizedDescription)")
-            }
+                self.authState = authState
+
+                precondition(authState != nil, "THIS SHOULD NEVER HAPPEN")
+
+                //TODO: Use CredentialStorePlugin
+                print("Got authorization tokens. Access token: \(String(describing: authState!.lastTokenResponse?.accessToken))")
+                fulfill(authState!)
+
+            })
         })
     }
 
@@ -118,6 +132,11 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
                 plugins: [PluginType] = [],
                 trackInflights: Bool = false) {
         self.instanceInfo = instanceInfo
+        self.credentialStorePlugin = CredentialStorePlugin()
+
+        var plugins = plugins
+        plugins.append(self.credentialStorePlugin)
+
         self.authConfig = OIDServiceConfiguration(authorizationEndpoint: instanceInfo.authorizationEndpoint, tokenEndpoint: instanceInfo.tokenEndpoint)
         super.init(endpointClosure: endpointClosure, requestClosure: requestClosure, stubClosure: stubClosure, manager: manager, plugins: plugins, trackInflights: trackInflights)
 
@@ -126,6 +145,33 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
     public func request(target: ApiService,
                         queue: DispatchQueue? = nil,
                         progress: Moya.ProgressBlock? = nil) -> Promise<Moya.Response> {
-        return self.request(target: DynamicApiService(baseURL: instanceInfo.apiBaseUrl, apiService: target))
+        return Promise(resolvers: { fulfill, reject in
+            if let authState = self.authState {
+                authState.performAction(freshTokens: { (accessToken, _, error) in
+                    if let error = error {
+                        reject(error)
+                        return
+                    }
+
+                    self.credentialStorePlugin.accessToken = accessToken
+                    fulfill(())
+                })
+            } else {
+                reject(ApiServiceError.noAuthState)
+            }
+
+        }).then {
+            return self.request(target: DynamicApiService(baseURL: self.instanceInfo.apiBaseUrl, apiService: target))
+        }
+    }
+}
+
+extension DynamicApiProvider: Hashable {
+    static func == (lhs: DynamicApiProvider, rhs: DynamicApiProvider) -> Bool {
+        return lhs.instanceInfo.apiBaseUrl == rhs.instanceInfo.apiBaseUrl
+    }
+
+    var hashValue: Int {
+        return instanceInfo.apiBaseUrl.hashValue
     }
 }

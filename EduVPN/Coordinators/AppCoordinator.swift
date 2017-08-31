@@ -20,7 +20,9 @@ class AppCoordinator: RootViewCoordinator {
 
     let accessTokenPlugin =  CredentialStorePlugin()
 
-    private var currentDynamicApiProvider: DynamicApiProvider?
+    private var dynamicApiProviders = Set<DynamicApiProvider>()
+    private var profiles = [String: ProfilesModel]()
+    private var authorizingDynamicApiProvider: DynamicApiProvider?
     let instancesFileManager = ApplicationSupportFileManager(filename: "instances.dat")
 
     var childCoordinators: [Coordinator] = []
@@ -79,13 +81,19 @@ class AppCoordinator: RootViewCoordinator {
         //        let provider = DynamicInstanceProvider(baseURL: instance.baseUri)
         let provider = MoyaProvider<DynamicInstanceService>()
 
-        _ = provider.request(target: DynamicInstanceService(baseURL: instance.baseUri)).then { response -> InstanceInfoModel? in
-            return try response.mapResponseToInstanceInfo()
+        _ = provider.request(target: DynamicInstanceService(baseURL: instance.baseUri)).then { response -> Promise<InstanceInfoModel> in
+            return response.mapResponseToInstanceInfo()
             }.then { instanceInfoModel -> Void in
-                if let instanceInfo = instanceInfoModel {
-                    //TODO: plugins: [accessTokenPlugin]
-                    self.currentDynamicApiProvider = DynamicApiProvider(instanceInfo: instanceInfo)
-                    self.currentDynamicApiProvider?.authorize(presentingViewController: self.navigationController)
+                var instanceInfo = instanceInfoModel
+                instanceInfo.instance = instance
+                let authorizingDynamicApiProvider = DynamicApiProvider(instanceInfo: instanceInfo)
+                self.authorizingDynamicApiProvider = authorizingDynamicApiProvider
+                _ = authorizingDynamicApiProvider.authorize(presentingViewController: self.navigationController).then {_ in
+                        self.navigationController.popToRootViewController(animated: true)
+                    }.then { _ in
+                    return self.refreshProfile(for: authorizingDynamicApiProvider).then {_ in
+                        self.profilesUpdated()
+                    }
                 }
         }
     }
@@ -112,37 +120,48 @@ class AppCoordinator: RootViewCoordinator {
         }
 
         let provider = MoyaProvider<StaticService>()
-        _ = provider.request(target: .instances).then { response -> Void in
-
-            if let instances = try response.mapResponseToInstances() {
-                //Store response to disk
-                self.instancesFileManager.persistToDisk(data: instances.jsonDictionary)
-                chooseProviderTableViewController.instances = instances
-            }
+        _ = provider.request(target: .instances).then { response -> Promise<InstancesModel> in
+            return response.mapResponseToInstances()
+        }.then { (instances) -> Void in
+            //Store response to disk
+            self.instancesFileManager.persistToDisk(data: instances.jsonDictionary)
+            chooseProviderTableViewController.instances = instances
         }
     }
 
     func resumeAuthorizationFlow(url: URL) -> Bool {
-        if currentDynamicApiProvider?.currentAuthorizationFlow?.resumeAuthorizationFlow(with: url) == true {
-            currentDynamicApiProvider?.currentAuthorizationFlow = nil
-
-            return true
+        if let authorizingDynamicApiProvider = authorizingDynamicApiProvider {
+            if authorizingDynamicApiProvider.currentAuthorizationFlow?.resumeAuthorizationFlow(with: url) == true {
+                self.dynamicApiProviders.insert(authorizingDynamicApiProvider)
+                authorizingDynamicApiProvider.currentAuthorizationFlow = nil
+                return true
+            }
         }
 
         return false
     }
 
-    fileprivate func fetchUserMessage() -> Promise<Response>? {
-        return currentDynamicApiProvider?.request(target: .userMessages).then { response -> Response in
-            print(response)
-            return response
+    @discardableResult fileprivate func refreshProfiles() -> Promise<[ProfilesModel]> {
+        let promises = dynamicApiProviders.map({self.refreshProfile(for: $0)})
+        return when(fulfilled: promises)
+    }
+
+    @discardableResult fileprivate func refreshProfile(for dynamicApiProvider: DynamicApiProvider) -> Promise<ProfilesModel> {
+        return dynamicApiProvider.request(target: .profileList).then { response -> Promise<ProfilesModel> in
+            return response.mapResponseToProfiles()
+        }.then { profiles -> Promise<ProfilesModel> in
+            var profiles = profiles
+            profiles.instanceInfo = dynamicApiProvider.instanceInfo
+            self.profiles[dynamicApiProvider.instanceInfo.apiBaseUrl.absoluteString] = profiles
+            return Promise(value: profiles)
         }
     }
 
-    fileprivate func fetchSystemMessage() -> Promise<Response>? {
-        return currentDynamicApiProvider?.request(target: .systemMessages).then { response -> Response in
-            print(response)
-            return response
+    func profilesUpdated() {
+        self.navigationController.viewControllers.forEach {
+            if let connectionsViewController = $0 as? ConnectionsTableViewController {
+                connectionsViewController.profiles = Array(self.profiles.values)
+            }
         }
     }
 }

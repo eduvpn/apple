@@ -7,6 +7,7 @@
 //
 
 import Moya
+import PromiseKit
 
 let signedAtDateFormatter: DateFormatter = {
     let dateFormatter = DateFormatter()
@@ -17,21 +18,51 @@ let signedAtDateFormatter: DateFormatter = {
 }()
 
 extension Moya.Response {
-    func mapResponseToInstances() throws -> InstancesModel? {
-        let any = try self.mapJSON()
-        guard let array = any as? [String: AnyObject] else {
-            throw MoyaError.jsonMapping(self)
-        }
+    func mapResponseToInstances() -> Promise<InstancesModel> {
+        return Promise(resolvers: { fulfill, reject in
+            let any = try self.mapJSON()
+            guard let dictionary = any as? [String: AnyObject] else {
+                reject(MoyaError.jsonMapping(self))
+                return
+            }
+            guard let obj = InstancesModel(json: dictionary) else {
+                reject(MoyaError.jsonMapping(self))
+                return
+            }
 
-        return InstancesModel(json: array)
+            fulfill(obj)
+        })
     }
 
-    func mapResponseToInstanceInfo() throws -> InstanceInfoModel? {
-        let any = try self.mapJSON()
-        guard let array = any as? [String: AnyObject] else {
-            throw MoyaError.jsonMapping(self)
-        }
+    func mapResponseToInstanceInfo() -> Promise<InstanceInfoModel> {
+        return Promise(resolvers: { fulfill, reject in
+            let any = try self.mapJSON()
+            guard let dictionary = any as? [String: AnyObject] else {
+                reject(MoyaError.jsonMapping(self))
+                return
+            }
+            guard let obj = InstanceInfoModel(json: dictionary) else {
+                reject(MoyaError.jsonMapping(self))
+                return
+            }
 
-        return InstanceInfoModel(json: array)
+            fulfill(obj)
+        })
+    }
+
+    func mapResponseToProfiles() -> Promise<ProfilesModel> {
+        return Promise(resolvers: { fulfill, reject in
+            let any = try self.mapJSON()
+            guard let dictionary = any as? [String: AnyObject] else {
+                reject(MoyaError.jsonMapping(self))
+                return
+            }
+            guard let obj = ProfilesModel(json: dictionary) else {
+                reject(MoyaError.jsonMapping(self))
+                return
+            }
+
+            fulfill(obj)
+        })
     }
 }

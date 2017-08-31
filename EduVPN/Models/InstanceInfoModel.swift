@@ -12,6 +12,7 @@ import KeychainSwift
 
 struct InstanceInfoModel {
 
+    var instance: InstanceModel?
     var authorizationEndpoint: URL
     var tokenEndpoint: URL
     var apiBaseUrl: URL

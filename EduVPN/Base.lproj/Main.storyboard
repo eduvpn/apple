@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -241,7 +242,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProviderCell" id="G2S-el-n9b" customClass="ProviderTableViewCell" customModule="EduVPN" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ConnectTableViewCell" id="G2S-el-n9b" customClass="ConnectTableViewCell" customModule="EduVPN" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="G2S-el-n9b" id="jDe-96-obA">
@@ -255,25 +256,34 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="299-0t-Wkw">
-                                            <rect key="frame" x="108" y="8" width="204" height="27.5"/>
+                                            <rect key="frame" x="108" y="1.5" width="204" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1zh-ai-m9c">
+                                            <rect key="frame" x="108" y="22" width="204" height="18"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="1zh-ai-m9c" firstAttribute="trailing" secondItem="299-0t-Wkw" secondAttribute="trailing" id="3bD-zX-bG9"/>
                                         <constraint firstItem="299-0t-Wkw" firstAttribute="leading" secondItem="piJ-nn-Hhv" secondAttribute="trailing" constant="8" id="JFH-O9-kYL"/>
                                         <constraint firstItem="piJ-nn-Hhv" firstAttribute="leading" secondItem="jDe-96-obA" secondAttribute="leading" id="LEO-Ol-zCU"/>
+                                        <constraint firstItem="1zh-ai-m9c" firstAttribute="top" secondItem="jDe-96-obA" secondAttribute="centerY" id="XJ6-3P-TWi"/>
+                                        <constraint firstItem="299-0t-Wkw" firstAttribute="bottom" secondItem="jDe-96-obA" secondAttribute="centerY" id="YKx-Pr-ktj"/>
                                         <constraint firstAttribute="bottom" secondItem="piJ-nn-Hhv" secondAttribute="bottom" id="cIC-Fg-twg"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="299-0t-Wkw" secondAttribute="bottom" id="ci8-nS-ljr"/>
+                                        <constraint firstItem="1zh-ai-m9c" firstAttribute="leading" secondItem="299-0t-Wkw" secondAttribute="leading" id="i5w-nm-Ksz"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="299-0t-Wkw" secondAttribute="trailing" id="jCc-S1-dkz"/>
-                                        <constraint firstItem="299-0t-Wkw" firstAttribute="top" secondItem="jDe-96-obA" secondAttribute="topMargin" id="nYN-V9-s4m"/>
                                         <constraint firstItem="piJ-nn-Hhv" firstAttribute="top" secondItem="jDe-96-obA" secondAttribute="top" id="yrv-Vj-yOl"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="providerImageView" destination="piJ-nn-Hhv" id="eCe-HB-4lj"/>
-                                    <outlet property="providerTitleLabel" destination="299-0t-Wkw" id="rXg-y8-j46"/>
+                                    <outlet property="connectImageView" destination="piJ-nn-Hhv" id="bfY-vH-mTQ"/>
+                                    <outlet property="connectSubTitleLabel" destination="1zh-ai-m9c" id="tJS-8b-AMZ"/>
+                                    <outlet property="connectTitleLabel" destination="299-0t-Wkw" id="rFG-Na-qhd"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
