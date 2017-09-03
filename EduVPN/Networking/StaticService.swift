@@ -13,10 +13,10 @@ import Moya
 private let publicKey = Data(base64Encoded: "E5On0JTtyUVZmcWd+I/FXRm32nSq8R2ioyW7dcu/U88=")
 
 enum StaticService {
-    case instances
-    case instancesSignature
-    case federation
-    case federationSignature
+    case instituteAccess
+    case instituteAccessSignature
+    case secureInternet
+    case secureInternetSignature
 }
 
 extension StaticService: TargetType {
@@ -24,41 +24,41 @@ extension StaticService: TargetType {
 
     var path: String {
         switch self {
-        case .instances:
-            return "/secure_internet_dev.json"
-        case .instancesSignature:
-            return "/secure_internet_dev.json.sig"
-        case .federation:
+        case .instituteAccess:
             return "/institute_access_dev.json"
-        case .federationSignature:
+        case .instituteAccessSignature:
             return "/institute_access_dev.json.sig"
+        case .secureInternet:
+            return "/secure_internet_dev.json"
+        case .secureInternetSignature:
+            return "/secure_internet_dev.json.sig"
         }
     }
 
     var method: Moya.Method {
         switch self {
-        case .instances, .instancesSignature, .federation, .federationSignature:
+        case .instituteAccess, .instituteAccessSignature, .secureInternet, .secureInternetSignature:
             return .get
         }
     }
 
     var parameters: [String: Any]? {
         switch self {
-        case .instances, .instancesSignature, .federation, .federationSignature:
+        case .instituteAccess, .instituteAccessSignature, .secureInternet, .secureInternetSignature:
             return nil
         }
     }
 
     var parameterEncoding: ParameterEncoding {
         switch self {
-        case .instances, .instancesSignature, .federation, .federationSignature:
+        case .instituteAccess, .instituteAccessSignature, .secureInternet, .secureInternetSignature:
             return JSONEncoding.default
         }
     }
 
     var task: Task {
         switch self {
-        case .instances, .instancesSignature, .federation, .federationSignature:
+        case .instituteAccess, .instituteAccessSignature, .secureInternet, .secureInternetSignature:
             return .request
         }
     }

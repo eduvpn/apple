@@ -14,12 +14,13 @@ enum AuthorizationType: String {
 }
 
 struct InstancesModel: JSONSerializable {
+    var providerType: ProviderType
     var authorizationType: AuthorizationType
     var seq: Int
     var signedAt: Date
     var instances: [InstanceModel]
 
-    init?(json: [String: Any]?) {
+    init?(json: [String: Any]?, providerType: ProviderType?) {
         guard let json = json else {
             return nil
         }
@@ -40,10 +41,18 @@ struct InstancesModel: JSONSerializable {
             return nil
         }
 
+        if let providerType = providerType {
+            self.providerType = providerType
+        } else {
+            guard let providerTypeString = json["provider_type"] as? String, let providerType = ProviderType(rawValue: providerTypeString) else {
+                return nil
+            }
+            self.providerType = providerType
+        }
         self.authorizationType = authorizationType
         self.seq = seq
         self.signedAt = signedAt
-        self.instances = instances.flatMap { InstanceModel(json:$0) }
+        self.instances = instances.flatMap { InstanceModel(json:$0, providerType: providerType) }
     }
 
     var jsonDictionary: [String: Any] {
@@ -52,6 +61,7 @@ struct InstancesModel: JSONSerializable {
         json["authorization_type"] = authorizationType.rawValue
         json["seq"] = seq
         json["signed_at"] = signedAtDateFormatter.string(from: signedAt)
+        json["provider_type"] = providerType.rawValue
         json["instances"] = self.instances.map({$0.jsonDictionary})
 
         return json
@@ -59,7 +69,7 @@ struct InstancesModel: JSONSerializable {
 }
 
 struct InstanceModel: JSONSerializable {
-    var providerType: ProviderType = .unknown
+    var providerType: ProviderType
     var baseUri: URL
     var displayNames: [String: String]?
     var logoUrlStrings: [String: String]?
@@ -67,13 +77,22 @@ struct InstanceModel: JSONSerializable {
     var displayName: String?
     var logoUrl: URL?
 
-    init?(json: [String: AnyObject]?) {
+    init?(json: [String: AnyObject]?, providerType: ProviderType?) {
         guard let json = json else {
             return nil
         }
 
         guard let baseUriString = json["base_uri"] as? String, let baseUri = URL(string: baseUriString) else {
             return nil
+        }
+
+        if let providerType = providerType {
+            self.providerType = providerType
+        } else {
+            guard let providerTypeString = json["provider_type"] as? String, let providerType = ProviderType(rawValue: providerTypeString) else {
+                return nil
+            }
+            self.providerType = providerType
         }
 
         if let displayName = json["display_name"] as? String {
@@ -122,6 +141,8 @@ struct InstanceModel: JSONSerializable {
         if let logoUrlStrings = logoUrlStrings {
             json["logo"] = logoUrlStrings
         }
+
+        json["provider_type"] = providerType.rawValue
 
         return json
     }

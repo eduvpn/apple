@@ -8,6 +8,6 @@
 
 import Foundation
 
-enum ProviderType {
+enum ProviderType: String {
     case unknown, secureInternet, instituteAccess
 }

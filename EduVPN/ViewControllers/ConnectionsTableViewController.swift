@@ -26,21 +26,36 @@ protocol ConnectionsTableViewControllerDelegate: class {
 class ConnectionsTableViewController: UITableViewController {
     weak var delegate: ConnectionsTableViewControllerDelegate?
 
-    var profiles = [ProfilesModel]() {
+    var profilesModels = Set<ProfilesModel>() {
         didSet {
-            profileToProfiles.removeAll()
+            instituteAccessModels.removeAll()
+            internetAccessModels.removeAll()
 
-            profileModels = profiles.reduce([], { (result, model) -> [ProfileModel] in
-                model.profiles.forEach({ (profile) in
-                    profileToProfiles[profile] = model
+            profilesModels.forEach { (profilesModel) in
+                profilesModel.profiles.forEach({ (profileModel) in
+                    if let providerType = profilesModel.instanceInfo?.instance?.providerType {
+                        switch providerType {
+                        case .instituteAccess:
+                            instituteProfilesModel = profilesModel
+                            instituteAccessModels.append(profileModel)
+                        case .secureInternet:
+                            internetProfilesModel = profilesModel
+                            internetAccessModels.append(profileModel)
+                        case .unknown:
+                            return
+                        }
+                    }
                 })
-                return result + model.profiles
-            })
+            }
+
             self.tableView.reloadData()
         }
     }
-    private var profileToProfiles = [ProfileModel: ProfilesModel]()
-    private var profileModels = [ProfileModel]()
+
+    private var internetProfilesModel: ProfilesModel?
+    private var internetAccessModels = [ProfileModel]()
+    private var instituteProfilesModel: ProfilesModel?
+    private var instituteAccessModels = [ProfileModel]()
 
     var instanceInfoModels: [InstanceInfoModel]? {
         didSet {
@@ -56,13 +71,55 @@ class ConnectionsTableViewController: UITableViewController {
         delegate?.settings(connectionsTableViewController: self)
     }
 
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return profileModels.count
+        switch section {
+        case 0:
+            return internetAccessModels.count
+        default:
+            return instituteAccessModels.count
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return NSLocalizedString("Internet access", comment: "")
+        default:
+            return NSLocalizedString("Institute access", comment: "")
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch section {
+        case 0:
+            if internetAccessModels.isEmpty {
+                return 0.0
+            }
+        default:
+            if instituteAccessModels.isEmpty {
+                return 0.0
+            }
+        }
+
+        return tableView.sectionHeaderHeight
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let profileModel = profileModels[indexPath.row]
-        let profilesModel = profileToProfiles[profileModel]
+        let profileModel: ProfileModel
+        let profilesModel: ProfilesModel?
+
+        switch indexPath.section {
+        case 0:
+            profileModel = internetAccessModels[indexPath.row]
+            profilesModel = internetProfilesModel
+        default:
+            profileModel = instituteAccessModels[indexPath.row]
+            profilesModel = instituteProfilesModel
+        }
 
         let cell = tableView.dequeueReusableCell(type: ConnectTableViewCell.self, for: indexPath)
 

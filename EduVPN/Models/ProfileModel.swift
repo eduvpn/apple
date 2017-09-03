@@ -94,6 +94,16 @@ struct ProfileModel {
     }
 }
 
+extension ProfilesModel: Hashable {
+    var hashValue: Int {
+        return instanceInfo?.apiBaseUrl.hashValue ?? 0
+    }
+
+    static func == (lhs: ProfilesModel, rhs: ProfilesModel) -> Bool {
+        return lhs.instanceInfo?.apiBaseUrl == rhs.instanceInfo?.apiBaseUrl && lhs.instanceInfo?.instance?.providerType == rhs.instanceInfo?.instance?.providerType
+    }
+}
+
 extension ProfileModel: Hashable {
     var hashValue: Int {
         return profileId.hashValue

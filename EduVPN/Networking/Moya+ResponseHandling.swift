@@ -18,14 +18,14 @@ let signedAtDateFormatter: DateFormatter = {
 }()
 
 extension Moya.Response {
-    func mapResponseToInstances() -> Promise<InstancesModel> {
+    func mapResponseToInstances(providerType: ProviderType) -> Promise<InstancesModel> {
         return Promise(resolvers: { fulfill, reject in
             let any = try self.mapJSON()
             guard let dictionary = any as? [String: AnyObject] else {
                 reject(MoyaError.jsonMapping(self))
                 return
             }
-            guard let obj = InstancesModel(json: dictionary) else {
+            guard let obj = InstancesModel(json: dictionary, providerType: providerType) else {
                 reject(MoyaError.jsonMapping(self))
                 return
             }

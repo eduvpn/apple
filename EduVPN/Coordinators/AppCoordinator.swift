@@ -21,7 +21,7 @@ class AppCoordinator: RootViewCoordinator {
     let accessTokenPlugin =  CredentialStorePlugin()
 
     private var dynamicApiProviders = Set<DynamicApiProvider>()
-    private var profiles = [String: ProfilesModel]()
+    private var profilesSet = Set<ProfilesModel>()
     private var authorizingDynamicApiProvider: DynamicApiProvider?
     let instancesFileManager = ApplicationSupportFileManager(filename: "instances.dat")
 
@@ -110,18 +110,28 @@ class AppCoordinator: RootViewCoordinator {
         self.navigationController.pushViewController(profilesViewController, animated: true)
     }
 
-    fileprivate func showChooseProviderTableViewController() {
+    fileprivate func showChooseProviderTableViewController(for providerType: ProviderType) {
         let chooseProviderTableViewController = storyboard.instantiateViewController(type:ChooseProviderTableViewController.self)
         chooseProviderTableViewController.delegate = self
         self.navigationController.pushViewController(chooseProviderTableViewController, animated: true)
 
         if let instancesData: [String: Any] = instancesFileManager.loadFromDisk() {
-            chooseProviderTableViewController.instances = InstancesModel(json: instancesData)
+            chooseProviderTableViewController.instances = InstancesModel(json: instancesData, providerType: nil)
+        }
+
+        let target: StaticService
+        switch providerType {
+        case .instituteAccess:
+            target = StaticService.instituteAccess
+        case .secureInternet:
+            target = StaticService.secureInternet
+        case .unknown:
+            return
         }
 
         let provider = MoyaProvider<StaticService>()
-        _ = provider.request(target: .instances).then { response -> Promise<InstancesModel> in
-            return response.mapResponseToInstances()
+        _ = provider.request(target: target).then { response -> Promise<InstancesModel> in
+            return response.mapResponseToInstances(providerType: providerType)
         }.then { (instances) -> Void in
             //Store response to disk
             self.instancesFileManager.persistToDisk(data: instances.jsonDictionary)
@@ -152,7 +162,7 @@ class AppCoordinator: RootViewCoordinator {
         }.then { profiles -> Promise<ProfilesModel> in
             var profiles = profiles
             profiles.instanceInfo = dynamicApiProvider.instanceInfo
-            self.profiles[dynamicApiProvider.instanceInfo.apiBaseUrl.absoluteString] = profiles
+            self.profilesSet.insert(profiles)
             return Promise(value: profiles)
         }
     }
@@ -160,7 +170,7 @@ class AppCoordinator: RootViewCoordinator {
     func profilesUpdated() {
         self.navigationController.viewControllers.forEach {
             if let connectionsViewController = $0 as? ConnectionsTableViewController {
-                connectionsViewController.profiles = Array(self.profiles.values)
+                connectionsViewController.profilesModels = self.profilesSet
             }
         }
     }
@@ -184,10 +194,8 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
 extension AppCoordinator: ProfilesViewControllerDelegate {
     func profilesViewControllerDidSelectProviderType(profilesViewController: ProfilesViewController, providerType: ProviderType) {
         switch providerType {
-        case .instituteAccess:
-            showChooseProviderTableViewController()
-        case .secureInternet:
-            print("...implement me...")
+        case .instituteAccess, .secureInternet:
+            showChooseProviderTableViewController(for: providerType)
         case .unknown:
             print("Unknown provider type chosen")
         }
