@@ -21,9 +21,21 @@ class AppCoordinator: RootViewCoordinator {
     let accessTokenPlugin =  CredentialStorePlugin()
 
     private var dynamicApiProviders = Set<DynamicApiProvider>()
-    private var profilesSet = Set<ProfilesModel>()
+    private var profilesSet: Set<ProfilesModel> {
+        get {
+            if let loadedProfiles: Set<ProfilesModel> = profilesFileManager.loadFromDisk() {
+                return Set(loadedProfiles)
+            }
+            return Set<ProfilesModel>()
+        }
+        set {
+            profilesFileManager.persistToDisk(data: Array(newValue))
+        }
+    }
+
     private var authorizingDynamicApiProvider: DynamicApiProvider?
-    let instancesFileManager = ApplicationSupportFileManager(filename: "instances.dat")
+    private let profilesFileManager = ApplicationSupportFileManager(filename: "profiles.dat")
+    private let instancesFileManager = ApplicationSupportFileManager(filename: "instances.dat")
 
     var childCoordinators: [Coordinator] = []
 

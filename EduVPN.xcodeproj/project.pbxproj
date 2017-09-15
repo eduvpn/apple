@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3DC0FAC0347BAC5E5B926891 /* Pods_EduVPN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A98FDE8E7D70D8F159D7C95 /* Pods_EduVPN.framework */; };
 		4A2CC2221F4233E8004119B1 /* Identifyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2CC2211F4233E8004119B1 /* Identifyable.swift */; };
+		4A3E029C1F6C4B3D00D20292 /* Moya+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3E029B1F6C4B3D00D20292 /* Moya+Extensions.swift */; };
 		4A4CA90F1F55F4300021FD5D /* UITableView+EduVPN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CA90E1F55F4300021FD5D /* UITableView+EduVPN.swift */; };
 		4A4F36531F31972C0032C96B /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4F36521F31972C0032C96B /* ApiService.swift */; };
 		4A7D1E4F1F4B24E4009F1402 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7D1E4E1F4B24E4009F1402 /* ProfileModel.swift */; };
@@ -51,6 +52,7 @@
 
 /* Begin PBXFileReference section */
 		4A2CC2211F4233E8004119B1 /* Identifyable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifyable.swift; sourceTree = "<group>"; };
+		4A3E029B1F6C4B3D00D20292 /* Moya+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Moya+Extensions.swift"; sourceTree = "<group>"; };
 		4A4CA90E1F55F4300021FD5D /* UITableView+EduVPN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+EduVPN.swift"; sourceTree = "<group>"; };
 		4A4F36521F31972C0032C96B /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		4A7D1E4E1F4B24E4009F1402 /* ProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				4A4F36521F31972C0032C96B /* ApiService.swift */,
 				4AD0AD591F34F887006E1337 /* CredentialStorePlugin.swift */,
 				4AD0AD5E1F350822006E1337 /* Moya+ResponseHandling.swift */,
+				4A3E029B1F6C4B3D00D20292 /* Moya+Extensions.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -361,7 +364,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "$SRCROOT/Scripts/set_build_number.sh";
+			shellScript = $SRCROOT/Scripts/set_build_number.sh;
 		};
 		61AAE3AE256E9F03ABDDA78F /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -438,6 +441,7 @@
 				4A8D24211F3976FC004A9343 /* ProviderType.swift in Sources */,
 				4A4F36531F31972C0032C96B /* ApiService.swift in Sources */,
 				4ACA042A1F311507004B35AA /* StaticService.swift in Sources */,
+				4A3E029C1F6C4B3D00D20292 /* Moya+Extensions.swift in Sources */,
 				4AF3DF081F4245A5003EC0BA /* ConnectionsTableViewController.swift in Sources */,
 				4AD0AD5F1F350822006E1337 /* Moya+ResponseHandling.swift in Sources */,
 				4A8D241F1F3976A2004A9343 /* ProfilesViewController.swift in Sources */,

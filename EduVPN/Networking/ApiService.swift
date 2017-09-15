@@ -55,25 +55,17 @@ extension ApiService {
         }
     }
 
-    var parameters: [String: Any]? {
+    var task: Task {
         switch self {
         case .profileList, .userInfo, .systemMessages, .userMessages:
-            return nil
+            return .requestPlain
         case .createConfig(let displayName, let profileId):
-            return ["display_name": displayName, "profile_id": profileId]
+            return .requestParameters(parameters: ["display_name": displayName, "profile_id": profileId], encoding: JSONEncoding.default)
         case .createKeypair(let displayName):
-            return ["display_name": displayName]
+            return .requestParameters(parameters: ["display_name": displayName], encoding: JSONEncoding.default)
         case .profileConfig(let profileId):
-            return ["profile_id": profileId]
+            return .requestParameters(parameters: ["profile_id": profileId], encoding: URLEncoding.queryString)
         }
-    }
-
-    var parameterEncoding: ParameterEncoding {
-        return URLEncoding.default // Send parameters in URL for GET, DELETE and HEAD. For other HTTP methods, parameters will be sent in request body
-    }
-
-    var task: Task {
-        return .request
     }
 
     var sampleData: Data {
@@ -81,14 +73,12 @@ extension ApiService {
     }
 }
 
-struct DynamicApiService: TargetType {
+struct DynamicApiService: TargetType, AcceptJson {
     let baseURL: URL
     let apiService: ApiService
 
     var path: String { return apiService.path }
     var method: Moya.Method { return apiService.method }
-    var parameters: [String: Any]? { return apiService.parameters }
-    var parameterEncoding: ParameterEncoding { return apiService.parameterEncoding }
     var task: Task { return apiService.task }
     var sampleData: Data { return apiService.sampleData }
 }

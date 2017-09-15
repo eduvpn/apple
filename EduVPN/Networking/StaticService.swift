@@ -19,7 +19,7 @@ enum StaticService {
     case secureInternetSignature
 }
 
-extension StaticService: TargetType {
+extension StaticService: TargetType, AcceptJson {
     var baseURL: URL { return URL(string: "https://static.eduvpn.nl/disco")! }
 
     var path: String {
@@ -42,24 +42,10 @@ extension StaticService: TargetType {
         }
     }
 
-    var parameters: [String: Any]? {
-        switch self {
-        case .instituteAccess, .instituteAccessSignature, .secureInternet, .secureInternetSignature:
-            return nil
-        }
-    }
-
-    var parameterEncoding: ParameterEncoding {
-        switch self {
-        case .instituteAccess, .instituteAccessSignature, .secureInternet, .secureInternetSignature:
-            return JSONEncoding.default
-        }
-    }
-
     var task: Task {
         switch self {
         case .instituteAccess, .instituteAccessSignature, .secureInternet, .secureInternetSignature:
-            return .request
+            return .requestPlain
         }
     }
 

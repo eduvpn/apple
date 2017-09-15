@@ -26,7 +26,7 @@ public extension MoyaProvider {
                             progress: Moya.ProgressBlock? = nil) -> PendingRequestPromise {
         let pending = Promise<Moya.Response>.pending()
         let completion = promiseCompletion(fulfill: pending.fulfill, reject: pending.reject)
-        let cancellable = request(target, queue: queue, progress: progress, completion: completion)
+        let cancellable = request(target, callbackQueue: queue, progress: progress, completion: completion)
 
         return (pending.promise, cancellable)
     }
