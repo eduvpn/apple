@@ -27,7 +27,7 @@ public func wrap<T>(_ body: (@escaping (T?, Error?) -> Void) throws -> Void) -> 
 }
 
 /// For completion-handlers that eg. provide an enum or an error.
-public func wrap<T>(_ body: (@escaping (T, Error?) -> Void) throws -> Void) -> Promise<T> {
+public func wrap<T>(_ body: (@escaping (T, Error?) -> Void) throws -> Void) -> Promise<T>  {
     return Promise { fulfill, reject in
         try body { obj, err in
             if let err = err {
@@ -61,7 +61,11 @@ public func wrap(_ body: (@escaping (Error?) -> Void) throws -> Void) -> Promise
             if let error = error {
                 reject(error)
             } else {
+              #if swift(>=4.0)
+                fulfill(())
+              #else
                 fulfill()
+              #endif
             }
         }
     }

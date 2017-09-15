@@ -5,7 +5,11 @@ private func _when<T>(_ promises: [Promise<T>]) -> Promise<Void> {
     let root = Promise<Void>.pending()
     var countdown = promises.count
     guard countdown > 0 else {
+      #if swift(>=4.0)
+        root.fulfill(())
+      #else
         root.fulfill()
+      #endif
         return root.promise
     }
 
@@ -34,7 +38,11 @@ private func _when<T>(_ promises: [Promise<T>]) -> Promise<Void> {
                     progress.completedUnitCount += 1
                     countdown -= 1
                     if countdown == 0 {
+                      #if swift(>=4.0)
+                        root.fulfill(())
+                      #else
                         root.fulfill()
+                      #endif
                     }
                 }
             }
@@ -68,7 +76,7 @@ private func _when<T>(_ promises: [Promise<T>]) -> Promise<Void> {
  - SeeAlso: `when(resolved:)`
 */
 public func when<T>(fulfilled promises: [Promise<T>]) -> Promise<[T]> {
-    return _when(promises).then(on: zalgo) { promises.map { $0.value! } }
+    return _when(promises).then(on: zalgo) { promises.map{ $0.value! } }
 }
 
 /// Wait for all promises in a set to fulfill.
@@ -169,7 +177,7 @@ public func when<T, PromiseIterator: IteratorProtocol>(fulfilled promiseIterator
         func testDone() {
             barrier.sync {
                 if pendingPromises == 0 {
-                    root.fulfill(promises.flatMap { $0.value })
+                    root.fulfill(promises.flatMap{ $0.value })
                 }
             }
         }
@@ -195,7 +203,7 @@ public func when<T, PromiseIterator: IteratorProtocol>(fulfilled promiseIterator
 
         dequeue()
     }
-
+        
     dequeue()
 
     return root.promise
@@ -229,7 +237,7 @@ public func when<T>(resolved promises: [Promise<T>]) -> Promise<[Result<T>]> {
     var countdown = promises.count
     let barrier = DispatchQueue(label: "org.promisekit.barrier.join", attributes: .concurrent)
 
-    return Promise { fulfill, _ in
+    return Promise { fulfill, reject in
         for promise in promises {
             promise.state.pipe { resolution in
                 if case .rejected(_, let token) = resolution {
