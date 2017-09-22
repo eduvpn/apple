@@ -8,6 +8,6 @@
 
 import Foundation
 
-enum ProviderType: String {
+enum ProviderType: String, Codable {
     case unknown, secureInternet, instituteAccess
 }

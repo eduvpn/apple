@@ -18,51 +18,15 @@ let signedAtDateFormatter: DateFormatter = {
 }()
 
 extension Moya.Response {
-    func mapResponseToInstances(providerType: ProviderType) -> Promise<InstancesModel> {
+    func mapResponse<T: Decodable>() -> Promise<T> {
         return Promise(resolvers: { fulfill, reject in
-            let any = try self.mapJSON()
-            guard let dictionary = any as? [String: AnyObject] else {
+            do {
+                let result = try JSONDecoder().decode(T.self, from: self.data)
+                fulfill(result)
+            } catch {
+                print(error)
                 reject(MoyaError.jsonMapping(self))
-                return
             }
-            guard let obj = InstancesModel(json: dictionary, providerType: providerType) else {
-                reject(MoyaError.jsonMapping(self))
-                return
-            }
-
-            fulfill(obj)
-        })
-    }
-
-    func mapResponseToInstanceInfo() -> Promise<InstanceInfoModel> {
-        return Promise(resolvers: { fulfill, reject in
-            let any = try self.mapJSON()
-            guard let dictionary = any as? [String: AnyObject] else {
-                reject(MoyaError.jsonMapping(self))
-                return
-            }
-            guard let obj = InstanceInfoModel(json: dictionary) else {
-                reject(MoyaError.jsonMapping(self))
-                return
-            }
-
-            fulfill(obj)
-        })
-    }
-
-    func mapResponseToProfiles() -> Promise<ProfilesModel> {
-        return Promise(resolvers: { fulfill, reject in
-            let any = try self.mapJSON()
-            guard let dictionary = any as? [String: AnyObject] else {
-                reject(MoyaError.jsonMapping(self))
-                return
-            }
-            guard let obj = ProfilesModel(json: dictionary) else {
-                reject(MoyaError.jsonMapping(self))
-                return
-            }
-
-            fulfill(obj)
         })
     }
 }

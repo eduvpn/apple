@@ -8,52 +8,61 @@
 
 import Foundation
 
-struct ProfilesModel {
-    var instanceInfo: InstanceInfoModel?
+struct ProfilesModel: Codable {
     var profiles: [ProfileModel]
+}
 
-    init?(json: [String: Any]?) {
-        guard let json = json else {
-            return nil
-        }
-
-        guard let profileList = json["profile_list"] as? [String: Any] else {
-            return nil
-        }
-
-        guard let profiles = profileList["data"] as? [[String: Any]] else {
-            return nil
-        }
-
-        self.profiles = profiles.flatMap({ ProfileModel(json:$0) })
+extension ProfilesModel {
+    enum ProfilesModelKeys: String, CodingKey {
+        case profileList = "profile_list"
+        case data
+        case profiles
+        case instanceInfo = "instance_info"
     }
 
-    var jsonDictionary: [String: Any] {
-        var json = [String: Any]()
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: ProfilesModelKeys.self)
 
-        json["profile_list"] = ["data": self.profiles.map({$0.jsonDictionary})]
+        let profileListContainer = try container.nestedContainer(keyedBy: ProfilesModelKeys.self, forKey: .profileList)
+        let profiles = try profileListContainer.decode([ProfileModel].self, forKey: .data)
 
-        return json
+        self.init(profiles: profiles)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: ProfilesModelKeys.self)
+
+        var profileList = container.nestedContainer(keyedBy: ProfilesModelKeys.self, forKey: .profileList)
+        try profileList.encode(profiles, forKey: .data)
     }
 
 }
 
-struct ProfileModel {
+struct ProfileModel: Codable {
     var displayNames: [String: String]?
 
     var displayName: String?
     var profileId: String
     var twoFactor: Bool
+}
 
-    init?(json: [String: Any]?) {
-        guard let json = json else {
-            return nil
-        }
+extension ProfileModel {
+    enum ProfileModelKeys: String, CodingKey {
+        case displayName = "display_name"
+        case profileId = "profile_id"
+        case twoFactor = "two_factor"
+    }
 
-        if let displayName = json["display_name"] as? String {
-            self.displayName = displayName
-        } else if let displayNames = json["display_name"] as? [String: String] {
-            self.displayNames = displayNames
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: ProfileModelKeys.self)
+
+        let profileId = try container.decode(String.self, forKey: .profileId)
+        let twoFactor = try container.decode(Bool.self, forKey: .twoFactor)
+
+        var displayName: String? = nil
+        let displayNames = try? container.decode(Dictionary<String, String>.self, forKey: .displayName)
+
+        if let displayNames = displayNames {
             let preferedLocalization = Bundle.preferredLocalizations(from: Array(displayNames.keys))
             for localeIdentifier in preferedLocalization {
                 if let displayNameCandidate = displayNames[localeIdentifier] {
@@ -62,47 +71,35 @@ struct ProfileModel {
                 }
             }
         } else {
-            return nil
+            displayName = try container.decode(String.self, forKey: .displayName)
         }
 
-        guard let profileId = json["profile_id"] as? String else {
-            return nil
-        }
-
-        guard let twoFactor = json["two_factor"] as? Bool else {
-            return nil
-        }
-
-        self.profileId = profileId
-        self.twoFactor = twoFactor
-
+        self.init(displayNames: displayNames, displayName: displayName, profileId: profileId, twoFactor: twoFactor)
     }
 
-    var jsonDictionary: [String: Any] {
-        var json = [String: Any]()
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: ProfileModelKeys.self)
+        try container.encode(profileId, forKey: .profileId)
+        try container.encode(twoFactor, forKey: .twoFactor)
 
         if let displayNames = displayNames {
-            json["display_name"] = displayNames
+            try container.encodeIfPresent(displayNames, forKey: .displayName)
         } else {
-            json["display_name"] = displayName
+            try container.encodeIfPresent(displayName, forKey: .displayName)
         }
-
-        json["profile_id"] = profileId
-        json["two_factor"] = twoFactor
-
-        return json
     }
+
 }
 
-extension ProfilesModel: Hashable {
-    var hashValue: Int {
-        return instanceInfo?.apiBaseUrl.hashValue ?? 0
-    }
-
-    static func == (lhs: ProfilesModel, rhs: ProfilesModel) -> Bool {
-        return lhs.instanceInfo?.apiBaseUrl == rhs.instanceInfo?.apiBaseUrl && lhs.instanceInfo?.instance?.providerType == rhs.instanceInfo?.instance?.providerType
-    }
-}
+//extension ProfilesModel: Hashable {
+//    var hashValue: Int {
+//        return instance?.apiBaseUrl.hashValue ?? 0
+//    }
+//
+//    static func == (lhs: ProfilesModel, rhs: ProfilesModel) -> Bool {
+//        return lhs.instance?.apiBaseUrl == rhs.instance?.apiBaseUrl
+//    }
+//}
 
 extension ProfileModel: Hashable {
     var hashValue: Int {

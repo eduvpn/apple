@@ -25,6 +25,8 @@ class ChooseProviderTableViewController: UITableViewController {
 
     weak var delegate: ChooseProviderTableViewControllerDelegate?
 
+    var providerType: ProviderType = .unknown
+
     var instances: InstancesModel? {
         didSet {
             self.tableView.reloadData()

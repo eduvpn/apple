@@ -8,6 +8,7 @@
 
 import UIKit
 import Moya
+import Disk
 import PromiseKit
 
 /// The AppCoordinator is our first coordinator
@@ -21,21 +22,70 @@ class AppCoordinator: RootViewCoordinator {
     let accessTokenPlugin =  CredentialStorePlugin()
 
     private var dynamicApiProviders = Set<DynamicApiProvider>()
-    private var profilesSet: Set<ProfilesModel> {
+
+    private var instanceInfoProfilesMapping: [InstanceInfoModel:ProfilesModel] {
         get {
-            if let loadedProfiles: Set<ProfilesModel> = profilesFileManager.loadFromDisk() {
-                return Set(loadedProfiles)
+            do {
+                return try Disk.retrieve("instanceInfoProfilesMapping.json", from: .documents, as: [InstanceInfoModel: ProfilesModel].self)
+            } catch {
+                //TODO handle error
+                print(error)
+                return [InstanceInfoModel: ProfilesModel]()
             }
-            return Set<ProfilesModel>()
         }
         set {
-            profilesFileManager.persistToDisk(data: Array(newValue))
+            do {
+                try Disk.save(newValue, to: .documents, as: "instanceInfoProfilesMapping.json")
+            } catch {
+                //TODO handle error
+                print(error)
+            }
+        }
+    }
+
+    private var internetInstancesModel: InstancesModel? {
+        get {
+            do {
+                return try Disk.retrieve("internet-instances.json", from: .documents, as: InstancesModel.self)
+            } catch {
+                //TODO handle error
+                print(error)
+                return nil
+            }
+        }
+        set {
+            do {
+                try Disk.save(newValue, to: .documents, as: "internet-instances.json")
+                self.connectionsTableViewController.internetInstancesModel = newValue
+            } catch {
+                //TODO handle error
+                print(error)
+            }
+        }
+    }
+
+    private var instituteInstancesModel: InstancesModel? {
+        get {
+            do {
+                return try Disk.retrieve("institute-instances.json", from: .documents, as: InstancesModel.self)
+            } catch {
+                //TODO handle error
+                print(error)
+                return nil
+            }
+        }
+        set {
+            do {
+                try Disk.save(newValue, to: .documents, as: "institute-instances.json")
+                self.connectionsTableViewController.instituteInstancesModel = newValue
+            } catch {
+                //TODO handle error
+                print(error)
+            }
         }
     }
 
     private var authorizingDynamicApiProvider: DynamicApiProvider?
-    private let profilesFileManager = ApplicationSupportFileManager(filename: "profiles.dat")
-    private let instancesFileManager = ApplicationSupportFileManager(filename: "instances.dat")
 
     var childCoordinators: [Coordinator] = []
 
@@ -68,6 +118,9 @@ class AppCoordinator: RootViewCoordinator {
     public func start() {
         //start
         connectionsTableViewController = storyboard.instantiateViewController(type: ConnectionsTableViewController.self)
+        connectionsTableViewController.internetInstancesModel = internetInstancesModel
+        connectionsTableViewController.instituteInstancesModel = instituteInstancesModel
+        connectionsTableViewController.instanceInfoProfilesMapping = instanceInfoProfilesMapping
         connectionsTableViewController.delegate = self
         self.navigationController.viewControllers = [connectionsTableViewController]
     }
@@ -94,11 +147,31 @@ class AppCoordinator: RootViewCoordinator {
         let provider = MoyaProvider<DynamicInstanceService>()
 
         _ = provider.request(target: DynamicInstanceService(baseURL: instance.baseUri)).then { response -> Promise<InstanceInfoModel> in
-            return response.mapResponseToInstanceInfo()
+            return response.mapResponse()
             }.then { instanceInfoModel -> Void in
-                var instanceInfo = instanceInfoModel
-                instanceInfo.instance = instance
-                let authorizingDynamicApiProvider = DynamicApiProvider(instanceInfo: instanceInfo)
+                var updatedInstance = instance
+                updatedInstance.instanceInfo = instanceInfoModel //TODO: assign value back to storage.
+
+                switch instance.providerType {
+                case .instituteAccess:
+                    if let index = self.instituteInstancesModel?.instances.index(where: { (instanceModel) -> Bool in
+                        return instanceModel.baseUri == updatedInstance.baseUri
+                    }) {
+                        self.instituteInstancesModel?.instances[index] = updatedInstance
+                    }
+                case .secureInternet:
+                    if let index = self.internetInstancesModel?.instances.index(where: { (instanceModel) -> Bool in
+                        return instanceModel.baseUri == updatedInstance.baseUri
+                    }) {
+                        self.internetInstancesModel?.instances[index] = updatedInstance
+                    }
+
+                case .unknown:
+                    precondition(false, "This should not happen")
+                    return
+                }
+
+                let authorizingDynamicApiProvider = DynamicApiProvider(instanceInfo: instanceInfoModel)
                 self.authorizingDynamicApiProvider = authorizingDynamicApiProvider
                 _ = authorizingDynamicApiProvider.authorize(presentingViewController: self.navigationController).then {_ in
                         self.navigationController.popToRootViewController(animated: true)
@@ -127,15 +200,15 @@ class AppCoordinator: RootViewCoordinator {
         chooseProviderTableViewController.delegate = self
         self.navigationController.pushViewController(chooseProviderTableViewController, animated: true)
 
-        if let instancesData: [String: Any] = instancesFileManager.loadFromDisk() {
-            chooseProviderTableViewController.instances = InstancesModel(json: instancesData, providerType: nil)
-        }
+        chooseProviderTableViewController.providerType = providerType
 
         let target: StaticService
         switch providerType {
         case .instituteAccess:
+            chooseProviderTableViewController.instances = instituteInstancesModel
             target = StaticService.instituteAccess
         case .secureInternet:
+            chooseProviderTableViewController.instances = internetInstancesModel
             target = StaticService.secureInternet
         case .unknown:
             return
@@ -143,10 +216,26 @@ class AppCoordinator: RootViewCoordinator {
 
         let provider = MoyaProvider<StaticService>()
         _ = provider.request(target: target).then { response -> Promise<InstancesModel> in
-            return response.mapResponseToInstances(providerType: providerType)
+
+            return response.mapResponse()
         }.then { (instances) -> Void in
-            //Store response to disk
-            self.instancesFileManager.persistToDisk(data: instances.jsonDictionary)
+            var instances = instances
+            instances.providerType = providerType
+            instances.instances = instances.instances.map({ (instanceModel) -> InstanceModel in
+                var instanceModel = instanceModel
+                instanceModel.providerType = providerType
+                return instanceModel
+            })
+
+            switch providerType {
+            case .instituteAccess:
+                self.instituteInstancesModel = instances
+            case .secureInternet:
+                self.internetInstancesModel = instances
+            case .unknown:
+                return
+            }
+
             chooseProviderTableViewController.instances = instances
         }
     }
@@ -170,11 +259,9 @@ class AppCoordinator: RootViewCoordinator {
 
     @discardableResult fileprivate func refreshProfile(for dynamicApiProvider: DynamicApiProvider) -> Promise<ProfilesModel> {
         return dynamicApiProvider.request(target: .profileList).then { response -> Promise<ProfilesModel> in
-            return response.mapResponseToProfiles()
+            return response.mapResponse()
         }.then { profiles -> Promise<ProfilesModel> in
-            var profiles = profiles
-            profiles.instanceInfo = dynamicApiProvider.instanceInfo
-            self.profilesSet.insert(profiles)
+            self.instanceInfoProfilesMapping[dynamicApiProvider.instanceInfo] = profiles
             return Promise(value: profiles)
         }
     }
@@ -182,7 +269,7 @@ class AppCoordinator: RootViewCoordinator {
     func profilesUpdated() {
         self.navigationController.viewControllers.forEach {
             if let connectionsViewController = $0 as? ConnectionsTableViewController {
-                connectionsViewController.profilesModels = self.profilesSet
+                connectionsViewController.instanceInfoProfilesMapping = self.instanceInfoProfilesMapping
             }
         }
     }

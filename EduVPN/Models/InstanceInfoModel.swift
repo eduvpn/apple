@@ -10,9 +10,7 @@ import Foundation
 import AppAuth
 import KeychainSwift
 
-struct InstanceInfoModel {
-
-    var instance: InstanceModel?
+struct InstanceInfoModel: Codable {
     var authorizationEndpoint: URL
     var tokenEndpoint: URL
     var apiBaseUrl: URL
@@ -32,31 +30,49 @@ struct InstanceInfoModel {
                 KeychainSwift().delete("instance-info-authState")
             }
         }
-    }//TODO Store this to keychain in better key
+    }//TODO Store this to keychain in a instance-info specific way
+}
 
-    init?(json: [String: Any]?) {
-        guard let api = json?["api"] as? [String: AnyObject] else {
-            return nil
-        }
+extension InstanceInfoModel {
+    enum InstanceInfoModelKeys: String, CodingKey {
+        case api
+        case apiInfo = "http://eduvpn.org/api#2"
+        case authorizationEndpoint = "authorization_endpoint"
+        case tokenEndpoint = "token_endpoint"
+        case apiBaseUrl = "api_base_uri"
+    }
 
-        guard let apiInfo = api["http://eduvpn.org/api#2"] as? [String: AnyObject] else {
-            return nil
-        }
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: InstanceInfoModelKeys.self)
 
-        guard let authorizationEndpointString = apiInfo["authorization_endpoint"] as? String, let authorizationEndpoint = URL(string: authorizationEndpointString) else {
-            return nil
-        }
+        let apiContainer = try container.nestedContainer(keyedBy: InstanceInfoModelKeys.self, forKey: .api)
+        let apiInfoContainer = try apiContainer.nestedContainer(keyedBy: InstanceInfoModelKeys.self, forKey: .apiInfo)
 
-        guard let tokenEndpointString = apiInfo["token_endpoint"] as? String, let tokenEndpoint = URL(string: tokenEndpointString) else {
-            return nil
-        }
+        let authorizationEndpoint = try apiInfoContainer.decode(URL.self, forKey: .authorizationEndpoint)
+        let tokenEndpoint = try apiInfoContainer.decode(URL.self, forKey: .tokenEndpoint)
+        let apiBaseUrl = try apiInfoContainer.decode(URL.self, forKey: .apiBaseUrl)
 
-        guard let apiBaseUrlString = apiInfo["api_base_uri"] as? String, let apiBaseUrl = URL(string: apiBaseUrlString) else {
-            return nil
-        }
+        self.init(authorizationEndpoint: authorizationEndpoint, tokenEndpoint: tokenEndpoint, apiBaseUrl: apiBaseUrl)
+    }
 
-        self.authorizationEndpoint = authorizationEndpoint
-        self.tokenEndpoint = tokenEndpoint
-        self.apiBaseUrl = apiBaseUrl
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: InstanceInfoModelKeys.self)
+
+        var apiContainer = container.nestedContainer(keyedBy: InstanceInfoModelKeys.self, forKey: .api)
+        var apiInfoContainer = apiContainer.nestedContainer(keyedBy: InstanceInfoModelKeys.self, forKey: .apiInfo)
+
+        try apiInfoContainer.encode(authorizationEndpoint, forKey: .authorizationEndpoint)
+        try apiInfoContainer.encode(tokenEndpoint, forKey: .tokenEndpoint)
+        try apiInfoContainer.encode(apiBaseUrl, forKey: .apiBaseUrl)
+    }
+}
+
+extension InstanceInfoModel: Hashable {
+    var hashValue: Int {
+        return apiBaseUrl.hashValue
+    }
+
+    static func == (lhs: InstanceInfoModel, rhs: InstanceInfoModel) -> Bool {
+        return lhs.apiBaseUrl == rhs.apiBaseUrl
     }
 }

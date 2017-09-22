@@ -26,42 +26,51 @@ protocol ConnectionsTableViewControllerDelegate: class {
 class ConnectionsTableViewController: UITableViewController {
     weak var delegate: ConnectionsTableViewControllerDelegate?
 
-    var profilesModels = Set<ProfilesModel>() {
+    var internetInstancesModel: InstancesModel? {
         didSet {
-            instituteAccessModels.removeAll()
-            internetAccessModels.removeAll()
+            dataUpdated()
+        }
+    }
+    var instituteInstancesModel: InstancesModel? {
+    didSet {
+        dataUpdated()
+        }
+    }
 
-            profilesModels.forEach { (profilesModel) in
-                profilesModel.profiles.forEach({ (profileModel) in
-                    if let providerType = profilesModel.instanceInfo?.instance?.providerType {
-                        switch providerType {
-                        case .instituteAccess:
-                            instituteProfilesModel = profilesModel
-                            instituteAccessModels.append(profileModel)
-                        case .secureInternet:
-                            internetProfilesModel = profilesModel
-                            internetAccessModels.append(profileModel)
-                        case .unknown:
-                            return
-                        }
-                    }
+    var instanceInfoProfilesMapping: [InstanceInfoModel:ProfilesModel] = [InstanceInfoModel: ProfilesModel]() {
+        didSet {
+            dataUpdated()
+        }
+    }
+
+    private func dataUpdated() {
+        internetAccessModels.removeAll()
+        instituteAccessModels.removeAll()
+        profileInstanceMapping.removeAll()
+
+        internetInstancesModel?.instances.forEach({ (instance) in
+            if let instanceInfo = instance.instanceInfo {
+                instanceInfoProfilesMapping[instanceInfo]?.profiles.forEach({ (profile) in
+                    internetAccessModels.append(profile)
+                    profileInstanceMapping[profile] = instance
                 })
             }
+        })
 
-            self.tableView.reloadData()
-        }
+        instituteInstancesModel?.instances.forEach({ (instance) in
+            if let instanceInfo = instance.instanceInfo {
+                instanceInfoProfilesMapping[instanceInfo]?.profiles.forEach({ (profile) in
+                    instituteAccessModels.append(profile)
+                    profileInstanceMapping[profile] = instance
+                })
+            }
+        })
+        self.tableView.reloadData()
     }
 
-    private var internetProfilesModel: ProfilesModel?
     private var internetAccessModels = [ProfileModel]()
-    private var instituteProfilesModel: ProfilesModel?
     private var instituteAccessModels = [ProfileModel]()
-
-    var instanceInfoModels: [InstanceInfoModel]? {
-        didSet {
-            self.tableView.reloadData()
-        }
-    }
+    private var profileInstanceMapping = [ProfileModel: InstanceModel]()
 
     @IBAction func addProvider(_ sender: Any) {
         delegate?.addProvider(connectionsTableViewController: self)
@@ -110,22 +119,19 @@ class ConnectionsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let profileModel: ProfileModel
-        let profilesModel: ProfilesModel?
 
         switch indexPath.section {
         case 0:
             profileModel = internetAccessModels[indexPath.row]
-            profilesModel = internetProfilesModel
         default:
             profileModel = instituteAccessModels[indexPath.row]
-            profilesModel = instituteProfilesModel
         }
 
         let cell = tableView.dequeueReusableCell(type: ConnectTableViewCell.self, for: indexPath)
 
-        cell.connectTitleLabel?.text = profilesModel?.instanceInfo?.instance?.displayName
+        cell.connectTitleLabel?.text = profileModel.displayName
         cell.connectSubTitleLabel?.text = profileModel.displayName
-        if let logoUri = profilesModel?.instanceInfo?.instance?.logoUrl {
+        if let logoUri = profileInstanceMapping[profileModel]?.logoUrl {
             cell.connectImageView?.af_setImage(withURL: logoUri)
         } else {
             cell.connectImageView.af_cancelImageRequest()

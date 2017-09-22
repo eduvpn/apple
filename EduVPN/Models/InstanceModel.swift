@@ -8,97 +8,91 @@
 
 import Foundation
 
-enum AuthorizationType: String {
+enum InstancesModelError: Swift.Error {
+    case signedAtDate
+}
+
+enum AuthorizationType: String, Codable {
     case local
     case distributed
 }
 
-struct InstancesModel: JSONSerializable {
-    var providerType: ProviderType
+struct InstancesModel: Codable {
+    var providerType: ProviderType?
     var authorizationType: AuthorizationType
     var seq: Int
     var signedAt: Date
     var instances: [InstanceModel]
+}
 
-    init?(json: [String: Any]?, providerType: ProviderType?) {
-        guard let json = json else {
-            return nil
-        }
-
-        guard let authorizationTypeString = json["authorization_type"] as? String, let authorizationType = AuthorizationType(rawValue: authorizationTypeString) else {
-            return nil
-        }
-
-        guard let seq = json["seq"] as? Int else {
-            return nil
-        }
-
-        guard let dateString = json["signed_at"] as? String, let signedAt = signedAtDateFormatter.date(from: dateString) else {
-            return nil
-        }
-
-        guard let instances = json["instances"] as? [[String:AnyObject]] else {
-            return nil
-        }
-
-        if let providerType = providerType {
-            self.providerType = providerType
-        } else {
-            guard let providerTypeString = json["provider_type"] as? String, let providerType = ProviderType(rawValue: providerTypeString) else {
-                return nil
-            }
-            self.providerType = providerType
-        }
-        self.authorizationType = authorizationType
-        self.seq = seq
-        self.signedAt = signedAt
-        self.instances = instances.flatMap { InstanceModel(json:$0, providerType: providerType) }
+extension InstancesModel {
+    enum InstancesModelKeys: String, CodingKey {
+        case providerType = "provider_type"
+        case authorizationType = "authorization_type"
+        case seq
+        case signedAt = "signed_at"
+        case instances
     }
 
-    var jsonDictionary: [String: Any] {
-        var json = [String: Any]()
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: InstancesModelKeys.self)
 
-        json["authorization_type"] = authorizationType.rawValue
-        json["seq"] = seq
-        json["signed_at"] = signedAtDateFormatter.string(from: signedAt)
-        json["provider_type"] = providerType.rawValue
-        json["instances"] = self.instances.map({$0.jsonDictionary})
+        let providerType = try container.decodeIfPresent(ProviderType.self, forKey: .providerType)
+        let authorizationType = try container.decode(AuthorizationType.self, forKey: .authorizationType) //TODO: Provider type is sometimes missing?
+        let seq = try container.decode(Int.self, forKey: .seq)
+        let signedAtString = try container.decode(String.self, forKey: .signedAt)
+        guard let signedAt = signedAtDateFormatter.date(from: signedAtString) else {
+            throw InstancesModelError.signedAtDate
+        }
 
-        return json
+        let instances = try container.decode([InstanceModel].self, forKey: .instances)
+        self.init(providerType: providerType, authorizationType: authorizationType, seq: seq, signedAt: signedAt, instances: instances)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: InstancesModelKeys.self)
+        try container.encodeIfPresent(providerType, forKey: .providerType)
+        try container.encode(authorizationType, forKey: .authorizationType)
+        try container.encode(seq, forKey: .seq)
+        let signedAtString = signedAtDateFormatter.string(from: signedAt)
+        try container.encode(signedAtString, forKey: .signedAt)
+        try container.encode(instances, forKey: .instances)
     }
 }
 
-struct InstanceModel: JSONSerializable {
+struct InstanceModel: Codable {
     var providerType: ProviderType
     var baseUri: URL
     var displayNames: [String: String]?
-    var logoUrlStrings: [String: String]?
+    var logoUrls: [String: URL]?
+
+    var instanceInfo: InstanceInfoModel?
 
     var displayName: String?
     var logoUrl: URL?
+}
 
-    init?(json: [String: AnyObject]?, providerType: ProviderType?) {
-        guard let json = json else {
-            return nil
-        }
+extension InstanceModel {
+    enum InstanceModelKeys: String, CodingKey {
+        case instanceInfo = "instance_info"
+        case providerType = "provider_type"
+        case baseUri = "base_uri"
+        case displayName = "display_name"
+        case logo = "logo"
+    }
 
-        guard let baseUriString = json["base_uri"] as? String, let baseUri = URL(string: baseUriString) else {
-            return nil
-        }
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: InstanceModelKeys.self)
 
-        if let providerType = providerType {
-            self.providerType = providerType
-        } else {
-            guard let providerTypeString = json["provider_type"] as? String, let providerType = ProviderType(rawValue: providerTypeString) else {
-                return nil
-            }
-            self.providerType = providerType
-        }
+        let instanceInfo = try? container.decode(InstanceInfoModel.self, forKey: .instanceInfo)
 
-        if let displayName = json["display_name"] as? String {
-            self.displayName = displayName
-        } else if let displayNames = json["display_name"] as? [String: String] {
-            self.displayNames = displayNames
+        let baseUri = try container.decode(URL.self, forKey: .baseUri)
+        let providerType = try container.decodeIfPresent(ProviderType.self, forKey: .providerType) ?? .unknown
+
+        var displayName: String? = nil
+        let displayNames = try? container.decode(Dictionary<String, String>.self, forKey: .displayName)
+
+        if let displayNames = displayNames {
             let preferedLocalization = Bundle.preferredLocalizations(from: Array(displayNames.keys))
             for localeIdentifier in preferedLocalization {
                 if let displayNameCandidate = displayNames[localeIdentifier] {
@@ -107,43 +101,46 @@ struct InstanceModel: JSONSerializable {
                 }
             }
         } else {
-            return nil
+            displayName = try container.decode(String.self, forKey: .displayName)
         }
 
-        if let logoUrlString = json["logo"] as? String {
-            logoUrl = URL(string: logoUrlString)
-        } else if let logoUrlStrings = json["logo"] as? [String: String] {
-            self.logoUrlStrings = logoUrlStrings
-            let preferedLocalization = Bundle.preferredLocalizations(from: Array(logoUrlStrings.keys))
+        var logoUrl: URL? = nil
+        let logoUrls: [String: URL]? = try? container.decode([String: URL].self, forKey: .logo)
+
+        if let logoUrls = logoUrls {
+            let preferedLocalization = Bundle.preferredLocalizations(from: Array(logoUrls.keys))
             for localeIdentifier in preferedLocalization {
-                if let logoUrlStringCandidate = logoUrlStrings[localeIdentifier] {
-                    logoUrl = URL(string: logoUrlStringCandidate)
+                if let logoUrlCandidate = logoUrls[localeIdentifier] {
+                    logoUrl = logoUrlCandidate
                     break
                 }
             }
         } else {
-            return nil
+            logoUrl = try container.decode(URL.self, forKey: .logo)
         }
 
-        self.baseUri = baseUri
+        self.init(providerType: providerType, baseUri: baseUri, displayNames: displayNames, logoUrls: logoUrls, instanceInfo: instanceInfo, displayName: displayName, logoUrl: logoUrl)
     }
 
-    var jsonDictionary: [String: Any] {
-        var json = [String: Any]()
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: InstanceModelKeys.self)
 
-        json["base_uri"] = baseUri.absoluteString
+        try container.encode(baseUri, forKey: .baseUri)
+        try container.encodeIfPresent(providerType, forKey: .providerType)
+
+        try container.encodeIfPresent(instanceInfo, forKey: .instanceInfo)
+
         if let displayNames = displayNames {
-            json["display_name"] = displayNames
+            try container.encodeIfPresent(displayNames, forKey: .displayName)
         } else {
-            json["display_name"] = displayName
+            try container.encodeIfPresent(displayName, forKey: .displayName)
         }
 
-        if let logoUrlStrings = logoUrlStrings {
-            json["logo"] = logoUrlStrings
+        if let logoUrls = logoUrls {
+            try container.encodeIfPresent(logoUrls, forKey: .logo)
+        } else {
+            try container.encodeIfPresent(logoUrl, forKey: .logo)
         }
 
-        json["provider_type"] = providerType.rawValue
-
-        return json
     }
 }
