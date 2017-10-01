@@ -91,16 +91,6 @@ extension ProfileModel {
 
 }
 
-//extension ProfilesModel: Hashable {
-//    var hashValue: Int {
-//        return instance?.apiBaseUrl.hashValue ?? 0
-//    }
-//
-//    static func == (lhs: ProfilesModel, rhs: ProfilesModel) -> Bool {
-//        return lhs.instance?.apiBaseUrl == rhs.instance?.apiBaseUrl
-//    }
-//}
-
 extension ProfileModel: Hashable {
     var hashValue: Int {
         return profileId.hashValue

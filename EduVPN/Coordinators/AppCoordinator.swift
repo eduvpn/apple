@@ -23,6 +23,8 @@ class AppCoordinator: RootViewCoordinator {
 
     private var dynamicApiProviders = Set<DynamicApiProvider>()
 
+    private var currentDocumentInteractionController: UIDocumentInteractionController?
+
     private var instanceInfoProfilesMapping: [InstanceInfoModel:ProfilesModel] {
         get {
             do {
@@ -125,14 +127,6 @@ class AppCoordinator: RootViewCoordinator {
         self.navigationController.viewControllers = [connectionsTableViewController]
     }
 
-    fileprivate func authenticate(instance: InstanceModel) {
-
-    }
-
-    fileprivate func connect(instance: InstanceModel) {
-
-    }
-
     func showSettingsTableViewController() {
         let settingsTableViewController = storyboard.instantiateViewController(type: SettingsTableViewController.self)
 
@@ -150,7 +144,7 @@ class AppCoordinator: RootViewCoordinator {
             return response.mapResponse()
             }.then { instanceInfoModel -> Void in
                 var updatedInstance = instance
-                updatedInstance.instanceInfo = instanceInfoModel //TODO: assign value back to storage.
+                updatedInstance.instanceInfo = instanceInfoModel
 
                 switch instance.providerType {
                 case .instituteAccess:
@@ -176,7 +170,7 @@ class AppCoordinator: RootViewCoordinator {
                 _ = authorizingDynamicApiProvider.authorize(presentingViewController: self.navigationController).then {_ in
                         self.navigationController.popToRootViewController(animated: true)
                     }.then { _ in
-                    return self.refreshProfile(for: authorizingDynamicApiProvider).then {_ in
+                    return self.refreshProfiles(for: authorizingDynamicApiProvider).then {_ in
                         self.profilesUpdated()
                     }
                 }
@@ -240,6 +234,38 @@ class AppCoordinator: RootViewCoordinator {
         }
     }
 
+    func fetchAndTransferProfileToConnectApp(for profile: ProfileModel, on instance: InstanceModel) {
+        print(profile)
+        guard let instanceInfo = instance.instanceInfo else {
+            precondition(false, "This shold never happen")
+            return
+        }
+
+        let dynamicApiProvider = DynamicApiProvider(instanceInfo: instanceInfo)
+
+        dynamicApiProvider.request(target: .createConfig(displayName: "iOS Created Profile", profileId: profile.profileId)).then { response -> Void in
+            // TODO validate response
+            try Disk.save(response.data, to: .documents, as: "new_profile.ovpn")
+            let url = try Disk.getURL(for: "new_profile.ovpn", in: .documents)
+
+            self.currentDocumentInteractionController = UIDocumentInteractionController(url: url)
+            if let currentViewController = self.navigationController.visibleViewController {
+                self.currentDocumentInteractionController?.presentOpenInMenu(from: currentViewController.view.frame, in: currentViewController.view, animated: true)
+            }
+            return ()
+//            return response.mapResponse()
+//            }.then { profiles -> Promise<ProfilesModel> in
+//                self.instanceInfoProfilesMapping[dynamicApiProvider.instanceInfo] = profiles
+//                return Promise(value: profiles)
+        }
+    }
+
+    func showConnectionViewController(for profile: ProfileModel, on instance: InstanceModel) {
+        let connectionViewController = storyboard.instantiateViewController(type: VPNConnectionViewController.self)
+        connectionViewController.delegate = self
+        self.navigationController.pushViewController(connectionViewController, animated: true)
+    }
+
     func resumeAuthorizationFlow(url: URL) -> Bool {
         if let authorizingDynamicApiProvider = authorizingDynamicApiProvider {
             if authorizingDynamicApiProvider.currentAuthorizationFlow?.resumeAuthorizationFlow(with: url) == true {
@@ -253,11 +279,12 @@ class AppCoordinator: RootViewCoordinator {
     }
 
     @discardableResult fileprivate func refreshProfiles() -> Promise<[ProfilesModel]> {
-        let promises = dynamicApiProviders.map({self.refreshProfile(for: $0)})
+        // TODO Should this be based on instance info objects?
+        let promises = dynamicApiProviders.map({self.refreshProfiles(for: $0)})
         return when(fulfilled: promises)
     }
 
-    @discardableResult fileprivate func refreshProfile(for dynamicApiProvider: DynamicApiProvider) -> Promise<ProfilesModel> {
+    @discardableResult fileprivate func refreshProfiles(for dynamicApiProvider: DynamicApiProvider) -> Promise<ProfilesModel> {
         return dynamicApiProvider.request(target: .profileList).then { response -> Promise<ProfilesModel> in
             return response.mapResponse()
         }.then { profiles -> Promise<ProfilesModel> in
@@ -288,6 +315,11 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
     func addProvider(connectionsTableViewController: ConnectionsTableViewController) {
         showProfilesViewController()
     }
+
+    func connect(profile: ProfileModel, on instance: InstanceModel) {
+// TODO implement OpenVPN3 client lib        showConnectionViewController(for:profile)
+        fetchAndTransferProfileToConnectApp(for:profile, on: instance)
+    }
 }
 
 extension AppCoordinator: ProfilesViewControllerDelegate {
@@ -305,4 +337,8 @@ extension AppCoordinator: ChooseProviderTableViewControllerDelegate {
     func didSelect(instance: InstanceModel, chooseProviderTableViewController: ChooseProviderTableViewController) {
         self.refresh(instance: instance)
     }
+}
+
+extension AppCoordinator: VPNConnectionViewControllerDelegate {
+
 }

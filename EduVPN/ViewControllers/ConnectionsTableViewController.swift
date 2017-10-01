@@ -20,7 +20,7 @@ extension ConnectTableViewCell: Identifyable {}
 protocol ConnectionsTableViewControllerDelegate: class {
     func addProvider(connectionsTableViewController: ConnectionsTableViewController)
     func settings(connectionsTableViewController: ConnectionsTableViewController)
-
+    func connect(profile: ProfileModel, on instance: InstanceModel)
 }
 
 class ConnectionsTableViewController: UITableViewController {
@@ -141,6 +141,22 @@ class ConnectionsTableViewController: UITableViewController {
         return cell
     }
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let profileModel: ProfileModel
+
+        switch indexPath.section {
+        case 0:
+            profileModel = internetAccessModels[indexPath.row]
+        default:
+            profileModel = instituteAccessModels[indexPath.row]
+        }
+
+        if let instance = profileInstanceMapping[profileModel] {
+            delegate?.connect(profile:profileModel, on: instance)
+        }
+
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }
 
 extension ConnectionsTableViewController: Identifyable {}

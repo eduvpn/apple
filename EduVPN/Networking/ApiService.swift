@@ -60,7 +60,7 @@ extension ApiService {
         case .profileList, .userInfo, .systemMessages, .userMessages:
             return .requestPlain
         case .createConfig(let displayName, let profileId):
-            return .requestParameters(parameters: ["display_name": displayName, "profile_id": profileId], encoding: JSONEncoding.default)
+            return .requestParameters(parameters: ["display_name": displayName, "profile_id": profileId], encoding: URLEncoding.httpBody)
         case .createKeypair(let displayName):
             return .requestParameters(parameters: ["display_name": displayName], encoding: JSONEncoding.default)
         case .profileConfig(let profileId):
@@ -84,11 +84,9 @@ struct DynamicApiService: TargetType, AcceptJson {
 }
 
 class DynamicApiProvider: MoyaProvider<DynamicApiService> {
-    let instanceInfo: InstanceInfoModel
+    var instanceInfo: InstanceInfoModel
     let authConfig: OIDServiceConfiguration
     private var credentialStorePlugin: CredentialStorePlugin
-
-    var authState: OIDAuthState?
 
     var currentAuthorizationFlow: OIDAuthorizationFlowSession?
 
@@ -103,14 +101,12 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
                     return
                 }
 
-                self.authState = authState
+                self.instanceInfo.authState = authState
 
                 precondition(authState != nil, "THIS SHOULD NEVER HAPPEN")
 
-                //TODO: Use CredentialStorePlugin
                 print("Got authorization tokens. Access token: \(String(describing: authState!.lastTokenResponse?.accessToken))")
                 fulfill(authState!)
-
             })
         })
     }
@@ -136,7 +132,7 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
                         queue: DispatchQueue? = nil,
                         progress: Moya.ProgressBlock? = nil) -> Promise<Moya.Response> {
         return Promise(resolvers: { fulfill, reject in
-            if let authState = self.authState {
+            if let authState = self.instanceInfo.authState {
                 authState.performAction(freshTokens: { (accessToken, _, error) in
                     if let error = error {
                         reject(error)

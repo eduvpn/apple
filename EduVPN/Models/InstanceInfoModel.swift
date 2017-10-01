@@ -14,7 +14,7 @@ struct InstanceInfoModel: Codable {
     var authorizationEndpoint: URL
     var tokenEndpoint: URL
     var apiBaseUrl: URL
-    var auth: OIDAuthState? {
+    var authState: OIDAuthState? {
         get {
             if let data = KeychainSwift().getData("instance-info-authState") {
                 return NSKeyedUnarchiver.unarchiveObject(with: data) as? OIDAuthState

@@ -38,7 +38,7 @@ extension InstancesModel {
         let container = try decoder.container(keyedBy: InstancesModelKeys.self)
 
         let providerType = try container.decodeIfPresent(ProviderType.self, forKey: .providerType)
-        let authorizationType = try container.decode(AuthorizationType.self, forKey: .authorizationType) //TODO: Provider type is sometimes missing?
+        let authorizationType = try container.decode(AuthorizationType.self, forKey: .authorizationType)
         let seq = try container.decode(Int.self, forKey: .seq)
         let signedAtString = try container.decode(String.self, forKey: .signedAt)
         guard let signedAt = signedAtDateFormatter.date(from: signedAtString) else {
