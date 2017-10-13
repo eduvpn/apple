@@ -14,9 +14,12 @@ struct InstanceInfoModel: Codable {
     var authorizationEndpoint: URL
     var tokenEndpoint: URL
     var apiBaseUrl: URL
+    private var keychainKey: String {
+        return "\(authorizationEndpoint.absoluteString)|instance-info-authState"
+    }
     var authState: OIDAuthState? {
         get {
-            if let data = KeychainSwift().getData("instance-info-authState") {
+            if let data = KeychainSwift().getData(keychainKey) {
                 return NSKeyedUnarchiver.unarchiveObject(with: data) as? OIDAuthState
             } else {
                 return nil
@@ -25,12 +28,12 @@ struct InstanceInfoModel: Codable {
         set {
             if let newValue = newValue {
                 let data = NSKeyedArchiver.archivedData(withRootObject: newValue)
-                KeychainSwift().set(data, forKey: "instance-info-authState")
+                KeychainSwift().set(data, forKey: keychainKey)
             } else {
-                KeychainSwift().delete("instance-info-authState")
+                KeychainSwift().delete(keychainKey)
             }
         }
-    }//TODO Store this to keychain in a instance-info specific way
+    }
 }
 
 extension InstanceInfoModel {
