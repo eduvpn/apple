@@ -213,6 +213,7 @@ class AppCoordinator: RootViewCoordinator {
 
             return response.mapResponse()
         }.then { (instances) -> Void in
+            //TODO verify response with libsodium
             var instances = instances
             instances.providerType = providerType
             instances.instances = instances.instances.map({ (instanceModel) -> InstanceModel in
