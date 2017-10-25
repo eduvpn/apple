@@ -244,6 +244,7 @@
 				4AAC1F9A1F2D104000DD0252 /* Set build number */,
 				7E2504203DF38CAC3F8E1102 /* [CP] Embed Pods Frameworks */,
 				61AAE3AE256E9F03ABDDA78F /* [CP] Copy Pods Resources */,
+				4A8D2DDE1FA04B030027ED05 /* Fabric */,
 			);
 			buildRules = (
 			);
@@ -337,6 +338,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4A8D2DDE1FA04B030027ED05 /* Fabric */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Fabric;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" c75d4ddb5a0ec81d2904d36d9f2471af281f0301 de80ded75a6111b3f33a1ed9bcdab9777961f720f1bcd3e36088cfad5193385f";
+		};
 		4AAC1F991F2D0FFA00DD0252 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
