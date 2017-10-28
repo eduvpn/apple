@@ -25,13 +25,13 @@ extension StaticService: TargetType, AcceptJson {
     var path: String {
         switch self {
         case .instituteAccess:
-            return "/institute_access_dev.json"
+            return "/institute_access.json"
         case .instituteAccessSignature:
-            return "/institute_access_dev.json.sig"
+            return "/institute_access.json.sig"
         case .secureInternet:
-            return "/secure_internet_dev.json"
+            return "/secure_internet.json"
         case .secureInternetSignature:
-            return "/secure_internet_dev.json.sig"
+            return "/secure_internet.json.sig"
         }
     }
 
