@@ -93,6 +93,10 @@ class ConnectionsTableViewController: UITableViewController {
         }
     }
 
+    var empty: Bool {
+        return internetAccessModels.count + instituteAccessModels.count == 0
+    }
+
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:

@@ -125,6 +125,10 @@ class AppCoordinator: RootViewCoordinator {
         connectionsTableViewController.instanceInfoProfilesMapping = instanceInfoProfilesMapping
         connectionsTableViewController.delegate = self
         self.navigationController.viewControllers = [connectionsTableViewController]
+
+        if connectionsTableViewController.empty {
+            showProfilesViewController()
+        }
     }
 
     func showSettingsTableViewController() {
@@ -186,6 +190,7 @@ class AppCoordinator: RootViewCoordinator {
     fileprivate func showProfilesViewController() {
         let profilesViewController = storyboard.instantiateViewController(type: ProfilesViewController.self)
         profilesViewController.delegate = self
+        profilesViewController.navigationItem.hidesBackButton = connectionsTableViewController.empty
         self.navigationController.pushViewController(profilesViewController, animated: true)
     }
 
