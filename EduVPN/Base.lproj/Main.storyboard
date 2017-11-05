@@ -364,6 +364,57 @@
             </objects>
             <point key="canvasLocation" x="2312" y="-263"/>
         </scene>
+        <!--Provide the URL to your provider-->
+        <scene sceneID="bSn-Nd-0se">
+            <objects>
+                <viewController storyboardIdentifier="CustomProviderInPutViewController" id="KZY-IT-pRj" customClass="CustomProviderInPutViewController" customModule="EduVPN" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="eai-eu-qF9"/>
+                        <viewControllerLayoutGuide type="bottom" id="flK-T7-Zab"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="c2O-1v-CwK">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eoq-wR-HEK">
+                                <rect key="frame" x="8" y="378" width="304" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="9bu-YX-eLB"/>
+                                </constraints>
+                                <state key="normal" title="Connect"/>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MpY-jL-VFr">
+                                <rect key="frame" x="71" y="100" width="233" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="https://" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DDH-r5-hXt">
+                                <rect key="frame" x="16" y="105" width="55" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="MpY-jL-VFr" firstAttribute="top" secondItem="eai-eu-qF9" secondAttribute="bottom" constant="100" id="0p6-gS-osx"/>
+                            <constraint firstItem="MpY-jL-VFr" firstAttribute="centerY" secondItem="DDH-r5-hXt" secondAttribute="centerY" id="6Sa-9d-kVS"/>
+                            <constraint firstItem="MpY-jL-VFr" firstAttribute="leading" secondItem="DDH-r5-hXt" secondAttribute="trailing" id="Mv9-Nz-zsP"/>
+                            <constraint firstItem="flK-T7-Zab" firstAttribute="top" secondItem="eoq-wR-HEK" secondAttribute="bottom" constant="8" id="apd-1b-Ktr"/>
+                            <constraint firstAttribute="trailing" secondItem="eoq-wR-HEK" secondAttribute="trailing" constant="8" id="c7A-9T-SAK"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="MpY-jL-VFr" secondAttribute="trailing" id="l4Y-LS-Ryq"/>
+                            <constraint firstItem="eoq-wR-HEK" firstAttribute="leading" secondItem="c2O-1v-CwK" secondAttribute="leading" constant="8" id="v8C-bP-dUN"/>
+                            <constraint firstItem="DDH-r5-hXt" firstAttribute="leading" secondItem="c2O-1v-CwK" secondAttribute="leadingMargin" id="w4r-si-HNM"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Provide the URL to your provider" id="v7M-Y1-adT"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0vG-Vb-e3t" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3016.875" y="-265"/>
+        </scene>
         <!--Connect to VPN-->
         <scene sceneID="Ns6-kN-aOV">
             <objects>

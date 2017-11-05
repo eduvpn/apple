@@ -223,6 +223,12 @@ class AppCoordinator: RootViewCoordinator {
         self.navigationController.pushViewController(profilesViewController, animated: true)
     }
 
+    fileprivate func showCustomProviderInPutViewController(for providerType: ProviderType) {
+        let customProviderInputViewController = storyboard.instantiateViewController(type: CustomProviderInPutViewController.self)
+        customProviderInputViewController.delegate = self
+        self.navigationController.pushViewController(customProviderInputViewController, animated: true)
+    }
+
     fileprivate func showChooseProviderTableViewController(for providerType: ProviderType) {
         let chooseProviderTableViewController = storyboard.instantiateViewController(type:ChooseProviderTableViewController.self)
         chooseProviderTableViewController.delegate = self
@@ -374,9 +380,17 @@ extension AppCoordinator: ProfilesViewControllerDelegate {
 }
 
 extension AppCoordinator: ChooseProviderTableViewControllerDelegate {
+    func didSelectOther(providerType: ProviderType) {
+        showCustomProviderInPutViewController(for: providerType)
+    }
+
     func didSelect(instance: InstanceModel, chooseProviderTableViewController: ChooseProviderTableViewController) {
         self.refresh(instance: instance)
     }
+}
+
+extension AppCoordinator: CustomProviderInPutViewControllerDelegate {
+
 }
 
 extension AppCoordinator: VPNConnectionViewControllerDelegate {

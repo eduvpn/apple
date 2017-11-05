@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3DC0FAC0347BAC5E5B926891 /* Pods_EduVPN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A98FDE8E7D70D8F159D7C95 /* Pods_EduVPN.framework */; };
 		4A1140841F78490C00D61100 /* VPNConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */; };
+		4A2803D91FA6867D00FA895C /* CustomProviderInPutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2803D81FA6867D00FA895C /* CustomProviderInPutViewController.swift */; };
 		4A2CC2221F4233E8004119B1 /* Identifyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2CC2211F4233E8004119B1 /* Identifyable.swift */; };
 		4A3E029C1F6C4B3D00D20292 /* Moya+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3E029B1F6C4B3D00D20292 /* Moya+Extensions.swift */; };
 		4A4CA90F1F55F4300021FD5D /* UITableView+EduVPN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CA90E1F55F4300021FD5D /* UITableView+EduVPN.swift */; };
@@ -51,6 +52,7 @@
 
 /* Begin PBXFileReference section */
 		4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNConnectionViewController.swift; sourceTree = "<group>"; };
+		4A2803D81FA6867D00FA895C /* CustomProviderInPutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProviderInPutViewController.swift; sourceTree = "<group>"; };
 		4A2CC2211F4233E8004119B1 /* Identifyable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifyable.swift; sourceTree = "<group>"; };
 		4A3E029B1F6C4B3D00D20292 /* Moya+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Moya+Extensions.swift"; sourceTree = "<group>"; };
 		4A4CA90E1F55F4300021FD5D /* UITableView+EduVPN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+EduVPN.swift"; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 				4AF3DF051F424535003EC0BA /* SettingsTableViewController.swift */,
 				4AF3DF071F4245A5003EC0BA /* ConnectionsTableViewController.swift */,
 				4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */,
+				4A2803D81FA6867D00FA895C /* CustomProviderInPutViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -460,6 +463,7 @@
 				4A3E029C1F6C4B3D00D20292 /* Moya+Extensions.swift in Sources */,
 				4AF3DF081F4245A5003EC0BA /* ConnectionsTableViewController.swift in Sources */,
 				4AD0AD5F1F350822006E1337 /* Moya+ResponseHandling.swift in Sources */,
+				4A2803D91FA6867D00FA895C /* CustomProviderInPutViewController.swift in Sources */,
 				4A8D241F1F3976A2004A9343 /* ProfilesViewController.swift in Sources */,
 				4A8D24331F3A3995004A9343 /* ApiModel.swift in Sources */,
 				4A983B791F397289004F82D5 /* Coordinator.swift in Sources */,

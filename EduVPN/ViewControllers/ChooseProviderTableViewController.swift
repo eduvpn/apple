@@ -18,6 +18,7 @@ class ProviderTableViewCell: UITableViewCell {
 }
 
 protocol ChooseProviderTableViewControllerDelegate: class {
+    func didSelectOther(providerType: ProviderType)
     func didSelect(instance: InstanceModel, chooseProviderTableViewController: ChooseProviderTableViewController)
 }
 
@@ -34,27 +35,36 @@ class ChooseProviderTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return instances?.instances.count ?? 0
+        return (instances?.instances.count ?? 0) + 1
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let instance = instances!.instances[indexPath.row]
-
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProviderCell", for: indexPath)
 
         if let providerCell = cell as? ProviderTableViewCell {
-            if let logoUrl = instance.logoUrl {
-                providerCell.providerImageView?.af_setImage(withURL: logoUrl)
+            if indexPath.row >= instances?.instances.count ?? 0 {
+                providerCell.providerImageView?.af_cancelImageRequest()
+                providerCell.providerImageView?.image = #imageLiteral(resourceName: "external_provider")
+                providerCell.providerTitleLabel?.text = NSLocalizedString("Andere provider", comment: "")
+            } else {
+                let instance = instances!.instances[indexPath.row]
+                if let logoUrl = instance.logoUrl {
+                    providerCell.providerImageView?.af_setImage(withURL: logoUrl)
+                }
+                providerCell.providerTitleLabel?.text = instance.displayName
             }
-            providerCell.providerTitleLabel?.text = instance.displayName
         }
         return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let instance = instances!.instances[indexPath.row]
+        if indexPath.row >= instances!.instances.count {
+            delegate?.didSelectOther(providerType: providerType)
+        } else {
+            let instance = instances!.instances[indexPath.row]
 
-        delegate?.didSelect(instance: instance, chooseProviderTableViewController: self)
+            delegate?.didSelect(instance: instance, chooseProviderTableViewController: self)
+        }
     }
 }
 
