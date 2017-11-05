@@ -43,29 +43,55 @@ extension Disk {
         case .applicationSupport:
             searchPathDirectory = .applicationSupportDirectory
         case .temporary:
-            var temporaryUrl = URL(string: NSTemporaryDirectory())!
-            if let validPath = validPath {
-                temporaryUrl = temporaryUrl.appendingPathComponent(validPath, isDirectory: false)
+            if var url = URL(string: NSTemporaryDirectory()) {
+                if let validPath = validPath {
+                    url = url.appendingPathComponent(validPath, isDirectory: false)
+                }
+                if url.absoluteString.lowercased().prefix(filePrefix.count) != filePrefix {
+                    let fixedUrlString = filePrefix + url.absoluteString
+                    url = URL(string: fixedUrlString)!
+                }
+                return url
+            } else {
+                throw createError(
+                    .couldNotAccessTemporaryDirectory,
+                    description: "Could not create URL for \(directory.pathDescription)/\(validPath ?? "")",
+                    failureReason: "Could not get access to the application's temporary directory.",
+                    recoverySuggestion: "Use a different directory."
+                )
             }
-            if temporaryUrl.absoluteString.lowercased().prefix(filePrefix.characters.count) != filePrefix {
-                let fixedUrl = filePrefix + temporaryUrl.absoluteString
-                temporaryUrl = URL(string: fixedUrl)!
+        case .sharedContainer(let appGroupName):
+            if var url = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroupName) {
+                if let validPath = validPath {
+                    url = url.appendingPathComponent(validPath, isDirectory: false)
+                }
+                if url.absoluteString.lowercased().prefix(filePrefix.count) != filePrefix {
+                    let fixedUrl = filePrefix + url.absoluteString
+                    url = URL(string: fixedUrl)!
+                }
+                return url
+            } else {
+                throw createError(
+                    .couldNotAccessSharedContainer,
+                    description: "Could not create URL for \(directory.pathDescription)/\(validPath ?? "")",
+                    failureReason: "Could not get access to shared container with app group named \(appGroupName).",
+                    recoverySuggestion: "Check that the app-group name in the entitlement matches the string provided."
+                )
             }
-            return temporaryUrl
         }
         if var url = FileManager.default.urls(for: searchPathDirectory, in: .userDomainMask).first {
             if let validPath = validPath {
                 url = url.appendingPathComponent(validPath, isDirectory: false)
             }
-            if url.absoluteString.lowercased().prefix(filePrefix.characters.count) != filePrefix {
-                let fixedUrl = filePrefix + url.absoluteString
-                url = URL(string: fixedUrl)!
+            if url.absoluteString.lowercased().prefix(filePrefix.count) != filePrefix {
+                let fixedUrlString = filePrefix + url.absoluteString
+                url = URL(string: fixedUrlString)!
             }
             return url
         } else {
             throw createError(
                 .couldNotAccessUserDomainMask,
-                description: "Could not create URL for \(directory.rawValue)/\(validPath ?? "")",
+                description: "Could not create URL for \(directory.pathDescription)/\(validPath ?? "")",
                 failureReason: "Could not get access to the file system's user domain mask.",
                 recoverySuggestion: "Use a different directory."
             )
@@ -100,7 +126,7 @@ extension Disk {
             .components(separatedBy: invalidCharacters)
             .joined(separator: "")
         let validFileName = removeSlashesAtBeginning(of: pathWithoutIllegalCharacters)
-        guard validFileName.characters.count > 0  && validFileName != "." else {
+        guard validFileName.count > 0  && validFileName != "." else {
             throw createError(
                 .invalidFileName,
                 description: "\(originalString) is an invalid file name.",
@@ -171,6 +197,6 @@ extension Disk {
         let fileExtension = url.pathExtension
         let filePath = url.lastPathComponent
         let fileName = filePath.replacingOccurrences(of: fileExtension, with: "")
-        return Int(String(fileName.characters.filter { "0123456789".characters.contains($0) }))
+        return Int(String(fileName.filter { "0123456789".contains($0) }))
     }
 }
