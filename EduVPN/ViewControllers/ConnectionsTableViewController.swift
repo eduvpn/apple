@@ -37,7 +37,7 @@ class ConnectionsTableViewController: UITableViewController {
         }
     }
 
-    var instanceInfoProfilesMapping: [InstanceInfoModel:ProfilesModel] = [InstanceInfoModel: ProfilesModel]() {
+    var instanceInfoProfilesMapping: [InstanceInfoModel: ProfilesModel] = [InstanceInfoModel: ProfilesModel]() {
         didSet {
             dataUpdated()
         }
@@ -156,7 +156,7 @@ class ConnectionsTableViewController: UITableViewController {
         }
 
         if let instance = profileInstanceMapping[profileModel] {
-            delegate?.connect(profile:profileModel, on: instance)
+            delegate?.connect(profile: profileModel, on: instance)
         }
 
         tableView.deselectRow(at: indexPath, animated: true)

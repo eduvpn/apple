@@ -29,7 +29,7 @@ class AppCoordinator: RootViewCoordinator {
 
     private var currentDocumentInteractionController: UIDocumentInteractionController?
 
-    private var instanceInfoProfilesMapping: [InstanceInfoModel:ProfilesModel] {
+    private var instanceInfoProfilesMapping: [InstanceInfoModel: ProfilesModel] {
         get {
             do {
                 return try Disk.retrieve("instanceInfoProfilesMapping.json", from: .documents, as: [InstanceInfoModel: ProfilesModel].self)
@@ -230,7 +230,7 @@ class AppCoordinator: RootViewCoordinator {
     }
 
     fileprivate func showChooseProviderTableViewController(for providerType: ProviderType) {
-        let chooseProviderTableViewController = storyboard.instantiateViewController(type:ChooseProviderTableViewController.self)
+        let chooseProviderTableViewController = storyboard.instantiateViewController(type: ChooseProviderTableViewController.self)
         chooseProviderTableViewController.delegate = self
         self.navigationController.pushViewController(chooseProviderTableViewController, animated: true)
 
@@ -364,7 +364,7 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
 
     func connect(profile: ProfileModel, on instance: InstanceModel) {
 // TODO implement OpenVPN3 client lib        showConnectionViewController(for:profile)
-        fetchAndTransferProfileToConnectApp(for:profile, on: instance)
+        fetchAndTransferProfileToConnectApp(for: profile, on: instance)
     }
 }
 
