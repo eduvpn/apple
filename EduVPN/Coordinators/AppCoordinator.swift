@@ -11,6 +11,10 @@ import Moya
 import Disk
 import PromiseKit
 
+enum AppCoordinatorError: Swift.Error {
+    case openVpnSchemeNotAvailable
+}
+
 /// The AppCoordinator is our first coordinator
 /// In this example the AppCoordinator as a rootViewController
 class AppCoordinator: RootViewCoordinator {
@@ -129,6 +133,31 @@ class AppCoordinator: RootViewCoordinator {
         if connectionsTableViewController.empty {
             showProfilesViewController()
         }
+
+        detectPresenceOpenVPN().catch { (_) in
+            self.showNoOpenVPNAlert()
+        }
+    }
+
+    func detectPresenceOpenVPN() -> Promise<Void> {
+        return Promise(resolvers: { fulfill, reject in
+            guard let url = URL(string: "openvpn://") else {
+                reject(AppCoordinatorError.openVpnSchemeNotAvailable)
+                return
+            }
+            if UIApplication.shared.canOpenURL(url) {
+                fulfill(())
+            } else {
+                reject(AppCoordinatorError.openVpnSchemeNotAvailable)
+            }
+        })
+    }
+
+    func showNoOpenVPNAlert() {
+        let alertController = UIAlertController(title: NSLocalizedString("OpenVPN Connect app", comment: "No OpenVPN available title"), message: NSLocalizedString("De OpenVPN Connect app is vereist om EduVPN te gebruiken.", comment: "No OpenVPN available message"), preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "No OpenVPN available ok button"), style: .default) { _ in
+        })
+        self.navigationController.present(alertController, animated: true, completion: nil)
     }
 
     func showSettingsTableViewController() {
@@ -248,22 +277,27 @@ class AppCoordinator: RootViewCoordinator {
         }
 
         let dynamicApiProvider = DynamicApiProvider(instanceInfo: instanceInfo)
+        _ = detectPresenceOpenVPN()
+            .then { _ -> Promise<Response> in
+                return dynamicApiProvider.request(target: .createConfig(displayName: "iOS Created Profile", profileId: profile.profileId))
+            }.then { response -> Void in
+                // TODO validate response
+                try Disk.save(response.data, to: .documents, as: "new_profile.ovpn")
+                let url = try Disk.getURL(for: "new_profile.ovpn", in: .documents)
 
-        dynamicApiProvider.request(target: .createConfig(displayName: "iOS Created Profile", profileId: profile.profileId)).then { response -> Void in
-            // TODO validate response
-            try Disk.save(response.data, to: .documents, as: "new_profile.ovpn")
-            let url = try Disk.getURL(for: "new_profile.ovpn", in: .documents)
-
-            self.currentDocumentInteractionController = UIDocumentInteractionController(url: url)
-            if let currentViewController = self.navigationController.visibleViewController {
-                self.currentDocumentInteractionController?.presentOpenInMenu(from: currentViewController.view.frame, in: currentViewController.view, animated: true)
+                self.currentDocumentInteractionController = UIDocumentInteractionController(url: url)
+                if let currentViewController = self.navigationController.visibleViewController {
+                    self.currentDocumentInteractionController?.presentOpenInMenu(from: currentViewController.view.frame, in: currentViewController.view, animated: true)
+                }
+                return ()
+            }.catch { (error) in
+                switch error {
+                case AppCoordinatorError.openVpnSchemeNotAvailable:
+                    self.showNoOpenVPNAlert()
+                default:
+                    print("Errror: \(error)")
+                }
             }
-            return ()
-//            return response.mapResponse()
-//            }.then { profiles -> Promise<ProfilesModel> in
-//                self.instanceInfoProfilesMapping[dynamicApiProvider.instanceInfo] = profiles
-//                return Promise(value: profiles)
-        }
     }
 
     func showConnectionViewController(for profile: ProfileModel, on instance: InstanceModel) {
@@ -284,13 +318,13 @@ class AppCoordinator: RootViewCoordinator {
         return false
     }
 
-    @discardableResult fileprivate func refreshProfiles() -> Promise<[ProfilesModel]> {
+    @discardableResult private func refreshProfiles() -> Promise<[ProfilesModel]> {
         // TODO Should this be based on instance info objects?
         let promises = dynamicApiProviders.map({self.refreshProfiles(for: $0)})
         return when(fulfilled: promises)
     }
 
-    @discardableResult fileprivate func refreshProfiles(for dynamicApiProvider: DynamicApiProvider) -> Promise<ProfilesModel> {
+    @discardableResult private func refreshProfiles(for dynamicApiProvider: DynamicApiProvider) -> Promise<ProfilesModel> {
         return dynamicApiProvider.request(target: .profileList).then { response -> Promise<ProfilesModel> in
             return response.mapResponse()
         }.then { profiles -> Promise<ProfilesModel> in
