@@ -410,6 +410,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="Provide the URL to your provider" id="v7M-Y1-adT"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <connections>
+                        <outlet property="bottomKeyboardConstraint" destination="apd-1b-Ktr" id="KCQ-Uo-hCM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0vG-Vb-e3t" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -438,13 +441,13 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="299-0t-Wkw">
-                                            <rect key="frame" x="108" y="1.5" width="204" height="20.5"/>
+                                            <rect key="frame" x="108" y="1.5" width="196" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1zh-ai-m9c">
-                                            <rect key="frame" x="108" y="22" width="204" height="18"/>
+                                            <rect key="frame" x="108" y="22" width="196" height="18"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
