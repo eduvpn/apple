@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -23,27 +23,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="HyS-tw-Pp4">
-                                <rect key="frame" x="16" y="0.0" width="288" height="416"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="HyS-tw-Pp4">
+                                <rect key="frame" x="16" y="0.0" width="288" height="411"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CWV-KN-nO1" userLabel="Secure Internet View">
-                                        <rect key="frame" x="0.0" y="0.0" width="288" height="208"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="288" height="155.5"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="secure_internet" translatesAutoresizingMaskIntoConstraints="NO" id="FGC-rf-EWG">
-                                                <rect key="frame" x="23.5" y="10" width="240" height="128.5"/>
+                                                <rect key="frame" x="23.5" y="8.5" width="240" height="80"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="128" id="38e-P6-ONu"/>
+                                                    <constraint firstAttribute="height" constant="80" id="38e-P6-ONu"/>
                                                     <constraint firstAttribute="width" constant="240" id="q4V-Nc-Vuc"/>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect to the internet securely, for example when using public WiFi." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kUO-0c-vgJ">
-                                                <rect key="frame" x="24" y="146.5" width="240" height="61"/>
+                                                <rect key="frame" x="24" y="96.5" width="240" height="61"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstItem="FGC-rf-EWG" firstAttribute="centerX" secondItem="CWV-KN-nO1" secondAttribute="centerX" id="LUU-Hs-BIe"/>
@@ -57,26 +57,26 @@
                                         </connections>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u0P-BA-ng4" userLabel="Secure Access View">
-                                        <rect key="frame" x="0.0" y="208" width="288" height="208"/>
+                                        <rect key="frame" x="0.0" y="155.5" width="288" height="155.5"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="secure_access" translatesAutoresizingMaskIntoConstraints="NO" id="Kdl-Wv-NLW">
-                                                <rect key="frame" x="23.5" y="10.5" width="240" height="128"/>
+                                                <rect key="frame" x="23.5" y="23" width="240" height="80"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="240" id="BMn-He-KhU"/>
-                                                    <constraint firstAttribute="height" constant="128" id="fRD-9z-upM"/>
+                                                    <constraint firstAttribute="height" constant="80" id="fRD-9z-upM"/>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Institute access" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TrB-uC-Yx9">
-                                                <rect key="frame" x="84" y="146.5" width="120" height="20.5"/>
+                                                <rect key="frame" x="84" y="111" width="120" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <gestureRecognizers/>
                                         <constraints>
-                                            <constraint firstItem="Kdl-Wv-NLW" firstAttribute="centerY" secondItem="u0P-BA-ng4" secondAttribute="centerY" constant="-30" id="G7h-Gj-LhV"/>
+                                            <constraint firstItem="Kdl-Wv-NLW" firstAttribute="centerY" secondItem="u0P-BA-ng4" secondAttribute="centerY" constant="-15" id="G7h-Gj-LhV"/>
                                             <constraint firstItem="Kdl-Wv-NLW" firstAttribute="centerX" secondItem="u0P-BA-ng4" secondAttribute="centerX" id="dH0-fc-S8a"/>
                                             <constraint firstItem="TrB-uC-Yx9" firstAttribute="top" secondItem="Kdl-Wv-NLW" secondAttribute="bottom" constant="8" id="fRU-Fg-AKP"/>
                                             <constraint firstItem="TrB-uC-Yx9" firstAttribute="centerX" secondItem="u0P-BA-ng4" secondAttribute="centerX" id="pJC-bt-7t9"/>
@@ -85,12 +85,45 @@
                                             <outletCollection property="gestureRecognizers" destination="pdY-lu-0N5" appends="YES" id="CqL-hQ-PlP"/>
                                         </connections>
                                     </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CUs-eR-fIP">
+                                        <rect key="frame" x="0.0" y="311" width="288" height="100"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="external_provider" translatesAutoresizingMaskIntoConstraints="NO" id="du2-iA-5l5">
+                                                <rect key="frame" x="84" y="5" width="120" height="60"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="120" id="4Se-ZG-0nG"/>
+                                                    <constraint firstAttribute="height" constant="60" id="DRX-Ek-jY4"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Andere server" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgp-i2-K5S">
+                                                <rect key="frame" x="90.5" y="73" width="107.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstItem="sgp-i2-K5S" firstAttribute="centerX" secondItem="CUs-eR-fIP" secondAttribute="centerX" id="7CH-Kt-ZNE"/>
+                                            <constraint firstItem="du2-iA-5l5" firstAttribute="centerY" secondItem="CUs-eR-fIP" secondAttribute="centerY" constant="-15" id="8yg-sO-EOC"/>
+                                            <constraint firstItem="sgp-i2-K5S" firstAttribute="top" secondItem="du2-iA-5l5" secondAttribute="bottom" constant="8" id="KQ5-OM-4pl"/>
+                                            <constraint firstAttribute="height" constant="100" id="hYE-E0-txH"/>
+                                            <constraint firstItem="du2-iA-5l5" firstAttribute="centerX" secondItem="CUs-eR-fIP" secondAttribute="centerX" id="m83-rS-70a"/>
+                                        </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="xeP-ie-4BJ" appends="YES" id="9ve-B9-4hU"/>
+                                        </connections>
+                                    </view>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="u0P-BA-ng4" firstAttribute="height" secondItem="CWV-KN-nO1" secondAttribute="height" id="M9K-eP-lFG"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="HyS-tw-Pp4" secondAttribute="bottom" id="VHh-RP-PjE"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="HyS-tw-Pp4" secondAttribute="bottomMargin" constant="5" id="VHh-RP-PjE"/>
                             <constraint firstAttribute="trailingMargin" secondItem="HyS-tw-Pp4" secondAttribute="trailing" id="fnL-15-jIS"/>
                             <constraint firstItem="HyS-tw-Pp4" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="mhX-aA-Y24"/>
                             <constraint firstItem="HyS-tw-Pp4" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="nPc-MK-bjX"/>
@@ -111,6 +144,11 @@
                 <tapGestureRecognizer id="pdY-lu-0N5" userLabel="Institute Access Tap Gesture Recognizer">
                     <connections>
                         <action selector="didTapInstituteAccess:" destination="BYZ-38-t0r" id="UVj-RP-Ga0"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="xeP-ie-4BJ" userLabel="Other Access Tap Gesture Recognizer">
+                    <connections>
+                        <action selector="didTapOtherAccess:" destination="BYZ-38-t0r" id="f3U-2U-kMD"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -142,7 +180,7 @@
                                                     </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Force TCP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n5F-Rw-ixR">
-                                                    <rect key="frame" x="8" y="11" width="255" height="21"/>
+                                                    <rect key="frame" x="16" y="11" width="247" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -198,7 +236,7 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZF-sX-Fan">
-                                            <rect key="frame" x="108" y="8" width="204" height="27.5"/>
+                                            <rect key="frame" x="108" y="11" width="196" height="22"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -494,6 +532,7 @@
     </scenes>
     <resources>
         <image name="connecting" width="528" height="444"/>
+        <image name="external_provider" width="426" height="290"/>
         <image name="secure_access" width="295" height="193"/>
         <image name="secure_internet" width="653" height="392"/>
     </resources>

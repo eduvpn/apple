@@ -9,5 +9,5 @@
 import Foundation
 
 enum ProviderType: String, Codable {
-    case unknown, secureInternet, instituteAccess
+    case unknown, secureInternet, instituteAccess, other
 }

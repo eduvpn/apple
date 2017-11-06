@@ -23,6 +23,10 @@ class ProfilesViewController: UIViewController {
     @IBAction func didTapInstituteAccess(_ sender: Any) {
         self.delegate?.profilesViewControllerDidSelectProviderType(profilesViewController: self, providerType: .instituteAccess)
     }
+
+    @IBAction func didTapOtherAccess(_ sender: Any) {
+        self.delegate?.profilesViewControllerDidSelectProviderType(profilesViewController: self, providerType: .other)
+    }
 }
 
 extension ProfilesViewController: Identifyable {}

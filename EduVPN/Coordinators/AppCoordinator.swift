@@ -193,6 +193,9 @@ class AppCoordinator: RootViewCoordinator {
                         self.internetInstancesModel?.instances[index] = updatedInstance
                     }
 
+                case .other:
+                    precondition(false, "Needs implementation?")
+                    return
                 case .unknown:
                     precondition(false, "This should not happen")
                     return
@@ -244,7 +247,7 @@ class AppCoordinator: RootViewCoordinator {
         case .secureInternet:
             chooseProviderTableViewController.instances = internetInstancesModel
             target = StaticService.secureInternet
-        case .unknown:
+        case .unknown, .other:
             return
         }
 
@@ -267,7 +270,7 @@ class AppCoordinator: RootViewCoordinator {
                 self.instituteInstancesModel = instances
             case .secureInternet:
                 self.internetInstancesModel = instances
-            case .unknown:
+            case .unknown, .other:
                 return
             }
 
@@ -373,6 +376,8 @@ extension AppCoordinator: ProfilesViewControllerDelegate {
         switch providerType {
         case .instituteAccess, .secureInternet:
             showChooseProviderTableViewController(for: providerType)
+        case .other:
+            showCustomProviderInPutViewController(for: providerType)
         case .unknown:
             print("Unknown provider type chosen")
         }
