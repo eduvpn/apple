@@ -21,6 +21,8 @@ protocol ConnectionsTableViewControllerDelegate: class {
     func addProvider(connectionsTableViewController: ConnectionsTableViewController)
     func settings(connectionsTableViewController: ConnectionsTableViewController)
     func connect(profile: ProfileModel, on instance: InstanceModel)
+    func delete(profile: ProfileModel, for instanceInfo: InstanceInfoModel)
+
 }
 
 class ConnectionsTableViewController: UITableViewController {
@@ -160,6 +162,28 @@ class ConnectionsTableViewController: UITableViewController {
         }
 
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+
+            let profileModel: ProfileModel
+
+            switch indexPath.section {
+            case 0:
+                profileModel = internetAccessModels[indexPath.row]
+            default:
+                profileModel = instituteAccessModels[indexPath.row]
+            }
+
+            if let instanceInfoModel = profileInstanceMapping[profileModel]?.instanceInfo {
+                delegate?.delete(profile: profileModel, for: instanceInfoModel)
+            }
+        }
     }
 }
 

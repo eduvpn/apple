@@ -356,7 +356,6 @@ extension AppCoordinator: SettingsTableViewControllerDelegate {
 }
 
 extension AppCoordinator: ConnectionsTableViewControllerDelegate {
-
     func settings(connectionsTableViewController: ConnectionsTableViewController) {
         showSettings()
     }
@@ -368,6 +367,24 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
     func connect(profile: ProfileModel, on instance: InstanceModel) {
 // TODO implement OpenVPN3 client lib        showConnectionViewController(for:profile)
         fetchAndTransferProfileToConnectApp(for: profile, on: instance)
+    }
+
+    func delete(profile: ProfileModel, for instanceInfo: InstanceInfoModel) {
+        print(profile)
+        print(internetInstancesModel)
+        print(instituteInstancesModel)
+
+        if var profilesModel = instanceInfoProfilesMapping[instanceInfo] {
+            let newProfiles = profilesModel.profiles.filter {$0 != profile}
+            if newProfiles.isEmpty {
+                instanceInfoProfilesMapping.removeValue(forKey: instanceInfo)
+            } else {
+                profilesModel.profiles = newProfiles
+                instanceInfoProfilesMapping[instanceInfo] = profilesModel
+            }
+
+            profilesUpdated()
+        }
     }
 }
 
