@@ -20,6 +20,7 @@
 		4A8D24211F3976FC004A9343 /* ProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D24201F3976FC004A9343 /* ProviderType.swift */; };
 		4A8D24331F3A3995004A9343 /* ApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D24321F3A3995004A9343 /* ApiModel.swift */; };
 		4A8D24351F3A40F2004A9343 /* InstanceInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D24341F3A40F2004A9343 /* InstanceInfoModel.swift */; };
+		4A9704C51FBA379D00B4D6C2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A9704C71FBA379D00B4D6C2 /* Localizable.strings */; };
 		4A983B771F397243004F82D5 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A983B761F397243004F82D5 /* AppCoordinator.swift */; };
 		4A983B791F397289004F82D5 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A983B781F397289004F82D5 /* Coordinator.swift */; };
 		4A983B7B1F3972BE004F82D5 /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A983B7A1F3972BE004F82D5 /* RootCoordinator.swift */; };
@@ -64,6 +65,10 @@
 		4A8D24201F3976FC004A9343 /* ProviderType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderType.swift; sourceTree = "<group>"; };
 		4A8D24321F3A3995004A9343 /* ApiModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiModel.swift; sourceTree = "<group>"; };
 		4A8D24341F3A40F2004A9343 /* InstanceInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceInfoModel.swift; sourceTree = "<group>"; };
+		4A9704C01FBA34DA00B4D6C2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
+		4A9704C11FBA34DA00B4D6C2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		4A9704C61FBA379D00B4D6C2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4A9704C81FBA379F00B4D6C2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4A983B761F397243004F82D5 /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		4A983B781F397289004F82D5 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		4A983B7A1F3972BE004F82D5 /* RootCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
@@ -181,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				4AAC1F9D1F2D134200DD0252 /* Settings.bundle */,
+				4A9704C71FBA379D00B4D6C2 /* Localizable.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -246,6 +252,7 @@
 				4AAC1F991F2D0FFA00DD0252 /* Swiftlint */,
 				4AAC1F721F2D0E3400DD0252 /* Sources */,
 				4AAC1F731F2D0E3400DD0252 /* Frameworks */,
+				4A9704C21FBA368E00B4D6C2 /* Localize */,
 				4AAC1F741F2D0E3400DD0252 /* Resources */,
 				4AAC1F9A1F2D104000DD0252 /* Set build number */,
 				7E2504203DF38CAC3F8E1102 /* [CP] Embed Pods Frameworks */,
@@ -310,6 +317,7 @@
 			knownRegions = (
 				en,
 				Base,
+				nl,
 			);
 			mainGroup = 4AAC1F6D1F2D0E3400DD0252;
 			productRefGroup = 4AAC1F771F2D0E3400DD0252 /* Products */;
@@ -327,6 +335,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A9704C51FBA379D00B4D6C2 /* Localizable.strings in Resources */,
 				4AAC1F9E1F2D134200DD0252 /* Settings.bundle in Resources */,
 				4AAC1F841F2D0E3400DD0252 /* LaunchScreen.storyboard in Resources */,
 				4AAC1F811F2D0E3400DD0252 /* Assets.xcassets in Resources */,
@@ -357,6 +366,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" c75d4ddb5a0ec81d2904d36d9f2471af281f0301 de80ded75a6111b3f33a1ed9bcdab9777961f720f1bcd3e36088cfad5193385f";
+		};
+		4A9704C21FBA368E00B4D6C2 /* Localize */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Localize;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./mergegenstrings.py EduVPN NSLocalizedString";
 		};
 		4AAC1F991F2D0FFA00DD0252 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -506,10 +529,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		4A9704C71FBA379D00B4D6C2 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4A9704C61FBA379D00B4D6C2 /* en */,
+				4A9704C81FBA379F00B4D6C2 /* nl */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		4AAC1F7D1F2D0E3400DD0252 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				4AAC1F7E1F2D0E3400DD0252 /* Base */,
+				4A9704C01FBA34DA00B4D6C2 /* nl */,
 			);
 			name = Main.storyboard;
 			path = ..;
@@ -519,6 +552,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				4AAC1F831F2D0E3400DD0252 /* Base */,
+				4A9704C11FBA34DA00B4D6C2 /* nl */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -530,6 +564,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -587,6 +622,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";

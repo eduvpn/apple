@@ -154,7 +154,7 @@ class AppCoordinator: RootViewCoordinator {
     }
 
     func showNoOpenVPNAlert() {
-        let alertController = UIAlertController(title: NSLocalizedString("OpenVPN Connect app", comment: "No OpenVPN available title"), message: NSLocalizedString("De OpenVPN Connect app is vereist om EduVPN te gebruiken.", comment: "No OpenVPN available message"), preferredStyle: .alert)
+        let alertController = UIAlertController(title: NSLocalizedString("OpenVPN Connect app", comment: "No OpenVPN available title"), message: NSLocalizedString("The OpenVPN Connect app is required to use EduVPN.", comment: "No OpenVPN available message"), preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "No OpenVPN available ok button"), style: .default) { _ in
         })
         self.navigationController.present(alertController, animated: true, completion: nil)
