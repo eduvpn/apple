@@ -15,20 +15,26 @@ enum InstancesModelError: Swift.Error {
 enum AuthorizationType: String, Codable {
     case local
     case distributed
+    case federated
 }
 
 struct InstancesModel: Codable {
-    var providerType: ProviderType?
+    var providerType: ProviderType
     var authorizationType: AuthorizationType
     var seq: Int
     var signedAt: Date
     var instances: [InstanceModel]
+
+    var authorizationEndpoint: URL?
+    var tokenEndpoint: URL?
 }
 
 extension InstancesModel {
     enum InstancesModelKeys: String, CodingKey {
         case providerType = "provider_type"
         case authorizationType = "authorization_type"
+        case authorizationEndpoint = "authorization_endpoint"
+        case tokenEndpoint = "token_endpoint"
         case seq
         case signedAt = "signed_at"
         case instances
@@ -37,7 +43,11 @@ extension InstancesModel {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: InstancesModelKeys.self)
 
-        let providerType = try container.decodeIfPresent(ProviderType.self, forKey: .providerType)
+        let providerType = try container.decode(ProviderType.self, forKey: .providerType)
+
+        let authorizationEndpoint = try container.decodeIfPresent(URL.self, forKey: .authorizationEndpoint)
+        let tokenEndpoint = try container.decodeIfPresent(URL.self, forKey: .tokenEndpoint)
+
         let authorizationType = try container.decode(AuthorizationType.self, forKey: .authorizationType)
         let seq = try container.decode(Int.self, forKey: .seq)
         let signedAtString = try container.decode(String.self, forKey: .signedAt)
@@ -46,7 +56,7 @@ extension InstancesModel {
         }
 
         let instances = try container.decode([InstanceModel].self, forKey: .instances)
-        self.init(providerType: providerType, authorizationType: authorizationType, seq: seq, signedAt: signedAt, instances: instances)
+        self.init(providerType: providerType, authorizationType: authorizationType, seq: seq, signedAt: signedAt, instances: instances, authorizationEndpoint: authorizationEndpoint, tokenEndpoint: tokenEndpoint)
     }
 
     func encode(to encoder: Encoder) throws {
