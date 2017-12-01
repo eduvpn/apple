@@ -420,12 +420,18 @@
                                     <constraint firstAttribute="height" constant="30" id="9bu-YX-eLB"/>
                                 </constraints>
                                 <state key="normal" title="Connect"/>
+                                <connections>
+                                    <action selector="connect:" destination="KZY-IT-pRj" eventType="touchUpInside" id="nrB-0s-hCe"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MpY-jL-VFr">
                                 <rect key="frame" x="71" y="100" width="233" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="addressValueChanged:" destination="KZY-IT-pRj" eventType="editingChanged" id="9gw-qH-tPn"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="https://" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DDH-r5-hXt">
                                 <rect key="frame" x="16" y="105" width="55" height="21"/>
@@ -449,7 +455,9 @@
                     <navigationItem key="navigationItem" title="Provide the URL to your provider" id="v7M-Y1-adT"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
+                        <outlet property="addressField" destination="MpY-jL-VFr" id="9f1-gr-Shu"/>
                         <outlet property="bottomKeyboardConstraint" destination="apd-1b-Ktr" id="KCQ-Uo-hCM"/>
+                        <outlet property="connectButton" destination="eoq-wR-HEK" id="zU4-UU-Yr8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0vG-Vb-e3t" userLabel="First Responder" sceneMemberID="firstResponder"/>

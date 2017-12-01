@@ -22,7 +22,7 @@ struct InstancesModel: Codable {
     var providerType: ProviderType
     var authorizationType: AuthorizationType
     var seq: Int
-    var signedAt: Date
+    var signedAt: Date?
     var instances: [InstanceModel]
 
     var authorizationEndpoint: URL?
@@ -64,8 +64,8 @@ extension InstancesModel {
         try container.encodeIfPresent(providerType, forKey: .providerType)
         try container.encode(authorizationType, forKey: .authorizationType)
         try container.encode(seq, forKey: .seq)
-        let signedAtString = signedAtDateFormatter.string(from: signedAt)
-        try container.encode(signedAtString, forKey: .signedAt)
+        let signedAtString = signedAt.flatMap({signedAtDateFormatter.string(from: $0)})
+        try container.encodeIfPresent(signedAtString, forKey: .signedAt)
         try container.encode(instances, forKey: .instances)
     }
 }

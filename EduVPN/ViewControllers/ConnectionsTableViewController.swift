@@ -34,8 +34,14 @@ class ConnectionsTableViewController: UITableViewController {
         }
     }
     var instituteInstancesModel: InstancesModel? {
-    didSet {
-        dataUpdated()
+        didSet {
+            dataUpdated()
+        }
+    }
+
+    var otherInstancesModel: InstancesModel? {
+        didSet {
+            dataUpdated()
         }
     }
 
@@ -48,6 +54,7 @@ class ConnectionsTableViewController: UITableViewController {
     private func dataUpdated() {
         internetAccessModels.removeAll()
         instituteAccessModels.removeAll()
+        otherAccessModels.removeAll()
         profileInstanceMapping.removeAll()
 
         internetInstancesModel?.instances.forEach({ (instance) in
@@ -67,11 +74,21 @@ class ConnectionsTableViewController: UITableViewController {
                 })
             }
         })
+
+        otherInstancesModel?.instances.forEach({ (instance) in
+            if let instanceInfo = instance.instanceInfo {
+                instanceInfoProfilesMapping[instanceInfo]?.profiles.forEach({ (profile) in
+                    otherAccessModels.append(profile)
+                    profileInstanceMapping[profile] = instance
+                })
+            }
+        })
         self.tableView.reloadData()
     }
 
     private var internetAccessModels = [ProfileModel]()
     private var instituteAccessModels = [ProfileModel]()
+    private var otherAccessModels = [ProfileModel]()
     private var profileInstanceMapping = [ProfileModel: InstanceModel]()
 
     @IBAction func addProvider(_ sender: Any) {
@@ -83,28 +100,32 @@ class ConnectionsTableViewController: UITableViewController {
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
             return internetAccessModels.count
-        default:
+        case 1:
             return instituteAccessModels.count
+        default:
+            return otherAccessModels.count
         }
     }
 
     var empty: Bool {
-        return internetAccessModels.count + instituteAccessModels.count == 0
+        return internetAccessModels.count + instituteAccessModels.count + otherAccessModels.count == 0
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
             return NSLocalizedString("Internet access", comment: "")
-        default:
+        case 1:
             return NSLocalizedString("Institute access", comment: "")
+        default:
+            return NSLocalizedString("Other", comment: "")
         }
     }
 
@@ -114,8 +135,12 @@ class ConnectionsTableViewController: UITableViewController {
             if internetAccessModels.isEmpty {
                 return 0.0
             }
-        default:
+        case 1:
             if instituteAccessModels.isEmpty {
+                return 0.0
+            }
+        default:
+            if otherAccessModels.isEmpty {
                 return 0.0
             }
         }
@@ -129,8 +154,10 @@ class ConnectionsTableViewController: UITableViewController {
         switch indexPath.section {
         case 0:
             profileModel = internetAccessModels[indexPath.row]
-        default:
+        case 1:
             profileModel = instituteAccessModels[indexPath.row]
+        default:
+            profileModel = otherAccessModels[indexPath.row]
         }
 
         let cell = tableView.dequeueReusableCell(type: ConnectTableViewCell.self, for: indexPath)
@@ -153,8 +180,10 @@ class ConnectionsTableViewController: UITableViewController {
         switch indexPath.section {
         case 0:
             profileModel = internetAccessModels[indexPath.row]
-        default:
+        case 1:
             profileModel = instituteAccessModels[indexPath.row]
+        default:
+            profileModel = otherAccessModels[indexPath.row]
         }
 
         if let instance = profileInstanceMapping[profileModel] {
@@ -176,8 +205,10 @@ class ConnectionsTableViewController: UITableViewController {
             switch indexPath.section {
             case 0:
                 profileModel = internetAccessModels[indexPath.row]
-            default:
+            case 1:
                 profileModel = instituteAccessModels[indexPath.row]
+            default:
+                profileModel = otherAccessModels[indexPath.row]
             }
 
             if let instanceInfoModel = profileInstanceMapping[profileModel]?.instanceInfo {

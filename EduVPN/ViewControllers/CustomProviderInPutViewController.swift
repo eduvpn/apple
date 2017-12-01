@@ -9,11 +9,14 @@
 import UIKit
 
 protocol CustomProviderInPutViewControllerDelegate: class {
+    func connect(url: URL)
 }
 
 class CustomProviderInPutViewController: UIViewController {
     weak var delegate: CustomProviderInPutViewControllerDelegate?
     @IBOutlet weak var bottomKeyboardConstraint: NSLayoutConstraint?
+    @IBOutlet weak var connectButton: UIButton!
+    @IBOutlet weak var addressField: UITextField!
 
     fileprivate var keyboardWrapper: KeyboardWrapper?
 
@@ -22,6 +25,28 @@ class CustomProviderInPutViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         keyboardWrapper = KeyboardWrapper(delegate: self)
+
+        addressValueChanged(addressField)
+    }
+
+    @IBAction func addressValueChanged(_ sender: UITextField) {
+        guard let url = urlFromInput() else {
+            connectButton.isEnabled = false
+            return
+        }
+
+        connectButton.isEnabled = url.scheme != nil && url.host != nil
+    }
+
+    @IBAction func connect(_ sender: UIButton) {
+        guard let url = urlFromInput() else { return }
+        delegate?.connect(url: url)
+    }
+
+    private func urlFromInput() -> URL? {
+        guard let input = addressField.text else { return nil }
+        let urlString = "https://\(input)"
+        return URL(string: urlString)
     }
 }
 

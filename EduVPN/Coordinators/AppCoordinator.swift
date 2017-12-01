@@ -77,13 +77,34 @@ class AppCoordinator: RootViewCoordinator {
             } catch {
                 //TODO handle error
                 print(error)
-                return nil
+                return InstancesModel(providerType: .other, authorizationType: .local, seq: 0, signedAt: nil, instances: [], authorizationEndpoint: nil, tokenEndpoint: nil)
             }
         }
         set {
             do {
                 try Disk.save(newValue, to: .documents, as: "institute-instances.json")
                 self.connectionsTableViewController.instituteInstancesModel = newValue
+            } catch {
+                //TODO handle error
+                print(error)
+            }
+        }
+    }
+
+    private var otherInstancesModel: InstancesModel? {
+        get {
+            do {
+                return try Disk.retrieve("other-instances.json", from: .documents, as: InstancesModel.self)
+            } catch {
+                //TODO handle error
+                print(error)
+                return nil
+            }
+        }
+        set {
+            do {
+                try Disk.save(newValue, to: .documents, as: "other-instances.json")
+                self.connectionsTableViewController.otherInstancesModel = newValue
             } catch {
                 //TODO handle error
                 print(error)
@@ -126,6 +147,7 @@ class AppCoordinator: RootViewCoordinator {
         connectionsTableViewController = storyboard.instantiateViewController(type: ConnectionsTableViewController.self)
         connectionsTableViewController.internetInstancesModel = internetInstancesModel
         connectionsTableViewController.instituteInstancesModel = instituteInstancesModel
+        connectionsTableViewController.otherInstancesModel = otherInstancesModel
         connectionsTableViewController.instanceInfoProfilesMapping = instanceInfoProfilesMapping
         connectionsTableViewController.delegate = self
         self.navigationController.viewControllers = [connectionsTableViewController]
@@ -192,10 +214,14 @@ class AppCoordinator: RootViewCoordinator {
                     }) {
                         self.internetInstancesModel?.instances[index] = updatedInstance
                     }
-
                 case .other:
-                    precondition(false, "Needs implementation?")
-                    return
+                    if let index = self.otherInstancesModel?.instances.index(where: { (instanceModel) -> Bool in
+                        return instanceModel.baseUri == updatedInstance.baseUri
+                    }) {
+                        self.otherInstancesModel?.instances[index] = updatedInstance
+                    } else {
+                        self.otherInstancesModel?.instances.append(updatedInstance)
+                    }
                 case .unknown:
                     precondition(false, "This should not happen")
                     return
@@ -370,10 +396,6 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
     }
 
     func delete(profile: ProfileModel, for instanceInfo: InstanceInfoModel) {
-        print(profile)
-        print(internetInstancesModel)
-        print(instituteInstancesModel)
-
         if var profilesModel = instanceInfoProfilesMapping[instanceInfo] {
             let newProfiles = profilesModel.profiles.filter {$0 != profile}
             if newProfiles.isEmpty {
@@ -412,7 +434,10 @@ extension AppCoordinator: ChooseProviderTableViewControllerDelegate {
 }
 
 extension AppCoordinator: CustomProviderInPutViewControllerDelegate {
-
+    func connect(url: URL) {
+        let otherModel = InstanceModel(providerType: .other, baseUri: url, displayNames: nil, logoUrls: nil, instanceInfo: nil, displayName: nil, logoUrl: nil)
+        refresh(instance: otherModel)
+    }
 }
 
 extension AppCoordinator: VPNConnectionViewControllerDelegate {
