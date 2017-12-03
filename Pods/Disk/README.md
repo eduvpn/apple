@@ -5,7 +5,7 @@
 <p align="center">
     <img src="https://user-images.githubusercontent.com/7799382/28644637-2fe6f818-720f-11e7-89a4-35250b6665ce.png" alt="Platform: iOS 9.0+" />
     <a href="https://developer.apple.com/swift" target="_blank"><img src="https://user-images.githubusercontent.com/7799382/28500845-b43a66fa-6f84-11e7-8281-6e689d8aaab9.png" alt="Language: Swift 4" /></a>
-    <a href="https://cocoapods.org/pods/Disk" target="_blank"><img src="https://user-images.githubusercontent.com/7799382/31215475-79423dba-a964-11e7-874e-d50d48d03a2a.png" alt="CocoaPods compatible" /></a>
+    <a href="https://cocoapods.org/pods/Disk" target="_blank"><img src="https://user-images.githubusercontent.com/7799382/33380673-bb6c8802-d4d0-11e7-9edf-529825e29229.png" alt="CocoaPods compatible" /></a>
     <a href="https://github.com/Carthage/Carthage" target="_blank"><img src="https://user-images.githubusercontent.com/7799382/29512091-1e85aacc-8616-11e7-9851-d13dd1700a36.png" alt="Carthage compatible" /></a>
     <img src="https://user-images.githubusercontent.com/7799382/28500847-b6393648-6f84-11e7-9a7a-f6ae78207416.png" alt="License: MIT" />
 </p>
@@ -37,7 +37,7 @@ platform :ios, '9.0'
 target 'ProjectName' do
 use_frameworks!
 
-    pod 'Disk', '~> 0.3.1'
+    pod 'Disk', '~> 0.3.3'
 
 end
 ```
@@ -54,7 +54,7 @@ end
 
 ```
 dependencies: [
-    .Package(url: "https://github.com/saoudrizwan/Disk.git", "0.3.0")
+    .Package(url: "https://github.com/saoudrizwan/Disk.git", "0.3.3")
 ]
 ```
 
@@ -295,16 +295,20 @@ Disk.availableCapacityForImportantUsage
 Disk.availableCapacityForOpportunisticUsage
 ```
 
+**Note:** These variables return Optional `Int`s since retrieving file system resource values may fail and return `nil`. However this is very unlikely to happen, and this behavior exists solely for safety purposes.
+
 ### Helper Methods
 
 * Clear an entire directory
 ```swift
 try Disk.clear(.caches)
 ```
+
 * Remove a file/folder
 ```swift
 try Disk.remove("video.mp4", from: .documents)
 ```
+
 * Check if file/folder exists
 ```swift
 if Disk.exists("album", in: .documents) {
@@ -327,7 +331,7 @@ try Disk.getURL(for: "album/", in: .documents)
 ```swift
 try Disk.doNotBackup("album", in: .documents)
 ```
-"Everything in your app’s home directory is backed up, **with the exception of the application bundle itself, the caches directory, and temporary directory.**"
+> Everything in your app’s home directory is backed up, **with the exception of the application bundle itself, the caches directory, and temporary directory.**
 ```swift
 try Disk.backup("album", in: .documents)
 ```
@@ -355,7 +359,7 @@ The example above takes care of the most common error when dealing with the file
 
 ## A Word from the Developer
 
-After developing for iOS for 8+ years, I've come across almost every method of data persistence there is to offer (Core Data, Realm, `NSCoding`, `UserDefaults`, etc.) Nothing really fit the bill except `NSCoding`, but there were too many hoops to jump through. After Swift 4 was released, I was really excited about the `Codable` protocol because I knew what it had to offer in terms of JSON coding. Working with network responses' JSON data and converting them to usable structures has never been easier. **Disk aims to extend that simplicity of working with data to the file system.**
+After developing for iOS for 8+ years, I've come across almost every method of data persistence there is to offer (Core Data, Realm, `NSKeyedArchiver`, `UserDefaults`, etc.) Nothing really fit the bill except `NSKeyedArchiver`, but there were too many hoops to jump through. After Swift 4 was released, I was really excited about the `Codable` protocol because I knew what it had to offer in terms of JSON coding. Working with network responses' JSON data and converting them to usable structures has never been easier. **Disk aims to extend that simplicity of working with data to the file system.**
 
 Let's say we get some data back from a network request...
 ```swift
@@ -380,7 +384,7 @@ Disk takes out a lot of the tedious handy work required in coding data to the de
 ```swift
 try Disk.clear(.temporary)
 ```
-
+Disk is also [significantly faster than alternative persistence solutions like `NSKeyedArchiver`](https://twitter.com/JStheoriginal/status/924810983360434176), since it works directly with the file system.
 Best of all, Disk is thorough when it comes to throwing errors, ensuring that you understand why a problem occurs when it does.
 
 ## Documentation
@@ -390,6 +394,7 @@ Option + click on any of Disk's methods for detailed documentation.
 ## Apps Using Disk
 
 * [AudioKit Synth One](https://audiokitpro.com/audiokit-synth-one/)
+* [BB Links - Your Coaching Links](http://www.bblinksapp.com/)
 
 ## License
 
