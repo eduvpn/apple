@@ -219,8 +219,12 @@ class AppCoordinator: RootViewCoordinator {
                         return instanceModel.baseUri == updatedInstance.baseUri
                     }) {
                         self.otherInstancesModel?.instances[index] = updatedInstance
+                    } else if var otherInstancesModel = self.otherInstancesModel {
+                        otherInstancesModel.instances.append(updatedInstance)
+                        self.otherInstancesModel = otherInstancesModel
                     } else {
-                        self.otherInstancesModel?.instances.append(updatedInstance)
+                        var otherInstancesModel = InstancesModel(providerType: .other, authorizationType: .local, seq: 0, signedAt: nil, instances: [updatedInstance], authorizationEndpoint: nil, tokenEndpoint: nil)
+                        self.otherInstancesModel = otherInstancesModel
                     }
                 case .unknown:
                     precondition(false, "This should not happen")
