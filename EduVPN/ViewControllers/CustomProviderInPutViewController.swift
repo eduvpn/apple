@@ -40,6 +40,7 @@ class CustomProviderInPutViewController: UIViewController {
 
     @IBAction func connect(_ sender: UIButton) {
         guard let url = urlFromInput() else { return }
+        self.view.endEditing(false)
         delegate?.connect(url: url)
     }
 
@@ -47,6 +48,15 @@ class CustomProviderInPutViewController: UIViewController {
         guard let input = addressField.text else { return nil }
         let urlString = "https://\(input)"
         return URL(string: urlString)
+    }
+}
+
+extension CustomProviderInPutViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard let url = urlFromInput() else { return true }
+        self.view.endEditing(false)
+        delegate?.connect(url: url)
+        return true
     }
 }
 
