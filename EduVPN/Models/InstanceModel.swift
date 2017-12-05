@@ -43,7 +43,7 @@ extension InstancesModel {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: InstancesModelKeys.self)
 
-        let providerType = try container.decode(ProviderType.self, forKey: .providerType)
+        let providerType = try container.decodeIfPresent(ProviderType.self, forKey: .providerType) ?? .unknown
 
         let authorizationEndpoint = try container.decodeIfPresent(URL.self, forKey: .authorizationEndpoint)
         let tokenEndpoint = try container.decodeIfPresent(URL.self, forKey: .tokenEndpoint)

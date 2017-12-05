@@ -160,10 +160,12 @@ class ConnectionsTableViewController: UITableViewController {
             profileModel = otherAccessModels[indexPath.row]
         }
 
+        let instanceModel = profileInstanceMapping[profileModel]
+
         let cell = tableView.dequeueReusableCell(type: ConnectTableViewCell.self, for: indexPath)
 
         cell.connectTitleLabel?.text = profileModel.displayName
-        cell.connectSubTitleLabel?.text = profileModel.displayName
+        cell.connectSubTitleLabel?.text = instanceModel?.displayName ?? profileModel.displayName
         if let logoUri = profileInstanceMapping[profileModel]?.logoUrl {
             cell.connectImageView?.af_setImage(withURL: logoUri)
         } else {
