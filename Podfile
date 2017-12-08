@@ -14,6 +14,7 @@ target 'EduVPN' do
   pod 'Moya'
   pod 'Disk'
   pod 'AlamofireImage'
+  pod 'Sodium'
 
   post_install do | installer |
     require 'fileutils'
