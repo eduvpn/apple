@@ -121,7 +121,7 @@ class ConnectionsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return NSLocalizedString("Internet access", comment: "")
+            return NSLocalizedString("Secure Internet", comment: "")
         case 1:
             return NSLocalizedString("Institute access", comment: "")
         default:
