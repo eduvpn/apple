@@ -50,9 +50,9 @@ extension InstancesModel {
 
         let authorizationType = try container.decode(AuthorizationType.self, forKey: .authorizationType)
         let seq = try container.decode(Int.self, forKey: .seq)
-        let signedAtString = try container.decode(String.self, forKey: .signedAt)
-        guard let signedAt = signedAtDateFormatter.date(from: signedAtString) else {
-            throw InstancesModelError.signedAtDate
+        var signedAt: Date? = nil
+        if let signedAtString = try container.decodeIfPresent(String.self, forKey: .signedAt) {
+            signedAt = signedAtDateFormatter.date(from: signedAtString)
         }
 
         let instances = try container.decode([InstanceModel].self, forKey: .instances)
@@ -111,7 +111,7 @@ extension InstanceModel {
                 }
             }
         } else {
-            displayName = try container.decode(String.self, forKey: .displayName)
+            displayName = try container.decodeIfPresent(String.self, forKey: .displayName)
         }
 
         var logoUrl: URL? = nil
@@ -126,7 +126,7 @@ extension InstanceModel {
                 }
             }
         } else {
-            logoUrl = try container.decode(URL.self, forKey: .logo)
+            logoUrl = try container.decodeIfPresent(URL.self, forKey: .logo)
         }
 
         self.init(providerType: providerType, baseUri: baseUri, displayNames: displayNames, logoUrls: logoUrls, instanceInfo: instanceInfo, displayName: displayName, logoUrl: logoUrl)
