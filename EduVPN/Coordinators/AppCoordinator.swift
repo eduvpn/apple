@@ -308,7 +308,7 @@ class AppCoordinator: RootViewCoordinator {
         }
     }
 
-    func fetchAndTransferProfileToConnectApp(for profile: ProfileModel, on instance: InstanceModel) {
+    func fetchAndTransferProfileToConnectApp(for profile: InstanceProfileModel, on instance: InstanceModel) {
         print(profile)
         guard let instanceInfo = instance.instanceInfo else {
             precondition(false, "This shold never happen")
@@ -339,7 +339,7 @@ class AppCoordinator: RootViewCoordinator {
             }
     }
 
-    func showConnectionViewController(for profile: ProfileModel, on instance: InstanceModel) {
+    func showConnectionViewController(for profile: InstanceProfileModel, on instance: InstanceModel) {
         let connectionViewController = storyboard.instantiateViewController(type: VPNConnectionViewController.self)
         connectionViewController.delegate = self
         self.navigationController.pushViewController(connectionViewController, animated: true)
@@ -394,12 +394,12 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
         showProfilesViewController()
     }
 
-    func connect(profile: ProfileModel, on instance: InstanceModel) {
+    func connect(profile: InstanceProfileModel, on instance: InstanceModel) {
 // TODO implement OpenVPN3 client lib        showConnectionViewController(for:profile)
         fetchAndTransferProfileToConnectApp(for: profile, on: instance)
     }
 
-    func delete(profile: ProfileModel, for instanceInfo: InstanceInfoModel) {
+    func delete(profile: InstanceProfileModel, for instanceInfo: InstanceInfoModel) {
         if var profilesModel = instanceInfoProfilesMapping[instanceInfo] {
             let newProfiles = profilesModel.profiles.filter {$0 != profile}
             if newProfiles.isEmpty {

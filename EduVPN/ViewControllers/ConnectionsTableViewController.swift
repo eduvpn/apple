@@ -20,8 +20,8 @@ extension ConnectTableViewCell: Identifyable {}
 protocol ConnectionsTableViewControllerDelegate: class {
     func addProvider(connectionsTableViewController: ConnectionsTableViewController)
     func settings(connectionsTableViewController: ConnectionsTableViewController)
-    func connect(profile: ProfileModel, on instance: InstanceModel)
-    func delete(profile: ProfileModel, for instanceInfo: InstanceInfoModel)
+    func connect(profile: InstanceProfileModel, on instance: InstanceModel)
+    func delete(profile: InstanceProfileModel, for instanceInfo: InstanceInfoModel)
 
 }
 
@@ -86,10 +86,10 @@ class ConnectionsTableViewController: UITableViewController {
         self.tableView.reloadData()
     }
 
-    private var internetAccessModels = [ProfileModel]()
-    private var instituteAccessModels = [ProfileModel]()
-    private var otherAccessModels = [ProfileModel]()
-    private var profileInstanceMapping = [ProfileModel: InstanceModel]()
+    private var internetAccessModels = [InstanceProfileModel]()
+    private var instituteAccessModels = [InstanceProfileModel]()
+    private var otherAccessModels = [InstanceProfileModel]()
+    private var profileInstanceMapping = [InstanceProfileModel: InstanceModel]()
 
     @IBAction func addProvider(_ sender: Any) {
         delegate?.addProvider(connectionsTableViewController: self)
@@ -149,7 +149,7 @@ class ConnectionsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let profileModel: ProfileModel
+        let profileModel: InstanceProfileModel
 
         switch indexPath.section {
         case 0:
@@ -177,7 +177,7 @@ class ConnectionsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let profileModel: ProfileModel
+        let profileModel: InstanceProfileModel
 
         switch indexPath.section {
         case 0:
@@ -202,7 +202,7 @@ class ConnectionsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
 
-            let profileModel: ProfileModel
+            let profileModel: InstanceProfileModel
 
             switch indexPath.section {
             case 0:
