@@ -16,6 +16,7 @@
 		4A4F36531F31972C0032C96B /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4F36521F31972C0032C96B /* ApiService.swift */; };
 		4A62C8B81FB03B47007D3FAA /* KeyboardWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A62C8B71FB03B47007D3FAA /* KeyboardWrapper.swift */; };
 		4A7D1E4F1F4B24E4009F1402 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7D1E4E1F4B24E4009F1402 /* ProfileModel.swift */; };
+		4A81DF9C2003BFB7002827A8 /* CertificateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A81DF9B2003BFB7002827A8 /* CertificateModel.swift */; };
 		4A8D241F1F3976A2004A9343 /* ProfilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D241E1F3976A2004A9343 /* ProfilesViewController.swift */; };
 		4A8D24211F3976FC004A9343 /* ProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D24201F3976FC004A9343 /* ProviderType.swift */; };
 		4A8D24331F3A3995004A9343 /* ApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D24321F3A3995004A9343 /* ApiModel.swift */; };
@@ -61,6 +62,7 @@
 		4A4F36521F31972C0032C96B /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		4A62C8B71FB03B47007D3FAA /* KeyboardWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardWrapper.swift; sourceTree = "<group>"; };
 		4A7D1E4E1F4B24E4009F1402 /* ProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
+		4A81DF9B2003BFB7002827A8 /* CertificateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateModel.swift; sourceTree = "<group>"; };
 		4A8D241E1F3976A2004A9343 /* ProfilesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilesViewController.swift; sourceTree = "<group>"; };
 		4A8D24201F3976FC004A9343 /* ProviderType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderType.swift; sourceTree = "<group>"; };
 		4A8D24321F3A3995004A9343 /* ApiModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiModel.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 				4A8D24201F3976FC004A9343 /* ProviderType.swift */,
 				4A8D24321F3A3995004A9343 /* ApiModel.swift */,
 				4A7D1E4E1F4B24E4009F1402 /* ProfileModel.swift */,
+				4A81DF9B2003BFB7002827A8 /* CertificateModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -407,7 +410,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "$SRCROOT/Scripts/set_build_number.sh";
+			shellScript = $SRCROOT/Scripts/set_build_number.sh;
 		};
 		61AAE3AE256E9F03ABDDA78F /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -431,6 +434,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-EduVPN/Pods-EduVPN-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ASN1Decoder/ASN1Decoder.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework",
@@ -443,6 +447,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ASN1Decoder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
@@ -502,6 +507,7 @@
 				4A1140841F78490C00D61100 /* VPNConnectionViewController.swift in Sources */,
 				4A7D1E4F1F4B24E4009F1402 /* ProfileModel.swift in Sources */,
 				4ACA042E1F311863004B35AA /* InstanceService.swift in Sources */,
+				4A81DF9C2003BFB7002827A8 /* CertificateModel.swift in Sources */,
 				4A4CA90F1F55F4300021FD5D /* UITableView+EduVPN.swift in Sources */,
 				4AD0AD5D1F35048E006E1337 /* ChooseProviderTableViewController.swift in Sources */,
 				4AAC1F7A1F2D0E3400DD0252 /* AppDelegate.swift in Sources */,
