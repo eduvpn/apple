@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import UserNotifications
+
 import Moya
 import Disk
 import PromiseKit
@@ -175,6 +177,21 @@ class AppCoordinator: RootViewCoordinator {
         })
     }
 
+    func fetchKeyPair(with dynamicApiProvider: DynamicApiProvider, for displayName: String) -> Promise<Void> {
+        return dynamicApiProvider.request(target: ApiService.createKeypair(displayName: displayName)).then { response -> Promise<CertificateModel> in
+            return response.mapResponse()
+            }.then(execute: { (model) -> Void in
+                print(model)
+                self.scheduleCertificateExpirationNotification(certificate: model)
+            })
+
+//        return Promise(resolvers: { fulfill, reject in
+//            //Fetch current keypair
+//            // If non-existent or expired, fetch fresh
+//            // Otherwise return keypair
+//        })
+    }
+
     func showNoOpenVPNAlert() {
         let alertController = UIAlertController(title: NSLocalizedString("OpenVPN Connect app", comment: "No OpenVPN available title"), message: NSLocalizedString("The OpenVPN Connect app is required to use EduVPN.", comment: "No OpenVPN available message"), preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "No OpenVPN available ok button"), style: .default) { _ in
@@ -189,6 +206,48 @@ class AppCoordinator: RootViewCoordinator {
 
         settingsTableViewController.delegate = self
 
+    }
+
+    fileprivate func scheduleCertificateExpirationNotification(certificate: CertificateModel) {
+        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+            guard settings.authorizationStatus == UNAuthorizationStatus.authorized else {
+                print("Not Authorised")
+                return
+            }
+
+            //        //TODO do this more fine grained
+            //        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+
+            guard let expirationDate = certificate.x509Certificate?.notAfter else { return }
+
+            let content = UNMutableNotificationContent()
+            content.title = NSString.localizedUserNotificationString(forKey: "VPN certificate is expiring!", arguments: nil)
+            content.body = NSString.localizedUserNotificationString(forKey: "Rise and shine! It's morning time!",
+                                                                    arguments: nil)
+
+            #if DEBUG
+                guard let expirationWarningDate = NSCalendar.current.date(byAdding: .second, value: 10, to: Date()) else { return }
+                let expirationWarningDateComponents = NSCalendar.current.dateComponents(in: NSTimeZone.default, from: expirationWarningDate)
+            #else
+                guard let expirationWarningDate = NSCalendar.current.date(byAdding: .day, value: -7, to: expirationDate) else { return }
+                var expirationWarningDateComponents = NSCalendar.current.dateComponents(in: NSTimeZone.default, from: expirationWarningDate)
+
+                // Configure the trigger for 10am.
+                expirationWarningDateComponents.hour = 10
+                expirationWarningDateComponents.minute = 0
+                expirationWarningDateComponents.second = 0
+            #endif
+
+            let trigger = UNCalendarNotificationTrigger(dateMatching: expirationWarningDateComponents, repeats: false)
+
+            // Create the request object.
+            let request = UNNotificationRequest(identifier: "MorningAlarm", content: content, trigger: trigger)
+            UNUserNotificationCenter.current().add(request) { (error) in
+                if let error = error {
+                    print("Error occured when scheduling a cert expiration reminder \(error)")
+                }
+            }
+        }
     }
 
     fileprivate func refresh(instance: InstanceModel) {

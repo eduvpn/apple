@@ -43,6 +43,7 @@ struct InstanceProfileModel: Codable {
 
     var displayName: String?
     var profileId: String
+    var instanceApiBaseUrl: URL?
     var twoFactor: Bool
 }
 

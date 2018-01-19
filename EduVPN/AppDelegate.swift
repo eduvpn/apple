@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 import Fabric
 import Crashlytics
@@ -29,11 +30,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.appCoordinator = AppCoordinator(window: self.window!)
         self.appCoordinator.start()
 
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+            if !granted {
+                print("Notifications not granted")
+            }
+
+            if let error = error {
+                print("Error occured when requesting notification authorization.")
+            }
+        }
+        UNUserNotificationCenter.current().delegate = self
+
         return true
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any] = [:]) -> Bool {
         return appCoordinator.resumeAuthorizationFlow(url: url) == true
     }
+}
 
+extension AppDelegate: UNUserNotificationCenterDelegate {
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        completionHandler()
+    }
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        print("XXXXXXXXX")
+        completionHandler([.alert, .sound])
+    }
 }

@@ -62,7 +62,7 @@ extension ApiService {
         case .createConfig(let displayName, let profileId):
             return .requestParameters(parameters: ["display_name": displayName, "profile_id": profileId], encoding: URLEncoding.httpBody)
         case .createKeypair(let displayName):
-            return .requestParameters(parameters: ["display_name": displayName], encoding: JSONEncoding.default)
+            return .requestParameters(parameters: ["display_name": displayName], encoding: URLEncoding.httpBody)
         case .profileConfig(let profileId):
             return .requestParameters(parameters: ["profile_id": profileId], encoding: URLEncoding.queryString)
         }

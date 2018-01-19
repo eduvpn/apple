@@ -12,7 +12,7 @@ import ASN1Decoder
 struct CertificateModel: Decodable {
     var certificateString: String
     var privateKeyString: String
-    var x509Object: X509Certificate? {
+    var x509Certificate: X509Certificate? {
         return try? X509Certificate(data: certificateString.data(using: .utf8)!)
     }
 }
