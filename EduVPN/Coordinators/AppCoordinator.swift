@@ -380,12 +380,15 @@ class AppCoordinator: RootViewCoordinator {
                 return dynamicApiProvider.request(target: .createConfig(displayName: "iOS Created Profile", profileId: profile.profileId))
             }.then { response -> Void in
                 // TODO validate response
-                try Disk.save(response.data, to: .documents, as: "new_profile.ovpn")
-                let url = try Disk.getURL(for: "new_profile.ovpn", in: .documents)
+                let filename = "\(profile.displayName ?? "")-\(instance.displayName ?? "") \(profile.profileId).ovpn"
+                try Disk.save(response.data, to: .documents, as: filename)
+                let url = try Disk.getURL(for: filename, in: .documents)
 
-                self.currentDocumentInteractionController = UIDocumentInteractionController(url: url)
+                let activity = UIActivityViewController(activityItems: [url], applicationActivities: nil)
                 if let currentViewController = self.navigationController.visibleViewController {
-                    self.currentDocumentInteractionController?.presentOpenInMenu(from: currentViewController.view.frame, in: currentViewController.view, animated: true)
+                    currentViewController.present(activity, animated: true, completion: {
+                        print("Done")
+                    })
                 }
                 return ()
             }.catch { (error) in
