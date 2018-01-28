@@ -505,8 +505,21 @@ extension AppCoordinator: ChooseProviderTableViewControllerDelegate {
 }
 
 extension AppCoordinator: CustomProviderInPutViewControllerDelegate {
+
+    private func createLocalUrl(forImageNamed name: String) throws -> URL {
+        let filename = "\(name).png"
+        if Disk.exists(filename, in: .applicationSupport) {
+            return try Disk.getURL(for: filename, in: .applicationSupport)
+        }
+
+        let image = UIImage(named: name)!
+        try Disk.save(image, to: .applicationSupport, as: filename)
+
+        return try Disk.getURL(for: filename, in: .applicationSupport)
+    }
     func connect(url: URL) {
-        let otherModel = InstanceModel(providerType: .other, baseUri: url, displayNames: nil, logoUrls: nil, instanceInfo: nil, displayName: nil, logoUrl: nil)
+        let logoUrl = try? createLocalUrl(forImageNamed: "external_provider")
+        let otherModel = InstanceModel(providerType: .other, baseUri: url, displayNames: nil, logoUrls: nil, instanceInfo: nil, displayName: nil, logoUrl: logoUrl)
         refresh(instance: otherModel).catch { (error) in
             self.showError(error)
         }
