@@ -36,7 +36,6 @@ class AppCoordinator: RootViewCoordinator {
             do {
                 return try Disk.retrieve("instanceInfoProfilesMapping.json", from: .documents, as: [InstanceInfoModel: ProfilesModel].self)
             } catch {
-                //TODO handle error
                 print(error)
                 return [InstanceInfoModel: ProfilesModel]()
             }
@@ -45,7 +44,7 @@ class AppCoordinator: RootViewCoordinator {
             do {
                 try Disk.save(newValue, to: .documents, as: "instanceInfoProfilesMapping.json")
             } catch {
-                //TODO handle error
+                self.showError(error)
                 print(error)
             }
         }
@@ -56,7 +55,6 @@ class AppCoordinator: RootViewCoordinator {
             do {
                 return try Disk.retrieve("internet-instances.json", from: .documents, as: InstancesModel.self)
             } catch {
-                //TODO handle error
                 print(error)
                 return nil
             }
@@ -66,7 +64,7 @@ class AppCoordinator: RootViewCoordinator {
                 try Disk.save(newValue, to: .documents, as: "internet-instances.json")
                 self.connectionsTableViewController.internetInstancesModel = newValue
             } catch {
-                //TODO handle error
+                self.showError(error)
                 print(error)
             }
         }
@@ -77,7 +75,6 @@ class AppCoordinator: RootViewCoordinator {
             do {
                 return try Disk.retrieve("institute-instances.json", from: .documents, as: InstancesModel.self)
             } catch {
-                //TODO handle error
                 print(error)
                 return InstancesModel(providerType: .other, authorizationType: .local, seq: 0, signedAt: nil, instances: [], authorizationEndpoint: nil, tokenEndpoint: nil)
             }
@@ -87,7 +84,7 @@ class AppCoordinator: RootViewCoordinator {
                 try Disk.save(newValue, to: .documents, as: "institute-instances.json")
                 self.connectionsTableViewController.instituteInstancesModel = newValue
             } catch {
-                //TODO handle error
+                self.showError(error)
                 print(error)
             }
         }
@@ -98,7 +95,6 @@ class AppCoordinator: RootViewCoordinator {
             do {
                 return try Disk.retrieve("other-instances.json", from: .documents, as: InstancesModel.self)
             } catch {
-                //TODO handle error
                 print(error)
                 return nil
             }
@@ -108,8 +104,8 @@ class AppCoordinator: RootViewCoordinator {
                 try Disk.save(newValue, to: .documents, as: "other-instances.json")
                 self.connectionsTableViewController.otherInstancesModel = newValue
             } catch {
-                //TODO handle error
                 print(error)
+                self.showError(error)
             }
         }
     }
@@ -161,6 +157,13 @@ class AppCoordinator: RootViewCoordinator {
         detectPresenceOpenVPN().catch { (_) in
             self.showNoOpenVPNAlert()
         }
+    }
+
+    public func showError(_ error: Error) {
+        let alert = UIAlertController(title: NSLocalizedString("Error", comment: "Error alert title"), message: error.localizedDescription, preferredStyle: .alert)
+        let dismissAction = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(dismissAction)
+        self.navigationController.present(alert, animated: true)
     }
 
     func detectPresenceOpenVPN() -> Promise<Void> {
@@ -250,11 +253,11 @@ class AppCoordinator: RootViewCoordinator {
         }
     }
 
-    fileprivate func refresh(instance: InstanceModel) {
+    fileprivate func refresh(instance: InstanceModel) -> Promise<Void> {
         //        let provider = DynamicInstanceProvider(baseURL: instance.baseUri)
         let provider = MoyaProvider<DynamicInstanceService>()
 
-        _ = provider.request(target: DynamicInstanceService(baseURL: instance.baseUri)).then { response -> Promise<InstanceInfoModel> in
+        return provider.request(target: DynamicInstanceService(baseURL: instance.baseUri)).then { response -> Promise<InstanceInfoModel> in
             return response.mapResponse()
             }.then { instanceInfoModel -> Void in
                 var updatedInstance = instance
@@ -495,14 +498,18 @@ extension AppCoordinator: ChooseProviderTableViewControllerDelegate {
     }
 
     func didSelect(instance: InstanceModel, chooseProviderTableViewController: ChooseProviderTableViewController) {
-        self.refresh(instance: instance)
+        self.refresh(instance: instance).catch { (error) in
+            self.showError(error)
+        }
     }
 }
 
 extension AppCoordinator: CustomProviderInPutViewControllerDelegate {
     func connect(url: URL) {
         let otherModel = InstanceModel(providerType: .other, baseUri: url, displayNames: nil, logoUrls: nil, instanceInfo: nil, displayName: nil, logoUrl: nil)
-        refresh(instance: otherModel)
+        refresh(instance: otherModel).catch { (error) in
+            self.showError(error)
+        }
     }
 }
 

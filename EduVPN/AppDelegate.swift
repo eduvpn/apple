@@ -36,6 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
 
             if let error = error {
+                self.appCoordinator.showError(error)
                 print("Error occured when requesting notification authorization.")
             }
         }

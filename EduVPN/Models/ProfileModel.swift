@@ -98,6 +98,6 @@ extension InstanceProfileModel: Hashable {
     }
 
     static func == (lhs: InstanceProfileModel, rhs: InstanceProfileModel) -> Bool {
-        return lhs.profileId == rhs.profileId
+        return lhs.profileId == rhs.profileId && lhs.instanceApiBaseUrl == rhs.instanceApiBaseUrl
     }
 }

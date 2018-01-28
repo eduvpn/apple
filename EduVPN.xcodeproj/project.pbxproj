@@ -382,7 +382,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./mergegenstrings.py EduVPN NSLocalizedString";
+			shellScript = "#./mergegenstrings.py EduVPN NSLocalizedString";
 		};
 		4AAC1F991F2D0FFA00DD0252 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
