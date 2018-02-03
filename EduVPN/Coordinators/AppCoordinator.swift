@@ -19,7 +19,9 @@ enum AppCoordinatorError: Swift.Error {
 
 /// The AppCoordinator is our first coordinator
 /// In this example the AppCoordinator as a rootViewController
-class AppCoordinator: RootViewCoordinator {
+class AppCoordinator: RootViewCoordinator, PersistenceCoordinatorDelegate {
+
+    let persistenceCoordinator: PersistenceCoordinator
 
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
@@ -30,85 +32,6 @@ class AppCoordinator: RootViewCoordinator {
     private var dynamicApiProviders = Set<DynamicApiProvider>()
 
     private var currentDocumentInteractionController: UIDocumentInteractionController?
-
-    private var instanceInfoProfilesMapping: [InstanceInfoModel: ProfilesModel] {
-        get {
-            do {
-                return try Disk.retrieve("instanceInfoProfilesMapping.json", from: .documents, as: [InstanceInfoModel: ProfilesModel].self)
-            } catch {
-                print(error)
-                return [InstanceInfoModel: ProfilesModel]()
-            }
-        }
-        set {
-            do {
-                try Disk.save(newValue, to: .documents, as: "instanceInfoProfilesMapping.json")
-            } catch {
-                self.showError(error)
-                print(error)
-            }
-        }
-    }
-
-    private var internetInstancesModel: InstancesModel? {
-        get {
-            do {
-                return try Disk.retrieve("internet-instances.json", from: .documents, as: InstancesModel.self)
-            } catch {
-                print(error)
-                return nil
-            }
-        }
-        set {
-            do {
-                try Disk.save(newValue, to: .documents, as: "internet-instances.json")
-                self.connectionsTableViewController.internetInstancesModel = newValue
-            } catch {
-                self.showError(error)
-                print(error)
-            }
-        }
-    }
-
-    private var instituteInstancesModel: InstancesModel? {
-        get {
-            do {
-                return try Disk.retrieve("institute-instances.json", from: .documents, as: InstancesModel.self)
-            } catch {
-                print(error)
-                return InstancesModel(providerType: .other, authorizationType: .local, seq: 0, signedAt: nil, instances: [], authorizationEndpoint: nil, tokenEndpoint: nil)
-            }
-        }
-        set {
-            do {
-                try Disk.save(newValue, to: .documents, as: "institute-instances.json")
-                self.connectionsTableViewController.instituteInstancesModel = newValue
-            } catch {
-                self.showError(error)
-                print(error)
-            }
-        }
-    }
-
-    private var otherInstancesModel: InstancesModel? {
-        get {
-            do {
-                return try Disk.retrieve("other-instances.json", from: .documents, as: InstancesModel.self)
-            } catch {
-                print(error)
-                return nil
-            }
-        }
-        set {
-            do {
-                try Disk.save(newValue, to: .documents, as: "other-instances.json")
-                self.connectionsTableViewController.otherInstancesModel = newValue
-            } catch {
-                print(error)
-                self.showError(error)
-            }
-        }
-    }
 
     private var authorizingDynamicApiProvider: DynamicApiProvider?
 
@@ -133,8 +56,12 @@ class AppCoordinator: RootViewCoordinator {
     public init(window: UIWindow) {
         self.window = window
 
+        self.persistenceCoordinator = PersistenceCoordinator()
+        self.persistenceCoordinator.delegate = self
+
         self.window.rootViewController = self.navigationController
         self.window.makeKeyAndVisible()
+
     }
 
     // MARK: - Functions
@@ -143,10 +70,6 @@ class AppCoordinator: RootViewCoordinator {
     public func start() {
         //start
         connectionsTableViewController = storyboard.instantiateViewController(type: ConnectionsTableViewController.self)
-        connectionsTableViewController.internetInstancesModel = internetInstancesModel
-        connectionsTableViewController.instituteInstancesModel = instituteInstancesModel
-        connectionsTableViewController.otherInstancesModel = otherInstancesModel
-        connectionsTableViewController.instanceInfoProfilesMapping = instanceInfoProfilesMapping
         connectionsTableViewController.delegate = self
         self.navigationController.viewControllers = [connectionsTableViewController]
 
@@ -265,28 +188,28 @@ class AppCoordinator: RootViewCoordinator {
 
                 switch instance.providerType {
                 case .instituteAccess:
-                    if let index = self.instituteInstancesModel?.instances.index(where: { (instanceModel) -> Bool in
+                    if let index = self.persistenceCoordinator.instituteInstancesModel?.instances.index(where: { (instanceModel) -> Bool in
                         return instanceModel.baseUri == updatedInstance.baseUri
                     }) {
-                        self.instituteInstancesModel?.instances[index] = updatedInstance
+                        self.persistenceCoordinator.instituteInstancesModel?.instances[index] = updatedInstance
                     }
                 case .secureInternet:
-                    if let index = self.internetInstancesModel?.instances.index(where: { (instanceModel) -> Bool in
+                    if let index = self.persistenceCoordinator.internetInstancesModel?.instances.index(where: { (instanceModel) -> Bool in
                         return instanceModel.baseUri == updatedInstance.baseUri
                     }) {
-                        self.internetInstancesModel?.instances[index] = updatedInstance
+                        self.persistenceCoordinator.internetInstancesModel?.instances[index] = updatedInstance
                     }
                 case .other:
-                    if let index = self.otherInstancesModel?.instances.index(where: { (instanceModel) -> Bool in
+                    if let index = self.persistenceCoordinator.otherInstancesModel?.instances.index(where: { (instanceModel) -> Bool in
                         return instanceModel.baseUri == updatedInstance.baseUri
                     }) {
-                        self.otherInstancesModel?.instances[index] = updatedInstance
-                    } else if var otherInstancesModel = self.otherInstancesModel {
+                        self.persistenceCoordinator.otherInstancesModel?.instances[index] = updatedInstance
+                    } else if var otherInstancesModel = self.persistenceCoordinator.otherInstancesModel {
                         otherInstancesModel.instances.append(updatedInstance)
-                        self.otherInstancesModel = otherInstancesModel
+                        self.persistenceCoordinator.otherInstancesModel = otherInstancesModel
                     } else {
-                        var otherInstancesModel = InstancesModel(providerType: .other, authorizationType: .local, seq: 0, signedAt: nil, instances: [updatedInstance], authorizationEndpoint: nil, tokenEndpoint: nil)
-                        self.otherInstancesModel = otherInstancesModel
+                        let otherInstancesModel = InstancesModel(providerType: .other, authorizationType: .local, seq: 0, signedAt: nil, instances: [updatedInstance], authorizationEndpoint: nil, tokenEndpoint: nil)
+                        self.persistenceCoordinator.otherInstancesModel = otherInstancesModel
                     }
                 case .unknown:
                     precondition(false, "This should not happen")
@@ -298,9 +221,7 @@ class AppCoordinator: RootViewCoordinator {
                 _ = authorizingDynamicApiProvider.authorize(presentingViewController: self.navigationController).then {_ in
                         self.navigationController.popToRootViewController(animated: true)
                     }.then { _ in
-                    return self.refreshProfiles(for: authorizingDynamicApiProvider).then {_ in
-                        self.profilesUpdated()
-                    }
+                    return self.refreshProfiles(for: authorizingDynamicApiProvider)
                 }
         }
     }
@@ -334,10 +255,10 @@ class AppCoordinator: RootViewCoordinator {
         let target: StaticService
         switch providerType {
         case .instituteAccess:
-            chooseProviderTableViewController.instances = instituteInstancesModel
+            chooseProviderTableViewController.instances = persistenceCoordinator.instituteInstancesModel
             target = StaticService.instituteAccess
         case .secureInternet:
-            chooseProviderTableViewController.instances = internetInstancesModel
+            chooseProviderTableViewController.instances = persistenceCoordinator.internetInstancesModel
             target = StaticService.secureInternet
         case .unknown, .other:
             return
@@ -359,9 +280,9 @@ class AppCoordinator: RootViewCoordinator {
 
             switch providerType {
             case .instituteAccess:
-                self.instituteInstancesModel = instances
+                self.persistenceCoordinator.instituteInstancesModel = instances
             case .secureInternet:
-                self.internetInstancesModel = instances
+                self.persistenceCoordinator.internetInstancesModel = instances
             case .unknown, .other:
                 return
             }
@@ -432,16 +353,8 @@ class AppCoordinator: RootViewCoordinator {
         return dynamicApiProvider.request(target: .profileList).then { response -> Promise<ProfilesModel> in
             return response.mapResponse()
         }.then { profiles -> Promise<ProfilesModel> in
-            self.instanceInfoProfilesMapping[dynamicApiProvider.instanceInfo] = profiles
+            self.persistenceCoordinator.instanceInfoProfilesMapping[dynamicApiProvider.instanceInfo] = profiles
             return Promise(value: profiles)
-        }
-    }
-
-    func profilesUpdated() {
-        self.navigationController.viewControllers.forEach {
-            if let connectionsViewController = $0 as? ConnectionsTableViewController {
-                connectionsViewController.instanceInfoProfilesMapping = self.instanceInfoProfilesMapping
-            }
         }
     }
 }
@@ -465,16 +378,14 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
     }
 
     func delete(profile: InstanceProfileModel, for instanceInfo: InstanceInfoModel) {
-        if var profilesModel = instanceInfoProfilesMapping[instanceInfo] {
+        if var profilesModel = persistenceCoordinator.instanceInfoProfilesMapping[instanceInfo] {
             let newProfiles = profilesModel.profiles.filter {$0 != profile}
             if newProfiles.isEmpty {
-                instanceInfoProfilesMapping.removeValue(forKey: instanceInfo)
+                persistenceCoordinator.instanceInfoProfilesMapping.removeValue(forKey: instanceInfo)
             } else {
                 profilesModel.profiles = newProfiles
-                instanceInfoProfilesMapping[instanceInfo] = profilesModel
+                persistenceCoordinator.instanceInfoProfilesMapping[instanceInfo] = profilesModel
             }
-
-            profilesUpdated()
         }
     }
 }

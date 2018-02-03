@@ -12,6 +12,7 @@
 		4A2803D91FA6867D00FA895C /* CustomProviderInPutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2803D81FA6867D00FA895C /* CustomProviderInPutViewController.swift */; };
 		4A2CC2221F4233E8004119B1 /* Identifyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2CC2211F4233E8004119B1 /* Identifyable.swift */; };
 		4A3E029C1F6C4B3D00D20292 /* Moya+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3E029B1F6C4B3D00D20292 /* Moya+Extensions.swift */; };
+		4A43A1ED2024B9DC002B884A /* PersistenceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A43A1EC2024B9DC002B884A /* PersistenceCoordinator.swift */; };
 		4A4CA90F1F55F4300021FD5D /* UITableView+EduVPN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CA90E1F55F4300021FD5D /* UITableView+EduVPN.swift */; };
 		4A4F36531F31972C0032C96B /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4F36521F31972C0032C96B /* ApiService.swift */; };
 		4A62C8B81FB03B47007D3FAA /* KeyboardWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A62C8B71FB03B47007D3FAA /* KeyboardWrapper.swift */; };
@@ -58,6 +59,7 @@
 		4A2803D81FA6867D00FA895C /* CustomProviderInPutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProviderInPutViewController.swift; sourceTree = "<group>"; };
 		4A2CC2211F4233E8004119B1 /* Identifyable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifyable.swift; sourceTree = "<group>"; };
 		4A3E029B1F6C4B3D00D20292 /* Moya+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Moya+Extensions.swift"; sourceTree = "<group>"; };
+		4A43A1EC2024B9DC002B884A /* PersistenceCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceCoordinator.swift; sourceTree = "<group>"; };
 		4A4CA90E1F55F4300021FD5D /* UITableView+EduVPN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+EduVPN.swift"; sourceTree = "<group>"; };
 		4A4F36521F31972C0032C96B /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		4A62C8B71FB03B47007D3FAA /* KeyboardWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardWrapper.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 		4A983B751F397223004F82D5 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				4A43A1EC2024B9DC002B884A /* PersistenceCoordinator.swift */,
 				4A983B781F397289004F82D5 /* Coordinator.swift */,
 				4A983B7A1F3972BE004F82D5 /* RootCoordinator.swift */,
 				4A983B761F397243004F82D5 /* AppCoordinator.swift */,
@@ -504,6 +507,7 @@
 				4A8D24351F3A40F2004A9343 /* InstanceInfoModel.swift in Sources */,
 				4A62C8B81FB03B47007D3FAA /* KeyboardWrapper.swift in Sources */,
 				4A2CC2221F4233E8004119B1 /* Identifyable.swift in Sources */,
+				4A43A1ED2024B9DC002B884A /* PersistenceCoordinator.swift in Sources */,
 				4A1140841F78490C00D61100 /* VPNConnectionViewController.swift in Sources */,
 				4A7D1E4F1F4B24E4009F1402 /* ProfileModel.swift in Sources */,
 				4ACA042E1F311863004B35AA /* InstanceService.swift in Sources */,

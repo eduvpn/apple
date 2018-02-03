@@ -28,56 +28,45 @@ protocol ConnectionsTableViewControllerDelegate: class {
 class ConnectionsTableViewController: UITableViewController {
     weak var delegate: ConnectionsTableViewControllerDelegate?
 
-    var internetInstancesModel: InstancesModel? {
-        didSet {
-            dataUpdated()
-        }
-    }
-    var instituteInstancesModel: InstancesModel? {
-        didSet {
-            dataUpdated()
-        }
+    override func viewDidLoad() {
+        NotificationCenter.default.addObserver(self, selector: #selector(dataUpdated), name: PersistenceCoordinator.InstanceInfoProfilesMappingDidUpdate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(dataUpdated), name: PersistenceCoordinator.InstituteInstancesDidUpdate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(dataUpdated), name: PersistenceCoordinator.InternetInstancesDidUpdate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(dataUpdated), name: PersistenceCoordinator.OtherInstancesDidUpdate, object: nil)
+
+        dataUpdated(notification: nil)
     }
 
-    var otherInstancesModel: InstancesModel? {
-        didSet {
-            dataUpdated()
-        }
-    }
-
-    var instanceInfoProfilesMapping: [InstanceInfoModel: ProfilesModel] = [InstanceInfoModel: ProfilesModel]() {
-        didSet {
-            dataUpdated()
-        }
-    }
-
-    private func dataUpdated() {
+    @objc
+    private func dataUpdated(notification: Notification?) {
         internetAccessModels.removeAll()
         instituteAccessModels.removeAll()
         otherAccessModels.removeAll()
         profileInstanceMapping.removeAll()
 
-        internetInstancesModel?.instances.forEach({ (instance) in
+        let persistenceCoordinator = PersistenceCoordinator()
+
+        persistenceCoordinator.internetInstancesModel?.instances.forEach({ (instance) in
             if let instanceInfo = instance.instanceInfo {
-                instanceInfoProfilesMapping[instanceInfo]?.profiles.forEach({ (profile) in
+                persistenceCoordinator.instanceInfoProfilesMapping[instanceInfo]?.profiles.forEach({ (profile) in
                     internetAccessModels.append(profile)
                     profileInstanceMapping[profile] = instance
                 })
             }
         })
 
-        instituteInstancesModel?.instances.forEach({ (instance) in
+        persistenceCoordinator.instituteInstancesModel?.instances.forEach({ (instance) in
             if let instanceInfo = instance.instanceInfo {
-                instanceInfoProfilesMapping[instanceInfo]?.profiles.forEach({ (profile) in
+                persistenceCoordinator.instanceInfoProfilesMapping[instanceInfo]?.profiles.forEach({ (profile) in
                     instituteAccessModels.append(profile)
                     profileInstanceMapping[profile] = instance
                 })
             }
         })
 
-        otherInstancesModel?.instances.forEach({ (instance) in
+        persistenceCoordinator.otherInstancesModel?.instances.forEach({ (instance) in
             if let instanceInfo = instance.instanceInfo {
-                instanceInfoProfilesMapping[instanceInfo]?.profiles.forEach({ (profile) in
+                persistenceCoordinator.instanceInfoProfilesMapping[instanceInfo]?.profiles.forEach({ (profile) in
                     otherAccessModels.append(profile)
                     profileInstanceMapping[profile] = instance
                 })
