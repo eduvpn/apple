@@ -35,6 +35,7 @@
 #import "OIDTokenResponse.h"
 #import "OIDTokenUtilities.h"
 #import "OIDURLQueryComponent.h"
+#import "OIDURLSessionProvider.h"
 #import "OIDAuthorizationService+IOS.h"
 #import "OIDAuthorizationUICoordinatorIOS.h"
 #import "OIDAuthState+IOS.h"
