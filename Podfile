@@ -16,6 +16,7 @@ target 'EduVPN' do
   pod 'AlamofireImage'
   pod 'Sodium'
   pod 'ASN1Decoder'
+  pod 'BNRCoreDataStack'
 
   post_install do | installer |
     require 'fileutils'
