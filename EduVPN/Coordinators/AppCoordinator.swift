@@ -13,6 +13,8 @@ import Moya
 import Disk
 import PromiseKit
 
+import CoreData
+
 enum AppCoordinatorError: Swift.Error {
     case openVpnSchemeNotAvailable
 }
@@ -22,6 +24,7 @@ enum AppCoordinatorError: Swift.Error {
 class AppCoordinator: RootViewCoordinator, PersistenceCoordinatorDelegate {
 
     let persistenceCoordinator: PersistenceCoordinator
+    let persistentContainer = NSPersistentContainer(name: "EduVPN")
 
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
@@ -68,17 +71,28 @@ class AppCoordinator: RootViewCoordinator, PersistenceCoordinatorDelegate {
 
     /// Starts the coordinator
     public func start() {
-        //start
-        connectionsTableViewController = storyboard.instantiateViewController(type: ConnectionsTableViewController.self)
-        connectionsTableViewController.delegate = self
-        self.navigationController.viewControllers = [connectionsTableViewController]
+        persistentContainer.loadPersistentStores { [weak self] (persistentStoreDescription, error) in
+            if let error = error {
+                print("Unable to Load Persistent Store")
+                print("\(error), \(error.localizedDescription)")
 
-        if connectionsTableViewController.empty {
-            showProfilesViewController()
-        }
+            } else {
+                DispatchQueue.main.async {
+                    //start
+                    if let connectionsTableViewController = self?.storyboard.instantiateViewController(type: ConnectionsTableViewController.self) {
+                        self?.connectionsTableViewController = connectionsTableViewController
+                        self?.connectionsTableViewController.delegate = self
+                        self?.navigationController.viewControllers = [connectionsTableViewController]
+                        if connectionsTableViewController.empty {
+                            self?.showProfilesViewController()
+                        }
+                    }
 
-        detectPresenceOpenVPN().catch { (_) in
-            self.showNoOpenVPNAlert()
+                    self?.detectPresenceOpenVPN().catch { (_) in
+                        self?.showNoOpenVPNAlert()
+                    }
+                }
+            }
         }
     }
 

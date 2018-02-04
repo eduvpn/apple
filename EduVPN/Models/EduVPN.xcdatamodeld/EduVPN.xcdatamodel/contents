@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17D47" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Api" representedClassName="Api" syncable="YES">
+        <attribute name="apiBaseUri" attributeType="String" syncable="YES"/>
+        <attribute name="authorizationEndpoint" attributeType="String" syncable="YES"/>
+        <attribute name="tokenEndpoint" attributeType="String" syncable="YES"/>
+        <relationship name="instance" maxCount="1" deletionRule="Nullify" destinationEntity="Instance" inverseName="apis" inverseEntity="Instance" syncable="YES"/>
+        <relationship name="profiles" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Profile" inverseName="api" inverseEntity="Profile" syncable="YES"/>
+    </entity>
+    <entity name="DisplayName" representedClassName="DisplayName" syncable="YES">
+        <attribute name="displayName" attributeType="String" syncable="YES"/>
+        <attribute name="locale" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="instance" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Instance" inverseName="displayNames" inverseEntity="Instance" syncable="YES"/>
+        <relationship name="profile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profile" inverseName="displayNames" inverseEntity="Profile" syncable="YES"/>
+    </entity>
+    <entity name="Instance" representedClassName="Instance" syncable="YES">
+        <attribute name="baseUri" attributeType="String" syncable="YES"/>
+        <attribute name="providerType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="publicKey" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="apis" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Api" inverseName="instance" inverseEntity="Api" syncable="YES"/>
+        <relationship name="displayNames" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="DisplayName" inverseName="instance" inverseEntity="DisplayName" syncable="YES"/>
+        <relationship name="logos" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Logo" inverseName="instance" inverseEntity="Logo" syncable="YES"/>
+    </entity>
+    <entity name="Logo" representedClassName="Logo" syncable="YES">
+        <attribute name="locale" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="logo" attributeType="String" syncable="YES"/>
+        <relationship name="instance" maxCount="1" deletionRule="Nullify" destinationEntity="Instance" inverseName="logos" inverseEntity="Instance" syncable="YES"/>
+    </entity>
+    <entity name="Profile" representedClassName="Profile" syncable="YES">
+        <attribute name="profileId" attributeType="String" syncable="YES"/>
+        <attribute name="twoFactor" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="api" maxCount="1" deletionRule="Nullify" destinationEntity="Api" inverseName="profiles" inverseEntity="Api" syncable="YES"/>
+        <relationship name="displayNames" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DisplayName" inverseName="profile" inverseEntity="DisplayName" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Api" positionX="-27" positionY="63" width="128" height="120"/>
+        <element name="DisplayName" positionX="-36" positionY="27" width="128" height="105"/>
+        <element name="Instance" positionX="-63" positionY="-18" width="128" height="135"/>
+        <element name="Logo" positionX="-54" positionY="0" width="128" height="90"/>
+        <element name="Profile" positionX="-18" positionY="99" width="128" height="105"/>
+    </elements>
+</model>
