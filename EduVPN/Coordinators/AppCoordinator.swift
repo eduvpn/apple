@@ -14,18 +14,15 @@ import Disk
 import PromiseKit
 
 import CoreData
+import BNRCoreDataStack
 
 enum AppCoordinatorError: Swift.Error {
     case openVpnSchemeNotAvailable
 }
 
-/// The AppCoordinator is our first coordinator
-/// In this example the AppCoordinator as a rootViewController
-class AppCoordinator: RootViewCoordinator, PersistenceCoordinatorDelegate {
+class AppCoordinator: RootViewCoordinator {
 
-    let persistenceCoordinator: PersistenceCoordinator
     let persistentContainer = NSPersistentContainer(name: "EduVPN")
-
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
     // MARK: - Properties
@@ -55,22 +52,18 @@ class AppCoordinator: RootViewCoordinator, PersistenceCoordinatorDelegate {
     }()
 
     // MARK: - Init
-
     public init(window: UIWindow) {
         self.window = window
 
-        self.persistenceCoordinator = PersistenceCoordinator()
-        self.persistenceCoordinator.delegate = self
-
         self.window.rootViewController = self.navigationController
         self.window.makeKeyAndVisible()
-
     }
 
     // MARK: - Functions
 
     /// Starts the coordinator
     public func start() {
+        persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
         persistentContainer.loadPersistentStores { [weak self] (persistentStoreDescription, error) in
             if let error = error {
                 print("Unable to Load Persistent Store")
@@ -81,10 +74,15 @@ class AppCoordinator: RootViewCoordinator, PersistenceCoordinatorDelegate {
                     //start
                     if let connectionsTableViewController = self?.storyboard.instantiateViewController(type: ConnectionsTableViewController.self) {
                         self?.connectionsTableViewController = connectionsTableViewController
+                        self?.connectionsTableViewController.viewContext = self?.persistentContainer.viewContext
                         self?.connectionsTableViewController.delegate = self
                         self?.navigationController.viewControllers = [connectionsTableViewController]
-                        if connectionsTableViewController.empty {
-                            self?.showProfilesViewController()
+                        do {
+                            if let context = self?.persistentContainer.viewContext, try Profile.countInContext(context) == 0 {
+                                self?.showProfilesViewController()
+                            }
+                        } catch {
+                            self?.showError(error)
                         }
                     }
 
@@ -118,7 +116,7 @@ class AppCoordinator: RootViewCoordinator, PersistenceCoordinatorDelegate {
     }
 
     func fetchKeyPair(with dynamicApiProvider: DynamicApiProvider, for displayName: String) -> Promise<Void> {
-        return dynamicApiProvider.request(target: ApiService.createKeypair(displayName: displayName)).then { response -> Promise<CertificateModel> in
+        return dynamicApiProvider.request(apiService: ApiService.createKeypair(displayName: displayName)).then { response -> Promise<CertificateModel> in
             return response.mapResponse()
             }.then(execute: { (model) -> Void in
                 print(model)
@@ -141,11 +139,8 @@ class AppCoordinator: RootViewCoordinator, PersistenceCoordinatorDelegate {
 
     func showSettingsTableViewController() {
         let settingsTableViewController = storyboard.instantiateViewController(type: SettingsTableViewController.self)
-
         self.navigationController.pushViewController(settingsTableViewController, animated: true)
-
         settingsTableViewController.delegate = self
-
     }
 
     fileprivate func scheduleCertificateExpirationNotification(certificate: CertificateModel) {
@@ -190,53 +185,44 @@ class AppCoordinator: RootViewCoordinator, PersistenceCoordinatorDelegate {
         }
     }
 
-    fileprivate func refresh(instance: InstanceModel) -> Promise<Void> {
+    fileprivate func refresh(instance: Instance) -> Promise<Void> {
         //        let provider = DynamicInstanceProvider(baseURL: instance.baseUri)
         let provider = MoyaProvider<DynamicInstanceService>()
 
-        return provider.request(target: DynamicInstanceService(baseURL: instance.baseUri)).then { response -> Promise<InstanceInfoModel> in
+        return provider.request(target: DynamicInstanceService(baseURL: URL(string: instance.baseUri!)!)).then { response -> Promise<InstanceInfoModel> in
             return response.mapResponse()
             }.then { instanceInfoModel -> Void in
-                var updatedInstance = instance
-                updatedInstance.instanceInfo = instanceInfoModel
+                return Promise<Api>(resolvers: { fulfill, reject in
+                    self.persistentContainer.performBackgroundTask({ (context) in
+                        let api: Api
+                        let instance = context.object(with: instance.objectID) as? Instance
+                        if let instance = instance {
+                            api = try! Api.findFirstInContext(context, predicate: NSPredicate(format: "instance == %@ AND apiBaseUri == %@", instance, instanceInfoModel.apiBaseUrl.absoluteString)) ?? Api(context: context)//swiftlint:disable:this force_try
+                        } else {
+                            api = Api(context: context)
+                        }
+                        api.instance = instance
+                        api.apiBaseUri = instanceInfoModel.apiBaseUrl.absoluteString
+                        api.authorizationEndpoint = instanceInfoModel.authorizationEndpoint.absoluteString
+                        api.tokenEndpoint = instanceInfoModel.tokenEndpoint.absoluteString
+                        do {
+                            try context.save()
+                        } catch {
+                            reject(error)
+                        }
 
-                switch instance.providerType {
-                case .instituteAccess:
-                    if let index = self.persistenceCoordinator.instituteInstancesModel?.instances.index(where: { (instanceModel) -> Bool in
-                        return instanceModel.baseUri == updatedInstance.baseUri
-                    }) {
-                        self.persistenceCoordinator.instituteInstancesModel?.instances[index] = updatedInstance
-                    }
-                case .secureInternet:
-                    if let index = self.persistenceCoordinator.internetInstancesModel?.instances.index(where: { (instanceModel) -> Bool in
-                        return instanceModel.baseUri == updatedInstance.baseUri
-                    }) {
-                        self.persistenceCoordinator.internetInstancesModel?.instances[index] = updatedInstance
-                    }
-                case .other:
-                    if let index = self.persistenceCoordinator.otherInstancesModel?.instances.index(where: { (instanceModel) -> Bool in
-                        return instanceModel.baseUri == updatedInstance.baseUri
-                    }) {
-                        self.persistenceCoordinator.otherInstancesModel?.instances[index] = updatedInstance
-                    } else if var otherInstancesModel = self.persistenceCoordinator.otherInstancesModel {
-                        otherInstancesModel.instances.append(updatedInstance)
-                        self.persistenceCoordinator.otherInstancesModel = otherInstancesModel
-                    } else {
-                        let otherInstancesModel = InstancesModel(providerType: .other, authorizationType: .local, seq: 0, signedAt: nil, instances: [updatedInstance], authorizationEndpoint: nil, tokenEndpoint: nil)
-                        self.persistenceCoordinator.otherInstancesModel = otherInstancesModel
-                    }
-                case .unknown:
-                    precondition(false, "This should not happen")
-                    return
-                }
-
-                let authorizingDynamicApiProvider = DynamicApiProvider(instanceInfo: instanceInfoModel)
-                self.authorizingDynamicApiProvider = authorizingDynamicApiProvider
-                _ = authorizingDynamicApiProvider.authorize(presentingViewController: self.navigationController).then {_ in
+                        fulfill(api)
+                    })
+                }).then(execute: { (api) -> Promise<Void> in
+                    let api = self.persistentContainer.viewContext.object(with: api.objectID) as! Api //swiftlint:disable:this force_cast
+                    let authorizingDynamicApiProvider = DynamicApiProvider(api: api)
+                    self.authorizingDynamicApiProvider = authorizingDynamicApiProvider
+                    return authorizingDynamicApiProvider.authorize(presentingViewController: self.navigationController).then {_ in
                         self.navigationController.popToRootViewController(animated: true)
                     }.then { _ in
-                    return self.refreshProfiles(for: authorizingDynamicApiProvider)
+                        return self.refreshProfiles(for: authorizingDynamicApiProvider)
                 }
+            })
         }
     }
 
@@ -249,8 +235,12 @@ class AppCoordinator: RootViewCoordinator, PersistenceCoordinatorDelegate {
     fileprivate func showProfilesViewController() {
         let profilesViewController = storyboard.instantiateViewController(type: ProfilesViewController.self)
         profilesViewController.delegate = self
-        profilesViewController.navigationItem.hidesBackButton = connectionsTableViewController.empty
-        self.navigationController.pushViewController(profilesViewController, animated: true)
+        do {
+            try profilesViewController.navigationItem.hidesBackButton = Profile.countInContext(persistentContainer.viewContext) == 0
+            self.navigationController.pushViewController(profilesViewController, animated: true)
+        } catch {
+            self.showError(error)
+        }
     }
 
     fileprivate func showCustomProviderInPutViewController(for providerType: ProviderType) {
@@ -261,6 +251,8 @@ class AppCoordinator: RootViewCoordinator, PersistenceCoordinatorDelegate {
 
     fileprivate func showChooseProviderTableViewController(for providerType: ProviderType) {
         let chooseProviderTableViewController = storyboard.instantiateViewController(type: ChooseProviderTableViewController.self)
+        chooseProviderTableViewController.providerType = providerType
+        chooseProviderTableViewController.viewContext = persistentContainer.viewContext
         chooseProviderTableViewController.delegate = self
         self.navigationController.pushViewController(chooseProviderTableViewController, animated: true)
 
@@ -269,10 +261,8 @@ class AppCoordinator: RootViewCoordinator, PersistenceCoordinatorDelegate {
         let target: StaticService
         switch providerType {
         case .instituteAccess:
-            chooseProviderTableViewController.instances = persistenceCoordinator.instituteInstancesModel
             target = StaticService.instituteAccess
         case .secureInternet:
-            chooseProviderTableViewController.instances = persistenceCoordinator.internetInstancesModel
             target = StaticService.secureInternet
         case .unknown, .other:
             return
@@ -282,7 +272,7 @@ class AppCoordinator: RootViewCoordinator, PersistenceCoordinatorDelegate {
         _ = provider.request(target: target).then { response -> Promise<InstancesModel> in
 
             return response.mapResponse()
-        }.then { (instances) -> Void in
+        }.then { (instances) -> Promise<Void> in
             //TODO verify response with libsodium
             var instances = instances
             instances.providerType = providerType
@@ -292,33 +282,116 @@ class AppCoordinator: RootViewCoordinator, PersistenceCoordinatorDelegate {
                 return instanceModel
             })
 
-            switch providerType {
-            case .instituteAccess:
-                self.persistenceCoordinator.instituteInstancesModel = instances
-            case .secureInternet:
-                self.persistenceCoordinator.internetInstancesModel = instances
-            case .unknown, .other:
-                return
-            }
+            let instanceIdentifiers = instances.instances.map { $0.baseUri.absoluteString }
 
-            chooseProviderTableViewController.instances = instances
+            return Promise(resolvers: { (fulfill, reject) in
+                self.persistentContainer.performBackgroundTask({ (context) in
+                    let instanceGroupIdentifier = "\(target.baseURL.absoluteString)\(target.path)"
+                    let group = try! InstanceGroup.findFirstInContext(context, predicate: NSPredicate(format: "providerType == %@", providerType.rawValue)) ?? InstanceGroup(context: context)//swiftlint:disable:this force_try
+
+                    group.discoveryIdentifier = instanceGroupIdentifier
+                    group.providerType = providerType.rawValue
+
+                    func update(instance: Instance, with model: InstanceModel) {
+                        instance.baseUri = model.baseUri.absoluteString
+                        instance.providerType = providerType.rawValue
+                        instance.displayNames?.forEach { context.delete($0) }
+                        instance.logos?.forEach { context.delete($0) }
+
+                        if let logoUrls = model.logoUrls {
+                            instance.logos = Set(logoUrls.flatMap({ (logoData) -> Logo? in
+                                let newLogo = Logo(context: context)
+                                newLogo.locale = logoData.key
+                                newLogo.logo = logoData.value.absoluteString
+                                newLogo.instance = instance
+                                return newLogo
+                            }))
+                        } else if let logoUrl = model.logoUrl {
+                            let newLogo = Logo(context: context)
+                            newLogo.logo = logoUrl.absoluteString
+                            instance.logos = Set([newLogo])
+                            newLogo.instance = instance
+                        } else {
+                            instance.logos = []
+                        }
+
+                        if let displayNames = model.displayNames {
+                            instance.displayNames = Set(displayNames.flatMap({ (displayData) -> DisplayName? in
+                                let displayName = DisplayName(context: context)
+                                displayName.locale = displayData.key
+                                displayName.displayName = displayData.value
+                                displayName.instance = instance
+                                return displayName
+                            }))
+                        } else if let displayNameString = model.displayName {
+                            let displayName = DisplayName(context: context)
+                            displayName.displayName = displayNameString
+                            displayName.instance = instance
+                        } else {
+                            instance.displayNames = []
+                        }
+                    }
+
+                    let updatedInstances = group.instances.filter {
+                        guard let baseUri = $0.baseUri else { return false }
+                        return instanceIdentifiers.contains(baseUri)
+                    }
+
+                    updatedInstances.forEach {
+                        if let baseUri = $0.baseUri {
+                            if let updatedModel = instances.instances.first(where: { (model) -> Bool in
+                                return model.baseUri.absoluteString == baseUri
+                            }) {
+                                update(instance: $0, with: updatedModel)
+                            }
+                        }
+                    }
+
+                    let updatedInstanceIdentifiers = updatedInstances.flatMap { $0.baseUri}
+
+                    let deletedInstances = group.instances.subtracting(updatedInstances)
+                    deletedInstances.forEach {
+                        context.delete($0)
+                    }
+
+                    let insertedInstancesModels = instances.instances.filter {
+                        return !updatedInstanceIdentifiers.contains($0.baseUri.absoluteString)
+                    }
+                    insertedInstancesModels.forEach { (instanceModel: InstanceModel) in
+                        let newInstance = Instance(context: context)
+                        group.addToInstances(newInstance)
+                        newInstance.group = group
+                        update(instance: newInstance, with: instanceModel)
+                    }
+
+                    context.saveContextToStore({ (result) in
+                        switch result {
+                        case .success:
+                            fulfill(())
+                        case .failure(let error):
+                            reject(error)
+                        }
+                    })
+
+                })
+            })
         }
     }
 
-    func fetchAndTransferProfileToConnectApp(for profile: InstanceProfileModel, on instance: InstanceModel) {
+    func fetchAndTransferProfileToConnectApp(for profile: Profile) {
         print(profile)
-        guard let instanceInfo = instance.instanceInfo else {
+        guard let api = profile.api else {
             precondition(false, "This shold never happen")
             return
         }
 
-        let dynamicApiProvider = DynamicApiProvider(instanceInfo: instanceInfo)
+        let dynamicApiProvider = DynamicApiProvider(api: api)
         _ = detectPresenceOpenVPN()
             .then { _ -> Promise<Response> in
-                return dynamicApiProvider.request(target: .createConfig(displayName: "iOS Created Profile", profileId: profile.profileId))
+                return dynamicApiProvider.request(apiService: .createConfig(displayName: "iOS Created Profile", profileId: profile.profileId!))
             }.then { response -> Void in
                 // TODO validate response
-                let filename = "\(profile.displayName ?? "")-\(instance.displayName ?? "") \(profile.profileId).ovpn"
+                let filename = "\(profile.displayNames?.localizedValue ?? "")-\(api.instance?.displayNames?.localizedValue ?? "") \(String(describing: profile.profileId)).ovpn"
                 try Disk.save(response.data, to: .documents, as: filename)
                 let url = try Disk.getURL(for: filename, in: .documents)
 
@@ -357,18 +430,40 @@ class AppCoordinator: RootViewCoordinator, PersistenceCoordinatorDelegate {
         return false
     }
 
-    @discardableResult private func refreshProfiles() -> Promise<[ProfilesModel]> {
+    @discardableResult private func refreshProfiles() -> Promise<Void> {
         // TODO Should this be based on instance info objects?
         let promises = dynamicApiProviders.map({self.refreshProfiles(for: $0)})
         return when(fulfilled: promises)
     }
 
-    @discardableResult private func refreshProfiles(for dynamicApiProvider: DynamicApiProvider) -> Promise<ProfilesModel> {
-        return dynamicApiProvider.request(target: .profileList).then { response -> Promise<ProfilesModel> in
+    @discardableResult private func refreshProfiles(for dynamicApiProvider: DynamicApiProvider) -> Promise<Void> {
+        return dynamicApiProvider.request(apiService: .profileList).then { response -> Promise<ProfilesModel> in
             return response.mapResponse()
-        }.then { profiles -> Promise<ProfilesModel> in
-            self.persistenceCoordinator.instanceInfoProfilesMapping[dynamicApiProvider.instanceInfo] = profiles
-            return Promise(value: profiles)
+        }.then { profiles -> Promise<Void> in
+            self.persistentContainer.performBackgroundTask({ (context) in
+                profiles.profiles.forEach {
+                    let api = context.object(with: dynamicApiProvider.api.objectID) as? Api
+                    api?.profiles.forEach({ (profile) in
+                        context.delete(profile)
+                    })
+
+                    let profile = Profile(context: context)
+                    profile.api = api
+                    profile.profileId = $0.profileId
+                    profile.twoFactor = $0.twoFactor
+                    if let displayNames = $0.displayNames {
+                        profile.displayNames = Set(displayNames.flatMap({ (displayData) -> DisplayName? in
+                            let displayName = DisplayName(context: context)
+                            displayName.locale = displayData.key
+                            displayName.displayName = displayData.value
+                            displayName.profile = profile
+                            return displayName
+                        }))
+                    }
+                }
+                context.saveContext()
+            })
+            return Promise(value: ())
         }
     }
 }
@@ -386,20 +481,14 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
         showProfilesViewController()
     }
 
-    func connect(profile: InstanceProfileModel, on instance: InstanceModel) {
+    func connect(profile: Profile) {
 // TODO implement OpenVPN3 client lib        showConnectionViewController(for:profile)
-        fetchAndTransferProfileToConnectApp(for: profile, on: instance)
+        fetchAndTransferProfileToConnectApp(for: profile)
     }
 
-    func delete(profile: InstanceProfileModel, for instanceInfo: InstanceInfoModel) {
-        if var profilesModel = persistenceCoordinator.instanceInfoProfilesMapping[instanceInfo] {
-            let newProfiles = profilesModel.profiles.filter {$0 != profile}
-            if newProfiles.isEmpty {
-                persistenceCoordinator.instanceInfoProfilesMapping.removeValue(forKey: instanceInfo)
-            } else {
-                profilesModel.profiles = newProfiles
-                persistenceCoordinator.instanceInfoProfilesMapping[instanceInfo] = profilesModel
-            }
+    func delete(profile: Profile) {
+        persistentContainer.performBackgroundTask { (context) in
+            context.delete(profile)
         }
     }
 }
@@ -422,7 +511,7 @@ extension AppCoordinator: ChooseProviderTableViewControllerDelegate {
         showCustomProviderInPutViewController(for: providerType)
     }
 
-    func didSelect(instance: InstanceModel, chooseProviderTableViewController: ChooseProviderTableViewController) {
+    func didSelect(instance: Instance, chooseProviderTableViewController: ChooseProviderTableViewController) {
         self.refresh(instance: instance).catch { (error) in
             self.showError(error)
         }
@@ -430,7 +519,6 @@ extension AppCoordinator: ChooseProviderTableViewControllerDelegate {
 }
 
 extension AppCoordinator: CustomProviderInPutViewControllerDelegate {
-
     private func createLocalUrl(forImageNamed name: String) throws -> URL {
         let filename = "\(name).png"
         if Disk.exists(filename, in: .applicationSupport) {
@@ -442,11 +530,35 @@ extension AppCoordinator: CustomProviderInPutViewControllerDelegate {
 
         return try Disk.getURL(for: filename, in: .applicationSupport)
     }
-    func connect(url: URL) {
+
+    func connect(url: URL) -> Promise<Void> {
         let logoUrl = try? createLocalUrl(forImageNamed: "external_provider")
-        let otherModel = InstanceModel(providerType: .other, baseUri: url, displayNames: nil, logoUrls: nil, instanceInfo: nil, displayName: nil, logoUrl: logoUrl)
-        refresh(instance: otherModel).catch { (error) in
-            self.showError(error)
+
+        return Promise<Instance>(resolvers: { fulfill, reject in
+            persistentContainer.performBackgroundTask { (context) in
+                let group = try! InstanceGroup.findFirstInContext(context, predicate: NSPredicate(format: "providerType == %@", ProviderType.other.rawValue)) ?? InstanceGroup(context: context)//swiftlint:disable:this force_try
+
+                group.providerType = ProviderType.other.rawValue
+
+                let instance = Instance(context: context)
+                instance.providerType = ProviderType.other.rawValue
+                instance.baseUri = url.absoluteString
+                instance.group = group
+
+                let logo = Logo(context: context)
+                logo.logo = logoUrl?.absoluteString
+                logo.instance = instance
+                instance.addToLogos(logo)
+                do {
+                    try context.save()
+                } catch {
+                    reject(error)
+                }
+                fulfill(instance)
+            }
+        }).then { (instance) -> Promise<Void> in
+            let instance = self.persistentContainer.viewContext.object(with: instance.objectID) as! Instance //swiftlint:disable:this force_cast
+            return self.refresh(instance: instance)
         }
     }
 }

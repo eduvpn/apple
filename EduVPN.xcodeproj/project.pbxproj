@@ -12,7 +12,6 @@
 		4A2803D91FA6867D00FA895C /* CustomProviderInPutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2803D81FA6867D00FA895C /* CustomProviderInPutViewController.swift */; };
 		4A2CC2221F4233E8004119B1 /* Identifyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2CC2211F4233E8004119B1 /* Identifyable.swift */; };
 		4A3E029C1F6C4B3D00D20292 /* Moya+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3E029B1F6C4B3D00D20292 /* Moya+Extensions.swift */; };
-		4A43A1ED2024B9DC002B884A /* PersistenceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A43A1EC2024B9DC002B884A /* PersistenceCoordinator.swift */; };
 		4A4CA90F1F55F4300021FD5D /* UITableView+EduVPN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CA90E1F55F4300021FD5D /* UITableView+EduVPN.swift */; };
 		4A4F36531F31972C0032C96B /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4F36521F31972C0032C96B /* ApiService.swift */; };
 		4A62C8B81FB03B47007D3FAA /* KeyboardWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A62C8B71FB03B47007D3FAA /* KeyboardWrapper.swift */; };
@@ -20,12 +19,13 @@
 		4A81DF9C2003BFB7002827A8 /* CertificateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A81DF9B2003BFB7002827A8 /* CertificateModel.swift */; };
 		4A8D241F1F3976A2004A9343 /* ProfilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D241E1F3976A2004A9343 /* ProfilesViewController.swift */; };
 		4A8D24211F3976FC004A9343 /* ProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D24201F3976FC004A9343 /* ProviderType.swift */; };
-		4A8D24331F3A3995004A9343 /* ApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D24321F3A3995004A9343 /* ApiModel.swift */; };
 		4A8D24351F3A40F2004A9343 /* InstanceInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D24341F3A40F2004A9343 /* InstanceInfoModel.swift */; };
 		4A9704C51FBA379D00B4D6C2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A9704C71FBA379D00B4D6C2 /* Localizable.strings */; };
 		4A983B771F397243004F82D5 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A983B761F397243004F82D5 /* AppCoordinator.swift */; };
 		4A983B791F397289004F82D5 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A983B781F397289004F82D5 /* Coordinator.swift */; };
 		4A983B7B1F3972BE004F82D5 /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A983B7A1F3972BE004F82D5 /* RootCoordinator.swift */; };
+		4AA9E546202CBA41006D197E /* InstanceGroup+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA9E544202CBA41006D197E /* InstanceGroup+CoreDataClass.swift */; };
+		4AA9E547202CBA41006D197E /* InstanceGroup+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA9E545202CBA41006D197E /* InstanceGroup+CoreDataProperties.swift */; };
 		4AAC1F7A1F2D0E3400DD0252 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC1F791F2D0E3400DD0252 /* AppDelegate.swift */; };
 		4AAC1F7F1F2D0E3400DD0252 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AAC1F7D1F2D0E3400DD0252 /* Main.storyboard */; };
 		4AAC1F811F2D0E3400DD0252 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AAC1F801F2D0E3400DD0252 /* Assets.xcassets */; };
@@ -42,6 +42,8 @@
 		4AAC2EEC2027117400F9D0D2 /* Profile+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EE22027117400F9D0D2 /* Profile+CoreDataProperties.swift */; };
 		4AAC2EED2027117400F9D0D2 /* Instance+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EE32027117400F9D0D2 /* Instance+CoreDataClass.swift */; };
 		4AAC2EEE2027117400F9D0D2 /* Instance+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EE42027117400F9D0D2 /* Instance+CoreDataProperties.swift */; };
+		4AAC2EF02027927300F9D0D2 /* DisplayName+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EEF2027927300F9D0D2 /* DisplayName+Convenience.swift */; };
+		4AAC2EF220279F0000F9D0D2 /* Logo+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EF120279F0000F9D0D2 /* Logo+Convenience.swift */; };
 		4ACA042A1F311507004B35AA /* StaticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACA04291F311507004B35AA /* StaticService.swift */; };
 		4ACA042C1F3116D5004B35AA /* Moya+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACA042B1F3116D5004B35AA /* Moya+Promise.swift */; };
 		4ACA042E1F311863004B35AA /* InstanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACA042D1F311863004B35AA /* InstanceService.swift */; };
@@ -70,7 +72,6 @@
 		4A2803D81FA6867D00FA895C /* CustomProviderInPutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProviderInPutViewController.swift; sourceTree = "<group>"; };
 		4A2CC2211F4233E8004119B1 /* Identifyable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifyable.swift; sourceTree = "<group>"; };
 		4A3E029B1F6C4B3D00D20292 /* Moya+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Moya+Extensions.swift"; sourceTree = "<group>"; };
-		4A43A1EC2024B9DC002B884A /* PersistenceCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceCoordinator.swift; sourceTree = "<group>"; };
 		4A4CA90E1F55F4300021FD5D /* UITableView+EduVPN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+EduVPN.swift"; sourceTree = "<group>"; };
 		4A4F36521F31972C0032C96B /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		4A62C8B71FB03B47007D3FAA /* KeyboardWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardWrapper.swift; sourceTree = "<group>"; };
@@ -78,7 +79,6 @@
 		4A81DF9B2003BFB7002827A8 /* CertificateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateModel.swift; sourceTree = "<group>"; };
 		4A8D241E1F3976A2004A9343 /* ProfilesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilesViewController.swift; sourceTree = "<group>"; };
 		4A8D24201F3976FC004A9343 /* ProviderType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderType.swift; sourceTree = "<group>"; };
-		4A8D24321F3A3995004A9343 /* ApiModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiModel.swift; sourceTree = "<group>"; };
 		4A8D24341F3A40F2004A9343 /* InstanceInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceInfoModel.swift; sourceTree = "<group>"; };
 		4A9704C01FBA34DA00B4D6C2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
 		4A9704C11FBA34DA00B4D6C2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -87,6 +87,8 @@
 		4A983B761F397243004F82D5 /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		4A983B781F397289004F82D5 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		4A983B7A1F3972BE004F82D5 /* RootCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
+		4AA9E544202CBA41006D197E /* InstanceGroup+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InstanceGroup+CoreDataClass.swift"; sourceTree = "<group>"; };
+		4AA9E545202CBA41006D197E /* InstanceGroup+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InstanceGroup+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4AAC1F761F2D0E3400DD0252 /* EduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AAC1F791F2D0E3400DD0252 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4AAC1F7E1F2D0E3400DD0252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -107,6 +109,8 @@
 		4AAC2EE22027117400F9D0D2 /* Profile+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Profile+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4AAC2EE32027117400F9D0D2 /* Instance+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Instance+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4AAC2EE42027117400F9D0D2 /* Instance+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Instance+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4AAC2EEF2027927300F9D0D2 /* DisplayName+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DisplayName+Convenience.swift"; sourceTree = "<group>"; };
+		4AAC2EF120279F0000F9D0D2 /* Logo+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logo+Convenience.swift"; sourceTree = "<group>"; };
 		4ACA04291F311507004B35AA /* StaticService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticService.swift; sourceTree = "<group>"; };
 		4ACA042B1F3116D5004B35AA /* Moya+Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Moya+Promise.swift"; sourceTree = "<group>"; };
 		4ACA042D1F311863004B35AA /* InstanceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceService.swift; sourceTree = "<group>"; };
@@ -153,7 +157,6 @@
 		4A983B751F397223004F82D5 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
-				4A43A1EC2024B9DC002B884A /* PersistenceCoordinator.swift */,
 				4A983B781F397289004F82D5 /* Coordinator.swift */,
 				4A983B7A1F3972BE004F82D5 /* RootCoordinator.swift */,
 				4A983B761F397243004F82D5 /* AppCoordinator.swift */,
@@ -250,13 +253,17 @@
 		4AD0AD601F3508DD006E1337 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4AA9E544202CBA41006D197E /* InstanceGroup+CoreDataClass.swift */,
+				4AA9E545202CBA41006D197E /* InstanceGroup+CoreDataProperties.swift */,
 				4AECAB402027091900B5105B /* EduVPN.xcdatamodeld */,
 				4AAC2EDB2027117400F9D0D2 /* DisplayName+CoreDataClass.swift */,
 				4AAC2EDC2027117400F9D0D2 /* DisplayName+CoreDataProperties.swift */,
+				4AAC2EEF2027927300F9D0D2 /* DisplayName+Convenience.swift */,
 				4AAC2EDD2027117400F9D0D2 /* Api+CoreDataClass.swift */,
 				4AAC2EDE2027117400F9D0D2 /* Api+CoreDataProperties.swift */,
 				4AAC2EDF2027117400F9D0D2 /* Logo+CoreDataClass.swift */,
 				4AAC2EE02027117400F9D0D2 /* Logo+CoreDataProperties.swift */,
+				4AAC2EF120279F0000F9D0D2 /* Logo+Convenience.swift */,
 				4AAC2EE12027117400F9D0D2 /* Profile+CoreDataClass.swift */,
 				4AAC2EE22027117400F9D0D2 /* Profile+CoreDataProperties.swift */,
 				4AAC2EE32027117400F9D0D2 /* Instance+CoreDataClass.swift */,
@@ -264,7 +271,6 @@
 				4AD0AD611F350906006E1337 /* InstanceModel.swift */,
 				4A8D24341F3A40F2004A9343 /* InstanceInfoModel.swift */,
 				4A8D24201F3976FC004A9343 /* ProviderType.swift */,
-				4A8D24321F3A3995004A9343 /* ApiModel.swift */,
 				4A7D1E4E1F4B24E4009F1402 /* ProfileModel.swift */,
 				4A81DF9B2003BFB7002827A8 /* CertificateModel.swift */,
 			);
@@ -532,13 +538,14 @@
 				4A4F36531F31972C0032C96B /* ApiService.swift in Sources */,
 				4ACA042A1F311507004B35AA /* StaticService.swift in Sources */,
 				4A3E029C1F6C4B3D00D20292 /* Moya+Extensions.swift in Sources */,
+				4AA9E547202CBA41006D197E /* InstanceGroup+CoreDataProperties.swift in Sources */,
+				4AA9E546202CBA41006D197E /* InstanceGroup+CoreDataClass.swift in Sources */,
 				4AF3DF081F4245A5003EC0BA /* ConnectionsTableViewController.swift in Sources */,
 				4AAC2EEB2027117400F9D0D2 /* Profile+CoreDataClass.swift in Sources */,
 				4AAC2EEE2027117400F9D0D2 /* Instance+CoreDataProperties.swift in Sources */,
 				4AD0AD5F1F350822006E1337 /* Moya+ResponseHandling.swift in Sources */,
 				4A2803D91FA6867D00FA895C /* CustomProviderInPutViewController.swift in Sources */,
 				4A8D241F1F3976A2004A9343 /* ProfilesViewController.swift in Sources */,
-				4A8D24331F3A3995004A9343 /* ApiModel.swift in Sources */,
 				4A983B791F397289004F82D5 /* Coordinator.swift in Sources */,
 				4A983B7B1F3972BE004F82D5 /* RootCoordinator.swift in Sources */,
 				4AAC2EED2027117400F9D0D2 /* Instance+CoreDataClass.swift in Sources */,
@@ -548,13 +555,14 @@
 				4A62C8B81FB03B47007D3FAA /* KeyboardWrapper.swift in Sources */,
 				4A2CC2221F4233E8004119B1 /* Identifyable.swift in Sources */,
 				4AAC2EE72027117400F9D0D2 /* Api+CoreDataClass.swift in Sources */,
-				4A43A1ED2024B9DC002B884A /* PersistenceCoordinator.swift in Sources */,
 				4A1140841F78490C00D61100 /* VPNConnectionViewController.swift in Sources */,
 				4A7D1E4F1F4B24E4009F1402 /* ProfileModel.swift in Sources */,
 				4ACA042E1F311863004B35AA /* InstanceService.swift in Sources */,
 				4AAC2EE92027117400F9D0D2 /* Logo+CoreDataClass.swift in Sources */,
 				4AAC2EE62027117400F9D0D2 /* DisplayName+CoreDataProperties.swift in Sources */,
 				4A81DF9C2003BFB7002827A8 /* CertificateModel.swift in Sources */,
+				4AAC2EF02027927300F9D0D2 /* DisplayName+Convenience.swift in Sources */,
+				4AAC2EF220279F0000F9D0D2 /* Logo+Convenience.swift in Sources */,
 				4AAC2EE52027117400F9D0D2 /* DisplayName+CoreDataClass.swift in Sources */,
 				4A4CA90F1F55F4300021FD5D /* UITableView+EduVPN.swift in Sources */,
 				4AD0AD5D1F35048E006E1337 /* ChooseProviderTableViewController.swift in Sources */,

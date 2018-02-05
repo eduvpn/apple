@@ -2,7 +2,7 @@
 //  Instance+CoreDataProperties.swift
 //  EduVPN
 //
-//  Created by Jeroen Leenarts on 04-02-18.
+//  Created by Jeroen Leenarts on 11-02-18.
 //  Copyright © 2018 SURFNet. All rights reserved.
 //
 //
@@ -16,12 +16,13 @@ extension Instance {
         return NSFetchRequest<Instance>(entityName: "Instance")
     }
 
-    @NSManaged public var providerType: String?
     @NSManaged public var baseUri: String?
+    @NSManaged public var providerType: String?
     @NSManaged public var publicKey: String?
-    @NSManaged public var apis: NSSet?
-    @NSManaged public var displayNames: NSSet?
-    @NSManaged public var logos: NSSet?
+    @NSManaged public var apis: Set<Api>?
+    @NSManaged public var displayNames: Set<DisplayName>?
+    @NSManaged public var logos: Set<Logo>?
+    @NSManaged public var group: InstanceGroup?
 
 }
 

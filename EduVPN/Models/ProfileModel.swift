@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ProfilesModel: Codable {
+struct ProfilesModel: Decodable {
     var profiles: [InstanceProfileModel]
 }
 
@@ -28,17 +28,9 @@ extension ProfilesModel {
 
         self.init(profiles: profiles)
     }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: ProfilesModelKeys.self)
-
-        var profileList = container.nestedContainer(keyedBy: ProfilesModelKeys.self, forKey: .profileList)
-        try profileList.encode(profiles, forKey: .data)
-    }
-
 }
 
-struct InstanceProfileModel: Codable {
+struct InstanceProfileModel: Decodable {
     var displayNames: [String: String]?
 
     var displayName: String?
@@ -77,19 +69,6 @@ extension InstanceProfileModel {
 
         self.init(displayNames: displayNames, displayName: displayName, profileId: profileId, instanceApiBaseUrl: nil, twoFactor: twoFactor)
     }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: InstanceProfileModelKeys.self)
-        try container.encode(profileId, forKey: .profileId)
-        try container.encode(twoFactor, forKey: .twoFactor)
-
-        if let displayNames = displayNames {
-            try container.encodeIfPresent(displayNames, forKey: .displayName)
-        } else {
-            try container.encodeIfPresent(displayName, forKey: .displayName)
-        }
-    }
-
 }
 
 extension InstanceProfileModel: Hashable {

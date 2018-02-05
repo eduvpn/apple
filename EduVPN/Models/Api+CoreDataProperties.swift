@@ -10,6 +10,9 @@
 import Foundation
 import CoreData
 
+import AppAuth
+import KeychainSwift
+
 extension Api {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Api> {
@@ -20,7 +23,29 @@ extension Api {
     @NSManaged public var authorizationEndpoint: String?
     @NSManaged public var tokenEndpoint: String?
     @NSManaged public var instance: Instance?
-    @NSManaged public var profiles: NSSet?
+    @NSManaged public var profiles: Set<Profile>
+
+    private var keychainKey: String {
+        return "\(authorizationEndpoint!)|instance-info-authState"
+    }
+
+    var authState: OIDAuthState? {
+        get {
+            if let data = KeychainSwift().getData(keychainKey) {
+                return NSKeyedUnarchiver.unarchiveObject(with: data) as? OIDAuthState
+            } else {
+                return nil
+            }
+        }
+        set {
+            if let newValue = newValue {
+                let data = NSKeyedArchiver.archivedData(withRootObject: newValue)
+                KeychainSwift().set(data, forKey: keychainKey)
+            } else {
+                KeychainSwift().delete(keychainKey)
+            }
+        }
+    }
 
 }
 

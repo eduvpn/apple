@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import CoreData
+import BNRCoreDataStack
 
 class ConnectTableViewCell: UITableViewCell {
 
@@ -20,65 +22,39 @@ extension ConnectTableViewCell: Identifyable {}
 protocol ConnectionsTableViewControllerDelegate: class {
     func addProvider(connectionsTableViewController: ConnectionsTableViewController)
     func settings(connectionsTableViewController: ConnectionsTableViewController)
-    func connect(profile: InstanceProfileModel, on instance: InstanceModel)
-    func delete(profile: InstanceProfileModel, for instanceInfo: InstanceInfoModel)
-
+    func connect(profile: Profile)
+    func delete(profile: Profile)
 }
 
 class ConnectionsTableViewController: UITableViewController {
     weak var delegate: ConnectionsTableViewControllerDelegate?
 
+    var viewContext: NSManagedObjectContext!
+
+    private lazy var fetchedResultsController: FetchedResultsController<Profile> = {
+        let fetchRequest = NSFetchRequest<Profile>()
+        fetchRequest.entity = Profile.entity()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "api.instance.providerType", ascending: true), NSSortDescriptor(key: "profileId", ascending: true)]
+        let frc = FetchedResultsController<Profile>(fetchRequest: fetchRequest,
+                                                 managedObjectContext: viewContext,
+                                                 sectionNameKeyPath: "api.instance.providerType",
+                                                 cacheName: "ConnectionsTableViewController")
+        frc.setDelegate(self.frcDelegate)
+        return frc
+    }()
+
+    private lazy var frcDelegate: ProfileFetchedResultsControllerDelegate = { // swiftlint:disable:this weak_delegate
+        return ProfileFetchedResultsControllerDelegate(tableView: self.tableView)
+    }()
+
     override func viewDidLoad() {
-        NotificationCenter.default.addObserver(self, selector: #selector(dataUpdated), name: PersistenceCoordinator.InstanceInfoProfilesMappingDidUpdate, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(dataUpdated), name: PersistenceCoordinator.InstituteInstancesDidUpdate, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(dataUpdated), name: PersistenceCoordinator.InternetInstancesDidUpdate, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(dataUpdated), name: PersistenceCoordinator.OtherInstancesDidUpdate, object: nil)
 
-        dataUpdated(notification: nil)
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            print("Failed to fetch objects: \(error)")
+        }
     }
-
-    @objc
-    private func dataUpdated(notification: Notification?) {
-        internetAccessModels.removeAll()
-        instituteAccessModels.removeAll()
-        otherAccessModels.removeAll()
-        profileInstanceMapping.removeAll()
-
-        let persistenceCoordinator = PersistenceCoordinator()
-
-        persistenceCoordinator.internetInstancesModel?.instances.forEach({ (instance) in
-            if let instanceInfo = instance.instanceInfo {
-                persistenceCoordinator.instanceInfoProfilesMapping[instanceInfo]?.profiles.forEach({ (profile) in
-                    internetAccessModels.append(profile)
-                    profileInstanceMapping[profile] = instance
-                })
-            }
-        })
-
-        persistenceCoordinator.instituteInstancesModel?.instances.forEach({ (instance) in
-            if let instanceInfo = instance.instanceInfo {
-                persistenceCoordinator.instanceInfoProfilesMapping[instanceInfo]?.profiles.forEach({ (profile) in
-                    instituteAccessModels.append(profile)
-                    profileInstanceMapping[profile] = instance
-                })
-            }
-        })
-
-        persistenceCoordinator.otherInstancesModel?.instances.forEach({ (instance) in
-            if let instanceInfo = instance.instanceInfo {
-                persistenceCoordinator.instanceInfoProfilesMapping[instanceInfo]?.profiles.forEach({ (profile) in
-                    otherAccessModels.append(profile)
-                    profileInstanceMapping[profile] = instance
-                })
-            }
-        })
-        self.tableView.reloadData()
-    }
-
-    private var internetAccessModels = [InstanceProfileModel]()
-    private var instituteAccessModels = [InstanceProfileModel]()
-    private var otherAccessModels = [InstanceProfileModel]()
-    private var profileInstanceMapping = [InstanceProfileModel: InstanceModel]()
 
     @IBAction func addProvider(_ sender: Any) {
         delegate?.addProvider(connectionsTableViewController: self)
@@ -89,73 +65,40 @@ class ConnectionsTableViewController: UITableViewController {
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return fetchedResultsController.sections?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return internetAccessModels.count
-        case 1:
-            return instituteAccessModels.count
-        default:
-            return otherAccessModels.count
-        }
-    }
-
-    var empty: Bool {
-        return internetAccessModels.count + instituteAccessModels.count + otherAccessModels.count == 0
+        return fetchedResultsController.sections?[section].objects.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0:
-            return NSLocalizedString("Secure Internet", comment: "")
-        case 1:
-            return NSLocalizedString("Institute access", comment: "")
-        default:
-            return NSLocalizedString("Other", comment: "")
-        }
-    }
-
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        switch section {
-        case 0:
-            if internetAccessModels.isEmpty {
-                return 0.0
-            }
-        case 1:
-            if instituteAccessModels.isEmpty {
-                return 0.0
-            }
-        default:
-            if otherAccessModels.isEmpty {
-                return 0.0
-            }
-        }
-
-        return tableView.sectionHeaderHeight
+        return fetchedResultsController.sections?[section].indexTitle
+//        switch section {
+//        case 0:
+//            return NSLocalizedString("Secure Internet", comment: "")
+//        case 1:
+//            return NSLocalizedString("Institute access", comment: "")
+//        default:
+//            return NSLocalizedString("Other", comment: "")
+//        }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let profileModel: InstanceProfileModel
-
-        switch indexPath.section {
-        case 0:
-            profileModel = internetAccessModels[indexPath.row]
-        case 1:
-            profileModel = instituteAccessModels[indexPath.row]
-        default:
-            profileModel = otherAccessModels[indexPath.row]
-        }
-
-        let instanceModel = profileInstanceMapping[profileModel]
-
         let cell = tableView.dequeueReusableCell(type: ConnectTableViewCell.self, for: indexPath)
 
-        cell.connectTitleLabel?.text = profileModel.displayName
-        cell.connectSubTitleLabel?.text = instanceModel?.displayName ?? profileModel.displayName
-        if let logoUri = profileInstanceMapping[profileModel]?.logoUrl {
+        guard let sections = fetchedResultsController.sections else {
+            fatalError("FetchedResultsController \(fetchedResultsController) should have sections, but found nil")
+        }
+
+        let section = sections[indexPath.section]
+        let profile = section.objects[indexPath.row]
+        cell.textLabel?.text = profile.displayNames?.localizedValue ?? profile.api?.instance?.displayNames?.localizedValue
+        cell.isUserInteractionEnabled = false
+
+        cell.connectTitleLabel?.text = profile.displayNames?.localizedValue
+        cell.connectSubTitleLabel?.text = profile.api?.instance?.displayNames?.localizedValue
+        if let logo = profile.api?.instance?.logos?.localizedValue, let logoUri = URL(string: logo) {
             cell.connectImageView?.af_setImage(withURL: logoUri)
         } else {
             cell.connectImageView.af_cancelImageRequest()
@@ -166,20 +109,14 @@ class ConnectionsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let profileModel: InstanceProfileModel
-
-        switch indexPath.section {
-        case 0:
-            profileModel = internetAccessModels[indexPath.row]
-        case 1:
-            profileModel = instituteAccessModels[indexPath.row]
-        default:
-            profileModel = otherAccessModels[indexPath.row]
+        guard let sections = fetchedResultsController.sections else {
+            fatalError("FetchedResultsController \(fetchedResultsController) should have sections, but found nil")
         }
 
-        if let instance = profileInstanceMapping[profileModel] {
-            delegate?.connect(profile: profileModel, on: instance)
-        }
+        let section = sections[indexPath.section]
+        let profile = section.objects[indexPath.row]
+
+        delegate?.connect(profile: profile)
 
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -191,22 +128,66 @@ class ConnectionsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
 
-            let profileModel: InstanceProfileModel
-
-            switch indexPath.section {
-            case 0:
-                profileModel = internetAccessModels[indexPath.row]
-            case 1:
-                profileModel = instituteAccessModels[indexPath.row]
-            default:
-                profileModel = otherAccessModels[indexPath.row]
+            guard let sections = fetchedResultsController.sections else {
+                fatalError("FetchedResultsController \(fetchedResultsController) should have sections, but found nil")
             }
 
-            if let instanceInfoModel = profileInstanceMapping[profileModel]?.instanceInfo {
-                delegate?.delete(profile: profileModel, for: instanceInfoModel)
-            }
+            let section = sections[indexPath.section]
+            let profile = section.objects[indexPath.row]
+
+            delegate?.delete(profile: profile)
         }
     }
 }
 
 extension ConnectionsTableViewController: Identifyable {}
+
+class ProfileFetchedResultsControllerDelegate: NSObject, FetchedResultsControllerDelegate {
+
+    private weak var tableView: UITableView?
+
+    // MARK: - Lifecycle
+    init(tableView: UITableView) {
+        self.tableView = tableView
+    }
+
+    func fetchedResultsControllerDidPerformFetch(_ controller: FetchedResultsController<Profile>) {
+        tableView?.reloadData()
+    }
+
+    func fetchedResultsControllerWillChangeContent(_ controller: FetchedResultsController<Profile>) {
+        tableView?.beginUpdates()
+    }
+
+    func fetchedResultsControllerDidChangeContent(_ controller: FetchedResultsController<Profile>) {
+        tableView?.endUpdates()
+    }
+
+    func fetchedResultsController(_ controller: FetchedResultsController<Profile>, didChangeObject change: FetchedResultsObjectChange<Profile>) {
+        guard let tableView = tableView else { return }
+        switch change {
+        case let .insert(_, indexPath):
+            tableView.insertRows(at: [indexPath], with: .automatic)
+
+        case let .delete(_, indexPath):
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+
+        case let .move(_, fromIndexPath, toIndexPath):
+            tableView.moveRow(at: fromIndexPath, to: toIndexPath)
+
+        case let .update(_, indexPath):
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
+    }
+
+    func fetchedResultsController(_ controller: FetchedResultsController<Profile>, didChangeSection change: FetchedResultsSectionChange<Profile>) {
+        guard let tableView = tableView else { return }
+        switch change {
+        case let .insert(_, index):
+            tableView.insertSections(IndexSet(integer: index), with: .automatic)
+
+        case let .delete(_, index):
+            tableView.deleteSections(IndexSet(integer: index), with: .automatic)
+        }
+    }
+}

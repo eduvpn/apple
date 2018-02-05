@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import PromiseKit
 
 protocol CustomProviderInPutViewControllerDelegate: class {
-    func connect(url: URL)
+    @discardableResult func connect(url: URL) -> Promise<Void>
 }
 
 class CustomProviderInPutViewController: UIViewController {

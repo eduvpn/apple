@@ -19,6 +19,23 @@ extension Profile {
     @NSManaged public var profileId: String?
     @NSManaged public var twoFactor: Bool
     @NSManaged public var api: Api?
-    @NSManaged public var displayNames: DisplayName?
+    @NSManaged public var displayNames: Set<DisplayName>?
+
+}
+
+// MARK: Generated accessors for displayNames
+extension Profile {
+
+    @objc(addDisplayNamesObject:)
+    @NSManaged public func addToDisplayNames(_ value: DisplayName)
+
+    @objc(removeDisplayNamesObject:)
+    @NSManaged public func removeFromDisplayNames(_ value: DisplayName)
+
+    @objc(addDisplayNames:)
+    @NSManaged public func addToDisplayNames(_ values: NSSet)
+
+    @objc(removeDisplayNames:)
+    @NSManaged public func removeFromDisplayNames(_ values: NSSet)
 
 }

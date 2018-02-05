@@ -10,7 +10,7 @@ import Foundation
 import AppAuth
 import KeychainSwift
 
-struct InstanceInfoModel: Codable {
+struct InstanceInfoModel: Decodable {
     var authorizationEndpoint: URL
     var tokenEndpoint: URL
     var apiBaseUrl: URL
@@ -56,17 +56,6 @@ extension InstanceInfoModel {
         let apiBaseUrl = try apiInfoContainer.decode(URL.self, forKey: .apiBaseUrl)
 
         self.init(authorizationEndpoint: authorizationEndpoint, tokenEndpoint: tokenEndpoint, apiBaseUrl: apiBaseUrl)
-    }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: InstanceInfoModelKeys.self)
-
-        var apiContainer = container.nestedContainer(keyedBy: InstanceInfoModelKeys.self, forKey: .api)
-        var apiInfoContainer = apiContainer.nestedContainer(keyedBy: InstanceInfoModelKeys.self, forKey: .apiInfo)
-
-        try apiInfoContainer.encode(authorizationEndpoint, forKey: .authorizationEndpoint)
-        try apiInfoContainer.encode(tokenEndpoint, forKey: .tokenEndpoint)
-        try apiInfoContainer.encode(apiBaseUrl, forKey: .apiBaseUrl)
     }
 }
 
