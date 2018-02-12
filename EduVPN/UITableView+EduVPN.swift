@@ -18,6 +18,11 @@ extension UITableView {
         return dequeueReusableCell(withIdentifier: prefix + type.identifier, for: indexPath) as! T // swiftlint:disable:this force_cast
     }
 
+    func registerNib<T: Identifyable>(type: T.Type, prefix: String = "") where T: UITableViewCell {
+        let nib = UINib(nibName: prefix + type.identifier, bundle: nil)
+        register(nib, forCellReuseIdentifier: prefix + type.identifier)
+    }
+
     func registerNib<T: Identifyable>(type: T.Type, prefix: String = "") where T: UITableViewHeaderFooterView {
         let nib = UINib(nibName: prefix + type.identifier, bundle: nil)
         register(nib, forHeaderFooterViewReuseIdentifier: prefix + type.identifier)

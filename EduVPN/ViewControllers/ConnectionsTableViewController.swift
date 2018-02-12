@@ -37,8 +37,7 @@ class ConnectionsTableViewController: UITableViewController {
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "api.instance.providerType", ascending: true), NSSortDescriptor(key: "profileId", ascending: true)]
         let frc = FetchedResultsController<Profile>(fetchRequest: fetchRequest,
                                                  managedObjectContext: viewContext,
-                                                 sectionNameKeyPath: "api.instance.providerType",
-                                                 cacheName: "ConnectionsTableViewController")
+                                                 sectionNameKeyPath: "api.instance.providerType")
         frc.setDelegate(self.frcDelegate)
         return frc
     }()
@@ -48,8 +47,6 @@ class ConnectionsTableViewController: UITableViewController {
     }()
 
     override func viewDidLoad() {
-        tableView.register(type: ConnectTableViewCell.self)
-
         do {
             try fetchedResultsController.performFetch()
         } catch {
@@ -74,15 +71,24 @@ class ConnectionsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return fetchedResultsController.sections?[section].indexTitle
-//        switch section {
-//        case 0:
-//            return NSLocalizedString("Secure Internet", comment: "")
-//        case 1:
-//            return NSLocalizedString("Institute access", comment: "")
-//        default:
-//            return NSLocalizedString("Other", comment: "")
-//        }
+        let providerType: ProviderType
+
+        if let sectionName = fetchedResultsController.sections?[section].name {
+            providerType = ProviderType(rawValue: sectionName) ?? .unknown
+        } else {
+            providerType = .unknown
+        }
+
+        switch providerType {
+        case .secureInternet:
+            return NSLocalizedString("Secure Internet", comment: "")
+        case .instituteAccess:
+            return NSLocalizedString("Institute access", comment: "")
+        case .other:
+            return NSLocalizedString("Other", comment: "")
+        case .unknown:
+            return "."
+        }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -94,7 +100,7 @@ class ConnectionsTableViewController: UITableViewController {
 
         let section = sections[indexPath.section]
         let profile = section.objects[indexPath.row]
-        cell.textLabel?.text = profile.displayNames?.localizedValue ?? profile.api?.instance?.displayNames?.localizedValue
+//        cell.textLabel?.text = profile.displayNames?.localizedValue ?? profile.api?.instance?.displayNames?.localizedValue
 
         cell.connectTitleLabel?.text = profile.displayNames?.localizedValue
         cell.connectSubTitleLabel?.text = profile.api?.instance?.displayNames?.localizedValue

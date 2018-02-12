@@ -441,12 +441,12 @@ class AppCoordinator: RootViewCoordinator {
             return response.mapResponse()
         }.then { profiles -> Promise<Void> in
             self.persistentContainer.performBackgroundTask({ (context) in
-                profiles.profiles.forEach {
-                    let api = context.object(with: dynamicApiProvider.api.objectID) as? Api
-                    api?.profiles.forEach({ (profile) in
-                        context.delete(profile)
-                    })
+                let api = context.object(with: dynamicApiProvider.api.objectID) as? Api
+                api?.profiles.forEach({ (profile) in
+                    context.delete(profile)
+                })
 
+                profiles.profiles.forEach {
                     let profile = Profile(context: context)
                     profile.api = api
                     profile.profileId = $0.profileId

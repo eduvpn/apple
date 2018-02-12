@@ -48,8 +48,6 @@ class ChooseProviderTableViewController: UITableViewController {
     }()
 
     override func viewDidLoad() {
-        tableView.register(type: ProviderTableViewCell.self)
-
         do {
             try fetchedResultsController.performFetch()
         } catch {
