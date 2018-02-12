@@ -9,6 +9,7 @@
 import Foundation
 
 import Moya
+
 import PromiseKit
 import AppAuth
 
@@ -112,11 +113,17 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
     }
 
     public init(api: Api, endpointClosure: @escaping EndpointClosure = MoyaProvider.defaultEndpointMapping,
-                requestClosure: @escaping RequestClosure = MoyaProvider.defaultRequestMapping,
                 stubClosure: @escaping StubClosure = MoyaProvider.neverStub,
-                manager: Manager = MoyaProvider<DynamicInstanceService>.defaultAlamofireManager(),
+                callbackQueue: DispatchQueue? = nil,
+                manager: Manager = MoyaProvider<Target>.defaultAlamofireManager(),
                 plugins: [PluginType] = [],
                 trackInflights: Bool = false) {
+//    public init(api: Api, endpointClosure: @escaping EndpointClosure = MoyaProvider.defaultEndpointMapping,
+//                requestClosure: @escaping RequestClosure = MoyaProvider.defaultRequestMapping,
+//                stubClosure: @escaping StubClosure = MoyaProvider.neverStub,
+//                manager: Manager = MoyaProvider<DynamicInstanceService>.defaultAlamofireManager(),
+//                plugins: [PluginType] = [],
+//                trackInflights: Bool = false) {
         self.api = api
         self.credentialStorePlugin = CredentialStorePlugin()
 
@@ -124,7 +131,7 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
         plugins.append(self.credentialStorePlugin)
 
         self.authConfig = OIDServiceConfiguration(authorizationEndpoint: URL(string: api.authorizationEndpoint!)!, tokenEndpoint: URL(string: api.tokenEndpoint!)!)
-        super.init(endpointClosure: endpointClosure, requestClosure: requestClosure, stubClosure: stubClosure, manager: manager, plugins: plugins, trackInflights: trackInflights)
+        super.init(endpointClosure: endpointClosure, stubClosure: stubClosure, manager: manager, plugins: plugins, trackInflights: trackInflights)
 
     }
 
