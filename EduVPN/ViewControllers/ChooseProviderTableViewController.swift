@@ -18,6 +18,8 @@ class ProviderTableViewCell: UITableViewCell {
     @IBOutlet weak var providerTitleLabel: UILabel!
 }
 
+extension ProviderTableViewCell: Identifyable {}
+
 protocol ChooseProviderTableViewControllerDelegate: class {
     func didSelect(instance: Instance, chooseProviderTableViewController: ChooseProviderTableViewController)
 }
@@ -46,6 +48,7 @@ class ChooseProviderTableViewController: UITableViewController {
     }()
 
     override func viewDidLoad() {
+        tableView.register(type: ProviderTableViewCell.self)
 
         do {
             try fetchedResultsController.performFetch()
@@ -59,22 +62,21 @@ class ChooseProviderTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ProviderCell", for: indexPath)
+        let providerCell = tableView.dequeueReusableCell(type: ProviderTableViewCell.self, for: indexPath)
 
-        if let providerCell = cell as? ProviderTableViewCell {
-            guard let sections = fetchedResultsController.sections else {
-                fatalError("FetchedResultsController \(fetchedResultsController) should have sections, but found nil")
-            }
-
-            let section = sections[indexPath.section]
-
-            let instance = section.objects[indexPath.row]
-            if let logoString = instance.logos?.localizedValue, let logoUrl = URL(string: logoString) {
-                providerCell.providerImageView?.af_setImage(withURL: logoUrl)
-            }
-            providerCell.providerTitleLabel?.text = instance.displayNames?.localizedValue
+        guard let sections = fetchedResultsController.sections else {
+            fatalError("FetchedResultsController \(fetchedResultsController) should have sections, but found nil")
         }
-        return cell
+
+        let section = sections[indexPath.section]
+
+        let instance = section.objects[indexPath.row]
+        if let logoString = instance.logos?.localizedValue, let logoUrl = URL(string: logoString) {
+            providerCell.providerImageView?.af_setImage(withURL: logoUrl)
+        }
+        providerCell.providerTitleLabel?.text = instance.displayNames?.localizedValue
+
+        return providerCell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

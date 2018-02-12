@@ -48,6 +48,7 @@ class ConnectionsTableViewController: UITableViewController {
     }()
 
     override func viewDidLoad() {
+        tableView.register(type: ConnectTableViewCell.self)
 
         do {
             try fetchedResultsController.performFetch()
@@ -94,7 +95,6 @@ class ConnectionsTableViewController: UITableViewController {
         let section = sections[indexPath.section]
         let profile = section.objects[indexPath.row]
         cell.textLabel?.text = profile.displayNames?.localizedValue ?? profile.api?.instance?.displayNames?.localizedValue
-        cell.isUserInteractionEnabled = false
 
         cell.connectTitleLabel?.text = profile.displayNames?.localizedValue
         cell.connectSubTitleLabel?.text = profile.api?.instance?.displayNames?.localizedValue
