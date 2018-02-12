@@ -5,20 +5,20 @@ PODS:
   - AppAuth (0.92.0)
   - ASN1Decoder (1.1)
   - BNRCoreDataStack (2.3.1)
-  - Crashlytics (3.9.3):
-    - Fabric (~> 1.7.2)
+  - Crashlytics (3.10.0):
+    - Fabric (~> 1.7.3)
   - Disk (0.3.3)
-  - Fabric (1.7.2)
+  - Fabric (1.7.3)
   - KeychainSwift (10.0.0)
-  - Moya (10.0.2):
-    - Moya/Core (= 10.0.2)
-  - Moya/Core (10.0.2):
+  - Moya (11.0.0):
+    - Moya/Core (= 11.0.0)
+  - Moya/Core (11.0.0):
     - Alamofire (~> 4.1)
     - Result (~> 3.0)
   - PromiseKit/CorePromise (4.5.2)
   - Result (3.2.4)
   - Sodium (0.6)
-  - SwiftLint (0.24.2)
+  - SwiftLint (0.25.0)
 
 DEPENDENCIES:
   - AlamofireImage
@@ -40,15 +40,15 @@ SPEC CHECKSUMS:
   AppAuth: 3f4f1d6d85ad631d0bbf15ffcdc10c447face97a
   ASN1Decoder: c7feaab63458baa7a14c585f120ba929e61b8c3f
   BNRCoreDataStack: d9d7d0ed1afd27dca5a903dde1250aa4c6dbc3f5
-  Crashlytics: dbb07d01876c171c5ccbdf7826410380189e452c
+  Crashlytics: a989ef242b66605577a425733797f810bd2725eb
   Disk: d1f55cd61f6ca20f368232d0c6e37e3c3dfcb63e
-  Fabric: 9cd6a848efcf1b8b07497e0b6a2e7d336353ba15
+  Fabric: bb495bb9a7a7677c6d03a1f8b83d95bc49b47e41
   KeychainSwift: f9f7910449a0c0fd2cabc889121530dd2c477c33
-  Moya: 2b0531a9fef318e0bc484030c3db1e6f279ccb66
+  Moya: be29766339783963a70d1279d69c891ab3a1393c
   PromiseKit: 743e497a5f505a470d3bbbf4ce0663c1268af0a4
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
   Sodium: bf524b0a3d5ad6870dcf343205cca7e659c15ad5
-  SwiftLint: 2aa21b96c8d13396a051bc1cb659d2ce1e0075b0
+  SwiftLint: e14651157288e9e01d6e1a71db7014fb5744a8ea
 
 PODFILE CHECKSUM: 0fbb5423bc30194c497dd97a7ce318cde526aa0f
 
