@@ -34,7 +34,7 @@ class ConnectionsTableViewController: UITableViewController {
     private lazy var fetchedResultsController: FetchedResultsController<Profile> = {
         let fetchRequest = NSFetchRequest<Profile>()
         fetchRequest.entity = Profile.entity()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "api.instance.providerType", ascending: true), NSSortDescriptor(key: "profileId", ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "api.instance.providerType", ascending: true), NSSortDescriptor(key: "api.instance.baseUri", ascending: true), NSSortDescriptor(key: "profileId", ascending: true)]
         let frc = FetchedResultsController<Profile>(fetchRequest: fetchRequest,
                                                  managedObjectContext: viewContext,
                                                  sectionNameKeyPath: "api.instance.providerType")
@@ -102,7 +102,7 @@ class ConnectionsTableViewController: UITableViewController {
         let profile = section.objects[indexPath.row]
 
         cell.connectTitleLabel?.text = profile.profileId
-        cell.connectSubTitleLabel?.text = profile.displayNames?.localizedValue ?? profile.api?.instance?.displayNames?.localizedValue
+        cell.connectSubTitleLabel?.text = profile.displayNames?.localizedValue ?? profile.api?.instance?.displayNames?.localizedValue ?? profile.api?.instance?.baseUri
         if let logo = profile.api?.instance?.logos?.localizedValue, let logoUri = URL(string: logo) {
             cell.connectImageView?.af_setImage(withURL: logoUri)
         } else if let providerTypeString = profile.api?.instance?.providerType, providerTypeString == ProviderType.other.rawValue {
