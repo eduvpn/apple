@@ -431,6 +431,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="url"/>
                                 <connections>
                                     <action selector="addressValueChanged:" destination="KZY-IT-pRj" eventType="editingChanged" id="9gw-qH-tPn"/>
+                                    <outlet property="delegate" destination="KZY-IT-pRj" id="TcH-Ve-RrK"/>
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="https://" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DDH-r5-hXt">
