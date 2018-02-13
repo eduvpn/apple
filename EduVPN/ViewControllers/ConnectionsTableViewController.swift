@@ -100,12 +100,13 @@ class ConnectionsTableViewController: UITableViewController {
 
         let section = sections[indexPath.section]
         let profile = section.objects[indexPath.row]
-//        cell.textLabel?.text = profile.displayNames?.localizedValue ?? profile.api?.instance?.displayNames?.localizedValue
 
-        cell.connectTitleLabel?.text = profile.displayNames?.localizedValue
-        cell.connectSubTitleLabel?.text = profile.api?.instance?.displayNames?.localizedValue
+        cell.connectTitleLabel?.text = profile.profileId
+        cell.connectSubTitleLabel?.text = profile.displayNames?.localizedValue ?? profile.api?.instance?.displayNames?.localizedValue
         if let logo = profile.api?.instance?.logos?.localizedValue, let logoUri = URL(string: logo) {
             cell.connectImageView?.af_setImage(withURL: logoUri)
+        } else if let providerTypeString = profile.api?.instance?.providerType, providerTypeString == ProviderType.other.rawValue {
+            cell.connectImageView.image = #imageLiteral(resourceName: "external_provider")
         } else {
             cell.connectImageView.af_cancelImageRequest()
             cell.connectImageView.image = nil

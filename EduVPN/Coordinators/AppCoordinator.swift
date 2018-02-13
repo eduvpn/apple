@@ -197,7 +197,7 @@ class AppCoordinator: RootViewCoordinator {
                         let api: Api
                         let instance = context.object(with: instance.objectID) as? Instance
                         if let instance = instance {
-                            api = try! Api.findFirstInContext(context, predicate: NSPredicate(format: "instance == %@ AND apiBaseUri == %@", instance, instanceInfoModel.apiBaseUrl.absoluteString)) ?? Api(context: context)//swiftlint:disable:this force_try
+                            api = try! Api.findFirstInContext(context, predicate: NSPredicate(format: "instance.baseUri == %@ AND apiBaseUri == %@", instance.baseUri!, instanceInfoModel.apiBaseUrl.absoluteString)) ?? Api(context: context)//swiftlint:disable:this force_try
                         } else {
                             api = Api(context: context)
                         }
@@ -532,8 +532,6 @@ extension AppCoordinator: CustomProviderInPutViewControllerDelegate {
     }
 
     func connect(url: URL) -> Promise<Void> {
-        let logoUrl = try? createLocalUrl(forImageNamed: "external_provider")
-
         return Promise<Instance>(resolvers: { fulfill, reject in
             persistentContainer.performBackgroundTask { (context) in
                 let group = try! InstanceGroup.findFirstInContext(context, predicate: NSPredicate(format: "providerType == %@", ProviderType.other.rawValue)) ?? InstanceGroup(context: context)//swiftlint:disable:this force_try
@@ -545,10 +543,6 @@ extension AppCoordinator: CustomProviderInPutViewControllerDelegate {
                 instance.baseUri = url.absoluteString
                 instance.group = group
 
-                let logo = Logo(context: context)
-                logo.logo = logoUrl?.absoluteString
-                logo.instance = instance
-                instance.addToLogos(logo)
                 do {
                     try context.save()
                 } catch {
