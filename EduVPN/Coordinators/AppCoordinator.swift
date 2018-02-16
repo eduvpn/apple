@@ -381,7 +381,7 @@ class AppCoordinator: RootViewCoordinator {
     func fetchAndTransferProfileToConnectApp(for profile: Profile) {
         print(profile)
         guard let api = profile.api else {
-            precondition(false, "This shold never happen")
+            precondition(false, "This should never happen")
             return
         }
 
