@@ -19,13 +19,13 @@ let signedAtDateFormatter: DateFormatter = {
 
 extension Moya.Response {
     func mapResponse<T: Decodable>() -> Promise<T> {
-        return Promise(resolvers: { fulfill, reject in
+        return Promise(resolver: { seal in
             do {
                 let result = try JSONDecoder().decode(T.self, from: self.data)
-                fulfill(result)
+                seal.fulfill(result)
             } catch {
                 print(error)
-                reject(MoyaError.jsonMapping(self))
+                seal.reject(MoyaError.jsonMapping(self))
             }
         })
     }

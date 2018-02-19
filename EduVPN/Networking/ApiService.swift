@@ -93,12 +93,12 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
 
     public func authorize(presentingViewController: UIViewController) -> Promise<OIDAuthState> {
         let request = OIDAuthorizationRequest(configuration: authConfig, clientId: "org.eduvpn.app.ios", scopes: ["config"], redirectURL: URL(string: "org.eduvpn.app:/api/callback")!, responseType: OIDResponseTypeCode, additionalParameters: nil)
-        return Promise(resolvers: { fulfill, reject in
+        return Promise(resolver: { seal in
             currentAuthorizationFlow = OIDAuthState.authState(byPresenting: request, presenting: presentingViewController, callback: { (authState, error) in
 
                 if let error = error {
                     print("Authorization error \(error.localizedDescription)")
-                    reject(error)
+                    seal.reject(error)
                     return
                 }
 
@@ -107,7 +107,7 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
                 precondition(authState != nil, "THIS SHOULD NEVER HAPPEN")
 
                 print("Got authorization tokens. Access token: \(String(describing: authState!.lastTokenResponse?.accessToken))")
-                fulfill(authState!)
+                seal.fulfill(authState!)
             })
         })
     }
@@ -138,19 +138,19 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
     public func request(apiService: ApiService,
                         queue: DispatchQueue? = nil,
                         progress: Moya.ProgressBlock? = nil) -> Promise<Moya.Response> {
-        return Promise<Any>(resolvers: { fulfill, reject in
+        return Promise<Any>(resolver: { seal in
             if let authState = self.api.authState {
                 authState.performAction(freshTokens: { (accessToken, _, error) in
                     if let error = error {
-                        reject(error)
+                        seal.reject(error)
                         return
                     }
 
                     self.credentialStorePlugin.accessToken = accessToken
-                    fulfill(())
+                    seal.fulfill(())
                 })
             } else {
-                reject(ApiServiceError.noAuthState)
+                seal.reject(ApiServiceError.noAuthState)
             }
 
         }).then {_ in

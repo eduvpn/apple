@@ -106,15 +106,15 @@ class AppCoordinator: RootViewCoordinator {
     }
 
     func detectPresenceOpenVPN() -> Promise<Void> {
-        return Promise(resolvers: { fulfill, reject in
+        return Promise(resolver: { seal in
             guard let url = URL(string: "openvpn://") else {
-                reject(AppCoordinatorError.openVpnSchemeNotAvailable)
+                seal.reject(AppCoordinatorError.openVpnSchemeNotAvailable)
                 return
             }
             if UIApplication.shared.canOpenURL(url) {
-                fulfill(())
+                seal.fulfill(())
             } else {
-                reject(AppCoordinatorError.openVpnSchemeNotAvailable)
+                seal.reject(AppCoordinatorError.openVpnSchemeNotAvailable)
             }
         })
     }
@@ -122,10 +122,10 @@ class AppCoordinator: RootViewCoordinator {
     func fetchKeyPair(with dynamicApiProvider: DynamicApiProvider, for displayName: String) -> Promise<Void> {
         return dynamicApiProvider.request(apiService: ApiService.createKeypair(displayName: displayName)).then { response -> Promise<CertificateModel> in
             return response.mapResponse()
-            }.then(execute: { (model) -> Void in
+            }.map { (model) -> Void in
                 print(model)
                 self.scheduleCertificateExpirationNotification(certificate: model)
-            })
+            }
 
 //        return Promise(resolvers: { fulfill, reject in
 //            //Fetch current keypair
@@ -195,28 +195,28 @@ class AppCoordinator: RootViewCoordinator {
 
         return provider.request(target: DynamicInstanceService(baseURL: URL(string: instance.baseUri!)!)).then { response -> Promise<InstanceInfoModel> in
             return response.mapResponse()
-            }.then { instanceInfoModel -> Void in
-                return Promise<Api>(resolvers: { fulfill, reject in
+            }.then { instanceInfoModel -> Promise<Void> in
+                return Promise<Api>(resolver: { seal in
                     self.persistentContainer.performBackgroundTask({ (context) in
                         let api = Api.upsert(with: instanceInfoModel, for: instance, on: context)
                         do {
                             try context.save()
                         } catch {
-                            reject(error)
+                            seal.reject(error)
                         }
 
-                        fulfill(api)
+                        seal.fulfill(api)
                     })
-                }).then(execute: { (api) -> Promise<Void> in
+                }).then { (api) -> Promise<Void> in
                     let api = self.persistentContainer.viewContext.object(with: api.objectID) as! Api //swiftlint:disable:this force_cast
                     let authorizingDynamicApiProvider = DynamicApiProvider(api: api)
                     self.authorizingDynamicApiProvider = authorizingDynamicApiProvider
-                    return authorizingDynamicApiProvider.authorize(presentingViewController: self.navigationController).then {_ in
+                    return authorizingDynamicApiProvider.authorize(presentingViewController: self.navigationController).map {_ in
                         self.navigationController.popToRootViewController(animated: true)
                     }.then { _ in
                         return self.refreshProfiles(for: authorizingDynamicApiProvider)
                 }
-            })
+            }
         }
     }
 
@@ -278,7 +278,7 @@ class AppCoordinator: RootViewCoordinator {
 
             let instanceIdentifiers = instances.instances.map { $0.baseUri.absoluteString }
 
-            return Promise(resolvers: { (fulfill, reject) in
+            return Promise(resolver: { (seal) in
                 self.persistentContainer.performBackgroundTask({ (context) in
                     let instanceGroupIdentifier = "\(target.baseURL.absoluteString)\(target.path)"
                     let group = try! InstanceGroup.findFirstInContext(context, predicate: NSPredicate(format: "providerType == %@", providerType.rawValue)) ?? InstanceGroup(context: context)//swiftlint:disable:this force_try
@@ -323,9 +323,9 @@ class AppCoordinator: RootViewCoordinator {
                     context.saveContextToStore({ (result) in
                         switch result {
                         case .success:
-                            fulfill(())
+                            seal.fulfill(())
                         case .failure(let error):
-                            reject(error)
+                            seal.reject(error)
                         }
                     })
 
@@ -345,7 +345,7 @@ class AppCoordinator: RootViewCoordinator {
         _ = detectPresenceOpenVPN()
             .then { _ -> Promise<Response> in
                 return dynamicApiProvider.request(apiService: .createConfig(displayName: "iOS Created Profile", profileId: profile.profileId!))
-            }.then { response -> Void in
+            }.map { response -> Void in
                 // TODO validate response
                 let filename = "\(profile.displayNames?.localizedValue ?? "")-\(api.instance?.displayNames?.localizedValue ?? "") \(profile.profileId ?? "").ovpn"
                 try Disk.save(response.data, to: .documents, as: filename)
@@ -415,7 +415,7 @@ class AppCoordinator: RootViewCoordinator {
                 }
                 context.saveContext()
             })
-            return Promise(value: ())
+            return .value(())
         }
     }
 }
@@ -484,7 +484,7 @@ extension AppCoordinator: CustomProviderInPutViewControllerDelegate {
     }
 
     func connect(url: URL) -> Promise<Void> {
-        return Promise<Instance>(resolvers: { fulfill, reject in
+        return Promise<Instance>(resolver: { seal in
             persistentContainer.performBackgroundTask { (context) in
                 let group = try! InstanceGroup.findFirstInContext(context, predicate: NSPredicate(format: "providerType == %@", ProviderType.other.rawValue)) ?? InstanceGroup(context: context)//swiftlint:disable:this force_try
 
@@ -498,9 +498,9 @@ extension AppCoordinator: CustomProviderInPutViewControllerDelegate {
                 do {
                     try context.save()
                 } catch {
-                    reject(error)
+                    seal.reject(error)
                 }
-                fulfill(instance)
+                seal.fulfill(instance)
             }
         }).then { (instance) -> Promise<Void> in
             let instance = self.persistentContainer.viewContext.object(with: instance.objectID) as! Instance //swiftlint:disable:this force_cast
