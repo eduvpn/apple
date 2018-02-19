@@ -16,6 +16,10 @@ import PromiseKit
 import CoreData
 import BNRCoreDataStack
 
+// swiftlint:disable type_body_length
+// swiftlint:disable file_length
+// swiftlint:disable function_body_length
+
 enum AppCoordinatorError: Swift.Error {
     case openVpnSchemeNotAvailable
 }
@@ -64,7 +68,7 @@ class AppCoordinator: RootViewCoordinator {
     /// Starts the coordinator
     public func start() {
         persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
-        persistentContainer.loadPersistentStores { [weak self] (persistentStoreDescription, error) in
+        persistentContainer.loadPersistentStores { [weak self] (_, error) in
             if let error = error {
                 print("Unable to Load Persistent Store")
                 print("\(error), \(error.localizedDescription)")
@@ -194,17 +198,7 @@ class AppCoordinator: RootViewCoordinator {
             }.then { instanceInfoModel -> Void in
                 return Promise<Api>(resolvers: { fulfill, reject in
                     self.persistentContainer.performBackgroundTask({ (context) in
-                        let api: Api
-                        let instance = context.object(with: instance.objectID) as? Instance
-                        if let instance = instance {
-                            api = try! Api.findFirstInContext(context, predicate: NSPredicate(format: "instance.baseUri == %@ AND apiBaseUri == %@", instance.baseUri!, instanceInfoModel.apiBaseUrl.absoluteString)) ?? Api(context: context)//swiftlint:disable:this force_try
-                        } else {
-                            api = Api(context: context)
-                        }
-                        api.instance = instance
-                        api.apiBaseUri = instanceInfoModel.apiBaseUrl.absoluteString
-                        api.authorizationEndpoint = instanceInfoModel.authorizationEndpoint.absoluteString
-                        api.tokenEndpoint = instanceInfoModel.tokenEndpoint.absoluteString
+                        let api = Api.upsert(with: instanceInfoModel, for: instance, on: context)
                         do {
                             try context.save()
                         } catch {
@@ -292,46 +286,6 @@ class AppCoordinator: RootViewCoordinator {
                     group.discoveryIdentifier = instanceGroupIdentifier
                     group.providerType = providerType.rawValue
 
-                    func update(instance: Instance, with model: InstanceModel) {
-                        instance.baseUri = model.baseUri.absoluteString
-                        instance.providerType = providerType.rawValue
-                        instance.displayNames?.forEach { context.delete($0) }
-                        instance.logos?.forEach { context.delete($0) }
-
-                        if let logoUrls = model.logoUrls {
-                            instance.logos = Set(logoUrls.flatMap({ (logoData) -> Logo? in
-                                let newLogo = Logo(context: context)
-                                newLogo.locale = logoData.key
-                                newLogo.logo = logoData.value.absoluteString
-                                newLogo.instance = instance
-                                return newLogo
-                            }))
-                        } else if let logoUrl = model.logoUrl {
-                            let newLogo = Logo(context: context)
-                            newLogo.logo = logoUrl.absoluteString
-                            instance.logos = Set([newLogo])
-                            newLogo.instance = instance
-                        } else {
-                            instance.logos = []
-                        }
-
-                        if let displayNames = model.displayNames {
-                            instance.displayNames = Set(displayNames.flatMap({ (displayData) -> DisplayName? in
-                                let displayName = DisplayName(context: context)
-                                displayName.locale = displayData.key
-                                displayName.displayName = displayData.value
-                                displayName.instance = instance
-                                return displayName
-                            }))
-                        } else if let displayNameString = model.displayName {
-                            let displayName = DisplayName(context: context)
-                            displayName.displayName = displayNameString
-                            displayName.instance = instance
-                        } else {
-                            instance.displayNames = []
-                        }
-                    }
-
                     let updatedInstances = group.instances.filter {
                         guard let baseUri = $0.baseUri else { return false }
                         return instanceIdentifiers.contains(baseUri)
@@ -342,7 +296,8 @@ class AppCoordinator: RootViewCoordinator {
                             if let updatedModel = instances.instances.first(where: { (model) -> Bool in
                                 return model.baseUri.absoluteString == baseUri
                             }) {
-                                update(instance: $0, with: updatedModel)
+                                $0.providerType = providerType.rawValue
+                                $0.update(with: updatedModel)
                             }
                         }
                     }
@@ -361,7 +316,8 @@ class AppCoordinator: RootViewCoordinator {
                         let newInstance = Instance(context: context)
                         group.addToInstances(newInstance)
                         newInstance.group = group
-                        update(instance: newInstance, with: instanceModel)
+                        newInstance.providerType = providerType.rawValue
+                        newInstance.update(with: instanceModel)
                     }
 
                     context.saveContextToStore({ (result) in
@@ -391,13 +347,19 @@ class AppCoordinator: RootViewCoordinator {
                 return dynamicApiProvider.request(apiService: .createConfig(displayName: "iOS Created Profile", profileId: profile.profileId!))
             }.then { response -> Void in
                 // TODO validate response
-                let filename = "\(profile.displayNames?.localizedValue ?? "")-\(api.instance?.displayNames?.localizedValue ?? "") \(String(describing: profile.profileId)).ovpn"
+                let filename = "\(profile.displayNames?.localizedValue ?? "")-\(api.instance?.displayNames?.localizedValue ?? "") \(profile.profileId ?? "").ovpn"
                 try Disk.save(response.data, to: .documents, as: filename)
                 let url = try Disk.getURL(for: filename, in: .documents)
 
                 let activity = UIActivityViewController(activityItems: [url], applicationActivities: nil)
                 if let currentViewController = self.navigationController.visibleViewController {
                     currentViewController.present(activity, animated: true, completion: {
+                        do {
+                            try Disk.remove(filename, from: .documents)
+                        } catch {
+                            print("Failed to delete \(filename) after hand-off.")
+                        }
+
                         print("Done")
                     })
                 }
@@ -449,17 +411,7 @@ class AppCoordinator: RootViewCoordinator {
                 profiles.profiles.forEach {
                     let profile = Profile(context: context)
                     profile.api = api
-                    profile.profileId = $0.profileId
-                    profile.twoFactor = $0.twoFactor
-                    if let displayNames = $0.displayNames {
-                        profile.displayNames = Set(displayNames.flatMap({ (displayData) -> DisplayName? in
-                            let displayName = DisplayName(context: context)
-                            displayName.locale = displayData.key
-                            displayName.displayName = displayData.value
-                            displayName.profile = profile
-                            return displayName
-                        }))
-                    }
+                    profile.update(with: $0)
                 }
                 context.saveContext()
             })
