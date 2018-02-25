@@ -12,6 +12,9 @@
 		4A2803D91FA6867D00FA895C /* CustomProviderInPutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2803D81FA6867D00FA895C /* CustomProviderInPutViewController.swift */; };
 		4A2CC2221F4233E8004119B1 /* Identifyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2CC2211F4233E8004119B1 /* Identifyable.swift */; };
 		4A3E029C1F6C4B3D00D20292 /* Moya+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3E029B1F6C4B3D00D20292 /* Moya+Extensions.swift */; };
+		4A4057D0204344A1002B1A4F /* AuthServer+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4057CE204344A1002B1A4F /* AuthServer+CoreDataClass.swift */; };
+		4A4057D1204344A1002B1A4F /* AuthServer+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4057CF204344A1002B1A4F /* AuthServer+CoreDataProperties.swift */; };
+		4A4057D320435070002B1A4F /* AuthServer+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4057D220435070002B1A4F /* AuthServer+Helper.swift */; };
 		4A4CA90F1F55F4300021FD5D /* UITableView+EduVPN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CA90E1F55F4300021FD5D /* UITableView+EduVPN.swift */; };
 		4A4F36531F31972C0032C96B /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4F36521F31972C0032C96B /* ApiService.swift */; };
 		4A62C8B81FB03B47007D3FAA /* KeyboardWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A62C8B71FB03B47007D3FAA /* KeyboardWrapper.swift */; };
@@ -75,6 +78,9 @@
 		4A2803D81FA6867D00FA895C /* CustomProviderInPutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProviderInPutViewController.swift; sourceTree = "<group>"; };
 		4A2CC2211F4233E8004119B1 /* Identifyable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifyable.swift; sourceTree = "<group>"; };
 		4A3E029B1F6C4B3D00D20292 /* Moya+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Moya+Extensions.swift"; sourceTree = "<group>"; };
+		4A4057CE204344A1002B1A4F /* AuthServer+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthServer+CoreDataClass.swift"; sourceTree = "<group>"; };
+		4A4057CF204344A1002B1A4F /* AuthServer+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthServer+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4A4057D220435070002B1A4F /* AuthServer+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthServer+Helper.swift"; sourceTree = "<group>"; };
 		4A4CA90E1F55F4300021FD5D /* UITableView+EduVPN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+EduVPN.swift"; sourceTree = "<group>"; };
 		4A4F36521F31972C0032C96B /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		4A62C8B71FB03B47007D3FAA /* KeyboardWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardWrapper.swift; sourceTree = "<group>"; };
@@ -259,6 +265,9 @@
 		4AD0AD601F3508DD006E1337 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4A4057CE204344A1002B1A4F /* AuthServer+CoreDataClass.swift */,
+				4A4057CF204344A1002B1A4F /* AuthServer+CoreDataProperties.swift */,
+				4A4057D220435070002B1A4F /* AuthServer+Helper.swift */,
 				4AA9E544202CBA41006D197E /* InstanceGroup+CoreDataClass.swift */,
 				4AA9E545202CBA41006D197E /* InstanceGroup+CoreDataProperties.swift */,
 				4AECAB402027091900B5105B /* EduVPN.xcdatamodeld */,
@@ -555,6 +564,7 @@
 				4AA69F8B203AA67900035F1A /* Profile+Helper.swift in Sources */,
 				4AD0AD5F1F350822006E1337 /* Moya+ResponseHandling.swift in Sources */,
 				4A2803D91FA6867D00FA895C /* CustomProviderInPutViewController.swift in Sources */,
+				4A4057D0204344A1002B1A4F /* AuthServer+CoreDataClass.swift in Sources */,
 				4A8D241F1F3976A2004A9343 /* ProfilesViewController.swift in Sources */,
 				4A983B791F397289004F82D5 /* Coordinator.swift in Sources */,
 				4A983B7B1F3972BE004F82D5 /* RootCoordinator.swift in Sources */,
@@ -563,6 +573,7 @@
 				4A8D24351F3A40F2004A9343 /* InstanceInfoModel.swift in Sources */,
 				4AAC2EEA2027117400F9D0D2 /* Logo+CoreDataProperties.swift in Sources */,
 				4AAC2EE82027117400F9D0D2 /* Api+CoreDataProperties.swift in Sources */,
+				4A4057D320435070002B1A4F /* AuthServer+Helper.swift in Sources */,
 				4A62C8B81FB03B47007D3FAA /* KeyboardWrapper.swift in Sources */,
 				4A2CC2221F4233E8004119B1 /* Identifyable.swift in Sources */,
 				4AAC2EE72027117400F9D0D2 /* Api+CoreDataClass.swift in Sources */,
@@ -570,6 +581,7 @@
 				4A7D1E4F1F4B24E4009F1402 /* ProfileModel.swift in Sources */,
 				4ACA042E1F311863004B35AA /* InstanceService.swift in Sources */,
 				4AAC2EE92027117400F9D0D2 /* Logo+CoreDataClass.swift in Sources */,
+				4A4057D1204344A1002B1A4F /* AuthServer+CoreDataProperties.swift in Sources */,
 				4AAC2EE62027117400F9D0D2 /* DisplayName+CoreDataProperties.swift in Sources */,
 				4A81DF9C2003BFB7002827A8 /* CertificateModel.swift in Sources */,
 				4AAC2EF02027927300F9D0D2 /* DisplayName+Convenience.swift in Sources */,

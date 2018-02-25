@@ -286,6 +286,8 @@ class AppCoordinator: RootViewCoordinator {
                     group.discoveryIdentifier = instanceGroupIdentifier
                     group.providerType = providerType.rawValue
 
+                    let authServer = AuthServer.upsert(with: instances, on: context)
+
                     let updatedInstances = group.instances.filter {
                         guard let baseUri = $0.baseUri else { return false }
                         return instanceIdentifiers.contains(baseUri)
@@ -297,6 +299,8 @@ class AppCoordinator: RootViewCoordinator {
                                 return model.baseUri.absoluteString == baseUri
                             }) {
                                 $0.providerType = providerType.rawValue
+                                $0.authorizationType = instances.authorizationType.rawValue
+                                $0.authServer = authServer
                                 $0.update(with: updatedModel)
                             }
                         }
@@ -317,6 +321,8 @@ class AppCoordinator: RootViewCoordinator {
                         group.addToInstances(newInstance)
                         newInstance.group = group
                         newInstance.providerType = providerType.rawValue
+                        newInstance.authorizationType = instances.authorizationType.rawValue
+                        newInstance.authServer = authServer
                         newInstance.update(with: instanceModel)
                     }
 

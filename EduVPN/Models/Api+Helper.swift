@@ -20,8 +20,7 @@ extension Api {
         }
         api.instance = instance
         api.apiBaseUri = instanceInfoModel.apiBaseUrl.absoluteString
-        api.authorizationEndpoint = instanceInfoModel.authorizationEndpoint.absoluteString
-        api.tokenEndpoint = instanceInfoModel.tokenEndpoint.absoluteString
+        api.authServer = AuthServer.upsert(with: instanceInfoModel, on: context)
 
         return api
     }

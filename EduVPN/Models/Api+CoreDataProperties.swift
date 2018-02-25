@@ -20,10 +20,19 @@ extension Api {
     }
 
     @NSManaged public var apiBaseUri: String?
-    @NSManaged public var authorizationEndpoint: String?
-    @NSManaged public var tokenEndpoint: String?
     @NSManaged public var instance: Instance?
     @NSManaged public var profiles: Set<Profile>
+    @NSManaged public var authServer: AuthServer?
+
+    var authorizationEndpoint: String? {
+        //TODO federated / distributed
+        return authServer?.authorizationEndpoint
+    }
+
+    var tokenEndpoint: String? {
+        //TODO federated / distributed
+        return authServer?.tokenEndpoint
+    }
 
     private var keychainKey: String {
         return "\(authorizationEndpoint!)|instance-info-authState"
