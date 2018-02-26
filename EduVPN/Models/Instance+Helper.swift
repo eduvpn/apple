@@ -10,6 +10,11 @@ import Foundation
 import CoreData
 
 extension Instance {
+    var authorizationTypeEnum: AuthorizationType {
+        guard let authorizationTypeString = authorizationType else { return .local }
+        return AuthorizationType(rawValue: authorizationTypeString) ?? .local
+    }
+
     func update(with model: InstanceModel) {
         self.baseUri = model.baseUri.absoluteString
         self.displayNames?.forEach { self.managedObjectContext?.delete($0) }
