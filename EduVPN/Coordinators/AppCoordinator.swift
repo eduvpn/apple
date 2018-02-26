@@ -281,7 +281,7 @@ class AppCoordinator: RootViewCoordinator {
             return Promise(resolver: { (seal) in
                 self.persistentContainer.performBackgroundTask({ (context) in
                     let instanceGroupIdentifier = "\(target.baseURL.absoluteString)\(target.path)"
-                    let group = try! InstanceGroup.findFirstInContext(context, predicate: NSPredicate(format: "providerType == %@", providerType.rawValue)) ?? InstanceGroup(context: context)//swiftlint:disable:this force_try
+                    let group = try! InstanceGroup.findFirstInContext(context, predicate: NSPredicate(format: "providerType == %@ AND discoveryIdentifier == %@", providerType.rawValue, instanceGroupIdentifier)) ?? InstanceGroup(context: context)//swiftlint:disable:this force_try
 
                     group.discoveryIdentifier = instanceGroupIdentifier
                     group.providerType = providerType.rawValue
