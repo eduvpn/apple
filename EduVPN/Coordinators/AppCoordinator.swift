@@ -350,7 +350,7 @@ class AppCoordinator: RootViewCoordinator {
         let dynamicApiProvider = DynamicApiProvider(api: api)
         _ = detectPresenceOpenVPN()
             .then { _ -> Promise<Response> in
-                return dynamicApiProvider.request(apiService: .createConfig(displayName: "iOS Created Profile", profileId: profile.profileId!))
+                return dynamicApiProvider.request(apiService: .createConfig(displayName: "eduVPN for iOS", profileId: profile.profileId!))
             }.map { response -> Void in
                 // TODO validate response
                 let filename = "\(profile.displayNames?.localizedValue ?? "")-\(api.instance?.displayNames?.localizedValue ?? "") \(profile.profileId ?? "").ovpn"
