@@ -23,6 +23,18 @@ extension StaticService: TargetType, AcceptJson {
     var baseURL: URL { return URL(string: "https://static.eduvpn.nl/disco")! }
 
     var path: String {
+    #if DEBUG
+        switch self {
+        case .instituteAccess:
+            return "/institute_access_dev.json"
+        case .instituteAccessSignature:
+            return "/institute_access_dev.json.sig"
+        case .secureInternet:
+            return "/secure_internet_dev.json"
+        case .secureInternetSignature:
+            return "/secure_internet_dev.json.sig"
+        }
+    #else
         switch self {
         case .instituteAccess:
             return "/institute_access.json"
@@ -33,6 +45,7 @@ extension StaticService: TargetType, AcceptJson {
         case .secureInternetSignature:
             return "/secure_internet.json.sig"
         }
+    #endif
     }
 
     var method: Moya.Method {
