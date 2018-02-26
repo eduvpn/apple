@@ -20,7 +20,13 @@ public enum PMKError: Error {
     case cancelled
 
     /// `nil` was returned from `flatMap`
+    @available(*, deprecated, message: "See: `compactMap`")
     case flatMap(Any, Any.Type)
+
+    case compactMap(Any, Any.Type)
+
+    /// the lastValue or firstValue of a sequence was requested but the sequence was empty
+    case emptySequence
 }
 
 extension PMKError: CustomDebugStringConvertible {
@@ -28,6 +34,8 @@ extension PMKError: CustomDebugStringConvertible {
         switch self {
         case .flatMap(let obj, let type):
             return "Could not `flatMap<\(type)>`: \(obj)"
+        case .compactMap(let obj, let type):
+            return "Could not `compactMap<\(type)>`: \(obj)"
         case .invalidCallingConvention:
             return "A closure was called with an invalid calling convention, probably (nil, nil)"
         case .returnedSelf:
@@ -36,6 +44,8 @@ extension PMKError: CustomDebugStringConvertible {
             return "Bad input was provided to a PromiseKit function"
         case .cancelled:
             return "The asynchronous sequence was cancelled"
+        case .emptySequence:
+            return "The first or last element was requested for an empty sequence"
         }
     }
 }

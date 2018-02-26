@@ -13,7 +13,7 @@ more readable code. Your co-workers will thank you.
 ```swift
 UIApplication.shared.isNetworkActivityIndicatorVisible = true
 
-let fetchImage = URLSession.shared.dataTask(.promise, with: url).flatMap{ UIImage(data: $0.data) }
+let fetchImage = URLSession.shared.dataTask(.promise, with: url).compactMap{ UIImage(data: $0.data) }
 let fetchLocation = CLLocationManager.requestLocation()
 
 firstly {
@@ -33,6 +33,8 @@ platform with a `swiftc`, it has *excellent* Objective-C bridging and
 *delightful* specializations for iOS, macOS, tvOS and watchOS. It is a top-100
 pod used in many of the most popular apps in the world.
 
+[![codecov](https://codecov.io/gh/mxcl/PromiseKit/branch/master/graph/badge.svg)](https://codecov.io/gh/mxcl/PromiseKit)
+
 # PromiseKit 6 Released
 
 PromiseKit 6 has been released; [read the release notes and migration guide][PMK6].
@@ -49,7 +51,7 @@ target "Change Me!" do
 end
 ```
 
-PromiseKit 6, 5 and 4 support Xcode 8.3, 9.0, 9.1 and 9.2; Swift 3.1,
+PromiseKit 6, 5 and 4 support Xcode 8.3, 9.0, 9.1, 9.2 and 9.3; Swift 3.1,
 3.2, 3.3, 4.0 and 4.1 ; iOS, macOS, tvOS, watchOS, Linux and Android; CocoaPods,
 Carthage and SwiftPM; ([CI Matrix](https://travis-ci.org/mxcl/PromiseKit)).
 
@@ -116,7 +118,7 @@ firstly {
 // https://github.com/PromiseKit/OMGHTTPURLRQ
 firstly {
     URLSession.POST("http://example.com", JSON: params)
-}.flatMap {
+}.compactMap {
     try JSONDecoder().decoder(Foo.self, with: $0.data)
 }.done { foo in
     //…
@@ -128,7 +130,7 @@ firstly {
 // https://github.com/PromiseKit/Foundation
 firstly {
     URLSession.shared.dataTask(.promise, with: try makeRequest())
-}.flatMap {
+}.compactMap {
     try JSONDecoder().decode(Foo.self, with: $0.data)
 }.done { foo in
     //…
@@ -150,7 +152,7 @@ Nowadays, considering that:
 
 * We almost always POST JSON
 * We now have `JSONDecoder`
-* PromiseKit now has `flatMap`
+* PromiseKit now has `compactMap`
 
 We recommend vanilla `URLSession`; use less black-boxes, stick closer to the
 metal. Alamofire was essential until the three bulletpoints above became true,

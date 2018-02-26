@@ -61,11 +61,10 @@ import Foundation
         }))
     }
 
+    /// Internal, do not use! Some behaviors undefined.
     @objc public func __pipe(_ to: @escaping (Any?) -> Void) {
         let to = { (obj: Any?) -> Void in
-            if let p = obj as? AnyPromise {
-                p.d.__pipe(to)
-            } else if let err = obj as? Error {
+            if let err = obj as? Error {
                 to(err as NSError)  // or we cannot determine if objects are errors in objc land
             } else {
                 to(obj)
@@ -115,7 +114,7 @@ extension AnyPromise: Thenable, CatchMixin {
             bridge.pipe {
                 switch $0 {
                 case .rejected(let error):
-                    resolve(error)
+                    resolve(error as NSError)
                 case .fulfilled(let value):
                     resolve(value)
                 }
@@ -124,15 +123,35 @@ extension AnyPromise: Thenable, CatchMixin {
     }
 
     public func pipe(to body: @escaping (Result<Any?>) -> Void) {
-        sewer {
-            switch $0 {
-            case .fulfilled:
-                // calling through to the ObjC `value` property unwraps (any) PMKManifold
-                // and considering this is the Swift pipe; we want that.
-                body(.fulfilled(self.value(forKey: "value")))
-            case .rejected:
-                body($0)
+
+        func fulfill() {
+            // calling through to the ObjC `value` property unwraps (any) PMKManifold
+            // and considering this is the Swift pipe; we want that.
+            body(.fulfilled(self.value(forKey: "value")))
+        }
+
+        switch box.inspect() {
+        case .pending:
+            box.inspect {
+                switch $0 {
+                case .pending(let handlers):
+                    handlers.append {
+                        if let error = $0 as? Error {
+                            body(.rejected(error))
+                        } else {
+                            fulfill()
+                        }
+                    }
+                case .resolved(let error as Error):
+                    body(.rejected(error))
+                case .resolved:
+                    fulfill()
+                }
             }
+        case .resolved(let error as Error):
+            body(.rejected(error))
+        case .resolved:
+            fulfill()
         }
     }
 
@@ -144,39 +163,14 @@ extension AnyPromise: Thenable, CatchMixin {
         return d.box
     }
 
-    fileprivate func sewer(to body: @escaping (Result<Any?>) -> Void) {
-        switch box.inspect() {
-        case .pending:
-            box.inspect {
-                switch $0 {
-                case .pending(let handlers):
-                    handlers.append {
-                        if let error = $0 as? Error {
-                            body(.rejected(error))
-                        } else {
-                            body(.fulfilled($0))
-                        }
-                    }
-                case .resolved(let error as Error):
-                    body(.rejected(error))
-                case .resolved(let value):
-                    body(.fulfilled(value))
-                }
-            }
-        case .resolved(let error as Error):
-            body(.rejected(error))
-        case .resolved(let value):
-            body(.fulfilled(value))
-        }
-    }
-
     public var result: Result<Any?>? {
+        guard let value = __value else {
+            return nil
+        }
         if let error = value as? Error {
             return .rejected(error)
-        } else if let value = value {
-            return .fulfilled(value)
         } else {
-            return nil
+            return .fulfilled(value)
         }
     }
 
