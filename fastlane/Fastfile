@@ -15,6 +15,13 @@ fastlane_version "2.61.0"
 
 default_platform :ios
 
+lane :refresh_dsyms do
+  download_dsyms # Download dSym files from iTC
+  upload_symbols_to_crashlytics(api_token: "c75d4ddb5a0ec81d2904d36d9f2471af281f0301") # upload them to Crashlytics
+  clean_build_artifacts # Delete the local dSYM files
+end
+
+
 platform :ios do
   before_all do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."

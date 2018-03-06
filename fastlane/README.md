@@ -15,6 +15,14 @@ Install _fastlane_ using
 or alternatively using `brew cask install fastlane`
 
 # Available Actions
+### refresh_dsyms
+```
+fastlane refresh_dsyms
+```
+
+
+----
+
 ## iOS
 ### ios test
 ```
