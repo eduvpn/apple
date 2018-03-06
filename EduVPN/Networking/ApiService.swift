@@ -112,25 +112,27 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
         })
     }
 
-    public init(api: Api, endpointClosure: @escaping EndpointClosure = MoyaProvider.defaultEndpointMapping,
-                stubClosure: @escaping StubClosure = MoyaProvider.neverStub,
-                callbackQueue: DispatchQueue? = nil,
-                manager: Manager = MoyaProvider<Target>.defaultAlamofireManager(),
-                plugins: [PluginType] = [],
-                trackInflights: Bool = false) {
+    public init?(api: Api, endpointClosure: @escaping EndpointClosure = MoyaProvider.defaultEndpointMapping,
+                 stubClosure: @escaping StubClosure = MoyaProvider.neverStub,
+                 callbackQueue: DispatchQueue? = nil,
+                 manager: Manager = MoyaProvider<Target>.defaultAlamofireManager(),
+                 plugins: [PluginType] = [],
+                 trackInflights: Bool = false) {
 //    public init(api: Api, endpointClosure: @escaping EndpointClosure = MoyaProvider.defaultEndpointMapping,
 //                requestClosure: @escaping RequestClosure = MoyaProvider.defaultRequestMapping,
 //                stubClosure: @escaping StubClosure = MoyaProvider.neverStub,
 //                manager: Manager = MoyaProvider<DynamicInstanceService>.defaultAlamofireManager(),
 //                plugins: [PluginType] = [],
 //                trackInflights: Bool = false) {
+        guard let authorizationEndpoint = api.authorizationEndpoint else { return nil }
+        guard let tokenEndpoint = api.tokenEndpoint else { return nil }
         self.api = api
         self.credentialStorePlugin = CredentialStorePlugin()
 
         var plugins = plugins
         plugins.append(self.credentialStorePlugin)
 
-        self.authConfig = OIDServiceConfiguration(authorizationEndpoint: URL(string: api.authorizationEndpoint!)!, tokenEndpoint: URL(string: api.tokenEndpoint!)!)
+        self.authConfig = OIDServiceConfiguration(authorizationEndpoint: URL(string: authorizationEndpoint)!, tokenEndpoint: URL(string: tokenEndpoint)!)
         super.init(endpointClosure: endpointClosure, stubClosure: stubClosure, manager: manager, plugins: plugins, trackInflights: trackInflights)
 
     }

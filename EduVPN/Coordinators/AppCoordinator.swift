@@ -209,7 +209,7 @@ class AppCoordinator: RootViewCoordinator {
                     })
                 }).then { (api) -> Promise<Void> in
                     let api = self.persistentContainer.viewContext.object(with: api.objectID) as! Api //swiftlint:disable:this force_cast
-                    let authorizingDynamicApiProvider = DynamicApiProvider(api: api)
+                    guard let authorizingDynamicApiProvider = DynamicApiProvider(api: api) else { return .value(()) }
                     self.authorizingDynamicApiProvider = authorizingDynamicApiProvider
                     return authorizingDynamicApiProvider.authorize(presentingViewController: self.navigationController).map {_ in
                         self.navigationController.popToRootViewController(animated: true)
@@ -347,7 +347,7 @@ class AppCoordinator: RootViewCoordinator {
             return
         }
 
-        let dynamicApiProvider = DynamicApiProvider(api: api)
+        guard let dynamicApiProvider = DynamicApiProvider(api: api) else { return }
         _ = detectPresenceOpenVPN()
             .then { _ -> Promise<Response> in
                 return dynamicApiProvider.request(apiService: .createConfig(displayName: "eduVPN for iOS", profileId: profile.profileId!))
