@@ -446,7 +446,8 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
 
     func delete(profile: Profile) {
         persistentContainer.performBackgroundTask { (context) in
-            context.delete(profile)
+            let backgroundProfile = context.object(with: profile.objectID)
+            context.delete(backgroundProfile)
         }
     }
 }
