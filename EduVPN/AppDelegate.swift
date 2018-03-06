@@ -48,6 +48,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any] = [:]) -> Bool {
         return appCoordinator.resumeAuthorizationFlow(url: url) == true
     }
+
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
+
+        guard let url = userActivity.webpageURL else { return false }
+        return appCoordinator.resumeAuthorizationFlow(url: url) == true
+    }
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {

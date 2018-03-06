@@ -86,6 +86,7 @@
 		4A62C8B71FB03B47007D3FAA /* KeyboardWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardWrapper.swift; sourceTree = "<group>"; };
 		4A7D1E4E1F4B24E4009F1402 /* ProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		4A81DF9B2003BFB7002827A8 /* CertificateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateModel.swift; sourceTree = "<group>"; };
+		4A84E276204F3A5B00E51EFE /* EduVPN.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EduVPN.entitlements; sourceTree = "<group>"; };
 		4A8D241E1F3976A2004A9343 /* ProfilesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilesViewController.swift; sourceTree = "<group>"; };
 		4A8D24201F3976FC004A9343 /* ProviderType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderType.swift; sourceTree = "<group>"; };
 		4A8D24341F3A40F2004A9343 /* InstanceInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceInfoModel.swift; sourceTree = "<group>"; };
@@ -199,6 +200,7 @@
 		4AAC1F781F2D0E3400DD0252 /* EduVPN */ = {
 			isa = PBXGroup;
 			children = (
+				4A84E276204F3A5B00E51EFE /* EduVPN.entitlements */,
 				4A983B751F397223004F82D5 /* Coordinators */,
 				4AD0AD601F3508DD006E1337 /* Models */,
 				4AD0AD5B1F35045E006E1337 /* ViewControllers */,
@@ -364,6 +366,11 @@
 						DevelopmentTeam = T4CMEHXPLL;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.SafariKeychain = {
+								enabled = 1;
+							};
+						};
 					};
 					4AAC1F891F2D0E3400DD0252 = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -763,6 +770,7 @@
 			baseConfigurationReference = 8828097AD8E6A8FAE767E4D9 /* Pods-EduVPN.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = EduVPN/EduVPN.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = T4CMEHXPLL;
@@ -782,6 +790,7 @@
 			baseConfigurationReference = BF41F680EFA1657A481FC709 /* Pods-EduVPN.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = EduVPN/EduVPN.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = T4CMEHXPLL;

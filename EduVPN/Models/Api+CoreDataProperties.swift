@@ -34,7 +34,7 @@ extension Api {
             return authServer?.authorizationEndpoint
         case .distributed:
             //TODO distributed
-            return nil
+            return authServer?.authorizationEndpoint
         }
     }
 
@@ -48,7 +48,7 @@ extension Api {
             return authServer?.tokenEndpoint
         case .distributed:
             //TODO distributed
-            return nil
+            return authServer?.tokenEndpoint
         }
     }
 
