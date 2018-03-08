@@ -399,7 +399,6 @@ class AppCoordinator: RootViewCoordinator {
     }
 
     @discardableResult private func refreshProfiles() -> Promise<Void> {
-        // TODO Should this be based on instance info objects?
         let promises = dynamicApiProviders.map({self.refreshProfiles(for: $0)})
         return when(fulfilled: promises)
     }
