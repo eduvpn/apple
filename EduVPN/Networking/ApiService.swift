@@ -103,7 +103,6 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
             currentAuthorizationFlow = OIDAuthState.authState(byPresenting: request, presenting: presentingViewController, callback: { (authState, error) in
 
                 if let error = error {
-                    print("Authorization error \(error.localizedDescription)")
                     seal.reject(error)
                     return
                 }
@@ -112,7 +111,6 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
 
                 precondition(authState != nil, "THIS SHOULD NEVER HAPPEN")
 
-                print("Got authorization tokens. Access token: \(String(describing: authState!.lastTokenResponse?.accessToken))")
                 seal.fulfill(authState!)
             })
         })

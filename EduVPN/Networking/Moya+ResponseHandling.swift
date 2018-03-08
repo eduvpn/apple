@@ -24,7 +24,6 @@ extension Moya.Response {
                 let result = try JSONDecoder().decode(T.self, from: self.data)
                 seal.fulfill(result)
             } catch {
-                print(error)
                 seal.reject(MoyaError.jsonMapping(self))
             }
         })

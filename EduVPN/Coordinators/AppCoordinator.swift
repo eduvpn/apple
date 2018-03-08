@@ -70,8 +70,7 @@ class AppCoordinator: RootViewCoordinator {
         persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
         persistentContainer.loadPersistentStores { [weak self] (_, error) in
             if let error = error {
-                print("Unable to Load Persistent Store")
-                print("\(error), \(error.localizedDescription)")
+                print("Unable to Load Persistent Store. \(error), \(error.localizedDescription)")
 
             } else {
                 DispatchQueue.main.async {
@@ -123,7 +122,6 @@ class AppCoordinator: RootViewCoordinator {
         return dynamicApiProvider.request(apiService: ApiService.createKeypair(displayName: displayName)).then { response -> Promise<CertificateModel> in
             return response.mapResponse()
             }.map { (model) -> Void in
-                print(model)
                 self.scheduleCertificateExpirationNotification(certificate: model)
             }
 
@@ -341,7 +339,6 @@ class AppCoordinator: RootViewCoordinator {
     }
 
     func fetchAndTransferProfileToConnectApp(for profile: Profile) {
-        print(profile)
         guard let api = profile.api else {
             precondition(false, "This should never happen")
             return
@@ -365,8 +362,6 @@ class AppCoordinator: RootViewCoordinator {
                         } catch {
                             print("Failed to delete \(filename) after hand-off.")
                         }
-
-                        print("Done")
                     })
                 }
                 return ()
