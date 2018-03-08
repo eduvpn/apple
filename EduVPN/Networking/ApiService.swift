@@ -92,11 +92,12 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
     var currentAuthorizationFlow: OIDAuthorizationFlowSession?
 
     public func authorize(presentingViewController: UIViewController) -> Promise<OIDAuthState> {
-#if DEBUG
-        let redirectUrl = URL(string: "https://ios.app.eduvpn.org/auth/app/redirect/development/")!
-#else
-        let redirectUrl = URL(string: "https://ios.app.eduvpn.org/auth/app/redirect/")!
-#endif
+        let redirectUrl: URL
+        if let bundleID = Bundle.main.bundleIdentifier, bundleID.contains("appforce1") {
+            redirectUrl = URL(string: "https://ios.app.eduvpn.org/auth/app/redirect/development/")!
+        } else {
+            redirectUrl = URL(string: "https://ios.app.eduvpn.org/auth/app/redirect/")!
+        }
 
         let request = OIDAuthorizationRequest(configuration: authConfig, clientId: "org.eduvpn.app.ios", scopes: ["config"], redirectURL: redirectUrl, responseType: OIDResponseTypeCode, additionalParameters: nil)
         return Promise(resolver: { seal in
