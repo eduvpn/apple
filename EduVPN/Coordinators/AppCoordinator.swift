@@ -357,11 +357,13 @@ class AppCoordinator: RootViewCoordinator {
                 let activity = UIActivityViewController(activityItems: [url], applicationActivities: nil)
                 if let currentViewController = self.navigationController.visibleViewController {
                     currentViewController.present(activity, animated: true, completion: {
-                        do {
-                            try Disk.remove(filename, from: .documents)
-                        } catch {
-                            print("Failed to delete \(filename) after hand-off.")
-                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
+                            do {
+                                try Disk.remove(filename, from: .documents)
+                            } catch {
+                                print("Failed to delete \(filename) after hand-off.")
+                            }
+                        })
                     })
                 }
                 return ()
@@ -442,6 +444,7 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
         persistentContainer.performBackgroundTask { (context) in
             let backgroundProfile = context.object(with: profile.objectID)
             context.delete(backgroundProfile)
+            context.saveContext()
         }
     }
 }
