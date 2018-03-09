@@ -350,21 +350,14 @@ class AppCoordinator: RootViewCoordinator {
                 return dynamicApiProvider.request(apiService: .createConfig(displayName: "eduVPN for iOS", profileId: profile.profileId!))
             }.map { response -> Void in
                 // TODO validate response
+                try Disk.clear(.temporary)
                 let filename = "\(profile.displayNames?.localizedValue ?? "")-\(api.instance?.displayNames?.localizedValue ?? "") \(profile.profileId ?? "").ovpn"
-                try Disk.save(response.data, to: .documents, as: filename)
-                let url = try Disk.getURL(for: filename, in: .documents)
+                try Disk.save(response.data, to: .temporary, as: filename)
+                let url = try Disk.getURL(for: filename, in: .temporary)
 
                 let activity = UIActivityViewController(activityItems: [url], applicationActivities: nil)
                 if let currentViewController = self.navigationController.visibleViewController {
-                    currentViewController.present(activity, animated: true, completion: {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
-                            do {
-                                try Disk.remove(filename, from: .documents)
-                            } catch {
-                                print("Failed to delete \(filename) after hand-off.")
-                            }
-                        })
-                    })
+                    currentViewController.present(activity, animated: true)
                 }
                 return ()
             }.catch { (error) in
