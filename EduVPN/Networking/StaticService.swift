@@ -23,29 +23,29 @@ extension StaticService: TargetType, AcceptJson {
     var baseURL: URL { return URL(string: "https://static.eduvpn.nl/disco")! }
 
     var path: String {
-    #if DEBUG
-        switch self {
-        case .instituteAccess:
-            return "/institute_access_dev.json"
-        case .instituteAccessSignature:
-            return "/institute_access_dev.json.sig"
-        case .secureInternet:
-            return "/secure_internet_dev.json"
-        case .secureInternetSignature:
-            return "/secure_internet_dev.json.sig"
+        if let bundleID = Bundle.main.bundleIdentifier, bundleID.contains("appforce1") {
+            switch self {
+            case .instituteAccess:
+                return "/institute_access_dev.json"
+            case .instituteAccessSignature:
+                return "/institute_access_dev.json.sig"
+            case .secureInternet:
+                return "/secure_internet_dev.json"
+            case .secureInternetSignature:
+                return "/secure_internet_dev.json.sig"
+            }
+        } else {
+            switch self {
+            case .instituteAccess:
+                return "/institute_access.json"
+            case .instituteAccessSignature:
+                return "/institute_access.json.sig"
+            case .secureInternet:
+                return "/secure_internet.json"
+            case .secureInternetSignature:
+                return "/secure_internet.json.sig"
+            }
         }
-    #else
-        switch self {
-        case .instituteAccess:
-            return "/institute_access.json"
-        case .instituteAccessSignature:
-            return "/institute_access.json.sig"
-        case .secureInternet:
-            return "/secure_internet.json"
-        case .secureInternetSignature:
-            return "/secure_internet.json.sig"
-        }
-    #endif
     }
 
     var method: Moya.Method {
