@@ -127,6 +127,7 @@ class AppCoordinator: RootViewCoordinator {
                 print("Error: \(error)")
                 switch error {
                 case ApiServiceError.tokenRefreshFailed:
+                    self.authorizingDynamicApiProvider = dynamicApiProvider
                     _ = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
                 case AppCoordinatorError.openVpnSchemeNotAvailable:
                     self.showNoOpenVPNAlert()
@@ -373,6 +374,7 @@ class AppCoordinator: RootViewCoordinator {
                 print("Error: \(error)")
                 switch error {
                 case ApiServiceError.tokenRefreshFailed:
+                    self.authorizingDynamicApiProvider = dynamicApiProvider
                     _ = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
                 case AppCoordinatorError.openVpnSchemeNotAvailable:
                     self.showNoOpenVPNAlert()
@@ -426,6 +428,7 @@ class AppCoordinator: RootViewCoordinator {
             print("Error: \(error)")
             switch error {
             case ApiServiceError.tokenRefreshFailed:
+                self.authorizingDynamicApiProvider = dynamicApiProvider
                 _ = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
             default:
                 self.showError(error)
