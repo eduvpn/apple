@@ -72,7 +72,6 @@ struct InstanceModel: Decodable {
 
 extension InstanceModel {
     enum InstanceModelKeys: String, CodingKey {
-        case instanceInfo = "instance_info"
         case providerType = "provider_type"
         case baseUri = "base_uri"
         case displayName = "display_name"
@@ -81,8 +80,6 @@ extension InstanceModel {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: InstanceModelKeys.self)
-
-        let instanceInfo = try? container.decode(InstanceInfoModel.self, forKey: .instanceInfo)
 
         let baseUri = try container.decode(URL.self, forKey: .baseUri)
         let providerType = try container.decodeIfPresent(ProviderType.self, forKey: .providerType) ?? .unknown

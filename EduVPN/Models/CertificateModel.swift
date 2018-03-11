@@ -23,13 +23,13 @@ extension CertificateModel {
         case data
         case certificate
         case privateKey = "private_key"
-        case okKey = "ok"
+//        case okKey = "ok"
     }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CertificateModelKeys.self)
         let createKeypairResponse = try container.nestedContainer(keyedBy: CertificateModelKeys.self, forKey: .createKeypair)
-        let okResult = try createKeypairResponse.decode(Bool.self, forKey: .okKey)
+//        let okResult = try createKeypairResponse.decode(Bool.self, forKey: .okKey)
         let data = try createKeypairResponse.nestedContainer(keyedBy: CertificateModelKeys.self, forKey: .data)
         certificateString = try data.decode(String.self, forKey: .certificate)
         privateKeyString = try data.decode(String.self, forKey: .privateKey)
