@@ -15,6 +15,7 @@ import AppAuth
 
 enum ApiServiceError: Swift.Error {
     case noAuthState
+    case tokenRefreshFailed(rootCause: Error)
 }
 
 enum ApiService {
@@ -149,7 +150,7 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
             if let authState = self.api.authState {
                 authState.performAction(freshTokens: { (accessToken, _, error) in
                     if let error = error {
-                        seal.reject(error)
+                        seal.reject(ApiServiceError.tokenRefreshFailed(rootCause: error))
                         return
                     }
 

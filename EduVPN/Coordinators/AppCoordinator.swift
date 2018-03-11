@@ -89,7 +89,7 @@ class AppCoordinator: RootViewCoordinator {
                         }
                     }
 
-                    self?.detectPresenceOpenVPN().catch { (_) in
+                    self?.detectPresenceOpenVPN().recover { (_) in
                         self?.showNoOpenVPNAlert()
                     }
                 }
@@ -123,8 +123,17 @@ class AppCoordinator: RootViewCoordinator {
             return response.mapResponse()
             }.map { (model) -> Void in
                 self.scheduleCertificateExpirationNotification(certificate: model)
-            }
-
+            }.recover { (error) in
+                print("Error: \(error)")
+                switch error {
+                case ApiServiceError.tokenRefreshFailed:
+                    _ = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
+                case AppCoordinatorError.openVpnSchemeNotAvailable:
+                    self.showNoOpenVPNAlert()
+                default:
+                    self.showError(error)
+                }
+        }
 //        return Promise(resolvers: { fulfill, reject in
 //            //Fetch current keypair
 //            // If non-existent or expired, fetch fresh
@@ -360,12 +369,15 @@ class AppCoordinator: RootViewCoordinator {
                     currentViewController.present(activity, animated: true)
                 }
                 return ()
-            }.catch { (error) in
+            }.recover { (error) in
+                print("Error: \(error)")
                 switch error {
+                case ApiServiceError.tokenRefreshFailed:
+                    _ = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
                 case AppCoordinatorError.openVpnSchemeNotAvailable:
                     self.showNoOpenVPNAlert()
                 default:
-                    print("Errror: \(error)")
+                    self.showError(error)
                 }
             }
     }
@@ -396,7 +408,7 @@ class AppCoordinator: RootViewCoordinator {
     @discardableResult private func refreshProfiles(for dynamicApiProvider: DynamicApiProvider) -> Promise<Void> {
         return dynamicApiProvider.request(apiService: .profileList).then { response -> Promise<ProfilesModel> in
             return response.mapResponse()
-        }.then { profiles -> Promise<Void> in
+        }.map { profiles -> Void in
             self.persistentContainer.performBackgroundTask({ (context) in
                 let api = context.object(with: dynamicApiProvider.api.objectID) as? Api
                 api?.profiles.forEach({ (profile) in
@@ -410,8 +422,15 @@ class AppCoordinator: RootViewCoordinator {
                 }
                 context.saveContext()
             })
-            return .value(())
-        }
+        }.recover({ (error) in
+            print("Error: \(error)")
+            switch error {
+            case ApiServiceError.tokenRefreshFailed:
+                _ = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
+            default:
+                self.showError(error)
+            }
+        })
     }
 }
 
@@ -461,7 +480,7 @@ extension AppCoordinator: ChooseProviderTableViewControllerDelegate {
     }
 
     func didSelect(instance: Instance, chooseProviderTableViewController: ChooseProviderTableViewController) {
-        self.refresh(instance: instance).catch { (error) in
+        self.refresh(instance: instance).recover { (error) in
             self.showError(error)
         }
     }
