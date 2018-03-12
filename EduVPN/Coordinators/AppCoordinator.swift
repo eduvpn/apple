@@ -33,8 +33,6 @@ class AppCoordinator: RootViewCoordinator {
 
     let accessTokenPlugin =  CredentialStorePlugin()
 
-    private var dynamicApiProviders = Set<DynamicApiProvider>()
-
     private var currentDocumentInteractionController: UIDocumentInteractionController?
 
     private var authorizingDynamicApiProvider: DynamicApiProvider?
@@ -293,6 +291,7 @@ class AppCoordinator: RootViewCoordinator {
 
                     group.discoveryIdentifier = instanceGroupIdentifier
                     group.providerType = providerType.rawValue
+                    group.authorizationType = instances.authorizationType.rawValue
 
                     let authServer = AuthServer.upsert(with: instances, on: context)
 
@@ -307,7 +306,6 @@ class AppCoordinator: RootViewCoordinator {
                                 return model.baseUri.absoluteString == baseUri
                             }) {
                                 $0.providerType = providerType.rawValue
-                                $0.authorizationType = instances.authorizationType.rawValue
                                 $0.authServer = authServer
                                 $0.update(with: updatedModel)
                             }
@@ -329,7 +327,6 @@ class AppCoordinator: RootViewCoordinator {
                         group.addToInstances(newInstance)
                         newInstance.group = group
                         newInstance.providerType = providerType.rawValue
-                        newInstance.authorizationType = instances.authorizationType.rawValue
                         newInstance.authServer = authServer
                         newInstance.update(with: instanceModel)
                     }
@@ -393,18 +390,16 @@ class AppCoordinator: RootViewCoordinator {
     func resumeAuthorizationFlow(url: URL) -> Bool {
         if let authorizingDynamicApiProvider = authorizingDynamicApiProvider {
             if authorizingDynamicApiProvider.currentAuthorizationFlow?.resumeAuthorizationFlow(with: url) == true {
-                self.dynamicApiProviders.insert(authorizingDynamicApiProvider)
+                let authorizationType = authorizingDynamicApiProvider.api.instance?.group?.authorizationTypeEnum ?? .local
+                if authorizationType == .distributed {
+                    authorizingDynamicApiProvider.api.instance?.group?.federatedAuthorizationApi = authorizingDynamicApiProvider.api
+                }
                 authorizingDynamicApiProvider.currentAuthorizationFlow = nil
                 return true
             }
         }
 
         return false
-    }
-
-    @discardableResult private func refreshProfiles() -> Promise<Void> {
-        let promises = dynamicApiProviders.map({self.refreshProfiles(for: $0)})
-        return when(fulfilled: promises)
     }
 
     @discardableResult private func refreshProfiles(for dynamicApiProvider: DynamicApiProvider) -> Promise<Void> {

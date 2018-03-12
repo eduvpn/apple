@@ -18,9 +18,11 @@ extension Api {
         } else {
             api = Api(context: context)
         }
+
+        instance?.authServer = AuthServer.upsert(with: instanceInfoModel, on: context)
+
         api.instance = instance
         api.apiBaseUri = instanceInfoModel.apiBaseUrl.absoluteString
-        api.authServer = AuthServer.upsert(with: instanceInfoModel, on: context)
 
         return api
     }

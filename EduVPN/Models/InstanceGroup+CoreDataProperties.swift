@@ -16,9 +16,17 @@ extension InstanceGroup {
         return NSFetchRequest<InstanceGroup>(entityName: "InstanceGroup")
     }
 
+    var authorizationTypeEnum: AuthorizationType {
+        guard let authorizationTypeString = authorizationType else { return .local }
+        return AuthorizationType(rawValue: authorizationTypeString) ?? .local
+    }
+
     @NSManaged public var discoveryIdentifier: String?
     @NSManaged public var providerType: String?
+    @NSManaged public var authorizationType: String?
     @NSManaged public var instances: Set<Instance>
+
+    @NSManaged public var federatedAuthorizationApi: Api?
 
 }
 

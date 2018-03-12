@@ -18,7 +18,6 @@ extension Instance {
 
     @NSManaged public var baseUri: String?
     @NSManaged public var providerType: String?
-    @NSManaged public var authorizationType: String?
     @NSManaged public var publicKey: String?
     @NSManaged public var apis: Set<Api>?
     @NSManaged public var displayNames: Set<DisplayName>?

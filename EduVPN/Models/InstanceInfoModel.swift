@@ -14,26 +14,6 @@ struct InstanceInfoModel: Decodable {
     var authorizationEndpoint: URL
     var tokenEndpoint: URL
     var apiBaseUrl: URL
-    private var keychainKey: String {
-        return "\(authorizationEndpoint.absoluteString)|instance-info-authState"
-    }
-    var authState: OIDAuthState? {
-        get {
-            if let data = KeychainSwift().getData(keychainKey) {
-                return NSKeyedUnarchiver.unarchiveObject(with: data) as? OIDAuthState
-            } else {
-                return nil
-            }
-        }
-        set {
-            if let newValue = newValue {
-                let data = NSKeyedArchiver.archivedData(withRootObject: newValue)
-                KeychainSwift().set(data, forKey: keychainKey)
-            } else {
-                KeychainSwift().delete(keychainKey)
-            }
-        }
-    }
 }
 
 extension InstanceInfoModel {

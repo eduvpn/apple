@@ -25,30 +25,28 @@ extension Api {
     @NSManaged public var authServer: AuthServer?
 
     var authorizationEndpoint: String? {
-        guard let instance = instance else { return authServer?.authorizationEndpoint }
+        guard let authorizationType = instance?.group?.authorizationTypeEnum else { return authServer?.authorizationEndpoint }
 
-        switch instance.authorizationTypeEnum {
+        switch authorizationType {
         case .local:
             return authServer?.authorizationEndpoint
         case .federated:
-            return authServer?.authorizationEndpoint
+            return instance?.authServer?.authorizationEndpoint
         case .distributed:
-            //TODO distributed
-            return authServer?.authorizationEndpoint
+            return instance?.authServer?.authorizationEndpoint ?? authServer?.authorizationEndpoint
         }
     }
 
     var tokenEndpoint: String? {
-        guard let instance = instance else { return authServer?.tokenEndpoint }
+        guard let authorizationType = instance?.group?.authorizationTypeEnum else { return authServer?.authorizationEndpoint }
 
-        switch instance.authorizationTypeEnum {
+        switch authorizationType {
         case .local:
             return authServer?.tokenEndpoint
         case .federated:
-            return authServer?.tokenEndpoint
+            return instance?.authServer?.authorizationEndpoint
         case .distributed:
-            //TODO distributed
-            return authServer?.tokenEndpoint
+            return instance?.authServer?.authorizationEndpoint ?? authServer?.tokenEndpoint
         }
     }
 
