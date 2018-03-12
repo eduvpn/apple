@@ -19,7 +19,6 @@
         <relationship name="profile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profile" inverseName="displayNames" inverseEntity="Profile" syncable="YES"/>
     </entity>
     <entity name="Instance" representedClassName="Instance" syncable="YES">
-        <attribute name="authorizationType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="baseUri" attributeType="String" syncable="YES"/>
         <attribute name="providerType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="publicKey" optional="YES" attributeType="String" syncable="YES"/>
@@ -30,8 +29,10 @@
         <relationship name="logos" toMany="YES" deletionRule="Cascade" destinationEntity="Logo" inverseName="instance" inverseEntity="Logo" syncable="YES"/>
     </entity>
     <entity name="InstanceGroup" representedClassName="InstanceGroup" syncable="YES">
+        <attribute name="authorizationType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="discoveryIdentifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="providerType" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="federatedAuthorizationApi" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Api" syncable="YES"/>
         <relationship name="instances" toMany="YES" deletionRule="Cascade" destinationEntity="Instance" inverseName="group" inverseEntity="Instance" syncable="YES"/>
     </entity>
     <entity name="Logo" representedClassName="Logo" syncable="YES">
@@ -47,11 +48,11 @@
     </entity>
     <elements>
         <element name="Api" positionX="-27" positionY="63" width="128" height="105"/>
+        <element name="AuthServer" positionX="-36" positionY="81" width="128" height="105"/>
         <element name="DisplayName" positionX="-36" positionY="27" width="128" height="105"/>
-        <element name="Instance" positionX="-63" positionY="-18" width="128" height="180"/>
-        <element name="InstanceGroup" positionX="-36" positionY="81" width="128" height="90"/>
+        <element name="Instance" positionX="-63" positionY="-18" width="128" height="165"/>
+        <element name="InstanceGroup" positionX="-36" positionY="81" width="128" height="120"/>
         <element name="Logo" positionX="-54" positionY="0" width="128" height="90"/>
         <element name="Profile" positionX="-18" positionY="99" width="128" height="105"/>
-        <element name="AuthServer" positionX="-36" positionY="81" width="128" height="105"/>
     </elements>
 </model>

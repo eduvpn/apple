@@ -38,15 +38,15 @@ extension Api {
     }
 
     var tokenEndpoint: String? {
-        guard let authorizationType = instance?.group?.authorizationTypeEnum else { return authServer?.authorizationEndpoint }
+        guard let authorizationType = instance?.group?.authorizationTypeEnum else { return authServer?.tokenEndpoint }
 
         switch authorizationType {
         case .local:
             return authServer?.tokenEndpoint
         case .federated:
-            return instance?.authServer?.authorizationEndpoint
+            return instance?.authServer?.tokenEndpoint
         case .distributed:
-            return instance?.authServer?.authorizationEndpoint ?? authServer?.tokenEndpoint
+            return instance?.authServer?.tokenEndpoint ?? authServer?.tokenEndpoint
         }
     }
 
