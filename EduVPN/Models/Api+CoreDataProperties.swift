@@ -50,13 +50,13 @@ extension Api {
         }
     }
 
-    private var keychainKey: String {
+    private var authStateKeychainKey: String {
         return "\(authorizationEndpoint!)|instance-info-authState"
     }
 
     var authState: OIDAuthState? {
         get {
-            if let data = KeychainSwift().getData(keychainKey) {
+            if let data = KeychainSwift().getData(authStateKeychainKey) {
                 return NSKeyedUnarchiver.unarchiveObject(with: data) as? OIDAuthState
             } else {
                 return nil
@@ -65,9 +65,40 @@ extension Api {
         set {
             if let newValue = newValue {
                 let data = NSKeyedArchiver.archivedData(withRootObject: newValue)
-                KeychainSwift().set(data, forKey: keychainKey)
+                KeychainSwift().set(data, forKey: authStateKeychainKey)
             } else {
-                KeychainSwift().delete(keychainKey)
+                KeychainSwift().delete(authStateKeychainKey)
+            }
+        }
+    }
+
+    private var certificateKeychainKey: String {
+        return "\(authorizationEndpoint!)|certificate"
+    }
+
+    var certificateModel: CertificateModel? {
+        get {
+            if let data = KeychainSwift().getData(certificateKeychainKey) {
+                do {
+                    return try JSONDecoder().decode(CertificateModel.self, from: data)
+                } catch {
+                    //TODO handle error?
+                    return nil
+                }
+            } else {
+                return nil
+            }
+        }
+        set {
+            if let newValue = newValue {
+                do {
+                    let data = try JSONEncoder().encode(newValue)
+                    KeychainSwift().set(data, forKey: certificateKeychainKey)
+                } catch {
+                    //TODO handle error?
+                }
+            } else {
+                KeychainSwift().delete(certificateKeychainKey)
             }
         }
     }

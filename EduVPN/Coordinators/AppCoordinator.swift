@@ -103,43 +103,39 @@ class AppCoordinator: RootViewCoordinator {
     }
 
     func detectPresenceOpenVPN() -> Promise<Void> {
-        return Promise(resolver: { seal in
-            guard let url = URL(string: "openvpn://") else {
-                seal.reject(AppCoordinatorError.openVpnSchemeNotAvailable)
-                return
-            }
-            if UIApplication.shared.canOpenURL(url) {
-                seal.fulfill(())
-            } else {
-                seal.reject(AppCoordinatorError.openVpnSchemeNotAvailable)
-            }
-        })
-    }
-
-    func fetchKeyPair(with dynamicApiProvider: DynamicApiProvider, for displayName: String) -> Promise<Void> {
-        return dynamicApiProvider.request(apiService: ApiService.createKeypair(displayName: displayName)).then { response -> Promise<CertificateModel> in
-            return response.mapResponse()
-            }.map { (model) -> Void in
-                self.scheduleCertificateExpirationNotification(certificate: model)
-            }.recover { (error) in
-                print("Error: \(error)")
-                switch error {
-                case ApiServiceError.tokenRefreshFailed:
-                    self.authorizingDynamicApiProvider = dynamicApiProvider
-                    _ = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
-                case AppCoordinatorError.openVpnSchemeNotAvailable:
-                    self.showNoOpenVPNAlert()
-                default:
-                    self.showError(error)
+        #if DEBUG
+            return .value(())
+        #else
+            return Promise(resolver: { seal in
+                guard let url = URL(string: "openvpn://") else {
+                    seal.reject(AppCoordinatorError.openVpnSchemeNotAvailable)
+                    return
                 }
-        }
-//        return Promise(resolvers: { fulfill, reject in
-//            //Fetch current keypair
-//            // If non-existent or expired, fetch fresh
-//            // Otherwise return keypair
-//        })
+                if UIApplication.shared.canOpenURL(url) {
+                    seal.fulfill(())
+                } else {
+                    seal.reject(AppCoordinatorError.openVpnSchemeNotAvailable)
+                }
+            })
+        #endif
     }
 
+    func loadCertificate(for api: Api) -> Promise<CertificateModel> {
+        if let certificateModel = api.certificateModel {
+            return .value(certificateModel)
+        }
+
+        let dynamicApiProvider = DynamicApiProvider(api: api)! //TODO implement error throwing mechanism
+        return dynamicApiProvider.request(apiService: .createKeypair(displayName: "eduVPN for iOS")).then {response -> Promise<CertificateModel> in
+            return response.mapResponse()
+            }.map { (model) -> CertificateModel in
+                //TODO make notification specific to this Api provider
+                self.scheduleCertificateExpirationNotification(certificate: model)
+                //TODO unschedule previous notification
+                api.certificateModel = model
+                return model
+            }
+    }
     func showNoOpenVPNAlert() {
         let alertController = UIAlertController(title: NSLocalizedString("OpenVPN Connect app", comment: "No OpenVPN available title"), message: NSLocalizedString("The OpenVPN Connect app is required to use EduVPN.", comment: "No OpenVPN available message"), preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "No OpenVPN available ok button"), style: .default) { _ in
@@ -352,14 +348,22 @@ class AppCoordinator: RootViewCoordinator {
         }
 
         guard let dynamicApiProvider = DynamicApiProvider(api: api) else { return }
-        _ = detectPresenceOpenVPN()
-            .then { _ -> Promise<Response> in
-                return dynamicApiProvider.request(apiService: .createConfig(displayName: "eduVPN for iOS", profileId: profile.profileId!))
+
+        _ = detectPresenceOpenVPN().then { _ -> Promise<CertificateModel> in
+            return self.loadCertificate(for: api)
+        }.then { _ -> Promise<Response> in
+                return dynamicApiProvider.request(apiService: .profileConfig(profileId: profile.profileId!))
             }.map { response -> Void in
+                var ovpnFileContent = String(data: response.data, encoding: .utf8)
+                let insertionIndex = ovpnFileContent!.range(of: "</ca>")!.upperBound
+                ovpnFileContent?.insert(contentsOf: "\n<key>\n\(api.certificateModel!.privateKeyString)\n</key>", at: insertionIndex)
+                ovpnFileContent?.insert(contentsOf: "\n<cert>\n\(api.certificateModel!.certificateString)\n</cert>", at: insertionIndex)
+                print(ovpnFileContent)
                 // TODO validate response
                 try Disk.clear(.temporary)
+                //TODO merge profile with keypair
                 let filename = "\(profile.displayNames?.localizedValue ?? "")-\(api.instance?.displayNames?.localizedValue ?? "") \(profile.profileId ?? "").ovpn"
-                try Disk.save(response.data, to: .temporary, as: filename)
+                try Disk.save(ovpnFileContent!.data(using: .utf8)!, to: .temporary, as: filename)
                 let url = try Disk.getURL(for: filename, in: .temporary)
 
                 let activity = UIActivityViewController(activityItems: [url], applicationActivities: nil)

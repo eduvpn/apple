@@ -9,7 +9,7 @@
 import Foundation
 import ASN1Decoder
 
-struct CertificateModel: Decodable {
+struct CertificateModel: Codable {
     var certificateString: String
     var privateKeyString: String
     var x509Certificate: X509Certificate? {
@@ -24,6 +24,15 @@ extension CertificateModel {
         case certificate
         case privateKey = "private_key"
 //        case okKey = "ok"
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CertificateModelKeys.self)
+        var createKeypairContainer = container.nestedContainer(keyedBy: CertificateModelKeys.self, forKey: .createKeypair)
+        var dataContainer = createKeypairContainer.nestedContainer(keyedBy: CertificateModelKeys.self, forKey: .data)
+        try dataContainer.encode(certificateString, forKey: .certificate)
+        try dataContainer.encode(privateKeyString, forKey: .privateKey)
+
     }
 
     init(from decoder: Decoder) throws {
