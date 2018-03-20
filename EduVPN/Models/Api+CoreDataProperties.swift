@@ -82,7 +82,6 @@ extension Api {
                 do {
                     return try JSONDecoder().decode(CertificateModel.self, from: data)
                 } catch {
-                    //TODO handle error?
                     return nil
                 }
             } else {
@@ -95,7 +94,6 @@ extension Api {
                     let data = try JSONEncoder().encode(newValue)
                     KeychainSwift().set(data, forKey: certificateKeychainKey)
                 } catch {
-                    //TODO handle error?
                 }
             } else {
                 KeychainSwift().delete(certificateKeychainKey)

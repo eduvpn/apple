@@ -23,6 +23,7 @@ enum ApiService {
     case userInfo
     case createConfig(displayName: String, profileId: String)
     case createKeypair(displayName: String)
+    case checkCertificate(commonName: String)
     case profileConfig(profileId: String)
     case systemMessages
     case userMessages
@@ -39,6 +40,8 @@ extension ApiService {
             return "/create_config"
         case .createKeypair:
             return "/create_keypair"
+        case .checkCertificate:
+            return "/check_certificate"
         case .profileConfig:
             return "/profile_config"
         case .systemMessages:
@@ -50,7 +53,7 @@ extension ApiService {
 
     var method: Moya.Method {
         switch self {
-        case .profileList, .userInfo, .profileConfig, .systemMessages, .userMessages:
+        case .profileList, .userInfo, .profileConfig, .systemMessages, .userMessages, .checkCertificate:
             return .get
         case .createConfig, .createKeypair:
             return .post
@@ -65,6 +68,8 @@ extension ApiService {
             return .requestParameters(parameters: ["display_name": displayName, "profile_id": profileId], encoding: URLEncoding.httpBody)
         case .createKeypair(let displayName):
             return .requestParameters(parameters: ["display_name": displayName], encoding: URLEncoding.httpBody)
+        case .checkCertificate(let commonName):
+            return .requestParameters(parameters: ["common_name": commonName], encoding: URLEncoding.queryString)
         case .profileConfig(let profileId):
             return .requestParameters(parameters: ["profile_id": profileId], encoding: URLEncoding.queryString)
         }

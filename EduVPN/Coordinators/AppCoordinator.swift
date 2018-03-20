@@ -22,6 +22,9 @@ import BNRCoreDataStack
 
 enum AppCoordinatorError: Swift.Error {
     case openVpnSchemeNotAvailable
+    case certificateInvalid
+    case certificateStatusUnknown
+    case apiProviderCreateFailed
 }
 
 class AppCoordinator: RootViewCoordinator {
@@ -122,19 +125,48 @@ class AppCoordinator: RootViewCoordinator {
 
     func loadCertificate(for api: Api) -> Promise<CertificateModel> {
         if let certificateModel = api.certificateModel {
-            return .value(certificateModel)
+            if certificateModel.x509Certificate?.checkValidity() ?? false {
+                return .value(certificateModel)
+            } else {
+                api.certificateModel = nil
+            }
         }
 
-        let dynamicApiProvider = DynamicApiProvider(api: api)! //TODO implement error throwing mechanism
-        return dynamicApiProvider.request(apiService: .createKeypair(displayName: "eduVPN for iOS")).then {response -> Promise<CertificateModel> in
-            return response.mapResponse()
+        guard let dynamicApiProvider = DynamicApiProvider(api: api) else { return Promise.init(error: AppCoordinatorError.apiProviderCreateFailed) }
+
+        return dynamicApiProvider.request(apiService: .checkCertificate(commonName: "")).then { response throws -> Promise<Void> in
+            if response.statusCode == 404 {
+                return .value(())
+            }
+
+            if let jsonResult = try response.mapJSON() as? [String: AnyObject],
+                let checkResult = jsonResult["check_certificate"] as? [String: AnyObject],
+                let dataResult = checkResult["data"] as? [String: AnyObject],
+                let isValidResult = dataResult["is_valid"] as? [Bool] {
+                let result = isValidResult.reduce(true, { (result, next) -> Bool in
+                    result && next
+                })
+                if result {
+                    return .value(())
+                } else {
+                    api.certificateModel = nil
+                    throw AppCoordinatorError.certificateInvalid
+                }
+            } else {
+                throw AppCoordinatorError.certificateStatusUnknown
+            }
+
+            }.then {
+                return dynamicApiProvider.request(apiService: .createKeypair(displayName: "eduVPN for iOS"))
+            }.then {response -> Promise<CertificateModel> in
+                return response.mapResponse()
             }.map { (model) -> CertificateModel in
                 //TODO make notification specific to this Api provider
                 self.scheduleCertificateExpirationNotification(certificate: model)
                 //TODO unschedule previous notification
                 api.certificateModel = model
                 return model
-            }
+        }
     }
     func showNoOpenVPNAlert() {
         let alertController = UIAlertController(title: NSLocalizedString("OpenVPN Connect app", comment: "No OpenVPN available title"), message: NSLocalizedString("The OpenVPN Connect app is required to use EduVPN.", comment: "No OpenVPN available message"), preferredStyle: .alert)
