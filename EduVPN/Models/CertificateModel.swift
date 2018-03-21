@@ -15,6 +15,10 @@ struct CertificateModel: Codable {
     var x509Certificate: X509Certificate? {
         return try? X509Certificate(data: certificateString.data(using: .utf8)!)
     }
+
+    var uniqueIdentifier: String? {
+        return x509Certificate?.signature?.base64EncodedString()
+    }
 }
 
 extension CertificateModel {

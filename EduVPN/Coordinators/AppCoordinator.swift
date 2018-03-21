@@ -161,9 +161,7 @@ class AppCoordinator: RootViewCoordinator {
             }.then {response -> Promise<CertificateModel> in
                 return response.mapResponse()
             }.map { (model) -> CertificateModel in
-                //TODO make notification specific to this Api provider
                 self.scheduleCertificateExpirationNotification(certificate: model)
-                //TODO unschedule previous notification
                 api.certificateModel = model
                 return model
         }
@@ -187,13 +185,11 @@ class AppCoordinator: RootViewCoordinator {
                 print("Not Authorised")
                 return
             }
-
-            //        //TODO do this more fine grained
-            //        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-
             guard let expirationDate = certificate.x509Certificate?.notAfter else { return }
+            guard let identifier = certificate.uniqueIdentifier else { return }
 
             let content = UNMutableNotificationContent()
+            //TODO better notification texts.
             content.title = NSString.localizedUserNotificationString(forKey: "VPN certificate is expiring!", arguments: nil)
             content.body = NSString.localizedUserNotificationString(forKey: "Rise and shine! It's morning time!",
                                                                     arguments: nil)
@@ -214,7 +210,7 @@ class AppCoordinator: RootViewCoordinator {
             let trigger = UNCalendarNotificationTrigger(dateMatching: expirationWarningDateComponents, repeats: false)
 
             // Create the request object.
-            let request = UNNotificationRequest(identifier: "MorningAlarm", content: content, trigger: trigger)
+            let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
             UNUserNotificationCenter.current().add(request) { (error) in
                 if let error = error {
                     print("Error occured when scheduling a cert expiration reminder \(error)")
@@ -390,10 +386,9 @@ class AppCoordinator: RootViewCoordinator {
                 let insertionIndex = ovpnFileContent!.range(of: "</ca>")!.upperBound
                 ovpnFileContent?.insert(contentsOf: "\n<key>\n\(api.certificateModel!.privateKeyString)\n</key>", at: insertionIndex)
                 ovpnFileContent?.insert(contentsOf: "\n<cert>\n\(api.certificateModel!.certificateString)\n</cert>", at: insertionIndex)
-                print(ovpnFileContent)
                 // TODO validate response
                 try Disk.clear(.temporary)
-                //TODO merge profile with keypair
+                // merge profile with keypair
                 let filename = "\(profile.displayNames?.localizedValue ?? "")-\(api.instance?.displayNames?.localizedValue ?? "") \(profile.profileId ?? "").ovpn"
                 try Disk.save(ovpnFileContent!.data(using: .utf8)!, to: .temporary, as: filename)
                 let url = try Disk.getURL(for: filename, in: .temporary)
@@ -404,7 +399,6 @@ class AppCoordinator: RootViewCoordinator {
                 }
                 return ()
             }.recover { (error) in
-                print("Error: \(error)")
                 switch error {
                 case ApiServiceError.tokenRefreshFailed:
                     self.authorizingDynamicApiProvider = dynamicApiProvider
@@ -456,7 +450,6 @@ class AppCoordinator: RootViewCoordinator {
                 context.saveContext()
             })
         }.recover({ (error) in
-            print("Error: \(error)")
             switch error {
             case ApiServiceError.tokenRefreshFailed:
                 self.authorizingDynamicApiProvider = dynamicApiProvider

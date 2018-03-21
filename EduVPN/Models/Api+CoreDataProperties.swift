@@ -12,6 +12,7 @@ import CoreData
 
 import AppAuth
 import KeychainSwift
+import UserNotifications
 
 extension Api {
 
@@ -89,6 +90,11 @@ extension Api {
             }
         }
         set {
+            if let oldIdentifier = certificateModel?.uniqueIdentifier {
+                if oldIdentifier != newValue?.uniqueIdentifier ?? "" {
+                    UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [oldIdentifier])
+                }
+            }
             if let newValue = newValue {
                 do {
                     let data = try JSONEncoder().encode(newValue)
