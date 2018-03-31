@@ -16,7 +16,7 @@ extension Instance {
         self.logos?.forEach { self.managedObjectContext?.delete($0) }
 
         if let logoUrls = model.logoUrls {
-            self.logos = Set(logoUrls.flatMap({ (logoData) -> Logo? in
+            self.logos = Set(logoUrls.compactMap({ (logoData) -> Logo? in
                 let newLogo = Logo(context: self.managedObjectContext!)
                 newLogo.locale = logoData.key
                 newLogo.logo = logoData.value.absoluteString
@@ -33,7 +33,7 @@ extension Instance {
         }
 
         if let displayNames = model.displayNames {
-            self.displayNames = Set(displayNames.flatMap({ (displayData) -> DisplayName? in
+            self.displayNames = Set(displayNames.compactMap({ (displayData) -> DisplayName? in
                 let displayName = DisplayName(context: self.managedObjectContext!)
                 displayName.locale = displayData.key
                 displayName.displayName = displayData.value

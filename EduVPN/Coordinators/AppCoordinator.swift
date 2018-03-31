@@ -336,7 +336,7 @@ class AppCoordinator: RootViewCoordinator {
                         }
                     }
 
-                    let updatedInstanceIdentifiers = updatedInstances.flatMap { $0.baseUri}
+                    let updatedInstanceIdentifiers = updatedInstances.compactMap { $0.baseUri}
 
                     let deletedInstances = group.instances.subtracting(updatedInstances)
                     deletedInstances.forEach {

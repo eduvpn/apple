@@ -14,7 +14,7 @@ extension Profile {
         self.profileId = profileModel.profileId
         self.twoFactor = profileModel.twoFactor
         if let displayNames = profileModel.displayNames {
-            self.displayNames = Set(displayNames.flatMap({ (displayData) -> DisplayName? in
+            self.displayNames = Set(displayNames.compactMap({ (displayData) -> DisplayName? in
                 let displayName = DisplayName(context: self.managedObjectContext!)
                 displayName.locale = displayData.key
                 displayName.displayName = displayData.value
