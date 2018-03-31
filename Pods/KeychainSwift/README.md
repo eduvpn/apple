@@ -28,7 +28,7 @@ Keychain is a secure storage. You can store all kind of sensitive data in it: us
 
 ## Setup
 
-There are three ways you can add KeychainSwift to your Xcode project.
+There are four ways you can add KeychainSwift to your project.
 
 #### Add source (iOS 7+)
 
@@ -36,7 +36,7 @@ Simply add [KeychainSwiftDistrib.swift](https://github.com/evgenyneu/keychain-sw
 
 #### Setup with Carthage (iOS 8+)
 
-Alternatively, add `github "evgenyneu/keychain-swift" ~> 10.0` to your Cartfile and run `carthage update`.
+Alternatively, add `github "evgenyneu/keychain-swift" ~> 11.0` to your Cartfile and run `carthage update`.
 
 #### Setup with CocoaPods (iOS 8+)
 
@@ -44,21 +44,26 @@ If you are using CocoaPods add this text to your Podfile and run `pod install`.
 
     use_frameworks!
     target 'Your target name'
-    pod 'KeychainSwift', '~> 10.0'
+    pod 'KeychainSwift', '~> 11.0'
 
 
 #### Setup with Swift Package Manager
 
-Add the following text to your Package.swift file and run `swift build`.
+Here is an example of a Package.swift file.
 
 ```Swift
 import PackageDescription
 
 let package = Package(
-    name: "KeychainSwift",
+    name: "MyApp",
     dependencies: [
-        .Package(url: "https://github.com/evgenyneu/keychain-swift.git",
-                 versions: Version(10,0,0)..<Version(11,0,0))
+        .package(url: "https://github.com/evgenyneu/keychain-swift.git", from: "11.0.0"),
+    ],
+    targets: [
+        on.
+        .target(
+            name: "MyApp",
+            dependencies: ["KeychainSwift"]),
     ]
 )
 ```
@@ -69,11 +74,7 @@ let package = Package(
 Setup a [previous version](https://github.com/evgenyneu/keychain-swift/wiki/Legacy-Swift-versions) of the library if you use an older version of Swift.
 
 
-**iOS 7 support**
-
-Use [iOS 7 compatible](https://github.com/evgenyneu/keychain-swift/blob/iOS7/Distrib/KeychainSwiftDistrib.swift) version of the library.
-
-<h2 id="usage">Usage</h2>
+## Usage
 
 Add `import KeychainSwift` to your source code unless you used the file setup method.
 
@@ -211,16 +212,6 @@ It [has been reported](https://github.com/evgenyneu/keychain-swift/issues/15) th
 ## Demo app
 
 <img src="https://raw.githubusercontent.com/evgenyneu/keychain-swift/master/graphics/keychain-swift-demo-3.png" alt="Keychain Swift demo app" width="320">
-
-## Running Keychain unit tests
-
-Xcode 8 introduced additional hoops that one needs to jump through in order to run the unit test:
-
-1. Enable signing in both the demo app and the test target.
-1. Enable *Keychain Sharing* in the *Capabilities* tab of the demo app target.
-1. Select the demo app as *Host Application* in the test target.
-
-The process is shown in more details in [this article](http://evgenii.com/blog/testing-a-keychain-library-in-xcode/).
 
 ## Alternative solutions
 
