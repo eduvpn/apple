@@ -5,8 +5,6 @@ use_frameworks!
 swift_version = "3.0"
 
 target 'EduVPN' do
-  pod 'Fabric'
-  pod 'Crashlytics'
   pod 'SwiftLint'
   pod 'PromiseKit/CorePromise'
   pod 'KeychainSwift'
