@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17D102" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14133" systemVersion="17E199" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Api" representedClassName="Api" syncable="YES">
         <attribute name="apiBaseUri" attributeType="String" syncable="YES"/>
+        <relationship name="authorizingForGroup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="InstanceGroup" inverseName="federatedAuthorizationApi" inverseEntity="InstanceGroup" syncable="YES"/>
         <relationship name="authServer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AuthServer" inverseName="apis" inverseEntity="AuthServer" syncable="YES"/>
         <relationship name="instance" maxCount="1" deletionRule="Nullify" destinationEntity="Instance" inverseName="apis" inverseEntity="Instance" syncable="YES"/>
         <relationship name="profiles" toMany="YES" deletionRule="Cascade" destinationEntity="Profile" inverseName="api" inverseEntity="Profile" syncable="YES"/>
@@ -32,7 +33,7 @@
         <attribute name="authorizationType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="discoveryIdentifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="providerType" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="federatedAuthorizationApi" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Api" syncable="YES"/>
+        <relationship name="federatedAuthorizationApi" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Api" inverseName="authorizingForGroup" inverseEntity="Api" syncable="YES"/>
         <relationship name="instances" toMany="YES" deletionRule="Cascade" destinationEntity="Instance" inverseName="group" inverseEntity="Instance" syncable="YES"/>
     </entity>
     <entity name="Logo" representedClassName="Logo" syncable="YES">
@@ -47,7 +48,7 @@
         <relationship name="displayNames" toMany="YES" deletionRule="Nullify" destinationEntity="DisplayName" inverseName="profile" inverseEntity="DisplayName" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Api" positionX="-27" positionY="63" width="128" height="105"/>
+        <element name="Api" positionX="-27" positionY="63" width="128" height="120"/>
         <element name="AuthServer" positionX="-36" positionY="81" width="128" height="105"/>
         <element name="DisplayName" positionX="-36" positionY="27" width="128" height="105"/>
         <element name="Instance" positionX="-63" positionY="-18" width="128" height="165"/>
