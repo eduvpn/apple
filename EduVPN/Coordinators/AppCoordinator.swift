@@ -229,7 +229,9 @@ class AppCoordinator: RootViewCoordinator {
             }.then { instanceInfoModel -> Promise<Void> in
                 return Promise<Api>(resolver: { seal in
                     self.persistentContainer.performBackgroundTask({ (context) in
+                        let authServer = AuthServer.upsert(with: instanceInfoModel, on: context)
                         let api = Api.upsert(with: instanceInfoModel, for: instance, on: context)
+                        api.authServer = authServer
                         do {
                             try context.save()
                         } catch {
