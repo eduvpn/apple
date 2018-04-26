@@ -16,6 +16,8 @@ import PromiseKit
 import CoreData
 import BNRCoreDataStack
 
+import AppAuth
+
 // swiftlint:disable type_body_length
 // swiftlint:disable file_length
 // swiftlint:disable function_body_length
@@ -528,6 +530,10 @@ extension AppCoordinator: ChooseProviderTableViewControllerDelegate {
 
     func didSelect(instance: Instance, chooseProviderTableViewController: ChooseProviderTableViewController) {
         self.refresh(instance: instance).recover { (error) in
+            if let error = error as? NSError, error.domain == OIDGeneralErrorDomain &&  error.code == OIDErrorCode.programCanceledAuthorizationFlow.rawValue {
+                // It is a OIDErrorCodeProgramCanceledAuthorizationFlow, which means the user cancelled.
+                return
+            }
             self.showError(error)
         }
     }
