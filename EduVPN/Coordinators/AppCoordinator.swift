@@ -18,6 +18,8 @@ import BNRCoreDataStack
 
 import AppAuth
 
+import NVActivityIndicatorView
+
 // swiftlint:disable type_body_length
 // swiftlint:disable file_length
 // swiftlint:disable function_body_length
@@ -396,6 +398,9 @@ class AppCoordinator: RootViewCoordinator {
             return
         }
 
+        let activityData = ActivityData()
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
+
         guard let dynamicApiProvider = DynamicApiProvider(api: api) else { return }
 
         _ = detectPresenceOpenVPN().then { _ -> Promise<CertificateModel> in
@@ -419,6 +424,8 @@ class AppCoordinator: RootViewCoordinator {
                     currentViewController.present(activity, animated: true)
                 }
                 return ()
+            }.ensure {
+                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
             }.recover { (error) in
                 switch error {
                 case ApiServiceError.tokenRefreshFailed:

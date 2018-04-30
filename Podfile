@@ -15,6 +15,7 @@ target 'EduVPN' do
   pod 'Sodium'
   pod 'ASN1Decoder'
   pod 'BNRCoreDataStack'
+  pod 'NVActivityIndicatorView'
 
   post_install do | installer |
     require 'fileutils'

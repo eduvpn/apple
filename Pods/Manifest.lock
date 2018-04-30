@@ -12,6 +12,9 @@ PODS:
   - Moya/Core (11.0.2):
     - Alamofire (~> 4.1)
     - Result (~> 3.0)
+  - NVActivityIndicatorView (4.2.0):
+    - NVActivityIndicatorView/Presenter (= 4.2.0)
+  - NVActivityIndicatorView/Presenter (4.2.0)
   - PromiseKit/CorePromise (6.2.4)
   - Result (3.2.4)
   - Sodium (0.6)
@@ -25,6 +28,7 @@ DEPENDENCIES:
   - Disk
   - KeychainSwift
   - Moya
+  - NVActivityIndicatorView
   - PromiseKit/CorePromise
   - Sodium
   - SwiftLint
@@ -39,6 +43,7 @@ SPEC REPOS:
     - Disk
     - KeychainSwift
     - Moya
+    - NVActivityIndicatorView
     - PromiseKit
     - Result
     - Sodium
@@ -53,11 +58,12 @@ SPEC CHECKSUMS:
   Disk: d1f55cd61f6ca20f368232d0c6e37e3c3dfcb63e
   KeychainSwift: bea6bd9f98af7b8d7ca4aa79fe105c00fab532db
   Moya: a725035953bc1c0eb1be505ab903984501d82440
+  NVActivityIndicatorView: 75c9634073e03b31d7e2748cd2417feab1206195
   PromiseKit: 625b1fc69944fc839503748101c5968cf54b527b
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
   Sodium: bf524b0a3d5ad6870dcf343205cca7e659c15ad5
   SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
 
-PODFILE CHECKSUM: dbc17d9d8002f2ed75773b163b28f9e37ff1836b
+PODFILE CHECKSUM: 8e3a43416124d3e872448f17ea992bb8058b4cdf
 
 COCOAPODS: 1.5.0
