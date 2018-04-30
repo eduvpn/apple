@@ -404,8 +404,10 @@ class AppCoordinator: RootViewCoordinator {
         guard let dynamicApiProvider = DynamicApiProvider(api: api) else { return }
 
         _ = detectPresenceOpenVPN().then { _ -> Promise<CertificateModel> in
+            NVActivityIndicatorPresenter.sharedInstance.setMessage(NSLocalizedString("Loading certificate", comment: ""))
             return self.loadCertificate(for: api)
         }.then { _ -> Promise<Response> in
+            NVActivityIndicatorPresenter.sharedInstance.setMessage(NSLocalizedString("Requesting profile config", comment: ""))
                 return dynamicApiProvider.request(apiService: .profileConfig(profileId: profile.profileId!))
             }.map { response -> Void in
                 var ovpnFileContent = String(data: response.data, encoding: .utf8)
