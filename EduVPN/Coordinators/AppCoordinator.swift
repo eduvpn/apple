@@ -105,10 +105,7 @@ class AppCoordinator: RootViewCoordinator {
     }
 
     public func showError(_ error: Error) {
-        let alert = UIAlertController(title: NSLocalizedString("Error", comment: "Error alert title"), message: error.localizedDescription, preferredStyle: .alert)
-        let dismissAction = UIAlertAction(title: "OK", style: .default)
-        alert.addAction(dismissAction)
-        self.navigationController.present(alert, animated: true)
+        showAlert(title: NSLocalizedString("Error", comment: "Error alert title"), message: error.localizedDescription)
     }
 
     func detectPresenceOpenVPN() -> Promise<Void> {
@@ -187,11 +184,12 @@ class AppCoordinator: RootViewCoordinator {
         }
     }
 
+    func showNoProfilesAlert() {
+        showAlert(title: NSLocalizedString("No profiles available", comment: "No profiles available title"), message: NSLocalizedString("There are no profiles configured for you on the instance you selected.", comment: "No profiles available message"))
+    }
+
     func showNoOpenVPNAlert() {
-        let alertController = UIAlertController(title: NSLocalizedString("OpenVPN Connect app", comment: "No OpenVPN available title"), message: NSLocalizedString("The OpenVPN Connect app is required to use EduVPN.", comment: "No OpenVPN available message"), preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "No OpenVPN available ok button"), style: .default) { _ in
-        })
-        self.navigationController.present(alertController, animated: true, completion: nil)
+        showAlert(title: NSLocalizedString("OpenVPN Connect app", comment: "No OpenVPN available title"), message: NSLocalizedString("The OpenVPN Connect app is required to use EduVPN.", comment: "No OpenVPN available message"))
     }
 
     func showSettingsTableViewController() {
@@ -466,6 +464,9 @@ class AppCoordinator: RootViewCoordinator {
         return dynamicApiProvider.request(apiService: .profileList).then { response -> Promise<ProfilesModel> in
             return response.mapResponse()
         }.map { profiles -> Void in
+            if profiles.profiles.isEmpty {
+                self.showNoProfilesAlert()
+            }
             self.persistentContainer.performBackgroundTask({ (context) in
                 let api = context.object(with: dynamicApiProvider.api.objectID) as? Api
                 api?.profiles.forEach({ (profile) in
@@ -488,6 +489,12 @@ class AppCoordinator: RootViewCoordinator {
                 self.showError(error)
             }
         })
+    }
+
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "OK button"), style: .default))
+        self.navigationController.present(alert, animated: true)
     }
 }
 
