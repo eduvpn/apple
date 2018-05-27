@@ -48,6 +48,7 @@ class ChooseProviderTableViewController: UITableViewController {
     }()
 
     override func viewDidLoad() {
+        super.viewDidLoad()
         do {
             try fetchedResultsController.performFetch()
         } catch {
