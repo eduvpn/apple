@@ -24,6 +24,8 @@ import NVActivityIndicatorView
 // swiftlint:disable file_length
 // swiftlint:disable function_body_length
 
+extension UINavigationController: Identifyable {}
+
 enum AppCoordinatorError: Swift.Error {
     case openVpnSchemeNotAvailable
     case certificateInvalid
@@ -58,7 +60,7 @@ class AppCoordinator: RootViewCoordinator {
     let window: UIWindow
 
     let navigationController: UINavigationController = {
-        let navController = UINavigationController()
+        let navController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(type: UINavigationController.self)
         return navController
     }()
 
