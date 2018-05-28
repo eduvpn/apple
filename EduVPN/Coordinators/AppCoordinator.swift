@@ -421,6 +421,11 @@ class AppCoordinator: RootViewCoordinator {
 
                 let activity = UIActivityViewController(activityItems: [url], applicationActivities: nil)
                 if let currentViewController = self.navigationController.visibleViewController {
+                    if let presentationController = activity.presentationController as? UIPopoverPresentationController {
+                        presentationController.sourceView = self.navigationController.navigationBar
+                        presentationController.sourceRect = self.navigationController.navigationBar.frame
+                        presentationController.permittedArrowDirections = [.any]
+                    }
                     currentViewController.present(activity, animated: true)
                 }
                 return ()
