@@ -211,8 +211,10 @@ class AppCoordinator: RootViewCoordinator {
 
             let content = UNMutableNotificationContent()
             content.title = NSString.localizedUserNotificationString(forKey: "VPN certificate is expiring!", arguments: nil)
-            content.body = NSString.localizedUserNotificationString(forKey: "Once expired the certificate for instance %@ needs to be refreshed.",
-                                                                    arguments: api.instance?.displayNames?.localizedValue?.compactMap {$0})
+            if let certificateTitle = api.instance?.displayNames?.localizedValue {
+                content.body = NSString.localizedUserNotificationString(forKey: "Once expired the certificate for instance %@ needs to be refreshed.",
+                                                                        arguments: [certificateTitle])
+            }
 
             #if DEBUG
                 guard let expirationWarningDate = NSCalendar.current.date(byAdding: .second, value: 10, to: Date()) else { return }
