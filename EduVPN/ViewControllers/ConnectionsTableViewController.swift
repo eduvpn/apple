@@ -22,7 +22,7 @@ extension ConnectTableViewCell: Identifyable {}
 protocol ConnectionsTableViewControllerDelegate: class {
     func addProvider(connectionsTableViewController: ConnectionsTableViewController)
     func settings(connectionsTableViewController: ConnectionsTableViewController)
-    func connect(profile: Profile)
+    func connect(profile: Profile, sourceView: UIView?)
     func delete(profile: Profile)
 }
 
@@ -124,7 +124,9 @@ class ConnectionsTableViewController: UITableViewController {
         let section = sections[indexPath.section]
         let profile = section.objects[indexPath.row]
 
-        delegate?.connect(profile: profile)
+        let sourceView = tableView.cellForRow(at: indexPath)
+
+        delegate?.connect(profile: profile, sourceView: sourceView)
 
         tableView.deselectRow(at: indexPath, animated: true)
     }

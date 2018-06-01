@@ -394,7 +394,7 @@ class AppCoordinator: RootViewCoordinator {
         }
     }
 
-    func fetchAndTransferProfileToConnectApp(for profile: Profile) {
+    func fetchAndTransferProfileToConnectApp(for profile: Profile, sourceView: UIView?) {
         guard let api = profile.api else {
             precondition(false, "This should never happen")
             return
@@ -426,8 +426,8 @@ class AppCoordinator: RootViewCoordinator {
                 let activity = UIActivityViewController(activityItems: [url], applicationActivities: nil)
                 if let currentViewController = self.navigationController.visibleViewController {
                     if let presentationController = activity.presentationController as? UIPopoverPresentationController {
-                        presentationController.sourceView = self.navigationController.navigationBar
-                        presentationController.sourceRect = self.navigationController.navigationBar.frame
+                        presentationController.sourceView = sourceView ?? self.navigationController.navigationBar
+                        presentationController.sourceRect = sourceView?.frame ?? self.navigationController.navigationBar.frame
                         presentationController.permittedArrowDirections = [.any]
                     }
                     currentViewController.present(activity, animated: true)
@@ -520,9 +520,9 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
         showProfilesViewController()
     }
 
-    func connect(profile: Profile) {
+    func connect(profile: Profile, sourceView: UIView?) {
 // TODO implement OpenVPN3 client lib        showConnectionViewController(for:profile)
-        fetchAndTransferProfileToConnectApp(for: profile)
+        fetchAndTransferProfileToConnectApp(for: profile, sourceView: sourceView)
     }
 
     func delete(profile: Profile) {
