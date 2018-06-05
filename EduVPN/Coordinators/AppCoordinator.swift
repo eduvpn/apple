@@ -521,7 +521,6 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
     }
 
     func connect(profile: Profile, sourceView: UIView?) {
-// TODO implement OpenVPN3 client lib        showConnectionViewController(for:profile)
         fetchAndTransferProfileToConnectApp(for: profile, sourceView: sourceView)
     }
 
