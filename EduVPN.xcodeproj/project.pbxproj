@@ -23,6 +23,9 @@
 		4A8D241F1F3976A2004A9343 /* ProfilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D241E1F3976A2004A9343 /* ProfilesViewController.swift */; };
 		4A8D24211F3976FC004A9343 /* ProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D24201F3976FC004A9343 /* ProviderType.swift */; };
 		4A8D24351F3A40F2004A9343 /* InstanceInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D24341F3A40F2004A9343 /* InstanceInfoModel.swift */; };
+		4A901C1420C87512000C1BF0 /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A901C1320C87512000C1BF0 /* PacketTunnelProvider.swift */; };
+		4A901C1920C87512000C1BF0 /* EduVPNTunnelExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4A901C1120C87511000C1BF0 /* EduVPNTunnelExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4A901C1E20C882FB000C1BF0 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ABFF78820C71E7200638480 /* NetworkExtension.framework */; };
 		4A9704C51FBA379D00B4D6C2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A9704C71FBA379D00B4D6C2 /* Localizable.strings */; };
 		4A97D78620CC4F4D00472216 /* AppCoordinator+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97D78520CC4F4D00472216 /* AppCoordinator+Alert.swift */; };
 		4A983B771F397243004F82D5 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A983B761F397243004F82D5 /* AppCoordinator.swift */; };
@@ -51,6 +54,7 @@
 		4AAC2EEE2027117400F9D0D2 /* Instance+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EE42027117400F9D0D2 /* Instance+CoreDataProperties.swift */; };
 		4AAC2EF02027927300F9D0D2 /* DisplayName+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EEF2027927300F9D0D2 /* DisplayName+Convenience.swift */; };
 		4AAC2EF220279F0000F9D0D2 /* Logo+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EF120279F0000F9D0D2 /* Logo+Convenience.swift */; };
+		4ABFF78920C71E7200638480 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ABFF78820C71E7200638480 /* NetworkExtension.framework */; };
 		4ACA042A1F311507004B35AA /* StaticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACA04291F311507004B35AA /* StaticService.swift */; };
 		4ACA042C1F3116D5004B35AA /* Moya+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACA042B1F3116D5004B35AA /* Moya+Promise.swift */; };
 		4ACA042E1F311863004B35AA /* InstanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACA042D1F311863004B35AA /* InstanceService.swift */; };
@@ -62,9 +66,17 @@
 		4AECAB422027091900B5105B /* EduVPN.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4AECAB402027091900B5105B /* EduVPN.xcdatamodeld */; };
 		4AF3DF061F424535003EC0BA /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF3DF051F424535003EC0BA /* SettingsTableViewController.swift */; };
 		4AF3DF081F4245A5003EC0BA /* ConnectionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF3DF071F4245A5003EC0BA /* ConnectionsTableViewController.swift */; };
+		8E60B4CA21C6CA28644F2476 /* Pods_EduVPNTunnelExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B53CDF2A44C6C09E7C0DB201 /* Pods_EduVPNTunnelExtension.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4A901C1720C87512000C1BF0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4AAC1F6E1F2D0E3400DD0252 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4A901C1020C87511000C1BF0;
+			remoteInfo = EduVPNTunnelExtension;
+		};
 		4AAC1F8B1F2D0E3400DD0252 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4AAC1F6E1F2D0E3400DD0252 /* Project object */;
@@ -73,6 +85,20 @@
 			remoteInfo = EduVPN;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4A901C1D20C87512000C1BF0 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				4A901C1920C87512000C1BF0 /* EduVPNTunnelExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNConnectionViewController.swift; sourceTree = "<group>"; };
@@ -91,6 +117,10 @@
 		4A8D241E1F3976A2004A9343 /* ProfilesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilesViewController.swift; sourceTree = "<group>"; };
 		4A8D24201F3976FC004A9343 /* ProviderType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderType.swift; sourceTree = "<group>"; };
 		4A8D24341F3A40F2004A9343 /* InstanceInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceInfoModel.swift; sourceTree = "<group>"; };
+		4A901C1120C87511000C1BF0 /* EduVPNTunnelExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = EduVPNTunnelExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A901C1320C87512000C1BF0 /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
+		4A901C1520C87512000C1BF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4A901C1620C87512000C1BF0 /* EduVPNTunnelExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EduVPNTunnelExtension.entitlements; sourceTree = "<group>"; };
 		4A9704C01FBA34DA00B4D6C2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
 		4A9704C11FBA34DA00B4D6C2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		4A9704C61FBA379D00B4D6C2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -127,6 +157,7 @@
 		4AAC2EEF2027927300F9D0D2 /* DisplayName+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DisplayName+Convenience.swift"; sourceTree = "<group>"; };
 		4AAC2EF120279F0000F9D0D2 /* Logo+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logo+Convenience.swift"; sourceTree = "<group>"; };
 		4AC8991320F3176D008696A1 /* EduVPN 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EduVPN 2.xcdatamodel"; sourceTree = "<group>"; };
+		4ABFF78820C71E7200638480 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		4ACA04291F311507004B35AA /* StaticService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticService.swift; sourceTree = "<group>"; };
 		4ACA042B1F3116D5004B35AA /* Moya+Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Moya+Promise.swift"; sourceTree = "<group>"; };
 		4ACA042D1F311863004B35AA /* InstanceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceService.swift; sourceTree = "<group>"; };
@@ -140,15 +171,28 @@
 		4AF3DF071F4245A5003EC0BA /* ConnectionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionsTableViewController.swift; sourceTree = "<group>"; };
 		6A98FDE8E7D70D8F159D7C95 /* Pods_EduVPN.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EduVPN.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8828097AD8E6A8FAE767E4D9 /* Pods-EduVPN.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPN.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EduVPN/Pods-EduVPN.debug.xcconfig"; sourceTree = "<group>"; };
+		A5C7F6958025C2FAA16E61E0 /* Pods-EduVPNTunnelExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.release.xcconfig"; sourceTree = "<group>"; };
+		B53CDF2A44C6C09E7C0DB201 /* Pods_EduVPNTunnelExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EduVPNTunnelExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF41F680EFA1657A481FC709 /* Pods-EduVPN.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPN.release.xcconfig"; path = "Pods/Target Support Files/Pods-EduVPN/Pods-EduVPN.release.xcconfig"; sourceTree = "<group>"; };
+		FABC5A92CF59419D0DE20165 /* Pods-EduVPNTunnelExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4A901C0E20C87511000C1BF0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8E60B4CA21C6CA28644F2476 /* Pods_EduVPNTunnelExtension.framework in Frameworks */,
+				4A901C1E20C882FB000C1BF0 /* NetworkExtension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4AAC1F731F2D0E3400DD0252 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				3DC0FAC0347BAC5E5B926891 /* Pods_EduVPN.framework in Frameworks */,
+				4ABFF78920C71E7200638480 /* NetworkExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,9 +209,21 @@
 		26B4255A0C7DB00763783EF6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4ABFF78820C71E7200638480 /* NetworkExtension.framework */,
 				6A98FDE8E7D70D8F159D7C95 /* Pods_EduVPN.framework */,
+				B53CDF2A44C6C09E7C0DB201 /* Pods_EduVPNTunnelExtension.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4A901C1220C87512000C1BF0 /* EduVPNTunnelExtension */ = {
+			isa = PBXGroup;
+			children = (
+				4A901C1320C87512000C1BF0 /* PacketTunnelProvider.swift */,
+				4A901C1520C87512000C1BF0 /* Info.plist */,
+				4A901C1620C87512000C1BF0 /* EduVPNTunnelExtension.entitlements */,
+			);
+			path = EduVPNTunnelExtension;
 			sourceTree = "<group>";
 		};
 		4A983B751F397223004F82D5 /* Coordinators */ = {
@@ -186,6 +242,7 @@
 			children = (
 				4AAC1F781F2D0E3400DD0252 /* EduVPN */,
 				4AAC1F8D1F2D0E3400DD0252 /* EduVPNTests */,
+				4A901C1220C87512000C1BF0 /* EduVPNTunnelExtension */,
 				4AAC1F771F2D0E3400DD0252 /* Products */,
 				7E60CE9528B1949A246F1B70 /* Pods */,
 				26B4255A0C7DB00763783EF6 /* Frameworks */,
@@ -197,6 +254,7 @@
 			children = (
 				4AAC1F761F2D0E3400DD0252 /* EduVPN.app */,
 				4AAC1F8A1F2D0E3400DD0252 /* EduVPNTests.xctest */,
+				4A901C1120C87511000C1BF0 /* EduVPNTunnelExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -306,6 +364,8 @@
 			children = (
 				8828097AD8E6A8FAE767E4D9 /* Pods-EduVPN.debug.xcconfig */,
 				BF41F680EFA1657A481FC709 /* Pods-EduVPN.release.xcconfig */,
+				FABC5A92CF59419D0DE20165 /* Pods-EduVPNTunnelExtension.debug.xcconfig */,
+				A5C7F6958025C2FAA16E61E0 /* Pods-EduVPNTunnelExtension.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -313,6 +373,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4A901C1020C87511000C1BF0 /* EduVPNTunnelExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4A901C1C20C87512000C1BF0 /* Build configuration list for PBXNativeTarget "EduVPNTunnelExtension" */;
+			buildPhases = (
+				734C378C668E1EEC5F5866CA /* [CP] Check Pods Manifest.lock */,
+				4A901C0D20C87511000C1BF0 /* Sources */,
+				4A901C0E20C87511000C1BF0 /* Frameworks */,
+				4A901C0F20C87511000C1BF0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EduVPNTunnelExtension;
+			productName = EduVPNTunnelExtension;
+			productReference = 4A901C1120C87511000C1BF0 /* EduVPNTunnelExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		4AAC1F751F2D0E3400DD0252 /* EduVPN */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4AAC1F931F2D0E3400DD0252 /* Build configuration list for PBXNativeTarget "EduVPN" */;
@@ -325,10 +403,12 @@
 				4AAC1F741F2D0E3400DD0252 /* Resources */,
 				4AAC1F9A1F2D104000DD0252 /* Set build number */,
 				7E2504203DF38CAC3F8E1102 /* [CP] Embed Pods Frameworks */,
+				4A901C1D20C87512000C1BF0 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				4A901C1820C87512000C1BF0 /* PBXTargetDependency */,
 			);
 			name = EduVPN;
 			productName = EduVPN;
@@ -359,16 +439,38 @@
 		4AAC1F6E1F2D0E3400DD0252 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
+				LastSwiftUpdateCheck = 0940;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = SURFNet;
 				TargetAttributes = {
+					4A901C1020C87511000C1BF0 = {
+						CreatedOnToolsVersion = 9.4;
+						DevelopmentTeam = T4CMEHXPLL;
+						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.NetworkExtensions.iOS = {
+								enabled = 1;
+							};
+						};
+					};
 					4AAC1F751F2D0E3400DD0252 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = T4CMEHXPLL;
 						LastSwiftMigration = 1010;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.NetworkExtensions.iOS = {
+								enabled = 1;
+							};
 							com.apple.SafariKeychain = {
 								enabled = 1;
 							};
@@ -398,11 +500,19 @@
 			targets = (
 				4AAC1F751F2D0E3400DD0252 /* EduVPN */,
 				4AAC1F891F2D0E3400DD0252 /* EduVPNTests */,
+				4A901C1020C87511000C1BF0 /* EduVPNTunnelExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4A901C0F20C87511000C1BF0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4AAC1F741F2D0E3400DD0252 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -467,6 +577,24 @@
 			shellPath = /bin/sh;
 			shellScript = $SRCROOT/Scripts/set_build_number.sh;
 		};
+		734C378C668E1EEC5F5866CA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EduVPNTunnelExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		7E2504203DF38CAC3F8E1102 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -528,6 +656,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4A901C0D20C87511000C1BF0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A901C1420C87512000C1BF0 /* PacketTunnelProvider.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4AAC1F721F2D0E3400DD0252 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -594,6 +730,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4A901C1820C87512000C1BF0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4A901C1020C87511000C1BF0 /* EduVPNTunnelExtension */;
+			targetProxy = 4A901C1720C87512000C1BF0 /* PBXContainerItemProxy */;
+		};
 		4AAC1F8C1F2D0E3400DD0252 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4AAC1F751F2D0E3400DD0252 /* EduVPN */;
@@ -633,6 +774,58 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4A901C1A20C87512000C1BF0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FABC5A92CF59419D0DE20165 /* Pods-EduVPNTunnelExtension.debug.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = EduVPNTunnelExtension/EduVPNTunnelExtension.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = T4CMEHXPLL;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = EduVPNTunnelExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = nl.eduvpn.app.EduVPN.test.appforce1.EduVPNTunnelExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "b4689e07-60cb-482c-8516-5eb5e3632658";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development nl.eduvpn.app.EduVPN.test.appforce1.EduVPNTunnelExtension";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4A901C1B20C87512000C1BF0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A5C7F6958025C2FAA16E61E0 /* Pods-EduVPNTunnelExtension.release.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = EduVPNTunnelExtension/EduVPNTunnelExtension.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = T4CMEHXPLL;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = EduVPNTunnelExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = nl.eduvpn.app.EduVPN.test.appforce1.EduVPNTunnelExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "52985af9-1595-4ea1-84fd-5e4907f8511a";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore nl.eduvpn.app.EduVPN.test.appforce1.EduVPNTunnelExtension";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		4AAC1F911F2D0E3400DD0252 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -749,9 +942,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8828097AD8E6A8FAE767E4D9 /* Pods-EduVPN.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = EduVPN/EduVPN.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = T4CMEHXPLL;
@@ -769,8 +963,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BF41F680EFA1657A481FC709 /* Pods-EduVPN.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = EduVPN/EduVPN.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = T4CMEHXPLL;
@@ -815,6 +1011,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4A901C1C20C87512000C1BF0 /* Build configuration list for PBXNativeTarget "EduVPNTunnelExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4A901C1A20C87512000C1BF0 /* Debug */,
+				4A901C1B20C87512000C1BF0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4AAC1F711F2D0E3400DD0252 /* Build configuration list for PBXProject "EduVPN" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -24,3 +24,6 @@ target 'EduVPN' do
   end
 end
 
+target 'EduVPNTunnelExtension' do
+  pod 'PIATunnel'
+end
