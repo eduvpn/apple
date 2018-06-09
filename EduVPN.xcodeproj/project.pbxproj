@@ -24,6 +24,7 @@
 		4A8D24211F3976FC004A9343 /* ProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D24201F3976FC004A9343 /* ProviderType.swift */; };
 		4A8D24351F3A40F2004A9343 /* InstanceInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D24341F3A40F2004A9343 /* InstanceInfoModel.swift */; };
 		4A9704C51FBA379D00B4D6C2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A9704C71FBA379D00B4D6C2 /* Localizable.strings */; };
+		4A97D78620CC4F4D00472216 /* AppCoordinator+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97D78520CC4F4D00472216 /* AppCoordinator+Alert.swift */; };
 		4A983B771F397243004F82D5 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A983B761F397243004F82D5 /* AppCoordinator.swift */; };
 		4A983B791F397289004F82D5 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A983B781F397289004F82D5 /* Coordinator.swift */; };
 		4A983B7B1F3972BE004F82D5 /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A983B7A1F3972BE004F82D5 /* RootCoordinator.swift */; };
@@ -94,6 +95,7 @@
 		4A9704C11FBA34DA00B4D6C2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		4A9704C61FBA379D00B4D6C2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4A9704C81FBA379F00B4D6C2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4A97D78520CC4F4D00472216 /* AppCoordinator+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppCoordinator+Alert.swift"; sourceTree = "<group>"; };
 		4A983B761F397243004F82D5 /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		4A983B781F397289004F82D5 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		4A983B7A1F3972BE004F82D5 /* RootCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				4A983B781F397289004F82D5 /* Coordinator.swift */,
 				4A983B7A1F3972BE004F82D5 /* RootCoordinator.swift */,
 				4A983B761F397243004F82D5 /* AppCoordinator.swift */,
+				4A97D78520CC4F4D00472216 /* AppCoordinator+Alert.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -573,6 +576,7 @@
 				4AE728161F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift in Sources */,
 				4AAC2EEC2027117400F9D0D2 /* Profile+CoreDataProperties.swift in Sources */,
 				4AECAB422027091900B5105B /* EduVPN.xcdatamodeld in Sources */,
+				4A97D78620CC4F4D00472216 /* AppCoordinator+Alert.swift in Sources */,
 				4AD0AD5A1F34F887006E1337 /* CredentialStorePlugin.swift in Sources */,
 				4AF3DF061F424535003EC0BA /* SettingsTableViewController.swift in Sources */,
 			);

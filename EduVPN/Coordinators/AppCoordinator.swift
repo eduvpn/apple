@@ -106,10 +106,6 @@ class AppCoordinator: RootViewCoordinator {
         }
     }
 
-    public func showError(_ error: Error) {
-        showAlert(title: NSLocalizedString("Error", comment: "Error alert title"), message: error.localizedDescription)
-    }
-
     func detectPresenceOpenVPN() -> Promise<Void> {
         #if DEBUG
             return .value(())
@@ -184,14 +180,6 @@ class AppCoordinator: RootViewCoordinator {
                 throw AppCoordinatorError.certificateStatusUnknown
             }
         }
-    }
-
-    func showNoProfilesAlert() {
-        showAlert(title: NSLocalizedString("No profiles available", comment: "No profiles available title"), message: NSLocalizedString("There are no profiles configured for you on the instance you selected.", comment: "No profiles available message"))
-    }
-
-    func showNoOpenVPNAlert() {
-        showAlert(title: NSLocalizedString("OpenVPN Connect app", comment: "No OpenVPN available title"), message: NSLocalizedString("The OpenVPN Connect app is required to use EduVPN.", comment: "No OpenVPN available message"))
     }
 
     func showSettingsTableViewController() {
@@ -499,12 +487,6 @@ class AppCoordinator: RootViewCoordinator {
             }
         })
     }
-
-    private func showAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "OK button"), style: .default))
-        self.navigationController.present(alert, animated: true)
-    }
 }
 
 extension AppCoordinator: SettingsTableViewControllerDelegate {
@@ -521,6 +503,7 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
     }
 
     func connect(profile: Profile, sourceView: UIView?) {
+        //TODO showConnectionViewController(for:profile)
         fetchAndTransferProfileToConnectApp(for: profile, sourceView: sourceView)
     }
 
