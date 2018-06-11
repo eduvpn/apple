@@ -453,6 +453,7 @@ class AppCoordinator: RootViewCoordinator {
     func showConnectionViewController(for profile: Profile) {
         let connectionViewController = storyboard.instantiateViewController(type: VPNConnectionViewController.self)
         connectionViewController.delegate = self
+        connectionViewController.profile = profile
         self.navigationController.pushViewController(connectionViewController, animated: true)
     }
 

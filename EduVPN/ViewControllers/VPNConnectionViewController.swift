@@ -61,10 +61,27 @@ class VPNConnectionViewController: UIViewController {
         }
     }
 
+    var profile: Profile!
+
     @IBOutlet weak var statusImage: UIImageView!
+
+    @IBOutlet weak var providerImage: UIImageView!
+    @IBOutlet weak var providerNameLabel: UILabel!
+    @IBOutlet weak var profileNameLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        profileNameLabel.text = profile.profileId
+        providerNameLabel.text = profile.displayNames?.localizedValue ?? profile.api?.instance?.displayNames?.localizedValue ?? profile.api?.instance?.baseUri
+        if let logo = profile.api?.instance?.logos?.localizedValue, let logoUri = URL(string: logo) {
+            providerImage.af_setImage(withURL: logoUri)
+        } else if let providerTypeString = profile.api?.instance?.providerType, providerTypeString == ProviderType.other.rawValue {
+            providerImage.image = #imageLiteral(resourceName: "external_provider")
+        } else {
+            providerImage.af_cancelImageRequest()
+            providerImage.image = nil
+        }
 
         server = "germany"
         domain = "privateinternetaccess.com"
