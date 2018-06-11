@@ -450,7 +450,7 @@ class AppCoordinator: RootViewCoordinator {
             }
     }
 
-    func showConnectionViewController(for profile: InstanceProfileModel, on instance: InstanceModel) {
+    func showConnectionViewController(for profile: Profile) {
         let connectionViewController = storyboard.instantiateViewController(type: VPNConnectionViewController.self)
         connectionViewController.delegate = self
         self.navigationController.pushViewController(connectionViewController, animated: true)
@@ -522,8 +522,8 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
     }
 
     func connect(profile: Profile, sourceView: UIView?) {
-        //TODO showConnectionViewController(for:profile)
-        fetchAndTransferProfileToConnectApp(for: profile, sourceView: sourceView)
+        showConnectionViewController(for: profile)
+//        fetchAndTransferProfileToConnectApp(for: profile, sourceView: sourceView)
     }
 
     func delete(profile: Profile) {

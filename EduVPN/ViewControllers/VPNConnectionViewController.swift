@@ -30,17 +30,17 @@ class VPNConnectionViewController: UIViewController {
 
     static let RENEG: Int? = nil
 
-    @IBOutlet var textUsername: UITextField!
+    var username: String?
 
-    @IBOutlet var textPassword: UITextField!
+    var password: String?
 
-    @IBOutlet var textServer: UITextField!
+    var server: String?
 
-    @IBOutlet var textDomain: UITextField!
+    var domain: String?
 
-    @IBOutlet var textPort: UITextField!
+    var port: String?
 
-    @IBOutlet var switchTCP: UISwitch!
+    var tcp: Bool = false
 
     @IBOutlet var buttonConnection: UIButton!
 
@@ -48,19 +48,32 @@ class VPNConnectionViewController: UIViewController {
 
     var currentManager: NETunnelProviderManager?
 
-    var status = NEVPNStatus.invalid
+    var status = NEVPNStatus.invalid {
+        didSet {
+            switch status {
+            case .connected:
+                statusImage.image = #imageLiteral(resourceName: "connected")
+            case .connecting, .disconnecting, .reasserting:
+                statusImage.image = #imageLiteral(resourceName: "connecting")
+            case .disconnected, .invalid:
+                statusImage.image = #imageLiteral(resourceName: "not-connected")
+            }
+        }
+    }
+
+    @IBOutlet weak var statusImage: UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        textServer.text = "germany"
-        textDomain.text = "privateinternetaccess.com"
+        server = "germany"
+        domain = "privateinternetaccess.com"
         //        textServer.text = "159.122.133.238"
         //        textDomain.text = ""
-        textPort.text = "8080"
-        switchTCP.isOn = false
-        textUsername.text = "myusername"
-        textPassword.text = "mypassword"
+        port = "8080"
+        tcp = false
+        username = "myusername"
+        password = "mypassword"
 
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(VPNStatusDidChange(notification:)),
@@ -68,7 +81,6 @@ class VPNConnectionViewController: UIViewController {
                                                object: nil)
 
         reloadCurrentManager(nil)
-
     }
 
     @IBAction func connectionClicked(_ sender: Any) {
@@ -95,21 +107,18 @@ class VPNConnectionViewController: UIViewController {
     }
 
     @IBAction func tcpClicked(_ sender: Any) {
-        if switchTCP.isOn {
-            textPort.text = "443"
+        if tcp {
+            port = "443"
         } else {
-            textPort.text = "8080"
+            port = "8080"
         }
     }
 
     func connect() {
-        let server = textServer.text!
-        let domain = textDomain.text!
-
-        let hostname = ((domain == "") ? server : [server, domain].joined(separator: "."))
-        let port = textPort.text!
-        let username = textUsername.text!
-        let password = textPassword.text!
+        guard let server = server, let domain = domain, let port = port, let username = username, let password = password else {
+            return
+        }
+        let hostname = ((domain == "") ? server : [server, domain].compactMap { $0 }.joined(separator: "."))
 
         configureVPN({ (_) in
             //            manager.isOnDemandEnabled = true
@@ -123,7 +132,7 @@ class VPNConnectionViewController: UIViewController {
             )
 
             var builder = PIATunnelProvider.ConfigurationBuilder(appGroup: VPNConnectionViewController.APPGROUP)
-            builder.socketType = (self.switchTCP.isOn ? .tcp : .udp)
+            builder.socketType = (self.tcp ? .tcp : .udp)
             builder.cipher = VPNConnectionViewController.CIPHER
             builder.digest = VPNConnectionViewController.DIGEST
             builder.handshake = VPNConnectionViewController.HANDSHAKE
