@@ -61,6 +61,23 @@ class VPNConnectionViewController: UIViewController {
         }
     }
 
+    func description(for status: NEVPNStatus) -> String {
+        switch status {
+        case .connected:
+            return "Connected"
+        case .connecting:
+            return "Connecting"
+        case .disconnected:
+            return "Disconnected"
+        case .disconnecting:
+            return "Disconnecting"
+        case .invalid:
+            return "Invalid"
+        case .reasserting:
+            return "Reasserting"
+        }
+    }
+
     var profile: Profile!
 
     @IBOutlet weak var statusImage: UIImageView!
@@ -138,8 +155,8 @@ class VPNConnectionViewController: UIViewController {
         let hostname = ((domain == "") ? server : [server, domain].compactMap { $0 }.joined(separator: "."))
 
         configureVPN({ (_) in
-            //            manager.isOnDemandEnabled = true
-            //            manager.onDemandRules = [NEOnDemandRuleConnect()]
+//            self.currentManager?.isOnDemandEnabled = true
+//            self.currentManager?.onDemandRules = [NEOnDemandRuleConnect()]
 
             let endpoint = PIATunnelProvider.AuthenticatedEndpoint(
                 hostname: hostname,
@@ -176,7 +193,7 @@ class VPNConnectionViewController: UIViewController {
 
     func disconnect() {
         configureVPN({ (_) in
-            //            manager.isOnDemandEnabled = false
+//            self.currentManager?.isOnDemandEnabled = false
             return nil
         }, completionHandler: { (_) in
             self.currentManager?.connection.stopVPNTunnel()
@@ -271,7 +288,7 @@ class VPNConnectionViewController: UIViewController {
             print("VPNStatusDidChange")
             return
         }
-        print("VPNStatusDidChange: \(status.rawValue)")
+        print("VPNStatusDidChange: \(description(for: status))")
         self.status = status
         updateButton()
     }

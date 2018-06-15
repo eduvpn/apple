@@ -365,26 +365,50 @@
                                         </segments>
                                     </segmentedControl>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="kSf-HJ-hJD">
-                                        <rect key="frame" x="0.0" y="89.5" width="288" height="272.5"/>
+                                        <rect key="frame" x="0.0" y="89.5" width="288" height="234.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xXi-JC-7ah">
-                                                <rect key="frame" x="0.0" y="0.0" width="144" height="272.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="144" height="234.5"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N0O-Kz-8xD">
-                                                <rect key="frame" x="144" y="0.0" width="144" height="272.5"/>
+                                                <rect key="frame" x="144" y="0.0" width="144" height="234.5"/>
+                                                <subviews>
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="eyG-Eh-HXe">
+                                                        <rect key="frame" x="0.0" y="0.0" width="144" height="234.5"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    </textView>
+                                                </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="eyG-Eh-HXe" firstAttribute="leading" secondItem="N0O-Kz-8xD" secondAttribute="leading" id="0Ov-km-9IT"/>
+                                                    <constraint firstAttribute="trailing" secondItem="eyG-Eh-HXe" secondAttribute="trailing" id="JSh-fP-9tG"/>
+                                                    <constraint firstItem="eyG-Eh-HXe" firstAttribute="top" secondItem="N0O-Kz-8xD" secondAttribute="top" id="SD6-wX-0Re"/>
+                                                    <constraint firstAttribute="bottom" secondItem="eyG-Eh-HXe" secondAttribute="bottom" id="ghE-O4-4Ls"/>
+                                                </constraints>
                                             </view>
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DsN-Qy-qJs">
-                                        <rect key="frame" x="0.0" y="370" width="288" height="30"/>
+                                        <rect key="frame" x="0.0" y="332" width="288" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="19p-Pg-c22"/>
                                         </constraints>
                                         <state key="normal" title="Disconnect"/>
                                         <connections>
                                             <action selector="connectionClicked:" destination="5zJ-zO-eIg" eventType="touchUpInside" id="KyX-bT-9Gl"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CyH-pZ-dNE">
+                                        <rect key="frame" x="0.0" y="370" width="288" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="69k-UY-rmR"/>
+                                        </constraints>
+                                        <state key="normal" title="Display log"/>
+                                        <connections>
+                                            <action selector="displayLog" destination="5zJ-zO-eIg" eventType="touchUpInside" id="fpw-3E-JFH"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -401,15 +425,17 @@
                     <navigationItem key="navigationItem" title="VPN Connection" id="dGu-bY-IBE"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
+                        <outlet property="buttonConnection" destination="DsN-Qy-qJs" id="Mt4-Xp-cUu"/>
                         <outlet property="profileNameLabel" destination="W3O-jX-Qbj" id="RTR-mo-kod"/>
                         <outlet property="providerImage" destination="hQ8-pb-QTW" id="UbF-Gb-F65"/>
                         <outlet property="providerNameLabel" destination="L8r-1v-Oml" id="Ga5-ug-si2"/>
                         <outlet property="statusImage" destination="dXc-Tl-vfh" id="R84-WU-FlB"/>
+                        <outlet property="textLog" destination="eyG-Eh-HXe" id="ujg-T6-LBx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="05P-L0-dy6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2312" y="-263"/>
+            <point key="canvasLocation" x="2311.875" y="-263.75"/>
         </scene>
         <!--Provide the URL to your provider-->
         <scene sceneID="bSn-Nd-0se">
