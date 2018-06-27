@@ -46,6 +46,9 @@ class VPNConnectionViewController: UIViewController {
 
     @IBOutlet var textLog: UITextView!
 
+    @IBOutlet weak var notificationsSegment: UIView!
+    @IBOutlet weak var logSegment: UIView!
+
     var currentManager: NETunnelProviderManager?
 
     var status = NEVPNStatus.invalid {
@@ -89,6 +92,9 @@ class VPNConnectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        notificationsSegment.isHidden = false
+        logSegment.isHidden = true
+
         profileNameLabel.text = profile.profileId
         providerNameLabel.text = profile.displayNames?.localizedValue ?? profile.api?.instance?.displayNames?.localizedValue ?? profile.api?.instance?.baseUri
         if let logo = profile.api?.instance?.logos?.localizedValue, let logoUri = URL(string: logo) {
@@ -117,6 +123,18 @@ class VPNConnectionViewController: UIViewController {
         reloadCurrentManager(nil)
     }
 
+    @IBAction func displayToggle(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            notificationsSegment.isHidden = false
+            logSegment.isHidden = true
+        case 1:
+            notificationsSegment.isHidden = true
+            logSegment.isHidden = false
+        default:
+            preconditionFailure("Unknown index \(sender.selectedSegmentIndex)")
+        }
+    }
     @IBAction func connectionClicked(_ sender: Any) {
         let block = {
             switch self.status {
