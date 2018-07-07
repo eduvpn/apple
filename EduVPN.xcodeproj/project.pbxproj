@@ -63,6 +63,7 @@
 		4AD0AD5F1F350822006E1337 /* Moya+ResponseHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD5E1F350822006E1337 /* Moya+ResponseHandling.swift */; };
 		4AD0AD621F350906006E1337 /* InstanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD611F350906006E1337 /* InstanceModel.swift */; };
 		4AE728161F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE728151F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift */; };
+		4AEAC32720F13D0C007B67AB /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEAC32620F13D0C007B67AB /* Log.swift */; };
 		4AECAB422027091900B5105B /* EduVPN.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4AECAB402027091900B5105B /* EduVPN.xcdatamodeld */; };
 		4AF3DF061F424535003EC0BA /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF3DF051F424535003EC0BA /* SettingsTableViewController.swift */; };
 		4AF3DF081F4245A5003EC0BA /* ConnectionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF3DF071F4245A5003EC0BA /* ConnectionsTableViewController.swift */; };
@@ -166,6 +167,7 @@
 		4AD0AD5E1F350822006E1337 /* Moya+ResponseHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Moya+ResponseHandling.swift"; sourceTree = "<group>"; };
 		4AD0AD611F350906006E1337 /* InstanceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceModel.swift; sourceTree = "<group>"; };
 		4AE728151F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+EduVPN.swift"; sourceTree = "<group>"; };
+		4AEAC32620F13D0C007B67AB /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		4AECAB412027091900B5105B /* EduVPN.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EduVPN.xcdatamodel; sourceTree = "<group>"; };
 		4AF3DF051F424535003EC0BA /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		4AF3DF071F4245A5003EC0BA /* ConnectionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionsTableViewController.swift; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 				4AE728151F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift */,
 				4A4CA90E1F55F4300021FD5D /* UITableView+EduVPN.swift */,
 				4A62C8B71FB03B47007D3FAA /* KeyboardWrapper.swift */,
+				4AEAC32620F13D0C007B67AB /* Log.swift */,
 			);
 			path = EduVPN;
 			sourceTree = "<group>";
@@ -697,6 +700,7 @@
 				4AAC2EE72027117400F9D0D2 /* Api+CoreDataClass.swift in Sources */,
 				4A1140841F78490C00D61100 /* VPNConnectionViewController.swift in Sources */,
 				4A7D1E4F1F4B24E4009F1402 /* ProfileModel.swift in Sources */,
+				4AEAC32720F13D0C007B67AB /* Log.swift in Sources */,
 				4ACA042E1F311863004B35AA /* InstanceService.swift in Sources */,
 				4AAC2EE92027117400F9D0D2 /* Logo+CoreDataClass.swift in Sources */,
 				4A4057D1204344A1002B1A4F /* AuthServer+CoreDataProperties.swift in Sources */,

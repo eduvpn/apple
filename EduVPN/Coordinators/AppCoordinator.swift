@@ -8,6 +8,7 @@
 
 import UIKit
 import UserNotifications
+import os.log
 
 import Moya
 import Disk
@@ -79,8 +80,7 @@ class AppCoordinator: RootViewCoordinator {
         persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
         persistentContainer.loadPersistentStores { [weak self] (_, error) in
             if let error = error {
-                print("Unable to Load Persistent Store. \(error), \(error.localizedDescription)")
-
+                os_log("Unable to Load Persistent Store. %{public}@", log: Log.general, type: .info, error.localizedDescription)
             } else {
                 DispatchQueue.main.async {
                     //start
@@ -200,7 +200,7 @@ class AppCoordinator: RootViewCoordinator {
     fileprivate func scheduleCertificateExpirationNotification(for certificate: CertificateModel, on api: Api) {
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             guard settings.authorizationStatus == UNAuthorizationStatus.authorized else {
-                print("Not Authorised")
+                os_log("Not Authorised", log: Log.general, type: .info)
                 return
             }
             guard let expirationDate = certificate.x509Certificate?.notAfter else { return }
@@ -233,7 +233,7 @@ class AppCoordinator: RootViewCoordinator {
             let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
             UNUserNotificationCenter.current().add(request) { (error) in
                 if let error = error {
-                    print("Error occured when scheduling a cert expiration reminder \(error)")
+                    os_log("Error occured when scheduling a cert expiration reminder %{public}@", log: Log.general, type: .info, error.localizedDescription)
                 }
             }
         }
@@ -544,7 +544,7 @@ extension AppCoordinator: ProfilesViewControllerDelegate {
         case .other:
             showCustomProviderInPutViewController(for: providerType)
         case .unknown:
-            print("Unknown provider type chosen")
+            os_log("Unknown provider type chosen", log: Log.general, type: .error)
         }
     }
 }

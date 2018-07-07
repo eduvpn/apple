@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import os.log
 import BNRCoreDataStack
 
 class ConnectTableViewCell: UITableViewCell {
@@ -51,7 +52,7 @@ class ConnectionsTableViewController: UITableViewController {
         do {
             try fetchedResultsController.performFetch()
         } catch {
-            print("Failed to fetch objects: \(error)")
+            os_log("Failed to fetch objects: %{public}@", log: Log.general, type: .error, error.localizedDescription)
         }
     }
 

@@ -9,6 +9,7 @@
 //TODO see https://github.com/pia-foss/tunnel-apple/blob/d4bd4fb6ad9a0e9b290f6b4137b5c6f30396a81c/Demo/BasicTunnel-iOS/ViewController.swift
 
 import UIKit
+import os.log
 import NetworkExtension
 import PIATunnel
 
@@ -106,14 +107,14 @@ class VPNConnectionViewController: UIViewController {
             providerImage.image = nil
         }
 
-        server = "germany"
-        domain = "privateinternetaccess.com"
+        server = ""
+        domain = "vpn.tuxed.net"
         //        textServer.text = "159.122.133.238"
         //        textDomain.text = ""
-        port = "8080"
+        port = "1197"
         tcp = false
-        username = "myusername"
-        password = "mypassword"
+        username = "jeroen@leenarts.net"
+        password = "VDvQpUaahigL6W"
 
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(VPNStatusDidChange(notification:)),
@@ -197,14 +198,14 @@ class VPNConnectionViewController: UIViewController {
             return try! configuration.generatedTunnelProtocol(withBundleIdentifier: VPNConnectionViewController.VPNBUNDLE, endpoint: endpoint)//swiftlint:disable:this force_try
         }, completionHandler: { (error) in
             if let error = error {
-                print("configure error: \(error)")
+                os_log("configure error: %{public}@", log: Log.general, type: .error, error.localizedDescription)
                 return
             }
             let session = self.currentManager?.connection as! NETunnelProviderSession //swiftlint:disable:this force_cast
             do {
                 try session.startTunnel()
             } catch let error {
-                print("error starting tunnel: \(error)")
+                os_log("error starting tunnel: %{public}@", log: Log.general, type: .error, error.localizedDescription)
             }
         })
     }
@@ -233,7 +234,7 @@ class VPNConnectionViewController: UIViewController {
     func configureVPN(_ configure: @escaping (NETunnelProviderManager) -> NETunnelProviderProtocol?, completionHandler: @escaping (Error?) -> Void) {
         reloadCurrentManager { (error) in
             if let error = error {
-                print("error reloading preferences: \(error)")
+                os_log("error reloading preferences: %{public}@", log: Log.general, type: .error, error.localizedDescription)
                 completionHandler(error)
                 return
             }
@@ -246,11 +247,11 @@ class VPNConnectionViewController: UIViewController {
 
             manager.saveToPreferences { (error) in
                 if let error = error {
-                    print("error saving preferences: \(error)")
+                    os_log("error saving preferences: %{public}@", log: Log.general, type: .error, error.localizedDescription)
                     completionHandler(error)
                     return
                 }
-                print("saved preferences")
+                os_log("saved preferences", log: Log.general, type: .info)
                 self.reloadCurrentManager(completionHandler)
             }
         }
@@ -303,10 +304,10 @@ class VPNConnectionViewController: UIViewController {
 
     @objc private func VPNStatusDidChange(notification: NSNotification) {
         guard let status = currentManager?.connection.status else {
-            print("VPNStatusDidChange")
+            os_log("VPNStatusDidChange", log: Log.general, type: .debug)
             return
         }
-        print("VPNStatusDidChange: \(description(for: status))")
+        os_log("VPNStatusDidChange: %{public}@", log: Log.general, type: .debug, description(for: status))
         self.status = status
         updateButton()
     }

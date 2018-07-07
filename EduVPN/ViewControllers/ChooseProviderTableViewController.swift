@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import os.log
 
 import CoreData
 import BNRCoreDataStack
@@ -52,7 +53,7 @@ class ChooseProviderTableViewController: UITableViewController {
         do {
             try fetchedResultsController.performFetch()
         } catch {
-            print("Failed to fetch objects: \(error)")
+            os_log("Failed to fetch objects: %{public}@", log: Log.general, type: .error, [error])
         }
     }
 

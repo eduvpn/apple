@@ -8,6 +8,7 @@
 
 import UIKit
 import UserNotifications
+import os.log
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,12 +28,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { (granted, error) in
             if !granted {
-                print("Notifications not granted")
+                os_log("Notifications not granted", log: Log.general, type: .info)
             }
 
             if let error = error {
                 self.appCoordinator.showError(error)
-                print("Error occured when requesting notification authorization.")
+                os_log("Error occured when requesting notification authorization. %{public}@", log: Log.general, type: .error, error.localizedDescription)
             }
         }
         UNUserNotificationCenter.current().delegate = self
