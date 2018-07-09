@@ -323,7 +323,6 @@ class AppCoordinator: RootViewCoordinator {
                     let group = try! InstanceGroup.findFirstInContext(context, predicate: NSPredicate(format: "discoveryIdentifier == %@", instanceGroupIdentifier)) ?? InstanceGroup(context: context)//swiftlint:disable:this force_try
 
                     group.discoveryIdentifier = instanceGroupIdentifier
-                    group.providerType = providerType.rawValue
                     group.authorizationType = instances.authorizationType.rawValue
 
                     let authServer = AuthServer.upsert(with: instances, on: context)
@@ -560,8 +559,6 @@ extension AppCoordinator: CustomProviderInPutViewControllerDelegate {
             persistentContainer.performBackgroundTask { (context) in
                 let instanceGroupIdentifier = url.absoluteString
                 let group = try! InstanceGroup.findFirstInContext(context, predicate: NSPredicate(format: "discoveryIdentifier == %@", instanceGroupIdentifier)) ?? InstanceGroup(context: context)//swiftlint:disable:this force_try
-
-                group.providerType = ProviderType.other.rawValue
 
                 let instance = Instance(context: context)
                 instance.providerType = ProviderType.other.rawValue
