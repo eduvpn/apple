@@ -95,6 +95,10 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
     let authConfig: OIDServiceConfiguration
     private var credentialStorePlugin: CredentialStorePlugin
 
+    var actualApi: Api {
+        return api.instance?.group?.federatedAuthorizationApi ?? api
+    }
+
     var currentAuthorizationFlow: OIDAuthorizationFlowSession?
 
     public func authorize(presentingViewController: UIViewController) -> Promise<OIDAuthState> {
@@ -114,9 +118,19 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
                     return
                 }
 
-                self.api.authState = authState
+                self.actualApi.authState = authState
 
                 precondition(authState != nil, "THIS SHOULD NEVER HAPPEN")
+
+                self.api.managedObjectContext?.perform {
+                    self.api.instance?.group?.federatedAuthorizationApi = self.actualApi
+                }
+                do {
+                    try self.api.managedObjectContext?.save()
+                } catch {
+                    seal.reject(error)
+                    return
+                }
 
                 seal.fulfill(authState!)
             })
@@ -152,7 +166,7 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
                         queue: DispatchQueue? = nil,
                         progress: Moya.ProgressBlock? = nil) -> Promise<Moya.Response> {
         return Promise<Any>(resolver: { seal in
-            if let authState = self.api.authState {
+            if let authState = self.actualApi.authState {
                 authState.performAction(freshTokens: { (accessToken, _, error) in
                     if let error = error {
                         seal.reject(ApiServiceError.tokenRefreshFailed(rootCause: error))

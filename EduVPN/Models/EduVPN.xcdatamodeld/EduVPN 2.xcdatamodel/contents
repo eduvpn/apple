@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17F77" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="1">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17F77" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="2">
     <entity name="Api" representedClassName="Api" syncable="YES">
         <attribute name="apiBaseUri" attributeType="String" syncable="YES"/>
         <relationship name="authorizingForGroup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="InstanceGroup" inverseName="federatedAuthorizationApi" inverseEntity="InstanceGroup" syncable="YES"/>
@@ -32,7 +32,6 @@
     <entity name="InstanceGroup" representedClassName="InstanceGroup" syncable="YES">
         <attribute name="authorizationType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="discoveryIdentifier" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="providerType" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="federatedAuthorizationApi" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Api" inverseName="authorizingForGroup" inverseEntity="Api" syncable="YES"/>
         <relationship name="instances" toMany="YES" deletionRule="Cascade" destinationEntity="Instance" inverseName="group" inverseEntity="Instance" syncable="YES"/>
     </entity>
@@ -52,7 +51,7 @@
         <element name="AuthServer" positionX="-36" positionY="81" width="128" height="105"/>
         <element name="DisplayName" positionX="-36" positionY="27" width="128" height="105"/>
         <element name="Instance" positionX="-63" positionY="-18" width="128" height="165"/>
-        <element name="InstanceGroup" positionX="-36" positionY="81" width="128" height="120"/>
+        <element name="InstanceGroup" positionX="-36" positionY="81" width="128" height="105"/>
         <element name="Logo" positionX="-54" positionY="0" width="128" height="90"/>
         <element name="Profile" positionX="-18" positionY="99" width="128" height="105"/>
     </elements>

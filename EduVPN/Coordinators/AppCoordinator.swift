@@ -253,23 +253,19 @@ class AppCoordinator: RootViewCoordinator {
                 }).then { (api) -> Promise<Void> in
                     let api = self.persistentContainer.viewContext.object(with: api.objectID) as! Api //swiftlint:disable:this force_cast
                     guard let authorizingDynamicApiProvider = DynamicApiProvider(api: api) else { return .value(()) }
-                    self.authorizingDynamicApiProvider = authorizingDynamicApiProvider
-                    return authorizingDynamicApiProvider.authorize(presentingViewController: self.navigationController).map {_ in
                         self.navigationController.popToRootViewController(animated: true)
-                    }.then { _ in
                         return self.refreshProfiles(for: authorizingDynamicApiProvider)
-                }
             }
         }
     }
 
-    fileprivate func showSettings() {
+    private func showSettings() {
         let settingsTableViewController = storyboard.instantiateViewController(type: SettingsTableViewController.self)
         settingsTableViewController.delegate = self
         self.navigationController.pushViewController(settingsTableViewController, animated: true)
     }
 
-    fileprivate func showProfilesViewController() {
+    private func showProfilesViewController() {
         let profilesViewController = storyboard.instantiateViewController(type: ProfilesViewController.self)
         profilesViewController.delegate = self
         do {
@@ -280,13 +276,13 @@ class AppCoordinator: RootViewCoordinator {
         }
     }
 
-    fileprivate func showCustomProviderInPutViewController(for providerType: ProviderType) {
+    private func showCustomProviderInPutViewController(for providerType: ProviderType) {
         let customProviderInputViewController = storyboard.instantiateViewController(type: CustomProviderInPutViewController.self)
         customProviderInputViewController.delegate = self
         self.navigationController.pushViewController(customProviderInputViewController, animated: true)
     }
 
-    fileprivate func showChooseProviderTableViewController(for providerType: ProviderType) {
+    private func showChooseProviderTableViewController(for providerType: ProviderType) {
         let chooseProviderTableViewController = storyboard.instantiateViewController(type: ChooseProviderTableViewController.self)
         chooseProviderTableViewController.providerType = providerType
         chooseProviderTableViewController.viewContext = persistentContainer.viewContext
@@ -324,7 +320,7 @@ class AppCoordinator: RootViewCoordinator {
             return Promise(resolver: { (seal) in
                 self.persistentContainer.performBackgroundTask({ (context) in
                     let instanceGroupIdentifier = "\(target.baseURL.absoluteString)\(target.path)"
-                    let group = try! InstanceGroup.findFirstInContext(context, predicate: NSPredicate(format: "providerType == %@ AND discoveryIdentifier == %@", providerType.rawValue, instanceGroupIdentifier)) ?? InstanceGroup(context: context)//swiftlint:disable:this force_try
+                    let group = try! InstanceGroup.findFirstInContext(context, predicate: NSPredicate(format: "discoveryIdentifier == %@", instanceGroupIdentifier)) ?? InstanceGroup(context: context)//swiftlint:disable:this force_try
 
                     group.discoveryIdentifier = instanceGroupIdentifier
                     group.providerType = providerType.rawValue
@@ -562,7 +558,8 @@ extension AppCoordinator: CustomProviderInPutViewControllerDelegate {
     func connect(url: URL) -> Promise<Void> {
         return Promise<Instance>(resolver: { seal in
             persistentContainer.performBackgroundTask { (context) in
-                let group = try! InstanceGroup.findFirstInContext(context, predicate: NSPredicate(format: "providerType == %@", ProviderType.other.rawValue)) ?? InstanceGroup(context: context)//swiftlint:disable:this force_try
+                let instanceGroupIdentifier = url.absoluteString
+                let group = try! InstanceGroup.findFirstInContext(context, predicate: NSPredicate(format: "discoveryIdentifier == %@", instanceGroupIdentifier)) ?? InstanceGroup(context: context)//swiftlint:disable:this force_try
 
                 group.providerType = ProviderType.other.rawValue
 
