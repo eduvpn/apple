@@ -165,7 +165,7 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
     public func request(apiService: ApiService,
                         queue: DispatchQueue? = nil,
                         progress: Moya.ProgressBlock? = nil) -> Promise<Moya.Response> {
-        return Promise<Any>(resolver: { seal in
+        return Promise<Void>(resolver: { seal in
             if let authState = self.actualApi.authState {
                 authState.performAction(freshTokens: { (accessToken, _, error) in
                     if let error = error {
@@ -180,7 +180,7 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
                 seal.reject(ApiServiceError.noAuthState)
             }
 
-        }).then {_ in
+        }).then {_ -> Promise<Moya.Response> in
             return self.request(target: DynamicApiService(baseURL: URL(string: self.api.apiBaseUri!)!, apiService: apiService))
         }
     }

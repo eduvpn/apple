@@ -135,7 +135,16 @@ class AppCoordinator: RootViewCoordinator {
             }
         }
 
-        return dynamicApiProvider.request(apiService: .createKeypair(displayName: "eduVPN for iOS")).then {response -> Promise<CertificateModel> in
+        return dynamicApiProvider.request(apiService: .createKeypair(displayName: "eduVPN for iOS")).recover({ (error) throws -> Promise<Response> in
+            switch error {
+            case ApiServiceError.noAuthState:
+                return dynamicApiProvider.authorize(presentingViewController: self.navigationController).then({ (_) -> Promise<Response> in
+                    return dynamicApiProvider.request(apiService: .createKeypair(displayName: "eduVPN for iOS"))
+                })
+            default:
+                throw error
+            }
+        }).then {response -> Promise<CertificateModel> in
                 return response.mapResponse()
             }.map { (model) -> CertificateModel in
                 self.scheduleCertificateExpirationNotification(for: model, on: api)
@@ -234,6 +243,10 @@ class AppCoordinator: RootViewCoordinator {
         //        let provider = DynamicInstanceProvider(baseURL: instance.baseUri)
         let provider = MoyaProvider<DynamicInstanceService>()
 
+        let activityData = ActivityData()
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
+        NVActivityIndicatorPresenter.sharedInstance.setMessage(NSLocalizedString("Fetching instance configuration", comment: ""))
+
         return provider.request(target: DynamicInstanceService(baseURL: URL(string: instance.baseUri!)!)).then { response -> Promise<InstanceInfoModel> in
             return response.mapResponse()
             }.then { instanceInfoModel -> Promise<Void> in
@@ -254,8 +267,11 @@ class AppCoordinator: RootViewCoordinator {
                     let api = self.persistentContainer.viewContext.object(with: api.objectID) as! Api //swiftlint:disable:this force_cast
                     guard let authorizingDynamicApiProvider = DynamicApiProvider(api: api) else { return .value(()) }
                         self.navigationController.popToRootViewController(animated: true)
-                        return self.refreshProfiles(for: authorizingDynamicApiProvider)
-            }
+                    NVActivityIndicatorPresenter.sharedInstance.setMessage(NSLocalizedString("Refreshing profiles", comment: ""))
+                    return self.refreshProfiles(for: authorizingDynamicApiProvider)
+                    }.ensure {
+                        NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+                }
         }
     }
 
