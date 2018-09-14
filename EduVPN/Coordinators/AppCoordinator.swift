@@ -249,7 +249,7 @@ class AppCoordinator: RootViewCoordinator {
 
         return provider.request(target: DynamicInstanceService(baseURL: URL(string: instance.baseUri!)!)).then { response -> Promise<InstanceInfoModel> in
             return response.mapResponse()
-            }.then { instanceInfoModel -> Promise<Void> in
+            }.then { instanceInfoModel -> Promise<Api> in
                 return Promise<Api>(resolver: { seal in
                     self.persistentContainer.performBackgroundTask({ (context) in
                         let authServer = AuthServer.upsert(with: instanceInfoModel, on: context)
@@ -263,15 +263,17 @@ class AppCoordinator: RootViewCoordinator {
 
                         seal.fulfill(api)
                     })
-                }).then { (api) -> Promise<Void> in
-                    let api = self.persistentContainer.viewContext.object(with: api.objectID) as! Api //swiftlint:disable:this force_cast
-                    guard let authorizingDynamicApiProvider = DynamicApiProvider(api: api) else { return .value(()) }
-                        self.navigationController.popToRootViewController(animated: true)
-                    NVActivityIndicatorPresenter.sharedInstance.setMessage(NSLocalizedString("Refreshing profiles", comment: ""))
-                    return self.refreshProfiles(for: authorizingDynamicApiProvider)
-                    }.ensure {
-                        NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-                }
+                })
+            }.then { (api) -> Promise<Void> in
+                let api = self.persistentContainer.viewContext.object(with: api.objectID) as! Api //swiftlint:disable:this force_cast
+                guard let authorizingDynamicApiProvider = DynamicApiProvider(api: api) else { return .value(()) }
+                self.navigationController.popToRootViewController(animated: true)
+                NVActivityIndicatorPresenter.sharedInstance.setMessage(NSLocalizedString("Refreshing profiles", comment: ""))
+                return self.refreshProfiles(for: authorizingDynamicApiProvider)
+            }.recover { (error) in
+                self.showError(error)
+            }.ensure {
+                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
         }
     }
 
