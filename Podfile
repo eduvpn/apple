@@ -1,6 +1,7 @@
-platform :ios, '10.0'
-
+source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
+
+platform :ios, '11.0'
 
 swift_version = "4.2"
 
@@ -12,10 +13,11 @@ target 'EduVPN' do
   pod 'Moya'
   pod 'Disk'
   pod 'AlamofireImage'
-  pod 'Sodium'
+  pod 'Sodium', :git => 'https://github.com/jedisct1/swift-sodium.git'
   pod 'ASN1Decoder'
   pod 'BNRCoreDataStack'
   pod 'NVActivityIndicatorView'
+  pod 'TunnelKit'
 
   post_install do | installer |
     require 'fileutils'
@@ -25,5 +27,5 @@ target 'EduVPN' do
 end
 
 target 'EduVPNTunnelExtension' do
-  pod 'PIATunnel'
+  pod 'TunnelKit'
 end

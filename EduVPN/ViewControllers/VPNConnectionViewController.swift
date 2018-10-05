@@ -11,7 +11,7 @@
 import UIKit
 import os.log
 import NetworkExtension
-import PIATunnel
+import TunnelKit
 
 protocol VPNConnectionViewControllerDelegate: class {
 }
@@ -23,11 +23,11 @@ class VPNConnectionViewController: UIViewController {
 
     static let VPNBUNDLE = "nl.eduvpn.app.EduVPN.test.appforce1.EduVPNTunnelExtension"
 
-    static let CIPHER: PIATunnelProvider.Cipher = .aes128cbc
+    static let CIPHER: SessionProxy.Cipher = .aes256cbc
 
-    static let DIGEST: PIATunnelProvider.Digest = .sha1
+    static let DIGEST: SessionProxy.Digest = .sha256
 
-    static let HANDSHAKE: PIATunnelProvider.Handshake = .rsa2048
+//    static let HANDSHAKE: SessionProxy.Handshake = .rsa2048
 
     static let RENEG: Int? = nil
 
@@ -177,7 +177,7 @@ class VPNConnectionViewController: UIViewController {
 //            self.currentManager?.isOnDemandEnabled = true
 //            self.currentManager?.onDemandRules = [NEOnDemandRuleConnect()]
 
-            let endpoint = PIATunnelProvider.AuthenticatedEndpoint(
+            let endpoint = TunnelKitProvider.AuthenticatedEndpoint(
                 hostname: hostname,
                 port: port,
                 username: username,
@@ -195,7 +195,7 @@ class VPNConnectionViewController: UIViewController {
             builder.debugLogKey = "Log"
 
             let configuration = builder.build()
-            return try! configuration.generatedTunnelProtocol(withBundleIdentifier: VPNConnectionViewController.VPNBUNDLE, endpoint: endpoint)//swiftlint:disable:this force_try
+            return try! configuration.generatedTunnelProtocol(withBundleIdentifier: VPNConnectionViewController.VPNBUNDLE, appGroup: VPNConnectionViewController.APPGROUP, endpoint: endpoint)//swiftlint:disable:this force_try
         }, completionHandler: { (error) in
             if let error = error {
                 os_log("configure error: %{public}@", log: Log.general, type: .error, error.localizedDescription)
@@ -223,7 +223,7 @@ class VPNConnectionViewController: UIViewController {
         guard let vpn = currentManager?.connection as? NETunnelProviderSession else {
             return
         }
-        try? vpn.sendProviderMessage(PIATunnelProvider.Message.requestLog.data) { (data) in
+        try? vpn.sendProviderMessage(TunnelKitProvider.Message.requestLog.data) { (data) in
             guard let log = String(data: data!, encoding: .utf8) else {
                 return
             }

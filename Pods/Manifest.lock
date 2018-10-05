@@ -1,0 +1,95 @@
+PODS:
+  - Alamofire (4.7.3)
+  - AlamofireImage (3.4.1):
+    - Alamofire (~> 4.7)
+  - AppAuth (0.95.0)
+  - ASN1Decoder (1.2)
+  - BNRCoreDataStack (2.3.1)
+  - Disk (0.4.0)
+  - KeychainSwift (13.0.0)
+  - Moya (11.0.2):
+    - Moya/Core (= 11.0.2)
+  - Moya/Core (11.0.2):
+    - Alamofire (~> 4.1)
+    - Result (~> 3.0)
+  - NVActivityIndicatorView (4.4.0):
+    - NVActivityIndicatorView/Presenter (= 4.4.0)
+  - NVActivityIndicatorView/Presenter (4.4.0)
+  - OpenSSL-Apple (1.1.0i-v2)
+  - PromiseKit/CorePromise (6.5.2)
+  - Result (3.2.4)
+  - Sodium (0.7.0)
+  - SwiftLint (0.27.0)
+  - SwiftyBeaver (1.6.1)
+  - TunnelKit (1.3.1):
+    - TunnelKit/AppExtension (= 1.3.1)
+    - TunnelKit/Core (= 1.3.1)
+  - TunnelKit/AppExtension (1.3.1):
+    - SwiftyBeaver
+    - TunnelKit/Core
+  - TunnelKit/Core (1.3.1):
+    - OpenSSL-Apple (~> 1.1.0h)
+    - SwiftyBeaver
+
+DEPENDENCIES:
+  - AlamofireImage
+  - AppAuth
+  - ASN1Decoder
+  - BNRCoreDataStack
+  - Disk
+  - KeychainSwift
+  - Moya
+  - NVActivityIndicatorView
+  - PromiseKit/CorePromise
+  - Sodium (from `https://github.com/jedisct1/swift-sodium.git`)
+  - SwiftLint
+  - TunnelKit
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - AlamofireImage
+    - AppAuth
+    - ASN1Decoder
+    - BNRCoreDataStack
+    - Disk
+    - KeychainSwift
+    - Moya
+    - NVActivityIndicatorView
+    - OpenSSL-Apple
+    - PromiseKit
+    - Result
+    - SwiftLint
+    - SwiftyBeaver
+    - TunnelKit
+
+EXTERNAL SOURCES:
+  Sodium:
+    :git: https://github.com/jedisct1/swift-sodium.git
+
+CHECKOUT OPTIONS:
+  Sodium:
+    :commit: 8d2e6302f9589f0e9ad5c5920afa0fc0e943dd8a
+    :git: https://github.com/jedisct1/swift-sodium.git
+
+SPEC CHECKSUMS:
+  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  AlamofireImage: 78d67ccbb763d87ba44b21583d2153500a195630
+  AppAuth: 137f6bb6fc9dfbaf2cf9f6fcff1d336ff0163bc6
+  ASN1Decoder: 1a1f4fa469e14083f2664e182975a39299cb5e32
+  BNRCoreDataStack: d9d7d0ed1afd27dca5a903dde1250aa4c6dbc3f5
+  Disk: ef2956657d5bb56034b38b29b352170165226440
+  KeychainSwift: 23d6c16cbc33f20fafa30c3d783241b4b87d998c
+  Moya: a725035953bc1c0eb1be505ab903984501d82440
+  NVActivityIndicatorView: ec7440a57af2450319d3a4181cca7da6fc127064
+  OpenSSL-Apple: a93b8f2eec8783ff40d9a9304de180ab68bb647c
+  PromiseKit: 27c1601bfb73405871b805bcb8cf7e55c4dad3db
+  Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
+  Sodium: c5510cc6f5e1b27858e5f260b5cac80d4a3f9379
+  SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
+  SwiftyBeaver: ccfcdf85a04d429f1633f668650b0ce8020bda3a
+  TunnelKit: f98fb7d88642eda94c42007dbc501903c469a891
+
+PODFILE CHECKSUM: daf9a93beabe3d5ea113b21f09e0ca7278c4de85
+
+COCOAPODS: 1.6.0.beta.2

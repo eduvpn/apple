@@ -6,7 +6,7 @@
 //  Copyright © 2018 SURFNet. All rights reserved.
 //
 
-import PIATunnel
+import TunnelKit
 
-class PacketTunnelProvider: PIATunnelProvider {
+class PacketTunnelProvider: TunnelKitProvider {
 }
