@@ -495,6 +495,11 @@ class AppCoordinator: RootViewCoordinator {
             case ApiServiceError.tokenRefreshFailed:
                 self.authorizingDynamicApiProvider = dynamicApiProvider
                 _ = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
+            case ApiServiceError.noAuthState:
+                self.authorizingDynamicApiProvider = dynamicApiProvider
+                _ = dynamicApiProvider.authorize(presentingViewController: self.navigationController).then({ _ -> Promise<Void> in
+                    self.refreshProfiles(for: dynamicApiProvider)
+                })
             default:
                 self.showError(error)
             }
