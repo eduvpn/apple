@@ -99,12 +99,7 @@ public struct KeyboardInfo {
 
     /// Options for animating constructed from `animationCurve` property.
     public var animationOptions: UIView.AnimationOptions {
-        switch animationCurve {
-        case .easeInOut: return UIView.AnimationOptions()
-        case .easeIn: return UIView.AnimationOptions.curveEaseIn
-        case .easeOut: return UIView.AnimationOptions.curveEaseOut
-        case .linear: return UIView.AnimationOptions.curveLinear
-        }
+        return UIView.AnimationOptions(rawValue: UInt(animationCurve.rawValue << 16))
     }
 
     /// Creates instance of `KeyboardInfo` using `userInfo` from `NSNotification` object and a keyboard state.
@@ -120,8 +115,9 @@ public struct KeyboardInfo {
         var endFrame = CGRect.zero
         (info?[UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).getValue(&endFrame)
 
-        let curve = UIView.AnimationCurve(rawValue: info?[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int ?? 0) ?? .easeInOut
+        var animationCurve = UIView.AnimationCurve.easeInOut
+        NSNumber(value: info?[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int ?? 0).getValue(&animationCurve)
         let duration = TimeInterval(info?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double ?? 0.0)
-        return KeyboardInfo(state: state, beginFrame: beginFrame, endFrame: endFrame, animationCurve: curve, animationDuration: duration)
+        return KeyboardInfo(state: state, beginFrame: beginFrame, endFrame: endFrame, animationCurve: animationCurve, animationDuration: duration)
     }
 }
