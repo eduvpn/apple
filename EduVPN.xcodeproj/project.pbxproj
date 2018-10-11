@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09D36204E46503E8BF8F093B /* Pods_EduVPNTunnelExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCA3A31BBA1257439604A8C /* Pods_EduVPNTunnelExtension.framework */; };
 		4A1140841F78490C00D61100 /* VPNConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */; };
 		4A2803D91FA6867D00FA895C /* CustomProviderInPutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2803D81FA6867D00FA895C /* CustomProviderInPutViewController.swift */; };
 		4A2CC2221F4233E8004119B1 /* Identifyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2CC2211F4233E8004119B1 /* Identifyable.swift */; };
@@ -66,8 +67,7 @@
 		4AECAB422027091900B5105B /* EduVPN.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4AECAB402027091900B5105B /* EduVPN.xcdatamodeld */; };
 		4AF3DF061F424535003EC0BA /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF3DF051F424535003EC0BA /* SettingsTableViewController.swift */; };
 		4AF3DF081F4245A5003EC0BA /* ConnectionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF3DF071F4245A5003EC0BA /* ConnectionsTableViewController.swift */; };
-		70CA069A4D13F54202397AF4 /* Pods_EduVPN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40F14CCE95BF664A5D929030 /* Pods_EduVPN.framework */; };
-		84DA61747918BFA42270AEE6 /* Pods_EduVPNTunnelExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C9E23D82B0EE9E3CCE94B83 /* Pods_EduVPNTunnelExtension.framework */; };
+		62EA3C045A80B764FC4807DB /* Pods_EduVPN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 460B5700680EE865EA74DC6C /* Pods_EduVPN.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,8 +102,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2A1F47B21E5B1BE5C810E9DA /* Pods-EduVPNTunnelExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension.release.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.release.xcconfig"; sourceTree = "<group>"; };
-		40F14CCE95BF664A5D929030 /* Pods_EduVPN.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EduVPN.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3FA9290C2F9553473D5F0375 /* Pods-EduVPN.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPN.release.xcconfig"; path = "Target Support Files/Pods-EduVPN/Pods-EduVPN.release.xcconfig"; sourceTree = "<group>"; };
+		44FB25D762BF2E9FACB46052 /* Pods-EduVPN.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPN.debug.xcconfig"; path = "Target Support Files/Pods-EduVPN/Pods-EduVPN.debug.xcconfig"; sourceTree = "<group>"; };
+		460B5700680EE865EA74DC6C /* Pods_EduVPN.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EduVPN.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNConnectionViewController.swift; sourceTree = "<group>"; };
 		4A2803D81FA6867D00FA895C /* CustomProviderInPutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProviderInPutViewController.swift; sourceTree = "<group>"; };
 		4A2CC2211F4233E8004119B1 /* Identifyable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifyable.swift; sourceTree = "<group>"; };
@@ -173,10 +174,9 @@
 		4AECAB412027091900B5105B /* EduVPN.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EduVPN.xcdatamodel; sourceTree = "<group>"; };
 		4AF3DF051F424535003EC0BA /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		4AF3DF071F4245A5003EC0BA /* ConnectionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionsTableViewController.swift; sourceTree = "<group>"; };
-		6C9E23D82B0EE9E3CCE94B83 /* Pods_EduVPNTunnelExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EduVPNTunnelExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		839D6FBB66D96431B45B0F9D /* Pods-EduVPN.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPN.release.xcconfig"; path = "Target Support Files/Pods-EduVPN/Pods-EduVPN.release.xcconfig"; sourceTree = "<group>"; };
-		A3E52C721CD22B5FF0EAE986 /* Pods-EduVPNTunnelExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension.debug.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.debug.xcconfig"; sourceTree = "<group>"; };
-		CAC4F304CEE062BF2AD681CD /* Pods-EduVPN.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPN.debug.xcconfig"; path = "Target Support Files/Pods-EduVPN/Pods-EduVPN.debug.xcconfig"; sourceTree = "<group>"; };
+		5BCA3A31BBA1257439604A8C /* Pods_EduVPNTunnelExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EduVPNTunnelExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		82EB9B1AEE4D8FC59DF201C4 /* Pods-EduVPNTunnelExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension.debug.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		F04FA9BFF424F4538160B9E8 /* Pods-EduVPNTunnelExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension.release.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,7 +185,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A901C1E20C882FB000C1BF0 /* NetworkExtension.framework in Frameworks */,
-				84DA61747918BFA42270AEE6 /* Pods_EduVPNTunnelExtension.framework in Frameworks */,
+				09D36204E46503E8BF8F093B /* Pods_EduVPNTunnelExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,7 +194,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4ABFF78920C71E7200638480 /* NetworkExtension.framework in Frameworks */,
-				70CA069A4D13F54202397AF4 /* Pods_EduVPN.framework in Frameworks */,
+				62EA3C045A80B764FC4807DB /* Pods_EduVPN.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,8 +212,8 @@
 			isa = PBXGroup;
 			children = (
 				4ABFF78820C71E7200638480 /* NetworkExtension.framework */,
-				40F14CCE95BF664A5D929030 /* Pods_EduVPN.framework */,
-				6C9E23D82B0EE9E3CCE94B83 /* Pods_EduVPNTunnelExtension.framework */,
+				460B5700680EE865EA74DC6C /* Pods_EduVPN.framework */,
+				5BCA3A31BBA1257439604A8C /* Pods_EduVPNTunnelExtension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -221,10 +221,10 @@
 		3FD80EE8F0EFC339DAE2DAEB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				CAC4F304CEE062BF2AD681CD /* Pods-EduVPN.debug.xcconfig */,
-				839D6FBB66D96431B45B0F9D /* Pods-EduVPN.release.xcconfig */,
-				A3E52C721CD22B5FF0EAE986 /* Pods-EduVPNTunnelExtension.debug.xcconfig */,
-				2A1F47B21E5B1BE5C810E9DA /* Pods-EduVPNTunnelExtension.release.xcconfig */,
+				44FB25D762BF2E9FACB46052 /* Pods-EduVPN.debug.xcconfig */,
+				3FA9290C2F9553473D5F0375 /* Pods-EduVPN.release.xcconfig */,
+				82EB9B1AEE4D8FC59DF201C4 /* Pods-EduVPNTunnelExtension.debug.xcconfig */,
+				F04FA9BFF424F4538160B9E8 /* Pods-EduVPNTunnelExtension.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -380,7 +380,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4A901C1C20C87512000C1BF0 /* Build configuration list for PBXNativeTarget "EduVPNTunnelExtension" */;
 			buildPhases = (
-				1734C71ACCBE3275567FE3C1 /* [CP] Check Pods Manifest.lock */,
+				0FBE3E0E44762ECF08A03C96 /* [CP] Check Pods Manifest.lock */,
 				4A901C0D20C87511000C1BF0 /* Sources */,
 				4A901C0E20C87511000C1BF0 /* Frameworks */,
 				4A901C0F20C87511000C1BF0 /* Resources */,
@@ -398,7 +398,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4AAC1F931F2D0E3400DD0252 /* Build configuration list for PBXNativeTarget "EduVPN" */;
 			buildPhases = (
-				75834BC705218D6E726692C9 /* [CP] Check Pods Manifest.lock */,
+				8F578D2D13229F7DD6FD2E02 /* [CP] Check Pods Manifest.lock */,
 				4AAC1F991F2D0FFA00DD0252 /* Swiftlint */,
 				4AAC1F721F2D0E3400DD0252 /* Sources */,
 				4AAC1F731F2D0E3400DD0252 /* Frameworks */,
@@ -406,7 +406,7 @@
 				4AAC1F741F2D0E3400DD0252 /* Resources */,
 				4AAC1F9A1F2D104000DD0252 /* Set build number */,
 				4A901C1D20C87512000C1BF0 /* Embed App Extensions */,
-				F40CF0B95771F46BD2F5FA9A /* [CP] Embed Pods Frameworks */,
+				177CAF84CD604887872CC7E3 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -538,7 +538,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1734C71ACCBE3275567FE3C1 /* [CP] Check Pods Manifest.lock */ = {
+		0FBE3E0E44762ECF08A03C96 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -560,71 +560,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4A9704C21FBA368E00B4D6C2 /* Localize */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = Localize;
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#./mergegenstrings.py EduVPN NSLocalizedString";
-		};
-		4AAC1F991F2D0FFA00DD0252 /* Swiftlint */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = Swiftlint;
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#${PODS_ROOT}/SwiftLint/swiftlint autocorrect\n#${PODS_ROOT}/SwiftLint/swiftlint\n";
-		};
-		4AAC1F9A1F2D104000DD0252 /* Set build number */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Set build number";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = $SRCROOT/Scripts/set_build_number.sh;
-		};
-		75834BC705218D6E726692C9 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-EduVPN-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F40CF0B95771F46BD2F5FA9A /* [CP] Embed Pods Frameworks */ = {
+		177CAF84CD604887872CC7E3 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -672,6 +608,70 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EduVPN/Pods-EduVPN-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4A9704C21FBA368E00B4D6C2 /* Localize */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Localize;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#./mergegenstrings.py EduVPN NSLocalizedString";
+		};
+		4AAC1F991F2D0FFA00DD0252 /* Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Swiftlint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#${PODS_ROOT}/SwiftLint/swiftlint autocorrect\n#${PODS_ROOT}/SwiftLint/swiftlint\n";
+		};
+		4AAC1F9A1F2D104000DD0252 /* Set build number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Set build number";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$SRCROOT/Scripts/set_build_number.sh";
+		};
+		8F578D2D13229F7DD6FD2E02 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EduVPN-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -798,7 +798,7 @@
 /* Begin XCBuildConfiguration section */
 		4A901C1A20C87512000C1BF0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A3E52C721CD22B5FF0EAE986 /* Pods-EduVPNTunnelExtension.debug.xcconfig */;
+			baseConfigurationReference = 82EB9B1AEE4D8FC59DF201C4 /* Pods-EduVPNTunnelExtension.debug.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -824,7 +824,7 @@
 		};
 		4A901C1B20C87512000C1BF0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2A1F47B21E5B1BE5C810E9DA /* Pods-EduVPNTunnelExtension.release.xcconfig */;
+			baseConfigurationReference = F04FA9BFF424F4538160B9E8 /* Pods-EduVPNTunnelExtension.release.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -961,7 +961,7 @@
 		};
 		4AAC1F941F2D0E3400DD0252 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CAC4F304CEE062BF2AD681CD /* Pods-EduVPN.debug.xcconfig */;
+			baseConfigurationReference = 44FB25D762BF2E9FACB46052 /* Pods-EduVPN.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -984,7 +984,7 @@
 		};
 		4AAC1F951F2D0E3400DD0252 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 839D6FBB66D96431B45B0F9D /* Pods-EduVPN.release.xcconfig */;
+			baseConfigurationReference = 3FA9290C2F9553473D5F0375 /* Pods-EduVPN.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;

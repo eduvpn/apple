@@ -177,20 +177,7 @@ class VPNConnectionViewController: UIViewController {
 //            self.currentManager?.isOnDemandEnabled = true
 //            self.currentManager?.onDemandRules = [NEOnDemandRuleConnect()]
 
-            let endpoint = TunnelKitProvider.AuthenticatedEndpoint(
-                hostname: hostname,
-                port: port,
-                username: username,
-                password: password
-            )
-
-            var builder = PIATunnelProvider.ConfigurationBuilder(appGroup: VPNConnectionViewController.APPGROUP)
-            builder.socketType = (self.tcp ? .tcp : .udp)
-            builder.cipher = VPNConnectionViewController.CIPHER
-            builder.digest = VPNConnectionViewController.DIGEST
-//            builder.handshake = .custom
-            builder.mtu = 1500
-            builder.ca = CryptoContainer(pem:"""
+            let ca = CryptoContainer(pem:"""
             -----BEGIN CERTIFICATE-----
             MIIFJDCCAwygAwIBAgIJAKGYUaMPQW74MA0GCSqGSIb3DQEBCwUAMBExDzANBgNV
             BAMMBlZQTiBDQTAeFw0xNzExMTUwOTE4MzBaFw0yMjExMTUwOTE4MzBaMBExDzAN
@@ -222,6 +209,14 @@ class VPNConnectionViewController: UIViewController {
             XxuPeGGMYTQP3MPveijYdFJbp3MMb996
             -----END CERTIFICATE-----
             """)
+
+            var builder = TunnelKitProvider.ConfigurationBuilder(ca: ca)
+            let socketType: TunnelKitProvider.SocketType = (self.tcp ? .tcp : .udp)
+            builder.endpointProtocols = [TunnelKitProvider.EndpointProtocol(socketType, port)]//, .vanilla)]
+            builder.cipher = VPNConnectionViewController.CIPHER
+            builder.digest = VPNConnectionViewController.DIGEST
+//            builder.handshake = .custom
+            builder.mtu = 1500
             builder.clientCertificate = CryptoContainer(pem:"""
             -----BEGIN CERTIFICATE-----
             MIIFWTCCA0GgAwIBAgIQWdsaboZikvEEvQJROhMuXDANBgkqhkiG9w0BAQsFADAR
@@ -314,7 +309,10 @@ class VPNConnectionViewController: UIViewController {
             builder.debugLogKey = "Log"
 
             let configuration = builder.build()
-            return try! configuration.generatedTunnelProtocol(withBundleIdentifier: VPNConnectionViewController.VPNBUNDLE, appGroup: VPNConnectionViewController.APPGROUP, endpoint: endpoint)//swiftlint:disable:this force_try
+            return try! configuration.generatedTunnelProtocol(
+                withBundleIdentifier: VPNConnectionViewController.VPNBUNDLE,
+                appGroup: VPNConnectionViewController.APPGROUP,
+                hostname: hostname)//swiftlint:disable:this force_try
         }, completionHandler: { (error) in
             if let error = error {
                 os_log("configure error: %{public}@", log: Log.general, type: .error, error.localizedDescription)
