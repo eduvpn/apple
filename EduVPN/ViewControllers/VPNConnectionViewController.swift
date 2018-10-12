@@ -31,10 +31,6 @@ class VPNConnectionViewController: UIViewController {
 
     static let RENEG: Int? = nil
 
-    var username: String?
-
-    var password: String?
-
     var server: String?
 
     var domain: String?
@@ -113,8 +109,6 @@ class VPNConnectionViewController: UIViewController {
         //        textDomain.text = ""
         port = "1197"
         tcp = false
-        username = "jeroen@leenarts.net"
-        password = "VDvQpUaahigL6W"
 
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(VPNStatusDidChange(notification:)),
@@ -168,7 +162,7 @@ class VPNConnectionViewController: UIViewController {
     }
 
     func connect() {
-        guard let server = server, let domain = domain, let port = port, let username = username, let password = password else {
+        guard let server = server, let domain = domain, let port = port else {
             return
         }
         let hostname = ((domain == "") ? server : [server, domain].compactMap { $0 }.joined(separator: "."))
