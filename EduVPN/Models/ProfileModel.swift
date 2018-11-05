@@ -52,7 +52,7 @@ extension InstanceProfileModel {
         let profileId = try container.decode(String.self, forKey: .profileId)
         let twoFactor = try container.decode(Bool.self, forKey: .twoFactor)
 
-        var displayName: String? = nil
+        var displayName: String?
         let displayNames = try? container.decode(Dictionary<String, String>.self, forKey: .displayName)
 
         if let displayNames = displayNames {

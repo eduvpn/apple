@@ -1,7 +1,7 @@
 import Foundation
-import libsodium
+import Clibsodium
 
-public class Sodium {
+public struct Sodium {
     public let box = Box()
     public let secretBox = SecretBox()
     public let genericHash = GenericHash()
@@ -15,14 +15,17 @@ public class Sodium {
     public let stream = Stream()
     public let keyDerivation = KeyDerivation()
     public let secretStream = SecretStream()
-
-    private static let once: Void = {
-        if sodium_init() < 0 {
-            fatalError("Failed to initialize libsodium")
-        }
-    }()
+    public let aead = Aead()
 
     public init() {
         _ = Sodium.once
     }
+}
+
+extension Sodium {
+    private static let once: Void = {
+        guard sodium_init() >= 0 else {
+            fatalError("Failed to initialize libsodium")
+        }
+    }()
 }
