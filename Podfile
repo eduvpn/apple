@@ -2,7 +2,7 @@ platform :ios, '10.0'
 
 use_frameworks!
 
-swift_version = "3.0"
+swift_version = "4.2"
 
 target 'EduVPN' do
   pod 'SwiftLint'

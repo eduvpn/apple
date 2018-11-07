@@ -11,10 +11,10 @@
 #endif
 
 #import "AppAuth.h"
+#import "OIDAuthorizationFlowSession.h"
 #import "OIDAuthorizationRequest.h"
 #import "OIDAuthorizationResponse.h"
 #import "OIDAuthorizationService.h"
-#import "OIDAuthorizationUICoordinator.h"
 #import "OIDAuthState.h"
 #import "OIDAuthStateChangeDelegate.h"
 #import "OIDAuthStateErrorDelegate.h"
@@ -22,8 +22,12 @@
 #import "OIDDefines.h"
 #import "OIDError.h"
 #import "OIDErrorUtilities.h"
+#import "OIDExternalUserAgent.h"
+#import "OIDExternalUserAgentRequest.h"
+#import "OIDExternalUserAgentSession.h"
 #import "OIDFieldMapping.h"
 #import "OIDGrantTypes.h"
+#import "OIDIDToken.h"
 #import "OIDRegistrationRequest.h"
 #import "OIDRegistrationResponse.h"
 #import "OIDResponseTypes.h"
@@ -37,8 +41,9 @@
 #import "OIDURLQueryComponent.h"
 #import "OIDURLSessionProvider.h"
 #import "OIDAuthorizationService+IOS.h"
-#import "OIDAuthorizationUICoordinatorIOS.h"
 #import "OIDAuthState+IOS.h"
+#import "OIDExternalUserAgentIOS.h"
+#import "OIDExternalUserAgentIOSCustomBrowser.h"
 
 FOUNDATION_EXPORT double AppAuthVersionNumber;
 FOUNDATION_EXPORT const unsigned char AppAuthVersionString[];

@@ -162,15 +162,16 @@ extension Disk {
         }
     }
     
-    /// Check if file at a URL is a folder
-    static func isFolder(_ url: URL) -> Bool {
-        var isDirectory: ObjCBool = false
-        if FileManager.default.fileExists(atPath: url.path, isDirectory: &isDirectory) {
-            if isDirectory.boolValue {
-                return true
-            }
+    /// Set 'isExcludedFromBackup' BOOL property of a file or directory in the file system
+    static func setIsExcludedFromBackup(to isExcludedFromBackup: Bool, for url: URL) throws {
+        do {
+            var resourceUrl = url
+            var resourceValues = URLResourceValues()
+            resourceValues.isExcludedFromBackup = isExcludedFromBackup
+            try resourceUrl.setResourceValues(resourceValues)
+        } catch {
+            throw error
         }
-        return false
     }
     
     /// Create necessary sub folders before creating a file

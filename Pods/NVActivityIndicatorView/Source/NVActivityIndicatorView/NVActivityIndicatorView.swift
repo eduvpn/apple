@@ -339,6 +339,14 @@ public enum NVActivityIndicatorType: Int {
     }
 }
 
+/// Function that performs fade in/out animation.
+public typealias FadeInAnimation = (UIView) -> Void
+
+/// Function that performs fade out animation.
+///
+/// - Note: Must call the second parameter on the animation completion.
+public typealias FadeOutAnimation = (UIView, @escaping () -> Void) -> Void
+
 // swiftlint:disable file_length
 /// Activity indicator view with nice animations
 public final class NVActivityIndicatorView: UIView {
@@ -381,6 +389,27 @@ public final class NVActivityIndicatorView: UIView {
 
     /// Default background color of UI blocker. Default value is UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
     public static var DEFAULT_BLOCKER_BACKGROUND_COLOR = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+
+    /// Default fade in animation.
+    public static var DEFAULT_FADE_IN_ANIMATION: FadeInAnimation = { view in
+        view.alpha = 0
+        UIView.animate(withDuration: 0.25) {
+            view.alpha = 1
+        }
+    }
+
+    /// Default fade out animation.
+    public static var DEFAULT_FADE_OUT_ANIMATION: FadeOutAnimation = { (view, complete) in
+        UIView.animate(withDuration: 0.25,
+                       animations: {
+                        view.alpha = 0
+        },
+                       completion: { completed in
+                        if completed {
+                            complete()
+                        }
+        })
+    }
     // swiftlint:enable identifier_name
 
     /// Animation type.
@@ -505,7 +534,11 @@ public final class NVActivityIndicatorView: UIView {
 
     private final func setUpAnimation() {
         let animation: NVActivityIndicatorAnimationDelegate = type.animation()
+        #if swift(>=4.2)
+        var animationRect = frame.inset(by: UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding))
+        #else
         var animationRect = UIEdgeInsetsInsetRect(frame, UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding))
+        #endif
         let minEdge = min(animationRect.width, animationRect.height)
 
         layer.sublayers = nil

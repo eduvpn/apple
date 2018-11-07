@@ -44,6 +44,12 @@ static NSString *const kQueryStringParamAdditionalDisallowedCharacters = @"=&+";
       if (!gOIDURLQueryComponentForceIOS7Handling) {
         NSURLComponents *components =
             [NSURLComponents componentsWithURL:URL resolvingAgainstBaseURL:NO];
+        // As OAuth uses application/x-www-form-urlencoded encoding, interprets '+' as a space
+        // in addition to regular percent decoding. https://url.spec.whatwg.org/#urlencoded-parsing
+        components.percentEncodedQuery =
+            [components.percentEncodedQuery stringByReplacingOccurrencesOfString:@"+"
+                                                                      withString:@"%20"];
+        // NB. @c queryItems are already percent decoded
         NSArray<NSURLQueryItem *> *queryItems = components.queryItems;
         for (NSURLQueryItem *queryItem in queryItems) {
           [self addParameter:queryItem.name value:queryItem.value];
@@ -54,6 +60,10 @@ static NSString *const kQueryStringParamAdditionalDisallowedCharacters = @"=&+";
     
     // Fallback for iOS 7
     NSString *query = URL.query;
+    // As OAuth uses application/x-www-form-urlencoded encoding, interprets '+' as a space
+    // in addition to regular percent decoding. https://url.spec.whatwg.org/#urlencoded-parsing
+    query = [query stringByReplacingOccurrencesOfString:@"+" withString:@"%20"];
+
     NSArray<NSString *> *queryParts = [query componentsSeparatedByString:@"&"];
     for (NSString *queryPart in queryParts) {
       NSRange equalsRange = [queryPart rangeOfString:@"="];
@@ -124,6 +134,15 @@ static NSString *const kQueryStringParamAdditionalDisallowedCharacters = @"=&+";
   return queryParameters;
 }
 
++ (NSMutableCharacterSet *)URLParamValueAllowedCharacters {
+  // Starts with the standard URL-allowed character set.
+  NSMutableCharacterSet *allowedParamCharacters =
+      [[NSCharacterSet URLQueryAllowedCharacterSet] mutableCopy];
+  // Removes additional characters we don't want to see in the query component.
+  [allowedParamCharacters removeCharactersInString:kQueryStringParamAdditionalDisallowedCharacters];
+  return allowedParamCharacters;
+}
+
 /*! @brief Builds a query string that can be set to @c NSURLComponents.percentEncodedQuery
     @discussion This string is percent encoded, and shouldn't be used with
         @c NSURLComponents.query.
@@ -133,10 +152,7 @@ static NSString *const kQueryStringParamAdditionalDisallowedCharacters = @"=&+";
   NSMutableArray<NSString *> *parameterizedValues = [NSMutableArray array];
 
   // Starts with the standard URL-allowed character set.
-  NSMutableCharacterSet *allowedParamCharacters =
-      [[NSCharacterSet URLQueryAllowedCharacterSet] mutableCopy];
-  // Removes additional characters we don't want to see in the query component.
-  [allowedParamCharacters removeCharactersInString:kQueryStringParamAdditionalDisallowedCharacters];
+  NSMutableCharacterSet *allowedParamCharacters = [[self class] URLParamValueAllowedCharacters];
 
   for (NSString *parameterName in _parameters.allKeys) {
     NSString *encodedParameterName =
@@ -192,7 +208,7 @@ static NSString *const kQueryStringParamAdditionalDisallowedCharacters = @"=&+";
 - (NSString *)description {
   return [NSString stringWithFormat:@"<%@: %p, parameters: %@>",
                                     NSStringFromClass([self class]),
-                                    self,
+                                    (void *)self,
                                     _parameters];
 }
 

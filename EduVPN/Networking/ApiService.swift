@@ -99,7 +99,7 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
         return api.instance?.group?.federatedAuthorizationApi ?? api
     }
 
-    var currentAuthorizationFlow: OIDAuthorizationFlowSession?
+    var currentAuthorizationFlow: OIDExternalUserAgentSession?
 
     public func authorize(presentingViewController: UIViewController) -> Promise<OIDAuthState> {
         let redirectUrl: URL

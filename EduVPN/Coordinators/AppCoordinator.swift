@@ -244,7 +244,7 @@ class AppCoordinator: RootViewCoordinator {
         let provider = MoyaProvider<DynamicInstanceService>()
 
         let activityData = ActivityData()
-        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData, nil)
         NVActivityIndicatorPresenter.sharedInstance.setMessage(NSLocalizedString("Fetching instance configuration", comment: ""))
 
         return provider.request(target: DynamicInstanceService(baseURL: URL(string: instance.baseUri!)!)).then { response -> Promise<InstanceInfoModel> in
@@ -273,7 +273,7 @@ class AppCoordinator: RootViewCoordinator {
             }.recover { (error) in
                 self.showError(error)
             }.ensure {
-                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+                NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
         }
     }
 
@@ -402,7 +402,8 @@ class AppCoordinator: RootViewCoordinator {
         }
 
         let activityData = ActivityData()
-        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
+        let presenter = NVActivityIndicatorPresenter.sharedInstance
+        presenter.startAnimating(activityData, nil)
 
         guard let dynamicApiProvider = DynamicApiProvider(api: api) else { return }
 
@@ -422,7 +423,7 @@ class AppCoordinator: RootViewCoordinator {
                 // merge profile with keypair
                 let filename = "\(profile.displayNames?.localizedValue ?? "")-\(api.instance?.displayNames?.localizedValue ?? "") \(profile.profileId ?? "").ovpn"
                 try Disk.save(ovpnFileContent!.data(using: .utf8)!, to: .temporary, as: filename)
-                let url = try Disk.getURL(for: filename, in: .temporary)
+                let url = try Disk.url(for: filename, in: .temporary)
 
                 let activity = UIActivityViewController(activityItems: [url], applicationActivities: nil)
                 if let currentViewController = self.navigationController.visibleViewController {
@@ -435,7 +436,7 @@ class AppCoordinator: RootViewCoordinator {
                 }
                 return ()
             }.ensure {
-                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+                NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
             }.recover { (error) in
                 switch error {
                 case ApiServiceError.tokenRefreshFailed:
@@ -457,7 +458,7 @@ class AppCoordinator: RootViewCoordinator {
 
     func resumeAuthorizationFlow(url: URL) -> Bool {
         if let authorizingDynamicApiProvider = authorizingDynamicApiProvider {
-            if authorizingDynamicApiProvider.currentAuthorizationFlow?.resumeAuthorizationFlow(with: url) == true {
+            if authorizingDynamicApiProvider.currentAuthorizationFlow?.resumeExternalUserAgentFlow(with: url) == true {
                 let authorizationType = authorizingDynamicApiProvider.api.instance?.group?.authorizationTypeEnum ?? .local
                 if authorizationType == .distributed {
                     authorizingDynamicApiProvider.api.instance?.group?.federatedAuthorizationApi = authorizingDynamicApiProvider.api
@@ -568,13 +569,13 @@ extension AppCoordinator: CustomProviderInPutViewControllerDelegate {
     private func createLocalUrl(forImageNamed name: String) throws -> URL {
         let filename = "\(name).png"
         if Disk.exists(filename, in: .applicationSupport) {
-            return try Disk.getURL(for: filename, in: .applicationSupport)
+            return try Disk.url(for: filename, in: .applicationSupport)
         }
 
         let image = UIImage(named: name)!
         try Disk.save(image, to: .applicationSupport, as: filename)
 
-        return try Disk.getURL(for: filename, in: .applicationSupport)
+        return try Disk.url(for: filename, in: .applicationSupport)
     }
 
     func connect(url: URL) -> Promise<Void> {
