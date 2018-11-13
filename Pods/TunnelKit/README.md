@@ -11,7 +11,7 @@ This library provides a simplified Swift/Obj-C implementation of the OpenVPN® p
 
 ## Getting started
 
-The client is known to work with [OpenVPN®][openvpn] 2.3+ servers. Key renegotiation and replay protection are also included, but full-fledged configuration files (.ovpn) are not currently supported.
+The client is known to work with [OpenVPN®][openvpn] 2.3+ servers.
 
 - [x] Handshake and tunneling over UDP or TCP
 - [x] Ciphers
@@ -32,9 +32,33 @@ The client is known to work with [OpenVPN®][openvpn] 2.3+ servers. Key renegoti
     - Disabled
     - Compress (2.4)
     - LZO (deprecated in 2.4)
+- [x] Key renegotiation
 - [x] Replay protection (hardcoded window)
 
 The library therefore supports compression framing, just not compression. Remember to match server-side compression framing in order to avoid a confusing loss of data packets. E.g. if server has `comp-lzo no`, client must use `compressionFraming = .compLZO`.
+
+### Support for .ovpn configuration
+
+TunnelKit can parse .ovpn configuration files. Below are a few limitations worth mentioning.
+
+Unsupported:
+
+- UDP fragmentation, i.e. `--fragment`
+- Compression
+    - `--comp-lzo` other than `no`
+    - `--compress` other than empty
+- Proxy
+- External file references (inline `<block>` only)
+- Encrypted client certificate keys
+
+Ignored:
+
+- MTU overrides
+    - `--*-mtu` and variants
+    - `--mssfix`
+- Multiple `--remote` with different `host` values (first wins)
+
+Many other flags are ignored too but it's normally not an issue.
 
 ## Installation
 

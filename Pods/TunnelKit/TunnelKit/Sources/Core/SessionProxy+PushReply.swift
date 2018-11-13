@@ -177,30 +177,49 @@ extension SessionProxy {
         }
 
         private static let prefix = "PUSH_REPLY,"
+<<<<<<< HEAD
 
         private static let topologyRegexp = try! NSRegularExpression(pattern: "topology (net30|p2p|subnet)", options: [])
 
         private static let ifconfigRegexp = try! NSRegularExpression(pattern: "ifconfig [\\d\\.]+ [\\d\\.]+", options: [])
+=======
+        
+        private static let topologyRegexp = NSRegularExpression("topology (net30|p2p|subnet)")
+        
+        private static let ifconfigRegexp = NSRegularExpression("ifconfig [\\d\\.]+ [\\d\\.]+")
+>>>>>>> Update TunnelKit and adopt ovpn config parsing.
 
-        private static let ifconfig6Regexp = try! NSRegularExpression(pattern: "ifconfig-ipv6 [\\da-fA-F:]+/\\d+ [\\da-fA-F:]+", options: [])
+        private static let ifconfig6Regexp = NSRegularExpression("ifconfig-ipv6 [\\da-fA-F:]+/\\d+ [\\da-fA-F:]+")
 
+<<<<<<< HEAD
         private static let gatewayRegexp = try! NSRegularExpression(pattern: "route-gateway [\\d\\.]+", options: [])
 
         private static let routeRegexp = try! NSRegularExpression(pattern: "route [\\d\\.]+( [\\d\\.]+){0,2}", options: [])
+=======
+        private static let gatewayRegexp = NSRegularExpression("route-gateway [\\d\\.]+")
+        
+        private static let routeRegexp = NSRegularExpression("route [\\d\\.]+( [\\d\\.]+){0,2}")
+>>>>>>> Update TunnelKit and adopt ovpn config parsing.
 
-        private static let route6Regexp = try! NSRegularExpression(pattern: "route-ipv6 [\\da-fA-F:]+/\\d+( [\\da-fA-F:]+){0,2}", options: [])
+        private static let route6Regexp = NSRegularExpression("route-ipv6 [\\da-fA-F:]+/\\d+( [\\da-fA-F:]+){0,2}")
 
-        private static let dnsRegexp = try! NSRegularExpression(pattern: "dhcp-option DNS6? [\\d\\.a-fA-F:]+", options: [])
+        private static let dnsRegexp = NSRegularExpression("dhcp-option DNS6? [\\d\\.a-fA-F:]+")
 
+<<<<<<< HEAD
         private static let compRegexp = try! NSRegularExpression(pattern: "comp(ress|-lzo)", options: [])
 
         private static let pingRegexp = try! NSRegularExpression(pattern: "ping \\d+", options: [])
+=======
+        private static let compRegexp = NSRegularExpression("comp(ress|-lzo)")
+        
+        private static let pingRegexp = NSRegularExpression("ping \\d+")
+>>>>>>> Update TunnelKit and adopt ovpn config parsing.
 
-        private static let authTokenRegexp = try! NSRegularExpression(pattern: "auth-token [a-zA-Z0-9/=+]+", options: [])
+        private static let authTokenRegexp = NSRegularExpression("auth-token [a-zA-Z0-9/=+]+")
 
-        private static let peerIdRegexp = try! NSRegularExpression(pattern: "peer-id [0-9]+", options: [])
+        private static let peerIdRegexp = NSRegularExpression("peer-id [0-9]+")
 
-        private static let cipherRegexp = try! NSRegularExpression(pattern: "cipher [^,\\s]+", options: [])
+        private static let cipherRegexp = NSRegularExpression("cipher [^,\\s]+")
 
         private let original: String
 
@@ -437,27 +456,6 @@ extension SessionProxy {
                 withTemplate: "auth-token"
             )
             return stripped as String
-        }
-    }
-}
-
-private extension NSRegularExpression {
-    func enumerateArguments(in string: String, using block: ([String]) -> Void) {
-        enumerateComponents(in: string) { (tokens) in
-            var args = tokens
-            args.removeFirst()
-            block(args)
-        }
-    }
-
-    func enumerateComponents(in string: String, using block: ([String]) -> Void) {
-        enumerateMatches(in: string, options: [], range: NSMakeRange(0, string.count)) { (result, flags, stop) in
-            guard let range = result?.range else {
-                return
-            }
-            let match = (string as NSString).substring(with: range)
-            let tokens = match.components(separatedBy: " ")
-            block(tokens)
         }
     }
 }

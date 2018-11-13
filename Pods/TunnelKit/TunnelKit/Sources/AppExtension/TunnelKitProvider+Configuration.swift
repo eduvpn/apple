@@ -44,6 +44,7 @@ private let log = SwiftyBeaver.self
 extension TunnelKitProvider {
 
     // MARK: Configuration
+<<<<<<< HEAD
 
     /// A socket type between UDP (recommended) and TCP.
     public enum SocketType: String {
@@ -107,6 +108,9 @@ extension TunnelKitProvider {
         }
     }
 
+=======
+    
+>>>>>>> Update TunnelKit and adopt ovpn config parsing.
     /// The way to create a `TunnelKitProvider.Configuration` object for the tunnel profile.
     public struct ConfigurationBuilder {
 
@@ -578,10 +582,10 @@ extension TunnelKitProvider.Configuration: Equatable {
 }
 
 /// :nodoc:
-extension TunnelKitProvider.EndpointProtocol: Codable {
+extension EndpointProtocol: Codable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        guard let proto = try TunnelKitProvider.EndpointProtocol(rawValue: container.decode(String.self)) else {
+        guard let proto = try EndpointProtocol(rawValue: container.decode(String.self)) else {
             throw TunnelKitProvider.ProviderConfigurationError.parameter(name: "endpointProtocol.decodable")
         }
         self.init(proto.socketType, proto.port)

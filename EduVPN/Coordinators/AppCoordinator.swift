@@ -33,6 +33,7 @@ enum AppCoordinatorError: Swift.Error {
     case certificateNil
     case certificateCommonNameNotFound
     case certificateStatusUnknown
+    case apiMissing
     case apiProviderCreateFailed
 }
 
@@ -395,25 +396,22 @@ class AppCoordinator: RootViewCoordinator {
         }
     }
 
-    func fetchAndTransferProfileToConnectApp(for profile: Profile, sourceView: UIView?) {
+    func fetchProfile(for profile: Profile) -> Promise<URL> {
         guard let api = profile.api else {
             precondition(false, "This should never happen")
-            return
+            return Promise(error: AppCoordinatorError.apiMissing)
         }
 
-        let activityData = ActivityData()
-        let presenter = NVActivityIndicatorPresenter.sharedInstance
-        presenter.startAnimating(activityData, nil)
+        guard let dynamicApiProvider = DynamicApiProvider(api: api) else {
+            return Promise(error: AppCoordinatorError.apiProviderCreateFailed)
+        }
 
-        guard let dynamicApiProvider = DynamicApiProvider(api: api) else { return }
+        NVActivityIndicatorPresenter.sharedInstance.setMessage(NSLocalizedString("Loading certificate", comment: ""))
 
-        _ = detectPresenceOpenVPN().then { _ -> Promise<CertificateModel> in
-            NVActivityIndicatorPresenter.sharedInstance.setMessage(NSLocalizedString("Loading certificate", comment: ""))
-            return self.loadCertificate(for: api)
-        }.then { _ -> Promise<Response> in
+        return loadCertificate(for: api).then { _ -> Promise<Response> in
             NVActivityIndicatorPresenter.sharedInstance.setMessage(NSLocalizedString("Requesting profile config", comment: ""))
-                return dynamicApiProvider.request(apiService: .profileConfig(profileId: profile.profileId!))
-            }.map { response -> Void in
+            return dynamicApiProvider.request(apiService: .profileConfig(profileId: profile.profileId!))
+            }.map { response -> URL in
                 var ovpnFileContent = String(data: response.data, encoding: .utf8)
                 let insertionIndex = ovpnFileContent!.range(of: "</ca>")!.upperBound
                 ovpnFileContent?.insert(contentsOf: "\n<key>\n\(api.certificateModel!.privateKeyString)\n</key>", at: insertionIndex)
@@ -424,30 +422,48 @@ class AppCoordinator: RootViewCoordinator {
                 let filename = "\(profile.displayNames?.localizedValue ?? "")-\(api.instance?.displayNames?.localizedValue ?? "") \(profile.profileId ?? "").ovpn"
                 try Disk.save(ovpnFileContent!.data(using: .utf8)!, to: .temporary, as: filename)
                 let url = try Disk.url(for: filename, in: .temporary)
+                return url
+//            }.recover { (error) in
+//                switch error {
+//                case ApiServiceError.tokenRefreshFailed:
+//                    self.authorizingDynamicApiProvider = dynamicApiProvider
+//                    _ = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
+//                default:
+//                    self.showError(error)
+//                    throw error
+//                }
+        }
+    }
 
-                let activity = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-                if let currentViewController = self.navigationController.visibleViewController {
-                    if let presentationController = activity.presentationController as? UIPopoverPresentationController {
-                        presentationController.sourceView = sourceView ?? self.navigationController.navigationBar
-                        presentationController.sourceRect = sourceView?.frame ?? self.navigationController.navigationBar.frame
-                        presentationController.permittedArrowDirections = [.any]
-                    }
-                    currentViewController.present(activity, animated: true)
+    func fetchAndTransferProfileToConnectApp(for profile: Profile, sourceView: UIView?) {
+
+        let activityData = ActivityData()
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData, nil)
+
+        _ = detectPresenceOpenVPN().then { _ -> Promise<URL> in
+            return self.fetchProfile(for: profile)
+        }.then { (configUrl) -> Promise<Void> in
+            let activity = UIActivityViewController(activityItems: [configUrl], applicationActivities: nil)
+            if let currentViewController = self.navigationController.visibleViewController {
+                if let presentationController = activity.presentationController as? UIPopoverPresentationController {
+                    presentationController.sourceView = sourceView ?? self.navigationController.navigationBar
+                    presentationController.sourceRect = sourceView?.frame ?? self.navigationController.navigationBar.frame
+                    presentationController.permittedArrowDirections = [.any]
                 }
-                return ()
+                currentViewController.present(activity, animated: true)
+            }
+            return Promise.value(())
+
             }.ensure {
                 NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
             }.recover { (error) in
                 switch error {
-                case ApiServiceError.tokenRefreshFailed:
-                    self.authorizingDynamicApiProvider = dynamicApiProvider
-                    _ = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
                 case AppCoordinatorError.openVpnSchemeNotAvailable:
                     self.showNoOpenVPNAlert()
                 default:
                     self.showError(error)
                 }
-            }
+        }
     }
 
     func showConnectionViewController(for profile: Profile) {
@@ -523,8 +539,8 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
     }
 
     func connect(profile: Profile, sourceView: UIView?) {
-        showConnectionViewController(for: profile)
-//        fetchAndTransferProfileToConnectApp(for: profile, sourceView: sourceView)
+//        showConnectionViewController(for: profile)
+        fetchAndTransferProfileToConnectApp(for: profile, sourceView: sourceView)
     }
 
     func delete(profile: Profile) {
@@ -605,5 +621,14 @@ extension AppCoordinator: CustomProviderInPutViewControllerDelegate {
 }
 
 extension AppCoordinator: VPNConnectionViewControllerDelegate {
+    func profileConfig(for profile: Profile) -> Promise<URL> {
+        let activityData = ActivityData()
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData, nil)
+
+        return fetchProfile(for: profile).ensure {
+            NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
+        }
+    }
+
 
 }

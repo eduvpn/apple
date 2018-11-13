@@ -47,9 +47,15 @@ class ConnectionStrategy {
     private let prefersResolvedAddresses: Bool
 
     private var resolvedAddresses: [String]?
+<<<<<<< HEAD
 
     private let endpointProtocols: [TunnelKitProvider.EndpointProtocol]
 
+=======
+    
+    private let endpointProtocols: [EndpointProtocol]
+    
+>>>>>>> Update TunnelKit and adopt ovpn config parsing.
     private var currentProtocolIndex = 0
 
     init(hostname: String, configuration: TunnelKitProvider.Configuration) {
@@ -118,8 +124,13 @@ class ConnectionStrategy {
         log.debug("Fall back to next protocol: \(currentProtocol())")
         return true
     }
+<<<<<<< HEAD
 
     private func currentProtocol() -> TunnelKitProvider.EndpointProtocol {
+=======
+    
+    private func currentProtocol() -> EndpointProtocol {
+>>>>>>> Update TunnelKit and adopt ovpn config parsing.
         return endpointProtocols[currentProtocolIndex]
     }
 
@@ -140,7 +151,7 @@ class ConnectionStrategy {
 }
 
 private extension NEProvider {
-    func createSocket(to address: String, protocol endpointProtocol: TunnelKitProvider.EndpointProtocol) -> GenericSocket {
+    func createSocket(to address: String, protocol endpointProtocol: EndpointProtocol) -> GenericSocket {
         let endpoint = NWHostEndpoint(hostname: address, port: "\(endpointProtocol.port)")
         switch endpointProtocol.socketType {
         case .udp:
