@@ -396,7 +396,7 @@ class AppCoordinator: RootViewCoordinator {
         }
     }
 
-    func fetchProfile(for profile: Profile) -> Promise<URL> {
+    func fetchProfile(for profile: Profile, retry: Bool = false) -> Promise<URL> {
         guard let api = profile.api else {
             precondition(false, "This should never happen")
             return Promise(error: AppCoordinatorError.apiMissing)
@@ -416,6 +416,7 @@ class AppCoordinator: RootViewCoordinator {
                 let insertionIndex = ovpnFileContent!.range(of: "</ca>")!.upperBound
                 ovpnFileContent?.insert(contentsOf: "\n<key>\n\(api.certificateModel!.privateKeyString)\n</key>", at: insertionIndex)
                 ovpnFileContent?.insert(contentsOf: "\n<cert>\n\(api.certificateModel!.certificateString)\n</cert>", at: insertionIndex)
+                ovpnFileContent = ovpnFileContent?.replacingOccurrences(of: "auth none\r\n", with: "")
                 // TODO validate response
                 try Disk.clear(.temporary)
                 // merge profile with keypair
@@ -423,15 +424,22 @@ class AppCoordinator: RootViewCoordinator {
                 try Disk.save(ovpnFileContent!.data(using: .utf8)!, to: .temporary, as: filename)
                 let url = try Disk.url(for: filename, in: .temporary)
                 return url
-//            }.recover { (error) in
-//                switch error {
-//                case ApiServiceError.tokenRefreshFailed:
-//                    self.authorizingDynamicApiProvider = dynamicApiProvider
-//                    _ = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
-//                default:
-//                    self.showError(error)
-//                    throw error
-//                }
+            }.recover { (error) throws -> Promise<URL> in
+                NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
+                switch error {
+                case ApiServiceError.tokenRefreshFailed:
+                    if retry {
+                        self.showError(error)
+                        throw error
+                    }
+                    self.authorizingDynamicApiProvider = dynamicApiProvider
+                    return dynamicApiProvider.authorize(presentingViewController: self.navigationController).then{ _ -> Promise<URL> in
+                        return self.fetchProfile(for: profile, retry: true)
+                    }
+                default:
+                    self.showError(error)
+                    throw error
+                }
         }
     }
 
@@ -539,8 +547,8 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
     }
 
     func connect(profile: Profile, sourceView: UIView?) {
-//        showConnectionViewController(for: profile)
-        fetchAndTransferProfileToConnectApp(for: profile, sourceView: sourceView)
+        showConnectionViewController(for: profile)
+//        fetchAndTransferProfileToConnectApp(for: profile, sourceView: sourceView)
     }
 
     func delete(profile: Profile) {
