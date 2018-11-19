@@ -98,31 +98,9 @@ class AppCoordinator: RootViewCoordinator {
                             self?.showError(error)
                         }
                     }
-
-                    self?.detectPresenceOpenVPN().recover { (_) in
-                        self?.showNoOpenVPNAlert()
-                    }
                 }
             }
         }
-    }
-
-    func detectPresenceOpenVPN() -> Promise<Void> {
-        #if DEBUG
-            return .value(())
-        #else
-            return Promise(resolver: { seal in
-                guard let url = URL(string: "openvpn://") else {
-                    seal.reject(AppCoordinatorError.openVpnSchemeNotAvailable)
-                    return
-                }
-                if UIApplication.shared.canOpenURL(url) {
-                    seal.fulfill(())
-                } else {
-                    seal.reject(AppCoordinatorError.openVpnSchemeNotAvailable)
-                }
-            })
-        #endif
     }
 
     func loadCertificate(for api: Api) -> Promise<CertificateModel> {
@@ -448,9 +426,7 @@ class AppCoordinator: RootViewCoordinator {
         let activityData = ActivityData()
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData, nil)
 
-        _ = detectPresenceOpenVPN().then { _ -> Promise<URL> in
-            return self.fetchProfile(for: profile)
-        }.then { (configUrl) -> Promise<Void> in
+        _ = self.fetchProfile(for: profile).then { (configUrl) -> Promise<Void> in
             let activity = UIActivityViewController(activityItems: [configUrl], applicationActivities: nil)
             if let currentViewController = self.navigationController.visibleViewController {
                 if let presentationController = activity.presentationController as? UIPopoverPresentationController {
@@ -465,12 +441,7 @@ class AppCoordinator: RootViewCoordinator {
             }.ensure {
                 NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
             }.recover { (error) in
-                switch error {
-                case AppCoordinatorError.openVpnSchemeNotAvailable:
-                    self.showNoOpenVPNAlert()
-                default:
-                    self.showError(error)
-                }
+                self.showError(error)
         }
     }
 
