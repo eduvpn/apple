@@ -491,11 +491,17 @@ class AppCoordinator: RootViewCoordinator {
             switch error {
             case ApiServiceError.tokenRefreshFailed:
                 self.authorizingDynamicApiProvider = dynamicApiProvider
-                _ = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
+                _ = dynamicApiProvider.authorize(presentingViewController: self.navigationController).then({ _ -> Promise<Void> in
+                    self.refreshProfiles(for: dynamicApiProvider)
+                }).recover({ (error) in
+                    self.showError(error)
+                })
             case ApiServiceError.noAuthState:
                 self.authorizingDynamicApiProvider = dynamicApiProvider
                 _ = dynamicApiProvider.authorize(presentingViewController: self.navigationController).then({ _ -> Promise<Void> in
                     self.refreshProfiles(for: dynamicApiProvider)
+                }).recover({ (error) in
+                    self.showError(error)
                 })
             default:
                 self.showError(error)
