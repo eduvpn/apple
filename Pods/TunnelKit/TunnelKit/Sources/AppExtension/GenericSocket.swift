@@ -53,9 +53,9 @@ protocol GenericSocketDelegate: class {
 
 protocol GenericSocket: LinkProducer {
     var remoteAddress: String? { get }
-
+    
     var hasBetterPath: Bool { get }
-
+    
     var isShutdown: Bool { get }
 
     var delegate: GenericSocketDelegate? { get set }
@@ -63,8 +63,8 @@ protocol GenericSocket: LinkProducer {
     func observe(queue: DispatchQueue, activeTimeout: Int)
 
     func unobserve()
-
+    
     func shutdown()
-
+    
     func upgraded() -> GenericSocket?
 }

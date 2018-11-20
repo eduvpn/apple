@@ -104,11 +104,11 @@ public func when<U: Thenable, V: Thenable, W: Thenable, X: Thenable, Y: Thenable
  Generate promises at a limited rate and wait for all to fulfill.
 
  For example:
-
+ 
      func downloadFile(url: URL) -> Promise<Data> {
          // ...
      }
-
+ 
      let urls: [URL] = /*…*/
      let urlGenerator = urls.makeIterator()
 
@@ -122,7 +122,7 @@ public func when<U: Thenable, V: Thenable, W: Thenable, X: Thenable, Y: Thenable
      when(generator, concurrently: 3).done { datas in
          // ...
      }
-
+ 
  No more than three downloads will occur simultaneously.
 
  - Note: The generator is called *serially* on a *background* queue.
@@ -199,7 +199,7 @@ public func when<It: IteratorProtocol>(fulfilled promiseIterator: It, concurrent
 
         dequeue()
     }
-
+        
     dequeue()
 
     return root.promise

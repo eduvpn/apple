@@ -32,7 +32,7 @@ extension SessionProxy {
 
         /// The wrapping strategy.
         public enum Strategy: String, Codable {
-
+            
             /// Authenticates payload (--tls-auth).
             case auth
 
@@ -42,10 +42,10 @@ extension SessionProxy {
 
         /// The wrapping strategy.
         public let strategy: Strategy
-
+        
         /// The static encryption key.
         public let key: StaticKey
-
+        
         /// :nodoc:
         public init(strategy: Strategy, key: StaticKey) {
             self.strategy = strategy
@@ -56,7 +56,7 @@ extension SessionProxy {
         public static func deserialized(_ data: Data) throws -> SessionProxy.TLSWrap {
             return try JSONDecoder().decode(SessionProxy.TLSWrap.self, from: data)
         }
-
+        
         /// :nodoc:
         public func serialized() -> Data? {
             return try? JSONEncoder().encode(self)

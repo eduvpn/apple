@@ -42,16 +42,16 @@ public struct IPv4Settings: CustomStringConvertible {
 
     /// Represents an IPv4 route in the routing table.
     public struct Route: CustomStringConvertible {
-
+        
         /// The destination host or subnet.
         public let destination: String
-
+        
         /// The address mask.
         public let mask: String
-
+        
         /// The address of the gateway (uses default gateway if not set).
         public let gateway: String?
-
+        
         fileprivate init(_ destination: String, _ mask: String?, _ gateway: String?) {
             self.destination = destination
             self.mask = mask ?? "255.255.255.255"
@@ -59,7 +59,7 @@ public struct IPv4Settings: CustomStringConvertible {
         }
 
         // MARK: CustomStringConvertible
-
+        
         /// :nodoc:
         public var description: String {
             return "{\(destination.maskedDescription)/\(mask) \(gateway?.maskedDescription ?? "default")}"
@@ -68,10 +68,10 @@ public struct IPv4Settings: CustomStringConvertible {
 
     /// The address.
     let address: String
-
+    
     /// The address mask.
     let addressMask: String
-
+    
     /// The address of the default gateway.
     let defaultGateway: String
 
@@ -91,16 +91,16 @@ public struct IPv6Settings: CustomStringConvertible {
 
     /// Represents an IPv6 route in the routing table.
     public struct Route: CustomStringConvertible {
-
+        
         /// The destination host or subnet.
         public let destination: String
-
+        
         /// The address prefix length.
         public let prefixLength: UInt8
-
+        
         /// The address of the gateway (uses default gateway if not set).
         public let gateway: String?
-
+        
         fileprivate init(_ destination: String, _ prefixLength: UInt8?, _ gateway: String?) {
             self.destination = destination
             self.prefixLength = prefixLength ?? 3
@@ -108,7 +108,7 @@ public struct IPv6Settings: CustomStringConvertible {
         }
 
         // MARK: CustomStringConvertible
-
+        
         /// :nodoc:
         public var description: String {
             return "{\(destination.maskedDescription)/\(prefixLength) \(gateway?.maskedDescription ?? "default")}"
@@ -117,18 +117,18 @@ public struct IPv6Settings: CustomStringConvertible {
 
     /// The address.
     public let address: String
-
+    
     /// The address prefix length.
     public let addressPrefixLength: UInt8
-
+    
     /// The address of the default gateway.
     public let defaultGateway: String
-
+    
     /// The additional routes.
     public let routes: [Route]
 
     // MARK: CustomStringConvertible
-
+    
     /// :nodoc:
     public var description: String {
         return "addr \(address.maskedDescription)/\(addressPrefixLength) gw \(defaultGateway.maskedDescription) routes \(routes.map { $0.maskedDescription })"
@@ -140,22 +140,22 @@ public protocol SessionReply {
 
     /// The IPv4 settings.
     var ipv4: IPv4Settings? { get }
-
+    
     /// The IPv6 settings.
     var ipv6: IPv6Settings? { get }
-
+    
     /// The DNS servers set up for this session.
     var dnsServers: [String] { get }
-
+    
     /// The optional compression framing.
     var compressionFraming: SessionProxy.CompressionFraming? { get }
-
+    
     /// The optional keep-alive interval.
     var ping: Int? { get }
 
     /// The optional authentication token.
     var authToken: String? { get }
-
+    
     /// The optional 24-bit peer-id.
     var peerId: UInt32? { get }
 
@@ -166,54 +166,35 @@ public protocol SessionReply {
 extension SessionProxy {
 
     // XXX: parsing is very optimistic
-
+    
     struct PushReply: SessionReply, CustomStringConvertible {
         private enum Topology: String {
             case net30
-
+            
             case p2p
-
+            
             case subnet
         }
-
+        
         private static let prefix = "PUSH_REPLY,"
-<<<<<<< HEAD
-
-        private static let topologyRegexp = try! NSRegularExpression(pattern: "topology (net30|p2p|subnet)", options: [])
-
-        private static let ifconfigRegexp = try! NSRegularExpression(pattern: "ifconfig [\\d\\.]+ [\\d\\.]+", options: [])
-=======
         
         private static let topologyRegexp = NSRegularExpression("topology (net30|p2p|subnet)")
         
         private static let ifconfigRegexp = NSRegularExpression("ifconfig [\\d\\.]+ [\\d\\.]+")
->>>>>>> Update TunnelKit and adopt ovpn config parsing.
 
         private static let ifconfig6Regexp = NSRegularExpression("ifconfig-ipv6 [\\da-fA-F:]+/\\d+ [\\da-fA-F:]+")
 
-<<<<<<< HEAD
-        private static let gatewayRegexp = try! NSRegularExpression(pattern: "route-gateway [\\d\\.]+", options: [])
-
-        private static let routeRegexp = try! NSRegularExpression(pattern: "route [\\d\\.]+( [\\d\\.]+){0,2}", options: [])
-=======
         private static let gatewayRegexp = NSRegularExpression("route-gateway [\\d\\.]+")
         
         private static let routeRegexp = NSRegularExpression("route [\\d\\.]+( [\\d\\.]+){0,2}")
->>>>>>> Update TunnelKit and adopt ovpn config parsing.
 
         private static let route6Regexp = NSRegularExpression("route-ipv6 [\\da-fA-F:]+/\\d+( [\\da-fA-F:]+){0,2}")
 
         private static let dnsRegexp = NSRegularExpression("dhcp-option DNS6? [\\d\\.a-fA-F:]+")
 
-<<<<<<< HEAD
-        private static let compRegexp = try! NSRegularExpression(pattern: "comp(ress|-lzo)", options: [])
-
-        private static let pingRegexp = try! NSRegularExpression(pattern: "ping \\d+", options: [])
-=======
         private static let compRegexp = NSRegularExpression("comp(ress|-lzo)")
         
         private static let pingRegexp = NSRegularExpression("ping \\d+")
->>>>>>> Update TunnelKit and adopt ovpn config parsing.
 
         private static let authTokenRegexp = NSRegularExpression("auth-token [a-zA-Z0-9/=+]+")
 
@@ -224,21 +205,21 @@ extension SessionProxy {
         private let original: String
 
         let ipv4: IPv4Settings?
-
+        
         let ipv6: IPv6Settings?
-
+        
         let dnsServers: [String]
-
+        
         let compressionFraming: SessionProxy.CompressionFraming?
-
+        
         let ping: Int?
-
+        
         let authToken: String?
-
+        
         let peerId: UInt32?
-
+        
         let cipher: SessionProxy.Cipher?
-
+        
         init?(message: String) throws {
             guard message.hasPrefix(PushReply.prefix) else {
                 return nil
@@ -262,7 +243,7 @@ extension SessionProxy {
             var authToken: String?
             var peerId: UInt32?
             var cipher: SessionProxy.Cipher?
-
+            
             // MARK: Routing (IPv4)
 
             PushReply.topologyRegexp.enumerateArguments(in: message) {
@@ -283,11 +264,11 @@ extension SessionProxy {
             guard let ifconfig4Arguments = optIfconfig4Arguments, ifconfig4Arguments.count == 2 else {
                 throw SessionError.malformedPushReply
             }
-
+            
             PushReply.gatewayRegexp.enumerateArguments(in: message) {
                 optGateway4Arguments = $0
             }
-
+            
             //
             // excerpts from OpenVPN manpage
             //
@@ -303,7 +284,7 @@ extension SessionProxy {
             //
             switch topology {
             case .subnet:
-
+                
                 // default gateway required when topology is subnet
                 guard let gateway4Arguments = optGateway4Arguments, gateway4Arguments.count == 1 else {
                     throw SessionError.malformedPushReply
@@ -311,7 +292,7 @@ extension SessionProxy {
                 address4 = ifconfig4Arguments[0]
                 addressMask4 = ifconfig4Arguments[1]
                 defaultGateway4 = gateway4Arguments[0]
-
+                
             default:
                 address4 = ifconfig4Arguments[0]
                 addressMask4 = "255.255.255.255"
@@ -320,7 +301,7 @@ extension SessionProxy {
 
             PushReply.routeRegexp.enumerateArguments(in: message) {
                 let routeEntryArguments = $0
-
+                
                 let address = routeEntryArguments[0]
                 let mask: String?
                 let gateway: String?
@@ -345,7 +326,7 @@ extension SessionProxy {
             )
 
             // MARK: Routing (IPv6)
-
+            
             PushReply.ifconfig6Regexp.enumerateArguments(in: message) {
                 optIfconfig6Arguments = $0
             }
@@ -359,11 +340,11 @@ extension SessionProxy {
                 }
                 let address6 = address6Components[0]
                 let defaultGateway6 = ifconfig6Arguments[1]
-
+                
                 var routes6: [IPv6Settings.Route] = []
                 PushReply.route6Regexp.enumerateArguments(in: message) {
                     let routeEntryArguments = $0
-
+                    
                     let destinationComponents = routeEntryArguments[0].components(separatedBy: "/")
                     guard destinationComponents.count == 2 else {
 //                        throw SessionError.malformedPushReply
@@ -399,40 +380,40 @@ extension SessionProxy {
             PushReply.dnsRegexp.enumerateArguments(in: message) {
                 dnsServers.append($0[1])
             }
-
+            
             // MARK: Compression
-
+            
             PushReply.compRegexp.enumerateComponents(in: message) {
                 switch $0[0] {
                 case "comp-lzo":
                     compressionFraming = .compLZO
-
+                    
                 case "compress":
                     compressionFraming = .compress
-
+                    
                 default:
                     break
                 }
             }
-
+            
             // MARK: Keep-alive
-
+            
             PushReply.pingRegexp.enumerateArguments(in: message) {
                 ping = Int($0[0])
             }
-
+            
             // MARK: Authentication
 
             PushReply.authTokenRegexp.enumerateArguments(in: message) {
                 authToken = $0[0]
             }
-
+            
             PushReply.peerIdRegexp.enumerateArguments(in: message) {
                 peerId = UInt32($0[0])
             }
-
+            
             // MARK: NCP
-
+            
             PushReply.cipherRegexp.enumerateArguments(in: message) {
                 cipher = SessionProxy.Cipher(rawValue: $0[0].uppercased())
             }
@@ -444,9 +425,9 @@ extension SessionProxy {
             self.peerId = peerId
             self.cipher = cipher
         }
-
+        
         // MARK: CustomStringConvertible
-
+        
         var description: String {
             let stripped = NSMutableString(string: original)
             PushReply.authTokenRegexp.replaceMatches(

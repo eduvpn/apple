@@ -130,7 +130,7 @@
     if ((self = [super init])) {
         const char *stringBytes = [string cStringUsingEncoding:NSASCIIStringEncoding];
         const int stringLength = (int)string.length;
-
+        
         _count = stringLength + (nullTerminated ? 1 : 0);
         _bytes = allocate_safely(_count);
         memcpy(_bytes, stringBytes, stringLength);
@@ -165,10 +165,10 @@
     uint8_t *newBytes = allocate_safely(newCount);
     memcpy(newBytes, _bytes, _count);
     memcpy(newBytes + _count, other.bytes, other.count);
-
+    
     bzero(_bytes, _count);
     free(_bytes);
-
+    
     _bytes = newBytes;
     _count = newCount;
 }
@@ -176,13 +176,13 @@
 - (void)truncateToSize:(NSInteger)size
 {
     NSParameterAssert(size <= _count);
-
+    
     uint8_t *newBytes = allocate_safely(size);
     memcpy(newBytes, _bytes, size);
 
     bzero(_bytes, _count);
     free(_bytes);
-
+    
     _bytes = newBytes;
     _count = size;
 }
@@ -190,14 +190,14 @@
 - (void)removeUntilOffset:(NSInteger)until
 {
     NSParameterAssert(until <= _count);
-
+    
     const NSInteger newCount = _count - until;
     uint8_t *newBytes = allocate_safely(newCount);
     memcpy(newBytes, _bytes + until, newCount);
-
+    
     bzero(_bytes, _count);
     free(_bytes);
-
+    
     _bytes = newBytes;
     _count = newCount;
 }
@@ -215,7 +215,7 @@
     uint8_t *newBytes = allocate_safely(newCount);
     memcpy(newBytes, _bytes, _count);
     memcpy(newBytes + _count, other.bytes, other.count);
-
+    
     return [[ZeroingData alloc] initWithBytesNoCopy:newBytes count:newCount];
 }
 
@@ -226,7 +226,7 @@
 
     uint8_t *newBytes = allocate_safely(count);
     memcpy(newBytes, _bytes + offset, count);
-
+    
     return [[ZeroingData alloc] initWithBytesNoCopy:newBytes count:count];
 }
 
@@ -243,7 +243,7 @@
 - (uint16_t)networkUInt16ValueFromOffset:(NSInteger)from
 {
     NSParameterAssert(from + 2 <= _count);
-
+    
     uint16_t value = 0;
     value |= _bytes[from];
     value |= _bytes[from + 1] << 8;

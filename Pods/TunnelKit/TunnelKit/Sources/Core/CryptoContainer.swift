@@ -42,18 +42,18 @@ public struct CryptoContainer: Equatable {
 
     /// The content in PEM format (ASCII).
     public let pem: String
-
+    
     /// :nodoc:
     public init(pem: String) {
         self.pem = pem
     }
-
+    
     func write(to url: URL) throws {
         try pem.write(to: url, atomically: true, encoding: .ascii)
     }
 
     // MARK: Equatable
-
+    
     /// :nodoc:
     public static func ==(lhs: CryptoContainer, rhs: CryptoContainer) -> Bool {
         return lhs.pem == rhs.pem
@@ -67,7 +67,7 @@ extension CryptoContainer: Codable {
         let pem = try container.decode(String.self)
         self.init(pem: pem)
     }
-
+    
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         try container.encode(pem)

@@ -57,20 +57,20 @@ static const NSInteger CryptoCTRTagLength = 32;
 {
     NSParameterAssert(cipherName && [[cipherName uppercaseString] hasSuffix:@"CTR"]);
     NSParameterAssert(digestName);
-
+    
     self = [super init];
     if (self) {
         self.cipher = EVP_get_cipherbyname([cipherName cStringUsingEncoding:NSASCIIStringEncoding]);
         NSAssert(self.cipher, @"Unknown cipher '%@'", cipherName);
         self.digest = EVP_get_digestbyname([digestName cStringUsingEncoding:NSASCIIStringEncoding]);
         NSAssert(self.digest, @"Unknown digest '%@'", digestName);
-
+        
         self.cipherKeyLength = EVP_CIPHER_key_length(self.cipher);
         self.cipherIVLength = EVP_CIPHER_iv_length(self.cipher);
         // as seen in OpenVPN's crypto_openssl.c:md_kt_size()
         self.hmacKeyLength = EVP_MD_size(self.digest);
         NSAssert(EVP_MD_size(self.digest) == CryptoCTRTagLength, @"Expected digest size to be tag length (%ld)", CryptoCTRTagLength);
-
+        
         self.cipherCtxEnc = EVP_CIPHER_CTX_new();
         self.cipherCtxDec = EVP_CIPHER_CTX_new();
         self.hmacCtxEnc = HMAC_CTX_new();
@@ -88,7 +88,7 @@ static const NSInteger CryptoCTRTagLength = 32;
     HMAC_CTX_free(self.hmacCtxDec);
     bzero(self.bufferDecHMAC, CryptoCTRTagLength);
     free(self.bufferDecHMAC);
-
+    
     self.cipher = NULL;
     self.digest = NULL;
 }
@@ -115,10 +115,10 @@ static const NSInteger CryptoCTRTagLength = 32;
     NSParameterAssert(hmacKey);
     NSParameterAssert(hmacKey.count >= self.hmacKeyLength);
     NSParameterAssert(cipherKey.count >= self.cipherKeyLength);
-
+    
     EVP_CIPHER_CTX_reset(self.cipherCtxEnc);
     EVP_CipherInit(self.cipherCtxEnc, self.cipher, cipherKey.bytes, NULL, 1);
-
+    
     HMAC_CTX_reset(self.hmacCtxEnc);
     HMAC_Init_ex(self.hmacCtxEnc, hmacKey.bytes, self.hmacKeyLength, self.digest, NULL);
 }
@@ -131,20 +131,20 @@ static const NSInteger CryptoCTRTagLength = 32;
     int l1 = 0, l2 = 0;
     unsigned int l3 = 0;
     int code = 1;
-
+    
     TUNNEL_CRYPTO_TRACK_STATUS(code) HMAC_Init_ex(self.hmacCtxEnc, NULL, 0, NULL, NULL);
     TUNNEL_CRYPTO_TRACK_STATUS(code) HMAC_Update(self.hmacCtxEnc, flags->ad, flags->adLength);
     TUNNEL_CRYPTO_TRACK_STATUS(code) HMAC_Update(self.hmacCtxEnc, bytes, length);
     TUNNEL_CRYPTO_TRACK_STATUS(code) HMAC_Final(self.hmacCtxEnc, dest, &l3);
-
+    
     NSAssert(l3 == CryptoCTRTagLength, @"Incorrect digest size");
-
+    
     TUNNEL_CRYPTO_TRACK_STATUS(code) EVP_CipherInit(self.cipherCtxEnc, NULL, NULL, dest, -1);
     TUNNEL_CRYPTO_TRACK_STATUS(code) EVP_CipherUpdate(self.cipherCtxEnc, outEncrypted, &l1, bytes, (int)length);
     TUNNEL_CRYPTO_TRACK_STATUS(code) EVP_CipherFinal(self.cipherCtxEnc, outEncrypted + l1, &l2);
-
+    
     *destLength = CryptoCTRTagLength + l1 + l2;
-
+    
     TUNNEL_CRYPTO_RETURN_STATUS(code)
 }
 
@@ -161,10 +161,10 @@ static const NSInteger CryptoCTRTagLength = 32;
     NSParameterAssert(hmacKey);
     NSParameterAssert(hmacKey.count >= self.hmacKeyLength);
     NSParameterAssert(cipherKey.count >= self.cipherKeyLength);
-
+    
     EVP_CIPHER_CTX_reset(self.cipherCtxDec);
     EVP_CipherInit(self.cipherCtxDec, self.cipher, cipherKey.bytes, NULL, 0);
-
+    
     HMAC_CTX_reset(self.hmacCtxDec);
     HMAC_Init_ex(self.hmacCtxDec, hmacKey.bytes, self.hmacKeyLength, self.digest, NULL);
 }
@@ -185,21 +185,21 @@ static const NSInteger CryptoCTRTagLength = 32;
     TUNNEL_CRYPTO_TRACK_STATUS(code) EVP_CipherFinal(self.cipherCtxDec, dest + l1, &l2);
 
     *destLength = l1 + l2;
-
+    
     TUNNEL_CRYPTO_TRACK_STATUS(code) HMAC_Init_ex(self.hmacCtxDec, NULL, 0, NULL, NULL);
     TUNNEL_CRYPTO_TRACK_STATUS(code) HMAC_Update(self.hmacCtxDec, flags->ad, flags->adLength);
     TUNNEL_CRYPTO_TRACK_STATUS(code) HMAC_Update(self.hmacCtxDec, dest, *destLength);
     TUNNEL_CRYPTO_TRACK_STATUS(code) HMAC_Final(self.hmacCtxDec, self.bufferDecHMAC, &l3);
-
+    
     NSAssert(l3 == CryptoCTRTagLength, @"Incorrect digest size");
-
+    
     if (TUNNEL_CRYPTO_SUCCESS(code) && CRYPTO_memcmp(self.bufferDecHMAC, bytes, CryptoCTRTagLength) != 0) {
         if (error) {
             *error = TunnelKitErrorWithCode(TunnelKitErrorCodeCryptoBoxHMAC);
         }
         return NO;
     }
-
+    
     TUNNEL_CRYPTO_RETURN_STATUS(code)
 }
 

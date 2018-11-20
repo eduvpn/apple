@@ -56,8 +56,13 @@ PromiseKit 6, 5 and 4 support Xcode 8.3, 9.x and 10.0; Swift 3.1,
 Carthage and SwiftPM; ([CI Matrix](https://travis-ci.org/mxcl/PromiseKit)).
 
 For Carthage, SwiftPM, etc., or for instructions when using older Swifts or
-Xcodes, see our [Installation Guide]. We
+Xcodes, see our [Installation Guide]. We 
 recommend [Carthage](https://github.com/Carthage/Carthage).
+
+# PromiseKit is Thousands of Hours of Work
+
+This project is a labor of love: to the pursuit of making quality, reusable, compartmentalized software that has general use
+to the wider development community. It is a widely used project where every change, fix and plan can have serious repercussions to its users and thus must be carefully considered. If you use PromiseKit in your apps, please consider supporting its development with a donation to [my patreon](https://www.patreon.com/mxcl). Thank you.
 
 # Documentation
 

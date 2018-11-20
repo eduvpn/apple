@@ -5,7 +5,7 @@
 /**
  Suspends the active thread waiting on the provided promise.
 
- @return The value of the provided promise once resolved.
+ @return The value of the provided promise once resolved. 
  */
 id PMKHang(AnyPromise *promise) {
     if (promise.pending) {

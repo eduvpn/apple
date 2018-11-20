@@ -43,36 +43,36 @@ private let log = SwiftyBeaver.self
 
 class NETCPSocket: NSObject, GenericSocket {
     private static var linkContext = 0
-
+    
     private let impl: NWTCPConnection
-
+    
     init(impl: NWTCPConnection) {
         self.impl = impl
         isActive = false
         isShutdown = false
     }
-
+    
     // MARK: GenericSocket
-
+    
     private weak var queue: DispatchQueue?
-
+    
     private var isActive: Bool
-
+    
     private(set) var isShutdown: Bool
-
+    
     var remoteAddress: String? {
         return (impl.remoteAddress as? NWHostEndpoint)?.hostname
     }
-
+    
     var hasBetterPath: Bool {
         return impl.hasBetterPath
     }
-
+    
     weak var delegate: GenericSocketDelegate?
-
+    
     func observe(queue: DispatchQueue, activeTimeout: Int) {
         isActive = false
-
+        
         self.queue = queue
         queue.schedule(after: .milliseconds(activeTimeout)) { [weak self] in
             guard let _self = self else {
@@ -86,30 +86,30 @@ class NETCPSocket: NSObject, GenericSocket {
         impl.addObserver(self, forKeyPath: #keyPath(NWTCPConnection.state), options: [.initial, .new], context: &NETCPSocket.linkContext)
         impl.addObserver(self, forKeyPath: #keyPath(NWTCPConnection.hasBetterPath), options: .new, context: &NETCPSocket.linkContext)
     }
-
+    
     func unobserve() {
         impl.removeObserver(self, forKeyPath: #keyPath(NWTCPConnection.state), context: &NETCPSocket.linkContext)
         impl.removeObserver(self, forKeyPath: #keyPath(NWTCPConnection.hasBetterPath), context: &NETCPSocket.linkContext)
     }
-
+    
     func shutdown() {
         impl.writeClose()
         impl.cancel()
     }
-
+    
     func upgraded() -> GenericSocket? {
         guard impl.hasBetterPath else {
             return nil
         }
         return NETCPSocket(impl: NWTCPConnection(upgradeFor: impl))
     }
-
+    
     func link(withMTU mtu: Int) -> LinkInterface {
         return NETCPLink(impl: impl, mtu: mtu)
     }
-
+    
     // MARK: Connection KVO (any queue)
-
+    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         guard (context == &NETCPSocket.linkContext) else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
@@ -122,7 +122,7 @@ class NETCPSocket: NSObject, GenericSocket {
             self.observeValueInTunnelQueue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
     }
-
+    
     private func observeValueInTunnelQueue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
 //        if let keyPath = keyPath {
 //            log.debug("KVO change reported (\(anyPointer(object)).\(keyPath))")
@@ -141,7 +141,7 @@ class NETCPSocket: NSObject, GenericSocket {
             } else {
                 log.debug("Socket state is \(impl.state) (endpoint: \(impl.endpoint.maskedDescription) -> in progress)")
             }
-
+            
             switch impl.state {
             case .connected:
                 guard !isActive else {
@@ -149,26 +149,26 @@ class NETCPSocket: NSObject, GenericSocket {
                 }
                 isActive = true
                 delegate?.socketDidBecomeActive(self)
-
+                
             case .cancelled:
                 isShutdown = true
                 delegate?.socket(self, didShutdownWithFailure: false)
-
+                
             case .disconnected:
                 isShutdown = true
                 delegate?.socket(self, didShutdownWithFailure: true)
-
+                
             default:
                 break
             }
-
+            
         case #keyPath(NWTCPConnection.hasBetterPath):
             guard impl.hasBetterPath else {
                 break
             }
             log.debug("Socket has a better path")
             delegate?.socketHasBetterPath(self)
-
+            
         default:
             break
         }
@@ -177,9 +177,9 @@ class NETCPSocket: NSObject, GenericSocket {
 
 class NETCPLink: LinkInterface {
     private let impl: NWTCPConnection
-
+    
     private let maxPacketSize: Int
-
+    
     init(impl: NWTCPConnection, mtu: Int, maxPacketSize: Int? = nil) {
         self.impl = impl
         self.mtu = mtu
@@ -187,27 +187,27 @@ class NETCPLink: LinkInterface {
     }
 
     // MARK: LinkInterface
-
+    
     let isReliable: Bool = true
 
     var remoteAddress: String? {
         return (impl.remoteAddress as? NWHostEndpoint)?.hostname
     }
-
+    
     let mtu: Int
-
+    
     var packetBufferSize: Int {
         return maxPacketSize
     }
-
+    
     let negotiationTimeout: TimeInterval = 10.0
-
+    
     let hardResetTimeout: TimeInterval = 5.0
-
+    
     func setReadHandler(queue: DispatchQueue, _ handler: @escaping ([Data]?, Error?) -> Void) {
         loopReadPackets(queue, Data(), handler)
     }
-
+    
     private func loopReadPackets(_ queue: DispatchQueue, _ buffer: Data, _ handler: @escaping ([Data]?, Error?) -> Void) {
 
         // WARNING: runs in Network.framework queue
@@ -238,7 +238,7 @@ class NETCPLink: LinkInterface {
             completionHandler?(error)
         }
     }
-
+    
     func writePackets(_ packets: [Data], completionHandler: ((Error?) -> Void)?) {
         let stream = PacketStream.stream(from: packets)
         impl.write(stream) { (error) in

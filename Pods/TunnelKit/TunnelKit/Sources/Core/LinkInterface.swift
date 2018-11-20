@@ -48,7 +48,7 @@ public protocol LinkInterface: IOInterface {
 
     /// The maximum size of a packet.
     var mtu: Int { get }
-
+    
     /// The number of packets that this interface is able to bufferize.
     var packetBufferSize: Int { get }
 

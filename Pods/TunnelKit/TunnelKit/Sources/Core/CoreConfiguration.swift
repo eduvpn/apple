@@ -40,7 +40,7 @@ import CommonCrypto
 
 struct CoreConfiguration {
     static let identifier = "com.algoritmico.TunnelKit"
-
+    
     static let version: String = {
         let bundle = Bundle(for: SessionProxy.self)
         guard let info = bundle.infoDictionary else {
@@ -55,27 +55,27 @@ struct CoreConfiguration {
 //        return "\(version) (\(build))"
         return info["CFBundleShortVersionString"] as? String ?? ""
     }()
-
+    
     // MARK: Session
-
+    
     static let logsSensitiveData = false
 
     static let masksPrivateData = true
-
+    
     static let usesReplayProtection = true
 
     static let tickInterval = 0.2
-
+    
     static let pingTimeout = 120.0
-
+    
     static let retransmissionLimit = 0.1
-
+    
     static let softResetDelay = 5.0
-
+    
     static let softNegotiationTimeout = 120.0
 
     // MARK: Authentication
-
+    
     static let peerInfo = [
         "IV_VER=2.4",
         "IV_PLAT=mac",
@@ -85,19 +85,19 @@ struct CoreConfiguration {
         "IV_SSL=\(CryptoBox.version())",
         ""
     ].joined(separator: "\n")
-
+    
     static let randomLength = 32
-
+    
     // MARK: Keys
-
+    
     static let label1 = "OpenVPN master secret"
-
+    
     static let label2 = "OpenVPN key expansion"
-
+    
     static let preMasterLength = 48
-
+    
     static let keyLength = 64
-
+    
     static let keysCount = 4
 }
 

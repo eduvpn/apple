@@ -27,10 +27,10 @@ import Foundation
 
 /// A socket type between UDP (recommended) and TCP.
 public enum SocketType: String {
-
+    
     /// UDP socket type.
     case udp = "UDP"
-
+    
     /// TCP socket type.
     case tcp = "TCP"
 }

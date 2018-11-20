@@ -108,7 +108,7 @@ const NSInteger CryptoCBCMaxHMACLength = 100;
     HMAC_CTX_free(self.hmacCtxDec);
     bzero(self.bufferDecHMAC, CryptoCBCMaxHMACLength);
     free(self.bufferDecHMAC);
-
+    
     self.cipher = NULL;
     self.digest = NULL;
 }
@@ -156,7 +156,7 @@ const NSInteger CryptoCBCMaxHMACLength = 100;
             }
             return NO;
         }
-
+        
         TUNNEL_CRYPTO_TRACK_STATUS(code) EVP_CipherInit(self.cipherCtxEnc, NULL, NULL, outIV, -1);
         TUNNEL_CRYPTO_TRACK_STATUS(code) EVP_CipherUpdate(self.cipherCtxEnc, outEncrypted, &l1, bytes, (int)length);
         TUNNEL_CRYPTO_TRACK_STATUS(code) EVP_CipherFinal(self.cipherCtxEnc, outEncrypted + l1, &l2);
@@ -167,13 +167,13 @@ const NSInteger CryptoCBCMaxHMACLength = 100;
         memcpy(outEncrypted, bytes, length);
         l1 = (int)length;
     }
-
+    
     TUNNEL_CRYPTO_TRACK_STATUS(code) HMAC_Init_ex(self.hmacCtxEnc, NULL, 0, NULL, NULL);
     TUNNEL_CRYPTO_TRACK_STATUS(code) HMAC_Update(self.hmacCtxEnc, outIV, l1 + l2 + self.cipherIVLength);
     TUNNEL_CRYPTO_TRACK_STATUS(code) HMAC_Final(self.hmacCtxEnc, dest, &l3);
-
+    
     *destLength = l1 + l2 + self.cipherIVLength + self.digestLength;
-
+    
     TUNNEL_CRYPTO_RETURN_STATUS(code)
 }
 
@@ -195,7 +195,7 @@ const NSInteger CryptoCBCMaxHMACLength = 100;
         EVP_CIPHER_CTX_reset(self.cipherCtxDec);
         EVP_CipherInit(self.cipherCtxDec, self.cipher, cipherKey.bytes, NULL, 0);
     }
-
+    
     HMAC_CTX_reset(self.hmacCtxDec);
     HMAC_Init_ex(self.hmacCtxDec, hmacKey.bytes, self.hmacKeyLength, self.digest, NULL);
 }
@@ -208,18 +208,18 @@ const NSInteger CryptoCBCMaxHMACLength = 100;
     const uint8_t *encrypted = bytes + self.digestLength + self.cipherIVLength;
     int l1 = 0, l2 = 0;
     int code = 1;
-
+    
     TUNNEL_CRYPTO_TRACK_STATUS(code) HMAC_Init_ex(self.hmacCtxDec, NULL, 0, NULL, NULL);
     TUNNEL_CRYPTO_TRACK_STATUS(code) HMAC_Update(self.hmacCtxDec, bytes + self.digestLength, length - self.digestLength);
     TUNNEL_CRYPTO_TRACK_STATUS(code) HMAC_Final(self.hmacCtxDec, self.bufferDecHMAC, (unsigned *)&l1);
-
+    
     if (TUNNEL_CRYPTO_SUCCESS(code) && CRYPTO_memcmp(self.bufferDecHMAC, bytes, self.digestLength) != 0) {
         if (error) {
             *error = TunnelKitErrorWithCode(TunnelKitErrorCodeCryptoBoxHMAC);
         }
         return NO;
     }
-
+    
     TUNNEL_CRYPTO_TRACK_STATUS(code) EVP_CipherInit(self.cipherCtxDec, NULL, NULL, iv, -1);
     TUNNEL_CRYPTO_TRACK_STATUS(code) EVP_CipherUpdate(self.cipherCtxDec, dest, &l1, encrypted, (int)length - self.digestLength - self.cipherIVLength);
     TUNNEL_CRYPTO_TRACK_STATUS(code) EVP_CipherFinal(self.cipherCtxDec, dest + l1, &l2);
@@ -233,11 +233,11 @@ const NSInteger CryptoCBCMaxHMACLength = 100;
 {
     int l1 = 0;
     int code = 1;
-
+    
     TUNNEL_CRYPTO_TRACK_STATUS(code) HMAC_Init_ex(self.hmacCtxDec, NULL, 0, NULL, NULL);
     TUNNEL_CRYPTO_TRACK_STATUS(code) HMAC_Update(self.hmacCtxDec, bytes + self.digestLength, length - self.digestLength);
     TUNNEL_CRYPTO_TRACK_STATUS(code) HMAC_Final(self.hmacCtxDec, self.bufferDecHMAC, (unsigned *)&l1);
-
+    
     if (TUNNEL_CRYPTO_SUCCESS(code) && CRYPTO_memcmp(self.bufferDecHMAC, bytes, self.digestLength) != 0) {
         if (error) {
             *error = TunnelKitErrorWithCode(TunnelKitErrorCodeCryptoBoxHMAC);
@@ -318,9 +318,9 @@ const NSInteger CryptoCBCMaxHMACLength = 100;
                                         destLength:&encryptedPacketLength
                                              flags:NULL
                                              error:error];
-
+    
     NSAssert(encryptedPacketLength <= capacity, @"Did not allocate enough bytes for payload");
-
+    
     if (!success) {
         return nil;
     }

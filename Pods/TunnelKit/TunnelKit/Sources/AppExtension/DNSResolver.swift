@@ -65,14 +65,14 @@ public class DNSResolver {
             pendingHandler = nil
         }
     }
-
+    
     private static func didResolve(host: CFHost, completionHandler: @escaping ([String]?, Error?) -> Void) {
         var success: DarwinBoolean = false
         guard let rawAddresses = CFHostGetAddressing(host, &success)?.takeUnretainedValue() as Array? else {
             completionHandler(nil, nil)
             return
         }
-
+        
         var ipAddresses: [String] = []
         for case var rawAddress as Data in rawAddresses {
             var ipAddress = [CChar](repeating: 0, count: Int(NI_MAXHOST))
@@ -109,7 +109,7 @@ public class DNSResolver {
         }
         return String(cString: result)
     }
-
+    
     public static func ipv4(fromString string: String) -> UInt32? {
         var addr = in_addr()
         let result = string.withCString {

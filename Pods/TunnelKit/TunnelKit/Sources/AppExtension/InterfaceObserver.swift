@@ -47,11 +47,11 @@ extension NSNotification.Name {
 
 class InterfaceObserver: NSObject {
     private var queue: DispatchQueue?
-
+    
     private var timer: DispatchSourceTimer?
-
+    
     private var lastWifiName: String?
-
+    
     func start(queue: DispatchQueue) {
         self.queue = queue
 
@@ -64,7 +64,7 @@ class InterfaceObserver: NSObject {
 
         self.timer = timer
     }
-
+    
     func stop() {
         timer?.cancel()
         timer = nil

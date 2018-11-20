@@ -5,15 +5,15 @@ public protocol CatchMixin: Thenable
 {}
 
 public extension CatchMixin {
-
+    
     /**
      The provided closure executes when this promise rejects.
-
+     
      Rejecting a promise cascades: rejecting all subsequent promises (unless
      recover is invoked) thus you will typically place your catch at the end
      of a chain. Often utility promises will not have a catch, instead
      delegating the error handling to the caller.
-
+     
      - Parameter on: The queue to which the provided closure dispatches.
      - Parameter policy: The default policy does not execute your handler for cancellation errors.
      - Parameter execute: The handler to execute if this promise is rejected.
@@ -54,10 +54,10 @@ public class PMKFinalizer {
 
 
 public extension CatchMixin {
-
+    
     /**
      The provided closure executes when this promise rejects.
-
+     
      Unlike `catch`, `recover` continues the chain.
      Use `recover` in circumstances where recovering the chain from certain errors is a possibility. For example:
 
@@ -67,7 +67,7 @@ public extension CatchMixin {
              guard error == CLError.unknownLocation else { throw error }
              return .value(CLLocation.chicago)
          }
-
+     
      - Parameter on: The queue to which the provided closure dispatches.
      - Parameter body: The handler to execute if this promise is rejected.
      - SeeAlso: [Cancellation](http://promisekit.org/docs/)
@@ -123,7 +123,7 @@ public extension CatchMixin {
 
     /**
      The provided closure executes when this promise resolves, whether it rejects or not.
-
+     
          firstly {
              UIApplication.shared.networkActivityIndicatorVisible = true
          }.done {
@@ -133,7 +133,7 @@ public extension CatchMixin {
          }.catch {
              //…
          }
-
+     
      - Parameter on: The queue to which the provided closure dispatches.
      - Parameter body: The closure that executes when this promise resolves.
      - Returns: A new promise, resolved with this promise’s resolution.
@@ -195,12 +195,12 @@ public extension CatchMixin {
 
 
 public extension CatchMixin where T == Void {
-
+    
     /**
      The provided closure executes when this promise rejects.
-
+     
      This variant of `recover` is specialized for `Void` promises and de-errors your chain returning a `Guarantee`, thus you cannot `throw` and you must handle all errors including cancellation.
-
+     
      - Parameter on: The queue to which the provided closure dispatches.
      - Parameter body: The handler to execute if this promise is rejected.
      - SeeAlso: [Cancellation](http://promisekit.org/docs/)
@@ -224,9 +224,9 @@ public extension CatchMixin where T == Void {
 
     /**
      The provided closure executes when this promise rejects.
-
+     
      This variant of `recover` ensures that no error is thrown from the handler and allows specifying a catch policy.
-
+     
      - Parameter on: The queue to which the provided closure dispatches.
      - Parameter body: The handler to execute if this promise is rejected.
      - SeeAlso: [Cancellation](http://promisekit.org/docs/)

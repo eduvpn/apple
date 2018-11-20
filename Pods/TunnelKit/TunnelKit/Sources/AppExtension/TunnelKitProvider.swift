@@ -45,43 +45,43 @@ private let log = SwiftyBeaver.self
  Packet Tunnel Provider extension both on iOS and macOS.
  */
 open class TunnelKitProvider: NEPacketTunnelProvider {
-
+    
     // MARK: Tweaks
-
+    
     /// An optional string describing host app version on tunnel start.
     public var appVersion: String?
 
     /// The log separator between sessions.
     public var logSeparator = "--- EOF ---"
-
+    
     /// The maximum number of lines in the log.
     public var maxLogLines = 1000
-
+    
     /// The number of milliseconds after which a DNS resolution fails.
     public var dnsTimeout = 3000
-
+    
     /// The number of milliseconds after which the tunnel gives up on a connection attempt.
     public var socketTimeout = 5000
-
+    
     /// The number of milliseconds after which the tunnel is shut down forcibly.
     public var shutdownTimeout = 2000
-
+    
     /// The number of milliseconds after which a reconnection attempt is issued.
     public var reconnectionDelay = 1000
-
+    
     /// The number of link failures after which the tunnel is expected to die.
     public var maxLinkFailures = 3
 
     // MARK: Constants
-
+    
     private let memoryLog = MemoryDestination()
 
     private let observer = InterfaceObserver()
-
+    
     private let tunnelQueue = DispatchQueue(label: TunnelKitProvider.description())
-
+    
     private let prngSeedLength = 64
-
+    
     private var cachesURL: URL {
         guard let appGroup = appGroup else {
             fatalError("Accessing cachesURL before parsing app group")
@@ -97,23 +97,23 @@ open class TunnelKitProvider: NEPacketTunnelProvider {
     private var appGroup: String!
 
     private lazy var defaults = UserDefaults(suiteName: appGroup)
-
+    
     private var cfg: Configuration!
-
+    
     private var strategy: ConnectionStrategy!
-
+    
     // MARK: Internal state
 
     private var proxy: SessionProxy?
-
+    
     private var socket: GenericSocket?
 
     private var pendingStartHandler: ((Error?) -> Void)?
-
+    
     private var pendingStopHandler: (() -> Void)?
-
+    
     // MARK: NEPacketTunnelProvider (XPC queue)
-
+    
     /// :nodoc:
     open override func startTunnel(options: [String : NSObject]? = nil, completionHandler: @escaping (Error?) -> Void) {
 
@@ -138,7 +138,7 @@ open class TunnelKitProvider: NEPacketTunnelProvider {
                 switch te {
                 case .parameter(let name):
                     message = "Tunnel configuration incomplete: \(name)"
-
+                    
                 default:
                     break
                 }
@@ -164,7 +164,7 @@ open class TunnelKitProvider: NEPacketTunnelProvider {
             if let i = existingLog.index(of: logSeparator) {
                 existingLog.removeFirst(i + 2)
             }
-
+            
             existingLog.append("")
             existingLog.append(logSeparator)
             existingLog.append("")
@@ -175,17 +175,17 @@ open class TunnelKitProvider: NEPacketTunnelProvider {
             debug: cfg.shouldDebug,
             customFormat: cfg.debugLogFormat
         )
-
+        
         log.info("Starting tunnel...")
         cfg.clearLastError(in: appGroup)
-
+        
         guard SessionProxy.EncryptionBridge.prepareRandomNumberGenerator(seedLength: prngSeedLength) else {
             completionHandler(ProviderConfigurationError.prngInitialization)
             return
         }
 
         cfg.print(appVersion: appVersion)
-
+        
         let proxy: SessionProxy
         do {
             proxy = try SessionProxy(queue: tunnelQueue, configuration: cfg.sessionConfiguration, cachesURL: cachesURL)
@@ -204,7 +204,7 @@ open class TunnelKitProvider: NEPacketTunnelProvider {
             self.connectTunnel()
         }
     }
-
+    
     /// :nodoc:
     open override func stopTunnel(with reason: NEProviderStopReason, completionHandler: @escaping () -> Void) {
         pendingStartHandler = nil
@@ -230,7 +230,7 @@ open class TunnelKitProvider: NEPacketTunnelProvider {
             proxy.shutdown(error: nil)
         }
     }
-
+    
     /// :nodoc:
     open override func handleAppMessage(_ messageData: Data, completionHandler: ((Data?) -> Void)? = nil) {
         var response: Data?
@@ -245,25 +245,25 @@ open class TunnelKitProvider: NEPacketTunnelProvider {
                 response?.append(UInt64(dataCount.0)) // inbound
                 response?.append(UInt64(dataCount.1)) // outbound
             }
-
+            
         default:
             break
         }
         completionHandler?(response)
     }
-
+    
     // MARK: Connection (tunnel queue)
-
+    
     private func connectTunnel(upgradedSocket: GenericSocket? = nil, preferredAddress: String? = nil) {
         log.info("Creating link session")
-
+        
         // reuse upgraded socket
         if let upgradedSocket = upgradedSocket, !upgradedSocket.isShutdown {
             log.debug("Socket follows a path upgrade")
             connectTunnel(via: upgradedSocket)
             return
         }
-
+        
         strategy.createSocket(from: self, timeout: dnsTimeout, preferredAddress: preferredAddress, queue: tunnelQueue) { (socket, error) in
             guard let socket = socket else {
                 self.disposeTunnel(error: error)
@@ -272,7 +272,7 @@ open class TunnelKitProvider: NEPacketTunnelProvider {
             self.connectTunnel(via: socket)
         }
     }
-
+    
     private func connectTunnel(via socket: GenericSocket) {
         log.info("Will connect to \(socket)")
         cfg.clearLastError(in: appGroup)
@@ -282,16 +282,16 @@ open class TunnelKitProvider: NEPacketTunnelProvider {
         self.socket?.delegate = self
         self.socket?.observe(queue: tunnelQueue, activeTimeout: socketTimeout)
     }
-
+    
     private func finishTunnelDisconnection(error: Error?) {
         if let proxy = proxy, !(reasserting && proxy.canRebindLink()) {
             proxy.cleanup()
         }
-
+        
         socket?.delegate = nil
         socket?.unobserve()
         socket = nil
-
+        
         if let error = error {
             log.error("Tunnel did stop (error: \(error))")
             setErrorStatus(with: error)
@@ -299,13 +299,13 @@ open class TunnelKitProvider: NEPacketTunnelProvider {
             log.info("Tunnel did stop on request")
         }
     }
-
+    
     private func disposeTunnel(error: Error?) {
         flushLog()
 
         // failed to start
         if (pendingStartHandler != nil) {
-
+            
             //
             // CAUTION
             //
@@ -338,9 +338,9 @@ open class TunnelKitProvider: NEPacketTunnelProvider {
 }
 
 extension TunnelKitProvider: GenericSocketDelegate {
-
+    
     // MARK: GenericSocketDelegate (tunnel queue)
-
+    
     func socketDidTimeout(_ socket: GenericSocket) {
         log.debug("Socket timed out waiting for activity, cancelling...")
         reasserting = true
@@ -354,7 +354,7 @@ extension TunnelKitProvider: GenericSocketDelegate {
             }
         }
     }
-
+    
     func socketDidBecomeActive(_ socket: GenericSocket) {
         guard let proxy = proxy else {
             return
@@ -366,12 +366,12 @@ extension TunnelKitProvider: GenericSocketDelegate {
             proxy.setLink(socket.link(withMTU: cfg.mtu))
         }
     }
-
+    
     func socket(_ socket: GenericSocket, didShutdownWithFailure failure: Bool) {
         guard let proxy = proxy else {
             return
         }
-
+        
         var shutdownError: Error?
         let didTimeoutNegotiation: Bool
         var upgradedSocket: GenericSocket?
@@ -382,7 +382,7 @@ extension TunnelKitProvider: GenericSocketDelegate {
             shutdownError = ProviderError.linkError
         }
         didTimeoutNegotiation = (shutdownError as? SessionError == .negotiationTimeout)
-
+        
         // only try upgrade on network errors
         if shutdownError as? SessionError == nil {
             upgradedSocket = socket.upgraded()
@@ -411,7 +411,7 @@ extension TunnelKitProvider: GenericSocketDelegate {
         // shut down
         disposeTunnel(error: shutdownError)
     }
-
+    
     func socketHasBetterPath(_ socket: GenericSocket) {
         log.debug("Stopping tunnel due to a new better path")
         logCurrentSSID()
@@ -420,21 +420,21 @@ extension TunnelKitProvider: GenericSocketDelegate {
 }
 
 extension TunnelKitProvider: SessionProxyDelegate {
-
+    
     // MARK: SessionProxyDelegate (tunnel queue)
-
+    
     /// :nodoc:
     public func sessionDidStart(_ proxy: SessionProxy, remoteAddress: String, reply: SessionReply) {
         reasserting = false
-
+        
         log.info("Session did start")
-
+        
         log.info("Returned ifconfig parameters:")
         log.info("\tRemote: \(remoteAddress.maskedDescription)")
         log.info("\tIPv4: \(reply.ipv4?.description ?? "not configured")")
         log.info("\tIPv6: \(reply.ipv6?.description ?? "not configured")")
         log.info("\tDNS: \(reply.dnsServers.map { $0.maskedDescription })")
-
+        
         bringNetworkUp(remoteAddress: remoteAddress, reply: reply) { (error) in
             if let error = error {
                 log.error("Failed to configure tunnel: \(error)")
@@ -442,16 +442,16 @@ extension TunnelKitProvider: SessionProxyDelegate {
                 self.pendingStartHandler = nil
                 return
             }
-
+            
             log.info("Tunnel interface is now UP")
-
+            
             proxy.setTunnel(tunnel: NETunnelInterface(impl: self.packetFlow, isIPv6: reply.ipv6 != nil))
 
             self.pendingStartHandler?(nil)
             self.pendingStartHandler = nil
         }
     }
-
+    
     /// :nodoc:
     public func sessionDidStop(_: SessionProxy, shouldReconnect: Bool) {
         log.info("Session did stop")
@@ -461,22 +461,22 @@ extension TunnelKitProvider: SessionProxyDelegate {
         }
         socket?.shutdown()
     }
-
+    
     private func bringNetworkUp(remoteAddress: String, reply: SessionReply, completionHandler: @escaping (Error?) -> Void) {
-
+        
         // route all traffic to VPN
         var ipv4Settings: NEIPv4Settings?
         if let ipv4 = reply.ipv4 {
             let defaultRoute = NEIPv4Route.default()
             defaultRoute.gatewayAddress = ipv4.defaultGateway
-
+            
             var routes: [NEIPv4Route] = [defaultRoute]
             for r in ipv4.routes {
                 let ipv4Route = NEIPv4Route(destinationAddress: r.destination, subnetMask: r.mask)
                 ipv4Route.gatewayAddress = r.gateway ?? ipv4.defaultGateway
                 routes.append(ipv4Route)
             }
-
+            
             ipv4Settings = NEIPv4Settings(addresses: [ipv4.address], subnetMasks: [ipv4.addressMask])
             ipv4Settings?.includedRoutes = routes
             ipv4Settings?.excludedRoutes = []
@@ -498,14 +498,14 @@ extension TunnelKitProvider: SessionProxyDelegate {
             ipv6Settings?.includedRoutes = [defaultRoute]
             ipv6Settings?.excludedRoutes = []
         }
-
+        
         let dnsSettings = NEDNSSettings(servers: reply.dnsServers)
-
+        
         let newSettings = NEPacketTunnelNetworkSettings(tunnelRemoteAddress: remoteAddress)
         newSettings.ipv4Settings = ipv4Settings
         newSettings.ipv6Settings = ipv6Settings
         newSettings.dnsSettings = dnsSettings
-
+        
         setTunnelNetworkSettings(newSettings, completionHandler: completionHandler)
     }
 }
@@ -518,13 +518,13 @@ extension TunnelKitProvider {
         }
         return true
     }
-
+    
     // MARK: Logging
-
+    
     private func configureLogging(debug: Bool, customFormat: String? = nil) {
         let logLevel: SwiftyBeaver.Level = (debug ? .debug : .info)
         let logFormat = customFormat ?? "$Dyyyy-MM-dd HH:mm:ss.SSS$d $L $N.$F:$l - $M"
-
+        
         if debug {
             let console = ConsoleDestination()
             console.useNSLog = true
@@ -532,21 +532,21 @@ extension TunnelKitProvider {
             console.format = logFormat
             log.addDestination(console)
         }
-
+        
         let memory = memoryLog
         memory.minLevel = logLevel
         memory.format = logFormat
         memory.maxLines = maxLogLines
         log.addDestination(memoryLog)
     }
-
+    
     private func flushLog() {
         log.debug("Flushing log...")
         if let url = cfg.urlForLog(in: appGroup) {
             memoryLog.flush(to: url)
         }
     }
-
+    
     private func logCurrentSSID() {
         if let ssid = observer.currentWifiNetworkName() {
             log.debug("Current SSID: '\(ssid.maskedDescription)'")
@@ -554,36 +554,36 @@ extension TunnelKitProvider {
             log.debug("Current SSID: none (disconnected from WiFi)")
         }
     }
-
+    
 //    private func anyPointer(_ object: Any?) -> UnsafeMutableRawPointer {
 //        let anyObject = object as AnyObject
 //        return Unmanaged<AnyObject>.passUnretained(anyObject).toOpaque()
 //    }
 
     // MARK: Errors
-
+    
     private func setErrorStatus(with error: Error) {
         defaults?.set(unifiedError(from: error).rawValue, forKey: Configuration.lastErrorKey)
     }
-
+    
     private func unifiedError(from error: Error) -> ProviderError {
         if let te = error.tunnelKitErrorCode() {
             switch te {
             case .cryptoBoxRandomGenerator, .cryptoBoxAlgorithm:
                 return .encryptionInitialization
-
+                
             case .cryptoBoxEncryption, .cryptoBoxHMAC:
                 return .encryptionData
-
+                
             case .tlsBoxCA, .tlsBoxClientCertificate, .tlsBoxClientKey:
                 return .tlsInitialization
-
+                
             case .tlsBoxServerCertificate, .tlsBoxServerEKU:
                 return .tlsServerVerification
-
+                
             case .tlsBoxHandshake:
                 return .tlsHandshake
-
+                
             case .dataPathOverflow, .dataPathPeerIdMismatch:
                 return .unexpectedReply
             }
@@ -591,10 +591,10 @@ extension TunnelKitProvider {
             switch se {
             case .negotiationTimeout, .pingTimeout, .staleSession:
                 return .timeout
-
+                
             case .badCredentials:
                 return .authentication
-
+                
             case .failedLinkWrite:
                 return .linkError
 

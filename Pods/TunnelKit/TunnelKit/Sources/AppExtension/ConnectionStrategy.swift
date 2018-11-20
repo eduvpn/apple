@@ -47,20 +47,14 @@ class ConnectionStrategy {
     private let prefersResolvedAddresses: Bool
 
     private var resolvedAddresses: [String]?
-<<<<<<< HEAD
-
-    private let endpointProtocols: [TunnelKitProvider.EndpointProtocol]
-
-=======
     
     private let endpointProtocols: [EndpointProtocol]
     
->>>>>>> Update TunnelKit and adopt ovpn config parsing.
     private var currentProtocolIndex = 0
 
     init(hostname: String, configuration: TunnelKitProvider.Configuration) {
         precondition(!configuration.prefersResolvedAddresses || !(configuration.resolvedAddresses?.isEmpty ?? true))
-
+        
         self.hostname = hostname
         prefersResolvedAddresses = configuration.prefersResolvedAddresses
         resolvedAddresses = configuration.resolvedAddresses
@@ -73,7 +67,7 @@ class ConnectionStrategy {
         preferredAddress: String? = nil,
         queue: DispatchQueue,
         completionHandler: @escaping (GenericSocket?, Error?) -> Void) {
-
+        
         // reuse preferred address
         if let preferredAddress = preferredAddress {
             log.debug("Pick preferred address: \(preferredAddress.maskedDescription)")
@@ -81,7 +75,7 @@ class ConnectionStrategy {
             completionHandler(socket, nil)
             return
         }
-
+        
         // use any resolved address
         if prefersResolvedAddresses, let resolvedAddress = anyResolvedAddress() {
             log.debug("Pick resolved address: \(resolvedAddress.maskedDescription)")
@@ -89,11 +83,11 @@ class ConnectionStrategy {
             completionHandler(socket, nil)
             return
         }
-
+        
         // fall back to DNS
         log.debug("DNS resolve hostname: \(hostname.maskedDescription)")
         DNSResolver.resolve(hostname, timeout: timeout, queue: queue) { (addresses, error) in
-
+            
             // refresh resolved addresses
             if let resolved = addresses, !resolved.isEmpty {
                 self.resolvedAddresses = resolved
@@ -124,13 +118,8 @@ class ConnectionStrategy {
         log.debug("Fall back to next protocol: \(currentProtocol())")
         return true
     }
-<<<<<<< HEAD
-
-    private func currentProtocol() -> TunnelKitProvider.EndpointProtocol {
-=======
     
     private func currentProtocol() -> EndpointProtocol {
->>>>>>> Update TunnelKit and adopt ovpn config parsing.
         return endpointProtocols[currentProtocolIndex]
     }
 
@@ -157,7 +146,7 @@ private extension NEProvider {
         case .udp:
             let impl = createUDPSession(to: endpoint, from: nil)
             return NEUDPSocket(impl: impl)
-
+            
         case .tcp:
             let impl = createTCPConnection(to: endpoint, enableTLS: false, tlsParameters: nil, delegate: nil)
             return NETCPSocket(impl: impl)

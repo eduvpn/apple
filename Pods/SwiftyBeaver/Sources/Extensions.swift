@@ -17,7 +17,7 @@ extension String {
             return self.characters.count
         #endif
     }
-
+    
     /// cross-Swift-compatible first character
     var firstChar: Character? {
         #if swift(>=3.2)
@@ -26,7 +26,7 @@ extension String {
             return self.characters.first
         #endif
     }
-
+    
     /// cross-Swift-compatible last character
     var lastChar: Character? {
         #if swift(>=3.2)
@@ -35,7 +35,7 @@ extension String {
             return self.characters.last
         #endif
     }
-
+    
     /// cross-Swift-compatible index
     func find(_ char: Character) ->  Index? {
         #if swift(>=3.2)
@@ -45,3 +45,4 @@ extension String {
         #endif
     }
 }
+

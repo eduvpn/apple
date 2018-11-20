@@ -85,19 +85,19 @@
     NSParameterAssert(encrypter);
     NSParameterAssert(decrypter);
     NSParameterAssert(maxPackets > 0);
-
+    
     peerId &= 0xffffff;
-
+    
     if ((self = [super init])) {
         self.encrypter = encrypter;
         self.decrypter = decrypter;
-
+        
         self.maxPacketId = UINT32_MAX - 10000;
         self.outPackets = [[NSMutableArray alloc] initWithCapacity:maxPackets];
         self.outPacketId = 0;
         self.encBufferCapacity = 65000;
         self.encBuffer = allocate_safely(self.encBufferCapacity);
-
+        
         self.inPackets = [[NSMutableArray alloc] initWithCapacity:maxPackets];
         self.decBufferCapacity = 65000;
         self.decBuffer = allocate_safely(self.decBufferCapacity);
@@ -204,22 +204,22 @@
 - (NSArray<NSData *> *)encryptPackets:(NSArray<NSData *> *)packets key:(uint8_t)key error:(NSError *__autoreleasing *)error
 {
 //    NSAssert(self.encrypter.peerId == self.decrypter.peerId, @"Peer-id mismatch in DataPath encrypter/decrypter");
-
+    
     if (self.outPacketId > self.maxPacketId) {
         if (error) {
             *error = TunnelKitErrorWithCode(TunnelKitErrorCodeDataPathOverflow);
         }
         return nil;
     }
-
+    
     [self.outPackets removeAllObjects];
-
+    
     for (NSData *payload in packets) {
         self.outPacketId += 1;
-
+        
         // may resize encBuffer to hold encrypted payload
         [self adjustEncBufferToPacketSize:(int)payload.length];
-
+        
         uint8_t *dataPacketBytes = self.encBufferAligned;
         NSInteger dataPacketLength;
         [self.encrypter assembleDataPacketWithBlock:self.assemblePayloadBlock
@@ -228,7 +228,7 @@
                                                into:dataPacketBytes
                                              length:&dataPacketLength];
         MSSFix(dataPacketBytes, dataPacketLength);
-
+        
         NSData *encryptedDataPacket = [self.encrypter encryptedDataPacketWithKey:key
                                                                         packetId:self.outPacketId
                                                                      packetBytes:dataPacketBytes
@@ -237,10 +237,10 @@
         if (!encryptedDataPacket) {
             return nil;
         }
-
+        
         [self.outPackets addObject:encryptedDataPacket];
     }
-
+    
     return self.outPackets;
 }
 
@@ -249,12 +249,12 @@
 //    NSAssert(self.encrypter.peerId == self.decrypter.peerId, @"Peer-id mismatch in DataPath encrypter/decrypter");
 
     [self.inPackets removeAllObjects];
-
+    
     for (NSData *encryptedDataPacket in packets) {
-
+        
         // may resize decBuffer to encryptedPacket.length
         [self adjustDecBufferToPacketSize:(int)encryptedDataPacket.length];
-
+        
         uint8_t *dataPacketBytes = self.decBufferAligned;
         NSInteger dataPacketLength = INT_MAX;
         uint32_t packetId;
@@ -275,26 +275,26 @@
         if (self.inReplay && [self.inReplay isReplayedPacketId:packetId]) {
             continue;
         }
-
+        
         NSInteger payloadLength;
         const uint8_t *payloadBytes = [self.decrypter parsePayloadWithBlock:self.parsePayloadBlock
                                                                      length:&payloadLength
                                                                 packetBytes:dataPacketBytes
                                                                packetLength:dataPacketLength];
-
+        
         if ((payloadLength == sizeof(DataPacketPingData)) && !memcmp(payloadBytes, DataPacketPingData, payloadLength)) {
             if (keepAlive) {
                 *keepAlive = true;
             }
             continue;
         }
-
+        
 //        MSSFix(payloadBytes, payloadLength);
-
+        
         NSData *payload = [[NSData alloc] initWithBytes:payloadBytes length:payloadLength];
         [self.inPackets addObject:payload];
     }
-
+    
     return self.inPackets;
 }
 

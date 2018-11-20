@@ -78,9 +78,9 @@
     if ((REPLAY_WINSIZE + packetId) < self.highestPacketId) {
         return YES;
     }
-
+    
     uint32_t index = (packetId >> REDUNDANT_BIT_SHIFTS);
-
+    
     if (packetId > self.highestPacketId) {
         const uint32_t currentIndex = self.highestPacketId >> REDUNDANT_BIT_SHIFTS;
         const uint32_t diff = MIN(index - currentIndex, BITMAP_LEN);
@@ -88,14 +88,14 @@
         for (uint32_t bid = 0; bid < diff; ++bid) {
             self.bitmap[(bid + currentIndex + 1) & BITMAP_INDEX_MASK] = 0;
         }
-
+        
         self.highestPacketId = packetId;
     }
-
+    
     index &= BITMAP_INDEX_MASK;
     const uint32_t bitLocation = packetId & BITMAP_LOC_MASK;
     const uint32_t bitmask = (1 << bitLocation);
-
+    
     if (self.bitmap[index] & bitmask) {
         return YES;
     }

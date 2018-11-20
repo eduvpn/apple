@@ -42,10 +42,10 @@ import __TunnelKitNative
 
 /// Reads and writes packets as a stream. Useful for stream-oriented links (e.g TCP/IP).
 public class PacketStream {
-
+    
     /**
      Parses packets from a stream.
-
+     
      - Parameter stream: The data stream.
      - Returns: A pair where the first value is the `Int` offset up to which
      the stream could be parsed, and the second value is an array containing
@@ -67,10 +67,10 @@ public class PacketStream {
         }
         return (ni, parsed)
     }
-
+    
     /**
      Creates a contiguous stream of packets.
-
+     
      - Parameter packet: The packet.
      - Returns: A stream made of the packet.
      */
@@ -80,10 +80,10 @@ public class PacketStream {
         raw.append(contentsOf: packet)
         return raw
     }
-
+    
     /**
      Creates a contiguous stream of packets.
-
+     
      - Parameter packets: The array of packets.
      - Returns: A stream made of the array of packets.
      */
@@ -95,7 +95,7 @@ public class PacketStream {
         }
         return raw
     }
-
+    
     private init() {
     }
 }

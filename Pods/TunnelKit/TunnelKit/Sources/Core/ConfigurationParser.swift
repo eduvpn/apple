@@ -49,7 +49,7 @@ public class ConfigurationParser {
 
         /// The main endpoint hostname.
         public let hostname: String
-
+        
         /// The list of `EndpointProtocol` to which the client can connect to.
         public let protocols: [EndpointProtocol]
 
@@ -61,34 +61,34 @@ public class ConfigurationParser {
         ///
         /// - Seealso: `ConfigurationParser.parsed(...)`
         public let strippedLines: [String]?
-
+        
         /// Holds an optional `ParsingError` that didn't block the parser, but it would be worth taking care of.
         public let warning: ParsingError?
     }
-
+    
     private struct Regex {
         static let proto = NSRegularExpression("^proto +(udp6?|tcp6?)")
 
         static let port = NSRegularExpression("^port +\\d+")
-
+        
         static let remote = NSRegularExpression("^remote +[^ ]+( +\\d+)?( +(udp6?|tcp6?))?")
 
         static let cipher = NSRegularExpression("^cipher +[\\w\\-]+")
 
         static let auth = NSRegularExpression("^auth +[\\w\\-]+")
-
+        
         static let compLZO = NSRegularExpression("^comp-lzo.*")
 
         static let compress = NSRegularExpression("^compress.*")
-
+        
         static let ping = NSRegularExpression("^ping +\\d+")
 
         static let renegSec = NSRegularExpression("^reneg-sec +\\d+")
 
         static let keyDirection = NSRegularExpression("^key-direction +\\d")
-
+        
         static let blockBegin = NSRegularExpression("^<[\\w\\-]+>")
-
+        
         static let blockEnd = NSRegularExpression("^<\\/[\\w\\-]+>")
 
         // unsupported
@@ -100,10 +100,10 @@ public class ConfigurationParser {
 
         static let externalFiles = NSRegularExpression("^(ca|cert|key|tls-auth|tls-crypt) ")
     }
-
+    
     /**
      Parses an .ovpn file from an URL.
-
+     
      - Parameter url: The URL of the configuration file.
      - Parameter returnsStripped: When `true`, stores the stripped file into `ParsingResult.strippedLines`. Defaults to `false`.
      - Returns: The `ParsingResult` outcome of the parsing.
@@ -116,7 +116,7 @@ public class ConfigurationParser {
 
     /**
      Parses an .ovpn file as an array of lines.
-
+     
      - Parameter lines: The array of lines holding the configuration.
      - Parameter url: The optional URL of the configuration file.
      - Parameter returnsStripped: When `true`, stores the stripped file into `ParsingResult.strippedLines`. Defaults to `false`.
@@ -185,25 +185,25 @@ public class ConfigurationParser {
                 switch blockName {
                 case "ca":
                     optCA = CryptoContainer(pem: currentBlock.joined(separator: "\n"))
-
+                    
                 case "cert":
                     clientCertificate = CryptoContainer(pem: currentBlock.joined(separator: "\n"))
-
+                    
                 case "key":
                     let container = CryptoContainer(pem: currentBlock.joined(separator: "\n"))
                     clientKey = container
                     if container.isEncrypted {
                         unsupportedError = ParsingError.unsupportedConfiguration(option: "encrypted client certificate key")
                     }
-
+                    
                 case "tls-auth":
                     tlsKeyLines = currentBlock.map { Substring($0) }
                     tlsStrategy = .auth
-
+                    
                 case "tls-crypt":
                     tlsKeyLines = currentBlock.map { Substring($0) }
                     tlsStrategy = .crypt
-
+                    
                 default:
                     break
                 }
@@ -214,7 +214,7 @@ public class ConfigurationParser {
                 currentBlock.append(line)
                 continue
             }
-
+            
             Regex.proto.enumerateArguments(in: line) {
                 isHandled = true
                 guard let str = $0.first else {
@@ -276,7 +276,7 @@ public class ConfigurationParser {
             Regex.compLZO.enumerateArguments(in: line) {
                 isHandled = true
                 compressionFraming = .compLZO
-
+                
                 guard let arg = $0.first else {
                     warning = warning ?? .unsupportedConfiguration(option: line)
                     return
@@ -333,18 +333,18 @@ public class ConfigurationParser {
                 throw error
             }
         }
-
+        
         guard let ca = optCA else {
             throw ParsingError.missingConfiguration(option: "ca")
         }
-
+        
         // XXX: only reads first remote
 //        hostnames = remotes.map { $0.0 }
         guard !remotes.isEmpty else {
             throw ParsingError.missingConfiguration(option: "remote")
         }
         let hostname = remotes[0].0
-
+        
         defaultProto = defaultProto ?? .udp
         defaultPort = defaultPort ?? 1194
 
@@ -362,7 +362,7 @@ public class ConfigurationParser {
             }
             endpointProtocols.append(EndpointProtocol(socketType, port))
         }
-
+        
         assert(!endpointProtocols.isEmpty, "Must define an endpoint protocol")
 
         if let keyLines = tlsKeyLines, let strategy = tlsStrategy {

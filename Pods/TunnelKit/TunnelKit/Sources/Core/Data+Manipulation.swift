@@ -72,7 +72,7 @@ extension Data {
     func toHex() -> String {
         return map { String(format: "%02hhx", $0) }.joined()
     }
-
+    
     mutating func zero() {
         resetBytes(in: 0..<count)
     }
@@ -88,19 +88,19 @@ extension Data {
         let buffer = UnsafeBufferPointer(start: &localValue, count: 1)
         append(buffer)
     }
-
+    
     mutating func append(_ value: UInt32) {
         var localValue = value
         let buffer = UnsafeBufferPointer(start: &localValue, count: 1)
         append(buffer)
     }
-
+    
     mutating func append(_ value: UInt64) {
         var localValue = value
         let buffer = UnsafeBufferPointer(start: &localValue, count: 1)
         append(buffer)
     }
-
+    
     mutating func append(nullTerminatedString: String) {
         append(nullTerminatedString.data(using: .ascii)!)
         append(UInt8(0))
@@ -131,7 +131,7 @@ extension Data {
 //        print("value: \(String(format: "%x", value))")
         return value
     }
-
+    
     @available(*, deprecated)
     func UInt16ValueFromPointers(from: Int) -> UInt16 {
         return subdata(in: from..<(from + 2)).withUnsafeBytes { $0.pointee }
@@ -149,7 +149,7 @@ extension Data {
 //        print("value: \(String(format: "%x", value))")
         return value
     }
-
+    
     @available(*, deprecated)
     func UInt32ValueFromBuffer(from: Int) -> UInt32 {
         var value: UInt32 = 0
@@ -161,7 +161,7 @@ extension Data {
 //        print("value: \(String(format: "%x", value))")
         return value
     }
-
+    
     // best
     func UInt32Value(from: Int) -> UInt32 {
         return subdata(in: from..<(from + 4)).withUnsafeBytes { $0.pointee }

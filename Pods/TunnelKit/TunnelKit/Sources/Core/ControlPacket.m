@@ -34,7 +34,7 @@
                      payload:(nullable NSData *)payload
 {
     NSCParameterAssert(sessionId.length == PacketSessionIdLength);
-
+    
     if (!(self = [super init])) {
         return nil;
     }
@@ -44,7 +44,7 @@
     _packetId = packetId;
     _payload = payload;
     self.sentDate = nil;
-
+    
     return self;
 }
 
@@ -55,7 +55,7 @@
 {
     NSCParameterAssert(sessionId.length == PacketSessionIdLength);
     NSCParameterAssert(ackRemoteSessionId.length == PacketSessionIdLength);
-
+    
     if (!(self = [super init])) {
         return nil;
     }
@@ -66,7 +66,7 @@
     _ackIds = ackIds;
     _ackRemoteSessionId = ackRemoteSessionId;
     self.sentDate = nil;
-
+    
     return self;
 }
 
@@ -155,7 +155,7 @@
     ptr += PacketReplayTimestampLength;
     ptr += PacketHeaderSet(ptr, self.code, self.key, self.sessionId.bytes);
     ptr += [self rawSerializeTo:ptr];
-
+    
     const NSInteger subjectLength = ptr - subject;
     NSInteger totalLength;
     if (![auth encryptBytes:subject length:subjectLength dest:to destLength:&totalLength flags:NULL error:error]) {
@@ -183,24 +183,24 @@
 {
     return PacketOpcodeLength + PacketSessionIdLength + PacketReplayIdLength + PacketReplayTimestampLength + [encrypter encryptionCapacityWithLength:self.capacity];
 }
-
+    
 - (BOOL)serializeTo:(uint8_t *)to encryptingWith:(nonnull id<Encrypter>)encrypter replayId:(uint32_t)replayId timestamp:(uint32_t)timestamp length:(NSInteger *)length adLength:(NSInteger)adLength error:(NSError *__autoreleasing  _Nullable * _Nullable)error
 {
     uint8_t *ptr;
-
+    
     ptr = to;
     ptr += PacketHeaderSet(to, self.code, self.key, self.sessionId.bytes);
     *(uint32_t *)ptr = CFSwapInt32HostToBig(replayId);
     ptr += PacketReplayIdLength;
     *(uint32_t *)ptr = CFSwapInt32HostToBig(timestamp);
     ptr += PacketReplayTimestampLength;
-
+    
     NSAssert2(ptr - to == adLength, @"Incorrect AD bytes (%ld != %ld)", ptr - to, (long)adLength);
-
+    
     NSMutableData *msg = [[NSMutableData alloc] initWithLength:self.rawCapacity];
     ptr = msg.mutableBytes;
     ptr += [self rawSerializeTo:ptr];
-
+    
     CryptoFlags flags;
     flags.ad = to;
     flags.adLength = adLength;
@@ -209,7 +209,7 @@
         return NO;
     }
     *length = adLength + encryptedMsgLength;
-
+    
     return YES;
 }
 

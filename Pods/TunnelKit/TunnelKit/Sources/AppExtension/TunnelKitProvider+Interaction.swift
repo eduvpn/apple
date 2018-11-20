@@ -43,26 +43,26 @@ extension TunnelKitProvider {
 
     /// The messages accepted by `TunnelKitProvider`.
     public class Message: Equatable {
-
+        
         /// Requests a snapshot of the latest debug log. Returns the log data decoded from UTF-8.
         public static let requestLog = Message(0xff)
-
+        
         /// Requests the current bytes count from data channel (if connected).
         ///
         /// Data is 16 bytes: low 8 = received, high 8 = sent.
         public static let dataCount = Message(0xfe)
-
+        
         /// The underlying raw message `Data` to forward to the tunnel via IPC.
         public let data: Data
-
+        
         private init(_ byte: UInt8) {
             data = Data(bytes: [byte])
         }
-
+        
         init(_ data: Data) {
             self.data = data
         }
-
+        
         // MARK: Equatable
 
         /// :nodoc:
@@ -73,35 +73,35 @@ extension TunnelKitProvider {
 
     // mostly programming errors by host app
     enum ProviderConfigurationError: Error {
-
+        
         /// A field in the `TunnelKitProvider.Configuration` provided is incorrect or incomplete.
         case parameter(name: String)
-
+        
         /// Credentials are missing or inaccessible.
         case credentials(details: String)
-
+        
         /// The pseudo-random number generator could not be initialized.
         case prngInitialization
-
+        
         /// The TLS certificate could not be serialized.
         case certificateSerialization
     }
-
+        
     /// The errors causing a tunnel disconnection.
     public enum ProviderError: String, Error {
-
+        
         /// Socket endpoint could not be resolved.
         case dnsFailure
-
+        
         /// No more protocols available to try.
         case exhaustedProtocols
-
+        
         /// Socket failed to reach active state.
         case socketActivity
-
+        
         /// Credentials authentication failed.
         case authentication
-
+        
         /// TLS could not be initialized (e.g. malformed CA or client PEMs).
         case tlsInitialization
 
@@ -110,22 +110,22 @@ extension TunnelKitProvider {
 
         /// TLS handshake failed.
         case tlsHandshake
-
+        
         /// The encryption logic could not be initialized (e.g. PRNG, algorithms).
         case encryptionInitialization
-
+        
         /// Data encryption/decryption failed.
         case encryptionData
-
+        
         /// Tunnel timed out.
         case timeout
-
+        
         /// An error occurred at the link level.
         case linkError
-
+        
         /// The current network changed (e.g. switched from WiFi to data connection).
         case networkChanged
-
+        
         /// The server replied in an unexpected way.
         case unexpectedReply
     }

@@ -44,73 +44,7 @@ private let log = SwiftyBeaver.self
 extension TunnelKitProvider {
 
     // MARK: Configuration
-<<<<<<< HEAD
-
-    /// A socket type between UDP (recommended) and TCP.
-    public enum SocketType: String {
-
-        /// UDP socket type.
-        case udp = "UDP"
-
-        /// TCP socket type.
-        case tcp = "TCP"
-    }
-
-    /// Defines the communication protocol of an endpoint.
-    public struct EndpointProtocol: RawRepresentable, Equatable, CustomStringConvertible {
-
-        /// The socket type.
-        public let socketType: SocketType
-
-        /// The remote port.
-        public let port: UInt16
-
-        /// :nodoc:
-        public init(_ socketType: SocketType, _ port: UInt16) {
-            self.socketType = socketType
-            self.port = port
-        }
-
-        // MARK: RawRepresentable
-
-        /// :nodoc:
-        public init?(rawValue: String) {
-            let components = rawValue.components(separatedBy: ":")
-            guard components.count == 2 else {
-                return nil
-            }
-            guard let socketType = SocketType(rawValue: components[0]) else {
-                return nil
-            }
-            guard let port = UInt16(components[1]) else {
-                return nil
-            }
-            self.init(socketType, port)
-        }
-
-        /// :nodoc:
-        public var rawValue: String {
-            return "\(socketType.rawValue):\(port)"
-        }
-
-        // MARK: Equatable
-
-        /// :nodoc:
-        public static func ==(lhs: EndpointProtocol, rhs: EndpointProtocol) -> Bool {
-            return (lhs.socketType == rhs.socketType) && (lhs.port == rhs.port)
-        }
-
-        // MARK: CustomStringConvertible
-
-        /// :nodoc:
-        public var description: String {
-            return rawValue
-        }
-    }
-
-=======
     
->>>>>>> Update TunnelKit and adopt ovpn config parsing.
     /// The way to create a `TunnelKitProvider.Configuration` object for the tunnel profile.
     public struct ConfigurationBuilder {
 
@@ -137,45 +71,45 @@ extension TunnelKitProvider {
             debugLogFormat: nil,
             lastErrorKey: nil
         )
-
+        
         /// Prefers resolved addresses over DNS resolution. `resolvedAddresses` must be set and non-empty. Default is `false`.
         ///
         /// - Seealso: `fallbackServerAddresses`
         public var prefersResolvedAddresses: Bool
-
+        
         /// Resolved addresses in case DNS fails or `prefersResolvedAddresses` is `true`.
         public var resolvedAddresses: [String]?
-
+        
         /// The accepted communication protocols. Must be non-empty.
         public var endpointProtocols: [EndpointProtocol]
 
         /// The MTU of the link.
         public var mtu: Int
-
+        
         /// The session configuration.
         public var sessionConfiguration: SessionProxy.Configuration
-
+        
         // MARK: Debugging
-
+        
         /// Enables debugging.
         public var shouldDebug: Bool
-
+        
         /// This attribute is ignored and deprecated. Use `urlForLog(...)` or `existingLog(...)` to access the debug log.
         @available(*, deprecated)
         public var debugLogKey: String?
-
+        
         /// Optional debug log format (SwiftyBeaver format).
         public var debugLogFormat: String?
-
+        
         /// This attribute is ignored and deprecated. Use `lastError(...)` to access the last error.
         @available(*, deprecated)
         public var lastErrorKey: String?
-
+        
         // MARK: Building
-
+        
         /**
          Default initializer.
-
+         
          - Parameter ca: The CA certificate.
          */
         public init(sessionConfiguration: SessionProxy.Configuration) {
@@ -187,7 +121,7 @@ extension TunnelKitProvider {
             shouldDebug = ConfigurationBuilder.defaults.shouldDebug
             debugLogFormat = ConfigurationBuilder.defaults.debugLogFormat
         }
-
+        
         fileprivate init(providerConfiguration: [String: Any]) throws {
             let S = Configuration.Keys.self
 
@@ -203,7 +137,7 @@ extension TunnelKitProvider {
                 return ep
             }
             mtu = providerConfiguration[S.mtu] as? Int ?? ConfigurationBuilder.defaults.mtu
-
+            
             //
 
             guard let cipherAlgorithm = providerConfiguration[S.cipherAlgorithm] as? String, let cipher = SessionProxy.Cipher(rawValue: cipherAlgorithm) else {
@@ -263,10 +197,10 @@ extension TunnelKitProvider {
                 throw ProviderConfigurationError.parameter(name: "protocolConfiguration.providerConfiguration[\(S.prefersResolvedAddresses)] is true but no [\(S.resolvedAddresses)]")
             }
         }
-
+        
         /**
          Builds a `TunnelKitProvider.Configuration` object that will connect to the provided endpoint.
-
+         
          - Returns: A `TunnelKitProvider.Configuration` object with this builder and the additional method parameters.
          */
         public func build() -> Configuration {
@@ -283,84 +217,84 @@ extension TunnelKitProvider {
             )
         }
     }
-
+    
     /// Offers a bridge between the abstract `TunnelKitProvider.ConfigurationBuilder` and a concrete `NETunnelProviderProtocol` profile.
     public struct Configuration: Codable {
         struct Keys {
             static let appGroup = "AppGroup"
-
+            
             static let prefersResolvedAddresses = "PrefersResolvedAddresses"
 
             static let resolvedAddresses = "ResolvedAddresses"
 
             static let endpointProtocols = "EndpointProtocols"
-
+            
             static let mtu = "MTU"
-
+            
             // MARK: SessionConfiguration
 
             static let cipherAlgorithm = "CipherAlgorithm"
-
+            
             static let digestAlgorithm = "DigestAlgorithm"
-
+            
             static let ca = "CA"
-
+            
             static let clientCertificate = "ClientCertificate"
-
+            
             static let clientKey = "ClientKey"
-
+            
             static let compressionFraming = "CompressionFraming"
-
+            
             static let tlsWrap = "TLSWrap"
 
             static let keepAlive = "KeepAlive"
-
+            
             static let renegotiatesAfter = "RenegotiatesAfter"
-
+            
             static let usesPIAPatches = "UsesPIAPatches"
 
             // MARK: Debugging
-
+            
             static let debug = "Debug"
-
+            
             static let debugLogFormat = "DebugLogFormat"
         }
-
+        
         /// - Seealso: `TunnelKitProvider.ConfigurationBuilder.prefersResolvedAddresses`
         public let prefersResolvedAddresses: Bool
-
+        
         /// - Seealso: `TunnelKitProvider.ConfigurationBuilder.resolvedAddresses`
         public let resolvedAddresses: [String]?
 
         /// - Seealso: `TunnelKitProvider.ConfigurationBuilder.endpointProtocols`
         public let endpointProtocols: [EndpointProtocol]
-
+        
         /// - Seealso: `TunnelKitProvider.ConfigurationBuilder.mtu`
         public let mtu: Int
-
+        
         /// - Seealso: `TunnelKitProvider.ConfigurationBuilder.sessionConfiguration`
         public let sessionConfiguration: SessionProxy.Configuration
-
+        
         /// - Seealso: `TunnelKitProvider.ConfigurationBuilder.shouldDebug`
         public let shouldDebug: Bool
-
+        
         /// - Seealso: `TunnelKitProvider.ConfigurationBuilder.debugLogKey`
         @available(*, deprecated)
         public let debugLogKey: String?
-
+        
         /// - Seealso: `TunnelKitProvider.ConfigurationBuilder.debugLogFormat`
         public let debugLogFormat: String?
-
+        
         /// - Seealso: `TunnelKitProvider.ConfigurationBuilder.lastErrorKey`
         @available(*, deprecated)
         public let lastErrorKey: String?
-
+        
         // MARK: Shortcuts
 
         static let debugLogFilename = "debug.log"
 
         static let lastErrorKey = "LastTunnelKitError"
-
+        
         /**
          Returns the URL of the latest debug log.
 
@@ -379,7 +313,7 @@ extension TunnelKitProvider {
 
         /**
          Returns the content of the latest debug log.
-
+         
          - Parameter in: The app group where to locate the log file.
          - Returns: The content of the debug log, if any.
          */
@@ -389,10 +323,10 @@ extension TunnelKitProvider {
             }
             return try? String(contentsOf: url)
         }
-
+        
         /**
          Returns the last error reported by the tunnel, if any.
-
+         
          - Parameter in: The app group where to locate the error key.
          - Returns: The last tunnel error, if any.
          */
@@ -405,18 +339,18 @@ extension TunnelKitProvider {
 
         /**
          Clear the last error status.
-
+         
          - Parameter in: The app group where to locate the error key.
          */
         public func clearLastError(in appGroup: String) {
             UserDefaults(suiteName: appGroup)?.removeObject(forKey: Configuration.lastErrorKey)
         }
-
+        
         // MARK: API
-
+        
         /**
          Parses the app group from a provider configuration map.
-
+         
          - Parameter from: The map to parse.
          - Returns: The parsed app group.
          - Throws: `ProviderError.configuration` if `providerConfiguration` does not contain an app group.
@@ -427,10 +361,10 @@ extension TunnelKitProvider {
             }
             return appGroup
         }
-
+        
         /**
          Parses a new `TunnelKitProvider.Configuration` object from a provider configuration map.
-
+         
          - Parameter from: The map to parse.
          - Returns: The parsed `TunnelKitProvider.Configuration` object.
          - Throws: `ProviderError.configuration` if `providerConfiguration` is incomplete.
@@ -439,7 +373,7 @@ extension TunnelKitProvider {
             let builder = try ConfigurationBuilder(providerConfiguration: providerConfiguration)
             return builder.build()
         }
-
+        
         /**
          Returns a dictionary representation of this configuration for use with `NETunnelProviderProtocol.providerConfiguration`.
 
@@ -448,7 +382,7 @@ extension TunnelKitProvider {
          */
         public func generatedProviderConfiguration(appGroup: String) -> [String: Any] {
             let S = Keys.self
-
+            
             var dict: [String: Any] = [
                 S.appGroup: appGroup,
                 S.prefersResolvedAddresses: prefersResolvedAddresses,
@@ -486,10 +420,10 @@ extension TunnelKitProvider {
             }
             return dict
         }
-
+        
         /**
          Generates a `NETunnelProviderProtocol` from this configuration.
-
+         
          - Parameter bundleIdentifier: The provider bundle identifier required to locate the tunnel extension.
          - Parameter appGroup: The name of the app group in which the tunnel extension lives in.
          - Parameter hostname: The hostname the tunnel will connect to.
@@ -499,7 +433,7 @@ extension TunnelKitProvider {
          */
         public func generatedTunnelProtocol(withBundleIdentifier bundleIdentifier: String, appGroup: String, hostname: String, credentials: SessionProxy.Credentials? = nil) throws -> NETunnelProviderProtocol {
             let protocolConfiguration = NETunnelProviderProtocol()
-
+            
             protocolConfiguration.providerBundleIdentifier = bundleIdentifier
             protocolConfiguration.serverAddress = hostname
             if let username = credentials?.username, let password = credentials?.password {
@@ -513,15 +447,15 @@ extension TunnelKitProvider {
                 protocolConfiguration.passwordReference = try? keychain.passwordReference(for: username)
             }
             protocolConfiguration.providerConfiguration = generatedProviderConfiguration(appGroup: appGroup)
-
+            
             return protocolConfiguration
         }
-
+        
         func print(appVersion: String?) {
             if let appVersion = appVersion {
                 log.info("App version: \(appVersion)")
             }
-
+            
             log.info("\tProtocols: \(endpointProtocols)")
             log.info("\tCipher: \(sessionConfiguration.cipher)")
             log.info("\tDigest: \(sessionConfiguration.digest)")
@@ -590,7 +524,7 @@ extension EndpointProtocol: Codable {
         }
         self.init(proto.socketType, proto.port)
     }
-
+    
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         try container.encode(rawValue)

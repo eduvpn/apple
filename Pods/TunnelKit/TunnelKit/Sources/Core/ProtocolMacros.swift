@@ -38,7 +38,7 @@
 import Foundation
 
 class ProtocolMacros {
-
+    
     // UInt32(0) + UInt8(KeyMethod = 2)
     static let tlsPrefix = Data(hex: "0000000002")
 

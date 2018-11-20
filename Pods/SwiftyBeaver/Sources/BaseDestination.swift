@@ -115,7 +115,7 @@ open class BaseDestination: Hashable, Equatable {
             queue.async(execute: block)
         }
     }
-
+    
     public func executeSynchronously<T>(block: @escaping () throws -> T) rethrows -> T {
         guard let queue = queue else {
             fatalError("Queue not set")
@@ -146,7 +146,7 @@ open class BaseDestination: Hashable, Equatable {
             return (0, 0)
         }
     }
-
+    
     private func paddedString(_ text: String, _ toLength: Int, truncating: Bool = false) -> String {
         if toLength > 0 {
             // Pad to the left of the string
@@ -164,7 +164,7 @@ open class BaseDestination: Hashable, Equatable {
             return text
         }
     }
-
+    
     /// returns the log message based on the format pattern
     func formatMessage(_ format: String, level: SwiftyBeaver.Level, msg: String, thread: String,
         file: String, function: String, line: Int, context: Any? = nil) -> String {
@@ -180,7 +180,7 @@ open class BaseDestination: Hashable, Equatable {
             let formatChar = phrase[formatCharIndex]
             let rangeAfterFormatChar = phrase.index(formatCharIndex, offsetBy: 1)..<phrase.endIndex
             let remainingPhrase = phrase[rangeAfterFormatChar]
-
+            
             switch formatChar {
             case "I":  // ignore
                 text += remainingPhrase
@@ -339,16 +339,16 @@ open class BaseDestination: Hashable, Equatable {
         let dateStr = formatter.string(from: Date())
         return dateStr
     }
-
+    
     /// returns a uptime string
     func uptime() -> String {
         let interval = Date().timeIntervalSince(startDate)
-
+        
         let hours = Int(interval) / 3600
         let minutes = Int(interval / 60) - Int(hours * 60)
         let seconds = Int(interval) - (Int(interval / 60) * 60)
         let milliseconds = Int(interval.truncatingRemainder(dividingBy: 1) * 1000)
-
+        
         return String(format: "%0.2d:%0.2d:%0.2d.%03d", arguments: [hours, minutes, seconds, milliseconds])
     }
 
@@ -408,7 +408,7 @@ open class BaseDestination: Hashable, Equatable {
     }
 
     /// Answer whether the destination has any message filters
-    /// returns boolean and is used to decide whether to resolve
+    /// returns boolean and is used to decide whether to resolve 
     /// the message before invoking shouldLevelBeLogged
     func hasMessageFilters() -> Bool {
         return !getFiltersTargeting(Filter.TargetType.Message(.Equals([], true)),

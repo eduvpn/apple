@@ -46,19 +46,19 @@ extension SessionProxy {
         enum State {
             case invalid, hardReset, softReset, tls
         }
-
+        
         enum ControlState {
             case preAuth, preIfConfig, connected
         }
 
         let id: UInt8 // 3-bit
-
+        
         let startTime: Date
-
+        
         var state = State.invalid
-
+        
         var controlState: ControlState?
-
+        
         var tlsOptional: TLSBox?
 
         var tls: TLSBox {
@@ -67,13 +67,13 @@ extension SessionProxy {
             }
             return tls
         }
-
+        
         var dataPath: DataPath?
-
+        
         var softReset: Bool
 
         private var isTLSConnected: Bool
-
+        
         init(id: UInt8) {
             self.id = id
 
@@ -87,14 +87,14 @@ extension SessionProxy {
         func didHardResetTimeOut(link: LinkInterface) -> Bool {
             return ((state == .hardReset) && (-startTime.timeIntervalSinceNow > link.hardResetTimeout))
         }
-
+        
         // Ruby: Key.negotiate_timeout
         func didNegotiationTimeOut(link: LinkInterface) -> Bool {
             let timeout = (softReset ? CoreConfiguration.softNegotiationTimeout : link.negotiationTimeout)
-
+            
             return ((controlState != .connected) && (-startTime.timeIntervalSinceNow > timeout))
         }
-
+        
         // Ruby: Key.on_tls_connect
         func shouldOnTLSConnect() -> Bool {
             guard !isTLSConnected else {
@@ -105,7 +105,7 @@ extension SessionProxy {
             }
             return isTLSConnected
         }
-
+        
         func encrypt(packets: [Data]) throws -> [Data]? {
             guard let dataPath = dataPath else {
                 log.warning("Data: Set dataPath first")
@@ -113,7 +113,7 @@ extension SessionProxy {
             }
             return try dataPath.encryptPackets(packets, key: id)
         }
-
+        
         func decrypt(packets: [Data]) throws -> [Data]? {
             guard let dataPath = dataPath else {
                 log.warning("Data: Set dataPath first")

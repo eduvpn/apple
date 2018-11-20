@@ -40,34 +40,34 @@ import __TunnelKitNative
 
 /// The possible errors raised/thrown during `SessionProxy` operation.
 public enum SessionError: String, Error {
-
+    
     /// The negotiation timed out.
     case negotiationTimeout
-
+    
     /// The VPN session id is missing.
     case missingSessionId
-
+    
     /// The VPN session id doesn't match.
     case sessionMismatch
-
+    
     /// The connection key is wrong or wasn't expected.
     case badKey
-
+    
     /// The control packet has an incorrect prefix payload.
     case wrongControlDataPrefix
-
+    
     /// The provided credentials failed authentication.
     case badCredentials
-
+    
     /// The reply to PUSH_REQUEST is malformed.
     case malformedPushReply
-
+    
     /// A write operation failed at the link layer (e.g. network unreachable).
     case failedLinkWrite
-
+    
     /// The server couldn't ping back before timeout.
     case pingTimeout
-
+    
     /// The session reached a stale state and can't be recovered.
     case staleSession
 }
@@ -77,7 +77,7 @@ extension Error {
         let te = self as NSError
         return te.domain == TunnelKitErrorDomain
     }
-
+    
     func tunnelKitErrorCode() -> TunnelKitErrorCode? {
         let te = self as NSError
         guard te.domain == TunnelKitErrorDomain else {

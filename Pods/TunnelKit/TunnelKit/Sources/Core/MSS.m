@@ -76,7 +76,7 @@ void MSSFix(uint8_t *data, NSInteger data_len)
     if (iph->proto != PROTO_TCP)  return;
     uint32_t iph_size = iph->hdr_len*4;
     if (iph_size+sizeof(tcp_hdr_t) > data_len)  return;
-
+    
     tcp_hdr_t *tcph = (tcp_hdr_t*)(data + iph_size);
     if (!(tcph->flags & FLAG_SYN))  return;
     uint8_t *opts = data + iph_size + sizeof(tcp_hdr_t);

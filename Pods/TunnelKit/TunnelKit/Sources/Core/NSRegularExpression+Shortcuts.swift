@@ -40,7 +40,7 @@ extension NSRegularExpression {
             block(tokens)
         }
     }
-
+    
     func enumerateArguments(in string: String, using block: ([String]) -> Void) {
         enumerateComponents(in: string) { (tokens) in
             var args = tokens

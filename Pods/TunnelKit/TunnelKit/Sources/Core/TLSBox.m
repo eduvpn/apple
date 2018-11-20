@@ -144,7 +144,7 @@ int TLSBoxVerifyPeer(int ok, X509_STORE_CTX *ctx) {
         }
         return NO;
     }
-
+    
     if (self.clientCertificatePath) {
         if (!SSL_CTX_use_certificate_file(self.ctx, [self.clientCertificatePath cStringUsingEncoding:NSASCIIStringEncoding], SSL_FILETYPE_PEM)) {
             ERR_print_errors_fp(stdout);
@@ -166,16 +166,16 @@ int TLSBoxVerifyPeer(int ok, X509_STORE_CTX *ctx) {
     }
 
     self.ssl = SSL_new(self.ctx);
-
+    
     self.bioPlainText = BIO_new(BIO_f_ssl());
     self.bioCipherTextIn  = BIO_new(BIO_s_mem());
     self.bioCipherTextOut = BIO_new(BIO_s_mem());
-
+    
     SSL_set_connect_state(self.ssl);
-
+    
     SSL_set_bio(self.ssl, self.bioCipherTextIn, self.bioCipherTextOut);
     BIO_set_ssl(self.bioPlainText, self.ssl, BIO_NOCLOSE);
-
+    
     if (!SSL_do_handshake(self.ssl)) {
         if (error) {
             *error = TunnelKitErrorWithCode(TunnelKitErrorCodeTLSBoxHandshake);
@@ -237,7 +237,7 @@ int TLSBoxVerifyPeer(int ok, X509_STORE_CTX *ctx) {
 - (BOOL)putCipherText:(NSData *)text error:(NSError *__autoreleasing *)error
 {
     NSParameterAssert(text);
-
+    
     return [self putRawCipherText:(const uint8_t *)text.bytes length:text.length error:error];
 }
 

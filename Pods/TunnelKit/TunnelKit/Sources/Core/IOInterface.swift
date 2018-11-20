@@ -46,7 +46,7 @@ public protocol IOInterface: class {
      - Parameter handler: The handler invoked whenever an array of `Data` packets is received, with an optional `Error` in case a network failure occurs.
      */
     func setReadHandler(queue: DispatchQueue, _ handler: @escaping ([Data]?, Error?) -> Void)
-
+    
     /**
      Writes a packet to the interface.
 
@@ -54,7 +54,7 @@ public protocol IOInterface: class {
      - Parameter completionHandler: Invoked on write completion, with an optional `Error` in case a network failure occurs.
      */
     func writePacket(_ packet: Data, completionHandler: ((Error?) -> Void)?)
-
+    
     /**
      Writes some packets to the interface.
 

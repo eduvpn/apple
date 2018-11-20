@@ -84,7 +84,7 @@
 - (instancetype)initWithCipherAlgorithm:(NSString *)cipherAlgorithm digestAlgorithm:(NSString *)digestAlgorithm
 {
     NSParameterAssert(cipherAlgorithm || digestAlgorithm);
-
+    
     if ((self = [super init])) {
         self.cipherAlgorithm = [cipherAlgorithm lowercaseString];
         self.digestAlgorithm = [digestAlgorithm lowercaseString];
@@ -142,7 +142,7 @@
         self.encrypter = cbc;
         self.decrypter = cbc;
     }
-
+    
     [self.encrypter configureEncryptionWithCipherKey:cipherEncKey hmacKey:hmacEncKey];
     [self.decrypter configureDecryptionWithCipherKey:cipherDecKey hmacKey:hmacDecKey];
 
@@ -165,7 +165,7 @@
     NSParameterAssert(digestName);
     NSParameterAssert(secret);
     NSParameterAssert(data);
-
+    
     unsigned int l = 0;
     int code = 1;
 
@@ -175,7 +175,7 @@
     TUNNEL_CRYPTO_TRACK_STATUS(code) HMAC_Update(ctx, data, dataLength);
     TUNNEL_CRYPTO_TRACK_STATUS(code) HMAC_Final(ctx, hmac, &l);
     HMAC_CTX_free(ctx);
-
+    
     *hmacLength = l;
 
     TUNNEL_CRYPTO_RETURN_STATUS(code)

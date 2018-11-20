@@ -63,15 +63,15 @@ static const NSInteger CryptoAEADTagLength = 16;
 - (instancetype)initWithCipherName:(NSString *)cipherName
 {
     NSParameterAssert([[cipherName uppercaseString] hasSuffix:@"GCM"]);
-
+    
     self = [super init];
     if (self) {
         self.cipher = EVP_get_cipherbyname([cipherName cStringUsingEncoding:NSASCIIStringEncoding]);
         NSAssert(self.cipher, @"Unknown cipher '%@'", cipherName);
-
+        
         self.cipherKeyLength = EVP_CIPHER_key_length(self.cipher);
         self.cipherIVLength = EVP_CIPHER_iv_length(self.cipher);
-
+        
         self.cipherCtxEnc = EVP_CIPHER_CTX_new();
         self.cipherCtxDec = EVP_CIPHER_CTX_new();
         self.cipherIVEnc = allocate_safely(self.cipherIVLength);
@@ -113,7 +113,7 @@ static const NSInteger CryptoAEADTagLength = 16;
 {
     NSParameterAssert(cipherKey.count >= self.cipherKeyLength);
     NSParameterAssert(hmacKey);
-
+    
     EVP_CIPHER_CTX_reset(self.cipherCtxEnc);
     EVP_CipherInit(self.cipherCtxEnc, self.cipher, cipherKey.bytes, NULL, 1);
 
@@ -162,7 +162,7 @@ static const NSInteger CryptoAEADTagLength = 16;
 
     EVP_CIPHER_CTX_reset(self.cipherCtxDec);
     EVP_CipherInit(self.cipherCtxDec, self.cipher, cipherKey.bytes, NULL, 0);
-
+    
     [self prepareIV:self.cipherIVDec withHMACKey:hmacKey];
 }
 
@@ -173,7 +173,7 @@ static const NSInteger CryptoAEADTagLength = 16;
     int l1 = 0, l2 = 0;
     int x = 0;
     int code = 1;
-
+    
     assert(flags->adLength >= PacketIdLength);
     memcpy(self.cipherIVDec, flags->iv, flags->ivLength);
 
@@ -184,7 +184,7 @@ static const NSInteger CryptoAEADTagLength = 16;
     TUNNEL_CRYPTO_TRACK_STATUS(code) EVP_CipherFinal(self.cipherCtxDec, dest + l1, &l2);
 
     *destLength = l1 + l2;
-
+    
 //    NSLog(@">>> DEC iv: %@", [NSData dataWithBytes:self.cipherIVDec length:self.cipherIVLength]);
 //    NSLog(@">>> DEC ad: %@", [NSData dataWithBytes:extra length:self.extraLength]);
 //    NSLog(@">>> DEC x: %d", x);
@@ -264,7 +264,7 @@ static const NSInteger CryptoAEADTagLength = 16;
 - (NSData *)encryptedDataPacketWithKey:(uint8_t)key packetId:(uint32_t)packetId packetBytes:(const uint8_t *)packetBytes packetLength:(NSInteger)packetLength error:(NSError *__autoreleasing *)error
 {
     DATA_PATH_ENCRYPT_INIT(self.peerId)
-
+    
     const int capacity = headerLength + PacketIdLength + (int)[self.crypto encryptionCapacityWithLength:packetLength];
     NSMutableData *encryptedPacket = [[NSMutableData alloc] initWithLength:capacity];
     uint8_t *ptr = encryptedPacket.mutableBytes;
@@ -292,13 +292,13 @@ static const NSInteger CryptoAEADTagLength = 16;
                                         destLength:&encryptedPacketLength
                                              flags:&flags
                                              error:error];
-
+    
     NSAssert(encryptedPacketLength <= capacity, @"Did not allocate enough bytes for payload");
-
+    
     if (!success) {
         return nil;
     }
-
+    
     encryptedPacket.length = headerLength + PacketIdLength + encryptedPacketLength;
     return encryptedPacket;
 }
@@ -313,7 +313,7 @@ static const NSInteger CryptoAEADTagLength = 16;
     if (packet.length < headerLength) {
         return NO;
     }
-
+    
     CryptoFlags flags;
     flags.iv = packet.bytes + headerLength;
     flags.ivLength = PacketIdLength;
@@ -353,7 +353,7 @@ static const NSInteger CryptoAEADTagLength = 16;
     if (!block) {
         return payload;
     }
-
+    
     NSInteger payloadOffset;
     NSInteger payloadHeaderLength;
     block(payload, &payloadOffset, &payloadHeaderLength, packetBytes, packetLength);

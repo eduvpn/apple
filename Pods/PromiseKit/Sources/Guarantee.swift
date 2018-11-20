@@ -5,7 +5,7 @@ import Dispatch
  A `Guarantee` is a functional abstraction around an asynchronous operation that cannot error.
  - See: `Thenable`
 */
-public class Guarantee<T>: Thenable {
+public final class Guarantee<T>: Thenable {
     let box: Box<T>
 
     fileprivate init(box: SealedBox<T>) {
@@ -76,7 +76,7 @@ public extension Guarantee {
         }
         return rg
     }
-
+    
     func get(on: DispatchQueue? = conf.Q.return, flags: DispatchWorkItemFlags? = nil, _ body: @escaping (T) -> Void) -> Guarantee<T> {
         return map(on: on, flags: flags) {
             body($0)
@@ -108,7 +108,7 @@ public extension Guarantee {
     public func asVoid() -> Guarantee<Void> {
         return map(on: nil) { _ in }
     }
-
+    
     /**
      Blocks this thread, so you know, don’t call this on a serial thread that
      any part of your chain may use. Like the main thread for example.
@@ -127,7 +127,7 @@ public extension Guarantee {
             pipe { (foo: T) in result = foo; group.leave() }
             group.wait()
         }
-
+        
         return result!
     }
 }

@@ -27,7 +27,7 @@ func stringForKey(json: JSONObject, key: String) -> Result<String, JSONError> {
     guard let value = json[key] else {
         return .failure(.noSuchKey(key))
     }
-
+    
     if let value = value as? String {
         return .success(value)
     }
@@ -46,10 +46,10 @@ switch stringForKey(json, key: "email") {
 
 case let .success(email):
     print("The email is \(email)")
-
+    
 case let .failure(.noSuchKey(key)):
     print("\(key) is not a valid key")
-
+    
 case .failure(.typeMismatch):
     print("Didn't have the right type")
 }
@@ -78,7 +78,7 @@ let idResult = intForKey(json, key:"id").map { id in String(id) }
 
 Here, the final result is either the id as a `String`, or carries over the `failure` from the previous result.
 
-`flatMap` is similar to `map` in that in transforms the `Result` into another `Result`. However, the function passed into `flatMap` must return a `Result`.
+`flatMap` is similar to `map` in that it transforms the `Result` into another `Result`. However, the function passed into `flatMap` must return a `Result`.
 
 An in depth discussion of `map` and `flatMap` is beyond the scope of this documentation. If you would like a deeper understanding, read about functors and monads. This article is a good place to [start](http://www.javiersoto.me/post/106875422394).
 

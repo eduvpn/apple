@@ -8,7 +8,7 @@ public enum PMKError: Error {
     case invalidCallingConvention
 
     /**
-     A handler returned its own promise. 99% of the time, this is likely a
+     A handler returned its own promise. 99% of the time, this is likely a 
      programming error. It is also invalid per Promises/A+.
      */
     case returnedSelf
