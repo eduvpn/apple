@@ -4,6 +4,9 @@
 
 - 
 
+## 2.0.0
+
+- App now contains it's own tunnel extension. No need to have the OpenVPN connect app installed.
 
 ## 1.0.0
 
