@@ -49,6 +49,8 @@ class ChooseProviderTableViewController: UITableViewController {
     }()
 
     override func viewDidLoad() {
+        tableView.tableFooterView = UIView()
+        
         super.viewDidLoad()
         do {
             try fetchedResultsController.performFetch()

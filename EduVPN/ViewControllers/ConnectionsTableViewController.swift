@@ -49,6 +49,7 @@ class ConnectionsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.tableFooterView = UIView()
         do {
             try fetchedResultsController.performFetch()
         } catch {

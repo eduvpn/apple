@@ -264,6 +264,14 @@ class AppCoordinator: RootViewCoordinator {
 
     private func showProfilesViewController() {
         let profilesViewController = storyboard.instantiateViewController(type: ProfilesViewController.self)
+        
+        let fetchRequest = NSFetchRequest<Profile>()
+        fetchRequest.entity = Profile.entity()
+        fetchRequest.predicate = NSPredicate(format: "api.instance.providerType == %@", ProviderType.secureInternet.rawValue)
+
+        let numberOfSecureInternetProfiles = try? persistentContainer.viewContext.count(for: fetchRequest)
+        profilesViewController.showSecureInterNetOption = numberOfSecureInternetProfiles == 0
+        
         profilesViewController.delegate = self
         do {
             try profilesViewController.navigationItem.hidesBackButton = Profile.countInContext(persistentContainer.viewContext) == 0
@@ -421,30 +429,6 @@ class AppCoordinator: RootViewCoordinator {
         }
     }
 
-    func fetchAndTransferProfileToConnectApp(for profile: Profile, sourceView: UIView?) {
-
-        let activityData = ActivityData()
-        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData, nil)
-
-        _ = self.fetchProfile(for: profile).then { (configUrl) -> Promise<Void> in
-            let activity = UIActivityViewController(activityItems: [configUrl], applicationActivities: nil)
-            if let currentViewController = self.navigationController.visibleViewController {
-                if let presentationController = activity.presentationController as? UIPopoverPresentationController {
-                    presentationController.sourceView = sourceView ?? self.navigationController.navigationBar
-                    presentationController.sourceRect = sourceView?.frame ?? self.navigationController.navigationBar.frame
-                    presentationController.permittedArrowDirections = [.any]
-                }
-                currentViewController.present(activity, animated: true)
-            }
-            return Promise.value(())
-
-            }.ensure {
-                NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
-            }.recover { (error) in
-                self.showError(error)
-        }
-    }
-
     func showConnectionViewController(for profile: Profile) {
         let connectionViewController = storyboard.instantiateViewController(type: VPNConnectionViewController.self)
         connectionViewController.delegate = self
@@ -525,7 +509,6 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
 
     func connect(profile: Profile, sourceView: UIView?) {
         showConnectionViewController(for: profile)
-//        fetchAndTransferProfileToConnectApp(for: profile, sourceView: sourceView)
     }
 
     func delete(profile: Profile) {
