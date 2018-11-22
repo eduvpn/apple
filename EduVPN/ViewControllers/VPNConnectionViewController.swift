@@ -25,17 +25,7 @@ class VPNConnectionViewController: UIViewController {
 
     static let VPNBUNDLE = "nl.eduvpn.app.EduVPN.test.appforce1.EduVPNTunnelExtension"
 
-    static let CIPHER: SessionProxy.Cipher = .aes128cbc
-
-    static let DIGEST: SessionProxy.Digest = .sha1
-
-//    static let HANDSHAKE: SessionProxy.Handshake = .rsa2048
-
-    static let RENEG: Int? = nil
-
     @IBOutlet var buttonConnection: UIButton!
-
-    @IBOutlet var textLog: UITextView!
 
     @IBOutlet weak var notificationsSegment: UIView!
     @IBOutlet weak var logSegment: UIView!
@@ -77,7 +67,6 @@ class VPNConnectionViewController: UIViewController {
     @IBOutlet weak var statusImage: UIImageView!
 
     @IBOutlet weak var providerImage: UIImageView!
-    @IBOutlet weak var providerNameLabel: UILabel!
     @IBOutlet weak var profileNameLabel: UILabel!
 
     override func viewDidLoad() {
@@ -87,7 +76,6 @@ class VPNConnectionViewController: UIViewController {
         logSegment.isHidden = true
 
         profileNameLabel.text = profile.profileId
-        providerNameLabel.text = profile.displayNames?.localizedValue ?? profile.api?.instance?.displayNames?.localizedValue ?? profile.api?.instance?.baseUri
         if let logo = profile.api?.instance?.logos?.localizedValue, let logoUri = URL(string: logo) {
             providerImage.af_setImage(withURL: logoUri)
         } else if let providerTypeString = profile.api?.instance?.providerType, providerTypeString == ProviderType.other.rawValue {
@@ -105,18 +93,6 @@ class VPNConnectionViewController: UIViewController {
         reloadCurrentManager(nil)
     }
 
-    @IBAction func displayToggle(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            notificationsSegment.isHidden = false
-            logSegment.isHidden = true
-        case 1:
-            notificationsSegment.isHidden = true
-            logSegment.isHidden = false
-        default:
-            preconditionFailure("Unknown index \(sender.selectedSegmentIndex)")
-        }
-    }
     @IBAction func connectionClicked(_ sender: Any) {
         let block = {
             switch self.status {
@@ -193,7 +169,7 @@ class VPNConnectionViewController: UIViewController {
             guard let log = String(data: data!, encoding: .utf8) else {
                 return
             }
-            self.textLog.text = log
+            //TODO display log
         }
     }
 
