@@ -27,9 +27,6 @@ class VPNConnectionViewController: UIViewController {
 
     @IBOutlet var buttonConnection: UIButton!
 
-    @IBOutlet weak var notificationsSegment: UIView!
-    @IBOutlet weak var logSegment: UIView!
-
     var currentManager: NETunnelProviderManager?
 
     var status = NEVPNStatus.invalid {
@@ -71,9 +68,6 @@ class VPNConnectionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        notificationsSegment.isHidden = false
-        logSegment.isHidden = true
 
         profileNameLabel.text = profile.profileId
         if let logo = profile.api?.instance?.logos?.localizedValue, let logoUri = URL(string: logo) {
@@ -230,17 +224,11 @@ class VPNConnectionViewController: UIViewController {
 
     func updateButton() {
         switch status {
-        case .connected, .connecting:
+        case .connected, .connecting, .disconnecting, .reasserting:
             buttonConnection.setTitle("Disconnect", for: .normal)
 
-        case .disconnected:
+        case .disconnected, .invalid:
             buttonConnection.setTitle("Connect", for: .normal)
-
-        case .disconnecting:
-            buttonConnection.setTitle("Disconnecting", for: .normal)
-
-        default:
-            break
         }
     }
 
