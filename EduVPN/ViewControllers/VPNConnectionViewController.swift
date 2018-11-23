@@ -20,14 +20,20 @@ protocol VPNConnectionViewControllerDelegate: class {
 
 class VPNConnectionViewController: UIViewController {
     weak var delegate: VPNConnectionViewControllerDelegate?
+    
+    private let intervalFormatter =  DateIntervalFormatter()
 
     static let APPGROUP = "group.nl.eduvpn.app.EduVPN.test.appforce1"
 
     static let VPNBUNDLE = "nl.eduvpn.app.EduVPN.test.appforce1.EduVPNTunnelExtension"
 
     @IBOutlet var buttonConnection: UIButton!
+    
+    @IBOutlet var durationLabel: UILabel!
 
     var currentManager: NETunnelProviderManager?
+    
+    private var connectionInfoUpdateTimer: Timer?
 
     var status = NEVPNStatus.invalid {
         didSet {
@@ -85,6 +91,20 @@ class VPNConnectionViewController: UIViewController {
                                                object: nil)
 
         reloadCurrentManager(nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] (_) in
+            self?.updateConnectionInfo()
+        })
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        connectionInfoUpdateTimer?.invalidate()
+        connectionInfoUpdateTimer = nil
     }
 
     @IBAction func connectionClicked(_ sender: Any) {
@@ -240,6 +260,14 @@ class VPNConnectionViewController: UIViewController {
         os_log("VPNStatusDidChange: %{public}@", log: Log.general, type: .debug, description(for: status))
         self.status = status
         updateButton()
+    }
+    
+    func updateConnectionInfo() {
+        let intervalString = currentManager?.connection.connectedDate.flatMap {
+            intervalFormatter.string(from: DateInterval(start: $0, end: Date()))
+        }
+        
+        durationLabel.text = intervalString
     }
 }
 
