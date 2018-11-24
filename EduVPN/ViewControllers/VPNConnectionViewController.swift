@@ -30,6 +30,10 @@ class VPNConnectionViewController: UIViewController {
     @IBOutlet var buttonConnection: UIButton!
     
     @IBOutlet var durationLabel: UILabel!
+    
+    @IBOutlet var outBytesLabel: UILabel!
+    
+    @IBOutlet var inBytesLabel: UILabel!
 
     var currentManager: NETunnelProviderManager?
     
@@ -263,11 +267,30 @@ class VPNConnectionViewController: UIViewController {
     }
     
     func updateConnectionInfo() {
-        let intervalString = currentManager?.connection.connectedDate.flatMap {
+        guard let vpn = currentManager?.connection as? NETunnelProviderSession else {
+            return
+        }
+        let intervalString = vpn.connectedDate.flatMap {
             intervalFormatter.string(from: DateInterval(start: $0, end: Date()))
         }
         
         durationLabel.text = intervalString
+        
+        try? vpn.sendProviderMessage(TunnelKitProvider.Message.dataCount.data) { [weak self] (data) in
+            let dataCount = data?.withUnsafeBytes({ (pointer:UnsafePointer<(UInt64, UInt64)>) -> (UInt64, UInt64) in
+                pointer.pointee
+            })
+            if let inByteCount = dataCount?.0 {
+                self?.inBytesLabel.text = String(inByteCount)
+            } else {
+                self?.inBytesLabel.text = nil
+            }
+            if let outByteCount = dataCount?.1 {
+                self?.outBytesLabel.text = String(outByteCount)
+            } else {
+                self?.outBytesLabel.text = nil
+            }
+        }
     }
 }
 
