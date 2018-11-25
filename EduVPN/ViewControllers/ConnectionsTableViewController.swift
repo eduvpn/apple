@@ -109,7 +109,8 @@ class ConnectionsTableViewController: UITableViewController {
         if let logo = profile.api?.instance?.logos?.localizedValue, let logoUri = URL(string: logo) {
             cell.connectImageView?.af_setImage(withURL: logoUri)
         } else if let providerTypeString = profile.api?.instance?.providerType, providerTypeString == ProviderType.other.rawValue {
-            cell.connectImageView.image = #imageLiteral(resourceName: "external_provider")
+            cell.connectImageView.af_cancelImageRequest()
+            cell.connectImageView.image = nil
         } else {
             cell.connectImageView.af_cancelImageRequest()
             cell.connectImageView.image = nil

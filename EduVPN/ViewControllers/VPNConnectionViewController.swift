@@ -83,7 +83,8 @@ class VPNConnectionViewController: UIViewController {
         if let logo = profile.api?.instance?.logos?.localizedValue, let logoUri = URL(string: logo) {
             providerImage.af_setImage(withURL: logoUri)
         } else if let providerTypeString = profile.api?.instance?.providerType, providerTypeString == ProviderType.other.rawValue {
-            providerImage.image = #imageLiteral(resourceName: "external_provider")
+            providerImage.af_cancelImageRequest()
+            providerImage.image = nil
         } else {
             providerImage.af_cancelImageRequest()
             providerImage.image = nil
