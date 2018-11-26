@@ -9,7 +9,7 @@ target 'EduVPN' do
   pod 'SwiftLint'
   pod 'PromiseKit/CorePromise'
   pod 'KeychainSwift'
-  pod 'AppAuth'
+  pod 'AppAuth', :git => 'https://github.com/openid/AppAuth-iOS.git'
   pod 'Moya'
   pod 'Disk'
   pod 'AlamofireImage'

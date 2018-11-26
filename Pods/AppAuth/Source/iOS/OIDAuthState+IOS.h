@@ -26,11 +26,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface OIDAuthState (IOS)
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-
 /*! @brief Convenience method to create a @c OIDAuthState by presenting an authorization request
-        and performing the authorization code exchange in the case of code flow requests.
+        and performing the authorization code exchange in the case of code flow requests. For
+        the hybrid flow, the caller should validate the id_token and c_hash, then perform the token
+        request (@c OIDAuthorizationService.performTokenRequest:callback:)
+        and update the OIDAuthState with the results (@c
+        OIDAuthState.updateWithTokenResponse:error:).
     @param authorizationRequest The authorization request to present.
     @param presentingViewController The view controller from which to present the
         @c SFSafariViewController.
@@ -39,12 +40,10 @@ NS_ASSUME_NONNULL_BEGIN
         receives a @c OIDExternalUserAgentSession.cancel message, or after processing a
         @c OIDExternalUserAgentSession.resumeExternalUserAgentFlowWithURL: message.
  */
-+ (id<OIDExternalUserAgentSession, OIDAuthorizationFlowSession>)
++ (id<OIDExternalUserAgentSession>)
     authStateByPresentingAuthorizationRequest:(OIDAuthorizationRequest *)authorizationRequest
                      presentingViewController:(UIViewController *)presentingViewController
                                      callback:(OIDAuthStateAuthorizationCallback)callback;
-
-#pragma GCC diagnostic pop
 
 @end
 

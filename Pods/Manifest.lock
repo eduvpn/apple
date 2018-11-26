@@ -2,7 +2,11 @@ PODS:
   - Alamofire (4.7.3)
   - AlamofireImage (3.4.1):
     - Alamofire (~> 4.7)
-  - AppAuth (0.95.0)
+  - AppAuth (1.0.0.beta1):
+    - AppAuth/Core (= 1.0.0.beta1)
+    - AppAuth/ExternalUserAgent (= 1.0.0.beta1)
+  - AppAuth/Core (1.0.0.beta1)
+  - AppAuth/ExternalUserAgent (1.0.0.beta1)
   - ASN1Decoder (1.2)
   - BNRCoreDataStack (2.3.1)
   - Disk (0.4.0)
@@ -32,7 +36,7 @@ PODS:
 
 DEPENDENCIES:
   - AlamofireImage
-  - AppAuth
+  - AppAuth (from `https://github.com/openid/AppAuth-iOS.git`)
   - ASN1Decoder
   - BNRCoreDataStack
   - Disk
@@ -47,7 +51,6 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - AlamofireImage
-    - AppAuth
     - ASN1Decoder
     - BNRCoreDataStack
     - Disk
@@ -61,10 +64,19 @@ SPEC REPOS:
     - SwiftyBeaver
     - TunnelKit
 
+EXTERNAL SOURCES:
+  AppAuth:
+    :git: https://github.com/openid/AppAuth-iOS.git
+
+CHECKOUT OPTIONS:
+  AppAuth:
+    :commit: 0c822671e56cedf159a6d27ccf0669b689c0f2b5
+    :git: https://github.com/openid/AppAuth-iOS.git
+
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   AlamofireImage: 78d67ccbb763d87ba44b21583d2153500a195630
-  AppAuth: 137f6bb6fc9dfbaf2cf9f6fcff1d336ff0163bc6
+  AppAuth: 0ac894b773cf31b27a20bceb61218556644df883
   ASN1Decoder: 1a1f4fa469e14083f2664e182975a39299cb5e32
   BNRCoreDataStack: d9d7d0ed1afd27dca5a903dde1250aa4c6dbc3f5
   Disk: ef2956657d5bb56034b38b29b352170165226440
@@ -78,6 +90,6 @@ SPEC CHECKSUMS:
   SwiftyBeaver: ccfcdf85a04d429f1633f668650b0ce8020bda3a
   TunnelKit: 8ac6ca743020b62e63bea66b3d169c53666fb737
 
-PODFILE CHECKSUM: 1e303c4438483575f401540504448bae6ea0af93
+PODFILE CHECKSUM: 5824d4955ad9fe1e2e9a27c59cca0fb92d01940d
 
 COCOAPODS: 1.6.0.beta.2
