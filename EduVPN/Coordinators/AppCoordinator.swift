@@ -422,6 +422,15 @@ class AppCoordinator: RootViewCoordinator {
                     return dynamicApiProvider.authorize(presentingViewController: self.navigationController).then{ _ -> Promise<URL> in
                         return self.fetchProfile(for: profile, retry: true)
                     }
+                case ApiServiceError.noAuthState:
+                    if retry {
+                        self.showError(error)
+                        throw error
+                    }
+                    self.authorizingDynamicApiProvider = dynamicApiProvider
+                    return dynamicApiProvider.authorize(presentingViewController: self.navigationController).then{ _ -> Promise<URL> in
+                        return self.fetchProfile(for: profile, retry: true)
+                    }
                 default:
                     self.showError(error)
                     throw error
