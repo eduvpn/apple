@@ -8,9 +8,19 @@
 
 import UIKit
 
+import AppAuth
+
 extension AppCoordinator {
 
+    public func dueToUserCancellation(error: Error) -> Bool {
+        let error = error as NSError
+        return error.domain == OIDGeneralErrorDomain && (error.code == OIDErrorCode.programCanceledAuthorizationFlow.rawValue || error.code == OIDErrorCode.userCanceledAuthorizationFlow.rawValue)
+    }
     public func showError(_ error: Error) {
+        if dueToUserCancellation(error: error) {
+            return
+        }
+
         showAlert(title: NSLocalizedString("Error", comment: "Error alert title"), message: error.localizedDescription)
     }
 

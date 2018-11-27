@@ -550,10 +550,6 @@ extension AppCoordinator: ChooseProviderTableViewControllerDelegate {
     func didSelect(instance: Instance, chooseProviderTableViewController: ChooseProviderTableViewController) {
         self.refresh(instance: instance).recover { (error) in
             let error = error as NSError
-            if error.domain == OIDGeneralErrorDomain && (error.code == OIDErrorCode.programCanceledAuthorizationFlow.rawValue || error.code == OIDErrorCode.userCanceledAuthorizationFlow.rawValue) {
-                // It is a OIDErrorCodeProgramCanceledAuthorizationFlow, which means the user cancelled.
-                return
-            }
             self.showError(error)
         }
     }
