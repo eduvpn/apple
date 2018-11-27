@@ -270,7 +270,7 @@ class AppCoordinator: RootViewCoordinator {
         fetchRequest.predicate = NSPredicate(format: "api.instance.providerType == %@", ProviderType.secureInternet.rawValue)
 
         let numberOfSecureInternetProfiles = try? persistentContainer.viewContext.count(for: fetchRequest)
-        profilesViewController.showSecureInterNetOption = numberOfSecureInternetProfiles == 0
+        profilesViewController.showSecureInterNetOption = true//numberOfSecureInternetProfiles == 0
         
         profilesViewController.delegate = self
         do {
@@ -450,7 +450,7 @@ class AppCoordinator: RootViewCoordinator {
             if authorizingDynamicApiProvider.currentAuthorizationFlow?.resumeExternalUserAgentFlow(with: url) == true {
                 let authorizationType = authorizingDynamicApiProvider.api.instance?.group?.authorizationTypeEnum ?? .local
                 if authorizationType == .distributed {
-                    authorizingDynamicApiProvider.api.instance?.group?.federatedAuthorizationApi = authorizingDynamicApiProvider.api
+                    authorizingDynamicApiProvider.api.instance?.group?.distributedAuthorizationApi = authorizingDynamicApiProvider.api
                 }
                 authorizingDynamicApiProvider.currentAuthorizationFlow = nil
                 return true

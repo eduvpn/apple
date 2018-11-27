@@ -25,7 +25,7 @@ extension InstanceGroup {
     @NSManaged public var authorizationType: String?
     @NSManaged public var instances: Set<Instance>
 
-    @NSManaged public var federatedAuthorizationApi: Api?
+    @NSManaged public var distributedAuthorizationApi: Api?
 
 }
 

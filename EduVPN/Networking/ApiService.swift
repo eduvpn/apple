@@ -96,7 +96,7 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
     private var credentialStorePlugin: CredentialStorePlugin
 
     var actualApi: Api {
-        return api.instance?.group?.federatedAuthorizationApi ?? api
+        return api.instance?.group?.distributedAuthorizationApi ?? api
     }
 
     var currentAuthorizationFlow: OIDExternalUserAgentSession?
@@ -123,7 +123,7 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
                 precondition(authState != nil, "THIS SHOULD NEVER HAPPEN")
 
                 self.api.managedObjectContext?.perform {
-                    self.api.instance?.group?.federatedAuthorizationApi = self.actualApi
+                    self.api.instance?.group?.distributedAuthorizationApi = self.actualApi
                 }
                 do {
                     try self.api.managedObjectContext?.save()

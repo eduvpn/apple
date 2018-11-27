@@ -168,6 +168,7 @@
 		4AD0AD5C1F35048E006E1337 /* ChooseProviderTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseProviderTableViewController.swift; sourceTree = "<group>"; };
 		4AD0AD5E1F350822006E1337 /* Moya+ResponseHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Moya+ResponseHandling.swift"; sourceTree = "<group>"; };
 		4AD0AD611F350906006E1337 /* InstanceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceModel.swift; sourceTree = "<group>"; };
+		4ADF8E7B21ADF7030099C397 /* EduVPN 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EduVPN 3.xcdatamodel"; sourceTree = "<group>"; };
 		4AE728151F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+EduVPN.swift"; sourceTree = "<group>"; };
 		4AEAC32620F13D0C007B67AB /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		4AECAB412027091900B5105B /* EduVPN.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EduVPN.xcdatamodel; sourceTree = "<group>"; };
@@ -1082,10 +1083,11 @@
 		4AECAB402027091900B5105B /* EduVPN.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				4ADF8E7B21ADF7030099C397 /* EduVPN 3.xcdatamodel */,
 				4AC8991320F3176D008696A1 /* EduVPN 2.xcdatamodel */,
 				4AECAB412027091900B5105B /* EduVPN.xcdatamodel */,
 			);
-			currentVersion = 4AC8991320F3176D008696A1 /* EduVPN 2.xcdatamodel */;
+			currentVersion = 4ADF8E7B21ADF7030099C397 /* EduVPN 3.xcdatamodel */;
 			path = EduVPN.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
