@@ -322,7 +322,7 @@ class VPNConnectionViewController: UIViewController {
                 self?.inBytesLabel.text = nil
             }
             if let outByteCount = dataCount?.1 {
-                self?.inBytesLabel.text = ByteCountFormatter.string(fromByteCount: Int64(outByteCount), countStyle: .binary )
+                self?.outBytesLabel.text = ByteCountFormatter.string(fromByteCount: Int64(outByteCount), countStyle: .binary )
             } else {
                 self?.outBytesLabel.text = nil
             }
