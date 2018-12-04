@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4A1140841F78490C00D61100 /* VPNConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */; };
+		4A140BBC21B5D7F5000A87E3 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A140BBB21B5D7F5000A87E3 /* Message.swift */; };
 		4A2803D91FA6867D00FA895C /* CustomProviderInPutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2803D81FA6867D00FA895C /* CustomProviderInPutViewController.swift */; };
 		4A2C5C0E2177C55A00240D96 /* TunnelKitProvider+FileConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2C5C0D2177C55A00240D96 /* TunnelKitProvider+FileConfiguration.swift */; };
 		4A2CC2221F4233E8004119B1 /* Identifyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2CC2211F4233E8004119B1 /* Identifyable.swift */; };
@@ -104,6 +105,7 @@
 
 /* Begin PBXFileReference section */
 		4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNConnectionViewController.swift; sourceTree = "<group>"; };
+		4A140BBB21B5D7F5000A87E3 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		4A2803D81FA6867D00FA895C /* CustomProviderInPutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProviderInPutViewController.swift; sourceTree = "<group>"; };
 		4A2C5C0D2177C55A00240D96 /* TunnelKitProvider+FileConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TunnelKitProvider+FileConfiguration.swift"; sourceTree = "<group>"; };
 		4A2CC2211F4233E8004119B1 /* Identifyable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifyable.swift; sourceTree = "<group>"; };
@@ -373,6 +375,7 @@
 				4A8D24201F3976FC004A9343 /* ProviderType.swift */,
 				4A7D1E4E1F4B24E4009F1402 /* ProfileModel.swift */,
 				4A81DF9B2003BFB7002827A8 /* CertificateModel.swift */,
+				4A140BBB21B5D7F5000A87E3 /* Message.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -694,6 +697,7 @@
 				4ACA042C1F3116D5004B35AA /* Moya+Promise.swift in Sources */,
 				4A983B771F397243004F82D5 /* AppCoordinator.swift in Sources */,
 				4A8D24211F3976FC004A9343 /* ProviderType.swift in Sources */,
+				4A140BBC21B5D7F5000A87E3 /* Message.swift in Sources */,
 				4A4F36531F31972C0032C96B /* ApiService.swift in Sources */,
 				4ACA042A1F311507004B35AA /* StaticService.swift in Sources */,
 				4A3E029C1F6C4B3D00D20292 /* Moya+Extensions.swift in Sources */,

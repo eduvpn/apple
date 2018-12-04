@@ -21,7 +21,9 @@ extension Moya.Response {
     func mapResponse<T: Decodable>() -> Promise<T> {
         return Promise(resolver: { seal in
             do {
-                let result = try JSONDecoder().decode(T.self, from: self.data)
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .iso8601
+                let result = try decoder.decode(T.self, from: self.data)
                 seal.fulfill(result)
             } catch {
                 seal.reject(MoyaError.jsonMapping(self))

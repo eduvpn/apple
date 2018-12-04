@@ -16,18 +16,26 @@ import PromiseKit
 
 protocol VPNConnectionViewControllerDelegate: class {
     func profileConfig(for profile: Profile) -> Promise<URL>
+    @discardableResult func systemMessages(for profile: Profile) -> Promise<Messages>
+    @discardableResult func userMessages(for profile: Profile) -> Promise<Messages>
 }
 
 class VPNConnectionViewController: UIViewController {
     weak var delegate: VPNConnectionViewControllerDelegate?
     
-    private let intervalFormatter =  DateIntervalFormatter()
-
+    private let intervalFormatter: DateComponentsFormatter = {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.hour, .minute, .second]
+        return formatter
+    }()
+    
     static let APPGROUP = "group.nl.eduvpn.app.EduVPN.test.appforce1"
 
     static let VPNBUNDLE = "nl.eduvpn.app.EduVPN.test.appforce1.EduVPNTunnelExtension"
 
     @IBOutlet var buttonConnection: UIButton!
+    
+    @IBOutlet weak var notificationLabel: UILabel!
     
     @IBOutlet var durationLabel: UILabel!
     
@@ -103,6 +111,33 @@ class VPNConnectionViewController: UIViewController {
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] (_) in
             self?.updateConnectionInfo()
         })
+        if let concreteDelegate = delegate {
+            firstly { () -> Promise<Messages> in
+                return concreteDelegate.systemMessages(for: profile)
+            }.then({ [weak self] (systemMessages) -> Guarantee<Void> in
+                if let displayString = systemMessages.displayString {
+                    if let existingText = self?.notificationLabel.text, !existingText.isEmpty  {
+                        self?.notificationLabel.text = [existingText, displayString].joined(separator: "\n\n")
+                    } else {
+                        self?.notificationLabel.text = displayString
+                    }
+                }
+                return Guarantee<Void>()
+            })
+            
+            firstly { () -> Promise<Messages> in
+                return concreteDelegate.userMessages(for: profile)
+            }.then({ [weak self] (userMessages) -> Guarantee<Void> in
+                if let displayString = userMessages.displayString {
+                    if let existingText = self?.notificationLabel.text, !existingText.isEmpty {
+                        self?.notificationLabel.text = [existingText, displayString].joined(separator: "\n\n")
+                    } else {
+                        self?.notificationLabel.text = displayString
+                    }
+                }
+                return Guarantee<Void>()
+            })
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -272,7 +307,7 @@ class VPNConnectionViewController: UIViewController {
             return
         }
         let intervalString = vpn.connectedDate.flatMap {
-            intervalFormatter.string(from: DateInterval(start: $0, end: Date()))
+            intervalFormatter.string(from: Date().timeIntervalSinceReferenceDate - $0.timeIntervalSinceReferenceDate)
         }
         
         durationLabel.text = intervalString
@@ -282,12 +317,12 @@ class VPNConnectionViewController: UIViewController {
                 pointer.pointee
             })
             if let inByteCount = dataCount?.0 {
-                self?.inBytesLabel.text = String(inByteCount)
+                self?.inBytesLabel.text = ByteCountFormatter.string(fromByteCount: Int64(inByteCount), countStyle: .binary )
             } else {
                 self?.inBytesLabel.text = nil
             }
             if let outByteCount = dataCount?.1 {
-                self?.outBytesLabel.text = String(outByteCount)
+                self?.inBytesLabel.text = ByteCountFormatter.string(fromByteCount: Int64(outByteCount), countStyle: .binary )
             } else {
                 self?.outBytesLabel.text = nil
             }
