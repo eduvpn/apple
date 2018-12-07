@@ -301,7 +301,11 @@ class VPNConnectionViewController: UIViewController {
     func updateButton() {
         switch status {
         case .connected, .connecting, .disconnecting, .reasserting:
-            buttonConnection.setTitle("Disconnect", for: .normal)
+            if let configuredProfileId = UserDefaults.standard.configuredProfileId, configuredProfileId == profile.uuid?.uuidString {
+                buttonConnection.setTitle("Disconnect existing profile and disconnect", for: .normal)
+            } else {
+                buttonConnection.setTitle("Disconnect", for: .normal)
+            }
 
         case .disconnected, .invalid:
             buttonConnection.setTitle("Connect", for: .normal)
@@ -320,6 +324,9 @@ class VPNConnectionViewController: UIViewController {
     
     func updateConnectionInfo() {
         guard let vpn = currentManager?.connection as? NETunnelProviderSession else {
+            return
+        }
+        guard let configuredProfileId = UserDefaults.standard.configuredProfileId, configuredProfileId == profile.uuid?.uuidString else {
             return
         }
         let intervalString = vpn.connectedDate.flatMap {
