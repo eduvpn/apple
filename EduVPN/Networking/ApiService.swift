@@ -21,7 +21,6 @@ enum ApiServiceError: Swift.Error {
 enum ApiService {
     case profileList
     case userInfo
-    case createConfig(displayName: String, profileId: String)
     case createKeypair(displayName: String)
     case checkCertificate(commonName: String)
     case profileConfig(profileId: String)
@@ -36,8 +35,6 @@ extension ApiService {
             return "/profile_list"
         case .userInfo:
             return "/user_info"
-        case .createConfig:
-            return "/create_config"
         case .createKeypair:
             return "/create_keypair"
         case .checkCertificate:
@@ -55,7 +52,7 @@ extension ApiService {
         switch self {
         case .profileList, .userInfo, .profileConfig, .systemMessages, .userMessages, .checkCertificate:
             return .get
-        case .createConfig, .createKeypair:
+        case .createKeypair:
             return .post
         }
     }
@@ -64,8 +61,6 @@ extension ApiService {
         switch self {
         case .profileList, .userInfo, .systemMessages, .userMessages:
             return .requestPlain
-        case .createConfig(let displayName, let profileId):
-            return .requestParameters(parameters: ["display_name": displayName, "profile_id": profileId], encoding: URLEncoding.httpBody)
         case .createKeypair(let displayName):
             return .requestParameters(parameters: ["display_name": displayName], encoding: URLEncoding.httpBody)
         case .checkCertificate(let commonName):
