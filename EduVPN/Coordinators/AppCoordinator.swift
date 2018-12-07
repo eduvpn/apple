@@ -442,7 +442,9 @@ class AppCoordinator: RootViewCoordinator {
         let connectionViewController = storyboard.instantiateViewController(type: VPNConnectionViewController.self)
         connectionViewController.delegate = self
         connectionViewController.profile = profile
-        self.navigationController.pushViewController(connectionViewController, animated: true)
+        let navController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(type: UINavigationController.self)
+        navController.viewControllers = [connectionViewController]
+        self.navigationController.present(navController, animated: true, completion: nil)
     }
 
     func resumeAuthorizationFlow(url: URL) -> Bool {

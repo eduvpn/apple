@@ -531,7 +531,13 @@
                             <constraint firstAttribute="trailingMargin" secondItem="tRT-iA-4Hw" secondAttribute="trailing" id="o3h-F5-tdw"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="VPN Connection" id="dGu-bY-IBE"/>
+                    <navigationItem key="navigationItem" title="VPN Connection" id="dGu-bY-IBE">
+                        <barButtonItem key="rightBarButtonItem" systemItem="stop" id="X6A-yV-4YM">
+                            <connections>
+                                <action selector="closeClicked:" destination="5zJ-zO-eIg" id="tKW-fg-IBq"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="buttonConnection" destination="DsN-Qy-qJs" id="Mt4-Xp-cUu"/>
