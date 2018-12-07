@@ -490,6 +490,7 @@ class AppCoordinator: RootViewCoordinator {
                 profiles.profiles.forEach {
                     let profile = Profile(context: context)
                     profile.api = api
+                    profile.uuid = UUID()
                     profile.update(with: $0)
                 }
                 context.saveContext()

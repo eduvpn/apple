@@ -14,6 +14,8 @@ import NetworkExtension
 import TunnelKit
 import PromiseKit
 
+private let profileIdKey = "EduVPNprofileId"
+
 protocol VPNConnectionViewControllerDelegate: class {
     func profileConfig(for profile: Profile) -> Promise<URL>
     @discardableResult func systemMessages(for profile: Profile) -> Promise<Messages>
@@ -146,6 +148,10 @@ class VPNConnectionViewController: UIViewController {
         connectionInfoUpdateTimer?.invalidate()
         connectionInfoUpdateTimer = nil
     }
+    
+    @IBAction func closeClicked(_ sender: Any) {
+        self.presentingViewController?.dismiss(animated: true, completion: nil)
+    }
 
     @IBAction func connectionClicked(_ sender: Any) {
         let block = {
@@ -176,16 +182,20 @@ class VPNConnectionViewController: UIViewController {
             let parseResult = try! ConfigurationParser.parsed(fromURL: configUrl)
 
             return Promise(resolver: { (resolver) in
-                self.configureVPN({ (_) in
+                self.configureVPN({ [weak self] (_) in
                     let sessionConfig = parseResult.configuration.builder().build()
                     var builder = TunnelKitProvider.ConfigurationBuilder(sessionConfiguration: sessionConfig)
                     builder.endpointProtocols = parseResult.protocols
                     let configuration = builder.build()
 
-                    return try! configuration.generatedTunnelProtocol(
+                    let tunnelProviderProtocolConfiguration = try! configuration.generatedTunnelProtocol(
                         withBundleIdentifier: VPNConnectionViewController.VPNBUNDLE,
                         appGroup: VPNConnectionViewController.APPGROUP,
                         hostname: parseResult.hostname)//swiftlint:disable:this force_try
+                    
+                    tunnelProviderProtocolConfiguration.providerConfiguration?[profileIdKey] = self?.profile.uuid?.uuidString
+                    
+                    return tunnelProviderProtocolConfiguration
 
                 }, completionHandler: { (error) in
                     if let error = error {
@@ -247,6 +257,12 @@ class VPNConnectionViewController: UIViewController {
                     completionHandler(error)
                     return
                 }
+                
+                if let protocolConfiguration = manager.protocolConfiguration as? NETunnelProviderProtocol {
+                    UserDefaults.standard.configuredProfileId = (protocolConfiguration.providerConfiguration?[profileIdKey] as! String)
+                }
+                
+
                 os_log("saved preferences", log: Log.general, type: .info)
                 self.reloadCurrentManager(completionHandler)
             }

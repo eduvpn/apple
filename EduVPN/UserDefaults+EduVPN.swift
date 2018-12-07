@@ -9,14 +9,24 @@
 import Foundation
 
 private let forceTcpDefaultsKey = "nl.eduvpn.app.forceTcp"
+private let configuredProfileIdKey = "nl.eduvpn.app.configuredProfileIdKey"
 
 extension UserDefaults {
     var forceTcp: Bool {
         get {
-            return UserDefaults.standard.bool(forKey: forceTcpDefaultsKey)
+            return self.bool(forKey: forceTcpDefaultsKey)
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: forceTcpDefaultsKey)
+            self.set(newValue, forKey: forceTcpDefaultsKey)
+        }
+    }
+    
+    var configuredProfileId: String? {
+        get {
+            return self.string(forKey: configuredProfileIdKey)
+        }
+        set {
+            self.set(newValue, forKey: configuredProfileIdKey)
         }
     }
 }
