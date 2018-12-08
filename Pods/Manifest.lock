@@ -22,6 +22,7 @@ PODS:
   - OpenSSL-Apple (1.1.0i-v2)
   - PromiseKit/CorePromise (6.6.1)
   - Result (4.0.0)
+  - Sodium (0.7.0)
   - SwiftLint (0.29.1)
   - SwiftyBeaver (1.6.1)
   - TunnelKit (1.4.0):
@@ -44,6 +45,7 @@ DEPENDENCIES:
   - Moya
   - NVActivityIndicatorView
   - PromiseKit/CorePromise
+  - Sodium
   - SwiftLint
   - TunnelKit
 
@@ -60,6 +62,7 @@ SPEC REPOS:
     - OpenSSL-Apple
     - PromiseKit
     - Result
+    - Sodium
     - SwiftLint
     - SwiftyBeaver
     - TunnelKit
@@ -86,10 +89,11 @@ SPEC CHECKSUMS:
   OpenSSL-Apple: a93b8f2eec8783ff40d9a9304de180ab68bb647c
   PromiseKit: 3a6cc789400beda9b1c8a2e3dda64cb4d0a655b0
   Result: 7645bb3f50c2ce726dd0ff2fa7b6f42bbe6c3713
+  Sodium: c5510cc6f5e1b27858e5f260b5cac80d4a3f9379
   SwiftLint: 6772320e40b52049053a518c17db9b0634a0b45a
   SwiftyBeaver: ccfcdf85a04d429f1633f668650b0ce8020bda3a
   TunnelKit: 8ac6ca743020b62e63bea66b3d169c53666fb737
 
-PODFILE CHECKSUM: 5824d4955ad9fe1e2e9a27c59cca0fb92d01940d
+PODFILE CHECKSUM: 7e34148e1c505abe6f6594d397c4c07c1a6e2875
 
 COCOAPODS: 1.6.0.beta.2

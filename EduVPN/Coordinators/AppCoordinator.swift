@@ -19,6 +19,8 @@ import BNRCoreDataStack
 
 import AppAuth
 
+import Sodium
+
 import NVActivityIndicatorView
 
 // swiftlint:disable type_body_length
@@ -35,6 +37,8 @@ enum AppCoordinatorError: Swift.Error {
     case certificateStatusUnknown
     case apiMissing
     case apiProviderCreateFailed
+    case sodiumSignatureFetchFailed
+    case sodiumSignatureVerifyFailed
 }
 
 class AppCoordinator: RootViewCoordinator {
@@ -297,21 +301,38 @@ class AppCoordinator: RootViewCoordinator {
         chooseProviderTableViewController.providerType = providerType
 
         let target: StaticService
+        let sigTarget: StaticService
         switch providerType {
         case .instituteAccess:
             target = StaticService.instituteAccess
+            sigTarget = StaticService.instituteAccessSignature
         case .secureInternet:
             target = StaticService.secureInternet
+            sigTarget = StaticService.secureInternetSignature
         case .unknown, .other:
             return
         }
 
         let provider = MoyaProvider<StaticService>()
-        _ = provider.request(target: target).then { response -> Promise<InstancesModel> in
+
+        provider.request(target: sigTarget).then { response throws -> Promise<Data> in
+            if let signature = Data(base64Encoded: response.data) {
+                return Promise.value(signature)
+            } else {
+                throw AppCoordinatorError.sodiumSignatureFetchFailed
+            }
+        }.then { signature -> Promise<Moya.Response> in
+            return provider.request(target: target).then { response throws -> Promise<Moya.Response> in
+                guard Sodium().sign.verify(message: Array(response.data), publicKey: Array(StaticService.publicKey), signature: Array(signature)) else {
+                    throw AppCoordinatorError.sodiumSignatureVerifyFailed
+                }
+                return Promise.value(response)
+            }
+        }.then { response -> Promise<InstancesModel> in
 
             return response.mapResponse()
+
         }.then { (instances) -> Promise<Void> in
-            //TODO: verify response with libsodium
             var instances = instances
             instances.providerType = providerType
             instances.instances = instances.instances.map({ (instanceModel) -> InstanceModel in
@@ -379,7 +400,9 @@ class AppCoordinator: RootViewCoordinator {
 
                 })
             })
-        }
+        }.recover({ (error) in
+            self.showError(error)
+        })
     }
 
     func fetchProfile(for profile: Profile, retry: Bool = false) -> Promise<URL> {

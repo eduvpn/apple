@@ -13,7 +13,7 @@ target 'EduVPN' do
   pod 'Moya'
   pod 'Disk'
   pod 'AlamofireImage'
-#  pod 'Sodium', :git => 'https://github.com/jedisct1/swift-sodium.git'
+  pod 'Sodium'
   pod 'ASN1Decoder'
   pod 'BNRCoreDataStack'
   pod 'NVActivityIndicatorView'

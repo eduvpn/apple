@@ -10,8 +10,6 @@ import Foundation
 
 import Moya
 
-private let publicKey = Data(base64Encoded: "E5On0JTtyUVZmcWd+I/FXRm32nSq8R2ioyW7dcu/U88=")
-
 enum StaticService {
     case instituteAccess
     case instituteAccessSignature
@@ -21,6 +19,14 @@ enum StaticService {
 
 extension StaticService: TargetType, AcceptJson {
     var baseURL: URL { return URL(string: "https://static.eduvpn.nl/disco")! }
+
+    static var publicKey: Data {
+        if let bundleID = Bundle.main.bundleIdentifier, bundleID.contains("appforce1") {
+            return Data(base64Encoded: "zzls4TZTXHEyV3yxaxag1DZw3tSpIdBoaaOjUGH/Rwg=")!
+        } else {
+            return Data(base64Encoded: "E5On0JTtyUVZmcWd+I/FXRm32nSq8R2ioyW7dcu/U88=")!
+        }
+    }
 
     var path: String {
         if let bundleID = Bundle.main.bundleIdentifier, bundleID.contains("appforce1") {
