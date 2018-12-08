@@ -20,7 +20,7 @@ extension UserDefaults {
             self.set(newValue, forKey: forceTcpDefaultsKey)
         }
     }
-    
+
     var configuredProfileId: String? {
         get {
             return self.string(forKey: configuredProfileIdKey)

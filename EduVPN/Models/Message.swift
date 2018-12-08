@@ -8,6 +8,8 @@
 
 import Foundation
 
+// swiftlint:disable identifier_name
+
 let displayDateFormatter: DateFormatter = {
     let dateFormatter = DateFormatter()
     dateFormatter.dateStyle = .medium
@@ -26,7 +28,6 @@ struct Messages: Decodable {
     var user_messages: DataMessage?
 }
 
-
 struct DataMessage: Decodable {
     var data: [Message]
     var ok: Bool
@@ -38,30 +39,27 @@ struct Message: Decodable {
     var type: NotificationType
 }
 
-
 extension Messages {
     var displayString: String? {
-        get {
-            if let systemMessageStrings = system_messages?.data.map(createString) {
-                return joinMessageStrings(systemMessageStrings)
-            }
-            if let userMessageStrings = user_messages?.data.map(createString) {
-                return joinMessageStrings(userMessageStrings)
-            }
-            
-            return nil
+        if let systemMessageStrings = system_messages?.data.map(createString) {
+            return joinMessageStrings(systemMessageStrings)
         }
+        if let userMessageStrings = user_messages?.data.map(createString) {
+            return joinMessageStrings(userMessageStrings)
+        }
+
+        return nil
     }
 }
 
-fileprivate func createString(message: Message) -> String {
+private func createString(message: Message) -> String {
     return [displayDateFormatter.string(from: message.date_time), message.message].joined(separator: "\n\n")
 }
 
-fileprivate func joinMessageStrings(_ messageStrings: [String]) -> String? {
+private func joinMessageStrings(_ messageStrings: [String]) -> String? {
     if messageStrings.isEmpty {
         return nil
     }
-    
+
     return messageStrings.joined(separator: "\n\n\n")
 }

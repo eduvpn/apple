@@ -264,14 +264,14 @@ class AppCoordinator: RootViewCoordinator {
 
     private func showProfilesViewController() {
         let profilesViewController = storyboard.instantiateViewController(type: ProfilesViewController.self)
-        
+
         let fetchRequest = NSFetchRequest<Profile>()
         fetchRequest.entity = Profile.entity()
         fetchRequest.predicate = NSPredicate(format: "api.instance.providerType == %@", ProviderType.secureInternet.rawValue)
 
         let numberOfSecureInternetProfiles = try? persistentContainer.viewContext.count(for: fetchRequest)
         profilesViewController.showSecureInterNetOption = true//numberOfSecureInternetProfiles == 0
-        
+
         profilesViewController.delegate = self
         do {
             try profilesViewController.navigationItem.hidesBackButton = Profile.countInContext(persistentContainer.viewContext) == 0
@@ -311,7 +311,7 @@ class AppCoordinator: RootViewCoordinator {
 
             return response.mapResponse()
         }.then { (instances) -> Promise<Void> in
-            //TODO verify response with libsodium
+            //TODO: verify response with libsodium
             var instances = instances
             instances.providerType = providerType
             instances.instances = instances.instances.map({ (instanceModel) -> InstanceModel in
@@ -403,7 +403,7 @@ class AppCoordinator: RootViewCoordinator {
                 ovpnFileContent?.insert(contentsOf: "\n<key>\n\(api.certificateModel!.privateKeyString)\n</key>", at: insertionIndex)
                 ovpnFileContent?.insert(contentsOf: "\n<cert>\n\(api.certificateModel!.certificateString)\n</cert>", at: insertionIndex)
                 ovpnFileContent = ovpnFileContent?.replacingOccurrences(of: "auth none\r\n", with: "")
-                // TODO validate response
+                // TODO: validate response
                 try Disk.clear(.temporary)
                 // merge profile with keypair
                 let filename = "\(profile.displayNames?.localizedValue ?? "")-\(api.instance?.displayNames?.localizedValue ?? "") \(profile.profileId ?? "").ovpn"
@@ -419,7 +419,7 @@ class AppCoordinator: RootViewCoordinator {
                         throw error
                     }
                     self.authorizingDynamicApiProvider = dynamicApiProvider
-                    return dynamicApiProvider.authorize(presentingViewController: self.navigationController).then{ _ -> Promise<URL> in
+                    return dynamicApiProvider.authorize(presentingViewController: self.navigationController).then { _ -> Promise<URL> in
                         return self.fetchProfile(for: profile, retry: true)
                     }
                 case ApiServiceError.noAuthState:
@@ -428,7 +428,7 @@ class AppCoordinator: RootViewCoordinator {
                         throw error
                     }
                     self.authorizingDynamicApiProvider = dynamicApiProvider
-                    return dynamicApiProvider.authorize(presentingViewController: self.navigationController).then{ _ -> Promise<URL> in
+                    return dynamicApiProvider.authorize(presentingViewController: self.navigationController).then { _ -> Promise<URL> in
                         return self.fetchProfile(for: profile, retry: true)
                     }
                 default:
@@ -461,7 +461,7 @@ class AppCoordinator: RootViewCoordinator {
 
         return false
     }
-    
+
     fileprivate func systemMessages(for dynamicApiProvider: DynamicApiProvider) -> Promise<Messages> {
         return dynamicApiProvider.request(apiService: .systemMessages).then { response -> Promise<Messages> in
             return response.mapResponse()
@@ -618,23 +618,23 @@ extension AppCoordinator: VPNConnectionViewControllerDelegate {
         guard let dynamicApiProvider = DynamicApiProvider(api: api) else {
             return Promise(error: AppCoordinatorError.apiProviderCreateFailed)
         }
-        
+
         return self.systemMessages(for: dynamicApiProvider)
     }
-    
+
     func userMessages(for profile: Profile) -> Promise<Messages> {
         guard let api = profile.api else {
             precondition(false, "This should never happen")
             return Promise(error: AppCoordinatorError.apiMissing)
         }
-        
+
         guard let dynamicApiProvider = DynamicApiProvider(api: api) else {
             return Promise(error: AppCoordinatorError.apiProviderCreateFailed)
         }
-        
+
         return self.userMessages(for: dynamicApiProvider)
     }
-    
+
     func profileConfig(for profile: Profile) -> Promise<URL> {
         let activityData = ActivityData()
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData, nil)
@@ -643,6 +643,5 @@ extension AppCoordinator: VPNConnectionViewControllerDelegate {
             NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
         }
     }
-
 
 }
