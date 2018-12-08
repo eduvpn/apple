@@ -472,7 +472,12 @@ class AppCoordinator: RootViewCoordinator {
 
     func resumeAuthorizationFlow(url: URL) -> Bool {
         if let authorizingDynamicApiProvider = authorizingDynamicApiProvider {
-            if authorizingDynamicApiProvider.currentAuthorizationFlow?.resumeExternalUserAgentFlow(with: url) == true {
+            guard let authFlow = authorizingDynamicApiProvider.currentAuthorizationFlow else {
+                os_log("Resume authrorization attempted, no current authFlow available", log: Log.general, type: .error)
+                self.showNoAuthFlowAlert()
+                return false
+            }
+            if authFlow.resumeExternalUserAgentFlow(with: url) == true {
                 let authorizationType = authorizingDynamicApiProvider.api.instance?.group?.authorizationTypeEnum ?? .local
                 if authorizationType == .distributed {
                     authorizingDynamicApiProvider.api.instance?.group?.distributedAuthorizationApi = authorizingDynamicApiProvider.api

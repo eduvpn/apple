@@ -24,6 +24,10 @@ extension AppCoordinator {
         showAlert(title: NSLocalizedString("Error", comment: "Error alert title"), message: error.localizedDescription)
     }
 
+    func showNoAuthFlowAlert() {
+        showAlert(title: "No auth flow available", message: "A call to `resumeAuthFlow` was called, but none available")
+    }
+
     func showNoProfilesAlert() {
         showAlert(title: NSLocalizedString("No profiles available", comment: "No profiles available title"), message: NSLocalizedString("There are no profiles configured for you on the instance you selected.", comment: "No profiles available message"))
     }
