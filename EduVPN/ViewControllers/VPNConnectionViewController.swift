@@ -173,7 +173,18 @@ class VPNConnectionViewController: UIViewController {
                         appGroup: APPGROUP,
                         hostname: parseResult.hostname)
 
-                    tunnelProviderProtocolConfiguration.providerConfiguration?[profileIdKey] = self?.profile.uuid?.uuidString
+                    let uuid: UUID
+                    if let profileId = self?.profile.uuid {
+                        uuid = profileId
+                    } else {
+                        uuid = UUID()
+                        self?.profile.uuid = uuid
+                        self?.profile.managedObjectContext?.saveContext()
+                    }
+                    
+                    tunnelProviderProtocolConfiguration.providerConfiguration?[profileIdKey] = uuid.uuidString
+
+                    
 
                     return tunnelProviderProtocolConfiguration
 
@@ -281,9 +292,9 @@ class VPNConnectionViewController: UIViewController {
         switch status {
         case .connected, .connecting, .disconnecting, .reasserting:
             if let configuredProfileId = UserDefaults.standard.configuredProfileId, configuredProfileId == profile.uuid?.uuidString {
-                buttonConnection.setTitle("Disconnect existing profile and disconnect", for: .normal)
+                buttonConnection.setTitle(NSLocalizedString("Disconnect", comment: ""), for: .normal)
             } else {
-                buttonConnection.setTitle("Disconnect", for: .normal)
+                buttonConnection.setTitle(NSLocalizedString("Disconnect existing profile and disconnect", comment: ""), for: .normal)
             }
 
         case .disconnected, .invalid:
