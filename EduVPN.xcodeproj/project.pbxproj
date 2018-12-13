@@ -37,6 +37,7 @@
 		4AA69F8B203AA67900035F1A /* Profile+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA69F8A203AA67900035F1A /* Profile+Helper.swift */; };
 		4AA9E546202CBA41006D197E /* InstanceGroup+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA9E544202CBA41006D197E /* InstanceGroup+CoreDataClass.swift */; };
 		4AA9E547202CBA41006D197E /* InstanceGroup+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA9E545202CBA41006D197E /* InstanceGroup+CoreDataProperties.swift */; };
+		4AAA157B21C2EF530097A1B5 /* TunnelProviderManagerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAA157A21C2EF530097A1B5 /* TunnelProviderManagerCoordinator.swift */; };
 		4AAC1F7A1F2D0E3400DD0252 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC1F791F2D0E3400DD0252 /* AppDelegate.swift */; };
 		4AAC1F7F1F2D0E3400DD0252 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AAC1F7D1F2D0E3400DD0252 /* Main.storyboard */; };
 		4AAC1F811F2D0E3400DD0252 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AAC1F801F2D0E3400DD0252 /* Assets.xcassets */; };
@@ -139,6 +140,7 @@
 		4AA69F8A203AA67900035F1A /* Profile+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Profile+Helper.swift"; sourceTree = "<group>"; };
 		4AA9E544202CBA41006D197E /* InstanceGroup+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InstanceGroup+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4AA9E545202CBA41006D197E /* InstanceGroup+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InstanceGroup+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4AAA157A21C2EF530097A1B5 /* TunnelProviderManagerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelProviderManagerCoordinator.swift; sourceTree = "<group>"; };
 		4AAC1F761F2D0E3400DD0252 /* EduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AAC1F791F2D0E3400DD0252 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4AAC1F7E1F2D0E3400DD0252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 				4A983B7A1F3972BE004F82D5 /* RootCoordinator.swift */,
 				4A983B761F397243004F82D5 /* AppCoordinator.swift */,
 				4A97D78520CC4F4D00472216 /* AppCoordinator+Alert.swift */,
+				4AAA157A21C2EF530097A1B5 /* TunnelProviderManagerCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -710,6 +713,7 @@
 				4AAC2EEB2027117400F9D0D2 /* Profile+CoreDataClass.swift in Sources */,
 				4A2C5C0E2177C55A00240D96 /* TunnelKitProvider+FileConfiguration.swift in Sources */,
 				4AAC2EEE2027117400F9D0D2 /* Instance+CoreDataProperties.swift in Sources */,
+				4AAA157B21C2EF530097A1B5 /* TunnelProviderManagerCoordinator.swift in Sources */,
 				4AA69F8B203AA67900035F1A /* Profile+Helper.swift in Sources */,
 				4AD0AD5F1F350822006E1337 /* Moya+ResponseHandling.swift in Sources */,
 				4A2803D91FA6867D00FA895C /* CustomProviderInPutViewController.swift in Sources */,

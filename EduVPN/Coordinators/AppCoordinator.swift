@@ -43,6 +43,12 @@ enum AppCoordinatorError: Swift.Error {
 
 class AppCoordinator: RootViewCoordinator {
 
+    lazy var tunnelProviderManagerCoordinator: TunnelProviderManagerCoordinator = {
+        let tpmCoordinator = TunnelProviderManagerCoordinator()
+        self.addChildCoordinator(tpmCoordinator)
+        tpmCoordinator.delegate = self
+        return tpmCoordinator
+    }()
     let persistentContainer = NSPersistentContainer(name: "EduVPN")
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
@@ -463,6 +469,7 @@ class AppCoordinator: RootViewCoordinator {
 
     func showConnectionViewController(for profile: Profile) {
         let connectionViewController = storyboard.instantiateViewController(type: VPNConnectionViewController.self)
+        connectionViewController.providerManagerCoordinator = tunnelProviderManagerCoordinator
         connectionViewController.delegate = self
         connectionViewController.profile = profile
         let navController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(type: UINavigationController.self)
@@ -636,6 +643,17 @@ extension AppCoordinator: CustomProviderInPutViewControllerDelegate {
     }
 }
 
+extension AppCoordinator: TunnelProviderManagerCoordinatorDelegate {
+    func profileConfig(for profile: Profile) -> Promise<URL> {
+        let activityData = ActivityData()
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData, nil)
+        
+        return fetchProfile(for: profile).ensure {
+            NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
+        }
+    }
+}
+
 extension AppCoordinator: VPNConnectionViewControllerDelegate {
     func systemMessages(for profile: Profile) -> Promise<Messages> {
         guard let api = profile.api else {
@@ -662,14 +680,4 @@ extension AppCoordinator: VPNConnectionViewControllerDelegate {
 
         return self.userMessages(for: dynamicApiProvider)
     }
-
-    func profileConfig(for profile: Profile) -> Promise<URL> {
-        let activityData = ActivityData()
-        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData, nil)
-
-        return fetchProfile(for: profile).ensure {
-            NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
-        }
-    }
-
 }
