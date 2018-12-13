@@ -25,7 +25,7 @@ extension AppCoordinator {
     }
     
     public func showAlert(forUnconfigured profile: Profile, confirmedHandler: @escaping () -> ()) {
-        let alert = UIAlertController(title: "unconfigured profile", message: "message \(profile)", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Selected profile not configured", message: "Do you want to close any existing connections and configure the selected profile?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "OK button"), style: .default, handler: { (action) in
             confirmedHandler()
         }))

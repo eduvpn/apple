@@ -111,6 +111,18 @@ class AppCoordinator: RootViewCoordinator {
                 }
             }
         }
+        
+        // Migratation
+        self.persistentContainer.performBackgroundTask({ (context) in
+            let profiles =  try? Profile.allInContext(context)
+            profiles?.forEach({ (profile) in
+                if profile.uuid == nil {
+                    profile.uuid = UUID()
+                }
+                context.saveContext()
+            })
+        })
+
     }
 
     func loadCertificate(for api: Api) -> Promise<CertificateModel> {
