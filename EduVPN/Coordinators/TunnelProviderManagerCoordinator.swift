@@ -12,6 +12,10 @@ import NetworkExtension
 import TunnelKit
 import PromiseKit
 
+enum TunnelProviderManagerCoordinatorError: Error {
+    case missingDelegate
+}
+
 private let profileIdKey = "EduVPNprofileId"
 
 protocol TunnelProviderManagerCoordinatorDelegate: class {
@@ -26,12 +30,19 @@ class TunnelProviderManagerCoordinator: Coordinator {
     func start() {
     }
     
-    func connect(profile: Profile) {
-        _ = delegate?.profileConfig(for: profile).then({ (configUrl) -> Promise<Void> in
+    var configuredProfileUuid: String?  {
+        return UserDefaults.standard.configuredProfileId
+    }
+    
+    func configure(profile: Profile)  -> Promise<Void> {
+        guard let delegate = delegate else {
+            return Promise(error: TunnelProviderManagerCoordinatorError.missingDelegate)
+        }
+        return delegate.profileConfig(for: profile).then({ (configUrl) -> Promise<Void> in
             let parseResult = try! ConfigurationParser.parsed(fromURL: configUrl) //swiftlint:disable:this force_try
             
             return Promise(resolver: { (resolver) in
-                self.configureVPN({ [weak self] (_) in
+                self.configureVPN({ (_) in
                     let sessionConfig = parseResult.configuration.builder().build()
                     var builder = TunnelKitProvider.ConfigurationBuilder(sessionConfiguration: sessionConfig)
                     builder.endpointProtocols = parseResult.protocols
@@ -54,22 +65,28 @@ class TunnelProviderManagerCoordinator: Coordinator {
                     tunnelProviderProtocolConfiguration.providerConfiguration?[profileIdKey] = uuid.uuidString
                     
                     return tunnelProviderProtocolConfiguration
-                    }, completionHandler: { (error) in
-                        if let error = error {
-                            os_log("configure error: %{public}@", log: Log.general, type: .error, error.localizedDescription)
-                            resolver.reject(error)
-                            return
-                        }
-                        let session = self.currentManager?.connection as! NETunnelProviderSession //swiftlint:disable:this force_cast
-                        do {
-                            try session.startTunnel()
-                            resolver.resolve(Result.fulfilled(()))
-                        } catch let error {
-                            os_log("error starting tunnel: %{public}@", log: Log.general, type: .error, error.localizedDescription)
-                            resolver.reject(error)
-                        }
+                }, completionHandler: { (error) in
+                    if let error = error {
+                        os_log("configure error: %{public}@", log: Log.general, type: .error, error.localizedDescription)
+                        resolver.reject(error)
+                        return
+                    }
+                    resolver.resolve(Result.fulfilled(()))
                 })
             })
+        })
+    }
+    
+    func connect(profile: Profile) -> Promise<Void> {
+        return Promise(resolver: { (resolver) in
+            let session = self.currentManager?.connection as! NETunnelProviderSession //swiftlint:disable:this force_cast
+            do {
+                try session.startTunnel()
+                resolver.resolve(Result.fulfilled(()))
+            } catch let error {
+                os_log("error starting tunnel: %{public}@", log: Log.general, type: .error, error.localizedDescription)
+                resolver.reject(error)
+            }
         })
     }
 

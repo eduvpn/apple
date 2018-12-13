@@ -103,7 +103,14 @@ class ConnectionsTableViewController: UITableViewController {
 
         let section = sections[indexPath.section]
         let profile = section.objects[indexPath.row]
+        
 
+        if let currentProfileUuid = profile.uuid, currentProfileUuid.uuidString == UserDefaults.standard.configuredProfileId {
+            cell.accessoryType = .checkmark
+        } else {
+            cell.accessoryType = .none
+        }
+        
         cell.connectTitleLabel?.text = profile.profileId
         cell.connectSubTitleLabel?.text = profile.displayNames?.localizedValue ?? profile.api?.instance?.displayNames?.localizedValue ?? profile.api?.instance?.baseUri
         if let logo = profile.api?.instance?.logos?.localizedValue, let logoUri = URL(string: logo) {

@@ -567,7 +567,22 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
     }
 
     func connect(profile: Profile, sourceView: UIView?) {
-        showConnectionViewController(for: profile)
+        if let currentProfileUuid = profile.uuid, currentProfileUuid.uuidString == UserDefaults.standard.configuredProfileId {
+            showConnectionViewController(for: profile)
+        } else {
+            showAlert(forUnconfigured: profile) { [weak self] in
+                guard let self = self else {
+                    return
+                }
+                self.tunnelProviderManagerCoordinator.disconnect()
+                _ = self.tunnelProviderManagerCoordinator.configure(profile: profile).then({ (_) -> Promise<Void> in
+                    self.connectionsTableViewController.tableView.reloadData()
+                    return Promise.value(())
+                })
+
+                self.showConnectionViewController(for: profile)
+            }
+        }
     }
 
     func delete(profile: Profile) {
