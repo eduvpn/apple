@@ -102,7 +102,11 @@ class AppCoordinator: RootViewCoordinator {
                         self?.navigationController.viewControllers = [connectionsTableViewController]
                         do {
                             if let context = self?.persistentContainer.viewContext, try Profile.countInContext(context) == 0 {
-                                self?.showProfilesViewController()
+                                if let bundleID = Bundle.main.bundleIdentifier, bundleID.contains("letsconnect") {
+                                    self?.showCustomProviderInPutViewController(for: .other)
+                                } else {
+                                    self?.showProfilesViewController()
+                                }
                             }
                         } catch {
                             self?.showError(error)
@@ -575,7 +579,11 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
     }
 
     func addProvider(connectionsTableViewController: ConnectionsTableViewController) {
-        showProfilesViewController()
+        if let bundleID = Bundle.main.bundleIdentifier, bundleID.contains("letsconnect") {
+            showCustomProviderInPutViewController(for: .other)
+        } else {
+            showProfilesViewController()
+        }
     }
 
     func connect(profile: Profile, sourceView: UIView?) {
