@@ -8,6 +8,7 @@
 
 import Foundation
 
+//TODO: Identifier zonder eduvpn verwijzing kiezen
 private let forceTcpDefaultsKey = "nl.eduvpn.app.forceTcp"
 private let configuredProfileIdKey = "nl.eduvpn.app.configuredProfileIdKey"
 

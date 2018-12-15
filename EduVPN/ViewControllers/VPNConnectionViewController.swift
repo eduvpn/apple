@@ -12,7 +12,9 @@ import NetworkExtension
 import TunnelKit
 import PromiseKit
 
+//TODO: Dit baseren op PRODUCT_BUNDLE_IDENTIFIER
 let APPGROUP = "group.nl.eduvpn.app.EduVPN.test.appforce1"
+//TODO: Dit baseren op PRODUCT_BUNDLE_IDENTIFIER van extension
 let VPNBUNDLE = "nl.eduvpn.app.EduVPN.test.appforce1.EduVPNTunnelExtension"
 
 private let intervalFormatter: DateComponentsFormatter = {

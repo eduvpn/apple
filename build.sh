@@ -8,12 +8,14 @@ echo ""
 echo "Which signing identity do you want to use?"
 echo "1. SURFnet B.V. (ZYJ4TZX4UU)"
 echo "2. Jeroen Leenarts (T4CMEHXPLL)"
-echo "3. Other"
+echo "3. Commons Caretakers ()"
+echo "4. Other"
 read -p "0-9?" choice
 case "$choice" in
-  1 ) TEAMID="ZYJ4TZX4UU"; SIGNINGIDENTITY="Developer ID Application: SURFnet B.V. ($TEAMID)"; PROFILETYPE="app-store";;
-  2 ) TEAMID="T4CMEHXPLL"; SIGNINGIDENTITY="iPhone Distribution"; PROFILETYPE="ad-hoc";;
-  3 ) echo "Please adjust the build script to add your signing identity."; exit 0;;
+  1 ) TEAMID="ZYJ4TZX4UU"; SIGNINGIDENTITY="Developer ID Application: SURFnet B.V. ($TEAMID)"; PROFILETYPE="app-store"; CONFIGURATION="Release";;
+  2 ) TEAMID="T4CMEHXPLL"; SIGNINGIDENTITY="iPhone Distribution"; PROFILETYPE="ad-hoc"; CONFIGURATION="Release AppForce1";;
+  3 ) TEAMID="D9T87NF4Q7"; SIGNINGIDENTITY="iPhone Distribution"; PROFILETYPE="app-store"; CONFIGURATION="Release LetsConnect";;
+  4 ) echo "Please adjust the build script to add your signing identity."; exit 0;;
   * ) echo "Invalid response."; exit 0;;
 esac
 

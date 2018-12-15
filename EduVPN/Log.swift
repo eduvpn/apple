@@ -9,6 +9,8 @@
 import os.log
 
 struct Log {
+    //TODO: Dit baseren op PRODUCT_BUNDLE_IDENTIFIER
     static var general = OSLog(subsystem: "nl.eduvpn.app.EduVPN", category: "general")
+    //TODO: Dit baseren op PRODUCT_BUNDLE_IDENTIFIER van extension
     static var tunnel = OSLog(subsystem: "nl.eduvpn.app.EduVPN.EduVPNTunnelExtension", category: "tunnel extension")
 }
