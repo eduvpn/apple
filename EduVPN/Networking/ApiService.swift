@@ -100,6 +100,8 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
         let redirectUrl: URL
         if let bundleID = Bundle.main.bundleIdentifier, bundleID.contains("appforce1") {
             redirectUrl = URL(string: "https://ios.app.eduvpn.org/auth/app/redirect/development/")!
+        } else if let bundleID = Bundle.main.bundleIdentifier, bundleID.contains("letsconnect") {
+            redirectUrl = URL(string: "https://ios.app.eduvpn.org/auth/app/redirect/letconnect/")!
         } else {
             redirectUrl = URL(string: "https://ios.app.eduvpn.org/auth/app/redirect/")!
         }
