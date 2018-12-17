@@ -88,7 +88,6 @@ class AppCoordinator: RootViewCoordinator {
 
     /// Starts the coordinator
     public func start() {
-        persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
         persistentContainer.loadPersistentStores { [weak self] (_, error) in
             if let error = error {
                 os_log("Unable to Load Persistent Store. %{public}@", log: Log.general, type: .info, error.localizedDescription)
@@ -97,6 +96,7 @@ class AppCoordinator: RootViewCoordinator {
                     //start
                     if let connectionsTableViewController = self?.storyboard.instantiateViewController(type: ConnectionsTableViewController.self) {
                         self?.connectionsTableViewController = connectionsTableViewController
+                        self?.persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
                         self?.connectionsTableViewController.viewContext = self?.persistentContainer.viewContext
                         self?.connectionsTableViewController.delegate = self
                         self?.navigationController.viewControllers = [connectionsTableViewController]
