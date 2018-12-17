@@ -49,7 +49,7 @@ FILENAME="$TARGET-$VERSION"
 
 echo ""
 echo "Building and archiving"
-xcodebuild archive -workspace EduVPN.xcworkspace -scheme $TARGET -archivePath $FILENAME.xcarchive DEVELOPMENT_TEAM=$TEAMID
+xcodebuild archive -workspace EduVPN.xcworkspace -scheme $TARGET -configuration "$CONFIGURATION" -archivePath $FILENAME.xcarchive DEVELOPMENT_TEAM=$TEAMID
 
 echo "Exporting not yet supported"
 exit 0
@@ -59,7 +59,7 @@ echo "Exporting"
 /usr/libexec/PlistBuddy -c "Set :teamID \"$TEAMID\"" ExportOptions.plist
 /usr/libexec/PlistBuddy -c "Set :method \"$PROFILETYPE\"" ExportOptions.plist
 /usr/libexec/PlistBuddy -c "Set :signingCertificate \"$SIGNINGIDENTITY\"" ExportOptions.plist
-xcodebuild -exportArchive -archivePath $FILENAME.xcarchive -exportPath $FILENAME -exportOptionsPlist ExportOptions.plist
+xcodebuild -exportArchive -archivePath $FILENAME.xcarchive -configuration "$CONFIGURATION" -exportPath $FILENAME -exportOptionsPlist ExportOptions.plist
 
 echo ""
 echo "Re-signing up and down scripts"

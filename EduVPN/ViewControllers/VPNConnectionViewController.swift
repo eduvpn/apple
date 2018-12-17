@@ -12,11 +12,6 @@ import NetworkExtension
 import TunnelKit
 import PromiseKit
 
-//TODO: Dit baseren op PRODUCT_BUNDLE_IDENTIFIER
-let APPGROUP = "group.nl.eduvpn.app.EduVPN.test.appforce1"
-//TODO: Dit baseren op PRODUCT_BUNDLE_IDENTIFIER van extension
-let VPNBUNDLE = "nl.eduvpn.app.EduVPN.test.appforce1.EduVPNTunnelExtension"
-
 private let intervalFormatter: DateComponentsFormatter = {
     let formatter = DateComponentsFormatter()
     formatter.allowedUnits = [.hour, .minute, .second]
@@ -96,7 +91,7 @@ class VPNConnectionViewController: UIViewController {
             self?.updateConnectionInfo()
         })
         if let concreteDelegate = delegate {
-            firstly { () -> Promise<Messages> in
+            _ = firstly { () -> Promise<Messages> in
                 return concreteDelegate.systemMessages(for: profile)
             }.then({ [weak self] (systemMessages) -> Guarantee<Void> in
                 if let displayString = systemMessages.displayString {
@@ -109,7 +104,7 @@ class VPNConnectionViewController: UIViewController {
                 return Guarantee<Void>()
             })
 
-            firstly { () -> Promise<Messages> in
+            _ = firstly { () -> Promise<Messages> in
                 return concreteDelegate.userMessages(for: profile)
             }.then({ [weak self] (userMessages) -> Guarantee<Void> in
                 if let displayString = userMessages.displayString {
@@ -139,7 +134,7 @@ class VPNConnectionViewController: UIViewController {
         let block = {
             switch self.status {
             case .invalid, .disconnected:
-                self.providerManagerCoordinator.connect(profile: self.profile)
+                _ = self.providerManagerCoordinator.connect(profile: self.profile)
 
             case .connected, .connecting:
                 self.providerManagerCoordinator.disconnect()
