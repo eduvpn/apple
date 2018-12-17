@@ -168,6 +168,8 @@
 		4AAC2EEF2027927300F9D0D2 /* DisplayName+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DisplayName+Convenience.swift"; sourceTree = "<group>"; };
 		4AAC2EF120279F0000F9D0D2 /* Logo+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logo+Convenience.swift"; sourceTree = "<group>"; };
 		4AAEBDF321BAFC9B00D3A940 /* EduVPN 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EduVPN 4.xcdatamodel"; sourceTree = "<group>"; };
+		4AB96AF721C835A900F4AC67 /* AppForce1.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppForce1.entitlements; sourceTree = "<group>"; };
+		4AB96AF821C835A900F4AC67 /* LetsConnect.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LetsConnect.entitlements; sourceTree = "<group>"; };
 		4ABFF78820C71E7200638480 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		4AC8991320F3176D008696A1 /* EduVPN 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EduVPN 2.xcdatamodel"; sourceTree = "<group>"; };
 		4ACA04291F311507004B35AA /* StaticService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticService.swift; sourceTree = "<group>"; };
@@ -304,7 +306,9 @@
 		4AAC1F781F2D0E3400DD0252 /* EduVPN */ = {
 			isa = PBXGroup;
 			children = (
+				4AB96AF721C835A900F4AC67 /* AppForce1.entitlements */,
 				4A84E276204F3A5B00E51EFE /* EduVPN.entitlements */,
+				4AB96AF821C835A900F4AC67 /* LetsConnect.entitlements */,
 				4A983B751F397223004F82D5 /* Coordinators */,
 				4AD0AD601F3508DD006E1337 /* Models */,
 				4AD0AD5B1F35045E006E1337 /* ViewControllers */,
@@ -896,7 +900,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = EduVPN/EduVPN.entitlements;
+				CODE_SIGN_ENTITLEMENTS = EduVPN/LetsConnect.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -1012,7 +1016,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = EduVPN/EduVPN.entitlements;
+				CODE_SIGN_ENTITLEMENTS = EduVPN/LetsConnect.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = D9T87NF4Q7;
@@ -1134,7 +1138,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = EduVPN/EduVPN.entitlements;
+				CODE_SIGN_ENTITLEMENTS = EduVPN/AppForce1.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -1250,7 +1254,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = EduVPN/EduVPN.entitlements;
+				CODE_SIGN_ENTITLEMENTS = EduVPN/AppForce1.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = T4CMEHXPLL;
