@@ -23,7 +23,7 @@ target 'EduVPN' do
 
   post_install do | installer |
     require 'fileutils'
-    FileUtils.cp_r('Pods/Target Support Files/Pods-EduVPN/Pods-EduVPN-Acknowledgements.plist', 'EduVPN/Resources/Settings.bundle/Acknowledgements.plist', :remove_destination => true)
+    FileUtils.cp_r('Pods/Target Support Files/Pods-EduVPN/Pods-EduVPN-Acknowledgements.plist', '$(target.product_name)/Resources/Settings.bundle/Acknowledgements.plist', :remove_destination => true)
 
   end
 end

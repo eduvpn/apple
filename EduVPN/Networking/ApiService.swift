@@ -98,15 +98,19 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
 
     public func authorize(presentingViewController: UIViewController) -> Promise<OIDAuthState> {
         let redirectUrl: URL
+        let clientId: String
         if let bundleID = Bundle.main.bundleIdentifier, bundleID.contains("appforce1") {
             redirectUrl = URL(string: "https://ios.app.eduvpn.org/auth/app/redirect/development/")!
+            clientId = "org.eduvpn.app.ios"
         } else if let bundleID = Bundle.main.bundleIdentifier, bundleID.contains("letsconnect") {
-            redirectUrl = URL(string: "https://ios.app.letsconnect-vpn.org/app/redirect/")!
+            redirectUrl = URL(string: "https://ios.app.letsconnect-vpn.org/auth/app/redirect/")!
+            clientId = "org.letsconnect-vpn.app.ios"
         } else {
             redirectUrl = URL(string: "https://ios.app.eduvpn.org/auth/app/redirect/")!
+            clientId = "org.eduvpn.app.ios"
         }
 
-        let request = OIDAuthorizationRequest(configuration: authConfig, clientId: "org.eduvpn.app.ios", scopes: ["config"], redirectURL: redirectUrl, responseType: OIDResponseTypeCode, additionalParameters: nil)
+        let request = OIDAuthorizationRequest(configuration: authConfig, clientId: clientId, scopes: ["config"], redirectURL: redirectUrl, responseType: OIDResponseTypeCode, additionalParameters: nil)
         return Promise(resolver: { seal in
             currentAuthorizationFlow = OIDAuthState.authState(byPresenting: request, presenting: presentingViewController, callback: { (authState, error) in
 

@@ -15,7 +15,7 @@ for plist in "$target_plist" "$dsym_plist"; do
   fi
 done
 
-settings_root_plist="$TARGET_BUILD_DIR/EduVPN.app/Settings.bundle/Root.plist"
+settings_root_plist="$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Settings.bundle/Root.plist"
 
 if [ -f "$settings_root_plist" ]; then
   settingsVersion="$git_release_version (${number_of_commits})"
