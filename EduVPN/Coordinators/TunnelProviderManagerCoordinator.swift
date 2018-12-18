@@ -36,7 +36,6 @@ class TunnelProviderManagerCoordinator: Coordinator {
         } else {
             fatalError("missing bundle ID")
         }
-        
     }
     
     var vpnBundle: String {
@@ -117,7 +116,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
         })
     }
     
-    @IBAction func displayLog() {
+    func loadLog(completion: ((String) -> Void)? = nil) {
         guard let vpn = currentManager?.connection as? NETunnelProviderSession else {
             return
         }
@@ -125,7 +124,8 @@ class TunnelProviderManagerCoordinator: Coordinator {
             guard let log = String(data: data!, encoding: .utf8) else {
                 return
             }
-            //TODO: display log
+            
+            completion?(log)
         }
     }
     

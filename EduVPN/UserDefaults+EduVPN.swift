@@ -8,9 +8,8 @@
 
 import Foundation
 
-//TODO: Identifier zonder eduvpn verwijzing kiezen
-private let forceTcpDefaultsKey = "nl.eduvpn.app.forceTcp"
-private let configuredProfileIdKey = "nl.eduvpn.app.configuredProfileIdKey"
+private let forceTcpDefaultsKey = "force_tcp"
+private let configuredProfileUuidKey = "configured_profile_uuid"
 
 extension UserDefaults {
     var forceTcp: Bool {
@@ -24,10 +23,10 @@ extension UserDefaults {
 
     var configuredProfileId: String? {
         get {
-            return self.string(forKey: configuredProfileIdKey)
+            return self.string(forKey: configuredProfileUuidKey)
         }
         set {
-            self.set(newValue, forKey: configuredProfileIdKey)
+            self.set(newValue, forKey: configuredProfileUuidKey)
         }
     }
 }

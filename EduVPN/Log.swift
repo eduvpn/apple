@@ -6,11 +6,15 @@
 //  Copyright © 2018 SURFNet. All rights reserved.
 //
 
+import Foundation
 import os.log
 
 struct Log {
-    //TODO: Dit baseren op PRODUCT_BUNDLE_IDENTIFIER
-    static var general = OSLog(subsystem: "nl.eduvpn.app.EduVPN", category: "general")
-    //TODO: Dit baseren op PRODUCT_BUNDLE_IDENTIFIER van extension
-    static var tunnel = OSLog(subsystem: "nl.eduvpn.app.EduVPN.EduVPNTunnelExtension", category: "tunnel extension")
+     static var general: OSLog = {
+        if let bundleID = Bundle.main.bundleIdentifier {
+            return OSLog(subsystem: bundleID, category: "general")
+        } else {
+            fatalError("missing bundle ID")
+        }
+    }()
 }

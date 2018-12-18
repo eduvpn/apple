@@ -36,6 +36,8 @@ class VPNConnectionViewController: UIViewController {
 
     @IBOutlet var inBytesLabel: UILabel!
 
+    @IBOutlet weak var logTextView: UITextView!
+    
     var providerManagerCoordinator: TunnelProviderManagerCoordinator!
 
     private var connectionInfoUpdateTimer: Timer?
@@ -130,6 +132,12 @@ class VPNConnectionViewController: UIViewController {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
 
+    @IBAction func displayLogClicked(_ sender: Any) {
+        self.providerManagerCoordinator.loadLog { [weak self] (log) in
+            self?.logTextView.text = log
+        }
+    }
+    
     @IBAction func connectionClicked(_ sender: Any) {
         let block = {
             switch self.status {
