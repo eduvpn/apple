@@ -1,20 +1,17 @@
 #!/bin/bash
 echo "Build Script for EduVPN iOS"
 
-TARGET="EduVPN"
-PRODUCT="EduVPN.app"
-
 echo ""
 echo "Which signing identity do you want to use?"
 echo "1. SURFnet B.V. (ZYJ4TZX4UU)"
 echo "2. Jeroen Leenarts (T4CMEHXPLL)"
-echo "3. Commons Caretakers ()"
+echo "3. Commons Caretakers (D9T87NF4Q7)"
 echo "4. Other"
 read -p "0-9?" choice
 case "$choice" in
-  1 ) TEAMID="ZYJ4TZX4UU"; SIGNINGIDENTITY="Developer ID Application: SURFnet B.V. ($TEAMID)"; PROFILETYPE="app-store"; CONFIGURATION="Release";;
-  2 ) TEAMID="T4CMEHXPLL"; SIGNINGIDENTITY="iPhone Distribution"; PROFILETYPE="ad-hoc"; CONFIGURATION="Release AppForce1";;
-  3 ) TEAMID="D9T87NF4Q7"; SIGNINGIDENTITY="iPhone Distribution"; PROFILETYPE="app-store"; CONFIGURATION="Release LetsConnect";;
+  1 ) TEAMID="ZYJ4TZX4UU"; SIGNINGIDENTITY="Developer ID Application: SURFnet B.V. ($TEAMID)"; PROFILETYPE="app-store"; CONFIGURATION="Release"; PRODUCT="EduVPN";;
+  2 ) TEAMID="T4CMEHXPLL"; SIGNINGIDENTITY="iPhone Distribution"; PROFILETYPE="ad-hoc"; CONFIGURATION="Release AppForce1"; PRODUCT="EduVPN-test";;
+  3 ) TEAMID="D9T87NF4Q7"; SIGNINGIDENTITY="iPhone Distribution"; PROFILETYPE="app-store"; CONFIGURATION="Release LetsConnect"; PRODUCT="LetsConnect";;
   4 ) echo "Please adjust the build script to add your signing identity."; exit 0;;
   * ) echo "Invalid response."; exit 0;;
 esac
@@ -27,7 +24,7 @@ if [[ $BRANCH != "master" ]]
 then
     echo ""
     echo "You must always build from master branch. Switch to the correct branch."
-#    exit
+    exit
 fi
 
 git=$(sh /etc/profile; which git)
@@ -45,7 +42,8 @@ case "$choice" in
   * ) echo "Invalid response."; exit 0;;
 esac
 
-FILENAME="$TARGET-$VERSION"
+TARGET="EduVPN"
+FILENAME="$PRODUCT-$VERSION"
 
 echo ""
 echo "Building and archiving"
