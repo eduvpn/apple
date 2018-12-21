@@ -29,6 +29,8 @@ protocol ConnectionsTableViewControllerDelegate: class {
 
 class ConnectionsTableViewController: UITableViewController {
     weak var delegate: ConnectionsTableViewControllerDelegate?
+    
+    @IBOutlet weak var noConfigsButton: TableTextButton?
 
     var viewContext: NSManagedObjectContext!
 
@@ -46,9 +48,32 @@ class ConnectionsTableViewController: UITableViewController {
     private lazy var frcDelegate: ProfileFetchedResultsControllerDelegate = { // swiftlint:disable:this weak_delegate
         return ProfileFetchedResultsControllerDelegate(tableView: self.tableView)
     }()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if self.fetchedResultsController.count == 0 && noConfigsButton == nil {
+            let noConfigsButton = TableTextButton()
+            noConfigsButton.title = NSLocalizedString("Add configuration", comment: "")
+            noConfigsButton.onTap = { [weak self] in
+                guard let self = self else {
+                    return
+                }
+                self.delegate?.addProvider(connectionsTableViewController: self)
+            }
+            noConfigsButton.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+            noConfigsButton.frame = tableView.bounds
+            tableView.tableHeaderView = noConfigsButton
+            self.noConfigsButton = noConfigsButton
+        } else if self.fetchedResultsController.count > 0 {
+            tableView.tableHeaderView = nil
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         tableView.tableFooterView = UIView()
         do {
             try fetchedResultsController.performFetch()
@@ -209,5 +234,49 @@ class ProfileFetchedResultsControllerDelegate: NSObject, FetchedResultsControlle
         case let .delete(_, index):
             tableView.deleteSections(IndexSet(integer: index), with: .automatic)
         }
+    }
+}
+
+class TableTextButton: UIView {
+    let button: UIButton
+    
+    var title: String? {
+        get {
+            return button.title(for: .normal)
+            
+        }
+        set(value) {
+            button.setTitle(value, for: .normal)
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("not been implemented")
+    }
+    
+    init() {
+        button = UIButton(type: .system)
+        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
+        button.titleLabel?.adjustsFontForContentSizeCategory = true
+        super.init(frame: CGRect.zero)
+        addSubview(button)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            button.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            button.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            NSLayoutConstraint(item: button, attribute: .width, relatedBy: .equal, toItem: button, attribute: .width, multiplier: 1, constant: 250)
+            ])
+//        button.layer.borderWidth = 1
+//        button.layer.cornerRadius = 5
+//        button.layer.borderColor = button.titleColor(for: .normal)?.cgColor
+//        button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+        button.addTarget(self, action: #selector(tapped), for: .touchUpInside)
+    }
+    
+    var onTap: (() -> Void)?
+
+    
+    @objc func tapped() {
+        onTap?()
     }
 }
