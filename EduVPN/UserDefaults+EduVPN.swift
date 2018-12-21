@@ -8,10 +8,20 @@
 
 import Foundation
 
+private let onDemandDefaultsKey = "on_demand"
 private let forceTcpDefaultsKey = "force_tcp"
 private let configuredProfileUuidKey = "configured_profile_uuid"
 
 extension UserDefaults {
+    var onDemand: Bool {
+        get {
+            return self.bool(forKey: onDemandDefaultsKey)
+        }
+        set {
+            self.set(newValue, forKey: onDemandDefaultsKey)
+        }
+    }
+    
     var forceTcp: Bool {
         get {
             return self.bool(forKey: forceTcpDefaultsKey)

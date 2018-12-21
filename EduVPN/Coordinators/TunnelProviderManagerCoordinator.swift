@@ -142,6 +142,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
                 manager.protocolConfiguration = protocolConfiguration
             }
             manager.isEnabled = true
+            manager.isOnDemandEnabled = UserDefaults.standard.onDemand
             
             manager.saveToPreferences { (error) in
                 if let error = error {

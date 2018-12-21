@@ -179,8 +179,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
-                            <tableViewSection id="2fY-ta-THv">
-                                <string key="footerTitle">Sometimes, EduVPN can not connect properly because of very strict firewalls. Connecting directly through TCP can make it easier in these circumstances.</string>
+                            <tableViewSection footerTitle="With on demand enabled, the app attempts to keep you connected and will connect you when network activity is requested." id="2fY-ta-THv">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Nsj-pb-wbZ">
                                         <rect key="frame" x="0.0" y="35" width="320" height="44"/>
@@ -192,10 +191,10 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JPq-pi-jpH">
                                                     <rect key="frame" x="263" y="6.5" width="51" height="31"/>
                                                     <connections>
-                                                        <action selector="forceTcpChanged:" destination="u52-OQ-OnN" eventType="valueChanged" id="Bmb-mY-Byu"/>
+                                                        <action selector="onDemandChanged:" destination="u52-OQ-OnN" eventType="valueChanged" id="mIe-K2-oB8"/>
                                                     </connections>
                                                 </switch>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Force TCP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n5F-Rw-ixR">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On Demand" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n5F-Rw-ixR">
                                                     <rect key="frame" x="16" y="11.5" width="247" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -222,7 +221,7 @@
                     <navigationItem key="navigationItem" title="Settings" id="p53-93-okJ"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="forceTcpSwitch" destination="JPq-pi-jpH" id="7KZ-PA-9lc"/>
+                        <outlet property="onDemandSwitch" destination="JPq-pi-jpH" id="YwG-zX-Yzj"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sIU-ng-eKu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -702,11 +701,18 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Connect to VPN" id="P6q-bt-Jv8">
                         <barButtonItem key="backBarButtonItem" title=" " id="2UY-h4-ATh"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="uaX-GP-r14">
-                            <connections>
-                                <action selector="addProvider:" destination="Uux-Jq-wjR" id="Z7H-Dw-EqA"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem image="gear" id="cVP-ef-jzv">
+                                <connections>
+                                    <action selector="settings:" destination="Uux-Jq-wjR" id="TD5-8n-e8e"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="add" id="uaX-GP-r14">
+                                <connections>
+                                    <action selector="addProvider:" destination="Uux-Jq-wjR" id="Z7H-Dw-EqA"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </tableViewController>
@@ -737,6 +743,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="gear" width="22" height="22"/>
         <image name="not-connected" width="90" height="90"/>
         <image name="secure_access" width="90" height="90"/>
         <image name="secure_internet" width="90" height="90"/>
