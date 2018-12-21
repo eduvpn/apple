@@ -570,6 +570,16 @@ class AppCoordinator: RootViewCoordinator {
 }
 
 extension AppCoordinator: SettingsTableViewControllerDelegate {
+    func readOnDemand() -> Bool {
+        return tunnelProviderManagerCoordinator.currentManager?.isOnDemandEnabled ?? UserDefaults.standard.onDemand
+    }
+    
+    func writeOnDemand(_ onDemand: Bool) {
+        UserDefaults.standard.onDemand = onDemand
+        tunnelProviderManagerCoordinator.currentManager?.isOnDemandEnabled = onDemand
+        tunnelProviderManagerCoordinator.currentManager?.saveToPreferences(completionHandler: nil)
+    }
+    
 
 }
 

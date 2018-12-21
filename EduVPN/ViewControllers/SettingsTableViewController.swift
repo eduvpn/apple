@@ -9,7 +9,8 @@
 import UIKit
 
 protocol SettingsTableViewControllerDelegate: class {
-
+    func readOnDemand() -> Bool
+    func writeOnDemand(_ onDemand: Bool)
 }
 
 class SettingsTableViewController: UITableViewController {
@@ -19,7 +20,11 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var forceTcpSwitch: UISwitch!
     
     @IBAction func onDemandChanged(_ sender: Any) {
-        UserDefaults.standard.onDemand = onDemandSwitch.isOn
+        if let delegate = delegate {
+            delegate.writeOnDemand(onDemandSwitch.isOn)
+        } else {
+            onDemandSwitch.isOn = false
+        }
     }
 
     @IBAction func forceTcpChanged(_ sender: Any) {
@@ -29,7 +34,7 @@ class SettingsTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        onDemandSwitch.isOn = UserDefaults.standard.onDemand
+        onDemandSwitch.isOn = delegate?.readOnDemand() ?? false
 //        forceTcpSwitch.isOn = UserDefaults.standard.forceTcp
     }
 }

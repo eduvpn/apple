@@ -98,6 +98,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
         return Promise(resolver: { (resolver) in
             let session = self.currentManager?.connection as! NETunnelProviderSession //swiftlint:disable:this force_cast
             do {
+                self.currentManager?.isOnDemandEnabled = UserDefaults.standard.onDemand
                 try session.startTunnel()
                 resolver.resolve(Result.fulfilled(()))
             } catch let error {
@@ -109,7 +110,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
 
     func disconnect() {
         configureVPN({ (_) in
-            //            self.currentManager?.isOnDemandEnabled = false
+            self.currentManager?.isOnDemandEnabled = false
             return nil
         }, completionHandler: { (_) in
             self.currentManager?.connection.stopVPNTunnel()
@@ -142,7 +143,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
                 manager.protocolConfiguration = protocolConfiguration
             }
             manager.isEnabled = true
-            manager.isOnDemandEnabled = UserDefaults.standard.onDemand
+            manager.onDemandRules = [NEOnDemandRuleConnect()]
             
             manager.saveToPreferences { (error) in
                 if let error = error {
