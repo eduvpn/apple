@@ -656,35 +656,40 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="63.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="piJ-nn-Hhv">
-                                            <rect key="frame" x="20" y="10" width="80" height="43.5"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="80" id="pkm-4H-52r"/>
-                                            </constraints>
-                                        </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="299-0t-Wkw">
-                                            <rect key="frame" x="120" y="11" width="184" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1zh-ai-m9c">
-                                            <rect key="frame" x="120" y="32" width="184" height="18"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Ih9-aL-VgA">
+                                            <rect key="frame" x="20" y="10" width="280" height="43.5"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="piJ-nn-Hhv">
+                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="43.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="80" id="pkm-4H-52r"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="KMS-d4-i2K">
+                                                    <rect key="frame" x="100" y="0.0" width="180" height="43.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="299-0t-Wkw">
+                                                            <rect key="frame" x="0.0" y="0.0" width="180" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1zh-ai-m9c">
+                                                            <rect key="frame" x="0.0" y="20.5" width="180" height="23"/>
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                        </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="299-0t-Wkw" firstAttribute="leading" secondItem="piJ-nn-Hhv" secondAttribute="trailing" constant="20" id="JFH-O9-kYL"/>
-                                        <constraint firstItem="piJ-nn-Hhv" firstAttribute="leading" secondItem="jDe-96-obA" secondAttribute="leading" constant="20" id="LEO-Ol-zCU"/>
-                                        <constraint firstItem="1zh-ai-m9c" firstAttribute="top" secondItem="jDe-96-obA" secondAttribute="centerY" id="XJ6-3P-TWi"/>
-                                        <constraint firstItem="299-0t-Wkw" firstAttribute="bottom" secondItem="jDe-96-obA" secondAttribute="centerY" id="YKx-Pr-ktj"/>
-                                        <constraint firstItem="1zh-ai-m9c" firstAttribute="leading" secondItem="piJ-nn-Hhv" secondAttribute="trailing" constant="20" id="br1-NC-JU2"/>
-                                        <constraint firstAttribute="bottom" secondItem="piJ-nn-Hhv" secondAttribute="bottom" constant="10" id="cIC-Fg-twg"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="1zh-ai-m9c" secondAttribute="trailing" id="dKv-hn-4T8"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="299-0t-Wkw" secondAttribute="trailing" id="jCc-S1-dkz"/>
-                                        <constraint firstItem="piJ-nn-Hhv" firstAttribute="top" secondItem="jDe-96-obA" secondAttribute="top" constant="10" id="yrv-Vj-yOl"/>
+                                        <constraint firstItem="Ih9-aL-VgA" firstAttribute="leading" secondItem="jDe-96-obA" secondAttribute="leading" constant="20" id="HN8-k4-Erc"/>
+                                        <constraint firstAttribute="trailing" secondItem="Ih9-aL-VgA" secondAttribute="trailing" constant="20" id="a6K-d5-cBJ"/>
+                                        <constraint firstAttribute="bottom" secondItem="Ih9-aL-VgA" secondAttribute="bottom" constant="10" id="egr-Um-Kii"/>
+                                        <constraint firstItem="Ih9-aL-VgA" firstAttribute="top" secondItem="jDe-96-obA" secondAttribute="top" constant="10" id="g0X-xB-CiJ"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>

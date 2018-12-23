@@ -164,12 +164,11 @@ class ConnectionsTableViewController: UITableViewController {
         cell.connectSubTitleLabel?.text = profile.displayNames?.localizedValue ?? profile.api?.instance?.displayNames?.localizedValue ?? profile.api?.instance?.baseUri
         if let logo = profile.api?.instance?.logos?.localizedValue, let logoUri = URL(string: logo) {
             cell.connectImageView?.af_setImage(withURL: logoUri)
-        } else if let providerTypeString = profile.api?.instance?.providerType, providerTypeString == ProviderType.other.rawValue {
-            cell.connectImageView.af_cancelImageRequest()
-            cell.connectImageView.image = nil
+            cell.connectImageView.isHidden = false
         } else {
             cell.connectImageView.af_cancelImageRequest()
             cell.connectImageView.image = nil
+            cell.connectImageView.isHidden = true
         }
 
         return cell
