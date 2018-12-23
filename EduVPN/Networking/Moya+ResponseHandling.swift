@@ -23,10 +23,10 @@ extension Moya.Response {
             do {
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .iso8601
-                let result = try decoder.decode(T.self, from: self.data)
+                let result = try decoder.decode(T.self, from: self.filterSuccessfulStatusCodes().data)
                 seal.fulfill(result)
             } catch {
-                seal.reject(MoyaError.jsonMapping(self))
+                seal.reject(error)
             }
         })
     }
