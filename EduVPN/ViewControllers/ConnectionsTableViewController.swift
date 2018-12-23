@@ -30,9 +30,43 @@ protocol ConnectionsTableViewControllerDelegate: class {
 class ConnectionsTableViewController: UITableViewController {
     weak var delegate: ConnectionsTableViewControllerDelegate?
     
-    @IBOutlet weak var noConfigsButton: TableTextButton?
+    weak var noConfigsButton: TableTextButton?
 
-    var viewContext: NSManagedObjectContext!
+    var viewContext: NSManagedObjectContext! {
+        willSet {
+            if let context = viewContext {
+                let notificationCenter = NotificationCenter.default
+                notificationCenter.removeObserver(self, name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: context)
+            }
+        }
+        didSet {
+            if let context = viewContext {
+                let notificationCenter = NotificationCenter.default
+                notificationCenter.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: context)
+            }
+        }
+    }
+    
+    @objc
+    func managedObjectContextObjectsDidChange(notification: NSNotification) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .nanoseconds(1)) { [weak self] in
+            self?.checkButton()
+        }
+        
+    }
+    
+    private func checkButton() {
+        if self.fetchedResultsController.count == 0 && noConfigsButton == nil {
+            let noConfigsButton = TableTextButton()
+            noConfigsButton.title = NSLocalizedString("Add configuration", comment: "")
+            noConfigsButton.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+            noConfigsButton.frame = tableView.bounds
+            tableView.tableHeaderView = noConfigsButton
+            self.noConfigsButton = noConfigsButton
+        } else if self.fetchedResultsController.count > 0 {
+            tableView.tableHeaderView = nil
+        }
+    }
 
     private lazy var fetchedResultsController: FetchedResultsController<Profile> = {
         let fetchRequest = NSFetchRequest<Profile>()
@@ -51,23 +85,13 @@ class ConnectionsTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if self.fetchedResultsController.count == 0 && noConfigsButton == nil {
-            let noConfigsButton = TableTextButton()
-            noConfigsButton.title = NSLocalizedString("Add configuration", comment: "")
-            noConfigsButton.onTap = { [weak self] in
-                guard let self = self else {
-                    return
-                }
-                self.delegate?.addProvider(connectionsTableViewController: self)
-            }
-            noConfigsButton.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-            noConfigsButton.frame = tableView.bounds
-            tableView.tableHeaderView = noConfigsButton
-            self.noConfigsButton = noConfigsButton
-        } else if self.fetchedResultsController.count > 0 {
-            tableView.tableHeaderView = nil
-        }
+
+        checkButton()
+    }
+    
+    @objc
+    func tableTextButtonTapped() {
+        self.delegate?.addProvider(connectionsTableViewController: self)
     }
 
     override func viewDidLoad() {
@@ -266,17 +290,6 @@ class TableTextButton: UIView {
             button.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             NSLayoutConstraint(item: button, attribute: .width, relatedBy: .equal, toItem: button, attribute: .width, multiplier: 1, constant: 250)
             ])
-//        button.layer.borderWidth = 1
-//        button.layer.cornerRadius = 5
-//        button.layer.borderColor = button.titleColor(for: .normal)?.cgColor
-//        button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
-        button.addTarget(self, action: #selector(tapped), for: .touchUpInside)
-    }
-    
-    var onTap: (() -> Void)?
-
-    
-    @objc func tapped() {
-        onTap?()
+        button.addTarget(nil, action: #selector(ConnectionsTableViewController.tableTextButtonTapped), for: .touchUpInside)
     }
 }
