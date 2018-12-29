@@ -25,7 +25,7 @@ extension AppCoordinator {
     }
     
     public func showAlert(forUnconfigured profile: Profile, confirmedHandler: @escaping () -> ()) {
-        let alert = UIAlertController(title: "Selected profile not configured", message: "Do you want to close any existing connections and configure the selected profile?", preferredStyle: .alert)
+        let alert = UIAlertController(title: NSLocalizedString("Selected profile not configured", comment: ""), message: NSLocalizedString("Do you want to close any existing connections and configure the selected profile?", comment: ""), preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "OK button"), style: .default, handler: { (action) in
             confirmedHandler()
         }))
@@ -36,7 +36,7 @@ extension AppCoordinator {
     }
 
     func showNoAuthFlowAlert() {
-        showAlert(title: "No auth flow available", message: "A call to `resumeAuthFlow` was called, but none available")
+        showAlert(title: NSLocalizedString("No auth flow available", comment: ""), message: NSLocalizedString("A call to `resumeAuthFlow` was called, but none available", comment: ""))
     }
 
     func showNoProfilesAlert() {

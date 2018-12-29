@@ -170,11 +170,11 @@ class VPNConnectionViewController: UIViewController {
             if let configuredProfileId = UserDefaults.standard.configuredProfileId, configuredProfileId == profile.uuid?.uuidString {
                 buttonConnection.setTitle(NSLocalizedString("Disconnect", comment: ""), for: .normal)
             } else {
-                buttonConnection.setTitle(NSLocalizedString("Disconnect existing profile and disconnect", comment: ""), for: .normal)
+                buttonConnection.setTitle(NSLocalizedString("Disconnect existing profile and reconfigure", comment: ""), for: .normal)
             }
 
         case .disconnected, .invalid:
-            buttonConnection.setTitle("Connect", for: .normal)
+            buttonConnection.setTitle(NSLocalizedString("Connect", comment: ""), for: .normal)
         }
     }
 

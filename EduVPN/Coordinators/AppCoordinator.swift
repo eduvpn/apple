@@ -140,11 +140,20 @@ class AppCoordinator: RootViewCoordinator {
             }
         }
 
-        return dynamicApiProvider.request(apiService: .createKeypair(displayName: "eduVPN for iOS")).recover({ (error) throws -> Promise<Response> in
+        let keyPairDisplayName: String
+        if let bundleID = Bundle.main.bundleIdentifier, bundleID.contains("appforce1") {
+            keyPairDisplayName = "eduVPN for iOS - Test"
+        } else if let bundleID = Bundle.main.bundleIdentifier, bundleID.contains("letsconnect") {
+            keyPairDisplayName = "letsConnect for iOS"
+        } else {
+            keyPairDisplayName = "eduVPN for iOS"
+        }
+
+        return dynamicApiProvider.request(apiService: .createKeypair(displayName: keyPairDisplayName)).recover({ (error) throws -> Promise<Response> in
             switch error {
             case ApiServiceError.noAuthState:
                 return dynamicApiProvider.authorize(presentingViewController: self.navigationController).then({ (_) -> Promise<Response> in
-                    return dynamicApiProvider.request(apiService: .createKeypair(displayName: "eduVPN for iOS"))
+                    return dynamicApiProvider.request(apiService: .createKeypair(displayName: keyPairDisplayName))
                 })
             default:
                 throw error
