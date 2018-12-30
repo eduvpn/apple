@@ -522,14 +522,8 @@ class AppCoordinator: RootViewCoordinator {
         return false
     }
 
-    fileprivate func systemMessages(for dynamicApiProvider: DynamicApiProvider) -> Promise<Messages> {
-        return dynamicApiProvider.request(apiService: .systemMessages).then { response -> Promise<Messages> in
-            return response.mapResponse()
-        }
-    }
-
-    fileprivate func userMessages(for dynamicApiProvider: DynamicApiProvider) -> Promise<Messages> {
-        return dynamicApiProvider.request(apiService: .userMessages).then { response -> Promise<Messages> in
+    fileprivate func systemMessages(for dynamicApiProvider: DynamicApiProvider) -> Promise<SystemMessages> {
+        return dynamicApiProvider.request(apiService: .systemMessages).then { response -> Promise<SystemMessages> in
             return response.mapResponse()
         }
     }
@@ -709,7 +703,7 @@ extension AppCoordinator: TunnelProviderManagerCoordinatorDelegate {
 }
 
 extension AppCoordinator: VPNConnectionViewControllerDelegate {
-    func systemMessages(for profile: Profile) -> Promise<Messages> {
+    func systemMessages(for profile: Profile) -> Promise<SystemMessages> {
         guard let api = profile.api else {
             precondition(false, "This should never happen")
             return Promise(error: AppCoordinatorError.apiMissing)
@@ -720,18 +714,5 @@ extension AppCoordinator: VPNConnectionViewControllerDelegate {
         }
 
         return self.systemMessages(for: dynamicApiProvider)
-    }
-
-    func userMessages(for profile: Profile) -> Promise<Messages> {
-        guard let api = profile.api else {
-            precondition(false, "This should never happen")
-            return Promise(error: AppCoordinatorError.apiMissing)
-        }
-
-        guard let dynamicApiProvider = DynamicApiProvider(api: api) else {
-            return Promise(error: AppCoordinatorError.apiProviderCreateFailed)
-        }
-
-        return self.userMessages(for: dynamicApiProvider)
     }
 }

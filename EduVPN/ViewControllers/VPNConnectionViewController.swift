@@ -19,8 +19,7 @@ private let intervalFormatter: DateComponentsFormatter = {
 }()
 
 protocol VPNConnectionViewControllerDelegate: class {
-    @discardableResult func systemMessages(for profile: Profile) -> Promise<Messages>
-    @discardableResult func userMessages(for profile: Profile) -> Promise<Messages>
+    @discardableResult func systemMessages(for profile: Profile) -> Promise<SystemMessages>
 }
 
 class VPNConnectionViewController: UIViewController {
@@ -93,29 +92,10 @@ class VPNConnectionViewController: UIViewController {
             self?.updateConnectionInfo()
         })
         if let concreteDelegate = delegate {
-            _ = firstly { () -> Promise<Messages> in
+            _ = firstly { () -> Promise<SystemMessages> in
                 return concreteDelegate.systemMessages(for: profile)
             }.then({ [weak self] (systemMessages) -> Guarantee<Void> in
-                if let displayString = systemMessages.displayString {
-                    if let existingText = self?.notificationLabel.text, !existingText.isEmpty {
-                        self?.notificationLabel.text = [existingText, displayString].joined(separator: "\n\n")
-                    } else {
-                        self?.notificationLabel.text = displayString
-                    }
-                }
-                return Guarantee<Void>()
-            })
-
-            _ = firstly { () -> Promise<Messages> in
-                return concreteDelegate.userMessages(for: profile)
-            }.then({ [weak self] (userMessages) -> Guarantee<Void> in
-                if let displayString = userMessages.displayString {
-                    if let existingText = self?.notificationLabel.text, !existingText.isEmpty {
-                        self?.notificationLabel.text = [existingText, displayString].joined(separator: "\n\n")
-                    } else {
-                        self?.notificationLabel.text = displayString
-                    }
-                }
+                self?.notificationLabel.text = systemMessages.displayString
                 return Guarantee<Void>()
             })
         }

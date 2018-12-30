@@ -23,14 +23,27 @@ enum NotificationType: String, Decodable {
     case maintenance
 }
 
-struct Messages: Decodable {
-    var system_messages: DataMessage?
-    var user_messages: DataMessage?
+struct SystemMessages: Decodable {
+    var systemMessages: [Message]
 }
 
-struct DataMessage: Decodable {
-    var data: [Message]
-    var ok: Bool
+extension SystemMessages {
+    enum SystemMessagesKeys: String, CodingKey {
+        case systemMessages = "system_messages"
+        case data
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: SystemMessagesKeys.self)
+        
+        let messagesContainer = try container.nestedContainer(keyedBy: SystemMessagesKeys.self, forKey: .systemMessages)
+        systemMessages = try messagesContainer.decode([Message].self, forKey: .data)
+    }
+    
+    var displayString: String {
+        return systemMessages.map(createString).joined(separator: "\n\n")
+    }
+
 }
 
 struct Message: Decodable {
@@ -39,27 +52,6 @@ struct Message: Decodable {
     var type: NotificationType
 }
 
-extension Messages {
-    var displayString: String? {
-        if let systemMessageStrings = system_messages?.data.map(createString) {
-            return joinMessageStrings(systemMessageStrings)
-        }
-        if let userMessageStrings = user_messages?.data.map(createString) {
-            return joinMessageStrings(userMessageStrings)
-        }
-
-        return nil
-    }
-}
-
 private func createString(message: Message) -> String {
-    return [displayDateFormatter.string(from: message.date_time), message.message].joined(separator: "\n\n")
-}
-
-private func joinMessageStrings(_ messageStrings: [String]) -> String? {
-    if messageStrings.isEmpty {
-        return nil
-    }
-
-    return messageStrings.joined(separator: "\n\n\n")
+    return [displayDateFormatter.string(from: message.date_time), message.message].joined(separator: "\n")
 }
