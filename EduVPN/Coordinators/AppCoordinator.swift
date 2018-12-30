@@ -144,7 +144,7 @@ class AppCoordinator: RootViewCoordinator {
         if let bundleID = Bundle.main.bundleIdentifier, bundleID.contains("appforce1") {
             keyPairDisplayName = "eduVPN for iOS - Test"
         } else if let bundleID = Bundle.main.bundleIdentifier, bundleID.contains("letsconnect") {
-            keyPairDisplayName = "letsConnect for iOS"
+            keyPairDisplayName = "Let's Connect! for iOS"
         } else {
             keyPairDisplayName = "eduVPN for iOS"
         }
