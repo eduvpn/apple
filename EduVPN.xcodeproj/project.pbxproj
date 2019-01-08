@@ -56,7 +56,6 @@
 		4AAC2EEE2027117400F9D0D2 /* Instance+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EE42027117400F9D0D2 /* Instance+CoreDataProperties.swift */; };
 		4AAC2EF02027927300F9D0D2 /* DisplayName+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EEF2027927300F9D0D2 /* DisplayName+Convenience.swift */; };
 		4AAC2EF220279F0000F9D0D2 /* Logo+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EF120279F0000F9D0D2 /* Logo+Convenience.swift */; };
-		4ABCCBDF21E5269B0020CB6D /* Developer.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4ABCCBDB21E5269B0020CB6D /* Developer.xcconfig */; };
 		4ABFF78920C71E7200638480 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ABFF78820C71E7200638480 /* NetworkExtension.framework */; };
 		4ACA042A1F311507004B35AA /* StaticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACA04291F311507004B35AA /* StaticService.swift */; };
 		4ACA042C1F3116D5004B35AA /* Moya+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACA042B1F3116D5004B35AA /* Moya+Promise.swift */; };
@@ -489,7 +488,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0940;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = SURFNet;
 				TargetAttributes = {
 					4A901C1020C87511000C1BF0 = {
@@ -567,7 +566,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A9704C51FBA379D00B4D6C2 /* Localizable.strings in Resources */,
-				4ABCCBDF21E5269B0020CB6D /* Developer.xcconfig in Resources */,
 				4AAC1F9E1F2D134200DD0252 /* Settings.bundle in Resources */,
 				4AAC1F841F2D0E3400DD0252 /* LaunchScreen.storyboard in Resources */,
 				4AAC1F811F2D0E3400DD0252 /* Assets.xcassets in Resources */,
