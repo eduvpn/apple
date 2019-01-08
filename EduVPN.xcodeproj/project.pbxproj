@@ -449,7 +449,6 @@
 				4AAC1F991F2D0FFA00DD0252 /* Swiftlint */,
 				4AAC1F721F2D0E3400DD0252 /* Sources */,
 				4AAC1F731F2D0E3400DD0252 /* Frameworks */,
-				4A9704C21FBA368E00B4D6C2 /* Localize */,
 				4AAC1F741F2D0E3400DD0252 /* Resources */,
 				4AAC1F9A1F2D104000DD0252 /* Set build number */,
 				4A901C1D20C87512000C1BF0 /* Embed App Extensions */,
@@ -586,20 +585,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4A9704C21FBA368E00B4D6C2 /* Localize */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = Localize;
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#./mergegenstrings.py EduVPN NSLocalizedString";
-		};
 		4AAC1F991F2D0FFA00DD0252 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
