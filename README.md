@@ -23,13 +23,21 @@ To allow this app to function you need three provisioning elements.
 ## Building
 
 - Clone repository
+- Configure an XCConfig.
 - Open included xcworkspace with Xcode
 - Build
 
 Dependencies are managed with CocoaPods. But this repository is set up in such a way that you do not need CocoaPods to build this project, only when updating dependencies.
 Dependencies are defined in a [Podfile](https://github.com/eduvpn/ios/blob/master/Podfile), exact versions are 'locked' in [Podfile.lock](https://github.com/eduvpn/ios/blob/master/Podfile.lock). All dependencies defined in the Podfile are committed to this repository.
 
+### Configuring
+```
+$ cp EduVPN/Config/Developer.xcconfig.template EduVPN/Config/Developer.xcconfig
+```
+
+Next edit `EduVPN/Config/Developer.xcconfig` with your favourite text editor and add values for all placeholders.
+
 ## Scripted build
 
-Please see [build.sh](build.sh).
+Please see [build.sh](build.sh). (Work in progress.)
 
