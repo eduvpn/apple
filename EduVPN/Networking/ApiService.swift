@@ -94,18 +94,8 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
     var currentAuthorizationFlow: OIDExternalUserAgentSession?
 
     public func authorize(presentingViewController: UIViewController) -> Promise<OIDAuthState> {
-        let redirectUrl: URL
-        let clientId: String
-        if let bundleID = Bundle.main.bundleIdentifier, bundleID.contains("appforce1") {
-            redirectUrl = URL(string: "https://ios.app.eduvpn.org/auth/app/redirect/development/")!
-            clientId = "org.eduvpn.app.ios"
-        } else if let bundleID = Bundle.main.bundleIdentifier, bundleID.contains("letsconnect") {
-            redirectUrl = URL(string: "https://ios.app.letsconnect-vpn.org/auth/app/redirect/")!
-            clientId = "org.letsconnect-vpn.app.ios"
-        } else {
-            redirectUrl = URL(string: "https://ios.app.eduvpn.org/auth/app/redirect/")!
-            clientId = "org.eduvpn.app.ios"
-        }
+        let redirectUrl: URL = URL(string: Bundle.main.object(forInfoDictionaryKey: "EduVPNRedirectUrl") as! String)!
+        let clientId: String = Bundle.main.object(forInfoDictionaryKey: "EduVPNClientID")  as! String
 
         let request = OIDAuthorizationRequest(configuration: authConfig, clientId: clientId, scopes: ["config"], redirectURL: redirectUrl, responseType: OIDResponseTypeCode, additionalParameters: nil)
         return Promise(resolver: { seal in

@@ -5,7 +5,7 @@ platform :ios, '11.0'
 
 swift_version = "4.2"
 
-project 'EduVPN', 'Debug' => :debug, 'Release' => :release, 'Debug AppForce1' => :debug, 'Release AppForce1' => :release, 'Debug LetsConnect' => :debug, 'Release LetsConnect' => :release
+project 'EduVPN', 'Debug' => :debug, 'Release' => :release
 
 target 'EduVPN' do
   pod 'SwiftLint'

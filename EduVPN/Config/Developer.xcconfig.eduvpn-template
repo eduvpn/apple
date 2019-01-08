@@ -1,0 +1,15 @@
+// Developer.xcconfig
+
+APP_NAME = EduVPN
+
+// Your Apple developer account's Team ID
+DEVELOPMENT_TEAM = ZYJ4TZX4UU
+
+// The bundle identifier of this app.
+// Should be an app id created at developer.apple.com
+// with Network Extensions capabilty.
+APP_ID = nl.eduvpn.app.EduVPN
+
+APPLINKS_DOMAIN = ios.app.eduvpn.org
+CLIENT_ID = org.eduvpn.app.ios
+REDIRECT_URL = ios.app.eduvpn.org/auth/app/redirect/

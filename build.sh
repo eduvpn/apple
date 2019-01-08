@@ -9,9 +9,9 @@ echo "3. Commons Caretakers (D9T87NF4Q7)"
 echo "4. Other"
 read -p "0-9?" choice
 case "$choice" in
-  1 ) TEAMID="ZYJ4TZX4UU"; SIGNINGIDENTITY="Developer ID Application: SURFnet B.V. ($TEAMID)"; PROFILETYPE="app-store"; CONFIGURATION="Release"; PRODUCT="EduVPN";;
-  2 ) TEAMID="T4CMEHXPLL"; SIGNINGIDENTITY="iPhone Distribution"; PROFILETYPE="ad-hoc"; CONFIGURATION="Release AppForce1"; PRODUCT="EduVPN-test";;
-  3 ) TEAMID="D9T87NF4Q7"; SIGNINGIDENTITY="iPhone Distribution"; PROFILETYPE="app-store"; CONFIGURATION="Release LetsConnect"; PRODUCT="LetsConnect";;
+  1 ) TEAMID="ZYJ4TZX4UU"; SIGNINGIDENTITY="Developer ID Application: SURFnet B.V. ($TEAMID)"; PROFILETYPE="app-store"; PRODUCT="EduVPN";;
+  2 ) TEAMID="T4CMEHXPLL"; SIGNINGIDENTITY="iPhone Distribution"; PROFILETYPE="ad-hoc"; PRODUCT="EduVPN-test";;
+  3 ) TEAMID="D9T87NF4Q7"; SIGNINGIDENTITY="iPhone Distribution"; PROFILETYPE="app-store"; PRODUCT="LetsConnect";;
   4 ) echo "Please adjust the build script to add your signing identity."; exit 0;;
   * ) echo "Invalid response."; exit 0;;
 esac
@@ -47,7 +47,7 @@ FILENAME="$PRODUCT-$VERSION"
 
 echo ""
 echo "Building and archiving"
-xcodebuild archive -workspace EduVPN.xcworkspace -scheme $TARGET -configuration "$CONFIGURATION" -archivePath $FILENAME.xcarchive DEVELOPMENT_TEAM=$TEAMID
+xcodebuild archive -workspace EduVPN.xcworkspace -scheme $TARGET -archivePath $FILENAME.xcarchive DEVELOPMENT_TEAM=$TEAMID
 
 echo "Exporting not yet supported"
 exit 0
@@ -57,7 +57,7 @@ echo "Exporting"
 /usr/libexec/PlistBuddy -c "Set :teamID \"$TEAMID\"" ExportOptions.plist
 /usr/libexec/PlistBuddy -c "Set :method \"$PROFILETYPE\"" ExportOptions.plist
 /usr/libexec/PlistBuddy -c "Set :signingCertificate \"$SIGNINGIDENTITY\"" ExportOptions.plist
-xcodebuild -exportArchive -archivePath $FILENAME.xcarchive -configuration "$CONFIGURATION" -exportPath $FILENAME -exportOptionsPlist ExportOptions.plist
+xcodebuild -exportArchive -archivePath $FILENAME.xcarchive -exportPath $FILENAME -exportOptionsPlist ExportOptions.plist
 
 echo ""
 echo "Re-signing up and down scripts"
