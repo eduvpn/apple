@@ -4,10 +4,6 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
-	<key>EduVPNRedirectUrl</key>
-	<string>$(REDIRECT_URL)</string>
-	<key>EduVPNClientID</key>
-	<string>$(CLIENT_ID)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -22,6 +18,10 @@
 	<string>auto-generated</string>
 	<key>CFBundleVersion</key>
 	<string>auto-generated</string>
+	<key>EduVPNClientID</key>
+	<string>$(CLIENT_ID)</string>
+	<key>EduVPNRedirectUrl</key>
+	<string>$(REDIRECT_URL)</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>openvpn</string>
