@@ -22,5 +22,5 @@ if [ -f "$settings_root_plist" ]; then
   /usr/libexec/PlistBuddy -c "Set :PreferenceSpecifiers:1:DefaultValue $settingsVersion" "$settings_root_plist"
 else
   echo "Could not find: $settings_root_plist"
-  exit 1
+  exit 0
 fi

@@ -40,7 +40,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
     
     var vpnBundle: String {
         if let bundleID = Bundle.main.bundleIdentifier {
-            return "\(bundleID).VPNTunnelExtension"
+            return "\(bundleID).TunnelExtension"
         } else {
             fatalError("missing bundle ID")
         }
