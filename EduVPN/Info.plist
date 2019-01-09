@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>EduVPNRedirectUrl</key>
-	<string>https://$(REDIRECT_URL)</string>
+	<string>$(REDIRECT_URL)</string>
 	<key>EduVPNClientID</key>
 	<string>$(CLIENT_ID)</string>
 	<key>CFBundleExecutable</key>
