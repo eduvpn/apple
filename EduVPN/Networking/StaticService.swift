@@ -10,65 +10,53 @@ import Foundation
 
 import Moya
 
-enum StaticService {
-    case instituteAccess
-    case instituteAccessSignature
-    case secureInternet
-    case secureInternetSignature
-}
+struct StaticService: TargetType, AcceptJson {
+    enum StaticServiceType {
+        case instituteAccess
+        case instituteAccessSignature
+        case secureInternet
+        case secureInternetSignature
+        
+        var pathKey: String {
+            switch self {
+            case .instituteAccess:
+                return "EduVPNDiscoveryPathInstituteAccess"
+            case .instituteAccessSignature:
+                return "EduVPNDiscoveryPathInstituteAccess"
+            case .secureInternet:
+                return "EduVPNDiscoveryPathInstituteAccess"
+            case .secureInternetSignature:
+                return "EduVPNDiscoveryPathInstituteAccess"
+            }
+        }
+    }
+    init?(type: StaticService.StaticServiceType) {
+        guard let baseServer: String = Bundle.main.object(forInfoDictionaryKey: "EduVPNDiscoveryServer")  as? String, !baseServer.isEmpty else {
+            return nil
+        }
+        
+        guard let baseURL = URL(string: "https://\(baseServer)") else {
+            return nil
+        }
+        
+        self.baseURL = baseURL
+        
+        guard let path: String = Bundle.main.object(forInfoDictionaryKey: type.pathKey)  as? String, !path.isEmpty else {
+            return nil
+        }
 
-extension StaticService: TargetType, AcceptJson {
-    var baseURL: URL { return URL(string: "https://static.eduvpn.nl/disco")! }
+        self.path = path
+    }
+    
+    var method: Moya.Method { return .get }
+    var task: Task { return .requestPlain }
+    var sampleData: Data { return "".data(using: String.Encoding.utf8)! }
 
+    var baseURL: URL
+    var path: String
+    
     static var publicKey: Data {
-        if let bundleID = Bundle.main.bundleIdentifier, bundleID.contains("appforce1") {
-            return Data(base64Encoded: "zzls4TZTXHEyV3yxaxag1DZw3tSpIdBoaaOjUGH/Rwg=")!
-        } else {
-            return Data(base64Encoded: "E5On0JTtyUVZmcWd+I/FXRm32nSq8R2ioyW7dcu/U88=")!
-        }
-    }
-
-    var path: String {
-        if let bundleID = Bundle.main.bundleIdentifier, bundleID.contains("appforce1") {
-            switch self {
-            case .instituteAccess:
-                return "/institute_access_dev.json"
-            case .instituteAccessSignature:
-                return "/institute_access_dev.json.sig"
-            case .secureInternet:
-                return "/secure_internet_dev.json"
-            case .secureInternetSignature:
-                return "/secure_internet_dev.json.sig"
-            }
-        } else {
-            switch self {
-            case .instituteAccess:
-                return "/institute_access.json"
-            case .instituteAccessSignature:
-                return "/institute_access.json.sig"
-            case .secureInternet:
-                return "/secure_internet.json"
-            case .secureInternetSignature:
-                return "/secure_internet.json.sig"
-            }
-        }
-    }
-
-    var method: Moya.Method {
-        switch self {
-        case .instituteAccess, .instituteAccessSignature, .secureInternet, .secureInternetSignature:
-            return .get
-        }
-    }
-
-    var task: Task {
-        switch self {
-        case .instituteAccess, .instituteAccessSignature, .secureInternet, .secureInternetSignature:
-            return .requestPlain
-        }
-    }
-
-    var sampleData: Data {
-        return "".data(using: String.Encoding.utf8)!
+        let base64Signature: String = Bundle.main.object(forInfoDictionaryKey: "EduVPNDiscoverySignaturePublicKey")  as? String ?? ""
+        return Data(base64Encoded: base64Signature)!
     }
 }

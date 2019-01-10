@@ -102,11 +102,7 @@ class AppCoordinator: RootViewCoordinator {
                         self?.navigationController.viewControllers = [connectionsTableViewController]
                         do {
                             if let context = self?.persistentContainer.viewContext, try Profile.countInContext(context) == 0 {
-                                if let bundleID = Bundle.main.bundleIdentifier, bundleID.contains("letsconnect") {
-                                    self?.showCustomProviderInPutViewController(for: .other)
-                                } else {
-                                    self?.showProfilesViewController()
-                                }
+                                self?.addProvider()
                             }
                         } catch {
                             self?.showError(error)
@@ -196,6 +192,15 @@ class AppCoordinator: RootViewCoordinator {
             } else {
                 throw AppCoordinatorError.certificateStatusUnknown
             }
+        }
+    }
+    
+    func addProvider() {
+        // We can not create a static service, so no discovery files are defined. Fall back to adding "another" service.
+        if StaticService(type: .instituteAccess) == nil {
+            showCustomProviderInPutViewController(for: .other)
+        } else {
+            showProfilesViewController()
         }
     }
 
@@ -325,16 +330,20 @@ class AppCoordinator: RootViewCoordinator {
 
         chooseProviderTableViewController.providerType = providerType
 
-        let target: StaticService
-        let sigTarget: StaticService
+        let target: StaticService!
+        let sigTarget: StaticService!
         switch providerType {
         case .instituteAccess:
-            target = StaticService.instituteAccess
-            sigTarget = StaticService.instituteAccessSignature
+            target = StaticService(type: .instituteAccess)
+            sigTarget = StaticService(type: .instituteAccessSignature)
         case .secureInternet:
-            target = StaticService.secureInternet
-            sigTarget = StaticService.secureInternetSignature
+            target = StaticService(type: .secureInternet)
+            sigTarget = StaticService(type: .secureInternetSignature)
         case .unknown, .other:
+            return
+        }
+
+        guard target != nil && sigTarget != nil else {
             return
         }
 
@@ -586,11 +595,7 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
     }
 
     func addProvider(connectionsTableViewController: ConnectionsTableViewController) {
-        if let bundleID = Bundle.main.bundleIdentifier, bundleID.contains("letsconnect") {
-            showCustomProviderInPutViewController(for: .other)
-        } else {
-            showProfilesViewController()
-        }
+        addProvider()
     }
 
     func connect(profile: Profile, sourceView: UIView?) {

@@ -22,6 +22,18 @@
 	<string>$(CLIENT_ID)</string>
 	<key>EduVPNRedirectUrl</key>
 	<string>$(REDIRECT_URL)</string>
+	<key>EduVPNDiscoveryServer</key>
+	<string>$(DISCOVERY_SERVER)</string>
+    <key>EduVPNDiscoveryPathInstituteAccess</key>
+    <string>$(DISCOVERY_PATH_INSTITUTE_ACCESS)</string>
+    <key>EduVPNDiscoveryPathInstituteAccessSignature</key>
+    <string>$(DISCOVERY_PATH_INSTITUTE_ACCESS_SIGNATURE)</string>
+    <key>EduVPNDiscoveryPathSecureInternet</key>
+    <string>$(DISCOVERY_PATH_SECURE_INTERNET)</string>
+    <key>EduVPNDiscoveryPathSecureInternetSignature</key>
+    <string>$(DISCOVERY_PATH_SECURE_INTERNET_SIGNATURE)</string>
+    <key>EduVPNDiscoverySignaturePublicKey</key>
+    <string>$(DISCOVERY_SIGNATURE_PUBLIC_KEY)</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>openvpn</string>

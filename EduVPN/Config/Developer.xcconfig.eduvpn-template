@@ -12,3 +12,11 @@ APP_ID = nl.eduvpn.app.EduVPN
 
 CLIENT_ID = org.eduvpn.app.ios
 REDIRECT_URL = org.eduvpn.app.ios:/api/callback
+
+DISCOVERY_SERVER = static.eduvpn.nl
+DISCOVERY_PATH_INSTITUTE_ACCESS = disco/institute_access.json
+DISCOVERY_PATH_INSTITUTE_ACCESS_SIGNATURE = disco/institute_access.json.sig
+DISCOVERY_PATH_SECURE_INTERNET = disco/secure_internet.json
+DISCOVERY_PATH_SECURE_INTERNET_SIGNATURE = disco/secure_internet.json.sig
+
+DISCOVERY_SIGNATURE_PUBLIC_KEY = E5On0JTtyUVZmcWd+I/FXRm32nSq8R2ioyW7dcu/U88=
