@@ -24,8 +24,12 @@ To allow this app to function you need three provisioning elements.
 
 - Clone repository
 - Configure an XCConfig. Edit Developer.xcconfig.<eduvpn or letsconnect>-template in directory /ios/EduVPN/Config/. Edit app_name, development_team, app_ID, client_ID, REDIRECT_URL. In other file the discovery URL/key are configured, only needed for eduVPN app: Developer.xcconfig.template
-- Open included xcworkspace with Xcode
+- Open included xcworkspace with Xcode (type: xed .)
 - Build
+  
+  ## Versioning
+  Release tag from Github & build number set_build_number.sh (commits)
+  
 
 Dependencies are managed with CocoaPods. But this repository is set up in such a way that you do not need CocoaPods to build this project, only when updating dependencies.
 Dependencies are defined in a [Podfile](https://github.com/eduvpn/ios/blob/master/Podfile), exact versions are 'locked' in [Podfile.lock](https://github.com/eduvpn/ios/blob/master/Podfile.lock). All dependencies defined in the Podfile are committed to this repository.
