@@ -23,7 +23,7 @@ To allow this app to function you need three provisioning elements.
 ## Building
 
 - Clone repository
-- Configure an XCConfig.
+- Configure an XCConfig. Edit Developer.xcconfig.<eduvpn or letsconnect>-template in directory /ios/EduVPN/Config/. Edit app_name, development_team, app_ID, client_ID, REDIRECT_URL. In other file the discovery URL/key are configured, only needed for eduVPN app: Developer.xcconfig.template
 - Open included xcworkspace with Xcode
 - Build
 
