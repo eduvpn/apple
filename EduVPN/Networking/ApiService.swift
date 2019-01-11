@@ -94,10 +94,7 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
     var currentAuthorizationFlow: OIDExternalUserAgentSession?
 
     public func authorize(presentingViewController: UIViewController) -> Promise<OIDAuthState> {
-        let redirectUrl: URL = URL(string: Bundle.main.object(forInfoDictionaryKey: "EduVPNRedirectUrl") as! String)!
-        let clientId: String = Bundle.main.object(forInfoDictionaryKey: "EduVPNClientID")  as! String
-
-        let request = OIDAuthorizationRequest(configuration: authConfig, clientId: clientId, scopes: ["config"], redirectURL: redirectUrl, responseType: OIDResponseTypeCode, additionalParameters: nil)
+        let request = OIDAuthorizationRequest(configuration: authConfig, clientId: Config.shared.clientId, scopes: ["config"], redirectURL: Config.shared.redirectUrl, responseType: OIDResponseTypeCode, additionalParameters: nil)
         return Promise(resolver: { seal in
             currentAuthorizationFlow = OIDAuthState.authState(byPresenting: request, presenting: presentingViewController, callback: { (authState, error) in
 

@@ -16,32 +16,16 @@ struct StaticService: TargetType, AcceptJson {
         case instituteAccessSignature
         case secureInternet
         case secureInternetSignature
-        
-        var pathKey: String {
-            switch self {
-            case .instituteAccess:
-                return "EduVPNDiscoveryPathInstituteAccess"
-            case .instituteAccessSignature:
-                return "EduVPNDiscoveryPathInstituteAccess"
-            case .secureInternet:
-                return "EduVPNDiscoveryPathInstituteAccess"
-            case .secureInternetSignature:
-                return "EduVPNDiscoveryPathInstituteAccess"
-            }
-        }
     }
+    
     init?(type: StaticService.StaticServiceType) {
-        guard let baseServer: String = Bundle.main.object(forInfoDictionaryKey: "EduVPNDiscoveryServer")  as? String, !baseServer.isEmpty else {
-            return nil
-        }
-        
-        guard let baseURL = URL(string: "https://\(baseServer)") else {
+        guard let baseURL = Config.shared.discovery?.server else {
             return nil
         }
         
         self.baseURL = baseURL
         
-        guard let path: String = Bundle.main.object(forInfoDictionaryKey: type.pathKey)  as? String, !path.isEmpty else {
+        guard let path: String = Config.shared.discovery?.path(forServiceType: type) else {
             return nil
         }
 
@@ -56,7 +40,6 @@ struct StaticService: TargetType, AcceptJson {
     var path: String
     
     static var publicKey: Data {
-        let base64Signature: String = Bundle.main.object(forInfoDictionaryKey: "EduVPNDiscoverySignaturePublicKey")  as? String ?? ""
-        return Data(base64Encoded: base64Signature)!
+        return Config.shared.discovery!.signaturePublicKey!
     }
 }

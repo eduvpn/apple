@@ -9,15 +9,3 @@ DEVELOPMENT_TEAM = <team-id>
 // Should be an app id created at developer.apple.com
 // with Network Extensions capabilty.
 APP_ID = <app-id>
-
-CLIENT_ID = <client-id>
-REDIRECT_URL = <redirect-url>
-
-// Omit the following entries to disable discovery.
-DISCOVERY_SERVER = static.eduvpn.nl
-DISCOVERY_PATH_INSTITUTE_ACCESS = disco/institute_access_dev.json
-DISCOVERY_PATH_INSTITUTE_ACCESS_SIGNATURE = disco/institute_access_dev.json.sig
-DISCOVERY_PATH_SECURE_INTERNET = disco/secure_internet_dev.json
-DISCOVERY_PATH_SECURE_INTERNET_SIGNATURE = disco/secure_internet_dev.json.sig
-
-DISCOVERY_SIGNATURE_PUBLIC_KEY = zzls4TZTXHEyV3yxaxag1DZw3tSpIdBoaaOjUGH/Rwg=
