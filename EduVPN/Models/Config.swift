@@ -19,14 +19,14 @@ struct Config: Decodable {
     enum ConfigKeys: String, CodingKey {
         case client_id
         case redirect_url
-        case single_instance_url
+        case predefined_provider
         case discovery
     }
     
     var clientId: String
     var redirectUrl: URL
     
-    var singleInstanceUrl: URL?
+    var predefinedProvider: URL?
     var discovery: DiscoveryConfig?
 }
 
@@ -58,7 +58,7 @@ extension Config {
         clientId = try container.decode(String.self, forKey: .client_id)
         redirectUrl = try container.decode(URL.self, forKey: .redirect_url)
         
-        singleInstanceUrl = try container.decodeIfPresent(URL.self, forKey: .single_instance_url)
+        predefinedProvider = try container.decodeIfPresent(URL.self, forKey: .predefined_provider)
         discovery = try container.decode(DiscoveryConfig.self, forKey: .discovery)
     }
 }

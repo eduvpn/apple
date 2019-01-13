@@ -55,6 +55,25 @@ $ cp EduVPN/Config/config-eduvpn.json EduVPN/Config/config.json
 
 Edit app_name, development_team, app_ID, client_ID, REDIRECT_URL. In other file the discovery URL/key are configured, only needed for eduVPN app: Developer.xcconfig.template
 
+**Be aware**
+The app can be configured in thee distinct modes:
+
+- Predefined, single provider.
+- Discovery enabled.
+- Only custom.
+
+### Predefined
+
+Add a `predefined_provider` key with a provier
+
+### Discovery
+
+Add a `discovery` key with content.
+
+### Only custom
+
+Do not add a `predefined_provider` or a `discovery` key.
+
 
 ## Scripted build
 

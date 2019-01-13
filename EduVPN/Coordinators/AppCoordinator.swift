@@ -102,7 +102,11 @@ class AppCoordinator: RootViewCoordinator {
                         self?.navigationController.viewControllers = [connectionsTableViewController]
                         do {
                             if let context = self?.persistentContainer.viewContext, try Profile.countInContext(context) == 0 {
-                                self?.addProvider()
+                                if let predefinedProvider = Config.shared.predefinedProvider {
+                                    _ = self?.connect(url: predefinedProvider)
+                                } else {
+                                    self?.addProvider()
+                                }
                             }
                         } catch {
                             self?.showError(error)
@@ -590,6 +594,12 @@ extension AppCoordinator: SettingsTableViewControllerDelegate {
 }
 
 extension AppCoordinator: ConnectionsTableViewControllerDelegate {
+    func addPredefinedProvider(connectionsTableViewController: ConnectionsTableViewController) {
+        if let providerUrl = Config.shared.predefinedProvider {
+            _ = connect(url: providerUrl)
+        }
+    }
+    
     func settings(connectionsTableViewController: ConnectionsTableViewController) {
         showSettings()
     }

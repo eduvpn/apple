@@ -22,6 +22,7 @@ extension ConnectTableViewCell: Identifyable {}
 
 protocol ConnectionsTableViewControllerDelegate: class {
     func addProvider(connectionsTableViewController: ConnectionsTableViewController)
+    func addPredefinedProvider(connectionsTableViewController: ConnectionsTableViewController)
     func settings(connectionsTableViewController: ConnectionsTableViewController)
     func connect(profile: Profile, sourceView: UIView?)
     func delete(profile: Profile)
@@ -30,8 +31,11 @@ protocol ConnectionsTableViewControllerDelegate: class {
 class ConnectionsTableViewController: UITableViewController {
     weak var delegate: ConnectionsTableViewControllerDelegate?
     
+    @IBOutlet weak var addButton: UIBarButtonItem!
+    @IBOutlet weak var settingsButton: UIBarButtonItem!
+    
     weak var noConfigsButton: TableTextButton?
-
+    
     var viewContext: NSManagedObjectContext! {
         willSet {
             if let context = viewContext {
@@ -97,6 +101,12 @@ class ConnectionsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if let _ = Config.shared.predefinedProvider {
+            // There is a predefined provider. So do not allow adding.
+            navigationItem.rightBarButtonItems = [settingsButton]
+        } else {
+            navigationItem.rightBarButtonItems = [settingsButton, addButton]
+        }
         
         tableView.tableFooterView = UIView()
         do {
@@ -107,7 +117,11 @@ class ConnectionsTableViewController: UITableViewController {
     }
 
     @IBAction func addProvider(_ sender: Any) {
-        delegate?.addProvider(connectionsTableViewController: self)
+        if let _ = Config.shared.predefinedProvider {
+            delegate?.addPredefinedProvider(connectionsTableViewController: self)
+        } else {
+            delegate?.addProvider(connectionsTableViewController: self)
+        }
     }
 
     @IBAction func settings(_ sender: Any) {
