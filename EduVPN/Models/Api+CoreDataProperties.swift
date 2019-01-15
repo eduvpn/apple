@@ -11,7 +11,6 @@ import Foundation
 import CoreData
 
 import AppAuth
-import KeychainSwift
 import UserNotifications
 
 extension Api {
