@@ -8,7 +8,6 @@
 
 import Foundation
 import AppAuth
-import KeychainSwift
 
 struct InstanceInfoModel: Decodable {
     var authorizationEndpoint: URL
