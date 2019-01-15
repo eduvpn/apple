@@ -63,7 +63,7 @@
 		4ACA042C1F3116D5004B35AA /* Moya+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACA042B1F3116D5004B35AA /* Moya+Promise.swift */; };
 		4ACA042E1F311863004B35AA /* InstanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACA042D1F311863004B35AA /* InstanceService.swift */; };
 		4AD0AD5A1F34F887006E1337 /* CredentialStorePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD591F34F887006E1337 /* CredentialStorePlugin.swift */; };
-		4AD0AD5D1F35048E006E1337 /* ChooseProviderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD5C1F35048E006E1337 /* ChooseProviderTableViewController.swift */; };
+		4AD0AD5D1F35048E006E1337 /* ProviderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD5C1F35048E006E1337 /* ProviderTableViewController.swift */; };
 		4AD0AD5F1F350822006E1337 /* Moya+ResponseHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD5E1F350822006E1337 /* Moya+ResponseHandling.swift */; };
 		4AD0AD621F350906006E1337 /* InstanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD611F350906006E1337 /* InstanceModel.swift */; };
 		4AE728161F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE728151F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift */; };
@@ -181,7 +181,7 @@
 		4ACA042B1F3116D5004B35AA /* Moya+Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Moya+Promise.swift"; sourceTree = "<group>"; };
 		4ACA042D1F311863004B35AA /* InstanceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceService.swift; sourceTree = "<group>"; };
 		4AD0AD591F34F887006E1337 /* CredentialStorePlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CredentialStorePlugin.swift; sourceTree = "<group>"; };
-		4AD0AD5C1F35048E006E1337 /* ChooseProviderTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseProviderTableViewController.swift; sourceTree = "<group>"; };
+		4AD0AD5C1F35048E006E1337 /* ProviderTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderTableViewController.swift; sourceTree = "<group>"; };
 		4AD0AD5E1F350822006E1337 /* Moya+ResponseHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Moya+ResponseHandling.swift"; sourceTree = "<group>"; };
 		4AD0AD611F350906006E1337 /* InstanceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceModel.swift; sourceTree = "<group>"; };
 		4ADF8E7B21ADF7030099C397 /* EduVPN 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EduVPN 3.xcdatamodel"; sourceTree = "<group>"; };
@@ -379,7 +379,7 @@
 			children = (
 				4AAC1F7D1F2D0E3400DD0252 /* Main.storyboard */,
 				4A8D241E1F3976A2004A9343 /* ProfilesViewController.swift */,
-				4AD0AD5C1F35048E006E1337 /* ChooseProviderTableViewController.swift */,
+				4AD0AD5C1F35048E006E1337 /* ProviderTableViewController.swift */,
 				4A2CC2211F4233E8004119B1 /* Identifyable.swift */,
 				4AF3DF051F424535003EC0BA /* SettingsTableViewController.swift */,
 				4AF3DF071F4245A5003EC0BA /* ConnectionsTableViewController.swift */,
@@ -787,7 +787,7 @@
 				4AAC2EE52027117400F9D0D2 /* DisplayName+CoreDataClass.swift in Sources */,
 				4AA69F89203AA43000035F1A /* Instance+Helper.swift in Sources */,
 				4A4CA90F1F55F4300021FD5D /* UITableView+EduVPN.swift in Sources */,
-				4AD0AD5D1F35048E006E1337 /* ChooseProviderTableViewController.swift in Sources */,
+				4AD0AD5D1F35048E006E1337 /* ProviderTableViewController.swift in Sources */,
 				4AAC1F7A1F2D0E3400DD0252 /* AppDelegate.swift in Sources */,
 				4AD0AD621F350906006E1337 /* InstanceModel.swift in Sources */,
 				4AE728161F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift in Sources */,

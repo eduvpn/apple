@@ -325,14 +325,14 @@ class AppCoordinator: RootViewCoordinator {
         self.navigationController.pushViewController(customProviderInputViewController, animated: true)
     }
 
-    private func showChooseProviderTableViewController(for providerType: ProviderType) {
-        let chooseProviderTableViewController = storyboard.instantiateViewController(type: ChooseProviderTableViewController.self)
-        chooseProviderTableViewController.providerType = providerType
-        chooseProviderTableViewController.viewContext = persistentContainer.viewContext
-        chooseProviderTableViewController.delegate = self
-        self.navigationController.pushViewController(chooseProviderTableViewController, animated: true)
+    private func showProviderTableViewController(for providerType: ProviderType) {
+        let providerTableViewController = storyboard.instantiateViewController(type: ProviderTableViewController.self)
+        providerTableViewController.providerType = providerType
+        providerTableViewController.viewContext = persistentContainer.viewContext
+        providerTableViewController.delegate = self
+        self.navigationController.pushViewController(providerTableViewController, animated: true)
 
-        chooseProviderTableViewController.providerType = providerType
+        providerTableViewController.providerType = providerType
 
         let target: StaticService!
         let sigTarget: StaticService!
@@ -640,7 +640,7 @@ extension AppCoordinator: ProfilesViewControllerDelegate {
     func profilesViewControllerDidSelectProviderType(profilesViewController: ProfilesViewController, providerType: ProviderType) {
         switch providerType {
         case .instituteAccess, .secureInternet:
-            showChooseProviderTableViewController(for: providerType)
+            showProviderTableViewController(for: providerType)
         case .other:
             showCustomProviderInPutViewController(for: providerType)
         case .unknown:
@@ -649,12 +649,12 @@ extension AppCoordinator: ProfilesViewControllerDelegate {
     }
 }
 
-extension AppCoordinator: ChooseProviderTableViewControllerDelegate {
+extension AppCoordinator: ProviderTableViewControllerDelegate {
     func didSelectOther(providerType: ProviderType) {
         showCustomProviderInPutViewController(for: providerType)
     }
 
-    func didSelect(instance: Instance, chooseProviderTableViewController: ChooseProviderTableViewController) {
+    func didSelect(instance: Instance, providerTableViewController: ProviderTableViewController) {
         self.refresh(instance: instance).recover { (error) in
             let error = error as NSError
             self.showError(error)

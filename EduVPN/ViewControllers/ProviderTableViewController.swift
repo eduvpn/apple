@@ -1,5 +1,5 @@
 //
-//  ChooseProviderTableViewController.swift
+//  ProviderTableViewController.swift
 //  EduVPN
 //
 //  Created by Jeroen Leenarts on 04-08-17.
@@ -21,12 +21,12 @@ class ProviderTableViewCell: UITableViewCell {
 
 extension ProviderTableViewCell: Identifyable {}
 
-protocol ChooseProviderTableViewControllerDelegate: class {
-    func didSelect(instance: Instance, chooseProviderTableViewController: ChooseProviderTableViewController)
+protocol ProviderTableViewControllerDelegate: class {
+    func didSelect(instance: Instance, providerTableViewController: ProviderTableViewController)
 }
 
-class ChooseProviderTableViewController: UITableViewController {
-    weak var delegate: ChooseProviderTableViewControllerDelegate?
+class ProviderTableViewController: UITableViewController {
+    weak var delegate: ProviderTableViewControllerDelegate?
 
     var viewContext: NSManagedObjectContext!
 
@@ -89,11 +89,11 @@ class ChooseProviderTableViewController: UITableViewController {
         let section = sections[indexPath.section]
         let instance = section.objects[indexPath.row]
 
-        delegate?.didSelect(instance: instance, chooseProviderTableViewController: self)
+        delegate?.didSelect(instance: instance, providerTableViewController: self)
     }
 }
 
-extension ChooseProviderTableViewController: Identifyable {}
+extension ProviderTableViewController: Identifyable {}
 
 class InstanceFetchedResultsControllerDelegate: NSObject, FetchedResultsControllerDelegate {
 
