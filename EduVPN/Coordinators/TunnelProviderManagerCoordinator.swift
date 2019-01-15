@@ -95,6 +95,10 @@ class TunnelProviderManagerCoordinator: Coordinator {
     }
     
     func connect(profile: Profile) -> Promise<Void> {
+        #if targetEnvironment(simulator)
+        print("SIMULATOR DOES NOT SUPPORT NETWORK EXTENSIONS")
+        return Promise.value(())
+        #else
         return Promise(resolver: { (resolver) in
             let session = self.currentManager?.connection as! NETunnelProviderSession //swiftlint:disable:this force_cast
             do {
@@ -106,6 +110,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
                 resolver.reject(error)
             }
         })
+        #endif
     }
 
     func disconnect() {
