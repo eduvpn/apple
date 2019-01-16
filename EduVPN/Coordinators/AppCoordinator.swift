@@ -135,7 +135,15 @@ class AppCoordinator: RootViewCoordinator {
 
         if let certificateModel = api.certificateModel {
             if certificateModel.x509Certificate?.checkValidity() ?? false {
-                return checkCertificate(api: api, for: dynamicApiProvider)
+                return checkCertificate(api: api, for: dynamicApiProvider).recover { (error) -> Promise<CertificateModel> in
+                    switch error {
+                    case AppCoordinatorError.certificateInvalid:
+                        api.certificateModel = nil
+                        return self.loadCertificate(for: api)
+                    default:
+                        throw error
+                    }
+                }
             } else {
                 api.certificateModel = nil
             }
