@@ -45,11 +45,6 @@ class TunnelProviderManagerCoordinator: Coordinator {
             fatalError("missing bundle ID")
         }
     }
-
-    
-    var configuredProfileUuid: String?  {
-        return UserDefaults.standard.configuredProfileId
-    }
     
     func configure(profile: Profile)  -> Promise<Void> {
         guard let delegate = delegate else {

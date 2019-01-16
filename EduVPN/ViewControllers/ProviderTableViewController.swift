@@ -180,8 +180,17 @@ class ProviderTableViewController: UITableViewController {
         }
 
         let section = sections[indexPath.section]
-
         let instance = section.objects[indexPath.row]
+        
+        let profileUuids = instance.apis?.flatMap({ (api) -> [String] in
+            return api.profiles.compactMap{ $0.uuid?.uuidString }
+        }) ?? []
+        
+        if let configuredProfileId = UserDefaults.standard.configuredProfileId, providerType == .unknown, profileUuids.contains(configuredProfileId) {
+            providerCell.accessoryType = .checkmark
+        } else {
+            providerCell.accessoryType = .none
+        }
         if let logoString = instance.logos?.localizedValue, let logoUrl = URL(string: logoString) {
             providerCell.providerImageView?.af_setImage(withURL: logoUrl)
         }

@@ -323,7 +323,7 @@ class AppCoordinator: RootViewCoordinator {
         fetchRequest.predicate = NSPredicate(format: "api.instance.providerType == %@", ProviderType.secureInternet.rawValue)
 
         let numberOfSecureInternetProfiles = try? persistentContainer.viewContext.count(for: fetchRequest)
-        profilesViewController.showSecureInterNetOption = true//numberOfSecureInternetProfiles == 0
+        profilesViewController.showSecureInterNetOption = numberOfSecureInternetProfiles == 0
 
         profilesViewController.delegate = self
         do {
@@ -636,7 +636,7 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
                 }
                 self.tunnelProviderManagerCoordinator.disconnect()
                 _ = self.tunnelProviderManagerCoordinator.configure(profile: profile).then({ (_) -> Promise<Void> in
-//TODO                    self.connectionsTableViewController.tableView.reloadData()
+                    self.providerTableViewController.tableView.reloadData()
                     return Promise.value(())
                 })
 
