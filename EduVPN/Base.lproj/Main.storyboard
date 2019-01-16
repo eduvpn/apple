@@ -280,8 +280,25 @@
                             <outlet property="delegate" destination="Jxg-KJ-i9R" id="LOj-ya-Otd"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Choose Provider" id="qtJ-Vg-vjO"/>
+                    <navigationItem key="navigationItem" title="Choose Provider" id="qtJ-Vg-vjO">
+                        <rightBarButtonItems>
+                            <barButtonItem title="Settings" image="gear" id="cVP-ef-jzv">
+                                <connections>
+                                    <action selector="settings:" destination="Jxg-KJ-i9R" id="t3c-YH-chm"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="add" id="uaX-GP-r14">
+                                <connections>
+                                    <action selector="addProvider:" destination="Jxg-KJ-i9R" id="3Nl-b7-INb"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <connections>
+                        <outlet property="addButton" destination="uaX-GP-r14" id="XzP-JQ-XBa"/>
+                        <outlet property="settingsButton" destination="cVP-ef-jzv" id="dX9-IG-KoU"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a3N-PI-nVX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -704,26 +721,8 @@
                             <outlet property="delegate" destination="Uux-Jq-wjR" id="61E-cv-Lqj"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Connect to VPN" id="P6q-bt-Jv8">
-                        <barButtonItem key="backBarButtonItem" title=" " id="2UY-h4-ATh"/>
-                        <rightBarButtonItems>
-                            <barButtonItem title="Settings" image="gear" id="cVP-ef-jzv">
-                                <connections>
-                                    <action selector="settings:" destination="Uux-Jq-wjR" id="TD5-8n-e8e"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem systemItem="add" id="uaX-GP-r14">
-                                <connections>
-                                    <action selector="addProvider:" destination="Uux-Jq-wjR" id="Z7H-Dw-EqA"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Connect to VPN" id="P6q-bt-Jv8"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <connections>
-                        <outlet property="addButton" destination="uaX-GP-r14" id="bq9-xY-rox"/>
-                        <outlet property="settingsButton" destination="cVP-ef-jzv" id="f1c-D8-Tfn"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="beL-Q2-xLq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

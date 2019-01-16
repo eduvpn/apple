@@ -63,10 +63,10 @@ class AppCoordinator: RootViewCoordinator {
     var childCoordinators: [Coordinator] = []
 
     var rootViewController: UIViewController {
-        return self.connectionsTableViewController
+        return self.providerTableViewController
     }
 
-    var connectionsTableViewController: ConnectionsTableViewController!
+    var providerTableViewController: ProviderTableViewController!
 
     /// Window to manage
     let window: UIWindow
@@ -93,13 +93,14 @@ class AppCoordinator: RootViewCoordinator {
                 os_log("Unable to Load Persistent Store. %{public}@", log: Log.general, type: .info, error.localizedDescription)
             } else {
                 DispatchQueue.main.async {
+                    
                     //start
-                    if let connectionsTableViewController = self?.storyboard.instantiateViewController(type: ConnectionsTableViewController.self) {
-                        self?.connectionsTableViewController = connectionsTableViewController
+                    if let providerTableViewController = self?.storyboard.instantiateViewController(type: ProviderTableViewController.self) {
+                        self?.providerTableViewController = providerTableViewController
                         self?.persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
-                        self?.connectionsTableViewController.viewContext = self?.persistentContainer.viewContext
-                        self?.connectionsTableViewController.delegate = self
-                        self?.navigationController.viewControllers = [connectionsTableViewController]
+                        self?.providerTableViewController.viewContext = self?.persistentContainer.viewContext
+                        self?.providerTableViewController.delegate = self
+                        self?.navigationController.viewControllers = [providerTableViewController]
                         do {
                             if let context = self?.persistentContainer.viewContext, try Profile.countInContext(context) == 0 {
                                 if let predefinedProvider = Config.shared.predefinedProvider {
@@ -257,7 +258,6 @@ class AppCoordinator: RootViewCoordinator {
     }
 
     fileprivate func refresh(instance: Instance) -> Promise<Void> {
-        //        let provider = DynamicInstanceProvider(baseURL: instance.baseUri)
         let provider = MoyaProvider<DynamicInstanceService>()
 
         let activityData = ActivityData()
@@ -285,11 +285,11 @@ class AppCoordinator: RootViewCoordinator {
                 let api = self.persistentContainer.viewContext.object(with: api.objectID) as! Api //swiftlint:disable:this force_cast
                 guard let authorizingDynamicApiProvider = DynamicApiProvider(api: api) else { return .value(()) }
                 self.navigationController.popToRootViewController(animated: true)
-                NVActivityIndicatorPresenter.sharedInstance.setMessage(NSLocalizedString("Refreshing profiles", comment: ""))
                 return self.refreshProfiles(for: authorizingDynamicApiProvider)
             }.recover { (error) in
                 self.showError(error)
             }.ensure {
+                self.providerTableViewController.refresh()
                 NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
         }
     }
@@ -298,6 +298,13 @@ class AppCoordinator: RootViewCoordinator {
         let settingsTableViewController = storyboard.instantiateViewController(type: SettingsTableViewController.self)
         settingsTableViewController.delegate = self
         self.navigationController.pushViewController(settingsTableViewController, animated: true)
+    }
+    
+    private func showConnectionsTableViewController(for instance: Instance) {
+        let connectionsTableViewController = storyboard.instantiateViewController(type: ConnectionsTableViewController.self)
+        connectionsTableViewController.delegate = self
+        connectionsTableViewController.viewContext = persistentContainer.viewContext
+        self.navigationController.pushViewController(connectionsTableViewController, animated: true)
     }
 
     private func showProfilesViewController() {
@@ -324,7 +331,7 @@ class AppCoordinator: RootViewCoordinator {
         customProviderInputViewController.delegate = self
         self.navigationController.pushViewController(customProviderInputViewController, animated: true)
     }
-
+    
     private func showProviderTableViewController(for providerType: ProviderType) {
         let providerTableViewController = storyboard.instantiateViewController(type: ProviderTableViewController.self)
         providerTableViewController.providerType = providerType
@@ -535,47 +542,64 @@ class AppCoordinator: RootViewCoordinator {
         }
     }
 
-    @discardableResult private func refreshProfiles(for dynamicApiProvider: DynamicApiProvider) -> Promise<Void> {
+    private func refreshProfiles(for dynamicApiProvider: DynamicApiProvider) -> Promise<Void> {
+        let activityData = ActivityData()
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData, nil)
+        NVActivityIndicatorPresenter.sharedInstance.setMessage(NSLocalizedString("Refreshing profiles", comment: ""))
+
         return dynamicApiProvider.request(apiService: .profileList).then { response -> Promise<ProfilesModel> in
             return response.mapResponse()
-        }.map { profiles -> Void in
+        }.then { profiles -> Promise<Void> in
             if profiles.profiles.isEmpty {
                 self.showNoProfilesAlert()
             }
-            self.persistentContainer.performBackgroundTask({ (context) in
-                let api = context.object(with: dynamicApiProvider.api.objectID) as? Api
-                api?.profiles.forEach({ (profile) in
-                    context.delete(profile)
+            return Promise<Void>(resolver: { seal in
+                self.persistentContainer.performBackgroundTask({ (context) in
+                    let api = context.object(with: dynamicApiProvider.api.objectID) as? Api
+                    api?.profiles.forEach({ (profile) in
+                        context.delete(profile)
+                    })
+                    
+                    profiles.profiles.forEach {
+                        let profile = Profile(context: context)
+                        profile.api = api
+                        profile.uuid = UUID()
+                        profile.update(with: $0)
+                    }
+                    do {
+                        try context.save()
+                    } catch {
+                        seal.reject(error)
+                    }
+                    
+                    seal.fulfill(())
                 })
-
-                profiles.profiles.forEach {
-                    let profile = Profile(context: context)
-                    profile.api = api
-                    profile.uuid = UUID()
-                    profile.update(with: $0)
-                }
-                context.saveContext()
             })
-        }.recover({ (error) in
+        }.recover { error throws -> Promise<Void> in
+            NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
+
             switch error {
             case ApiServiceError.tokenRefreshFailed:
                 self.authorizingDynamicApiProvider = dynamicApiProvider
-                _ = dynamicApiProvider.authorize(presentingViewController: self.navigationController).then({ _ -> Promise<Void> in
-                    self.refreshProfiles(for: dynamicApiProvider)
-                }).recover({ (error) in
+                return dynamicApiProvider.authorize(presentingViewController: self.navigationController).then({ _ -> Promise<Void> in
+                    return self.refreshProfiles(for: dynamicApiProvider)
+                }).recover({ error throws in
                     self.showError(error)
+                    throw error
                 })
             case ApiServiceError.noAuthState:
                 self.authorizingDynamicApiProvider = dynamicApiProvider
-                _ = dynamicApiProvider.authorize(presentingViewController: self.navigationController).then({ _ -> Promise<Void> in
-                    self.refreshProfiles(for: dynamicApiProvider)
-                }).recover({ (error) in
+                return dynamicApiProvider.authorize(presentingViewController: self.navigationController).then({ _ -> Promise<Void> in
+                    return self.refreshProfiles(for: dynamicApiProvider)
+                }).recover({ error throws in
                     self.showError(error)
+                    throw error
                 })
             default:
                 self.showError(error)
+                throw error
             }
-        })
+        }
     }
 }
 
@@ -594,21 +618,7 @@ extension AppCoordinator: SettingsTableViewControllerDelegate {
 }
 
 extension AppCoordinator: ConnectionsTableViewControllerDelegate {
-    func addPredefinedProvider(connectionsTableViewController: ConnectionsTableViewController) {
-        if let providerUrl = Config.shared.predefinedProvider {
-            _ = connect(url: providerUrl)
-        }
-    }
-    
-    func settings(connectionsTableViewController: ConnectionsTableViewController) {
-        showSettings()
-    }
-
-    func addProvider(connectionsTableViewController: ConnectionsTableViewController) {
-        addProvider()
-    }
-
-    func connect(profile: Profile, sourceView: UIView?) {
+    func connect(profile: Profile) {
         if let currentProfileUuid = profile.uuid, currentProfileUuid.uuidString == UserDefaults.standard.configuredProfileId {
             showConnectionViewController(for: profile)
         } else {
@@ -618,20 +628,12 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
                 }
                 self.tunnelProviderManagerCoordinator.disconnect()
                 _ = self.tunnelProviderManagerCoordinator.configure(profile: profile).then({ (_) -> Promise<Void> in
-                    self.connectionsTableViewController.tableView.reloadData()
+//TODO                    self.connectionsTableViewController.tableView.reloadData()
                     return Promise.value(())
                 })
 
                 self.showConnectionViewController(for: profile)
             }
-        }
-    }
-
-    func delete(profile: Profile) {
-        persistentContainer.performBackgroundTask { (context) in
-            let backgroundProfile = context.object(with: profile.objectID)
-            context.delete(backgroundProfile)
-            context.saveContext()
         }
     }
 }
@@ -650,16 +652,65 @@ extension AppCoordinator: ProfilesViewControllerDelegate {
 }
 
 extension AppCoordinator: ProviderTableViewControllerDelegate {
+    func addProvider(providerTableViewController: ProviderTableViewController) {
+        addProvider()
+    }
+    
+    func addPredefinedProvider(providerTableViewController: ProviderTableViewController) {
+        if let providerUrl = Config.shared.predefinedProvider {
+            _ = connect(url: providerUrl)
+        }
+    }
+    
+    func settings(providerTableViewController: ProviderTableViewController) {
+        showSettings()
+    }
+    
     func didSelectOther(providerType: ProviderType) {
         showCustomProviderInPutViewController(for: providerType)
     }
 
     func didSelect(instance: Instance, providerTableViewController: ProviderTableViewController) {
-        self.refresh(instance: instance).recover { (error) in
-            let error = error as NSError
-            self.showError(error)
+        if providerTableViewController.providerType == .unknown {
+            let activityData = ActivityData()
+            NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData, nil)
+            _ = self.refresh(instance: instance).then({ _ -> Promise<Void> in
+                let count = try Profile.countInContext(self.persistentContainer.viewContext, predicate: NSPredicate(format: "api.instance == %@", instance))
+                if count > 1 {
+                    self.showConnectionsTableViewController(for: instance)
+                } else {
+                    if let profile = instance.apis?.first?.profiles.first {
+                        self.connect(profile: profile)
+                    }
+                }
+                return Promise.value(())
+            })
+            .recover { (error) in
+                self.showError(error)
+            }.ensure {
+                NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
+            }
+        } else {
+// Move this to pull to refresh?
+            self.refresh(instance: instance).recover { (error) in
+                let error = error as NSError
+                self.showError(error)
+            }
         }
     }
+    
+    func delete(instance: Instance) {
+        persistentContainer.performBackgroundTask { (context) in
+            if let backgroundProfile = context.object(with: instance.objectID) as? Instance {
+                backgroundProfile.apis?.forEach{
+                    $0.certificateModel = nil
+                }
+                context.delete(backgroundProfile)
+            }
+            context.saveContext()
+        }
+    }
+
 }
 
 extension AppCoordinator: CustomProviderInPutViewControllerDelegate {

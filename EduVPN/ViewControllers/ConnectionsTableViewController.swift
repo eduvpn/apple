@@ -12,7 +12,6 @@ import os.log
 import BNRCoreDataStack
 
 class ConnectTableViewCell: UITableViewCell {
-
     @IBOutlet weak var connectImageView: UIImageView!
     @IBOutlet weak var connectTitleLabel: UILabel!
     @IBOutlet weak var connectSubTitleLabel: UILabel!
@@ -21,57 +20,14 @@ class ConnectTableViewCell: UITableViewCell {
 extension ConnectTableViewCell: Identifyable {}
 
 protocol ConnectionsTableViewControllerDelegate: class {
-    func addProvider(connectionsTableViewController: ConnectionsTableViewController)
-    func addPredefinedProvider(connectionsTableViewController: ConnectionsTableViewController)
-    func settings(connectionsTableViewController: ConnectionsTableViewController)
-    func connect(profile: Profile, sourceView: UIView?)
-    func delete(profile: Profile)
+    func connect(profile: Profile)
 }
 
 class ConnectionsTableViewController: UITableViewController {
     weak var delegate: ConnectionsTableViewControllerDelegate?
     
-    @IBOutlet weak var addButton: UIBarButtonItem!
-    @IBOutlet weak var settingsButton: UIBarButtonItem!
+    var viewContext: NSManagedObjectContext!
     
-    weak var noConfigsButton: TableTextButton?
-    
-    var viewContext: NSManagedObjectContext! {
-        willSet {
-            if let context = viewContext {
-                let notificationCenter = NotificationCenter.default
-                notificationCenter.removeObserver(self, name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: context)
-            }
-        }
-        didSet {
-            if let context = viewContext {
-                let notificationCenter = NotificationCenter.default
-                notificationCenter.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: context)
-            }
-        }
-    }
-    
-    @objc
-    func managedObjectContextObjectsDidChange(notification: NSNotification) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + .nanoseconds(1)) { [weak self] in
-            self?.checkButton()
-        }
-        
-    }
-    
-    private func checkButton() {
-        if self.fetchedResultsController.count == 0 && noConfigsButton == nil {
-            let noConfigsButton = TableTextButton()
-            noConfigsButton.title = NSLocalizedString("Add configuration", comment: "")
-            noConfigsButton.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-            noConfigsButton.frame = tableView.bounds
-            tableView.tableHeaderView = noConfigsButton
-            self.noConfigsButton = noConfigsButton
-        } else if self.fetchedResultsController.count > 0 {
-            tableView.tableHeaderView = nil
-        }
-    }
-
     private lazy var fetchedResultsController: FetchedResultsController<Profile> = {
         let fetchRequest = NSFetchRequest<Profile>()
         fetchRequest.entity = Profile.entity()
@@ -87,26 +43,8 @@ class ConnectionsTableViewController: UITableViewController {
         return ProfileFetchedResultsControllerDelegate(tableView: self.tableView)
     }()
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        checkButton()
-    }
-    
-    @objc
-    func tableTextButtonTapped() {
-        self.delegate?.addProvider(connectionsTableViewController: self)
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let _ = Config.shared.predefinedProvider {
-            // There is a predefined provider. So do not allow adding.
-            navigationItem.rightBarButtonItems = [settingsButton]
-        } else {
-            navigationItem.rightBarButtonItems = [settingsButton, addButton]
-        }
         
         tableView.tableFooterView = UIView()
         do {
@@ -114,18 +52,6 @@ class ConnectionsTableViewController: UITableViewController {
         } catch {
             os_log("Failed to fetch objects: %{public}@", log: Log.general, type: .error, error.localizedDescription)
         }
-    }
-
-    @IBAction func addProvider(_ sender: Any) {
-        if let _ = Config.shared.predefinedProvider {
-            delegate?.addPredefinedProvider(connectionsTableViewController: self)
-        } else {
-            delegate?.addProvider(connectionsTableViewController: self)
-        }
-    }
-
-    @IBAction func settings(_ sender: Any) {
-        delegate?.settings(connectionsTableViewController: self)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -196,29 +122,9 @@ class ConnectionsTableViewController: UITableViewController {
         let section = sections[indexPath.section]
         let profile = section.objects[indexPath.row]
 
-        let sourceView = tableView.cellForRow(at: indexPath)
-
-        delegate?.connect(profile: profile, sourceView: sourceView)
+        delegate?.connect(profile: profile)
 
         tableView.deselectRow(at: indexPath, animated: true)
-    }
-
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-
-            guard let sections = fetchedResultsController.sections else {
-                fatalError("FetchedResultsController \(fetchedResultsController) should have sections, but found nil")
-            }
-
-            let section = sections[indexPath.section]
-            let profile = section.objects[indexPath.row]
-
-            delegate?.delete(profile: profile)
-        }
     }
 }
 
@@ -274,35 +180,3 @@ class ProfileFetchedResultsControllerDelegate: NSObject, FetchedResultsControlle
     }
 }
 
-class TableTextButton: UIView {
-    let button: UIButton
-    
-    var title: String? {
-        get {
-            return button.title(for: .normal)
-            
-        }
-        set(value) {
-            button.setTitle(value, for: .normal)
-        }
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("not been implemented")
-    }
-    
-    init() {
-        button = UIButton(type: .system)
-        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
-        button.titleLabel?.adjustsFontForContentSizeCategory = true
-        super.init(frame: CGRect.zero)
-        addSubview(button)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            button.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            button.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            NSLayoutConstraint(item: button, attribute: .width, relatedBy: .equal, toItem: button, attribute: .width, multiplier: 1, constant: 250)
-            ])
-        button.addTarget(nil, action: #selector(ConnectionsTableViewController.tableTextButtonTapped), for: .touchUpInside)
-    }
-}
