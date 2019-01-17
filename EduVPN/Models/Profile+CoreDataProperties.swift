@@ -18,7 +18,6 @@ extension Profile {
 
     @NSManaged public var uuid: UUID?
     @NSManaged public var profileId: String?
-    @NSManaged public var twoFactor: Bool
     @NSManaged public var api: Api?
     @NSManaged public var displayNames: Set<DisplayName>?
 

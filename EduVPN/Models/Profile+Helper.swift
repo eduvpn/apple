@@ -12,7 +12,6 @@ import CoreData
 extension Profile {
     func update(with profileModel: InstanceProfileModel) {
         self.profileId = profileModel.profileId
-        self.twoFactor = profileModel.twoFactor
         if let displayNames = profileModel.displayNames {
             self.displayNames = Set(displayNames.compactMap({ (displayData) -> DisplayName? in
                 let displayName = DisplayName(context: self.managedObjectContext!)

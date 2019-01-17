@@ -36,21 +36,18 @@ struct InstanceProfileModel: Decodable {
     var displayName: String?
     var profileId: String
     var instanceApiBaseUrl: URL?
-    var twoFactor: Bool
 }
 
 extension InstanceProfileModel {
     enum InstanceProfileModelKeys: String, CodingKey {
         case displayName = "display_name"
         case profileId = "profile_id"
-        case twoFactor = "two_factor"
     }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: InstanceProfileModelKeys.self)
 
         let profileId = try container.decode(String.self, forKey: .profileId)
-        let twoFactor = try container.decode(Bool.self, forKey: .twoFactor)
 
         var displayName: String?
         let displayNames = try? container.decode(Dictionary<String, String>.self, forKey: .displayName)
@@ -67,7 +64,7 @@ extension InstanceProfileModel {
             displayName = try container.decode(String.self, forKey: .displayName)
         }
 
-        self.init(displayNames: displayNames, displayName: displayName, profileId: profileId, instanceApiBaseUrl: nil, twoFactor: twoFactor)
+        self.init(displayNames: displayNames, displayName: displayName, profileId: profileId, instanceApiBaseUrl: nil)
     }
 }
 
