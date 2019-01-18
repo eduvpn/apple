@@ -40,7 +40,7 @@ Edit [config-template.json](EduVPN/Config/config-template.json) in directory.
 
 Either copy the default template:
 ```
-$ cp EduVPN/Config/config.json EduVPN/Config/config.json
+$ cp EduVPN/Config/config-template.json EduVPN/Config/config.json
 ```
 
 Or copy the letsconnect template:
