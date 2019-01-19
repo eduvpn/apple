@@ -37,23 +37,28 @@ Dependencies are defined in a [Podfile](https://github.com/eduvpn/ios/blob/maste
 
 ## Configuring
 Edit [config-template.json](EduVPN/Config/config-template.json) in directory.
+Edit [Developer.xcconfig-template](EduVPN/Config/Developer.xcconfig-template) in directory.
+
 
 Either copy the default template:
 ```
 $ cp EduVPN/Config/config-template.json EduVPN/Config/config.json
+$ cp EduVPN/Config/Developer.xcconfig-template EduVPN/Config/Developer.xcconfig
 ```
 
 Or copy the letsconnect template:
 ```
 $ cp EduVPN/Config/config-letsconnect.json EduVPN/Config/config.json
+$ cp EduVPN/Config/Developer.xcconfig.letsconnect-template EduVPN/Config/Developer.xcconfig
 ```
 
 Or the EduVPN template:
 ```
 $ cp EduVPN/Config/config-eduvpn.json EduVPN/Config/config.json
+$ cp EduVPN/Config/Developer.xcconfig.eduvpn-template EduVPN/Config/Developer.xcconfig
 ```
 
-Edit app_name, development_team, app_ID, client_ID, REDIRECT_URL. In other file the discovery URL/key are configured, only needed for eduVPN app: Developer.xcconfig.template
+Edit app_name, development_team, app_ID, client_ID, REDIRECT_URL.
 
 **Be aware**
 The app can be configured in thee distinct modes:
