@@ -59,7 +59,7 @@ extension Config {
         redirectUrl = try container.decode(URL.self, forKey: .redirect_url)
         
         predefinedProvider = try container.decodeIfPresent(URL.self, forKey: .predefined_provider)
-        discovery = try container.decode(DiscoveryConfig.self, forKey: .discovery)
+        discovery = try container.decodeIfPresent(DiscoveryConfig.self, forKey: .discovery)
     }
 }
 
