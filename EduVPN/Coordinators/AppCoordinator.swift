@@ -294,8 +294,6 @@ class AppCoordinator: RootViewCoordinator {
                 guard let authorizingDynamicApiProvider = DynamicApiProvider(api: api) else { return .value(()) }
                 self.navigationController.popToRootViewController(animated: true)
                 return self.refreshProfiles(for: authorizingDynamicApiProvider)
-            }.recover { (error) in
-                self.showError(error)
             }.ensure {
                 self.providerTableViewController.refresh()
                 NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
