@@ -741,6 +741,9 @@ extension AppCoordinator: CustomProviderInPutViewControllerDelegate {
                 let instance = Instance(context: context)
                 instance.providerType = ProviderType.other.rawValue
                 instance.baseUri = url.absoluteString
+                let displayName = DisplayName(context: context)
+                displayName.displayName = url.host
+                instance.addToDisplayNames(displayName)
                 instance.group = group
 
                 do {
