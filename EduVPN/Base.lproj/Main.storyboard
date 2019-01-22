@@ -179,7 +179,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
-                            <tableViewSection footerTitle="With on demand enabled, the app attempts to keep you connected and will connect you when network activity is requested." id="2fY-ta-THv">
+                            <tableViewSection id="2fY-ta-THv">
+                                <string key="footerTitle">With on demand enabled, the VPN connection is started whenever an application running on the system opens a network connection. Network connectivity will be blocked until the VPN is connected.</string>
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Nsj-pb-wbZ">
                                         <rect key="frame" x="0.0" y="35" width="320" height="44"/>
