@@ -194,7 +194,7 @@ class ProviderTableViewController: UITableViewController {
         if let logoString = instance.logos?.localizedValue, let logoUrl = URL(string: logoString) {
             providerCell.providerImageView?.af_setImage(withURL: logoUrl)
         }
-        providerCell.providerTitleLabel?.text = instance.displayNames?.localizedValue
+        providerCell.providerTitleLabel?.text = instance.displayNames?.localizedValue ?? instance.baseUri
 
         return providerCell
     }
