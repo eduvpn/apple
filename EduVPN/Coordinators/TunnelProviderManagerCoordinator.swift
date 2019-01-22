@@ -89,7 +89,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
         })
     }
     
-    func connect(profile: Profile) -> Promise<Void> {
+    func connect() -> Promise<Void> {
         #if targetEnvironment(simulator)
         print("SIMULATOR DOES NOT SUPPORT NETWORK EXTENSIONS")
         return Promise.value(())
@@ -108,13 +108,25 @@ class TunnelProviderManagerCoordinator: Coordinator {
         #endif
     }
 
-    func disconnect() {
-        configureVPN({ (_) in
-            self.currentManager?.isOnDemandEnabled = false
-            return nil
-        }, completionHandler: { (_) in
-            self.currentManager?.connection.stopVPNTunnel()
+    func disconnect() -> Promise<Void> {
+        #if targetEnvironment(simulator)
+        print("SIMULATOR DOES NOT SUPPORT NETWORK EXTENSIONS")
+        return Promise.value(())
+        #else
+        return Promise(resolver: { (resolver) in
+            configureVPN({ (_) in
+                self.currentManager?.isOnDemandEnabled = false
+                return nil
+            }, completionHandler: { (error) in
+                self.currentManager?.connection.stopVPNTunnel()
+                if let error = error {
+                    resolver.reject(error)
+                } else {
+                    resolver.resolve(Result.fulfilled(()))
+                }
+            })
         })
+        #endif
     }
     
     func loadLog(completion: ((String) -> Void)? = nil) {

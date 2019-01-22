@@ -632,7 +632,7 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
                 guard let self = self else {
                     return
                 }
-                self.tunnelProviderManagerCoordinator.disconnect()
+                _ = self.tunnelProviderManagerCoordinator.disconnect()
                 _ = self.tunnelProviderManagerCoordinator.configure(profile: profile).then({ (_) -> Promise<Void> in
                     self.providerTableViewController.tableView.reloadData()
                     return Promise.value(())
