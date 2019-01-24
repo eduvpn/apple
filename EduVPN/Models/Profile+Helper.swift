@@ -10,6 +10,10 @@ import Foundation
 import CoreData
 
 extension Profile {
+    var displayString: String? {
+        return displayNames?.localizedValue ?? api?.instance?.displayNames?.localizedValue ?? api?.instance?.baseUri
+    }
+    
     static func upsert(with profileModels: [InstanceProfileModel], for api: Api, on context: NSManagedObjectContext) {
         // Key new models on profile ID.
         var keyedModels = profileModels.reduce([String: InstanceProfileModel]()) { (dict, model) -> [String: InstanceProfileModel] in

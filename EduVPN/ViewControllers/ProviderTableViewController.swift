@@ -151,7 +151,7 @@ class ProviderTableViewController: UITableViewController {
                     titleLabel.text = configuredProfile.profileId
 
                     let subTitleLabel = UILabel()
-                    subTitleLabel.text = configuredProfile.displayNames?.localizedValue ?? configuredProfile.api?.instance?.displayNames?.localizedValue ?? configuredProfile.api?.instance?.baseUri
+                    subTitleLabel.text = configuredProfile.displayString
 
                     let stackView = UIStackView(arrangedSubviews: [titleLabel, subTitleLabel])
                     stackView.axis = .vertical

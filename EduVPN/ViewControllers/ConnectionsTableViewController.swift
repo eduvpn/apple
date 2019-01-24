@@ -84,7 +84,7 @@ class ConnectionsTableViewController: UITableViewController {
         }
         
         cell.connectTitleLabel?.text = profile.profileId
-        cell.connectSubTitleLabel?.text = profile.displayNames?.localizedValue ?? profile.api?.instance?.displayNames?.localizedValue ?? profile.api?.instance?.baseUri
+        cell.connectSubTitleLabel?.text = profile.displayString
         if let logo = profile.api?.instance?.logos?.localizedValue, let logoUri = URL(string: logo) {
             cell.connectImageView?.af_setImage(withURL: logoUri)
             cell.connectImageView.isHidden = false

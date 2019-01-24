@@ -37,6 +37,8 @@ class VPNConnectionViewController: UIViewController {
 
     @IBOutlet weak var logTextView: UITextView!
     
+    @IBOutlet weak var providerInfoStackView: UIStackView!
+    
     var providerManagerCoordinator: TunnelProviderManagerCoordinator!
 
     private var connectionInfoUpdateTimer: Timer?
@@ -60,19 +62,24 @@ class VPNConnectionViewController: UIViewController {
 
     @IBOutlet weak var providerImage: UIImageView!
     @IBOutlet weak var profileNameLabel: UILabel!
-
+    @IBOutlet weak var instanceNameLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         profileNameLabel.text = profile.profileId
+        instanceNameLabel.text = profile.displayString
         if let logo = profile.api?.instance?.logos?.localizedValue, let logoUri = URL(string: logo) {
             providerImage.af_setImage(withURL: logoUri)
+            providerInfoStackView.isHidden = false
         } else if let providerTypeString = profile.api?.instance?.providerType, providerTypeString == ProviderType.other.rawValue {
             providerImage.af_cancelImageRequest()
             providerImage.image = nil
+            providerInfoStackView.isHidden = true
         } else {
             providerImage.af_cancelImageRequest()
             providerImage.image = nil
+            providerInfoStackView.isHidden = true
         }
 
         NotificationCenter.default.addObserver(self,

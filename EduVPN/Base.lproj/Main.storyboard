@@ -375,19 +375,30 @@
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W3O-jX-Qbj">
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="eua-CD-fQX">
                                                                         <rect key="frame" x="0.0" y="20.5" width="98" height="45"/>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                        <nil key="textColor"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
+                                                                        <subviews>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W3O-jX-Qbj">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="98" height="20.5"/>
+                                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                                <nil key="textColor"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HGa-kG-IWk">
+                                                                                <rect key="frame" x="0.0" y="20.5" width="98" height="24.5"/>
+                                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                                                <nil key="textColor"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                        </subviews>
+                                                                    </stackView>
                                                                 </subviews>
                                                             </stackView>
                                                         </subviews>
                                                         <constraints>
                                                             <constraint firstItem="hQ8-pb-QTW" firstAttribute="height" secondItem="dXc-Tl-vfh" secondAttribute="height" id="Qrr-CZ-k9T"/>
                                                             <constraint firstItem="HV9-8r-7IL" firstAttribute="width" secondItem="fwO-yL-WDj" secondAttribute="width" id="Y17-oD-qkr"/>
-                                                            <constraint firstItem="W3O-jX-Qbj" firstAttribute="height" secondItem="dXc-Tl-vfh" secondAttribute="height" id="v6R-q9-XGH"/>
+                                                            <constraint firstItem="eua-CD-fQX" firstAttribute="height" secondItem="dXc-Tl-vfh" secondAttribute="height" id="tj4-lw-j7Q"/>
                                                         </constraints>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="kSf-HJ-hJD">
@@ -584,11 +595,13 @@
                         <outlet property="buttonConnection" destination="DsN-Qy-qJs" id="Mt4-Xp-cUu"/>
                         <outlet property="durationLabel" destination="75E-0X-qP8" id="Uco-Zf-csK"/>
                         <outlet property="inBytesLabel" destination="WN7-h7-QBA" id="AFT-lg-Xly"/>
+                        <outlet property="instanceNameLabel" destination="HGa-kG-IWk" id="L57-eb-zPh"/>
                         <outlet property="logTextView" destination="DSB-IT-YNj" id="Rnn-0O-jE7"/>
                         <outlet property="notificationLabel" destination="z4F-Ad-6sl" id="9Ap-hK-rNO"/>
                         <outlet property="outBytesLabel" destination="eyd-8l-MNd" id="qLy-rf-bwJ"/>
                         <outlet property="profileNameLabel" destination="W3O-jX-Qbj" id="RTR-mo-kod"/>
                         <outlet property="providerImage" destination="hQ8-pb-QTW" id="UbF-Gb-F65"/>
+                        <outlet property="providerInfoStackView" destination="fwO-yL-WDj" id="Ffm-GG-D29"/>
                         <outlet property="statusImage" destination="dXc-Tl-vfh" id="R84-WU-FlB"/>
                     </connections>
                 </viewController>
