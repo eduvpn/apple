@@ -100,6 +100,7 @@ class AppCoordinator: RootViewCoordinator {
                         self?.persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
                         self?.providerTableViewController.viewContext = self?.persistentContainer.viewContext
                         self?.providerTableViewController.delegate = self
+                        self?.providerTableViewController.providerManagerCoordinator = self?.tunnelProviderManagerCoordinator
                         self?.navigationController.viewControllers = [providerTableViewController]
                         do {
                             if let context = self?.persistentContainer.viewContext, try Profile.countInContext(context) == 0 {
