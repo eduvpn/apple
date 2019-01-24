@@ -57,6 +57,15 @@ public final class Guarantee<T>: Thenable {
     init(_: PMKUnambiguousInitializer) {
         box = EmptyBox()
     }
+    
+    deinit {
+        switch box.inspect() {
+        case .pending:
+            PromiseKit.conf.logHandler (.pendingGuaranteeDeallocated)
+        case .resolved:
+            break
+        }
+    }
 
     /// Returns a tuple of a pending `Guarantee` and a function that resolves it.
     public class func pending() -> (guarantee: Guarantee<T>, resolve: (T) -> Void) {
@@ -105,7 +114,7 @@ public extension Guarantee {
         return rg
     }
 
-    public func asVoid() -> Guarantee<Void> {
+    func asVoid() -> Guarantee<Void> {
         return map(on: nil) { _ in }
     }
     
@@ -113,7 +122,7 @@ public extension Guarantee {
      Blocks this thread, so you know, don’t call this on a serial thread that
      any part of your chain may use. Like the main thread for example.
      */
-    public func wait() -> T {
+    func wait() -> T {
 
         if Thread.isMainThread {
             conf.logHandler(.waitOnMainThread)
