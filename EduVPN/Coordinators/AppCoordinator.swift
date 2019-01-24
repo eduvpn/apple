@@ -562,16 +562,8 @@ class AppCoordinator: RootViewCoordinator {
             }
             return Promise<Void>(resolver: { seal in
                 self.persistentContainer.performBackgroundTask({ (context) in
-                    let api = context.object(with: dynamicApiProvider.api.objectID) as? Api
-                    api?.profiles.forEach({ (profile) in
-                        context.delete(profile)
-                    })
-                    
-                    profiles.profiles.forEach {
-                        let profile = Profile(context: context)
-                        profile.api = api
-                        profile.uuid = UUID()
-                        profile.update(with: $0)
+                    if let api = context.object(with: dynamicApiProvider.api.objectID) as? Api {
+                        Profile.upsert(with: profiles.profiles, for: api, on: context)
                     }
                     do {
                         try context.save()

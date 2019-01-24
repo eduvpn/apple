@@ -247,27 +247,29 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="63.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9JN-6K-WA0">
-                                            <rect key="frame" x="20" y="10" width="80" height="43.5"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="80" id="kz5-i5-X0W"/>
-                                            </constraints>
-                                        </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZF-sX-Fan">
-                                            <rect key="frame" x="120" y="11" width="184" height="42"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="b7T-KW-Aao">
+                                            <rect key="frame" x="20" y="10" width="280" height="43.5"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9JN-6K-WA0">
+                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="43.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="80" id="kz5-i5-X0W"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZF-sX-Fan">
+                                                    <rect key="frame" x="100" y="0.0" width="180" height="43.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="ZZF-sX-Fan" firstAttribute="leading" secondItem="9JN-6K-WA0" secondAttribute="trailing" constant="20" id="CYE-nk-qfn"/>
-                                        <constraint firstAttribute="bottom" secondItem="9JN-6K-WA0" secondAttribute="bottom" constant="10" id="Ct0-TA-IAK"/>
-                                        <constraint firstItem="9JN-6K-WA0" firstAttribute="leading" secondItem="hh9-4Q-4Iw" secondAttribute="leading" constant="20" id="JaT-xs-GMa"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="ZZF-sX-Fan" secondAttribute="bottom" id="f8q-5z-qSN"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="ZZF-sX-Fan" secondAttribute="trailing" id="rwo-mn-bH6"/>
-                                        <constraint firstItem="9JN-6K-WA0" firstAttribute="top" secondItem="hh9-4Q-4Iw" secondAttribute="top" constant="10" id="xz2-Rm-3WP"/>
-                                        <constraint firstItem="ZZF-sX-Fan" firstAttribute="top" secondItem="hh9-4Q-4Iw" secondAttribute="topMargin" id="yW4-40-xx2"/>
+                                        <constraint firstItem="b7T-KW-Aao" firstAttribute="leading" secondItem="hh9-4Q-4Iw" secondAttribute="leading" constant="20" id="B4z-mx-HNP"/>
+                                        <constraint firstAttribute="trailing" secondItem="b7T-KW-Aao" secondAttribute="trailing" constant="20" id="HdQ-4g-Rd2"/>
+                                        <constraint firstAttribute="bottom" secondItem="b7T-KW-Aao" secondAttribute="bottom" constant="10" id="oNl-Wq-l7S"/>
+                                        <constraint firstItem="b7T-KW-Aao" firstAttribute="top" secondItem="hh9-4Q-4Iw" secondAttribute="top" constant="10" id="opY-9p-rIn"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
