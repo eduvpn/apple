@@ -309,6 +309,7 @@ class AppCoordinator: RootViewCoordinator {
     private func showConnectionsTableViewController(for instance: Instance) {
         let connectionsTableViewController = storyboard.instantiateViewController(type: ConnectionsTableViewController.self)
         connectionsTableViewController.delegate = self
+        connectionsTableViewController.instance = instance
         connectionsTableViewController.viewContext = persistentContainer.viewContext
         self.navigationController.pushViewController(connectionsTableViewController, animated: true)
     }

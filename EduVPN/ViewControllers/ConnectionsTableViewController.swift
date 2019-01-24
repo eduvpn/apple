@@ -26,11 +26,16 @@ protocol ConnectionsTableViewControllerDelegate: class {
 class ConnectionsTableViewController: UITableViewController {
     weak var delegate: ConnectionsTableViewControllerDelegate?
     
+    var instance: Instance?
+
     var viewContext: NSManagedObjectContext!
     
     private lazy var fetchedResultsController: FetchedResultsController<Profile> = {
         let fetchRequest = NSFetchRequest<Profile>()
         fetchRequest.entity = Profile.entity()
+        if let instance = instance {
+            fetchRequest.predicate = NSPredicate(format: "api.instance == %@", instance)
+        }
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "api.instance.providerType", ascending: true), NSSortDescriptor(key: "api.instance.baseUri", ascending: true), NSSortDescriptor(key: "profileId", ascending: true)]
         let frc = FetchedResultsController<Profile>(fetchRequest: fetchRequest,
                                                  managedObjectContext: viewContext,
