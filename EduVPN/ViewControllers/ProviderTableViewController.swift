@@ -87,7 +87,7 @@ class ProviderTableViewController: UITableViewController {
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "baseUri", ascending: true)]
         let frc = FetchedResultsController<Instance>(fetchRequest: fetchRequest,
                                                     managedObjectContext: viewContext,
-                                                    sectionNameKeyPath: "providerType")
+                                                    sectionNameKeyPath: Config.shared.discovery != nil ? "providerType": nil)
         frc.setDelegate(self.frcDelegate)
         return frc
     }()
@@ -152,6 +152,10 @@ class ProviderTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard Config.shared.discovery != nil else {
+            return nil
+        }
+
         let providerType: ProviderType
         
         if let sectionName = fetchedResultsController.sections?[section].name {

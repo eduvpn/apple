@@ -27,7 +27,7 @@ class ConnectionsTableViewController: UITableViewController {
     weak var delegate: ConnectionsTableViewControllerDelegate?
     
     var instance: Instance?
-
+    
     var viewContext: NSManagedObjectContext!
     
     private lazy var fetchedResultsController: FetchedResultsController<Profile> = {
@@ -38,8 +38,7 @@ class ConnectionsTableViewController: UITableViewController {
         }
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "api.instance.providerType", ascending: true), NSSortDescriptor(key: "api.instance.baseUri", ascending: true), NSSortDescriptor(key: "profileId", ascending: true)]
         let frc = FetchedResultsController<Profile>(fetchRequest: fetchRequest,
-                                                 managedObjectContext: viewContext,
-                                                 sectionNameKeyPath: "api.instance.providerType")
+                                                 managedObjectContext: viewContext)
         frc.setDelegate(self.frcDelegate)
         return frc
     }()
@@ -65,27 +64,6 @@ class ConnectionsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return fetchedResultsController.sections?[section].objects.count ?? 0
-    }
-
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let providerType: ProviderType
-
-        if let sectionName = fetchedResultsController.sections?[section].name {
-            providerType = ProviderType(rawValue: sectionName) ?? .unknown
-        } else {
-            providerType = .unknown
-        }
-
-        switch providerType {
-        case .secureInternet:
-            return NSLocalizedString("Secure Internet", comment: "")
-        case .instituteAccess:
-            return NSLocalizedString("Institute access", comment: "")
-        case .other:
-            return NSLocalizedString("Other", comment: "")
-        case .unknown:
-            return "."
-        }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
