@@ -15,6 +15,7 @@ import PromiseKit
 private let intervalFormatter: DateComponentsFormatter = {
     let formatter = DateComponentsFormatter()
     formatter.allowedUnits = [.hour, .minute, .second]
+    formatter.unitsStyle = DateComponentsFormatter.UnitsStyle.abbreviated
     return formatter
 }()
 
