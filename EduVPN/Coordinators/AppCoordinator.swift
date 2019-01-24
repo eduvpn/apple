@@ -704,6 +704,7 @@ extension AppCoordinator: ProviderTableViewControllerDelegate {
             if let backgroundProfile = context.object(with: instance.objectID) as? Instance {
                 backgroundProfile.apis?.forEach{
                     $0.certificateModel = nil
+                    $0.authState = nil
                 }
                 context.delete(backgroundProfile)
             }
