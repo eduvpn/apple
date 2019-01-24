@@ -154,7 +154,11 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
             if let authState = self.actualApi.authState {
                 authState.performAction(freshTokens: { (accessToken, _, error) in
                     if let error = error {
-                        seal.reject(ApiServiceError.tokenRefreshFailed(rootCause: error))
+                        if (error as NSError).code == OIDErrorCode.networkError.rawValue {
+                            seal.reject(error)
+                        } else {
+                            seal.reject(ApiServiceError.tokenRefreshFailed(rootCause: error))
+                        }
                         return
                     }
 
