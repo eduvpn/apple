@@ -35,7 +35,7 @@ class SettingsTableViewController: UITableViewController {
         super.viewWillAppear(animated)
 
         onDemandSwitch.isOn = delegate?.readOnDemand() ?? false
-//        forceTcpSwitch.isOn = UserDefaults.standard.forceTcp
+        forceTcpSwitch.isOn = UserDefaults.standard.forceTcp
     }
 }
 

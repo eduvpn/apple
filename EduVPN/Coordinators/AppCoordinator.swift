@@ -39,6 +39,8 @@ enum AppCoordinatorError: Swift.Error {
     case apiProviderCreateFailed
     case sodiumSignatureFetchFailed
     case sodiumSignatureVerifyFailed
+    case ovpnConfigTemplate
+    case ovpnConfigTemplateNoRemotes
 }
 
 class AppCoordinator: RootViewCoordinator {
@@ -474,16 +476,28 @@ class AppCoordinator: RootViewCoordinator {
             NVActivityIndicatorPresenter.sharedInstance.setMessage(NSLocalizedString("Requesting profile config", comment: ""))
             return dynamicApiProvider.request(apiService: .profileConfig(profileId: profile.profileId!))
             }.map { response -> URL in
-                var ovpnFileContent = String(data: response.data, encoding: .utf8)
-                let insertionIndex = ovpnFileContent!.range(of: "</ca>")!.upperBound
-                ovpnFileContent?.insert(contentsOf: "\n<key>\n\(api.certificateModel!.privateKeyString)\n</key>", at: insertionIndex)
-                ovpnFileContent?.insert(contentsOf: "\n<cert>\n\(api.certificateModel!.certificateString)\n</cert>", at: insertionIndex)
-                ovpnFileContent = ovpnFileContent?.replacingOccurrences(of: "auth none\r\n", with: "")
+                guard var ovpnFileContent = String(data: response.data, encoding: .utf8) else {
+                    throw AppCoordinatorError.ovpnConfigTemplate
+                }
+                
+                if UserDefaults.standard.forceTcp {
+                    let remoteUdpRegex = try! NSRegularExpression(pattern: "remote.*udp", options: [])
+                    ovpnFileContent = remoteUdpRegex.stringByReplacingMatches(in: ovpnFileContent, options: [], range: NSRange(location: 0, length: ovpnFileContent.utf16.count), withTemplate: "")
+                }
+                let remoteTcpRegex = try! NSRegularExpression(pattern: "remote.*", options: [])
+                if 0 == remoteTcpRegex.numberOfMatches(in: ovpnFileContent, options: [], range: NSRange(location: 0, length: ovpnFileContent.utf16.count)) {
+                    throw AppCoordinatorError.ovpnConfigTemplateNoRemotes
+                }
+                
+                let insertionIndex = ovpnFileContent.range(of: "</ca>")!.upperBound
+                ovpnFileContent.insert(contentsOf: "\n<key>\n\(api.certificateModel!.privateKeyString)\n</key>", at: insertionIndex)
+                ovpnFileContent.insert(contentsOf: "\n<cert>\n\(api.certificateModel!.certificateString)\n</cert>", at: insertionIndex)
+                ovpnFileContent = ovpnFileContent.replacingOccurrences(of: "auth none\r\n", with: "")
                 // TODO: validate response
                 try Disk.clear(.temporary)
                 // merge profile with keypair
                 let filename = "\(profile.displayNames?.localizedValue ?? "")-\(api.instance?.displayNames?.localizedValue ?? "") \(profile.profileId ?? "").ovpn"
-                try Disk.save(ovpnFileContent!.data(using: .utf8)!, to: .temporary, as: filename)
+                try Disk.save(ovpnFileContent.data(using: .utf8)!, to: .temporary, as: filename)
                 let url = try Disk.url(for: filename, in: .temporary)
                 return url
             }.recover { (error) throws -> Promise<URL> in
@@ -629,10 +643,9 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
                 _ = self.tunnelProviderManagerCoordinator.disconnect()
                 _ = self.tunnelProviderManagerCoordinator.configure(profile: profile).then({ (_) -> Promise<Void> in
                     self.providerTableViewController.tableView.reloadData()
+                    self.showConnectionViewController(for: profile)
                     return Promise.value(())
                 })
-
-                self.showConnectionViewController(for: profile)
             }
         }
     }
