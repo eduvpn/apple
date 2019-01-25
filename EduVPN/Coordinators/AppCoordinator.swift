@@ -260,7 +260,7 @@ class AppCoordinator: RootViewCoordinator {
             guard let identifier = certificate.uniqueIdentifier else { return }
 
             let content = UNMutableNotificationContent()
-            content.title = NSString.localizedUserNotificationString(forKey: "VPN certificate is expiring!", arguments: nil)
+            content.title = NSString.localizedUserNotificationString(forKey: "VPN certificate is expiring", arguments: nil)
             if let certificateTitle = api.instance?.displayNames?.localizedValue {
                 content.body = NSString.localizedUserNotificationString(forKey: "Once expired the certificate for instance %@ needs to be refreshed.",
                                                                         arguments: [certificateTitle])
