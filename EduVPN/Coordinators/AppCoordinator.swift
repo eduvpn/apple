@@ -30,7 +30,6 @@ import NVActivityIndicatorView
 extension UINavigationController: Identifyable {}
 
 enum AppCoordinatorError: Swift.Error {
-    case openVpnSchemeNotAvailable
     case certificateInvalid
     case certificateNil
     case certificateCommonNameNotFound
@@ -41,6 +40,31 @@ enum AppCoordinatorError: Swift.Error {
     case sodiumSignatureVerifyFailed
     case ovpnConfigTemplate
     case ovpnConfigTemplateNoRemotes
+    
+    var localizedDescription: String {
+        switch self {
+        case .certificateInvalid:
+            return NSLocalizedString("VPN certificate is invalid.", comment: "")
+        case .certificateNil:
+            return NSLocalizedString("VPN certificate should not be nil.", comment: "")
+        case .certificateCommonNameNotFound:
+            return NSLocalizedString("Unable to extract Common Name from VPN certificate.", comment: "")
+        case .certificateStatusUnknown:
+            return NSLocalizedString("VPN certificate status is unknown.", comment: "")
+        case .apiMissing:
+            return NSLocalizedString("No concrete API instance while expecting one.", comment: "")
+        case .apiProviderCreateFailed:
+            return NSLocalizedString("Failed to create dynamic API provider.", comment: "")
+        case .sodiumSignatureFetchFailed:
+            return NSLocalizedString("Fetching signature failed.", comment: "")
+        case .sodiumSignatureVerifyFailed:
+            return NSLocalizedString("Signature verification of discovery file failed.", comment: "")
+        case .ovpnConfigTemplate:
+            return NSLocalizedString("Unable to materialize an OpenVPN config.", comment: "")
+        case .ovpnConfigTemplateNoRemotes:
+            return NSLocalizedString("OpenVPN template has no remotes.", comment: "")
+        }
+    }
 }
 
 class AppCoordinator: RootViewCoordinator {
@@ -465,7 +489,7 @@ class AppCoordinator: RootViewCoordinator {
             precondition(false, "This should never happen")
             return Promise(error: AppCoordinatorError.apiMissing)
         }
-
+        
         guard let dynamicApiProvider = DynamicApiProvider(api: api) else {
             return Promise(error: AppCoordinatorError.apiProviderCreateFailed)
         }
@@ -488,7 +512,7 @@ class AppCoordinator: RootViewCoordinator {
                 if 0 == remoteTcpRegex.numberOfMatches(in: ovpnFileContent, options: [], range: NSRange(location: 0, length: ovpnFileContent.utf16.count)) {
                     throw AppCoordinatorError.ovpnConfigTemplateNoRemotes
                 }
-                
+
                 let insertionIndex = ovpnFileContent.range(of: "</ca>")!.upperBound
                 ovpnFileContent.insert(contentsOf: "\n<key>\n\(api.certificateModel!.privateKeyString)\n</key>", at: insertionIndex)
                 ovpnFileContent.insert(contentsOf: "\n<cert>\n\(api.certificateModel!.certificateString)\n</cert>", at: insertionIndex)
