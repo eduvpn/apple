@@ -658,8 +658,8 @@ extension AppCoordinator: SettingsTableViewControllerDelegate {
 extension AppCoordinator: ConnectionsTableViewControllerDelegate {
     func connect(profile: Profile) {
         if let currentProfileUuid = profile.uuid, currentProfileUuid.uuidString == UserDefaults.standard.configuredProfileId {
-            //Every time we connect, we need to configure the profile, otherwise, a bug may happen. If the profile is already installed we do
-            //not need to enter the password and it happens behind the scene
+            //Every time we connect, we need to configure the profile, otherwise, a the app may fail to connect to the VPN server. 
+            //If the profile is already installed we do not need to enter the password and it happens behind the scene. 
             tunnelProviderManagerCoordinator.configure(profile: profile)
             showConnectionViewController(for: profile)
         } else {
