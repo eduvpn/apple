@@ -165,7 +165,7 @@ class AppCoordinator: RootViewCoordinator {
             if certificateModel.x509Certificate?.checkValidity() ?? false {
                 return checkCertificate(api: api, for: dynamicApiProvider).recover { (error) -> Promise<CertificateModel> in
                     switch error {
-                    case AppCoordinatorError.certificateInvalid:
+                    case AppCoordinatorError.certificateInvalid, AppCoordinatorError.certificateNil, AppCoordinatorError.certificateCommonNameNotFound:
                         api.certificateModel = nil
                         return self.loadCertificate(for: api)
                     default:
