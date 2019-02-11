@@ -71,6 +71,7 @@ class AppCoordinator: RootViewCoordinator {
 
     lazy var tunnelProviderManagerCoordinator: TunnelProviderManagerCoordinator = {
         let tpmCoordinator = TunnelProviderManagerCoordinator()
+        tpmCoordinator.start()
         self.addChildCoordinator(tpmCoordinator)
         tpmCoordinator.delegate = self
         return tpmCoordinator
