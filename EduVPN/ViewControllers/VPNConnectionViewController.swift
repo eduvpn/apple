@@ -48,11 +48,11 @@ class VPNConnectionViewController: UIViewController {
         didSet {
             switch status {
             case .connected:
-                statusImage.image = #imageLiteral(resourceName: "connected")
+                statusImage.image = UIImage(named: "connected")
             case .connecting, .disconnecting, .reasserting:
-                statusImage.image = #imageLiteral(resourceName: "connecting")
+                statusImage.image = UIImage(named: "connecting")
             case .disconnected, .invalid:
-                statusImage.image = #imageLiteral(resourceName: "not-connected")
+                statusImage.image = UIImage(named: "disconnected")
             }
         }
     }
