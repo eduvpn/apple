@@ -738,18 +738,22 @@ extension AppCoordinator: ProviderTableViewControllerDelegate {
     }
     
     func delete(instance: Instance) {
-        persistentContainer.performBackgroundTask { (context) in
-            if let backgroundProfile = context.object(with: instance.objectID) as? Instance {
-                backgroundProfile.apis?.forEach{
-                    $0.certificateModel = nil
-                    $0.authState = nil
+        _ = Promise<Void>(resolver: { seal in
+            persistentContainer.performBackgroundTask { (context) in
+                if let backgroundProfile = context.object(with: instance.objectID) as? Instance {
+                    backgroundProfile.apis?.forEach{
+                        $0.certificateModel = nil
+                        $0.authState = nil
+                    }
+                    context.delete(backgroundProfile)
                 }
-                context.delete(backgroundProfile)
+                context.saveContext()
             }
-            context.saveContext()
+            seal.fulfill(())
+        }).then {
+            return self.refresh(instance: instance)
         }
     }
-
 }
 
 extension AppCoordinator: CustomProviderInPutViewControllerDelegate {
