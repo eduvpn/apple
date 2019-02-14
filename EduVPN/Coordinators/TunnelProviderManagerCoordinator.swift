@@ -11,6 +11,9 @@ import os.log
 import NetworkExtension
 import TunnelKit
 import PromiseKit
+import CoreData
+import BNRCoreDataStack
+
 
 enum TunnelProviderManagerCoordinatorError: Error {
     case missingDelegate
@@ -26,6 +29,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     weak var delegate: TunnelProviderManagerCoordinatorDelegate?
     var currentManager: NETunnelProviderManager?
+    var viewContext: NSManagedObjectContext!
 
     func start() {
     }
@@ -127,6 +131,24 @@ class TunnelProviderManagerCoordinator: Coordinator {
             })
         })
         #endif
+    }
+    
+    func reconnect() -> Promise<Void> {
+        return firstly { () -> Promise<Void> in
+            let session = self.currentManager?.connection as! NETunnelProviderSession //swiftlint:disable:this force_cast
+            switch session.status {
+            case .connected, .connecting, .reasserting:
+                if let configuredProfileId = UserDefaults.standard.configuredProfileId, let configuredProfile = try Profile.findFirstInContext(viewContext, predicate: NSPredicate(format: "uuid == %@", configuredProfileId)) {
+                    return self.configure(profile: configuredProfile).then {
+                        return self.connect()
+                    }
+                } else {
+                    return Promise.value(())
+                }
+            default:
+                return Promise.value(())
+            }
+        }
     }
     
     func loadLog(completion: ((String) -> Void)? = nil) {

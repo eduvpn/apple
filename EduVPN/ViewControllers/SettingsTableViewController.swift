@@ -11,6 +11,7 @@ import UIKit
 protocol SettingsTableViewControllerDelegate: class {
     func readOnDemand() -> Bool
     func writeOnDemand(_ onDemand: Bool)
+    func reconnect()
 }
 
 class SettingsTableViewController: UITableViewController {
@@ -25,10 +26,13 @@ class SettingsTableViewController: UITableViewController {
         } else {
             onDemandSwitch.isOn = false
         }
+        
+        delegate?.reconnect()
     }
 
     @IBAction func forceTcpChanged(_ sender: Any) {
         UserDefaults.standard.forceTcp = forceTcpSwitch.isOn
+        delegate?.reconnect()
     }
 
     override func viewWillAppear(_ animated: Bool) {

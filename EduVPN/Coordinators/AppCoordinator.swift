@@ -71,6 +71,7 @@ class AppCoordinator: RootViewCoordinator {
 
     lazy var tunnelProviderManagerCoordinator: TunnelProviderManagerCoordinator = {
         let tpmCoordinator = TunnelProviderManagerCoordinator()
+        tpmCoordinator.viewContext = self.persistentContainer.viewContext
         tpmCoordinator.start()
         self.addChildCoordinator(tpmCoordinator)
         tpmCoordinator.delegate = self
@@ -643,6 +644,10 @@ class AppCoordinator: RootViewCoordinator {
 }
 
 extension AppCoordinator: SettingsTableViewControllerDelegate {
+    func reconnect() {
+        _ = tunnelProviderManagerCoordinator.reconnect()
+    }
+    
     func readOnDemand() -> Bool {
         return tunnelProviderManagerCoordinator.currentManager?.isOnDemandEnabled ?? UserDefaults.standard.onDemand
     }
