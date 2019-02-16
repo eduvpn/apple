@@ -130,7 +130,9 @@ class VPNConnectionViewController: UIViewController {
         let block = {
             switch self.status {
             case .invalid, .disconnected:
-                _ = self.providerManagerCoordinator.connect()
+                _ = self.providerManagerCoordinator.configure(profile: self.profile).then {
+                    return self.providerManagerCoordinator.connect()
+                }
             case .connected, .connecting:
                 _ = self.providerManagerCoordinator.disconnect()
             default:
