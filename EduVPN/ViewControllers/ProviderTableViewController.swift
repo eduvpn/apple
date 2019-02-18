@@ -64,25 +64,6 @@ class ProviderTableViewController: UITableViewController {
         return InstanceFetchedResultsControllerDelegate(tableView: self.tableView)
     }()
     
-    @objc
-    func vpnSwitchToggled(sender: UISwitch!) {
-        let block = { [weak self] in
-            if sender.isOn {
-                _ = self?.providerManagerCoordinator.connect()
-            } else {
-                _ = self?.providerManagerCoordinator.disconnect()
-            }
-        }
-        
-        if self.providerManagerCoordinator.currentManager?.connection.status ?? .invalid == .invalid {
-            providerManagerCoordinator.reloadCurrentManager({ (_) in
-                block()
-            })
-        } else {
-            block()
-        }
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -90,73 +71,6 @@ class ProviderTableViewController: UITableViewController {
     }
     
     func refresh() {
-        if Config.shared.predefinedProvider == nil, providerType == .unknown {
-            do {
-                var barButtonItems = [UIBarButtonItem]()
-                barButtonItems.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
-
-                let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-                fixedSpace.width = 8.0
-
-                if let configuredProfileId = UserDefaults.standard.configuredProfileId, let configuredProfile = try Profile.findFirstInContext(viewContext, predicate: NSPredicate(format: "uuid == %@", configuredProfileId)) {
-
-                    let titleLabel = UILabel()
-                    titleLabel.text = configuredProfile.profileId
-
-                    let subTitleLabel = UILabel()
-                    subTitleLabel.text = configuredProfile.displayString
-
-                    let stackView = UIStackView(arrangedSubviews: [titleLabel, subTitleLabel])
-                    stackView.axis = .vertical
-                    stackView.distribution = .fillEqually
-                    barButtonItems.append(UIBarButtonItem(customView: stackView))
-
-                    if let logo = configuredProfile.api?.instance?.logos?.localizedValue, let logoUri = URL(string: logo) {
-                        let connectImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
-                        connectImageView.af_setImage(withURL: logoUri)
-                        barButtonItems.append(UIBarButtonItem(customView: connectImageView))
-                    }
-
-                    barButtonItems.append(fixedSpace)
-
-                    let switchButton = UISwitch()
-                    switch providerManagerCoordinator.currentManager?.connection.status {
-                    case .some(.connected), .some(.connecting):
-                        switchButton.isOn = true
-                        //TODO pick less offensive color.
-                        switchButton.onTintColor = UIColor.green
-                    case .some(.reasserting):
-                        switchButton.isOn = true
-                        //TODO pick less offensive color.
-                        switchButton.onTintColor = UIColor.yellow
-                    default:
-                        switchButton.isOn = false
-                        //TODO pick less offensive color.
-                        switchButton.onTintColor = UIColor.green
-                    }
-                    switchButton.addTarget(self, action: #selector(ProviderTableViewController.vpnSwitchToggled), for: .valueChanged)
-
-                    barButtonItems.append(UIBarButtonItem(customView: switchButton))
-
-                } else {
-                    let titleLabel = UILabel()
-                    titleLabel.text = NSLocalizedString("No known VPN configured", comment: "")
-                    titleLabel.textColor = UIColor.lightGray
-
-                    let switchButton = UISwitch()
-                    switchButton.isUserInteractionEnabled = false
-                    barButtonItems.append(UIBarButtonItem(customView: titleLabel))
-                    barButtonItems.append(fixedSpace)
-                    barButtonItems.append(UIBarButtonItem(customView: switchButton))
-                }
-                setToolbarItems(barButtonItems, animated: false)
-            } catch {
-                setToolbarItems(nil, animated: false)
-
-                os_log("Failed to fetch object: %{public}@", log: Log.general, type: .error, error.localizedDescription)
-            }
-        }
-
         do {
             try fetchedResultsController.performFetch()
             tableView.reloadData()
@@ -174,24 +88,10 @@ class ProviderTableViewController: UITableViewController {
             // There is a predefined provider. So do not allow adding.
             navigationItem.rightBarButtonItems = [settingsButton]
         } else if providerType == .unknown {
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(VPNStatusDidChange(notification:)),
-                                                   name: .NEVPNStatusDidChange,
-                                                   object: nil)
-
             navigationItem.rightBarButtonItems = [settingsButton, addButton]
         } else {
             navigationItem.rightBarButtonItems = []
         }
-    }
-
-    @objc private func VPNStatusDidChange(notification: NSNotification) {
-        guard let status = providerManagerCoordinator.currentManager?.connection.status else {
-            os_log("VPNStatusDidChange", log: Log.general, type: .debug)
-            return
-        }
-        os_log("VPNStatusDidChange: %{public}@", log: Log.general, type: .debug, status.stringRepresentation)
-        refresh()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

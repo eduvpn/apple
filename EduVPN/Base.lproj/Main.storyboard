@@ -333,7 +333,6 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="addButton" destination="uaX-GP-r14" id="XzP-JQ-XBa"/>
                         <outlet property="settingsButton" destination="cVP-ef-jzv" id="dX9-IG-KoU"/>
@@ -741,8 +740,7 @@
         <!--Navigation Controller-->
         <scene sceneID="vYO-4d-ME8">
             <objects>
-                <navigationController storyboardIdentifier="UINavigationController" toolbarHidden="NO" id="UDa-hd-FvW" sceneMemberID="viewController">
-                    <nil key="simulatedBottomBarMetrics"/>
+                <navigationController storyboardIdentifier="UINavigationController" id="UDa-hd-FvW" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="eFq-mL-IpX">
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -755,10 +753,6 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
                     </navigationBar>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="dbe-hV-ePX">
-                        <rect key="frame" x="0.0" y="524" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </toolbar>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8W4-Zk-ag8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
