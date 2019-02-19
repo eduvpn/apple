@@ -99,10 +99,10 @@ class TunnelProviderManagerCoordinator: Coordinator {
         return Promise.value(())
         #else
         return Promise(resolver: { (resolver) in
-            let session = self.currentManager?.connection as! NETunnelProviderSession //swiftlint:disable:this force_cast
+            let session = self.currentManager?.connection as? NETunnelProviderSession
             do {
                 self.currentManager?.isOnDemandEnabled = UserDefaults.standard.onDemand
-                try session.startTunnel()
+                try session?.startTunnel()
                 resolver.resolve(Result.fulfilled(()))
             } catch let error {
                 os_log("error starting tunnel: %{public}@", log: Log.general, type: .error, error.localizedDescription)
@@ -135,9 +135,9 @@ class TunnelProviderManagerCoordinator: Coordinator {
     
     func reconnect() -> Promise<Void> {
         return firstly { () -> Promise<Void> in
-            let session = self.currentManager?.connection as! NETunnelProviderSession //swiftlint:disable:this force_cast
-            switch session.status {
-            case .connected, .connecting, .reasserting:
+            let session = self.currentManager?.connection as? NETunnelProviderSession
+            switch session?.status {
+            case .connected?, .connecting?, .reasserting?:
                 if let configuredProfileId = UserDefaults.standard.configuredProfileId, let configuredProfile = try Profile.findFirstInContext(viewContext, predicate: NSPredicate(format: "uuid == %@", configuredProfileId)) {
                     return self.configure(profile: configuredProfile).then {
                         return self.connect()
@@ -187,7 +187,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
                 }
                 
                 if let protocolConfiguration = manager.protocolConfiguration as? NETunnelProviderProtocol {
-                    UserDefaults.standard.configuredProfileId = (protocolConfiguration.providerConfiguration?[profileIdKey] as! String) //swiftlint:disable:this force_cast
+                    UserDefaults.standard.configuredProfileId = (protocolConfiguration.providerConfiguration?[profileIdKey] as? String)
                 }
                 
                 os_log("saved preferences", log: Log.general, type: .info)
