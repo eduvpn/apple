@@ -142,13 +142,19 @@
                             <constraint firstItem="HyS-tw-Pp4" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="nPc-MK-bjX"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="Select VPN type" id="bCS-fl-M2e">
-                        <barButtonItem key="backBarButtonItem" title=" " id="dnB-fO-54a"/>
+                        <barButtonItem key="rightBarButtonItem" title="Settings" image="gear" id="H7c-6U-szJ">
+                            <connections>
+                                <action selector="settings:" destination="BYZ-38-t0r" id="ZIj-na-j8a"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
-                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="secureInternetView" destination="CWV-KN-nO1" id="3dV-nm-RLq"/>
+                        <outlet property="settingsButton" destination="H7c-6U-szJ" id="3Tn-Kc-BVv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

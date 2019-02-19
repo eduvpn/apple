@@ -682,6 +682,10 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
 }
 
 extension AppCoordinator: ProfilesViewControllerDelegate {
+    func settings(profilesViewController: ProfilesViewController) {
+        showSettings()
+    }
+
     func profilesViewControllerDidSelectProviderType(profilesViewController: ProfilesViewController, providerType: ProviderType) {
         switch providerType {
         case .instituteAccess, .secureInternet:
