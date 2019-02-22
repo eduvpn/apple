@@ -350,9 +350,6 @@ class AppCoordinator: RootViewCoordinator {
         fetchRequest.entity = Profile.entity()
         fetchRequest.predicate = NSPredicate(format: "api.instance.providerType == %@", ProviderType.secureInternet.rawValue)
 
-        let numberOfSecureInternetProfiles = try? persistentContainer.viewContext.count(for: fetchRequest)
-        profilesViewController.showSecureInterNetOption = numberOfSecureInternetProfiles == 0
-
         profilesViewController.delegate = self
         do {
             try profilesViewController.navigationItem.hidesBackButton = Profile.countInContext(persistentContainer.viewContext) == 0

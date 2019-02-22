@@ -15,18 +15,6 @@ protocol ProfilesViewControllerDelegate: class {
 
 class ProfilesViewController: UIViewController {
 
-    var showSecureInterNetOption: Bool = true {
-        didSet {
-            secureInternetView?.isHidden = !showSecureInterNetOption
-        }
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        secureInternetView.isHidden = !showSecureInterNetOption
-    }
-
     weak var delegate: ProfilesViewControllerDelegate?
 
     @IBOutlet weak var secureInternetView: UIView!
