@@ -73,7 +73,6 @@ class ProviderTableViewController: UITableViewController {
     func refresh() {
         do {
             try fetchedResultsController.performFetch()
-            tableView.reloadData()
         } catch {
             os_log("Failed to fetch objects: %{public}@", log: Log.general, type: .error, error.localizedDescription)
         }

@@ -756,9 +756,7 @@ extension AppCoordinator: ProviderTableViewControllerDelegate {
                 context.saveContext()
             }
             seal.fulfill(())
-        }).then {
-            return self.refresh(instance: instance)
-        }
+        })
     }
 }
 
