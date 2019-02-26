@@ -92,15 +92,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		4A900CDA2225BF5A00A2D180 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 7;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4A901C1D20C87512000C1BF0 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -139,6 +130,9 @@
 		4A8D241E1F3976A2004A9343 /* ProfilesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilesViewController.swift; sourceTree = "<group>"; };
 		4A8D24201F3976FC004A9343 /* ProviderType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderType.swift; sourceTree = "<group>"; };
 		4A8D24341F3A40F2004A9343 /* InstanceInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceInfoModel.swift; sourceTree = "<group>"; };
+		4A900CDD2225C5E200A2D180 /* Assets-EduVPN.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets-EduVPN.xcassets"; sourceTree = "<group>"; };
+		4A900CDE2225C5E200A2D180 /* Assets-LetsConnect.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets-LetsConnect.xcassets"; sourceTree = "<group>"; };
+		4A900CDF2225C5E200A2D180 /* Assets-AppForce1.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets-AppForce1.xcassets"; sourceTree = "<group>"; };
 		4A901C1120C87511000C1BF0 /* EduVPNTunnelExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = EduVPNTunnelExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A901C1320C87512000C1BF0 /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
 		4A901C1520C87512000C1BF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -363,6 +357,9 @@
 				4ABCCBE421E527B50020CB6D /* Development.xcconfig */,
 				4ABCCBE521E528140020CB6D /* Release-TunnelExtension.xcconfig */,
 				4ABCCBE621E528260020CB6D /* Development-TunnelExtension.xcconfig */,
+				4A900CDF2225C5E200A2D180 /* Assets-AppForce1.xcassets */,
+				4A900CDD2225C5E200A2D180 /* Assets-EduVPN.xcassets */,
+				4A900CDE2225C5E200A2D180 /* Assets-LetsConnect.xcassets */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -457,6 +454,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4AAC1F931F2D0E3400DD0252 /* Build configuration list for PBXNativeTarget "EduVPN" */;
 			buildPhases = (
+				4A900CDB2225C07100A2D180 /* Copy Resources */,
 				52B0F77C8345975CD5538897 /* [CP] Check Pods Manifest.lock */,
 				4AAC1F991F2D0FFA00DD0252 /* Swiftlint */,
 				4AAC1F721F2D0E3400DD0252 /* Sources */,
@@ -597,6 +595,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4A900CDB2225C07100A2D180 /* Copy Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$PROJECT_DIR/Scripts/copy_resources.sh\n";
+		};
 		4AAC1F991F2D0FFA00DD0252 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

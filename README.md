@@ -67,6 +67,9 @@ The app can be configured in thee distinct modes:
 - Discovery enabled.
 - Only custom.
 
+**Be aware**
+When updating the Assets.xcassets, make sure to actually update the relevant .xcassets structures within EduVPN/Config
+
 ### Predefined
 
 Add a `predefined_provider` key with a provier
