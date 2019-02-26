@@ -92,6 +92,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		4A900CDA2225BF5A00A2D180 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4A901C1D20C87512000C1BF0 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -316,7 +325,6 @@
 				4ACA04281F311507004B35AA /* Networking */,
 				4AAC1F9C1F2D134200DD0252 /* Resources */,
 				4AAC1F791F2D0E3400DD0252 /* AppDelegate.swift */,
-				4AAC1F801F2D0E3400DD0252 /* Assets.xcassets */,
 				4AAC1F821F2D0E3400DD0252 /* LaunchScreen.storyboard */,
 				4AAC1F851F2D0E3400DD0252 /* Info.plist */,
 				4AE728151F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift */,
@@ -339,6 +347,7 @@
 		4AAC1F9C1F2D134200DD0252 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4AAC1F801F2D0E3400DD0252 /* Assets.xcassets */,
 				4AAC1F9D1F2D134200DD0252 /* Settings.bundle */,
 				4A9704C71FBA379D00B4D6C2 /* Localizable.strings */,
 			);
