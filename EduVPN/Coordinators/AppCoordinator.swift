@@ -556,6 +556,10 @@ class AppCoordinator: RootViewCoordinator {
         connectionViewController.providerManagerCoordinator = tunnelProviderManagerCoordinator
         connectionViewController.delegate = self
         connectionViewController.profile = profile
+        _ = tunnelProviderManagerCoordinator.configure(profile: profile).then {
+            return self.tunnelProviderManagerCoordinator.connect()
+        }
+
         let navController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(type: UINavigationController.self)
         navController.viewControllers = [connectionViewController]
         self.navigationController.present(navController, animated: true, completion: nil)
