@@ -52,7 +52,13 @@ class ProviderTableViewController: UITableViewController {
         default:
             fetchRequest.predicate = NSPredicate(format: "providerType == %@", providerType.rawValue)
         }
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "baseUri", ascending: true)]
+
+        var sortDescriptors = [NSSortDescriptor]()
+        if Config.shared.discovery != nil {
+            sortDescriptors.append(NSSortDescriptor(key: "providerType", ascending: true))
+        }
+        sortDescriptors.append(NSSortDescriptor(key: "baseUri", ascending: true))
+        fetchRequest.sortDescriptors = sortDescriptors
         let frc = FetchedResultsController<Instance>(fetchRequest: fetchRequest,
                                                     managedObjectContext: viewContext,
                                                     sectionNameKeyPath: Config.shared.discovery != nil ? "providerType": nil)
