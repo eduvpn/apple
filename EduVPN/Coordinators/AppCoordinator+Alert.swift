@@ -33,17 +33,6 @@ extension AppCoordinator {
 
         showAlert(title: NSLocalizedString("Error", comment: "Error alert title"), message: error.localizedDescription)
     }
-    
-    public func showAlert(forUnconfigured profile: Profile, confirmedHandler: @escaping () -> ()) {
-        let alert = UIAlertController(title: NSLocalizedString("Selected profile not configured", comment: ""), message: NSLocalizedString("Do you want to close any existing connections and configure the selected profile?", comment: ""), preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "OK button"), style: .default, handler: { (action) in
-            confirmedHandler()
-        }))
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel button"), style: .cancel))
-
-        self.navigationController.present(alert, animated: true)
-        
-    }
 
     func showNoAuthFlowAlert() {
         showAlert(title: NSLocalizedString("No auth flow available", comment: ""), message: NSLocalizedString("A call to `resumeAuthFlow` was called, but none available", comment: ""))
