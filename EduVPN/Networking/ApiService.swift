@@ -107,9 +107,6 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
 
                 precondition(authState != nil, "THIS SHOULD NEVER HAPPEN")
 
-                self.api.managedObjectContext?.perform {
-                    self.api.instance?.group?.distributedAuthorizationApi = self.actualApi
-                }
                 do {
                     try self.api.managedObjectContext?.save()
                 } catch {
