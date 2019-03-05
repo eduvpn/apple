@@ -25,11 +25,11 @@ protocol ConnectionsTableViewControllerDelegate: class {
 
 class ConnectionsTableViewController: UITableViewController {
     weak var delegate: ConnectionsTableViewControllerDelegate?
-    
+
     var instance: Instance?
-    
+
     var viewContext: NSManagedObjectContext!
-    
+
     private lazy var fetchedResultsController: FetchedResultsController<Profile> = {
         let fetchRequest = NSFetchRequest<Profile>()
         fetchRequest.entity = Profile.entity()
@@ -46,10 +46,10 @@ class ConnectionsTableViewController: UITableViewController {
     private lazy var frcDelegate: ProfileFetchedResultsControllerDelegate = { // swiftlint:disable:this weak_delegate
         return ProfileFetchedResultsControllerDelegate(tableView: self.tableView)
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         tableView.tableFooterView = UIView()
         do {
             try fetchedResultsController.performFetch()
@@ -75,14 +75,13 @@ class ConnectionsTableViewController: UITableViewController {
 
         let section = sections[indexPath.section]
         let profile = section.objects[indexPath.row]
-        
 
         if let currentProfileUuid = profile.uuid, currentProfileUuid.uuidString == UserDefaults.standard.configuredProfileId {
             cell.accessoryType = .checkmark
         } else {
             cell.accessoryType = .none
         }
-        
+
         cell.connectTitleLabel?.text = profile.profileId
         cell.connectSubTitleLabel?.text = profile.displayString
         if let logo = profile.api?.instance?.logos?.localizedValue, let logoUri = URL(string: logo) {
@@ -162,4 +161,3 @@ class ProfileFetchedResultsControllerDelegate: NSObject, FetchedResultsControlle
         }
     }
 }
-

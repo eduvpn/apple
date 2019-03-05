@@ -21,7 +21,7 @@ extension UserDefaults {
             self.set(newValue, forKey: onDemandDefaultsKey)
         }
     }
-    
+
     var forceTcp: Bool {
         get {
             return self.bool(forKey: forceTcpDefaultsKey)

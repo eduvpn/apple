@@ -37,9 +37,9 @@ class VPNConnectionViewController: UIViewController {
     @IBOutlet var inBytesLabel: UILabel!
 
     @IBOutlet weak var logTextView: UITextView!
-    
+
     @IBOutlet weak var providerInfoStackView: UIStackView!
-    
+
     var providerManagerCoordinator: TunnelProviderManagerCoordinator!
 
     private var connectionInfoUpdateTimer: Timer?
@@ -64,7 +64,7 @@ class VPNConnectionViewController: UIViewController {
     @IBOutlet weak var providerImage: UIImageView!
     @IBOutlet weak var profileNameLabel: UILabel!
     @IBOutlet weak var instanceNameLabel: UILabel!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -88,7 +88,7 @@ class VPNConnectionViewController: UIViewController {
                                                name: .NEVPNStatusDidChange,
                                                object: nil)
 
-        providerManagerCoordinator.reloadCurrentManager { (error) in
+        providerManagerCoordinator.reloadCurrentManager { (_) in
             self.updateButton()
             self.status = self.providerManagerCoordinator.currentManager?.connection.status ?? .invalid
         }
@@ -125,7 +125,7 @@ class VPNConnectionViewController: UIViewController {
             self?.logTextView.text = log
         }
     }
-    
+
     @IBAction func connectionClicked(_ sender: Any) {
         let block = {
             switch self.status {
@@ -138,7 +138,7 @@ class VPNConnectionViewController: UIViewController {
             default:
                 break
             }
-            
+
             self.updateButton()
             self.status = self.providerManagerCoordinator.currentManager?.connection.status ?? .invalid
         }

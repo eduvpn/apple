@@ -16,16 +16,16 @@ extension AppCoordinator {
         let error = error as NSError
         return error.domain == OIDGeneralErrorDomain && (error.code == OIDErrorCode.programCanceledAuthorizationFlow.rawValue || error.code == OIDErrorCode.userCanceledAuthorizationFlow.rawValue)
     }
-    
+
     public func underlyingError(for error: Error) -> Error? {
         return (error as NSError).userInfo[NSUnderlyingErrorKey] as? Error
     }
-    
+
     public func showError(_ error: Error) {
         if dueToUserCancellation(error: error) {
             return
         }
-        
+
         if let underlyingError = underlyingError(for: error) {
             showAlert(title: NSLocalizedString("Error", comment: "Error alert title"), message: underlyingError.localizedDescription)
             return

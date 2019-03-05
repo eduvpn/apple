@@ -13,7 +13,7 @@ extension Profile {
     var displayString: String? {
         return displayNames?.localizedValue ?? api?.instance?.displayNames?.localizedValue ?? api?.instance?.baseUri
     }
-    
+
     static func upsert(with profileModels: [InstanceProfileModel], for api: Api, on context: NSManagedObjectContext) {
         // Key new models on profile ID.
         var keyedModels = profileModels.reduce([String: InstanceProfileModel]()) { (dict, model) -> [String: InstanceProfileModel] in
@@ -21,7 +21,7 @@ extension Profile {
             dict[model.profileId] = model
             return dict
         }
-        
+
         if let api = context.object(with: api.objectID) as? Api {
             api.profiles.forEach {
                 let profileId = $0.profileId!
@@ -33,7 +33,7 @@ extension Profile {
                     context.delete($0)
                 }
             }
-            
+
             // Insert new models
             keyedModels.values.forEach { (newModel) in
                 let newProfile = Profile(context: context)

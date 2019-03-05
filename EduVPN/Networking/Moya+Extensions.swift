@@ -8,7 +8,6 @@
 
 import Foundation
 
-import Foundation
 import Moya
 
 protocol AcceptJson {}

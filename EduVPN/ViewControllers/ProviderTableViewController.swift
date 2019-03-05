@@ -33,7 +33,7 @@ protocol ProviderTableViewControllerDelegate: class {
 
 class ProviderTableViewController: UITableViewController {
     weak var delegate: ProviderTableViewControllerDelegate?
-    
+
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var settingsButton: UIBarButtonItem!
 
@@ -42,7 +42,7 @@ class ProviderTableViewController: UITableViewController {
     var viewContext: NSManagedObjectContext!
 
     var providerType: ProviderType = .unknown
-    
+
     private lazy var fetchedResultsController: FetchedResultsController<Instance> = {
         let fetchRequest = NSFetchRequest<Instance>()
         fetchRequest.entity = Instance.entity()
@@ -69,13 +69,13 @@ class ProviderTableViewController: UITableViewController {
     private lazy var frcDelegate: InstanceFetchedResultsControllerDelegate = { // swiftlint:disable:this weak_delegate
         return InstanceFetchedResultsControllerDelegate(tableView: self.tableView)
     }()
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         refresh()
     }
-    
+
     func refresh() {
         do {
             try fetchedResultsController.performFetch()
@@ -88,8 +88,8 @@ class ProviderTableViewController: UITableViewController {
         tableView.tableFooterView = UIView()
 
         super.viewDidLoad()
-        
-        if let _ = Config.shared.predefinedProvider, providerType == .unknown {
+
+        if Config.shared.predefinedProvider != nil, providerType == .unknown {
             // There is a predefined provider. So do not allow adding.
             navigationItem.rightBarButtonItems = [settingsButton]
         } else if providerType == .unknown {
@@ -98,7 +98,7 @@ class ProviderTableViewController: UITableViewController {
             navigationItem.rightBarButtonItems = []
         }
     }
-    
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         return fetchedResultsController.sections?.count ?? 0
     }
@@ -106,20 +106,20 @@ class ProviderTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return fetchedResultsController.sections?[section].objects.count ?? 0
     }
-    
+
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         guard Config.shared.discovery != nil else {
             return nil
         }
-        
+
         let providerType: ProviderType
-        
+
         if let sectionName = fetchedResultsController.sections?[section].name {
             providerType = ProviderType(rawValue: sectionName) ?? .unknown
         } else {
             providerType = .unknown
         }
-        
+
         switch providerType {
         case .secureInternet:
             return NSLocalizedString("Secure Internet", comment: "")
@@ -141,11 +141,11 @@ class ProviderTableViewController: UITableViewController {
 
         let section = sections[indexPath.section]
         let instance = section.objects[indexPath.row]
-        
+
         let profileUuids = instance.apis?.flatMap({ (api) -> [String] in
-            return api.profiles.compactMap{ $0.uuid?.uuidString }
+            return api.profiles.compactMap { $0.uuid?.uuidString }
         }) ?? []
-        
+
         if let configuredProfileId = UserDefaults.standard.configuredProfileId, providerType == .unknown, profileUuids.contains(configuredProfileId) {
             providerCell.accessoryType = .checkmark
         } else {
@@ -174,33 +174,33 @@ class ProviderTableViewController: UITableViewController {
 
         delegate?.didSelect(instance: instance, providerTableViewController: self)
     }
-    
+
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return providerType == .unknown
     }
-    
+
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            
+
             guard let sections = fetchedResultsController.sections else {
                 fatalError("FetchedResultsController \(fetchedResultsController) should have sections, but found nil")
             }
-            
+
             let section = sections[indexPath.section]
             let instance = section.objects[indexPath.row]
-            
+
             delegate?.delete(instance: instance)
         }
     }
-    
+
     @IBAction func addProvider(_ sender: Any) {
-        if let _ = Config.shared.predefinedProvider {
+        if Config.shared.predefinedProvider != nil {
             delegate?.addPredefinedProvider(providerTableViewController: self)
         } else {
             delegate?.addProvider(providerTableViewController: self)
         }
     }
-    
+
     @IBAction func settings(_ sender: Any) {
         delegate?.settings(providerTableViewController: self)
     }

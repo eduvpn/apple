@@ -35,13 +35,13 @@ extension SystemMessages {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: SystemMessagesKeys.self)
-        
+
         let messagesContainer = try container.nestedContainer(keyedBy: SystemMessagesKeys.self, forKey: .systemMessages)
         systemMessages = try messagesContainer.decode([Message].self, forKey: .data)
     }
-    
+
     var displayString: String {
-        return systemMessages.compactMap{ $0.displayString }.joined(separator: "\n\n")
+        return systemMessages.compactMap { $0.displayString }.joined(separator: "\n\n")
     }
 
 }
@@ -62,10 +62,10 @@ extension Message {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: MessageKeys.self)
-        
+
         type = try container.decode(NotificationType.self, forKey: .type)
         date_time = try container.decode(Date.self, forKey: .dateTime)
-        
+
         // Here we try to deocde the `message` key into both a String and a [String: String]. The localizedMessage implementatation tries to obtain the "locale correct" value.
         message = try? container.decode(String.self, forKey: .message)
         messages = try? container.decode([String: String].self, forKey: .message)

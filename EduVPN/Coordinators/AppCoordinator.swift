@@ -40,7 +40,7 @@ enum AppCoordinatorError: Swift.Error {
     case sodiumSignatureVerifyFailed
     case ovpnConfigTemplate
     case ovpnConfigTemplateNoRemotes
-    
+
     var localizedDescription: String {
         switch self {
         case .certificateInvalid:
@@ -121,7 +121,7 @@ class AppCoordinator: RootViewCoordinator {
                 os_log("Unable to Load Persistent Store. %{public}@", log: Log.general, type: .info, error.localizedDescription)
             } else {
                 DispatchQueue.main.async {
-                    
+
                     //start
                     if let providerTableViewController = self?.storyboard.instantiateViewController(type: ProviderTableViewController.self) {
                         self?.providerTableViewController = providerTableViewController
@@ -145,7 +145,7 @@ class AppCoordinator: RootViewCoordinator {
                 }
             }
         }
-        
+
         // Migratation
         self.persistentContainer.performBackgroundTask({ (context) in
             let profiles =  try? Profile.allInContext(context)
@@ -236,7 +236,7 @@ class AppCoordinator: RootViewCoordinator {
             }
         }
     }
-    
+
     func addProvider() {
         // We can not create a static service, so no discovery files are defined. Fall back to adding "another" service.
         if StaticService(type: .instituteAccess) == nil {
@@ -334,7 +334,7 @@ class AppCoordinator: RootViewCoordinator {
         settingsTableViewController.delegate = self
         self.navigationController.pushViewController(settingsTableViewController, animated: true)
     }
-    
+
     private func showConnectionsTableViewController(for instance: Instance) {
         let connectionsTableViewController = storyboard.instantiateViewController(type: ConnectionsTableViewController.self)
         connectionsTableViewController.delegate = self
@@ -364,7 +364,7 @@ class AppCoordinator: RootViewCoordinator {
         customProviderInputViewController.delegate = self
         self.navigationController.pushViewController(customProviderInputViewController, animated: true)
     }
-    
+
     private func showProviderTableViewController(for providerType: ProviderType) {
         let providerTableViewController = storyboard.instantiateViewController(type: ProviderTableViewController.self)
         providerTableViewController.providerType = providerType
@@ -488,7 +488,7 @@ class AppCoordinator: RootViewCoordinator {
             precondition(false, "This should never happen")
             return Promise(error: AppCoordinatorError.apiMissing)
         }
-        
+
         guard let dynamicApiProvider = DynamicApiProvider(api: api) else {
             return Promise(error: AppCoordinatorError.apiProviderCreateFailed)
         }
@@ -502,7 +502,7 @@ class AppCoordinator: RootViewCoordinator {
                 guard var ovpnFileContent = String(data: response.data, encoding: .utf8) else {
                     throw AppCoordinatorError.ovpnConfigTemplate
                 }
-                
+
                 if UserDefaults.standard.forceTcp {
                     let remoteUdpRegex = try! NSRegularExpression(pattern: "remote.*udp", options: [])
                     ovpnFileContent = remoteUdpRegex.stringByReplacingMatches(in: ovpnFileContent, options: [], range: NSRange(location: 0, length: ovpnFileContent.utf16.count), withTemplate: "")
@@ -612,7 +612,7 @@ class AppCoordinator: RootViewCoordinator {
                     } catch {
                         seal.reject(error)
                     }
-                    
+
                     seal.fulfill(())
                 })
             })
@@ -648,17 +648,16 @@ extension AppCoordinator: SettingsTableViewControllerDelegate {
     func reconnect() {
         _ = tunnelProviderManagerCoordinator.reconnect()
     }
-    
+
     func readOnDemand() -> Bool {
         return tunnelProviderManagerCoordinator.currentManager?.isOnDemandEnabled ?? UserDefaults.standard.onDemand
     }
-    
+
     func writeOnDemand(_ onDemand: Bool) {
         UserDefaults.standard.onDemand = onDemand
         tunnelProviderManagerCoordinator.currentManager?.isOnDemandEnabled = onDemand
         tunnelProviderManagerCoordinator.currentManager?.saveToPreferences(completionHandler: nil)
     }
-    
 
 }
 
@@ -667,7 +666,7 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
         if let currentProfileUuid = profile.uuid, currentProfileUuid.uuidString == UserDefaults.standard.configuredProfileId {
             showConnectionViewController(for: profile)
         } else {
-            _ = self.tunnelProviderManagerCoordinator.disconnect().then{
+            _ = self.tunnelProviderManagerCoordinator.disconnect().then {
                 return self.tunnelProviderManagerCoordinator.configure(profile: profile)
             }.then({ (_) -> Promise<Void> in
                 self.providerTableViewController.tableView.reloadData()
@@ -699,17 +698,17 @@ extension AppCoordinator: ProviderTableViewControllerDelegate {
     func addProvider(providerTableViewController: ProviderTableViewController) {
         addProvider()
     }
-    
+
     func addPredefinedProvider(providerTableViewController: ProviderTableViewController) {
         if let providerUrl = Config.shared.predefinedProvider {
             _ = connect(url: providerUrl)
         }
     }
-    
+
     func settings(providerTableViewController: ProviderTableViewController) {
         showSettings()
     }
-    
+
     func didSelectOther(providerType: ProviderType) {
         showCustomProviderInPutViewController(for: providerType)
     }
@@ -742,12 +741,12 @@ extension AppCoordinator: ProviderTableViewControllerDelegate {
             }
         }
     }
-    
+
     func delete(instance: Instance) {
         _ = Promise<Void>(resolver: { seal in
             persistentContainer.performBackgroundTask { (context) in
                 if let backgroundProfile = context.object(with: instance.objectID) as? Instance {
-                    backgroundProfile.apis?.forEach{
+                    backgroundProfile.apis?.forEach {
                         $0.certificateModel = nil
                         $0.authState = nil
                     }
@@ -805,7 +804,7 @@ extension AppCoordinator: TunnelProviderManagerCoordinatorDelegate {
     func profileConfig(for profile: Profile) -> Promise<URL> {
         let activityData = ActivityData()
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData, nil)
-        
+
         return fetchProfile(for: profile).ensure {
             NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
         }

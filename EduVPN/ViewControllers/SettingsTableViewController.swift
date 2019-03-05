@@ -19,14 +19,14 @@ class SettingsTableViewController: UITableViewController {
 
     @IBOutlet weak var onDemandSwitch: UISwitch!
     @IBOutlet weak var forceTcpSwitch: UISwitch!
-    
+
     @IBAction func onDemandChanged(_ sender: Any) {
         if let delegate = delegate {
             delegate.writeOnDemand(onDemandSwitch.isOn)
         } else {
             onDemandSwitch.isOn = false
         }
-        
+
         delegate?.reconnect()
     }
 

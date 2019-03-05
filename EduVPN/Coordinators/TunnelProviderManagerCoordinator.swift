@@ -14,7 +14,6 @@ import PromiseKit
 import CoreData
 import BNRCoreDataStack
 
-
 enum TunnelProviderManagerCoordinatorError: Error {
     case missingDelegate
 }
@@ -33,7 +32,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
 
     func start() {
     }
-    
+
     var appGroup: String {
         if let bundleID = Bundle.main.bundleIdentifier {
             return "group.\(bundleID)"
@@ -41,7 +40,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
             fatalError("missing bundle ID")
         }
     }
-    
+
     var vpnBundle: String {
         if let bundleID = Bundle.main.bundleIdentifier {
             return "\(bundleID).TunnelExtension"
@@ -49,26 +48,26 @@ class TunnelProviderManagerCoordinator: Coordinator {
             fatalError("missing bundle ID")
         }
     }
-    
+
     func configure(profile: Profile)  -> Promise<Void> {
         guard let delegate = delegate else {
             return Promise(error: TunnelProviderManagerCoordinatorError.missingDelegate)
         }
         return delegate.profileConfig(for: profile).then({ (configUrl) -> Promise<Void> in
             let parseResult = try! ConfigurationParser.parsed(fromURL: configUrl) //swiftlint:disable:this force_try
-            
+
             return Promise(resolver: { (resolver) in
                 self.configureVPN({ (_) in
                     let sessionConfig = parseResult.configuration.builder().build()
                     var builder = TunnelKitProvider.ConfigurationBuilder(sessionConfiguration: sessionConfig)
                     builder.endpointProtocols = parseResult.protocols
                     let configuration = builder.build()
-                    
+
                     let tunnelProviderProtocolConfiguration = try! configuration.generatedTunnelProtocol( //swiftlint:disable:this force_try
                         withBundleIdentifier: self.vpnBundle,
                         appGroup: self.appGroup,
                         hostname: parseResult.hostname)
-                    
+
                     let uuid: UUID
                     if let profileId = profile.uuid {
                         uuid = profileId
@@ -77,9 +76,9 @@ class TunnelProviderManagerCoordinator: Coordinator {
                         profile.uuid = uuid
                         profile.managedObjectContext?.saveContext()
                     }
-                    
+
                     tunnelProviderProtocolConfiguration.providerConfiguration?[profileIdKey] = uuid.uuidString
-                    
+
                     return tunnelProviderProtocolConfiguration
                 }, completionHandler: { (error) in
                     if let error = error {
@@ -92,7 +91,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
             })
         })
     }
-    
+
     func connect() -> Promise<Void> {
         #if targetEnvironment(simulator)
         print("SIMULATOR DOES NOT SUPPORT NETWORK EXTENSIONS")
@@ -132,7 +131,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
         })
         #endif
     }
-    
+
     func reconnect() -> Promise<Void> {
         return firstly { () -> Promise<Void> in
             let session = self.currentManager?.connection as? NETunnelProviderSession
@@ -150,7 +149,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
             }
         }
     }
-    
+
     func loadLog(completion: ((String) -> Void)? = nil) {
         guard let vpn = currentManager?.connection as? NETunnelProviderSession else {
             return
@@ -159,11 +158,11 @@ class TunnelProviderManagerCoordinator: Coordinator {
             guard let log = String(data: data!, encoding: .utf8) else {
                 return
             }
-            
+
             completion?(log)
         }
     }
-    
+
     func configureVPN(_ configure: @escaping (NETunnelProviderManager) -> NETunnelProviderProtocol?, completionHandler: @escaping (Error?) -> Void) {
         reloadCurrentManager { (error) in
             if let error = error {
@@ -171,40 +170,40 @@ class TunnelProviderManagerCoordinator: Coordinator {
                 completionHandler(error)
                 return
             }
-            
+
             let manager = self.currentManager!
             if let protocolConfiguration = configure(manager) {
                 manager.protocolConfiguration = protocolConfiguration
             }
             manager.isEnabled = true
             manager.onDemandRules = [NEOnDemandRuleConnect()]
-            
+
             manager.saveToPreferences { (error) in
                 if let error = error {
                     os_log("error saving preferences: %{public}@", log: Log.general, type: .error, error.localizedDescription)
                     completionHandler(error)
                     return
                 }
-                
+
                 if let protocolConfiguration = manager.protocolConfiguration as? NETunnelProviderProtocol {
                     UserDefaults.standard.configuredProfileId = (protocolConfiguration.providerConfiguration?[profileIdKey] as? String)
                 }
-                
+
                 os_log("saved preferences", log: Log.general, type: .info)
                 self.reloadCurrentManager(completionHandler)
             }
         }
     }
-    
+
     func reloadCurrentManager(_ completionHandler: ((Error?) -> Void)?) {
         NETunnelProviderManager.loadAllFromPreferences { (managers, error) in
             if let error = error {
                 completionHandler?(error)
                 return
             }
-            
+
             var manager: NETunnelProviderManager?
-            
+
             for man in managers! {
                 if let prot = man.protocolConfiguration as? NETunnelProviderProtocol {
                     if prot.providerBundleIdentifier == self.vpnBundle {
@@ -213,11 +212,11 @@ class TunnelProviderManagerCoordinator: Coordinator {
                     }
                 }
             }
-            
+
             if manager == nil {
                 manager = NETunnelProviderManager()
             }
-            
+
             self.currentManager = manager
             completionHandler?(nil)
         }

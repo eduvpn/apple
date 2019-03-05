@@ -54,23 +54,23 @@ extension Api {
         guard let authStateUrl = authorizationEndpointFileUrl else { return nil }
         return authStateUrl.appendingPathComponent("authState.bin")
     }
-    
+
     private var certificateUrl: URL? {
         guard var certificateUrl = apiBaseFileUrl else { return nil }
         certificateUrl.appendPathComponent("client.certificate")
         return certificateUrl
     }
-    
+
     private var apiBaseFileUrl: URL? {
         guard let apiBaseUri = apiBaseUri, let apiBaseUriUrl = URL(string: apiBaseUri) else { return nil }
         return filePathUrl(from: apiBaseUriUrl)
     }
-    
+
     private var authorizationEndpointFileUrl: URL? {
         guard let authorizationEndpoint = authorizationEndpoint, let authorizationEndpointUrl = URL(string: authorizationEndpoint) else { return nil }
         return filePathUrl(from: authorizationEndpointUrl)
     }
-    
+
     private func filePathUrl(from url: URL) -> URL? {
         guard var fileUrl = try? FileManager.default.url(for: .applicationSupportDirectory,
                                                          in: .userDomainMask,
@@ -79,14 +79,14 @@ extension Api {
 
         if let host = url.host {
             fileUrl.appendPathComponent(host)
-            try? FileManager.default.createDirectory(at: fileUrl, withIntermediateDirectories: true, attributes: [FileAttributeKey.protectionKey : FileProtectionType.completeUntilFirstUserAuthentication])
+            try? FileManager.default.createDirectory(at: fileUrl, withIntermediateDirectories: true, attributes: [FileAttributeKey.protectionKey: FileProtectionType.completeUntilFirstUserAuthentication])
         }
-        
+
         if !url.path.isEmpty {
             fileUrl.appendPathComponent(url.path)
-            try? FileManager.default.createDirectory(at: fileUrl, withIntermediateDirectories: true, attributes: [FileAttributeKey.protectionKey : FileProtectionType.completeUntilFirstUserAuthentication])
+            try? FileManager.default.createDirectory(at: fileUrl, withIntermediateDirectories: true, attributes: [FileAttributeKey.protectionKey: FileProtectionType.completeUntilFirstUserAuthentication])
         }
-        
+
         return fileUrl
     }
 
@@ -98,7 +98,7 @@ extension Api {
                     return NSKeyedUnarchiver.unarchiveObject(with: data) as? OIDAuthState
                 }
             }
-            
+
             return nil
         }
         set {
@@ -106,14 +106,14 @@ extension Api {
             if let newValue = newValue {
                 let data = NSKeyedArchiver.archivedData(withRootObject: newValue)
                 try? data.write(to: authStateUrl, options: [.atomicWrite, .completeFileProtectionUntilFirstUserAuthentication])
-                
+
                 excludeFromBackup(url: authStateUrl)
             } else {
                 try? FileManager.default.removeItem(at: authStateUrl)
             }
         }
     }
-    
+
     var certificateModel: CertificateModel? {
         get {
             guard let certificateUrl = certificateUrl else { return nil }
@@ -126,7 +126,7 @@ extension Api {
                     }
                 }
             }
-            
+
             return nil
         }
         set {
