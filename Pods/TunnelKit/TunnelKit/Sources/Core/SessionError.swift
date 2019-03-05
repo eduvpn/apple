@@ -70,6 +70,9 @@ public enum SessionError: String, Error {
     
     /// The session reached a stale state and can't be recovered.
     case staleSession
+
+    /// Server uses compression.
+    case serverCompression
 }
 
 extension Error {

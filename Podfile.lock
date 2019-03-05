@@ -18,20 +18,20 @@ PODS:
   - NVActivityIndicatorView (4.6.1):
     - NVActivityIndicatorView/Presenter (= 4.6.1)
   - NVActivityIndicatorView/Presenter (4.6.1)
-  - OpenSSL-Apple (1.1.0i-v2)
+  - OpenSSL-Apple (1.1.0i.2)
   - PromiseKit/CorePromise (6.8.3)
   - Result (4.1.0)
   - Sodium (0.7.0)
-  - SwiftLint (0.30.1)
+  - SwiftLint (0.31.0)
   - SwiftyBeaver (1.6.2)
-  - TunnelKit (1.4.0):
-    - TunnelKit/AppExtension (= 1.4.0)
-    - TunnelKit/Core (= 1.4.0)
-  - TunnelKit/AppExtension (1.4.0):
+  - TunnelKit (1.4.2):
+    - TunnelKit/AppExtension (= 1.4.2)
+    - TunnelKit/Core (= 1.4.2)
+  - TunnelKit/AppExtension (1.4.2):
     - SwiftyBeaver
     - TunnelKit/Core
-  - TunnelKit/Core (1.4.0):
-    - OpenSSL-Apple (~> 1.1.0h)
+  - TunnelKit/Core (1.4.2):
+    - OpenSSL-Apple (~> 1.1.0i.2)
     - SwiftyBeaver
 
 DEPENDENCIES:
@@ -82,14 +82,14 @@ SPEC CHECKSUMS:
   Disk: ef2956657d5bb56034b38b29b352170165226440
   Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
   NVActivityIndicatorView: 4ca19fccc84595a78957336a086d00a49be6ce61
-  OpenSSL-Apple: a93b8f2eec8783ff40d9a9304de180ab68bb647c
+  OpenSSL-Apple: 37a8c0b04df4bb8971deef4671cc29222861319c
   PromiseKit: 94c6e781838c5bf4717677d0d882b0e7250c80fc
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   Sodium: c5510cc6f5e1b27858e5f260b5cac80d4a3f9379
-  SwiftLint: a54bf1fe12b55c68560eb2a7689dfc81458508f7
+  SwiftLint: 7a0227733d786395817373b2d0ca799fd0093ff3
   SwiftyBeaver: 8e67ab3cd94389cbbb7a9c7cc02748d98bfee68e
-  TunnelKit: 8ac6ca743020b62e63bea66b3d169c53666fb737
+  TunnelKit: f4ee9a2a92015026a72f050fbcea99d81ae2ff5f
 
 PODFILE CHECKSUM: 5f7eb0d65fe00606ca1b5be204b658d925b10f0e
 
-COCOAPODS: 1.6.0.beta.2
+COCOAPODS: 1.6.1

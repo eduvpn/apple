@@ -613,7 +613,13 @@ public class SessionProxy {
     
     private func hardResetPayload() -> Data? {
         guard !(configuration.usesPIAPatches ?? false) else {
-            let caMD5 = TLSBox.md5(forCertificatePath: caURL.path)
+            let caMD5: String
+            do {
+                caMD5 = try TLSBox.md5(forCertificatePath: caURL.path)
+            } catch {
+                log.error("CA MD5 could not be computed, skipping custom HARD_RESET")
+                return nil
+            }
             log.debug("CA MD5 is: \(caMD5)")
             return try? PIAHardReset(
                 caMd5Digest: caMD5,
@@ -771,7 +777,8 @@ public class SessionProxy {
             negotiationKey.tlsOptional = TLSBox(
                 caPath: caURL.path,
                 clientCertificatePath: (configuration.clientCertificate != nil) ? clientCertificateURL.path : nil,
-                clientKeyPath: (configuration.clientKey != nil) ? clientKeyURL.path : nil
+                clientKeyPath: (configuration.clientKey != nil) ? clientKeyURL.path : nil,
+                checksEKU: true
             )
             do {
                 try negotiationKey.tls.start()
@@ -904,6 +911,11 @@ public class SessionProxy {
             }
             reply = optionalReply
             log.debug("Received PUSH_REPLY: \"\(reply.maskedDescription)\"")
+            
+            if let framing = reply.compressionFraming, reply.usesCompression {
+                log.error("Server has compression enabled and this is currently unsupported (\(framing))")
+                throw SessionError.serverCompression
+            }
         } catch let e {
             deferStop(.shutdown, e)
             return

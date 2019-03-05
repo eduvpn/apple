@@ -65,6 +65,7 @@ int TLSBoxVerifyPeer(int ok, X509_STORE_CTX *ctx) {
 @property (nonatomic, strong) NSString *caPath;
 @property (nonatomic, strong) NSString *clientCertificatePath;
 @property (nonatomic, strong) NSString *clientKeyPath;
+@property (nonatomic, assign) BOOL checksEKU;
 @property (nonatomic, assign) BOOL isConnected;
 
 @property (nonatomic, unsafe_unretained) SSL_CTX *ctx;
@@ -79,14 +80,21 @@ int TLSBoxVerifyPeer(int ok, X509_STORE_CTX *ctx) {
 
 @implementation TLSBox
 
-+ (NSString *)md5ForCertificatePath:(NSString *)path
++ (NSString *)md5ForCertificatePath:(NSString *)path error:(NSError * _Nullable __autoreleasing * _Nullable)error
 {
     const EVP_MD *alg = EVP_get_digestbyname("MD5");
     uint8_t md[16];
     unsigned int len;
 
     FILE *pem = fopen([path cStringUsingEncoding:NSASCIIStringEncoding], "r");
+    if (!pem) {
+        return NULL;
+    }
     X509 *cert = PEM_read_X509(pem, NULL, NULL, NULL);
+    if (!cert) {
+        fclose(pem);
+        return NULL;
+    }
     X509_digest(cert, alg, md, &len);
     X509_free(cert);
     fclose(pem);
@@ -105,12 +113,16 @@ int TLSBoxVerifyPeer(int ok, X509_STORE_CTX *ctx) {
     return nil;
 }
 
-- (instancetype)initWithCAPath:(NSString *)caPath clientCertificatePath:(NSString *)clientCertificatePath clientKeyPath:(NSString *)clientKeyPath
+- (instancetype)initWithCAPath:(NSString *)caPath
+         clientCertificatePath:(NSString *)clientCertificatePath
+                 clientKeyPath:(NSString *)clientKeyPath
+                     checksEKU:(BOOL)checksEKU
 {
     if ((self = [super init])) {
         self.caPath = caPath;
         self.clientCertificatePath = clientCertificatePath;
         self.clientKeyPath = clientKeyPath;
+        self.checksEKU = checksEKU;
         self.bufferCipherText = allocate_safely(TLSBoxMaxBufferLength);
     }
     return self;
@@ -196,7 +208,7 @@ int TLSBoxVerifyPeer(int ok, X509_STORE_CTX *ctx) {
     if (!self.isConnected && SSL_is_init_finished(self.ssl)) {
         self.isConnected = YES;
 
-        if (![self verifyEKUWithSSL:self.ssl]) {
+        if (self.checksEKU && ![self verifyEKUWithSSL:self.ssl]) {
             if (error) {
                 *error = TunnelKitErrorWithCode(TunnelKitErrorCodeTLSBoxServerEKU);
             }
@@ -313,7 +325,7 @@ int TLSBoxVerifyPeer(int ok, X509_STORE_CTX *ctx) {
         OBJ_obj2txt(buffer, sizeof(buffer), sk_ASN1_OBJECT_value(eku, i), 1); // get OID
         const char *oid = OBJ_nid2ln(OBJ_obj2nid(sk_ASN1_OBJECT_value(eku, i)));
 //        NSLog(@"eku flag %d: %s - %s", i, buffer, oid);
-        if (!strcmp(oid, TLSBoxServerEKU)) {
+        if (oid && !strcmp(oid, TLSBoxServerEKU)) {
             isValid = YES;
             break;
         }

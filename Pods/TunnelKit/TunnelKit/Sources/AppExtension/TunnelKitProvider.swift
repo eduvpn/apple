@@ -499,7 +499,7 @@ extension TunnelKitProvider: SessionProxyDelegate {
             ipv6Settings?.excludedRoutes = []
         }
         
-        let dnsSettings = NEDNSSettings(servers: reply.dnsServers)
+        let dnsSettings = NEDNSSettings(servers: cfg.sessionConfiguration.dnsServers ?? reply.dnsServers)
         
         let newSettings = NEPacketTunnelNetworkSettings(tunnelRemoteAddress: remoteAddress)
         newSettings.ipv4Settings = ipv4Settings
@@ -586,6 +586,9 @@ extension TunnelKitProvider {
                 
             case .dataPathOverflow, .dataPathPeerIdMismatch:
                 return .unexpectedReply
+                
+            case .dataPathCompression:
+                return .serverCompression
             }
         } else if let se = error as? SessionError {
             switch se {
@@ -594,6 +597,9 @@ extension TunnelKitProvider {
                 
             case .badCredentials:
                 return .authentication
+                
+            case .serverCompression:
+                return .serverCompression
                 
             case .failedLinkWrite:
                 return .linkError

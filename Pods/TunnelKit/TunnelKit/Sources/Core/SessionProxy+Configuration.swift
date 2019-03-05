@@ -150,6 +150,9 @@ extension SessionProxy {
         /// The private key for the certificate in `clientCertificate` (PEM format).
         public var clientKey: CryptoContainer?
         
+        /// If true, checks EKU of server certificate.
+        public var checksEKU: Bool?
+        
         /// Sets compression framing, disabled by default.
         public var compressionFraming: CompressionFraming
 
@@ -165,6 +168,9 @@ extension SessionProxy {
         /// Server is patched for the PIA VPN provider.
         public var usesPIAPatches: Bool?
 
+        /// Optionally override the server DNS entries.
+        public var dnsServers: [String]?
+        
         /// :nodoc:
         public init(ca: CryptoContainer) {
             cipher = .aes128cbc
@@ -172,11 +178,13 @@ extension SessionProxy {
             self.ca = ca
             clientCertificate = nil
             clientKey = nil
+            checksEKU = false
             compressionFraming = .disabled
             tlsWrap = nil
             keepAliveInterval = nil
             renegotiatesAfter = nil
             usesPIAPatches = false
+            dnsServers = nil
         }
 
         /**
@@ -191,11 +199,13 @@ extension SessionProxy {
                 ca: ca,
                 clientCertificate: clientCertificate,
                 clientKey: clientKey,
+                checksEKU: checksEKU,
                 compressionFraming: compressionFraming,
                 tlsWrap: tlsWrap,
                 keepAliveInterval: keepAliveInterval,
                 renegotiatesAfter: renegotiatesAfter,
-                usesPIAPatches: usesPIAPatches
+                usesPIAPatches: usesPIAPatches,
+                dnsServers: dnsServers
             )
         }
     }
@@ -218,6 +228,9 @@ extension SessionProxy {
         /// - Seealso: `SessionProxy.ConfigurationBuilder.clientKey`
         public let clientKey: CryptoContainer?
         
+        /// - Seealso: `SessionProxy.ConfigurationBuilder.checksEKU`
+        public let checksEKU: Bool?
+
         /// - Seealso: `SessionProxy.ConfigurationBuilder.compressionFraming`
         public let compressionFraming: CompressionFraming
 
@@ -233,6 +246,9 @@ extension SessionProxy {
         /// - Seealso: `SessionProxy.ConfigurationBuilder.usesPIAPatches`
         public let usesPIAPatches: Bool?
 
+        /// - Seealso: `SessionProxy.ConfigurationBuilder.dnsServers`
+        public let dnsServers: [String]?
+        
         /**
          Returns a `SessionProxy.ConfigurationBuilder` to use this configuration as a starting point for a new one.
          
@@ -244,11 +260,13 @@ extension SessionProxy {
             builder.digest = digest
             builder.clientCertificate = clientCertificate
             builder.clientKey = clientKey
+            builder.checksEKU = checksEKU
             builder.compressionFraming = compressionFraming
             builder.tlsWrap = tlsWrap
             builder.keepAliveInterval = keepAliveInterval
             builder.renegotiatesAfter = renegotiatesAfter
             builder.usesPIAPatches = usesPIAPatches
+            builder.dnsServers = dnsServers
             return builder
         }
 
@@ -262,10 +280,12 @@ extension SessionProxy {
                 (lhs.ca == rhs.ca) &&
                 (lhs.clientCertificate == rhs.clientCertificate) &&
                 (lhs.clientKey == rhs.clientKey) &&
+                (lhs.checksEKU == rhs.checksEKU) &&
                 (lhs.compressionFraming == rhs.compressionFraming) &&
                 (lhs.keepAliveInterval == rhs.keepAliveInterval) &&
                 (lhs.renegotiatesAfter == rhs.renegotiatesAfter) &&
-                (lhs.usesPIAPatches == rhs.usesPIAPatches)
+                (lhs.usesPIAPatches == rhs.usesPIAPatches) &&
+                (lhs.dnsServers == rhs.dnsServers)
         }
     }
 }

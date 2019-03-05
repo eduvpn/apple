@@ -129,7 +129,7 @@ static const NSInteger CryptoAEADTagLength = 16;
     int code = 1;
 
     assert(flags->adLength >= PacketIdLength);
-    memcpy(self.cipherIVEnc, flags->iv, flags->ivLength);
+    memcpy(self.cipherIVEnc, flags->iv, MIN(flags->ivLength, self.cipherIVLength));
 
     TUNNEL_CRYPTO_TRACK_STATUS(code) EVP_CipherInit(self.cipherCtxEnc, NULL, NULL, self.cipherIVEnc, -1);
     TUNNEL_CRYPTO_TRACK_STATUS(code) EVP_CipherUpdate(self.cipherCtxEnc, NULL, &x, flags->ad, (int)flags->adLength);
@@ -175,7 +175,7 @@ static const NSInteger CryptoAEADTagLength = 16;
     int code = 1;
     
     assert(flags->adLength >= PacketIdLength);
-    memcpy(self.cipherIVDec, flags->iv, flags->ivLength);
+    memcpy(self.cipherIVDec, flags->iv, MIN(flags->ivLength, self.cipherIVLength));
 
     TUNNEL_CRYPTO_TRACK_STATUS(code) EVP_CipherInit(self.cipherCtxDec, NULL, NULL, self.cipherIVDec, -1);
     TUNNEL_CRYPTO_TRACK_STATUS(code) EVP_CIPHER_CTX_ctrl(self.cipherCtxDec, EVP_CTRL_GCM_SET_TAG, CryptoAEADTagLength, (uint8_t *)bytes);
@@ -346,7 +346,7 @@ static const NSInteger CryptoAEADTagLength = 16;
     return YES;
 }
 
-- (const uint8_t *)parsePayloadWithBlock:(DataPathParseBlock)block length:(NSInteger *)length packetBytes:(uint8_t *)packetBytes packetLength:(NSInteger)packetLength
+- (const uint8_t *)parsePayloadWithBlock:(DataPathParseBlock)block length:(NSInteger *)length packetBytes:(uint8_t *)packetBytes packetLength:(NSInteger)packetLength error:(NSError * _Nullable __autoreleasing * _Nullable)error
 {
     uint8_t *payload = packetBytes;
     *length = packetLength - (int)(payload - packetBytes);
@@ -356,7 +356,9 @@ static const NSInteger CryptoAEADTagLength = 16;
     
     NSInteger payloadOffset;
     NSInteger payloadHeaderLength;
-    block(payload, &payloadOffset, &payloadHeaderLength, packetBytes, packetLength);
+    if (!block(payload, &payloadOffset, &payloadHeaderLength, packetBytes, packetLength, error)) {
+        return NULL;
+    }
     *length -= payloadHeaderLength;
     return payload + payloadOffset;
 }

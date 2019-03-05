@@ -117,6 +117,9 @@ extension TunnelKitProvider {
         /// Data encryption/decryption failed.
         case encryptionData
         
+        /// Server uses compression and this is not supported.
+        case serverCompression
+        
         /// Tunnel timed out.
         case timeout
         

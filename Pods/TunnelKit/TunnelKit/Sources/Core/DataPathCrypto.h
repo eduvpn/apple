@@ -57,7 +57,12 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
 typedef void (^DataPathAssembleBlock)(uint8_t *packetDest, NSInteger *packetLengthOffset, NSData *payload);
-typedef void (^DataPathParseBlock)(uint8_t *payload, NSInteger *payloadOffset, NSInteger *headerLength, const uint8_t *packet, NSInteger packetLength);
+typedef BOOL (^DataPathParseBlock)(uint8_t *payload,
+                                   NSInteger *payloadOffset,
+                                   NSInteger *headerLength,
+                                   const uint8_t *packet,
+                                   NSInteger packetLength,
+                                   NSError **error);
 
 @protocol DataPathChannel
 
@@ -77,7 +82,7 @@ typedef void (^DataPathParseBlock)(uint8_t *payload, NSInteger *payloadOffset, N
 @protocol DataPathDecrypter <DataPathChannel>
 
 - (BOOL)decryptDataPacket:(NSData *)packet into:(uint8_t *)packetBytes length:(NSInteger *)packetLength packetId:(uint32_t *)packetId error:(NSError **)error;
-- (const uint8_t *)parsePayloadWithBlock:(nullable DataPathParseBlock)block length:(NSInteger *)length packetBytes:(uint8_t *)packetBytes packetLength:(NSInteger)packetLength;
+- (const uint8_t * _Nullable)parsePayloadWithBlock:(nullable DataPathParseBlock)block length:(NSInteger *)length packetBytes:(uint8_t *)packetBytes packetLength:(NSInteger)packetLength error:(NSError **)error;
 
 @end
 

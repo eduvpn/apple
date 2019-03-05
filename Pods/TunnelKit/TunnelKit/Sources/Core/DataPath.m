@@ -162,9 +162,10 @@
                 memcpy(packetDest, payload.bytes, payload.length);
                 *packetLengthOffset = 0;
             };
-            self.parsePayloadBlock = ^(uint8_t * payload, NSInteger *payloadOffset, NSInteger * headerLength, const uint8_t * packet, NSInteger packetLength) {
+            self.parsePayloadBlock = ^BOOL(uint8_t * _Nonnull payload, NSInteger * _Nonnull payloadOffset, NSInteger * _Nonnull headerLength, const uint8_t * _Nonnull packet, NSInteger packetLength, NSError * _Nullable __autoreleasing * _Nullable error) {
                 *payloadOffset = 0;
                 *headerLength = 0;
+                return YES;
             };
             break;
         }
@@ -175,11 +176,16 @@
                 packetDest[0] = DataPacketNoCompressSwap;
                 *packetLengthOffset = 1;
             };
-            self.parsePayloadBlock = ^(uint8_t * payload, NSInteger *payloadOffset, NSInteger * headerLength, const uint8_t * packet, NSInteger packetLength) {
-                NSCAssert(payload[0] == DataPacketNoCompressSwap, @"Expected NO_COMPRESS_SWAP (found %X != %X)", payload[0], DataPacketNoCompressSwap);
+            self.parsePayloadBlock = ^BOOL(uint8_t * _Nonnull payload, NSInteger * _Nonnull payloadOffset, NSInteger * _Nonnull headerLength, const uint8_t * _Nonnull packet, NSInteger packetLength, NSError * _Nullable __autoreleasing * _Nullable error) {
+                if (payload[0] != DataPacketNoCompressSwap) {
+                    // @"Expected NO_COMPRESS_SWAP (found %X != %X)", payload[0], DataPacketNoCompressSwap);
+                    *error = TunnelKitErrorWithCode(TunnelKitErrorCodeDataPathCompression);
+                    return NO;
+                }
                 payload[0] = packet[packetLength - 1];
                 *payloadOffset = 0;
                 *headerLength = 1;
+                return YES;
             };
             break;
         }
@@ -189,10 +195,17 @@
                 packetDest[0] = DataPacketNoCompress;
                 *packetLengthOffset = 1;
             };
-            self.parsePayloadBlock = ^(uint8_t * payload, NSInteger *payloadOffset, NSInteger * headerLength, const uint8_t * packet, NSInteger packetLength) {
-                NSCAssert(payload[0] == DataPacketNoCompress, @"Expected NO_COMPRESS (found %X != %X)", payload[0], DataPacketNoCompress);
+            self.parsePayloadBlock = ^BOOL(uint8_t * _Nonnull payload, NSInteger * _Nonnull payloadOffset, NSInteger * _Nonnull headerLength, const uint8_t * _Nonnull packet, NSInteger packetLength, NSError * _Nullable __autoreleasing * _Nullable error) {
+                if (payload[0] != DataPacketNoCompress) {
+                    // @"Expected NO_COMPRESS (found %X != %X)", payload[0], DataPacketNoCompress);
+                    if (error) {
+                        *error = TunnelKitErrorWithCode(TunnelKitErrorCodeDataPathCompression);
+                    }
+                    return NO;
+                }
                 *payloadOffset = 1;
                 *headerLength = 1;
+                return YES;
             };
             break;
         }
@@ -280,7 +293,11 @@
         const uint8_t *payloadBytes = [self.decrypter parsePayloadWithBlock:self.parsePayloadBlock
                                                                      length:&payloadLength
                                                                 packetBytes:dataPacketBytes
-                                                               packetLength:dataPacketLength];
+                                                               packetLength:dataPacketLength
+                                                                      error:error];
+        if (!payloadBytes) {
+            return nil;
+        }
         
         if ((payloadLength == sizeof(DataPacketPingData)) && !memcmp(payloadBytes, DataPacketPingData, payloadLength)) {
             if (keepAlive) {

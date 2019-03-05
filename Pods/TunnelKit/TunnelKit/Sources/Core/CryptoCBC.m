@@ -368,7 +368,7 @@ const NSInteger CryptoCBCMaxHMACLength = 100;
     return YES;
 }
 
-- (const uint8_t *)parsePayloadWithBlock:(DataPathParseBlock)block length:(NSInteger *)length packetBytes:(uint8_t *)packetBytes packetLength:(NSInteger)packetLength
+- (const uint8_t *)parsePayloadWithBlock:(DataPathParseBlock)block length:(NSInteger *)length packetBytes:(uint8_t *)packetBytes packetLength:(NSInteger)packetLength error:(NSError * _Nullable __autoreleasing * _Nullable)error
 {
     uint8_t *payload = packetBytes;
     payload += sizeof(uint32_t); // packet id
@@ -379,7 +379,9 @@ const NSInteger CryptoCBCMaxHMACLength = 100;
 
     NSInteger payloadOffset;
     NSInteger payloadHeaderLength;
-    block(payload, &payloadOffset, &payloadHeaderLength, packetBytes, packetLength);
+    if (!block(payload, &payloadOffset, &payloadHeaderLength, packetBytes, packetLength, error)) {
+        return NULL;
+    }
     *length -= payloadHeaderLength;
     return payload + payloadOffset;
 }
