@@ -666,9 +666,8 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
         if let currentProfileUuid = profile.uuid, currentProfileUuid.uuidString == UserDefaults.standard.configuredProfileId {
             showConnectionViewController(for: profile)
         } else {
-            _ = self.tunnelProviderManagerCoordinator.disconnect().then {
-                return self.tunnelProviderManagerCoordinator.configure(profile: profile)
-            }.then({ (_) -> Promise<Void> in
+            _ = self.tunnelProviderManagerCoordinator.disconnect()
+            _ = self.tunnelProviderManagerCoordinator.configure(profile: profile).then({ (_) -> Promise<Void> in
                 self.providerTableViewController.tableView.reloadData()
                 self.showConnectionViewController(for: profile)
                 return Promise.value(())
