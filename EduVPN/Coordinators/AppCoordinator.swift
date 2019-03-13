@@ -153,8 +153,19 @@ class AppCoordinator: RootViewCoordinator {
                 if profile.uuid == nil {
                     profile.uuid = UUID()
                 }
-                context.saveContext()
             })
+
+            let targets = [StaticService(type: .instituteAccess), StaticService(type: .secureInternet)].compactMap{ $0 }
+            targets.forEach({ (target) in
+                let fetch = InstanceGroup.fetchRequestForEntity(inContext: context)
+                fetch.predicate = NSPredicate(format: "discoveryIdentifier == %@", "\(target.baseURL.absoluteString)\(target.path)")
+                if let instanceGroups = try? fetch.execute() {
+                    instanceGroups.forEach{
+                        $0.discoveryIdentifier = "\(target.baseURL.absoluteString)/\(target.path)"
+                    }
+                }
+            })
+            context.saveContext()
         })
 
     }
@@ -423,7 +434,7 @@ class AppCoordinator: RootViewCoordinator {
 
             return Promise(resolver: { (seal) in
                 self.persistentContainer.performBackgroundTask({ (context) in
-                    let instanceGroupIdentifier = "\(target.baseURL.absoluteString)\(target.path)"
+                    let instanceGroupIdentifier = "\(target.baseURL.absoluteString)/\(target.path)"
                     let group = try! InstanceGroup.findFirstInContext(context, predicate: NSPredicate(format: "discoveryIdentifier == %@", instanceGroupIdentifier)) ?? InstanceGroup(context: context)//swiftlint:disable:this force_try
 
                     group.discoveryIdentifier = instanceGroupIdentifier
