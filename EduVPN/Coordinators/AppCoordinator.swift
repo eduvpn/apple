@@ -204,8 +204,8 @@ class AppCoordinator: RootViewCoordinator {
         }).then {response -> Promise<CertificateModel> in
                 return response.mapResponse()
             }.map { (model) -> CertificateModel in
-                self.scheduleCertificateExpirationNotification(for: model, on: api)
                 api.certificateModel = model
+                self.scheduleCertificateExpirationNotification(for: model, on: api)
                 return model
         }
     }
