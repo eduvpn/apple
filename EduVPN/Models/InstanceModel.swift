@@ -1,6 +1,6 @@
 //
 //  InstanceModel.swift
-//  EduVPN
+//  eduVPN
 //
 //  Created by Jeroen Leenarts on 04-08-17.
 //  Copyright © 2017 SURFNet. All rights reserved.

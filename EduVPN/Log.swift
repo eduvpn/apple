@@ -1,6 +1,6 @@
 //
 //  Log.swift
-//  EduVPN
+//  eduVPN
 //
 //  Created by Jeroen Leenarts on 07-07-18.
 //  Copyright © 2018 SURFNet. All rights reserved.

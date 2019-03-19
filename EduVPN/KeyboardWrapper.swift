@@ -1,6 +1,6 @@
 //
 //  KeyboardWrapper.swift
-//  EduVPN
+//  eduVPN
 //
 //  Created by Jeroen Leenarts on 06-11-17.
 //  Copyright © 2017 SURFNet. All rights reserved.

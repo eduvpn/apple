@@ -1,6 +1,6 @@
 //
 //  Api+CoreDataClass.swift
-//  EduVPN
+//  eduVPN
 //
 //  Created by Jeroen Leenarts on 04-02-18.
 //  Copyright © 2018 SURFNet. All rights reserved.
