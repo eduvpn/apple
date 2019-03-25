@@ -24,13 +24,13 @@ PODS:
   - Sodium (0.7.0)
   - SwiftLint (0.31.0)
   - SwiftyBeaver (1.6.2)
-  - TunnelKit (1.4.2):
-    - TunnelKit/AppExtension (= 1.4.2)
-    - TunnelKit/Core (= 1.4.2)
-  - TunnelKit/AppExtension (1.4.2):
+  - TunnelKit (1.5.0):
+    - TunnelKit/AppExtension (= 1.5.0)
+    - TunnelKit/Core (= 1.5.0)
+  - TunnelKit/AppExtension (1.5.0):
     - SwiftyBeaver
     - TunnelKit/Core
-  - TunnelKit/Core (1.4.2):
+  - TunnelKit/Core (1.5.0):
     - OpenSSL-Apple (~> 1.1.0i.2)
     - SwiftyBeaver
 
@@ -70,13 +70,13 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   AppAuth:
-    :commit: 0c822671e56cedf159a6d27ccf0669b689c0f2b5
+    :commit: d1270ecbae5ea705f9b87682f12e3a6c2c925313
     :git: https://github.com/openid/AppAuth-iOS.git
 
 SPEC CHECKSUMS:
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
   AlamofireImage: 1aea346f4dda2f6c67622fa5a89fcbb80d79cc16
-  AppAuth: 0ac894b773cf31b27a20bceb61218556644df883
+  AppAuth: 7b8935723415b3c694f19511361aedfb0b313f1d
   ASN1Decoder: 1a1f4fa469e14083f2664e182975a39299cb5e32
   BNRCoreDataStack: d9d7d0ed1afd27dca5a903dde1250aa4c6dbc3f5
   Disk: ef2956657d5bb56034b38b29b352170165226440
@@ -88,7 +88,7 @@ SPEC CHECKSUMS:
   Sodium: c5510cc6f5e1b27858e5f260b5cac80d4a3f9379
   SwiftLint: 7a0227733d786395817373b2d0ca799fd0093ff3
   SwiftyBeaver: 8e67ab3cd94389cbbb7a9c7cc02748d98bfee68e
-  TunnelKit: f4ee9a2a92015026a72f050fbcea99d81ae2ff5f
+  TunnelKit: bfe0960fc09d9e69cc66a141084887c5abf986d4
 
 PODFILE CHECKSUM: 5f7eb0d65fe00606ca1b5be204b658d925b10f0e
 

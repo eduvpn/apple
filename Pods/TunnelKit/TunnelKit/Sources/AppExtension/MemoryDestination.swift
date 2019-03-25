@@ -3,7 +3,7 @@
 //  TunnelKit
 //
 //  Created by Davide De Rosa on 7/26/17.
-//  Copyright (c) 2018 Davide De Rosa. All rights reserved.
+//  Copyright (c) 2019 Davide De Rosa. All rights reserved.
 //
 //  https://github.com/keeshux
 //

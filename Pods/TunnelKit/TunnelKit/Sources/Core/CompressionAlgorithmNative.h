@@ -2,7 +2,7 @@
 //  CompressionFramingNative.h
 //  TunnelKit
 //
-//  Created by Davide De Rosa on 8/30/18.
+//  Created by Davide De Rosa on 3/19/19.
 //  Copyright (c) 2019 Davide De Rosa. All rights reserved.
 //
 //  https://github.com/keeshux
@@ -25,8 +25,8 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger, CompressionFramingNative) {
-    CompressionFramingNativeDisabled,
-    CompressionFramingNativeCompLZO,
-    CompressionFramingNativeCompress
+typedef NS_ENUM(NSInteger, CompressionAlgorithmNative) {
+    CompressionAlgorithmNativeDisabled,
+    CompressionAlgorithmNativeLZO,
+    CompressionAlgorithmNativeOther
 };

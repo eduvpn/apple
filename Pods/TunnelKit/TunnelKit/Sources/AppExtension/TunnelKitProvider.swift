@@ -3,7 +3,7 @@
 //  TunnelKit
 //
 //  Created by Davide De Rosa on 2/1/17.
-//  Copyright (c) 2018 Davide De Rosa. All rights reserved.
+//  Copyright (c) 2019 Davide De Rosa. All rights reserved.
 //
 //  https://github.com/keeshux
 //
@@ -403,6 +403,12 @@ extension TunnelKitProvider: GenericSocketDelegate {
         if reasserting {
             log.debug("Disconnection is recoverable, tunnel will reconnect in \(reconnectionDelay) milliseconds...")
             tunnelQueue.schedule(after: .milliseconds(reconnectionDelay)) {
+
+                // give up if reasserting cleared in the meantime
+                guard self.reasserting else {
+                    return
+                }
+
                 self.connectTunnel(upgradedSocket: upgradedSocket, preferredAddress: socket.remoteAddress)
             }
             return
@@ -456,9 +462,7 @@ extension TunnelKitProvider: SessionProxyDelegate {
     public func sessionDidStop(_: SessionProxy, shouldReconnect: Bool) {
         log.info("Session did stop")
 
-        if shouldReconnect {
-            reasserting = true
-        }
+        reasserting = shouldReconnect
         socket?.shutdown()
     }
     
@@ -589,6 +593,9 @@ extension TunnelKitProvider {
                 
             case .dataPathCompression:
                 return .serverCompression
+                
+            case .LZO:
+                return .lzo
             }
         } else if let se = error as? SessionError {
             switch se {

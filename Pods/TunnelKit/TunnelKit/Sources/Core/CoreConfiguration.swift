@@ -3,7 +3,7 @@
 //  TunnelKit
 //
 //  Created by Davide De Rosa on 9/1/17.
-//  Copyright (c) 2018 Davide De Rosa. All rights reserved.
+//  Copyright (c) 2019 Davide De Rosa. All rights reserved.
 //
 //  https://github.com/keeshux
 //
@@ -83,6 +83,8 @@ struct CoreConfiguration {
         "IV_PROTO=2",
         "IV_NCP=2",
         "IV_SSL=\(CryptoBox.version())",
+        "IV_LZO=1",
+        "IV_LZO_STUB=1",
         ""
     ].joined(separator: "\n")
     

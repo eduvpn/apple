@@ -3,7 +3,7 @@
 //  TunnelKit
 //
 //  Created by Davide De Rosa on 8/23/18.
-//  Copyright (c) 2018 Davide De Rosa. All rights reserved.
+//  Copyright (c) 2019 Davide De Rosa. All rights reserved.
 //
 //  https://github.com/keeshux
 //
@@ -156,6 +156,9 @@ extension SessionProxy {
         /// Sets compression framing, disabled by default.
         public var compressionFraming: CompressionFraming
 
+        /// Sets compression algorithm, disabled by default.
+        public var compressionAlgorithm: CompressionAlgorithm?
+        
         /// The optional TLS wrapping.
         public var tlsWrap: TLSWrap?
 
@@ -180,6 +183,7 @@ extension SessionProxy {
             clientKey = nil
             checksEKU = false
             compressionFraming = .disabled
+            compressionAlgorithm = .disabled
             tlsWrap = nil
             keepAliveInterval = nil
             renegotiatesAfter = nil
@@ -201,6 +205,7 @@ extension SessionProxy {
                 clientKey: clientKey,
                 checksEKU: checksEKU,
                 compressionFraming: compressionFraming,
+                compressionAlgorithm: compressionAlgorithm,
                 tlsWrap: tlsWrap,
                 keepAliveInterval: keepAliveInterval,
                 renegotiatesAfter: renegotiatesAfter,
@@ -234,6 +239,9 @@ extension SessionProxy {
         /// - Seealso: `SessionProxy.ConfigurationBuilder.compressionFraming`
         public let compressionFraming: CompressionFraming
 
+        /// - Seealso: `SessionProxy.ConfigurationBuilder.compressionAlgorithm`
+        public let compressionAlgorithm: CompressionAlgorithm?
+        
         /// - Seealso: `SessionProxy.ConfigurationBuilder.tlsWrap`
         public var tlsWrap: TLSWrap?
 
@@ -262,6 +270,7 @@ extension SessionProxy {
             builder.clientKey = clientKey
             builder.checksEKU = checksEKU
             builder.compressionFraming = compressionFraming
+            builder.compressionAlgorithm = compressionAlgorithm
             builder.tlsWrap = tlsWrap
             builder.keepAliveInterval = keepAliveInterval
             builder.renegotiatesAfter = renegotiatesAfter
@@ -282,6 +291,7 @@ extension SessionProxy {
                 (lhs.clientKey == rhs.clientKey) &&
                 (lhs.checksEKU == rhs.checksEKU) &&
                 (lhs.compressionFraming == rhs.compressionFraming) &&
+                (lhs.compressionAlgorithm == rhs.compressionAlgorithm) &&
                 (lhs.keepAliveInterval == rhs.keepAliveInterval) &&
                 (lhs.renegotiatesAfter == rhs.renegotiatesAfter) &&
                 (lhs.usesPIAPatches == rhs.usesPIAPatches) &&

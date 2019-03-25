@@ -3,7 +3,7 @@
 //  TunnelKit
 //
 //  Created by Davide De Rosa on 10/10/17.
-//  Copyright (c) 2018 Davide De Rosa. All rights reserved.
+//  Copyright (c) 2019 Davide De Rosa. All rights reserved.
 //
 //  https://github.com/keeshux
 //
@@ -52,7 +52,8 @@ typedef NS_ENUM(NSInteger, TunnelKitErrorCode) {
     TunnelKitErrorCodeTLSBoxServerEKU           = 207,
     TunnelKitErrorCodeDataPathOverflow          = 301,
     TunnelKitErrorCodeDataPathPeerIdMismatch    = 302,
-    TunnelKitErrorCodeDataPathCompression       = 303
+    TunnelKitErrorCodeDataPathCompression       = 303,
+    TunnelKitErrorCodeLZO                       = 401,
 };
 
 static inline NSError *TunnelKitErrorWithCode(TunnelKitErrorCode code) {

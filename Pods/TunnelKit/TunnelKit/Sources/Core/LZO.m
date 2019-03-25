@@ -1,8 +1,8 @@
 //
-//  CompressionFramingNative.h
+//  LZO.m
 //  TunnelKit
 //
-//  Created by Davide De Rosa on 8/30/18.
+//  Created by Davide De Rosa on 3/18/19.
 //  Copyright (c) 2019 Davide De Rosa. All rights reserved.
 //
 //  https://github.com/keeshux
@@ -23,10 +23,23 @@
 //  along with TunnelKit.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#import <Foundation/Foundation.h>
+#import "LZO.h"
+#import "ZeroingData.h"
 
-typedef NS_ENUM(NSInteger, CompressionFramingNative) {
-    CompressionFramingNativeDisabled,
-    CompressionFramingNativeCompLZO,
-    CompressionFramingNativeCompress
-};
+static NSString *const LZOClassName = @"StandardLZO";
+
+static Class LZOClass()
+{
+    NSBundle *bundle = [NSBundle bundleForClass:[ZeroingData class]];
+    return [bundle classNamed:LZOClassName];
+}
+
+BOOL LZOIsSupported()
+{
+    return LZOClass() != nil;
+}
+
+id<LZO> LZOCreate()
+{
+    return [[LZOClass() alloc] init];
+}

@@ -29,13 +29,14 @@ The client is known to work with [OpenVPN®][openvpn] 2.3+ servers.
     - Authentication (`--tls-auth`)
     - Encryption (`--tls-crypt`)
 - [x] Compression framing
-    - Disabled
-    - Compress (2.4)
-    - LZO (deprecated in 2.4)
+    - Via `--comp-lzo` (deprecated in 2.4)
+    - Via `--compress`
+- [x] Compression algorithms
+    - LZO (via `--comp-lzo` or `--compress lzo`)
 - [x] Key renegotiation
 - [x] Replay protection (hardcoded window)
 
-The library therefore supports compression framing, just not compression. Remember to disable server-side compression and match framing, otherwise the client will shut down with an error. E.g. if server has `comp-lzo no`, client must use `compressionFraming = .compLZO`.
+The library therefore supports compression framing, just not newer compression. Remember to match server-side compression and framing, otherwise the client will shut down with an error. E.g. if server has `comp-lzo no`, client must use `compressionFraming = .compLZO`.
 
 ### Support for .ovpn configuration
 
@@ -44,9 +45,7 @@ TunnelKit can parse .ovpn configuration files. Below are a few limitations worth
 Unsupported:
 
 - UDP fragmentation, i.e. `--fragment`
-- Compression
-    - `--comp-lzo` other than `no`
-    - `--compress` other than empty
+- Compression via `--compress` other than empty or `lzo`
 - Proxy
 - External file references (inline `<block>` only)
 - Encrypted client certificate keys
@@ -58,6 +57,7 @@ Ignored:
     - `--*-mtu` and variants
     - `--mssfix`
 - Multiple `--remote` with different `host` values (first wins)
+- Custom `--redirect-gateway`, VPN is always default gateway (no [split tunnelling][issue-55] yet)
 
 Many other flags are ignored too but it's normally not an issue.
 
@@ -146,6 +146,10 @@ The goal of this module is packaging up a black box implementation of a [NEPacke
 
 Currently, the extension supports VPN over both [UDP][ne-udp] and [TCP][ne-tcp] sockets. A debug log snapshot is optionally maintained and shared to host apps via the App Group container.
 
+### LZO
+
+Due to the restrictive license (GPLv2), LZO support is provided as an optional subspec.
+
 ## License
 
 ### Part I
@@ -158,6 +162,10 @@ As seen in [libsignal-protocol-c][license-signal]:
 
 > Additional Permissions For Submission to Apple App Store: Provided that you are otherwise in compliance with the GPLv3 for each covered work you convey (including without limitation making the Corresponding Source available in compliance with Section 6 of the GPLv3), the Author also grants you the additional permission to convey through the Apple App Store non-source executable versions of the Program as incorporated into each applicable covered work as Executable Versions only under the Mozilla Public License version 2.0 (https://www.mozilla.org/en-US/MPL/2.0/).
 
+### Part III
+
+Part I and II do not apply to the LZO library, which remains licensed under the terms of the GPLv2+.
+
 ### Contributing
 
 By contributing to this project you are agreeing to the terms stated in the [Contributor License Agreement (CLA)][contrib-cla].
@@ -168,6 +176,7 @@ For more details please see [CONTRIBUTING][contrib-readme].
 
 - [PIATunnel][dep-piatunnel-repo] - Copyright (c) 2018-Present Private Internet Access
 - [SwiftyBeaver][dep-swiftybeaver-repo] - Copyright (c) 2015 Sebastian Kreutzberger
+- [lzo][dep-lzo-website] - Copyright (c) 1996 - 2017 Markus F.X.J. Oberhumer
 
 This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit. ([https://www.openssl.org/][dep-openssl])
 
@@ -186,6 +195,7 @@ Website: [davidederosa.com][about-website]
 [dep-brew]: https://brew.sh/
 [dep-openssl]: https://www.openssl.org/
 [issue-51]: https://github.com/keeshux/tunnelkit/issues/51
+[issue-55]: https://github.com/keeshux/tunnelkit/issues/55
 
 [ne-home]: https://developer.apple.com/documentation/networkextension
 [ne-ptp]: https://developer.apple.com/documentation/networkextension/nepackettunnelprovider
@@ -200,6 +210,7 @@ Website: [davidederosa.com][about-website]
 
 [dep-piatunnel-repo]: https://github.com/pia-foss/tunnel-apple
 [dep-swiftybeaver-repo]: https://github.com/SwiftyBeaver/SwiftyBeaver
+[dep-lzo-website]: http://www.oberhumer.com/opensource/lzo/
 
 [about-twitter]: https://twitter.com/keeshux
 [about-website]: https://davidederosa.com

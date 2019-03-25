@@ -3,7 +3,7 @@
 //  TunnelKit
 //
 //  Created by Davide De Rosa on 10/23/17.
-//  Copyright (c) 2018 Davide De Rosa. All rights reserved.
+//  Copyright (c) 2019 Davide De Rosa. All rights reserved.
 //
 //  https://github.com/keeshux
 //
@@ -62,6 +62,7 @@ extension TunnelKitProvider {
                 clientKey: nil,
                 checksEKU: false,
                 compressionFraming: .disabled,
+                compressionAlgorithm: .disabled,
                 tlsWrap: nil,
                 keepAliveInterval: nil,
                 renegotiatesAfter: nil,
@@ -178,6 +179,11 @@ extension TunnelKitProvider {
             } else {
                 sessionConfigurationBuilder.compressionFraming = ConfigurationBuilder.defaults.sessionConfiguration.compressionFraming
             }
+            if let compressionAlgorithmValue = providerConfiguration[S.compressionAlgorithm] as? Int, let compressionAlgorithm = SessionProxy.CompressionAlgorithm(rawValue: compressionAlgorithmValue) {
+                sessionConfigurationBuilder.compressionAlgorithm = compressionAlgorithm
+            } else {
+                sessionConfigurationBuilder.compressionAlgorithm = ConfigurationBuilder.defaults.sessionConfiguration.compressionAlgorithm
+            }
             if let tlsWrapData = providerConfiguration[S.tlsWrap] as? Data {
                 do {
                     sessionConfigurationBuilder.tlsWrap = try SessionProxy.TLSWrap.deserialized(tlsWrapData)
@@ -247,6 +253,8 @@ extension TunnelKitProvider {
             static let clientKey = "ClientKey"
             
             static let compressionFraming = "CompressionFraming"
+            
+            static let compressionAlgorithm = "CompressionAlgorithm"
             
             static let tlsWrap = "TLSWrap"
 
@@ -408,6 +416,9 @@ extension TunnelKitProvider {
                 dict[S.resolvedAddresses] = resolvedAddresses
             }
             dict[S.compressionFraming] = sessionConfiguration.compressionFraming.rawValue
+            if let compressionAlgorithm = sessionConfiguration.compressionAlgorithm?.rawValue {
+                dict[S.compressionAlgorithm] = compressionAlgorithm
+            }
             if let tlsWrapData = sessionConfiguration.tlsWrap?.serialized() {
                 dict[S.tlsWrap] = tlsWrapData
             }
@@ -479,6 +490,11 @@ extension TunnelKitProvider {
             }
             log.info("\tMTU: \(mtu)")
             log.info("\tCompression framing: \(sessionConfiguration.compressionFraming)")
+            if let compressionAlgorithm = sessionConfiguration.compressionAlgorithm, compressionAlgorithm != .disabled {
+                log.info("\tCompression algorithm: \(compressionAlgorithm)")
+            } else {
+                log.info("\tCompression algorithm: disabled")
+            }
             if let keepAliveSeconds = sessionConfiguration.keepAliveInterval, keepAliveSeconds > 0 {
                 log.info("\tKeep-alive: \(keepAliveSeconds) seconds")
             } else {

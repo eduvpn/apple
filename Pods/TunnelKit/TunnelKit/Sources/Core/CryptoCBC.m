@@ -3,7 +3,7 @@
 //  TunnelKit
 //
 //  Created by Davide De Rosa on 7/6/18.
-//  Copyright (c) 2018 Davide De Rosa. All rights reserved.
+//  Copyright (c) 2019 Davide De Rosa. All rights reserved.
 //
 //  https://github.com/keeshux
 //
@@ -368,22 +368,23 @@ const NSInteger CryptoCBCMaxHMACLength = 100;
     return YES;
 }
 
-- (const uint8_t *)parsePayloadWithBlock:(DataPathParseBlock)block length:(NSInteger *)length packetBytes:(uint8_t *)packetBytes packetLength:(NSInteger)packetLength error:(NSError * _Nullable __autoreleasing * _Nullable)error
+- (NSData *)parsePayloadWithBlock:(DataPathParseBlock)block compressionHeader:(nonnull uint8_t *)compressionHeader packetBytes:(nonnull uint8_t *)packetBytes packetLength:(NSInteger)packetLength error:(NSError * _Nullable __autoreleasing * _Nullable)error
 {
     uint8_t *payload = packetBytes;
     payload += sizeof(uint32_t); // packet id
-    *length = packetLength - (int)(payload - packetBytes);
+    NSUInteger length = packetLength - (int)(payload - packetBytes);
     if (!block) {
-        return payload;
+        *compressionHeader = 0x00;
+        return [NSData dataWithBytes:payload length:length];
     }
 
     NSInteger payloadOffset;
     NSInteger payloadHeaderLength;
-    if (!block(payload, &payloadOffset, &payloadHeaderLength, packetBytes, packetLength, error)) {
+    if (!block(payload, &payloadOffset, compressionHeader, &payloadHeaderLength, packetBytes, packetLength, error)) {
         return NULL;
     }
-    *length -= payloadHeaderLength;
-    return payload + payloadOffset;
+    length -= payloadHeaderLength;
+    return [NSData dataWithBytes:(payload + payloadOffset) length:length];
 }
 
 @end

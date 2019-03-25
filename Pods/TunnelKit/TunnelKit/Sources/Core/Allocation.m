@@ -3,7 +3,7 @@
 //  TunnelKit
 //
 //  Created by Davide De Rosa on 5/5/17.
-//  Copyright (c) 2018 Davide De Rosa. All rights reserved.
+//  Copyright (c) 2019 Davide De Rosa. All rights reserved.
 //
 //  https://github.com/keeshux
 //
@@ -35,6 +35,7 @@
 //
 
 #import <stdlib.h>
+#import <Foundation/Foundation.h>
 
 #import "Allocation.h"
 
@@ -43,7 +44,7 @@
 void *allocate_safely(size_t size) {
     void *memory = malloc(size);
     if (!memory) {
-//        abort("malloc() call failed")
+        NSLog(@"malloc() call failed");
         abort();
         return NULL;
     }

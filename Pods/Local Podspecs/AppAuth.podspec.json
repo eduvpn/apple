@@ -31,10 +31,8 @@
       "source_files": "Source/*.{h,m}",
       "ios": {
         "source_files": "Source/iOS/**/*.{h,m}",
-        "frameworks": [
-          "SafariServices",
-          "AuthenticationServices"
-        ]
+        "frameworks": "SafariServices",
+        "weak_frameworks": "AuthenticationServices"
       },
       "platforms": {
         "ios": "7.0",

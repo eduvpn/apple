@@ -1,8 +1,8 @@
 //
-//  CompressionFramingNative.h
+//  LZO.h
 //  TunnelKit
 //
-//  Created by Davide De Rosa on 8/30/18.
+//  Created by Davide De Rosa on 3/18/19.
 //  Copyright (c) 2019 Davide De Rosa. All rights reserved.
 //
 //  https://github.com/keeshux
@@ -25,8 +25,18 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger, CompressionFramingNative) {
-    CompressionFramingNativeDisabled,
-    CompressionFramingNativeCompLZO,
-    CompressionFramingNativeCompress
-};
+NS_ASSUME_NONNULL_BEGIN
+
+@protocol LZO
+
+- (nullable NSData *)compressedDataWithData:(NSData *)data error:(NSError **)error;
+- (nullable NSData *)decompressedDataWithData:(NSData *)data error:(NSError **)error;
+- (nullable NSData *)decompressedDataWithBytes:(const uint8_t *)bytes length:(NSInteger)length error:(NSError **)error;
+
+@end
+
+//+ (NSString *)versionString;
+BOOL LZOIsSupported(void);
+id<LZO> LZOCreate(void);
+
+NS_ASSUME_NONNULL_END

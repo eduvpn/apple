@@ -1,8 +1,8 @@
 //
-//  SessionProxy+CompressionFraming.swift
+//  SessionProxy+CompressionAlgorithm.swift
 //  TunnelKit
 //
-//  Created by Davide De Rosa on 8/30/18.
+//  Created by Davide De Rosa on 3/19/19.
 //  Copyright (c) 2019 Davide De Rosa. All rights reserved.
 //
 //  https://github.com/keeshux
@@ -27,22 +27,22 @@ import Foundation
 import __TunnelKitNative
 
 extension SessionProxy {
-
-    /// Defines the type of compression framing.
-    public enum CompressionFraming: Int, Codable, CustomStringConvertible {
-
-        /// No compression framing.
+    
+    /// Defines the type of compression algorithm.
+    public enum CompressionAlgorithm: Int, Codable, CustomStringConvertible {
+        
+        /// No compression.
         case disabled
         
-        /// Framing compatible with `comp-lzo` (deprecated in 2.4).
-        case compLZO
-
-        /// Framing compatible with 2.4 `compress`.
-        case compress
+        /// LZO compression.
+        case LZO
         
-        var native: CompressionFramingNative {
-            guard let val = CompressionFramingNative(rawValue: rawValue) else {
-                fatalError("Unhandled CompressionFraming bridging")
+        /// Any other compression algorithm (unsupported).
+        case other
+        
+        var native: CompressionAlgorithmNative {
+            guard let val = CompressionAlgorithmNative(rawValue: rawValue) else {
+                fatalError("Unhandled CompressionAlgorithm bridging")
             }
             return val
         }
@@ -55,11 +55,11 @@ extension SessionProxy {
             case .disabled:
                 return "disabled"
                 
-            case .compress:
-                return "compress"
+            case .LZO:
+                return "lzo"
                 
-            case .compLZO:
-                return "comp-lzo"
+            case .other:
+                return "other"
             }
         }
     }

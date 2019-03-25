@@ -3,7 +3,7 @@
 //  TunnelKit
 //
 //  Created by Davide De Rosa on 9/24/17.
-//  Copyright (c) 2018 Davide De Rosa. All rights reserved.
+//  Copyright (c) 2019 Davide De Rosa. All rights reserved.
 //
 //  https://github.com/keeshux
 //
@@ -117,7 +117,10 @@ extension TunnelKitProvider {
         /// Data encryption/decryption failed.
         case encryptionData
         
-        /// Server uses compression and this is not supported.
+        /// The LZO engine failed.
+        case lzo
+        
+        /// Server uses an unsupported compression algorithm.
         case serverCompression
         
         /// Tunnel timed out.

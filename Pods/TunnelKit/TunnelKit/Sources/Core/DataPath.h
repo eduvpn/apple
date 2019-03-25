@@ -3,7 +3,7 @@
 //  TunnelKit
 //
 //  Created by Davide De Rosa on 3/2/17.
-//  Copyright (c) 2018 Davide De Rosa. All rights reserved.
+//  Copyright (c) 2019 Davide De Rosa. All rights reserved.
 //
 //  https://github.com/keeshux
 //
@@ -51,6 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
                                 decrypter:(id<DataPathDecrypter>)decrypter
                                    peerId:(uint32_t)peerId // 24-bit, discard most significant byte
                        compressionFraming:(CompressionFramingNative)compressionFraming
+                     compressionAlgorithm:(CompressionAlgorithmNative)compressionAlgorithm
                                maxPackets:(NSInteger)maxPackets
                      usesReplayProtection:(BOOL)usesReplayProtection;
 

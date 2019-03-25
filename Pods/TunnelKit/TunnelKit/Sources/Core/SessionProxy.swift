@@ -3,7 +3,7 @@
 //  TunnelKit
 //
 //  Created by Davide De Rosa on 2/3/17.
-//  Copyright (c) 2018 Davide De Rosa. All rights reserved.
+//  Copyright (c) 2019 Davide De Rosa. All rights reserved.
 //
 //  https://github.com/keeshux
 //
@@ -778,7 +778,7 @@ public class SessionProxy {
                 caPath: caURL.path,
                 clientCertificatePath: (configuration.clientCertificate != nil) ? clientCertificateURL.path : nil,
                 clientKeyPath: (configuration.clientKey != nil) ? clientKeyURL.path : nil,
-                checksEKU: true
+                checksEKU: configuration.checksEKU ?? false
             )
             do {
                 try negotiationKey.tls.start()
@@ -912,9 +912,21 @@ public class SessionProxy {
             reply = optionalReply
             log.debug("Received PUSH_REPLY: \"\(reply.maskedDescription)\"")
             
-            if let framing = reply.compressionFraming, reply.usesCompression {
-                log.error("Server has compression enabled and this is currently unsupported (\(framing))")
-                throw SessionError.serverCompression
+            if let framing = reply.compressionFraming, let compression = reply.compressionAlgorithm {
+                switch compression {
+                case .disabled:
+                    break
+
+                case .LZO:
+                    if !LZOIsSupported() {
+                        log.error("Server has LZO compression enabled and this was not built into the library (framing=\(framing))")
+                        throw SessionError.serverCompression
+                    }
+
+                case .other:
+                    log.error("Server has non-LZO compression enabled and this is currently unsupported (framing=\(framing))")
+                    throw SessionError.serverCompression
+                }
             }
         } catch let e {
             deferStop(.shutdown, e)
@@ -979,7 +991,7 @@ public class SessionProxy {
             if let error = error {
                 self?.queue.sync {
                     log.error("Failed LINK write during control flush: \(error)")
-                    self?.deferStop(.reconnect, SessionError.failedLinkWrite)
+                    self?.deferStop(.shutdown, SessionError.failedLinkWrite)
                     return
                 }
             }
@@ -1021,6 +1033,10 @@ public class SessionProxy {
         if let negFraming = pushedFraming {
             log.info("\tNegotiated compression framing: \(negFraming)")
         }
+        let pushedCompression = pushReply.compressionAlgorithm
+        if let negCompression = pushedCompression {
+            log.info("\tNegotiated compression algorithm: \(negCompression)")
+        }
         if let negPing = pushReply.ping {
             log.info("\tNegotiated keep-alive: \(negPing) seconds")
         }
@@ -1048,6 +1064,7 @@ public class SessionProxy {
             decrypter: bridge.decrypter(),
             peerId: pushReply.peerId ?? PacketPeerIdDisabled,
             compressionFraming: (pushedFraming ?? configuration.compressionFraming).native,
+            compressionAlgorithm: (pushedCompression ?? configuration.compressionAlgorithm ?? .disabled).native,
             maxPackets: link?.packetBufferSize ?? 200,
             usesReplayProtection: CoreConfiguration.usesReplayProtection
         )
@@ -1097,7 +1114,7 @@ public class SessionProxy {
                 if let error = error {
                     self?.queue.sync {
                         log.error("Data: Failed LINK write during send data: \(error)")
-                        self?.deferStop(.reconnect, SessionError.failedLinkWrite)
+                        self?.deferStop(.shutdown, SessionError.failedLinkWrite)
                         return
                     }
                 }
@@ -1143,7 +1160,7 @@ public class SessionProxy {
             if let error = error {
                 self?.queue.sync {
                     log.error("Failed LINK write during send ack for packetId \(controlPacket.packetId): \(error)")
-                    self?.deferStop(.reconnect, SessionError.failedLinkWrite)
+                    self?.deferStop(.shutdown, SessionError.failedLinkWrite)
                     return
                 }
             }
