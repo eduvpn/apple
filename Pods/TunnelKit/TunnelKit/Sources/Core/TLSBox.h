@@ -52,6 +52,8 @@ extern NSString *const TLSBoxPeerVerificationErrorNotification;
 @interface TLSBox : NSObject
 
 + (nullable NSString *)md5ForCertificatePath:(NSString *)path error:(NSError **)error;
++ (nullable NSString *)decryptedPrivateKeyFromPath:(NSString *)path passphrase:(NSString *)passphrase error:(NSError **)error;
++ (nullable NSString *)decryptedPrivateKeyFromPEM:(NSString *)pem passphrase:(NSString *)passphrase error:(NSError **)error;
 
 - (instancetype)initWithCAPath:(NSString *)caPath
          clientCertificatePath:(nullable NSString *)clientCertificatePath

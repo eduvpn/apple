@@ -39,6 +39,8 @@
 #import <openssl/err.h>
 #import <openssl/evp.h>
 #import <openssl/x509v3.h>
+#import <openssl/rsa.h>
+#import <openssl/pem.h>
 
 #import "TLSBox.h"
 #import "Allocation.h"
@@ -105,6 +107,61 @@ int TLSBoxVerifyPeer(int ok, X509_STORE_CTX *ctx) {
         [hex appendFormat:@"%02x", md[i]];
     }
     return hex;
+}
+
++ (NSString *)decryptedPrivateKeyFromPath:(NSString *)path passphrase:(NSString *)passphrase error:(NSError * _Nullable __autoreleasing *)error
+{
+    BIO *bio;
+    if (!(bio = BIO_new_file([path cStringUsingEncoding:NSASCIIStringEncoding], "r"))) {
+        return NULL;
+    }
+    NSString *ret = [[self class] decryptedPrivateKeyFromBIO:bio passphrase:passphrase error:error];
+    BIO_free(bio);
+    return ret;
+}
+
++ (NSString *)decryptedPrivateKeyFromPEM:(NSString *)pem passphrase:(NSString *)passphrase error:(NSError * _Nullable __autoreleasing *)error
+{
+    BIO *bio;
+    if (!(bio = BIO_new_mem_buf([pem cStringUsingEncoding:NSASCIIStringEncoding], (int)[pem length]))) {
+        return NULL;
+    }
+    NSString *ret = [[self class] decryptedPrivateKeyFromBIO:bio passphrase:passphrase error:error];
+    BIO_free(bio);
+    return ret;
+}
+
++ (NSString *)decryptedPrivateKeyFromBIO:(BIO *)bio passphrase:(NSString *)passphrase error:(NSError * _Nullable __autoreleasing *)error
+{
+    RSA *rsaKey;
+    if (!(rsaKey = PEM_read_bio_RSAPrivateKey(bio, NULL, NULL, (void *)passphrase.UTF8String))) {
+        return NULL;
+    }
+    
+    EVP_PKEY *evpKey = EVP_PKEY_new();
+    if (!EVP_PKEY_set1_RSA(evpKey, rsaKey)) {
+        EVP_PKEY_free(evpKey);
+        return NULL;
+    }
+    BIO *output = BIO_new(BIO_s_mem());
+    if (!PEM_write_bio_PKCS8PrivateKey(output, evpKey, NULL, NULL, 0, NULL, NULL)) {
+        BIO_free(output);
+        EVP_PKEY_free(evpKey);
+        return NULL;
+    }
+
+    const int decLength = (int)BIO_ctrl_pending(output);
+    char *decKeyBytes = malloc(decLength + 1);
+    if (BIO_read(output, decKeyBytes, decLength) < 0) {
+        BIO_free(output);
+        EVP_PKEY_free(evpKey);
+        return NULL;
+    }
+    BIO_free(output);
+    EVP_PKEY_free(evpKey);
+    
+    decKeyBytes[decLength] = '\0';
+    return [NSString stringWithCString:decKeyBytes encoding:NSASCIIStringEncoding];
 }
 
 - (instancetype)init

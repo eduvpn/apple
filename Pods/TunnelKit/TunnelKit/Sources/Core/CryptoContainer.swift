@@ -36,6 +36,7 @@
 //
 
 import Foundation
+import __TunnelKitNative
 
 /// Represents a cryptographic container in PEM format.
 public struct CryptoContainer: Equatable {
@@ -71,5 +72,12 @@ extension CryptoContainer: Codable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         try container.encode(pem)
+    }
+}
+
+extension CryptoContainer {
+    func decrypted(with passphrase: String) throws -> CryptoContainer {
+        let decryptedPEM = try TLSBox.decryptedPrivateKey(fromPEM: pem, passphrase: passphrase)
+        return CryptoContainer(pem: decryptedPEM)
     }
 }

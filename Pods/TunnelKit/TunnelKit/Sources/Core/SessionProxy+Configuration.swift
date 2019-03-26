@@ -174,6 +174,9 @@ extension SessionProxy {
         /// Optionally override the server DNS entries.
         public var dnsServers: [String]?
         
+        /// Optionally randomize endpoint order.
+        public var randomizeEndpoint: Bool?
+        
         /// :nodoc:
         public init(ca: CryptoContainer) {
             cipher = .aes128cbc
@@ -189,6 +192,7 @@ extension SessionProxy {
             renegotiatesAfter = nil
             usesPIAPatches = false
             dnsServers = nil
+            randomizeEndpoint = false
         }
 
         /**
@@ -210,7 +214,8 @@ extension SessionProxy {
                 keepAliveInterval: keepAliveInterval,
                 renegotiatesAfter: renegotiatesAfter,
                 usesPIAPatches: usesPIAPatches,
-                dnsServers: dnsServers
+                dnsServers: dnsServers,
+                randomizeEndpoint: randomizeEndpoint
             )
         }
     }
@@ -257,6 +262,9 @@ extension SessionProxy {
         /// - Seealso: `SessionProxy.ConfigurationBuilder.dnsServers`
         public let dnsServers: [String]?
         
+        /// - Seealso: `SessionProxy.ConfigurationBuilder.randomizeEndpoint`
+        public let randomizeEndpoint: Bool?
+        
         /**
          Returns a `SessionProxy.ConfigurationBuilder` to use this configuration as a starting point for a new one.
          
@@ -276,6 +284,7 @@ extension SessionProxy {
             builder.renegotiatesAfter = renegotiatesAfter
             builder.usesPIAPatches = usesPIAPatches
             builder.dnsServers = dnsServers
+            builder.randomizeEndpoint = randomizeEndpoint
             return builder
         }
 
@@ -295,7 +304,8 @@ extension SessionProxy {
                 (lhs.keepAliveInterval == rhs.keepAliveInterval) &&
                 (lhs.renegotiatesAfter == rhs.renegotiatesAfter) &&
                 (lhs.usesPIAPatches == rhs.usesPIAPatches) &&
-                (lhs.dnsServers == rhs.dnsServers)
+                (lhs.dnsServers == rhs.dnsServers) &&
+                (lhs.randomizeEndpoint == rhs.randomizeEndpoint)
         }
     }
 }

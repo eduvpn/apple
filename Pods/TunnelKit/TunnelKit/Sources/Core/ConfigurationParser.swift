@@ -40,6 +40,12 @@ public class ConfigurationParser {
 
         /// The file includes an unsupported option.
         case unsupportedConfiguration(option: String)
+
+        /// Passphrase required to decrypt private keys.
+        case encryptionPassphrase
+
+        /// Encryption passphrase is incorrect or key is corrupt.
+        case unableToDecrypt(error: Error)
     }
 
     /// Result of the parser.
@@ -96,6 +102,8 @@ public class ConfigurationParser {
 
         static let dns = NSRegularExpression("^dhcp-option +DNS6? +[\\d\\.a-fA-F:]+")
         
+        static let remoteRandom = NSRegularExpression("^remote-random")
+        
         // unsupported
 
 //        static let fragment = NSRegularExpression("^fragment +\\d+")
@@ -112,25 +120,27 @@ public class ConfigurationParser {
      Parses an .ovpn file from an URL.
      
      - Parameter url: The URL of the configuration file.
+     - Parameter passphrase: The optional passphrase for encrypted data.
      - Parameter returnsStripped: When `true`, stores the stripped file into `ParsingResult.strippedLines`. Defaults to `false`.
      - Returns: The `ParsingResult` outcome of the parsing.
      - Throws: `ParsingError` if the configuration file is wrong or incomplete.
      */
-    public static func parsed(fromURL url: URL, returnsStripped: Bool = false) throws -> ParsingResult {
+    public static func parsed(fromURL url: URL, passphrase: String? = nil, returnsStripped: Bool = false) throws -> ParsingResult {
         let lines = try String(contentsOf: url).trimmedLines()
-        return try parsed(fromLines: lines, originalURL: url, returnsStripped: returnsStripped)
+        return try parsed(fromLines: lines, passphrase: passphrase, originalURL: url, returnsStripped: returnsStripped)
     }
 
     /**
      Parses an .ovpn file as an array of lines.
      
      - Parameter lines: The array of lines holding the configuration.
-     - Parameter url: The optional URL of the configuration file.
+     - Parameter passphrase: The optional passphrase for encrypted data.
+     - Parameter originalURL: The optional original URL of the configuration file.
      - Parameter returnsStripped: When `true`, stores the stripped file into `ParsingResult.strippedLines`. Defaults to `false`.
      - Returns: The `ParsingResult` outcome of the parsing.
      - Throws: `ParsingError` if the configuration file is wrong or incomplete.
      */
-    public static func parsed(fromLines lines: [String], originalURL: URL? = nil, returnsStripped: Bool = false) throws -> ParsingResult {
+    public static func parsed(fromLines lines: [String], passphrase: String? = nil, originalURL: URL? = nil, returnsStripped: Bool = false) throws -> ParsingResult {
         var strippedLines: [String]? = returnsStripped ? [] : nil
         var warning: ParsingError? = nil
 
@@ -153,6 +163,7 @@ public class ConfigurationParser {
         var tlsKeyLines: [Substring]?
         var tlsWrap: SessionProxy.TLSWrap?
         var dnsServers: [String]?
+        var randomizeEndpoint = false
 
         var currentBlockName: String?
         var currentBlock: [String] = []
@@ -206,10 +217,20 @@ public class ConfigurationParser {
                         clientCertificate = CryptoContainer(pem: currentBlock.joined(separator: "\n"))
                         
                     case "key":
+                        let isEncrypted = normalizeEncryptedPEMBlock(block: &currentBlock)
                         let container = CryptoContainer(pem: currentBlock.joined(separator: "\n"))
-                        clientKey = container
-                        if container.isEncrypted {
-                            unsupportedError = ParsingError.unsupportedConfiguration(option: "encrypted client certificate key")
+                        if isEncrypted {
+                            guard let passphrase = passphrase else {
+                                unsupportedError = ParsingError.encryptionPassphrase
+                                break
+                            }
+                            do {
+                                clientKey = try container.decrypted(with: passphrase)
+                            } catch let e {
+                                unsupportedError = ParsingError.unableToDecrypt(error: e)
+                            }
+                        } else {
+                            clientKey = container
                         }
                         
                     case "tls-auth":
@@ -359,6 +380,9 @@ public class ConfigurationParser {
                 }
                 dnsServers?.append($0[1])
             }
+            Regex.remoteRandom.enumerateComponents(in: line) { (_) in
+                randomizeEndpoint = true
+            }
             Regex.fragment.enumerateComponents(in: line) { (_) in
                 unsupportedError = ParsingError.unsupportedConfiguration(option: "fragment")
             }
@@ -434,6 +458,7 @@ public class ConfigurationParser {
         sessionBuilder.keepAliveInterval = keepAliveSeconds
         sessionBuilder.renegotiatesAfter = renegotiateAfterSeconds
         sessionBuilder.dnsServers = dnsServers
+        sessionBuilder.randomizeEndpoint = randomizeEndpoint
 
         return ParsingResult(
             url: originalURL,
@@ -443,6 +468,16 @@ public class ConfigurationParser {
             strippedLines: strippedLines,
             warning: warning
         )
+    }
+
+    private static func normalizeEncryptedPEMBlock(block: inout [String]) -> Bool {
+        
+        // XXX: restore blank line after encryption header (easier than tweaking trimmedLines)
+        if block.count >= 3 && block[1].contains("ENCRYPTED") {
+            block.insert("", at: 3)
+            return true
+        }
+        return false
     }
 }
 
@@ -463,11 +498,5 @@ extension String {
         }.filter {
             !$0.isEmpty
         }
-    }
-}
-
-extension CryptoContainer {
-    var isEncrypted: Bool {
-        return pem.contains("ENCRYPTED")
     }
 }

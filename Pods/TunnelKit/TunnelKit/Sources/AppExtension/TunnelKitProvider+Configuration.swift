@@ -67,12 +67,12 @@ extension TunnelKitProvider {
                 keepAliveInterval: nil,
                 renegotiatesAfter: nil,
                 usesPIAPatches: nil,
-                dnsServers: nil
+                dnsServers: nil,
+                randomizeEndpoint: false
             ),
             shouldDebug: false,
-            debugLogKey: nil,
             debugLogFormat: nil,
-            lastErrorKey: nil
+            masksPrivateData: true
         )
         
         /// Prefers resolved addresses over DNS resolution. `resolvedAddresses` must be set and non-empty. Default is `false`.
@@ -97,16 +97,11 @@ extension TunnelKitProvider {
         /// Enables debugging.
         public var shouldDebug: Bool
         
-        /// This attribute is ignored and deprecated. Use `urlForLog(...)` or `existingLog(...)` to access the debug log.
-        @available(*, deprecated)
-        public var debugLogKey: String?
-        
         /// Optional debug log format (SwiftyBeaver format).
         public var debugLogFormat: String?
         
-        /// This attribute is ignored and deprecated. Use `lastError(...)` to access the last error.
-        @available(*, deprecated)
-        public var lastErrorKey: String?
+        /// Mask private data in debug log (default is `true`).
+        public var masksPrivateData: Bool?
         
         // MARK: Building
         
@@ -123,6 +118,7 @@ extension TunnelKitProvider {
             self.sessionConfiguration = sessionConfiguration
             shouldDebug = ConfigurationBuilder.defaults.shouldDebug
             debugLogFormat = ConfigurationBuilder.defaults.debugLogFormat
+            masksPrivateData = ConfigurationBuilder.defaults.masksPrivateData
         }
         
         fileprivate init(providerConfiguration: [String: Any]) throws {
@@ -191,16 +187,18 @@ extension TunnelKitProvider {
                     throw ProviderConfigurationError.parameter(name: "protocolConfiguration.providerConfiguration[\(S.tlsWrap)]")
                 }
             }
-            sessionConfigurationBuilder.keepAliveInterval = providerConfiguration[S.keepAlive] as? TimeInterval
-            sessionConfigurationBuilder.renegotiatesAfter = providerConfiguration[S.renegotiatesAfter] as? TimeInterval
-            sessionConfigurationBuilder.usesPIAPatches = providerConfiguration[S.usesPIAPatches] as? Bool ?? false
+            sessionConfigurationBuilder.keepAliveInterval = providerConfiguration[S.keepAlive] as? TimeInterval ?? ConfigurationBuilder.defaults.sessionConfiguration.keepAliveInterval
+            sessionConfigurationBuilder.renegotiatesAfter = providerConfiguration[S.renegotiatesAfter] as? TimeInterval ?? ConfigurationBuilder.defaults.sessionConfiguration.renegotiatesAfter
+            sessionConfigurationBuilder.usesPIAPatches = providerConfiguration[S.usesPIAPatches] as? Bool ?? ConfigurationBuilder.defaults.sessionConfiguration.usesPIAPatches
             sessionConfigurationBuilder.dnsServers = providerConfiguration[S.dnsServers] as? [String]
+            sessionConfigurationBuilder.randomizeEndpoint = providerConfiguration[S.randomizeEndpoint] as? Bool ?? ConfigurationBuilder.defaults.sessionConfiguration.randomizeEndpoint
             sessionConfiguration = sessionConfigurationBuilder.build()
 
-            shouldDebug = providerConfiguration[S.debug] as? Bool ?? false
+            shouldDebug = providerConfiguration[S.debug] as? Bool ?? ConfigurationBuilder.defaults.shouldDebug
             if shouldDebug {
                 debugLogFormat = providerConfiguration[S.debugLogFormat] as? String
             }
+            masksPrivateData = providerConfiguration[S.masksPrivateData] as? Bool ?? ConfigurationBuilder.defaults.masksPrivateData
 
             guard !prefersResolvedAddresses || !(resolvedAddresses?.isEmpty ?? true) else {
                 throw ProviderConfigurationError.parameter(name: "protocolConfiguration.providerConfiguration[\(S.prefersResolvedAddresses)] is true but no [\(S.resolvedAddresses)]")
@@ -220,9 +218,8 @@ extension TunnelKitProvider {
                 mtu: mtu,
                 sessionConfiguration: sessionConfiguration,
                 shouldDebug: shouldDebug,
-                debugLogKey: nil,
                 debugLogFormat: shouldDebug ? debugLogFormat : nil,
-                lastErrorKey: nil
+                masksPrivateData: masksPrivateData
             )
         }
     }
@@ -266,11 +263,15 @@ extension TunnelKitProvider {
 
             static let dnsServers = "DNSServers"
             
+            static let randomizeEndpoint = "RandomizeEndpoint"
+            
             // MARK: Debugging
             
             static let debug = "Debug"
             
             static let debugLogFormat = "DebugLogFormat"
+
+            static let masksPrivateData = "MasksPrivateData"
         }
         
         /// - Seealso: `TunnelKitProvider.ConfigurationBuilder.prefersResolvedAddresses`
@@ -291,16 +292,11 @@ extension TunnelKitProvider {
         /// - Seealso: `TunnelKitProvider.ConfigurationBuilder.shouldDebug`
         public let shouldDebug: Bool
         
-        /// - Seealso: `TunnelKitProvider.ConfigurationBuilder.debugLogKey`
-        @available(*, deprecated)
-        public let debugLogKey: String?
-        
         /// - Seealso: `TunnelKitProvider.ConfigurationBuilder.debugLogFormat`
         public let debugLogFormat: String?
         
-        /// - Seealso: `TunnelKitProvider.ConfigurationBuilder.lastErrorKey`
-        @available(*, deprecated)
-        public let lastErrorKey: String?
+        /// - Seealso: `TunnelKitProvider.ConfigurationBuilder.masksPrivateData`
+        public let masksPrivateData: Bool?
         
         // MARK: Shortcuts
 
@@ -434,8 +430,14 @@ extension TunnelKitProvider {
             if let dnsServers = sessionConfiguration.dnsServers {
                 dict[S.dnsServers] = dnsServers
             }
+            if let randomizeEndpoint = sessionConfiguration.randomizeEndpoint {
+                dict[S.randomizeEndpoint] = randomizeEndpoint
+            }
             if let debugLogFormat = debugLogFormat {
                 dict[S.debugLogFormat] = debugLogFormat
+            }
+            if let masksPrivateData = masksPrivateData {
+                dict[S.masksPrivateData] = masksPrivateData
             }
             return dict
         }
@@ -513,7 +515,11 @@ extension TunnelKitProvider {
             if let dnsServers = sessionConfiguration.dnsServers {
                 log.info("\tCustom DNS servers: \(dnsServers.maskedDescription)")
             }
+            if sessionConfiguration.randomizeEndpoint ?? false {
+                log.info("\tRandomize endpoint: true")
+            }
             log.info("\tDebug: \(shouldDebug)")
+            log.info("\tMasks private data: \(masksPrivateData ?? true)")
         }
     }
 }

@@ -48,7 +48,6 @@ Unsupported:
 - Compression via `--compress` other than empty or `lzo`
 - Proxy
 - External file references (inline `<block>` only)
-- Encrypted client certificate keys
 - `<connection>` blocks
 
 Ignored:
