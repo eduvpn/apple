@@ -60,6 +60,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
                 self.configureVPN({ (_) in
                     let sessionConfig = parseResult.configuration.builder().build()
                     var builder = TunnelKitProvider.ConfigurationBuilder(sessionConfiguration: sessionConfig)
+                    builder.masksPrivateData = false
                     builder.endpointProtocols = parseResult.protocols
                     let configuration = builder.build()
 
