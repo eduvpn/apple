@@ -180,7 +180,7 @@ extension DynamicApiProvider: Hashable {
         return lhs.api.apiBaseUri == rhs.api.apiBaseUri
     }
 
-    var hashValue: Int {
-        return api.apiBaseUri?.hashValue ?? 0
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(api.apiBaseUri)
     }
 }

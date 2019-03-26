@@ -69,8 +69,8 @@ extension InstanceProfileModel {
 }
 
 extension InstanceProfileModel: Hashable {
-    var hashValue: Int {
-        return profileId.hashValue
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(profileId)
     }
 
     static func == (lhs: InstanceProfileModel, rhs: InstanceProfileModel) -> Bool {

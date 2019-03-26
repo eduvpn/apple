@@ -11,9 +11,9 @@ import Moya
 
 public extension MoyaProvider {
 
-    public typealias PendingRequestPromise = (promise: Promise<Moya.Response>, cancellable: Cancellable)
+    typealias PendingRequestPromise = (promise: Promise<Moya.Response>, cancellable: Cancellable)
 
-    public func request(target: Target,
+    func request(target: Target,
                         queue: DispatchQueue? = nil,
                         progress: Moya.ProgressBlock? = nil) -> Promise<Moya.Response> {
         return requestCancellable(target: target,

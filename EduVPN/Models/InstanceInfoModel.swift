@@ -39,8 +39,8 @@ extension InstanceInfoModel {
 }
 
 extension InstanceInfoModel: Hashable {
-    var hashValue: Int {
-        return apiBaseUrl.hashValue
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(apiBaseUrl)
     }
 
     static func == (lhs: InstanceInfoModel, rhs: InstanceInfoModel) -> Bool {
