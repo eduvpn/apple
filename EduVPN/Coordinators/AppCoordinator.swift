@@ -19,7 +19,7 @@ import BNRCoreDataStack
 
 import AppAuth
 
-import Sodium
+import libsodium
 
 import NVActivityIndicatorView
 
@@ -376,6 +376,20 @@ class AppCoordinator: RootViewCoordinator {
         self.navigationController.pushViewController(customProviderInputViewController, animated: true)
     }
 
+    private typealias Bytes = Array<UInt8>
+
+    private func verify(message: Bytes, publicKey: Bytes, signature: Bytes) -> Bool {
+        guard publicKey.count == 32 else {
+            return false
+        }
+
+        return 0 == crypto_sign_verify_detached (
+            signature,
+            message, UInt64(message.count),
+            publicKey
+            )
+    }
+
     private func showProviderTableViewController(for providerType: ProviderType) {
         let providerTableViewController = storyboard.instantiateViewController(type: ProviderTableViewController.self)
         providerTableViewController.providerType = providerType
@@ -412,7 +426,7 @@ class AppCoordinator: RootViewCoordinator {
             }
         }.then { signature -> Promise<Moya.Response> in
             return provider.request(target: target).then { response throws -> Promise<Moya.Response> in
-                guard Sodium().sign.verify(message: Array(response.data), publicKey: Array(StaticService.publicKey), signature: Array(signature)) else {
+                guard self.verify(message: Array(response.data), publicKey: Array(StaticService.publicKey), signature: Array(signature)) else {
                     throw AppCoordinatorError.sodiumSignatureVerifyFailed
                 }
                 return Promise.value(response)

@@ -14,7 +14,7 @@ target 'EduVPN' do
   pod 'Moya'
   pod 'Disk'
   pod 'AlamofireImage'
-  pod 'Sodium'
+  pod 'libsodium'
   pod 'ASN1Decoder'
   pod 'BNRCoreDataStack'
   pod 'NVActivityIndicatorView'

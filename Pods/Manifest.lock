@@ -10,6 +10,7 @@ PODS:
   - ASN1Decoder (1.2)
   - BNRCoreDataStack (2.3.1)
   - Disk (0.4.0)
+  - libsodium (1.0.12)
   - Moya (12.0.1):
     - Moya/Core (= 12.0.1)
   - Moya/Core (12.0.1):
@@ -21,7 +22,6 @@ PODS:
   - OpenSSL-Apple (1.1.0i.2)
   - PromiseKit/CorePromise (6.8.3)
   - Result (4.1.0)
-  - Sodium (0.7.0)
   - SwiftLint (0.31.0)
   - SwiftyBeaver (1.6.2)
   - TunnelKit (1.5.1):
@@ -40,10 +40,10 @@ DEPENDENCIES:
   - ASN1Decoder
   - BNRCoreDataStack
   - Disk
+  - libsodium
   - Moya
   - NVActivityIndicatorView
   - PromiseKit/CorePromise
-  - Sodium
   - SwiftLint
   - TunnelKit
 
@@ -54,12 +54,12 @@ SPEC REPOS:
     - ASN1Decoder
     - BNRCoreDataStack
     - Disk
+    - libsodium
     - Moya
     - NVActivityIndicatorView
     - OpenSSL-Apple
     - PromiseKit
     - Result
-    - Sodium
     - SwiftLint
     - SwiftyBeaver
     - TunnelKit
@@ -80,16 +80,16 @@ SPEC CHECKSUMS:
   ASN1Decoder: 1a1f4fa469e14083f2664e182975a39299cb5e32
   BNRCoreDataStack: d9d7d0ed1afd27dca5a903dde1250aa4c6dbc3f5
   Disk: ef2956657d5bb56034b38b29b352170165226440
+  libsodium: 9a8faa5ef2fa0d2d57bd7f7d79bf8fb7c1a9f0ea
   Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
   NVActivityIndicatorView: 4ca19fccc84595a78957336a086d00a49be6ce61
   OpenSSL-Apple: 37a8c0b04df4bb8971deef4671cc29222861319c
   PromiseKit: 94c6e781838c5bf4717677d0d882b0e7250c80fc
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
-  Sodium: c5510cc6f5e1b27858e5f260b5cac80d4a3f9379
   SwiftLint: 7a0227733d786395817373b2d0ca799fd0093ff3
   SwiftyBeaver: 8e67ab3cd94389cbbb7a9c7cc02748d98bfee68e
   TunnelKit: fb4db4d4c4b36af0ca8e973e3345a1c3ef5ac85c
 
-PODFILE CHECKSUM: 5f7eb0d65fe00606ca1b5be204b658d925b10f0e
+PODFILE CHECKSUM: b7fdc6bac157cd00774f432eac7d6703caad3d3f
 
 COCOAPODS: 1.6.1
