@@ -53,6 +53,8 @@ class VPNConnectionViewController: UIViewController {
                 statusImage.image = UIImage(named: "connecting")
             case .disconnected, .invalid:
                 statusImage.image = UIImage(named: "disconnected")
+            @unknown default:
+                fatalError()
             }
         }
     }
@@ -163,6 +165,8 @@ class VPNConnectionViewController: UIViewController {
 
         case .disconnected, .invalid:
             buttonConnection.setTitle(NSLocalizedString("Connect", comment: ""), for: .normal)
+        @unknown default:
+            fatalError()
         }
     }
 
@@ -190,8 +194,8 @@ class VPNConnectionViewController: UIViewController {
         durationLabel.text = intervalString
 
         try? vpn.sendProviderMessage(TunnelKitProvider.Message.dataCount.data) { [weak self] (data) in
-            let dataCount = data?.withUnsafeBytes({ (pointer: UnsafePointer<(UInt64, UInt64)>) -> (UInt64, UInt64) in
-                pointer.pointee
+            let dataCount = data?.withUnsafeBytes({ (pointer) -> (UInt64, UInt64) in
+                pointer.load(as: (UInt64, UInt64).self)
             })
             if let inByteCount = dataCount?.0 {
                 self?.inBytesLabel.text = ByteCountFormatter.string(fromByteCount: Int64(inByteCount), countStyle: .binary )
@@ -224,6 +228,8 @@ extension NEVPNStatus {
             return "Invalid"
         case .reasserting:
             return "Reasserting"
+        @unknown default:
+            fatalError()
         }
     }
 }
