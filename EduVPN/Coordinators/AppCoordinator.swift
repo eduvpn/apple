@@ -600,7 +600,15 @@ class AppCoordinator: RootViewCoordinator {
             if authFlow.resumeExternalUserAgentFlow(with: url) == true {
                 let authorizationType = authorizingDynamicApiProvider.api.instance?.group?.authorizationTypeEnum ?? .local
                 if authorizationType == .distributed {
-                    authorizingDynamicApiProvider.api.instance?.group?.distributedAuthorizationApi = authorizingDynamicApiProvider.api
+                    authorizingDynamicApiProvider.api.managedObjectContext?.performAndWait {
+                        authorizingDynamicApiProvider.api.instance?.group?.distributedAuthorizationApi = authorizingDynamicApiProvider.api
+                    }
+                    do {
+                        try authorizingDynamicApiProvider.api.managedObjectContext?.save()
+                    } catch {
+                        authorizingDynamicApiProvider.currentAuthorizationFlow = nil
+                        return false
+                    }
                 }
                 authorizingDynamicApiProvider.currentAuthorizationFlow = nil
                 return true
