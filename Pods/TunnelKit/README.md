@@ -65,7 +65,7 @@ Many other flags are ignored too but it's normally not an issue.
 ### Requirements
 
 - iOS 11.0+ / macOS 10.11+
-- Xcode 10+ (Swift 4.2)
+- Xcode 10+ (Swift 5)
 - Git (preinstalled with Xcode Command Line Tools)
 - Ruby (preinstalled with macOS)
 - [CocoaPods 1.6.0][dep-cocoapods]

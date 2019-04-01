@@ -4064,40 +4064,6 @@
 			};
 			name = Release;
 		};
-		06187DC3720B09F6A09CE86936F30BEA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A04B3967B21377EA0BB33B01B8ACCA36 /* TunnelKit.xcconfig */;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/TunnelKit/TunnelKit-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/TunnelKit/TunnelKit-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/TunnelKit/TunnelKit.modulemap";
-				PRODUCT_MODULE_NAME = TunnelKit;
-				PRODUCT_NAME = TunnelKit;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 		090581EE927F952F55464280F20EC46F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 756D3ED24139445D4C8C9FC50CEDAF28 /* AppAuth.xcconfig */;
@@ -4145,6 +4111,41 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
+		};
+		301BE989A8374405404F34A91E55C3C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A04B3967B21377EA0BB33B01B8ACCA36 /* TunnelKit.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/TunnelKit/TunnelKit-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/TunnelKit/TunnelKit-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/TunnelKit/TunnelKit.modulemap";
+				PRODUCT_MODULE_NAME = TunnelKit;
+				PRODUCT_NAME = TunnelKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
 		};
 		399C1665892B2D04D1E96EE5A25F65FD /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -4899,6 +4900,40 @@
 			};
 			name = Debug;
 		};
+		DC7E9D9B46B3CAF22110CB32CE843990 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A04B3967B21377EA0BB33B01B8ACCA36 /* TunnelKit.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/TunnelKit/TunnelKit-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/TunnelKit/TunnelKit-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/TunnelKit/TunnelKit.modulemap";
+				PRODUCT_MODULE_NAME = TunnelKit;
+				PRODUCT_NAME = TunnelKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		DCA3E8254611D044E0F63664F85A305C /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DA8A956BC0EEF0213F7CA03377E0CCE4 /* BNRCoreDataStack.xcconfig */;
@@ -5076,41 +5111,6 @@
 			};
 			name = Release;
 		};
-		EC0CB9A880E63B0E426648C99F4F70BD /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A04B3967B21377EA0BB33B01B8ACCA36 /* TunnelKit.xcconfig */;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/TunnelKit/TunnelKit-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/TunnelKit/TunnelKit-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/TunnelKit/TunnelKit.modulemap";
-				PRODUCT_MODULE_NAME = TunnelKit;
-				PRODUCT_NAME = TunnelKit;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -5144,8 +5144,8 @@
 		45698293C62EF0F87FDEBBD25968AE8F /* Build configuration list for PBXNativeTarget "TunnelKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				06187DC3720B09F6A09CE86936F30BEA /* Debug */,
-				EC0CB9A880E63B0E426648C99F4F70BD /* Release */,
+				DC7E9D9B46B3CAF22110CB32CE843990 /* Debug */,
+				301BE989A8374405404F34A91E55C3C8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -77,8 +77,9 @@ class SecureRandom {
     static func data(length: Int) throws -> Data {
         var randomData = Data(count: length)
 
-        try randomData.withUnsafeMutableBytes { (randomBytes: UnsafeMutablePointer<UInt8>) -> Void in
-            guard (SecRandomCopyBytes(kSecRandomDefault, length, randomBytes) == 0) else {
+        try randomData.withUnsafeMutableBytes {
+            let randomBytes = $0.bytePointer
+            guard SecRandomCopyBytes(kSecRandomDefault, length, randomBytes) == 0 else {
                 throw SecureRandomError.randomGenerator
             }
         }

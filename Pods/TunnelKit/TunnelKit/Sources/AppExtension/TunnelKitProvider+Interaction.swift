@@ -56,7 +56,7 @@ extension TunnelKitProvider {
         public let data: Data
         
         private init(_ byte: UInt8) {
-            data = Data(bytes: [byte])
+            data = Data([byte])
         }
         
         init(_ data: Data) {

@@ -192,7 +192,8 @@ extension ControlChannel {
             // needs a copy for swapping
             var authPacket = packet
             let authCount = authPacket.count
-            try authPacket.withUnsafeMutableBytes { (ptr: UnsafeMutablePointer<UInt8>) in
+            try authPacket.withUnsafeMutableBytes {
+                let ptr = $0.bytePointer
                 PacketSwapCopy(ptr, packet, prefixLength, authLength)
                 try decrypter.verifyBytes(ptr, length: authCount, flags: nil)
             }
@@ -265,9 +266,11 @@ extension ControlChannel {
             let encryptedCount = packet.count - adLength
             var decryptedPacket = Data(count: decrypter.encryptionCapacity(withLength: encryptedCount))
             var decryptedCount = 0
-            try packet.withUnsafeBytes { (src: UnsafePointer<UInt8>) in
+            try packet.withUnsafeBytes {
+                let src = $0.bytePointer
                 var flags = CryptoFlags(iv: nil, ivLength: 0, ad: src, adLength: adLength)
-                try decryptedPacket.withUnsafeMutableBytes { (dest: UnsafeMutablePointer<UInt8>) in
+                try decryptedPacket.withUnsafeMutableBytes {
+                    let dest = $0.bytePointer
                     try decrypter.decryptBytes(src + flags.adLength, length: encryptedCount, dest: dest + headerLength, destLength: &decryptedCount, flags: &flags)
                     memcpy(dest, src, headerLength)
                 }

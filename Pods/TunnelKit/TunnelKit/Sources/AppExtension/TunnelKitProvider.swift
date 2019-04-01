@@ -72,6 +72,9 @@ open class TunnelKitProvider: NEPacketTunnelProvider {
     /// The number of link failures after which the tunnel is expected to die.
     public var maxLinkFailures = 3
 
+    /// The number of milliseconds between data count updates. Set to 0 to disable updates (default).
+    public var dataCountInterval = 0
+    
     // MARK: Constants
     
     private let memoryLog = MemoryDestination()
@@ -111,6 +114,8 @@ open class TunnelKitProvider: NEPacketTunnelProvider {
     private var pendingStartHandler: ((Error?) -> Void)?
     
     private var pendingStopHandler: (() -> Void)?
+    
+    private var isCountingData = false
     
     // MARK: NEPacketTunnelProvider (XPC queue)
     
@@ -161,7 +166,7 @@ open class TunnelKitProvider: NEPacketTunnelProvider {
 
         if let content = cfg.existingLog(in: appGroup) {
             var existingLog = content.components(separatedBy: "\n")
-            if let i = existingLog.index(of: logSeparator) {
+            if let i = existingLog.firstIndex(of: logSeparator) {
                 existingLog.removeFirst(i + 2)
             }
             
@@ -194,6 +199,7 @@ open class TunnelKitProvider: NEPacketTunnelProvider {
         let proxy: SessionProxy
         do {
             proxy = try SessionProxy(queue: tunnelQueue, configuration: cfg.sessionConfiguration, cachesURL: cachesURL)
+            refreshDataCount()
         } catch let e {
             completionHandler(e)
             return
@@ -244,8 +250,7 @@ open class TunnelKitProvider: NEPacketTunnelProvider {
             response = memoryLog.description.data(using: .utf8)
 
         case .dataCount:
-            if let proxy = proxy {
-                let dataCount = proxy.dataCount()
+            if let proxy = proxy, let dataCount = proxy.dataCount() {
                 response = Data()
                 response?.append(UInt64(dataCount.0)) // inbound
                 response?.append(UInt64(dataCount.1)) // outbound
@@ -339,6 +344,22 @@ open class TunnelKitProvider: NEPacketTunnelProvider {
         else {
             cancelTunnelWithError(error)
         }
+    }
+    
+    // MARK: Data counter (tunnel queue)
+
+    private func refreshDataCount() {
+        guard dataCountInterval > 0 else {
+            return
+        }
+        tunnelQueue.schedule(after: .milliseconds(dataCountInterval)) { [weak self] in
+            self?.refreshDataCount()
+        }
+        guard isCountingData, let proxy = proxy, let dataCount = proxy.dataCount() else {
+            defaults?.removeDataCountArray()
+            return
+        }
+        defaults?.dataCountArray = [dataCount.0, dataCount.1]
     }
 }
 
@@ -461,11 +482,17 @@ extension TunnelKitProvider: SessionProxyDelegate {
             self.pendingStartHandler?(nil)
             self.pendingStartHandler = nil
         }
+
+        isCountingData = true
+        refreshDataCount()
     }
     
     /// :nodoc:
     public func sessionDidStop(_: SessionProxy, shouldReconnect: Bool) {
         log.info("Session did stop")
+
+        isCountingData = false
+        refreshDataCount()
 
         reasserting = shouldReconnect
         socket?.shutdown()
@@ -601,6 +628,9 @@ extension TunnelKitProvider {
                 
             case .LZO:
                 return .lzo
+
+            default:
+                break
             }
         } else if let se = error as? SessionError {
             switch se {

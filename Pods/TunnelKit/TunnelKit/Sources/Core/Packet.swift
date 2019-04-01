@@ -156,6 +156,7 @@ extension PacketCode: CustomStringConvertible {
         case .hardResetServerV2:    return "HARD_RESET_SERVER_V2"
         case .dataV2:               return "DATA_V2"
         case .unknown:              return "UNKNOWN"
+        @unknown default:           return "UNKNOWN"
         }
     }
 }

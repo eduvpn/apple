@@ -115,9 +115,10 @@ extension CustomStringConvertible {
             return description
         }
         var data = description.data(using: .utf8)!
+        let dataCount = CC_LONG(data.count)
         var md = Data(count: Int(CC_SHA1_DIGEST_LENGTH))
         md.withUnsafeMutableBytes {
-            _ = CC_SHA1(&data, CC_LONG(data.count), $0)
+            _ = CC_SHA1(&data, dataCount, $0.bytePointer)
         }
         return "#\(md.toHex().prefix(16))#"
     }

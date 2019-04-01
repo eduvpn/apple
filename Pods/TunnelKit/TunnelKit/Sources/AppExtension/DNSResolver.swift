@@ -76,7 +76,8 @@ public class DNSResolver {
         var ipAddresses: [String] = []
         for case var rawAddress as Data in rawAddresses {
             var ipAddress = [CChar](repeating: 0, count: Int(NI_MAXHOST))
-            let result = rawAddress.withUnsafeBytes { (addr: UnsafePointer<sockaddr>) in
+            let result: Int32 = rawAddress.withUnsafeBytes {
+                let addr = $0.bindMemory(to: sockaddr.self).baseAddress!
                 return getnameinfo(
                     addr,
                     socklen_t(rawAddress.count),
@@ -99,7 +100,8 @@ public class DNSResolver {
         var addr = in_addr(s_addr: CFSwapInt32HostToBig(ipv4))
         var buf = Data(count: Int(INET_ADDRSTRLEN))
         let bufCount = socklen_t(buf.count)
-        let resultPtr = buf.withUnsafeMutableBytes { (bufPtr) in
+        let resultPtr: UnsafePointer<CChar>? = buf.withUnsafeMutableBytes {
+            let bufPtr = $0.bindMemory(to: CChar.self).baseAddress!
             return withUnsafePointer(to: &addr) {
                 return inet_ntop(AF_INET, $0, bufPtr, bufCount)
             }

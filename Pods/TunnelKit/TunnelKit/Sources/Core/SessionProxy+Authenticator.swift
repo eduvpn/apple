@@ -42,7 +42,7 @@ import __TunnelKitNative
 private let log = SwiftyBeaver.self
 
 fileprivate extension ZeroingData {
-    fileprivate func appendSized(_ buf: ZeroingData) {
+    func appendSized(_ buf: ZeroingData) {
         append(Z(UInt16(buf.count).bigEndian))
         append(buf)
     }

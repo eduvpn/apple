@@ -48,6 +48,7 @@ extension NWUDPSessionState: CustomStringConvertible {
         case .preparing: return "preparing"
         case .ready: return "ready"
         case .waiting: return "waiting"
+        @unknown default: return "???"
         }
     }
 }

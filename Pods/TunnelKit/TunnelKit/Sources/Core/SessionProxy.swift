@@ -309,7 +309,10 @@ public class SessionProxy {
  
      - Returns: The current data bytes count as a pair, inbound first.
      */
-    public func dataCount() -> (Int, Int) {
+    public func dataCount() -> (Int, Int)? {
+        guard let _ = link else {
+            return nil
+        }
         return controlChannel.currentDataCount()
     }
     

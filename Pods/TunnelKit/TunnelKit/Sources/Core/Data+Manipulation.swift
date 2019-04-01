@@ -66,7 +66,7 @@ extension Data {
             }
             bytes[index >> 1] |= nibble
         }
-        self = Data(bytes: bytes)
+        self = Data(bytes)
     }
 
     func toHex() -> String {
@@ -164,7 +164,9 @@ extension Data {
     
     // best
     func UInt32Value(from: Int) -> UInt32 {
-        return subdata(in: from..<(from + 4)).withUnsafeBytes { $0.pointee }
+        return subdata(in: from..<(from + 4)).withUnsafeBytes {
+            $0.load(as: UInt32.self)
+        }
     }
 
     @available(*, deprecated)
@@ -182,13 +184,13 @@ extension Data {
 
     func networkUInt16Value(from: Int) -> UInt16 {
         return UInt16(bigEndian: subdata(in: from..<(from + 2)).withUnsafeBytes {
-            $0.pointee
+            $0.load(as: UInt16.self)
         })
     }
 
     func networkUInt32Value(from: Int) -> UInt32 {
         return UInt32(bigEndian: subdata(in: from..<(from + 4)).withUnsafeBytes {
-            $0.pointee
+            $0.load(as: UInt32.self)
         })
     }
 }
@@ -202,5 +204,17 @@ extension Data {
 extension Array where Element == Data {
     var flatCount: Int {
         return map { $0.count }.reduce(0) { $0 + $1 }
+    }
+}
+
+extension UnsafeRawBufferPointer {
+    var bytePointer: UnsafePointer<Element> {
+        return bindMemory(to: Element.self).baseAddress!
+    }
+}
+
+extension UnsafeMutableRawBufferPointer {
+    var bytePointer: UnsafeMutablePointer<Element> {
+        return bindMemory(to: Element.self).baseAddress!
     }
 }

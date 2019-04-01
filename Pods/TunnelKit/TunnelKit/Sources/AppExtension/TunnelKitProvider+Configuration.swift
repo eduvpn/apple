@@ -190,6 +190,7 @@ extension TunnelKitProvider {
             sessionConfigurationBuilder.keepAliveInterval = providerConfiguration[S.keepAlive] as? TimeInterval ?? ConfigurationBuilder.defaults.sessionConfiguration.keepAliveInterval
             sessionConfigurationBuilder.renegotiatesAfter = providerConfiguration[S.renegotiatesAfter] as? TimeInterval ?? ConfigurationBuilder.defaults.sessionConfiguration.renegotiatesAfter
             sessionConfigurationBuilder.usesPIAPatches = providerConfiguration[S.usesPIAPatches] as? Bool ?? ConfigurationBuilder.defaults.sessionConfiguration.usesPIAPatches
+            sessionConfigurationBuilder.checksEKU = providerConfiguration[S.checksEKU] as? Bool ?? ConfigurationBuilder.defaults.sessionConfiguration.checksEKU
             sessionConfigurationBuilder.dnsServers = providerConfiguration[S.dnsServers] as? [String]
             sessionConfigurationBuilder.randomizeEndpoint = providerConfiguration[S.randomizeEndpoint] as? Bool ?? ConfigurationBuilder.defaults.sessionConfiguration.randomizeEndpoint
             sessionConfiguration = sessionConfigurationBuilder.build()
@@ -260,6 +261,8 @@ extension TunnelKitProvider {
             static let renegotiatesAfter = "RenegotiatesAfter"
             
             static let usesPIAPatches = "UsesPIAPatches"
+            
+            static let checksEKU = "ChecksEKU"
 
             static let dnsServers = "DNSServers"
             
@@ -302,7 +305,9 @@ extension TunnelKitProvider {
 
         static let debugLogFilename = "debug.log"
 
-        static let lastErrorKey = "LastTunnelKitError"
+        static let lastErrorKey = "TunnelKitLastError"
+
+        fileprivate static let dataCountKey = "TunnelKitDataCount"
         
         /**
          Returns the URL of the latest debug log.
@@ -353,6 +358,22 @@ extension TunnelKitProvider {
          */
         public func clearLastError(in appGroup: String) {
             UserDefaults(suiteName: appGroup)?.removeObject(forKey: Configuration.lastErrorKey)
+        }
+        
+        /**
+         Returns the most recent (received, sent) count in bytes.
+         
+         - Parameter in: The app group where to locate the count pair.
+         - Returns: The bytes count pair, if any.
+         */
+        public func dataCount(in appGroup: String) -> (Int, Int)? {
+            guard let rawValue = UserDefaults(suiteName: appGroup)?.dataCountArray else {
+                return nil
+            }
+            guard rawValue.count == 2 else {
+                return nil
+            }
+            return (rawValue[0], rawValue[1])
         }
         
         // MARK: API
@@ -426,6 +447,9 @@ extension TunnelKitProvider {
             }
             if let usesPIAPatches = sessionConfiguration.usesPIAPatches {
                 dict[S.usesPIAPatches] = usesPIAPatches
+            }
+            if let checksEKU = sessionConfiguration.checksEKU {
+                dict[S.checksEKU] = checksEKU
             }
             if let dnsServers = sessionConfiguration.dnsServers {
                 dict[S.dnsServers] = dnsServers
@@ -566,5 +590,21 @@ extension EndpointProtocol: Codable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         try container.encode(rawValue)
+    }
+}
+
+/// :nodoc:
+public extension UserDefaults {
+    @objc var dataCountArray: [Int]? {
+        get {
+            return array(forKey: TunnelKitProvider.Configuration.dataCountKey) as? [Int]
+        }
+        set {
+            set(newValue, forKey: TunnelKitProvider.Configuration.dataCountKey)
+        }
+    }
+
+    func removeDataCountArray() {
+        removeObject(forKey: TunnelKitProvider.Configuration.dataCountKey)
     }
 }
