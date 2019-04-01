@@ -475,7 +475,10 @@ class AppCoordinator: RootViewCoordinator {
 
                     let updatedInstanceIdentifiers = updatedInstances.compactMap { $0.baseUri}
 
-                    let deletedInstances = group.instances.subtracting(updatedInstances)
+                    let deletedInstances = group.instances.filter{
+                        guard let baseUri = $0.baseUri else { return false }
+                        return !updatedInstanceIdentifiers.contains(baseUri)
+                    }
                     deletedInstances.forEach {
                         context.delete($0)
                     }
