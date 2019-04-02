@@ -2,14 +2,14 @@ PODS:
   - Alamofire (4.8.2)
   - AlamofireImage (3.5.2):
     - Alamofire (~> 4.8)
-  - AppAuth (1.0.0.beta1):
-    - AppAuth/Core (= 1.0.0.beta1)
-    - AppAuth/ExternalUserAgent (= 1.0.0.beta1)
-  - AppAuth/Core (1.0.0.beta1)
-  - AppAuth/ExternalUserAgent (1.0.0.beta1)
+  - AppAuth (1.0.0.rc1):
+    - AppAuth/Core (= 1.0.0.rc1)
+    - AppAuth/ExternalUserAgent (= 1.0.0.rc1)
+  - AppAuth/Core (1.0.0.rc1)
+  - AppAuth/ExternalUserAgent (1.0.0.rc1)
   - ASN1Decoder (1.2)
   - BNRCoreDataStack (2.3.1)
-  - Disk (0.4.0)
+  - Disk (0.5.0)
   - libsodium (1.0.12)
   - Moya (12.0.1):
     - Moya/Core (= 12.0.1)
@@ -70,16 +70,16 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   AppAuth:
-    :commit: ff1235080248febca66bca7281831d286687362e
+    :commit: 6af08938ffe843f7b6862e8efbc930c532811a89
     :git: https://github.com/openid/AppAuth-iOS.git
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   AlamofireImage: 63cfe3baf1370be6c498149687cf6db3e3b00999
-  AppAuth: 7b8935723415b3c694f19511361aedfb0b313f1d
+  AppAuth: 08c03aef30331c3dd15cc623ad939e3b363167d6
   ASN1Decoder: 1a1f4fa469e14083f2664e182975a39299cb5e32
   BNRCoreDataStack: d9d7d0ed1afd27dca5a903dde1250aa4c6dbc3f5
-  Disk: ef2956657d5bb56034b38b29b352170165226440
+  Disk: 20263582698f4331c2dac15f9fda95069aba8dae
   libsodium: 9a8faa5ef2fa0d2d57bd7f7d79bf8fb7c1a9f0ea
   Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
   NVActivityIndicatorView: 4ca19fccc84595a78957336a086d00a49be6ce61
