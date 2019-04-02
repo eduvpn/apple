@@ -149,12 +149,14 @@ class AppCoordinator: RootViewCoordinator {
         // Migratation
         self.persistentContainer.performBackgroundTask({ (context) in
             let profiles =  try? Profile.allInContext(context)
+            // Make sure all profiles have a UUID
             profiles?.forEach({ (profile) in
                 if profile.uuid == nil {
                     profile.uuid = UUID()
                 }
             })
 
+            // Fix an issue where a slash was missing in the discoveryIdentifiers.
             let targets = [StaticService(type: .instituteAccess), StaticService(type: .secureInternet)].compactMap{ $0 }
             targets.forEach({ (target) in
                 let fetch = InstanceGroup.fetchRequestForEntity(inContext: context)
@@ -165,6 +167,18 @@ class AppCoordinator: RootViewCoordinator {
                     }
                 }
             })
+
+            // Remove groups no longer active in the app due to changed discovery files.
+            let activeDiscoveryIdentifiers = targets.map{ "\($0.baseURL.absoluteString)/\($0.path)" }
+
+            let groups = try? InstanceGroup.allInContext(context)
+            let obsoleteGroups = groups?.filter({ (group) -> Bool in
+                guard let discoveryIdentifier = group.discoveryIdentifier else { return false }
+                return !activeDiscoveryIdentifiers.contains(discoveryIdentifier)
+            })
+            obsoleteGroups?.forEach{ context.delete($0) }
+
+            // We're done, save everything.
             context.saveContext()
         })
 
