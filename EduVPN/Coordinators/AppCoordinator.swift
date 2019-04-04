@@ -157,26 +157,26 @@ class AppCoordinator: RootViewCoordinator {
             })
 
             // Fix an issue where a slash was missing in the discoveryIdentifiers.
-            let targets = [StaticService(type: .instituteAccess), StaticService(type: .secureInternet)].compactMap{ $0 }
+            let targets = [StaticService(type: .instituteAccess), StaticService(type: .secureInternet)].compactMap { $0 }
             targets.forEach({ (target) in
                 let fetch = InstanceGroup.fetchRequestForEntity(inContext: context)
                 fetch.predicate = NSPredicate(format: "discoveryIdentifier == %@", "\(target.baseURL.absoluteString)\(target.path)")
                 if let instanceGroups = try? fetch.execute() {
-                    instanceGroups.forEach{
+                    instanceGroups.forEach {
                         $0.discoveryIdentifier = "\(target.baseURL.absoluteString)/\(target.path)"
                     }
                 }
             })
 
             // Remove groups no longer active in the app due to changed discovery files.
-            let activeDiscoveryIdentifiers = targets.map{ "\($0.baseURL.absoluteString)/\($0.path)" }
+            let activeDiscoveryIdentifiers = targets.map { "\($0.baseURL.absoluteString)/\($0.path)" }
 
             let groups = try? InstanceGroup.allInContext(context)
             let obsoleteGroups = groups?.filter({ (group) -> Bool in
                 guard let discoveryIdentifier = group.discoveryIdentifier else { return false }
                 return !activeDiscoveryIdentifiers.contains(discoveryIdentifier)
             })
-            obsoleteGroups?.forEach{ context.delete($0) }
+            obsoleteGroups?.forEach { context.delete($0) }
 
             // We're done, save everything.
             context.saveContext()
@@ -203,7 +203,7 @@ class AppCoordinator: RootViewCoordinator {
             }
         }
 
-        let appName: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String
+        guard let appName: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String else { fatalError("An app should always have a `CFBundleName`.") }
         let keyPairDisplayName = "\(appName) for iOS"
 
         return dynamicApiProvider.request(apiService: .createKeypair(displayName: keyPairDisplayName)).recover({ (error) throws -> Promise<Response> in
@@ -489,7 +489,7 @@ class AppCoordinator: RootViewCoordinator {
 
                     let updatedInstanceIdentifiers = updatedInstances.compactMap { $0.baseUri}
 
-                    let deletedInstances = group.instances.filter{
+                    let deletedInstances = group.instances.filter {
                         guard let baseUri = $0.baseUri else { return false }
                         return !updatedInstanceIdentifiers.contains(baseUri)
                     }
@@ -546,10 +546,10 @@ class AppCoordinator: RootViewCoordinator {
                 }
 
                 if UserDefaults.standard.forceTcp {
-                    let remoteUdpRegex = try! NSRegularExpression(pattern: "remote.*udp", options: [])
+                    guard let remoteUdpRegex = try? NSRegularExpression(pattern: "remote.*udp", options: []) else { fatalError("Regular expression has been validated to compile, should not fail.") }
                     ovpnFileContent = remoteUdpRegex.stringByReplacingMatches(in: ovpnFileContent, options: [], range: NSRange(location: 0, length: ovpnFileContent.utf16.count), withTemplate: "")
                 }
-                let remoteTcpRegex = try! NSRegularExpression(pattern: "remote.*", options: [])
+                guard let remoteTcpRegex = try? NSRegularExpression(pattern: "remote.*", options: []) else { fatalError("Regular expression has been validated to compile, should not fail.") }
                 if 0 == remoteTcpRegex.numberOfMatches(in: ovpnFileContent, options: [], range: NSRange(location: 0, length: ovpnFileContent.utf16.count)) {
                     throw AppCoordinatorError.ovpnConfigTemplateNoRemotes
                 }
@@ -716,7 +716,7 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
         if let currentProfileUuid = profile.uuid, currentProfileUuid.uuidString == UserDefaults.standard.configuredProfileId {
             showConnectionViewController(for: profile)
         } else {
-            _ = self.tunnelProviderManagerCoordinator.disconnect().recover { _ in 
+            _ = self.tunnelProviderManagerCoordinator.disconnect().recover { _ in
                 return self.tunnelProviderManagerCoordinator.configure(profile: profile)
             }.then({ (_) -> Promise<Void> in
                 self.providerTableViewController.tableView.reloadData()

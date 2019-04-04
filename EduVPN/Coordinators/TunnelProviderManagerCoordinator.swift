@@ -84,10 +84,8 @@ class TunnelProviderManagerCoordinator: Coordinator {
                 }, completionHandler: { (error) in
                     if let error = error {
                         os_log("configure error: %{public}@", log: Log.general, type: .error, error.localizedDescription)
-                        resolver.reject(error)
-                        return
                     }
-                    resolver.resolve(Result.fulfilled(()))
+                    resolver.resolve(error)
                 })
             })
         })

@@ -13,7 +13,8 @@ struct Config: Decodable {
     static var shared: Config = {
         // This is very much hard coded. If this ever fails. It SHOULD crash.
         let url = Bundle.main.url(forResource: "config", withExtension: "json")!
-        return try! JSONDecoder().decode(Config.self, from: Data(contentsOf: url))
+        guard let config = try? JSONDecoder().decode(Config.self, from: Data(contentsOf: url)) else { fatalError("Failed to load config \(url)") }
+        return config
     }()
 
     enum ConfigKeys: String, CodingKey {
