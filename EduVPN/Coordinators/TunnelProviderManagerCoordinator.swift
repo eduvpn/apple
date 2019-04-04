@@ -123,11 +123,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
                 return nil
             }, completionHandler: { (error) in
                 self.currentManager?.connection.stopVPNTunnel()
-                if let error = error {
-                    resolver.reject(error)
-                } else {
-                    resolver.resolve(Result.fulfilled(()))
-                }
+                resolver.resolve(error)
             })
         })
         #endif
