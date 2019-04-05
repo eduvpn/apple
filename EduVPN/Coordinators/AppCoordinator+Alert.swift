@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import os
 
 import AppAuth
 
@@ -26,12 +27,10 @@ extension AppCoordinator {
             return
         }
 
-        if let underlyingError = underlyingError(for: error) {
-            showAlert(title: NSLocalizedString("Error", comment: "Error alert title"), message: underlyingError.localizedDescription)
-            return
-        }
-
-        showAlert(title: NSLocalizedString("Error", comment: "Error alert title"), message: error.localizedDescription)
+        let displayedError = underlyingError(for: error) ?? error
+        showAlert(title: NSLocalizedString("Error", comment: "Error alert title"), message: displayedError.localizedDescription)
+        print("error: \(error)")
+        os_log("Error occured %{public}@", log: Log.general, type: .error, error.localizedDescription)
     }
 
     func showNoAuthFlowAlert() {
