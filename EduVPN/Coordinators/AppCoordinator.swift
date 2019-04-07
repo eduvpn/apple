@@ -567,25 +567,27 @@ class AppCoordinator: RootViewCoordinator {
                 return url
             }.recover { (error) throws -> Promise<URL> in
                 NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
+
+                if retry {
+                    self.showError(error)
+                    throw error
+                }
+
+                func retryFetchProile() -> Promise<URL> {
+                    self.authorizingDynamicApiProvider = dynamicApiProvider
+                    return dynamicApiProvider.authorize(presentingViewController: self.navigationController).then { _ -> Promise<URL> in
+                        return self.fetchProfile(for: profile, retry: true)
+                    }
+
+                }
+
+                if let nsError = error as NSError?, nsError.domain == NSURLErrorDomain && nsError.code == NSURLErrorNetworkConnectionLost {
+                    return retryFetchProile()
+                }
+
                 switch error {
-                case ApiServiceError.tokenRefreshFailed:
-                    if retry {
-                        self.showError(error)
-                        throw error
-                    }
-                    self.authorizingDynamicApiProvider = dynamicApiProvider
-                    return dynamicApiProvider.authorize(presentingViewController: self.navigationController).then { _ -> Promise<URL> in
-                        return self.fetchProfile(for: profile, retry: true)
-                    }
-                case ApiServiceError.noAuthState:
-                    if retry {
-                        self.showError(error)
-                        throw error
-                    }
-                    self.authorizingDynamicApiProvider = dynamicApiProvider
-                    return dynamicApiProvider.authorize(presentingViewController: self.navigationController).then { _ -> Promise<URL> in
-                        return self.fetchProfile(for: profile, retry: true)
-                    }
+                case ApiServiceError.tokenRefreshFailed, ApiServiceError.noAuthState :
+                    return retryFetchProile()
                 default:
                     self.showError(error)
                     throw error
