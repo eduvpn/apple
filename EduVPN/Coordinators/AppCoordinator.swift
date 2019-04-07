@@ -593,18 +593,19 @@ class AppCoordinator: RootViewCoordinator {
         }
     }
 
-    func showConnectionViewController(for profile: Profile) {
+    func showConnectionViewController(for profile: Profile) -> Promise<Void> {
         let connectionViewController = storyboard.instantiateViewController(type: VPNConnectionViewController.self)
         connectionViewController.providerManagerCoordinator = tunnelProviderManagerCoordinator
         connectionViewController.delegate = self
         connectionViewController.profile = profile
-        _ = tunnelProviderManagerCoordinator.configure(profile: profile).then {
-            return self.tunnelProviderManagerCoordinator.connect()
-        }
 
         let navController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(type: UINavigationController.self)
         navController.viewControllers = [connectionViewController]
         self.navigationController.present(navController, animated: true, completion: nil)
+
+        return tunnelProviderManagerCoordinator.configure(profile: profile).then {
+            return self.tunnelProviderManagerCoordinator.connect()
+        }
     }
 
     func resumeAuthorizationFlow(url: URL) -> Bool {
@@ -714,14 +715,13 @@ extension AppCoordinator: SettingsTableViewControllerDelegate {
 extension AppCoordinator: ConnectionsTableViewControllerDelegate {
     func connect(profile: Profile) {
         if let currentProfileUuid = profile.uuid, currentProfileUuid.uuidString == UserDefaults.standard.configuredProfileId {
-            showConnectionViewController(for: profile)
+            _ = showConnectionViewController(for: profile)
         } else {
             _ = self.tunnelProviderManagerCoordinator.disconnect().recover { _ in
                 return self.tunnelProviderManagerCoordinator.configure(profile: profile)
             }.then({ (_) -> Promise<Void> in
                 self.providerTableViewController.tableView.reloadData()
-                self.showConnectionViewController(for: profile)
-                return Promise.value(())
+                return self.showConnectionViewController(for: profile)
             })
         }
     }
