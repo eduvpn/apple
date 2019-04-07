@@ -44,6 +44,8 @@ extension AppCoordinator {
     private func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "OK button"), style: .default))
-        self.navigationController.present(alert, animated: true)
+
+        let presentingViewController = navigationController.presentedViewController ?? navigationController
+        presentingViewController.present(alert, animated: true)
     }
 }
