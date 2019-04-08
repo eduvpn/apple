@@ -9,7 +9,6 @@
 import UIKit
 import CoreData
 import os.log
-import BNRCoreDataStack
 
 class ConnectTableViewCell: UITableViewCell {
     @IBOutlet weak var connectImageView: UIImageView!

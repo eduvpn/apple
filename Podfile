@@ -16,7 +16,7 @@ target 'EduVPN' do
   pod 'AlamofireImage'
   pod 'libsodium'
   pod 'ASN1Decoder'
-  pod 'BNRCoreDataStack'
+#  pod 'BNRCoreDataStack'
   pod 'NVActivityIndicatorView'
   pod 'TunnelKit'
 

@@ -12,7 +12,6 @@ import NetworkExtension
 import TunnelKit
 import PromiseKit
 import CoreData
-import BNRCoreDataStack
 
 enum TunnelProviderManagerCoordinatorError: Error {
     case missingDelegate

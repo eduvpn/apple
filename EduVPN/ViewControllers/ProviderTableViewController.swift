@@ -12,7 +12,6 @@ import os.log
 import NetworkExtension
 
 import CoreData
-import BNRCoreDataStack
 import AlamofireImage
 
 class ProviderTableViewCell: UITableViewCell {

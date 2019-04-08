@@ -10,6 +10,10 @@
 		4A1140841F78490C00D61100 /* VPNConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */; };
 		4A140BBC21B5D7F5000A87E3 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A140BBB21B5D7F5000A87E3 /* Message.swift */; };
 		4A2803D91FA6867D00FA895C /* CustomProviderInPutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2803D81FA6867D00FA895C /* CustomProviderInPutViewController.swift */; };
+		4A2BAC87225B8C0700AECEE6 /* NSManagedObjectContext+SaveHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2BAC86225B8C0700AECEE6 /* NSManagedObjectContext+SaveHelpers.swift */; };
+		4A2BAC89225B8C8700AECEE6 /* NSManagedObjectContext+AsyncHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2BAC88225B8C8700AECEE6 /* NSManagedObjectContext+AsyncHelpers.swift */; };
+		4A2BAC8B225B8CB500AECEE6 /* NSManagedObject+FetchHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2BAC8A225B8CB500AECEE6 /* NSManagedObject+FetchHelpers.swift */; };
+		4A2BAC8D225B8CEE00AECEE6 /* FetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2BAC8C225B8CEE00AECEE6 /* FetchedResultsController.swift */; };
 		4A2CC2221F4233E8004119B1 /* Identifyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2CC2211F4233E8004119B1 /* Identifyable.swift */; };
 		4A3971AF21E9401E00782A28 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3971AE21E9401E00782A28 /* Config.swift */; };
 		4A3971B321E9500100782A28 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = 4A3971B221E9500100782A28 /* config.json */; };
@@ -112,6 +116,10 @@
 		4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNConnectionViewController.swift; sourceTree = "<group>"; };
 		4A140BBB21B5D7F5000A87E3 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		4A2803D81FA6867D00FA895C /* CustomProviderInPutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProviderInPutViewController.swift; sourceTree = "<group>"; };
+		4A2BAC86225B8C0700AECEE6 /* NSManagedObjectContext+SaveHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+SaveHelpers.swift"; sourceTree = "<group>"; };
+		4A2BAC88225B8C8700AECEE6 /* NSManagedObjectContext+AsyncHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+AsyncHelpers.swift"; sourceTree = "<group>"; };
+		4A2BAC8A225B8CB500AECEE6 /* NSManagedObject+FetchHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+FetchHelpers.swift"; sourceTree = "<group>"; };
+		4A2BAC8C225B8CEE00AECEE6 /* FetchedResultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchedResultsController.swift; sourceTree = "<group>"; };
 		4A2CC2211F4233E8004119B1 /* Identifyable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifyable.swift; sourceTree = "<group>"; };
 		4A2DA16D21C5ACF90026BCF5 /* EduVPN.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EduVPN.entitlements; sourceTree = "<group>"; };
 		4A3971AE21E9401E00782A28 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
@@ -264,6 +272,17 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		4A2BAC85225B8BEC00AECEE6 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				4A2BAC86225B8C0700AECEE6 /* NSManagedObjectContext+SaveHelpers.swift */,
+				4A2BAC88225B8C8700AECEE6 /* NSManagedObjectContext+AsyncHelpers.swift */,
+				4A2BAC8A225B8CB500AECEE6 /* NSManagedObject+FetchHelpers.swift */,
+				4A2BAC8C225B8CEE00AECEE6 /* FetchedResultsController.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		4A901C1220C87512000C1BF0 /* EduVPNTunnelExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -396,6 +415,7 @@
 		4AD0AD601F3508DD006E1337 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4A2BAC85225B8BEC00AECEE6 /* Helpers */,
 				4A4057CE204344A1002B1A4F /* AuthServer+CoreDataClass.swift */,
 				4A4057CF204344A1002B1A4F /* AuthServer+CoreDataProperties.swift */,
 				4A4057D220435070002B1A4F /* AuthServer+Helper.swift */,
@@ -694,7 +714,6 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework",
-				"${BUILT_PRODUCTS_DIR}/BNRCoreDataStack/BNRCoreDataStack.framework",
 				"${BUILT_PRODUCTS_DIR}/Disk/Disk.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
@@ -713,7 +732,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BNRCoreDataStack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Disk.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
@@ -788,9 +806,11 @@
 				4A983B7B1F3972BE004F82D5 /* RootCoordinator.swift in Sources */,
 				4AA69F87203AA23200035F1A /* Api+Helper.swift in Sources */,
 				4AAC2EED2027117400F9D0D2 /* Instance+CoreDataClass.swift in Sources */,
+				4A2BAC8B225B8CB500AECEE6 /* NSManagedObject+FetchHelpers.swift in Sources */,
 				4A8D24351F3A40F2004A9343 /* InstanceInfoModel.swift in Sources */,
 				4AAC2EEA2027117400F9D0D2 /* Logo+CoreDataProperties.swift in Sources */,
 				4AAC2EE82027117400F9D0D2 /* Api+CoreDataProperties.swift in Sources */,
+				4A2BAC8D225B8CEE00AECEE6 /* FetchedResultsController.swift in Sources */,
 				4A4057D320435070002B1A4F /* AuthServer+Helper.swift in Sources */,
 				4A62C8B81FB03B47007D3FAA /* KeyboardWrapper.swift in Sources */,
 				4A2CC2221F4233E8004119B1 /* Identifyable.swift in Sources */,
@@ -810,12 +830,14 @@
 				4AA69F89203AA43000035F1A /* Instance+Helper.swift in Sources */,
 				4A4CA90F1F55F4300021FD5D /* UITableView+EduVPN.swift in Sources */,
 				4AD0AD5D1F35048E006E1337 /* ProviderTableViewController.swift in Sources */,
+				4A2BAC89225B8C8700AECEE6 /* NSManagedObjectContext+AsyncHelpers.swift in Sources */,
 				4AAC1F7A1F2D0E3400DD0252 /* AppDelegate.swift in Sources */,
 				4AD0AD621F350906006E1337 /* InstanceModel.swift in Sources */,
 				4AE728161F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift in Sources */,
 				4AAC2EEC2027117400F9D0D2 /* Profile+CoreDataProperties.swift in Sources */,
 				4AECAB422027091900B5105B /* EduVPN.xcdatamodeld in Sources */,
 				4A97D78620CC4F4D00472216 /* AppCoordinator+Alert.swift in Sources */,
+				4A2BAC87225B8C0700AECEE6 /* NSManagedObjectContext+SaveHelpers.swift in Sources */,
 				4AD0AD5A1F34F887006E1337 /* CredentialStorePlugin.swift in Sources */,
 				4AF3DF061F424535003EC0BA /* SettingsTableViewController.swift in Sources */,
 			);
@@ -1093,8 +1115,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = nl.eduvpn.app.EduVPNTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EduVPN.app/EduVPN";
 				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EduVPN.app/EduVPN";
 			};
 			name = Debug;
 		};
@@ -1108,8 +1130,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = nl.eduvpn.app.EduVPNTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EduVPN.app/EduVPN";
 				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EduVPN.app/EduVPN";
 			};
 			name = Release;
 		};

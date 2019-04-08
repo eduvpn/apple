@@ -15,7 +15,6 @@ import Disk
 import PromiseKit
 
 import CoreData
-import BNRCoreDataStack
 
 import AppAuth
 
