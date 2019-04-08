@@ -133,16 +133,18 @@ int TLSBoxVerifyPeer(int ok, X509_STORE_CTX *ctx) {
 
 + (NSString *)decryptedPrivateKeyFromBIO:(BIO *)bio passphrase:(NSString *)passphrase error:(NSError * _Nullable __autoreleasing *)error
 {
-    RSA *rsaKey;
-    if (!(rsaKey = PEM_read_bio_RSAPrivateKey(bio, NULL, NULL, (void *)passphrase.UTF8String))) {
+    EVP_PKEY *evpKey;
+    if (!(evpKey = PEM_read_bio_PrivateKey(bio, NULL, NULL, (void *)passphrase.UTF8String))) {
         return NULL;
     }
     
-    EVP_PKEY *evpKey = EVP_PKEY_new();
-    if (!EVP_PKEY_set1_RSA(evpKey, rsaKey)) {
-        EVP_PKEY_free(evpKey);
-        return NULL;
-    }
+    NSString *ret = [self decryptedKeyFromPrivateKey:evpKey error:error];
+    EVP_PKEY_free(evpKey);
+    return ret;
+}
+
++ (NSString *)decryptedKeyFromPrivateKey:(EVP_PKEY *)evpKey error:(NSError * _Nullable __autoreleasing *)error
+{
     BIO *output = BIO_new(BIO_s_mem());
     if (!PEM_write_bio_PKCS8PrivateKey(output, evpKey, NULL, NULL, 0, NULL, NULL)) {
         BIO_free(output);
@@ -154,11 +156,9 @@ int TLSBoxVerifyPeer(int ok, X509_STORE_CTX *ctx) {
     char *decKeyBytes = malloc(decLength + 1);
     if (BIO_read(output, decKeyBytes, decLength) < 0) {
         BIO_free(output);
-        EVP_PKEY_free(evpKey);
         return NULL;
     }
     BIO_free(output);
-    EVP_PKEY_free(evpKey);
     
     decKeyBytes[decLength] = '\0';
     return [NSString stringWithCString:decKeyBytes encoding:NSASCIIStringEncoding];

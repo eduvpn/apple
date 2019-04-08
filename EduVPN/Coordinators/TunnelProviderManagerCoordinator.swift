@@ -60,13 +60,13 @@ class TunnelProviderManagerCoordinator: Coordinator {
                     let sessionConfig = parseResult.configuration.builder().build()
                     var builder = TunnelKitProvider.ConfigurationBuilder(sessionConfiguration: sessionConfig)
                     builder.masksPrivateData = false
-                    builder.endpointProtocols = parseResult.protocols
+                    builder.sessionConfiguration.endpointProtocols = parseResult.configuration.endpointProtocols
                     let configuration = builder.build()
 
                     let tunnelProviderProtocolConfiguration = try! configuration.generatedTunnelProtocol( //swiftlint:disable:this force_try
                         withBundleIdentifier: self.vpnBundle,
                         appGroup: self.appGroup,
-                        hostname: parseResult.hostname)
+                        hostname: parseResult.configuration.hostname!)
 
                     let uuid: UUID
                     if let profileId = profile.uuid {
