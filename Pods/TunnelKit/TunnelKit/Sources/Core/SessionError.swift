@@ -59,6 +59,9 @@ public enum SessionError: String, Error {
     /// The provided credentials failed authentication.
     case badCredentials
     
+    /// The reply to PUSH_REQUEST is malformed.
+    case malformedPushReply
+    
     /// A write operation failed at the link layer (e.g. network unreachable).
     case failedLinkWrite
     

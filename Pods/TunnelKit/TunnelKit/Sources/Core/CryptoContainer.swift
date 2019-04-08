@@ -40,20 +40,13 @@ import __TunnelKitNative
 
 /// Represents a cryptographic container in PEM format.
 public struct CryptoContainer: Equatable {
-    private static let begin = "-----BEGIN "
 
-    private static let end = "-----END "
-    
     /// The content in PEM format (ASCII).
     public let pem: String
     
     /// :nodoc:
     public init(pem: String) {
-        guard let beginRange = pem.range(of: CryptoContainer.begin) else {
-            self.pem = ""
-            return
-        }
-        self.pem = String(pem[beginRange.lowerBound...])
+        self.pem = pem
     }
     
     func write(to url: URL) throws {
@@ -82,12 +75,7 @@ extension CryptoContainer: Codable {
     }
 }
 
-/// :nodoc:
-public extension CryptoContainer {
-    var isEncrypted: Bool {
-        return pem.contains("ENCRYPTED")
-    }
-    
+extension CryptoContainer {
     func decrypted(with passphrase: String) throws -> CryptoContainer {
         let decryptedPEM = try TLSBox.decryptedPrivateKey(fromPEM: pem, passphrase: passphrase)
         return CryptoContainer(pem: decryptedPEM)
