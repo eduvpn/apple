@@ -28,6 +28,11 @@ Disk is a **powerful** and **simple** file management library built with Apple's
 Disk requires **iOS 9+** and is compatible with projects using **Swift 4.0** and above. Therefore you must use at least Xcode 9 when working with Disk.
 
 ## Installation
+| Swift Version | Build Tag |
+| --- | --- |
+| 4.0 | 0.5.0 |
+| 4.2 | 0.5.0 |
+| 5.0 | 0.6.2 |
 
 * <a href="https://guides.cocoapods.org/using/using-cocoapods.html" target="_blank">CocoaPods</a>:
 
@@ -36,7 +41,7 @@ platform :ios, '9.0'
 target 'ProjectName' do
 use_frameworks!
 
-    pod 'Disk', '~> 0.5.0'
+    pod 'Disk', '~> 0.6.2'
 
 end
 ```
@@ -52,7 +57,7 @@ end
 
 ```
 dependencies: [
-    .Package(url: "https://github.com/saoudrizwan/Disk.git", "0.5.0")
+    .Package(url: "https://github.com/saoudrizwan/Disk.git", "0.6.2")
 ]
 ```
 
