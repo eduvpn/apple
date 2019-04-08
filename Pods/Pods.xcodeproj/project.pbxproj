@@ -4146,6 +4146,38 @@
 			};
 			name = Release;
 		};
+		4D01F9ADEAB3733836378CB6BE5DB005 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 28A6716E2AB1DF4D8696EA55FA4A0BFD /* Moya.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Moya/Moya-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Moya/Moya-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Moya/Moya.modulemap";
+				PRODUCT_MODULE_NAME = Moya;
+				PRODUCT_NAME = Moya;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		53BAFDBBEA1BF193F0B8999DFA878148 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 41CF20ADEE78825BACA7E39E1D38E62A /* ASN1Decoder.xcconfig */;
@@ -4527,39 +4559,6 @@
 			};
 			name = Release;
 		};
-		A9CDD6A2B4DA60CB34544D29B369F600 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 28A6716E2AB1DF4D8696EA55FA4A0BFD /* Moya.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/Moya/Moya-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Moya/Moya-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Moya/Moya.modulemap";
-				PRODUCT_MODULE_NAME = Moya;
-				PRODUCT_NAME = Moya;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		B4F7880B8ECF2A1ED6A38B62F6E9E5F8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A718AC347EA93DE618539F6EA5CA9F14 /* SwiftLint.xcconfig */;
@@ -4640,7 +4639,7 @@
 			};
 			name = Debug;
 		};
-		E0A6C6A8032EE24B3CC384D3AC91B676 /* Debug */ = {
+		DEFBBE6C2E79BBE569BC98B257A7E2D7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 28A6716E2AB1DF4D8696EA55FA4A0BFD /* Moya.xcconfig */;
 			buildSettings = {
@@ -4665,12 +4664,13 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
 		E12B806AC72F6BFA0EA44EB12A301AC2 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -4945,8 +4945,8 @@
 		79E494A7493F9AB9FE36E8AF4802FA6F /* Build configuration list for PBXNativeTarget "Moya" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E0A6C6A8032EE24B3CC384D3AC91B676 /* Debug */,
-				A9CDD6A2B4DA60CB34544D29B369F600 /* Release */,
+				4D01F9ADEAB3733836378CB6BE5DB005 /* Debug */,
+				DEFBBE6C2E79BBE569BC98B257A7E2D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
