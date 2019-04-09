@@ -53,6 +53,10 @@ class TunnelProviderManagerCoordinator: Coordinator {
             return Promise(error: TunnelProviderManagerCoordinatorError.missingDelegate)
         }
         return delegate.profileConfig(for: profile).then({ (configUrl) -> Promise<Void> in
+            #if targetEnvironment(simulator)
+            print("SIMULATOR DOES NOT SUPPORT NETWORK EXTENSIONS")
+            return Promise.value(())
+            #else
             let parseResult = try! ConfigurationParser.parsed(fromURL: configUrl) //swiftlint:disable:this force_try
 
             return Promise(resolver: { (resolver) in
@@ -87,6 +91,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
                     resolver.resolve(error)
                 })
             })
+            #endif
         })
     }
 

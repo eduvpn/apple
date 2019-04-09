@@ -766,9 +766,7 @@ extension AppCoordinator: ProviderTableViewControllerDelegate {
 
     func didSelect(instance: Instance, providerTableViewController: ProviderTableViewController) {
         if providerTableViewController.providerType == .unknown {
-            let activityData = ActivityData()
-            NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData, nil)
-            _ = self.refresh(instance: instance).then({ _ -> Promise<Void> in
+            do {
                 let count = try Profile.countInContext(self.persistentContainer.viewContext, predicate: NSPredicate(format: "api.instance == %@", instance))
                 if count > 1 {
                     self.showConnectionsTableViewController(for: instance)
@@ -777,12 +775,8 @@ extension AppCoordinator: ProviderTableViewControllerDelegate {
                         self.connect(profile: profile)
                     }
                 }
-                return Promise.value(())
-            })
-            .recover { (error) in
+            } catch {
                 self.showError(error)
-            }.ensure {
-                NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
             }
         } else {
 // Move this to pull to refresh?
