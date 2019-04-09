@@ -11,9 +11,29 @@ import CoreData
 import os.log
 
 class ConnectTableViewCell: UITableViewCell {
-    @IBOutlet weak var connectImageView: UIImageView!
-    @IBOutlet weak var connectTitleLabel: UILabel!
-    @IBOutlet weak var connectSubTitleLabel: UILabel!
+    @IBOutlet private weak var connectImageView: UIImageView!
+    @IBOutlet private weak var connectTitleLabel: UILabel!
+    @IBOutlet private weak var connectSubTitleLabel: UILabel!
+
+    func configure(with profile: Profile) {
+        if let currentProfileUuid = profile.uuid, currentProfileUuid.uuidString == UserDefaults.standard.configuredProfileId {
+            accessoryType = .checkmark
+        } else {
+            accessoryType = .none
+        }
+
+        connectTitleLabel?.text = profile.displayNames?.localizedValue ?? profile.displayString ?? profile.profileId
+        connectSubTitleLabel?.text = profile.displayString
+        if let logo = profile.api?.instance?.logos?.localizedValue, let logoUri = URL(string: logo) {
+            connectImageView?.af_setImage(withURL: logoUri)
+            connectImageView.isHidden = false
+        } else {
+            connectImageView.af_cancelImageRequest()
+            connectImageView.image = nil
+            connectImageView.isHidden = true
+        }
+
+    }
 }
 
 extension ConnectTableViewCell: Identifyable {}
@@ -75,22 +95,7 @@ class ConnectionsTableViewController: UITableViewController {
         let section = sections[indexPath.section]
         let profile = section.objects[indexPath.row]
 
-        if let currentProfileUuid = profile.uuid, currentProfileUuid.uuidString == UserDefaults.standard.configuredProfileId {
-            cell.accessoryType = .checkmark
-        } else {
-            cell.accessoryType = .none
-        }
-
-        cell.connectTitleLabel?.text = profile.profileId
-        cell.connectSubTitleLabel?.text = profile.displayString
-        if let logo = profile.api?.instance?.logos?.localizedValue, let logoUri = URL(string: logo) {
-            cell.connectImageView?.af_setImage(withURL: logoUri)
-            cell.connectImageView.isHidden = false
-        } else {
-            cell.connectImageView.af_cancelImageRequest()
-            cell.connectImageView.image = nil
-            cell.connectImageView.isHidden = true
-        }
+        cell.configure(with: profile)
 
         return cell
     }

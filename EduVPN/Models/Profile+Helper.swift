@@ -11,7 +11,7 @@ import CoreData
 
 extension Profile {
     var displayString: String? {
-        return displayNames?.localizedValue ?? api?.instance?.displayNames?.localizedValue ?? api?.instance?.baseUri
+        return api?.instance?.displayNames?.localizedValue ?? api?.instance?.baseUri
     }
 
     static func upsert(with profileModels: [InstanceProfileModel], for api: Api, on context: NSManagedObjectContext) {
@@ -46,6 +46,7 @@ extension Profile {
 
     func update(with profileModel: InstanceProfileModel) {
         self.profileId = profileModel.profileId
+
         if let displayNames = profileModel.displayNames {
             self.displayNames = Set(displayNames.compactMap({ (displayData) -> DisplayName? in
                 let displayName = DisplayName(context: self.managedObjectContext!)
@@ -54,6 +55,12 @@ extension Profile {
                 displayName.profile = self
                 return displayName
             }))
+        } else if let displayNameString = profileModel.displayName {
+            let displayName = DisplayName(context: self.managedObjectContext!)
+            displayName.displayName = displayNameString
+            displayName.profile = self
+        } else {
+            self.displayNames = []
         }
     }
 }
