@@ -2,13 +2,14 @@
 //  Profile+CoreDataProperties.swift
 //  eduVPN
 //
-//  Created by Jeroen Leenarts on 04-02-18.
-//  Copyright © 2018 SURFNet. All rights reserved.
+//  Created by Jeroen Leenarts on 11/04/2019.
+//  Copyright © 2019 SURFNet. All rights reserved.
 //
 //
 
 import Foundation
 import CoreData
+
 
 extension Profile {
 
@@ -18,6 +19,7 @@ extension Profile {
 
     @NSManaged public var uuid: UUID?
     @NSManaged public var profileId: String?
+    @NSManaged public var rawVpnStatus: Int32
     @NSManaged public var api: Api?
     @NSManaged public var displayNames: Set<DisplayName>?
 

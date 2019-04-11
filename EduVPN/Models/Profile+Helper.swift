@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import NetworkExtension
 
 extension Profile {
     var displayString: String? {
@@ -67,5 +68,14 @@ extension Profile {
     var isActiveConfig: Bool {
          guard let configuredProfileId = UserDefaults.standard.configuredProfileId else { return false}
         return configuredProfileId == uuid?.uuidString
+    }
+
+    var vpnStatus: NEVPNStatus {
+        get {
+            return NEVPNStatus(rawValue: Int(rawVpnStatus)) ?? NEVPNStatus.invalid
+        }
+        set {
+            rawVpnStatus = Int32(newValue.rawValue)
+        }
     }
 }

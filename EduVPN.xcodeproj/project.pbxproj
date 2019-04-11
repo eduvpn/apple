@@ -144,6 +144,7 @@
 		4A901C1120C87511000C1BF0 /* EduVPNTunnelExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = EduVPNTunnelExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A901C1320C87512000C1BF0 /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
 		4A901C1520C87512000C1BF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4A90E31D225FE3F700F08E5F /* EduVPN 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EduVPN 6.xcdatamodel"; sourceTree = "<group>"; };
 		4A9704C11FBA34DA00B4D6C2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		4A9704C61FBA379D00B4D6C2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4A9704C81FBA379F00B4D6C2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1186,13 +1187,14 @@
 		4AECAB402027091900B5105B /* EduVPN.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				4A90E31D225FE3F700F08E5F /* EduVPN 6.xcdatamodel */,
 				4A8B951721F10DE300667A34 /* EduVPN 5.xcdatamodel */,
 				4AAEBDF321BAFC9B00D3A940 /* EduVPN 4.xcdatamodel */,
 				4ADF8E7B21ADF7030099C397 /* EduVPN 3.xcdatamodel */,
 				4AC8991320F3176D008696A1 /* EduVPN 2.xcdatamodel */,
 				4AECAB412027091900B5105B /* EduVPN.xcdatamodel */,
 			);
-			currentVersion = 4A8B951721F10DE300667A34 /* EduVPN 5.xcdatamodel */;
+			currentVersion = 4A90E31D225FE3F700F08E5F /* EduVPN 6.xcdatamodel */;
 			path = EduVPN.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

@@ -16,8 +16,46 @@ import AlamofireImage
 
 class ProviderTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var providerImageView: UIImageView!
-    @IBOutlet weak var providerTitleLabel: UILabel!
+    @IBOutlet private weak var providerImageView: UIImageView!
+    @IBOutlet private weak var providerTitleLabel: UILabel!
+    @IBOutlet private weak var statusImageView: UIImageView!
+
+    func configure(with instance: Instance, and providerType: ProviderType) {
+
+        let profiles = instance.apis?.flatMap({ (api) -> Set<Profile> in
+            return api.profiles
+        }) ?? []
+
+        let configuredProfileId = UserDefaults.standard.configuredProfileId
+        let configuredProfile = profiles.first { (profile) -> Bool in
+            return profile.uuid?.uuidString == configuredProfileId
+        }
+
+        accessoryType = .none
+        switch configuredProfile?.vpnStatus ?? .invalid {
+        case .connected:
+            statusImageView.image = UIImage(named: "connected")
+        case .connecting, .disconnecting, .reasserting:
+            statusImageView.image = UIImage(named: "connecting")
+        case .disconnected:
+            statusImageView.image = UIImage(named: "disconnected")
+            accessoryType = .checkmark
+        case .invalid:
+            statusImageView.image = nil
+        @unknown default:
+            fatalError()
+        }
+
+        if let logoString = instance.logos?.localizedValue, let logoUrl = URL(string: logoString) {
+            providerImageView?.af_setImage(withURL: logoUrl)
+            providerImageView.isHidden = false
+        } else {
+            providerImageView.af_cancelImageRequest()
+            providerImageView.image = nil
+            providerImageView.isHidden = true
+        }
+        providerTitleLabel?.text = instance.displayNames?.localizedValue ?? instance.baseUri
+    }
 }
 
 extension ProviderTableViewCell: Identifyable {}
@@ -75,7 +113,7 @@ class ProviderTableViewController: UITableViewController {
         refresh()
     }
 
-    func refresh() {
+    @objc func refresh() {
         do {
             try fetchedResultsController.performFetch()
         } catch {
@@ -96,6 +134,8 @@ class ProviderTableViewController: UITableViewController {
         } else {
             navigationItem.rightBarButtonItems = []
         }
+
+        NotificationCenter.default.addObserver(self, selector:#selector(refresh), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -141,24 +181,7 @@ class ProviderTableViewController: UITableViewController {
         let section = sections[indexPath.section]
         let instance = section.objects[indexPath.row]
 
-        let profileUuids = instance.apis?.flatMap({ (api) -> [String] in
-            return api.profiles.compactMap { $0.uuid?.uuidString }
-        }) ?? []
-
-        if let configuredProfileId = UserDefaults.standard.configuredProfileId, providerType == .unknown, profileUuids.contains(configuredProfileId) {
-            providerCell.accessoryType = .checkmark
-        } else {
-            providerCell.accessoryType = .none
-        }
-        if let logoString = instance.logos?.localizedValue, let logoUrl = URL(string: logoString) {
-            providerCell.providerImageView?.af_setImage(withURL: logoUrl)
-            providerCell.providerImageView.isHidden = false
-        } else {
-            providerCell.providerImageView.af_cancelImageRequest()
-            providerCell.providerImageView.image = nil
-            providerCell.providerImageView.isHidden = true
-        }
-        providerCell.providerTitleLabel?.text = instance.displayNames?.localizedValue ?? instance.baseUri
+        providerCell.configure(with: instance, and: providerType)
 
         return providerCell
     }

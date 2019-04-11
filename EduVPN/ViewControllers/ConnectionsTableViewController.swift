@@ -14,12 +14,23 @@ class ConnectTableViewCell: UITableViewCell {
     @IBOutlet private weak var connectImageView: UIImageView!
     @IBOutlet private weak var connectTitleLabel: UILabel!
     @IBOutlet private weak var connectSubTitleLabel: UILabel!
+    @IBOutlet private weak var statusImageView: UIImageView!
 
     func configure(with profile: Profile) {
-        if let currentProfileUuid = profile.uuid, currentProfileUuid.uuidString == UserDefaults.standard.configuredProfileId {
+
+        accessoryType = .none
+        switch profile.vpnStatus {
+        case .connected:
+            statusImageView.image = UIImage(named: "connected")
+        case .connecting, .disconnecting, .reasserting:
+            statusImageView.image = UIImage(named: "connecting")
+        case .disconnected:
+            statusImageView.image = UIImage(named: "disconnected")
             accessoryType = .checkmark
-        } else {
-            accessoryType = .none
+        case .invalid:
+            statusImageView.image = nil
+        @unknown default:
+            fatalError()
         }
 
         connectTitleLabel?.text = profile.displayNames?.localizedValue ?? profile.displayString ?? profile.profileId
@@ -70,6 +81,11 @@ class ConnectionsTableViewController: UITableViewController {
         super.viewDidLoad()
 
         tableView.tableFooterView = UIView()
+        refresh()
+        NotificationCenter.default.addObserver(self, selector:#selector(refresh), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+
+    @objc func refresh() {
         do {
             try fetchedResultsController.performFetch()
         } catch {

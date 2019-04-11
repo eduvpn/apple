@@ -21,6 +21,7 @@ private let profileIdKey = "EduVPNprofileId"
 
 protocol TunnelProviderManagerCoordinatorDelegate: class {
     func profileConfig(for profile: Profile) -> Promise<URL>
+    func updateProfileStatus(with status: NEVPNStatus)
 }
 
 class TunnelProviderManagerCoordinator: Coordinator {
@@ -30,6 +31,11 @@ class TunnelProviderManagerCoordinator: Coordinator {
     var viewContext: NSManagedObjectContext!
 
     func start() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(VPNStatusDidChange(notification:)),
+                                               name: .NEVPNStatusDidChange,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(refresh), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
 
     var isActive: Bool {
@@ -231,5 +237,21 @@ class TunnelProviderManagerCoordinator: Coordinator {
             self.currentManager = manager
             completionHandler?(nil)
         }
+    }
+
+    @objc private func refresh() {
+        reloadCurrentManager { [weak self] (error) in
+            guard let status = self?.currentManager?.connection.status else {
+                return
+            }
+            self?.delegate?.updateProfileStatus(with: status)
+        }
+    }
+
+    @objc private func VPNStatusDidChange(notification: NSNotification) {
+        guard let status = currentManager?.connection.status else {
+            return
+        }
+        delegate?.updateProfileStatus(with: status)
     }
 }
