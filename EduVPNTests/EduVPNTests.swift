@@ -7,7 +7,14 @@
 //
 
 import XCTest
+
+#if EduVPN
 @testable import EduVPN
+#elseif AppForce1
+@testable import AppForce1
+#elseif LetsConnect
+@testable import LetsConnect
+#endif
 
 class EduVPNTests: XCTestCase {
 
@@ -21,16 +28,10 @@ class EduVPNTests: XCTestCase {
         super.tearDown()
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
+    func testConfig() {
+        let actual = Config.shared.clientId
+        let expected = "org.eduvpn.app.ios"
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+        XCTAssertEqual(actual, expected)
     }
-
 }
