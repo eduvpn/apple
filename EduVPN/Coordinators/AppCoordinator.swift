@@ -602,9 +602,26 @@ class AppCoordinator: RootViewCoordinator {
 
         let navController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(type: UINavigationController.self)
         navController.viewControllers = [connectionViewController]
-        self.navigationController.present(navController, animated: true, completion: nil)
+        let presentationPromise = Promise(resolver: { (seal) in
+            self.navigationController.present(navController, animated: true, completion: { seal.resolve(nil) })
+        })
 
-        return tunnelProviderManagerCoordinator.configure(profile: profile).then {
+        // We are configured and active.
+        if profile.isActiveConfig && tunnelProviderManagerCoordinator.isActive {
+            return presentationPromise
+        }
+
+        // We are configured and not active.
+        if profile.isActiveConfig {
+            return presentationPromise.then {
+                return self.tunnelProviderManagerCoordinator.connect()
+            }
+        }
+
+        // We are unconfigured and not active.
+        return presentationPromise.then {
+            return self.tunnelProviderManagerCoordinator.configure(profile: profile)
+        }.then {
             return self.tunnelProviderManagerCoordinator.connect()
         }
     }

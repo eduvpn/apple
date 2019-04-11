@@ -63,4 +63,9 @@ extension Profile {
             self.displayNames = []
         }
     }
+
+    var isActiveConfig: Bool {
+         guard let configuredProfileId = UserDefaults.standard.configuredProfileId else { return false}
+        return configuredProfileId == uuid?.uuidString
+    }
 }

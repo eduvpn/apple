@@ -32,6 +32,18 @@ class TunnelProviderManagerCoordinator: Coordinator {
     func start() {
     }
 
+    var isActive: Bool {
+        let status = currentManager?.connection.status ?? .invalid
+        switch status {
+        case .connected, .connecting, .disconnecting, .reasserting:
+            return true
+        case .invalid, .disconnected:
+            return false
+        @unknown default:
+            return false
+        }
+    }
+
     var appGroup: String {
         if let bundleID = Bundle.main.bundleIdentifier {
             return "group.\(bundleID)"
@@ -134,8 +146,8 @@ class TunnelProviderManagerCoordinator: Coordinator {
     func reconnect() -> Promise<Void> {
         return firstly { () -> Promise<Void> in
             let session = self.currentManager?.connection as? NETunnelProviderSession
-            switch session?.status {
-            case .connected?, .connecting?, .reasserting?:
+            switch session?.status ?? .invalid {
+            case .connected, .connecting, .reasserting:
                 if let configuredProfileId = UserDefaults.standard.configuredProfileId, let configuredProfile = try Profile.findFirstInContext(viewContext, predicate: NSPredicate(format: "uuid == %@", configuredProfileId)) {
                     return self.configure(profile: configuredProfile).then {
                         return self.connect()
