@@ -11,7 +11,7 @@ target 'EduVPN' do
   pod 'SwiftLint'
   pod 'PromiseKit/CorePromise'
   pod 'AppAuth', :git => 'https://github.com/openid/AppAuth-iOS.git'
-  pod 'Moya', '~> 13.0.0-beta'
+  pod 'Moya'
   pod 'Disk'
   pod 'AlamofireImage'
   pod 'libsodium'
