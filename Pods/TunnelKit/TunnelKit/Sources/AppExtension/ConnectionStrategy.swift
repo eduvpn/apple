@@ -59,11 +59,13 @@ class ConnectionStrategy {
         prefersResolvedAddresses = configuration.prefersResolvedAddresses
         resolvedAddresses = configuration.resolvedAddresses
 
-        if configuration.sessionConfiguration.randomizeEndpoint ?? false {
-            endpointProtocols = configuration.endpointProtocols.shuffled()
-        } else {
-            endpointProtocols = configuration.endpointProtocols
+        guard var endpointProtocols = configuration.sessionConfiguration.endpointProtocols else {
+            fatalError("No endpoints defined")
         }
+        if configuration.sessionConfiguration.randomizeEndpoint ?? false {
+            endpointProtocols.shuffle()
+        }
+        self.endpointProtocols = endpointProtocols
     }
 
     func createSocket(

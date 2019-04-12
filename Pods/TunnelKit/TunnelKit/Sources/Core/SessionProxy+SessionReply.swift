@@ -1,8 +1,8 @@
 //
-//  CryptoContainer.swift
+//  SessionProxy+SessionReply.swift
 //  TunnelKit
 //
-//  Created by Davide De Rosa on 8/22/18.
+//  Created by Davide De Rosa on 7/25/18.
 //  Copyright (c) 2019 Davide De Rosa. All rights reserved.
 //
 //  https://github.com/keeshux
@@ -36,60 +36,46 @@
 //
 
 import Foundation
-import __TunnelKitNative
 
-/// Represents a cryptographic container in PEM format.
-public struct CryptoContainer: Equatable {
-    private static let begin = "-----BEGIN "
+/// Groups the parsed reply of a successfully started session.
+public protocol SessionReply {
 
-    private static let end = "-----END "
-    
-    /// The content in PEM format (ASCII).
-    public let pem: String
-    
-    /// :nodoc:
-    public init(pem: String) {
-        guard let beginRange = pem.range(of: CryptoContainer.begin) else {
-            self.pem = ""
-            return
+    /// The returned options.
+    var options: SessionProxy.Configuration { get }
+}
+
+extension SessionProxy {
+    struct PushReply: SessionReply, CustomStringConvertible {
+        private static let prefix = "PUSH_REPLY,"
+        
+        private let original: String
+
+        let options: SessionProxy.Configuration
+        
+        init?(message: String) throws {
+            guard message.hasPrefix(PushReply.prefix) else {
+                return nil
+            }
+            guard let prefixIndex = message.range(of: PushReply.prefix)?.lowerBound else {
+                return nil
+            }
+            original = String(message[prefixIndex...])
+
+            let lines = original.components(separatedBy: ",")
+            options = try ConfigurationParser.parsed(fromLines: lines).configuration
         }
-        self.pem = String(pem[beginRange.lowerBound...])
-    }
-    
-    func write(to url: URL) throws {
-        try pem.write(to: url, atomically: true, encoding: .ascii)
-    }
-
-    // MARK: Equatable
-    
-    /// :nodoc:
-    public static func ==(lhs: CryptoContainer, rhs: CryptoContainer) -> Bool {
-        return lhs.pem == rhs.pem
-    }
-}
-
-/// :nodoc:
-extension CryptoContainer: Codable {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        let pem = try container.decode(String.self)
-        self.init(pem: pem)
-    }
-    
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        try container.encode(pem)
-    }
-}
-
-/// :nodoc:
-public extension CryptoContainer {
-    var isEncrypted: Bool {
-        return pem.contains("ENCRYPTED")
-    }
-    
-    func decrypted(with passphrase: String) throws -> CryptoContainer {
-        let decryptedPEM = try TLSBox.decryptedPrivateKey(fromPEM: pem, passphrase: passphrase)
-        return CryptoContainer(pem: decryptedPEM)
+        
+        // MARK: CustomStringConvertible
+        
+        var description: String {
+            let stripped = NSMutableString(string: original)
+            ConfigurationParser.Regex.authToken.replaceMatches(
+                in: stripped,
+                options: [],
+                range: NSMakeRange(0, stripped.length),
+                withTemplate: "auth-token"
+            )
+            return stripped as String
+        }
     }
 }

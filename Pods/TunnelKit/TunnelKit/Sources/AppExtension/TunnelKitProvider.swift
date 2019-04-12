@@ -463,9 +463,14 @@ extension TunnelKitProvider: SessionProxyDelegate {
         
         log.info("Returned ifconfig parameters:")
         log.info("\tRemote: \(remoteAddress.maskedDescription)")
-        log.info("\tIPv4: \(reply.ipv4?.description ?? "not configured")")
-        log.info("\tIPv6: \(reply.ipv6?.description ?? "not configured")")
-        log.info("\tDNS: \(reply.dnsServers.map { $0.maskedDescription })")
+        log.info("\tIPv4: \(reply.options.ipv4?.description ?? "not configured")")
+        log.info("\tIPv6: \(reply.options.ipv6?.description ?? "not configured")")
+        if let dnsServers = reply.options.dnsServers {
+            log.info("\tDNS: \(dnsServers.map { $0.maskedDescription })")
+        } else {
+            log.info("\tDNS: not configured)")
+        }
+        log.info("\tDomain: \(reply.options.searchDomain?.maskedDescription ?? "not configured")")
         
         bringNetworkUp(remoteAddress: remoteAddress, reply: reply) { (error) in
             if let error = error {
@@ -477,7 +482,7 @@ extension TunnelKitProvider: SessionProxyDelegate {
             
             log.info("Tunnel interface is now UP")
             
-            proxy.setTunnel(tunnel: NETunnelInterface(impl: self.packetFlow, isIPv6: reply.ipv6 != nil))
+            proxy.setTunnel(tunnel: NETunnelInterface(impl: self.packetFlow, isIPv6: reply.options.ipv6 != nil))
 
             self.pendingStartHandler?(nil)
             self.pendingStartHandler = nil
@@ -502,14 +507,14 @@ extension TunnelKitProvider: SessionProxyDelegate {
         
         // route all traffic to VPN
         var ipv4Settings: NEIPv4Settings?
-        if let ipv4 = reply.ipv4 {
+        if let ipv4 = reply.options.ipv4 {
             let defaultRoute = NEIPv4Route.default()
             defaultRoute.gatewayAddress = ipv4.defaultGateway
             
             var routes: [NEIPv4Route] = [defaultRoute]
             for r in ipv4.routes {
                 let ipv4Route = NEIPv4Route(destinationAddress: r.destination, subnetMask: r.mask)
-                ipv4Route.gatewayAddress = r.gateway ?? ipv4.defaultGateway
+                ipv4Route.gatewayAddress = r.gateway
                 routes.append(ipv4Route)
             }
             
@@ -519,14 +524,14 @@ extension TunnelKitProvider: SessionProxyDelegate {
         }
 
         var ipv6Settings: NEIPv6Settings?
-        if let ipv6 = reply.ipv6 {
+        if let ipv6 = reply.options.ipv6 {
             let defaultRoute = NEIPv6Route.default()
             defaultRoute.gatewayAddress = ipv6.defaultGateway
 
             var routes: [NEIPv6Route] = [defaultRoute]
             for r in ipv6.routes {
                 let ipv6Route = NEIPv6Route(destinationAddress: r.destination, networkPrefixLength: r.prefixLength as NSNumber)
-                ipv6Route.gatewayAddress = r.gateway ?? ipv6.defaultGateway
+                ipv6Route.gatewayAddress = r.gateway
                 routes.append(ipv6Route)
             }
 
@@ -535,8 +540,14 @@ extension TunnelKitProvider: SessionProxyDelegate {
             ipv6Settings?.excludedRoutes = []
         }
         
-        let dnsSettings = NEDNSSettings(servers: cfg.sessionConfiguration.dnsServers ?? reply.dnsServers)
-        
+        let dnsServers = cfg.sessionConfiguration.dnsServers ?? reply.options.dnsServers
+        let searchDomain = cfg.sessionConfiguration.searchDomain ?? reply.options.searchDomain
+        let dnsSettings = NEDNSSettings(servers: dnsServers ?? [])
+        dnsSettings.domainName = searchDomain
+        if let searchDomain = searchDomain {
+            dnsSettings.searchDomains = [searchDomain]
+        }
+
         let newSettings = NEPacketTunnelNetworkSettings(tunnelRemoteAddress: remoteAddress)
         newSettings.ipv4Settings = ipv4Settings
         newSettings.ipv6Settings = ipv6Settings

@@ -15,6 +15,7 @@ import CoreData
 
 enum TunnelProviderManagerCoordinatorError: Error {
     case missingDelegate
+    case missingHostname
 }
 
 private let profileIdKey = "EduVPNprofileId"
@@ -78,17 +79,19 @@ class TunnelProviderManagerCoordinator: Coordinator {
             let parseResult = try! ConfigurationParser.parsed(fromURL: configUrl) //swiftlint:disable:this force_try
 
             return Promise(resolver: { (resolver) in
+                guard let hostname = parseResult.configuration.hostname else { throw TunnelProviderManagerCoordinatorError.missingHostname }
+
                 self.configureVPN({ (_) in
                     let sessionConfig = parseResult.configuration.builder().build()
+
                     var builder = TunnelKitProvider.ConfigurationBuilder(sessionConfiguration: sessionConfig)
                     builder.masksPrivateData = false
-                    builder.endpointProtocols = parseResult.protocols
                     let configuration = builder.build()
 
                     let tunnelProviderProtocolConfiguration = try! configuration.generatedTunnelProtocol( //swiftlint:disable:this force_try
                         withBundleIdentifier: self.vpnBundle,
                         appGroup: self.appGroup,
-                        hostname: parseResult.hostname)
+                        hostname: hostname)
 
                     let uuid: UUID
                     if let profileId = profile.uuid {

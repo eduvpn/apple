@@ -86,7 +86,7 @@ public class SessionProxy {
     
     private var keepAliveInterval: TimeInterval? {
         let interval: TimeInterval?
-        if let negInterval = pushReply?.ping, negInterval > 0 {
+        if let negInterval = pushReply?.options.keepAliveInterval, negInterval > 0 {
             interval = TimeInterval(negInterval)
         } else if let cfgInterval = configuration.keepAliveInterval, cfgInterval > 0.0 {
             interval = cfgInterval
@@ -179,6 +179,10 @@ public class SessionProxy {
      - Parameter configuration: The `SessionProxy.Configuration` to use for this session.
      */
     public init(queue: DispatchQueue, configuration: Configuration, cachesURL: URL) throws {
+        guard let ca = configuration.ca else {
+            throw ConfigurationError.missingConfiguration(option: "ca")
+        }
+        
         self.queue = queue
         self.configuration = configuration
         self.cachesURL = cachesURL
@@ -192,7 +196,7 @@ public class SessionProxy {
         if let tlsWrap = configuration.tlsWrap {
             switch tlsWrap.strategy {
             case .auth:
-                controlChannel = try ControlChannel(withAuthKey: tlsWrap.key, digest: configuration.digest)
+                controlChannel = try ControlChannel(withAuthKey: tlsWrap.key, digest: configuration.fallbackDigest)
 
             case .crypt:
                 controlChannel = try ControlChannel(withCryptKey: tlsWrap.key)
@@ -203,7 +207,7 @@ public class SessionProxy {
         
         // cache PEMs locally (mandatory for OpenSSL)
         let fm = FileManager.default
-        try configuration.ca.pem.write(to: caURL, atomically: true, encoding: .ascii)
+        try ca.pem.write(to: caURL, atomically: true, encoding: .ascii)
         if let container = configuration.clientCertificate {
             try container.pem.write(to: clientCertificateURL, atomically: true, encoding: .ascii)
         } else {
@@ -216,6 +220,7 @@ public class SessionProxy {
         }
     }
     
+    /// :nodoc:
     deinit {
         cleanup()
 
@@ -275,7 +280,7 @@ public class SessionProxy {
      - Seealso: `canRebindLink()`.
      */
     public func rebindLink(_ link: LinkInterface) {
-        guard let _ = pushReply?.peerId else {
+        guard let _ = pushReply?.options.peerId else {
             log.warning("Session doesn't support link rebinding!")
             return
         }
@@ -629,8 +634,8 @@ public class SessionProxy {
             log.debug("CA MD5 is: \(caMD5)")
             return try? PIAHardReset(
                 caMd5Digest: caMD5,
-                cipher: configuration.cipher,
-                digest: configuration.digest
+                cipher: configuration.fallbackCipher,
+                digest: configuration.fallbackDigest
             ).encodedData()
         }
         return nil
@@ -665,7 +670,7 @@ public class SessionProxy {
         negotiationKey.controlState = .preAuth
         
         do {
-            authenticator = try Authenticator(credentials?.username, pushReply?.authToken ?? credentials?.password)
+            authenticator = try Authenticator(credentials?.username, pushReply?.options.authToken ?? credentials?.password)
             try authenticator?.putAuth(into: negotiationKey.tls)
         } catch let e {
             deferStop(.shutdown, e)
@@ -918,7 +923,7 @@ public class SessionProxy {
             reply = optionalReply
             log.debug("Received PUSH_REPLY: \"\(reply.maskedDescription)\"")
             
-            if let framing = reply.compressionFraming, let compression = reply.compressionAlgorithm {
+            if let framing = reply.options.compressionFraming, let compression = reply.options.compressionAlgorithm {
                 switch compression {
                 case .disabled:
                     break
@@ -1035,27 +1040,27 @@ public class SessionProxy {
             log.debug("Set up encryption")
         }
         
-        let pushedFraming = pushReply.compressionFraming
+        let pushedCipher = pushReply.options.cipher
+        if let negCipher = pushedCipher {
+            log.info("\tNegotiated cipher: \(negCipher.rawValue)")
+        }
+        let pushedFraming = pushReply.options.compressionFraming
         if let negFraming = pushedFraming {
             log.info("\tNegotiated compression framing: \(negFraming)")
         }
-        let pushedCompression = pushReply.compressionAlgorithm
+        let pushedCompression = pushReply.options.compressionAlgorithm
         if let negCompression = pushedCompression {
             log.info("\tNegotiated compression algorithm: \(negCompression)")
         }
-        if let negPing = pushReply.ping {
+        if let negPing = pushReply.options.keepAliveInterval {
             log.info("\tNegotiated keep-alive: \(negPing) seconds")
-        }
-        let pushedCipher = pushReply.cipher
-        if let negCipher = pushedCipher {
-            log.info("\tNegotiated cipher: \(negCipher.rawValue)")
         }
 
         let bridge: EncryptionBridge
         do {
             bridge = try EncryptionBridge(
-                pushedCipher ?? configuration.cipher,
-                configuration.digest,
+                pushedCipher ?? configuration.fallbackCipher,
+                configuration.fallbackDigest,
                 auth,
                 sessionId,
                 remoteSessionId
@@ -1068,8 +1073,8 @@ public class SessionProxy {
         negotiationKey.dataPath = DataPath(
             encrypter: bridge.encrypter(),
             decrypter: bridge.decrypter(),
-            peerId: pushReply.peerId ?? PacketPeerIdDisabled,
-            compressionFraming: (pushedFraming ?? configuration.compressionFraming).native,
+            peerId: pushReply.options.peerId ?? PacketPeerIdDisabled,
+            compressionFraming: (pushedFraming ?? configuration.fallbackCompressionFraming).native,
             compressionAlgorithm: (pushedCompression ?? configuration.compressionAlgorithm ?? .disabled).native,
             maxPackets: link?.packetBufferSize ?? 200,
             usesReplayProtection: CoreConfiguration.usesReplayProtection
