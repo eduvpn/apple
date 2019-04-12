@@ -20,7 +20,7 @@ class ProviderTableViewCell: UITableViewCell {
     @IBOutlet private weak var providerTitleLabel: UILabel!
     @IBOutlet private weak var statusImageView: UIImageView!
 
-    func configure(with instance: Instance, and providerType: ProviderType) {
+    func configure(with instance: Instance, and providerType: ProviderType, displayConnectedStatus: Bool) {
 
         let profiles = instance.apis?.flatMap({ (api) -> Set<Profile> in
             return api.profiles
@@ -31,19 +31,25 @@ class ProviderTableViewCell: UITableViewCell {
             return profile.uuid?.uuidString == configuredProfileId
         }
 
-        accessoryType = .none
-        switch configuredProfile?.vpnStatus ?? .invalid {
-        case .connected:
-            statusImageView.image = UIImage(named: "connected")
-        case .connecting, .disconnecting, .reasserting:
-            statusImageView.image = UIImage(named: "connecting")
-        case .disconnected:
-            statusImageView.image = UIImage(named: "disconnected")
-            accessoryType = .checkmark
-        case .invalid:
-            statusImageView.image = nil
-        @unknown default:
-            fatalError()
+        if displayConnectedStatus {
+            statusImageView.isHidden = false
+            accessoryType = .none
+            switch configuredProfile?.vpnStatus ?? .invalid {
+            case .connected:
+                statusImageView.image = UIImage(named: "connected")
+            case .connecting, .disconnecting, .reasserting:
+                statusImageView.image = UIImage(named: "connecting")
+            case .disconnected:
+                statusImageView.image = UIImage(named: "disconnected")
+                accessoryType = displayConnectedStatus ? .checkmark : .none
+            case .invalid:
+                statusImageView.image = nil
+            @unknown default:
+                fatalError()
+            }
+        } else {
+            statusImageView.isHidden = true
+            accessoryType = .none
         }
 
         if let logoString = instance.logos?.localizedValue, let logoUrl = URL(string: logoString) {
@@ -77,6 +83,7 @@ class ProviderTableViewController: UITableViewController {
     var providerManagerCoordinator: TunnelProviderManagerCoordinator!
 
     var viewContext: NSManagedObjectContext!
+    var selectingConfig: Bool = false
 
     var providerType: ProviderType = .unknown
 
@@ -181,7 +188,7 @@ class ProviderTableViewController: UITableViewController {
         let section = sections[indexPath.section]
         let instance = section.objects[indexPath.row]
 
-        providerCell.configure(with: instance, and: providerType)
+        providerCell.configure(with: instance, and: providerType, displayConnectedStatus: !selectingConfig)
 
         return providerCell
     }

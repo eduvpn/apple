@@ -436,6 +436,7 @@ class AppCoordinator: RootViewCoordinator {
         providerTableViewController.providerType = providerType
         providerTableViewController.viewContext = persistentContainer.viewContext
         providerTableViewController.delegate = self
+        providerTableViewController.selectingConfig = true
         self.navigationController.pushViewController(providerTableViewController, animated: true)
 
         providerTableViewController.providerType = providerType
