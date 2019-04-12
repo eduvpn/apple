@@ -40,6 +40,7 @@ enum AppCoordinatorError: Swift.Error {
     case sodiumSignatureVerifyFailed
     case ovpnConfigTemplate
     case ovpnConfigTemplateNoRemotes
+    case missingStaticTargets
 
     var localizedDescription: String {
         switch self {
@@ -63,6 +64,8 @@ enum AppCoordinatorError: Swift.Error {
             return NSLocalizedString("Unable to materialize an OpenVPN config.", comment: "")
         case .ovpnConfigTemplateNoRemotes:
             return NSLocalizedString("OpenVPN template has no remotes.", comment: "")
+        case .missingStaticTargets:
+            return NSLocalizedString("Static target configuration is incomplete.", comment: "")
         }
     }
 }
@@ -390,7 +393,7 @@ class AppCoordinator: RootViewCoordinator {
         self.navigationController.pushViewController(customProviderInputViewController, animated: true)
     }
 
-    private typealias Bytes = Array<UInt8>
+    private typealias Bytes = [UInt8]
 
     private func verify(message: Bytes, publicKey: Bytes, signature: Bytes) -> Bool {
         guard publicKey.count == 32 else {
@@ -404,17 +407,10 @@ class AppCoordinator: RootViewCoordinator {
             )
     }
 
-    private func showProviderTableViewController(for providerType: ProviderType) {
-        let providerTableViewController = storyboard.instantiateViewController(type: ProviderTableViewController.self)
-        providerTableViewController.providerType = providerType
-        providerTableViewController.viewContext = persistentContainer.viewContext
-        providerTableViewController.delegate = self
-        self.navigationController.pushViewController(providerTableViewController, animated: true)
-
-        providerTableViewController.providerType = providerType
-
+    private func pickStaticTargets(for providerType: ProviderType) throws -> (StaticService, StaticService) {
         let target: StaticService!
         let sigTarget: StaticService!
+
         switch providerType {
         case .instituteAccess:
             target = StaticService(type: .instituteAccess)
@@ -423,12 +419,26 @@ class AppCoordinator: RootViewCoordinator {
             target = StaticService(type: .secureInternet)
             sigTarget = StaticService(type: .secureInternetSignature)
         case .unknown, .other:
-            return
+            throw AppCoordinatorError.missingStaticTargets
         }
 
-        guard target != nil && sigTarget != nil else {
-            return
+        if target == nil || sigTarget == nil {
+            throw AppCoordinatorError.missingStaticTargets
         }
+
+        return (target, sigTarget)
+    }
+
+    private func showProviderTableViewController(for providerType: ProviderType) {
+        guard let (target, sigTarget) = try? pickStaticTargets(for: providerType) else { return }
+
+        let providerTableViewController = storyboard.instantiateViewController(type: ProviderTableViewController.self)
+        providerTableViewController.providerType = providerType
+        providerTableViewController.viewContext = persistentContainer.viewContext
+        providerTableViewController.delegate = self
+        self.navigationController.pushViewController(providerTableViewController, animated: true)
+
+        providerTableViewController.providerType = providerType
 
         let provider = MoyaProvider<StaticService>()
 
@@ -545,26 +555,12 @@ class AppCoordinator: RootViewCoordinator {
                     throw AppCoordinatorError.ovpnConfigTemplate
                 }
 
-                if UserDefaults.standard.forceTcp {
-                    guard let remoteUdpRegex = try? NSRegularExpression(pattern: "remote.*udp", options: []) else { fatalError("Regular expression has been validated to compile, should not fail.") }
-                    ovpnFileContent = remoteUdpRegex.stringByReplacingMatches(in: ovpnFileContent, options: [], range: NSRange(location: 0, length: ovpnFileContent.utf16.count), withTemplate: "")
-                }
-                guard let remoteTcpRegex = try? NSRegularExpression(pattern: "remote.*", options: []) else { fatalError("Regular expression has been validated to compile, should not fail.") }
-                if 0 == remoteTcpRegex.numberOfMatches(in: ovpnFileContent, options: [], range: NSRange(location: 0, length: ovpnFileContent.utf16.count)) {
-                    throw AppCoordinatorError.ovpnConfigTemplateNoRemotes
-                }
+                ovpnFileContent = self.forceTcp(on: ovpnFileContent)
+                try self.validateRemote(on: ovpnFileContent)
+                ovpnFileContent = self.merge(key: api.certificateModel!.privateKeyString, certificate: api.certificateModel!.certificateString, into: ovpnFileContent)
 
-                let insertionIndex = ovpnFileContent.range(of: "</ca>")!.upperBound
-                ovpnFileContent.insert(contentsOf: "\n<key>\n\(api.certificateModel!.privateKeyString)\n</key>", at: insertionIndex)
-                ovpnFileContent.insert(contentsOf: "\n<cert>\n\(api.certificateModel!.certificateString)\n</cert>", at: insertionIndex)
-                ovpnFileContent = ovpnFileContent.replacingOccurrences(of: "auth none\r\n", with: "")
-                // TODO: validate response
-                try Disk.clear(.temporary)
-                // merge profile with keypair
                 let filename = "\(profile.displayNames?.localizedValue ?? "")-\(api.instance?.displayNames?.localizedValue ?? "") \(profile.profileId ?? "").ovpn"
-                try Disk.save(ovpnFileContent.data(using: .utf8)!, to: .temporary, as: filename)
-                let url = try Disk.url(for: filename, in: .temporary)
-                return url
+                return try self.saveToOvpnFile(content: ovpnFileContent, to: filename)
             }.recover { (error) throws -> Promise<URL> in
                 NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
 
@@ -711,6 +707,44 @@ class AppCoordinator: RootViewCoordinator {
                 throw error
             }
         }
+    }
+
+    /// merge ovpn profile with keypair
+    private func merge(key: String, certificate: String, into ovpnFileContent: String) -> String {
+        var ovpnFileContent = ovpnFileContent
+
+        let insertionIndex = ovpnFileContent.range(of: "</ca>")!.upperBound
+        ovpnFileContent.insert(contentsOf: "\n<key>\n\(key)\n</key>", at: insertionIndex)
+        ovpnFileContent.insert(contentsOf: "\n<cert>\n\(certificate)\n</cert>", at: insertionIndex)
+        ovpnFileContent = ovpnFileContent.replacingOccurrences(of: "auth none\r\n", with: "")
+
+        return ovpnFileContent
+    }
+
+    private func forceTcp(on ovpnFileContent: String) -> String {
+        if UserDefaults.standard.forceTcp {
+            var ovpnFileContent = ovpnFileContent
+            guard let remoteUdpRegex = try? NSRegularExpression(pattern: "remote.*udp", options: []) else { fatalError("Regular expression has been validated to compile, should not fail.") }
+            ovpnFileContent = remoteUdpRegex.stringByReplacingMatches(in: ovpnFileContent, options: [], range: NSRange(location: 0, length: ovpnFileContent.utf16.count), withTemplate: "")
+            return ovpnFileContent
+        } else {
+            return ovpnFileContent
+        }
+    }
+
+    private func validateRemote(on ovpnFileContent: String) throws {
+        guard let remoteTcpRegex = try? NSRegularExpression(pattern: "remote.*", options: []) else { fatalError("Regular expression has been validated to compile, should not fail.") }
+        if 0 == remoteTcpRegex.numberOfMatches(in: ovpnFileContent, options: [], range: NSRange(location: 0, length: ovpnFileContent.utf16.count)) {
+            throw AppCoordinatorError.ovpnConfigTemplateNoRemotes
+        }
+    }
+
+    private func saveToOvpnFile(content: String, to filename: String) throws -> URL {
+        // TODO: validate response
+        try Disk.clear(.temporary)
+        try Disk.save(content.data(using: .utf8)!, to: .temporary, as: filename)
+        let url = try Disk.url(for: filename, in: .temporary)
+        return url
     }
 }
 

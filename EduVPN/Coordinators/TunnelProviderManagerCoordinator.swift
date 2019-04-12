@@ -35,7 +35,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
                                                selector: #selector(VPNStatusDidChange(notification:)),
                                                name: .NEVPNStatusDidChange,
                                                object: nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(refresh), name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
 
     var isActive: Bool {
@@ -240,7 +240,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
     }
 
     @objc private func refresh() {
-        reloadCurrentManager { [weak self] (error) in
+        reloadCurrentManager { [weak self] (_) in
             guard let status = self?.currentManager?.connection.status else {
                 return
             }

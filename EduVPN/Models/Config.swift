@@ -8,6 +8,7 @@
 
 import Foundation
 
+// swiftlint:disable identifier_name
 struct Config: Decodable {
 
     static var shared: Config = {

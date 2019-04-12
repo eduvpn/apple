@@ -135,7 +135,7 @@ class ProviderTableViewController: UITableViewController {
             navigationItem.rightBarButtonItems = []
         }
 
-        NotificationCenter.default.addObserver(self, selector:#selector(refresh), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {

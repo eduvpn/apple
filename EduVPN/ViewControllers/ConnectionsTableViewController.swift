@@ -82,7 +82,7 @@ class ConnectionsTableViewController: UITableViewController {
 
         tableView.tableFooterView = UIView()
         refresh()
-        NotificationCenter.default.addObserver(self, selector:#selector(refresh), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
 
     @objc func refresh() {

@@ -649,7 +649,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#${PODS_ROOT}/SwiftLint/swiftlint autocorrect\n#${PODS_ROOT}/SwiftLint/swiftlint\n";
+			shellScript = "# swiftlint autocorrect\n# swiftlint\n";
 		};
 		4AAC1F9A1F2D104000DD0252 /* Set build number */ = {
 			isa = PBXShellScriptBuildPhase;
