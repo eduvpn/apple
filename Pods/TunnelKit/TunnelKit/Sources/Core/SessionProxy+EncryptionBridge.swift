@@ -71,7 +71,7 @@ extension SessionProxy {
             _ serverSessionId: Data?,
             _ size: Int) throws -> ZeroingData {
             
-            let seed = Z(label)
+            let seed = Z(label, nullTerminated: false)
             seed.append(clientSeed)
             seed.append(serverSeed)
             if let csi = clientSessionId {

@@ -85,6 +85,20 @@ extension SessionProxy {
         /// AES encryption with 256-bit key size and GCM.
         case aes256gcm = "AES-256-GCM"
         
+        /// Returns the key size for this cipher.
+        public var keySize: Int {
+            switch self {
+            case .aes128cbc, .aes128gcm:
+                return 128
+                
+            case .aes192cbc, .aes192gcm:
+                return 192
+                
+            case .aes256cbc, .aes256gcm:
+                return 256
+            }
+        }
+        
         /// Digest should be ignored when this is `true`.
         public var embedsDigest: Bool {
             return rawValue.hasSuffix("-GCM")
@@ -215,6 +229,15 @@ extension SessionProxy {
         /// The search domain.
         public var searchDomain: String?
 
+        /// The HTTP proxy.
+        public var httpProxy: Proxy?
+        
+        /// The HTTPS proxy.
+        public var httpsProxy: Proxy?
+        
+        /// The list of domains not passing through the proxy.
+        public var proxyBypassDomains: [String]?
+        
         /// :nodoc:
         public init() {
         }
@@ -246,7 +269,10 @@ extension SessionProxy {
                 ipv4: ipv4,
                 ipv6: ipv6,
                 dnsServers: dnsServers,
-                searchDomain: searchDomain
+                searchDomain: searchDomain,
+                httpProxy: httpProxy,
+                httpsProxy: httpsProxy,
+                proxyBypassDomains: proxyBypassDomains
             )
         }
 
@@ -334,35 +360,14 @@ extension SessionProxy {
         /// - Seealso: `SessionProxy.ConfigurationBuilder.searchDomain`
         public let searchDomain: String?
         
-        /**
-         Returns a `SessionProxy.ConfigurationBuilder` to use this configuration as a starting point for a new one.
-         
-         - Returns: An editable `SessionProxy.ConfigurationBuilder` initialized with this configuration.
-         */
-        public func builder() -> SessionProxy.ConfigurationBuilder {
-            var builder = SessionProxy.ConfigurationBuilder()
-            builder.cipher = cipher
-            builder.digest = digest
-            builder.compressionFraming = compressionFraming
-            builder.compressionAlgorithm = compressionAlgorithm
-            builder.ca = ca
-            builder.clientCertificate = clientCertificate
-            builder.clientKey = clientKey
-            builder.tlsWrap = tlsWrap
-            builder.keepAliveInterval = keepAliveInterval
-            builder.renegotiatesAfter = renegotiatesAfter
-            builder.endpointProtocols = endpointProtocols
-            builder.checksEKU = checksEKU
-            builder.randomizeEndpoint = randomizeEndpoint
-            builder.usesPIAPatches = usesPIAPatches
-            builder.authToken = authToken
-            builder.peerId = peerId
-            builder.ipv4 = ipv4
-            builder.ipv6 = ipv6
-            builder.dnsServers = dnsServers
-            builder.searchDomain = searchDomain
-            return builder
-        }
+        /// - Seealso: `SessionProxy.ConfigurationBuilder.httpProxy`
+        public var httpProxy: Proxy?
+        
+        /// - Seealso: `SessionProxy.ConfigurationBuilder.httpsProxy`
+        public var httpsProxy: Proxy?
+        
+        /// - Seealso: `SessionProxy.ConfigurationBuilder.proxyBypassDomains`
+        public var proxyBypassDomains: [String]?
         
         // MARK: Shortcuts
         
@@ -380,6 +385,44 @@ extension SessionProxy {
         public var fallbackCompressionFraming: CompressionFraming {
             return compressionFraming ?? Fallback.compressionFraming
         }
+    }
+}
+
+// MARK: Modification
+
+extension SessionProxy.Configuration {
+    
+    /**
+     Returns a `SessionProxy.ConfigurationBuilder` to use this configuration as a starting point for a new one.
+     
+     - Returns: An editable `SessionProxy.ConfigurationBuilder` initialized with this configuration.
+     */
+    public func builder() -> SessionProxy.ConfigurationBuilder {
+        var builder = SessionProxy.ConfigurationBuilder()
+        builder.cipher = cipher
+        builder.digest = digest
+        builder.compressionFraming = compressionFraming
+        builder.compressionAlgorithm = compressionAlgorithm
+        builder.ca = ca
+        builder.clientCertificate = clientCertificate
+        builder.clientKey = clientKey
+        builder.tlsWrap = tlsWrap
+        builder.keepAliveInterval = keepAliveInterval
+        builder.renegotiatesAfter = renegotiatesAfter
+        builder.endpointProtocols = endpointProtocols
+        builder.checksEKU = checksEKU
+        builder.randomizeEndpoint = randomizeEndpoint
+        builder.usesPIAPatches = usesPIAPatches
+        builder.authToken = authToken
+        builder.peerId = peerId
+        builder.ipv4 = ipv4
+        builder.ipv6 = ipv6
+        builder.dnsServers = dnsServers
+        builder.searchDomain = searchDomain
+        builder.httpProxy = httpProxy
+        builder.httpsProxy = httpsProxy
+        builder.proxyBypassDomains = proxyBypassDomains
+        return builder
     }
 }
 
@@ -478,6 +521,45 @@ public struct IPv6Settings: Codable, CustomStringConvertible {
     /// :nodoc:
     public var description: String {
         return "addr \(address.maskedDescription)/\(addressPrefixLength) gw \(defaultGateway.maskedDescription) routes \(routes.map { $0.maskedDescription })"
+    }
+}
+
+/// Encapsulate a proxy setting.
+public struct Proxy: Codable, RawRepresentable, CustomStringConvertible {
+
+    /// The proxy address.
+    public let address: String
+
+    /// The proxy port.
+    public let port: UInt16
+    
+    /// :nodoc:
+    public init(_ address: String, _ port: UInt16) {
+        self.address = address
+        self.port = port
+    }
+
+    // MARK: RawRepresentable
+    
+    /// :nodoc:
+    public var rawValue: String {
+        return "\(address):\(port)"
+    }
+    
+    /// :nodoc:
+    public init?(rawValue: String) {
+        let comps = rawValue.components(separatedBy: ":")
+        guard comps.count == 2, let port = UInt16(comps[1]) else {
+            return nil
+        }
+        self.init(comps[0], port)
+    }
+    
+    // MARK: CustomStringConvertible
+    
+    /// :nodoc:
+    public var description: String {
+        return rawValue
     }
 }
 

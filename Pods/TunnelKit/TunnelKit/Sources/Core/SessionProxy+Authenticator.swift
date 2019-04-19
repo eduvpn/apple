@@ -86,7 +86,7 @@ extension SessionProxy {
         // MARK: Authentication request
 
         // Ruby: on_tls_connect
-        func putAuth(into: TLSBox) throws {
+        func putAuth(into: TLSBox, options: SessionProxy.Configuration) throws {
             let raw = Z(ProtocolMacros.tlsPrefix)
             
             // local keys
@@ -94,8 +94,37 @@ extension SessionProxy {
             raw.append(random1)
             raw.append(random2)
             
-            // opts
-            raw.appendSized(Z(UInt8(0)))
+            // options string
+            var opts = [
+                "V4",
+                "cipher \(options.fallbackCipher.rawValue)",
+                "auth \(options.fallbackDigest.rawValue)",
+                "keysize \(options.fallbackCipher.keySize)"
+            ]
+            if let comp = options.compressionFraming {
+                switch comp {
+                case .compLZO:
+                    opts.append("comp-lzo")
+                    
+                case .compress:
+                    opts.append("compress")
+                    
+                default:
+                    break
+                }
+            }
+            if let strategy = options.tlsWrap?.strategy {
+                switch strategy {
+                case .auth:
+                    opts.append("tls-auth")
+                    
+                case .crypt:
+                    opts.append("tls-crypt")
+                }
+            }
+            let optsString = opts.joined(separator: ",")
+            log.debug("TLS.auth: Local options: \(optsString)")
+            raw.appendSized(Z(optsString, nullTerminated: true))
             
             // credentials
             if let username = username, let password = password {
@@ -107,7 +136,7 @@ extension SessionProxy {
             }
 
             // peer info
-            raw.appendSized(Z(CoreConfiguration.peerInfo))
+            raw.appendSized(Z(CoreConfiguration.peerInfo, nullTerminated: true))
 
             if CoreConfiguration.logsSensitiveData {
                 log.debug("TLS.auth: Put plaintext (\(raw.count) bytes): \(raw.toHex())")

@@ -66,6 +66,6 @@ func Z(_ data: Data) -> ZeroingData {
 //    return ZeroingData(data: data, offset: offset, count: count)
 //}
 
-func Z(_ string: String, nullTerminated: Bool = false) -> ZeroingData {
+func Z(_ string: String, nullTerminated: Bool) -> ZeroingData {
     return ZeroingData(string: string, nullTerminated: nullTerminated)
 }

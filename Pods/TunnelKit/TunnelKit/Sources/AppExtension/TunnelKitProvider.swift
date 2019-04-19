@@ -123,7 +123,6 @@ open class TunnelKitProvider: NEPacketTunnelProvider {
     open override func startTunnel(options: [String : NSObject]? = nil, completionHandler: @escaping (Error?) -> Void) {
 
         // required configuration
-        let hostname: String
         do {
             guard let tunnelProtocol = protocolConfiguration as? NETunnelProviderProtocol else {
                 throw ProviderConfigurationError.parameter(name: "protocolConfiguration")
@@ -134,9 +133,17 @@ open class TunnelKitProvider: NEPacketTunnelProvider {
             guard let providerConfiguration = tunnelProtocol.providerConfiguration else {
                 throw ProviderConfigurationError.parameter(name: "protocolConfiguration.providerConfiguration")
             }
-            hostname = serverAddress
             try appGroup = Configuration.appGroup(from: providerConfiguration)
             try cfg = Configuration.parsed(from: providerConfiguration)
+            
+            // inject serverAddress into sessionConfiguration.hostname
+            if !serverAddress.isEmpty {
+                var sessionBuilder = cfg.sessionConfiguration.builder()
+                sessionBuilder.hostname = serverAddress
+                var cfgBuilder = cfg.builder()
+                cfgBuilder.sessionConfiguration = sessionBuilder.build()
+                cfg = cfgBuilder.build()
+            }
         } catch let e {
             var message: String?
             if let te = e as? ProviderConfigurationError {
@@ -162,7 +169,7 @@ open class TunnelKitProvider: NEPacketTunnelProvider {
             credentials = nil
         }
 
-        strategy = ConnectionStrategy(hostname: hostname, configuration: cfg)
+        strategy = ConnectionStrategy(configuration: cfg)
 
         if let content = cfg.existingLog(in: appGroup) {
             var existingLog = content.components(separatedBy: "\n")
@@ -471,7 +478,20 @@ extension TunnelKitProvider: SessionProxyDelegate {
             log.info("\tDNS: not configured)")
         }
         log.info("\tDomain: \(reply.options.searchDomain?.maskedDescription ?? "not configured")")
-        
+
+        if reply.options.httpProxy != nil || reply.options.httpsProxy != nil {
+            log.info("\tProxy:")
+            if let proxy = reply.options.httpProxy {
+                log.info("\t\tHTTP: \(proxy.maskedDescription)")
+            }
+            if let proxy = reply.options.httpsProxy {
+                log.info("\t\tHTTPS: \(proxy.maskedDescription)")
+            }
+            if let bypass = reply.options.proxyBypassDomains {
+                log.info("\t\tBypass domains: \(bypass.maskedDescription)")
+            }
+        }
+
         bringNetworkUp(remoteAddress: remoteAddress, reply: reply) { (error) in
             if let error = error {
                 log.error("Failed to configure tunnel: \(error)")
@@ -540,18 +560,38 @@ extension TunnelKitProvider: SessionProxyDelegate {
             ipv6Settings?.excludedRoutes = []
         }
         
-        let dnsServers = cfg.sessionConfiguration.dnsServers ?? reply.options.dnsServers
-        let searchDomain = cfg.sessionConfiguration.searchDomain ?? reply.options.searchDomain
+        var dnsServers = cfg.sessionConfiguration.dnsServers
+        if dnsServers?.isEmpty ?? true {
+            dnsServers = reply.options.dnsServers
+        }
+        // FIXME: default to DNS servers from current network instead
         let dnsSettings = NEDNSSettings(servers: dnsServers ?? [])
-        dnsSettings.domainName = searchDomain
-        if let searchDomain = searchDomain {
+        if let searchDomain = cfg.sessionConfiguration.searchDomain ?? reply.options.searchDomain {
+            dnsSettings.domainName = searchDomain
             dnsSettings.searchDomains = [searchDomain]
         }
+        
+        var proxySettings: NEProxySettings?
+        if let httpsProxy = cfg.sessionConfiguration.httpsProxy ?? reply.options.httpsProxy {
+            proxySettings = NEProxySettings()
+            proxySettings?.httpsServer = httpsProxy.neProxy()
+            proxySettings?.httpsEnabled = true
+        }
+        if let httpProxy = cfg.sessionConfiguration.httpProxy ?? reply.options.httpProxy {
+            if proxySettings == nil {
+                proxySettings = NEProxySettings()
+            }
+            proxySettings?.httpServer = httpProxy.neProxy()
+            proxySettings?.httpEnabled = true
+        }
+        // only set if there is a proxy (proxySettings set to non-nil above)
+        proxySettings?.exceptionList = cfg.sessionConfiguration.proxyBypassDomains ?? reply.options.proxyBypassDomains
 
         let newSettings = NEPacketTunnelNetworkSettings(tunnelRemoteAddress: remoteAddress)
         newSettings.ipv4Settings = ipv4Settings
         newSettings.ipv6Settings = ipv6Settings
         newSettings.dnsSettings = dnsSettings
+        newSettings.proxySettings = proxySettings
         
         setTunnelNetworkSettings(newSettings, completionHandler: completionHandler)
     }
@@ -662,5 +702,11 @@ extension TunnelKitProvider {
             }
         }
         return error as? ProviderError ?? .linkError
+    }
+}
+
+private extension Proxy {
+    func neProxy() -> NEProxyServer {
+        return NEProxyServer(address: address, port: Int(port))
     }
 }

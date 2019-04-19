@@ -119,6 +119,13 @@ Example:
 	-----END CERTIFICATE-----
     """)
 
+Make sure to also update the following constants in the same files, according to your developer account and your target bundle identifiers:
+
+    public static let appGroup
+    public static let tunnelIdentifier
+
+Remember that the App Group on macOS requires a team ID prefix.
+
 ## Documentation
 
 The library is split into two modules, in order to decouple the low-level protocol implementation from the platform-specific bridging, namely the [NetworkExtension][ne-home] VPN framework.

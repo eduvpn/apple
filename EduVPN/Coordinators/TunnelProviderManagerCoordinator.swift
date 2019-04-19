@@ -82,7 +82,8 @@ class TunnelProviderManagerCoordinator: Coordinator {
                 guard let hostname = parseResult.configuration.hostname else { throw TunnelProviderManagerCoordinatorError.missingHostname }
 
                 self.configureVPN({ (_) in
-                    let sessionConfig = parseResult.configuration.builder().build()
+                    var sessionConfig = parseResult.configuration.builder().build()
+                    sessionConfig.hostname = hostname
 
                     var builder = TunnelKitProvider.ConfigurationBuilder(sessionConfiguration: sessionConfig)
                     builder.masksPrivateData = false
@@ -90,8 +91,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
 
                     let tunnelProviderProtocolConfiguration = try! configuration.generatedTunnelProtocol( //swiftlint:disable:this force_try
                         withBundleIdentifier: self.vpnBundle,
-                        appGroup: self.appGroup,
-                        hostname: hostname)
+                        appGroup: self.appGroup)
 
                     let uuid: UUID
                     if let profileId = profile.uuid {

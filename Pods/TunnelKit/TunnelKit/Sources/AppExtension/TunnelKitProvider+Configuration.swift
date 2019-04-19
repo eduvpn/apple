@@ -163,6 +163,19 @@ extension TunnelKitProvider {
             sessionConfigurationBuilder.usesPIAPatches = providerConfiguration[S.usesPIAPatches] as? Bool ?? ConfigurationBuilder.defaults.sessionConfiguration.usesPIAPatches
             sessionConfigurationBuilder.dnsServers = providerConfiguration[S.dnsServers] as? [String]
             sessionConfigurationBuilder.searchDomain = providerConfiguration[S.searchDomain] as? String
+            if let proxyString = providerConfiguration[S.httpProxy] as? String {
+                guard let proxy = Proxy(rawValue: proxyString) else {
+                    throw ProviderConfigurationError.parameter(name: "protocolConfiguration.providerConfiguration[\(S.httpProxy)] has a badly formed element")
+                }
+                sessionConfigurationBuilder.httpProxy = proxy
+            }
+            if let proxyString = providerConfiguration[S.httpsProxy] as? String {
+                guard let proxy = Proxy(rawValue: proxyString) else {
+                    throw ProviderConfigurationError.parameter(name: "protocolConfiguration.providerConfiguration[\(S.httpsProxy)] has a badly formed element")
+                }
+                sessionConfigurationBuilder.httpsProxy = proxy
+            }
+            sessionConfigurationBuilder.proxyBypassDomains = providerConfiguration[S.proxyBypassDomains] as? [String]
             sessionConfiguration = sessionConfigurationBuilder.build()
 
             shouldDebug = providerConfiguration[S.debug] as? Bool ?? ConfigurationBuilder.defaults.shouldDebug
@@ -239,6 +252,12 @@ extension TunnelKitProvider {
             static let dnsServers = "DNSServers"
             
             static let searchDomain = "SearchDomain"
+            
+            static let httpProxy = "HTTPProxy"
+            
+            static let httpsProxy = "HTTPSProxy"
+            
+            static let proxyBypassDomains = "ProxyBypassDomains"
             
             // MARK: Debugging
             
@@ -443,6 +462,15 @@ extension TunnelKitProvider {
             if let searchDomain = sessionConfiguration.searchDomain {
                 dict[S.searchDomain] = searchDomain
             }
+            if let httpProxy = sessionConfiguration.httpProxy {
+                dict[S.httpProxy] = httpProxy.rawValue
+            }
+            if let httpsProxy = sessionConfiguration.httpsProxy {
+                dict[S.httpsProxy] = httpsProxy.rawValue
+            }
+            if let proxyBypassDomains = sessionConfiguration.proxyBypassDomains {
+                dict[S.proxyBypassDomains] = proxyBypassDomains
+            }
             //
             if let resolvedAddresses = resolvedAddresses {
                 dict[S.resolvedAddresses] = resolvedAddresses
@@ -461,16 +489,15 @@ extension TunnelKitProvider {
          
          - Parameter bundleIdentifier: The provider bundle identifier required to locate the tunnel extension.
          - Parameter appGroup: The name of the app group in which the tunnel extension lives in.
-         - Parameter hostname: The hostname the tunnel will connect to.
          - Parameter credentials: The optional credentials to authenticate with.
          - Returns: The generated `NETunnelProviderProtocol` object.
          - Throws: `ProviderError.credentials` if unable to store `credentials.password` to the `appGroup` keychain.
          */
-        public func generatedTunnelProtocol(withBundleIdentifier bundleIdentifier: String, appGroup: String, hostname: String, credentials: SessionProxy.Credentials? = nil) throws -> NETunnelProviderProtocol {
+        public func generatedTunnelProtocol(withBundleIdentifier bundleIdentifier: String, appGroup: String, credentials: SessionProxy.Credentials? = nil) throws -> NETunnelProviderProtocol {
             let protocolConfiguration = NETunnelProviderProtocol()
             
             protocolConfiguration.providerBundleIdentifier = bundleIdentifier
-            protocolConfiguration.serverAddress = hostname
+            protocolConfiguration.serverAddress = sessionConfiguration.hostname ?? resolvedAddresses?.first
             if let username = credentials?.username, let password = credentials?.password {
                 let keychain = Keychain(group: appGroup)
                 do {
@@ -538,6 +565,15 @@ extension TunnelKitProvider {
             if let searchDomain = sessionConfiguration.searchDomain {
                 log.info("\tSearch domain: \(searchDomain.maskedDescription)")
             }
+            if let httpProxy = sessionConfiguration.httpProxy {
+                log.info("\tHTTP proxy: \(httpProxy.maskedDescription)")
+            }
+            if let httpsProxy = sessionConfiguration.httpsProxy {
+                log.info("\tHTTPS proxy: \(httpsProxy.maskedDescription)")
+            }
+            if let proxyBypassDomains = sessionConfiguration.proxyBypassDomains {
+                log.info("\tProxy bypass domains: \(proxyBypassDomains.maskedDescription)")
+            }
             log.info("\tMTU: \(mtu)")
             log.info("\tDebug: \(shouldDebug)")
             log.info("\tMasks private data: \(masksPrivateData ?? true)")
@@ -556,9 +592,12 @@ extension TunnelKitProvider.Configuration {
      */
     public func builder() -> TunnelKitProvider.ConfigurationBuilder {
         var builder = TunnelKitProvider.ConfigurationBuilder(sessionConfiguration: sessionConfiguration)
+        builder.prefersResolvedAddresses = prefersResolvedAddresses
+        builder.resolvedAddresses = resolvedAddresses
         builder.mtu = mtu
         builder.shouldDebug = shouldDebug
         builder.debugLogFormat = debugLogFormat
+        builder.masksPrivateData = masksPrivateData
         return builder
     }
 }

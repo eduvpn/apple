@@ -42,7 +42,7 @@ import SwiftyBeaver
 private let log = SwiftyBeaver.self
 
 class ConnectionStrategy {
-    private let hostname: String
+    private let hostname: String?
 
     private let prefersResolvedAddresses: Bool
 
@@ -52,15 +52,17 @@ class ConnectionStrategy {
     
     private var currentProtocolIndex = 0
 
-    init(hostname: String, configuration: TunnelKitProvider.Configuration) {
-        precondition(!configuration.prefersResolvedAddresses || !(configuration.resolvedAddresses?.isEmpty ?? true))
-        
-        self.hostname = hostname
-        prefersResolvedAddresses = configuration.prefersResolvedAddresses
+    init(configuration: TunnelKitProvider.Configuration) {
+        hostname = configuration.sessionConfiguration.hostname
+        prefersResolvedAddresses = (hostname == nil) || configuration.prefersResolvedAddresses
         resolvedAddresses = configuration.resolvedAddresses
-
+        if prefersResolvedAddresses {
+            guard !(resolvedAddresses?.isEmpty ?? true) else {
+                fatalError("Either hostname or resolved addresses provided")
+            }
+        }
         guard var endpointProtocols = configuration.sessionConfiguration.endpointProtocols else {
-            fatalError("No endpoints defined")
+            fatalError("No endpoints provided")
         }
         if configuration.sessionConfiguration.randomizeEndpoint ?? false {
             endpointProtocols.shuffle()
@@ -92,6 +94,11 @@ class ConnectionStrategy {
         }
         
         // fall back to DNS
+        guard let hostname = hostname else {
+            log.error("DNS resolution unavailable: no hostname provided!")
+            completionHandler(nil, TunnelKitProvider.ProviderError.dnsFailure)
+            return
+        }
         log.debug("DNS resolve hostname: \(hostname.maskedDescription)")
         DNSResolver.resolve(hostname, timeout: timeout, queue: queue) { (addresses, error) in
             

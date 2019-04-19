@@ -135,6 +135,8 @@ public class SessionProxy {
         return link?.isReliable ?? false
     }
 
+    private var continuatedPushReplyMessage: String?
+
     private var pushReply: SessionReply?
     
     private var nextPushRequestDate: Date?
@@ -368,6 +370,7 @@ public class SessionProxy {
         nextPushRequestDate = nil
         connectedDate = nil
         authenticator = nil
+        continuatedPushReplyMessage = nil
         pushReply = nil
         link = nil
         if !(tunnel?.isPersistent ?? false) {
@@ -403,12 +406,10 @@ public class SessionProxy {
             return
         }
             
-        if !isReliableLink {
-            pushRequest()
-            flushControlQueue()
-        }
+        pushRequest()
+        flushControlQueue()
         
-        guard (negotiationKey.controlState == .connected) else {
+        guard negotiationKey.controlState == .connected else {
             queue.asyncAfter(deadline: .now() + CoreConfiguration.tickInterval) { [weak self] in
                 self?.loopNegotiation()
             }
@@ -518,7 +519,7 @@ public class SessionProxy {
 //                deferStop(.shutdown, e)
 //                return
             }
-            if (code == .hardResetServerV2) && (negotiationKey.state != .hardReset) {
+            if (code == .hardResetServerV2) && (negotiationKey.controlState == .connected) {
                 deferStop(.shutdown, SessionError.staleSession)
                 return
             } else if (code == .softResetV1) && (negotiationKey.state != .softReset) {
@@ -607,6 +608,7 @@ public class SessionProxy {
         log.debug("Send hard reset")
 
         resetControlChannel(forNewSession: true)
+        continuatedPushReplyMessage = nil
         pushReply = nil
         negotiationKeyIdx = 0
         let newKey = SessionKey(id: UInt8(negotiationKeyIdx))
@@ -671,7 +673,7 @@ public class SessionProxy {
         
         do {
             authenticator = try Authenticator(credentials?.username, pushReply?.options.authToken ?? credentials?.password)
-            try authenticator?.putAuth(into: negotiationKey.tls)
+            try authenticator?.putAuth(into: negotiationKey.tls, options: configuration)
         } catch let e {
             deferStop(.shutdown, e)
             return
@@ -696,13 +698,11 @@ public class SessionProxy {
     
     // Ruby: push_request
     private func pushRequest() {
-        guard (negotiationKey.controlState == .preIfConfig) else {
+        guard negotiationKey.controlState == .preIfConfig else {
             return
         }
-        if !isReliableLink {
-            guard let targetDate = nextPushRequestDate, (Date() > targetDate) else {
-                return
-            }
+        guard let targetDate = nextPushRequestDate, Date() > targetDate else {
+            return
         }
         
         log.debug("TLS.ifconfig: Put plaintext (PUSH_REQUEST)")
@@ -727,7 +727,7 @@ public class SessionProxy {
         if negotiationKey.softReset {
             completeConnection()
         }
-        nextPushRequestDate = Date().addingTimeInterval(CoreConfiguration.retransmissionLimit)
+        nextPushRequestDate = Date().addingTimeInterval(CoreConfiguration.pushRequestInterval)
     }
     
     private func maybeRenegotiate() {
@@ -854,8 +854,10 @@ public class SessionProxy {
             }
 
             do {
-                let controlData = try controlChannel.currentControlData(withTLS: negotiationKey.tls)
-                handleControlData(controlData)
+                while true {
+                    let controlData = try controlChannel.currentControlData(withTLS: negotiationKey.tls)
+                    handleControlData(controlData)
+                }
             } catch _ {
             }
         }
@@ -915,9 +917,15 @@ public class SessionProxy {
             log.debug("Received control message: \"\(message)\"")
         }
         
+        let completeMessage: String
+        if let continuated = continuatedPushReplyMessage {
+            completeMessage = "\(continuated),\(message)"
+        } else {
+            completeMessage = message
+        }
         let reply: PushReply
         do {
-            guard let optionalReply = try PushReply(message: message) else {
+            guard let optionalReply = try PushReply(message: completeMessage) else {
                 return
             }
             reply = optionalReply
@@ -939,6 +947,10 @@ public class SessionProxy {
                     throw SessionError.serverCompression
                 }
             }
+        } catch SessionError.continuationPushReply {
+            continuatedPushReplyMessage = completeMessage.replacingOccurrences(of: "push-continuation", with: "")
+            // FIXME: strip "PUSH_REPLY" and "push-continuation 2"
+            return
         } catch let e {
             deferStop(.shutdown, e)
             return
@@ -1143,11 +1155,6 @@ public class SessionProxy {
     // MARK: Acks
     
     private func handleAcks() {
-
-        // retry PUSH_REQUEST if ack queue is empty (all sent packets were ack'ed)
-        if isReliableLink && !controlChannel.hasPendingAcks() {
-            pushRequest()
-        }
     }
     
     // Ruby: send_ack
