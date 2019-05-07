@@ -88,7 +88,6 @@
 		1C496E2C46E94DECD60F0B1C7CA511E4 /* NetworkLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3505C8E53B0D7256DD2D8B55792224 /* NetworkLoggerPlugin.swift */; };
 		1C787D1F6487042F1C119984C437810B /* int128.h in Headers */ = {isa = PBXBuildFile; fileRef = A81FC4469C25092A835271BE514A50A5 /* int128.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		1D29D2ACADF961F69D32B06FA6A09E28 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = C063FAAE4D460C5A3AB7F8D33187441B /* Notifications.swift */; };
-		1D472E0DBA4702F042EC12D25DEBB707 /* ASN1Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2BCDCC85DBC3EDFFE82423E98DD2B7 /* ASN1Object.swift */; };
 		1DB80D71C700F46548864DC95F5DDCF8 /* PromiseKit-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C022014E53DDA5BE576AF0F6D7D8B2C6 /* PromiseKit-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1DD5361466DF37AA3C4D3225F298516A /* SwiftyBeaver-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B966CE9331A115C204F4FB6809ACFBA /* SwiftyBeaver-dummy.m */; };
 		1E2F437A19A827C46D12118024D0B3E7 /* crypto_sign.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FE8D136B1CDB045770169AC51C2756A /* crypto_sign.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -156,6 +155,7 @@
 		38D8121241918B7A849C79E5F06A18C2 /* curve25519_donna_c64.h in Headers */ = {isa = PBXBuildFile; fileRef = 856694B5C4175FB6DF04CE7391CD9AFE /* curve25519_donna_c64.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		38DDED2026D7CCE463BD6AA84D5B57F3 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4480C5F55150A76CEBACB9D3731728B9 /* ImageCache.swift */; };
 		398D614E656FFA66513B5B3885EF8AAC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30425EE9762FE88CAB14C47681826E6D /* Foundation.framework */; };
+		3A0300A4EAFE7047337D759D8BB3C7F1 /* ASN1Decoder-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 359A749634C4A4117AE8C9B35BB3EC76 /* ASN1Decoder-dummy.m */; };
 		3A121B76AD1A42A3460DC0FF3F36BEB6 /* crypto_box.c in Sources */ = {isa = PBXBuildFile; fileRef = B7C56F93EB655FC912D8640FA94943C6 /* crypto_box.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3A200D2AE5F8E35B53EEF76EF6A902B6 /* ControlPacket.h in Headers */ = {isa = PBXBuildFile; fileRef = 430E28941FC3A8014FA4A2317603F542 /* ControlPacket.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		3A3749E805407406497056BD74EBBBD6 /* crypto_aead_chacha20poly1305.h in Headers */ = {isa = PBXBuildFile; fileRef = E3A473CBB47F8E2905B33C6F81FEF5CD /* crypto_aead_chacha20poly1305.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -184,7 +184,6 @@
 		40B87B11D489537E3199D606C588DC7C /* OIDFieldMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = D10AB4879DAC36F18E0C15F28881E22C /* OIDFieldMapping.m */; };
 		4185A8C57E3F823A568FE8B8AED885FD /* randombytes_nativeclient.c in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1203DBB436AE5AA2DA353E494BED8 /* randombytes_nativeclient.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		41C84F960354A9214136AA334311C98D /* Disk.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3AD87B4CB7EE1A39C9A772C85532A8 /* Disk.swift */; };
-		41E974C6138F2FCF2173F10F008B6DDA /* PKCS7_AppleReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722EAE7A493C16CFB23E8A4ED11F0805 /* PKCS7_AppleReceipt.swift */; };
 		4282069ECA5E2423D4E22B2E6D1FA2EE /* argon2-fill-block-ref.c in Sources */ = {isa = PBXBuildFile; fileRef = 76E2FC9E5042D2C823F27E3EDAD3BEDA /* argon2-fill-block-ref.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		42B924D652DBBC8C27481C52846685B6 /* SwiftyBeaver-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C65E23EC5437728D35B2F049C55326D /* SwiftyBeaver-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		434C66742E4E946F20DABBE8DBF3063E /* onetimeauth_poly1305.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AA79060D41B6C39EF3C064AB5505C24 /* onetimeauth_poly1305.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -200,7 +199,6 @@
 		475D31161B5DCE6A7127D405A2072C50 /* stream_xchacha20.c in Sources */ = {isa = PBXBuildFile; fileRef = C71CFA1E91EBA7094A2427D8A16BD60B /* stream_xchacha20.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		475DD2030547DD524C1B181EBC5BB258 /* obsolete.c in Sources */ = {isa = PBXBuildFile; fileRef = AE78EC5D1B00D26864182F9227170FEC /* obsolete.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		478D927565C9922FD7CFDE8520D87D81 /* NVActivityIndicatorAnimationBallBeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426C4D46E4CC317887DCA1DD45365131 /* NVActivityIndicatorAnimationBallBeat.swift */; };
-		47F82157DF43F08B87B8891BB57529F8 /* ASN1Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C170AC038AEED4C9588FE89D09FDCC /* ASN1Identifier.swift */; };
 		499D02332D175059EBDDE1C11ED7EA72 /* OIDAuthState.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DD288EA51CA037B377423308A40E5DA /* OIDAuthState.m */; };
 		49FD827BB6E0583E688F647A76BF214B /* pwhash_scryptsalsa208sha256_sse.c in Sources */ = {isa = PBXBuildFile; fileRef = BF69A31E6CA19D2BA6651AD9726D3A06 /* pwhash_scryptsalsa208sha256_sse.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4A42935426AB30760B47ADDE1BB1C39D /* NoError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B67B912ED9CF5AE9B56FA62198988E9 /* NoError.swift */; };
@@ -233,6 +231,7 @@
 		56B059D83485653D78993426A5496737 /* SessionProxy+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A022FD2F9B6C38B2B28D2B098E57F7 /* SessionProxy+Configuration.swift */; };
 		56C84D3D8423F18DA328F17A728CE8C2 /* OIDAuthStateErrorDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = FBA7EAA675458D15ADD7B82CDE605664 /* OIDAuthStateErrorDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		56FBE67400FE52C8D55C7C6D8C57BE8F /* CoreConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04C3371ED23B775CA23D3B78F8FD4E5 /* CoreConfiguration.swift */; };
+		58A6FB891DDAA731CCC99B2923679BD7 /* ASN1Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7A598158DB4752D416C3ED055A03E7 /* ASN1Object.swift */; };
 		58BD30496244D6B9EADC7F5D75622643 /* TLSBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D9E8DB539871EE99273387F5779FEAB /* TLSBox.m */; };
 		593F9F17DC6205BDB087CFBA49A0F80D /* OIDGrantTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = E603D8155695AC33EA74AA5953C68DB1 /* OIDGrantTypes.m */; };
 		594A004EBE6EC64CC50E4C940C8914A4 /* Disk+Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565135FD2D9B297E97A0CF497BB46A51 /* Disk+Errors.swift */; };
@@ -257,7 +256,6 @@
 		6024A3FF3526789F595418AFF21C68D3 /* crypto_onetimeauth.c in Sources */ = {isa = PBXBuildFile; fileRef = DC3EB7588F0F2DD92F64D0D109C8D667 /* crypto_onetimeauth.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		60B6C2A003864AAD3A426448152F67BE /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC86B5AE9371F4EFD763F7DB5064D54B /* Timeline.swift */; };
 		60DBC2CE582C119DD93FC4D535D9242F /* scalarmult_curve25519.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F93832C71A8C5376CA0D991E2833B31 /* scalarmult_curve25519.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		6130E1501CDFDF269B9CD9A5128D80FB /* ASN1Decoder-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B35664AC825B42A66835679BD38F7BC8 /* ASN1Decoder-dummy.m */; };
 		61870F58A8A5F46E23EBFBD603CAA05D /* crypto_auth_hmacsha256.h in Headers */ = {isa = PBXBuildFile; fileRef = 86A27ACE270CF28E6DA230C856B228E1 /* crypto_auth_hmacsha256.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6236BB33F4AA4728D9BF9368D912FA5F /* argon2-core.h in Headers */ = {isa = PBXBuildFile; fileRef = 92291DFCD483D9A87CF26F550CBCFD54 /* argon2-core.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		6499810827FC895E23B2E30263617389 /* Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1D2DC5083282AE9D3B8070DE648156 /* Plugin.swift */; };
@@ -395,7 +393,6 @@
 		A3237A9EA58362185FE4E4F3DDA30593 /* crypto_auth_hmacsha512256.h in Headers */ = {isa = PBXBuildFile; fileRef = A07012D65EA77932FC50D233D31E6198 /* crypto_auth_hmacsha512256.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A3CEFDD96558DFD506A9F9319FDBEF6E /* LinkInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6A92FFEC37D684F5EBD6EBDBDB9100 /* LinkInterface.swift */; };
 		A4020B44BE6D1E0C44F68AA7655BEE54 /* crypto_core_salsa20.h in Headers */ = {isa = PBXBuildFile; fileRef = CB11C997A8D265FA8DE3EE27F0929175 /* crypto_core_salsa20.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A40EEA909BC904BD841B0E3850128BBD /* X509Certificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D645BFCF707C6A509314AFE247738B /* X509Certificate.swift */; };
 		A43A395609894D969F5502CC25F6A9A5 /* Base64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDC851F5E17FC147A92BA271B462D31 /* Base64.swift */; };
 		A444B8BC9508A41E773B6B093EAC0F60 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E407178F32625C71BBCD92CE3C8E54 /* Keychain.swift */; };
 		A4A9ECC884E9AA8441E03C59DC2CA7F7 /* stream_aes128ctr_nacl.c in Sources */ = {isa = PBXBuildFile; fileRef = E22AB9B9B0E0B69C1769EFB98ABC1335 /* stream_aes128ctr_nacl.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -414,7 +411,6 @@
 		AAA377708E92D08E56B9E90FD4225200 /* OIDServiceConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = A57CB17E4A0F5D71BDEE156DC311770A /* OIDServiceConfiguration.m */; };
 		AB008E8FF89806CD05B62F0E48E28F1C /* crypto_scalarmult.c in Sources */ = {isa = PBXBuildFile; fileRef = 3391440559A869490B537E5D90B09631 /* crypto_scalarmult.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		AB037232146E78285C5B8F6394D1A658 /* MultiTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = F516E8EAA3C2CA0B7C6477B97049602C /* MultiTarget.swift */; };
-		AB587E2B66257332728BF6C1BA7E3812 /* PKCS7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E34CBC3A17419CB3B29413EC375F14 /* PKCS7.swift */; };
 		ABEECE2A1B2C6AF58EBC7349994FAC2E /* curve25519_donna_c64.c in Sources */ = {isa = PBXBuildFile; fileRef = 24CAACCAB8367A2D54289450EE0E108A /* curve25519_donna_c64.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		ABFAD05B9142AEB11A8355FE84A27E9B /* CryptoBox.m in Sources */ = {isa = PBXBuildFile; fileRef = E242ACFB572973A7CB74BB5B324CAC69 /* CryptoBox.m */; };
 		AC6C9568DB8D54D7C68521F32E80D851 /* randombytes_nativeclient.h in Headers */ = {isa = PBXBuildFile; fileRef = A83F79F46D67ADC8D04D88291D696505 /* randombytes_nativeclient.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -451,6 +447,7 @@
 		BBE0890CA1E7E3C13426610AAA119F43 /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBAEE5117806AEFBF02A8ABFF52DFCA /* NVActivityIndicatorAnimationBallSpinFadeLoader.swift */; };
 		BCEAE4057B0D995757991DF1EDC3E4B4 /* crypto_secretbox.h in Headers */ = {isa = PBXBuildFile; fileRef = A1A5DFCBAEF7DB1C0FB16159BF07BF06 /* crypto_secretbox.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BD03620E0B378A3B6401421E007B5A21 /* ConfigurationParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA28C0D71D96BA0B7FB34C69C405A0A0 /* ConfigurationParser.swift */; };
+		BDAEEB2B29E9CD0781607B5CE6CC4402 /* ASN1Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE2CDB094F824123D60B654C2756F1A /* ASN1Decoder.swift */; };
 		BDE4024736883308D83DC1E2CF3F279B /* CryptoMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 49B32310195DEC104D46F6CC52ED49E6 /* CryptoMacros.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		BE821FC7A8229A1AAB417ED456F8DF9B /* chacha20_ref.h in Headers */ = {isa = PBXBuildFile; fileRef = 60F814CDB515CFB5D6CF5173B9223839 /* chacha20_ref.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		BEE4E980145BA0BC754F80C260E259EB /* OIDAuthorizationService+IOS.h in Headers */ = {isa = PBXBuildFile; fileRef = A0BFA612F63CF88FDC616C2D5E7455C6 /* OIDAuthorizationService+IOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -481,16 +478,20 @@
 		CADE92BBB306EBE842905D37BCC73373 /* argon2.h in Headers */ = {isa = PBXBuildFile; fileRef = 845D0B57A670FC94FB91AD278F79551F /* argon2.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		CBA85DB2C71614B49B7C4DE3BAE69A93 /* PromiseKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F950ED9E40EA31EFA95E605BAC1AD422 /* PromiseKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD321D15156EF51F506D6183152B0E1C /* MoyaProvider+Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0DA3BC27DF931E9447F6B3351B8784 /* MoyaProvider+Internal.swift */; };
+		CD7AA97C553F7AECF88CA15F99D2178A /* ASN1Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FDE72EC79AFF3D4B436223490F2B1E /* ASN1Identifier.swift */; };
 		CDA1880F5A68C715962006F55635455F /* utils.h in Headers */ = {isa = PBXBuildFile; fileRef = B2B29881705D9F29C3B15185C104704F /* utils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CDDE7F6B452C6510F1F31375E9DA3AF4 /* PKCS7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C61342B9671CFF97E50E292F0A012 /* PKCS7.swift */; };
 		CE1A0C9AA70BB9A943A94B3C5AEF1F2F /* blake2.h in Headers */ = {isa = PBXBuildFile; fileRef = A32F08146BF06D2422FF3B135204DE24 /* blake2.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		CE4A42C71FB0A896E776CF9EC7BB1509 /* NVActivityIndicatorAnimationCircleStrokeSpin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9296BC044DA5C894EDF75C8DF11106EF /* NVActivityIndicatorAnimationCircleStrokeSpin.swift */; };
 		CFEBE02644313858710FA82542589D41 /* libsodium-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FF2B0F4A30F5C3AFDEBC3F4B2CA857BE /* libsodium-dummy.m */; };
 		D00750D33D15BA3DCDD620F82EE2CBD1 /* LZO.h in Headers */ = {isa = PBXBuildFile; fileRef = D8B1055D0C819112AC4822184EF159CD /* LZO.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		D04E2E5EEE6B983AB010D4701E368F32 /* X509Certificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C877760109753C7D744AE3A89BFBDB /* X509Certificate.swift */; };
 		D05A6AFEC8A4EF8A9E209CACAEA2C52C /* secretbox_xsalsa20poly1305.c in Sources */ = {isa = PBXBuildFile; fileRef = 0DDE34BF89DFFED43CA9B8AA3E62607C /* secretbox_xsalsa20poly1305.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D0C8DAD9E3339643FF3D9971EB1ABFFA /* OIDScopes.m in Sources */ = {isa = PBXBuildFile; fileRef = A0604D88BC96A6CB6E701986F63F05F9 /* OIDScopes.m */; };
 		D0D3B6F6481841FB0B0DC61653217179 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C0065D9D0B0C79FD779567021D7659 /* Response.swift */; };
 		D1AAC17C1518586555C3337D9F3BE263 /* crypto_stream_xsalsa20.h in Headers */ = {isa = PBXBuildFile; fileRef = 59952846E2FD24F2F8829CCF8FF163FA /* crypto_stream_xsalsa20.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D348D88FE7939869DE08BC623976B321 /* Moya-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FFA9AA00464324708CD26FE611E7E02 /* Moya-dummy.m */; };
+		D35AC216A4041878070706C7EAF8093A /* PKCS7_AppleReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = F494BB2151647DA61F5033CDC915C8B6 /* PKCS7_AppleReceipt.swift */; };
 		D37527398E12D52F839C0C9973775170 /* NVActivityIndicatorAnimationLineSpinFadeLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D703C45B640A8DA9690EDDC3433FC42 /* NVActivityIndicatorAnimationLineSpinFadeLoader.swift */; };
 		D38B7844BB5E179AB653102430112F55 /* NVActivityIndicatorAnimationBallScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4E931FBBF83A4BF5DBF3E73DDB27C7 /* NVActivityIndicatorAnimationBallScale.swift */; };
 		D3E6E79371EC7F0C35A6CACE4689443C /* StaticKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F5A4919297910BBEB930F6BB495021 /* StaticKey.swift */; };
@@ -572,8 +573,7 @@
 		F7E435C137519532CBA512796ED32C00 /* OIDScopeUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DDF5F3D222F3E6DAF051E8FEBA6424 /* OIDScopeUtilities.m */; };
 		F853F6FCDDFB099744F56099ACA123DC /* UIButton+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC31E572163B9EE500A9B40EEBCAE9B4 /* UIButton+AlamofireImage.swift */; };
 		F85A20560A55F87ACF457210DB0EE9B5 /* crypto_aead_xchacha20poly1305.h in Headers */ = {isa = PBXBuildFile; fileRef = 411E4877BE422F8CEB472D5B68C8F880 /* crypto_aead_xchacha20poly1305.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F87F9A2D04470A52A464E0565CC72761 /* Asn1Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C693CFAB0D6F3D40106AD9F804663B /* Asn1Decoder.swift */; };
-		F8B9D2DE61D85ADD544C427E7939B733 /* ASN1Decoder-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F76167B69C5448F84FF9F2E2241C8517 /* ASN1Decoder-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F8B9D2DE61D85ADD544C427E7939B733 /* ASN1Decoder-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E6EA374714F049B9171379CD5CDA9C91 /* ASN1Decoder-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9086B450D3DD70E217191757231136C /* SBPlatformDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6128995EE4B3121B670D026395ADB8 /* SBPlatformDestination.swift */; };
 		F93A7D854E9DE74090AE78651377004B /* NVActivityIndicatorAnimationLineScalePulseOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DC927210F669B7AA6CB5D86B762D64 /* NVActivityIndicatorAnimationLineScalePulseOut.swift */; };
 		FA2A82AE102AD44E17B3D783607F33B8 /* OIDExternalUserAgent.h in Headers */ = {isa = PBXBuildFile; fileRef = A7EC305D93489EEE311605EA7CE00525 /* OIDExternalUserAgent.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -748,10 +748,12 @@
 		000A15FBF77B973F6B73771F575CDD7E /* MultipartFormData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MultipartFormData.swift; path = Sources/Moya/MultipartFormData.swift; sourceTree = "<group>"; };
 		0048BDAC3C674509E37A28B0446FD6EF /* CompressionFramingNative.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CompressionFramingNative.h; path = TunnelKit/Sources/Core/CompressionFramingNative.h; sourceTree = "<group>"; };
 		00EEA7AB6EC8724F842B2C8A516D7A36 /* OIDAuthStateChangeDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDAuthStateChangeDelegate.h; path = Source/OIDAuthStateChangeDelegate.h; sourceTree = "<group>"; };
+		00FDE72EC79AFF3D4B436223490F2B1E /* ASN1Identifier.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ASN1Identifier.swift; path = ASN1Decoder/ASN1Identifier.swift; sourceTree = "<group>"; };
 		010D5B8A2856598EC849113DCD0CE96B /* NVActivityIndicatorAnimationLineScaleParty.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationLineScaleParty.swift; path = Source/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationLineScaleParty.swift; sourceTree = "<group>"; };
 		017F7DEAD5C5A20184F4A49BB97F2A5E /* crypto_secretbox.c */ = {isa = PBXFileReference; includeInIndex = 1; name = crypto_secretbox.c; path = src/libsodium/crypto_secretbox/crypto_secretbox.c; sourceTree = "<group>"; };
 		024B28635DCEA3A025F3D23DDDA79102 /* NVActivityIndicatorAnimationBallScaleMultiple.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallScaleMultiple.swift; path = Source/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallScaleMultiple.swift; sourceTree = "<group>"; };
 		02531C16AE95426E9AA883A7A521709D /* NetworkActivityPlugin.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkActivityPlugin.swift; path = Sources/Moya/Plugins/NetworkActivityPlugin.swift; sourceTree = "<group>"; };
+		031769866C1A4A2CC50122BACCEF4677 /* ASN1Decoder.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = ASN1Decoder.modulemap; sourceTree = "<group>"; };
 		03716B7C358312D8FE21E76F4AFF41E1 /* SessionProxy+EncryptionBridge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "SessionProxy+EncryptionBridge.swift"; path = "TunnelKit/Sources/Core/SessionProxy+EncryptionBridge.swift"; sourceTree = "<group>"; };
 		0389B183DC13ABD7A4232DD74F8C8E72 /* ladder_namespace.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ladder_namespace.h; path = src/libsodium/crypto_scalarmult/curve25519/sandy2x/ladder_namespace.h; sourceTree = "<group>"; };
 		03A5CE7FCBA762206017307CBA21654C /* auth_hmacsha512256.c */ = {isa = PBXFileReference; includeInIndex = 1; name = auth_hmacsha512256.c; path = src/libsodium/crypto_auth/hmacsha512256/auth_hmacsha512256.c; sourceTree = "<group>"; };
@@ -759,6 +761,7 @@
 		04016891FB5C458439E7196C2C7194D6 /* export.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = export.h; path = src/libsodium/include/sodium/export.h; sourceTree = "<group>"; };
 		0450ACD4178898C51077D731CE0FB4CD /* fe51_namespace.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = fe51_namespace.h; path = src/libsodium/crypto_scalarmult/curve25519/sandy2x/fe51_namespace.h; sourceTree = "<group>"; };
 		05AAB32735248A897AFD3E83922F09DF /* crypto_core_hsalsa20.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_core_hsalsa20.h; path = src/libsodium/include/sodium/crypto_core_hsalsa20.h; sourceTree = "<group>"; };
+		062A1AE4C031B2769148E3FAF03E1D60 /* ASN1Decoder.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ASN1Decoder.xcconfig; sourceTree = "<group>"; };
 		0705AE4224D9B2DEE514637AC66B3FCC /* NVActivityIndicatorAnimationBallPulseRise.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallPulseRise.swift; path = Source/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallPulseRise.swift; sourceTree = "<group>"; };
 		0794FD2E3367B75FE6A75547D85B1A84 /* Pods-EduVPN-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-EduVPN-dummy.m"; sourceTree = "<group>"; };
 		07B8053CCD94C39EB820D539EFA7B2A5 /* NSRegularExpression+Shortcuts.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSRegularExpression+Shortcuts.swift"; path = "TunnelKit/Sources/Core/NSRegularExpression+Shortcuts.swift"; sourceTree = "<group>"; };
@@ -766,6 +769,7 @@
 		094EFBD7DAA4C49188A1DF75F1C188E8 /* SecureRandom.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SecureRandom.swift; path = TunnelKit/Sources/Core/SecureRandom.swift; sourceTree = "<group>"; };
 		09A76C84373DF9628EEB5A8009BBDDC8 /* auth_hmacsha256.c */ = {isa = PBXFileReference; includeInIndex = 1; name = auth_hmacsha256.c; path = src/libsodium/crypto_auth/hmacsha256/auth_hmacsha256.c; sourceTree = "<group>"; };
 		09AEADB9381D7550FA31E79BEF6D7E1C /* Error.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Error.swift; path = Sources/Error.swift; sourceTree = "<group>"; };
+		0A5C61342B9671CFF97E50E292F0A012 /* PKCS7.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PKCS7.swift; path = ASN1Decoder/PKCS7.swift; sourceTree = "<group>"; };
 		0AD1203DBB436AE5AA2DA353E494BED8 /* randombytes_nativeclient.c */ = {isa = PBXFileReference; includeInIndex = 1; name = randombytes_nativeclient.c; path = src/libsodium/randombytes/nativeclient/randombytes_nativeclient.c; sourceTree = "<group>"; };
 		0AED7F4C26FDFB6D52C492EF42714447 /* Result.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Result.xcconfig; sourceTree = "<group>"; };
 		0B2146017D64F4EC99F840EF0CB430E0 /* aead_xchacha20poly1305.c */ = {isa = PBXFileReference; includeInIndex = 1; name = aead_xchacha20poly1305.c; path = src/libsodium/crypto_aead/xchacha20poly1305/sodium/aead_xchacha20poly1305.c; sourceTree = "<group>"; };
@@ -870,7 +874,7 @@
 		3393BA8497FAEADACE050AB1843DFEF2 /* chacha20_dolbeau-ssse3.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "chacha20_dolbeau-ssse3.h"; path = "src/libsodium/crypto_stream/chacha20/dolbeau/chacha20_dolbeau-ssse3.h"; sourceTree = "<group>"; };
 		33D9456365C8B721F970A8454C55F137 /* MSS.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MSS.h; path = TunnelKit/Sources/Core/MSS.h; sourceTree = "<group>"; };
 		3450949EEBBADAD7771D818863D34ACB /* Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Alamofire.swift; path = Source/Alamofire.swift; sourceTree = "<group>"; };
-		35E34CBC3A17419CB3B29413EC375F14 /* PKCS7.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PKCS7.swift; path = ASN1Decoder/PKCS7.swift; sourceTree = "<group>"; };
+		359A749634C4A4117AE8C9B35BB3EC76 /* ASN1Decoder-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ASN1Decoder-dummy.m"; sourceTree = "<group>"; };
 		37447A898ADBD6B924EB0C8D029A28D3 /* OIDTokenRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDTokenRequest.m; path = Source/OIDTokenRequest.m; sourceTree = "<group>"; };
 		37FEA332DC5DC50E95441FB5A6AA1AC9 /* NWUDPSessionState+Description.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NWUDPSessionState+Description.swift"; path = "TunnelKit/Sources/AppExtension/Transport/NWUDPSessionState+Description.swift"; sourceTree = "<group>"; };
 		3822FDB9461116696D4C51FEB050A83E /* OIDURLSessionProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDURLSessionProvider.h; path = Source/OIDURLSessionProvider.h; sourceTree = "<group>"; };
@@ -898,7 +902,6 @@
 		414D2338D298528D1B3C0991AC3E6A4A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		417746CD1181EFBF11928E07399ED843 /* core.c */ = {isa = PBXFileReference; includeInIndex = 1; name = core.c; path = src/libsodium/sodium/core.c; sourceTree = "<group>"; };
 		4198184E11F130C5D3291770B477461A /* OIDAuthorizationRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDAuthorizationRequest.m; path = Source/OIDAuthorizationRequest.m; sourceTree = "<group>"; };
-		41CF20ADEE78825BACA7E39E1D38E62A /* ASN1Decoder.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ASN1Decoder.xcconfig; sourceTree = "<group>"; };
 		41D11D5F1B29CF316BB8F2CCE3914AE2 /* TaskDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TaskDelegate.swift; path = Source/TaskDelegate.swift; sourceTree = "<group>"; };
 		423629EE9312600ACB184314D8ADAABF /* when.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = when.m; path = Sources/when.m; sourceTree = "<group>"; };
 		426C4D46E4CC317887DCA1DD45365131 /* NVActivityIndicatorAnimationBallBeat.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallBeat.swift; path = Source/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallBeat.swift; sourceTree = "<group>"; };
@@ -915,7 +918,6 @@
 		45B699509D7CEBCABC15D8D50719BA9E /* Pods-EduVPN-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EduVPN-Info.plist"; sourceTree = "<group>"; };
 		462D67D3857B39788C66502E90637E2E /* OIDDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDDefines.h; path = Source/OIDDefines.h; sourceTree = "<group>"; };
 		46519D07395B7A7DC45DC844F8B6AB83 /* ConnectionStrategy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConnectionStrategy.swift; path = TunnelKit/Sources/AppExtension/ConnectionStrategy.swift; sourceTree = "<group>"; };
-		46D3C3575342DCAB90D5BD80D9C128EF /* ASN1Decoder-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ASN1Decoder-Info.plist"; sourceTree = "<group>"; };
 		46F45B6947F02C6067D8E1BF8F3F1AC2 /* fe.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = fe.h; path = src/libsodium/crypto_scalarmult/curve25519/sandy2x/fe.h; sourceTree = "<group>"; };
 		475A9EEA62A7FF5632B1A7201444AC90 /* crypto_box_curve25519xsalsa20poly1305.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_box_curve25519xsalsa20poly1305.h; path = src/libsodium/include/sodium/crypto_box_curve25519xsalsa20poly1305.h; sourceTree = "<group>"; };
 		477F307F56BBC76F1264B67322C91A2E /* OIDAuthState+IOS.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "OIDAuthState+IOS.m"; path = "Source/iOS/OIDAuthState+IOS.m"; sourceTree = "<group>"; };
@@ -925,7 +927,6 @@
 		48A7033B1EB95A3D43D4BEADC08946E8 /* SwiftyBeaver-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SwiftyBeaver-Info.plist"; sourceTree = "<group>"; };
 		49483732C1A6A738469052D7A4350B6D /* crypto_sign_ed25519.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_sign_ed25519.h; path = src/libsodium/include/sodium/crypto_sign_ed25519.h; sourceTree = "<group>"; };
 		49B32310195DEC104D46F6CC52ED49E6 /* CryptoMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CryptoMacros.h; path = TunnelKit/Sources/Core/CryptoMacros.h; sourceTree = "<group>"; };
-		49C693CFAB0D6F3D40106AD9F804663B /* Asn1Decoder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Asn1Decoder.swift; path = ASN1Decoder/Asn1Decoder.swift; sourceTree = "<group>"; };
 		4A6F7411551753FD5523364B10622ACF /* version.c */ = {isa = PBXFileReference; includeInIndex = 1; name = version.c; path = src/libsodium/sodium/version.c; sourceTree = "<group>"; };
 		4AA31D9E98EA10B2E789322BB95F0960 /* crypto_box_seal.c */ = {isa = PBXFileReference; includeInIndex = 1; name = crypto_box_seal.c; path = src/libsodium/crypto_box/crypto_box_seal.c; sourceTree = "<group>"; };
 		4B5FD2D2281740C90A53A63052C04855 /* Pods-EduVPNTunnelExtension-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-EduVPNTunnelExtension-dummy.m"; sourceTree = "<group>"; };
@@ -943,7 +944,6 @@
 		4EE6B57F2EB3D7763D25308EFCE4B6EF /* NVActivityIndicatorAnimationBallClipRotateMultiple.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallClipRotateMultiple.swift; path = Source/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallClipRotateMultiple.swift; sourceTree = "<group>"; };
 		4F36019578CD610E9DB10F4697AD9ED1 /* verify.c */ = {isa = PBXFileReference; includeInIndex = 1; name = verify.c; path = src/libsodium/crypto_verify/sodium/verify.c; sourceTree = "<group>"; };
 		4F9D5E05AD4482E001C13E1E9E13CA86 /* NVActivityIndicatorAnimationBlank.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBlank.swift; path = Source/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBlank.swift; sourceTree = "<group>"; };
-		500E875FAB3222850D19462941CBC811 /* ASN1Decoder.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = ASN1Decoder.modulemap; sourceTree = "<group>"; };
 		5025BF4BE0B7BB3BC69B3B6E6832A04A /* Request+AlamofireImage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Request+AlamofireImage.swift"; path = "Source/Request+AlamofireImage.swift"; sourceTree = "<group>"; };
 		50689F00EA2E5E673BEDA125FF6AA981 /* shorthash_siphashx24.c */ = {isa = PBXFileReference; includeInIndex = 1; name = shorthash_siphashx24.c; path = src/libsodium/crypto_shorthash/siphash24/shorthash_siphashx24.c; sourceTree = "<group>"; };
 		514A18164496B0B07D068F99583F6E3F /* OIDAuthorizationResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDAuthorizationResponse.h; path = Source/OIDAuthorizationResponse.h; sourceTree = "<group>"; };
@@ -1026,7 +1026,6 @@
 		70ABFFD6B1E4F915084D1387F8187934 /* SessionProxy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SessionProxy.swift; path = TunnelKit/Sources/Core/SessionProxy.swift; sourceTree = "<group>"; };
 		70DA12651087D9C524220CC2B7AFDC2F /* TunnelKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "TunnelKit-dummy.m"; sourceTree = "<group>"; };
 		71A23A69B6CEDE0666B4B379AD536F23 /* Validation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Validation.swift; path = Source/Validation.swift; sourceTree = "<group>"; };
-		722EAE7A493C16CFB23E8A4ED11F0805 /* PKCS7_AppleReceipt.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PKCS7_AppleReceipt.swift; path = ASN1Decoder/PKCS7_AppleReceipt.swift; sourceTree = "<group>"; };
 		72AD56E86732ADED5A82C85EDAED1278 /* NVActivityIndicatorAnimationLineScalePulseOutRapid.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationLineScalePulseOutRapid.swift; path = Source/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationLineScalePulseOutRapid.swift; sourceTree = "<group>"; };
 		74AAD14DBD2591ED3F04E5A8D029F9D4 /* crypto_stream_salsa2012.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_stream_salsa2012.h; path = src/libsodium/include/sodium/crypto_stream_salsa2012.h; sourceTree = "<group>"; };
 		759CDEEBB069AAD69BA1052C94B5E4FB /* argon2-encoding.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "argon2-encoding.h"; path = "src/libsodium/crypto_pwhash/argon2/argon2-encoding.h"; sourceTree = "<group>"; };
@@ -1104,7 +1103,6 @@
 		94A2AE987E346862EC7A401B7E0D73C9 /* NETCPInterface.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NETCPInterface.swift; path = TunnelKit/Sources/AppExtension/Transport/NETCPInterface.swift; sourceTree = "<group>"; };
 		94C11F19885C12536B1863DDB96F404C /* randombytes_sysrandom.c */ = {isa = PBXFileReference; includeInIndex = 1; name = randombytes_sysrandom.c; path = src/libsodium/randombytes/sysrandom/randombytes_sysrandom.c; sourceTree = "<group>"; };
 		9514002A1BFF099A6FA1D010A11EB22F /* crypto_stream.c */ = {isa = PBXFileReference; includeInIndex = 1; name = crypto_stream.c; path = src/libsodium/crypto_stream/crypto_stream.c; sourceTree = "<group>"; };
-		95D645BFCF707C6A509314AFE247738B /* X509Certificate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = X509Certificate.swift; path = ASN1Decoder/X509Certificate.swift; sourceTree = "<group>"; };
 		9645273C48406155551C3C852333120C /* Pods-EduVPNTunnelExtension-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-EduVPNTunnelExtension-acknowledgements.markdown"; sourceTree = "<group>"; };
 		966DDDC5B3F056312B422AB38D9AE7D5 /* TargetType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TargetType.swift; path = Sources/Moya/TargetType.swift; sourceTree = "<group>"; };
 		96E995A1CFF1AC71979158EA67CBB289 /* crypto_auth.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_auth.h; path = src/libsodium/include/sodium/crypto_auth.h; sourceTree = "<group>"; };
@@ -1130,6 +1128,7 @@
 		9E7E34B6F7DD245BD6F531C56AD33938 /* ResultProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResultProtocol.swift; path = Result/ResultProtocol.swift; sourceTree = "<group>"; };
 		9EA74090A28001236AF97CB350F598D4 /* Pods-EduVPN-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-EduVPN-acknowledgements.markdown"; sourceTree = "<group>"; };
 		9EC3D65162B52013DE7E03634A2E4EF2 /* MemoryDestination.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MemoryDestination.swift; path = TunnelKit/Sources/AppExtension/MemoryDestination.swift; sourceTree = "<group>"; };
+		9EE2CDB094F824123D60B654C2756F1A /* ASN1Decoder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ASN1Decoder.swift; path = ASN1Decoder/ASN1Decoder.swift; sourceTree = "<group>"; };
 		9EEF4FB691F86DEEBFC1345663AB7724 /* Result-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Result-Info.plist"; sourceTree = "<group>"; };
 		9F5B2ACDBE16998A687F245EFFA0ACE9 /* ladder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ladder.h; path = src/libsodium/crypto_scalarmult/curve25519/sandy2x/ladder.h; sourceTree = "<group>"; };
 		9FA66E3F1F0A3D94F1C8BD09C6456D61 /* crypto_kx.c */ = {isa = PBXFileReference; includeInIndex = 1; name = crypto_kx.c; path = src/libsodium/crypto_kx/crypto_kx.c; sourceTree = "<group>"; };
@@ -1155,6 +1154,7 @@
 		A718AC347EA93DE618539F6EA5CA9F14 /* SwiftLint.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftLint.xcconfig; sourceTree = "<group>"; };
 		A75454EF286F8DC9E963EB867B4C8A8A /* OIDAuthorizationService.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDAuthorizationService.h; path = Source/OIDAuthorizationService.h; sourceTree = "<group>"; };
 		A78762A994812EF25A4CBAC616733668 /* blake2b-compress-avx2.c */ = {isa = PBXFileReference; includeInIndex = 1; name = "blake2b-compress-avx2.c"; path = "src/libsodium/crypto_generichash/blake2b/ref/blake2b-compress-avx2.c"; sourceTree = "<group>"; };
+		A7C877760109753C7D744AE3A89BFBDB /* X509Certificate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = X509Certificate.swift; path = ASN1Decoder/X509Certificate.swift; sourceTree = "<group>"; };
 		A7C96B8B7E074C3918191E40947495A0 /* open.c */ = {isa = PBXFileReference; includeInIndex = 1; name = open.c; path = src/libsodium/crypto_sign/ed25519/ref10/open.c; sourceTree = "<group>"; };
 		A7EC305D93489EEE311605EA7CE00525 /* OIDExternalUserAgent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDExternalUserAgent.h; path = Source/OIDExternalUserAgent.h; sourceTree = "<group>"; };
 		A81FC4469C25092A835271BE514A50A5 /* int128.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = int128.h; path = src/libsodium/crypto_stream/aes128ctr/nacl/int128.h; sourceTree = "<group>"; };
@@ -1165,6 +1165,7 @@
 		AA28C0D71D96BA0B7FB34C69C405A0A0 /* ConfigurationParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConfigurationParser.swift; path = TunnelKit/Sources/Core/ConfigurationParser.swift; sourceTree = "<group>"; };
 		AA32167E6980D24797776B823AAC8366 /* ZeroingData.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZeroingData.h; path = TunnelKit/Sources/Core/ZeroingData.h; sourceTree = "<group>"; };
 		AA5468E531479668D7DF4D6D126D93DC /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA7A598158DB4752D416C3ED055A03E7 /* ASN1Object.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ASN1Object.swift; path = ASN1Decoder/ASN1Object.swift; sourceTree = "<group>"; };
 		AC08160A44476C8741BC3BAF319F15E1 /* curve25519_sandy2x.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = curve25519_sandy2x.h; path = src/libsodium/crypto_scalarmult/curve25519/sandy2x/curve25519_sandy2x.h; sourceTree = "<group>"; };
 		ACACC42FC141B25E43DFBF309E6AEAA5 /* Configuration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Configuration.swift; path = Sources/Configuration.swift; sourceTree = "<group>"; };
 		ACD884E5B7971DAB7CFD4F1F4829DA92 /* crypto_onetimeauth_poly1305.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_onetimeauth_poly1305.h; path = src/libsodium/include/sodium/crypto_onetimeauth_poly1305.h; sourceTree = "<group>"; };
@@ -1182,7 +1183,6 @@
 		B2B29881705D9F29C3B15185C104704F /* utils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = utils.h; path = src/libsodium/include/sodium/utils.h; sourceTree = "<group>"; };
 		B2B6533CA45929822E392C7BDF13B1D5 /* NVActivityIndicatorAnimationBallScaleRipple.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallScaleRipple.swift; path = Source/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallScaleRipple.swift; sourceTree = "<group>"; };
 		B2EF4CBEB4B2AE9A5E6580E8939755E6 /* NVActivityIndicatorAnimationBallZigZagDeflect.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallZigZagDeflect.swift; path = Source/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallZigZagDeflect.swift; sourceTree = "<group>"; };
-		B35664AC825B42A66835679BD38F7BC8 /* ASN1Decoder-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ASN1Decoder-dummy.m"; sourceTree = "<group>"; };
 		B35BDAFAFAEC08729C90629D721D7263 /* poly1305_donna.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = poly1305_donna.h; path = src/libsodium/crypto_onetimeauth/poly1305/donna/poly1305_donna.h; sourceTree = "<group>"; };
 		B3A56FA1CFB3FE11109CCAB24D36B45B /* SessionProxy+PIA.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "SessionProxy+PIA.swift"; path = "TunnelKit/Sources/Core/SessionProxy+PIA.swift"; sourceTree = "<group>"; };
 		B3AB856BA19E208F527C0481B06349DA /* Alamofire-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-prefix.pch"; sourceTree = "<group>"; };
@@ -1191,6 +1191,7 @@
 		B5466BE2A2B227E38DDA4061A9B70B8C /* crypto_shorthash.c */ = {isa = PBXFileReference; includeInIndex = 1; name = crypto_shorthash.c; path = src/libsodium/crypto_shorthash/crypto_shorthash.c; sourceTree = "<group>"; };
 		B5EA55CE8F0E1FAC87F29484AFF073E2 /* NVActivityIndicatorAnimationBallPulse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallPulse.swift; path = Source/NVActivityIndicatorView/Animations/NVActivityIndicatorAnimationBallPulse.swift; sourceTree = "<group>"; };
 		B61405BFF1843498C351B5EAC721F770 /* SwiftyBeaver.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SwiftyBeaver.modulemap; sourceTree = "<group>"; };
+		B6648A352749B30917A673CD25BC7325 /* ASN1Decoder-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ASN1Decoder-prefix.pch"; sourceTree = "<group>"; };
 		B68523B965D68E28B39A941A1FD30E2A /* scalarmult_curve25519.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = scalarmult_curve25519.h; path = src/libsodium/crypto_scalarmult/curve25519/scalarmult_curve25519.h; sourceTree = "<group>"; };
 		B7155D674D94B8CDA87CAE1C270FDE8A /* OIDExternalUserAgentIOS.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDExternalUserAgentIOS.m; path = Source/iOS/OIDExternalUserAgentIOS.m; sourceTree = "<group>"; };
 		B79125541222D8359D3EFB5256B385C1 /* Response.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Response.swift; path = Source/Response.swift; sourceTree = "<group>"; };
@@ -1250,7 +1251,6 @@
 		CDCF5FE4F431C1336D7BBC9895F0D6F0 /* OIDGrantTypes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDGrantTypes.h; path = Source/OIDGrantTypes.h; sourceTree = "<group>"; };
 		CDD1B4D4EE696AEFAFBCA3D9301D1765 /* IOInterface.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IOInterface.swift; path = TunnelKit/Sources/Core/IOInterface.swift; sourceTree = "<group>"; };
 		CE0393EDC387AFC163FEE48211B338A5 /* fwd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = fwd.h; path = Sources/fwd.h; sourceTree = "<group>"; };
-		CE2BCDCC85DBC3EDFFE82423E98DD2B7 /* ASN1Object.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ASN1Object.swift; path = ASN1Decoder/ASN1Object.swift; sourceTree = "<group>"; };
 		CE3F689BFB29FF8F652AFA3B4B67E3A2 /* u4.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = u4.h; path = src/libsodium/crypto_stream/salsa20/xmm6int/u4.h; sourceTree = "<group>"; };
 		CF3FED099C4966D3E66693389C7E7C3B /* crypto_verify_16.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_verify_16.h; path = src/libsodium/include/sodium/crypto_verify_16.h; sourceTree = "<group>"; };
 		CF99E0DB46DBC35639330C9AF80F9443 /* NVActivityIndicatorView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NVActivityIndicatorView-prefix.pch"; sourceTree = "<group>"; };
@@ -1301,7 +1301,6 @@
 		E242ACFB572973A7CB74BB5B324CAC69 /* CryptoBox.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CryptoBox.m; path = TunnelKit/Sources/Core/CryptoBox.m; sourceTree = "<group>"; };
 		E2492F5CF7A084D40368095BE477644D /* pwhash_scryptsalsa208sha256_nosse.c */ = {isa = PBXFileReference; includeInIndex = 1; name = pwhash_scryptsalsa208sha256_nosse.c; path = src/libsodium/crypto_pwhash/scryptsalsa208sha256/nosse/pwhash_scryptsalsa208sha256_nosse.c; sourceTree = "<group>"; };
 		E263D5F192DCACE5FAF56D415D35993D /* OIDFieldMapping.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDFieldMapping.h; path = Source/OIDFieldMapping.h; sourceTree = "<group>"; };
-		E2C170AC038AEED4C9588FE89D09FDCC /* ASN1Identifier.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ASN1Identifier.swift; path = ASN1Decoder/ASN1Identifier.swift; sourceTree = "<group>"; };
 		E2D86E894BC0CF2FBE03CF308E4CBD54 /* Moya-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Moya-Info.plist"; sourceTree = "<group>"; };
 		E3312429C78A4B8753B185997A311652 /* OIDAuthorizationRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDAuthorizationRequest.h; path = Source/OIDAuthorizationRequest.h; sourceTree = "<group>"; };
 		E3A473CBB47F8E2905B33C6F81FEF5CD /* crypto_aead_chacha20poly1305.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_aead_chacha20poly1305.h; path = src/libsodium/include/sodium/crypto_aead_chacha20poly1305.h; sourceTree = "<group>"; };
@@ -1313,7 +1312,9 @@
 		E5FDA291E02DB1A0DD17373247D71A73 /* crypto_hash.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_hash.h; path = src/libsodium/include/sodium/crypto_hash.h; sourceTree = "<group>"; };
 		E603D8155695AC33EA74AA5953C68DB1 /* OIDGrantTypes.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDGrantTypes.m; path = Source/OIDGrantTypes.m; sourceTree = "<group>"; };
 		E6D9E0525D09827E6746D4E84A5006A6 /* sse2_64_32.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = sse2_64_32.h; path = src/libsodium/include/sodium/private/sse2_64_32.h; sourceTree = "<group>"; };
+		E6EA374714F049B9171379CD5CDA9C91 /* ASN1Decoder-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ASN1Decoder-umbrella.h"; sourceTree = "<group>"; };
 		E7EF91693710C9C97602524A7C36059D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		E891CE24DA2B5F77A20D2E95FF6AE60C /* ASN1Decoder-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ASN1Decoder-Info.plist"; sourceTree = "<group>"; };
 		E8CCD4AFE52BA9C6E0A6B3C0BFE9407E /* pwhash_argon2i.c */ = {isa = PBXFileReference; includeInIndex = 1; name = pwhash_argon2i.c; path = src/libsodium/crypto_pwhash/argon2/pwhash_argon2i.c; sourceTree = "<group>"; };
 		E9181ABB7DA38DDB7A72BC2308CDD696 /* OIDURLSessionProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDURLSessionProvider.m; path = Source/OIDURLSessionProvider.m; sourceTree = "<group>"; };
 		E9453EE5E5E4E47CC7690AF446B85D36 /* aead_chacha20poly1305.c */ = {isa = PBXFileReference; includeInIndex = 1; name = aead_chacha20poly1305.c; path = src/libsodium/crypto_aead/chacha20poly1305/sodium/aead_chacha20poly1305.c; sourceTree = "<group>"; };
@@ -1332,7 +1333,7 @@
 		F15C27FDCB64E0731CD018C78DE81E18 /* runtime.c */ = {isa = PBXFileReference; includeInIndex = 1; name = runtime.c; path = src/libsodium/sodium/runtime.c; sourceTree = "<group>"; };
 		F1F3F6542A36CE160846397A7AE9EA0E /* NVActivityIndicatorPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorPresenter.swift; path = Source/NVActivityIndicatorView/Presenter/NVActivityIndicatorPresenter.swift; sourceTree = "<group>"; };
 		F2E52E5966D5699E9EF58C8B323D69EF /* CompressionAlgorithmNative.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CompressionAlgorithmNative.h; path = TunnelKit/Sources/Core/CompressionAlgorithmNative.h; sourceTree = "<group>"; };
-		F3B9BBC57143C3AD2CB97C4DD4C689B3 /* ASN1Decoder-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ASN1Decoder-prefix.pch"; sourceTree = "<group>"; };
+		F494BB2151647DA61F5033CDC915C8B6 /* PKCS7_AppleReceipt.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PKCS7_AppleReceipt.swift; path = ASN1Decoder/PKCS7_AppleReceipt.swift; sourceTree = "<group>"; };
 		F4DA120F2BE59DFAA4FB1939F834A91C /* ImageFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageFilter.swift; path = Source/ImageFilter.swift; sourceTree = "<group>"; };
 		F4DDB38302F532D2BAD296A90DA6FBF1 /* stream_chacha20.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = stream_chacha20.h; path = src/libsodium/crypto_stream/chacha20/stream_chacha20.h; sourceTree = "<group>"; };
 		F4DDF5F3D222F3E6DAF051E8FEBA6424 /* OIDScopeUtilities.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDScopeUtilities.m; path = Source/OIDScopeUtilities.m; sourceTree = "<group>"; };
@@ -1340,7 +1341,6 @@
 		F63F77F72FF48A55B4BB524FF87A1045 /* GoogleCloudDestination.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GoogleCloudDestination.swift; path = Sources/GoogleCloudDestination.swift; sourceTree = "<group>"; };
 		F6EA6D28E4F6302985324FBB11697007 /* CryptoAEAD.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CryptoAEAD.m; path = TunnelKit/Sources/Core/CryptoAEAD.m; sourceTree = "<group>"; };
 		F706C505FD6F0267737462BB3493C027 /* randombytes.c */ = {isa = PBXFileReference; includeInIndex = 1; name = randombytes.c; path = src/libsodium/randombytes/randombytes.c; sourceTree = "<group>"; };
-		F76167B69C5448F84FF9F2E2241C8517 /* ASN1Decoder-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ASN1Decoder-umbrella.h"; sourceTree = "<group>"; };
 		F7B1C316C1E3F07AF049D202F5BAFA12 /* generichash_blake2.c */ = {isa = PBXFileReference; includeInIndex = 1; name = generichash_blake2.c; path = src/libsodium/crypto_generichash/blake2b/generichash_blake2.c; sourceTree = "<group>"; };
 		F7DBF25DD5C413F94C183608406AD0F0 /* argon2-fill-block-ssse3.c */ = {isa = PBXFileReference; includeInIndex = 1; name = "argon2-fill-block-ssse3.c"; path = "src/libsodium/crypto_pwhash/argon2/argon2-fill-block-ssse3.c"; sourceTree = "<group>"; };
 		F849F05EBA38C5D01F790DC5CBC9A985 /* crypto_secretbox_xsalsa20poly1305.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_secretbox_xsalsa20poly1305.h; path = src/libsodium/include/sodium/crypto_secretbox_xsalsa20poly1305.h; sourceTree = "<group>"; };
@@ -1603,6 +1603,21 @@
 			name = ExternalUserAgent;
 			sourceTree = "<group>";
 		};
+		1D4EEC0950AE64236181156634483656 /* ASN1Decoder */ = {
+			isa = PBXGroup;
+			children = (
+				9EE2CDB094F824123D60B654C2756F1A /* ASN1Decoder.swift */,
+				00FDE72EC79AFF3D4B436223490F2B1E /* ASN1Identifier.swift */,
+				AA7A598158DB4752D416C3ED055A03E7 /* ASN1Object.swift */,
+				0A5C61342B9671CFF97E50E292F0A012 /* PKCS7.swift */,
+				F494BB2151647DA61F5033CDC915C8B6 /* PKCS7_AppleReceipt.swift */,
+				A7C877760109753C7D744AE3A89BFBDB /* X509Certificate.swift */,
+				E30F38E3AB192440F5815BC600EEE4D1 /* Support Files */,
+			);
+			name = ASN1Decoder;
+			path = ASN1Decoder;
+			sourceTree = "<group>";
+		};
 		1F56B46EBE7DC0A52783A1967F4B5782 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1761,20 +1776,6 @@
 			);
 			name = SwiftyBeaver;
 			path = SwiftyBeaver;
-			sourceTree = "<group>";
-		};
-		3CA6ECDB37D43E745750E2D7684366EA /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				500E875FAB3222850D19462941CBC811 /* ASN1Decoder.modulemap */,
-				41CF20ADEE78825BACA7E39E1D38E62A /* ASN1Decoder.xcconfig */,
-				B35664AC825B42A66835679BD38F7BC8 /* ASN1Decoder-dummy.m */,
-				46D3C3575342DCAB90D5BD80D9C128EF /* ASN1Decoder-Info.plist */,
-				F3B9BBC57143C3AD2CB97C4DD4C689B3 /* ASN1Decoder-prefix.pch */,
-				F76167B69C5448F84FF9F2E2241C8517 /* ASN1Decoder-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/ASN1Decoder";
 			sourceTree = "<group>";
 		};
 		49BFAD6DD12459FA805B1E619981A033 /* Support Files */ = {
@@ -2106,7 +2107,7 @@
 				C1E87718189A5490A28EBCC7815888F0 /* Alamofire */,
 				588E2F600B1E8FE4E99D2C300F0A8371 /* AlamofireImage */,
 				5BA9A56CB0B5894A3B19F5EECCB32F1D /* AppAuth */,
-				E7C2B4538D4A55FEA1E10D112CB6206C /* ASN1Decoder */,
+				1D4EEC0950AE64236181156634483656 /* ASN1Decoder */,
 				FE511629A13727D9171C811F3F8A4749 /* Disk */,
 				51BA9062490116937F7B6F9DE887AFF0 /* libsodium */,
 				3373830BE97E4E1CDA886F8A56CF4FC5 /* Moya */,
@@ -2378,6 +2379,20 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		E30F38E3AB192440F5815BC600EEE4D1 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				031769866C1A4A2CC50122BACCEF4677 /* ASN1Decoder.modulemap */,
+				062A1AE4C031B2769148E3FAF03E1D60 /* ASN1Decoder.xcconfig */,
+				359A749634C4A4117AE8C9B35BB3EC76 /* ASN1Decoder-dummy.m */,
+				E891CE24DA2B5F77A20D2E95FF6AE60C /* ASN1Decoder-Info.plist */,
+				B6648A352749B30917A673CD25BC7325 /* ASN1Decoder-prefix.pch */,
+				E6EA374714F049B9171379CD5CDA9C91 /* ASN1Decoder-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/ASN1Decoder";
+			sourceTree = "<group>";
+		};
 		E32BD08A456D88F8214418C5995A41E0 /* TunnelKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -2430,21 +2445,6 @@
 				C1C80EC22E69CC8783FB853F7AD3202A /* ValidationType.swift */,
 			);
 			name = Core;
-			sourceTree = "<group>";
-		};
-		E7C2B4538D4A55FEA1E10D112CB6206C /* ASN1Decoder */ = {
-			isa = PBXGroup;
-			children = (
-				49C693CFAB0D6F3D40106AD9F804663B /* Asn1Decoder.swift */,
-				E2C170AC038AEED4C9588FE89D09FDCC /* ASN1Identifier.swift */,
-				CE2BCDCC85DBC3EDFFE82423E98DD2B7 /* ASN1Object.swift */,
-				35E34CBC3A17419CB3B29413EC375F14 /* PKCS7.swift */,
-				722EAE7A493C16CFB23E8A4ED11F0805 /* PKCS7_AppleReceipt.swift */,
-				95D645BFCF707C6A509314AFE247738B /* X509Certificate.swift */,
-				3CA6ECDB37D43E745750E2D7684366EA /* Support Files */,
-			);
-			name = ASN1Decoder;
-			path = ASN1Decoder;
 			sourceTree = "<group>";
 		};
 		E8CEB8BBABE731179C7D60C48C73DE25 /* Support Files */ = {
@@ -3030,7 +3030,7 @@
 			buildConfigurationList = AC634D59AEE1E27C8A209E0E86C53EED /* Build configuration list for PBXNativeTarget "ASN1Decoder" */;
 			buildPhases = (
 				9A34C8937C845D3450E49005F26BD332 /* Headers */,
-				D07FEBC6C5FCFD6DA215CADCB130609E /* Sources */,
+				CEE58EBC0142C1A34659BCAE37475EC3 /* Sources */,
 				52EDD04F4CBF442312B458A8D712FEEE /* Frameworks */,
 				7B57CF3361D4411530E8C7808724734A /* Resources */,
 			);
@@ -3504,6 +3504,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CEE58EBC0142C1A34659BCAE37475EC3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A0300A4EAFE7047337D759D8BB3C7F1 /* ASN1Decoder-dummy.m in Sources */,
+				BDAEEB2B29E9CD0781607B5CE6CC4402 /* ASN1Decoder.swift in Sources */,
+				CD7AA97C553F7AECF88CA15F99D2178A /* ASN1Identifier.swift in Sources */,
+				58A6FB891DDAA731CCC99B2923679BD7 /* ASN1Object.swift in Sources */,
+				CDDE7F6B452C6510F1F31375E9DA3AF4 /* PKCS7.swift in Sources */,
+				D35AC216A4041878070706C7EAF8093A /* PKCS7_AppleReceipt.swift in Sources */,
+				D04E2E5EEE6B983AB010D4701E368F32 /* X509Certificate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D0042252D9DC4C9847A15BDE32B743D3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3614,20 +3628,6 @@
 				290C07E5C18F3B4D5D7ABE0A5F90C7E6 /* version.c in Sources */,
 				2A66F456C814060264182BAD1E03FD18 /* x25519_ref10.c in Sources */,
 				69CB96C17C330A19E9B044F64A3D59E8 /* xor_afternm_aes128ctr.c in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D07FEBC6C5FCFD6DA215CADCB130609E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6130E1501CDFDF269B9CD9A5128D80FB /* ASN1Decoder-dummy.m in Sources */,
-				F87F9A2D04470A52A464E0565CC72761 /* Asn1Decoder.swift in Sources */,
-				47F82157DF43F08B87B8891BB57529F8 /* ASN1Identifier.swift in Sources */,
-				1D472E0DBA4702F042EC12D25DEBB707 /* ASN1Object.swift in Sources */,
-				AB587E2B66257332728BF6C1BA7E3812 /* PKCS7.swift in Sources */,
-				41E974C6138F2FCF2173F10F008B6DDA /* PKCS7_AppleReceipt.swift in Sources */,
-				A40EEA909BC904BD841B0E3850128BBD /* X509Certificate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4180,7 +4180,7 @@
 		};
 		53BAFDBBEA1BF193F0B8999DFA878148 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 41CF20ADEE78825BACA7E39E1D38E62A /* ASN1Decoder.xcconfig */;
+			baseConfigurationReference = 062A1AE4C031B2769148E3FAF03E1D60 /* ASN1Decoder.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
@@ -4496,7 +4496,7 @@
 		};
 		90E7DA8830CFEFBE1032FCC2FDA2B8E6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 41CF20ADEE78825BACA7E39E1D38E62A /* ASN1Decoder.xcconfig */;
+			baseConfigurationReference = 062A1AE4C031B2769148E3FAF03E1D60 /* ASN1Decoder.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
