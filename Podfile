@@ -8,7 +8,6 @@ swift_version = "4.2"
 project 'EduVPN', 'Debug' => :debug, 'Release' => :release
 
 target 'EduVPN' do
-  pod 'SwiftLint'
   pod 'PromiseKit/CorePromise'
   pod 'AppAuth', :git => 'https://github.com/openid/AppAuth-iOS.git'
   pod 'Moya'

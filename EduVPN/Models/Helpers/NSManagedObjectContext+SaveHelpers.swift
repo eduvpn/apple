@@ -84,7 +84,8 @@ public extension NSManagedObjectContext {
         switch concurrencyType {
         case .confinementConcurrencyType:
             try saveFlow()
-        case .mainQueueConcurrencyType,          .privateQueueConcurrencyType:
+        case .mainQueueConcurrencyType,
+             .privateQueueConcurrencyType:
             try performAndWaitOrThrow(saveFlow)
         @unknown default:
             fatalError()
