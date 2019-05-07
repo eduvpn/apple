@@ -22,12 +22,9 @@ Due to the usage of Network Extensions, you can not fully test this app on a Sim
 
 ## Versioning
 
-The build proces takes the number of commits on the current branch as the build number with `git rev-list HEAD --count`. The version string is taken from the repository with `git describe --tags --always --abbrev=0`.
+The build proces takes the number of commits on the current branch as the build number with `git rev-list HEAD --count`. The version string is configured in [AppVersion.xcconfig](EduVPN/Config/AppVersion.xcconfig).
 
 The exact behavior is defined in the script [set_build_number.sh](Scripts/set_build_number.sh).
-
-If you want to create a new version of the app, make sure to create a tag of the format `vX.Y.Z`. For example: `v2.0.1` or `v3.5.1`.
-  
 
 ## Dependencies
 

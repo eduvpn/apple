@@ -1,6 +1,22 @@
 # Changelog
 
-## unreleased
+## 2.0.4 
+
+- Version is now defined in AppVersion.xcconfig.
+- Better handling of old discovery information.
+- Fix for when switching to an other provided while connected. #86
+- Enabled Data Protection.
+- The app does not perform superflous refreshes of the proile list. This improves responsiveness. #88
+- Fix for incorrectly displayed profile names. # 87
+- Give an indication to the user what profile is configured on the system level, and show an in app connected status display.
+- Lots and lots of updates to third party dependencies.
+- "Split tunnel" should now work. #75
+
+## 2.0.3
+
+- Fix for data corruption when removing profile configs. #85
+- Swift 5.
+- Do not mask IP addresses in logging. #69
 
 ## 2.0.2
 
