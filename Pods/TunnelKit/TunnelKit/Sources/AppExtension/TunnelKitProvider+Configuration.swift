@@ -176,6 +176,14 @@ extension TunnelKitProvider {
                 sessionConfigurationBuilder.httpsProxy = proxy
             }
             sessionConfigurationBuilder.proxyBypassDomains = providerConfiguration[S.proxyBypassDomains] as? [String]
+            if let routingPoliciesStrings = providerConfiguration[S.routingPolicies] as? [String], !routingPoliciesStrings.isEmpty {
+                sessionConfigurationBuilder.routingPolicies = try routingPoliciesStrings.map {
+                    guard let policy = SessionProxy.RoutingPolicy(rawValue: $0) else {
+                        throw ProviderConfigurationError.parameter(name: "protocolConfiguration.providerConfiguration[\(S.routingPolicies)] has a badly formed element")
+                    }
+                    return policy
+                }
+            }
             sessionConfiguration = sessionConfigurationBuilder.build()
 
             shouldDebug = providerConfiguration[S.debug] as? Bool ?? ConfigurationBuilder.defaults.shouldDebug
@@ -258,6 +266,8 @@ extension TunnelKitProvider {
             static let httpsProxy = "HTTPSProxy"
             
             static let proxyBypassDomains = "ProxyBypassDomains"
+            
+            static let routingPolicies = "RoutingPolicies"
             
             // MARK: Debugging
             
@@ -471,6 +481,9 @@ extension TunnelKitProvider {
             if let proxyBypassDomains = sessionConfiguration.proxyBypassDomains {
                 dict[S.proxyBypassDomains] = proxyBypassDomains
             }
+            if let routingPolicies = sessionConfiguration.routingPolicies {
+                dict[S.routingPolicies] = routingPolicies.map { $0.rawValue }
+            }
             //
             if let resolvedAddresses = resolvedAddresses {
                 dict[S.resolvedAddresses] = resolvedAddresses
@@ -559,8 +572,16 @@ extension TunnelKitProvider {
             if sessionConfiguration.randomizeEndpoint ?? false {
                 log.info("\tRandomize endpoint: true")
             }
-            if let dnsServers = sessionConfiguration.dnsServers {
-                log.info("\tDNS servers: \(dnsServers.maskedDescription)")
+            // FIXME: refine logging of other routing policies
+            if let routingPolicies = sessionConfiguration.routingPolicies {
+                log.info("\tDefault gateway: \(routingPolicies.map { $0.rawValue })")
+            } else {
+                log.info("\tDefault gateway: no")
+            }
+            if let dnsServers = sessionConfiguration.dnsServers, !dnsServers.isEmpty {
+                log.info("\tDNS: \(dnsServers.maskedDescription)")
+            } else {
+                log.info("\tDNS: default")
             }
             if let searchDomain = sessionConfiguration.searchDomain {
                 log.info("\tSearch domain: \(searchDomain.maskedDescription)")

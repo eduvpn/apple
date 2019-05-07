@@ -129,6 +129,9 @@ extension TunnelKitProvider {
         /// An error occurred at the link level.
         case linkError
         
+        /// Network routing information is missing or incomplete.
+        case routing
+        
         /// The current network changed (e.g. switched from WiFi to data connection).
         case networkChanged
         

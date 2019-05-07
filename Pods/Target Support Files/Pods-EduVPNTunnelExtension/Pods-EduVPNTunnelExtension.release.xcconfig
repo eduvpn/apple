@@ -2,7 +2,7 @@ FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/SwiftyBea
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/SwiftyBeaver/SwiftyBeaver.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/TunnelKit/TunnelKit.framework/Headers"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks' '@executable_path/../../Frameworks'
-OTHER_LDFLAGS = $(inherited) -framework "NetworkExtension" -framework "SwiftyBeaver" -framework "TunnelKit" -framework "openssl"
+OTHER_LDFLAGS = $(inherited) -l"resolv" -framework "NetworkExtension" -framework "SwiftyBeaver" -framework "TunnelKit" -framework "openssl"
 OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)

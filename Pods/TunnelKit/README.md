@@ -1,7 +1,7 @@
 # TunnelKit
 
 ![iOS 11+](https://img.shields.io/badge/ios-11+-green.svg)
-[![OpenSSL 1.1.0i](https://img.shields.io/badge/openssl-1.1.0i-d69c68.svg)](https://www.openssl.org/news/openssl-1.1.0-notes.html)
+[![OpenSSL 1.1.0j](https://img.shields.io/badge/openssl-1.1.0j-d69c68.svg)](https://www.openssl.org/news/openssl-1.1.0-notes.html)
 [![License GPLv3](https://img.shields.io/badge/license-GPLv3-lightgray.svg)](LICENSE)
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?url=https%3A%2F%2Fgithub.com%2Fkeeshux%2Ftunnelkit&via=keeshux&text=TunnelKit%2C%20a%20non-official%20%23OpenVPN%20client%20for%20%23Apple%20platforms&hashtags=iOS%2CmacOS)
 
@@ -56,7 +56,6 @@ Ignored:
     - `--*-mtu` and variants
     - `--mssfix`
 - Multiple `--remote` with different `host` values (first wins)
-- Custom `--redirect-gateway`, VPN is always default gateway (no [split tunnelling][issue-55] yet)
 
 Many other flags are ignored too but it's normally not an issue.
 
@@ -201,7 +200,6 @@ Website: [davidederosa.com][about-website]
 [dep-brew]: https://brew.sh/
 [dep-openssl]: https://www.openssl.org/
 [issue-51]: https://github.com/keeshux/tunnelkit/issues/51
-[issue-55]: https://github.com/keeshux/tunnelkit/issues/55
 
 [ne-home]: https://developer.apple.com/documentation/networkextension
 [ne-ptp]: https://developer.apple.com/documentation/networkextension/nepackettunnelprovider

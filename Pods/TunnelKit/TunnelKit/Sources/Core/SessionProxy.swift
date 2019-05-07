@@ -79,7 +79,8 @@ public class SessionProxy {
     
     // MARK: Configuration
     
-    private let configuration: Configuration
+    /// The session base configuration.
+    public let configuration: Configuration
     
     /// The optional credentials.
     public var credentials: Credentials?
@@ -407,7 +408,9 @@ public class SessionProxy {
         }
             
         pushRequest()
-        flushControlQueue()
+        if !isReliableLink {
+            flushControlQueue()
+        }
         
         guard negotiationKey.controlState == .connected else {
             queue.asyncAfter(deadline: .now() + CoreConfiguration.tickInterval) { [weak self] in
@@ -957,6 +960,11 @@ public class SessionProxy {
         }
         
         pushReply = reply
+        guard reply.options.ipv4 != nil || reply.options.ipv6 != nil else {
+            deferStop(.shutdown, SessionError.noRouting)
+            return
+        }
+        
         completeConnection()
 
         guard let remoteAddress = link?.remoteAddress else {
@@ -1135,6 +1143,13 @@ public class SessionProxy {
             controlChannel.addSentDataCount(encryptedPackets.flatCount)
             link?.writePackets(encryptedPackets) { [weak self] (error) in
                 if let error = error {
+                    
+                    // try mitigating "No buffer space available"
+                    if let posixError = error as? POSIXError, posixError.code == POSIXErrorCode.ENOBUFS {
+                        log.warning("Data: Packets dropped, no buffer space available")
+                        return
+                    }
+                    
                     self?.queue.sync {
                         log.error("Data: Failed LINK write during send data: \(error)")
                         self?.deferStop(.shutdown, SessionError.failedLinkWrite)

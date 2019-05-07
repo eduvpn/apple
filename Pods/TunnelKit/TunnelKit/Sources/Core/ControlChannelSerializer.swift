@@ -144,6 +144,8 @@ extension ControlChannel {
         
         private var currentReplayId: BidirectionalState<UInt32>
         
+        private let timestamp: UInt32
+        
         private let plain: PlainSerializer
         
         init(withKey key: StaticKey, digest: SessionProxy.Digest) throws {
@@ -163,6 +165,7 @@ extension ControlChannel {
             preambleLength = prefixLength + authLength
             
             currentReplayId = BidirectionalState(withResetValue: 1)
+            timestamp = UInt32(Date().timeIntervalSince1970)
             plain = PlainSerializer()
         }
         
@@ -171,7 +174,7 @@ extension ControlChannel {
         }
         
         func serialize(packet: ControlPacket) throws -> Data {
-            return try serialize(packet: packet, timestamp: UInt32(Date().timeIntervalSince1970))
+            return try serialize(packet: packet, timestamp: timestamp)
         }
         
         func serialize(packet: ControlPacket, timestamp: UInt32) throws -> Data {
@@ -219,6 +222,8 @@ extension ControlChannel {
         
         private var currentReplayId: BidirectionalState<UInt32>
         
+        private let timestamp: UInt32
+        
         private let plain: PlainSerializer
 
         init(withKey key: StaticKey) throws {
@@ -237,6 +242,7 @@ extension ControlChannel {
             tagLength = crypto.tagLength()
 
             currentReplayId = BidirectionalState(withResetValue: 1)
+            timestamp = UInt32(Date().timeIntervalSince1970)
             plain = PlainSerializer()
         }
         
@@ -245,7 +251,7 @@ extension ControlChannel {
         }
         
         func serialize(packet: ControlPacket) throws -> Data {
-            return try serialize(packet: packet, timestamp: UInt32(Date().timeIntervalSince1970))
+            return try serialize(packet: packet, timestamp: timestamp)
         }
         
         func serialize(packet: ControlPacket, timestamp: UInt32) throws -> Data {

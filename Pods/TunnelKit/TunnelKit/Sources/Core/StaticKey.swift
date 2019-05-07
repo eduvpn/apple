@@ -58,7 +58,7 @@ public class StaticKey: Codable {
     
     private let secureData: ZeroingData
 
-    private let direction: Direction?
+    let direction: Direction?
     
     /// Returns the encryption key.
     ///

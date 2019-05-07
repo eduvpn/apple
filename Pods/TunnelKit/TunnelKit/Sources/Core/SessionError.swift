@@ -76,6 +76,9 @@ public enum SessionError: String, Error {
 
     /// Server uses compression.
     case serverCompression
+
+    /// Missing routing information.
+    case noRouting
 }
 
 extension Error {

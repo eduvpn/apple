@@ -37,6 +37,7 @@
 
 import NetworkExtension
 import SwiftyBeaver
+import __TunnelKitNative
 
 private let log = SwiftyBeaver.self
 
@@ -74,6 +75,14 @@ open class TunnelKitProvider: NEPacketTunnelProvider {
 
     /// The number of milliseconds between data count updates. Set to 0 to disable updates (default).
     public var dataCountInterval = 0
+    
+    /// A list of public DNS servers to use as fallback when none are provided (defaults to CloudFlare).
+    public var fallbackDNSServers = [
+        "1.1.1.1",
+        "1.0.0.1",
+        "2606:4700:4700::1111",
+        "2606:4700:4700::1001"
+    ]
     
     // MARK: Constants
     
@@ -472,10 +481,16 @@ extension TunnelKitProvider: SessionProxyDelegate {
         log.info("\tRemote: \(remoteAddress.maskedDescription)")
         log.info("\tIPv4: \(reply.options.ipv4?.description ?? "not configured")")
         log.info("\tIPv6: \(reply.options.ipv6?.description ?? "not configured")")
-        if let dnsServers = reply.options.dnsServers {
+        // FIXME: refine logging of other routing policies
+        if let routingPolicies = reply.options.routingPolicies {
+            log.info("\tDefault gateway: \(routingPolicies.map { $0.rawValue })")
+        } else {
+            log.info("\tDefault gateway: not configured")
+        }
+        if let dnsServers = reply.options.dnsServers, !dnsServers.isEmpty {
             log.info("\tDNS: \(dnsServers.map { $0.maskedDescription })")
         } else {
-            log.info("\tDNS: not configured)")
+            log.info("\tDNS: not configured")
         }
         log.info("\tDomain: \(reply.options.searchDomain?.maskedDescription ?? "not configured")")
 
@@ -492,7 +507,7 @@ extension TunnelKitProvider: SessionProxyDelegate {
             }
         }
 
-        bringNetworkUp(remoteAddress: remoteAddress, reply: reply) { (error) in
+        bringNetworkUp(remoteAddress: remoteAddress, configuration: proxy.configuration, reply: reply) { (error) in
             if let error = error {
                 log.error("Failed to configure tunnel: \(error)")
                 self.pendingStartHandler?(error)
@@ -523,15 +538,28 @@ extension TunnelKitProvider: SessionProxyDelegate {
         socket?.shutdown()
     }
     
-    private func bringNetworkUp(remoteAddress: String, reply: SessionReply, completionHandler: @escaping (Error?) -> Void) {
-        
-        // route all traffic to VPN
+    private func bringNetworkUp(remoteAddress: String, configuration: SessionProxy.Configuration, reply: SessionReply, completionHandler: @escaping (Error?) -> Void) {
+        let routingPolicies = configuration.routingPolicies ?? reply.options.routingPolicies
+        let isIPv4Gateway = routingPolicies?.contains(.IPv4) ?? false
+        let isIPv6Gateway = routingPolicies?.contains(.IPv6) ?? false
+        let isGateway = isIPv4Gateway || isIPv6Gateway
+
         var ipv4Settings: NEIPv4Settings?
         if let ipv4 = reply.options.ipv4 {
-            let defaultRoute = NEIPv4Route.default()
-            defaultRoute.gatewayAddress = ipv4.defaultGateway
+            var routes: [NEIPv4Route] = []
+
+            // route all traffic to VPN?
+            if isIPv4Gateway {
+                let defaultRoute = NEIPv4Route.default()
+                defaultRoute.gatewayAddress = ipv4.defaultGateway
+                routes.append(defaultRoute)
+//                for network in ["0.0.0.0", "128.0.0.0"] {
+//                    let route = NEIPv4Route(destinationAddress: network, subnetMask: "128.0.0.0")
+//                    route.gatewayAddress = ipv4.defaultGateway
+//                    routes.append(route)
+//                }
+            }
             
-            var routes: [NEIPv4Route] = [defaultRoute]
             for r in ipv4.routes {
                 let ipv4Route = NEIPv4Route(destinationAddress: r.destination, subnetMask: r.mask)
                 ipv4Route.gatewayAddress = r.gateway
@@ -545,10 +573,20 @@ extension TunnelKitProvider: SessionProxyDelegate {
 
         var ipv6Settings: NEIPv6Settings?
         if let ipv6 = reply.options.ipv6 {
-            let defaultRoute = NEIPv6Route.default()
-            defaultRoute.gatewayAddress = ipv6.defaultGateway
+            var routes: [NEIPv6Route] = []
 
-            var routes: [NEIPv6Route] = [defaultRoute]
+            // route all traffic to VPN?
+            if isIPv6Gateway {
+                let defaultRoute = NEIPv6Route.default()
+                defaultRoute.gatewayAddress = ipv6.defaultGateway
+                routes.append(defaultRoute)
+//                for network in ["2000::", "3000::"] {
+//                    let route = NEIPv6Route(destinationAddress: network, networkPrefixLength: 4)
+//                    route.gatewayAddress = ipv6.defaultGateway
+//                    routes.append(route)
+//                }
+            }
+
             for r in ipv6.routes {
                 let ipv6Route = NEIPv6Route(destinationAddress: r.destination, networkPrefixLength: r.prefixLength as NSNumber)
                 ipv6Route.gatewayAddress = r.gateway
@@ -556,19 +594,39 @@ extension TunnelKitProvider: SessionProxyDelegate {
             }
 
             ipv6Settings = NEIPv6Settings(addresses: [ipv6.address], networkPrefixLengths: [ipv6.addressPrefixLength as NSNumber])
-            ipv6Settings?.includedRoutes = [defaultRoute]
+            ipv6Settings?.includedRoutes = routes
             ipv6Settings?.excludedRoutes = []
         }
-        
-        var dnsServers = cfg.sessionConfiguration.dnsServers
-        if dnsServers?.isEmpty ?? true {
-            dnsServers = reply.options.dnsServers
+
+        var dnsServers = cfg.sessionConfiguration.dnsServers ?? reply.options.dnsServers ?? []
+
+        // fall back
+        if dnsServers.isEmpty {
+            log.warning("DNS: No servers provided, using fall-back servers: \(fallbackDNSServers.maskedDescription)")
+            dnsServers = fallbackDNSServers
         }
-        // FIXME: default to DNS servers from current network instead
-        let dnsSettings = NEDNSSettings(servers: dnsServers ?? [])
+
+        let dnsSettings = NEDNSSettings(servers: dnsServers)
+        if !isGateway {
+            dnsSettings.matchDomains = [""]
+        }
         if let searchDomain = cfg.sessionConfiguration.searchDomain ?? reply.options.searchDomain {
             dnsSettings.domainName = searchDomain
             dnsSettings.searchDomains = [searchDomain]
+            if !isGateway {
+                dnsSettings.matchDomains = dnsSettings.searchDomains
+            }
+        }
+        
+        // add direct routes to DNS servers
+        if !isGateway {
+            for server in dnsServers {
+                if server.contains(":") {
+                    ipv6Settings?.includedRoutes?.insert(NEIPv6Route(destinationAddress: server, networkPrefixLength: 128), at: 0)
+                } else {
+                    ipv4Settings?.includedRoutes?.insert(NEIPv4Route(destinationAddress: server, subnetMask: "255.255.255.255"), at: 0)
+                }
+            }
         }
         
         var proxySettings: NEProxySettings?
@@ -586,7 +644,7 @@ extension TunnelKitProvider: SessionProxyDelegate {
         }
         // only set if there is a proxy (proxySettings set to non-nil above)
         proxySettings?.exceptionList = cfg.sessionConfiguration.proxyBypassDomains ?? reply.options.proxyBypassDomains
-
+        
         let newSettings = NEPacketTunnelNetworkSettings(tunnelRemoteAddress: remoteAddress)
         newSettings.ipv4Settings = ipv4Settings
         newSettings.ipv6Settings = ipv6Settings
@@ -696,6 +754,9 @@ extension TunnelKitProvider {
                 
             case .failedLinkWrite:
                 return .linkError
+                
+            case .noRouting:
+                return .routing
 
             default:
                 return .unexpectedReply

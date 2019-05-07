@@ -38,6 +38,7 @@
 import Foundation
 import NetworkExtension
 import SwiftyBeaver
+import __TunnelKitNative
 
 private let log = SwiftyBeaver.self
 
@@ -223,7 +224,8 @@ class NETCPLink: LinkInterface {
 
                 var newBuffer = buffer
                 newBuffer.append(contentsOf: data)
-                let (until, packets) = PacketStream.packets(from: newBuffer)
+                var until = 0
+                let packets = PacketStream.packets(fromStream: newBuffer, until: &until)
                 newBuffer = newBuffer.subdata(in: until..<newBuffer.count)
                 self?.loopReadPackets(queue, newBuffer, handler)
 
@@ -233,14 +235,14 @@ class NETCPLink: LinkInterface {
     }
 
     func writePacket(_ packet: Data, completionHandler: ((Error?) -> Void)?) {
-        let stream = PacketStream.stream(from: packet)
+        let stream = PacketStream.stream(fromPacket: packet)
         impl.write(stream) { (error) in
             completionHandler?(error)
         }
     }
     
     func writePackets(_ packets: [Data], completionHandler: ((Error?) -> Void)?) {
-        let stream = PacketStream.stream(from: packets)
+        let stream = PacketStream.stream(fromPackets: packets)
         impl.write(stream) { (error) in
             completionHandler?(error)
         }

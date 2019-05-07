@@ -96,6 +96,8 @@ public class ConfigurationParser {
         
         static let proxyBypass = NSRegularExpression("^dhcp-option +PROXY_BYPASS +.+")
         
+        static let redirectGateway = NSRegularExpression("^redirect-gateway.*")
+
         // MARK: Unsupported
         
 //        static let fragment = NSRegularExpression("^fragment +\\d+")
@@ -118,6 +120,24 @@ public class ConfigurationParser {
         case p2p
         
         case subnet
+    }
+    
+    private enum RedirectGateway: String {
+        case def1 // default
+
+        case noIPv4 = "!ipv4"
+        
+        case ipv6
+
+        case local
+        
+        case autolocal
+        
+        case blockLocal = "block-local"
+
+        case bypassDHCP = "bypass-dhcp"
+        
+        case bypassDNS = "bypass-dns"
     }
     
     /// Result of the parser.
@@ -204,6 +224,7 @@ public class ConfigurationParser {
         var optHTTPProxy: Proxy?
         var optHTTPSProxy: Proxy?
         var optProxyBypass: [String]?
+        var optRedirectGateway: Set<RedirectGateway>?
 
         log.verbose("Configuration file:")
         for line in lines {
@@ -515,6 +536,18 @@ public class ConfigurationParser {
                 optProxyBypass = $0
                 optProxyBypass?.removeFirst()
             }
+            Regex.redirectGateway.enumerateArguments(in: line) {
+
+                // redirect IPv4 by default
+                optRedirectGateway = [.def1]
+
+                for arg in $0 {
+                    guard let opt = RedirectGateway(rawValue: arg) else {
+                        continue
+                    }
+                    optRedirectGateway?.insert(opt)
+                }
+            }
 
             //
             
@@ -680,6 +713,27 @@ public class ConfigurationParser {
         sessionBuilder.httpProxy = optHTTPProxy
         sessionBuilder.httpsProxy = optHTTPSProxy
         sessionBuilder.proxyBypassDomains = optProxyBypass
+
+        if let flags = optRedirectGateway {
+            var policies: Set<SessionProxy.RoutingPolicy> = []
+            for opt in flags {
+                switch opt {
+                case .def1:
+                    policies.insert(.IPv4)
+                    
+                case .ipv6:
+                    policies.insert(.IPv6)
+
+                default:
+                    // TODO: handle [auto]local and block-*
+                    continue
+                }
+            }
+            if flags.contains(.noIPv4) {
+                policies.remove(.IPv4)
+            }
+            sessionBuilder.routingPolicies = [SessionProxy.RoutingPolicy](policies)
+        }
 
         //
         

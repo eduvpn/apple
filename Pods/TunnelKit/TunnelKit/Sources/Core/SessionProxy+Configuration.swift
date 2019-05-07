@@ -146,6 +146,16 @@ extension SessionProxy {
         }
     }
     
+    /// Routing policy.
+    public enum RoutingPolicy: String, Codable {
+
+        /// All IPv4 traffic goes through the VPN.
+        case IPv4
+
+        /// All IPv6 traffic goes through the VPN.
+        case IPv6
+    }
+    
     /// :nodoc:
     private struct Fallback {
         static let cipher: Cipher = .aes128cbc
@@ -238,6 +248,9 @@ extension SessionProxy {
         /// The list of domains not passing through the proxy.
         public var proxyBypassDomains: [String]?
         
+        /// Policies for redirecting traffic through the VPN gateway.
+        public var routingPolicies: [RoutingPolicy]?
+        
         /// :nodoc:
         public init() {
         }
@@ -272,7 +285,8 @@ extension SessionProxy {
                 searchDomain: searchDomain,
                 httpProxy: httpProxy,
                 httpsProxy: httpsProxy,
-                proxyBypassDomains: proxyBypassDomains
+                proxyBypassDomains: proxyBypassDomains,
+                routingPolicies: routingPolicies
             )
         }
 
@@ -369,6 +383,9 @@ extension SessionProxy {
         /// - Seealso: `SessionProxy.ConfigurationBuilder.proxyBypassDomains`
         public var proxyBypassDomains: [String]?
         
+        /// - Seealso: `SessionProxy.ConfigurationBuilder.routingPolicies`
+        public var routingPolicies: [RoutingPolicy]?
+        
         // MARK: Shortcuts
         
         /// :nodoc:
@@ -422,6 +439,7 @@ extension SessionProxy.Configuration {
         builder.httpProxy = httpProxy
         builder.httpsProxy = httpsProxy
         builder.proxyBypassDomains = proxyBypassDomains
+        builder.routingPolicies = routingPolicies
         return builder
     }
 }

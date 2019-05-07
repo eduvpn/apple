@@ -146,9 +146,8 @@ int TLSBoxVerifyPeer(int ok, X509_STORE_CTX *ctx) {
 + (NSString *)decryptedKeyFromPrivateKey:(EVP_PKEY *)evpKey error:(NSError * _Nullable __autoreleasing *)error
 {
     BIO *output = BIO_new(BIO_s_mem());
-    if (!PEM_write_bio_PKCS8PrivateKey(output, evpKey, NULL, NULL, 0, NULL, NULL)) {
+    if (!PEM_write_bio_PrivateKey(output, evpKey, NULL, NULL, 0, NULL, NULL)) {
         BIO_free(output);
-        EVP_PKEY_free(evpKey);
         return NULL;
     }
 
