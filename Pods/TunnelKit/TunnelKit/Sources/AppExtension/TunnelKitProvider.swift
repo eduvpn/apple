@@ -245,12 +245,15 @@ open class TunnelKitProvider: NEPacketTunnelProvider {
         }
 
         pendingStopHandler = completionHandler
-        tunnelQueue.schedule(after: .milliseconds(shutdownTimeout)) {
-            guard let pendingHandler = self.pendingStopHandler else {
+        tunnelQueue.schedule(after: .milliseconds(shutdownTimeout)) { [weak self] in
+            guard let weakSelf = self else {
                 return
             }
-            log.warning("Tunnel not responding after \(self.shutdownTimeout) milliseconds, forcing stop")
-            self.flushLog()
+            guard let pendingHandler = weakSelf.pendingStopHandler else {
+                return
+            }
+            log.warning("Tunnel not responding after \(weakSelf.shutdownTimeout) milliseconds, forcing stop")
+            weakSelf.flushLog()
             pendingHandler()
         }
         tunnelQueue.sync {
@@ -644,6 +647,43 @@ extension TunnelKitProvider: SessionProxyDelegate {
         }
         // only set if there is a proxy (proxySettings set to non-nil above)
         proxySettings?.exceptionList = cfg.sessionConfiguration.proxyBypassDomains ?? reply.options.proxyBypassDomains
+        
+        // block LAN if desired
+        if routingPolicies?.contains(.blockLocal) ?? false {
+            let table = RoutingTable()
+            if isIPv4Gateway,
+                let gateway = table.defaultGateway4()?.gateway(),
+                let route = table.broadestRoute4(matchingDestination: gateway) {
+
+                route.partitioned().forEach {
+                    let destination = $0.network()
+                    guard let netmask = $0.networkMask() else {
+                        return
+                    }
+                    
+                    log.info("Block local: Suppressing IPv4 route \(destination)/\($0.prefix())")
+                    
+                    let included = NEIPv4Route(destinationAddress: destination, subnetMask: netmask)
+                    included.gatewayAddress = reply.options.ipv4?.defaultGateway
+                    ipv4Settings?.includedRoutes?.append(included)
+                }
+            }
+            if isIPv6Gateway,
+                let gateway = table.defaultGateway6()?.gateway(),
+                let route = table.broadestRoute6(matchingDestination: gateway) {
+
+                route.partitioned().forEach {
+                    let destination = $0.network()
+                    let prefix = $0.prefix()
+                    
+                    log.info("Block local: Suppressing IPv6 route \(destination)/\($0.prefix())")
+
+                    let included = NEIPv6Route(destinationAddress: destination, networkPrefixLength: prefix as NSNumber)
+                    included.gatewayAddress = reply.options.ipv6?.defaultGateway
+                    ipv6Settings?.includedRoutes?.append(included)
+                }
+            }
+        }
         
         let newSettings = NEPacketTunnelNetworkSettings(tunnelRemoteAddress: remoteAddress)
         newSettings.ipv4Settings = ipv4Settings

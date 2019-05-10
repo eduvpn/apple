@@ -723,6 +723,9 @@ public class ConfigurationParser {
                     
                 case .ipv6:
                     policies.insert(.IPv6)
+                    
+                case .blockLocal:
+                    policies.insert(.blockLocal)
 
                 default:
                     // TODO: handle [auto]local and block-*

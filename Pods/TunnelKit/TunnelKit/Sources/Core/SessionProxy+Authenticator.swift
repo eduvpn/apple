@@ -66,6 +66,8 @@ extension SessionProxy {
         
         let password: ZeroingData?
         
+        var withLocalOptions: Bool
+        
         init(_ username: String?, _ password: String?) throws {
             preMaster = try SecureRandom.safeData(length: CoreConfiguration.preMasterLength)
             random1 = try SecureRandom.safeData(length: CoreConfiguration.randomLength)
@@ -79,6 +81,8 @@ extension SessionProxy {
                 self.username = nil
                 self.password = nil
             }
+            
+            withLocalOptions = true
             
             controlBuffer = Z()
         }
@@ -95,31 +99,39 @@ extension SessionProxy {
             raw.append(random2)
             
             // options string
-            var opts = [
-                "V4",
-                "dev-type tun",
-                "cipher \(options.fallbackCipher.rawValue)",
-                "auth \(options.fallbackDigest.rawValue)",
-                "keysize \(options.fallbackCipher.keySize)",
-                "key-method 2",
-                "tls-client"
-            ]
-            if let comp = options.compressionFraming {
-                switch comp {
-                case .compLZO:
-                    opts.append("comp-lzo")
-                    
-                case .compress:
-                    opts.append("compress")
-                    
-                default:
-                    break
+            let optsString: String
+            if withLocalOptions {
+                var opts = [
+                    "V4",
+                    "dev-type tun"
+                ]
+                if let comp = options.compressionFraming {
+                    switch comp {
+                    case .compLZO:
+                        opts.append("comp-lzo")
+                        
+                    case .compress:
+                        opts.append("compress")
+                        
+                    default:
+                        break
+                    }
                 }
+                if let direction = options.tlsWrap?.key.direction?.rawValue {
+                    opts.append("keydir \(direction)")
+                }
+                opts.append("cipher \(options.fallbackCipher.rawValue)")
+                opts.append("auth \(options.fallbackDigest.rawValue)")
+                opts.append("keysize \(options.fallbackCipher.keySize)")
+                if let strategy = options.tlsWrap?.strategy {
+                    opts.append("tls-\(strategy)")
+                }
+                opts.append("key-method 2")
+                opts.append("tls-client")
+                optsString = opts.joined(separator: ",")
+            } else {
+                optsString = "V0 UNDEF"
             }
-            if let direction = options.tlsWrap?.key.direction?.rawValue {
-                opts.append("keydir \(direction)")
-            }
-            let optsString = opts.joined(separator: ",")
             log.debug("TLS.auth: Local options: \(optsString)")
             raw.appendSized(Z(optsString, nullTerminated: true))
             
@@ -187,7 +199,7 @@ extension SessionProxy {
             }
             
             if let serverOptsString = serverOpts.nullTerminatedString(fromOffset: 0) {
-                log.debug("TLS.auth: Parsed server opts: \"\(serverOptsString)\"")
+                log.debug("TLS.auth: Parsed server options: \"\(serverOptsString)\"")
             }
             
             self.serverRandom1 = serverRandom1

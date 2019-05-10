@@ -79,13 +79,11 @@ class TunnelProviderManagerCoordinator: Coordinator {
             let parseResult = try! ConfigurationParser.parsed(fromURL: configUrl) //swiftlint:disable:this force_try
 
             return Promise(resolver: { (resolver) in
-                guard let hostname = parseResult.configuration.hostname else { throw TunnelProviderManagerCoordinatorError.missingHostname }
+                var configBuilder = parseResult.configuration.builder()
+                configBuilder.tlsSecurityLevel = 3
 
                 self.configureVPN({ (_) in
-                    var sessionConfig = parseResult.configuration.builder().build()
-                    sessionConfig.hostname = hostname
-
-                    var builder = TunnelKitProvider.ConfigurationBuilder(sessionConfiguration: sessionConfig)
+                    var builder = TunnelKitProvider.ConfigurationBuilder(sessionConfiguration: configBuilder.build())
                     builder.masksPrivateData = false
                     let configuration = builder.build()
 

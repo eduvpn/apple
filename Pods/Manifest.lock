@@ -22,13 +22,13 @@ PODS:
   - PromiseKit/CorePromise (6.8.4)
   - Result (4.1.0)
   - SwiftyBeaver (1.7.0)
-  - TunnelKit (1.7.0):
-    - TunnelKit/AppExtension (= 1.7.0)
-    - TunnelKit/Core (= 1.7.0)
-  - TunnelKit/AppExtension (1.7.0):
+  - TunnelKit (1.7.1):
+    - TunnelKit/AppExtension (= 1.7.1)
+    - TunnelKit/Core (= 1.7.1)
+  - TunnelKit/AppExtension (1.7.1):
     - SwiftyBeaver
     - TunnelKit/Core
-  - TunnelKit/Core (1.7.0):
+  - TunnelKit/Core (1.7.1):
     - OpenSSL-Apple (~> 1.1.0j.2)
     - SwiftyBeaver
 
@@ -41,7 +41,7 @@ DEPENDENCIES:
   - Moya
   - NVActivityIndicatorView
   - PromiseKit/CorePromise
-  - TunnelKit
+  - TunnelKit (from `https://github.com/keeshux/tunnelkit.git`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -56,16 +56,20 @@ SPEC REPOS:
     - PromiseKit
     - Result
     - SwiftyBeaver
-    - TunnelKit
 
 EXTERNAL SOURCES:
   AppAuth:
     :git: https://github.com/openid/AppAuth-iOS.git
+  TunnelKit:
+    :git: https://github.com/keeshux/tunnelkit.git
 
 CHECKOUT OPTIONS:
   AppAuth:
     :commit: 6af08938ffe843f7b6862e8efbc930c532811a89
     :git: https://github.com/openid/AppAuth-iOS.git
+  TunnelKit:
+    :commit: 0a80dec3a73cdd3d183bbcb84d038c2eb5969575
+    :git: https://github.com/keeshux/tunnelkit.git
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
@@ -80,8 +84,8 @@ SPEC CHECKSUMS:
   PromiseKit: 51794a832647e7b819336dc2279039ce9f1cc49b
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   SwiftyBeaver: 4cc0080d2e23f980652e28978db11a5c9da39165
-  TunnelKit: 7355382cd0ff4fce26e48c51dc680d0497b35b17
+  TunnelKit: dd00b33e4c6d84f2d32390448a33ef5e37b1ac52
 
-PODFILE CHECKSUM: 37e5ba64192b2863f739ea1b5ad2f6a7ac08d324
+PODFILE CHECKSUM: 981b15b31606ae34164223f47bd5a394fb8ce3e1
 
 COCOAPODS: 1.6.1

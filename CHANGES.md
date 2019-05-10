@@ -2,6 +2,7 @@
 
 ## 2.0.4 
 
+- Restrict encryption to known secure tls security ciphers.
 - Version is now defined in AppVersion.xcconfig.
 - Better handling of old discovery information.
 - Fix for when switching to an other provided while connected. #86

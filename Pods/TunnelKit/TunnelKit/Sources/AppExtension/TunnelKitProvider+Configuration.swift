@@ -147,6 +147,7 @@ extension TunnelKitProvider {
                     throw ProviderConfigurationError.parameter(name: "protocolConfiguration.providerConfiguration[\(S.tlsWrap)]")
                 }
             }
+            sessionConfigurationBuilder.tlsSecurityLevel = providerConfiguration[S.tlsSecurityLevel] as? Int ?? ConfigurationBuilder.defaults.sessionConfiguration.tlsSecurityLevel
             sessionConfigurationBuilder.keepAliveInterval = providerConfiguration[S.keepAlive] as? TimeInterval ?? ConfigurationBuilder.defaults.sessionConfiguration.keepAliveInterval
             sessionConfigurationBuilder.renegotiatesAfter = providerConfiguration[S.renegotiatesAfter] as? TimeInterval ?? ConfigurationBuilder.defaults.sessionConfiguration.renegotiatesAfter
             guard let endpointProtocolsStrings = providerConfiguration[S.endpointProtocols] as? [String], !endpointProtocolsStrings.isEmpty else {
@@ -244,6 +245,8 @@ extension TunnelKitProvider {
             static let clientKey = "ClientKey"
             
             static let tlsWrap = "TLSWrap"
+
+            static let tlsSecurityLevel = "TLSSecurityLevel"
 
             static let keepAlive = "KeepAlive"
             
@@ -451,6 +454,9 @@ extension TunnelKitProvider {
             if let tlsWrapData = sessionConfiguration.tlsWrap?.serialized() {
                 dict[S.tlsWrap] = tlsWrapData
             }
+            if let tlsSecurityLevel = sessionConfiguration.tlsSecurityLevel {
+                dict[S.tlsSecurityLevel] = tlsSecurityLevel
+            }
             if let keepAliveSeconds = sessionConfiguration.keepAliveInterval {
                 dict[S.keepAlive] = keepAliveSeconds
             }
@@ -553,6 +559,11 @@ extension TunnelKitProvider {
                 log.info("\tTLS wrapping: \(tlsWrap.strategy)")
             } else {
                 log.info("\tTLS wrapping: disabled")
+            }
+            if let tlsSecurityLevel = sessionConfiguration.tlsSecurityLevel {
+                log.info("\tTLS security level: \(tlsSecurityLevel)")
+            } else {
+                log.info("\tTLS security level: default")
             }
             if let keepAliveSeconds = sessionConfiguration.keepAliveInterval, keepAliveSeconds > 0 {
                 log.info("\tKeep-alive: \(keepAliveSeconds) seconds")
