@@ -19,6 +19,7 @@ class SettingsTableViewController: UITableViewController {
 
     @IBOutlet weak var onDemandSwitch: UISwitch!
     @IBOutlet weak var forceTcpSwitch: UISwitch!
+    @IBOutlet weak var keysizeSegmentedControl: UISegmentedControl!
 
     @IBAction func onDemandChanged(_ sender: Any) {
         if let delegate = delegate {
@@ -35,11 +36,34 @@ class SettingsTableViewController: UITableViewController {
         delegate?.reconnect()
     }
 
+    @IBAction func keySizeChanged(_ sender: Any) {
+        switch keysizeSegmentedControl.selectedSegmentIndex {
+        case 0:
+            UserDefaults.standard.tlsSecurityLevel = TlsSecurityLevel.bits128
+        case 1:
+            UserDefaults.standard.tlsSecurityLevel = TlsSecurityLevel.bits192
+        case 2:
+            UserDefaults.standard.tlsSecurityLevel = TlsSecurityLevel.bits256
+        default:
+            fatalError("Unknown segment index.")
+        }
+        delegate?.reconnect()
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         onDemandSwitch.isOn = delegate?.readOnDemand() ?? false
         forceTcpSwitch.isOn = UserDefaults.standard.forceTcp
+
+        switch UserDefaults.standard.tlsSecurityLevel {
+        case .bits128:
+            keysizeSegmentedControl.selectedSegmentIndex = 0
+        case .bits192:
+            keysizeSegmentedControl.selectedSegmentIndex = 1
+        case .bits256:
+            keysizeSegmentedControl.selectedSegmentIndex = 2
+        }
     }
 }
 

@@ -80,7 +80,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
 
             return Promise(resolver: { (resolver) in
                 var configBuilder = parseResult.configuration.builder()
-                configBuilder.tlsSecurityLevel = 3
+                configBuilder.tlsSecurityLevel = UserDefaults.standard.tlsSecurityLevel.rawValue
 
                 self.configureVPN({ (_) in
                     var builder = TunnelKitProvider.ConfigurationBuilder(sessionConfiguration: configBuilder.build())

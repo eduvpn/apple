@@ -253,6 +253,45 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection id="e70-Wt-pTr">
+                                <string key="footerTitle">With minimum key size you can define the minimum accepted keysize the EduVPN client is allowed to work with. Please be aware that connection problems might be caused by setting this option to a higher value.</string>
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="x1k-IB-kDo">
+                                        <rect key="frame" x="0.0" y="347" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="x1k-IB-kDo" id="DZ9-r1-Mdf">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="L0Z-3I-cRX">
+                                                    <rect key="frame" x="196" y="8" width="116" height="29"/>
+                                                    <segments>
+                                                        <segment title="128"/>
+                                                        <segment title="192"/>
+                                                        <segment title="256"/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="keySizeChanged:" destination="u52-OQ-OnN" eventType="valueChanged" id="iOf-NZ-kst"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Minimum key size" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fVP-Ja-upN">
+                                                    <rect key="frame" x="16" y="11.5" width="135.5" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="L0Z-3I-cRX" secondAttribute="trailing" constant="8" id="FSv-Q2-8Ss"/>
+                                                <constraint firstItem="fVP-Ja-upN" firstAttribute="leading" secondItem="DZ9-r1-Mdf" secondAttribute="leadingMargin" id="SKR-DW-kBy"/>
+                                                <constraint firstItem="fVP-Ja-upN" firstAttribute="centerY" secondItem="DZ9-r1-Mdf" secondAttribute="centerY" id="ViU-gc-Ac9"/>
+                                                <constraint firstItem="L0Z-3I-cRX" firstAttribute="centerY" secondItem="DZ9-r1-Mdf" secondAttribute="centerY" id="gPZ-X2-6GS"/>
+                                                <constraint firstItem="L0Z-3I-cRX" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fVP-Ja-upN" secondAttribute="trailing" id="upk-2o-n8f"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="u52-OQ-OnN" id="pbw-ye-AIl"/>
@@ -263,6 +302,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="forceTcpSwitch" destination="FAb-Eg-fyS" id="S4M-MD-q1z"/>
+                        <outlet property="keysizeSegmentedControl" destination="L0Z-3I-cRX" id="mTx-mf-QUL"/>
                         <outlet property="onDemandSwitch" destination="JPq-pi-jpH" id="YwG-zX-Yzj"/>
                     </connections>
                 </tableViewController>
