@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		34D719E1228D75550027DE84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D719E0228D75550027DE84 /* AppDelegate.swift */; };
+		34D719E5228D75560027DE84 /* eduVPNAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34D719E4228D75560027DE84 /* eduVPNAssets.xcassets */; };
+		34D719E8228D75560027DE84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34D719E6228D75560027DE84 /* Main.storyboard */; };
+		34D719FA228D75C10027DE84 /* LetsConnectAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34D719F9228D75C10027DE84 /* LetsConnectAssets.xcassets */; };
+		34D71A0B228D76610027DE84 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A09228D76610027DE84 /* AppConfig.swift */; };
+		34D71A63228D781A0027DE84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D719E0228D75550027DE84 /* AppDelegate.swift */; };
+		34D71A64228D781A0027DE84 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A06228D76610027DE84 /* AppConfig.swift */; };
+		34D71A65228D78460027DE84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34D719E6228D75560027DE84 /* Main.storyboard */; };
+		34D71A67228D8D940027DE84 /* AppConfigType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A66228D8D940027DE84 /* AppConfigType.swift */; };
+		34D71A68228D8E020027DE84 /* AppConfigType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A66228D8D940027DE84 /* AppConfigType.swift */; };
 		4A1140841F78490C00D61100 /* VPNConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */; };
 		4A140BBC21B5D7F5000A87E3 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A140BBB21B5D7F5000A87E3 /* Message.swift */; };
 		4A2803D91FA6867D00FA895C /* CustomProviderInPutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2803D81FA6867D00FA895C /* CustomProviderInPutViewController.swift */; };
@@ -112,6 +122,19 @@
 /* Begin PBXFileReference section */
 		11EE63FC99D26438F0B980F7 /* Pods-EduVPNTunnelExtension.release appforce1.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension.release appforce1.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.release appforce1.xcconfig"; sourceTree = "<group>"; };
 		1C644DAFAF71735E397E6E30 /* Pods-EduVPN.release appforce1.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPN.release appforce1.xcconfig"; path = "Target Support Files/Pods-EduVPN/Pods-EduVPN.release appforce1.xcconfig"; sourceTree = "<group>"; };
+		34D719DE228D75550027DE84 /* eduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		34D719E0228D75550027DE84 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		34D719E4228D75560027DE84 /* eduVPNAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = eduVPNAssets.xcassets; sourceTree = "<group>"; };
+		34D719E7228D75560027DE84 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		34D719E9228D75560027DE84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		34D719EA228D75560027DE84 /* EduVPN_macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EduVPN_macOS.entitlements; sourceTree = "<group>"; };
+		34D719F3228D75C00027DE84 /* Let's Connect!.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Let's Connect!.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		34D719F9228D75C10027DE84 /* LetsConnectAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = LetsConnectAssets.xcassets; sourceTree = "<group>"; };
+		34D719FE228D75C10027DE84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		34D719FF228D75C10027DE84 /* LetsConnect_macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LetsConnect_macOS.entitlements; sourceTree = "<group>"; };
+		34D71A06228D76610027DE84 /* AppConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
+		34D71A09228D76610027DE84 /* AppConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
+		34D71A66228D8D940027DE84 /* AppConfigType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfigType.swift; sourceTree = "<group>"; };
 		4A01329921CDA2C2009B8B02 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
 		4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNConnectionViewController.swift; sourceTree = "<group>"; };
 		4A140BBB21B5D7F5000A87E3 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -217,6 +240,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		34D719DB228D75550027DE84 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34D719F0228D75C00027DE84 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4A901C0E20C87511000C1BF0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -253,6 +290,88 @@
 				5B954E3699D9E9CC26F5C3E7 /* Pods_EduVPNTunnelExtension.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		34D719DF228D75550027DE84 /* EduVPN-macOS */ = {
+			isa = PBXGroup;
+			children = (
+				34D71A83228D8EF20027DE84 /* Extensions */,
+				34D71A0E228D76C60027DE84 /* Controllers */,
+				34D71A0D228D76C10027DE84 /* Models */,
+				34D71A0C228D76B60027DE84 /* Services */,
+				34D71A03228D76610027DE84 /* Targets */,
+				34D719EE228D75790027DE84 /* Resources */,
+			);
+			path = "EduVPN-macOS";
+			sourceTree = "<group>";
+		};
+		34D719EE228D75790027DE84 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				34D719E4228D75560027DE84 /* eduVPNAssets.xcassets */,
+				34D719F9228D75C10027DE84 /* LetsConnectAssets.xcassets */,
+				34D719E6228D75560027DE84 /* Main.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		34D71A03228D76610027DE84 /* Targets */ = {
+			isa = PBXGroup;
+			children = (
+				34D71A04228D76610027DE84 /* LetsConnect */,
+				34D71A07228D76610027DE84 /* eduVPN */,
+			);
+			path = Targets;
+			sourceTree = "<group>";
+		};
+		34D71A04228D76610027DE84 /* LetsConnect */ = {
+			isa = PBXGroup;
+			children = (
+				34D719FF228D75C10027DE84 /* LetsConnect_macOS.entitlements */,
+				34D71A06228D76610027DE84 /* AppConfig.swift */,
+				34D719FE228D75C10027DE84 /* Info.plist */,
+			);
+			path = LetsConnect;
+			sourceTree = "<group>";
+		};
+		34D71A07228D76610027DE84 /* eduVPN */ = {
+			isa = PBXGroup;
+			children = (
+				34D719EA228D75560027DE84 /* EduVPN_macOS.entitlements */,
+				34D71A09228D76610027DE84 /* AppConfig.swift */,
+				34D719E9228D75560027DE84 /* Info.plist */,
+			);
+			path = eduVPN;
+			sourceTree = "<group>";
+		};
+		34D71A0C228D76B60027DE84 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		34D71A0D228D76C10027DE84 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				34D71A66228D8D940027DE84 /* AppConfigType.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		34D71A0E228D76C60027DE84 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				34D719E0228D75550027DE84 /* AppDelegate.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		34D71A83228D8EF20027DE84 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		3FD80EE8F0EFC339DAE2DAEB /* Pods */ = {
@@ -313,6 +432,7 @@
 				4AAC1F781F2D0E3400DD0252 /* EduVPN */,
 				4AAC1F8D1F2D0E3400DD0252 /* EduVPNTests */,
 				4A901C1220C87512000C1BF0 /* EduVPNTunnelExtension */,
+				34D719DF228D75550027DE84 /* EduVPN-macOS */,
 				4AAC1F771F2D0E3400DD0252 /* Products */,
 				26B4255A0C7DB00763783EF6 /* Frameworks */,
 				3FD80EE8F0EFC339DAE2DAEB /* Pods */,
@@ -325,6 +445,8 @@
 				4AAC1F761F2D0E3400DD0252 /* AppForce1.app */,
 				4AAC1F8A1F2D0E3400DD0252 /* EduVPNTests.xctest */,
 				4A901C1120C87511000C1BF0 /* EduVPNTunnelExtension.appex */,
+				34D719DE228D75550027DE84 /* eduVPN.app */,
+				34D719F3228D75C00027DE84 /* Let's Connect!.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -454,6 +576,40 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		34D719DD228D75550027DE84 /* EduVPN-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 34D719ED228D75560027DE84 /* Build configuration list for PBXNativeTarget "EduVPN-macOS" */;
+			buildPhases = (
+				34D719DA228D75550027DE84 /* Sources */,
+				34D719DB228D75550027DE84 /* Frameworks */,
+				34D719DC228D75550027DE84 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "EduVPN-macOS";
+			productName = "EduVPN-macOS";
+			productReference = 34D719DE228D75550027DE84 /* eduVPN.app */;
+			productType = "com.apple.product-type.application";
+		};
+		34D719F2228D75C00027DE84 /* LetsConnect-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 34D71A00228D75C10027DE84 /* Build configuration list for PBXNativeTarget "LetsConnect-macOS" */;
+			buildPhases = (
+				34D719EF228D75C00027DE84 /* Sources */,
+				34D719F0228D75C00027DE84 /* Frameworks */,
+				34D719F1228D75C00027DE84 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "LetsConnect-macOS";
+			productName = "LetsConnect-macOS";
+			productReference = 34D719F3228D75C00027DE84 /* Let's Connect!.app */;
+			productType = "com.apple.product-type.application";
+		};
 		4A901C1020C87511000C1BF0 /* EduVPNTunnelExtension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4A901C1C20C87512000C1BF0 /* Build configuration list for PBXNativeTarget "EduVPNTunnelExtension" */;
@@ -525,9 +681,17 @@
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = SURFNet;
 				TargetAttributes = {
+					34D719DD228D75550027DE84 = {
+						CreatedOnToolsVersion = 10.2.1;
+						ProvisioningStyle = Automatic;
+					};
+					34D719F2228D75C00027DE84 = {
+						CreatedOnToolsVersion = 10.2.1;
+						ProvisioningStyle = Automatic;
+					};
 					4A901C1020C87511000C1BF0 = {
 						CreatedOnToolsVersion = 9.4;
-						DevelopmentTeam = T4CMEHXPLL;
+						DevelopmentTeam = 7S553Q728R;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
@@ -540,7 +704,7 @@
 					};
 					4AAC1F751F2D0E3400DD0252 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = T4CMEHXPLL;
+						DevelopmentTeam = 7S553Q728R;
 						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -563,6 +727,7 @@
 					};
 					4AAC1F891F2D0E3400DD0252 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 7S553Q728R;
 						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 4AAC1F751F2D0E3400DD0252;
@@ -586,11 +751,31 @@
 				4AAC1F751F2D0E3400DD0252 /* EduVPN */,
 				4AAC1F891F2D0E3400DD0252 /* EduVPNTests */,
 				4A901C1020C87511000C1BF0 /* EduVPNTunnelExtension */,
+				34D719DD228D75550027DE84 /* EduVPN-macOS */,
+				34D719F2228D75C00027DE84 /* LetsConnect-macOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		34D719DC228D75550027DE84 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34D719E5228D75560027DE84 /* eduVPNAssets.xcassets in Resources */,
+				34D719E8228D75560027DE84 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34D719F1228D75C00027DE84 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34D71A65228D78460027DE84 /* Main.storyboard in Resources */,
+				34D719FA228D75C10027DE84 /* LetsConnectAssets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4A901C0F20C87511000C1BF0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -778,6 +963,26 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		34D719DA228D75550027DE84 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34D71A0B228D76610027DE84 /* AppConfig.swift in Sources */,
+				34D71A67228D8D940027DE84 /* AppConfigType.swift in Sources */,
+				34D719E1228D75550027DE84 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34D719EF228D75C00027DE84 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34D71A63228D781A0027DE84 /* AppDelegate.swift in Sources */,
+				34D71A68228D8E020027DE84 /* AppConfigType.swift in Sources */,
+				34D71A64228D781A0027DE84 /* AppConfig.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4A901C0D20C87511000C1BF0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -873,6 +1078,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		34D719E6228D75560027DE84 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				34D719E7228D75560027DE84 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
 		4A9704C71FBA379D00B4D6C2 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -904,6 +1117,104 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		34D719EB228D75560027DE84 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = eduVPNAppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "EduVPN-macOS/EduVPN_macOS.entitlements";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "EduVPN-macOS/Targets/eduVPN/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.eduvpn.app;
+				PRODUCT_NAME = eduVPN;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		34D719EC228D75560027DE84 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = eduVPNAppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "EduVPN-macOS/EduVPN_macOS.entitlements";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "EduVPN-macOS/Targets/eduVPN/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.eduvpn.app;
+				PRODUCT_NAME = eduVPN;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		34D71A01228D75C10027DE84 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = LetsConnectAppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "LetsConnect-macOS/LetsConnect_macOS.entitlements";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "EduVPN-macOS/Targets/LetsConnect/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.eduvpn.app.home;
+				PRODUCT_NAME = "Let's Connect!";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		34D71A02228D75C10027DE84 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = LetsConnectAppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "LetsConnect-macOS/LetsConnect_macOS.entitlements";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "EduVPN-macOS/Targets/LetsConnect/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.eduvpn.app.home;
+				PRODUCT_NAME = "Let's Connect!";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		4A901C1A20C87512000C1BF0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4ABCCBE621E528260020CB6D /* Development-TunnelExtension.xcconfig */;
@@ -1147,6 +1458,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		34D719ED228D75560027DE84 /* Build configuration list for PBXNativeTarget "EduVPN-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34D719EB228D75560027DE84 /* Debug */,
+				34D719EC228D75560027DE84 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		34D71A00228D75C10027DE84 /* Build configuration list for PBXNativeTarget "LetsConnect-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34D71A01228D75C10027DE84 /* Debug */,
+				34D71A02228D75C10027DE84 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4A901C1C20C87512000C1BF0 /* Build configuration list for PBXNativeTarget "EduVPNTunnelExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
