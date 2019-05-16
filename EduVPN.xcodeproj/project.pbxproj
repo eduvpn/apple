@@ -12,11 +12,39 @@
 		34D719E8228D75560027DE84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34D719E6228D75560027DE84 /* Main.storyboard */; };
 		34D719FA228D75C10027DE84 /* LetsConnectAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34D719F9228D75C10027DE84 /* LetsConnectAssets.xcassets */; };
 		34D71A0B228D76610027DE84 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A09228D76610027DE84 /* AppConfig.swift */; };
-		34D71A63228D781A0027DE84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D719E0228D75550027DE84 /* AppDelegate.swift */; };
 		34D71A64228D781A0027DE84 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A06228D76610027DE84 /* AppConfig.swift */; };
 		34D71A65228D78460027DE84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34D719E6228D75560027DE84 /* Main.storyboard */; };
 		34D71A67228D8D940027DE84 /* AppConfigType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A66228D8D940027DE84 /* AppConfigType.swift */; };
-		34D71A68228D8E020027DE84 /* AppConfigType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A66228D8D940027DE84 /* AppConfigType.swift */; };
+		34D71A92228D9C6A0027DE84 /* NSAlert+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A85228D9C690027DE84 /* NSAlert+Custom.swift */; };
+		34D71A96228D9C6A0027DE84 /* URL+Unused.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A89228D9C6A0027DE84 /* URL+Unused.swift */; };
+		34D71A98228D9C6A0027DE84 /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A8B228D9C6A0027DE84 /* Debug.swift */; };
+		34D71A9A228D9C6A0027DE84 /* String+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A8D228D9C6A0027DE84 /* String+Random.swift */; };
+		34D71AA7228D9CCC0027DE84 /* NSAlert+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A85228D9C690027DE84 /* NSAlert+Custom.swift */; };
+		34D71AA8228D9CCC0027DE84 /* String+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A8D228D9C6A0027DE84 /* String+Random.swift */; };
+		34D71AA9228D9CCC0027DE84 /* URL+Unused.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A89228D9C6A0027DE84 /* URL+Unused.swift */; };
+		34D71AAA228D9CCC0027DE84 /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A8B228D9C6A0027DE84 /* Debug.swift */; };
+		34D71AB1228DA3A00027DE84 /* IPAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAB228DA39F0027DE84 /* IPAddress.swift */; };
+		34D71AB2228DA3A00027DE84 /* String+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAC228DA39F0027DE84 /* String+URL.swift */; };
+		34D71AB3228DA3A00027DE84 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAD228DA39F0027DE84 /* Message.swift */; };
+		34D71AB4228DA3A00027DE84 /* Either.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAE228DA39F0027DE84 /* Either.swift */; };
+		34D71AB5228DA3A00027DE84 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAF228DA39F0027DE84 /* Provider.swift */; };
+		34D71AB6228DA3A00027DE84 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AB0228DA39F0027DE84 /* User.swift */; };
+		34D71AD6228DA4670027DE84 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 34D71AD3228DA4670027DE84 /* dsa_pub.pem */; };
+		34D71AD7228DA4670027DE84 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34D71AD5228DA4670027DE84 /* Defaults.plist */; };
+		34D71AD9228DA4850027DE84 /* openvpn-2.4.7-openssl-1.1.1b in Resources */ = {isa = PBXBuildFile; fileRef = 34D71AD8228DA4850027DE84 /* openvpn-2.4.7-openssl-1.1.1b */; };
+		34D71ADA228DA4960027DE84 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 34D71AD3228DA4670027DE84 /* dsa_pub.pem */; };
+		34D71ADB228DA4990027DE84 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34D71AD5228DA4670027DE84 /* Defaults.plist */; };
+		34D71ADC228DA49D0027DE84 /* openvpn-2.4.7-openssl-1.1.1b in Resources */ = {isa = PBXBuildFile; fileRef = 34D71AD8228DA4850027DE84 /* openvpn-2.4.7-openssl-1.1.1b */; };
+		34D71ADD228DA4B00027DE84 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34D719E9228D75560027DE84 /* Info.plist */; };
+		34D71ADE228DA4BB0027DE84 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34D719FE228D75C10027DE84 /* Info.plist */; };
+		34D71AE5228DA4CC0027DE84 /* Either.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAE228DA39F0027DE84 /* Either.swift */; };
+		34D71AE6228DA4CC0027DE84 /* IPAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAB228DA39F0027DE84 /* IPAddress.swift */; };
+		34D71AE7228DA4CC0027DE84 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAD228DA39F0027DE84 /* Message.swift */; };
+		34D71AE8228DA4CC0027DE84 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAF228DA39F0027DE84 /* Provider.swift */; };
+		34D71AE9228DA4CC0027DE84 /* String+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAC228DA39F0027DE84 /* String+URL.swift */; };
+		34D71AEA228DA4CC0027DE84 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AB0228DA39F0027DE84 /* User.swift */; };
+		34D71AEB228DA4CC0027DE84 /* AppConfigType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A66228D8D940027DE84 /* AppConfigType.swift */; };
+		34D71B08228DA4D20027DE84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D719E0228D75550027DE84 /* AppDelegate.swift */; };
 		4A1140841F78490C00D61100 /* VPNConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */; };
 		4A140BBC21B5D7F5000A87E3 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A140BBB21B5D7F5000A87E3 /* Message.swift */; };
 		4A2803D91FA6867D00FA895C /* CustomProviderInPutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2803D81FA6867D00FA895C /* CustomProviderInPutViewController.swift */; };
@@ -135,6 +163,20 @@
 		34D71A06228D76610027DE84 /* AppConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		34D71A09228D76610027DE84 /* AppConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		34D71A66228D8D940027DE84 /* AppConfigType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfigType.swift; sourceTree = "<group>"; };
+		34D71A85228D9C690027DE84 /* NSAlert+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSAlert+Custom.swift"; sourceTree = "<group>"; };
+		34D71A89228D9C6A0027DE84 /* URL+Unused.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+Unused.swift"; sourceTree = "<group>"; };
+		34D71A8B228D9C6A0027DE84 /* Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
+		34D71A8D228D9C6A0027DE84 /* String+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Random.swift"; sourceTree = "<group>"; };
+		34D71AAB228DA39F0027DE84 /* IPAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IPAddress.swift; sourceTree = "<group>"; };
+		34D71AAC228DA39F0027DE84 /* String+URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+URL.swift"; sourceTree = "<group>"; };
+		34D71AAD228DA39F0027DE84 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		34D71AAE228DA39F0027DE84 /* Either.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Either.swift; sourceTree = "<group>"; };
+		34D71AAF228DA39F0027DE84 /* Provider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
+		34D71AB0228DA39F0027DE84 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		34D71AD3228DA4670027DE84 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
+		34D71AD4228DA4670027DE84 /* eduVPN-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "eduVPN-Bridging-Header.h"; sourceTree = "<group>"; };
+		34D71AD5228DA4670027DE84 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
+		34D71AD8228DA4850027DE84 /* openvpn-2.4.7-openssl-1.1.1b */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "openvpn-2.4.7-openssl-1.1.1b"; sourceTree = "<group>"; };
 		4A01329921CDA2C2009B8B02 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
 		4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNConnectionViewController.swift; sourceTree = "<group>"; };
 		4A140BBB21B5D7F5000A87E3 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -308,8 +350,10 @@
 		34D719EE228D75790027DE84 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				34D719E4228D75560027DE84 /* eduVPNAssets.xcassets */,
-				34D719F9228D75C10027DE84 /* LetsConnectAssets.xcassets */,
+				34D71AD8228DA4850027DE84 /* openvpn-2.4.7-openssl-1.1.1b */,
+				34D71AD5228DA4670027DE84 /* Defaults.plist */,
+				34D71AD3228DA4670027DE84 /* dsa_pub.pem */,
+				34D71AD4228DA4670027DE84 /* eduVPN-Bridging-Header.h */,
 				34D719E6228D75560027DE84 /* Main.storyboard */,
 			);
 			path = Resources;
@@ -327,6 +371,7 @@
 		34D71A04228D76610027DE84 /* LetsConnect */ = {
 			isa = PBXGroup;
 			children = (
+				34D719F9228D75C10027DE84 /* LetsConnectAssets.xcassets */,
 				34D719FF228D75C10027DE84 /* LetsConnect_macOS.entitlements */,
 				34D71A06228D76610027DE84 /* AppConfig.swift */,
 				34D719FE228D75C10027DE84 /* Info.plist */,
@@ -337,6 +382,7 @@
 		34D71A07228D76610027DE84 /* eduVPN */ = {
 			isa = PBXGroup;
 			children = (
+				34D719E4228D75560027DE84 /* eduVPNAssets.xcassets */,
 				34D719EA228D75560027DE84 /* EduVPN_macOS.entitlements */,
 				34D71A09228D76610027DE84 /* AppConfig.swift */,
 				34D719E9228D75560027DE84 /* Info.plist */,
@@ -354,6 +400,12 @@
 		34D71A0D228D76C10027DE84 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				34D71AAE228DA39F0027DE84 /* Either.swift */,
+				34D71AAB228DA39F0027DE84 /* IPAddress.swift */,
+				34D71AAD228DA39F0027DE84 /* Message.swift */,
+				34D71AAF228DA39F0027DE84 /* Provider.swift */,
+				34D71AAC228DA39F0027DE84 /* String+URL.swift */,
+				34D71AB0228DA39F0027DE84 /* User.swift */,
 				34D71A66228D8D940027DE84 /* AppConfigType.swift */,
 			);
 			path = Models;
@@ -370,6 +422,10 @@
 		34D71A83228D8EF20027DE84 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				34D71A85228D9C690027DE84 /* NSAlert+Custom.swift */,
+				34D71A8D228D9C6A0027DE84 /* String+Random.swift */,
+				34D71A89228D9C6A0027DE84 /* URL+Unused.swift */,
+				34D71A8B228D9C6A0027DE84 /* Debug.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -762,7 +818,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34D71AD7228DA4670027DE84 /* Defaults.plist in Resources */,
 				34D719E5228D75560027DE84 /* eduVPNAssets.xcassets in Resources */,
+				34D71ADD228DA4B00027DE84 /* Info.plist in Resources */,
+				34D71AD6228DA4670027DE84 /* dsa_pub.pem in Resources */,
+				34D71AD9228DA4850027DE84 /* openvpn-2.4.7-openssl-1.1.1b in Resources */,
 				34D719E8228D75560027DE84 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -771,7 +831,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34D71ADB228DA4990027DE84 /* Defaults.plist in Resources */,
 				34D71A65228D78460027DE84 /* Main.storyboard in Resources */,
+				34D71ADE228DA4BB0027DE84 /* Info.plist in Resources */,
+				34D71ADA228DA4960027DE84 /* dsa_pub.pem in Resources */,
+				34D71ADC228DA49D0027DE84 /* openvpn-2.4.7-openssl-1.1.1b in Resources */,
 				34D719FA228D75C10027DE84 /* LetsConnectAssets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -967,9 +1031,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34D71A96228D9C6A0027DE84 /* URL+Unused.swift in Sources */,
+				34D71A98228D9C6A0027DE84 /* Debug.swift in Sources */,
 				34D71A0B228D76610027DE84 /* AppConfig.swift in Sources */,
+				34D71AB4228DA3A00027DE84 /* Either.swift in Sources */,
 				34D71A67228D8D940027DE84 /* AppConfigType.swift in Sources */,
 				34D719E1228D75550027DE84 /* AppDelegate.swift in Sources */,
+				34D71A9A228D9C6A0027DE84 /* String+Random.swift in Sources */,
+				34D71AB3228DA3A00027DE84 /* Message.swift in Sources */,
+				34D71AB6228DA3A00027DE84 /* User.swift in Sources */,
+				34D71AB2228DA3A00027DE84 /* String+URL.swift in Sources */,
+				34D71A92228D9C6A0027DE84 /* NSAlert+Custom.swift in Sources */,
+				34D71AB1228DA3A00027DE84 /* IPAddress.swift in Sources */,
+				34D71AB5228DA3A00027DE84 /* Provider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -977,9 +1051,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				34D71A63228D781A0027DE84 /* AppDelegate.swift in Sources */,
-				34D71A68228D8E020027DE84 /* AppConfigType.swift in Sources */,
+				34D71AE9228DA4CC0027DE84 /* String+URL.swift in Sources */,
+				34D71AE7228DA4CC0027DE84 /* Message.swift in Sources */,
+				34D71AA9228D9CCC0027DE84 /* URL+Unused.swift in Sources */,
+				34D71B08228DA4D20027DE84 /* AppDelegate.swift in Sources */,
+				34D71AE5228DA4CC0027DE84 /* Either.swift in Sources */,
+				34D71AE8228DA4CC0027DE84 /* Provider.swift in Sources */,
+				34D71AE6228DA4CC0027DE84 /* IPAddress.swift in Sources */,
+				34D71AA8228D9CCC0027DE84 /* String+Random.swift in Sources */,
+				34D71AA7228D9CCC0027DE84 /* NSAlert+Custom.swift in Sources */,
 				34D71A64228D781A0027DE84 /* AppConfig.swift in Sources */,
+				34D71AEB228DA4CC0027DE84 /* AppConfigType.swift in Sources */,
+				34D71AAA228D9CCC0027DE84 /* Debug.swift in Sources */,
+				34D71AEA228DA4CC0027DE84 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
