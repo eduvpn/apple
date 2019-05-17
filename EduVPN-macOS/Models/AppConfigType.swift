@@ -7,7 +7,6 @@
 //
 
 protocol AppConfigType {
-    
     var appName: String { get }
     var clientId: String { get }
     

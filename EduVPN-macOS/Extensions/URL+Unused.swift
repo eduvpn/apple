@@ -9,7 +9,6 @@
 import Foundation
 
 extension URL {
-    
     /// Gives the next unused file URL by appending a counter if needed
     ///
     /// For example: if 'Image.png' exists returns 'Image 2.png', or if that one exists too 'Image 3.png'
@@ -18,6 +17,7 @@ extension URL {
     func nextUnusedFileURL() throws -> URL {
         var candidate = self
         let fileExtension = pathExtension
+        
         while FileManager.default.fileExists(atPath: candidate.path) {
             candidate = candidate.deletingPathExtension()
             var lastPathComponent = candidate.lastPathComponent
@@ -30,9 +30,11 @@ extension URL {
                 lastPathComponent = lastPathComponent + " 2"
             }
             
-            candidate = candidate.appendingPathComponent(lastPathComponent).appendingPathExtension(fileExtension)
+            candidate = candidate
+                .appendingPathComponent(lastPathComponent)
+                .appendingPathExtension(fileExtension)
         }
+        
         return candidate
     }
-    
 }

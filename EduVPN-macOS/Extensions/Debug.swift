@@ -13,4 +13,3 @@ func debugLog(_ items: Any...) {
     print(items)
     #endif
 }
-
