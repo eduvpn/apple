@@ -11,6 +11,11 @@
 		342B9C90228ECB8300C006D7 /* OpenVPNHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B9C8E228ECB8200C006D7 /* OpenVPNHelper.m */; };
 		342B9C92228ECBB200C006D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 342B9C91228ECBB200C006D7 /* Foundation.framework */; };
 		342B9C94228ECBB600C006D7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 342B9C93228ECBB600C006D7 /* Security.framework */; };
+		342B9CB4228ED01400C006D7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CAF228ED01400C006D7 /* main.m */; };
+		342B9CB5228ED01400C006D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 342B9CB0228ED01400C006D7 /* Assets.xcassets */; };
+		342B9CB6228ED01400C006D7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 342B9CB1228ED01400C006D7 /* Info.plist */; };
+		342B9CB7228ED01400C006D7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CB2228ED01400C006D7 /* AppDelegate.m */; };
+		342B9CBB228ED02E00C006D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 342B9CB9228ED02E00C006D7 /* Main.storyboard */; };
 		34D719E1228D75550027DE84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D719E0228D75550027DE84 /* AppDelegate.swift */; };
 		34D719E5228D75560027DE84 /* eduVPNAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34D719E4228D75560027DE84 /* eduVPNAssets.xcassets */; };
 		34D719E8228D75560027DE84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34D719E6228D75560027DE84 /* Main.storyboard */; };
@@ -171,6 +176,14 @@
 		342B9C8F228ECB8200C006D7 /* OpenVPNHelper-Launchd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "OpenVPNHelper-Launchd.plist"; sourceTree = "<group>"; };
 		342B9C91228ECBB200C006D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		342B9C93228ECBB600C006D7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LoginItemHelper-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		342B9CAD228ED01300C006D7 /* LoginItemHelper.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = LoginItemHelper.entitlements; sourceTree = "<group>"; };
+		342B9CAE228ED01400C006D7 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		342B9CAF228ED01400C006D7 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		342B9CB0228ED01400C006D7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		342B9CB1228ED01400C006D7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		342B9CB2228ED01400C006D7 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		342B9CBA228ED02E00C006D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		34D719DE228D75550027DE84 /* eduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34D719E0228D75550027DE84 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		34D719E4228D75560027DE84 /* eduVPNAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = eduVPNAssets.xcassets; sourceTree = "<group>"; };
@@ -312,6 +325,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		342B9C96228ECFDB00C006D7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		34D719DB228D75550027DE84 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -376,6 +396,28 @@
 				342B9C87228ECB4900C006D7 /* main.m */,
 			);
 			path = "OpenVPNHelper-macOS";
+			sourceTree = "<group>";
+		};
+		342B9C9A228ECFDB00C006D7 /* LoginItemHelper-macOS */ = {
+			isa = PBXGroup;
+			children = (
+				342B9CAE228ED01400C006D7 /* AppDelegate.h */,
+				342B9CB2228ED01400C006D7 /* AppDelegate.m */,
+				342B9CB0228ED01400C006D7 /* Assets.xcassets */,
+				342B9CB9228ED02E00C006D7 /* Main.storyboard */,
+				342B9CB1228ED01400C006D7 /* Info.plist */,
+				342B9CAD228ED01300C006D7 /* LoginItemHelper.entitlements */,
+				342B9CBC228ED04500C006D7 /* Supporting Files */,
+			);
+			path = "LoginItemHelper-macOS";
+			sourceTree = "<group>";
+		};
+		342B9CBC228ED04500C006D7 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				342B9CAF228ED01400C006D7 /* main.m */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		34D719DF228D75550027DE84 /* EduVPN-macOS */ = {
@@ -534,6 +576,7 @@
 				4A901C1220C87512000C1BF0 /* EduVPNTunnelExtension */,
 				34D719DF228D75550027DE84 /* EduVPN-macOS */,
 				342B9C86228ECB4900C006D7 /* OpenVPNHelper-macOS */,
+				342B9C9A228ECFDB00C006D7 /* LoginItemHelper-macOS */,
 				4AAC1F771F2D0E3400DD0252 /* Products */,
 				26B4255A0C7DB00763783EF6 /* Frameworks */,
 				3FD80EE8F0EFC339DAE2DAEB /* Pods */,
@@ -549,6 +592,7 @@
 				34D719DE228D75550027DE84 /* eduVPN.app */,
 				34D719F3228D75C00027DE84 /* Let's Connect!.app */,
 				342B9C85228ECB4800C006D7 /* org.eduvpn.app.openvpnhelper */,
+				342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -695,6 +739,23 @@
 			productReference = 342B9C85228ECB4800C006D7 /* org.eduvpn.app.openvpnhelper */;
 			productType = "com.apple.product-type.tool";
 		};
+		342B9C98228ECFDB00C006D7 /* LoginItemHelper-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 342B9CAA228ECFDD00C006D7 /* Build configuration list for PBXNativeTarget "LoginItemHelper-macOS" */;
+			buildPhases = (
+				342B9C95228ECFDB00C006D7 /* Sources */,
+				342B9C96228ECFDB00C006D7 /* Frameworks */,
+				342B9C97228ECFDB00C006D7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "LoginItemHelper-macOS";
+			productName = "LoginItemHelper-macOS";
+			productReference = 342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */;
+			productType = "com.apple.product-type.application";
+		};
 		34D719DD228D75550027DE84 /* EduVPN-macOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 34D719ED228D75560027DE84 /* Build configuration list for PBXNativeTarget "EduVPN-macOS" */;
@@ -805,6 +866,11 @@
 						DevelopmentTeam = 7S553Q728R;
 						ProvisioningStyle = Automatic;
 					};
+					342B9C98228ECFDB00C006D7 = {
+						CreatedOnToolsVersion = 10.2.1;
+						DevelopmentTeam = 7S553Q728R;
+						ProvisioningStyle = Automatic;
+					};
 					34D719DD228D75550027DE84 = {
 						CreatedOnToolsVersion = 10.2.1;
 						ProvisioningStyle = Automatic;
@@ -878,11 +944,22 @@
 				34D719DD228D75550027DE84 /* EduVPN-macOS */,
 				34D719F2228D75C00027DE84 /* LetsConnect-macOS */,
 				342B9C84228ECB4800C006D7 /* OpenVPNHelper-macOS */,
+				342B9C98228ECFDB00C006D7 /* LoginItemHelper-macOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		342B9C97228ECFDB00C006D7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				342B9CBB228ED02E00C006D7 /* Main.storyboard in Resources */,
+				342B9CB6228ED01400C006D7 /* Info.plist in Resources */,
+				342B9CB5228ED01400C006D7 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		34D719DC228D75550027DE84 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1105,6 +1182,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		342B9C95228ECFDB00C006D7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				342B9CB7228ED01400C006D7 /* AppDelegate.m in Sources */,
+				342B9CB4228ED01400C006D7 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		34D719DA228D75550027DE84 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1240,6 +1326,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		342B9CB9228ED02E00C006D7 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				342B9CBA228ED02E00C006D7 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
 		34D719E6228D75560027DE84 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1345,6 +1439,55 @@
 				PRODUCT_NAME = org.eduvpn.app.openvpnhelper;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
+		342B9CAB228ECFDD00C006D7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "LoginItemHelper-macOS/LoginItemHelper_macOS.entitlements";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 7S553Q728R;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "LoginItemHelper-macOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.eduvpn.app.LoginItemHelper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		342B9CAC228ECFDD00C006D7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "LoginItemHelper-macOS/LoginItemHelper_macOS.entitlements";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 7S553Q728R;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "LoginItemHelper-macOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.eduvpn.app.LoginItemHelper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -1694,6 +1837,15 @@
 			buildConfigurations = (
 				342B9C8A228ECB4900C006D7 /* Debug */,
 				342B9C8B228ECB4900C006D7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		342B9CAA228ECFDD00C006D7 /* Build configuration list for PBXNativeTarget "LoginItemHelper-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				342B9CAB228ECFDD00C006D7 /* Debug */,
+				342B9CAC228ECFDD00C006D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
