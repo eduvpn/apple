@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import AppAuth
+//import AppAuth
 
 /// Fetches configuration
 class ConfigurationService {

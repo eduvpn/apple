@@ -7,7 +7,7 @@
 //
 
 import Cocoa
-import AppAuth
+//import AppAuth
 import Reachability
 
 class ProvidersViewController: NSViewController {

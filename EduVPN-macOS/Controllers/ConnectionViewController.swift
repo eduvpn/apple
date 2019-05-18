@@ -7,7 +7,7 @@
 //
 
 import Cocoa
-import AppAuth
+//import AppAuth
 import Kingfisher
 import Socket
 

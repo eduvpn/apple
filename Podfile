@@ -1,3 +1,6 @@
+source 'https://github.com/CocoaPods/Specs.git'
+use_frameworks!
+
 project 'EduVPN', 'Debug' => :debug, 'Release' => :release
 
 def tunnelkit_pod
@@ -7,9 +10,6 @@ end
 # iOS Pods
 
 def pods_ios
-  source 'https://github.com/CocoaPods/Specs.git'
-  use_frameworks!
-
   platform :ios, '11.0'
 end
 

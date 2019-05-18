@@ -7,7 +7,7 @@
 //
 
 import Cocoa
-import AppAuth
+//import AppAuth
 
 /// Does nothing but silence Xcode 9.1 warning
 class MainWindow: NSWindow {

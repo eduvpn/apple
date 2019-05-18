@@ -7,7 +7,7 @@
 //
 
 import Cocoa
-import AppAuth
+//import AppAuth
 
 class AuthenticatingViewController: NSViewController {
 

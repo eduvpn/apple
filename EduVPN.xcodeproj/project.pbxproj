@@ -16,6 +16,29 @@
 		342B9CB6228ED01400C006D7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 342B9CB1228ED01400C006D7 /* Info.plist */; };
 		342B9CB7228ED01400C006D7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CB2228ED01400C006D7 /* AppDelegate.m */; };
 		342B9CBB228ED02E00C006D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 342B9CB9228ED02E00C006D7 /* Main.storyboard */; };
+		342B9CC622902BA900C006D7 /* ProviderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CBD22902BA800C006D7 /* ProviderService.swift */; };
+		342B9CC722902BA900C006D7 /* TwoFactorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CBE22902BA800C006D7 /* TwoFactorService.swift */; };
+		342B9CC822902BA900C006D7 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CBF22902BA800C006D7 /* AuthenticationService.swift */; };
+		342B9CC922902BA900C006D7 /* PreferencesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CC022902BA900C006D7 /* PreferencesService.swift */; };
+		342B9CCA22902BA900C006D7 /* HelperService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CC122902BA900C006D7 /* HelperService.swift */; };
+		342B9CCB22902BA900C006D7 /* ConnectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CC222902BA900C006D7 /* ConnectionService.swift */; };
+		342B9CCC22902BA900C006D7 /* ConfigurationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CC322902BA900C006D7 /* ConfigurationService.swift */; };
+		342B9CCD22902BA900C006D7 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CC422902BA900C006D7 /* KeychainService.swift */; };
+		342B9CCE22902BA900C006D7 /* ServiceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CC522902BA900C006D7 /* ServiceContainer.swift */; };
+		342B9CDD22902BB500C006D7 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CCF22902BB400C006D7 /* PreferencesViewController.swift */; };
+		342B9CDE22902BB500C006D7 /* ConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CD022902BB400C006D7 /* ConnectionViewController.swift */; };
+		342B9CDF22902BB500C006D7 /* EnterCredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CD122902BB400C006D7 /* EnterCredentialsViewController.swift */; };
+		342B9CE022902BB500C006D7 /* ChooseProviderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CD222902BB500C006D7 /* ChooseProviderViewController.swift */; };
+		342B9CE122902BB500C006D7 /* ChooseConnectionTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CD322902BB500C006D7 /* ChooseConnectionTypeViewController.swift */; };
+		342B9CE222902BB500C006D7 /* ProvidersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CD422902BB500C006D7 /* ProvidersViewController.swift */; };
+		342B9CE322902BB500C006D7 /* Enter2FAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CD522902BB500C006D7 /* Enter2FAViewController.swift */; };
+		342B9CE422902BB500C006D7 /* EnterProviderURLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CD622902BB500C006D7 /* EnterProviderURLViewController.swift */; };
+		342B9CE522902BB500C006D7 /* AuthenticatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CD722902BB500C006D7 /* AuthenticatingViewController.swift */; };
+		342B9CE622902BB500C006D7 /* DurationTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CD822902BB500C006D7 /* DurationTransformer.swift */; };
+		342B9CE722902BB500C006D7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CD922902BB500C006D7 /* MainViewController.swift */; };
+		342B9CE822902BB500C006D7 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CDA22902BB500C006D7 /* MainWindowController.swift */; };
+		342B9CE922902BB500C006D7 /* ChooseProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CDB22902BB500C006D7 /* ChooseProfileViewController.swift */; };
+		342B9CEA22902BB500C006D7 /* Enroll2FAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CDC22902BB500C006D7 /* Enroll2FAViewController.swift */; };
 		34D719E1228D75550027DE84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D719E0228D75550027DE84 /* AppDelegate.swift */; };
 		34D719E5228D75560027DE84 /* eduVPNAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34D719E4228D75560027DE84 /* eduVPNAssets.xcassets */; };
 		34D719E8228D75560027DE84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34D719E6228D75560027DE84 /* Main.storyboard */; };
@@ -122,9 +145,9 @@
 		4AF3DF061F424535003EC0BA /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF3DF051F424535003EC0BA /* SettingsTableViewController.swift */; };
 		4AF3DF081F4245A5003EC0BA /* ConnectionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF3DF071F4245A5003EC0BA /* ConnectionsTableViewController.swift */; };
 		5432F6540989FC55D4177F87 /* Pods_EduVPNTunnelExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B954E3699D9E9CC26F5C3E7 /* Pods_EduVPNTunnelExtension.framework */; };
-		803841A84152CA441A4F5EDF /* libPods-LetsConnect-macOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 75794678AA00DFDD2C17A8B8 /* libPods-LetsConnect-macOS.a */; };
+		7B527F534A64DB402EB31AF8 /* Pods_LetsConnect_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A3DB98EF527A814CF83B588 /* Pods_LetsConnect_macOS.framework */; };
 		8B0680A7F56DFB05A02F36F3 /* Pods_EduVPN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C537F33C8FB4D4E929A1CB68 /* Pods_EduVPN.framework */; };
-		F166ECB5EAB3EA5221C60BB9 /* libPods-EduVPN-macOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 29AAAA0F43F2ED1A57B022A8 /* libPods-EduVPN-macOS.a */; };
+		E3C0DC40601408939625CC78 /* Pods_EduVPN_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7013C2FA95F12401E201F285 /* Pods_EduVPN_macOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -170,7 +193,6 @@
 /* Begin PBXFileReference section */
 		11EE63FC99D26438F0B980F7 /* Pods-EduVPNTunnelExtension.release appforce1.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension.release appforce1.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.release appforce1.xcconfig"; sourceTree = "<group>"; };
 		1C644DAFAF71735E397E6E30 /* Pods-EduVPN.release appforce1.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPN.release appforce1.xcconfig"; path = "Target Support Files/Pods-EduVPN/Pods-EduVPN.release appforce1.xcconfig"; sourceTree = "<group>"; };
-		29AAAA0F43F2ED1A57B022A8 /* libPods-EduVPN-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EduVPN-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		342B9C85228ECB4800C006D7 /* org.eduvpn.app.openvpnhelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = org.eduvpn.app.openvpnhelper; sourceTree = BUILT_PRODUCTS_DIR; };
 		342B9C87228ECB4900C006D7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		342B9C8C228ECB8200C006D7 /* OpenVPNHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenVPNHelper.h; sourceTree = "<group>"; };
@@ -187,6 +209,29 @@
 		342B9CB1228ED01400C006D7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		342B9CB2228ED01400C006D7 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		342B9CBA228ED02E00C006D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		342B9CBD22902BA800C006D7 /* ProviderService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderService.swift; sourceTree = "<group>"; };
+		342B9CBE22902BA800C006D7 /* TwoFactorService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoFactorService.swift; sourceTree = "<group>"; };
+		342B9CBF22902BA800C006D7 /* AuthenticationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
+		342B9CC022902BA900C006D7 /* PreferencesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesService.swift; sourceTree = "<group>"; };
+		342B9CC122902BA900C006D7 /* HelperService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperService.swift; sourceTree = "<group>"; };
+		342B9CC222902BA900C006D7 /* ConnectionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionService.swift; sourceTree = "<group>"; };
+		342B9CC322902BA900C006D7 /* ConfigurationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationService.swift; sourceTree = "<group>"; };
+		342B9CC422902BA900C006D7 /* KeychainService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		342B9CC522902BA900C006D7 /* ServiceContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceContainer.swift; sourceTree = "<group>"; };
+		342B9CCF22902BB400C006D7 /* PreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
+		342B9CD022902BB400C006D7 /* ConnectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionViewController.swift; sourceTree = "<group>"; };
+		342B9CD122902BB400C006D7 /* EnterCredentialsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterCredentialsViewController.swift; sourceTree = "<group>"; };
+		342B9CD222902BB500C006D7 /* ChooseProviderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseProviderViewController.swift; sourceTree = "<group>"; };
+		342B9CD322902BB500C006D7 /* ChooseConnectionTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseConnectionTypeViewController.swift; sourceTree = "<group>"; };
+		342B9CD422902BB500C006D7 /* ProvidersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProvidersViewController.swift; sourceTree = "<group>"; };
+		342B9CD522902BB500C006D7 /* Enter2FAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enter2FAViewController.swift; sourceTree = "<group>"; };
+		342B9CD622902BB500C006D7 /* EnterProviderURLViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterProviderURLViewController.swift; sourceTree = "<group>"; };
+		342B9CD722902BB500C006D7 /* AuthenticatingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticatingViewController.swift; sourceTree = "<group>"; };
+		342B9CD822902BB500C006D7 /* DurationTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationTransformer.swift; sourceTree = "<group>"; };
+		342B9CD922902BB500C006D7 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		342B9CDA22902BB500C006D7 /* MainWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
+		342B9CDB22902BB500C006D7 /* ChooseProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseProfileViewController.swift; sourceTree = "<group>"; };
+		342B9CDC22902BB500C006D7 /* Enroll2FAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enroll2FAViewController.swift; sourceTree = "<group>"; };
 		34D719DE228D75550027DE84 /* eduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34D719E0228D75550027DE84 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		34D719E4228D75560027DE84 /* eduVPNAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = eduVPNAssets.xcassets; sourceTree = "<group>"; };
@@ -308,7 +353,8 @@
 		50A9AFF70F5198CFDC331C40 /* Pods-EduVPNTunnelExtension.debug letsconnect.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension.debug letsconnect.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.debug letsconnect.xcconfig"; sourceTree = "<group>"; };
 		5B954E3699D9E9CC26F5C3E7 /* Pods_EduVPNTunnelExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EduVPNTunnelExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B9A8DF8C8CCA27F6D91B0B6 /* Pods-EduVPNTunnelExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension.release.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.release.xcconfig"; sourceTree = "<group>"; };
-		75794678AA00DFDD2C17A8B8 /* libPods-LetsConnect-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LetsConnect-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7013C2FA95F12401E201F285 /* Pods_EduVPN_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EduVPN_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A3DB98EF527A814CF83B588 /* Pods_LetsConnect_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LetsConnect_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		811B8DD91EAD9F51D4D99F8B /* Pods-EduVPN.debug appforce1.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPN.debug appforce1.xcconfig"; path = "Target Support Files/Pods-EduVPN/Pods-EduVPN.debug appforce1.xcconfig"; sourceTree = "<group>"; };
 		961F13129E72E6136E222838 /* Pods-EduVPN.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPN.debug.xcconfig"; path = "Target Support Files/Pods-EduVPN/Pods-EduVPN.debug.xcconfig"; sourceTree = "<group>"; };
 		9C2602D94D6FDE288F8DDD4E /* Pods-EduVPN-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPN-macOS.release.xcconfig"; path = "Target Support Files/Pods-EduVPN-macOS/Pods-EduVPN-macOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -344,7 +390,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F166ECB5EAB3EA5221C60BB9 /* libPods-EduVPN-macOS.a in Frameworks */,
+				E3C0DC40601408939625CC78 /* Pods_EduVPN_macOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,7 +398,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				803841A84152CA441A4F5EDF /* libPods-LetsConnect-macOS.a in Frameworks */,
+				7B527F534A64DB402EB31AF8 /* Pods_LetsConnect_macOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,8 +438,8 @@
 				4ABFF78820C71E7200638480 /* NetworkExtension.framework */,
 				C537F33C8FB4D4E929A1CB68 /* Pods_EduVPN.framework */,
 				5B954E3699D9E9CC26F5C3E7 /* Pods_EduVPNTunnelExtension.framework */,
-				29AAAA0F43F2ED1A57B022A8 /* libPods-EduVPN-macOS.a */,
-				75794678AA00DFDD2C17A8B8 /* libPods-LetsConnect-macOS.a */,
+				7013C2FA95F12401E201F285 /* Pods_EduVPN_macOS.framework */,
+				7A3DB98EF527A814CF83B588 /* Pods_LetsConnect_macOS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -491,6 +537,15 @@
 		34D71A0C228D76B60027DE84 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				342B9CBF22902BA800C006D7 /* AuthenticationService.swift */,
+				342B9CC322902BA900C006D7 /* ConfigurationService.swift */,
+				342B9CC222902BA900C006D7 /* ConnectionService.swift */,
+				342B9CC122902BA900C006D7 /* HelperService.swift */,
+				342B9CC422902BA900C006D7 /* KeychainService.swift */,
+				342B9CC022902BA900C006D7 /* PreferencesService.swift */,
+				342B9CBD22902BA800C006D7 /* ProviderService.swift */,
+				342B9CC522902BA900C006D7 /* ServiceContainer.swift */,
+				342B9CBE22902BA800C006D7 /* TwoFactorService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -512,6 +567,20 @@
 		34D71A0E228D76C60027DE84 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				342B9CD722902BB500C006D7 /* AuthenticatingViewController.swift */,
+				342B9CD322902BB500C006D7 /* ChooseConnectionTypeViewController.swift */,
+				342B9CDB22902BB500C006D7 /* ChooseProfileViewController.swift */,
+				342B9CD222902BB500C006D7 /* ChooseProviderViewController.swift */,
+				342B9CD022902BB400C006D7 /* ConnectionViewController.swift */,
+				342B9CD822902BB500C006D7 /* DurationTransformer.swift */,
+				342B9CDC22902BB500C006D7 /* Enroll2FAViewController.swift */,
+				342B9CD522902BB500C006D7 /* Enter2FAViewController.swift */,
+				342B9CD122902BB400C006D7 /* EnterCredentialsViewController.swift */,
+				342B9CD622902BB500C006D7 /* EnterProviderURLViewController.swift */,
+				342B9CD922902BB500C006D7 /* MainViewController.swift */,
+				342B9CDA22902BB500C006D7 /* MainWindowController.swift */,
+				342B9CCF22902BB400C006D7 /* PreferencesViewController.swift */,
+				342B9CD422902BB500C006D7 /* ProvidersViewController.swift */,
 				34D719E0228D75550027DE84 /* AppDelegate.swift */,
 			);
 			path = Controllers;
@@ -1156,7 +1225,7 @@
 				"${BUILT_PRODUCTS_DIR}/ASN1Decoder/ASN1Decoder.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
-				"${BUILT_PRODUCTS_DIR}/AppAuth-framework/AppAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/AppAuth-iOS/AppAuth.framework",
 				"${BUILT_PRODUCTS_DIR}/Disk/Disk.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
@@ -1199,6 +1268,11 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-EduVPN-macOS/Pods-EduVPN-macOS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AppAuth-macOS/AppAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/BlueSocket/Socket.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
+				"${BUILT_PRODUCTS_DIR}/Sodium/Sodium.framework",
 				"${PODS_ROOT}/Sparkle/Sparkle.framework",
 				"${PODS_ROOT}/Sparkle/Sparkle.framework.dSYM",
 			);
@@ -1206,6 +1280,11 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Socket.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sodium.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework",
 				"${DWARF_DSYM_FOLDER_PATH}/Sparkle.framework.dSYM",
 			);
@@ -1245,6 +1324,11 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-LetsConnect-macOS/Pods-LetsConnect-macOS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AppAuth-macOS/AppAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/BlueSocket/Socket.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
+				"${BUILT_PRODUCTS_DIR}/Sodium/Sodium.framework",
 				"${PODS_ROOT}/Sparkle/Sparkle.framework",
 				"${PODS_ROOT}/Sparkle/Sparkle.framework.dSYM",
 			);
@@ -1252,6 +1336,11 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Socket.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sodium.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework",
 				"${DWARF_DSYM_FOLDER_PATH}/Sparkle.framework.dSYM",
 			);
@@ -1309,14 +1398,37 @@
 			files = (
 				34D71A96228D9C6A0027DE84 /* URL+Unused.swift in Sources */,
 				34D71A98228D9C6A0027DE84 /* Debug.swift in Sources */,
+				342B9CE922902BB500C006D7 /* ChooseProfileViewController.swift in Sources */,
 				34D71A0B228D76610027DE84 /* AppConfig.swift in Sources */,
+				342B9CEA22902BB500C006D7 /* Enroll2FAViewController.swift in Sources */,
+				342B9CE322902BB500C006D7 /* Enter2FAViewController.swift in Sources */,
+				342B9CE522902BB500C006D7 /* AuthenticatingViewController.swift in Sources */,
 				34D71AB4228DA3A00027DE84 /* Either.swift in Sources */,
 				34D71A67228D8D940027DE84 /* AppConfigType.swift in Sources */,
 				34D719E1228D75550027DE84 /* AppDelegate.swift in Sources */,
+				342B9CC922902BA900C006D7 /* PreferencesService.swift in Sources */,
+				342B9CDD22902BB500C006D7 /* PreferencesViewController.swift in Sources */,
+				342B9CDE22902BB500C006D7 /* ConnectionViewController.swift in Sources */,
+				342B9CCA22902BA900C006D7 /* HelperService.swift in Sources */,
+				342B9CE722902BB500C006D7 /* MainViewController.swift in Sources */,
+				342B9CC722902BA900C006D7 /* TwoFactorService.swift in Sources */,
+				342B9CE622902BB500C006D7 /* DurationTransformer.swift in Sources */,
+				342B9CE422902BB500C006D7 /* EnterProviderURLViewController.swift in Sources */,
+				342B9CC822902BA900C006D7 /* AuthenticationService.swift in Sources */,
+				342B9CCC22902BA900C006D7 /* ConfigurationService.swift in Sources */,
+				342B9CCE22902BA900C006D7 /* ServiceContainer.swift in Sources */,
+				342B9CCD22902BA900C006D7 /* KeychainService.swift in Sources */,
+				342B9CDF22902BB500C006D7 /* EnterCredentialsViewController.swift in Sources */,
+				342B9CC622902BA900C006D7 /* ProviderService.swift in Sources */,
+				342B9CE222902BB500C006D7 /* ProvidersViewController.swift in Sources */,
 				34D71A9A228D9C6A0027DE84 /* String+Random.swift in Sources */,
+				342B9CCB22902BA900C006D7 /* ConnectionService.swift in Sources */,
+				342B9CE122902BB500C006D7 /* ChooseConnectionTypeViewController.swift in Sources */,
+				342B9CE822902BB500C006D7 /* MainWindowController.swift in Sources */,
 				34D71AB3228DA3A00027DE84 /* Message.swift in Sources */,
 				34D71AB6228DA3A00027DE84 /* User.swift in Sources */,
 				34D71AB2228DA3A00027DE84 /* String+URL.swift in Sources */,
+				342B9CE022902BB500C006D7 /* ChooseProviderViewController.swift in Sources */,
 				34D71A92228D9C6A0027DE84 /* NSAlert+Custom.swift in Sources */,
 				34D71AB1228DA3A00027DE84 /* IPAddress.swift in Sources */,
 				34D71AB5228DA3A00027DE84 /* Provider.swift in Sources */,
@@ -1625,6 +1737,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.eduvpn.app;
 				PRODUCT_NAME = eduVPN;
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "EduVPN-macOS/Resources/eduVPN-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -1650,6 +1763,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.eduvpn.app;
 				PRODUCT_NAME = eduVPN;
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "EduVPN-macOS/Resources/eduVPN-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -1676,6 +1790,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.eduvpn.app.home;
 				PRODUCT_NAME = "Let's Connect!";
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "EduVPN-macOS/Resources/eduVPN-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -1701,6 +1816,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.eduvpn.app.home;
 				PRODUCT_NAME = "Let's Connect!";
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "EduVPN-macOS/Resources/eduVPN-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
