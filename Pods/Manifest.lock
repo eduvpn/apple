@@ -8,7 +8,9 @@ PODS:
   - AppAuth/Core (1.0.0.rc1)
   - AppAuth/ExternalUserAgent (1.0.0.rc1)
   - ASN1Decoder (1.3)
+  - BlueSocket (1.0.46)
   - Disk (0.6.3)
+  - Kingfisher (5.5.0)
   - libsodium (1.0.12)
   - Moya (13.0.1):
     - Moya/Core (= 13.0.1)
@@ -20,7 +22,10 @@ PODS:
   - NVActivityIndicatorView/Presenter (4.7.0)
   - OpenSSL-Apple (1.1.0j.2)
   - PromiseKit/CorePromise (6.8.4)
+  - ReachabilitySwift (4.3.1)
   - Result (4.1.0)
+  - Sodium (0.8.0)
+  - Sparkle (1.21.3)
   - SwiftyBeaver (1.7.0)
   - TunnelKit (1.7.1):
     - TunnelKit/AppExtension (= 1.7.1)
@@ -36,11 +41,16 @@ DEPENDENCIES:
   - AlamofireImage
   - AppAuth (from `https://github.com/openid/AppAuth-iOS.git`)
   - ASN1Decoder
+  - BlueSocket (= 1.0.46)
   - Disk
+  - Kingfisher (= 5.5.0)
   - libsodium
   - Moya
   - NVActivityIndicatorView
   - PromiseKit/CorePromise
+  - ReachabilitySwift (= 4.3.1)
+  - Sodium (= 0.8.0)
+  - Sparkle (= 1.21.3)
   - TunnelKit (from `https://github.com/keeshux/tunnelkit.git`)
 
 SPEC REPOS:
@@ -48,13 +58,18 @@ SPEC REPOS:
     - Alamofire
     - AlamofireImage
     - ASN1Decoder
+    - BlueSocket
     - Disk
+    - Kingfisher
     - libsodium
     - Moya
     - NVActivityIndicatorView
     - OpenSSL-Apple
     - PromiseKit
+    - ReachabilitySwift
     - Result
+    - Sodium
+    - Sparkle
     - SwiftyBeaver
 
 EXTERNAL SOURCES:
@@ -76,16 +91,21 @@ SPEC CHECKSUMS:
   AlamofireImage: 63cfe3baf1370be6c498149687cf6db3e3b00999
   AppAuth: 08c03aef30331c3dd15cc623ad939e3b363167d6
   ASN1Decoder: 93c53c3d4d7a6281040a9db05b8efa7e5605872e
+  BlueSocket: 6010272ac622367b8461f26280e22c693715726f
   Disk: 76cccb6fed1c27cd661bbdea7b117d887c2f72e5
+  Kingfisher: 6fe5e67a90fd335e49b0f5c075ff55ac5ebedd94
   libsodium: 9a8faa5ef2fa0d2d57bd7f7d79bf8fb7c1a9f0ea
   Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
   NVActivityIndicatorView: b19ddab2576f805cbe0fb2306cba3476e09a1dea
   OpenSSL-Apple: e88e1eb314acb4a05e2348069790c4aa49f6d319
   PromiseKit: 51794a832647e7b819336dc2279039ce9f1cc49b
+  ReachabilitySwift: 4032e2f59586e11e3b0ebe15b167abdd587a388b
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
+  Sodium: 63c0ca312a932e6da481689537d4b35568841bdc
+  Sparkle: 3f75576db8b0265adef36c43249d747f22d0b708
   SwiftyBeaver: 4cc0080d2e23f980652e28978db11a5c9da39165
   TunnelKit: dd00b33e4c6d84f2d32390448a33ef5e37b1ac52
 
-PODFILE CHECKSUM: 981b15b31606ae34164223f47bd5a394fb8ce3e1
+PODFILE CHECKSUM: 2dcde62f7a6a8c77babfd294e932ef2fc3e6d3d6
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.6.0
