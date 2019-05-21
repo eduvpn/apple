@@ -4,7 +4,7 @@ use_frameworks!
 platform :ios, '11.0'
 
 def tunnelkit_pod
-  pod 'TunnelKit', :git => 'https://github.com/keeshux/tunnelkit.git'
+  pod 'TunnelKit'
 end
 
 project 'EduVPN', 'Debug' => :debug, 'Release' => :release

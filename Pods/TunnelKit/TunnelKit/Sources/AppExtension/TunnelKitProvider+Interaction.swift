@@ -5,7 +5,7 @@
 //  Created by Davide De Rosa on 9/24/17.
 //  Copyright (c) 2019 Davide De Rosa. All rights reserved.
 //
-//  https://github.com/keeshux
+//  https://github.com/passepartoutvpn
 //
 //  This file is part of TunnelKit.
 //
@@ -134,6 +134,9 @@ extension TunnelKitProvider {
         
         /// The current network changed (e.g. switched from WiFi to data connection).
         case networkChanged
+        
+        /// Default gateway could not be attained.
+        case gatewayUnattainable
         
         /// The server replied in an unexpected way.
         case unexpectedReply
