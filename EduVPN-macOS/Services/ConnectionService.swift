@@ -9,7 +9,7 @@
 import Foundation
 import AppKit
 import ServiceManagement
-//import AppAuth
+import AppAuth
 import Socket
 import SecurityInterface
 
@@ -710,9 +710,6 @@ class ConnectionService: NSObject {
     
     private func requestCredentials() {
         if let provider = currentProfile?.info.provider, let username = provider.username, let password = try? keychainService.loadPassword(service: provider.displayName, account: username) {
-            guard let password = password else {
-                return
-            }
             do {
                 let response = "username \"Auth\" \(username)\npassword \"Auth\" \(password)\n"
                 try self.write(response)

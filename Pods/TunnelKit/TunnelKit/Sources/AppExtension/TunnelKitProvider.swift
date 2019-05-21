@@ -5,7 +5,7 @@
 //  Created by Davide De Rosa on 2/1/17.
 //  Copyright (c) 2019 Davide De Rosa. All rights reserved.
 //
-//  https://github.com/keeshux
+//  https://github.com/passepartoutvpn
 //
 //  This file is part of TunnelKit.
 //
@@ -484,18 +484,21 @@ extension TunnelKitProvider: SessionProxyDelegate {
         log.info("\tRemote: \(remoteAddress.maskedDescription)")
         log.info("\tIPv4: \(reply.options.ipv4?.description ?? "not configured")")
         log.info("\tIPv6: \(reply.options.ipv6?.description ?? "not configured")")
-        // FIXME: refine logging of other routing policies
         if let routingPolicies = reply.options.routingPolicies {
-            log.info("\tDefault gateway: \(routingPolicies.map { $0.rawValue })")
+            log.info("\tGateway: \(routingPolicies.map { $0.rawValue })")
         } else {
-            log.info("\tDefault gateway: not configured")
+            log.info("\tGateway: not configured")
         }
         if let dnsServers = reply.options.dnsServers, !dnsServers.isEmpty {
             log.info("\tDNS: \(dnsServers.map { $0.maskedDescription })")
         } else {
             log.info("\tDNS: not configured")
         }
-        log.info("\tDomain: \(reply.options.searchDomain?.maskedDescription ?? "not configured")")
+        if let searchDomain = reply.options.searchDomain, !searchDomain.isEmpty {
+            log.info("\tDomain: \(searchDomain.maskedDescription)")
+        } else {
+            log.info("\tDomain: not configured")
+        }
 
         if reply.options.httpProxy != nil || reply.options.httpsProxy != nil {
             log.info("\tProxy:")
@@ -561,12 +564,14 @@ extension TunnelKitProvider: SessionProxyDelegate {
 //                    route.gatewayAddress = ipv4.defaultGateway
 //                    routes.append(route)
 //                }
+                log.info("Routing.IPv4: Setting default gateway to \(ipv4.defaultGateway.maskedDescription)")
             }
             
             for r in ipv4.routes {
                 let ipv4Route = NEIPv4Route(destinationAddress: r.destination, subnetMask: r.mask)
                 ipv4Route.gatewayAddress = r.gateway
                 routes.append(ipv4Route)
+                log.info("Routing.IPv4: Adding route \(r.destination.maskedDescription)/\(r.mask) -> \(r.gateway)")
             }
             
             ipv4Settings = NEIPv4Settings(addresses: [ipv4.address], subnetMasks: [ipv4.addressMask])
@@ -588,12 +593,14 @@ extension TunnelKitProvider: SessionProxyDelegate {
 //                    route.gatewayAddress = ipv6.defaultGateway
 //                    routes.append(route)
 //                }
+                log.info("Routing.IPv6: Setting default gateway to \(ipv6.defaultGateway.maskedDescription)")
             }
 
             for r in ipv6.routes {
                 let ipv6Route = NEIPv6Route(destinationAddress: r.destination, networkPrefixLength: r.prefixLength as NSNumber)
                 ipv6Route.gatewayAddress = r.gateway
                 routes.append(ipv6Route)
+                log.info("Routing.IPv6: Adding route \(r.destination.maskedDescription)/\(r.prefixLength) -> \(r.gateway)")
             }
 
             ipv6Settings = NEIPv6Settings(addresses: [ipv6.address], networkPrefixLengths: [ipv6.addressPrefixLength as NSNumber])
@@ -601,6 +608,19 @@ extension TunnelKitProvider: SessionProxyDelegate {
             ipv6Settings?.excludedRoutes = []
         }
 
+        // shut down if default gateway is not attainable
+        var hasGateway = false
+        if isIPv4Gateway && (ipv4Settings != nil) {
+            hasGateway = true
+        }
+        if isIPv6Gateway && (ipv6Settings != nil) {
+            hasGateway = true
+        }
+        guard !isGateway || hasGateway else {
+            proxy?.shutdown(error: ProviderError.gatewayUnattainable)
+            return
+        }
+        
         var dnsServers = cfg.sessionConfiguration.dnsServers ?? reply.options.dnsServers ?? []
 
         // fall back
@@ -637,6 +657,7 @@ extension TunnelKitProvider: SessionProxyDelegate {
             proxySettings = NEProxySettings()
             proxySettings?.httpsServer = httpsProxy.neProxy()
             proxySettings?.httpsEnabled = true
+            log.info("Routing: Setting HTTPS proxy \(httpsProxy.address.maskedDescription):\(httpsProxy.port)")
         }
         if let httpProxy = cfg.sessionConfiguration.httpProxy ?? reply.options.httpProxy {
             if proxySettings == nil {
@@ -644,10 +665,15 @@ extension TunnelKitProvider: SessionProxyDelegate {
             }
             proxySettings?.httpServer = httpProxy.neProxy()
             proxySettings?.httpEnabled = true
+            log.info("Routing: Setting HTTP proxy \(httpProxy.address.maskedDescription):\(httpProxy.port)")
         }
+
         // only set if there is a proxy (proxySettings set to non-nil above)
-        proxySettings?.exceptionList = cfg.sessionConfiguration.proxyBypassDomains ?? reply.options.proxyBypassDomains
-        
+        if let bypass = cfg.sessionConfiguration.proxyBypassDomains ?? reply.options.proxyBypassDomains {
+            proxySettings?.exceptionList = bypass
+            log.info("Routing: Setting proxy by-pass list: \(bypass.maskedDescription)")
+        }
+
         // block LAN if desired
         if routingPolicies?.contains(.blockLocal) ?? false {
             let table = RoutingTable()

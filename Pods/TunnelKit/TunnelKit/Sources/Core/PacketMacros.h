@@ -5,7 +5,7 @@
 //  Created by Davide De Rosa on 7/11/18.
 //  Copyright (c) 2019 Davide De Rosa. All rights reserved.
 //
-//  https://github.com/keeshux
+//  https://github.com/passepartoutvpn
 //
 //  This file is part of TunnelKit.
 //

@@ -5,7 +5,7 @@
 //  Created by Davide De Rosa on 10/23/17.
 //  Copyright (c) 2019 Davide De Rosa. All rights reserved.
 //
-//  https://github.com/keeshux
+//  https://github.com/passepartoutvpn
 //
 //  This file is part of TunnelKit.
 //
@@ -177,7 +177,7 @@ extension TunnelKitProvider {
                 sessionConfigurationBuilder.httpsProxy = proxy
             }
             sessionConfigurationBuilder.proxyBypassDomains = providerConfiguration[S.proxyBypassDomains] as? [String]
-            if let routingPoliciesStrings = providerConfiguration[S.routingPolicies] as? [String], !routingPoliciesStrings.isEmpty {
+            if let routingPoliciesStrings = providerConfiguration[S.routingPolicies] as? [String] {
                 sessionConfigurationBuilder.routingPolicies = try routingPoliciesStrings.map {
                     guard let policy = SessionProxy.RoutingPolicy(rawValue: $0) else {
                         throw ProviderConfigurationError.parameter(name: "protocolConfiguration.providerConfiguration[\(S.routingPolicies)] has a badly formed element")
@@ -583,18 +583,17 @@ extension TunnelKitProvider {
             if sessionConfiguration.randomizeEndpoint ?? false {
                 log.info("\tRandomize endpoint: true")
             }
-            // FIXME: refine logging of other routing policies
             if let routingPolicies = sessionConfiguration.routingPolicies {
-                log.info("\tDefault gateway: \(routingPolicies.map { $0.rawValue })")
+                log.info("\tGateway: \(routingPolicies.map { $0.rawValue })")
             } else {
-                log.info("\tDefault gateway: no")
+                log.info("\tGateway: not configured")
             }
             if let dnsServers = sessionConfiguration.dnsServers, !dnsServers.isEmpty {
                 log.info("\tDNS: \(dnsServers.maskedDescription)")
             } else {
-                log.info("\tDNS: default")
+                log.info("\tDNS: not configured")
             }
-            if let searchDomain = sessionConfiguration.searchDomain {
+            if let searchDomain = sessionConfiguration.searchDomain, !searchDomain.isEmpty {
                 log.info("\tSearch domain: \(searchDomain.maskedDescription)")
             }
             if let httpProxy = sessionConfiguration.httpProxy {
