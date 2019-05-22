@@ -18,14 +18,6 @@ class PreferencesViewController: NSViewController {
     }
     
     @IBAction func toggleLaunchAtLogin(_ sender: NSButton) {
-        switch sender.state {
-        case .on:
-            ServiceContainer.preferencesService.launchAtLogin = true
-        case .off:
-            ServiceContainer.preferencesService.launchAtLogin = false
-        default:
-            break
-        }
+        ServiceContainer.preferencesService.launchAtLogin = sender.state == .on
     }
-    
 }

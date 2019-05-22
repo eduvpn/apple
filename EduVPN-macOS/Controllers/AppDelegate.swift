@@ -33,7 +33,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         NotificationCenter.default.addObserver(self, selector: #selector(connectionStateChanged(notification:)), name: ConnectionService.stateChanged, object: ServiceContainer.connectionService)
 
-        ValueTransformer.setValueTransformer(DurationTransformer(), forName: NSValueTransformerName(rawValue: "DurationTransformer"))
+        ValueTransformer.setValueTransformer(DurationTransformer(),
+                                             forName: NSValueTransformerName(rawValue: "DurationTransformer"))
 
         mainWindowController = NSStoryboard(name: "Main", bundle: nil).instantiateController(withIdentifier: "MainWindowController") as? MainWindowController
         mainWindowController.window?.makeKeyAndOrderFront(nil)
@@ -173,4 +174,3 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 }
-

@@ -15,12 +15,7 @@ class ChooseProviderViewController: NSViewController {
     @IBOutlet var backButton: NSButton!
     
     var connectionType: ConnectionType!
-    var providers: [Provider]!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do view setup here.
-    }
+    var providers: [Provider] = []
     
     override func viewDidAppear() {
         super.viewDidAppear()
@@ -31,7 +26,6 @@ class ChooseProviderViewController: NSViewController {
     @IBAction func goBack(_ sender: Any) {
         mainWindowController?.pop()
     }
-    
 }
 
 extension ChooseProviderViewController: NSTableViewDataSource {
@@ -39,15 +33,19 @@ extension ChooseProviderViewController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
         return providers.count
     }
-    
 }
 
 extension ChooseProviderViewController: NSTableViewDelegate {
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let result = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "ProviderCell"), owner: self) as? NSTableCellView
-        result?.imageView?.kf.setImage(with: providers[row].logoURL)
-        result?.textField?.stringValue = providers[row].displayName
+        let result = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "ProviderCell"),
+                                        owner: self)
+        
+        if let cellView = result as? NSTableCellView {
+            cellView.imageView?.kf.setImage(with: providers[row].logoURL)
+            cellView.textField?.stringValue = providers[row].displayName
+        }
+        
         return result
     }
     
@@ -65,8 +63,7 @@ extension ChooseProviderViewController: NSTableViewDelegate {
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                    let alert = NSAlert(customizedError: error)
-                    alert?.beginSheetModal(for: self.view.window!) { (_) in
+                    NSAlert(customizedError: error)?.beginSheetModal(for: self.view.window!) { _ in
                         self.tableView.isEnabled = true
                     }
                 }
@@ -82,9 +79,7 @@ extension ChooseProviderViewController: NSTableViewDelegate {
                     ServiceContainer.providerService.storeProvider(provider: info.provider)
                     self.mainWindowController?.dismiss()
                 case .failure(let error):
-                    if let alert = NSAlert(customizedError: error) {
-                        alert.beginSheetModal(for: self.view.window!)
-                    }
+                    NSAlert(customizedError: error)?.beginSheetModal(for: self.view.window!)
                 }
             }
         }

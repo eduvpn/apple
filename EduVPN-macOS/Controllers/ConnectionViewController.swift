@@ -7,7 +7,6 @@
 //
 
 import Cocoa
-//import AppAuth
 import Kingfisher
 import Socket
 
@@ -53,12 +52,17 @@ class ConnectionViewController: NSViewController {
     
     override func viewWillAppear() {
         super.viewWillAppear()
+        
         updateForStateChange()
         updateMessages()
-        NotificationCenter.default.addObserver(self, selector: #selector(stateChanged(notification:)), name: ConnectionService.stateChanged, object: ServiceContainer.connectionService)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(stateChanged(notification:)),
+                                               name: ConnectionService.stateChanged,
+                                               object: ServiceContainer.connectionService)
         
         // Fetch messages
-        ServiceContainer.providerService.fetchMessages(for: profile.info, audience: .system) { (result) in
+        ServiceContainer.providerService.fetchMessages(for: profile.info, audience: .system) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let messages):
@@ -71,7 +75,7 @@ class ConnectionViewController: NSViewController {
             }
         }
         
-        ServiceContainer.providerService.fetchMessages(for: profile.info, audience: .user) { (result) in
+        ServiceContainer.providerService.fetchMessages(for: profile.info, audience: .user) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let messages):
@@ -87,7 +91,9 @@ class ConnectionViewController: NSViewController {
     
     override func viewDidDisappear() {
         super.viewDidDisappear()
-        NotificationCenter.default.removeObserver(self, name: ConnectionService.stateChanged, object: ServiceContainer.connectionService)
+        NotificationCenter.default.removeObserver(self,
+                                                  name: ConnectionService.stateChanged,
+                                                  object: ServiceContainer.connectionService)
     }
     
     private func updateForStateChange() {
@@ -126,7 +132,6 @@ class ConnectionViewController: NSViewController {
             self.statisticsBox.isHidden = false
             self.readStatistics() // Last read before stopping
             self.stopUpdatingStatistics()
-            
         }
     }
     
@@ -140,17 +145,22 @@ class ConnectionViewController: NSViewController {
         // Prompt user if we need two factor authentication token
         if profile.twoFactor, twoFactor == nil {
             if userInfo.twoFactorEnrolled {
-                let enter2FAViewController = storyboard!.instantiateController(withIdentifier: "Enter2FA") as! Enter2FAViewController
+                let enter2FAViewController = storyboard!.instantiateController(withIdentifier: "Enter2FA")
+                    as! Enter2FAViewController
+                
                 if userInfo.twoFactorEnrolledWith.contains(.yubico) {
                     enter2FAViewController.initialTwoFactorType = .yubico
                 } else if userInfo.twoFactorEnrolledWith.contains(.totp) {
                     enter2FAViewController.initialTwoFactorType = .totp
                 }
+                
                 enter2FAViewController.delegate = self
                 mainWindowController?.present(viewController: enter2FAViewController)
                 return
             } else {
-                let enroll2FAViewController = storyboard!.instantiateController(withIdentifier: "Enroll2FA") as! Enroll2FAViewController
+                let enroll2FAViewController = storyboard!.instantiateController(withIdentifier: "Enroll2FA")
+                    as! Enroll2FAViewController
+                
                 enroll2FAViewController.delegate = self
                 enroll2FAViewController.providerInfo = profile.info
                 mainWindowController?.present(viewController: enroll2FAViewController)
@@ -164,13 +174,13 @@ class ConnectionViewController: NSViewController {
                 case .success:
                     break
                 case .failure(let error):
-                    let alert = NSAlert(customizedError: error)
-                    alert?.beginSheetModal(for: self.view.window!) { (_) in
+                    NSAlert(customizedError: error)?.beginSheetModal(for: self.view.window!) { _ in
                         self.updateForStateChange()
                     }
                 }
             }
         }
+        
         updateForStateChange()
     }
     
@@ -192,16 +202,21 @@ class ConnectionViewController: NSViewController {
     
     private func updateMessages() {
         let messages = userMessages + systemMessages
-        notificationsBox.title = messages.count == 1 ? NSLocalizedString("Notification", comment: "Notification box title (1 message)") : NSLocalizedString("Notifications", comment: "Notifications box title")
+        notificationsBox.title = messages.count == 1
+            ? NSLocalizedString("Notification", comment: "Notification box title (1 message)")
+            : NSLocalizedString("Notifications", comment: "Notifications box title")
         notificationsBox.isHidden = messages.isEmpty
         
         notificationsField.attributedStringValue = messages.reduce(into: NSMutableAttributedString()) { (notifications, message) in
             if notifications.length > 0 {
                 notifications.append(NSAttributedString(string: "\n\n", attributes: [.font: NSFont.systemFont(ofSize: NSFont.systemFontSize(for: .small))]))
             }
+            
             let date =  DateFormatter.localizedString(from: message.date, dateStyle: .short, timeStyle: .short)
-            notifications.append(NSAttributedString(string: date + ": ", attributes: [.font: NSFont.boldSystemFont(ofSize: NSFont.systemFontSize(for: .small))]))
-            notifications.append(NSAttributedString(string: message.message, attributes: [.font: NSFont.systemFont(ofSize: NSFont.systemFontSize(for: .small))]))
+            notifications.append(NSAttributedString(string: date + ": ",
+                                                    attributes: [.font: NSFont.boldSystemFont(ofSize: NSFont.systemFontSize(for: .small))]))
+            notifications.append(NSAttributedString(string: message.message,
+                                                    attributes: [.font: NSFont.systemFont(ofSize: NSFont.systemFontSize(for: .small))]))
         }
     }
     
@@ -210,12 +225,16 @@ class ConnectionViewController: NSViewController {
     private func startUpdatingStatistics() {
         statisticsTimer?.invalidate()
         if #available(OSX 10.12, *) {
-            statisticsTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (_) in
+            statisticsTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
                 self.readStatistics()
             }
         } else {
             // Fallback on earlier versions
-            statisticsTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateStatistics(timer:)), userInfo: nil, repeats: true)
+            statisticsTimer = Timer.scheduledTimer(timeInterval: 1,
+                                                   target: self,
+                                                   selector: #selector(updateStatistics(timer:)),
+                                                   userInfo: nil,
+                                                   repeats: true)
         }
     }
     
@@ -281,14 +300,13 @@ extension ConnectionViewController: Enter2FAViewControllerDelegate {
     func enter2FACancelled(controller: Enter2FAViewController) {
         mainWindowController?.dismiss()
     }
-    
 }
 
 extension ConnectionViewController: Enroll2FAViewControllerDelegate {
     
     func enroll2FA(controller: Enroll2FAViewController, didEnrollForType: TwoFactorType) {
         // Fetch userInfo again so that connect method knows about twoFactor enrollment
-        ServiceContainer.providerService.fetchUserInfo(for: profile.info) { (result) in
+        ServiceContainer.providerService.fetchUserInfo(for: profile.info) { result in
             DispatchQueue.main.async {
                 self.mainWindowController?.dismiss {
                     switch result {
@@ -296,10 +314,7 @@ extension ConnectionViewController: Enroll2FAViewControllerDelegate {
                         self.userInfo = userInfo
                         self.connect()
                     case .failure(let error):
-                        let alert = NSAlert(customizedError: error)
-                        alert?.beginSheetModal(for: self.view.window!) { (_) in
-                            
-                        }
+                        NSAlert(customizedError: error)?.beginSheetModal(for: self.view.window!)
                     }
                 }
             }
@@ -309,5 +324,4 @@ extension ConnectionViewController: Enroll2FAViewControllerDelegate {
     func enroll2FACancelled(controller: Enroll2FAViewController) {
         mainWindowController?.dismiss()
     }
-    
 }

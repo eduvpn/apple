@@ -7,7 +7,6 @@
 //
 
 import Foundation
-//import AppAuth
 import Sodium
 import os
 
@@ -121,7 +120,13 @@ class ProviderService {
     private let appConfig: AppConfigType
     private let log: OSLog
     
-    init(urlSession: URLSession, authenticationService: AuthenticationService, preferencesService: PreferencesService, keychainService: KeychainService, configurationService: ConfigurationService, appConfig: AppConfigType) {
+    init(urlSession: URLSession,
+         authenticationService: AuthenticationService,
+         preferencesService: PreferencesService,
+         keychainService: KeychainService,
+         configurationService: ConfigurationService,
+         appConfig: AppConfigType) {
+        
         self.urlSession = urlSession
         self.authenticationService = authenticationService
         self.preferencesService = preferencesService
@@ -190,7 +195,6 @@ class ProviderService {
                 os_signpost(.end, log: log, name: "Discover Accessible Providers", signpostID: discoverID as! OSSignpostID, "API Discovery Disabled")
             }
         } else {
-            
             let group = DispatchGroup()
             var error: Error? = nil
             
@@ -280,15 +284,16 @@ class ProviderService {
         guard provider.connectionType != .localConfig else {
             return
         }
+        
         let connectionType = provider.connectionType
         var providers = storedProviders[connectionType] ?? []
-        let index = providers.index(where: { $0.id == provider.id })
-        if let index = index {
+        if let index = providers.firstIndex(where: { $0.id == provider.id }) {
             providers.remove(at: index)
             providers.insert(provider, at: index)
         } else {
             providers.append(provider)
         }
+        
         storedProviders[connectionType] = providers
         saveToDisk()
     }
@@ -313,11 +318,7 @@ class ProviderService {
         authenticationService.deauthenticate(for: provider)
         
         var providers = storedProviders[connectionType] ?? []
-        let index = providers.index(where: { (otherProvider) -> Bool in
-            return otherProvider.id == provider.id
-        })
-        
-        if let index = index {
+        if let index = providers.firstIndex(where: { $0.id == provider.id }) {
             providers.remove(at: index)
             storedProviders[connectionType] = providers
             saveToDisk()
@@ -329,9 +330,14 @@ class ProviderService {
     /// - Returns: URL
     /// - Throws: Error finding or creating directory
     private func applicationSupportDirectoryURL() throws -> URL  {
-        var applicationSupportDirectory = try FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        var applicationSupportDirectory = try FileManager.default.url(for: .applicationSupportDirectory,
+                                                                      in: .userDomainMask,
+                                                                      appropriateFor: nil,
+                                                                      create: true)
         applicationSupportDirectory.appendPathComponent(appConfig.appName)
+        
         try FileManager.default.createDirectory(at: applicationSupportDirectory, withIntermediateDirectories: true, attributes: nil)
+        
         return applicationSupportDirectory
     }
     
@@ -352,7 +358,11 @@ class ProviderService {
     private func localConfigsDirectoryURL() throws -> URL  {
         var localConfigsDirectoryURL = try applicationSupportDirectoryURL()
         localConfigsDirectoryURL.appendPathComponent("Local")
-        try FileManager.default.createDirectory(at: localConfigsDirectoryURL, withIntermediateDirectories: true, attributes: nil)
+        
+        try FileManager.default.createDirectory(at: localConfigsDirectoryURL,
+                                                withIntermediateDirectories: true,
+                                                attributes: nil)
+        
         return localConfigsDirectoryURL
     }
     
@@ -388,6 +398,7 @@ class ProviderService {
     private func url(for connectionType: ConnectionType) -> URL {
         let developerMode = preferencesService.developerMode
         let path: String
+        
         switch (connectionType, developerMode) {
         case (.secureInternet, false):
             path = "secure_internet"
@@ -400,6 +411,7 @@ class ProviderService {
         case (.custom, _), (.localConfig, _):
             fatalError("Can't discover custom providers")
         }
+        
         return URL(string: path + ".json", relativeTo: URL(string: "https://static.eduvpn.nl/disco/")!)!
     }
     
@@ -410,6 +422,7 @@ class ProviderService {
     private func signatureUrl(for connectionType: ConnectionType) -> URL {
         let developerMode = preferencesService.developerMode
         let path: String
+        
         switch (connectionType, developerMode) {
         case (.secureInternet, false):
             path = "secure_internet"
@@ -422,6 +435,7 @@ class ProviderService {
         case (.custom, _), (.localConfig, _):
             fatalError("Can't discover custom provider signatures")
         }
+        
         return URL(string: path + ".json.sig", relativeTo: URL(string: "https://static.eduvpn.nl/disco/")!)!
     }
     
@@ -437,8 +451,10 @@ class ProviderService {
                 handler(.failure(error ?? Error.unknown))
                 return
             }
+            
             discoverProviders(signature: signature)
         }
+        
         task.resume()
         
         func discoverProviders(signature: Data) {
@@ -448,6 +464,7 @@ class ProviderService {
                     handler(.failure(error ?? Error.unknown))
                     return
                 }
+                
                 do {
                     let sodium = Sodium()
                     
@@ -535,7 +552,13 @@ class ProviderService {
                         
                         let publicKey = instance["public_key"] as? String
                         
-                        return Provider(displayName: displayName, baseURL: baseURL, logoURL: logoURL, publicKey: publicKey, username: nil, connectionType: connectionType, authorizationType: authorizationType)
+                        return Provider(displayName: displayName,
+                                        baseURL: baseURL,
+                                        logoURL: logoURL,
+                                        publicKey: publicKey,
+                                        username: nil,
+                                        connectionType: connectionType,
+                                        authorizationType: authorizationType)
                     }
                     
                     guard !providers.isEmpty else {
@@ -549,6 +572,7 @@ class ProviderService {
                     return
                 }
             }
+            
             task.resume()
         }
     }
@@ -560,7 +584,11 @@ class ProviderService {
     ///   - handler: Info about provider or error
     func fetchInfo(for provider: Provider, handler: @escaping (Result<ProviderInfo>) -> ()) {
         guard provider.connectionType != .localConfig else {
-            let providerInfo = ProviderInfo(apiBaseURL: URL(fileURLWithPath: "/dev/null"), authorizationURL: URL(fileURLWithPath: "/dev/null"), tokenURL: URL(fileURLWithPath: "/dev/null"), provider: provider)
+            let providerInfo = ProviderInfo(apiBaseURL: URL(fileURLWithPath: "/dev/null"),
+                                            authorizationURL: URL(fileURLWithPath: "/dev/null"),
+                                            tokenURL: URL(fileURLWithPath: "/dev/null"),
+                                            provider: provider)
+            
             handler(.success(providerInfo))
             return
         }
@@ -585,6 +613,7 @@ class ProviderService {
                     os_signpost(.end, log: self.log, name: "Fetch Provider Info", signpostID: fetchInfoID as! OSSignpostID)
                 }
             }
+            
             guard let data = data, let response = response as? HTTPURLResponse, 200..<300 ~= response.statusCode else {
                 switch provider.connectionType {
                 case .secureInternet, .instituteAccess:
@@ -596,6 +625,7 @@ class ProviderService {
                 }
                 return
             }
+            
             do {
                 guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary else {
                     handler(.failure(Error.invalidProviders))
@@ -614,13 +644,18 @@ class ProviderService {
                         return
                 }
                 
-                let providerInfo = ProviderInfo(apiBaseURL: apiBaseURL, authorizationURL: authorizationURL, tokenURL: tokenURL, provider: provider)
+                let providerInfo = ProviderInfo(apiBaseURL: apiBaseURL,
+                                                authorizationURL: authorizationURL,
+                                                tokenURL: tokenURL,
+                                                provider: provider)
+                
                 handler(.success(providerInfo))
             } catch(let error) {
                 handler(.failure(error))
                 return
             }
         }
+        
         task.resume()
     }
 
@@ -632,7 +667,11 @@ class ProviderService {
     func fetchUserInfoAndProfiles(for info: ProviderInfo, handler: @escaping (Result<(UserInfo, [Profile])>) -> ()) {
         guard info.provider.connectionType != .localConfig else {
             let userInfo = UserInfo(twoFactorEnrolled: false, twoFactorEnrolledWith: [], isDisabled: false)
-            let profile = Profile(profileId: info.provider.displayName, displayName: info.provider.displayName, twoFactor: false, info: info)
+            let profile = Profile(profileId: info.provider.displayName,
+                                  displayName: info.provider.displayName,
+                                  twoFactor: false,
+                                  info: info)
+            
             handler(.success((userInfo, [profile])))
             return
         }
@@ -678,10 +717,12 @@ class ProviderService {
                     os_signpost(.end, log: self.log, name: "Fetch User Info and Profiles", signpostID: fetchInfoID as! OSSignpostID)
                 }
             }
+            
             if let error = error {
                 handler(.failure(error))
                 return
             }
+            
             handler(.success((userInfo!, profiles!)))
         }
     }
@@ -692,7 +733,10 @@ class ProviderService {
     ///   - info: Provider info
     ///   - authenticationBehavior: Whether authentication should be retried when token is revoked or expired
     ///   - handler: User info or error
-    func fetchUserInfo(for info: ProviderInfo, authenticationBehavior: AuthenticationService.Behavior = .ifNeeded, handler: @escaping (Result<UserInfo>) -> ()) {
+    func fetchUserInfo(for info: ProviderInfo,
+                       authenticationBehavior: AuthenticationService.Behavior = .ifNeeded,
+                       handler: @escaping (Result<UserInfo>) -> ()) {
+        
         let path: String = "user_info"
         
         guard let url = URL(string: path, relativeTo: info.apiBaseURL) else {
@@ -716,6 +760,7 @@ class ProviderService {
                 }
                 return
             }
+            
             var request = URLRequest(url: url)
             request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
             
@@ -780,6 +825,7 @@ class ProviderService {
                     return
                 }
             }
+            
             task.resume()
         }
     }
@@ -790,7 +836,10 @@ class ProviderService {
     ///   - info: Provider info
     ///   - authenticationBehavior: Whether authentication should be retried when token is revoked or expired
     ///   - handler: Profiles or error
-    func fetchProfiles(for info: ProviderInfo, authenticationBehavior: AuthenticationService.Behavior = .ifNeeded, handler: @escaping (Result<[Profile]>) -> ()) {
+    func fetchProfiles(for info: ProviderInfo,
+                       authenticationBehavior: AuthenticationService.Behavior = .ifNeeded,
+                       handler: @escaping (Result<[Profile]>) -> ()) {
+        
         guard let url = URL(string: "profile_list", relativeTo: info.apiBaseURL) else {
             handler(.failure(Error.invalidProviderInfo))
             return
@@ -812,6 +861,7 @@ class ProviderService {
                 }
                 return
             }
+            
             var request = URLRequest(url: url)
             request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
             
@@ -869,6 +919,7 @@ class ProviderService {
                     return
                 }
             }
+            
             task.resume()
         }
     }
@@ -882,7 +933,11 @@ class ProviderService {
     ///   - audience: System or user
     ///   - authenticationBehavior: Whether authentication should be retried when token is revoked or expired
     ///   - handler: Messages or error
-    func fetchMessages(for info: ProviderInfo, audience: MessageAudience, authenticationBehavior: AuthenticationService.Behavior = .ifNeeded, handler: @escaping (Result<[Message]>) -> ()) {
+    func fetchMessages(for info: ProviderInfo,
+                       audience: MessageAudience,
+                       authenticationBehavior: AuthenticationService.Behavior = .ifNeeded,
+                       handler: @escaping (Result<[Message]>) -> ()) {
+        
         let path: String
         switch audience {
         case .system:
@@ -914,6 +969,7 @@ class ProviderService {
                 }
                 return
             }
+            
             var request = URLRequest(url: url)
             request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
             
@@ -975,6 +1031,7 @@ class ProviderService {
                     return
                 }
             }
+            
             task.resume()
         }
     }
@@ -1101,8 +1158,7 @@ class ProviderService {
         }
         
         var providers = storedProviders[.localConfig] ?? []
-        let index = providers.index(where: { $0.id == provider.id })
-        if let index = index {
+        if let index = providers.firstIndex(where: { $0.id == provider.id }) {
             var storedProvider = providers.remove(at: index)
             storedProvider.publicKey = name
             storedProvider.username = username

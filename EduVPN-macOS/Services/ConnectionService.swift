@@ -119,7 +119,12 @@ class ConnectionService: NSObject {
     private let keychainService: KeychainService
     private let preferencesService: PreferencesService
     
-    init(providerService: ProviderService, configurationService: ConfigurationService, helperService: HelperService, keychainService: KeychainService, preferencesService: PreferencesService) {
+    init(providerService: ProviderService,
+         configurationService: ConfigurationService,
+         helperService: HelperService,
+         keychainService: KeychainService,
+         preferencesService: PreferencesService) {
+        
         self.providerService = providerService
         self.configurationService = configurationService
         self.helperService = helperService
@@ -632,7 +637,12 @@ class ConnectionService: NSObject {
                     panel.setAlternateButtonTitle(NSLocalizedString("Cancel", comment: ""))
                     let message = NSLocalizedString("Choose the certificate you want to use for this connection", comment: "")
                     let window = NSApp.mainWindow
-                    panel.beginSheet(for: window, modalDelegate: self, didEnd: #selector(ConnectionService.chooseIdentitySheetDidEnd(sheet:returnCode:contextInfo:)), contextInfo: nil, identities: array, message: message)
+                    panel.beginSheet(for: window,
+                                     modalDelegate: self,
+                                     didEnd: #selector(ConnectionService.chooseIdentitySheetDidEnd(sheet:returnCode:contextInfo:)),
+                                     contextInfo: nil,
+                                     identities: array,
+                                     message: message)
                 }
             }
             return
@@ -801,7 +811,6 @@ class ConnectionService: NSObject {
             }
         }
     }
-    
 }
 
 extension ConnectionService: ClientProtocol {
@@ -812,6 +821,4 @@ extension ConnectionService: ClientProtocol {
         configURL = nil
         handler = nil
     }
-    
 }
-

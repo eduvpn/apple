@@ -7,7 +7,6 @@
 //
 
 import Cocoa
-//import AppAuth
 import Reachability
 
 class ProvidersViewController: NSViewController {
@@ -58,7 +57,8 @@ class ProvidersViewController: NSViewController {
             self.updateInterface()
         }
         
-        tableView.registerForDraggedTypes([kUTTypeFileURL as NSPasteboard.PasteboardType, kUTTypeURL as NSPasteboard.PasteboardType])
+        tableView.registerForDraggedTypes([kUTTypeFileURL as NSPasteboard.PasteboardType,
+                                           kUTTypeURL as NSPasteboard.PasteboardType])
         
         // Handle internet connection state
         if let reachability = reachability {
@@ -73,6 +73,7 @@ class ProvidersViewController: NSViewController {
         } else {
             discoverAccessibleProviders()
         }
+        
         updateInterface()
     }
     
@@ -168,12 +169,14 @@ class ProvidersViewController: NSViewController {
             alert.alertStyle = .critical
             alert.messageText = NSLocalizedString("Remove \(provider.displayName)?", comment: "")
             alert.informativeText = NSLocalizedString("You will no longer be able to connect to \(provider.displayName).", comment: "")
+            
             switch provider.authorizationType {
             case .local:
                 break
             case .distributed, .federated:
                 alert.informativeText += NSLocalizedString(" You may also no longer be able to connect to additional providers that were authorized via this provider.", comment: "")
             }
+            
             alert.addButton(withTitle: NSLocalizedString("Remove", comment: ""))
             alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
             alert.beginSheetModal(for: self.view.window!) { response in
@@ -195,7 +198,7 @@ class ProvidersViewController: NSViewController {
             busy = true
             updateInterface()
             
-            ServiceContainer.providerService.fetchInfo(for: provider) { (result) in
+            ServiceContainer.providerService.fetchInfo(for: provider) { result in
                 DispatchQueue.main.async {
                     self.busy = false
                     self.updateInterface()
@@ -213,7 +216,7 @@ class ProvidersViewController: NSViewController {
             busy = true
             updateInterface()
             
-            ServiceContainer.providerService.fetchInfo(for: provider) { (result) in
+            ServiceContainer.providerService.fetchInfo(for: provider) { result in
                 DispatchQueue.main.async {
                     self.busy = false
                     self.updateInterface()
@@ -233,7 +236,7 @@ class ProvidersViewController: NSViewController {
     private func authenticate(with info: ProviderInfo) {
         busy = true
         updateInterface()
-        ServiceContainer.authenticationService.authenticate(using: info) { (result) in
+        ServiceContainer.authenticationService.authenticate(using: info) { result in
             DispatchQueue.main.async {
                 
                 self.busy = false
@@ -254,7 +257,7 @@ class ProvidersViewController: NSViewController {
         busy = true
         updateInterface()
         
-        ServiceContainer.providerService.fetchUserInfoAndProfiles(for: info) { (result) in
+        ServiceContainer.providerService.fetchUserInfoAndProfiles(for: info) { result in
             DispatchQueue.main.async {
                 self.busy = false
                 self.updateInterface()
@@ -310,12 +313,16 @@ class ProvidersViewController: NSViewController {
         }
     
         unreachableLabel.isHidden = reachable
+        
         tableView.superview?.superview?.isHidden = !reachable
         tableView.isEnabled = !busy
+        
         otherProviderButton.isHidden = providerSelected || !reachable
         otherProviderButton.isEnabled = !busy
+        
         connectButton.isHidden = !providerSelected || !reachable
         connectButton.isEnabled = !busy
+        
         removeButton.isHidden = !providerSelected || !reachable
         removeButton.isEnabled = canRemoveProvider && !busy
     }
@@ -326,30 +333,38 @@ extension ProvidersViewController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
         return rows.count
     }
-    
 }
 
 extension ProvidersViewController: NSTableViewDelegate {
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let tableRow = rows[row]
+        
         switch tableRow {
         case .section(let connectionType):
-            let result = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "SectionCell"), owner: self) as? NSTableCellView
-            result?.textField?.stringValue = connectionType.localizedDescription
-            return result
-        case .provider(let provider):
-            let result = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "ProfileCell"), owner: self) as? NSTableCellView
-            switch provider.connectionType {
-            case .instituteAccess, .secureInternet:
-                result?.imageView?.kf.setImage(with: provider.logoURL)
-            case .custom:
-                result?.imageView?.image = NSWorkspace.shared.icon(forFileType: NSFileTypeForHFSTypeCode(OSType(kGenericNetworkIcon)))
-            case .localConfig:
-                result?.imageView?.image = NSWorkspace.shared.icon(forFileType: NSFileTypeForHFSTypeCode(OSType(kGenericDocumentIcon)))
+            let result = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "SectionCell"), owner: self)
+            
+            if let cellView = result as? NSTableCellView {
+                cellView.textField?.stringValue = connectionType.localizedDescription
             }
             
-            result?.textField?.stringValue = provider.displayName
+            return result
+        case .provider(let provider):
+            let result = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "ProfileCell"), owner: self)
+            
+            if let cellView = result as? NSTableCellView {
+                switch provider.connectionType {
+                case .instituteAccess, .secureInternet:
+                    cellView.imageView?.kf.setImage(with: provider.logoURL)
+                case .custom:
+                    cellView.imageView?.image = NSWorkspace.shared.icon(forFileType: NSFileTypeForHFSTypeCode(OSType(kGenericNetworkIcon)))
+                case .localConfig:
+                    cellView.imageView?.image = NSWorkspace.shared.icon(forFileType: NSFileTypeForHFSTypeCode(OSType(kGenericDocumentIcon)))
+                }
+                
+                cellView.textField?.stringValue = provider.displayName
+            }
+            
             return result
         }
     }
@@ -368,12 +383,20 @@ extension ProvidersViewController: NSTableViewDelegate {
         updateInterface()
     }
     
-    func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
+    func tableView(_ tableView: NSTableView,
+                   validateDrop info: NSDraggingInfo,
+                   proposedRow row: Int,
+                   proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
+        
         tableView.setDropRow(-1, dropOperation: .on)
         return .copy
     }
     
-    func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
+    func tableView(_ tableView: NSTableView,
+                   acceptDrop info: NSDraggingInfo,
+                   row: Int,
+                   dropOperation: NSTableView.DropOperation) -> Bool {
+        
         guard let url = NSURL(from: info.draggingPasteboard) else {
             return false
         }
@@ -383,6 +406,7 @@ extension ProvidersViewController: NSTableViewDelegate {
         } else {
             addURL(baseURL: url as URL)
         }
+        
         return true
     }
     
@@ -400,7 +424,7 @@ extension ProvidersViewController: NSTableViewDelegate {
                         }
                     }
                     
-                    alert?.beginSheetModal(for: self.view.window!) { (response) in
+                    alert?.beginSheetModal(for: self.view.window!) { response in
                         switch response.rawValue {
                         case 1000:
                             self.chooseConfigFile(configFileURL: configFileURL, recover: true)
@@ -414,7 +438,14 @@ extension ProvidersViewController: NSTableViewDelegate {
     }
     
     private func addURL(baseURL: URL) {
-        let provider = Provider(displayName: baseURL.host ?? "", baseURL: baseURL, logoURL: nil, publicKey: nil, username: nil, connectionType: .custom, authorizationType: .local)
+        let provider = Provider(displayName: baseURL.host ?? "",
+                                baseURL: baseURL,
+                                logoURL: nil,
+                                publicKey: nil,
+                                username: nil,
+                                connectionType: .custom,
+                                authorizationType: .local)
+        
         ServiceContainer.providerService.fetchInfo(for: provider) { result in
             switch result {
             case .success(let info):
@@ -424,15 +455,11 @@ extension ProvidersViewController: NSTableViewDelegate {
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                    let alert = NSAlert(customizedError: error)
-                    alert?.beginSheetModal(for: self.view.window!) { (_) in
-                        
-                    }
+                    NSAlert(customizedError: error)?.beginSheetModal(for: self.view.window!)
                 }
             }
         }
     }
-    
 }
 
 class DeselectingTableView: NSTableView {
@@ -455,5 +482,4 @@ class DeselectingTableView: NSTableView {
             }
         }
     }
-    
 }

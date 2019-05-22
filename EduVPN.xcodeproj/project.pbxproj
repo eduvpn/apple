@@ -39,6 +39,7 @@
 		342B9CE822902BB500C006D7 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CDA22902BB500C006D7 /* MainWindowController.swift */; };
 		342B9CE922902BB500C006D7 /* ChooseProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CDB22902BB500C006D7 /* ChooseProfileViewController.swift */; };
 		342B9CEA22902BB500C006D7 /* Enroll2FAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CDC22902BB500C006D7 /* Enroll2FAViewController.swift */; };
+		342B9CEB22955D5300C006D7 /* DurationTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CD822902BB500C006D7 /* DurationTransformer.swift */; };
 		34D719E1228D75550027DE84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D719E0228D75550027DE84 /* AppDelegate.swift */; };
 		34D719E5228D75560027DE84 /* eduVPNAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34D719E4228D75560027DE84 /* eduVPNAssets.xcassets */; };
 		34D719E8228D75560027DE84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34D719E6228D75560027DE84 /* Main.storyboard */; };
@@ -553,6 +554,7 @@
 		34D71A0D228D76C10027DE84 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				342B9CD822902BB500C006D7 /* DurationTransformer.swift */,
 				34D71AAE228DA39F0027DE84 /* Either.swift */,
 				34D71AAB228DA39F0027DE84 /* IPAddress.swift */,
 				34D71AAD228DA39F0027DE84 /* Message.swift */,
@@ -572,7 +574,6 @@
 				342B9CDB22902BB500C006D7 /* ChooseProfileViewController.swift */,
 				342B9CD222902BB500C006D7 /* ChooseProviderViewController.swift */,
 				342B9CD022902BB400C006D7 /* ConnectionViewController.swift */,
-				342B9CD822902BB500C006D7 /* DurationTransformer.swift */,
 				342B9CDC22902BB500C006D7 /* Enroll2FAViewController.swift */,
 				342B9CD522902BB500C006D7 /* Enter2FAViewController.swift */,
 				342B9CD122902BB400C006D7 /* EnterCredentialsViewController.swift */,
@@ -1444,6 +1445,7 @@
 				34D71AA9228D9CCC0027DE84 /* URL+Unused.swift in Sources */,
 				34D71B08228DA4D20027DE84 /* AppDelegate.swift in Sources */,
 				34D71AE5228DA4CC0027DE84 /* Either.swift in Sources */,
+				342B9CEB22955D5300C006D7 /* DurationTransformer.swift in Sources */,
 				34D71AE8228DA4CC0027DE84 /* Provider.swift in Sources */,
 				34D71AE6228DA4CC0027DE84 /* IPAddress.swift in Sources */,
 				34D71AA8228D9CCC0027DE84 /* String+Random.swift in Sources */,

@@ -20,12 +20,12 @@ class ChooseConnectionTypeViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
         closeButton.isHidden = !allowClose
     }
     
     override func viewWillAppear() {
         super.viewWillAppear()
+        
         secureInternetButton.isEnabled = true
         instituteAccessButton.isEnabled = true
         
@@ -49,9 +49,12 @@ class ChooseConnectionTypeViewController: NSViewController {
         guard let window = view.window else {
             return
         }
-        let enterProviderURLViewController = storyboard!.instantiateController(withIdentifier: "EnterProviderURL") as! EnterProviderURLViewController
+        
+        let enterProviderURLViewController = storyboard!.instantiateController(withIdentifier: "EnterProviderURL")
+            as! EnterProviderURLViewController
+        
         let panel = NSPanel(contentViewController: enterProviderURLViewController)
-        window.beginSheet(panel) { (response) in
+        window.beginSheet(panel) { response in
             switch response {
             case .OK:
                 if let baseURL = enterProviderURLViewController.url {
@@ -64,7 +67,14 @@ class ChooseConnectionTypeViewController: NSViewController {
     }
     
     private func addURL(baseURL: URL) {
-        let provider = Provider(displayName: baseURL.host ?? "", baseURL: baseURL, logoURL: nil, publicKey: nil, username: nil, connectionType: .custom, authorizationType: .local)
+        let provider = Provider(displayName: baseURL.host ?? "",
+                                baseURL: baseURL,
+                                logoURL: nil,
+                                publicKey: nil,
+                                username: nil,
+                                connectionType: .custom,
+                                authorizationType: .local)
+        
         ServiceContainer.providerService.fetchInfo(for: provider) { result in
             switch result {
             case .success(let info):
@@ -74,10 +84,7 @@ class ChooseConnectionTypeViewController: NSViewController {
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                    let alert = NSAlert(customizedError: error)
-                    alert?.beginSheetModal(for: self.view.window!) { (_) in
-                        
-                    }
+                    NSAlert(customizedError: error)?.beginSheetModal(for: self.view.window!)
                 }
             }
         }
@@ -87,6 +94,7 @@ class ChooseConnectionTypeViewController: NSViewController {
         guard let window = view.window else {
             return
         }
+        
         let panel = NSOpenPanel()
         panel.canChooseFiles = true
         panel.canChooseDirectories = false
@@ -118,7 +126,7 @@ class ChooseConnectionTypeViewController: NSViewController {
                         }
                     }
                     
-                    alert?.beginSheetModal(for: self.view.window!) { (response) in
+                    alert?.beginSheetModal(for: self.view.window!) { response in
                         switch response.rawValue {
                         case 1000:
                             self.chooseConfigFile(configFileURL: configFileURL, recover: true)
@@ -142,8 +150,7 @@ class ChooseConnectionTypeViewController: NSViewController {
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                    let alert = NSAlert(customizedError: error)
-                    alert?.beginSheetModal(for: self.view.window!) { (_) in
+                    NSAlert(customizedError: error)?.beginSheetModal(for: self.view.window!) { _ in
                         self.secureInternetButton.isEnabled = true
                         self.instituteAccessButton.isEnabled = true
                     }

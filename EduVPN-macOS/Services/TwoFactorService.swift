@@ -164,10 +164,13 @@ class TwoFactorService {
                     return
                 }
                 
-                guard let path = request.url?.lastPathComponent, let instance = json.value(forKeyPath: path) as? [String: AnyObject] else {
-                    handler(.failure(Error.invalidTwoFactor))
-                    return
-                }
+                guard
+                    let path = request.url?.lastPathComponent,
+                    let instance = json.value(forKeyPath: path) as? [String: AnyObject]
+                    else {
+                        handler(.failure(Error.invalidTwoFactor))
+                        return
+                    }
                 
                 guard let isOk = instance["ok"] as? Bool else {
                     handler(.failure(Error.invalidTwoFactor))
@@ -194,7 +197,7 @@ class TwoFactorService {
                 return
             }
         }
+        
         task.resume()
     }
-    
 }

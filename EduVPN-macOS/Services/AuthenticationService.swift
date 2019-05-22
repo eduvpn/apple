@@ -88,7 +88,8 @@ class AuthenticationService {
         }
         isAuthenticating = true
         
-        let configuration = OIDServiceConfiguration(authorizationEndpoint: info.authorizationURL, tokenEndpoint: info.tokenURL)
+        let configuration = OIDServiceConfiguration(authorizationEndpoint: info.authorizationURL,
+                                                    tokenEndpoint: info.tokenURL)
         
         redirectHTTPHandler = OIDRedirectHTTPHandler(successURL: nil)
         var redirectURL: URL?
@@ -100,7 +101,13 @@ class AuthenticationService {
             }
         }
         redirectURL = URL(string: "callback", relativeTo: redirectURL!)!
-        let request = OIDAuthorizationRequest(configuration: configuration, clientId: clientId, clientSecret: nil, scopes: ["config"], redirectURL: redirectURL!, responseType: OIDResponseTypeCode, additionalParameters: nil)
+        let request = OIDAuthorizationRequest(configuration: configuration,
+                                              clientId: clientId,
+                                              clientSecret: nil,
+                                              scopes: ["config"],
+                                              redirectURL: redirectURL!,
+                                              responseType: OIDResponseTypeCode,
+                                              additionalParameters: nil)
       
         let authenticateID: Any?
         if #available(OSX 10.14, *) {
@@ -293,7 +300,11 @@ class AuthenticationService {
     /// - Returns: URL
     /// - Throws: Error finding or creating directory
     private func storedAuthStatesFileURL() throws -> URL  {
-        var applicationSupportDirectory = try FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        var applicationSupportDirectory = try FileManager.default.url(for: .applicationSupportDirectory,
+                                                                      in: .userDomainMask,
+                                                                      appropriateFor: nil,
+                                                                      create: true)
+        
         switch Bundle.main.bundleIdentifier! {
         case "org.eduvpn.app":
             applicationSupportDirectory.appendPathComponent("eduVPN")
@@ -302,8 +313,12 @@ class AuthenticationService {
         default:
             fatalError()
         }
-        try FileManager.default.createDirectory(at: applicationSupportDirectory, withIntermediateDirectories: true, attributes: nil)
+        
+        try FileManager.default.createDirectory(at: applicationSupportDirectory,
+                                                withIntermediateDirectories: true,
+                                                attributes: nil)
         applicationSupportDirectory.appendPathComponent("AuthenticationTokens.plist")
+        
         return applicationSupportDirectory
     }
     
@@ -317,6 +332,7 @@ class AuthenticationService {
                 if let authStatesByProviderId = restoredAuthStates["authStatesByProviderId"] as? [String: OIDAuthState] {
                     self.authStatesByProviderId = authStatesByProviderId
                 }
+                
                 if let authStatesByConnectionType = restoredAuthStates["authStatesByConnectionType"] as? [String: OIDAuthState] {
                     // Convert String to ConnectionType
                     self.authStatesByConnectionType = authStatesByConnectionType.reduce(into: [ConnectionType: OIDAuthState]()) { (result, entry) in
@@ -340,12 +356,13 @@ class AuthenticationService {
             let authStatesByConnectionType = self.authStatesByConnectionType.reduce(into: [String: OIDAuthState]()) { (result, entry) in
                 result[entry.key.rawValue] = entry.value
             }
-            let data = NSKeyedArchiver.archivedData(withRootObject: ["authStatesByProviderId": authStatesByProviderId, "authStatesByConnectionType": authStatesByConnectionType])
+            
+            let data = NSKeyedArchiver.archivedData(withRootObject: ["authStatesByProviderId": authStatesByProviderId,
+                                                                     "authStatesByConnectionType": authStatesByConnectionType])
             let url = try storedAuthStatesFileURL()
             try data.write(to: url, options: .atomic)
         } catch (let error) {
             NSLog("Failed to save stored authentication tokens to disk: \(error)")
         }
     }
-    
 }

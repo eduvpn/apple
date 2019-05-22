@@ -7,7 +7,6 @@
 //
 
 import Cocoa
-//import AppAuth
 
 class AuthenticatingViewController: NSViewController {
 
@@ -27,5 +26,4 @@ class AuthenticatingViewController: NSViewController {
     @IBAction func goBack(_ sender: Any) {
         ServiceContainer.authenticationService.cancelAuthentication()
     }
-    
 }

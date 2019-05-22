@@ -7,7 +7,6 @@
 //
 
 import Foundation
-//import AppAuth
 
 /// Fetches configuration
 class ConfigurationService {
@@ -127,9 +126,12 @@ class ConfigurationService {
                 return nil
             }
             
-            guard let providerBaseURL = keyPair["providerBaseURL"] as? String, info.provider.baseURL.absoluteString == providerBaseURL else {
-                return nil
-            }
+            guard
+                let providerBaseURL = keyPair["providerBaseURL"] as? String,
+                info.provider.baseURL.absoluteString == providerBaseURL
+                else {
+                    return nil
+                }
             
             guard let certificateCommonName = keyPair["certificateCommonName"] as? String else {
                 return nil
@@ -168,8 +170,6 @@ class ConfigurationService {
                 }
             }
         }
-        
-
         
         if let certificateCommonName = certificateCommonNames.first {
             // Check if still valid
@@ -236,9 +236,12 @@ class ConfigurationService {
                 return nil
             }
             
-            guard let providerBaseURL = keyPair["providerBaseURL"] as? String, provider.baseURL.absoluteString == providerBaseURL else {
-                return nil
-            }
+            guard
+                let providerBaseURL = keyPair["providerBaseURL"] as? String,
+                provider.baseURL.absoluteString == providerBaseURL
+                else {
+                    return nil
+                }
             
             guard let certificateCommonName = keyPair["certificateCommonName"] as? String else {
                 return nil
@@ -273,7 +276,10 @@ class ConfigurationService {
     ///   - info: Provider info
     ///   - authenticationBehavior: Whether authentication should be retried when token is revoked or expired
     ///   - handler: Keypair or error
-    private func createKeyPair(for info: ProviderInfo, authenticationBehavior: AuthenticationService.Behavior = .ifNeeded, handler: @escaping (Result<(certificate: String, privateKey: String)>) -> ()) {
+    private func createKeyPair(for info: ProviderInfo,
+                               authenticationBehavior: AuthenticationService.Behavior = .ifNeeded,
+                               handler: @escaping (Result<(certificate: String, privateKey: String)>) -> ()) {
+        
         guard let url = URL(string: "create_keypair", relativeTo: info.apiBaseURL) else {
             handler(.failure(Error.invalidURL))
             return
@@ -284,10 +290,12 @@ class ConfigurationService {
                 handler(.failure(error ?? Error.missingToken))
                 return
             }
+            
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
             request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
+            
             let data = "display_name=eduVPN%20(macOS)".data(using: .utf8)!
             request.httpBody = data
             request.setValue("\(data.count)", forHTTPHeaderField: "Content-Length")
@@ -331,6 +339,7 @@ class ConfigurationService {
                     return
                 }
             }
+            
             task.resume()
         }
     }
@@ -342,7 +351,11 @@ class ConfigurationService {
     ///   - certificateCommonName: Common name of the certificate
     ///   - authenticationBehavior: Whether authentication should be retried when token is revoked or expired
     ///   - handler: Void (valid) or an error
-    private func checkCertificate(for info: ProviderInfo, certificateCommonName: String, authenticationBehavior: AuthenticationService.Behavior = .ifNeeded, handler: @escaping (Result<Void>) -> ()) {
+    private func checkCertificate(for info: ProviderInfo,
+                                  certificateCommonName: String,
+                                  authenticationBehavior: AuthenticationService.Behavior = .ifNeeded,
+                                  handler: @escaping (Result<Void>) -> ()) {
+        
         guard let bareURL = URL(string: "check_certificate", relativeTo: info.apiBaseURL) else {
             handler(.failure(Error.invalidURL))
             return
@@ -364,6 +377,7 @@ class ConfigurationService {
                 handler(.failure(error ?? Error.missingToken))
                 return
             }
+            
             var request = URLRequest(url: url)
             request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
             
@@ -423,6 +437,7 @@ class ConfigurationService {
                     handler(.failure(error))
                 }
             }
+            
             task.resume()
         }
     }
@@ -433,7 +448,10 @@ class ConfigurationService {
     ///   - profile: Profile
     ///   - authenticationBehavior: Whether authentication should be retried when token is revoked or expired
     ///   - handler: Config or error
-    private func fetchConfig(for profile: Profile, authenticationBehavior: AuthenticationService.Behavior = .ifNeeded, handler: @escaping (Result<Config>) -> ()) {
+    private func fetchConfig(for profile: Profile,
+                             authenticationBehavior: AuthenticationService.Behavior = .ifNeeded,
+                             handler: @escaping (Result<Config>) -> ()) {
+        
         guard profile.info.provider.connectionType != .localConfig else {
             do {
                 let config = try String(contentsOf: profile.info.provider.baseURL)
@@ -469,6 +487,7 @@ class ConfigurationService {
                 handler(.failure(error ?? Error.missingToken))
                 return
             }
+            
             var request = URLRequest(url: requestUrl)
             request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
             
@@ -496,6 +515,7 @@ class ConfigurationService {
                 
                 handler(.success(config))
             }
+            
             task.resume()
         }
     }
@@ -508,7 +528,12 @@ class ConfigurationService {
     ///   - passphrase: Passphrase to set on PKCS#12 file
     ///   - friendlyName: String containing the "BaseURL"
     ///   - handler: PKCS#12 file as data or error
-    func createPKCS12(certificate: String, privateKey: String, passphrase: String, friendlyName: String, handler: @escaping ((Result<Data>) -> ())) {
+    func createPKCS12(certificate: String,
+                      privateKey: String,
+                      passphrase: String,
+                      friendlyName: String,
+                      handler: @escaping ((Result<Data>) -> ())) {
+        
         do {
             let process = Process()
             process.launchPath = "/usr/bin/openssl"

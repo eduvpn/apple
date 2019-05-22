@@ -183,7 +183,11 @@ class KeychainService {
             throw Error.passwordEncoding
         }
 
-        let keychainQuery: NSDictionary = [kSecClass: kSecClassGenericPassword, kSecAttrService: service, kSecAttrAccount: account, kSecReturnData: kCFBooleanTrue, kSecMatchLimit: kSecMatchLimitOne]
+        let keychainQuery: NSDictionary = [kSecClass: kSecClassGenericPassword,
+                                           kSecAttrService: service,
+                                           kSecAttrAccount: account,
+                                           kSecReturnData: kCFBooleanTrue,
+                                           kSecMatchLimit: kSecMatchLimitOne]
         
         let status = SecItemUpdate(keychainQuery as CFDictionary, [kSecValueData: data] as CFDictionary)
         guard status == noErr else {
@@ -192,7 +196,11 @@ class KeychainService {
     }
     
     func removePassword(service: String, account: String) throws {
-        let keychainQuery: NSDictionary = [kSecClass: kSecClassGenericPassword, kSecAttrService: service, kSecAttrAccount: account, kSecReturnData: kCFBooleanTrue, kSecMatchLimit: kSecMatchLimitOne]
+        let keychainQuery: NSDictionary = [kSecClass: kSecClassGenericPassword,
+                                           kSecAttrService: service,
+                                           kSecAttrAccount: account,
+                                           kSecReturnData: kCFBooleanTrue,
+                                           kSecMatchLimit: kSecMatchLimitOne]
         
         // Delete any existing items
         let status = SecItemDelete(keychainQuery as CFDictionary)
@@ -206,7 +214,10 @@ class KeychainService {
             throw Error.passwordEncoding
         }
         
-        let keychainQuery: NSDictionary = [kSecClass: kSecClassGenericPassword, kSecAttrService: service, kSecAttrAccount: account, kSecValueData: data]
+        let keychainQuery: NSDictionary = [kSecClass: kSecClassGenericPassword,
+                                           kSecAttrService: service,
+                                           kSecAttrAccount: account,
+                                           kSecValueData: data]
         
         // Add the new keychain item
         let status = SecItemAdd(keychainQuery as CFDictionary, nil)
@@ -216,7 +227,11 @@ class KeychainService {
     }
     
     func loadPassword(service: String, account: String) throws -> String? {
-        let keychainQuery: NSDictionary = [kSecClass: kSecClassGenericPassword, kSecAttrService: service, kSecAttrAccount: account, kSecReturnData: kCFBooleanTrue, kSecMatchLimit: kSecMatchLimitOne]
+        let keychainQuery: NSDictionary = [kSecClass: kSecClassGenericPassword,
+                                           kSecAttrService: service,
+                                           kSecAttrAccount: account,
+                                           kSecReturnData: kCFBooleanTrue,
+                                           kSecMatchLimit: kSecMatchLimitOne]
         
         var dataTypeRef: AnyObject?
         
@@ -236,5 +251,4 @@ class KeychainService {
         
         return contentsOfKeychain
     }
-
 }

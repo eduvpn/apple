@@ -26,6 +26,7 @@ class MainWindowController: NSWindowController {
             navigationStackStack.append(newValue)
         }
     }
+    
     @IBOutlet var topView: NSBox!
     
     override func windowDidLoad() {
@@ -40,8 +41,15 @@ class MainWindowController: NSWindowController {
 
         navigationStack.append(mainViewController.currentViewController)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(didStartAuthenticating(notification:)), name: AuthenticationService.authenticationStarted, object: ServiceContainer.authenticationService)
-        NotificationCenter.default.addObserver(self, selector: #selector(didFinishAuthenticating(notification:)), name: AuthenticationService.authenticationFinished, object: ServiceContainer.authenticationService)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(didStartAuthenticating(notification:)),
+                                               name: AuthenticationService.authenticationStarted,
+                                               object: ServiceContainer.authenticationService)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(didFinishAuthenticating(notification:)),
+                                               name: AuthenticationService.authenticationFinished,
+                                               object: ServiceContainer.authenticationService)
     }
     
     deinit {
@@ -59,7 +67,11 @@ class MainWindowController: NSWindowController {
         case present
     }
     
-    func show(viewController: NSViewController, presentation: Presentation, animated: Bool = true, completionHandler: (() -> ())? = nil) {
+    func show(viewController: NSViewController,
+              presentation: Presentation,
+              animated: Bool = true,
+              completionHandler: (() -> ())? = nil) {
+        
         switch presentation {
         case .push:
             push(viewController: viewController, animated: animated, completionHandler: completionHandler)
@@ -78,41 +90,67 @@ class MainWindowController: NSWindowController {
         
     func push(viewController: NSViewController, animated: Bool = true, completionHandler: (() -> ())? = nil) {
         navigationStack.append(viewController)
-        mainViewController.show(viewController: viewController, options: .slideForward, animated: animated, completionHandler: completionHandler)
+        mainViewController.show(viewController: viewController,
+                                options: .slideForward,
+                                animated: animated,
+                                completionHandler: completionHandler)
     }
     
     func pop(animated: Bool = true, completionHandler: (() -> ())? = nil) {
         guard navigationStack.count > 1 else {
             return
         }
+        
         navigationStack.removeLast()
-        mainViewController.show(viewController: navigationStack.last!, options: .slideBackward, animated: animated, completionHandler: completionHandler)
+        mainViewController.show(viewController: navigationStack.last!,
+                                options: .slideBackward,
+                                animated: animated,
+                                completionHandler: completionHandler)
     }
     
     func popToRoot(animated: Bool = true, completionHandler: (() -> ())? = nil) {
         guard navigationStack.count > 1 else {
             return
         }
+        
         navigationStack = [navigationStack.first!]
-        mainViewController.show(viewController: navigationStack.last!, options: .slideBackward, animated: animated, completionHandler: completionHandler)
+        mainViewController.show(viewController: navigationStack.last!,
+                                options: .slideBackward,
+                                animated: animated,
+                                completionHandler: completionHandler)
     }
     
-    func present(viewController: NSViewController, options: NSViewController.TransitionOptions = .slideUp, animated: Bool = true, completionHandler: (() -> ())? = nil) {
+    func present(viewController: NSViewController,
+                 options: NSViewController.TransitionOptions = .slideUp,
+                 animated: Bool = true,
+                 completionHandler: (() -> ())? = nil) {
+        
         navigationStackStack.append([viewController])
-        mainViewController.show(viewController: viewController, options: options, animated: animated, completionHandler: completionHandler)
+        mainViewController.show(viewController: viewController,
+                                options: options,
+                                animated: animated,
+                                completionHandler: completionHandler)
     }
     
-    func dismiss(options: NSViewController.TransitionOptions = .slideDown, animated: Bool = true, completionHandler: (() -> ())? = nil) {
+    func dismiss(options: NSViewController.TransitionOptions = .slideDown,
+                 animated: Bool = true,
+                 completionHandler: (() -> ())? = nil) {
+        
         guard navigationStackStack.count > 1 else {
             return
         }
+        
         navigationStackStack.removeLast()
-        mainViewController.show(viewController: navigationStack.last!, options: options, animated: animated, completionHandler: completionHandler)
+        mainViewController.show(viewController: navigationStack.last!,
+                                options: options,
+                                animated: animated,
+                                completionHandler: completionHandler)
     }
     
     // MARK: - Authenticating
     @objc private func didStartAuthenticating(notification: NSNotification) {
-        let authenticatingViewController = storyboard!.instantiateController(withIdentifier: "Authenticating") as! AuthenticatingViewController
+        let authenticatingViewController = storyboard!.instantiateController(withIdentifier: "Authenticating")
+            as! AuthenticatingViewController
         present(viewController: authenticatingViewController)
     }
     
@@ -132,7 +170,9 @@ class MainWindowController: NSWindowController {
     ///   - allowClose: Wether user may close screen
     ///   - animated: Wether to show with animation
     func showChooseConnectionType(allowClose: Bool, animated: Bool = true) {
-        let chooseConnectionTypeViewController = storyboard!.instantiateController(withIdentifier: "ChooseConnectionType") as! ChooseConnectionTypeViewController
+        let chooseConnectionTypeViewController = storyboard!.instantiateController(withIdentifier: "ChooseConnectionType")
+            as! ChooseConnectionTypeViewController
+        
         chooseConnectionTypeViewController.allowClose = allowClose
         present(viewController: chooseConnectionTypeViewController, animated: animated)
     }
@@ -144,7 +184,9 @@ class MainWindowController: NSWindowController {
     ///   - providers: Providers to chose from
     ///   - animated: Wether to show with animation
     func showChooseProvider(for connectionType: ConnectionType, from providers: [Provider], animated: Bool = true) {
-        let chooseProviderViewController = storyboard!.instantiateController(withIdentifier: "ChooseProvider") as! ChooseProviderViewController
+        let chooseProviderViewController = storyboard!.instantiateController(withIdentifier: "ChooseProvider")
+            as! ChooseProviderViewController
+        
         chooseProviderViewController.connectionType = connectionType
         chooseProviderViewController.providers = providers
         push(viewController: chooseProviderViewController, animated: animated)
@@ -157,7 +199,9 @@ class MainWindowController: NSWindowController {
     ///   - userInfo: User info
     ///   - animated: Wether to show with animation
     func showChooseProfile(from profiles: [Profile], userInfo: UserInfo, animated: Bool = true) {
-        let chooseProfileViewController = storyboard!.instantiateController(withIdentifier: "ChooseProfile") as! ChooseProfileViewController
+        let chooseProfileViewController = storyboard!.instantiateController(withIdentifier: "ChooseProfile")
+            as! ChooseProfileViewController
+        
         chooseProfileViewController.profiles = profiles
         chooseProfileViewController.userInfo = userInfo
         push(viewController: chooseProfileViewController, animated: animated)
@@ -170,7 +214,9 @@ class MainWindowController: NSWindowController {
     ///   - userInfo: User info
     ///   - animated: Wether to show with animation
     func showConnection(for profile: Profile, userInfo: UserInfo, animated: Bool = true) {
-        let connectionViewController = storyboard!.instantiateController(withIdentifier: "Connection") as! ConnectionViewController
+        let connectionViewController = storyboard!.instantiateController(withIdentifier: "Connection")
+            as! ConnectionViewController
+        
         connectionViewController.profile = profile
         connectionViewController.userInfo = userInfo
         push(viewController: connectionViewController, animated: animated) {
@@ -185,5 +231,4 @@ extension NSViewController {
     var mainWindowController: MainWindowController? {
         return (NSApp.delegate as! AppDelegate).mainWindowController
     }
-    
 }

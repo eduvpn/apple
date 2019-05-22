@@ -64,7 +64,11 @@ class PreferencesService: NSObject {
         }
     }
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    override func observeValue(forKeyPath keyPath: String?,
+                               of object: Any?,
+                               change: [NSKeyValueChangeKey : Any]?,
+                               context: UnsafeMutableRawPointer?) {
+        
          updateForUIPreferences()
     }
 
@@ -89,5 +93,4 @@ class PreferencesService: NSObject {
         
         (NSApp.delegate as! AppDelegate).statusItemIsVisible = showInStatusBar
     }
-    
 }

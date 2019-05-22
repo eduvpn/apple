@@ -60,7 +60,7 @@ class Enroll2FAViewController: NSViewController {
         delegate?.enroll2FACancelled(controller: self)
     }
     
-    private func validToken() -> TwoFactor? {
+    private var validToken: TwoFactor? {
         switch segmentedControl.selectedSegment {
         case 0:
             let string = totpResponseField.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -82,7 +82,7 @@ class Enroll2FAViewController: NSViewController {
     }
     
     @IBAction func typeChanged(_ sender: NSSegmentedControl) {
-        doneButton.isEnabled = validToken() != nil
+        doneButton.isEnabled = validToken != nil
         tabView.selectTabViewItem(at: sender.selectedSegment)
     }
     
@@ -94,9 +94,8 @@ class Enroll2FAViewController: NSViewController {
         yubiTextField.isEnabled = false
         doneButton.isEnabled = false
         
-        guard let token = validToken() else {
-            let alert = NSAlert(customizedError: Error.invalidToken)
-            alert?.beginSheetModal(for: self.view.window!) { (_) in
+        guard let token = validToken else {
+            NSAlert(customizedError: Error.invalidToken)?.beginSheetModal(for: self.view.window!) { _ in
                 self.totpResponseField.isEnabled = true
                 self.yubiTextField.isEnabled = true
             }
@@ -109,8 +108,7 @@ class Enroll2FAViewController: NSViewController {
                 case .success:
                     self.delegate?.enroll2FA(controller: self, didEnrollForType: token.twoFactorType)
                 case .failure(let error):
-                    let alert = NSAlert(customizedError: error)
-                    alert?.beginSheetModal(for: self.view.window!) { (_) in
+                    NSAlert(customizedError: error)?.beginSheetModal(for: self.view.window!) { _ in
                         self.segmentedControl.isEnabled = true
                         self.totpResponseField.isEnabled = true
                         self.yubiTextField.isEnabled = true
@@ -125,14 +123,12 @@ class Enroll2FAViewController: NSViewController {
         case .yubico(let otp):
             ServiceContainer.twoFactorService.enrollYubico(for: providerInfo, otp: otp, handler: handler)
         }
-        
     }
 }
 
 extension Enroll2FAViewController: NSTextFieldDelegate {
     
     func controlTextDidChange(_ obj: Notification) {
-        doneButton.isEnabled = validToken() != nil
+        doneButton.isEnabled = validToken != nil
     }
-    
 }

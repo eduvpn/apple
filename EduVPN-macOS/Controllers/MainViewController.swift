@@ -24,7 +24,11 @@ class MainViewController: NSViewController {
         view.wantsLayer = true
     }
     
-    func show(viewController: NSViewController, options: NSViewController.TransitionOptions = [], animated: Bool = true, completionHandler: (() -> ())?) {
+    func show(viewController: NSViewController,
+              options: NSViewController.TransitionOptions = [],
+              animated: Bool = true,
+              completionHandler: (() -> ())?) {
+        
         let currentViewController = self.currentViewController
         addChild(viewController)
         
@@ -39,7 +43,7 @@ class MainViewController: NSViewController {
             }
         } else {
             assert(currentViewController.view.superview != nil)
-            NSAnimationContext.runAnimationGroup({ (context) in
+            NSAnimationContext.runAnimationGroup({ context in
                 context.duration = 0
                 transition(from: currentViewController, to: viewController, options: options) {
                     currentViewController.removeFromParent()
@@ -52,5 +56,4 @@ class MainViewController: NSViewController {
     var currentViewController: NSViewController {
         return children[0]
     }
-    
 }

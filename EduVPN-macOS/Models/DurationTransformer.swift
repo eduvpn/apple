@@ -24,5 +24,4 @@ class DurationTransformer: ValueTransformer {
         }
         return formatter.string(from: value)
     }
-    
 }

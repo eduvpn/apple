@@ -21,11 +21,12 @@ class EnterCredentialsViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        okButton.isEnabled = validCredentials() != nil
+        okButton.isEnabled = validCredentials != nil
     }
     
     override func viewDidAppear() {
         super.viewDidAppear()
+        
         view.window?.contentMaxSize = view.frame.size
         view.window?.contentMinSize = view.frame.size
     }
@@ -34,7 +35,7 @@ class EnterCredentialsViewController: NSViewController {
         view.window?.sheetParent?.endSheet(view.window!, returnCode: .cancel)
     }
     
-    private func validCredentials() -> (username: String, password: String, saveInKeychain: Bool)? {
+    private var validCredentials: (username: String, password: String, saveInKeychain: Bool)? {
         let username = usernameField.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
         let password = passwordField.stringValue.trimmingCharacters(in: .newlines)
         let saveInKeychain = saveInKeychainButton.state == .on
@@ -52,7 +53,7 @@ class EnterCredentialsViewController: NSViewController {
         passwordField.isEnabled = false
         okButton.isEnabled = false
         
-        credentials = validCredentials()
+        credentials = validCredentials
         
         guard let _ = credentials else {
             usernameField.isEnabled = true
@@ -63,13 +64,11 @@ class EnterCredentialsViewController: NSViewController {
         
         view.window?.sheetParent?.endSheet(view.window!, returnCode: .OK)
     }
-    
 }
 
 extension EnterCredentialsViewController: NSTextFieldDelegate {
     
     func controlTextDidChange(_ obj: Notification) {
-        okButton.isEnabled = validCredentials() != nil
+        okButton.isEnabled = validCredentials != nil
     }
-    
 }

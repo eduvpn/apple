@@ -7,7 +7,6 @@
 //
 
 import Cocoa
-//import AppAuth
 
 class ChooseProfileViewController: NSViewController {
 
@@ -15,12 +14,7 @@ class ChooseProfileViewController: NSViewController {
     @IBOutlet var backButton: NSButton!
     
     var userInfo: UserInfo!
-    var profiles: [Profile]!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do view setup here.
-    }
+    var profiles: [Profile] = []
     
     override func viewDidAppear() {
         super.viewDidAppear()
@@ -31,7 +25,6 @@ class ChooseProfileViewController: NSViewController {
     @IBAction func goBack(_ sender: Any) {
         mainWindowController?.pop()
     }
-    
 }
 
 extension ChooseProfileViewController: NSTableViewDataSource {
@@ -39,14 +32,18 @@ extension ChooseProfileViewController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
         return profiles.count
     }
-    
 }
 
 extension ChooseProfileViewController: NSTableViewDelegate {
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let result = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "ProfileCell"), owner: self) as? NSTableCellView
-        result?.textField?.stringValue = profiles[row].displayName
+        let result = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "ProfileCell"),
+                                        owner: self)
+        
+        if let cellView = result as? NSTableCellView {
+            cellView.textField?.stringValue = profiles[row].displayName
+        }
+        
         return result
     }
     
@@ -60,5 +57,4 @@ extension ChooseProfileViewController: NSTableViewDelegate {
         let profile = profiles[tableView.selectedRow]
         mainWindowController?.showConnection(for: profile, userInfo: userInfo)
     }
-    
 }

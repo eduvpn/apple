@@ -34,11 +34,12 @@ class EnterProviderURLViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        doneButton.isEnabled = validURL() != nil
+        doneButton.isEnabled = validURL != nil
     }
     
     override func viewDidAppear() {
         super.viewDidAppear()
+        
         view.window?.contentMaxSize = view.frame.size
         view.window?.contentMinSize = view.frame.size
     }
@@ -47,7 +48,7 @@ class EnterProviderURLViewController: NSViewController {
         view.window?.sheetParent?.endSheet(view.window!, returnCode: .cancel)
     }
     
-    private func validURL() -> URL? {
+    private var validURL: URL? {
         let string = textField.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
         if let url = URL(string: string), let scheme = url.scheme, ["http", "https"].contains(scheme), let _ = url.host {
             return url
@@ -61,9 +62,9 @@ class EnterProviderURLViewController: NSViewController {
         textField.isEnabled = false
         doneButton.isEnabled = false
         
-        guard let url = validURL(), let _ = url.host else {
+        guard let url = validURL, let _ = url.host else {
             let alert = NSAlert(customizedError: Error.invalidURL)
-            alert?.beginSheetModal(for: self.view.window!) { (_) in
+            alert?.beginSheetModal(for: self.view.window!) { _ in
                 self.textField.isEnabled = true
             }
             return
@@ -73,13 +74,11 @@ class EnterProviderURLViewController: NSViewController {
         
         view.window?.sheetParent?.endSheet(view.window!, returnCode: .OK)
     }
-    
 }
 
 extension EnterProviderURLViewController: NSTextFieldDelegate {
     
     func controlTextDidChange(_ obj: Notification) {
-        doneButton.isEnabled = validURL() != nil
+        doneButton.isEnabled = validURL != nil
     }
-    
 }

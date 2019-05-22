@@ -26,7 +26,12 @@ struct ServiceContainer {
     static let helperService = HelperService()
     
     /// Discovers providers
-    static let providerService = ProviderService(urlSession: urlSession, authenticationService: authenticationService, preferencesService: preferencesService, keychainService: keychainService, configurationService: configurationService, appConfig: appConfig)
+    static let providerService = ProviderService(urlSession: urlSession,
+                                                 authenticationService: authenticationService,
+                                                 preferencesService: preferencesService,
+                                                 keychainService: keychainService,
+                                                 configurationService: configurationService,
+                                                 appConfig: appConfig)
     
     /// Registers 2FA
     static let twoFactorService = TwoFactorService(urlSession: urlSession, authenticationService: authenticationService)
@@ -35,10 +40,16 @@ struct ServiceContainer {
     static let authenticationService = AuthenticationService(appConfig: appConfig)
    
     /// Fetches configuration
-    static let configurationService = ConfigurationService(urlSession: urlSession, authenticationService: authenticationService, keychainService: keychainService)
+    static let configurationService = ConfigurationService(urlSession: urlSession,
+                                                           authenticationService: authenticationService,
+                                                           keychainService: keychainService)
     
     /// Connects to VPN
-    static let connectionService = ConnectionService(providerService: providerService, configurationService: configurationService, helperService: helperService, keychainService: keychainService, preferencesService: preferencesService)
+    static let connectionService = ConnectionService(providerService: providerService,
+                                                     configurationService: configurationService,
+                                                     helperService: helperService,
+                                                     keychainService: keychainService,
+                                                     preferencesService: preferencesService)
     
     /// Handles preferences
     static let preferencesService = PreferencesService()

@@ -56,7 +56,7 @@ class Enter2FAViewController: NSViewController {
         delegate?.enter2FACancelled(controller: self)
     }
     
-    private func validToken() -> TwoFactor? {
+    private var validToken: TwoFactor? {
         let string = textField.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
         switch segmentedControl.selectedSegment {
         case 0:
@@ -77,7 +77,7 @@ class Enter2FAViewController: NSViewController {
     }
     
     @IBAction func typeChanged(_ sender: NSSegmentedControl) {
-        doneButton.isEnabled = validToken() != nil
+        doneButton.isEnabled = validToken != nil
     }
     
     @IBAction func done(_ sender: Any) {
@@ -86,9 +86,8 @@ class Enter2FAViewController: NSViewController {
         textField.isEnabled = false
         doneButton.isEnabled = false
         
-        guard let token = validToken() else {
-            let alert = NSAlert(customizedError: Error.invalidToken)
-            alert?.beginSheetModal(for: self.view.window!) { (_) in
+        guard let token = validToken else {
+            NSAlert(customizedError: Error.invalidToken)?.beginSheetModal(for: self.view.window!) { _ in
                 self.segmentedControl.isEnabled = true
                 self.textField.isEnabled = true
             }
@@ -102,7 +101,7 @@ class Enter2FAViewController: NSViewController {
 extension Enter2FAViewController: NSTextFieldDelegate {
     
     func controlTextDidChange(_ obj: Notification) {
-        doneButton.isEnabled = validToken() != nil
+        doneButton.isEnabled = validToken != nil
     }
     
 }
