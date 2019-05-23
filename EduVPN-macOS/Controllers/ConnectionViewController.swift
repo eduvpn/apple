@@ -28,10 +28,10 @@ class ConnectionViewController: NSViewController {
     @IBOutlet var ipv4AddressField: NSTextField!
     @IBOutlet var ipv6AddressField: NSTextField!
     
-    var profile: Profile!
+    var profile: Profile_Mac!
     var userInfo: UserInfo!
-    private var systemMessages: [Message] = []
-    private var userMessages: [Message] = []
+    private var systemMessages: [Message_mac] = []
+    private var userMessages: [Message_mac] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()

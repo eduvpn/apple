@@ -87,9 +87,9 @@ class ConfigurationService {
     /// Fetches configuration for a profile including certificate and private key
     ///
     /// - Parameters:
-    ///   - profile: Profile
+    ///   - profile: Profile_Mac
     ///   - handler: Config or error
-    func configure(for profile: Profile, handler: @escaping (Result<(config: Config, certificateCommonName: String)>) -> ()) {
+    func configure(for profile: Profile_Mac, handler: @escaping (Result<(config: Config_Mac, certificateCommonName: String)>) -> ()) {
         restoreOrCreateKeyPair(for: profile.info) { (result) in
             switch result {
             case .success(let certificateCommonName):
@@ -445,12 +445,12 @@ class ConfigurationService {
     /// Fetches config from provider
     ///
     /// - Parameters:
-    ///   - profile: Profile
+    ///   - profile: Profile_Mac
     ///   - authenticationBehavior: Whether authentication should be retried when token is revoked or expired
     ///   - handler: Config or error
-    private func fetchConfig(for profile: Profile,
+    private func fetchConfig(for profile: Profile_Mac,
                              authenticationBehavior: AuthenticationService.Behavior = .ifNeeded,
-                             handler: @escaping (Result<Config>) -> ()) {
+                             handler: @escaping (Result<Config_Mac>) -> ()) {
         
         guard profile.info.provider.connectionType != .localConfig else {
             do {

@@ -11,6 +11,7 @@ import Foundation
 import Moya
 
 struct StaticService: TargetType, AcceptJson {
+    
     enum StaticServiceType {
         case instituteAccess
         case instituteAccessSignature

@@ -7,6 +7,77 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		34186CA12296B5A1009B4121 /* NSManagedObjectContext+SaveHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2BAC86225B8C0700AECEE6 /* NSManagedObjectContext+SaveHelpers.swift */; };
+		34186CA22296B5A1009B4121 /* NSManagedObjectContext+AsyncHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2BAC88225B8C8700AECEE6 /* NSManagedObjectContext+AsyncHelpers.swift */; };
+		34186CA32296B5A1009B4121 /* NSManagedObject+FetchHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2BAC8A225B8CB500AECEE6 /* NSManagedObject+FetchHelpers.swift */; };
+		34186CA42296B5A1009B4121 /* FetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2BAC8C225B8CEE00AECEE6 /* FetchedResultsController.swift */; };
+		34186CA52296B5A6009B4121 /* AuthServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4057D220435070002B1A4F /* AuthServer.swift */; };
+		34186CA62296B5A6009B4121 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA69F86203AA23200035F1A /* Api.swift */; };
+		34186CA72296B5A6009B4121 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA69F8A203AA67900035F1A /* Profile.swift */; };
+		34186CA82296B5A6009B4121 /* Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA69F88203AA43000035F1A /* Instance.swift */; };
+		34186CA92296B5A7009B4121 /* AuthServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4057D220435070002B1A4F /* AuthServer.swift */; };
+		34186CAA2296B5A7009B4121 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA69F86203AA23200035F1A /* Api.swift */; };
+		34186CAB2296B5A7009B4121 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA69F8A203AA67900035F1A /* Profile.swift */; };
+		34186CAC2296B5A7009B4121 /* Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA69F88203AA43000035F1A /* Instance.swift */; };
+		34186CAD2296B5AA009B4121 /* NSManagedObjectContext+SaveHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2BAC86225B8C0700AECEE6 /* NSManagedObjectContext+SaveHelpers.swift */; };
+		34186CAE2296B5AA009B4121 /* NSManagedObjectContext+AsyncHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2BAC88225B8C8700AECEE6 /* NSManagedObjectContext+AsyncHelpers.swift */; };
+		34186CAF2296B5AA009B4121 /* NSManagedObject+FetchHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2BAC8A225B8CB500AECEE6 /* NSManagedObject+FetchHelpers.swift */; };
+		34186CB02296B5AA009B4121 /* FetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2BAC8C225B8CEE00AECEE6 /* FetchedResultsController.swift */; };
+		34186CB12296B5B2009B4121 /* AuthServer+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4057CE204344A1002B1A4F /* AuthServer+CoreDataClass.swift */; };
+		34186CB22296B5B2009B4121 /* AuthServer+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4057CF204344A1002B1A4F /* AuthServer+CoreDataProperties.swift */; };
+		34186CB32296B5B2009B4121 /* InstanceGroup+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA9E544202CBA41006D197E /* InstanceGroup+CoreDataClass.swift */; };
+		34186CB42296B5B2009B4121 /* InstanceGroup+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA9E545202CBA41006D197E /* InstanceGroup+CoreDataProperties.swift */; };
+		34186CB52296B5B2009B4121 /* DisplayName+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EDB2027117400F9D0D2 /* DisplayName+CoreDataClass.swift */; };
+		34186CB62296B5B2009B4121 /* DisplayName+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EDC2027117400F9D0D2 /* DisplayName+CoreDataProperties.swift */; };
+		34186CB72296B5B2009B4121 /* Api+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EDD2027117400F9D0D2 /* Api+CoreDataClass.swift */; };
+		34186CB82296B5B2009B4121 /* Api+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EDE2027117400F9D0D2 /* Api+CoreDataProperties.swift */; };
+		34186CB92296B5B2009B4121 /* Logo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EDF2027117400F9D0D2 /* Logo+CoreDataClass.swift */; };
+		34186CBA2296B5B2009B4121 /* Logo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EE02027117400F9D0D2 /* Logo+CoreDataProperties.swift */; };
+		34186CBB2296B5B2009B4121 /* Profile+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EE12027117400F9D0D2 /* Profile+CoreDataClass.swift */; };
+		34186CBC2296B5B2009B4121 /* Profile+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EE22027117400F9D0D2 /* Profile+CoreDataProperties.swift */; };
+		34186CBD2296B5B2009B4121 /* Instance+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EE32027117400F9D0D2 /* Instance+CoreDataClass.swift */; };
+		34186CBE2296B5B2009B4121 /* Instance+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EE42027117400F9D0D2 /* Instance+CoreDataProperties.swift */; };
+		34186CBF2296B5B7009B4121 /* AuthServer+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4057CE204344A1002B1A4F /* AuthServer+CoreDataClass.swift */; };
+		34186CC02296B5B7009B4121 /* AuthServer+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4057CF204344A1002B1A4F /* AuthServer+CoreDataProperties.swift */; };
+		34186CC12296B5B7009B4121 /* InstanceGroup+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA9E544202CBA41006D197E /* InstanceGroup+CoreDataClass.swift */; };
+		34186CC22296B5B7009B4121 /* InstanceGroup+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA9E545202CBA41006D197E /* InstanceGroup+CoreDataProperties.swift */; };
+		34186CC32296B5B7009B4121 /* DisplayName+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EDB2027117400F9D0D2 /* DisplayName+CoreDataClass.swift */; };
+		34186CC42296B5B7009B4121 /* DisplayName+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EDC2027117400F9D0D2 /* DisplayName+CoreDataProperties.swift */; };
+		34186CC52296B5B7009B4121 /* Api+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EDD2027117400F9D0D2 /* Api+CoreDataClass.swift */; };
+		34186CC62296B5B7009B4121 /* Api+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EDE2027117400F9D0D2 /* Api+CoreDataProperties.swift */; };
+		34186CC72296B5B7009B4121 /* Logo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EDF2027117400F9D0D2 /* Logo+CoreDataClass.swift */; };
+		34186CC82296B5B7009B4121 /* Logo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EE02027117400F9D0D2 /* Logo+CoreDataProperties.swift */; };
+		34186CC92296B5B7009B4121 /* Profile+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EE12027117400F9D0D2 /* Profile+CoreDataClass.swift */; };
+		34186CCA2296B5B7009B4121 /* Profile+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EE22027117400F9D0D2 /* Profile+CoreDataProperties.swift */; };
+		34186CCB2296B5B7009B4121 /* Instance+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EE32027117400F9D0D2 /* Instance+CoreDataClass.swift */; };
+		34186CCC2296B5B7009B4121 /* Instance+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EE42027117400F9D0D2 /* Instance+CoreDataProperties.swift */; };
+		34186CCD2296B707009B4121 /* InstanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD611F350906006E1337 /* InstanceModel.swift */; };
+		34186CCE2296B707009B4121 /* InstanceInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D24341F3A40F2004A9343 /* InstanceInfoModel.swift */; };
+		34186CCF2296B707009B4121 /* ProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D24201F3976FC004A9343 /* ProviderType.swift */; };
+		34186CD02296B707009B4121 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7D1E4E1F4B24E4009F1402 /* ProfileModel.swift */; };
+		34186CD32296B707009B4121 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3971AE21E9401E00782A28 /* Config.swift */; };
+		34186CD42296B707009B4121 /* InstanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD611F350906006E1337 /* InstanceModel.swift */; };
+		34186CD52296B707009B4121 /* InstanceInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D24341F3A40F2004A9343 /* InstanceInfoModel.swift */; };
+		34186CD62296B707009B4121 /* ProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D24201F3976FC004A9343 /* ProviderType.swift */; };
+		34186CD72296B707009B4121 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7D1E4E1F4B24E4009F1402 /* ProfileModel.swift */; };
+		34186CDA2296B707009B4121 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3971AE21E9401E00782A28 /* Config.swift */; };
+		34186CDB2296B710009B4121 /* DisplayName+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EEF2027927300F9D0D2 /* DisplayName+Convenience.swift */; };
+		34186CDC2296B710009B4121 /* Logo+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EF120279F0000F9D0D2 /* Logo+Convenience.swift */; };
+		34186CDD2296B711009B4121 /* DisplayName+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EEF2027927300F9D0D2 /* DisplayName+Convenience.swift */; };
+		34186CDE2296B711009B4121 /* Logo+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EF120279F0000F9D0D2 /* Logo+Convenience.swift */; };
+		34186CE02296B7BC009B4121 /* UserDefaults+EduVPN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE728151F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift */; };
+		34186CE12296B7BC009B4121 /* UserDefaults+EduVPN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE728151F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift */; };
+		34186CE22296B951009B4121 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAD228DA39F0027DE84 /* Message.swift */; };
+		34186CE32296B951009B4121 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAD228DA39F0027DE84 /* Message.swift */; };
+		34186CEA2296DEE4009B4121 /* CertificateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A81DF9B2003BFB7002827A8 /* CertificateModel.swift */; };
+		34186CEB2296DEE5009B4121 /* CertificateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A81DF9B2003BFB7002827A8 /* CertificateModel.swift */; };
+		34186CEC2296E2CA009B4121 /* StaticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACA04291F311507004B35AA /* StaticService.swift */; };
+		34186CEE2296E46F009B4121 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34186CED2296E46F009B4121 /* FileService.swift */; };
+		34186CEF2296E6CE009B4121 /* Moya+ResponseHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD5E1F350822006E1337 /* Moya+ResponseHandling.swift */; };
+		34186CF02296E6CE009B4121 /* Moya+ResponseHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD5E1F350822006E1337 /* Moya+ResponseHandling.swift */; };
+		34186CF12296E7B4009B4121 /* StaticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACA04291F311507004B35AA /* StaticService.swift */; };
+		34186CF22296E7C6009B4121 /* Moya+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3E029B1F6C4B3D00D20292 /* Moya+Extensions.swift */; };
+		34186CF32296E7C6009B4121 /* Moya+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3E029B1F6C4B3D00D20292 /* Moya+Extensions.swift */; };
 		342B9C88228ECB4900C006D7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B9C87228ECB4900C006D7 /* main.m */; };
 		342B9C90228ECB8300C006D7 /* OpenVPNHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B9C8E228ECB8200C006D7 /* OpenVPNHelper.m */; };
 		342B9C92228ECBB200C006D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 342B9C91228ECBB200C006D7 /* Foundation.framework */; };
@@ -58,7 +129,6 @@
 		34D71AAA228D9CCC0027DE84 /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A8B228D9C6A0027DE84 /* Debug.swift */; };
 		34D71AB1228DA3A00027DE84 /* IPAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAB228DA39F0027DE84 /* IPAddress.swift */; };
 		34D71AB2228DA3A00027DE84 /* String+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAC228DA39F0027DE84 /* String+URL.swift */; };
-		34D71AB3228DA3A00027DE84 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAD228DA39F0027DE84 /* Message.swift */; };
 		34D71AB4228DA3A00027DE84 /* Either.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAE228DA39F0027DE84 /* Either.swift */; };
 		34D71AB5228DA3A00027DE84 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAF228DA39F0027DE84 /* Provider.swift */; };
 		34D71AB6228DA3A00027DE84 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AB0228DA39F0027DE84 /* User.swift */; };
@@ -72,7 +142,6 @@
 		34D71ADE228DA4BB0027DE84 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34D719FE228D75C10027DE84 /* Info.plist */; };
 		34D71AE5228DA4CC0027DE84 /* Either.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAE228DA39F0027DE84 /* Either.swift */; };
 		34D71AE6228DA4CC0027DE84 /* IPAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAB228DA39F0027DE84 /* IPAddress.swift */; };
-		34D71AE7228DA4CC0027DE84 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAD228DA39F0027DE84 /* Message.swift */; };
 		34D71AE8228DA4CC0027DE84 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAF228DA39F0027DE84 /* Provider.swift */; };
 		34D71AE9228DA4CC0027DE84 /* String+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAC228DA39F0027DE84 /* String+URL.swift */; };
 		34D71AEA228DA4CC0027DE84 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AB0228DA39F0027DE84 /* User.swift */; };
@@ -91,7 +160,7 @@
 		4A3E029C1F6C4B3D00D20292 /* Moya+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3E029B1F6C4B3D00D20292 /* Moya+Extensions.swift */; };
 		4A4057D0204344A1002B1A4F /* AuthServer+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4057CE204344A1002B1A4F /* AuthServer+CoreDataClass.swift */; };
 		4A4057D1204344A1002B1A4F /* AuthServer+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4057CF204344A1002B1A4F /* AuthServer+CoreDataProperties.swift */; };
-		4A4057D320435070002B1A4F /* AuthServer+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4057D220435070002B1A4F /* AuthServer+Helper.swift */; };
+		4A4057D320435070002B1A4F /* AuthServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4057D220435070002B1A4F /* AuthServer.swift */; };
 		4A4CA90F1F55F4300021FD5D /* UITableView+EduVPN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CA90E1F55F4300021FD5D /* UITableView+EduVPN.swift */; };
 		4A4F36531F31972C0032C96B /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4F36521F31972C0032C96B /* ApiService.swift */; };
 		4A62C8B81FB03B47007D3FAA /* KeyboardWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A62C8B71FB03B47007D3FAA /* KeyboardWrapper.swift */; };
@@ -108,9 +177,9 @@
 		4A983B771F397243004F82D5 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A983B761F397243004F82D5 /* AppCoordinator.swift */; };
 		4A983B791F397289004F82D5 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A983B781F397289004F82D5 /* Coordinator.swift */; };
 		4A983B7B1F3972BE004F82D5 /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A983B7A1F3972BE004F82D5 /* RootCoordinator.swift */; };
-		4AA69F87203AA23200035F1A /* Api+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA69F86203AA23200035F1A /* Api+Helper.swift */; };
-		4AA69F89203AA43000035F1A /* Instance+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA69F88203AA43000035F1A /* Instance+Helper.swift */; };
-		4AA69F8B203AA67900035F1A /* Profile+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA69F8A203AA67900035F1A /* Profile+Helper.swift */; };
+		4AA69F87203AA23200035F1A /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA69F86203AA23200035F1A /* Api.swift */; };
+		4AA69F89203AA43000035F1A /* Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA69F88203AA43000035F1A /* Instance.swift */; };
+		4AA69F8B203AA67900035F1A /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA69F8A203AA67900035F1A /* Profile.swift */; };
 		4AA9E546202CBA41006D197E /* InstanceGroup+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA9E544202CBA41006D197E /* InstanceGroup+CoreDataClass.swift */; };
 		4AA9E547202CBA41006D197E /* InstanceGroup+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA9E545202CBA41006D197E /* InstanceGroup+CoreDataProperties.swift */; };
 		4AAA157B21C2EF530097A1B5 /* TunnelProviderManagerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAA157A21C2EF530097A1B5 /* TunnelProviderManagerCoordinator.swift */; };
@@ -194,6 +263,8 @@
 /* Begin PBXFileReference section */
 		11EE63FC99D26438F0B980F7 /* Pods-EduVPNTunnelExtension.release appforce1.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension.release appforce1.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.release appforce1.xcconfig"; sourceTree = "<group>"; };
 		1C644DAFAF71735E397E6E30 /* Pods-EduVPN.release appforce1.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPN.release appforce1.xcconfig"; path = "Target Support Files/Pods-EduVPN/Pods-EduVPN.release appforce1.xcconfig"; sourceTree = "<group>"; };
+		34186CE42296D971009B4121 /* ASN1Decoder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ASN1Decoder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		34186CED2296E46F009B4121 /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
 		342B9C85228ECB4800C006D7 /* org.eduvpn.app.openvpnhelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = org.eduvpn.app.openvpnhelper; sourceTree = BUILT_PRODUCTS_DIR; };
 		342B9C87228ECB4900C006D7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		342B9C8C228ECB8200C006D7 /* OpenVPNHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenVPNHelper.h; sourceTree = "<group>"; };
@@ -276,7 +347,7 @@
 		4A3E029B1F6C4B3D00D20292 /* Moya+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Moya+Extensions.swift"; sourceTree = "<group>"; };
 		4A4057CE204344A1002B1A4F /* AuthServer+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthServer+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4A4057CF204344A1002B1A4F /* AuthServer+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthServer+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		4A4057D220435070002B1A4F /* AuthServer+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthServer+Helper.swift"; sourceTree = "<group>"; };
+		4A4057D220435070002B1A4F /* AuthServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServer.swift; sourceTree = "<group>"; };
 		4A4CA90E1F55F4300021FD5D /* UITableView+EduVPN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+EduVPN.swift"; sourceTree = "<group>"; };
 		4A4F36521F31972C0032C96B /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		4A62C8B71FB03B47007D3FAA /* KeyboardWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardWrapper.swift; sourceTree = "<group>"; };
@@ -302,9 +373,9 @@
 		4A983B761F397243004F82D5 /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		4A983B781F397289004F82D5 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		4A983B7A1F3972BE004F82D5 /* RootCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
-		4AA69F86203AA23200035F1A /* Api+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Api+Helper.swift"; sourceTree = "<group>"; };
-		4AA69F88203AA43000035F1A /* Instance+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Instance+Helper.swift"; sourceTree = "<group>"; };
-		4AA69F8A203AA67900035F1A /* Profile+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Profile+Helper.swift"; sourceTree = "<group>"; };
+		4AA69F86203AA23200035F1A /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
+		4AA69F88203AA43000035F1A /* Instance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instance.swift; sourceTree = "<group>"; };
+		4AA69F8A203AA67900035F1A /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		4AA9E544202CBA41006D197E /* InstanceGroup+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InstanceGroup+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4AA9E545202CBA41006D197E /* InstanceGroup+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InstanceGroup+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4AAA157A21C2EF530097A1B5 /* TunnelProviderManagerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelProviderManagerCoordinator.swift; sourceTree = "<group>"; };
@@ -434,6 +505,7 @@
 		26B4255A0C7DB00763783EF6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				34186CE42296D971009B4121 /* ASN1Decoder.framework */,
 				342B9C93228ECBB600C006D7 /* Security.framework */,
 				342B9C91228ECBB200C006D7 /* Foundation.framework */,
 				4ABFF78820C71E7200638480 /* NetworkExtension.framework */,
@@ -443,6 +515,94 @@
 				7A3DB98EF527A814CF83B588 /* Pods_LetsConnect_macOS.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		34186C9B2296B318009B4121 /* EduVPN-multiOS */ = {
+			isa = PBXGroup;
+			children = (
+				34186C9D2296B345009B4121 /* Models */,
+				34186C9C2296B336009B4121 /* Extensions */,
+			);
+			path = "EduVPN-multiOS";
+			sourceTree = "<group>";
+		};
+		34186C9C2296B336009B4121 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4AAC2EEF2027927300F9D0D2 /* DisplayName+Convenience.swift */,
+				4AAC2EF120279F0000F9D0D2 /* Logo+Convenience.swift */,
+				4AE728151F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		34186C9D2296B345009B4121 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				34186CA02296B52C009B4121 /* CoreData Helpers */,
+				34186C9E2296B381009B4121 /* Managed Objects */,
+				4AECAB402027091900B5105B /* EduVPN.xcdatamodeld */,
+				4AD0AD611F350906006E1337 /* InstanceModel.swift */,
+				4A8D24341F3A40F2004A9343 /* InstanceInfoModel.swift */,
+				4A8D24201F3976FC004A9343 /* ProviderType.swift */,
+				4A7D1E4E1F4B24E4009F1402 /* ProfileModel.swift */,
+				4A81DF9B2003BFB7002827A8 /* CertificateModel.swift */,
+				4A140BBB21B5D7F5000A87E3 /* Message.swift */,
+				4A3971AE21E9401E00782A28 /* Config.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		34186C9E2296B381009B4121 /* Managed Objects */ = {
+			isa = PBXGroup;
+			children = (
+				34186C9F2296B395009B4121 /* Generated */,
+				4A4057D220435070002B1A4F /* AuthServer.swift */,
+				4AA69F86203AA23200035F1A /* Api.swift */,
+				4AA69F8A203AA67900035F1A /* Profile.swift */,
+				4AA69F88203AA43000035F1A /* Instance.swift */,
+			);
+			path = "Managed Objects";
+			sourceTree = "<group>";
+		};
+		34186C9F2296B395009B4121 /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				4A4057CE204344A1002B1A4F /* AuthServer+CoreDataClass.swift */,
+				4A4057CF204344A1002B1A4F /* AuthServer+CoreDataProperties.swift */,
+				4AA9E544202CBA41006D197E /* InstanceGroup+CoreDataClass.swift */,
+				4AA9E545202CBA41006D197E /* InstanceGroup+CoreDataProperties.swift */,
+				4AAC2EDB2027117400F9D0D2 /* DisplayName+CoreDataClass.swift */,
+				4AAC2EDC2027117400F9D0D2 /* DisplayName+CoreDataProperties.swift */,
+				4AAC2EDD2027117400F9D0D2 /* Api+CoreDataClass.swift */,
+				4AAC2EDE2027117400F9D0D2 /* Api+CoreDataProperties.swift */,
+				4AAC2EDF2027117400F9D0D2 /* Logo+CoreDataClass.swift */,
+				4AAC2EE02027117400F9D0D2 /* Logo+CoreDataProperties.swift */,
+				4AAC2EE12027117400F9D0D2 /* Profile+CoreDataClass.swift */,
+				4AAC2EE22027117400F9D0D2 /* Profile+CoreDataProperties.swift */,
+				4AAC2EE32027117400F9D0D2 /* Instance+CoreDataClass.swift */,
+				4AAC2EE42027117400F9D0D2 /* Instance+CoreDataProperties.swift */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
+		34186CA02296B52C009B4121 /* CoreData Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				4A2BAC86225B8C0700AECEE6 /* NSManagedObjectContext+SaveHelpers.swift */,
+				4A2BAC88225B8C8700AECEE6 /* NSManagedObjectContext+AsyncHelpers.swift */,
+				4A2BAC8A225B8CB500AECEE6 /* NSManagedObject+FetchHelpers.swift */,
+				4A2BAC8C225B8CEE00AECEE6 /* FetchedResultsController.swift */,
+			);
+			path = "CoreData Helpers";
+			sourceTree = "<group>";
+		};
+		34186CDF2296B779009B4121 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4A4CA90E1F55F4300021FD5D /* UITableView+EduVPN.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		342B9C86228ECB4900C006D7 /* OpenVPNHelper-macOS */ = {
@@ -547,6 +707,7 @@
 				342B9CBD22902BA800C006D7 /* ProviderService.swift */,
 				342B9CC522902BA900C006D7 /* ServiceContainer.swift */,
 				342B9CBE22902BA800C006D7 /* TwoFactorService.swift */,
+				34186CED2296E46F009B4121 /* FileService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -621,17 +782,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		4A2BAC85225B8BEC00AECEE6 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				4A2BAC86225B8C0700AECEE6 /* NSManagedObjectContext+SaveHelpers.swift */,
-				4A2BAC88225B8C8700AECEE6 /* NSManagedObjectContext+AsyncHelpers.swift */,
-				4A2BAC8A225B8CB500AECEE6 /* NSManagedObject+FetchHelpers.swift */,
-				4A2BAC8C225B8CEE00AECEE6 /* FetchedResultsController.swift */,
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
 		4A901C1220C87512000C1BF0 /* EduVPNTunnelExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -657,6 +807,7 @@
 		4AAC1F6D1F2D0E3400DD0252 = {
 			isa = PBXGroup;
 			children = (
+				34186C9B2296B318009B4121 /* EduVPN-multiOS */,
 				4AAC1F781F2D0E3400DD0252 /* EduVPN */,
 				4AAC1F8D1F2D0E3400DD0252 /* EduVPNTests */,
 				4A901C1220C87512000C1BF0 /* EduVPNTunnelExtension */,
@@ -686,18 +837,16 @@
 		4AAC1F781F2D0E3400DD0252 /* EduVPN */ = {
 			isa = PBXGroup;
 			children = (
+				34186CDF2296B779009B4121 /* Extensions */,
 				4ABCCBDA21E5269B0020CB6D /* Config */,
 				4A84E276204F3A5B00E51EFE /* EduVPN.entitlements */,
 				4A983B751F397223004F82D5 /* Coordinators */,
-				4AD0AD601F3508DD006E1337 /* Models */,
 				4AD0AD5B1F35045E006E1337 /* ViewControllers */,
 				4ACA04281F311507004B35AA /* Networking */,
 				4AAC1F9C1F2D134200DD0252 /* Resources */,
 				4AAC1F791F2D0E3400DD0252 /* AppDelegate.swift */,
 				4AAC1F821F2D0E3400DD0252 /* LaunchScreen.storyboard */,
 				4AAC1F851F2D0E3400DD0252 /* Info.plist */,
-				4AE728151F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift */,
-				4A4CA90E1F55F4300021FD5D /* UITableView+EduVPN.swift */,
 				4A62C8B71FB03B47007D3FAA /* KeyboardWrapper.swift */,
 				4AEAC32620F13D0C007B67AB /* Log.swift */,
 			);
@@ -767,42 +916,6 @@
 				4A2803D81FA6867D00FA895C /* CustomProviderInPutViewController.swift */,
 			);
 			path = ViewControllers;
-			sourceTree = "<group>";
-		};
-		4AD0AD601F3508DD006E1337 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				4A2BAC85225B8BEC00AECEE6 /* Helpers */,
-				4A4057CE204344A1002B1A4F /* AuthServer+CoreDataClass.swift */,
-				4A4057CF204344A1002B1A4F /* AuthServer+CoreDataProperties.swift */,
-				4A4057D220435070002B1A4F /* AuthServer+Helper.swift */,
-				4AA9E544202CBA41006D197E /* InstanceGroup+CoreDataClass.swift */,
-				4AA9E545202CBA41006D197E /* InstanceGroup+CoreDataProperties.swift */,
-				4AECAB402027091900B5105B /* EduVPN.xcdatamodeld */,
-				4AAC2EDB2027117400F9D0D2 /* DisplayName+CoreDataClass.swift */,
-				4AAC2EDC2027117400F9D0D2 /* DisplayName+CoreDataProperties.swift */,
-				4AAC2EEF2027927300F9D0D2 /* DisplayName+Convenience.swift */,
-				4AAC2EDD2027117400F9D0D2 /* Api+CoreDataClass.swift */,
-				4AAC2EDE2027117400F9D0D2 /* Api+CoreDataProperties.swift */,
-				4AA69F86203AA23200035F1A /* Api+Helper.swift */,
-				4AAC2EDF2027117400F9D0D2 /* Logo+CoreDataClass.swift */,
-				4AAC2EE02027117400F9D0D2 /* Logo+CoreDataProperties.swift */,
-				4AAC2EF120279F0000F9D0D2 /* Logo+Convenience.swift */,
-				4AAC2EE12027117400F9D0D2 /* Profile+CoreDataClass.swift */,
-				4AAC2EE22027117400F9D0D2 /* Profile+CoreDataProperties.swift */,
-				4AA69F8A203AA67900035F1A /* Profile+Helper.swift */,
-				4AAC2EE32027117400F9D0D2 /* Instance+CoreDataClass.swift */,
-				4AAC2EE42027117400F9D0D2 /* Instance+CoreDataProperties.swift */,
-				4AA69F88203AA43000035F1A /* Instance+Helper.swift */,
-				4AD0AD611F350906006E1337 /* InstanceModel.swift */,
-				4A8D24341F3A40F2004A9343 /* InstanceInfoModel.swift */,
-				4A8D24201F3976FC004A9343 /* ProviderType.swift */,
-				4A7D1E4E1F4B24E4009F1402 /* ProfileModel.swift */,
-				4A81DF9B2003BFB7002827A8 /* CertificateModel.swift */,
-				4A140BBB21B5D7F5000A87E3 /* Message.swift */,
-				4A3971AE21E9401E00782A28 /* Config.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1219,27 +1332,23 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-EduVPN/Pods-EduVPN-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/ASN1Decoder/ASN1Decoder.framework",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/ASN1Decoder-iOS/ASN1Decoder.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/AppAuth-iOS/AppAuth.framework",
 				"${BUILT_PRODUCTS_DIR}/Disk/Disk.framework",
-				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
+				"${BUILT_PRODUCTS_DIR}/Moya-iOS/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${PODS_ROOT}/OpenSSL-Apple/frameworks/iPhone/openssl.framework",
-				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
-				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit-iOS/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Result-iOS/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyBeaver/SwiftyBeaver.framework",
 				"${BUILT_PRODUCTS_DIR}/TunnelKit/TunnelKit.framework",
 				"${BUILT_PRODUCTS_DIR}/libsodium/libsodium.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ASN1Decoder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
@@ -1265,11 +1374,14 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-EduVPN-macOS/Pods-EduVPN-macOS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ASN1Decoder-macOS/ASN1Decoder.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-macOS/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AppAuth-macOS/AppAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/Moya-macOS/Moya.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit-macOS/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Result-macOS/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/BlueSocket/Socket.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
@@ -1278,10 +1390,13 @@
 				"${PODS_ROOT}/Sparkle/Sparkle.framework.dSYM",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ASN1Decoder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Socket.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
@@ -1321,11 +1436,14 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-LetsConnect-macOS/Pods-LetsConnect-macOS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ASN1Decoder-macOS/ASN1Decoder.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-macOS/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AppAuth-macOS/AppAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/Moya-macOS/Moya.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit-macOS/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Result-macOS/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/BlueSocket/Socket.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
@@ -1334,10 +1452,13 @@
 				"${PODS_ROOT}/Sparkle/Sparkle.framework.dSYM",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ASN1Decoder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Socket.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
@@ -1397,41 +1518,76 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34186CB92296B5B2009B4121 /* Logo+CoreDataClass.swift in Sources */,
 				34D71A96228D9C6A0027DE84 /* URL+Unused.swift in Sources */,
 				34D71A98228D9C6A0027DE84 /* Debug.swift in Sources */,
 				342B9CE922902BB500C006D7 /* ChooseProfileViewController.swift in Sources */,
 				34D71A0B228D76610027DE84 /* AppConfig.swift in Sources */,
+				34186CDD2296B711009B4121 /* DisplayName+Convenience.swift in Sources */,
 				342B9CEA22902BB500C006D7 /* Enroll2FAViewController.swift in Sources */,
 				342B9CE322902BB500C006D7 /* Enter2FAViewController.swift in Sources */,
 				342B9CE522902BB500C006D7 /* AuthenticatingViewController.swift in Sources */,
 				34D71AB4228DA3A00027DE84 /* Either.swift in Sources */,
+				34186CEF2296E6CE009B4121 /* Moya+ResponseHandling.swift in Sources */,
+				34186CF12296E7B4009B4121 /* StaticService.swift in Sources */,
+				34186CB82296B5B2009B4121 /* Api+CoreDataProperties.swift in Sources */,
+				34186CBA2296B5B2009B4121 /* Logo+CoreDataProperties.swift in Sources */,
 				34D71A67228D8D940027DE84 /* AppConfigType.swift in Sources */,
+				34186CA72296B5A6009B4121 /* Profile.swift in Sources */,
 				34D719E1228D75550027DE84 /* AppDelegate.swift in Sources */,
+				34186CA22296B5A1009B4121 /* NSManagedObjectContext+AsyncHelpers.swift in Sources */,
 				342B9CC922902BA900C006D7 /* PreferencesService.swift in Sources */,
+				34186CCE2296B707009B4121 /* InstanceInfoModel.swift in Sources */,
+				34186CA62296B5A6009B4121 /* Api.swift in Sources */,
+				34186CCD2296B707009B4121 /* InstanceModel.swift in Sources */,
+				34186CDE2296B711009B4121 /* Logo+Convenience.swift in Sources */,
+				34186CB12296B5B2009B4121 /* AuthServer+CoreDataClass.swift in Sources */,
 				342B9CDD22902BB500C006D7 /* PreferencesViewController.swift in Sources */,
 				342B9CDE22902BB500C006D7 /* ConnectionViewController.swift in Sources */,
 				342B9CCA22902BA900C006D7 /* HelperService.swift in Sources */,
 				342B9CE722902BB500C006D7 /* MainViewController.swift in Sources */,
+				34186CBE2296B5B2009B4121 /* Instance+CoreDataProperties.swift in Sources */,
 				342B9CC722902BA900C006D7 /* TwoFactorService.swift in Sources */,
 				342B9CE622902BB500C006D7 /* DurationTransformer.swift in Sources */,
+				34186CA42296B5A1009B4121 /* FetchedResultsController.swift in Sources */,
 				342B9CE422902BB500C006D7 /* EnterProviderURLViewController.swift in Sources */,
+				34186CA82296B5A6009B4121 /* Instance.swift in Sources */,
+				34186CE02296B7BC009B4121 /* UserDefaults+EduVPN.swift in Sources */,
+				34186CCF2296B707009B4121 /* ProviderType.swift in Sources */,
+				34186CF22296E7C6009B4121 /* Moya+Extensions.swift in Sources */,
 				342B9CC822902BA900C006D7 /* AuthenticationService.swift in Sources */,
+				34186CD32296B707009B4121 /* Config.swift in Sources */,
+				34186CEB2296DEE5009B4121 /* CertificateModel.swift in Sources */,
+				34186CA52296B5A6009B4121 /* AuthServer.swift in Sources */,
+				34186CE22296B951009B4121 /* Message.swift in Sources */,
+				34186CB72296B5B2009B4121 /* Api+CoreDataClass.swift in Sources */,
 				342B9CCC22902BA900C006D7 /* ConfigurationService.swift in Sources */,
+				34186CEE2296E46F009B4121 /* FileService.swift in Sources */,
 				342B9CCE22902BA900C006D7 /* ServiceContainer.swift in Sources */,
+				34186CA12296B5A1009B4121 /* NSManagedObjectContext+SaveHelpers.swift in Sources */,
 				342B9CCD22902BA900C006D7 /* KeychainService.swift in Sources */,
+				34186CB42296B5B2009B4121 /* InstanceGroup+CoreDataProperties.swift in Sources */,
+				34186CB22296B5B2009B4121 /* AuthServer+CoreDataProperties.swift in Sources */,
+				34186CBB2296B5B2009B4121 /* Profile+CoreDataClass.swift in Sources */,
 				342B9CDF22902BB500C006D7 /* EnterCredentialsViewController.swift in Sources */,
 				342B9CC622902BA900C006D7 /* ProviderService.swift in Sources */,
 				342B9CE222902BB500C006D7 /* ProvidersViewController.swift in Sources */,
 				34D71A9A228D9C6A0027DE84 /* String+Random.swift in Sources */,
 				342B9CCB22902BA900C006D7 /* ConnectionService.swift in Sources */,
+				34186CB62296B5B2009B4121 /* DisplayName+CoreDataProperties.swift in Sources */,
 				342B9CE122902BB500C006D7 /* ChooseConnectionTypeViewController.swift in Sources */,
 				342B9CE822902BB500C006D7 /* MainWindowController.swift in Sources */,
-				34D71AB3228DA3A00027DE84 /* Message.swift in Sources */,
+				34186CD02296B707009B4121 /* ProfileModel.swift in Sources */,
+				34186CB52296B5B2009B4121 /* DisplayName+CoreDataClass.swift in Sources */,
 				34D71AB6228DA3A00027DE84 /* User.swift in Sources */,
 				34D71AB2228DA3A00027DE84 /* String+URL.swift in Sources */,
 				342B9CE022902BB500C006D7 /* ChooseProviderViewController.swift in Sources */,
 				34D71A92228D9C6A0027DE84 /* NSAlert+Custom.swift in Sources */,
+				34186CA32296B5A1009B4121 /* NSManagedObject+FetchHelpers.swift in Sources */,
+				34186CBD2296B5B2009B4121 /* Instance+CoreDataClass.swift in Sources */,
+				34186CB32296B5B2009B4121 /* InstanceGroup+CoreDataClass.swift in Sources */,
 				34D71AB1228DA3A00027DE84 /* IPAddress.swift in Sources */,
+				34186CBC2296B5B2009B4121 /* Profile+CoreDataProperties.swift in Sources */,
 				34D71AB5228DA3A00027DE84 /* Provider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1440,19 +1596,53 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34186CDC2296B710009B4121 /* Logo+Convenience.swift in Sources */,
+				34186CAB2296B5A7009B4121 /* Profile.swift in Sources */,
+				34186CC52296B5B7009B4121 /* Api+CoreDataClass.swift in Sources */,
+				34186CC62296B5B7009B4121 /* Api+CoreDataProperties.swift in Sources */,
+				34186CF02296E6CE009B4121 /* Moya+ResponseHandling.swift in Sources */,
+				34186CC42296B5B7009B4121 /* DisplayName+CoreDataProperties.swift in Sources */,
+				34186CD52296B707009B4121 /* InstanceInfoModel.swift in Sources */,
+				34186CC82296B5B7009B4121 /* Logo+CoreDataProperties.swift in Sources */,
+				34186CC12296B5B7009B4121 /* InstanceGroup+CoreDataClass.swift in Sources */,
 				34D71AE9228DA4CC0027DE84 /* String+URL.swift in Sources */,
-				34D71AE7228DA4CC0027DE84 /* Message.swift in Sources */,
+				34186CAD2296B5AA009B4121 /* NSManagedObjectContext+SaveHelpers.swift in Sources */,
+				34186CCA2296B5B7009B4121 /* Profile+CoreDataProperties.swift in Sources */,
+				34186CDA2296B707009B4121 /* Config.swift in Sources */,
 				34D71AA9228D9CCC0027DE84 /* URL+Unused.swift in Sources */,
+				34186CD42296B707009B4121 /* InstanceModel.swift in Sources */,
+				34186CAC2296B5A7009B4121 /* Instance.swift in Sources */,
 				34D71B08228DA4D20027DE84 /* AppDelegate.swift in Sources */,
+				34186CE32296B951009B4121 /* Message.swift in Sources */,
+				34186CD72296B707009B4121 /* ProfileModel.swift in Sources */,
 				34D71AE5228DA4CC0027DE84 /* Either.swift in Sources */,
+				34186CE12296B7BC009B4121 /* UserDefaults+EduVPN.swift in Sources */,
 				342B9CEB22955D5300C006D7 /* DurationTransformer.swift in Sources */,
 				34D71AE8228DA4CC0027DE84 /* Provider.swift in Sources */,
+				34186CC02296B5B7009B4121 /* AuthServer+CoreDataProperties.swift in Sources */,
+				34186CAE2296B5AA009B4121 /* NSManagedObjectContext+AsyncHelpers.swift in Sources */,
+				34186CCB2296B5B7009B4121 /* Instance+CoreDataClass.swift in Sources */,
+				34186CA92296B5A7009B4121 /* AuthServer.swift in Sources */,
+				34186CEA2296DEE4009B4121 /* CertificateModel.swift in Sources */,
+				34186CD62296B707009B4121 /* ProviderType.swift in Sources */,
+				34186CAF2296B5AA009B4121 /* NSManagedObject+FetchHelpers.swift in Sources */,
+				34186CDB2296B710009B4121 /* DisplayName+Convenience.swift in Sources */,
 				34D71AE6228DA4CC0027DE84 /* IPAddress.swift in Sources */,
+				34186CC22296B5B7009B4121 /* InstanceGroup+CoreDataProperties.swift in Sources */,
+				34186CF32296E7C6009B4121 /* Moya+Extensions.swift in Sources */,
 				34D71AA8228D9CCC0027DE84 /* String+Random.swift in Sources */,
+				34186CEC2296E2CA009B4121 /* StaticService.swift in Sources */,
+				34186CC32296B5B7009B4121 /* DisplayName+CoreDataClass.swift in Sources */,
 				34D71AA7228D9CCC0027DE84 /* NSAlert+Custom.swift in Sources */,
+				34186CB02296B5AA009B4121 /* FetchedResultsController.swift in Sources */,
+				34186CC92296B5B7009B4121 /* Profile+CoreDataClass.swift in Sources */,
 				34D71A64228D781A0027DE84 /* AppConfig.swift in Sources */,
 				34D71AEB228DA4CC0027DE84 /* AppConfigType.swift in Sources */,
 				34D71AAA228D9CCC0027DE84 /* Debug.swift in Sources */,
+				34186CBF2296B5B7009B4121 /* AuthServer+CoreDataClass.swift in Sources */,
+				34186CCC2296B5B7009B4121 /* Instance+CoreDataProperties.swift in Sources */,
+				34186CAA2296B5A7009B4121 /* Api.swift in Sources */,
+				34186CC72296B5B7009B4121 /* Logo+CoreDataClass.swift in Sources */,
 				34D71AEA228DA4CC0027DE84 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1482,21 +1672,21 @@
 				4AAC2EEB2027117400F9D0D2 /* Profile+CoreDataClass.swift in Sources */,
 				4AAC2EEE2027117400F9D0D2 /* Instance+CoreDataProperties.swift in Sources */,
 				4AAA157B21C2EF530097A1B5 /* TunnelProviderManagerCoordinator.swift in Sources */,
-				4AA69F8B203AA67900035F1A /* Profile+Helper.swift in Sources */,
+				4AA69F8B203AA67900035F1A /* Profile.swift in Sources */,
 				4AD0AD5F1F350822006E1337 /* Moya+ResponseHandling.swift in Sources */,
 				4A2803D91FA6867D00FA895C /* CustomProviderInPutViewController.swift in Sources */,
 				4A4057D0204344A1002B1A4F /* AuthServer+CoreDataClass.swift in Sources */,
 				4A8D241F1F3976A2004A9343 /* ProfilesViewController.swift in Sources */,
 				4A983B791F397289004F82D5 /* Coordinator.swift in Sources */,
 				4A983B7B1F3972BE004F82D5 /* RootCoordinator.swift in Sources */,
-				4AA69F87203AA23200035F1A /* Api+Helper.swift in Sources */,
+				4AA69F87203AA23200035F1A /* Api.swift in Sources */,
 				4AAC2EED2027117400F9D0D2 /* Instance+CoreDataClass.swift in Sources */,
 				4A2BAC8B225B8CB500AECEE6 /* NSManagedObject+FetchHelpers.swift in Sources */,
 				4A8D24351F3A40F2004A9343 /* InstanceInfoModel.swift in Sources */,
 				4AAC2EEA2027117400F9D0D2 /* Logo+CoreDataProperties.swift in Sources */,
 				4AAC2EE82027117400F9D0D2 /* Api+CoreDataProperties.swift in Sources */,
 				4A2BAC8D225B8CEE00AECEE6 /* FetchedResultsController.swift in Sources */,
-				4A4057D320435070002B1A4F /* AuthServer+Helper.swift in Sources */,
+				4A4057D320435070002B1A4F /* AuthServer.swift in Sources */,
 				4A62C8B81FB03B47007D3FAA /* KeyboardWrapper.swift in Sources */,
 				4A2CC2221F4233E8004119B1 /* Identifyable.swift in Sources */,
 				4AAC2EE72027117400F9D0D2 /* Api+CoreDataClass.swift in Sources */,
@@ -1512,7 +1702,7 @@
 				4AAC2EF02027927300F9D0D2 /* DisplayName+Convenience.swift in Sources */,
 				4AAC2EF220279F0000F9D0D2 /* Logo+Convenience.swift in Sources */,
 				4AAC2EE52027117400F9D0D2 /* DisplayName+CoreDataClass.swift in Sources */,
-				4AA69F89203AA43000035F1A /* Instance+Helper.swift in Sources */,
+				4AA69F89203AA43000035F1A /* Instance.swift in Sources */,
 				4A4CA90F1F55F4300021FD5D /* UITableView+EduVPN.swift in Sources */,
 				4AD0AD5D1F35048E006E1337 /* ProviderTableViewController.swift in Sources */,
 				4A2BAC89225B8C8700AECEE6 /* NSManagedObjectContext+AsyncHelpers.swift in Sources */,
@@ -1675,7 +1865,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "LoginItemHelper-macOS/LoginItemHelper_macOS.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "LoginItemHelper-macOS/LoginItemHelper.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1700,7 +1890,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "LoginItemHelper-macOS/LoginItemHelper_macOS.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "LoginItemHelper-macOS/LoginItemHelper.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1725,12 +1915,33 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "EduVPN-macOS/EduVPN_macOS.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "EduVPN-macOS/Targets/eduVPN/EduVPN_macOS.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth-macOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/BlueSocket\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/ReachabilitySwift\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Sodium\"",
+					"\"${PODS_ROOT}/Sparkle\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/ASN1Decoder\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Moya\"",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth-macOS/AppAuth.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/BlueSocket/Socket.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher/Kingfisher.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/ReachabilitySwift/Reachability.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Sodium/Sodium.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/ASN1Decoder/ASN1Decoder.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Moya/Moya.framework/Headers\"",
+				);
 				INFOPLIST_FILE = "EduVPN-macOS/Targets/eduVPN/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
@@ -1752,12 +1963,33 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "EduVPN-macOS/EduVPN_macOS.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "EduVPN-macOS/Targets/eduVPN/EduVPN_macOS.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth-macOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/BlueSocket\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/ReachabilitySwift\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Sodium\"",
+					"\"${PODS_ROOT}/Sparkle\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/ASN1Decoder\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Moya\"",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth-macOS/AppAuth.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/BlueSocket/Socket.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher/Kingfisher.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/ReachabilitySwift/Reachability.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Sodium/Sodium.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/ASN1Decoder/ASN1Decoder.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Moya/Moya.framework/Headers\"",
+				);
 				INFOPLIST_FILE = "EduVPN-macOS/Targets/eduVPN/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
@@ -1778,12 +2010,33 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "LetsConnect-macOS/LetsConnect_macOS.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "EduVPN-macOS/Targets/LetsConnect/LetsConnect_macOS.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth-macOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/BlueSocket\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/ReachabilitySwift\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Sodium\"",
+					"\"${PODS_ROOT}/Sparkle\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/ASN1Decoder\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Moya\"",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth-macOS/AppAuth.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/BlueSocket/Socket.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher/Kingfisher.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/ReachabilitySwift/Reachability.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Sodium/Sodium.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/ASN1Decoder/ASN1Decoder.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Moya/Moya.framework/Headers\"",
+				);
 				INFOPLIST_FILE = "EduVPN-macOS/Targets/LetsConnect/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
@@ -1805,12 +2058,33 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "LetsConnect-macOS/LetsConnect_macOS.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "EduVPN-macOS/Targets/LetsConnect/LetsConnect_macOS.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth-macOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/BlueSocket\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/ReachabilitySwift\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Sodium\"",
+					"\"${PODS_ROOT}/Sparkle\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/ASN1Decoder\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Moya\"",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth-macOS/AppAuth.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/BlueSocket/Socket.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher/Kingfisher.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/ReachabilitySwift/Reachability.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Sodium/Sodium.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/ASN1Decoder/ASN1Decoder.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Moya/Moya.framework/Headers\"",
+				);
 				INFOPLIST_FILE = "EduVPN-macOS/Targets/LetsConnect/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
@@ -1827,6 +2101,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4ABCCBE621E528260020CB6D /* Development-TunnelExtension.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
@@ -1852,6 +2127,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4ABCCBE521E528140020CB6D /* Release-TunnelExtension.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;

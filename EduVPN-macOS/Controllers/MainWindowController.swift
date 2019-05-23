@@ -198,7 +198,7 @@ class MainWindowController: NSWindowController {
     ///   - profiles: Profiles to chose from
     ///   - userInfo: User info
     ///   - animated: Wether to show with animation
-    func showChooseProfile(from profiles: [Profile], userInfo: UserInfo, animated: Bool = true) {
+    func showChooseProfile(from profiles: [Profile_Mac], userInfo: UserInfo, animated: Bool = true) {
         let chooseProfileViewController = storyboard!.instantiateController(withIdentifier: "ChooseProfile")
             as! ChooseProfileViewController
         
@@ -213,7 +213,7 @@ class MainWindowController: NSWindowController {
     ///   - profile: Profile
     ///   - userInfo: User info
     ///   - animated: Wether to show with animation
-    func showConnection(for profile: Profile, userInfo: UserInfo, animated: Bool = true) {
+    func showConnection(for profile: Profile_Mac, userInfo: UserInfo, animated: Bool = true) {
         let connectionViewController = storyboard!.instantiateController(withIdentifier: "Connection")
             as! ConnectionViewController
         

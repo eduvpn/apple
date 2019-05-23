@@ -19,7 +19,7 @@ enum MessageAudience {
     case user
 }
 
-struct Message {
+struct Message_mac {
     let type: MessageType
     let audience: MessageAudience
     let message: String

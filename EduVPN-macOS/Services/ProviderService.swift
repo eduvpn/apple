@@ -490,7 +490,7 @@ class ProviderService {
                         return
                     }
                     
-                    let authorizationType: AuthorizationType
+                    let authorizationType: AuthorizationType_Mac
                     switch json["authorization_type"] as? String ?? "" {
                     case "local":
                         authorizationType = .local
@@ -664,10 +664,10 @@ class ProviderService {
     /// - Parameters:
     ///   - info: Provider info
     ///   - handler: User info and profiles or error
-    func fetchUserInfoAndProfiles(for info: ProviderInfo, handler: @escaping (Result<(UserInfo, [Profile])>) -> ()) {
+    func fetchUserInfoAndProfiles(for info: ProviderInfo, handler: @escaping (Result<(UserInfo, [Profile_Mac])>) -> ()) {
         guard info.provider.connectionType != .localConfig else {
             let userInfo = UserInfo(twoFactorEnrolled: false, twoFactorEnrolledWith: [], isDisabled: false)
-            let profile = Profile(profileId: info.provider.displayName,
+            let profile = Profile_Mac(profileId: info.provider.displayName,
                                   displayName: info.provider.displayName,
                                   twoFactor: false,
                                   info: info)
@@ -686,7 +686,7 @@ class ProviderService {
         
         let group = DispatchGroup()
         var userInfo: UserInfo? = nil
-        var profiles: [Profile]? = nil
+        var profiles: [Profile_Mac]? = nil
         var error: Swift.Error? = nil
         
         group.enter()
@@ -838,7 +838,7 @@ class ProviderService {
     ///   - handler: Profiles or error
     func fetchProfiles(for info: ProviderInfo,
                        authenticationBehavior: AuthenticationService.Behavior = .ifNeeded,
-                       handler: @escaping (Result<[Profile]>) -> ()) {
+                       handler: @escaping (Result<[Profile_Mac]>) -> ()) {
         
         guard let url = URL(string: "profile_list", relativeTo: info.apiBaseURL) else {
             handler(.failure(Error.invalidProviderInfo))
@@ -899,13 +899,13 @@ class ProviderService {
                         return
                     }
                     
-                    let profiles: [Profile] = instances.compactMap { (instance) -> Profile? in
+                    let profiles: [Profile_Mac] = instances.compactMap { (instance) -> Profile_Mac? in
                         guard let displayName = instance["display_name"] as? String,
                             let profileId = instance["profile_id"] as? String else {
                                 return nil
                         }
                         let twoFactor = instance["two_factor"] as? Bool
-                        return Profile(profileId: profileId, displayName: displayName, twoFactor: twoFactor ?? false, info: info)
+                        return Profile_Mac(profileId: profileId, displayName: displayName, twoFactor: twoFactor ?? false, info: info)
                     }
                     
                     guard !profiles.isEmpty else {
@@ -936,7 +936,7 @@ class ProviderService {
     func fetchMessages(for info: ProviderInfo,
                        audience: MessageAudience,
                        authenticationBehavior: AuthenticationService.Behavior = .ifNeeded,
-                       handler: @escaping (Result<[Message]>) -> ()) {
+                       handler: @escaping (Result<[Message_mac]>) -> ()) {
         
         let path: String
         switch audience {
@@ -1007,7 +1007,7 @@ class ProviderService {
                         return
                     }
                     
-                    let messages: [Message] = instances.compactMap { (instance) -> Message? in
+                    let messages: [Message_mac] = instances.compactMap { (instance) -> Message_mac? in
                         guard let typeString = instance["type"] as? String, let type = MessageType(rawValue: typeString) else {
                             return nil
                         }
@@ -1022,7 +1022,7 @@ class ProviderService {
                         let endDateString = instance["end"] as? String
                         let endDate = self.dateFormatter.date(from: endDateString ?? "")
                         
-                        return Message(type: type, audience: audience, message: message, date: date, beginDate: beginDate, endDate: endDate)
+                        return Message_mac(type: type, audience: audience, message: message, date: date, beginDate: beginDate, endDate: endDate)
                     }
                     
                     handler(.success(messages))
@@ -1064,7 +1064,7 @@ class ProviderService {
         }
     }
     
-    private func configFileCheck(configFileURL: URL, recover: Bool, handler: @escaping ((Result<(Config, String?)>) -> Void)) {
+    private func configFileCheck(configFileURL: URL, recover: Bool, handler: @escaping ((Result<(Config_Mac, String?)>) -> Void)) {
         do {
             let config = try String(contentsOf: configFileURL)
             let certStartRange = config.range(of: "<cert>")

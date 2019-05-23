@@ -13,7 +13,7 @@ import AppAuth
 import Socket
 import SecurityInterface
 
-typealias Config = String
+typealias Config_Mac = String
 
 /// Connects to VPN
 class ConnectionService: NSObject {
@@ -138,7 +138,7 @@ class ConnectionService: NSObject {
     ///   - profile: Profile
     ///   - twoFactor: Optional two factor authentication token
     ///   - handler: Success or error
-    func connect(to profile: Profile, twoFactor: TwoFactor?, handler: @escaping (Result<Void>) -> ()) {
+    func connect(to profile: Profile_Mac, twoFactor: TwoFactor?, handler: @escaping (Result<Void>) -> ()) {
         guard state == .disconnected else {
             handler(.failure(Error.unexpectedState))
             return
@@ -213,7 +213,7 @@ class ConnectionService: NSObject {
         }
     }
     
-    private var currentProfile: Profile?
+    private var currentProfile: Profile_Mac?
     
     private func didConnect() {
         guard let provider = currentProfile?.info.provider, provider.connectionType == .localConfig else {

@@ -28,7 +28,7 @@ enum ConnectionType: String, Codable {
     }
 }
 
-enum AuthorizationType: Codable {
+enum AuthorizationType_Mac: Codable {
     
     enum Error: Swift.Error, LocalizedError {
         case decodingError
@@ -99,13 +99,11 @@ struct Provider: Codable {
     var username: String?
     
     let connectionType: ConnectionType
-    let authorizationType: AuthorizationType
+    let authorizationType: AuthorizationType_Mac
     
     var id: String {
         return connectionType.rawValue + ":" + baseURL.absoluteString
     }
-    
-    
 }
 
 struct ProviderInfo: Codable {
@@ -115,7 +113,7 @@ struct ProviderInfo: Codable {
     let provider: Provider
 }
 
-struct Profile: Codable {
+struct Profile_Mac: Codable {
     let profileId: String
     let displayName: String
     let twoFactor: Bool

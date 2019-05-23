@@ -14,7 +14,7 @@ class ChooseProfileViewController: NSViewController {
     @IBOutlet var backButton: NSButton!
     
     var userInfo: UserInfo!
-    var profiles: [Profile] = []
+    var profiles: [Profile_Mac] = []
     
     override func viewDidAppear() {
         super.viewDidAppear()

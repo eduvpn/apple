@@ -19,8 +19,11 @@ def pods_macos
   platform :osx, '10.12'
   
   pod 'AppAuth', :git => 'https://github.com/openid/AppAuth-iOS.git'
+  pod 'ASN1Decoder'
   pod 'BlueSocket', '1.0.46'
   pod 'Kingfisher', '5.5.0'
+  pod 'Moya'
+  pod 'PromiseKit/CorePromise'
   pod 'ReachabilitySwift', '4.3.1'
   pod 'Sodium', '0.8.0'
   pod 'Sparkle', '1.21.3'
@@ -31,14 +34,14 @@ end
 target 'EduVPN' do
   pods_ios
   
-  pod 'PromiseKit/CorePromise'
-  pod 'AppAuth', :git => 'https://github.com/openid/AppAuth-iOS.git'
-  pod 'Moya'
-  pod 'Disk'
   pod 'AlamofireImage'
-  pod 'libsodium'
+  pod 'AppAuth', :git => 'https://github.com/openid/AppAuth-iOS.git'
   pod 'ASN1Decoder'
+  pod 'Disk'
+  pod 'libsodium'
+  pod 'Moya'
   pod 'NVActivityIndicatorView'
+  pod 'PromiseKit/CorePromise'
   
   tunnelkit_pod
 end
