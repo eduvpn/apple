@@ -87,6 +87,8 @@
 		34186CFB2297CE19009B4121 /* CredentialStorePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD591F34F887006E1337 /* CredentialStorePlugin.swift */; };
 		34186CFC2297E182009B4121 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A140BBB21B5D7F5000A87E3 /* Message.swift */; };
 		34186CFD2297E183009B4121 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A140BBB21B5D7F5000A87E3 /* Message.swift */; };
+		34186D002297E801009B4121 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = 34186CFF2297E801009B4121 /* config.json */; };
+		34186D032297EAC1009B4121 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = 34186D012297EA9A009B4121 /* config.json */; };
 		342B9C88228ECB4900C006D7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B9C87228ECB4900C006D7 /* main.m */; };
 		342B9C90228ECB8300C006D7 /* OpenVPNHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B9C8E228ECB8200C006D7 /* OpenVPNHelper.m */; };
 		342B9C92228ECBB200C006D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 342B9C91228ECBB200C006D7 /* Foundation.framework */; };
@@ -274,6 +276,8 @@
 		1C644DAFAF71735E397E6E30 /* Pods-EduVPN.release appforce1.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPN.release appforce1.xcconfig"; path = "Target Support Files/Pods-EduVPN/Pods-EduVPN.release appforce1.xcconfig"; sourceTree = "<group>"; };
 		34186CE42296D971009B4121 /* ASN1Decoder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ASN1Decoder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		34186CED2296E46F009B4121 /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
+		34186CFF2297E801009B4121 /* config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
+		34186D012297EA9A009B4121 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
 		342B9C85228ECB4800C006D7 /* org.eduvpn.app.openvpnhelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = org.eduvpn.app.openvpnhelper; sourceTree = BUILT_PRODUCTS_DIR; };
 		342B9C87228ECB4900C006D7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		342B9C8C228ECB8200C006D7 /* OpenVPNHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenVPNHelper.h; sourceTree = "<group>"; };
@@ -686,6 +690,7 @@
 		34D71A04228D76610027DE84 /* LetsConnect */ = {
 			isa = PBXGroup;
 			children = (
+				34186D012297EA9A009B4121 /* config.json */,
 				34D719F9228D75C10027DE84 /* LetsConnectAssets.xcassets */,
 				34D719FF228D75C10027DE84 /* LetsConnect_macOS.entitlements */,
 				34D71A06228D76610027DE84 /* AppConfig.swift */,
@@ -697,6 +702,7 @@
 		34D71A07228D76610027DE84 /* eduVPN */ = {
 			isa = PBXGroup;
 			children = (
+				34186CFF2297E801009B4121 /* config.json */,
 				34D719E4228D75560027DE84 /* eduVPNAssets.xcassets */,
 				34D719EA228D75560027DE84 /* EduVPN_macOS.entitlements */,
 				34D71A09228D76610027DE84 /* AppConfig.swift */,
@@ -1176,6 +1182,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34186D002297E801009B4121 /* config.json in Resources */,
 				34D71AD7228DA4670027DE84 /* Defaults.plist in Resources */,
 				34D719E5228D75560027DE84 /* eduVPNAssets.xcassets in Resources */,
 				34D71ADD228DA4B00027DE84 /* Info.plist in Resources */,
@@ -1189,6 +1196,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34186D032297EAC1009B4121 /* config.json in Resources */,
 				34D71ADB228DA4990027DE84 /* Defaults.plist in Resources */,
 				34D71A65228D78460027DE84 /* Main.storyboard in Resources */,
 				34D71ADE228DA4BB0027DE84 /* Info.plist in Resources */,
