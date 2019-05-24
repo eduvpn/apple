@@ -72,14 +72,17 @@ extension ChooseProviderViewController: NSTableViewDelegate {
     }
     
     private func authenticate(with info: ProviderInfo) {
-        ServiceContainer.authenticationService.authenticate(using: info) { (result) in
+        ServiceContainer.authenticationService.authenticate(using: info) { result in
             DispatchQueue.main.async {
                 switch result {
+                    
                 case .success:
                     ServiceContainer.providerService.storeProvider(provider: info.provider)
                     self.mainWindowController?.dismiss()
+                    
                 case .failure(let error):
                     NSAlert(customizedError: error)?.beginSheetModal(for: self.view.window!)
+                    
                 }
             }
         }

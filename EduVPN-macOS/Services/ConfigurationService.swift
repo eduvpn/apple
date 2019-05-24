@@ -90,15 +90,18 @@ class ConfigurationService {
     ///   - profile: Profile_Mac
     ///   - handler: Config or error
     func configure(for profile: Profile_Mac, handler: @escaping (Result<(config: Config_Mac, certificateCommonName: String)>) -> ()) {
-        restoreOrCreateKeyPair(for: profile.info) { (result) in
+        restoreOrCreateKeyPair(for: profile.info) { result in
             switch result {
             case .success(let certificateCommonName):
-                self.fetchConfig(for: profile) { (result) in
+                self.fetchConfig(for: profile) { result in
                     switch result {
+                        
                     case .success(let config):
                         handler(.success((config: config, certificateCommonName: certificateCommonName)))
+                        
                     case .failure(let error):
                         handler(.failure(error))
+                        
                     }
                 }
             case .failure(let error):

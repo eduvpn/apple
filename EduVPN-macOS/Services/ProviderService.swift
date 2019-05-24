@@ -200,12 +200,15 @@ class ProviderService {
             
             func discoverAvailableProviders(type: ConnectionType) {
                 group.enter()
-                discoverProviders(connectionType: type) { (result) in
+                discoverProviders(connectionType: type) { result in
                     switch result {
+                        
                     case .success(let providers):
                         self.availableProviders[type] = providers
+                        
                     case .failure(let discoverError):
                         error = discoverError as? Error
+                        
                     }
                     group.leave()
                 }
@@ -690,23 +693,29 @@ class ProviderService {
         var error: Swift.Error? = nil
         
         group.enter()
-        fetchUserInfo(for: info) { (result) in
+        fetchUserInfo(for: info) { result in
             switch result {
+                
             case .success(let fetchedUserInfo):
                 userInfo = fetchedUserInfo
+                
             case .failure(let fetchedError):
                 error = fetchedError
+                
             }
             group.leave()
         }
         
         group.enter()
-        fetchProfiles(for: info) { (result) in
+        fetchProfiles(for: info) { result in
             switch result {
+                
             case .success(let fetchedProfiles):
                 profiles = fetchedProfiles
+                
             case .failure(let fetchedError):
                 error = fetchedError
+                
             }
             group.leave()
         }
@@ -714,7 +723,10 @@ class ProviderService {
         group.notify(queue: .main) {
             defer {
                 if #available(OSX 10.14, *) {
-                    os_signpost(.end, log: self.log, name: "Fetch User Info and Profiles", signpostID: fetchInfoID as! OSSignpostID)
+                    os_signpost(.end,
+                                log: self.log,
+                                name: "Fetch User Info and Profiles",
+                                signpostID: fetchInfoID as! OSSignpostID)
                 }
             }
             

@@ -16,7 +16,6 @@ public protocol Coordinator: class {
 
     /// The array containing any child Coordinators
     var childCoordinators: [Coordinator] { get set }
-
 }
 
 public extension Coordinator {
@@ -30,5 +29,4 @@ public extension Coordinator {
     func removeChildCoordinator(_ childCoordinator: Coordinator) {
         self.childCoordinators = self.childCoordinators.filter { $0 !== childCoordinator }
     }
-
 }

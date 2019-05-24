@@ -223,7 +223,6 @@ class MainWindowController: NSWindowController {
             connectionViewController.connect()
         }
     }
-    
 }
 
 extension NSViewController {

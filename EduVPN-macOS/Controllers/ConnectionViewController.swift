@@ -168,15 +168,18 @@ class ConnectionViewController: NSViewController {
             }
         }
         
-        ServiceContainer.connectionService.connect(to: profile, twoFactor: twoFactor) { (result) in
+        ServiceContainer.connectionService.connect(to: profile, twoFactor: twoFactor) { result in
             DispatchQueue.main.async {
                 switch result {
+                    
                 case .success:
                     break
+                    
                 case .failure(let error):
                     NSAlert(customizedError: error)?.beginSheetModal(for: self.view.window!) { _ in
                         self.updateForStateChange()
                     }
+                    
                 }
             }
         }
@@ -185,16 +188,18 @@ class ConnectionViewController: NSViewController {
     }
     
     private func disconnect() {
-        ServiceContainer.connectionService.disconnect() { (result) in
+        ServiceContainer.connectionService.disconnect() { result in
             DispatchQueue.main.async {
                 switch result {
+                    
                 case .success:
                     break
+                    
                 case .failure(let error):
-                    let alert = NSAlert(customizedError: error)
-                    alert?.beginSheetModal(for: self.view.window!) { (_) in
+                    NSAlert(customizedError: error)?.beginSheetModal(for: self.view.window!) { _ in
                         self.updateForStateChange()
                     }
+                    
                 }
             }
         }

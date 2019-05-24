@@ -100,14 +100,9 @@ class ChooseConnectionTypeViewController: NSViewController {
         panel.canChooseDirectories = false
         panel.allowedFileTypes = ["ovpn"]
         panel.prompt = NSLocalizedString("Add", comment: "")
-        panel.beginSheetModal(for: window) { (response) in
-            switch response {
-            case .OK:
-                if let url = panel.urls.first {
-                    self.chooseConfigFile(configFileURL: url)
-                }
-            default:
-                break
+        panel.beginSheetModal(for: window) { response in
+            if response == .OK, let url = panel.urls.first {
+                self.chooseConfigFile(configFileURL: url)
             }
         }
     }

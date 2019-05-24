@@ -205,12 +205,16 @@ class AuthenticationService {
             if #available(OSX 10.14, *) {
                 os_signpost(.event, log: log, name: "Reauthenticate for Perform Authenticated Action", signpostID: performActionID as! OSSignpostID)
             }
-            authenticate(using: info, force: false, handler: { (result) in
+            
+            authenticate(using: info, force: false, handler: { result in
                 switch result {
+                    
                 case .success:
                     self.performAction(for: info, authenticationBehavior: .never, action: action)
+                    
                 case .failure(let error):
                     action(nil, nil, error)
+                    
                 }
             })
         }
@@ -221,14 +225,18 @@ class AuthenticationService {
                     os_signpost(.end, log: log, name: "Perform Authenticated Action", signpostID: performActionID as! OSSignpostID)
                 }
             }
+            
             switch authenticationBehavior {
+                
             case .always, .ifNeeded:
                 reauthenticate()
+                
             case .never:
                 action(nil, nil, Error.noToken)
                 if #available(OSX 10.14, *) {
                     os_signpost(.event, log: log, name: "Perform Authenticated Action Failed: Never Refresh Behavior", signpostID: performActionID as! OSSignpostID)
                 }
+                
             }
             return
         }
@@ -250,16 +258,20 @@ class AuthenticationService {
                     os_signpost(.end, log: self.log, name: "Perform Authenticated Action", signpostID: performActionID as! OSSignpostID)
                 }
             }
+            
             guard let accessToken = accessToken else {
                 switch authenticationBehavior {
+                    
                 case .always, .ifNeeded:
                     reauthenticate()
+                    
                 case .never:
                     action(nil, idToken, error)
                     if #available(OSX 10.14, *) {
                         os_signpost(.event, log: self.log, name: "Perform Authenticated Action Failed: Never Refresh Behavior", signpostID: performActionID as! OSSignpostID)
                     }
                 }
+                
                 return
             }
             action(accessToken, idToken, error)
@@ -273,11 +285,15 @@ class AuthenticationService {
     ///   - authState: Authentication token
     private func store(for provider: Provider, authState: OIDAuthState) {
         switch provider.authorizationType {
+            
         case .local:
             authStatesByProviderId[provider.id] = authState
+            
         case .distributed, .federated:
             authStatesByConnectionType[provider.connectionType] = authState
+            
         }
+        
         saveToDisk()
     }
     

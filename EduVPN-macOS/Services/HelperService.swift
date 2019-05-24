@@ -216,12 +216,15 @@ class HelperService {
         }
         connection?.resume()
         
-        getHelperVersion { (result) in
+        getHelperVersion { result in
             switch result {
+                
             case .success(let version):
                 handler(.success(version == HelperService.helperVersion))
+                
             case .failure(let error):
                 handler(.failure(error))
+                
             }
         }
     }
@@ -237,9 +240,7 @@ class HelperService {
             return
         }
         
-        helper.getVersionWithReply() { (version) in
-            handler(.success(version))
-        }
+        helper.getVersionWithReply() { handler(.success($0)) }
        
         // Timeout workaround because reply not received, but disabled because it caused other installation issues
 //        var handled = false

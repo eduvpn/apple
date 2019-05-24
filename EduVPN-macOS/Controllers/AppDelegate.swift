@@ -71,9 +71,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                         if let alert = NSAlert(customizedError: error) {
                             NSApp.reply(toApplicationShouldTerminate: false)
                             if let window = self.mainWindowController.window {
-                                alert.beginSheetModal(for: window) { (_) in
-
-                                }
+                                alert.beginSheetModal(for: window)
                             } else {
                                 alert.runModal()
                             }

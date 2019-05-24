@@ -24,7 +24,7 @@ class ProvidersViewController: NSViewController {
             func addRows(connectionType: ConnectionType) {
                 if let connectionProviders = providers[connectionType], !connectionProviders.isEmpty {
                     rows.append(.section(connectionType))
-                    connectionProviders.forEach { (provider) in
+                    connectionProviders.forEach { provider in
                         rows.append(.provider(provider))
                     }
                 }
@@ -96,18 +96,18 @@ class ProvidersViewController: NSViewController {
     }
     
     private func discoverAccessibleProviders() {
-        ServiceContainer.providerService.discoverAccessibleProviders { (result) in
+        ServiceContainer.providerService.discoverAccessibleProviders { result in
             DispatchQueue.main.async {
                 switch result {
+                    
                 case .success(let providers):
                     self.providers = providers
                     self.tableView.reloadData()
                     self.updateInterface()
+                    
                 case .failure(let error):
-                    let alert = NSAlert(customizedError: error)
-                    alert?.beginSheetModal(for: self.view.window!) { (_) in
-                        
-                    }
+                    NSAlert(customizedError: error)?.beginSheetModal(for: self.view.window!)
+                    
                 }
             }
         }
@@ -279,10 +279,7 @@ class ProvidersViewController: NSViewController {
     }
     
     private func handleError(_ error: Error) {
-        let alert = NSAlert(customizedError: error)
-        alert?.beginSheetModal(for: self.view.window!) { (_) in
-            // Nothing
-        }
+        NSAlert(customizedError: error)?.beginSheetModal(for: self.view.window!)
     }
     
     fileprivate func updateInterface() {

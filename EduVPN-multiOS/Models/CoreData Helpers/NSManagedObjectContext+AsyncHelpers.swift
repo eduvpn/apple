@@ -22,7 +22,7 @@ extension NSManagedObjectContext {
      **/
     public func performAndWaitOrThrow<Return>(_ body: () throws -> Return) rethrows -> Return {
         #if swift(>=3.1)
-        return try withoutActuallyEscaping(body) { (work) in
+        return try withoutActuallyEscaping(body) { work in
             var result: Return!
             var error: Error?
 

@@ -160,10 +160,10 @@ class ConnectionService: NSObject {
         currentProfile = nil
         credentials = nil
         
-        helperService.installHelperIfNeeded(client: self) { (result) in
+        helperService.installHelperIfNeeded(client: self) { result in
             switch result {
             case .success:
-                self.configurationService.configure(for: profile) { (result) in
+                self.configurationService.configure(for: profile) { result in
                     switch result {
                     case .success(let config, let certificateCommonName):
                         do {
@@ -299,7 +299,7 @@ class ConnectionService: NSObject {
         }
         
         self.configURL = configURL
-        helper.startOpenVPN(at: openvpnURL, withConfig: configURL, upScript: upScript, downScript: downScript, leasewatchPlist: leasewatchPlist, leasewatchScript: leasewatchScript, scriptOptions: scriptOptions) { (error) in
+        helper.startOpenVPN(at: openvpnURL, withConfig: configURL, upScript: upScript, downScript: downScript, leasewatchPlist: leasewatchPlist, leasewatchScript: leasewatchScript, scriptOptions: scriptOptions) { error in
             if let error = error as NSError? {
                 self.coolDown()
                 self.configURL = nil
@@ -733,26 +733,26 @@ class ConnectionService: NSObject {
             let window = NSApp.mainWindow!
             let storyboard = NSStoryboard(name: "Main", bundle: nil)
             let enterCredentialsViewController = storyboard.instantiateController(withIdentifier: "EnterCredentials") as! EnterCredentialsViewController
-            let panel = NSPanel(contentViewController: enterCredentialsViewController)
-            window.beginSheet(panel) { (response) in
-                switch response {
-                case .OK:
-                    guard let credentials = enterCredentialsViewController.credentials else {
-                        self.abortConnecting(error: Error.unexpectedError)
-                        return
-                    }
-                    do {
-                        let response = "username \"Auth\" \(credentials.username)\npassword \"Auth\" \(credentials.password)\n"
-                        if credentials.saveInKeychain {
-                            self.credentials = credentials
-                        }
-                        try self.write(response)
-                    } catch {
-                        self.abortConnecting(error: error)
-                    }
-                default:
+            window.beginSheet(NSPanel(contentViewController: enterCredentialsViewController)) { response in
+                guard response == .OK else {
                     self.abortConnecting(error: Error.userCancelled)
-                    break
+                    return
+                }
+                
+                guard let credentials = enterCredentialsViewController.credentials else {
+                    self.abortConnecting(error: Error.unexpectedError)
+                    return
+                }
+                
+                do {
+                    let response = "username \"Auth\" \(credentials.username)\npassword \"Auth\" \(credentials.password)\n"
+                    if credentials.saveInKeychain {
+                        self.credentials = credentials
+                    }
+                    
+                    try self.write(response)
+                } catch {
+                    self.abortConnecting(error: error)
                 }
             }
         }

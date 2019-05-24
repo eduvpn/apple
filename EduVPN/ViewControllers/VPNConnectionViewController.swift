@@ -90,7 +90,7 @@ class VPNConnectionViewController: UIViewController {
                                                name: .NEVPNStatusDidChange,
                                                object: nil)
 
-        providerManagerCoordinator.reloadCurrentManager { (_) in
+        providerManagerCoordinator.reloadCurrentManager { _ in
             self.updateButton()
             self.status = self.providerManagerCoordinator.currentManager?.connection.status ?? .invalid
         }
@@ -98,7 +98,7 @@ class VPNConnectionViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] (_) in
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] _ in
             self?.updateConnectionInfo()
         })
         if let concreteDelegate = delegate {
@@ -123,7 +123,7 @@ class VPNConnectionViewController: UIViewController {
     }
 
     @IBAction func displayLogClicked(_ sender: Any) {
-        self.providerManagerCoordinator.loadLog { [weak self] (log) in
+        self.providerManagerCoordinator.loadLog { [weak self] log in
             self?.logTextView.text = log
         }
     }
@@ -146,9 +146,7 @@ class VPNConnectionViewController: UIViewController {
         }
 
         if status == .invalid {
-            providerManagerCoordinator.reloadCurrentManager({ (_) in
-                block()
-            })
+            providerManagerCoordinator.reloadCurrentManager { _ in block() }
         } else {
             block()
         }
@@ -193,10 +191,11 @@ class VPNConnectionViewController: UIViewController {
 
         durationLabel.text = intervalString
 
-        try? vpn.sendProviderMessage(TunnelKitProvider.Message.dataCount.data) { [weak self] (data) in
-            let dataCount = data?.withUnsafeBytes({ (pointer) -> (UInt64, UInt64) in
+        try? vpn.sendProviderMessage(TunnelKitProvider.Message.dataCount.data) { [weak self] data in
+            let dataCount = data?.withUnsafeBytes{ pointer -> (UInt64, UInt64) in
                 pointer.load(as: (UInt64, UInt64).self)
-            })
+            }
+            
             if let inByteCount = dataCount?.0 {
                 self?.inBytesLabel.text = ByteCountFormatter.string(fromByteCount: Int64(inByteCount), countStyle: .binary )
             } else {

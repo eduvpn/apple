@@ -21,11 +21,13 @@ enum TunnelProviderManagerCoordinatorError: Error {
 private let profileIdKey = "EduVPNprofileId"
 
 protocol TunnelProviderManagerCoordinatorDelegate: class {
+    
     func profileConfig(for profile: Profile) -> Promise<URL>
     func updateProfileStatus(with status: NEVPNStatus)
 }
 
 class TunnelProviderManagerCoordinator: Coordinator {
+    
     var childCoordinators: [Coordinator] = []
     weak var delegate: TunnelProviderManagerCoordinatorDelegate?
     var currentManager: NETunnelProviderManager?
@@ -71,18 +73,22 @@ class TunnelProviderManagerCoordinator: Coordinator {
         guard let delegate = delegate else {
             return Promise(error: TunnelProviderManagerCoordinatorError.missingDelegate)
         }
-        return delegate.profileConfig(for: profile).then({ (configUrl) -> Promise<Void> in
+        
+        return delegate.profileConfig(for: profile).then { configUrl -> Promise<Void> in
             #if targetEnvironment(simulator)
+            
             print("SIMULATOR DOES NOT SUPPORT NETWORK EXTENSIONS")
             return Promise.value(())
+            
             #else
+            
             let parseResult = try! ConfigurationParser.parsed(fromURL: configUrl) //swiftlint:disable:this force_try
 
-            return Promise(resolver: { (resolver) in
+            return Promise(resolver: { resolver in
                 var configBuilder = parseResult.configuration.builder()
                 configBuilder.tlsSecurityLevel = UserDefaults.standard.tlsSecurityLevel.rawValue
 
-                self.configureVPN({ (_) in
+                self.configureVPN({ _ in
                     var builder = TunnelKitProvider.ConfigurationBuilder(sessionConfiguration: configBuilder.build())
                     builder.masksPrivateData = false
                     let configuration = builder.build()
@@ -103,23 +109,27 @@ class TunnelProviderManagerCoordinator: Coordinator {
                     tunnelProviderProtocolConfiguration.providerConfiguration?[profileIdKey] = uuid.uuidString
 
                     return tunnelProviderProtocolConfiguration
-                }, completionHandler: { (error) in
+                }, completionHandler: { error in
                     if let error = error {
                         os_log("configure error: %{public}@", log: Log.general, type: .error, error.localizedDescription)
                     }
                     resolver.resolve(error)
                 })
             })
+            
             #endif
-        })
+        }
     }
 
     func connect() -> Promise<Void> {
         #if targetEnvironment(simulator)
+        
         print("SIMULATOR DOES NOT SUPPORT NETWORK EXTENSIONS")
         return Promise.value(())
+        
         #else
-        return Promise(resolver: { (resolver) in
+        
+        return Promise(resolver: { resolver in
             let session = self.currentManager?.connection as? NETunnelProviderSession
             do {
                 self.currentManager?.isOnDemandEnabled = UserDefaults.standard.onDemand
@@ -130,23 +140,28 @@ class TunnelProviderManagerCoordinator: Coordinator {
                 resolver.reject(error)
             }
         })
+        
         #endif
     }
 
     func disconnect() -> Promise<Void> {
         #if targetEnvironment(simulator)
+        
         print("SIMULATOR DOES NOT SUPPORT NETWORK EXTENSIONS")
         return Promise.value(())
+        
         #else
-        return Promise(resolver: { (resolver) in
-            configureVPN({ (_) in
+        
+        return Promise(resolver: { resolver in
+            configureVPN({ _ in
                 self.currentManager?.isOnDemandEnabled = false
                 return nil
-            }, completionHandler: { (error) in
+            }, completionHandler: { error in
                 self.currentManager?.connection.stopVPNTunnel()
                 resolver.resolve(error)
             })
         })
+        
         #endif
     }
 
@@ -154,6 +169,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
         return firstly { () -> Promise<Void> in
             let session = self.currentManager?.connection as? NETunnelProviderSession
             switch session?.status ?? .invalid {
+                
             case .connected, .connecting, .reasserting:
                 if let configuredProfileId = UserDefaults.standard.configuredProfileId, let configuredProfile = try Profile.findFirstInContext(viewContext, predicate: NSPredicate(format: "uuid == %@", configuredProfileId)) {
                     return self.configure(profile: configuredProfile).then {
@@ -162,8 +178,10 @@ class TunnelProviderManagerCoordinator: Coordinator {
                 } else {
                     return Promise.value(())
                 }
+                
             default:
                 return Promise.value(())
+                
             }
         }
     }
@@ -172,7 +190,8 @@ class TunnelProviderManagerCoordinator: Coordinator {
         guard let vpn = currentManager?.connection as? NETunnelProviderSession else {
             return
         }
-        try? vpn.sendProviderMessage(TunnelKitProvider.Message.requestLog.data) { (data) in
+        
+        try? vpn.sendProviderMessage(TunnelKitProvider.Message.requestLog.data) { data in
             guard let data = data, let log = String(data: data, encoding: .utf8) else {
                 return
             }
@@ -181,10 +200,16 @@ class TunnelProviderManagerCoordinator: Coordinator {
         }
     }
 
-    func configureVPN(_ configure: @escaping (NETunnelProviderManager) -> NETunnelProviderProtocol?, completionHandler: @escaping (Error?) -> Void) {
-        reloadCurrentManager { (error) in
+    func configureVPN(_ configure: @escaping (NETunnelProviderManager) -> NETunnelProviderProtocol?,
+                      completionHandler: @escaping (Error?) -> Void) {
+        
+        reloadCurrentManager { error in
             if let error = error {
-                os_log("error reloading preferences: %{public}@", log: Log.general, type: .error, error.localizedDescription)
+                os_log("error reloading preferences: %{public}@",
+                       log: Log.general,
+                       type: .error,
+                       error.localizedDescription)
+                
                 completionHandler(error)
                 return
             }
@@ -196,7 +221,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
             manager.isEnabled = true
             manager.onDemandRules = [NEOnDemandRuleConnect()]
 
-            manager.saveToPreferences { (error) in
+            manager.saveToPreferences { error in
                 if let error = error {
                     os_log("error saving preferences: %{public}@", log: Log.general, type: .error, error.localizedDescription)
                     completionHandler(error)
@@ -241,10 +266,11 @@ class TunnelProviderManagerCoordinator: Coordinator {
     }
 
     @objc private func refresh() {
-        reloadCurrentManager { [weak self] (_) in
+        reloadCurrentManager { [weak self] _ in
             guard let status = self?.currentManager?.connection.status else {
                 return
             }
+            
             self?.delegate?.updateProfileStatus(with: status)
         }
     }
@@ -253,6 +279,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
         guard let status = currentManager?.connection.status else {
             return
         }
+        
         delegate?.updateProfileStatus(with: status)
     }
 }

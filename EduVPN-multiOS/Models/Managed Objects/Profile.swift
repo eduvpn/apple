@@ -37,7 +37,7 @@ extension Profile {
             }
 
             // Insert new models
-            keyedModels.values.forEach { (newModel) in
+            keyedModels.values.forEach { newModel in
                 let newProfile = Profile(context: context)
                 newProfile.update(with: newModel)
                 newProfile.uuid = UUID()
