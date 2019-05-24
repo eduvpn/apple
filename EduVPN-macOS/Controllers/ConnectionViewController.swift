@@ -217,7 +217,7 @@ class ConnectionViewController: NSViewController {
                 notifications.append(NSAttributedString(string: "\n\n", attributes: [.font: NSFont.systemFont(ofSize: NSFont.systemFontSize(for: .small))]))
             }
             
-            let date = DateFormatter.localizedString(from: message.date_time, dateStyle: .short, timeStyle: .short)
+            let date = DateFormatter.localizedString(from: message.date, dateStyle: .short, timeStyle: .short)
             notifications.append(NSAttributedString(string: date + ": ",
                                                     attributes: [.font: NSFont.boldSystemFont(ofSize: NSFont.systemFontSize(for: .small))]))
             

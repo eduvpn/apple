@@ -62,9 +62,9 @@ struct Message: Decodable {
     
     var message: String?
     var messages: [String: String]?
-    var date_time: Date
-    var begin: Date?
-    var end: Date?
+    var date: Date
+    var beginDate: Date?
+    var endDate: Date?
     var type: NotificationType
     var audience: MessageAudience = .user
     
@@ -79,9 +79,9 @@ struct Message: Decodable {
         self.type = type
         self.audience = audience
         self.message = message
-        self.date_time = date
-        self.begin = beginDate
-        self.end = endDate
+        self.date = date
+        self.beginDate = beginDate
+        self.endDate = endDate
     }
 }
 
@@ -89,7 +89,9 @@ extension Message {
     
     enum MessageKeys: String, CodingKey {
         case message
-        case dateTime = "date_time"
+        case date = "date_time"
+        case beginDate = "begin"
+        case endDate = "end"
         case type
     }
 
@@ -97,7 +99,10 @@ extension Message {
         let container = try decoder.container(keyedBy: MessageKeys.self)
 
         type = try container.decode(NotificationType.self, forKey: .type)
-        date_time = try container.decode(Date.self, forKey: .dateTime)
+        
+        date = try container.decode(Date.self, forKey: .date)
+        beginDate = try? container.decode(Date.self, forKey: .beginDate)
+        endDate = try? container.decode(Date.self, forKey: .endDate)
 
         // Here we try to deocde the `message` key into both a String and a [String: String]. The localizedMessage implementatation tries to obtain the "locale correct" value.
         message = try? container.decode(String.self, forKey: .message)
@@ -126,6 +131,7 @@ extension Message {
         guard let message = localizedMessage else {
             return nil
         }
-        return [displayDateFormatter.string(from: date_time), message].joined(separator: "\n")
+        
+        return [displayDateFormatter.string(from: date), message].joined(separator: "\n")
     }
 }
