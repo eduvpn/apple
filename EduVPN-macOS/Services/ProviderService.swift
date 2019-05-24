@@ -947,7 +947,7 @@ class ProviderService {
     func fetchMessages(for info: ProviderInfo,
                        audience: MessageAudience,
                        authenticationBehavior: AuthenticationService.Behavior = .ifNeeded,
-                       handler: @escaping (Result<[Message_mac]>) -> ()) {
+                       handler: @escaping (Result<[Message]>) -> ()) {
         
         let path: String
         switch audience {
@@ -1018,22 +1018,31 @@ class ProviderService {
                         return
                     }
                     
-                    let messages: [Message_mac] = instances.compactMap { (instance) -> Message_mac? in
-                        guard let typeString = instance["type"] as? String, let type = MessageType(rawValue: typeString) else {
-                            return nil
-                        }
+                    let messages: [Message] = instances.compactMap { (instance) -> Message? in
+                        guard
+                            let typeString = instance["type"] as? String,
+                            let type = NotificationType(rawValue: typeString)
+                            else { return nil }
+                        
                         guard let message = instance["message"] as? String else {
                             return nil
                         }
+                        
                         guard let dateString = instance["date_time"] as? String, let date = self.dateFormatter.date(from: dateString) else {
                             return nil
                         }
+                        
                         let beginDateString = instance["begin"] as? String
                         let beginDate = self.dateFormatter.date(from: beginDateString ?? "")
                         let endDateString = instance["end"] as? String
                         let endDate = self.dateFormatter.date(from: endDateString ?? "")
                         
-                        return Message_mac(type: type, audience: audience, message: message, date: date, beginDate: beginDate, endDate: endDate)
+                        return Message(type: type,
+                                       audience: audience,
+                                       message: message,
+                                       date: date,
+                                       beginDate: beginDate,
+                                       endDate: endDate)
                     }
                     
                     handler(.success(messages))

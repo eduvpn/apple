@@ -67,8 +67,6 @@
 		34186CDE2296B711009B4121 /* Logo+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EF120279F0000F9D0D2 /* Logo+Convenience.swift */; };
 		34186CE02296B7BC009B4121 /* UserDefaults+EduVPN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE728151F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift */; };
 		34186CE12296B7BC009B4121 /* UserDefaults+EduVPN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE728151F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift */; };
-		34186CE22296B951009B4121 /* Message_Mac.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAD228DA39F0027DE84 /* Message_Mac.swift */; };
-		34186CE32296B951009B4121 /* Message_Mac.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAD228DA39F0027DE84 /* Message_Mac.swift */; };
 		34186CEA2296DEE4009B4121 /* CertificateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A81DF9B2003BFB7002827A8 /* CertificateModel.swift */; };
 		34186CEB2296DEE5009B4121 /* CertificateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A81DF9B2003BFB7002827A8 /* CertificateModel.swift */; };
 		34186CEC2296E2CA009B4121 /* StaticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACA04291F311507004B35AA /* StaticService.swift */; };
@@ -341,7 +339,6 @@
 		34D71A8B228D9C6A0027DE84 /* Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
 		34D71A8D228D9C6A0027DE84 /* String+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Random.swift"; sourceTree = "<group>"; };
 		34D71AAC228DA39F0027DE84 /* String+URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+URL.swift"; sourceTree = "<group>"; };
-		34D71AAD228DA39F0027DE84 /* Message_Mac.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message_Mac.swift; sourceTree = "<group>"; };
 		34D71AAE228DA39F0027DE84 /* Either.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Either.swift; sourceTree = "<group>"; };
 		34D71AAF228DA39F0027DE84 /* Provider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		34D71AB0228DA39F0027DE84 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -747,7 +744,6 @@
 			children = (
 				342B9CD822902BB500C006D7 /* DurationTransformer.swift */,
 				34D71AAE228DA39F0027DE84 /* Either.swift */,
-				34D71AAD228DA39F0027DE84 /* Message_Mac.swift */,
 				34D71AAF228DA39F0027DE84 /* Provider.swift */,
 				34D71AAC228DA39F0027DE84 /* String+URL.swift */,
 				34D71AB0228DA39F0027DE84 /* User.swift */,
@@ -1592,7 +1588,6 @@
 				34186CD32296B707009B4121 /* Config.swift in Sources */,
 				34186CEB2296DEE5009B4121 /* CertificateModel.swift in Sources */,
 				34186CA52296B5A6009B4121 /* AuthServer.swift in Sources */,
-				34186CE22296B951009B4121 /* Message_Mac.swift in Sources */,
 				34186CB72296B5B2009B4121 /* Api+CoreDataClass.swift in Sources */,
 				342B9CCC22902BA900C006D7 /* ConfigurationService.swift in Sources */,
 				342B9CCE22902BA900C006D7 /* ServiceContainer.swift in Sources */,
@@ -1650,7 +1645,6 @@
 				34186CD42296B707009B4121 /* InstanceModel.swift in Sources */,
 				34186CAC2296B5A7009B4121 /* Instance.swift in Sources */,
 				34D71B08228DA4D20027DE84 /* AppDelegate.swift in Sources */,
-				34186CE32296B951009B4121 /* Message_Mac.swift in Sources */,
 				34186CD72296B707009B4121 /* ProfileModel.swift in Sources */,
 				34D71AE5228DA4CC0027DE84 /* Either.swift in Sources */,
 				34186CFD2297E183009B4121 /* Message.swift in Sources */,

@@ -30,8 +30,8 @@ class ConnectionViewController: NSViewController {
     
     var profile: Profile_Mac!
     var userInfo: UserInfo!
-    private var systemMessages: [Message_mac] = []
-    private var userMessages: [Message_mac] = []
+    private var systemMessages: [Message] = []
+    private var userMessages: [Message] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -217,11 +217,14 @@ class ConnectionViewController: NSViewController {
                 notifications.append(NSAttributedString(string: "\n\n", attributes: [.font: NSFont.systemFont(ofSize: NSFont.systemFontSize(for: .small))]))
             }
             
-            let date =  DateFormatter.localizedString(from: message.date, dateStyle: .short, timeStyle: .short)
+            let date = DateFormatter.localizedString(from: message.date_time, dateStyle: .short, timeStyle: .short)
             notifications.append(NSAttributedString(string: date + ": ",
                                                     attributes: [.font: NSFont.boldSystemFont(ofSize: NSFont.systemFontSize(for: .small))]))
-            notifications.append(NSAttributedString(string: message.message,
-                                                    attributes: [.font: NSFont.systemFont(ofSize: NSFont.systemFontSize(for: .small))]))
+            
+            if let message = message.message {
+                notifications.append(NSAttributedString(string: message,
+                                                        attributes: [.font: NSFont.systemFont(ofSize: NSFont.systemFontSize(for: .small))]))
+            }
         }
     }
     

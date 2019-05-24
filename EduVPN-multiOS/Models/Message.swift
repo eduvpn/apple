@@ -17,6 +17,11 @@ let displayDateFormatter: DateFormatter = {
     return dateFormatter
 }()
 
+enum MessageAudience {
+    case system
+    case user
+}
+
 enum NotificationType: String, Decodable {
     case notification
     case motd
@@ -38,7 +43,14 @@ extension SystemMessages {
         let container = try decoder.container(keyedBy: SystemMessagesKeys.self)
 
         let messagesContainer = try container.nestedContainer(keyedBy: SystemMessagesKeys.self, forKey: .systemMessages)
-        systemMessages = try messagesContainer.decode([Message].self, forKey: .data)
+        let systemMessages = try messagesContainer.decode([Message].self, forKey: .data)
+        
+        // Temporarily apply field value here to support macOS cross-platform compability
+        self.systemMessages = systemMessages.map {
+            var message = $0
+            message.audience = .system
+            return message
+        }
     }
 
     var displayString: String {
@@ -51,7 +63,26 @@ struct Message: Decodable {
     var message: String?
     var messages: [String: String]?
     var date_time: Date
+    var begin: Date?
+    var end: Date?
     var type: NotificationType
+    var audience: MessageAudience = .user
+    
+    // Backward-compability constructor to support macOS interface
+    init(type: NotificationType,
+         audience: MessageAudience,
+         message: String,
+         date: Date,
+         beginDate: Date?,
+         endDate: Date?) {
+        
+        self.type = type
+        self.audience = audience
+        self.message = message
+        self.date_time = date
+        self.begin = beginDate
+        self.end = endDate
+    }
 }
 
 extension Message {
