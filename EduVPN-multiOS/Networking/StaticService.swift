@@ -7,7 +7,6 @@
 //
 
 import Foundation
-
 import Moya
 
 struct StaticService: TargetType, AcceptJson {

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 extension Set where Element == Logo {
     
     var localizedValue: String? {

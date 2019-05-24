@@ -18,6 +18,7 @@ let signedAtDateFormatter: DateFormatter = {
 }()
 
 extension Moya.Response {
+    
     func mapResponse<T: Decodable>() -> Promise<T> {
         return Promise(resolver: { seal in
             do {

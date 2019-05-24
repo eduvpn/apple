@@ -6,12 +6,10 @@
 //  Copyright © 2017 SURFNet. All rights reserved.
 //
 
-import Foundation
-
-import Moya
-
-import PromiseKit
 import AppAuth
+import Foundation
+import Moya
+import PromiseKit
 
 enum ApiServiceError: Swift.Error {
     case noAuthState
@@ -28,42 +26,58 @@ enum ApiService {
 }
 
 extension ApiService {
+    
     var path: String {
         switch self {
+            
         case .profileList:
             return "/profile_list"
+            
         case .userInfo:
             return "/user_info"
+            
         case .createKeypair:
             return "/create_keypair"
+            
         case .checkCertificate:
             return "/check_certificate"
+            
         case .profileConfig:
             return "/profile_config"
+            
         case .systemMessages:
             return "/system_messages"
+            
         }
     }
 
     var method: Moya.Method {
         switch self {
+            
         case .profileList, .userInfo, .profileConfig, .systemMessages, .checkCertificate:
             return .get
+            
         case .createKeypair:
             return .post
+            
         }
     }
 
     var task: Task {
         switch self {
+            
         case .profileList, .userInfo, .systemMessages:
             return .requestPlain
+            
         case .createKeypair(let displayName):
             return .requestParameters(parameters: ["display_name": displayName], encoding: URLEncoding.httpBody)
+            
         case .checkCertificate(let commonName):
             return .requestParameters(parameters: ["common_name": commonName], encoding: URLEncoding.queryString)
+            
         case .profileConfig(let profileId):
             return .requestParameters(parameters: ["profile_id": profileId], encoding: URLEncoding.queryString)
+            
         }
     }
 
@@ -73,6 +87,7 @@ extension ApiService {
 }
 
 struct DynamicApiService: TargetType, AcceptJson {
+    
     let baseURL: URL
     let apiService: ApiService
 
@@ -83,6 +98,7 @@ struct DynamicApiService: TargetType, AcceptJson {
 }
 
 class DynamicApiProvider: MoyaProvider<DynamicApiService> {
+    
     let api: Api
     let authConfig: OIDServiceConfiguration
     private var credentialStorePlugin: CredentialStorePlugin
@@ -176,12 +192,12 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
 
         self.authConfig = OIDServiceConfiguration(authorizationEndpoint: URL(string: authorizationEndpoint)!, tokenEndpoint: URL(string: tokenEndpoint)!)
         super.init(endpointClosure: endpointClosure, stubClosure: stubClosure, manager: manager, plugins: plugins, trackInflights: trackInflights)
-
     }
 
     public func request(apiService: ApiService,
                         queue: DispatchQueue? = nil,
                         progress: Moya.ProgressBlock? = nil) -> Promise<Moya.Response> {
+        
         return Promise<Void>(resolver: { seal in
             if let authState = self.actualApi.authState {
                 authState.performAction(freshTokens: { (accessToken, _, error) in
@@ -208,6 +224,7 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
 }
 
 extension DynamicApiProvider: Hashable {
+    
     static func == (lhs: DynamicApiProvider, rhs: DynamicApiProvider) -> Bool {
         return lhs.api.apiBaseUri == rhs.api.apiBaseUri
     }

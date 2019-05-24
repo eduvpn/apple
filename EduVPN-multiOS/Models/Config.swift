@@ -84,14 +84,19 @@ extension DiscoveryConfig {
 
     public func path(forServiceType type: StaticService.StaticServiceType) -> String? {
         switch type {
+            
         case .instituteAccess:
             return pathInstituteAccess
+            
         case .instituteAccessSignature:
             return pathInstituteAccessSignature
+            
         case .secureInternet:
             return pathSecureInternet
+            
         case .secureInternetSignature:
             return pathSecureInternetSignature
+            
         }
     }
 }

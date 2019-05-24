@@ -6,8 +6,8 @@
 //  Copyright © 2018 SURFNet. All rights reserved.
 //
 
-import Foundation
 import ASN1Decoder
+import Foundation
 
 struct CertificateModel: Codable {
     
