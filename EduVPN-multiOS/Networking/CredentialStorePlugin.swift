@@ -46,8 +46,7 @@ class CredentialStorePlugin: PluginType {
      - returns: The modified `URLRequest`.
      */
     public func prepare(_ request: URLRequest, target: TargetType) -> URLRequest {
-
-        if let authorizable = target as? CredentialStoreAuthorizable, authorizable.shouldAuthorize == false {
+        if let authorizable = target as? CredentialStoreAuthorizable, !authorizable.shouldAuthorize {
             return request
         }
 
@@ -56,7 +55,6 @@ class CredentialStorePlugin: PluginType {
         }
 
         var request = request
-
         request.addValue("Bearer " + token, forHTTPHeaderField: "Authorization")
 
         return request

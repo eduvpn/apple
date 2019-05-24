@@ -38,10 +38,13 @@ public extension MoyaProvider {
         
         return { result in
             switch result {
+                
             case let .success(response):
                 fulfill(response)
+                
             case let .failure(error):
                 reject(error)
+                
             }
         }
     }

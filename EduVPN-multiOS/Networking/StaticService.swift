@@ -39,7 +39,5 @@ struct StaticService: TargetType, AcceptJson {
     var baseURL: URL
     var path: String
 
-    static var publicKey: Data {
-        return Config.shared.discovery!.signaturePublicKey!
-    }
+    static var publicKey: Data { return Config.shared.discovery!.signaturePublicKey! }
 }

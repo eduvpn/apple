@@ -166,7 +166,11 @@ public class FetchedResultsController<T: NSManagedObject> {
      - parameter sectionNameKeyPath: An optional key path used for grouping results
      - parameter cacheName: An optional unique name used for caching results see `NSFetchedResultsController` for details
      */
-    public init(fetchRequest: NSFetchRequest<T>, managedObjectContext context: NSManagedObjectContext, sectionNameKeyPath: String? = nil, cacheName: String? = nil) {
+    public init(fetchRequest: NSFetchRequest<T>,
+                managedObjectContext context: NSManagedObjectContext,
+                sectionNameKeyPath: String? = nil,
+                cacheName: String? = nil) {
+        
         internalController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: sectionNameKeyPath, cacheName: cacheName)
     }
 
@@ -206,7 +210,12 @@ public class FetchedResultsController<T: NSManagedObject> {
 }
 
 private extension FetchedResultsObjectChange {
-    init?(object: AnyObject, indexPath: IndexPath?, changeType type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+    
+    init?(object: AnyObject,
+          indexPath: IndexPath?,
+          changeType type: NSFetchedResultsChangeType,
+          newIndexPath: IndexPath?) {
+        
         guard let object = object as? T else { return nil }
         switch (type, indexPath, newIndexPath) {
         case (.insert, _?, _):
@@ -254,7 +263,11 @@ private extension FetchedResultsObjectChange {
 }
 
 fileprivate extension FetchedResultsSectionChange {
-    init(section sectionInfo: NSFetchedResultsSectionInfo, index sectionIndex: Int, changeType type: NSFetchedResultsChangeType) {
+    
+    init(section sectionInfo: NSFetchedResultsSectionInfo,
+         index sectionIndex: Int,
+         changeType type: NSFetchedResultsChangeType) {
+        
         let info = FetchedResultsSectionInfo<T>(sectionInfo)
         switch type {
         case .insert:
@@ -270,6 +283,7 @@ fileprivate extension FetchedResultsSectionChange {
 }
 
 private class BaseFetchedResultsControllerDelegate<T>: NSObject, NSFetchedResultsControllerDelegate {
+    
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         fatalError()
     }
@@ -300,6 +314,7 @@ private class BaseFetchedResultsControllerDelegate<T>: NSObject, NSFetchedResult
 }
 
 private final class ForwardingFetchedResultsControllerDelegate<Delegate: FetchedResultsControllerDelegate>: BaseFetchedResultsControllerDelegate<Delegate.T> {
+    
     typealias Owner = FetchedResultsController<Delegate.T>
 
     weak var delegate: Delegate?
@@ -325,15 +340,15 @@ private final class ForwardingFetchedResultsControllerDelegate<Delegate: Fetched
         ) {
         guard let object = anObject as? Delegate.T else { return }
         guard let change = FetchedResultsObjectChange<Delegate.T>(object: object, indexPath: indexPath,
-                                                                  changeType: type, newIndexPath: newIndexPath) else { return }
+                                                                  changeType: type, newIndexPath: newIndexPath)
+            else { return }
         delegate?.fetchedResultsController(owner, didChangeObject: change)
     }
 
-    override func controller(
-        _ controller: NSFetchedResultsController<NSFetchRequestResult>,
-        didChange sectionInfo: NSFetchedResultsSectionInfo,
-        atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType
-        ) {
+    override func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                             didChange sectionInfo: NSFetchedResultsSectionInfo,
+                             atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        
         let change = FetchedResultsSectionChange<Delegate.T>(section: sectionInfo, index: sectionIndex, changeType: type)
         delegate?.fetchedResultsController(owner, didChangeSection: change)
     }

@@ -31,13 +31,17 @@ public extension NSManagedObjectContext {
      */
     func saveContextAndWait() throws {
         switch concurrencyType {
+            
         case .confinementConcurrencyType:
             try sharedSaveFlow()
+            
         case .mainQueueConcurrencyType,
              .privateQueueConcurrencyType:
             try performAndWaitOrThrow(sharedSaveFlow)
+            
         @unknown default:
             fatalError()
+            
         }
     }
 
@@ -57,13 +61,17 @@ public extension NSManagedObjectContext {
         }
 
         switch concurrencyType {
+            
         case .confinementConcurrencyType:
             saveFlow()
+            
         case .privateQueueConcurrencyType,
              .mainQueueConcurrencyType:
             perform(saveFlow)
+            
         @unknown default:
             fatalError()
+            
         }
     }
 
@@ -82,13 +90,17 @@ public extension NSManagedObjectContext {
         }
 
         switch concurrencyType {
+            
         case .confinementConcurrencyType:
             try saveFlow()
+            
         case .mainQueueConcurrencyType,
              .privateQueueConcurrencyType:
             try performAndWaitOrThrow(saveFlow)
+            
         @unknown default:
             fatalError()
+            
         }
     }
 
@@ -114,13 +126,17 @@ public extension NSManagedObjectContext {
         }
 
         switch concurrencyType {
+            
         case .confinementConcurrencyType:
             saveFlow()
+            
         case .privateQueueConcurrencyType,
              .mainQueueConcurrencyType:
             perform(saveFlow)
+            
         @unknown default:
             fatalError()
+            
         }
     }
 

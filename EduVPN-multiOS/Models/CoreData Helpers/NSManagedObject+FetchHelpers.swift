@@ -36,7 +36,9 @@ extension NSFetchRequestResult where Self: NSManagedObject {
      - throws: Any error produced from `executeFetchRequest`
      - returns: `Self?`: The first entity that matches the optional predicate or `nil`.
      */
-    static public func findFirstInContext(_ context: NSManagedObjectContext, predicate: NSPredicate? = nil) throws -> Self? {
+    static public func findFirstInContext(_ context: NSManagedObjectContext,
+                                          predicate: NSPredicate? = nil) throws -> Self? {
+        
         let fetchRequest = fetchRequestForEntity(inContext: context)
         fetchRequest.predicate = predicate
         fetchRequest.fetchLimit = 1
@@ -53,7 +55,10 @@ extension NSFetchRequestResult where Self: NSManagedObject {
      - throws: Any error produced from `executeFetchRequest`
      - returns: `[Self]`: The array of matching entities.
      */
-    static public func allInContext(_ context: NSManagedObjectContext, predicate: NSPredicate? = nil, sortDescriptors: [NSSortDescriptor]? = nil) throws -> [Self] {
+    static public func allInContext(_ context: NSManagedObjectContext,
+                                    predicate: NSPredicate? = nil,
+                                    sortDescriptors: [NSSortDescriptor]? = nil) throws -> [Self] {
+        
         let fetchRequest = fetchRequestForEntity(inContext: context)
         fetchRequest.sortDescriptors = sortDescriptors
         fetchRequest.predicate = predicate
@@ -99,7 +104,9 @@ extension NSFetchRequestResult where Self: NSManagedObject {
     }
 
     // MARK: Private Funcs
-    static private func removeAllObjectsReturnedByRequest(_ fetchRequest: NSFetchRequest<Self>, inContext context: NSManagedObjectContext) throws {
+    static private func removeAllObjectsReturnedByRequest(_ fetchRequest: NSFetchRequest<Self>,
+                                                          inContext context: NSManagedObjectContext) throws {
+        
         // A batch delete would be more efficient here on iOS 9 and up
         //  however it complicates things since the request requires a context with
         //  an NSPersistentStoreCoordinator directly connected. (MOC cannot be a child of another MOC)
