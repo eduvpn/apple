@@ -72,12 +72,19 @@
 		34186CEA2296DEE4009B4121 /* CertificateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A81DF9B2003BFB7002827A8 /* CertificateModel.swift */; };
 		34186CEB2296DEE5009B4121 /* CertificateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A81DF9B2003BFB7002827A8 /* CertificateModel.swift */; };
 		34186CEC2296E2CA009B4121 /* StaticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACA04291F311507004B35AA /* StaticService.swift */; };
-		34186CEE2296E46F009B4121 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34186CED2296E46F009B4121 /* FileService.swift */; };
 		34186CEF2296E6CE009B4121 /* Moya+ResponseHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD5E1F350822006E1337 /* Moya+ResponseHandling.swift */; };
 		34186CF02296E6CE009B4121 /* Moya+ResponseHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD5E1F350822006E1337 /* Moya+ResponseHandling.swift */; };
 		34186CF12296E7B4009B4121 /* StaticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACA04291F311507004B35AA /* StaticService.swift */; };
 		34186CF22296E7C6009B4121 /* Moya+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3E029B1F6C4B3D00D20292 /* Moya+Extensions.swift */; };
 		34186CF32296E7C6009B4121 /* Moya+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3E029B1F6C4B3D00D20292 /* Moya+Extensions.swift */; };
+		34186CF42297CE19009B4121 /* InstanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACA042D1F311863004B35AA /* InstanceService.swift */; };
+		34186CF52297CE19009B4121 /* Moya+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACA042B1F3116D5004B35AA /* Moya+Promise.swift */; };
+		34186CF62297CE19009B4121 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4F36521F31972C0032C96B /* ApiService.swift */; };
+		34186CF72297CE19009B4121 /* CredentialStorePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD591F34F887006E1337 /* CredentialStorePlugin.swift */; };
+		34186CF82297CE19009B4121 /* InstanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACA042D1F311863004B35AA /* InstanceService.swift */; };
+		34186CF92297CE19009B4121 /* Moya+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACA042B1F3116D5004B35AA /* Moya+Promise.swift */; };
+		34186CFA2297CE19009B4121 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4F36521F31972C0032C96B /* ApiService.swift */; };
+		34186CFB2297CE19009B4121 /* CredentialStorePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD591F34F887006E1337 /* CredentialStorePlugin.swift */; };
 		342B9C88228ECB4900C006D7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B9C87228ECB4900C006D7 /* main.m */; };
 		342B9C90228ECB8300C006D7 /* OpenVPNHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B9C8E228ECB8200C006D7 /* OpenVPNHelper.m */; };
 		342B9C92228ECBB200C006D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 342B9C91228ECBB200C006D7 /* Foundation.framework */; };
@@ -520,8 +527,9 @@
 		34186C9B2296B318009B4121 /* EduVPN-multiOS */ = {
 			isa = PBXGroup;
 			children = (
-				34186C9D2296B345009B4121 /* Models */,
+				4ACA04281F311507004B35AA /* Networking */,
 				34186C9C2296B336009B4121 /* Extensions */,
+				34186C9D2296B345009B4121 /* Models */,
 			);
 			path = "EduVPN-multiOS";
 			sourceTree = "<group>";
@@ -842,7 +850,6 @@
 				4A84E276204F3A5B00E51EFE /* EduVPN.entitlements */,
 				4A983B751F397223004F82D5 /* Coordinators */,
 				4AD0AD5B1F35045E006E1337 /* ViewControllers */,
-				4ACA04281F311507004B35AA /* Networking */,
 				4AAC1F9C1F2D134200DD0252 /* Resources */,
 				4AAC1F791F2D0E3400DD0252 /* AppDelegate.swift */,
 				4AAC1F821F2D0E3400DD0252 /* LaunchScreen.storyboard */,
@@ -1548,9 +1555,11 @@
 				342B9CE722902BB500C006D7 /* MainViewController.swift in Sources */,
 				34186CBE2296B5B2009B4121 /* Instance+CoreDataProperties.swift in Sources */,
 				342B9CC722902BA900C006D7 /* TwoFactorService.swift in Sources */,
+				34186CF42297CE19009B4121 /* InstanceService.swift in Sources */,
 				342B9CE622902BB500C006D7 /* DurationTransformer.swift in Sources */,
 				34186CA42296B5A1009B4121 /* FetchedResultsController.swift in Sources */,
 				342B9CE422902BB500C006D7 /* EnterProviderURLViewController.swift in Sources */,
+				34186CF52297CE19009B4121 /* Moya+Promise.swift in Sources */,
 				34186CA82296B5A6009B4121 /* Instance.swift in Sources */,
 				34186CE02296B7BC009B4121 /* UserDefaults+EduVPN.swift in Sources */,
 				34186CCF2296B707009B4121 /* ProviderType.swift in Sources */,
@@ -1562,7 +1571,6 @@
 				34186CE22296B951009B4121 /* Message.swift in Sources */,
 				34186CB72296B5B2009B4121 /* Api+CoreDataClass.swift in Sources */,
 				342B9CCC22902BA900C006D7 /* ConfigurationService.swift in Sources */,
-				34186CEE2296E46F009B4121 /* FileService.swift in Sources */,
 				342B9CCE22902BA900C006D7 /* ServiceContainer.swift in Sources */,
 				34186CA12296B5A1009B4121 /* NSManagedObjectContext+SaveHelpers.swift in Sources */,
 				342B9CCD22902BA900C006D7 /* KeychainService.swift in Sources */,
@@ -1573,9 +1581,11 @@
 				342B9CC622902BA900C006D7 /* ProviderService.swift in Sources */,
 				342B9CE222902BB500C006D7 /* ProvidersViewController.swift in Sources */,
 				34D71A9A228D9C6A0027DE84 /* String+Random.swift in Sources */,
+				34186CF72297CE19009B4121 /* CredentialStorePlugin.swift in Sources */,
 				342B9CCB22902BA900C006D7 /* ConnectionService.swift in Sources */,
 				34186CB62296B5B2009B4121 /* DisplayName+CoreDataProperties.swift in Sources */,
 				342B9CE122902BB500C006D7 /* ChooseConnectionTypeViewController.swift in Sources */,
+				34186CF62297CE19009B4121 /* ApiService.swift in Sources */,
 				342B9CE822902BB500C006D7 /* MainWindowController.swift in Sources */,
 				34186CD02296B707009B4121 /* ProfileModel.swift in Sources */,
 				34186CB52296B5B2009B4121 /* DisplayName+CoreDataClass.swift in Sources */,
@@ -1598,6 +1608,7 @@
 			files = (
 				34186CDC2296B710009B4121 /* Logo+Convenience.swift in Sources */,
 				34186CAB2296B5A7009B4121 /* Profile.swift in Sources */,
+				34186CFA2297CE19009B4121 /* ApiService.swift in Sources */,
 				34186CC52296B5B7009B4121 /* Api+CoreDataClass.swift in Sources */,
 				34186CC62296B5B7009B4121 /* Api+CoreDataProperties.swift in Sources */,
 				34186CF02296E6CE009B4121 /* Moya+ResponseHandling.swift in Sources */,
@@ -1616,8 +1627,11 @@
 				34186CE32296B951009B4121 /* Message.swift in Sources */,
 				34186CD72296B707009B4121 /* ProfileModel.swift in Sources */,
 				34D71AE5228DA4CC0027DE84 /* Either.swift in Sources */,
+				34186CF82297CE19009B4121 /* InstanceService.swift in Sources */,
 				34186CE12296B7BC009B4121 /* UserDefaults+EduVPN.swift in Sources */,
 				342B9CEB22955D5300C006D7 /* DurationTransformer.swift in Sources */,
+				34186CF92297CE19009B4121 /* Moya+Promise.swift in Sources */,
+				34186CFB2297CE19009B4121 /* CredentialStorePlugin.swift in Sources */,
 				34D71AE8228DA4CC0027DE84 /* Provider.swift in Sources */,
 				34186CC02296B5B7009B4121 /* AuthServer+CoreDataProperties.swift in Sources */,
 				34186CAE2296B5AA009B4121 /* NSManagedObjectContext+AsyncHelpers.swift in Sources */,

@@ -13,6 +13,7 @@ import Moya
 protocol AcceptJson {}
 
 extension TargetType where Self: AcceptJson {
+    
     var headers: [String: String]? {
         return ["Accept": "application/json"]
     }

@@ -93,34 +93,66 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
 
     var currentAuthorizationFlow: OIDExternalUserAgentSession?
 
+    // MARK: - Authorization
+    
+    private func makeAuthorizeRequest() -> OIDAuthorizationRequest {
+        return OIDAuthorizationRequest(configuration: authConfig,
+                                       clientId: Config.shared.clientId,
+                                       scopes: ["config"],
+                                       redirectURL: Config.shared.redirectUrl,
+                                       responseType: OIDResponseTypeCode,
+                                       additionalParameters: nil)
+    }
+    
+    private func makeAuthorizeCallback(_ seal: Resolver<OIDAuthState>) -> OIDAuthStateAuthorizationCallback {
+        return { (authState, error) in
+            
+            if let error = error {
+                seal.reject(error)
+                return
+            }
+            
+            self.actualApi.authState = authState
+            
+            precondition(authState != nil, "THIS SHOULD NEVER HAPPEN")
+            
+            self.api.managedObjectContext?.performAndWait {
+                self.api.instance?.group?.distributedAuthorizationApi = self.actualApi
+            }
+            do {
+                try self.api.managedObjectContext?.save()
+            } catch {
+                seal.reject(error)
+                return
+            }
+            
+            seal.fulfill(authState!)
+        }
+    }
+    
+    #if os(iOS)
+    
     public func authorize(presentingViewController: UIViewController) -> Promise<OIDAuthState> {
-        let request = OIDAuthorizationRequest(configuration: authConfig, clientId: Config.shared.clientId, scopes: ["config"], redirectURL: Config.shared.redirectUrl, responseType: OIDResponseTypeCode, additionalParameters: nil)
         return Promise(resolver: { seal in
-            currentAuthorizationFlow = OIDAuthState.authState(byPresenting: request, presenting: presentingViewController, callback: { (authState, error) in
-
-                if let error = error {
-                    seal.reject(error)
-                    return
-                }
-
-                self.actualApi.authState = authState
-
-                precondition(authState != nil, "THIS SHOULD NEVER HAPPEN")
-
-                self.api.managedObjectContext?.performAndWait {
-                    self.api.instance?.group?.distributedAuthorizationApi = self.actualApi
-                }
-                do {
-                    try self.api.managedObjectContext?.save()
-                } catch {
-                    seal.reject(error)
-                    return
-                }
-
-                seal.fulfill(authState!)
-            })
+            
+            currentAuthorizationFlow = OIDAuthState.authState(byPresenting: self.makeAuthorizeRequest(),
+                                                              presenting: presentingViewController,
+                                                              callback: self.makeAuthorizeCallback(seal))
         })
     }
+    
+    #elseif os(macOS)
+    
+    public func authorize() -> Promise<OIDAuthState> {
+        return Promise(resolver: { seal in
+            currentAuthorizationFlow = OIDAuthState.authState(byPresenting: self.makeAuthorizeRequest(),
+                                                              callback: self.makeAuthorizeCallback(seal))
+        })
+    }
+    
+    #endif
+    
+    // MARK: - Constructor
 
     public init?(api: Api, endpointClosure: @escaping EndpointClosure = MoyaProvider.defaultEndpointMapping,
                  stubClosure: @escaping StubClosure = MoyaProvider.neverStub,
