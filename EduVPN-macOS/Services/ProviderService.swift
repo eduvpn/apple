@@ -328,68 +328,67 @@ class ProviderService {
         }
     }
     
-    /// URL for Application Support folder
-    ///
-    /// - Returns: URL
-    /// - Throws: Error finding or creating directory
-    private func applicationSupportDirectoryURL() throws -> URL  {
-        var applicationSupportDirectory = try FileManager.default.url(for: .applicationSupportDirectory,
-                                                                      in: .userDomainMask,
-                                                                      appropriateFor: nil,
-                                                                      create: true)
-        applicationSupportDirectory.appendPathComponent(appConfig.appName)
-        
-        try FileManager.default.createDirectory(at: applicationSupportDirectory, withIntermediateDirectories: true, attributes: nil)
-        
-        return applicationSupportDirectory
-    }
-    
     /// URL for saving providers to disk
     ///
     /// - Returns: URL
     /// - Throws: Error finding or creating directory
-    private func storedProvidersFileURL() throws -> URL  {
-        var storedProvidersFileURL = try applicationSupportDirectoryURL()
-        storedProvidersFileURL.appendPathComponent("Providers.plist")
-        return storedProvidersFileURL
+    private func storedProvidersFileUrl() -> URL? {
+        var storedProvidersFileUrl = applicationSupportDirectoryUrl()
+        storedProvidersFileUrl?.appendPathComponent("Providers.plist")
+        return storedProvidersFileUrl
     }
     
     /// URL for saving local configs
     ///
     /// - Returns: URL
     /// - Throws: Error finding or creating directory
-    private func localConfigsDirectoryURL() throws -> URL  {
-        var localConfigsDirectoryURL = try applicationSupportDirectoryURL()
-        localConfigsDirectoryURL.appendPathComponent("Local")
+    private func localConfigsDirectoryUrl() -> URL? {
+        guard var localConfigsDirectoryUrl = applicationSupportDirectoryUrl() else {
+            return nil
+        }
         
-        try FileManager.default.createDirectory(at: localConfigsDirectoryURL,
-                                                withIntermediateDirectories: true,
-                                                attributes: nil)
+        localConfigsDirectoryUrl.appendPathComponent("Local")
         
-        return localConfigsDirectoryURL
+        do {
+            try FileManager.default.createDirectory(at: localConfigsDirectoryUrl,
+                                                    withIntermediateDirectories: true,
+                                                    attributes: nil)
+            
+            return localConfigsDirectoryUrl
+        } catch {
+            return nil
+        }
     }
     
     /// Reads providers from disk
     private func readFromDisk() {
+        guard let url = storedProvidersFileUrl() else {
+            NSLog("Failed to get storedProvidersFileUrl")
+            return
+        }
+        
         let decoder = PropertyListDecoder()
         do {
-            let url = try storedProvidersFileURL()
             let data = try Data(contentsOf: url)
             let restoredProviders = try decoder.decode([ConnectionType: [Provider]].self, from: data)
             storedProviders = restoredProviders
-        } catch (let error) {
+        } catch let error {
             NSLog("Failed to read stored providers from disk at \(url): \(error)")
         }
     }
     
     /// Saves providers to disk
     private func saveToDisk() {
+        guard let url = storedProvidersFileUrl() else {
+            NSLog("Failed to get storedProvidersFileUrl")
+            return
+        }
+        
         let encoder = PropertyListEncoder()
         do {
             let data = try encoder.encode(storedProviders)
-            let url = try storedProvidersFileURL()
             try data.write(to: url, options: .atomic)
-        } catch (let error) {
+        } catch let error {
             NSLog("Failed to write stored providers to disk at \(url): \(error)")
         }
     }
@@ -1049,22 +1048,36 @@ class ProviderService {
     }
     
     func addProvider(configFileURL: URL, recover: Bool = false, handler: @escaping ((Result<Provider>) -> Void))  {
+        guard let localConfigsDirectoryURL = localConfigsDirectoryUrl() else {
+            handler(.failure(NSError.withLocalizedDescription(key: "Couldn't get localConfigsDirectoryUrl")))
+            return
+        }
+
         configFileCheck(configFileURL: configFileURL, recover: recover) { result in
             switch result {
             case .success(let config, let commonName):
                 do {
                     // Copy to Application Support folder
-                    let localConfigsDirectoryURL = try self.localConfigsDirectoryURL()
                     var displayName = configFileURL.lastPathComponent
                     let importedConfigFileURL = try localConfigsDirectoryURL.appendingPathComponent(displayName).nextUnusedFileURL()
                     displayName = importedConfigFileURL.lastPathComponent
+                    
                     try config.write(to: importedConfigFileURL, atomically: true, encoding: .utf8)
-                    let provider = Provider(displayName: displayName, baseURL: importedConfigFileURL, logoURL: nil, publicKey: commonName, username: nil, connectionType: .localConfig, authorizationType: .local)
+                    
+                    let provider = Provider(displayName: displayName,
+                                            baseURL: importedConfigFileURL,
+                                            logoURL: nil,
+                                            publicKey: commonName,
+                                            username: nil,
+                                            connectionType: .localConfig,
+                                            authorizationType: .local)
+                    
                     if self.storedProviders[.localConfig] != nil {
                         self.storedProviders[.localConfig]?.append(provider)
                     } else {
                         self.storedProviders[.localConfig] = [provider]
                     }
+                    
                     self.saveToDisk()
                     handler(.success(provider))
                 } catch {
@@ -1076,7 +1089,10 @@ class ProviderService {
         }
     }
     
-    private func configFileCheck(configFileURL: URL, recover: Bool, handler: @escaping ((Result<(Config_Mac, String?)>) -> Void)) {
+    private func configFileCheck(configFileURL: URL,
+                                 recover: Bool,
+                                 handler: @escaping ((Result<(Config_Mac, String?)>) -> Void)) {
+        
         do {
             let config = try String(contentsOf: configFileURL)
             let certStartRange = config.range(of: "<cert>")
@@ -1185,5 +1201,4 @@ class ProviderService {
         storedProviders[.localConfig] = providers
         saveToDisk()
     }
-    
 }

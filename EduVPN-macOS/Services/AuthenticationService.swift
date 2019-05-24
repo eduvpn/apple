@@ -315,33 +315,21 @@ class AuthenticationService {
     ///
     /// - Returns: URL
     /// - Throws: Error finding or creating directory
-    private func storedAuthStatesFileURL() throws -> URL  {
-        var applicationSupportDirectory = try FileManager.default.url(for: .applicationSupportDirectory,
-                                                                      in: .userDomainMask,
-                                                                      appropriateFor: nil,
-                                                                      create: true)
-        
-        switch Bundle.main.bundleIdentifier! {
-        case "org.eduvpn.app":
-            applicationSupportDirectory.appendPathComponent("eduVPN")
-        case "org.eduvpn.app.home":
-            applicationSupportDirectory.appendPathComponent("Let's connect!")
-        default:
-            fatalError()
-        }
-        
-        try FileManager.default.createDirectory(at: applicationSupportDirectory,
-                                                withIntermediateDirectories: true,
-                                                attributes: nil)
-        applicationSupportDirectory.appendPathComponent("AuthenticationTokens.plist")
+    private func storedAuthStatesFileURL() -> URL? {
+        var applicationSupportDirectory = applicationSupportDirectoryUrl()
+        applicationSupportDirectory?.appendPathComponent("AuthenticationTokens.plist")
         
         return applicationSupportDirectory
     }
     
     /// Reads authentication tokens from disk
     private func readFromDisk() {
+        guard let url = storedAuthStatesFileURL() else {
+            NSLog("Failed to get storedAuthStatesFileURL")
+            return
+        }
+        
         do {
-            let url = try storedAuthStatesFileURL()
             let data = try Data(contentsOf: url)
             // OIDAuthState doesn't support Codable, use NSArchiving instead
             if let restoredAuthStates = NSKeyedUnarchiver.unarchiveObject(with: data) as? [String: AnyObject] {
@@ -360,24 +348,28 @@ class AuthenticationService {
             } else {
                 NSLog("Failed to unarchive stored authentication tokens from disk")
             }
-        } catch (let error) {
+        } catch let error {
             NSLog("Failed to read stored authentication tokens from disk: \(error)")
         }
     }
     
     /// Saves authentication tokens to disk
     private func saveToDisk() {
+        guard let url = storedAuthStatesFileURL() else {
+            NSLog("Failed to get storedAuthStatesFileURL")
+            return
+        }
+        
         do {
             // Convert ConnectionType to String
             let authStatesByConnectionType = self.authStatesByConnectionType.reduce(into: [String: OIDAuthState]()) { (result, entry) in
                 result[entry.key.rawValue] = entry.value
             }
             
-            let data = NSKeyedArchiver.archivedData(withRootObject: ["authStatesByProviderId": authStatesByProviderId,
-                                                                     "authStatesByConnectionType": authStatesByConnectionType])
-            let url = try storedAuthStatesFileURL()
-            try data.write(to: url, options: .atomic)
-        } catch (let error) {
+            let data = ["authStatesByProviderId": authStatesByProviderId,
+                        "authStatesByConnectionType": authStatesByConnectionType]
+            try NSKeyedArchiver.archivedData(withRootObject: data).write(to: url, options: .atomic)
+        } catch let error {
             NSLog("Failed to save stored authentication tokens to disk: \(error)")
         }
     }

@@ -72,29 +72,28 @@ extension Api {
     }
 
     private func filePathUrl(from url: URL) -> URL? {
-        guard var fileUrl = try? FileManager.default.url(for: .applicationSupportDirectory,
-                                                         in: .userDomainMask,
-                                                         appropriateFor: nil,
-                                                         create: false) else { return nil }
-        
-        #if os(iOS)
-        let attributes: [FileAttributeKey : Any]? = [FileAttributeKey.protectionKey: FileProtectionType.completeUntilFirstUserAuthentication]
-        #elseif os(macOS)
-        let attributes: [FileAttributeKey : Any]? = nil
-        #endif
+        guard var fileUrl = applicationSupportDirectoryUrl() else { return nil }
         
         if let host = url.host {
             fileUrl.appendPathComponent(host)
-            try? FileManager.default.createDirectory(at: fileUrl,
-                                                     withIntermediateDirectories: true,
-                                                     attributes: attributes)
         }
 
         if !url.path.isEmpty {
             fileUrl.appendPathComponent(url.path)
-            try? FileManager.default.createDirectory(at: fileUrl,
-                                                     withIntermediateDirectories: true,
-                                                     attributes: attributes)
+        }
+        
+        do {
+            #if os(iOS)
+            let attributes: [FileAttributeKey : Any]? = [FileAttributeKey.protectionKey: FileProtectionType.completeUntilFirstUserAuthentication]
+            #elseif os(macOS)
+            let attributes: [FileAttributeKey : Any]? = nil
+            #endif
+            
+            try FileManager.default.createDirectory(at: fileUrl,
+                                                    withIntermediateDirectories: true,
+                                                    attributes: attributes)
+        } catch {
+            return nil
         }
 
         return fileUrl

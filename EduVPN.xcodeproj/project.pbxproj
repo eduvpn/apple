@@ -89,6 +89,12 @@
 		34186CFD2297E183009B4121 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A140BBB21B5D7F5000A87E3 /* Message.swift */; };
 		34186D002297E801009B4121 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = 34186CFF2297E801009B4121 /* config.json */; };
 		34186D032297EAC1009B4121 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = 34186D012297EA9A009B4121 /* config.json */; };
+		34186D06229802C0009B4121 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34186D05229802C0009B4121 /* FileService.swift */; };
+		34186D07229802E0009B4121 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34186D05229802C0009B4121 /* FileService.swift */; };
+		34186D08229802E1009B4121 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34186D05229802C0009B4121 /* FileService.swift */; };
+		34186D09229803BA009B4121 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CBF22902BA800C006D7 /* AuthenticationService.swift */; };
+		34186D0B2298068C009B4121 /* NSError+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34186D0A2298068C009B4121 /* NSError+App.swift */; };
+		34186D0C229806CE009B4121 /* NSError+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34186D0A2298068C009B4121 /* NSError+App.swift */; };
 		342B9C88228ECB4900C006D7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B9C87228ECB4900C006D7 /* main.m */; };
 		342B9C90228ECB8300C006D7 /* OpenVPNHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B9C8E228ECB8200C006D7 /* OpenVPNHelper.m */; };
 		342B9C92228ECBB200C006D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 342B9C91228ECBB200C006D7 /* Foundation.framework */; };
@@ -138,7 +144,6 @@
 		34D71AA8228D9CCC0027DE84 /* String+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A8D228D9C6A0027DE84 /* String+Random.swift */; };
 		34D71AA9228D9CCC0027DE84 /* URL+Unused.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A89228D9C6A0027DE84 /* URL+Unused.swift */; };
 		34D71AAA228D9CCC0027DE84 /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A8B228D9C6A0027DE84 /* Debug.swift */; };
-		34D71AB1228DA3A00027DE84 /* IPAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAB228DA39F0027DE84 /* IPAddress.swift */; };
 		34D71AB2228DA3A00027DE84 /* String+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAC228DA39F0027DE84 /* String+URL.swift */; };
 		34D71AB4228DA3A00027DE84 /* Either.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAE228DA39F0027DE84 /* Either.swift */; };
 		34D71AB5228DA3A00027DE84 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAF228DA39F0027DE84 /* Provider.swift */; };
@@ -152,7 +157,6 @@
 		34D71ADD228DA4B00027DE84 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34D719E9228D75560027DE84 /* Info.plist */; };
 		34D71ADE228DA4BB0027DE84 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34D719FE228D75C10027DE84 /* Info.plist */; };
 		34D71AE5228DA4CC0027DE84 /* Either.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAE228DA39F0027DE84 /* Either.swift */; };
-		34D71AE6228DA4CC0027DE84 /* IPAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAB228DA39F0027DE84 /* IPAddress.swift */; };
 		34D71AE8228DA4CC0027DE84 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAF228DA39F0027DE84 /* Provider.swift */; };
 		34D71AE9228DA4CC0027DE84 /* String+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAC228DA39F0027DE84 /* String+URL.swift */; };
 		34D71AEA228DA4CC0027DE84 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AB0228DA39F0027DE84 /* User.swift */; };
@@ -278,6 +282,8 @@
 		34186CED2296E46F009B4121 /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
 		34186CFF2297E801009B4121 /* config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
 		34186D012297EA9A009B4121 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
+		34186D05229802C0009B4121 /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
+		34186D0A2298068C009B4121 /* NSError+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSError+App.swift"; sourceTree = "<group>"; };
 		342B9C85228ECB4800C006D7 /* org.eduvpn.app.openvpnhelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = org.eduvpn.app.openvpnhelper; sourceTree = BUILT_PRODUCTS_DIR; };
 		342B9C87228ECB4900C006D7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		342B9C8C228ECB8200C006D7 /* OpenVPNHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenVPNHelper.h; sourceTree = "<group>"; };
@@ -334,7 +340,6 @@
 		34D71A89228D9C6A0027DE84 /* URL+Unused.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+Unused.swift"; sourceTree = "<group>"; };
 		34D71A8B228D9C6A0027DE84 /* Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
 		34D71A8D228D9C6A0027DE84 /* String+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Random.swift"; sourceTree = "<group>"; };
-		34D71AAB228DA39F0027DE84 /* IPAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IPAddress.swift; sourceTree = "<group>"; };
 		34D71AAC228DA39F0027DE84 /* String+URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+URL.swift"; sourceTree = "<group>"; };
 		34D71AAD228DA39F0027DE84 /* Message_Mac.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message_Mac.swift; sourceTree = "<group>"; };
 		34D71AAE228DA39F0027DE84 /* Either.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Either.swift; sourceTree = "<group>"; };
@@ -533,6 +538,7 @@
 		34186C9B2296B318009B4121 /* EduVPN-multiOS */ = {
 			isa = PBXGroup;
 			children = (
+				34186D04229802AF009B4121 /* Services */,
 				4ACA04281F311507004B35AA /* Networking */,
 				34186C9C2296B336009B4121 /* Extensions */,
 				34186C9D2296B345009B4121 /* Models */,
@@ -617,6 +623,14 @@
 				4A4CA90E1F55F4300021FD5D /* UITableView+EduVPN.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		34186D04229802AF009B4121 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				34186D05229802C0009B4121 /* FileService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		342B9C86228ECB4900C006D7 /* OpenVPNHelper-macOS */ = {
@@ -733,7 +747,6 @@
 			children = (
 				342B9CD822902BB500C006D7 /* DurationTransformer.swift */,
 				34D71AAE228DA39F0027DE84 /* Either.swift */,
-				34D71AAB228DA39F0027DE84 /* IPAddress.swift */,
 				34D71AAD228DA39F0027DE84 /* Message_Mac.swift */,
 				34D71AAF228DA39F0027DE84 /* Provider.swift */,
 				34D71AAC228DA39F0027DE84 /* String+URL.swift */,
@@ -771,6 +784,7 @@
 				34D71A8D228D9C6A0027DE84 /* String+Random.swift */,
 				34D71A89228D9C6A0027DE84 /* URL+Unused.swift */,
 				34D71A8B228D9C6A0027DE84 /* Debug.swift */,
+				34186D0A2298068C009B4121 /* NSError+App.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1594,6 +1608,7 @@
 				34186CF72297CE19009B4121 /* CredentialStorePlugin.swift in Sources */,
 				34186CFC2297E182009B4121 /* Message.swift in Sources */,
 				342B9CCB22902BA900C006D7 /* ConnectionService.swift in Sources */,
+				34186D0B2298068C009B4121 /* NSError+App.swift in Sources */,
 				34186CB62296B5B2009B4121 /* DisplayName+CoreDataProperties.swift in Sources */,
 				342B9CE122902BB500C006D7 /* ChooseConnectionTypeViewController.swift in Sources */,
 				34186CF62297CE19009B4121 /* ApiService.swift in Sources */,
@@ -1603,11 +1618,11 @@
 				34D71AB6228DA3A00027DE84 /* User.swift in Sources */,
 				34D71AB2228DA3A00027DE84 /* String+URL.swift in Sources */,
 				342B9CE022902BB500C006D7 /* ChooseProviderViewController.swift in Sources */,
+				34186D06229802C0009B4121 /* FileService.swift in Sources */,
 				34D71A92228D9C6A0027DE84 /* NSAlert+Custom.swift in Sources */,
 				34186CA32296B5A1009B4121 /* NSManagedObject+FetchHelpers.swift in Sources */,
 				34186CBD2296B5B2009B4121 /* Instance+CoreDataClass.swift in Sources */,
 				34186CB32296B5B2009B4121 /* InstanceGroup+CoreDataClass.swift in Sources */,
-				34D71AB1228DA3A00027DE84 /* IPAddress.swift in Sources */,
 				34186CBC2296B5B2009B4121 /* Profile+CoreDataProperties.swift in Sources */,
 				34D71AB5228DA3A00027DE84 /* Provider.swift in Sources */,
 			);
@@ -1641,6 +1656,7 @@
 				34186CFD2297E183009B4121 /* Message.swift in Sources */,
 				34186CF82297CE19009B4121 /* InstanceService.swift in Sources */,
 				34186CE12296B7BC009B4121 /* UserDefaults+EduVPN.swift in Sources */,
+				34186D07229802E0009B4121 /* FileService.swift in Sources */,
 				342B9CEB22955D5300C006D7 /* DurationTransformer.swift in Sources */,
 				34186CF92297CE19009B4121 /* Moya+Promise.swift in Sources */,
 				34186CFB2297CE19009B4121 /* CredentialStorePlugin.swift in Sources */,
@@ -1653,11 +1669,12 @@
 				34186CD62296B707009B4121 /* ProviderType.swift in Sources */,
 				34186CAF2296B5AA009B4121 /* NSManagedObject+FetchHelpers.swift in Sources */,
 				34186CDB2296B710009B4121 /* DisplayName+Convenience.swift in Sources */,
-				34D71AE6228DA4CC0027DE84 /* IPAddress.swift in Sources */,
 				34186CC22296B5B7009B4121 /* InstanceGroup+CoreDataProperties.swift in Sources */,
 				34186CF32296E7C6009B4121 /* Moya+Extensions.swift in Sources */,
+				34186D09229803BA009B4121 /* AuthenticationService.swift in Sources */,
 				34D71AA8228D9CCC0027DE84 /* String+Random.swift in Sources */,
 				34186CEC2296E2CA009B4121 /* StaticService.swift in Sources */,
+				34186D0C229806CE009B4121 /* NSError+App.swift in Sources */,
 				34186CC32296B5B7009B4121 /* DisplayName+CoreDataClass.swift in Sources */,
 				34D71AA7228D9CCC0027DE84 /* NSAlert+Custom.swift in Sources */,
 				34186CB02296B5AA009B4121 /* FetchedResultsController.swift in Sources */,
@@ -1705,6 +1722,7 @@
 				4A8D241F1F3976A2004A9343 /* ProfilesViewController.swift in Sources */,
 				4A983B791F397289004F82D5 /* Coordinator.swift in Sources */,
 				4A983B7B1F3972BE004F82D5 /* RootCoordinator.swift in Sources */,
+				34186D08229802E1009B4121 /* FileService.swift in Sources */,
 				4AA69F87203AA23200035F1A /* Api.swift in Sources */,
 				4AAC2EED2027117400F9D0D2 /* Instance+CoreDataClass.swift in Sources */,
 				4A2BAC8B225B8CB500AECEE6 /* NSManagedObject+FetchHelpers.swift in Sources */,
