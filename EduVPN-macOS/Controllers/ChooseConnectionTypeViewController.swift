@@ -29,8 +29,8 @@ class ChooseConnectionTypeViewController: NSViewController {
         secureInternetButton.isEnabled = true
         instituteAccessButton.isEnabled = true
         
-        secureInternetButton.isHidden = !ServiceContainer.appConfig.apiDiscoveryEnabled
-        instituteAccessButton.isHidden = !ServiceContainer.appConfig.apiDiscoveryEnabled
+        secureInternetButton.isHidden = !Config.shared.apiDiscoveryEnabled
+        instituteAccessButton.isHidden = !Config.shared.apiDiscoveryEnabled
     }
     
     @IBAction func chooseSecureInternet(_ sender: Any) {

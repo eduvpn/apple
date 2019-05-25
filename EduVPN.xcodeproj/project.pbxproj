@@ -130,10 +130,7 @@
 		34D719E5228D75560027DE84 /* eduVPNAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34D719E4228D75560027DE84 /* eduVPNAssets.xcassets */; };
 		34D719E8228D75560027DE84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34D719E6228D75560027DE84 /* Main.storyboard */; };
 		34D719FA228D75C10027DE84 /* LetsConnectAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34D719F9228D75C10027DE84 /* LetsConnectAssets.xcassets */; };
-		34D71A0B228D76610027DE84 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A09228D76610027DE84 /* AppConfig.swift */; };
-		34D71A64228D781A0027DE84 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A06228D76610027DE84 /* AppConfig.swift */; };
 		34D71A65228D78460027DE84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34D719E6228D75560027DE84 /* Main.storyboard */; };
-		34D71A67228D8D940027DE84 /* AppConfigType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A66228D8D940027DE84 /* AppConfigType.swift */; };
 		34D71A92228D9C6A0027DE84 /* NSAlert+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A85228D9C690027DE84 /* NSAlert+Custom.swift */; };
 		34D71A96228D9C6A0027DE84 /* URL+Unused.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A89228D9C6A0027DE84 /* URL+Unused.swift */; };
 		34D71A98228D9C6A0027DE84 /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A8B228D9C6A0027DE84 /* Debug.swift */; };
@@ -158,7 +155,6 @@
 		34D71AE8228DA4CC0027DE84 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAF228DA39F0027DE84 /* Provider.swift */; };
 		34D71AE9228DA4CC0027DE84 /* String+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAC228DA39F0027DE84 /* String+URL.swift */; };
 		34D71AEA228DA4CC0027DE84 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AB0228DA39F0027DE84 /* User.swift */; };
-		34D71AEB228DA4CC0027DE84 /* AppConfigType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A66228D8D940027DE84 /* AppConfigType.swift */; };
 		34D71B08228DA4D20027DE84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D719E0228D75550027DE84 /* AppDelegate.swift */; };
 		4A1140841F78490C00D61100 /* VPNConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */; };
 		4A140BBC21B5D7F5000A87E3 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A140BBB21B5D7F5000A87E3 /* Message.swift */; };
@@ -331,9 +327,6 @@
 		34D719F9228D75C10027DE84 /* LetsConnectAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = LetsConnectAssets.xcassets; sourceTree = "<group>"; };
 		34D719FE228D75C10027DE84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		34D719FF228D75C10027DE84 /* LetsConnect_macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LetsConnect_macOS.entitlements; sourceTree = "<group>"; };
-		34D71A06228D76610027DE84 /* AppConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
-		34D71A09228D76610027DE84 /* AppConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
-		34D71A66228D8D940027DE84 /* AppConfigType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfigType.swift; sourceTree = "<group>"; };
 		34D71A85228D9C690027DE84 /* NSAlert+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSAlert+Custom.swift"; sourceTree = "<group>"; };
 		34D71A89228D9C6A0027DE84 /* URL+Unused.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+Unused.swift"; sourceTree = "<group>"; };
 		34D71A8B228D9C6A0027DE84 /* Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
@@ -704,7 +697,6 @@
 				34186D012297EA9A009B4121 /* config.json */,
 				34D719F9228D75C10027DE84 /* LetsConnectAssets.xcassets */,
 				34D719FF228D75C10027DE84 /* LetsConnect_macOS.entitlements */,
-				34D71A06228D76610027DE84 /* AppConfig.swift */,
 				34D719FE228D75C10027DE84 /* Info.plist */,
 			);
 			path = LetsConnect;
@@ -716,7 +708,6 @@
 				34186CFF2297E801009B4121 /* config.json */,
 				34D719E4228D75560027DE84 /* eduVPNAssets.xcassets */,
 				34D719EA228D75560027DE84 /* EduVPN_macOS.entitlements */,
-				34D71A09228D76610027DE84 /* AppConfig.swift */,
 				34D719E9228D75560027DE84 /* Info.plist */,
 			);
 			path = eduVPN;
@@ -747,7 +738,6 @@
 				34D71AAF228DA39F0027DE84 /* Provider.swift */,
 				34D71AAC228DA39F0027DE84 /* String+URL.swift */,
 				34D71AB0228DA39F0027DE84 /* User.swift */,
-				34D71A66228D8D940027DE84 /* AppConfigType.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1549,7 +1539,6 @@
 				34D71A96228D9C6A0027DE84 /* URL+Unused.swift in Sources */,
 				34D71A98228D9C6A0027DE84 /* Debug.swift in Sources */,
 				342B9CE922902BB500C006D7 /* ChooseProfileViewController.swift in Sources */,
-				34D71A0B228D76610027DE84 /* AppConfig.swift in Sources */,
 				34186CDD2296B711009B4121 /* DisplayName+Convenience.swift in Sources */,
 				342B9CEA22902BB500C006D7 /* Enroll2FAViewController.swift in Sources */,
 				342B9CE322902BB500C006D7 /* Enter2FAViewController.swift in Sources */,
@@ -1559,7 +1548,6 @@
 				34186CF12296E7B4009B4121 /* StaticService.swift in Sources */,
 				34186CB82296B5B2009B4121 /* Api+CoreDataProperties.swift in Sources */,
 				34186CBA2296B5B2009B4121 /* Logo+CoreDataProperties.swift in Sources */,
-				34D71A67228D8D940027DE84 /* AppConfigType.swift in Sources */,
 				34186CA72296B5A6009B4121 /* Profile.swift in Sources */,
 				34D719E1228D75550027DE84 /* AppDelegate.swift in Sources */,
 				34186CA22296B5A1009B4121 /* NSManagedObjectContext+AsyncHelpers.swift in Sources */,
@@ -1673,8 +1661,6 @@
 				34D71AA7228D9CCC0027DE84 /* NSAlert+Custom.swift in Sources */,
 				34186CB02296B5AA009B4121 /* FetchedResultsController.swift in Sources */,
 				34186CC92296B5B7009B4121 /* Profile+CoreDataClass.swift in Sources */,
-				34D71A64228D781A0027DE84 /* AppConfig.swift in Sources */,
-				34D71AEB228DA4CC0027DE84 /* AppConfigType.swift in Sources */,
 				34D71AAA228D9CCC0027DE84 /* Debug.swift in Sources */,
 				34186CBF2296B5B7009B4121 /* AuthServer+CoreDataClass.swift in Sources */,
 				34186CCC2296B5B7009B4121 /* Instance+CoreDataProperties.swift in Sources */,

@@ -117,22 +117,19 @@ class ProviderService {
     private let preferencesService: PreferencesService
     private let keychainService: KeychainService
     private let configurationService: ConfigurationService
-    private let appConfig: AppConfigType
     private let log: OSLog
     
     init(urlSession: URLSession,
          authenticationService: AuthenticationService,
          preferencesService: PreferencesService,
          keychainService: KeychainService,
-         configurationService: ConfigurationService,
-         appConfig: AppConfigType) {
+         configurationService: ConfigurationService) {
         
         self.urlSession = urlSession
         self.authenticationService = authenticationService
         self.preferencesService = preferencesService
         self.keychainService = keychainService
         self.configurationService = configurationService
-        self.appConfig = appConfig
         
         if ProcessInfo.processInfo.environment.keys.contains("SIGNPOSTS") {
             log = OSLog(subsystem: "org.eduvpn.app.home", category: "ProviderService")
@@ -155,7 +152,7 @@ class ProviderService {
             discoverID = nil
         }
         
-        if !appConfig.apiDiscoveryEnabled {
+        if !Config.shared.apiDiscoveryEnabled {
             var accessibleProviders: [ConnectionType: [Provider]] = [:]
             
             func hasStoredDistributedProvider(type: ConnectionType) -> Bool {

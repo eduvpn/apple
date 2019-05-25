@@ -18,10 +18,7 @@ struct ServiceContainer {
         let urlSession =  URLSession(configuration: configuration)
         return urlSession
     }()
-    
-    /// Defines configuration values
-    static let appConfig: AppConfigType = AppConfig()
-    
+        
     /// Installs and connects helper
     static let helperService = HelperService()
     
@@ -30,14 +27,13 @@ struct ServiceContainer {
                                                  authenticationService: authenticationService,
                                                  preferencesService: preferencesService,
                                                  keychainService: keychainService,
-                                                 configurationService: configurationService,
-                                                 appConfig: appConfig)
+                                                 configurationService: configurationService)
     
     /// Registers 2FA
     static let twoFactorService = TwoFactorService(urlSession: urlSession, authenticationService: authenticationService)
     
     /// Authenticates user with provider
-    static let authenticationService = AuthenticationService(appConfig: appConfig)
+    static let authenticationService = AuthenticationService()
    
     /// Fetches configuration
     static let configurationService = ConfigurationService(urlSession: urlSession,

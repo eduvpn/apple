@@ -40,7 +40,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         mainWindowController.window?.makeKeyAndOrderFront(nil)
 
         // Adjust app name in menu and window
-        let appName = ServiceContainer.appConfig.appName
+        let appName = Config.shared.appName
         if appName != "eduVPN" {
             let fix: (NSMenuItem) -> Void = { menuItem in
                 menuItem.title = menuItem.title.replacingOccurrences(of: "eduVPN", with: appName)

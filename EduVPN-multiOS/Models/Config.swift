@@ -26,6 +26,8 @@ struct Config: Decodable {
         case redirect_url
         case predefined_provider
         case discovery
+        case appName
+        case apiDiscoveryEnabled
     }
 
     var clientId: String
@@ -33,6 +35,9 @@ struct Config: Decodable {
 
     var predefinedProvider: URL?
     var discovery: DiscoveryConfig?
+    
+    var appName: String
+    var apiDiscoveryEnabled: Bool
 }
 
 struct DiscoveryConfig: Decodable {
@@ -66,6 +71,9 @@ extension Config {
 
         predefinedProvider = try container.decodeIfPresent(URL.self, forKey: .predefined_provider)
         discovery = try container.decodeIfPresent(DiscoveryConfig.self, forKey: .discovery)
+        
+        appName = try container.decode(String.self, forKey: .appName)
+        apiDiscoveryEnabled = try container.decodeIfPresent(Bool.self, forKey: .apiDiscoveryEnabled) ?? false
     }
 }
 

@@ -44,18 +44,16 @@ class AuthenticationService {
     static let authenticationFinished = NSNotification.Name("AuthenticationService.authenticationFinished")
     
     private var redirectHTTPHandler: OIDRedirectHTTPHandler?
-    private let appConfig: AppConfigType
     
     private let log: OSLog
     
-    init(appConfig: AppConfigType) {
+    init() {
         if ProcessInfo.processInfo.environment.keys.contains("SIGNPOSTS") {
             log = OSLog(subsystem: "org.eduvpn.app.home", category: "AuthenticationService")
         } else {
             log = .disabled
         }
     
-        self.appConfig = appConfig
         readFromDisk()
     }
 
