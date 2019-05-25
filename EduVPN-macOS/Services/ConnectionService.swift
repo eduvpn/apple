@@ -93,7 +93,7 @@ class ConnectionService: NSObject {
         }
     }
     
-    private var pendingDisconnectHandlers: [((Result<Void>) -> ())] = []
+    private var pendingDisconnectHandlers: [((Result<Void, Swift.Error>) -> ())] = []
     
     /// Describes current connection state
     private(set) var state: State = .disconnected {
@@ -138,7 +138,7 @@ class ConnectionService: NSObject {
     ///   - profile: Profile
     ///   - twoFactor: Optional two factor authentication token
     ///   - handler: Success or error
-    func connect(to profile: Profile_Mac, twoFactor: TwoFactor?, handler: @escaping (Result<Void>) -> ()) {
+    func connect(to profile: Profile_Mac, twoFactor: TwoFactor?, handler: @escaping (Result<Void, Swift.Error>) -> ()) {
         guard state == .disconnected else {
             handler(.failure(Error.unexpectedState))
             return
@@ -191,7 +191,7 @@ class ConnectionService: NSObject {
     /// Sets state to disconnected after a cool down perios
     ///
     /// Some actions are still going on when disconnecting, going directly to disconnected state allows user to immediately reconnect, which can get the app the behave unexpectedly.
-    private func coolDown(_ handler: ((Result<Void>) -> ())? = nil) {
+    private func coolDown(_ handler: ((Result<Void, Swift.Error>) -> ())? = nil) {
         guard state != .disconnected else {
             handler?(.success(Void()))
             return
@@ -259,14 +259,14 @@ class ConnectionService: NSObject {
     }
     
     private var twoFactor: TwoFactor?
-    private var handler: ((Result<Void>) -> ())?
+    private var handler: ((Result<Void, Swift.Error>) -> ())?
     
     /// Asks helper service to start VPN connection
     ///
     /// - Parameters:
     ///   - configURL: URL of config file
     ///   - handler: Succes or error
-    private func activateConfig(at configURL: URL, handler: @escaping (Result<Void>) -> ()) {
+    private func activateConfig(at configURL: URL, handler: @escaping (Result<Void, Swift.Error>) -> ()) {
         guard state == .connecting else {
             handler(.failure(Error.unexpectedState))
             return
@@ -330,7 +330,7 @@ class ConnectionService: NSObject {
     /// Asks helper to disconnect VPN connection
     ///
     /// - Parameter handler: Success or error
-    func disconnect(_ handler: @escaping (Result<Void>) -> ()) {
+    func disconnect(_ handler: @escaping (Result<Void, Swift.Error>) -> ()) {
         guard state == .connected || state == .connecting else {
             handler(.failure(Error.unexpectedState))
             return

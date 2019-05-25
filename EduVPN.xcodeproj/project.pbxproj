@@ -140,7 +140,6 @@
 		34D71AA9228D9CCC0027DE84 /* URL+Unused.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A89228D9C6A0027DE84 /* URL+Unused.swift */; };
 		34D71AAA228D9CCC0027DE84 /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A8B228D9C6A0027DE84 /* Debug.swift */; };
 		34D71AB2228DA3A00027DE84 /* String+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAC228DA39F0027DE84 /* String+URL.swift */; };
-		34D71AB4228DA3A00027DE84 /* Either.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAE228DA39F0027DE84 /* Either.swift */; };
 		34D71AB5228DA3A00027DE84 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAF228DA39F0027DE84 /* Provider.swift */; };
 		34D71AB6228DA3A00027DE84 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AB0228DA39F0027DE84 /* User.swift */; };
 		34D71AD6228DA4670027DE84 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 34D71AD3228DA4670027DE84 /* dsa_pub.pem */; };
@@ -151,7 +150,6 @@
 		34D71ADC228DA49D0027DE84 /* openvpn-2.4.7-openssl-1.1.1b in Resources */ = {isa = PBXBuildFile; fileRef = 34D71AD8228DA4850027DE84 /* openvpn-2.4.7-openssl-1.1.1b */; };
 		34D71ADD228DA4B00027DE84 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34D719E9228D75560027DE84 /* Info.plist */; };
 		34D71ADE228DA4BB0027DE84 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34D719FE228D75C10027DE84 /* Info.plist */; };
-		34D71AE5228DA4CC0027DE84 /* Either.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAE228DA39F0027DE84 /* Either.swift */; };
 		34D71AE8228DA4CC0027DE84 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAF228DA39F0027DE84 /* Provider.swift */; };
 		34D71AE9228DA4CC0027DE84 /* String+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAC228DA39F0027DE84 /* String+URL.swift */; };
 		34D71AEA228DA4CC0027DE84 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AB0228DA39F0027DE84 /* User.swift */; };
@@ -273,7 +271,6 @@
 		11EE63FC99D26438F0B980F7 /* Pods-EduVPNTunnelExtension.release appforce1.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension.release appforce1.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.release appforce1.xcconfig"; sourceTree = "<group>"; };
 		1C644DAFAF71735E397E6E30 /* Pods-EduVPN.release appforce1.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPN.release appforce1.xcconfig"; path = "Target Support Files/Pods-EduVPN/Pods-EduVPN.release appforce1.xcconfig"; sourceTree = "<group>"; };
 		34186CE42296D971009B4121 /* ASN1Decoder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ASN1Decoder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		34186CED2296E46F009B4121 /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
 		34186CFF2297E801009B4121 /* config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
 		34186D012297EA9A009B4121 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
 		34186D05229802C0009B4121 /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
@@ -332,7 +329,6 @@
 		34D71A8B228D9C6A0027DE84 /* Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
 		34D71A8D228D9C6A0027DE84 /* String+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Random.swift"; sourceTree = "<group>"; };
 		34D71AAC228DA39F0027DE84 /* String+URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+URL.swift"; sourceTree = "<group>"; };
-		34D71AAE228DA39F0027DE84 /* Either.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Either.swift; sourceTree = "<group>"; };
 		34D71AAF228DA39F0027DE84 /* Provider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		34D71AB0228DA39F0027DE84 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		34D71AD3228DA4670027DE84 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
@@ -725,7 +721,6 @@
 				342B9CBD22902BA800C006D7 /* ProviderService.swift */,
 				342B9CC522902BA900C006D7 /* ServiceContainer.swift */,
 				342B9CBE22902BA800C006D7 /* TwoFactorService.swift */,
-				34186CED2296E46F009B4121 /* FileService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -734,7 +729,6 @@
 			isa = PBXGroup;
 			children = (
 				342B9CD822902BB500C006D7 /* DurationTransformer.swift */,
-				34D71AAE228DA39F0027DE84 /* Either.swift */,
 				34D71AAF228DA39F0027DE84 /* Provider.swift */,
 				34D71AAC228DA39F0027DE84 /* String+URL.swift */,
 				34D71AB0228DA39F0027DE84 /* User.swift */,
@@ -1543,7 +1537,6 @@
 				342B9CEA22902BB500C006D7 /* Enroll2FAViewController.swift in Sources */,
 				342B9CE322902BB500C006D7 /* Enter2FAViewController.swift in Sources */,
 				342B9CE522902BB500C006D7 /* AuthenticatingViewController.swift in Sources */,
-				34D71AB4228DA3A00027DE84 /* Either.swift in Sources */,
 				34186CEF2296E6CE009B4121 /* Moya+ResponseHandling.swift in Sources */,
 				34186CF12296E7B4009B4121 /* StaticService.swift in Sources */,
 				34186CB82296B5B2009B4121 /* Api+CoreDataProperties.swift in Sources */,
@@ -1634,7 +1627,6 @@
 				34186CAC2296B5A7009B4121 /* Instance.swift in Sources */,
 				34D71B08228DA4D20027DE84 /* AppDelegate.swift in Sources */,
 				34186CD72296B707009B4121 /* ProfileModel.swift in Sources */,
-				34D71AE5228DA4CC0027DE84 /* Either.swift in Sources */,
 				34186CFD2297E183009B4121 /* Message.swift in Sources */,
 				34186CF82297CE19009B4121 /* InstanceService.swift in Sources */,
 				34186CE12296B7BC009B4121 /* UserDefaults+EduVPN.swift in Sources */,

@@ -117,7 +117,7 @@ class HelperService {
     /// - Parameters:
     ///   - client: Client
     ///   - handler: Success or error
-    func installHelperIfNeeded(client: ClientProtocol, handler: @escaping (Result<Void>) -> ()) {
+    func installHelperIfNeeded(client: ClientProtocol, handler: @escaping (Result<Void, Swift.Error>) -> ()) {
         connectToHelper(client: client) { result in
             switch result {
             case .success(let upToDate):
@@ -154,7 +154,7 @@ class HelperService {
     /// Installs the helper
     ///
     /// - Parameter handler: Succes or error
-    private func installHelper(_ handler: @escaping (Result<Void>) -> ()) {
+    private func installHelper(_ handler: @escaping (Result<Void, Swift.Error>) -> ()) {
         var status = AuthorizationCreate(nil, nil, AuthorizationFlags(), &authRef)
         guard status == errAuthorizationSuccess else {
             handler(.failure(Error.authenticationFailed))
@@ -200,7 +200,7 @@ class HelperService {
     /// - Parameters:
     ///   - client: Client
     ///   - handler: True if up-to-date, false is older version or eror
-    private func connectToHelper(client: ClientProtocol, handler: @escaping (Result<Bool>) -> ()) {
+    private func connectToHelper(client: ClientProtocol, handler: @escaping (Result<Bool, Swift.Error>) -> ()) {
         connection = NSXPCConnection(machServiceName: HelperService.helperIdentifier, options: .privileged)
         let remoteObjectInterface = NSXPCInterface(with: OpenVPNHelperProtocol.self)
         connection?.remoteObjectInterface = remoteObjectInterface
@@ -232,7 +232,7 @@ class HelperService {
     /// Ask the helper for its version
     ///
     /// - Parameter handler: Version or error
-    private func getHelperVersion(_ handler: @escaping (Result<String>) -> ()) {
+    private func getHelperVersion(_ handler: @escaping (Result<String, Swift.Error>) -> ()) {
         guard let helper = connection?.remoteObjectProxyWithErrorHandler({ error in
             handler(.failure(error))
         }) as? OpenVPNHelperProtocol else {

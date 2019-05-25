@@ -102,7 +102,7 @@ class Enroll2FAViewController: NSViewController {
             return
         }
         
-        let handler: (Result<Void>) -> () = { result in
+        let handler: (Result<Void, Swift.Error>) -> () = { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success:

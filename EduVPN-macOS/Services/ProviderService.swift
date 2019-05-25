@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Result
 import Sodium
 import os
 
@@ -143,7 +144,7 @@ class ProviderService {
     /// Discovers all providers that the user can access with the stored providers
     ///
     /// - Parameter handler: List of providers or error
-    func discoverAccessibleProviders(handler: @escaping (Result<[ConnectionType: [Provider]]>) -> ()) {
+    func discoverAccessibleProviders(handler: @escaping (Result<[ConnectionType: [Provider]], Swift.Error>) -> ()) {
         let discoverID: Any?
         if #available(OSX 10.14, *) {
             discoverID = OSSignpostID(log: log)
@@ -443,7 +444,7 @@ class ProviderService {
     /// - Parameters:
     ///   - connectionType: Connection type
     ///   - handler: List of providers or error
-    func discoverProviders(connectionType: ConnectionType, handler: @escaping (Result<[Provider]>) -> ()) {
+    func discoverProviders(connectionType: ConnectionType, handler: @escaping (Result<[Provider], Swift.Error>) -> ()) {
         let request = URLRequest(url: signatureUrl(for: connectionType))
         let task = urlSession.dataTask(with: request) { (data, response, error) in
             guard let signature = data, let response = response as? HTTPURLResponse, 200..<300 ~= response.statusCode else {
@@ -581,7 +582,7 @@ class ProviderService {
     /// - Parameters:
     ///   - provider: Provider
     ///   - handler: Info about provider or error
-    func fetchInfo(for provider: Provider, handler: @escaping (Result<ProviderInfo>) -> ()) {
+    func fetchInfo(for provider: Provider, handler: @escaping (Result<ProviderInfo, Swift.Error>) -> ()) {
         guard provider.connectionType != .localConfig else {
             let providerInfo = ProviderInfo(apiBaseURL: URL(fileURLWithPath: "/dev/null"),
                                             authorizationURL: URL(fileURLWithPath: "/dev/null"),
@@ -663,7 +664,7 @@ class ProviderService {
     /// - Parameters:
     ///   - info: Provider info
     ///   - handler: User info and profiles or error
-    func fetchUserInfoAndProfiles(for info: ProviderInfo, handler: @escaping (Result<(UserInfo, [Profile_Mac])>) -> ()) {
+    func fetchUserInfoAndProfiles(for info: ProviderInfo, handler: @escaping (Result<(UserInfo, [Profile_Mac]), Swift.Error>) -> ()) {
         guard info.provider.connectionType != .localConfig else {
             let userInfo = UserInfo(twoFactorEnrolled: false, twoFactorEnrolledWith: [], isDisabled: false)
             let profile = Profile_Mac(profileId: info.provider.displayName,
@@ -743,7 +744,8 @@ class ProviderService {
     ///   - handler: User info or error
     func fetchUserInfo(for info: ProviderInfo,
                        authenticationBehavior: AuthenticationService.Behavior = .ifNeeded,
-                       handler: @escaping (Result<UserInfo>) -> ()) {
+                       handler: @escaping (Result<UserInfo, Swift.Error>) -> ()) {
+        
         
         let path: String = "user_info"
         
@@ -846,7 +848,7 @@ class ProviderService {
     ///   - handler: Profiles or error
     func fetchProfiles(for info: ProviderInfo,
                        authenticationBehavior: AuthenticationService.Behavior = .ifNeeded,
-                       handler: @escaping (Result<[Profile_Mac]>) -> ()) {
+                       handler: @escaping (Result<[Profile_Mac], Swift.Error>) -> ()) {
         
         guard let url = URL(string: "profile_list", relativeTo: info.apiBaseURL) else {
             handler(.failure(Error.invalidProviderInfo))
@@ -944,7 +946,7 @@ class ProviderService {
     func fetchMessages(for info: ProviderInfo,
                        audience: MessageAudience,
                        authenticationBehavior: AuthenticationService.Behavior = .ifNeeded,
-                       handler: @escaping (Result<[Message]>) -> ()) {
+                       handler: @escaping (Result<[Message], Swift.Error>) -> ()) {
         
         let path: String
         switch audience {
@@ -1053,7 +1055,7 @@ class ProviderService {
         }
     }
     
-    func addProvider(configFileURL: URL, recover: Bool = false, handler: @escaping ((Result<Provider>) -> Void))  {
+    func addProvider(configFileURL: URL, recover: Bool = false, handler: @escaping ((Result<Provider, Swift.Error>) -> Void))  {
         guard let localConfigsDirectoryURL = localConfigsDirectoryUrl() else {
             handler(.failure(NSError.withLocalizedDescription(key: "Couldn't get localConfigsDirectoryUrl")))
             return
@@ -1097,7 +1099,7 @@ class ProviderService {
     
     private func configFileCheck(configFileURL: URL,
                                  recover: Bool,
-                                 handler: @escaping ((Result<(Config_Mac, String?)>) -> Void)) {
+                                 handler: @escaping ((Result<(Config_Mac, String?), Swift.Error>) -> Void)) {
         
         do {
             let config = try String(contentsOf: configFileURL)

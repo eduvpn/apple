@@ -73,7 +73,7 @@ class AuthenticationService {
     /// - Parameters:
     ///   - info: Provider info
     ///   - handler: Auth state or error
-    func authenticate(using info: ProviderInfo, force: Bool = false, handler: @escaping (Result<Void>) -> ()) {
+    func authenticate(using info: ProviderInfo, force: Bool = false, handler: @escaping (Result<Void, Swift.Error>) -> ()) {
         // No need to authenticate for local config
         guard info.provider.connectionType != .localConfig else {
             handler(.success(Void()))
@@ -150,7 +150,7 @@ class AuthenticationService {
     }
     
     private var isAuthenticating = false
-    private var handlersAfterAuthenticating: [(Result<Void>) -> ()] = []
+    private var handlersAfterAuthenticating: [(Result<Void, Swift.Error>) -> ()] = []
     
     /// Cancel authentication
     func cancelAuthentication() {

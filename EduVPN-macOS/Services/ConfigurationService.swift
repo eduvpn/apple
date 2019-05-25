@@ -89,7 +89,9 @@ class ConfigurationService {
     /// - Parameters:
     ///   - profile: Profile_Mac
     ///   - handler: Config or error
-    func configure(for profile: Profile_Mac, handler: @escaping (Result<(config: Config_Mac, certificateCommonName: String)>) -> ()) {
+    func configure(for profile: Profile_Mac,
+                   handler: @escaping (Result<(config: Config_Mac, certificateCommonName: String), Swift.Error>) -> ()) {
+        
         restoreOrCreateKeyPair(for: profile.info) { result in
             switch result {
             case .success(let certificateCommonName):
@@ -115,7 +117,7 @@ class ConfigurationService {
     /// - Parameters:
     ///   - info: Provider info
     ///   - handler: Certificate common name or error
-    private func restoreOrCreateKeyPair(for info: ProviderInfo, handler: @escaping (Result<String>) -> ()) {
+    private func restoreOrCreateKeyPair(for info: ProviderInfo, handler: @escaping (Result<String, Swift.Error>) -> ()) {
         guard info.provider.connectionType != .localConfig else {
             handler(.success(info.provider.publicKey ?? ""))
             return
@@ -281,7 +283,7 @@ class ConfigurationService {
     ///   - handler: Keypair or error
     private func createKeyPair(for info: ProviderInfo,
                                authenticationBehavior: AuthenticationService.Behavior = .ifNeeded,
-                               handler: @escaping (Result<(certificate: String, privateKey: String)>) -> ()) {
+                               handler: @escaping (Result<(certificate: String, privateKey: String), Swift.Error>) -> ()) {
         
         guard let url = URL(string: "create_keypair", relativeTo: info.apiBaseURL) else {
             handler(.failure(Error.invalidURL))
@@ -357,7 +359,7 @@ class ConfigurationService {
     private func checkCertificate(for info: ProviderInfo,
                                   certificateCommonName: String,
                                   authenticationBehavior: AuthenticationService.Behavior = .ifNeeded,
-                                  handler: @escaping (Result<Void>) -> ()) {
+                                  handler: @escaping (Result<Void, Swift.Error>) -> ()) {
         
         guard let bareURL = URL(string: "check_certificate", relativeTo: info.apiBaseURL) else {
             handler(.failure(Error.invalidURL))
@@ -453,7 +455,7 @@ class ConfigurationService {
     ///   - handler: Config or error
     private func fetchConfig(for profile: Profile_Mac,
                              authenticationBehavior: AuthenticationService.Behavior = .ifNeeded,
-                             handler: @escaping (Result<Config_Mac>) -> ()) {
+                             handler: @escaping (Result<Config_Mac, Swift.Error>) -> ()) {
         
         guard profile.info.provider.connectionType != .localConfig else {
             do {
@@ -535,7 +537,7 @@ class ConfigurationService {
                       privateKey: String,
                       passphrase: String,
                       friendlyName: String,
-                      handler: @escaping ((Result<Data>) -> ())) {
+                      handler: @escaping ((Result<Data, Swift.Error>) -> ())) {
         
         do {
             let process = Process()

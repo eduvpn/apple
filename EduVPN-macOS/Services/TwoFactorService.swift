@@ -56,7 +56,7 @@ class TwoFactorService {
     /// - Parameters:
     ///   - info: Provider info
     ///   - handler: Success or error
-    func enrollYubico(for info: ProviderInfo, otp: String, handler: @escaping (Result<Void>) -> ()) {
+    func enrollYubico(for info: ProviderInfo, otp: String, handler: @escaping (Result<Void, Swift.Error>) -> ()) {
         let path: String = "two_factor_enroll_yubi"
         
         guard let url = URL(string: path, relativeTo: info.apiBaseURL) else {
@@ -129,7 +129,7 @@ class TwoFactorService {
     /// - Parameters:
     ///   - info: Provider info
     ///   - handler: Success or error
-    func enrollTotp(for info: ProviderInfo, secret: String, otp: String, handler: @escaping (Result<Void>) -> ()) {
+    func enrollTotp(for info: ProviderInfo, secret: String, otp: String, handler: @escaping (Result<Void, Swift.Error>) -> ()) {
         let path: String = "two_factor_enroll_totp"
         
         guard let url = URL(string: path, relativeTo: info.apiBaseURL) else {
@@ -152,7 +152,7 @@ class TwoFactorService {
     }
     
     /// Performs enrollment request which is identical for both totp and yubico
-    private func performEnrollmentRequest(_ request: URLRequest, handler: @escaping (Result<Void>) -> ()) {
+    private func performEnrollmentRequest(_ request: URLRequest, handler: @escaping (Result<Void, Swift.Error>) -> ()) {
         let task = self.urlSession.dataTask(with: request) { (data, response, error) in
             guard let data = data, let response = response as? HTTPURLResponse, 200..<300 ~= response.statusCode else {
                 handler(.failure(error ?? Error.unknown))
