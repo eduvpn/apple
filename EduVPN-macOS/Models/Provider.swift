@@ -120,17 +120,3 @@ struct Profile_Mac: Codable {
     let info: ProviderInfo
 }
 
-enum TwoFactor {
-    case totp(String)
-    case yubico(String)
-    
-    var twoFactorType: TwoFactorType {
-        switch self {
-        case .totp:
-            return .totp
-        case .yubico:
-            return .yubico
-        }
-    }
-}
-

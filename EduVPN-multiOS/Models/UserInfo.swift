@@ -1,5 +1,5 @@
 //
-//  User.swift
+//  UserInfo.swift
 //  eduVPN
 //
 //  Created by Johan Kool on 16/04/2018.
@@ -9,6 +9,7 @@
 import Foundation
 
 struct UserInfo {
+    
     let twoFactorEnrolled: Bool
     let twoFactorEnrolledWith: [TwoFactorType]
     let isDisabled: Bool
@@ -17,4 +18,18 @@ struct UserInfo {
 enum TwoFactorType: String {
     case totp
     case yubico
+}
+
+enum TwoFactor {
+    case totp(String)
+    case yubico(String)
+    
+    var twoFactorType: TwoFactorType {
+        switch self {
+        case .totp:
+            return .totp
+        case .yubico:
+            return .yubico
+        }
+    }
 }
