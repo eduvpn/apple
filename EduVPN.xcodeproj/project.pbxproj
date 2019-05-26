@@ -94,6 +94,7 @@
 		34186D0B2298068C009B4121 /* NSError+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34186D0A2298068C009B4121 /* NSError+App.swift */; };
 		34186D0C229806CE009B4121 /* NSError+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34186D0A2298068C009B4121 /* NSError+App.swift */; };
 		34186D0D22994DDF009B4121 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AB0228DA39F0027DE84 /* UserInfo.swift */; };
+		34186D0E229ABBB1009B4121 /* ConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CD022902BB400C006D7 /* ConnectionViewController.swift */; };
 		342B9C88228ECB4900C006D7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B9C87228ECB4900C006D7 /* main.m */; };
 		342B9C90228ECB8300C006D7 /* OpenVPNHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B9C8E228ECB8200C006D7 /* OpenVPNHelper.m */; };
 		342B9C92228ECBB200C006D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 342B9C91228ECBB200C006D7 /* Foundation.framework */; };
@@ -1609,6 +1610,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34186D0E229ABBB1009B4121 /* ConnectionViewController.swift in Sources */,
 				34186CDC2296B710009B4121 /* Logo+Convenience.swift in Sources */,
 				34186CAB2296B5A7009B4121 /* Profile.swift in Sources */,
 				34186CFA2297CE19009B4121 /* ApiService.swift in Sources */,

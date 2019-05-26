@@ -28,66 +28,8 @@ enum ConnectionType: String, Codable {
     }
 }
 
-enum AuthorizationType_Mac: Codable {
-    
-    enum Error: Swift.Error, LocalizedError {
-        case decodingError
-        
-        var errorDescription: String? {
-            switch self {
-            case .decodingError:
-                return NSLocalizedString("Decoding failed", comment: "")
-            }
-        }
-        
-        var recoverySuggestion: String? {
-            switch self {
-            case .decodingError:
-                return NSLocalizedString("Try reinstalling eduVPN.", comment: "")
-            }
-        }
-    }
-    
-    case local
-    case distributed
-    case federated(authorizationURL: URL, tokenURL: URL)
-    
-    enum CodingKeys: String, CodingKey {
-        case `self`, kind, authorizationURL, tokenURL
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        switch self {
-        case .local:
-            try container.encode("local", forKey: .kind)
-        case .distributed:
-            try container.encode("distributed", forKey: .kind)
-        case .federated(let authorizationURL, let tokenURL):
-            try container.encode("federated", forKey: .kind)
-            try container.encode(authorizationURL, forKey: .authorizationURL)
-            try container.encode(tokenURL, forKey: .tokenURL)
-        }
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        switch try container.decode(String.self, forKey: .kind) {
-        case "local":
-            self = .local
-        case "distributed":
-            self = .distributed
-        case "federated":
-            let authorizationURL = try container.decode(URL.self, forKey: .authorizationURL)
-            let tokenURL = try container.decode(URL.self, forKey: .tokenURL)
-            self = .federated(authorizationURL: authorizationURL, tokenURL: tokenURL)
-        default:
-            throw Error.decodingError
-        }
-    }
-}
-
 struct Provider: Codable {
+    
     let displayName: String
     let baseURL: URL
     let logoURL: URL?
@@ -99,7 +41,10 @@ struct Provider: Codable {
     var username: String?
     
     let connectionType: ConnectionType
-    let authorizationType: AuthorizationType_Mac
+    let authorizationType: AuthorizationType
+    
+    let authorizationEndpoint: URL?
+    var tokenEndpoint: URL?
     
     var id: String {
         return connectionType.rawValue + ":" + baseURL.absoluteString
@@ -107,6 +52,7 @@ struct Provider: Codable {
 }
 
 struct ProviderInfo: Codable {
+    
     let apiBaseURL: URL
     let authorizationURL: URL
     let tokenURL: URL
@@ -114,9 +60,9 @@ struct ProviderInfo: Codable {
 }
 
 struct Profile_Mac: Codable {
+    
     let profileId: String
     let displayName: String
     let twoFactor: Bool
     let info: ProviderInfo
 }
-

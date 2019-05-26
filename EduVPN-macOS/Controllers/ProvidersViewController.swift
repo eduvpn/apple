@@ -441,7 +441,9 @@ extension ProvidersViewController: NSTableViewDelegate {
                                 publicKey: nil,
                                 username: nil,
                                 connectionType: .custom,
-                                authorizationType: .local)
+                                authorizationType: .local,
+                                authorizationEndpoint: nil,
+                                tokenEndpoint: nil)
         
         ServiceContainer.providerService.fetchInfo(for: provider) { result in
             switch result {

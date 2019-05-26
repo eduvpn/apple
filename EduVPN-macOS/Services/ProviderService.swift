@@ -490,7 +490,11 @@ class ProviderService {
                         return
                     }
                     
-                    let authorizationType: AuthorizationType_Mac
+                    let authorizationType: AuthorizationType
+                    
+                    var authorizationEndpoint: URL? = nil
+                    var tokenEndpoint: URL? = nil
+                    
                     switch json["authorization_type"] as? String ?? "" {
                     case "local":
                         authorizationType = .local
@@ -502,7 +506,10 @@ class ProviderService {
                             handler(.failure(Error.invalidProviders))
                             return
                         }
-                        authorizationType = .federated(authorizationURL: authorizationURL, tokenURL: tokenURL)
+                        authorizationType = .federated
+                        
+                        authorizationEndpoint = authorizationURL
+                        tokenEndpoint = tokenURL
                     default:
                         handler(.failure(Error.invalidProviders))
                         return
@@ -558,7 +565,9 @@ class ProviderService {
                                         publicKey: publicKey,
                                         username: nil,
                                         connectionType: connectionType,
-                                        authorizationType: authorizationType)
+                                        authorizationType: authorizationType,
+                                        authorizationEndpoint: authorizationEndpoint,
+                                        tokenEndpoint: tokenEndpoint)
                     }
                     
                     guard !providers.isEmpty else {
@@ -1078,7 +1087,9 @@ class ProviderService {
                                             publicKey: commonName,
                                             username: nil,
                                             connectionType: .localConfig,
-                                            authorizationType: .local)
+                                            authorizationType: .local,
+                                            authorizationEndpoint: nil,
+                                            tokenEndpoint: nil)
                     
                     if self.storedProviders[.localConfig] != nil {
                         self.storedProviders[.localConfig]?.append(provider)
