@@ -14,7 +14,7 @@ class ChooseProfileViewController: NSViewController {
     @IBOutlet var backButton: NSButton!
     
     var userInfo: UserInfo!
-    var profiles: [Profile_Mac] = []
+    var profiles: [InstanceProfileModel] = []
     
     override func viewDidAppear() {
         super.viewDidAppear()
@@ -41,7 +41,7 @@ extension ChooseProfileViewController: NSTableViewDelegate {
                                         owner: self)
         
         if let cellView = result as? NSTableCellView {
-            cellView.textField?.stringValue = profiles[row].displayName
+            cellView.textField?.stringValue = profiles[row].displayName ?? ""
         }
         
         return result

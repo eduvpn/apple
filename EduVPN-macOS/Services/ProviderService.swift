@@ -591,13 +591,22 @@ class ProviderService {
     /// - Parameters:
     ///   - provider: Provider
     ///   - handler: Info about provider or error
-    func fetchInfo(for provider: Provider, handler: @escaping (Result<ProviderInfo, Swift.Error>) -> ()) {
+    func fetchInfo(for provider: Provider, handler: @escaping (Result<InstanceModel, Swift.Error>) -> ()) {
         guard provider.connectionType != .localConfig else {
-            let providerInfo = ProviderInfo(apiBaseURL: URL(fileURLWithPath: "/dev/null"),
-                                            authorizationURL: URL(fileURLWithPath: "/dev/null"),
-                                            tokenURL: URL(fileURLWithPath: "/dev/null"),
-                                            provider: provider)
+//            let providerInfo = ProviderInfo(apiBaseURL: URL(fileURLWithPath: "/dev/null"),
+//                                            authorizationURL: URL(fileURLWithPath: "/dev/null"),
+//                                            tokenURL: URL(fileURLWithPath: "/dev/null"),
+//                                            provider: provider)
             
+            let providerInfo = InstanceModel(providerType: provider.connectionType,
+                                             baseUri: URL(fileURLWithPath: "/dev/null",
+                                             displayNames: displayNames,
+                                             logoUrls: logoUrls,
+                                             displayName: displayName,
+                                             logoUrl: logoUrl,
+                                             authorizationType: nil,
+                                             authorizationEndpoint: URL(fileURLWithPath: "/dev/null"),
+                                             tokenEndpoint: URL(fileURLWithPath: "/dev/null"))
             handler(.success(providerInfo))
             return
         }
@@ -673,13 +682,15 @@ class ProviderService {
     /// - Parameters:
     ///   - info: Provider info
     ///   - handler: User info and profiles or error
-    func fetchUserInfoAndProfiles(for info: ProviderInfo, handler: @escaping (Result<(UserInfo, [Profile_Mac]), Swift.Error>) -> ()) {
+    func fetchUserInfoAndProfiles(for info: ProviderInfo,
+                                  handler: @escaping (Result<(UserInfo, [InstanceProfileModel]), Swift.Error>) -> ()) {
+        
         guard info.provider.connectionType != .localConfig else {
             let userInfo = UserInfo(twoFactorEnrolled: false, twoFactorEnrolledWith: [], isDisabled: false)
-            let profile = Profile_Mac(profileId: info.provider.displayName,
-                                  displayName: info.provider.displayName,
-                                  twoFactor: false,
-                                  info: info)
+            let profile = InstanceProfileModel(profileId: info.provider.displayName,
+                                               displayName: info.provider.displayName,
+                                               twoFactor: false,
+                                               info: info)
             
             handler(.success((userInfo, [profile])))
             return
@@ -695,7 +706,7 @@ class ProviderService {
         
         let group = DispatchGroup()
         var userInfo: UserInfo? = nil
-        var profiles: [Profile_Mac]? = nil
+        var profiles: [InstanceProfileModel]? = nil
         var error: Swift.Error? = nil
         
         group.enter()
@@ -854,10 +865,10 @@ class ProviderService {
     /// - Parameters:
     ///   - info: Provider info
     ///   - authenticationBehavior: Whether authentication should be retried when token is revoked or expired
-    ///   - handler: Profiles or error
+    ///   - handler: InstanceProfileModels or error
     func fetchProfiles(for info: ProviderInfo,
                        authenticationBehavior: AuthenticationService.Behavior = .ifNeeded,
-                       handler: @escaping (Result<[Profile_Mac], Swift.Error>) -> ()) {
+                       handler: @escaping (Result<[InstanceProfileModel], Swift.Error>) -> ()) {
         
         guard let url = URL(string: "profile_list", relativeTo: info.apiBaseURL) else {
             handler(.failure(Error.invalidProviderInfo))
@@ -867,7 +878,12 @@ class ProviderService {
         let fetchInfoID: Any?
         if #available(OSX 10.14, *) {
             fetchInfoID = OSSignpostID(log: log)
-            os_signpost(.begin, log: log, name: "Fetch Profiles", signpostID: fetchInfoID as! OSSignpostID, "%{public}s", info.provider.displayName)
+            // TODO: RETURN
+//            os_signpost(.begin,
+//                        log: log,
+//                        name: "Fetch Profiles",
+//                        signpostID: fetchInfoID as! OSSignpostID, "%{public}s",
+//                        info.provider.displayName)
         } else {
             fetchInfoID = nil
         }
@@ -918,13 +934,16 @@ class ProviderService {
                         return
                     }
                     
-                    let profiles: [Profile_Mac] = instances.compactMap { (instance) -> Profile_Mac? in
+                    let profiles: [InstanceProfileModel] = instances.compactMap { (instance) -> InstanceProfileModel? in
                         guard let displayName = instance["display_name"] as? String,
                             let profileId = instance["profile_id"] as? String else {
                                 return nil
                         }
                         let twoFactor = instance["two_factor"] as? Bool
-                        return Profile_Mac(profileId: profileId, displayName: displayName, twoFactor: twoFactor ?? false, info: info)
+                        return InstanceProfileModel(profileId: profileId,
+                                                    displayName: displayName,
+                                                    twoFactor: twoFactor ?? false,
+                                                    info: info)
                     }
                     
                     guard !profiles.isEmpty else {

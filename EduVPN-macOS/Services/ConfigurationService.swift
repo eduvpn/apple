@@ -87,9 +87,9 @@ class ConfigurationService {
     /// Fetches configuration for a profile including certificate and private key
     ///
     /// - Parameters:
-    ///   - profile: Profile_Mac
+    ///   - profile: InstanceProfileModel
     ///   - handler: Config or error
-    func configure(for profile: Profile_Mac,
+    func configure(for profile: InstanceProfileModel,
                    handler: @escaping (Result<(config: Config_Mac, certificateCommonName: String), Swift.Error>) -> ()) {
         
         restoreOrCreateKeyPair(for: profile.info) { result in
@@ -450,10 +450,10 @@ class ConfigurationService {
     /// Fetches config from provider
     ///
     /// - Parameters:
-    ///   - profile: Profile_Mac
+    ///   - profile: InstanceProfileModel
     ///   - authenticationBehavior: Whether authentication should be retried when token is revoked or expired
     ///   - handler: Config or error
-    private func fetchConfig(for profile: Profile_Mac,
+    private func fetchConfig(for profile: InstanceProfileModel,
                              authenticationBehavior: AuthenticationService.Behavior = .ifNeeded,
                              handler: @escaping (Result<Config_Mac, Swift.Error>) -> ()) {
         

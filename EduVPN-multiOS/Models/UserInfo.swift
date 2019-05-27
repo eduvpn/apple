@@ -33,3 +33,11 @@ enum TwoFactor {
         }
     }
 }
+
+//struct ProviderInfo: Codable {
+//    
+//    let apiBaseURL: URL
+//    let authorizationURL: URL
+//    let tokenURL: URL
+//    let provider: InstancesModel
+//}

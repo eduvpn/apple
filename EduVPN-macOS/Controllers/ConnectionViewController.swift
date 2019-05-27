@@ -28,17 +28,15 @@ class ConnectionViewController: NSViewController {
     @IBOutlet var ipv4AddressField: NSTextField!
     @IBOutlet var ipv6AddressField: NSTextField!
     
-    var profile: Profile_Mac!
+    var profile: InstanceProfileModel!
     var userInfo: UserInfo!
     private var systemMessages: [Message] = []
     private var userMessages: [Message] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let provider = profile.info.provider
-        
-        switch provider.connectionType {
+                
+        switch profile.info.providerType {
         case .instituteAccess, .secureInternet:
             locationImageView?.kf.setImage(with: provider.logoURL)
         case .custom:
@@ -47,7 +45,7 @@ class ConnectionViewController: NSViewController {
             locationImageView?.image = NSWorkspace.shared.icon(forFileType: NSFileTypeForHFSTypeCode(OSType(kGenericDocumentIcon)))
         }
         
-        profileLabel.stringValue = profile.displayName
+        profileLabel.stringValue = profile.displayName ?? ""
     }
     
     override func viewWillAppear() {

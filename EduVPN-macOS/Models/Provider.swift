@@ -51,18 +51,10 @@ struct Provider: Codable {
     }
 }
 
-struct ProviderInfo: Codable {
-    
-    let apiBaseURL: URL
-    let authorizationURL: URL
-    let tokenURL: URL
-    let provider: Provider
-}
-
-struct Profile_Mac: Codable {
-    
-    let profileId: String
-    let displayName: String
-    let twoFactor: Bool
-    let info: ProviderInfo
-}
+//struct Profile_Mac: Codable {
+//    
+//    let profileId: String
+//    let displayName: String
+//    let twoFactor: Bool
+//    let info: ProviderInfo
+//}

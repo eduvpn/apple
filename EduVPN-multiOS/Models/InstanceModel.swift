@@ -56,7 +56,17 @@ extension InstancesModel {
             signedAt = signedAtDateFormatter.date(from: signedAtString)
         }
 
-        let instances = try container.decode([InstanceModel].self, forKey: .instances)
+        var instances = try container.decode([InstanceModel].self, forKey: .instances)
+        // Temporarily apply fields, which are required by macOS logic
+        instances = instances.map {
+            var im = $0
+            im.authorizationType = authorizationType
+            im.authorizationEndpoint = authorizationEndpoint
+            im.tokenEndpoint = tokenEndpoint
+            
+            return im
+        }
+        
         self.init(providerType: providerType,
                   authorizationType: authorizationType,
                   seq: seq,
@@ -76,6 +86,10 @@ struct InstanceModel: Decodable {
 
     var displayName: String?
     var logoUrl: URL?
+    
+    var authorizationType: AuthorizationType!
+    var authorizationEndpoint: URL?
+    var tokenEndpoint: URL?
 }
 
 extension InstanceModel {
@@ -128,6 +142,9 @@ extension InstanceModel {
                   displayNames: displayNames,
                   logoUrls: logoUrls,
                   displayName: displayName,
-                  logoUrl: logoUrl)
+                  logoUrl: logoUrl,
+                  authorizationType: nil,
+                  authorizationEndpoint: nil,
+                  tokenEndpoint: nil)
     }
 }

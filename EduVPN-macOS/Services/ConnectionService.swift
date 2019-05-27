@@ -135,10 +135,13 @@ class ConnectionService: NSObject {
     /// Asks helper service to start VPN connection after helper and config are ready and available
     ///
     /// - Parameters:
-    ///   - profile: Profile
+    ///   - profile: InstanceProfileModel
     ///   - twoFactor: Optional two factor authentication token
     ///   - handler: Success or error
-    func connect(to profile: Profile_Mac, twoFactor: TwoFactor?, handler: @escaping (Result<Void, Swift.Error>) -> ()) {
+    func connect(to profile: InstanceProfileModel,
+                 twoFactor: TwoFactor?,
+                 handler: @escaping (Result<Void, Swift.Error>) -> ()) {
+        
         guard state == .disconnected else {
             handler(.failure(Error.unexpectedState))
             return
@@ -213,7 +216,7 @@ class ConnectionService: NSObject {
         }
     }
     
-    private var currentProfile: Profile_Mac?
+    private var currentProfile: InstanceProfileModel?
     
     private func didConnect() {
         guard let provider = currentProfile?.info.provider, provider.connectionType == .localConfig else {
