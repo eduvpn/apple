@@ -76,14 +76,14 @@ class TunnelProviderManagerCoordinator: Coordinator {
             print("SIMULATOR DOES NOT SUPPORT NETWORK EXTENSIONS")
             return Promise.value(())
             #else
-            let parseResult = try! ConfigurationParser.parsed(fromURL: configUrl) //swiftlint:disable:this force_try
+            let parseResult = try! OpenVPN.ConfigurationParser.parsed(fromURL: configUrl) //swiftlint:disable:this force_try
 
             return Promise(resolver: { (resolver) in
                 var configBuilder = parseResult.configuration.builder()
                 configBuilder.tlsSecurityLevel = UserDefaults.standard.tlsSecurityLevel.rawValue
 
                 self.configureVPN({ (_) in
-                    var builder = TunnelKitProvider.ConfigurationBuilder(sessionConfiguration: configBuilder.build())
+                    var builder = OpenVPNTunnelProvider.ConfigurationBuilder(sessionConfiguration: configBuilder.build())
                     builder.masksPrivateData = false
                     let configuration = builder.build()
 
@@ -172,7 +172,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
         guard let vpn = currentManager?.connection as? NETunnelProviderSession else {
             return
         }
-        try? vpn.sendProviderMessage(TunnelKitProvider.Message.requestLog.data) { (data) in
+        try? vpn.sendProviderMessage(OpenVPNTunnelProvider.Message.requestLog.data) { (data) in
             guard let data = data, let log = String(data: data, encoding: .utf8) else {
                 return
             }

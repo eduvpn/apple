@@ -22,15 +22,17 @@ PODS:
   - PromiseKit/CorePromise (6.8.4)
   - Result (4.1.0)
   - SwiftyBeaver (1.7.0)
-  - TunnelKit (1.7.1):
-    - TunnelKit/AppExtension (= 1.7.1)
-    - TunnelKit/Core (= 1.7.1)
-  - TunnelKit/AppExtension (1.7.1):
+  - TunnelKit (2.0.0):
+    - TunnelKit/Protocols/OpenVPN (= 2.0.0)
+  - TunnelKit/AppExtension (2.0.0):
     - SwiftyBeaver
     - TunnelKit/Core
-  - TunnelKit/Core (1.7.1):
-    - OpenSSL-Apple (~> 1.1.0j.2)
+  - TunnelKit/Core (2.0.0):
     - SwiftyBeaver
+  - TunnelKit/Protocols/OpenVPN (2.0.0):
+    - OpenSSL-Apple (~> 1.1.0j.2)
+    - TunnelKit/AppExtension
+    - TunnelKit/Core
 
 DEPENDENCIES:
   - AlamofireImage
@@ -80,7 +82,7 @@ SPEC CHECKSUMS:
   PromiseKit: 51794a832647e7b819336dc2279039ce9f1cc49b
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   SwiftyBeaver: 4cc0080d2e23f980652e28978db11a5c9da39165
-  TunnelKit: d1e02dea5cb58ea0d4dbfcdcb387e653d148d800
+  TunnelKit: 53dd6a24fd4a38380226f39621b61b0aafc6e4b6
 
 PODFILE CHECKSUM: cb0b4df769941475513f26e0163746a07da7fa57
 

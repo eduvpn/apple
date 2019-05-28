@@ -2,8 +2,8 @@
 
 ## 2.0.4 
 
-- Make TLS security level configurable. Minimum value is "128 bits" (level 3). More details about other effects of changing the TLS security level: [https://www.openssl.org/docs/manmaster/man3/SSL_CTX_set_security_level.html](https://www.openssl.org/docs/manmaster/man3/SSL_CTX_set_security_level.html).
-- Restrict encryption to known secure tls security ciphers.
+- Update dependencies.
+- Restrict encryption to known secure tlMinimum value is "128 bits" (level 3). More details about other effects of changing the TLS security level: [https://www.openssl.org/docs/manmaster/man3/SSL_CTX_set_security_level.html](https://www.openssl.org/docs/manmaster/man3/SSL_CTX_set_security_level.html).s security ciphers.
 - Version is now defined in AppVersion.xcconfig.
 - Better handling of old discovery information.
 - Fix for when switching to an other provided while connected. #86
