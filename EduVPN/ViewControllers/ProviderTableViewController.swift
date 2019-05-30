@@ -21,7 +21,6 @@ class ProviderTableViewCell: UITableViewCell {
     @IBOutlet private weak var statusImageView: UIImageView!
 
     func configure(with instance: Instance, and providerType: ProviderType, displayConnectedStatus: Bool) {
-
         let profiles = instance.apis?.flatMap({ (api) -> Set<Profile> in
             return api.profiles
         }) ?? []
@@ -34,18 +33,25 @@ class ProviderTableViewCell: UITableViewCell {
         if displayConnectedStatus {
             statusImageView.isHidden = false
             accessoryType = .none
+            
             switch configuredProfile?.vpnStatus ?? .invalid {
+                
             case .connected:
                 statusImageView.image = UIImage(named: "connected")
+                
             case .connecting, .disconnecting, .reasserting:
                 statusImageView.image = UIImage(named: "connecting")
+                
             case .disconnected:
                 statusImageView.image = UIImage(named: "disconnected")
                 accessoryType = displayConnectedStatus ? .checkmark : .none
+                
             case .invalid:
                 statusImageView.image = nil
+                
             @unknown default:
                 fatalError()
+                
             }
         } else {
             statusImageView.isHidden = true
@@ -60,6 +66,7 @@ class ProviderTableViewCell: UITableViewCell {
             providerImageView.image = nil
             providerImageView.isHidden = true
         }
+        
         providerTitleLabel?.text = instance.displayNames?.localizedValue ?? instance.baseUri
     }
 }
@@ -75,6 +82,7 @@ protocol ProviderTableViewControllerDelegate: class {
 }
 
 class ProviderTableViewController: UITableViewController {
+    
     weak var delegate: ProviderTableViewControllerDelegate?
 
     @IBOutlet weak var addButton: UIBarButtonItem!
@@ -90,28 +98,35 @@ class ProviderTableViewController: UITableViewController {
     private lazy var fetchedResultsController: FetchedResultsController<Instance> = {
         let fetchRequest = NSFetchRequest<Instance>()
         fetchRequest.entity = Instance.entity()
+        
         switch providerType {
+            
         case .unknown:
             fetchRequest.predicate = NSPredicate(format: "apis.@count > 0 AND (SUBQUERY(apis, $y, (SUBQUERY($y.profiles, $z, $z != NIL).@count > 0)).@count > 0)")
+            
         default:
             fetchRequest.predicate = NSPredicate(format: "providerType == %@", providerType.rawValue)
+            
         }
 
         var sortDescriptors = [NSSortDescriptor]()
         if Config.shared.discovery != nil {
             sortDescriptors.append(NSSortDescriptor(key: "providerType", ascending: true))
         }
+        
         sortDescriptors.append(NSSortDescriptor(key: "baseUri", ascending: true))
         fetchRequest.sortDescriptors = sortDescriptors
+        
         let frc = FetchedResultsController<Instance>(fetchRequest: fetchRequest,
                                                     managedObjectContext: viewContext,
                                                     sectionNameKeyPath: Config.shared.discovery != nil ? "providerType": nil)
         frc.setDelegate(self.frcDelegate)
+        
         return frc
     }()
 
-    private lazy var frcDelegate: InstanceFetchedResultsControllerDelegate = { // swiftlint:disable:this weak_delegate
-        return InstanceFetchedResultsControllerDelegate(tableView: self.tableView)
+    private lazy var frcDelegate: CoreDataFetchedResultsControllerDelegate<Instance> = { // swiftlint:disable:this weak_delegate
+        return CoreDataFetchedResultsControllerDelegate<Instance>(tableView: self.tableView)
     }()
 
     override func viewWillAppear(_ animated: Bool) {
@@ -142,7 +157,10 @@ class ProviderTableViewController: UITableViewController {
             navigationItem.rightBarButtonItems = []
         }
 
-        NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(refresh),
+                                               name: UIApplication.didBecomeActiveNotification,
+                                               object: nil)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -167,14 +185,19 @@ class ProviderTableViewController: UITableViewController {
         }
 
         switch providerType {
+            
         case .secureInternet:
             return NSLocalizedString("Secure Internet", comment: "")
+            
         case .instituteAccess:
             return NSLocalizedString("Institute access", comment: "")
+            
         case .other:
             return NSLocalizedString("Other", comment: "")
+            
         case .unknown:
             return "."
+            
         }
     }
 
@@ -208,9 +231,11 @@ class ProviderTableViewController: UITableViewController {
         return providerType == .unknown
     }
 
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView,
+                            commit editingStyle: UITableViewCell.EditingStyle,
+                            forRowAt indexPath: IndexPath) {
+        
         if editingStyle == .delete {
-
             guard let sections = fetchedResultsController.sections else {
                 fatalError("FetchedResultsController \(fetchedResultsController) should have sections, but found nil")
             }
@@ -233,57 +258,6 @@ class ProviderTableViewController: UITableViewController {
     @IBAction func settings(_ sender: Any) {
         delegate?.settings(providerTableViewController: self)
     }
-
 }
 
 extension ProviderTableViewController: Identifyable {}
-
-class InstanceFetchedResultsControllerDelegate: NSObject, FetchedResultsControllerDelegate {
-
-    private weak var tableView: UITableView?
-
-    // MARK: - Lifecycle
-    init(tableView: UITableView) {
-        self.tableView = tableView
-    }
-
-    func fetchedResultsControllerDidPerformFetch(_ controller: FetchedResultsController<Instance>) {
-        tableView?.reloadData()
-    }
-
-    func fetchedResultsControllerWillChangeContent(_ controller: FetchedResultsController<Instance>) {
-        tableView?.beginUpdates()
-    }
-
-    func fetchedResultsControllerDidChangeContent(_ controller: FetchedResultsController<Instance>) {
-        tableView?.endUpdates()
-    }
-
-    func fetchedResultsController(_ controller: FetchedResultsController<Instance>, didChangeObject change: FetchedResultsObjectChange<Instance>) {
-        guard let tableView = tableView else { return }
-        switch change {
-        case let .insert(_, indexPath):
-            tableView.insertRows(at: [indexPath], with: .automatic)
-
-        case let .delete(_, indexPath):
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-
-        case let .move(_, fromIndexPath, toIndexPath):
-            tableView.moveRow(at: fromIndexPath, to: toIndexPath)
-
-        case let .update(_, indexPath):
-            tableView.reloadRows(at: [indexPath], with: .automatic)
-        }
-    }
-
-    func fetchedResultsController(_ controller: FetchedResultsController<Instance>, didChangeSection change: FetchedResultsSectionChange<Instance>) {
-        guard let tableView = tableView else { return }
-        switch change {
-        case let .insert(_, index):
-            tableView.insertSections(IndexSet(integer: index), with: .automatic)
-
-        case let .delete(_, index):
-            tableView.deleteSections(IndexSet(integer: index), with: .automatic)
-        }
-    }
-}

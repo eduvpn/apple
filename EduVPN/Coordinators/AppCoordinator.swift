@@ -810,6 +810,7 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
 }
 
 extension AppCoordinator: ProfilesViewControllerDelegate {
+    
     func settings(profilesViewController: ProfilesViewController) {
         showSettings()
     }

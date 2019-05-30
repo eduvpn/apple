@@ -128,6 +128,7 @@
 		342B9CE922902BB500C006D7 /* ChooseProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CDB22902BB500C006D7 /* ChooseProfileViewController.swift */; };
 		342B9CEA22902BB500C006D7 /* Enroll2FAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CDC22902BB500C006D7 /* Enroll2FAViewController.swift */; };
 		342B9CEB22955D5300C006D7 /* DurationTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CD822902BB500C006D7 /* DurationTransformer.swift */; };
+		34345271229FC66A00C0476E /* CoreDataFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345270229FC66A00C0476E /* CoreDataFetchedResultsControllerDelegate.swift */; };
 		34D719E1228D75550027DE84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D719E0228D75550027DE84 /* AppDelegate.swift */; };
 		34D719E5228D75560027DE84 /* eduVPNAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34D719E4228D75560027DE84 /* eduVPNAssets.xcassets */; };
 		34D719E8228D75560027DE84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34D719E6228D75560027DE84 /* Main.storyboard */; };
@@ -316,6 +317,7 @@
 		342B9CDA22902BB500C006D7 /* MainWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		342B9CDB22902BB500C006D7 /* ChooseProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseProfileViewController.swift; sourceTree = "<group>"; };
 		342B9CDC22902BB500C006D7 /* Enroll2FAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enroll2FAViewController.swift; sourceTree = "<group>"; };
+		34345270229FC66A00C0476E /* CoreDataFetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFetchedResultsControllerDelegate.swift; sourceTree = "<group>"; };
 		34D719DE228D75550027DE84 /* eduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34D719E0228D75550027DE84 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		34D719E4228D75560027DE84 /* eduVPNAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = eduVPNAssets.xcassets; sourceTree = "<group>"; };
@@ -925,6 +927,7 @@
 				4AF3DF071F4245A5003EC0BA /* ConnectionsTableViewController.swift */,
 				4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */,
 				4A2803D81FA6867D00FA895C /* CustomProviderInPutViewController.swift */,
+				34345270229FC66A00C0476E /* CoreDataFetchedResultsControllerDelegate.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1684,6 +1687,7 @@
 				4A4F36531F31972C0032C96B /* ApiService.swift in Sources */,
 				4ACA042A1F311507004B35AA /* StaticService.swift in Sources */,
 				4A3E029C1F6C4B3D00D20292 /* Moya+Extensions.swift in Sources */,
+				34345271229FC66A00C0476E /* CoreDataFetchedResultsControllerDelegate.swift in Sources */,
 				4AA9E547202CBA41006D197E /* InstanceGroup+CoreDataProperties.swift in Sources */,
 				4AA9E546202CBA41006D197E /* InstanceGroup+CoreDataClass.swift in Sources */,
 				4AF3DF081F4245A5003EC0BA /* ConnectionsTableViewController.swift in Sources */,
