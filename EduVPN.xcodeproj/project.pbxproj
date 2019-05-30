@@ -131,6 +131,8 @@
 		34345295229FF52F00C0476E /* ProfilesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345294229FF52F00C0476E /* ProfilesRepository.swift */; };
 		34345297229FF71800C0476E /* AppCoordinator+Repositories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345296229FF71800C0476E /* AppCoordinator+Repositories.swift */; };
 		34345299229FF89800C0476E /* AppCoordinator+ViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345298229FF89800C0476E /* AppCoordinator+ViewControllers.swift */; };
+		3434529B22A0665600C0476E /* CoreDataFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3434529A22A0665600C0476E /* CoreDataFetchedResultsControllerDelegate.swift */; };
+		3434529C22A0666800C0476E /* CoreDataFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3434529A22A0665600C0476E /* CoreDataFetchedResultsControllerDelegate.swift */; };
 		34D719E1228D75550027DE84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D719E0228D75550027DE84 /* AppDelegate.swift */; };
 		34D719E5228D75560027DE84 /* eduVPNAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34D719E4228D75560027DE84 /* eduVPNAssets.xcassets */; };
 		34D719E8228D75560027DE84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34D719E6228D75560027DE84 /* Main.storyboard */; };
@@ -321,6 +323,7 @@
 		34345294229FF52F00C0476E /* ProfilesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesRepository.swift; sourceTree = "<group>"; };
 		34345296229FF71800C0476E /* AppCoordinator+Repositories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppCoordinator+Repositories.swift"; sourceTree = "<group>"; };
 		34345298229FF89800C0476E /* AppCoordinator+ViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppCoordinator+ViewControllers.swift"; sourceTree = "<group>"; };
+		3434529A22A0665600C0476E /* CoreDataFetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFetchedResultsControllerDelegate.swift; sourceTree = "<group>"; };
 		34D719DE228D75550027DE84 /* eduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34D719E0228D75550027DE84 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		34D719E4228D75560027DE84 /* eduVPNAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = eduVPNAssets.xcassets; sourceTree = "<group>"; };
@@ -755,6 +758,7 @@
 				342B9CCF22902BB400C006D7 /* PreferencesViewController.swift */,
 				342B9CD422902BB500C006D7 /* ProvidersViewController.swift */,
 				34D719E0228D75550027DE84 /* AppDelegate.swift */,
+				3434529A22A0665600C0476E /* CoreDataFetchedResultsControllerDelegate.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1557,6 +1561,7 @@
 				34186CA62296B5A6009B4121 /* Api.swift in Sources */,
 				34186CCD2296B707009B4121 /* InstanceModel.swift in Sources */,
 				34186CDE2296B711009B4121 /* Logo+Convenience.swift in Sources */,
+				3434529B22A0665600C0476E /* CoreDataFetchedResultsControllerDelegate.swift in Sources */,
 				34186CB12296B5B2009B4121 /* AuthServer+CoreDataClass.swift in Sources */,
 				342B9CDD22902BB500C006D7 /* PreferencesViewController.swift in Sources */,
 				342B9CDE22902BB500C006D7 /* ConnectionViewController.swift in Sources */,
@@ -1608,6 +1613,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				34186D0E229ABBB1009B4121 /* ConnectionViewController.swift in Sources */,
+				3434529C22A0666800C0476E /* CoreDataFetchedResultsControllerDelegate.swift in Sources */,
 				34186CDC2296B710009B4121 /* Logo+Convenience.swift in Sources */,
 				34186CAB2296B5A7009B4121 /* Profile.swift in Sources */,
 				34186CFA2297CE19009B4121 /* ApiService.swift in Sources */,

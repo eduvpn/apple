@@ -6,13 +6,11 @@
 //  Copyright © 2017 SURFNet. All rights reserved.
 //
 
-import UIKit
-import os.log
-
-import NetworkExtension
-
-import CoreData
 import AlamofireImage
+import CoreData
+import NetworkExtension
+import os.log
+import UIKit
 
 class ProviderTableViewCell: UITableViewCell {
 
@@ -21,12 +19,12 @@ class ProviderTableViewCell: UITableViewCell {
     @IBOutlet private weak var statusImageView: UIImageView!
 
     func configure(with instance: Instance, and providerType: ProviderType, displayConnectedStatus: Bool) {
-        let profiles = instance.apis?.flatMap({ (api) -> Set<Profile> in
+        let profiles = instance.apis?.flatMap { api -> Set<Profile> in
             return api.profiles
-        }) ?? []
+        } ?? []
 
         let configuredProfileId = UserDefaults.standard.configuredProfileId
-        let configuredProfile = profiles.first { (profile) -> Bool in
+        let configuredProfile = profiles.first { profile -> Bool in
             return profile.uuid?.uuidString == configuredProfileId
         }
 
