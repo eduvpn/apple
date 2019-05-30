@@ -24,47 +24,6 @@ import UserNotifications
 
 extension UINavigationController: Identifyable {}
 
-enum AppCoordinatorError: Swift.Error {
-    case certificateInvalid
-    case certificateNil
-    case certificateCommonNameNotFound
-    case certificateStatusUnknown
-    case apiMissing
-    case apiProviderCreateFailed
-    case sodiumSignatureFetchFailed
-    case sodiumSignatureVerifyFailed
-    case ovpnConfigTemplate
-    case ovpnConfigTemplateNoRemotes
-    case missingStaticTargets
-
-    var localizedDescription: String {
-        switch self {
-        case .certificateInvalid:
-            return NSLocalizedString("VPN certificate is invalid.", comment: "")
-        case .certificateNil:
-            return NSLocalizedString("VPN certificate should not be nil.", comment: "")
-        case .certificateCommonNameNotFound:
-            return NSLocalizedString("Unable to extract Common Name from VPN certificate.", comment: "")
-        case .certificateStatusUnknown:
-            return NSLocalizedString("VPN certificate status is unknown.", comment: "")
-        case .apiMissing:
-            return NSLocalizedString("No concrete API instance while expecting one.", comment: "")
-        case .apiProviderCreateFailed:
-            return NSLocalizedString("Failed to create dynamic API provider.", comment: "")
-        case .sodiumSignatureFetchFailed:
-            return NSLocalizedString("Fetching signature failed.", comment: "")
-        case .sodiumSignatureVerifyFailed:
-            return NSLocalizedString("Signature verification of discovery file failed.", comment: "")
-        case .ovpnConfigTemplate:
-            return NSLocalizedString("Unable to materialize an OpenVPN config.", comment: "")
-        case .ovpnConfigTemplateNoRemotes:
-            return NSLocalizedString("OpenVPN template has no remotes.", comment: "")
-        case .missingStaticTargets:
-            return NSLocalizedString("Static target configuration is incomplete.", comment: "")
-        }
-    }
-}
-
 class AppCoordinator: RootViewCoordinator {
 
     lazy var tunnelProviderManagerCoordinator: TunnelProviderManagerCoordinator = {
@@ -81,11 +40,11 @@ class AppCoordinator: RootViewCoordinator {
 
     // MARK: - Properties
 
-    let accessTokenPlugin =  CredentialStorePlugin()
+    let accessTokenPlugin = CredentialStorePlugin()
 
     private var currentDocumentInteractionController: UIDocumentInteractionController?
 
-    private var authorizingDynamicApiProvider: DynamicApiProvider?
+    internal var authorizingDynamicApiProvider: DynamicApiProvider?
 
     var childCoordinators: [Coordinator] = []
 
@@ -108,6 +67,14 @@ class AppCoordinator: RootViewCoordinator {
 
         self.window.rootViewController = self.navigationController
         self.window.makeKeyAndVisible()
+        
+        providePersistentContainer()
+    }
+    
+    private func providePersistentContainer() {
+        InstancesRepository.shared.loader.persistentContainer = persistentContainer
+        InstancesRepository.shared.refresher.persistentContainer = persistentContainer
+        ProfilesRepository.shared.refresher.persistentContainer = persistentContainer
     }
 
     // MARK: - Functions
@@ -280,12 +247,6 @@ class AppCoordinator: RootViewCoordinator {
         }
     }
 
-    func showSettingsTableViewController() {
-        let settingsTableViewController = storyboard.instantiateViewController(type: SettingsTableViewController.self)
-        navigationController.pushViewController(settingsTableViewController, animated: true)
-        settingsTableViewController.delegate = self
-    }
-
     fileprivate func scheduleCertificateExpirationNotification(for certificate: CertificateModel, on api: Api) {
         UNUserNotificationCenter.current().getNotificationSettings { settings in
             guard settings.authorizationStatus == UNAuthorizationStatus.authorized else {
@@ -331,319 +292,6 @@ class AppCoordinator: RootViewCoordinator {
         }
     }
 
-    fileprivate func refresh(instance: Instance) -> Promise<Void> {
-        let provider = MoyaProvider<DynamicInstanceService>()
-
-        let activityData = ActivityData()
-        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData, nil)
-        NVActivityIndicatorPresenter.sharedInstance.setMessage(NSLocalizedString("Fetching instance configuration", comment: ""))
-        
-        let baseUrl = URL(string: instance.baseUri!)!
-
-        return provider.request(target: DynamicInstanceService(baseURL: baseUrl))
-            .then { response -> Promise<InstanceInfoModel> in response.mapResponse() }
-            .then { instanceInfoModel -> Promise<Api> in
-                return Promise<Api>(resolver: { seal in
-                    self.persistentContainer.performBackgroundTask { context in
-                        let authServer = AuthServer.upsert(with: instanceInfoModel, on: context)
-                        let api = Api.upsert(with: instanceInfoModel, for: instance, on: context)
-                        api.authServer = authServer
-                        
-                        do {
-                            try context.save()
-                        } catch {
-                            seal.reject(error)
-                        }
-
-                        seal.fulfill(api)
-                    }
-                })
-            }
-            .then { api -> Promise<Void> in
-                let api = self.persistentContainer.viewContext.object(with: api.objectID) as! Api //swiftlint:disable:this force_cast
-                guard let authorizingDynamicApiProvider = DynamicApiProvider(api: api) else { return .value(()) }
-                self.navigationController.popToRootViewController(animated: true)
-                return self.refreshProfiles(for: authorizingDynamicApiProvider)
-            }
-            .ensure {
-                self.providerTableViewController.refresh()
-                NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
-            }
-    }
-
-    private func showSettings() {
-        let settingsTableViewController = storyboard.instantiateViewController(type: SettingsTableViewController.self)
-        settingsTableViewController.delegate = self
-        navigationController.pushViewController(settingsTableViewController, animated: true)
-    }
-
-    private func showConnectionsTableViewController(for instance: Instance) {
-        let connectionsTableViewController = storyboard.instantiateViewController(type: ConnectionsTableViewController.self)
-        connectionsTableViewController.delegate = self
-        connectionsTableViewController.instance = instance
-        connectionsTableViewController.viewContext = persistentContainer.viewContext
-        navigationController.pushViewController(connectionsTableViewController, animated: true)
-    }
-
-    private func showProfilesViewController() {
-        let profilesViewController = storyboard.instantiateViewController(type: ProfilesViewController.self)
-
-        let fetchRequest = NSFetchRequest<Profile>()
-        fetchRequest.entity = Profile.entity()
-        fetchRequest.predicate = NSPredicate(format: "api.instance.providerType == %@", ProviderType.secureInternet.rawValue)
-
-        profilesViewController.delegate = self
-        do {
-            try profilesViewController.navigationItem.hidesBackButton = Profile.countInContext(persistentContainer.viewContext) == 0
-            navigationController.pushViewController(profilesViewController, animated: true)
-        } catch {
-            showError(error)
-        }
-    }
-
-    private func showCustomProviderInPutViewController(for providerType: ProviderType) {
-        let customProviderInputViewController = storyboard.instantiateViewController(type: CustomProviderInPutViewController.self)
-        customProviderInputViewController.delegate = self
-        navigationController.pushViewController(customProviderInputViewController, animated: true)
-    }
-
-    private typealias Bytes = [UInt8]
-
-    private func verify(message: Bytes, publicKey: Bytes, signature: Bytes) -> Bool {
-        guard publicKey.count == 32 else {
-            return false
-        }
-
-        return 0 == crypto_sign_verify_detached(signature,
-                                                message,
-                                                UInt64(message.count),
-                                                publicKey)
-    }
-
-    private func pickStaticTargets(for providerType: ProviderType) throws -> (StaticService, StaticService) {
-        let target: StaticService!
-        let sigTarget: StaticService!
-
-        switch providerType {
-            
-        case .instituteAccess:
-            target = StaticService(type: .instituteAccess)
-            sigTarget = StaticService(type: .instituteAccessSignature)
-            
-        case .secureInternet:
-            target = StaticService(type: .secureInternet)
-            sigTarget = StaticService(type: .secureInternetSignature)
-            
-        case .unknown, .other:
-            throw AppCoordinatorError.missingStaticTargets
-            
-        }
-
-        if target == nil || sigTarget == nil {
-            throw AppCoordinatorError.missingStaticTargets
-        }
-
-        return (target, sigTarget)
-    }
-
-    private func showProviderTableViewController(for providerType: ProviderType) {
-        guard let (target, sigTarget) = try? pickStaticTargets(for: providerType) else { return }
-
-        let providerTableViewController = storyboard.instantiateViewController(type: ProviderTableViewController.self)
-        providerTableViewController.providerType = providerType
-        providerTableViewController.viewContext = persistentContainer.viewContext
-        providerTableViewController.delegate = self
-        providerTableViewController.selectingConfig = true
-        navigationController.pushViewController(providerTableViewController, animated: true)
-
-        providerTableViewController.providerType = providerType
-
-        let provider = MoyaProvider<StaticService>()
-
-        provider.request(target: sigTarget).then { response throws -> Promise<Data> in
-            if let signature = Data(base64Encoded: response.data) {
-                return Promise.value(signature)
-            } else {
-                throw AppCoordinatorError.sodiumSignatureFetchFailed
-            }
-        }.then { signature -> Promise<Moya.Response> in
-            return provider.request(target: target).then { response throws -> Promise<Moya.Response> in
-                guard self.verify(message: Array(response.data), publicKey: Array(StaticService.publicKey), signature: Array(signature)) else {
-                    throw AppCoordinatorError.sodiumSignatureVerifyFailed
-                }
-                
-                return Promise.value(response)
-            }
-        }.then { response -> Promise<InstancesModel> in
-            response.mapResponse()
-        }.then { instances -> Promise<Void> in
-            var instances = instances
-            instances.providerType = providerType
-            instances.instances = instances.instances.map({ (instanceModel) -> InstanceModel in
-                var instanceModel = instanceModel
-                instanceModel.providerType = providerType
-                return instanceModel
-            })
-
-            let instanceIdentifiers = instances.instances.map { $0.baseUri.absoluteString }
-
-            return Promise(resolver: { seal in
-                self.persistentContainer.performBackgroundTask { context in
-                    let instanceGroupIdentifier = "\(target.baseURL.absoluteString)/\(target.path)"
-                    let group = try! InstanceGroup.findFirstInContext(context, predicate: NSPredicate(format: "discoveryIdentifier == %@", instanceGroupIdentifier)) ?? InstanceGroup(context: context)//swiftlint:disable:this force_try
-
-                    group.discoveryIdentifier = instanceGroupIdentifier
-                    group.authorizationType = instances.authorizationType.rawValue
-
-                    let authServer = AuthServer.upsert(with: instances, on: context)
-
-                    let updatedInstances = group.instances.filter {
-                        guard let baseUri = $0.baseUri else { return false }
-                        return instanceIdentifiers.contains(baseUri)
-                    }
-
-                    updatedInstances.forEach {
-                        if let baseUri = $0.baseUri {
-                            if let updatedModel = instances.instances.first(where: { (model) -> Bool in
-                                return model.baseUri.absoluteString == baseUri
-                            }) {
-                                $0.providerType = providerType.rawValue
-                                $0.authServer = authServer
-                                $0.update(with: updatedModel)
-                            }
-                        }
-                    }
-
-                    let updatedInstanceIdentifiers = updatedInstances.compactMap { $0.baseUri}
-
-                    let deletedInstances = group.instances.filter {
-                        guard let baseUri = $0.baseUri else { return false }
-                        return !updatedInstanceIdentifiers.contains(baseUri)
-                    }
-                    deletedInstances.forEach {
-                        context.delete($0)
-                    }
-
-                    instances.instances
-                        .filter { !updatedInstanceIdentifiers.contains($0.baseUri.absoluteString) }
-                        .forEach { (instanceModel: InstanceModel) in
-                            let newInstance = Instance(context: context)
-                            group.addToInstances(newInstance)
-                            newInstance.group = group
-                            newInstance.providerType = providerType.rawValue
-                            newInstance.authServer = authServer
-                            newInstance.update(with: instanceModel)
-                        }
-
-                    context.saveContextToStore { result in
-                        switch result {
-                            
-                        case .success:
-                            seal.fulfill(())
-                            
-                        case .failure(let error):
-                            seal.reject(error)
-                            
-                        }
-                    }
-                }
-            })
-        }.recover { error in
-            self.showError(error)
-        }
-    }
-
-    func fetchProfile(for profile: Profile, retry: Bool = false) -> Promise<URL> {
-        guard let api = profile.api else {
-            precondition(false, "This should never happen")
-            return Promise(error: AppCoordinatorError.apiMissing)
-        }
-
-        guard let dynamicApiProvider = DynamicApiProvider(api: api) else {
-            return Promise(error: AppCoordinatorError.apiProviderCreateFailed)
-        }
-
-        NVActivityIndicatorPresenter.sharedInstance.setMessage(NSLocalizedString("Loading certificate", comment: ""))
-
-        return loadCertificate(for: api)
-            .then { _ -> Promise<Response> in
-                NVActivityIndicatorPresenter.sharedInstance.setMessage(NSLocalizedString("Requesting profile config",
-                                                                                         comment: ""))
-                return dynamicApiProvider.request(apiService: .profileConfig(profileId: profile.profileId!))
-            }
-            .map { response -> URL in
-                guard var ovpnFileContent = String(data: response.data, encoding: .utf8) else {
-                    throw AppCoordinatorError.ovpnConfigTemplate
-                }
-                
-                ovpnFileContent = self.forceTcp(on: ovpnFileContent)
-                try self.validateRemote(on: ovpnFileContent)
-                ovpnFileContent = self.merge(key: api.certificateModel!.privateKeyString, certificate: api.certificateModel!.certificateString, into: ovpnFileContent)
-                
-                let filename = "\(profile.displayNames?.localizedValue ?? "")-\(api.instance?.displayNames?.localizedValue ?? "") \(profile.profileId ?? "").ovpn"
-                return try self.saveToOvpnFile(content: ovpnFileContent, to: filename)
-            }
-            .recover { error throws -> Promise<URL> in
-                NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
-                
-                if retry {
-                    self.showError(error)
-                    throw error
-                }
-                
-                func retryFetchProile() -> Promise<URL> {
-                    self.authorizingDynamicApiProvider = dynamicApiProvider
-                    return dynamicApiProvider.authorize(presentingViewController: self.navigationController).then { _ -> Promise<URL> in
-                        return self.fetchProfile(for: profile, retry: true)
-                    }
-                    
-                }
-                
-                if let nsError = error as NSError?, nsError.domain == NSURLErrorDomain && nsError.code == NSURLErrorNetworkConnectionLost {
-                    return retryFetchProile()
-                }
-                
-                switch error {
-                    
-                case ApiServiceError.tokenRefreshFailed, ApiServiceError.noAuthState :
-                    return retryFetchProile()
-                    
-                default:
-                    self.showError(error)
-                    throw error
-                    
-                }
-            }
-    }
-
-    func showConnectionViewController(for profile: Profile) -> Promise<Void> {
-        let connectionViewController = storyboard.instantiateViewController(type: VPNConnectionViewController.self)
-        connectionViewController.providerManagerCoordinator = tunnelProviderManagerCoordinator
-        connectionViewController.delegate = self
-        connectionViewController.profile = profile
-
-        let navController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(type: UINavigationController.self)
-        navController.viewControllers = [connectionViewController]
-        let presentationPromise = Promise(resolver: { seal in
-            self.navigationController.present(navController, animated: true, completion: { seal.resolve(nil) })
-        })
-
-        // We are configured and active.
-        if profile.isActiveConfig && tunnelProviderManagerCoordinator.isActive {
-            return presentationPromise
-        }
-
-        // We are configured and not active.
-        if profile.isActiveConfig {
-            return presentationPromise.then { self.tunnelProviderManagerCoordinator.connect() }
-        }
-
-        // We are unconfigured and not active.
-        return presentationPromise
-            .then { self.tunnelProviderManagerCoordinator.configure(profile: profile) }
-            .then { self.tunnelProviderManagerCoordinator.connect() }
-    }
-
     func resumeAuthorizationFlow(url: URL) -> Bool {
         if let authorizingDynamicApiProvider = authorizingDynamicApiProvider {
             guard let authFlow = authorizingDynamicApiProvider.currentAuthorizationFlow else {
@@ -674,71 +322,13 @@ class AppCoordinator: RootViewCoordinator {
         return false
     }
 
-    fileprivate func systemMessages(for dynamicApiProvider: DynamicApiProvider) -> Promise<SystemMessages> {
+    func systemMessages(for dynamicApiProvider: DynamicApiProvider) -> Promise<SystemMessages> {
         return dynamicApiProvider.request(apiService: .systemMessages)
             .then { response -> Promise<SystemMessages> in response.mapResponse() }
     }
 
-    private func refreshProfiles(for dynamicApiProvider: DynamicApiProvider) -> Promise<Void> {
-        let activityData = ActivityData()
-        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData, nil)
-        NVActivityIndicatorPresenter.sharedInstance.setMessage(NSLocalizedString("Refreshing profiles", comment: ""))
-
-        return dynamicApiProvider.request(apiService: .profileList)
-            .then { response -> Promise<ProfilesModel> in response.mapResponse() }
-            .then { profiles -> Promise<Void> in
-                if profiles.profiles.isEmpty {
-                    self.showNoProfilesAlert()
-                }
-                
-                return Promise<Void>(resolver: { seal in
-                    self.persistentContainer.performBackgroundTask { context in
-                        if let api = context.object(with: dynamicApiProvider.api.objectID) as? Api {
-                            Profile.upsert(with: profiles.profiles, for: api, on: context)
-                        }
-                        do {
-                            try context.save()
-                        } catch {
-                            seal.reject(error)
-                        }
-                        
-                        seal.fulfill(())
-                    }
-                })
-            }
-            .recover { error throws -> Promise<Void> in
-                NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
-                
-                switch error {
-                    
-                case ApiServiceError.tokenRefreshFailed:
-                    self.authorizingDynamicApiProvider = dynamicApiProvider
-                    return dynamicApiProvider.authorize(presentingViewController: self.navigationController)
-                        .then { _ -> Promise<Void> in self.refreshProfiles(for: dynamicApiProvider) }
-                        .recover { error throws in
-                            self.showError(error)
-                            throw error
-                        }
-                    
-                case ApiServiceError.noAuthState:
-                    self.authorizingDynamicApiProvider = dynamicApiProvider
-                    return dynamicApiProvider.authorize(presentingViewController: self.navigationController)
-                        .then { _ -> Promise<Void> in self.refreshProfiles(for: dynamicApiProvider) }
-                        .recover { error throws in
-                            self.showError(error)
-                            throw error
-                        }
-                    
-                default:
-                    self.showError(error)
-                    throw error
-                    
-                }
-            }
-    }
-
     /// merge ovpn profile with keypair
-    private func merge(key: String, certificate: String, into ovpnFileContent: String) -> String {
+    internal func merge(key: String, certificate: String, into ovpnFileContent: String) -> String {
         var ovpnFileContent = ovpnFileContent
 
         let insertionIndex = ovpnFileContent.range(of: "</ca>")!.upperBound
@@ -749,239 +339,40 @@ class AppCoordinator: RootViewCoordinator {
         return ovpnFileContent
     }
 
-    private func forceTcp(on ovpnFileContent: String) -> String {
-        if UserDefaults.standard.forceTcp {
-            var ovpnFileContent = ovpnFileContent
-            guard let remoteUdpRegex = try? NSRegularExpression(pattern: "remote.*udp", options: []) else { fatalError("Regular expression has been validated to compile, should not fail.") }
-            ovpnFileContent = remoteUdpRegex.stringByReplacingMatches(in: ovpnFileContent, options: [], range: NSRange(location: 0, length: ovpnFileContent.utf16.count), withTemplate: "")
-            return ovpnFileContent
-        } else {
+    internal func forceTcp(on ovpnFileContent: String) -> String {
+        guard UserDefaults.standard.forceTcp else {
             return ovpnFileContent
         }
+        
+        var ovpnFileContent = ovpnFileContent
+        guard let remoteUdpRegex = try? NSRegularExpression(pattern: "remote.*udp", options: []) else {
+            fatalError("Regular expression has been validated to compile, should not fail.")
+        }
+        
+        ovpnFileContent = remoteUdpRegex.stringByReplacingMatches(in: ovpnFileContent,
+                                                                  options: [],
+                                                                  range: NSRange(location: 0,
+                                                                                 length: ovpnFileContent.utf16.count),
+                                                                  withTemplate: "")
+        
+        return ovpnFileContent
     }
 
-    private func validateRemote(on ovpnFileContent: String) throws {
-        guard let remoteTcpRegex = try? NSRegularExpression(pattern: "remote.*", options: []) else { fatalError("Regular expression has been validated to compile, should not fail.") }
+    internal func validateRemote(on ovpnFileContent: String) throws {
+        guard let remoteTcpRegex = try? NSRegularExpression(pattern: "remote.*", options: []) else {
+            fatalError("Regular expression has been validated to compile, should not fail.")
+        }
+        
         if 0 == remoteTcpRegex.numberOfMatches(in: ovpnFileContent, options: [], range: NSRange(location: 0, length: ovpnFileContent.utf16.count)) {
             throw AppCoordinatorError.ovpnConfigTemplateNoRemotes
         }
     }
 
-    private func saveToOvpnFile(content: String, to filename: String) throws -> URL {
+    internal func saveToOvpnFile(content: String, to filename: String) throws -> URL {
         // TODO: validate response
         try Disk.clear(.temporary)
         try Disk.save(content.data(using: .utf8)!, to: .temporary, as: filename)
         let url = try Disk.url(for: filename, in: .temporary)
         return url
-    }
-}
-
-extension AppCoordinator: SettingsTableViewControllerDelegate {
-    
-    func reconnect() {
-        _ = tunnelProviderManagerCoordinator.reconnect()
-    }
-
-    func readOnDemand() -> Bool {
-        return tunnelProviderManagerCoordinator.currentManager?.isOnDemandEnabled ?? UserDefaults.standard.onDemand
-    }
-
-    func writeOnDemand(_ onDemand: Bool) {
-        UserDefaults.standard.onDemand = onDemand
-        tunnelProviderManagerCoordinator.currentManager?.isOnDemandEnabled = onDemand
-        tunnelProviderManagerCoordinator.currentManager?.saveToPreferences(completionHandler: nil)
-    }
-}
-
-extension AppCoordinator: ConnectionsTableViewControllerDelegate {
-    
-    func connect(profile: Profile) {
-        if let currentProfileUuid = profile.uuid, currentProfileUuid.uuidString == UserDefaults.standard.configuredProfileId {
-            _ = showConnectionViewController(for: profile)
-        } else {
-            _ = tunnelProviderManagerCoordinator.disconnect()
-                .recover { _ in self.tunnelProviderManagerCoordinator.configure(profile: profile) }
-                .then { _ -> Promise<Void> in
-                    self.providerTableViewController.tableView.reloadData()
-                    return self.showConnectionViewController(for: profile)
-                }
-        }
-    }
-}
-
-extension AppCoordinator: ProfilesViewControllerDelegate {
-    
-    func settings(profilesViewController: ProfilesViewController) {
-        showSettings()
-    }
-
-    func profilesViewControllerDidSelectProviderType(profilesViewController: ProfilesViewController,
-                                                     providerType: ProviderType) {
-        
-        switch providerType {
-            
-        case .instituteAccess, .secureInternet:
-            showProviderTableViewController(for: providerType)
-            
-        case .other:
-            showCustomProviderInPutViewController(for: providerType)
-            
-        case .unknown:
-            os_log("Unknown provider type chosen", log: Log.general, type: .error)
-            
-        }
-    }
-}
-
-extension AppCoordinator: ProviderTableViewControllerDelegate {
-    
-    func addProvider(providerTableViewController: ProviderTableViewController) {
-        addProvider()
-    }
-
-    func addPredefinedProvider(providerTableViewController: ProviderTableViewController) {
-        if let providerUrl = Config.shared.predefinedProvider {
-            _ = connect(url: providerUrl)
-        }
-    }
-
-    func settings(providerTableViewController: ProviderTableViewController) {
-        showSettings()
-    }
-
-    func didSelectOther(providerType: ProviderType) {
-        showCustomProviderInPutViewController(for: providerType)
-    }
-
-    func didSelect(instance: Instance, providerTableViewController: ProviderTableViewController) {
-        if providerTableViewController.providerType == .unknown {
-            do {
-                let count = try Profile.countInContext(persistentContainer.viewContext,
-                                                       predicate: NSPredicate(format: "api.instance == %@", instance))
-                
-                if count > 1 {
-                    showConnectionsTableViewController(for: instance)
-                } else if let profile = instance.apis?.first?.profiles.first {
-                    connect(profile: profile)
-                }
-            } catch {
-                showError(error)
-            }
-        } else {
-// Move this to pull to refresh?
-            refresh(instance: instance).recover { error in
-                let error = error as NSError
-                self.showError(error)
-            }
-        }
-    }
-
-    func delete(instance: Instance) {
-        _ = Promise<Void>(resolver: { seal in
-            persistentContainer.performBackgroundTask { context in
-                if let backgroundProfile = context.object(with: instance.objectID) as? Instance {
-                    backgroundProfile.apis?.forEach {
-                        $0.certificateModel = nil
-                        $0.authState = nil
-                    }
-                    
-                    context.delete(backgroundProfile)
-                }
-                
-                context.saveContext()
-            }
-            
-            seal.fulfill(())
-        })
-    }
-}
-
-extension AppCoordinator: CustomProviderInPutViewControllerDelegate {
-    
-    private func createLocalUrl(forImageNamed name: String) throws -> URL {
-        let filename = "\(name).png"
-        if Disk.exists(filename, in: .applicationSupport) {
-            return try Disk.url(for: filename, in: .applicationSupport)
-        }
-
-        let image = UIImage(named: name)!
-        try Disk.save(image, to: .applicationSupport, as: filename)
-
-        return try Disk.url(for: filename, in: .applicationSupport)
-    }
-
-    func connect(url: URL) -> Promise<Void> {
-        return Promise<Instance>(resolver: { seal in
-            persistentContainer.performBackgroundTask { context in
-                let instanceGroupIdentifier = url.absoluteString
-                let predicate = NSPredicate(format: "discoveryIdentifier == %@", instanceGroupIdentifier)
-                let group = try! InstanceGroup.findFirstInContext(context, predicate: predicate)
-                    ?? InstanceGroup(context: context)//swiftlint:disable:this force_try
-
-                let instance = Instance(context: context)
-                instance.providerType = ProviderType.other.rawValue
-                instance.baseUri = url.absoluteString
-                
-                let displayName = DisplayName(context: context)
-                displayName.displayName = url.host
-                instance.addToDisplayNames(displayName)
-                instance.group = group
-
-                do {
-                    try context.save()
-                } catch {
-                    seal.reject(error)
-                }
-                
-                seal.fulfill(instance)
-            }
-        }).then { instance -> Promise<Void> in
-            let instance = self.persistentContainer.viewContext.object(with: instance.objectID) as! Instance //swiftlint:disable:this force_cast
-            return self.refresh(instance: instance)
-        }
-    }
-}
-
-extension AppCoordinator: TunnelProviderManagerCoordinatorDelegate {
-    
-    func updateProfileStatus(with status: NEVPNStatus) {
-        let context = persistentContainer.newBackgroundContext()
-        context.performAndWait {
-            let configuredProfileId = UserDefaults.standard.configuredProfileId
-            try? Profile.allInContext(context).forEach {
-                if configuredProfileId == $0.uuid?.uuidString {
-                    $0.vpnStatus = status
-                } else {
-                    $0.vpnStatus = NEVPNStatus.invalid
-                }
-
-            }
-            context.saveContextToStore()
-        }
-    }
-
-    func profileConfig(for profile: Profile) -> Promise<URL> {
-        let activityData = ActivityData()
-        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData, nil)
-
-        return fetchProfile(for: profile).ensure {
-            NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
-        }
-    }
-}
-
-extension AppCoordinator: VPNConnectionViewControllerDelegate {
-    
-    func systemMessages(for profile: Profile) -> Promise<SystemMessages> {
-        guard let api = profile.api else {
-            precondition(false, "This should never happen")
-            return Promise(error: AppCoordinatorError.apiMissing)
-        }
-
-        guard let dynamicApiProvider = DynamicApiProvider(api: api) else {
-            return Promise(error: AppCoordinatorError.apiProviderCreateFailed)
-        }
-
-        return systemMessages(for: dynamicApiProvider)
     }
 }

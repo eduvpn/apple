@@ -21,7 +21,7 @@ extension AppCoordinator {
     public func underlyingError(for error: Error) -> Error? {
         return (error as NSError).userInfo[NSUnderlyingErrorKey] as? Error
     }
-
+    
     public func showError(_ error: Error) {
         if dueToUserCancellation(error: error) {
             return
@@ -44,7 +44,7 @@ extension AppCoordinator {
     private func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "OK button"), style: .default))
-
+    
         let presentingViewController = navigationController.presentedViewController ?? navigationController
         presentingViewController.present(alert, animated: true)
     }
