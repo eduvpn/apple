@@ -1,5 +1,6 @@
 source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
+inhibit_all_warnings!
 
 project 'EduVPN', 'Debug' => :debug, 'Release' => :release
 
@@ -28,6 +29,9 @@ def pods_macos
   pod 'ReachabilitySwift', '4.3.1'
   pod 'Sodium', '0.8.0'
   pod 'Sparkle', '1.21.3'
+  pod 'Then'
+  
+  tunnelkit_pod
 end
 
 # Setup targets
@@ -43,6 +47,7 @@ target 'EduVPN' do
   pod 'Moya'
   pod 'NVActivityIndicatorView'
   pod 'PromiseKit/CorePromise'
+  pod 'Then'
   
   tunnelkit_pod
 end

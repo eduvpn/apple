@@ -18,7 +18,7 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
             _ = tunnelProviderManagerCoordinator.disconnect()
                 .recover { _ in self.tunnelProviderManagerCoordinator.configure(profile: profile) }
                 .then { _ -> Promise<Void> in
-                    self.providerTableViewController.tableView.reloadData()
+                    self.providersViewController.tableView.reloadData()
                     return self.showConnectionViewController(for: profile)
             }
         }

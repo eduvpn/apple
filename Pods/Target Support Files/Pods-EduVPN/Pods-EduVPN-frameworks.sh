@@ -171,8 +171,9 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${PODS_ROOT}/OpenSSL-Apple/frameworks/iPhone/openssl.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PromiseKit-iOS/PromiseKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Result-iOS/Result.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/SwiftyBeaver/SwiftyBeaver.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/TunnelKit/TunnelKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SwiftyBeaver-iOS/SwiftyBeaver.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Then-iOS/Then.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/TunnelKit-iOS/TunnelKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/libsodium-iOS/libsodium.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
@@ -186,8 +187,9 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${PODS_ROOT}/OpenSSL-Apple/frameworks/iPhone/openssl.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PromiseKit-iOS/PromiseKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Result-iOS/Result.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/SwiftyBeaver/SwiftyBeaver.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/TunnelKit/TunnelKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SwiftyBeaver-iOS/SwiftyBeaver.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Then-iOS/Then.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/TunnelKit-iOS/TunnelKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/libsodium-iOS/libsodium.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then

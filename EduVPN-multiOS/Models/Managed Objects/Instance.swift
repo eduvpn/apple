@@ -11,6 +11,10 @@ import CoreData
 
 extension Instance {
     
+    var displayName: String {
+        return displayNames?.localizedValue ?? baseUri ?? ""
+    }
+    
     func update(with model: InstanceModel) {
         self.baseUri = model.baseUri.absoluteString
         self.displayNames?.forEach { self.managedObjectContext?.delete($0) }

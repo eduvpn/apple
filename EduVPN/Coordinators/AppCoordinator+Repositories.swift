@@ -40,7 +40,7 @@ extension AppCoordinator {
                 return self.refreshProfiles(for: authorizingDynamicApiProvider)
             }
             .ensure {
-                self.providerTableViewController.refresh()
+                self.providersViewController.refresh()
                 self.hideActivityIndicator()
             }
     }

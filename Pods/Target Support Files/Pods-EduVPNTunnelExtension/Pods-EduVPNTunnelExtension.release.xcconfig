@@ -1,7 +1,8 @@
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/SwiftyBeaver" "${PODS_CONFIGURATION_BUILD_DIR}/TunnelKit" "${PODS_ROOT}/OpenSSL-Apple/frameworks/iPhone"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/SwiftyBeaver-iOS" "${PODS_CONFIGURATION_BUILD_DIR}/TunnelKit-iOS" "${PODS_ROOT}/OpenSSL-Apple/frameworks/iPhone"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/SwiftyBeaver/SwiftyBeaver.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/TunnelKit/TunnelKit.framework/Headers"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/SwiftyBeaver-iOS/SwiftyBeaver.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/TunnelKit-iOS/TunnelKit.framework/Headers"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks' '@executable_path/../../Frameworks'
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_CONFIGURATION_BUILD_DIR}/SwiftyBeaver-iOS/SwiftyBeaver.framework/Headers" -isystem "${PODS_CONFIGURATION_BUILD_DIR}/TunnelKit-iOS/TunnelKit.framework/Headers" -iframework "${PODS_ROOT}/OpenSSL-Apple/frameworks/iPhone" -iframework "${PODS_CONFIGURATION_BUILD_DIR}/SwiftyBeaver-iOS" -iframework "${PODS_CONFIGURATION_BUILD_DIR}/TunnelKit-iOS"
 OTHER_LDFLAGS = $(inherited) -l"resolv" -framework "NetworkExtension" -framework "SwiftyBeaver" -framework "TunnelKit" -framework "openssl"
 OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
 PODS_BUILD_DIR = ${BUILD_DIR}

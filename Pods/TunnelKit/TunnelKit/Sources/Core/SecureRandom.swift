@@ -33,11 +33,10 @@
 //
 //      THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
-//
 
 import Foundation
 import Security.SecRandom
-import __TunnelKitNative
+import __TunnelKitCore
 
 enum SecureRandomError: Error {
     case randomGenerator
@@ -48,7 +47,7 @@ class SecureRandom {
     static func uint32FromBuffer() throws -> UInt32 {
         var randomBuffer = [UInt8](repeating: 0, count: 4)
 
-        if (SecRandomCopyBytes(kSecRandomDefault, 4, &randomBuffer) != 0) {
+        guard SecRandomCopyBytes(kSecRandomDefault, 4, &randomBuffer) == 0 else {
             throw SecureRandomError.randomGenerator
         }
 
@@ -65,7 +64,7 @@ class SecureRandom {
         
         try withUnsafeMutablePointer(to: &randomNumber) {
             try $0.withMemoryRebound(to: UInt8.self, capacity: 4) { (randomBytes: UnsafeMutablePointer<UInt8>) -> Void in
-                guard (SecRandomCopyBytes(kSecRandomDefault, 4, randomBytes) == 0) else {
+                guard SecRandomCopyBytes(kSecRandomDefault, 4, randomBytes) == 0 else {
                     throw SecureRandomError.randomGenerator
                 }
             }
@@ -95,7 +94,7 @@ class SecureRandom {
             randomBytes.deallocate()
         }
         
-        guard (SecRandomCopyBytes(kSecRandomDefault, length, randomBytes) == 0) else {
+        guard SecRandomCopyBytes(kSecRandomDefault, length, randomBytes) == 0 else {
             throw SecureRandomError.randomGenerator
         }
 

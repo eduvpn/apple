@@ -9,67 +9,77 @@
 import Foundation
 import CoreData
 import PromiseKit
+import Then
 
 extension AppCoordinator {
     
     internal func showSettings() {
-        let settingsTableViewController = storyboard.instantiateViewController(type: SettingsTableViewController.self)
-        settingsTableViewController.delegate = self
-        navigationController.pushViewController(settingsTableViewController, animated: true)
+        let settingsVc = storyboard.instantiateViewController(type: SettingsTableViewController.self).with {
+            $0.delegate = self
+        }
+        navigationController.pushViewController(settingsVc, animated: true)
     }
     
     internal func showConnectionsTableViewController(for instance: Instance) {
-        let connectionsTableViewController = storyboard.instantiateViewController(type: ConnectionsTableViewController.self)
-        connectionsTableViewController.delegate = self
-        connectionsTableViewController.instance = instance
-        connectionsTableViewController.viewContext = persistentContainer.viewContext
-        navigationController.pushViewController(connectionsTableViewController, animated: true)
+        let connectionsVc = storyboard.instantiateViewController(type: ConnectionsTableViewController.self).with {
+            $0.delegate = self
+            $0.instance = instance
+            $0.viewContext = persistentContainer.viewContext
+        }
+        
+        navigationController.pushViewController(connectionsVc, animated: true)
     }
     
     internal func showProfilesViewController() {
-        let profilesViewController = storyboard.instantiateViewController(type: ProfilesViewController.self)
-        
         let fetchRequest = NSFetchRequest<Profile>()
         fetchRequest.entity = Profile.entity()
         fetchRequest.predicate = NSPredicate(format: "api.instance.providerType == %@", ProviderType.secureInternet.rawValue)
         
-        profilesViewController.delegate = self
+        let profilesVc = storyboard.instantiateViewController(type: ProfilesViewController.self).with {
+            $0.delegate = self
+        }
+        
         do {
             try profilesViewController.navigationItem.hidesBackButton = Profile.countInContext(persistentContainer.viewContext) == 0
-            navigationController.pushViewController(profilesViewController, animated: true)
+            navigationController.pushViewController(profilesVc, animated: true)
         } catch {
             showError(error)
         }
     }
     
     internal func showCustomProviderInPutViewController(for providerType: ProviderType) {
-        let customProviderInputViewController = storyboard.instantiateViewController(type: CustomProviderInPutViewController.self)
-        customProviderInputViewController.delegate = self
-        navigationController.pushViewController(customProviderInputViewController, animated: true)
+        let customProviderInputVc = storyboard.instantiateViewController(type: CustomProviderInPutViewController.self).with {
+            $0.delegate = self
+        }
+        navigationController.pushViewController(customProviderInputVc, animated: true)
     }
     
-    internal func showProviderTableViewController(for providerType: ProviderType) {
-        let providerTableViewController = storyboard.instantiateViewController(type: ProviderTableViewController.self)
-        providerTableViewController.providerType = providerType
-        providerTableViewController.viewContext = persistentContainer.viewContext
-        providerTableViewController.delegate = self
-        providerTableViewController.selectingConfig = true
-        navigationController.pushViewController(providerTableViewController, animated: true)
+    internal func showProvidersViewController(for providerType: ProviderType) {
+        let providersVc = storyboard.instantiateViewController(type: ProvidersViewController.self).with {
+            $0.providerType = providerType
+            $0.viewContext = persistentContainer.viewContext
+            $0.delegate = self
+            $0.selectingConfig = true
+            $0.providerType = providerType
+        }
         
-        providerTableViewController.providerType = providerType
+        navigationController.pushViewController(providersVc, animated: true)
         InstancesRepository.shared.loader.load(with: providerType)
     }
     
     internal func showConnectionViewController(for profile: Profile) -> Promise<Void> {
-        let connectionViewController = storyboard.instantiateViewController(type: VPNConnectionViewController.self)
-        connectionViewController.providerManagerCoordinator = tunnelProviderManagerCoordinator
-        connectionViewController.delegate = self
-        connectionViewController.profile = profile
+        let connectionVc = storyboard.instantiateViewController(type: VPNConnectionViewController.self).then {
+            $0.providerManagerCoordinator = tunnelProviderManagerCoordinator
+            $0.delegate = self
+            $0.profile = profile
+        }
     
-        let navController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(type: UINavigationController.self)
-        navController.viewControllers = [connectionViewController]
+        let nc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(type: UINavigationController.self).with {
+            $0.viewControllers = [connectionVc]
+        }
+        
         let presentationPromise = Promise(resolver: { seal in
-            self.navigationController.present(navController, animated: true, completion: { seal.resolve(nil) })
+            self.navigationController.present(nc, animated: true, completion: { seal.resolve(nil) })
         })
         
         // We are configured and active.
@@ -89,8 +99,9 @@ extension AppCoordinator {
     }
     
     internal func showSettingsTableViewController() {
-        let settingsTableViewController = storyboard.instantiateViewController(type: SettingsTableViewController.self)
-        navigationController.pushViewController(settingsTableViewController, animated: true)
-        settingsTableViewController.delegate = self
+        let settingsVc = storyboard.instantiateViewController(type: SettingsTableViewController.self).with {
+            $0.delegate = self
+        }
+        navigationController.pushViewController(settingsVc, animated: true)
     }
 }

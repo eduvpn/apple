@@ -39,7 +39,7 @@ class InstancesLoader {
             target = StaticService(type: .secureInternet)
             sigTarget = StaticService(type: .secureInternetSignature)
             
-        case .unknown, .other:
+        case .unknown, .other, .local:
             throw AppCoordinatorError.missingStaticTargets
             
         }

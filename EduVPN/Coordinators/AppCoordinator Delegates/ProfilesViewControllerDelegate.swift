@@ -21,7 +21,7 @@ extension AppCoordinator: ProfilesViewControllerDelegate {
         switch providerType {
             
         case .instituteAccess, .secureInternet:
-            showProviderTableViewController(for: providerType)
+            showProvidersViewController(for: providerType)
             
         case .other:
             showCustomProviderInPutViewController(for: providerType)

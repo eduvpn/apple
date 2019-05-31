@@ -77,10 +77,10 @@ class AppCoordinator: RootViewCoordinator {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(type: UINavigationController.self)
     }()
     
-    var providerTableViewController: ProviderTableViewController!
+    var providersViewController: ProvidersViewController!
     
     var rootViewController: UIViewController {
-        return providerTableViewController
+        return providersViewController
     }
     
     #elseif os(macOS)
@@ -140,13 +140,13 @@ class AppCoordinator: RootViewCoordinator {
                     #if os(iOS)
                     
                     //start
-                    if let providerTableViewController = self?.storyboard.instantiateViewController(type: ProviderTableViewController.self) {
-                        self?.providerTableViewController = providerTableViewController
+                    if let providersViewController = self?.storyboard.instantiateViewController(type: ProvidersViewController.self) {
+                        self?.providersViewController = providerTableViewController
                         self?.persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
-                        self?.providerTableViewController.viewContext = self?.persistentContainer.viewContext
-                        self?.providerTableViewController.delegate = self
-                        self?.providerTableViewController.providerManagerCoordinator = self?.tunnelProviderManagerCoordinator
-                        self?.navigationController.viewControllers = [providerTableViewController]
+                        self?.providersViewController.viewContext = self?.persistentContainer.viewContext
+                        self?.providersViewController.delegate = self
+                        self?.providersViewController.providerManagerCoordinator = self?.tunnelProviderManagerCoordinator
+                        self?.navigationController.viewControllers = [providersViewController]
                         do {
                             if let context = self?.persistentContainer.viewContext, try Profile.countInContext(context) == 0 {
                                 if let predefinedProvider = Config.shared.predefinedProvider {

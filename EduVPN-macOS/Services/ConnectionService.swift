@@ -113,19 +113,17 @@ class ConnectionService: NSObject {
         }
     }
     
-    private let providerService: ProviderService
     private let configurationService: ConfigurationService
     private let helperService: HelperService
     private let keychainService: KeychainService
     private let preferencesService: PreferencesService
     
-    init(providerService: ProviderService,
+    init(
          configurationService: ConfigurationService,
          helperService: HelperService,
          keychainService: KeychainService,
          preferencesService: PreferencesService) {
         
-        self.providerService = providerService
         self.configurationService = configurationService
         self.helperService = helperService
         self.keychainService = keychainService
