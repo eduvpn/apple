@@ -22,6 +22,7 @@ def pods_macos
   pod 'ASN1Decoder'
   pod 'BlueSocket', '1.0.46'
   pod 'Kingfisher', '5.5.0'
+  pod 'libsodium'
   pod 'Moya'
   pod 'PromiseKit/CorePromise'
   pod 'ReachabilitySwift', '4.3.1'

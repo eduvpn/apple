@@ -10,13 +10,15 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-        
-    var mainWindowController: MainWindowController!
+    
+    var appCoordinator: AppCoordinator!
     var statusItem: NSStatusItem?
     @IBOutlet var statusMenu: NSMenu!
 
     func applicationWillFinishLaunching(_ notification: Notification) {
-        ServiceContainer.preferencesService.updateForUIPreferences()
+        // <UNCOMMENT>
+//        ServiceContainer.preferencesService.updateForUIPreferences()
+        // </UNCOMMENT>
 
         // Disabled until best approach to get token is determined
         //        // Setup incoming URL handling
@@ -31,13 +33,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             createStatusItem()
         }
 
-        NotificationCenter.default.addObserver(self, selector: #selector(connectionStateChanged(notification:)), name: ConnectionService.stateChanged, object: ServiceContainer.connectionService)
+        // <UNCOMMENT>
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(connectionStateChanged(notification:)),
+//                                               name: ConnectionService.stateChanged,
+//                                               object: ServiceContainer.connectionService)
+        // </UNCOMMENT>
 
         ValueTransformer.setValueTransformer(DurationTransformer(),
                                              forName: NSValueTransformerName(rawValue: "DurationTransformer"))
-
-        mainWindowController = NSStoryboard(name: "Main", bundle: nil).instantiateController(withIdentifier: "MainWindowController") as? MainWindowController
-        mainWindowController.window?.makeKeyAndOrderFront(nil)
+        
+        appCoordinator = AppCoordinator()
+        appCoordinator.start()
 
         // Adjust app name in menu and window
         let appName = Config.shared.appName
@@ -45,45 +52,49 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let fix: (NSMenuItem) -> Void = { menuItem in
                 menuItem.title = menuItem.title.replacingOccurrences(of: "eduVPN", with: appName)
             }
+            
             NSApp.mainMenu?.items.forEach { menuItem in
                 menuItem.submenu?.items.forEach {
                     fix($0)
                 }
             }
+            
             statusMenu.items.forEach(fix)
-            mainWindowController.window?.title = appName
+            appCoordinator.fixAppName(to: appName)
         }
     }
 
-    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
-        switch ServiceContainer.connectionService.state {
-        case .disconnected:
-            return .terminateNow
-        case .connecting, .disconnecting:
-            return .terminateCancel
-        case .connected:
-            ServiceContainer.connectionService.disconnect { result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success:
-                        NSApp.reply(toApplicationShouldTerminate: true)
-                    case .failure(let error):
-                        if let alert = NSAlert(customizedError: error) {
-                            NSApp.reply(toApplicationShouldTerminate: false)
-                            if let window = self.mainWindowController.window {
-                                alert.beginSheetModal(for: window)
-                            } else {
-                                alert.runModal()
-                            }
-                        } else {
-                            NSApp.reply(toApplicationShouldTerminate: true)
-                        }
-                    }
-                }
-            }
-            return .terminateLater
-        }
-    }
+    // <UNCOMMENT>
+//    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
+//        switch ServiceContainer.connectionService.state {
+//        case .disconnected:
+//            return .terminateNow
+//        case .connecting, .disconnecting:
+//            return .terminateCancel
+//        case .connected:
+//            ServiceContainer.connectionService.disconnect { result in
+//                DispatchQueue.main.async {
+//                    switch result {
+//                    case .success:
+//                        NSApp.reply(toApplicationShouldTerminate: true)
+//                    case .failure(let error):
+//                        if let alert = NSAlert(customizedError: error) {
+//                            NSApp.reply(toApplicationShouldTerminate: false)
+//                            if let window = self.mainWindowController.window {
+//                                alert.beginSheetModal(for: window)
+//                            } else {
+//                                alert.runModal()
+//                            }
+//                        } else {
+//                            NSApp.reply(toApplicationShouldTerminate: true)
+//                        }
+//                    }
+//                }
+//            }
+//            return .terminateLater
+//        }
+//    }
+    // </UNCOMMENT>
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
@@ -99,9 +110,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @IBAction func showWindow(_ sender: Any) {
-        guard let window = mainWindowController.window else {
+        guard let window = appCoordinator.window else {
             return
         }
+        
         NSApp.activate(ignoringOtherApps: true)
         window.makeKeyAndOrderFront(nil)
     }
@@ -109,7 +121,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private lazy var preferencesWindowController = NSStoryboard(name: "Main", bundle: nil).instantiateController(withIdentifier: "PreferencesController") as! NSWindowController
 
     @objc @IBAction func showPreferences(_ sender: Any) {
-        guard let window = mainWindowController.window, let preferencesWindow = preferencesWindowController.window else {
+        guard let window = appCoordinator.window, let preferencesWindow = preferencesWindowController.window else {
             return
         }
 
@@ -120,7 +132,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @objc @IBAction func closePreferences(_ sender: Any) {
-        guard let window = mainWindowController.window, let preferencesWindow = preferencesWindowController.window else {
+        guard let window = appCoordinator.window, let preferencesWindow = preferencesWindowController.window else {
             return
         }
 
@@ -134,17 +146,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     private func updateStatusItemImage() {
-        switch ServiceContainer.connectionService.state {
-        case .connecting, .disconnecting:
-            statusItem?.image = #imageLiteral(resourceName: "Status-connecting")
-            NSApp.applicationIconImage = #imageLiteral(resourceName: "Icon-connecting")
-        case .connected:
-            statusItem?.image = #imageLiteral(resourceName: "Status-connected")
-            NSApp.applicationIconImage = #imageLiteral(resourceName: "Icon-connected")
-        case .disconnected:
-            statusItem?.image = #imageLiteral(resourceName: "Status-disconnected")
-            NSApp.applicationIconImage = #imageLiteral(resourceName: "Icon-disconnected")
-        }
+        // <UNCOMMENT>
+//        switch ServiceContainer.connectionService.state {
+//        case .connecting, .disconnecting:
+//            statusItem?.image = #imageLiteral(resourceName: "Status-connecting")
+//            NSApp.applicationIconImage = #imageLiteral(resourceName: "Icon-connecting")
+//        case .connected:
+//            statusItem?.image = #imageLiteral(resourceName: "Status-connected")
+//            NSApp.applicationIconImage = #imageLiteral(resourceName: "Icon-connected")
+//        case .disconnected:
+//            statusItem?.image = #imageLiteral(resourceName: "Status-disconnected")
+//            NSApp.applicationIconImage = #imageLiteral(resourceName: "Icon-disconnected")
+//        }
+        // </UNCOMMENT>
     }
 
     var statusItemIsVisible: Bool = false {

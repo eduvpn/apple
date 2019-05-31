@@ -93,7 +93,6 @@
 		34186D0B2298068C009B4121 /* NSError+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34186D0A2298068C009B4121 /* NSError+App.swift */; };
 		34186D0C229806CE009B4121 /* NSError+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34186D0A2298068C009B4121 /* NSError+App.swift */; };
 		34186D0D22994DDF009B4121 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AB0228DA39F0027DE84 /* UserInfo.swift */; };
-		34186D0E229ABBB1009B4121 /* ConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CD022902BB400C006D7 /* ConnectionViewController.swift */; };
 		342B9C88228ECB4900C006D7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B9C87228ECB4900C006D7 /* main.m */; };
 		342B9C90228ECB8300C006D7 /* OpenVPNHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B9C8E228ECB8200C006D7 /* OpenVPNHelper.m */; };
 		342B9C92228ECBB200C006D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 342B9C91228ECBB200C006D7 /* Foundation.framework */; };
@@ -103,20 +102,9 @@
 		342B9CB6228ED01400C006D7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 342B9CB1228ED01400C006D7 /* Info.plist */; };
 		342B9CB7228ED01400C006D7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CB2228ED01400C006D7 /* AppDelegate.m */; };
 		342B9CBB228ED02E00C006D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 342B9CB9228ED02E00C006D7 /* Main.storyboard */; };
-		342B9CDD22902BB500C006D7 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CCF22902BB400C006D7 /* PreferencesViewController.swift */; };
-		342B9CDE22902BB500C006D7 /* ConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CD022902BB400C006D7 /* ConnectionViewController.swift */; };
-		342B9CDF22902BB500C006D7 /* EnterCredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CD122902BB400C006D7 /* EnterCredentialsViewController.swift */; };
-		342B9CE022902BB500C006D7 /* ChooseProviderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CD222902BB500C006D7 /* ChooseProviderViewController.swift */; };
-		342B9CE122902BB500C006D7 /* ChooseConnectionTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CD322902BB500C006D7 /* ChooseConnectionTypeViewController.swift */; };
-		342B9CE222902BB500C006D7 /* ProvidersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CD422902BB500C006D7 /* ProvidersViewController.swift */; };
-		342B9CE322902BB500C006D7 /* Enter2FAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CD522902BB500C006D7 /* Enter2FAViewController.swift */; };
-		342B9CE422902BB500C006D7 /* EnterProviderURLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CD622902BB500C006D7 /* EnterProviderURLViewController.swift */; };
-		342B9CE522902BB500C006D7 /* AuthenticatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CD722902BB500C006D7 /* AuthenticatingViewController.swift */; };
 		342B9CE622902BB500C006D7 /* DurationTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CD822902BB500C006D7 /* DurationTransformer.swift */; };
 		342B9CE722902BB500C006D7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CD922902BB500C006D7 /* MainViewController.swift */; };
 		342B9CE822902BB500C006D7 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CDA22902BB500C006D7 /* MainWindowController.swift */; };
-		342B9CE922902BB500C006D7 /* ChooseProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CDB22902BB500C006D7 /* ChooseProfileViewController.swift */; };
-		342B9CEA22902BB500C006D7 /* Enroll2FAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CDC22902BB500C006D7 /* Enroll2FAViewController.swift */; };
 		342B9CEB22955D5300C006D7 /* DurationTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CD822902BB500C006D7 /* DurationTransformer.swift */; };
 		34345271229FC66A00C0476E /* CoreDataFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345270229FC66A00C0476E /* CoreDataFetchedResultsControllerDelegate.swift */; };
 		34345274229FC9C300C0476E /* InstancesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345273229FC9C300C0476E /* InstancesRepository.swift */; };
@@ -134,6 +122,25 @@
 		3434529B22A0665600C0476E /* CoreDataFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3434529A22A0665600C0476E /* CoreDataFetchedResultsControllerDelegate.swift */; };
 		3434529C22A0666800C0476E /* CoreDataFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3434529A22A0665600C0476E /* CoreDataFetchedResultsControllerDelegate.swift */; };
 		3434529F22A137B700C0476E /* DeselectingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3434529E22A137B700C0476E /* DeselectingTableView.swift */; };
+		343452A022A139C600C0476E /* AppCoordinator+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97D78520CC4F4D00472216 /* AppCoordinator+Alert.swift */; };
+		343452A122A139C700C0476E /* AppCoordinator+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97D78520CC4F4D00472216 /* AppCoordinator+Alert.swift */; };
+		343452A222A13A9500C0476E /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A983B761F397243004F82D5 /* AppCoordinator.swift */; };
+		343452A322A13A9500C0476E /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A983B761F397243004F82D5 /* AppCoordinator.swift */; };
+		343452A422A13C8B00C0476E /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A983B7A1F3972BE004F82D5 /* RootCoordinator.swift */; };
+		343452A522A13C8B00C0476E /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A983B7A1F3972BE004F82D5 /* RootCoordinator.swift */; };
+		343452A622A13DDC00C0476E /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A983B781F397289004F82D5 /* Coordinator.swift */; };
+		343452A722A13DDC00C0476E /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A983B781F397289004F82D5 /* Coordinator.swift */; };
+		343452A822A13EDE00C0476E /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEAC32620F13D0C007B67AB /* Log.swift */; };
+		343452A922A13EDE00C0476E /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEAC32620F13D0C007B67AB /* Log.swift */; };
+		343452AB22A13F6A00C0476E /* AppCoordinatorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345284229FF2F000C0476E /* AppCoordinatorError.swift */; };
+		343452AC22A13F6B00C0476E /* AppCoordinatorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345284229FF2F000C0476E /* AppCoordinatorError.swift */; };
+		343452B622A13FA400C0476E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CD922902BB500C006D7 /* MainViewController.swift */; };
+		343452B722A13FA400C0476E /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CDA22902BB500C006D7 /* MainWindowController.swift */; };
+		343452B922A13FAF00C0476E /* DeselectingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3434529E22A137B700C0476E /* DeselectingTableView.swift */; };
+		343452BA22A1420D00C0476E /* InstancesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345273229FC9C300C0476E /* InstancesRepository.swift */; };
+		343452BB22A1420D00C0476E /* InstancesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345273229FC9C300C0476E /* InstancesRepository.swift */; };
+		343452BC22A1421200C0476E /* ProfilesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345294229FF52F00C0476E /* ProfilesRepository.swift */; };
+		343452BE22A1421400C0476E /* ProfilesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345294229FF52F00C0476E /* ProfilesRepository.swift */; };
 		34D719E1228D75550027DE84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D719E0228D75550027DE84 /* AppDelegate.swift */; };
 		34D719E5228D75560027DE84 /* eduVPNAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34D719E4228D75560027DE84 /* eduVPNAssets.xcassets */; };
 		34D719E8228D75560027DE84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34D719E6228D75560027DE84 /* Main.storyboard */; };
@@ -297,20 +304,9 @@
 		342B9CB1228ED01400C006D7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		342B9CB2228ED01400C006D7 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		342B9CBA228ED02E00C006D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		342B9CCF22902BB400C006D7 /* PreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
-		342B9CD022902BB400C006D7 /* ConnectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionViewController.swift; sourceTree = "<group>"; };
-		342B9CD122902BB400C006D7 /* EnterCredentialsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterCredentialsViewController.swift; sourceTree = "<group>"; };
-		342B9CD222902BB500C006D7 /* ChooseProviderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseProviderViewController.swift; sourceTree = "<group>"; };
-		342B9CD322902BB500C006D7 /* ChooseConnectionTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseConnectionTypeViewController.swift; sourceTree = "<group>"; };
-		342B9CD422902BB500C006D7 /* ProvidersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProvidersViewController.swift; sourceTree = "<group>"; };
-		342B9CD522902BB500C006D7 /* Enter2FAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enter2FAViewController.swift; sourceTree = "<group>"; };
-		342B9CD622902BB500C006D7 /* EnterProviderURLViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterProviderURLViewController.swift; sourceTree = "<group>"; };
-		342B9CD722902BB500C006D7 /* AuthenticatingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticatingViewController.swift; sourceTree = "<group>"; };
 		342B9CD822902BB500C006D7 /* DurationTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationTransformer.swift; sourceTree = "<group>"; };
 		342B9CD922902BB500C006D7 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		342B9CDA22902BB500C006D7 /* MainWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
-		342B9CDB22902BB500C006D7 /* ChooseProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseProfileViewController.swift; sourceTree = "<group>"; };
-		342B9CDC22902BB500C006D7 /* Enroll2FAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enroll2FAViewController.swift; sourceTree = "<group>"; };
 		34345270229FC66A00C0476E /* CoreDataFetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFetchedResultsControllerDelegate.swift; sourceTree = "<group>"; };
 		34345273229FC9C300C0476E /* InstancesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstancesRepository.swift; sourceTree = "<group>"; };
 		34345284229FF2F000C0476E /* AppCoordinatorError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinatorError.swift; sourceTree = "<group>"; };
@@ -535,6 +531,8 @@
 		34186C9B2296B318009B4121 /* EduVPN-multiOS */ = {
 			isa = PBXGroup;
 			children = (
+				4AEAC32620F13D0C007B67AB /* Log.swift */,
+				343452AA22A13F4500C0476E /* Coordinators */,
 				34186D04229802AF009B4121 /* Services */,
 				4ACA04281F311507004B35AA /* Networking */,
 				34186C9C2296B336009B4121 /* Extensions */,
@@ -697,6 +695,18 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		343452AA22A13F4500C0476E /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				4A983B781F397289004F82D5 /* Coordinator.swift */,
+				4A983B7A1F3972BE004F82D5 /* RootCoordinator.swift */,
+				34345284229FF2F000C0476E /* AppCoordinatorError.swift */,
+				4A983B761F397243004F82D5 /* AppCoordinator.swift */,
+				4A97D78520CC4F4D00472216 /* AppCoordinator+Alert.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
 		34D719DF228D75550027DE84 /* EduVPN-macOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -756,19 +766,8 @@
 		34D71A0E228D76C60027DE84 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				342B9CD722902BB500C006D7 /* AuthenticatingViewController.swift */,
-				342B9CD322902BB500C006D7 /* ChooseConnectionTypeViewController.swift */,
-				342B9CDB22902BB500C006D7 /* ChooseProfileViewController.swift */,
-				342B9CD222902BB500C006D7 /* ChooseProviderViewController.swift */,
-				342B9CD022902BB400C006D7 /* ConnectionViewController.swift */,
-				342B9CDC22902BB500C006D7 /* Enroll2FAViewController.swift */,
-				342B9CD522902BB500C006D7 /* Enter2FAViewController.swift */,
-				342B9CD122902BB400C006D7 /* EnterCredentialsViewController.swift */,
-				342B9CD622902BB500C006D7 /* EnterProviderURLViewController.swift */,
 				342B9CD922902BB500C006D7 /* MainViewController.swift */,
 				342B9CDA22902BB500C006D7 /* MainWindowController.swift */,
-				342B9CCF22902BB400C006D7 /* PreferencesViewController.swift */,
-				342B9CD422902BB500C006D7 /* ProvidersViewController.swift */,
 				3434529A22A0665600C0476E /* CoreDataFetchedResultsControllerDelegate.swift */,
 			);
 			path = Controllers;
@@ -825,13 +824,8 @@
 			isa = PBXGroup;
 			children = (
 				34345277229FF0FC00C0476E /* AppCoordinator Delegates */,
-				4A983B781F397289004F82D5 /* Coordinator.swift */,
-				4A983B7A1F3972BE004F82D5 /* RootCoordinator.swift */,
-				34345284229FF2F000C0476E /* AppCoordinatorError.swift */,
-				4A983B761F397243004F82D5 /* AppCoordinator.swift */,
 				34345296229FF71800C0476E /* AppCoordinator+Repositories.swift */,
 				34345298229FF89800C0476E /* AppCoordinator+ViewControllers.swift */,
-				4A97D78520CC4F4D00472216 /* AppCoordinator+Alert.swift */,
 				4AAA157A21C2EF530097A1B5 /* TunnelProviderManagerCoordinator.swift */,
 			);
 			path = Coordinators;
@@ -880,7 +874,6 @@
 				4AAC1F821F2D0E3400DD0252 /* LaunchScreen.storyboard */,
 				4AAC1F851F2D0E3400DD0252 /* Info.plist */,
 				4A62C8B71FB03B47007D3FAA /* KeyboardWrapper.swift */,
-				4AEAC32620F13D0C007B67AB /* Log.swift */,
 			);
 			path = EduVPN;
 			sourceTree = "<group>";
@@ -1381,7 +1374,7 @@
 				"${BUILT_PRODUCTS_DIR}/Result-iOS/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyBeaver/SwiftyBeaver.framework",
 				"${BUILT_PRODUCTS_DIR}/TunnelKit/TunnelKit.framework",
-				"${BUILT_PRODUCTS_DIR}/libsodium/libsodium.framework",
+				"${BUILT_PRODUCTS_DIR}/libsodium-iOS/libsodium.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -1417,6 +1410,7 @@
 				"${BUILT_PRODUCTS_DIR}/Moya-macOS/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit-macOS/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Result-macOS/Result.framework",
+				"${BUILT_PRODUCTS_DIR}/libsodium-macOS/libsodium.framework",
 				"${BUILT_PRODUCTS_DIR}/BlueSocket/Socket.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
@@ -1432,6 +1426,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libsodium.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Socket.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
@@ -1479,6 +1474,7 @@
 				"${BUILT_PRODUCTS_DIR}/Moya-macOS/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit-macOS/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Result-macOS/Result.framework",
+				"${BUILT_PRODUCTS_DIR}/libsodium-macOS/libsodium.framework",
 				"${BUILT_PRODUCTS_DIR}/BlueSocket/Socket.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
@@ -1494,6 +1490,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libsodium.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Socket.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
@@ -1553,14 +1550,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				343452BA22A1420D00C0476E /* InstancesRepository.swift in Sources */,
+				343452A322A13A9500C0476E /* AppCoordinator.swift in Sources */,
 				34186CB92296B5B2009B4121 /* Logo+CoreDataClass.swift in Sources */,
 				34D71A96228D9C6A0027DE84 /* URL+Unused.swift in Sources */,
+				343452BC22A1421200C0476E /* ProfilesRepository.swift in Sources */,
 				34D71A98228D9C6A0027DE84 /* Debug.swift in Sources */,
-				342B9CE922902BB500C006D7 /* ChooseProfileViewController.swift in Sources */,
 				34186CDD2296B711009B4121 /* DisplayName+Convenience.swift in Sources */,
-				342B9CEA22902BB500C006D7 /* Enroll2FAViewController.swift in Sources */,
-				342B9CE322902BB500C006D7 /* Enter2FAViewController.swift in Sources */,
-				342B9CE522902BB500C006D7 /* AuthenticatingViewController.swift in Sources */,
 				34186CEF2296E6CE009B4121 /* Moya+ResponseHandling.swift in Sources */,
 				34186CF12296E7B4009B4121 /* StaticService.swift in Sources */,
 				34186CB82296B5B2009B4121 /* Api+CoreDataProperties.swift in Sources */,
@@ -1573,15 +1569,13 @@
 				34186CCD2296B707009B4121 /* InstanceModel.swift in Sources */,
 				34186CDE2296B711009B4121 /* Logo+Convenience.swift in Sources */,
 				3434529B22A0665600C0476E /* CoreDataFetchedResultsControllerDelegate.swift in Sources */,
+				343452AB22A13F6A00C0476E /* AppCoordinatorError.swift in Sources */,
 				34186CB12296B5B2009B4121 /* AuthServer+CoreDataClass.swift in Sources */,
-				342B9CDD22902BB500C006D7 /* PreferencesViewController.swift in Sources */,
-				342B9CDE22902BB500C006D7 /* ConnectionViewController.swift in Sources */,
 				342B9CE722902BB500C006D7 /* MainViewController.swift in Sources */,
 				34186CBE2296B5B2009B4121 /* Instance+CoreDataProperties.swift in Sources */,
 				34186CF42297CE19009B4121 /* InstanceService.swift in Sources */,
 				342B9CE622902BB500C006D7 /* DurationTransformer.swift in Sources */,
 				34186CA42296B5A1009B4121 /* FetchedResultsController.swift in Sources */,
-				342B9CE422902BB500C006D7 /* EnterProviderURLViewController.swift in Sources */,
 				34186CF52297CE19009B4121 /* Moya+Promise.swift in Sources */,
 				34186CA82296B5A6009B4121 /* Instance.swift in Sources */,
 				3434529F22A137B700C0476E /* DeselectingTableView.swift in Sources */,
@@ -1593,24 +1587,24 @@
 				34186CA52296B5A6009B4121 /* AuthServer.swift in Sources */,
 				34186CB72296B5B2009B4121 /* Api+CoreDataClass.swift in Sources */,
 				34186CA12296B5A1009B4121 /* NSManagedObjectContext+SaveHelpers.swift in Sources */,
+				343452A022A139C600C0476E /* AppCoordinator+Alert.swift in Sources */,
 				34186CB42296B5B2009B4121 /* InstanceGroup+CoreDataProperties.swift in Sources */,
 				34186CB22296B5B2009B4121 /* AuthServer+CoreDataProperties.swift in Sources */,
+				343452A622A13DDC00C0476E /* Coordinator.swift in Sources */,
 				34186CBB2296B5B2009B4121 /* Profile+CoreDataClass.swift in Sources */,
-				342B9CDF22902BB500C006D7 /* EnterCredentialsViewController.swift in Sources */,
-				342B9CE222902BB500C006D7 /* ProvidersViewController.swift in Sources */,
+				343452A822A13EDE00C0476E /* Log.swift in Sources */,
 				34D71A9A228D9C6A0027DE84 /* String+Random.swift in Sources */,
 				34186CF72297CE19009B4121 /* CredentialStorePlugin.swift in Sources */,
 				34186CFC2297E182009B4121 /* Message.swift in Sources */,
 				34186D0B2298068C009B4121 /* NSError+App.swift in Sources */,
 				34186CB62296B5B2009B4121 /* DisplayName+CoreDataProperties.swift in Sources */,
-				342B9CE122902BB500C006D7 /* ChooseConnectionTypeViewController.swift in Sources */,
 				34186CF62297CE19009B4121 /* ApiService.swift in Sources */,
 				342B9CE822902BB500C006D7 /* MainWindowController.swift in Sources */,
 				34186CD02296B707009B4121 /* ProfileModel.swift in Sources */,
 				34186CB52296B5B2009B4121 /* DisplayName+CoreDataClass.swift in Sources */,
 				34D71AB6228DA3A00027DE84 /* UserInfo.swift in Sources */,
 				34D71AB2228DA3A00027DE84 /* String+URL.swift in Sources */,
-				342B9CE022902BB500C006D7 /* ChooseProviderViewController.swift in Sources */,
+				343452A422A13C8B00C0476E /* RootCoordinator.swift in Sources */,
 				34186D06229802C0009B4121 /* FileService.swift in Sources */,
 				34D71A92228D9C6A0027DE84 /* NSAlert+Custom.swift in Sources */,
 				34186CA32296B5A1009B4121 /* NSManagedObject+FetchHelpers.swift in Sources */,
@@ -1624,9 +1618,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				34186D0E229ABBB1009B4121 /* ConnectionViewController.swift in Sources */,
+				343452BB22A1420D00C0476E /* InstancesRepository.swift in Sources */,
+				343452A122A139C700C0476E /* AppCoordinator+Alert.swift in Sources */,
 				3434529C22A0666800C0476E /* CoreDataFetchedResultsControllerDelegate.swift in Sources */,
 				34186CDC2296B710009B4121 /* Logo+Convenience.swift in Sources */,
+				343452BE22A1421400C0476E /* ProfilesRepository.swift in Sources */,
 				34186CAB2296B5A7009B4121 /* Profile.swift in Sources */,
 				34186CFA2297CE19009B4121 /* ApiService.swift in Sources */,
 				34186CC52296B5B7009B4121 /* Api+CoreDataClass.swift in Sources */,
@@ -1639,11 +1635,15 @@
 				34D71AE9228DA4CC0027DE84 /* String+URL.swift in Sources */,
 				34186CAD2296B5AA009B4121 /* NSManagedObjectContext+SaveHelpers.swift in Sources */,
 				34186CCA2296B5B7009B4121 /* Profile+CoreDataProperties.swift in Sources */,
+				343452A522A13C8B00C0476E /* RootCoordinator.swift in Sources */,
+				343452A722A13DDC00C0476E /* Coordinator.swift in Sources */,
 				34186CDA2296B707009B4121 /* Config.swift in Sources */,
 				34D71AA9228D9CCC0027DE84 /* URL+Unused.swift in Sources */,
 				34186CD42296B707009B4121 /* InstanceModel.swift in Sources */,
 				34186CAC2296B5A7009B4121 /* Instance.swift in Sources */,
+				343452A922A13EDE00C0476E /* Log.swift in Sources */,
 				34D71B08228DA4D20027DE84 /* AppDelegate.swift in Sources */,
+				343452B722A13FA400C0476E /* MainWindowController.swift in Sources */,
 				34186CD72296B707009B4121 /* ProfileModel.swift in Sources */,
 				34186CFD2297E183009B4121 /* Message.swift in Sources */,
 				34186CF82297CE19009B4121 /* InstanceService.swift in Sources */,
@@ -1661,10 +1661,13 @@
 				34186CAF2296B5AA009B4121 /* NSManagedObject+FetchHelpers.swift in Sources */,
 				34186CDB2296B710009B4121 /* DisplayName+Convenience.swift in Sources */,
 				34186CC22296B5B7009B4121 /* InstanceGroup+CoreDataProperties.swift in Sources */,
+				343452B922A13FAF00C0476E /* DeselectingTableView.swift in Sources */,
 				34186CF32296E7C6009B4121 /* Moya+Extensions.swift in Sources */,
 				34D71AA8228D9CCC0027DE84 /* String+Random.swift in Sources */,
 				34186CEC2296E2CA009B4121 /* StaticService.swift in Sources */,
 				34186D0C229806CE009B4121 /* NSError+App.swift in Sources */,
+				343452AC22A13F6B00C0476E /* AppCoordinatorError.swift in Sources */,
+				343452B622A13FA400C0476E /* MainViewController.swift in Sources */,
 				34186CC32296B5B7009B4121 /* DisplayName+CoreDataClass.swift in Sources */,
 				34D71AA7228D9CCC0027DE84 /* NSAlert+Custom.swift in Sources */,
 				34186CB02296B5AA009B4121 /* FetchedResultsController.swift in Sources */,
@@ -1673,6 +1676,7 @@
 				34186CBF2296B5B7009B4121 /* AuthServer+CoreDataClass.swift in Sources */,
 				34186CCC2296B5B7009B4121 /* Instance+CoreDataProperties.swift in Sources */,
 				34186CAA2296B5A7009B4121 /* Api.swift in Sources */,
+				343452A222A13A9500C0476E /* AppCoordinator.swift in Sources */,
 				34186CC72296B5B7009B4121 /* Logo+CoreDataClass.swift in Sources */,
 				34D71AEA228DA4CC0027DE84 /* UserInfo.swift in Sources */,
 			);

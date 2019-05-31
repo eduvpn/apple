@@ -27,7 +27,11 @@ class ProfilesRefresher {
             .then { response -> Promise<ProfilesModel> in response.mapResponse() }
             .then { profiles -> Promise<Void> in
                 if profiles.profiles.isEmpty {
-                    (UIApplication.shared.delegate as! AppDelegate).appCoordinator.showNoProfilesAlert()
+                    #if os(iOS)
+                    (UIApplication.shared.delegate as? AppDelegate)?.appCoordinator.showNoProfilesAlert()
+                    #elseif os(macOS)
+                    (NSApp.delegate as? AppDelegate)?.appCoordinator.showNoProfilesAlert()
+                    #endif
                 }
                 
                 return Promise<Void>(resolver: { seal in

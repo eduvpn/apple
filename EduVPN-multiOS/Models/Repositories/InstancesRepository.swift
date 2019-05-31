@@ -80,7 +80,13 @@ class InstancesLoader {
             .then(decodeInstances)
             .then(setProviderTypeForInstances(providerType: providerType))
             .then(parseInstances(instanceGroupIdentifier: instanceGroupIdentifier, providerType: providerType))
-            .recover { (UIApplication.shared.delegate as! AppDelegate).appCoordinator.showError($0) }
+            .recover {
+                #if os(iOS)
+                (UIApplication.shared.delegate as? AppDelegate)?.appCoordinator.showError($0)
+                #elseif os(macOS)
+                (NSApp.delegate as? AppDelegate)?.appCoordinator.showError($0)
+                #endif
+            }
     }
     
     // Load steps

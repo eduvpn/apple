@@ -34,15 +34,16 @@ extension NSAlert {
     
     convenience init?(customizedError error: Error) {
         // TODO: Clean up and include in switch statement below
-        if let error = error as? ConnectionService.Error {
-            let isUserCancelledError = error.errorDescription == ConnectionService.Error.userCancelled.errorDescription
-            let isUnexpectedStateError = error.errorDescription == ConnectionService.Error.unexpectedState.errorDescription
-            
-            if isUserCancelledError || isUnexpectedStateError {
-                NSLog("Ignored error: \(error)")
-                return nil
-            }
-        }
+        // UNCOMMENT
+//        if let error = error as? ConnectionService.Error {
+//            let isUserCancelledError = error.errorDescription == ConnectionService.Error.userCancelled.errorDescription
+//            let isUnexpectedStateError = error.errorDescription == ConnectionService.Error.unexpectedState.errorDescription
+//
+//            if isUserCancelledError || isUnexpectedStateError {
+//                NSLog("Ignored error: \(error)")
+//                return nil
+//            }
+//        }
         
         if (error as NSError).domain == NSOSStatusErrorDomain, (error as NSError).code == errSecUserCanceled {
             NSLog("Ignored error: \(error)")

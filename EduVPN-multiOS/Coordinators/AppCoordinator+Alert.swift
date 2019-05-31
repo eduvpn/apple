@@ -6,10 +6,14 @@
 //  Copyright © 2018 SURFNet. All rights reserved.
 //
 
-import UIKit
-import os
-
 import AppAuth
+#if os(macOS)
+import Cocoa
+#endif
+import os
+#if os(iOS)
+import UIKit
+#endif
 
 extension AppCoordinator {
 
@@ -42,10 +46,22 @@ extension AppCoordinator {
     }
 
     private func showAlert(title: String, message: String) {
+        #if os(iOS)
+        
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "OK button"), style: .default))
     
         let presentingViewController = navigationController.presentedViewController ?? navigationController
         presentingViewController.present(alert, animated: true)
+        
+        #elseif os(macOS)
+        
+        let alert = NSAlert()
+        alert.messageText = title
+        alert.informativeText = message
+        alert.addButton(withTitle: NSLocalizedString("OK", comment: "OK button"))
+        alert.beginSheetModal(for: windowController.window!)
+        
+        #endif
     }
 }

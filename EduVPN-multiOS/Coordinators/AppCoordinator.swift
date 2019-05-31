@@ -8,24 +8,39 @@
 
 import AppAuth
 import CoreData
-import Disk
-import libsodium
 import Moya
 import NetworkExtension
-import NVActivityIndicatorView
 import os.log
 import PromiseKit
-import UIKit
 import UserNotifications
+
+#if os(iOS)
+
+import Disk
+import libsodium
+import NVActivityIndicatorView
+import UIKit
+
+#elseif os(macOS)
+
+import Cocoa
+
+#endif
+
 
 // swiftlint:disable type_body_length
 // swiftlint:disable file_length
 // swiftlint:disable function_body_length
 
+#if os(iOS)
+
 extension UINavigationController: Identifyable {}
+
+#endif
 
 class AppCoordinator: RootViewCoordinator {
 
+    #if os(iOS)
     lazy var tunnelProviderManagerCoordinator: TunnelProviderManagerCoordinator = {
         let tpmCoordinator = TunnelProviderManagerCoordinator()
         tpmCoordinator.viewContext = persistentContainer.viewContext
@@ -34,42 +49,78 @@ class AppCoordinator: RootViewCoordinator {
         tpmCoordinator.delegate = self
         return tpmCoordinator
     }()
+    #endif
     
     let persistentContainer = NSPersistentContainer(name: "EduVPN")
-    let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
     // MARK: - Properties
 
     let accessTokenPlugin = CredentialStorePlugin()
 
+    #if os(iOS)
     private var currentDocumentInteractionController: UIDocumentInteractionController?
-
+    #endif
+    
     internal var authorizingDynamicApiProvider: DynamicApiProvider?
 
     var childCoordinators: [Coordinator] = []
+    
+    // Mark: - App instantiation
 
-    var rootViewController: UIViewController {
-        return providerTableViewController
-    }
-
-    var providerTableViewController: ProviderTableViewController!
-
-    /// Window to manage
+    #if os(iOS)
+    
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    
     let window: UIWindow
-
+    
     let navigationController: UINavigationController = {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(type: UINavigationController.self)
     }()
+    
+    var providerTableViewController: ProviderTableViewController!
+    
+    var rootViewController: UIViewController {
+        return providerTableViewController
+    }
+    
+    #elseif os(macOS)
+    
+    let windowController: NSWindowController = {
+        return NSStoryboard(name: "Main", bundle: nil).instantiateController(withIdentifier: "MainWindowController")
+            as! NSWindowController
+    }()
+    
+    var window: NSWindow? {
+        return windowController.window
+    }
+    
+    #endif
 
     // MARK: - Init
+    
+    #if os(iOS)
+    
     public init(window: UIWindow) {
         self.window = window
-
+        
         self.window.rootViewController = self.navigationController
         self.window.makeKeyAndVisible()
         
         providePersistentContainer()
     }
+    
+    #elseif os(macOS)
+    
+    public init() {
+        windowController.window?.makeKeyAndOrderFront(nil)
+        providePersistentContainer()
+    }
+    
+    func fixAppName(to appName: String) {
+        windowController.window?.title = appName
+    }
+    
+    #endif
     
     private func providePersistentContainer() {
         InstancesRepository.shared.loader.persistentContainer = persistentContainer
@@ -86,7 +137,8 @@ class AppCoordinator: RootViewCoordinator {
                 os_log("Unable to Load Persistent Store. %{public}@", log: Log.general, type: .info, error.localizedDescription)
             } else {
                 DispatchQueue.main.async {
-
+                    #if os(iOS)
+                    
                     //start
                     if let providerTableViewController = self?.storyboard.instantiateViewController(type: ProviderTableViewController.self) {
                         self?.providerTableViewController = providerTableViewController
@@ -107,6 +159,12 @@ class AppCoordinator: RootViewCoordinator {
                             self?.showError(error)
                         }
                     }
+                    
+                    #elseif os(macOS)
+                    
+                    fatalError("Not yet supported in macOS")
+                    
+                    #endif
                 }
             }
         }
@@ -184,7 +242,17 @@ class AppCoordinator: RootViewCoordinator {
                 switch error {
                     
                 case ApiServiceError.noAuthState:
-                    return dynamicApiProvider.authorize(presentingViewController: self.navigationController).then { _ -> Promise<Response> in
+                    #if os(iOS)
+                    
+                    let authorize = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
+                    
+                    #elseif os(macOS)
+                    
+                    let authorize = dynamicApiProvider.authorize()
+                    
+                    #endif
+                    
+                    return authorize.then { _ -> Promise<Response> in
                         return dynamicApiProvider.request(apiService: .createKeypair(displayName: keyPairDisplayName))
                     }
                     
@@ -239,15 +307,25 @@ class AppCoordinator: RootViewCoordinator {
     }
 
     func addProvider() {
+        #if os(iOS)
+        
         // We can not create a static service, so no discovery files are defined. Fall back to adding "another" service.
         if StaticService(type: .instituteAccess) == nil {
             showCustomProviderInPutViewController(for: .other)
         } else {
             showProfilesViewController()
         }
+        
+        #elseif os(macOS)
+        
+        fatalError("Not yet supported in macOS")
+        
+        #endif
     }
 
     fileprivate func scheduleCertificateExpirationNotification(for certificate: CertificateModel, on api: Api) {
+        #if os(iOS)
+        
         UNUserNotificationCenter.current().getNotificationSettings { settings in
             guard settings.authorizationStatus == UNAuthorizationStatus.authorized else {
                 os_log("Not Authorised", log: Log.general, type: .info)
@@ -277,7 +355,7 @@ class AppCoordinator: RootViewCoordinator {
                 expirationWarningDateComponents.minute = 0
                 expirationWarningDateComponents.second = 0
             #endif
-
+            
             let trigger = UNCalendarNotificationTrigger(dateMatching: expirationWarningDateComponents, repeats: false)
 
             // Create the request object.
@@ -290,6 +368,12 @@ class AppCoordinator: RootViewCoordinator {
                 }
             }
         }
+        
+        #elseif os(macOS)
+        
+        fatalError("Not yet supported in macOS")
+        
+        #endif
     }
 
     func resumeAuthorizationFlow(url: URL) -> Bool {
@@ -370,9 +454,17 @@ class AppCoordinator: RootViewCoordinator {
 
     internal func saveToOvpnFile(content: String, to filename: String) throws -> URL {
         // TODO: validate response
+        #if os(iOS)
+        
         try Disk.clear(.temporary)
         try Disk.save(content.data(using: .utf8)!, to: .temporary, as: filename)
         let url = try Disk.url(for: filename, in: .temporary)
         return url
+        
+        #elseif os(macOS)
+        
+        fatalError("Not yet supported in macOS")
+        
+        #endif
     }
 }
