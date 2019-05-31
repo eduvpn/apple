@@ -133,6 +133,7 @@
 		34345299229FF89800C0476E /* AppCoordinator+ViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345298229FF89800C0476E /* AppCoordinator+ViewControllers.swift */; };
 		3434529B22A0665600C0476E /* CoreDataFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3434529A22A0665600C0476E /* CoreDataFetchedResultsControllerDelegate.swift */; };
 		3434529C22A0666800C0476E /* CoreDataFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3434529A22A0665600C0476E /* CoreDataFetchedResultsControllerDelegate.swift */; };
+		3434529F22A137B700C0476E /* DeselectingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3434529E22A137B700C0476E /* DeselectingTableView.swift */; };
 		34D719E1228D75550027DE84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D719E0228D75550027DE84 /* AppDelegate.swift */; };
 		34D719E5228D75560027DE84 /* eduVPNAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34D719E4228D75560027DE84 /* eduVPNAssets.xcassets */; };
 		34D719E8228D75560027DE84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34D719E6228D75560027DE84 /* Main.storyboard */; };
@@ -324,6 +325,7 @@
 		34345296229FF71800C0476E /* AppCoordinator+Repositories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppCoordinator+Repositories.swift"; sourceTree = "<group>"; };
 		34345298229FF89800C0476E /* AppCoordinator+ViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppCoordinator+ViewControllers.swift"; sourceTree = "<group>"; };
 		3434529A22A0665600C0476E /* CoreDataFetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFetchedResultsControllerDelegate.swift; sourceTree = "<group>"; };
+		3434529E22A137B700C0476E /* DeselectingTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeselectingTableView.swift; sourceTree = "<group>"; };
 		34D719DE228D75550027DE84 /* eduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34D719E0228D75550027DE84 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		34D719E4228D75560027DE84 /* eduVPNAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = eduVPNAssets.xcassets; sourceTree = "<group>"; };
@@ -687,9 +689,19 @@
 			path = "AppCoordinator Delegates";
 			sourceTree = "<group>";
 		};
+		3434529D22A1375700C0476E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3434529E22A137B700C0476E /* DeselectingTableView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		34D719DF228D75550027DE84 /* EduVPN-macOS */ = {
 			isa = PBXGroup;
 			children = (
+				34D719E0228D75550027DE84 /* AppDelegate.swift */,
+				3434529D22A1375700C0476E /* Views */,
 				34D71A83228D8EF20027DE84 /* Extensions */,
 				34D71A0E228D76C60027DE84 /* Controllers */,
 				34D71A03228D76610027DE84 /* Targets */,
@@ -757,7 +769,6 @@
 				342B9CDA22902BB500C006D7 /* MainWindowController.swift */,
 				342B9CCF22902BB400C006D7 /* PreferencesViewController.swift */,
 				342B9CD422902BB500C006D7 /* ProvidersViewController.swift */,
-				34D719E0228D75550027DE84 /* AppDelegate.swift */,
 				3434529A22A0665600C0476E /* CoreDataFetchedResultsControllerDelegate.swift */,
 			);
 			path = Controllers;
@@ -1573,6 +1584,7 @@
 				342B9CE422902BB500C006D7 /* EnterProviderURLViewController.swift in Sources */,
 				34186CF52297CE19009B4121 /* Moya+Promise.swift in Sources */,
 				34186CA82296B5A6009B4121 /* Instance.swift in Sources */,
+				3434529F22A137B700C0476E /* DeselectingTableView.swift in Sources */,
 				34186CE02296B7BC009B4121 /* UserDefaults+EduVPN.swift in Sources */,
 				34186CCF2296B707009B4121 /* ProviderType.swift in Sources */,
 				34186CF22296E7C6009B4121 /* Moya+Extensions.swift in Sources */,
