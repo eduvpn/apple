@@ -156,7 +156,7 @@ class ProvidersViewController: NSViewController {
     
     private func addOtherProvider(animated: Bool) {
         // <UNCOMMENT>
-        mainWindowController?.showChooseConnectionType(allowClose: !rows.isEmpty, animated: animated)
+//        mainWindowController?.showChooseConnectionType(allowClose: !rows.isEmpty, animated: animated)
         // </UNCOMMENT>
     }
     
@@ -171,8 +171,8 @@ class ProvidersViewController: NSViewController {
         case .section:
             // Ignore
             break
-        // <UNCOMMENT>
         case .row(_, let instance):
+            // <UNCOMMENT>
             break
 //            authenticateAndConnect(to: instance)
             // </UNCOMMENT>
@@ -348,7 +348,10 @@ class ProvidersViewController: NSViewController {
                 
             case .row(_, let instance):
                 providerSelected = true
-                canRemoveProvider = ServiceContainer.providerService.storedProviders[provider.connectionType]?.contains(where: { $0.id == provider.id }) ?? false
+                // <UNCOMMENT>
+                canRemoveProvider = false
+//                canRemoveProvider = ServiceContainer.providerService.storedProviders[provider.connectionType]?.contains(where: { $0.id == provider.id }) ?? false
+                // </UNCOMMENT>
                 
             }
         }
@@ -520,30 +523,32 @@ extension ProvidersViewController: NSTableViewDelegate {
     }
     
     private func chooseConfigFile(configFileURL: URL, recover: Bool = false) {
-        ServiceContainer.providerService.addProvider(configFileURL: configFileURL, recover: recover) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success:
-                    self.discoverAccessibleProviders()
-                case .failure(let error):
-                    let alert = NSAlert(customizedError: error)
-                    if let error = error as? ProviderService.Error, !error.recoveryOptions.isEmpty {
-                        error.recoveryOptions.forEach {
-                            alert?.addButton(withTitle: $0)
-                        }
-                    }
-                    
-                    alert?.beginSheetModal(for: self.view.window!) { response in
-                        switch response.rawValue {
-                        case 1000:
-                            self.chooseConfigFile(configFileURL: configFileURL, recover: true)
-                        default:
-                            break
-                        }
-                    }
-                }
-            }
-        }
+        // <UNCOMMENT>
+//        ServiceContainer.providerService.addProvider(configFileURL: configFileURL, recover: recover) { result in
+//            DispatchQueue.main.async {
+//                switch result {
+//                case .success:
+//                    self.discoverAccessibleProviders()
+//                case .failure(let error):
+//                    let alert = NSAlert(customizedError: error)
+//                    if let error = error as? ProviderService.Error, !error.recoveryOptions.isEmpty {
+//                        error.recoveryOptions.forEach {
+//                            alert?.addButton(withTitle: $0)
+//                        }
+//                    }
+//
+//                    alert?.beginSheetModal(for: self.view.window!) { response in
+//                        switch response.rawValue {
+//                        case 1000:
+//                            self.chooseConfigFile(configFileURL: configFileURL, recover: true)
+//                        default:
+//                            break
+//                        }
+//                    }
+//                }
+//            }
+//        }
+        // <UNCOMMENT>
     }
 }
 

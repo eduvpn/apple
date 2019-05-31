@@ -38,7 +38,12 @@ class TunnelProviderManagerCoordinator: Coordinator {
                                                selector: #selector(VPNStatusDidChange(notification:)),
                                                name: .NEVPNStatusDidChange,
                                                object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: UIApplication.willEnterForegroundNotification, object: nil)
+        #if os(iOS)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(refresh),
+                                               name: UIApplication.willEnterForegroundNotification,
+                                               object: nil)
+        #endif
     }
 
     var isActive: Bool {
@@ -81,9 +86,9 @@ class TunnelProviderManagerCoordinator: Coordinator {
             return Promise.value(())
             
             #else
-            
+        
             let parseResult = try! ConfigurationParser.parsed(fromURL: configUrl) //swiftlint:disable:this force_try
-
+            
             return Promise(resolver: { resolver in
                 var configBuilder = parseResult.configuration.builder()
                 configBuilder.tlsSecurityLevel = UserDefaults.standard.tlsSecurityLevel.rawValue

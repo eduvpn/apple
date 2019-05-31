@@ -28,17 +28,15 @@ PODS:
   - Sparkle (1.21.3)
   - SwiftyBeaver (1.7.0)
   - Then (2.4.0)
-  - TunnelKit (2.0.1):
-    - TunnelKit/Protocols/OpenVPN (= 2.0.1)
-  - TunnelKit/AppExtension (2.0.1):
+  - TunnelKit (1.7.1):
+    - TunnelKit/AppExtension (= 1.7.1)
+    - TunnelKit/Core (= 1.7.1)
+  - TunnelKit/AppExtension (1.7.1):
     - SwiftyBeaver
     - TunnelKit/Core
-  - TunnelKit/Core (2.0.1):
-    - SwiftyBeaver
-  - TunnelKit/Protocols/OpenVPN (2.0.1):
+  - TunnelKit/Core (1.7.1):
     - OpenSSL-Apple (~> 1.1.0j.2)
-    - TunnelKit/AppExtension
-    - TunnelKit/Core
+    - SwiftyBeaver
 
 DEPENDENCIES:
   - AlamofireImage
@@ -55,7 +53,7 @@ DEPENDENCIES:
   - Sodium (= 0.8.0)
   - Sparkle (= 1.21.3)
   - Then
-  - TunnelKit (from `https://github.com/keeshux/tunnelkit.git`)
+  - TunnelKit (= 1.7.1)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -76,20 +74,16 @@ SPEC REPOS:
     - Sparkle
     - SwiftyBeaver
     - Then
+    - TunnelKit
 
 EXTERNAL SOURCES:
   AppAuth:
     :git: https://github.com/openid/AppAuth-iOS.git
-  TunnelKit:
-    :git: https://github.com/keeshux/tunnelkit.git
 
 CHECKOUT OPTIONS:
   AppAuth:
     :commit: 28fc6c6d9d2e4b274fb403b03b6236140d4ee64c
     :git: https://github.com/openid/AppAuth-iOS.git
-  TunnelKit:
-    :commit: a861c69f36abc77e66fe0887b96884261338113e
-    :git: https://github.com/keeshux/tunnelkit.git
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
@@ -110,8 +104,8 @@ SPEC CHECKSUMS:
   Sparkle: 3f75576db8b0265adef36c43249d747f22d0b708
   SwiftyBeaver: 4cc0080d2e23f980652e28978db11a5c9da39165
   Then: 71866660c7af35a7343831f7668e7cd2b62ee0f2
-  TunnelKit: ff3f9632a8d4b464abc8021e5933034dcf4e918b
+  TunnelKit: d1e02dea5cb58ea0d4dbfcdcb387e653d148d800
 
-PODFILE CHECKSUM: 556ef891522ee98e78d073fb0805ec0e0b3a5dad
+PODFILE CHECKSUM: 00808eb13edd6496f6284858da57ae9bab5bce11
 
-COCOAPODS: 1.7.0
+COCOAPODS: 1.7.1

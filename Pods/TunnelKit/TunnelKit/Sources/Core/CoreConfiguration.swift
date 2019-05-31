@@ -35,12 +35,14 @@
 //
 
 import Foundation
+import __TunnelKitNative
+import CommonCrypto
 
-class CoreConfiguration {
+struct CoreConfiguration {
     static let identifier = "com.algoritmico.TunnelKit"
     
     static let version: String = {
-        let bundle = Bundle(for: CoreConfiguration.self)
+        let bundle = Bundle(for: SessionProxy.self)
         guard let info = bundle.infoDictionary else {
             return ""
         }
@@ -53,11 +55,60 @@ class CoreConfiguration {
 //        return "\(version) (\(build))"
         return info["CFBundleShortVersionString"] as? String ?? ""
     }()
+    
+    // MARK: Session
 
     // configurable
     static var masksPrivateData = true
     
     static let logsSensitiveData = false
+
+    static let usesReplayProtection = true
+
+    static let tickInterval = 0.2
+    
+    static let pushRequestInterval = 2.0
+    
+    static let pingTimeout = 120.0
+    
+    static let retransmissionLimit = 0.1
+    
+    static let softResetDelay = 5.0
+    
+    static let softNegotiationTimeout = 120.0
+
+    // MARK: Authentication
+    
+    static let peerInfo: String = {
+        var info = [
+            "IV_VER=2.4",
+            "IV_PLAT=mac",
+            "IV_UI_VER=\(identifier) \(version)",
+            "IV_PROTO=2",
+            "IV_NCP=2",
+            "IV_SSL=\(CryptoBox.version())",
+            "IV_LZO_STUB=1",
+        ]
+        if LZOIsSupported() {
+            info.append("IV_LZO=1")
+        }
+        info.append("")
+        return info.joined(separator: "\n")
+    }()
+    
+    static let randomLength = 32
+    
+    // MARK: Keys
+    
+    static let label1 = "OpenVPN master secret"
+    
+    static let label2 = "OpenVPN key expansion"
+    
+    static let preMasterLength = 48
+    
+    static let keyLength = 64
+    
+    static let keysCount = 4
 }
 
 extension CustomStringConvertible {
@@ -65,13 +116,12 @@ extension CustomStringConvertible {
         guard CoreConfiguration.masksPrivateData else {
             return description
         }
-//        var data = description.data(using: .utf8)!
-//        let dataCount = CC_LONG(data.count)
-//        var md = Data(count: Int(CC_SHA1_DIGEST_LENGTH))
-//        md.withUnsafeMutableBytes {
-//            _ = CC_SHA1(&data, dataCount, $0.bytePointer)
-//        }
-//        return "#\(md.toHex().prefix(16))#"
-        return "<masked>"
+        var data = description.data(using: .utf8)!
+        let dataCount = CC_LONG(data.count)
+        var md = Data(count: Int(CC_SHA1_DIGEST_LENGTH))
+        md.withUnsafeMutableBytes {
+            _ = CC_SHA1(&data, dataCount, $0.bytePointer)
+        }
+        return "#\(md.toHex().prefix(16))#"
     }
 }
