@@ -6,13 +6,21 @@
 //  Copyright © 2019 SURFNet. All rights reserved.
 //
 
-import Disk
 import Foundation
 import PromiseKit
+
+#if os(iOS)
+import Disk
+#endif
+
+protocol CustomProviderInPutViewControllerDelegate: class {
+    @discardableResult func connect(url: URL) -> Promise<Void>
+}
 
 extension AppCoordinator: CustomProviderInPutViewControllerDelegate {
     
     private func createLocalUrl(forImageNamed name: String) throws -> URL {
+        #if os(iOS)
         let filename = "\(name).png"
         if Disk.exists(filename, in: .applicationSupport) {
             return try Disk.url(for: filename, in: .applicationSupport)
@@ -22,6 +30,10 @@ extension AppCoordinator: CustomProviderInPutViewControllerDelegate {
         try Disk.save(image, to: .applicationSupport, as: filename)
         
         return try Disk.url(for: filename, in: .applicationSupport)
+        #elseif os(macOS)
+        // TODO: Implement in macOS
+        abort()
+        #endif
     }
     
     func connect(url: URL) -> Promise<Void> {

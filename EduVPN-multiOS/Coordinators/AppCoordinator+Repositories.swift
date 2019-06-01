@@ -8,11 +8,15 @@
 
 import Foundation
 import Moya
-import NVActivityIndicatorView
 import PromiseKit
+
+#if os(iOS)
+import NVActivityIndicatorView
+#endif
 
 extension AppCoordinator {
 
+    #if os(iOS)
     private func showActivityIndicator(messageKey: String) {
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(ActivityData(), nil)
         setActivityIndicatorMessage(key: messageKey)
@@ -25,8 +29,10 @@ extension AppCoordinator {
     private func hideActivityIndicator() {
         NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
     }
+    #endif
     
     func refresh(instance: Instance) -> Promise<Void> {
+        #if os(iOS)
         showActivityIndicator(messageKey: "Fetching instance configuration")
         
         return InstancesRepository.shared.refresher.refresh(instance: instance)
@@ -43,9 +49,14 @@ extension AppCoordinator {
                 self.providersViewController.refresh()
                 self.hideActivityIndicator()
             }
+        #elseif os(macOS)
+        // TODO: Implement macOS
+        abort()
+        #endif
     }
     
     func fetchProfile(for profile: Profile, retry: Bool = false) -> Promise<URL> {
+        #if os(iOS)
         guard let api = profile.api else {
             precondition(false, "This should never happen")
             return Promise(error: AppCoordinatorError.apiMissing)
@@ -105,9 +116,14 @@ extension AppCoordinator {
                     
                 }
         }
+        #elseif os(macOS)
+        // TODO: Implement macOS
+        abort()
+        #endif
     }
     
     private func refreshProfiles(for dynamicApiProvider: DynamicApiProvider) -> Promise<Void> {
+        #if os(iOS)
         showActivityIndicator(messageKey: "Refreshing profiles")
         
         return ProfilesRepository.shared.refresher.refresh(for: dynamicApiProvider)
@@ -140,5 +156,9 @@ extension AppCoordinator {
                     
                 }
         }
+        #elseif os(macOS)
+        // TODO: Implement macOS
+        abort()
+        #endif
     }
 }

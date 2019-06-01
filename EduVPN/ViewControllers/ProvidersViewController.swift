@@ -71,14 +71,6 @@ class ProviderTableViewCell: UITableViewCell {
 
 extension ProviderTableViewCell: Identifyable {}
 
-protocol ProvidersViewControllerDelegate: class {
-    func addProvider(providersViewController: ProvidersViewController)
-    func addPredefinedProvider(providersViewController: ProvidersViewController)
-    func didSelect(instance: Instance, providersViewController: ProvidersViewController)
-    func settings(providersViewController: ProvidersViewController)
-    func delete(instance: Instance)
-}
-
 class ProvidersViewController: UITableViewController {
     
     weak var delegate: ProvidersViewControllerDelegate?
@@ -247,5 +239,3 @@ extension ProvidersViewController {
         }
     }
 }
-
-extension ProvidersViewController: Identifyable {}

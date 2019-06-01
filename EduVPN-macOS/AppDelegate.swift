@@ -42,7 +42,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         ValueTransformer.setValueTransformer(DurationTransformer(),
                                              forName: NSValueTransformerName(rawValue: "DurationTransformer"))
-        
+
         appCoordinator = AppCoordinator()
         appCoordinator.start()
 

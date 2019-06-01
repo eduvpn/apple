@@ -9,10 +9,6 @@
 import UIKit
 import PromiseKit
 
-protocol CustomProviderInPutViewControllerDelegate: class {
-    @discardableResult func connect(url: URL) -> Promise<Void>
-}
-
 class CustomProviderInPutViewController: UIViewController {
     weak var delegate: CustomProviderInPutViewControllerDelegate?
     @IBOutlet weak var bottomKeyboardConstraint: NSLayoutConstraint?

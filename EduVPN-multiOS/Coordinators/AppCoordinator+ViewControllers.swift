@@ -14,13 +14,19 @@ import Then
 extension AppCoordinator {
     
     internal func showSettings() {
+        #if os(iOS)
         let settingsVc = storyboard.instantiateViewController(type: SettingsTableViewController.self).with {
             $0.delegate = self
         }
         navigationController.pushViewController(settingsVc, animated: true)
+        #elseif os(macOS)
+        // TODO: Implement macOS
+        abort()
+        #endif
     }
     
     internal func showConnectionsTableViewController(for instance: Instance) {
+        #if os(iOS)
         let connectionsVc = storyboard.instantiateViewController(type: ConnectionsTableViewController.self).with {
             $0.delegate = self
             $0.instance = instance
@@ -28,9 +34,14 @@ extension AppCoordinator {
         }
         
         navigationController.pushViewController(connectionsVc, animated: true)
+        #elseif os(macOS)
+        // TODO: Implement macOS
+        abort()
+        #endif
     }
     
     internal func showProfilesViewController() {
+        #if os(iOS)
         let fetchRequest = NSFetchRequest<Profile>()
         fetchRequest.entity = Profile.entity()
         fetchRequest.predicate = NSPredicate(format: "api.instance.providerType == %@", ProviderType.secureInternet.rawValue)
@@ -45,16 +56,26 @@ extension AppCoordinator {
         } catch {
             showError(error)
         }
+        #elseif os(macOS)
+        // TODO: Implement macOS
+        abort()
+        #endif
     }
     
     internal func showCustomProviderInPutViewController(for providerType: ProviderType) {
+        #if os(iOS)
         let customProviderInputVc = storyboard.instantiateViewController(type: CustomProviderInPutViewController.self).with {
             $0.delegate = self
         }
         navigationController.pushViewController(customProviderInputVc, animated: true)
+        #elseif os(macOS)
+        // TODO: Implement macOS
+        abort()
+        #endif
     }
     
     internal func showProvidersViewController(for providerType: ProviderType) {
+        #if os(iOS)
         let providersVc = storyboard.instantiateViewController(type: ProvidersViewController.self).with {
             $0.providerType = providerType
             $0.viewContext = persistentContainer.viewContext
@@ -65,9 +86,14 @@ extension AppCoordinator {
         
         navigationController.pushViewController(providersVc, animated: true)
         InstancesRepository.shared.loader.load(with: providerType)
+        #elseif os(macOS)
+        // TODO: Implement macOS
+        abort()
+        #endif
     }
     
     internal func showConnectionViewController(for profile: Profile) -> Promise<Void> {
+        #if os(iOS)
         let connectionVc = storyboard.instantiateViewController(type: VPNConnectionViewController.self).then {
             $0.providerManagerCoordinator = tunnelProviderManagerCoordinator
             $0.delegate = self
@@ -96,12 +122,21 @@ extension AppCoordinator {
         return presentationPromise
             .then { self.tunnelProviderManagerCoordinator.configure(profile: profile) }
             .then { self.tunnelProviderManagerCoordinator.connect() }
+        #elseif os(macOS)
+        // TODO: Implement macOS
+        abort()
+        #endif
     }
     
     internal func showSettingsTableViewController() {
+        #if os(iOS)
         let settingsVc = storyboard.instantiateViewController(type: SettingsTableViewController.self).with {
             $0.delegate = self
         }
         navigationController.pushViewController(settingsVc, animated: true)
+        #elseif os(macOS)
+        // TODO: Implement macOS
+        abort()
+        #endif
     }
 }

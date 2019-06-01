@@ -9,6 +9,10 @@
 import Foundation
 import PromiseKit
 
+protocol ConnectionsTableViewControllerDelegate: class {
+    func connect(profile: Profile)
+}
+
 extension AppCoordinator: ConnectionsTableViewControllerDelegate {
     
     func connect(profile: Profile) {
@@ -18,7 +22,12 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
             _ = tunnelProviderManagerCoordinator.disconnect()
                 .recover { _ in self.tunnelProviderManagerCoordinator.configure(profile: profile) }
                 .then { _ -> Promise<Void> in
+                    #if os(iOS)
                     self.providersViewController.tableView.reloadData()
+                    #elseif os(macOS)
+                    // TODO: Implement in macOS
+                    abort()
+                    #endif
                     return self.showConnectionViewController(for: profile)
             }
         }

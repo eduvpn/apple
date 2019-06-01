@@ -56,10 +56,6 @@ class ConnectTableViewCell: UITableViewCell {
 
 extension ConnectTableViewCell: Identifyable {}
 
-protocol ConnectionsTableViewControllerDelegate: class {
-    func connect(profile: Profile)
-}
-
 class ConnectionsTableViewController: UITableViewController {
     
     weak var delegate: ConnectionsTableViewControllerDelegate?

@@ -27,6 +27,7 @@ class ProvidersViewController: NSViewController {
     var selectingConfig: Bool = false
     
     var providerType: ProviderType = .unknown
+    private var started = false
     
     private lazy var fetchedResultsController: FetchedResultsController<Instance> = {
         let fetchRequest = NSFetchRequest<Instance>()
@@ -68,8 +69,20 @@ class ProvidersViewController: NSViewController {
         refresh()
     }
     
+    func start() {
+        started = true
+        refresh()
+    }
+    
     @objc func refresh() {
+        NSLog("Refresh started: %@", started)
+        if !started {
+            // Prevent from executing until AppCoordinator assigned all required values
+            return
+        }
+        
         do {
+            NSLog("access fetchedResultsController from refresh")
             try fetchedResultsController.performFetch()
         } catch {
             os_log("Failed to fetch objects: %{public}@", log: Log.general, type: .error, error.localizedDescription)
@@ -390,7 +403,7 @@ extension ProvidersViewController {
     
     fileprivate var rows: [TableRow] {
         var rows: [TableRow] = []
-        guard let sections = fetchedResultsController.sections else {
+        guard started, let sections = fetchedResultsController.sections else {
             return rows
         }
         
@@ -550,13 +563,4 @@ extension ProvidersViewController: NSTableViewDelegate {
 //        }
         // <UNCOMMENT>
     }
-}
-
-protocol ProvidersViewControllerDelegate: class {
-    func addProvider(providersViewController: ProvidersViewController)
-    func addPredefinedProvider(providersViewController: ProvidersViewController)
-    func didSelect(instance: Instance, providersViewController: ProvidersViewController)
-    func settings(providersViewController: ProvidersViewController)
-    func delete(instance: Instance)
-    func addCustomProviderWithUrl(_ url: URL)
 }

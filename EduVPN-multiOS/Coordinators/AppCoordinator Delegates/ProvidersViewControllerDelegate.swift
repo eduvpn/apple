@@ -9,6 +9,19 @@
 import Foundation
 import PromiseKit
 
+extension ProvidersViewController: Identifyable {}
+
+protocol ProvidersViewControllerDelegate: class {
+    func addProvider(providersViewController: ProvidersViewController)
+    func addPredefinedProvider(providersViewController: ProvidersViewController)
+    func didSelect(instance: Instance, providersViewController: ProvidersViewController)
+    func settings(providersViewController: ProvidersViewController)
+    func delete(instance: Instance)
+    #if os(macOS)
+    func addCustomProviderWithUrl(_ url: URL)
+    #endif
+}
+
 extension AppCoordinator: ProvidersViewControllerDelegate {
     
     func addProvider(providersViewController: ProvidersViewController) {
@@ -70,4 +83,10 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
             seal.fulfill(())
         })
     }
+    
+    #if os(macOS)
+    func addCustomProviderWithUrl(_ url: URL) {
+        
+    }
+    #endif
 }

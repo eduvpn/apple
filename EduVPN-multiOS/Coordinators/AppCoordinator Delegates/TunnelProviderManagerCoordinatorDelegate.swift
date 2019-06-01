@@ -8,8 +8,11 @@
 
 import Foundation
 import NetworkExtension
-import NVActivityIndicatorView
 import PromiseKit
+
+#if os(iOS)
+import NVActivityIndicatorView
+#endif
 
 extension AppCoordinator: TunnelProviderManagerCoordinatorDelegate {
 
@@ -30,11 +33,15 @@ extension AppCoordinator: TunnelProviderManagerCoordinatorDelegate {
     }
     
     func profileConfig(for profile: Profile) -> Promise<URL> {
+        #if os(iOS)
         let activityData = ActivityData()
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData, nil)
+        #endif
         
         return fetchProfile(for: profile).ensure {
+            #if os(iOS)
             NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
+            #endif
         }
     }
 }

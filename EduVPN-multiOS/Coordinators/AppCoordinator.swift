@@ -21,6 +21,8 @@ import libsodium
 import NVActivityIndicatorView
 import UIKit
 
+extension UINavigationController: Identifyable {}
+
 #elseif os(macOS)
 
 import Cocoa
@@ -32,15 +34,8 @@ import Cocoa
 // swiftlint:disable file_length
 // swiftlint:disable function_body_length
 
-#if os(iOS)
-
-extension UINavigationController: Identifyable {}
-
-#endif
-
 class AppCoordinator: RootViewCoordinator {
 
-    #if os(iOS)
     lazy var tunnelProviderManagerCoordinator: TunnelProviderManagerCoordinator = {
         let tpmCoordinator = TunnelProviderManagerCoordinator()
         tpmCoordinator.viewContext = persistentContainer.viewContext
@@ -49,7 +44,6 @@ class AppCoordinator: RootViewCoordinator {
         tpmCoordinator.delegate = self
         return tpmCoordinator
     }()
-    #endif
     
     let persistentContainer = NSPersistentContainer(name: "EduVPN")
 
@@ -66,6 +60,8 @@ class AppCoordinator: RootViewCoordinator {
     var childCoordinators: [Coordinator] = []
     
     // Mark: - App instantiation
+    
+    var providersViewController: ProvidersViewController!
 
     #if os(iOS)
     
@@ -77,13 +73,13 @@ class AppCoordinator: RootViewCoordinator {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(type: UINavigationController.self)
     }()
     
-    var providersViewController: ProvidersViewController!
-    
     var rootViewController: UIViewController {
         return providersViewController
     }
     
     #elseif os(macOS)
+    
+    let storyboard = NSStoryboard(name: "Main", bundle: nil)
     
     let windowController: NSWindowController = {
         return NSStoryboard(name: "Main", bundle: nil).instantiateController(withIdentifier: "MainWindowController")
@@ -113,6 +109,7 @@ class AppCoordinator: RootViewCoordinator {
     
     public init() {
         windowController.window?.makeKeyAndOrderFront(nil)
+        providersViewController = windowController.contentViewController!.children.first! as! ProvidersViewController
         providePersistentContainer()
     }
     
@@ -131,45 +128,51 @@ class AppCoordinator: RootViewCoordinator {
     // MARK: - Functions
 
     /// Starts the coordinator
+    private func instantiateProvidersViewController() {
+        #if os(iOS)
+        providersViewController = storyboard.instantiateViewController(type: ProvidersViewController.self)
+        #endif
+        
+        providersViewController.do {
+            persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
+            $0.viewContext = persistentContainer.viewContext
+            $0.delegate = self
+            $0.providerManagerCoordinator = tunnelProviderManagerCoordinator
+        }
+        
+        #if os(iOS)
+        navigationController.viewControllers = [providersViewController]
+        #elseif os(macOS)
+    
+        providersViewController.start()
+        #endif
+        
+        do {
+            let context = persistentContainer.viewContext
+            if try Profile.countInContext(context) == 0 {
+                if let predefinedProvider = Config.shared.predefinedProvider {
+                    _ = connect(url: predefinedProvider)
+                } else {
+                    addProvider()
+                }
+            }
+        } catch {
+            showError(error)
+        }
+    }
+    
     public func start() {
         persistentContainer.loadPersistentStores { [weak self] (_, error) in
             if let error = error {
                 os_log("Unable to Load Persistent Store. %{public}@", log: Log.general, type: .info, error.localizedDescription)
             } else {
                 DispatchQueue.main.async {
-                    #if os(iOS)
-                    
-                    //start
-                    if let providersViewController = self?.storyboard.instantiateViewController(type: ProvidersViewController.self) {
-                        self?.providersViewController = providerTableViewController
-                        self?.persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
-                        self?.providersViewController.viewContext = self?.persistentContainer.viewContext
-                        self?.providersViewController.delegate = self
-                        self?.providersViewController.providerManagerCoordinator = self?.tunnelProviderManagerCoordinator
-                        self?.navigationController.viewControllers = [providersViewController]
-                        do {
-                            if let context = self?.persistentContainer.viewContext, try Profile.countInContext(context) == 0 {
-                                if let predefinedProvider = Config.shared.predefinedProvider {
-                                    _ = self?.connect(url: predefinedProvider)
-                                } else {
-                                    self?.addProvider()
-                                }
-                            }
-                        } catch {
-                            self?.showError(error)
-                        }
-                    }
-                    
-                    #elseif os(macOS)
-                    
-                    fatalError("Not yet supported in macOS")
-                    
-                    #endif
+                    self?.instantiateProvidersViewController()
                 }
             }
         }
 
-        // Migratation
+        // Migration
         persistentContainer.performBackgroundTask { context in
             let profiles =  try? Profile.allInContext(context)
             // Make sure all profiles have a UUID
