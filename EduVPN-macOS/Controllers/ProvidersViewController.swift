@@ -16,10 +16,15 @@ class ProvidersViewController: NSViewController {
     weak var delegate: ProvidersViewControllerDelegate?
 
     @IBOutlet var tableView: DeselectingTableView!
-    @IBOutlet var unreachableLabel: NSTextField!
-    @IBOutlet var otherProviderButton: NSButton!
-    @IBOutlet var connectButton: NSButton!
-    @IBOutlet var removeButton: NSButton!
+    @IBOutlet var unreachableLabel: NSTextField?
+    
+    // Initial VC buttons
+    @IBOutlet var otherProviderButton: NSButton?
+    @IBOutlet var connectButton: NSButton?
+    @IBOutlet var removeButton: NSButton?
+    
+    // Choose provider VC buttons
+    @IBOutlet var backButton: NSButton?
     
     var providerManagerCoordinator: TunnelProviderManagerCoordinator!
     
@@ -335,6 +340,10 @@ class ProvidersViewController: NSViewController {
         NSAlert(customizedError: error)?.beginSheetModal(for: self.view.window!)
     }
     
+    @IBAction func goBack(_ sender: Any) {
+        mainWindowController?.pop()
+    }
+    
     fileprivate func updateInterface() {
         let row = tableView.selectedRow
         let providerSelected: Bool
@@ -369,19 +378,19 @@ class ProvidersViewController: NSViewController {
             reachable = true
         }
     
-        unreachableLabel.isHidden = reachable
+        unreachableLabel?.isHidden = reachable
         
         tableView.superview?.superview?.isHidden = !reachable
         tableView.isEnabled = !busy
         
-        otherProviderButton.isHidden = providerSelected || !reachable
-        otherProviderButton.isEnabled = !busy
+        otherProviderButton?.isHidden = providerSelected || !reachable
+        otherProviderButton?.isEnabled = !busy
         
-        connectButton.isHidden = !providerSelected || !reachable
-        connectButton.isEnabled = !busy
+        connectButton?.isHidden = !providerSelected || !reachable
+        connectButton?.isEnabled = !busy
         
-        removeButton.isHidden = !providerSelected || !reachable
-        removeButton.isEnabled = canRemoveProvider && !busy
+        removeButton?.isHidden = !providerSelected || !reachable
+        removeButton?.isEnabled = canRemoveProvider && !busy
     }
 }
 

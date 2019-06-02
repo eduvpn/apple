@@ -15,21 +15,21 @@ extension AppCoordinator {
     
     #if os(iOS)
     
-    internal func pushViewController(viewController: UIViewController) {
+    internal func pushViewController(_ viewController: UIViewController) {
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    internal func presentViewController(viewController: NSViewController) {
+    internal func presentViewController(_ viewController: NSViewController) {
         present(viewController, animated: true)
     }
     
     #elseif os(macOS)
     
-    internal func pushViewController(viewController: NSViewController) {
+    internal func pushViewController(_ viewController: NSViewController) {
         (windowController as! MainWindowController).show(viewController: viewController, presentation: .push)
     }
     
-    internal func presentViewController(viewController: NSViewController) {
+    internal func presentViewController(_ viewController: NSViewController) {
         (windowController as! MainWindowController).show(viewController: viewController, presentation: .present)
     }
     
@@ -76,9 +76,9 @@ extension AppCoordinator {
             profilesVc.allowClose(allowClose)
             
             #if os(iOS)
-            pushViewController(viewController: profilesVc)
+            pushViewController(profilesVc)
             #elseif os(macOS)
-            presentViewController(viewController: profilesVc)
+            presentViewController(profilesVc)
             #endif
         } catch {
             showError(error)
@@ -99,7 +99,14 @@ extension AppCoordinator {
     
     internal func showProvidersViewController(for providerType: ProviderType) {
         #if os(iOS)
-        let providersVc = storyboard.instantiateViewController(type: ProvidersViewController.self).with {
+        let providersVc = storyboard.instantiateViewController(type: ProvidersViewController.self)
+        #elseif os(macOS)
+        // Do separate instantiation with identifier
+        // Because macOS reuses VC class, but uses two different layouts
+        let providersVc = storyboard.instantiateController(withIdentifier: "ChooseProvider") as! ProvidersViewController
+        #endif
+        
+        providersVc.do {
             $0.providerType = providerType
             $0.viewContext = persistentContainer.viewContext
             $0.delegate = self
@@ -107,12 +114,14 @@ extension AppCoordinator {
             $0.providerType = providerType
         }
         
-        navigationController.pushViewController(providersVc, animated: true)
-        InstancesRepository.shared.loader.load(with: providerType)
-        #elseif os(macOS)
-        // TODO: Implement macOS
-        abort()
+        pushViewController(providersVc)
+        
+        // Required for startup safety purpose
+        #if os(macOS)
+        providersVc.start()
         #endif
+        
+        InstancesRepository.shared.loader.load(with: providerType)
     }
     
     internal func showConnectionViewController(for profile: Profile) -> Promise<Void> {
