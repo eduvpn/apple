@@ -94,8 +94,8 @@ class ProvidersViewController: NSViewController {
         super.viewDidLoad()
                 
         // Close orphaned connection
-        busy = true
         //         <UNCOMMENT>
+//        busy = true
 //        ServiceContainer.connectionService.closeOrphanedConnectionIfNeeded { _ in
 //            self.busy = false
 //            self.updateInterface()
@@ -163,13 +163,7 @@ class ProvidersViewController: NSViewController {
     }
     
     @IBAction func addOtherProvider(_ sender: Any) {
-        addOtherProvider(animated: true)
-    }
-    
-    private func addOtherProvider(animated: Bool) {
-        // <UNCOMMENT>
-//        mainWindowController?.showChooseConnectionType(allowClose: !rows.isEmpty, animated: animated)
-        // </UNCOMMENT>
+        delegate?.addProvider(providersViewController: self)
     }
     
     @IBAction func connectProvider(_ sender: Any) {

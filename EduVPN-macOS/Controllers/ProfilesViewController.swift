@@ -18,11 +18,19 @@ class ProfilesViewController: NSViewController {
     @IBOutlet var enterProviderButton: NSButton!
     @IBOutlet var chooseConfigFileButton: NSButton!
     
-    var allowClose: Bool = true
+    private var allowClose = true {
+        didSet {
+            closeButton?.isHidden = !allowClose
+        }
+    }
+    
+    func allowClose(_ state: Bool) {
+        self.allowClose = state
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        closeButton.isHidden = !allowClose
+        (allowClose = allowClose)
     }
     
     override func viewWillAppear() {

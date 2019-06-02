@@ -14,6 +14,24 @@ class ProfilesViewController: UIViewController {
 
     @IBOutlet weak var secureInternetView: UIView!
     @IBOutlet weak var settingsButton: UIBarButtonItem!
+    
+    func allowClose(_ state: Bool) {
+    }
+    
+    private var allowClose = true {
+        didSet {
+            navigationItem?.hidesBackButton = !state
+        }
+    }
+    
+    func allowClose(_ state: Bool) {
+        self.allowClose = state
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        (allowClose = allowClose)
+    }
 
     @IBAction func didTapSecureAccess(_ sender: Any) {
         delegate?.profilesViewControllerDidSelectProviderType(profilesViewController: self,
@@ -34,5 +52,3 @@ class ProfilesViewController: UIViewController {
         delegate?.settings(profilesViewController: self)
     }
 }
-
-extension ProfilesViewController: Identifyable {}

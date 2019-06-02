@@ -9,6 +9,8 @@
 import Foundation
 import os.log
 
+extension ProfilesViewController: Identifyable {}
+
 protocol ProfilesViewControllerDelegate: class {
     
     func profilesViewControllerDidSelectProviderType(profilesViewController: ProfilesViewController,

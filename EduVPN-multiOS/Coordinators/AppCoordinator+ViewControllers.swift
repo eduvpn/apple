@@ -13,6 +13,28 @@ import Then
 
 extension AppCoordinator {
     
+    #if os(iOS)
+    
+    internal func pushViewController(viewController: UIViewController) {
+        navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    internal func presentViewController(viewController: NSViewController) {
+        present(viewController, animated: true)
+    }
+    
+    #elseif os(macOS)
+    
+    internal func pushViewController(viewController: NSViewController) {
+        (windowController as! MainWindowController).show(viewController: viewController, presentation: .push)
+    }
+    
+    internal func presentViewController(viewController: NSViewController) {
+        (windowController as! MainWindowController).show(viewController: viewController, presentation: .present)
+    }
+    
+    #endif
+    
     internal func showSettings() {
         #if os(iOS)
         let settingsVc = storyboard.instantiateViewController(type: SettingsTableViewController.self).with {
@@ -44,22 +66,23 @@ extension AppCoordinator {
         let fetchRequest = NSFetchRequest<Profile>()
         fetchRequest.entity = Profile.entity()
         fetchRequest.predicate = NSPredicate(format: "api.instance.providerType == %@", ProviderType.secureInternet.rawValue)
-        #if os(iOS)
         
         let profilesVc = storyboard.instantiateViewController(type: ProfilesViewController.self).with {
             $0.delegate = self
         }
         
         do {
-            try profilesViewController.navigationItem.hidesBackButton = Profile.countInContext(persistentContainer.viewContext) == 0
-            navigationController.pushViewController(profilesVc, animated: true)
+            let allowClose = try Profile.countInContext(persistentContainer.viewContext) != 0
+            profilesVc.allowClose(allowClose)
+            
+            #if os(iOS)
+            pushViewController(viewController: profilesVc)
+            #elseif os(macOS)
+            presentViewController(viewController: profilesVc)
+            #endif
         } catch {
             showError(error)
         }
-        #elseif os(macOS)
-        // TODO: Implement macOS
-        abort()
-        #endif
     }
     
     internal func showCustomProviderInPutViewController(for providerType: ProviderType) {
