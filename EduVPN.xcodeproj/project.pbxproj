@@ -23,6 +23,13 @@
 		340A504B22A2745600170E51 /* Identifyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2CC2211F4233E8004119B1 /* Identifyable.swift */; };
 		340A504C22A2788B00170E51 /* EduVPN.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4AECAB402027091900B5105B /* EduVPN.xcdatamodeld */; };
 		340A504D22A2788C00170E51 /* EduVPN.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4AECAB402027091900B5105B /* EduVPN.xcdatamodeld */; };
+		340A504F22A3BD9E00170E51 /* ProfilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340A504E22A3BD9D00170E51 /* ProfilesViewController.swift */; };
+		340A505022A3BDA000170E51 /* ProfilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340A504E22A3BD9D00170E51 /* ProfilesViewController.swift */; };
+		340A505122A3BDDF00170E51 /* ProfilesViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3434528B229FF33100C0476E /* ProfilesViewControllerDelegate.swift */; };
+		340A505222A3BDE000170E51 /* ProfilesViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3434528B229FF33100C0476E /* ProfilesViewControllerDelegate.swift */; };
+		340A505422A3BF8900170E51 /* EnterProviderURLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340A505322A3BF8900170E51 /* EnterProviderURLViewController.swift */; };
+		340A505722A3BFF100170E51 /* AppCoordinator+Mac.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340A505622A3BFF100170E51 /* AppCoordinator+Mac.swift */; };
+		340A505822A3C01100170E51 /* AppCoordinator+Mac.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340A505622A3BFF100170E51 /* AppCoordinator+Mac.swift */; };
 		34186CA12296B5A1009B4121 /* NSManagedObjectContext+SaveHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2BAC86225B8C0700AECEE6 /* NSManagedObjectContext+SaveHelpers.swift */; };
 		34186CA22296B5A1009B4121 /* NSManagedObjectContext+AsyncHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2BAC88225B8C8700AECEE6 /* NSManagedObjectContext+AsyncHelpers.swift */; };
 		34186CA32296B5A1009B4121 /* NSManagedObject+FetchHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2BAC8A225B8CB500AECEE6 /* NSManagedObject+FetchHelpers.swift */; };
@@ -303,6 +310,9 @@
 /* Begin PBXFileReference section */
 		11EE63FC99D26438F0B980F7 /* Pods-EduVPNTunnelExtension.release appforce1.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension.release appforce1.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.release appforce1.xcconfig"; sourceTree = "<group>"; };
 		1C644DAFAF71735E397E6E30 /* Pods-EduVPN.release appforce1.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPN.release appforce1.xcconfig"; path = "Target Support Files/Pods-EduVPN/Pods-EduVPN.release appforce1.xcconfig"; sourceTree = "<group>"; };
+		340A504E22A3BD9D00170E51 /* ProfilesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilesViewController.swift; sourceTree = "<group>"; };
+		340A505322A3BF8900170E51 /* EnterProviderURLViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterProviderURLViewController.swift; sourceTree = "<group>"; };
+		340A505622A3BFF100170E51 /* AppCoordinator+Mac.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppCoordinator+Mac.swift"; sourceTree = "<group>"; };
 		34186CE42296D971009B4121 /* ASN1Decoder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ASN1Decoder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		34186CFF2297E801009B4121 /* config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
 		34186D012297EA9A009B4121 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
@@ -549,6 +559,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		340A505522A3BFE500170E51 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				340A505622A3BFF100170E51 /* AppCoordinator+Mac.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
 		34186C9B2296B318009B4121 /* EduVPN-multiOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -736,6 +754,7 @@
 		34D719DF228D75550027DE84 /* EduVPN-macOS */ = {
 			isa = PBXGroup;
 			children = (
+				340A505522A3BFE500170E51 /* Coordinators */,
 				34D719E0228D75550027DE84 /* AppDelegate.swift */,
 				3434529D22A1375700C0476E /* Views */,
 				34D71A83228D8EF20027DE84 /* Extensions */,
@@ -795,6 +814,8 @@
 				342B9CD922902BB500C006D7 /* MainViewController.swift */,
 				342B9CDA22902BB500C006D7 /* MainWindowController.swift */,
 				343452BF22A157E000C0476E /* ProvidersViewController.swift */,
+				340A504E22A3BD9D00170E51 /* ProfilesViewController.swift */,
+				340A505322A3BF8900170E51 /* EnterProviderURLViewController.swift */,
 				3434529A22A0665600C0476E /* CoreDataFetchedResultsControllerDelegate.swift */,
 			);
 			path = Controllers;
@@ -1606,6 +1627,7 @@
 				34186CDE2296B711009B4121 /* Logo+Convenience.swift in Sources */,
 				3434529B22A0665600C0476E /* CoreDataFetchedResultsControllerDelegate.swift in Sources */,
 				343452AB22A13F6A00C0476E /* AppCoordinatorError.swift in Sources */,
+				340A505122A3BDDF00170E51 /* ProfilesViewControllerDelegate.swift in Sources */,
 				343452C322A1610400C0476E /* TunnelProviderManagerCoordinator.swift in Sources */,
 				34186CB12296B5B2009B4121 /* AuthServer+CoreDataClass.swift in Sources */,
 				342B9CE722902BB500C006D7 /* MainViewController.swift in Sources */,
@@ -1619,6 +1641,7 @@
 				34186CA82296B5A6009B4121 /* Instance.swift in Sources */,
 				3434529F22A137B700C0476E /* DeselectingTableView.swift in Sources */,
 				34186CE02296B7BC009B4121 /* UserDefaults+EduVPN.swift in Sources */,
+				340A504F22A3BD9E00170E51 /* ProfilesViewController.swift in Sources */,
 				34186CCF2296B707009B4121 /* ProviderType.swift in Sources */,
 				34186CF22296E7C6009B4121 /* Moya+Extensions.swift in Sources */,
 				34186CD32296B707009B4121 /* Config.swift in Sources */,
@@ -1636,6 +1659,7 @@
 				34186CF72297CE19009B4121 /* CredentialStorePlugin.swift in Sources */,
 				34186CFC2297E182009B4121 /* Message.swift in Sources */,
 				34186D0B2298068C009B4121 /* NSError+App.swift in Sources */,
+				340A505422A3BF8900170E51 /* EnterProviderURLViewController.swift in Sources */,
 				34186CB62296B5B2009B4121 /* DisplayName+CoreDataProperties.swift in Sources */,
 				34186CF62297CE19009B4121 /* ApiService.swift in Sources */,
 				342B9CE822902BB500C006D7 /* MainWindowController.swift in Sources */,
@@ -1649,6 +1673,7 @@
 				340A504A22A2745600170E51 /* Identifyable.swift in Sources */,
 				34186D06229802C0009B4121 /* FileService.swift in Sources */,
 				34D71A92228D9C6A0027DE84 /* NSAlert+Custom.swift in Sources */,
+				340A505722A3BFF100170E51 /* AppCoordinator+Mac.swift in Sources */,
 				34186CA32296B5A1009B4121 /* NSManagedObject+FetchHelpers.swift in Sources */,
 				34186CBD2296B5B2009B4121 /* Instance+CoreDataClass.swift in Sources */,
 				34186CB32296B5B2009B4121 /* InstanceGroup+CoreDataClass.swift in Sources */,
@@ -1684,6 +1709,7 @@
 				343452A522A13C8B00C0476E /* RootCoordinator.swift in Sources */,
 				343452A722A13DDC00C0476E /* Coordinator.swift in Sources */,
 				34186CDA2296B707009B4121 /* Config.swift in Sources */,
+				340A505222A3BDE000170E51 /* ProfilesViewControllerDelegate.swift in Sources */,
 				343452C222A1610400C0476E /* TunnelProviderManagerCoordinator.swift in Sources */,
 				34D71AA9228D9CCC0027DE84 /* URL+Unused.swift in Sources */,
 				34186CD42296B707009B4121 /* InstanceModel.swift in Sources */,
@@ -1697,6 +1723,7 @@
 				34186CFD2297E183009B4121 /* Message.swift in Sources */,
 				34186CF82297CE19009B4121 /* InstanceService.swift in Sources */,
 				34186CE12296B7BC009B4121 /* UserDefaults+EduVPN.swift in Sources */,
+				340A505022A3BDA000170E51 /* ProfilesViewController.swift in Sources */,
 				34186D07229802E0009B4121 /* FileService.swift in Sources */,
 				342B9CEB22955D5300C006D7 /* DurationTransformer.swift in Sources */,
 				34186CF92297CE19009B4121 /* Moya+Promise.swift in Sources */,
@@ -1720,6 +1747,7 @@
 				34186CC32296B5B7009B4121 /* DisplayName+CoreDataClass.swift in Sources */,
 				340A504022A26ECB00170E51 /* AppCoordinator+ViewControllers.swift in Sources */,
 				34D71AA7228D9CCC0027DE84 /* NSAlert+Custom.swift in Sources */,
+				340A505822A3C01100170E51 /* AppCoordinator+Mac.swift in Sources */,
 				34186CB02296B5AA009B4121 /* FetchedResultsController.swift in Sources */,
 				34186CC92296B5B7009B4121 /* Profile+CoreDataClass.swift in Sources */,
 				340A504722A2706500170E51 /* CustomProviderInPutViewControllerDelegate.swift in Sources */,

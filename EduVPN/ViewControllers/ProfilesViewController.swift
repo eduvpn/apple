@@ -8,11 +8,6 @@
 
 import UIKit
 
-protocol ProfilesViewControllerDelegate: class {
-    func profilesViewControllerDidSelectProviderType(profilesViewController: ProfilesViewController, providerType: ProviderType)
-    func settings(profilesViewController: ProfilesViewController)
-}
-
 class ProfilesViewController: UIViewController {
 
     weak var delegate: ProfilesViewControllerDelegate?
@@ -21,15 +16,18 @@ class ProfilesViewController: UIViewController {
     @IBOutlet weak var settingsButton: UIBarButtonItem!
 
     @IBAction func didTapSecureAccess(_ sender: Any) {
-        self.delegate?.profilesViewControllerDidSelectProviderType(profilesViewController: self, providerType: .secureInternet)
+        delegate?.profilesViewControllerDidSelectProviderType(profilesViewController: self,
+                                                              providerType: .secureInternet)
     }
 
     @IBAction func didTapInstituteAccess(_ sender: Any) {
-        self.delegate?.profilesViewControllerDidSelectProviderType(profilesViewController: self, providerType: .instituteAccess)
+        delegate?.profilesViewControllerDidSelectProviderType(profilesViewController: self,
+                                                              providerType: .instituteAccess)
     }
 
     @IBAction func didTapOtherAccess(_ sender: Any) {
-        self.delegate?.profilesViewControllerDidSelectProviderType(profilesViewController: self, providerType: .other)
+        delegate?.profilesViewControllerDidSelectProviderType(profilesViewController: self,
+                                                              providerType: .other)
     }
 
     @IBAction func settings(_ sender: Any) {

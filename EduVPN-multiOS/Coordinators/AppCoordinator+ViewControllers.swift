@@ -41,10 +41,10 @@ extension AppCoordinator {
     }
     
     internal func showProfilesViewController() {
-        #if os(iOS)
         let fetchRequest = NSFetchRequest<Profile>()
         fetchRequest.entity = Profile.entity()
         fetchRequest.predicate = NSPredicate(format: "api.instance.providerType == %@", ProviderType.secureInternet.rawValue)
+        #if os(iOS)
         
         let profilesVc = storyboard.instantiateViewController(type: ProfilesViewController.self).with {
             $0.delegate = self

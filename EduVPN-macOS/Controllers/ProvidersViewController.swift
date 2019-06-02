@@ -75,7 +75,6 @@ class ProvidersViewController: NSViewController {
     }
     
     @objc func refresh() {
-        NSLog("Refresh started: %@", started)
         if !started {
             // Prevent from executing until AppCoordinator assigned all required values
             return

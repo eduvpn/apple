@@ -310,20 +310,12 @@ class AppCoordinator: RootViewCoordinator {
     }
 
     func addProvider() {
-        #if os(iOS)
-        
         // We can not create a static service, so no discovery files are defined. Fall back to adding "another" service.
         if StaticService(type: .instituteAccess) == nil {
             showCustomProviderInPutViewController(for: .other)
         } else {
             showProfilesViewController()
         }
-        
-        #elseif os(macOS)
-        
-        fatalError("Not yet supported in macOS")
-        
-        #endif
     }
 
     fileprivate func scheduleCertificateExpirationNotification(for certificate: CertificateModel, on api: Api) {
