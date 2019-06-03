@@ -23,6 +23,10 @@ extension AppCoordinator {
         present(viewController, animated: true)
     }
     
+    internal func popToRootViewController() {
+        navigationController.popToRootViewController(animated: true)
+    }
+    
     #elseif os(macOS)
     
     internal func pushViewController(_ viewController: NSViewController) {
@@ -31,6 +35,10 @@ extension AppCoordinator {
     
     internal func presentViewController(_ viewController: NSViewController) {
         (windowController as! MainWindowController).show(viewController: viewController, presentation: .present)
+    }
+    
+    internal func popToRootViewController() {
+        (windowController as! MainWindowController).popToRoot(animated: true, completionHandler: nil)
     }
     
     #endif

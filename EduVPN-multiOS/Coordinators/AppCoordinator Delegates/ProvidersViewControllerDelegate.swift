@@ -43,6 +43,8 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
     }
     
     func didSelect(instance: Instance, providersViewController: ProvidersViewController) {
+        print("didSelect providerType: \(providersViewController.providerType)")
+        print("didSelect instance: \(instance)")
         if providersViewController.providerType == .unknown {
             do {
                 let count = try Profile.countInContext(persistentContainer.viewContext,

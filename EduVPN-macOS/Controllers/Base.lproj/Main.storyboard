@@ -1001,8 +1001,32 @@ DQ
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView identifier="SectionCell" id="MU6-e1-xnE">
+                                                        <tableCellView identifier="ProviderCell" id="F5a-s9-AiI">
                                                             <rect key="frame" x="1" y="1" width="376" height="44"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N1Z-kQ-vX6">
+                                                                    <rect key="frame" x="3" y="0.0" width="44" height="44"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="wKa-Gw-rMr"/>
+                                                                </imageView>
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qtM-Am-YAy">
+                                                                    <rect key="frame" x="49" y="11" width="316" height="21"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="OFm-g5-UBy">
+                                                                        <font key="font" metaFont="system" size="17"/>
+                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                </textField>
+                                                            </subviews>
+                                                            <connections>
+                                                                <outlet property="imageView" destination="N1Z-kQ-vX6" id="Aw3-Yp-jNq"/>
+                                                                <outlet property="textField" destination="qtM-Am-YAy" id="9PW-lS-2yI"/>
+                                                            </connections>
+                                                        </tableCellView>
+                                                        <tableCellView identifier="SectionCell" id="MU6-e1-xnE">
+                                                            <rect key="frame" x="1" y="47" width="376" height="44"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XJy-yl-1gM">
@@ -1031,7 +1055,7 @@ DQ
                                                             </connections>
                                                         </tableCellView>
                                                         <tableCellView identifier="ProfileCell" id="LZ8-Ag-004">
-                                                            <rect key="frame" x="1" y="47" width="376" height="44"/>
+                                                            <rect key="frame" x="1" y="93" width="376" height="44"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="j9d-jx-eN9">
@@ -1071,6 +1095,7 @@ DQ
                                                 </tableColumn>
                                             </tableColumns>
                                             <connections>
+                                                <action trigger="doubleAction" selector="connectProviderUsingDoubleClick:" target="XfG-lQ-9wD" id="mFo-Jf-Hnh"/>
                                                 <outlet property="dataSource" destination="XfG-lQ-9wD" id="IMT-PS-pUn"/>
                                                 <outlet property="delegate" destination="XfG-lQ-9wD" id="gza-AG-0uv"/>
                                             </connections>
@@ -2050,7 +2075,7 @@ DQ
                                 </buttonCell>
                             </button>
                             <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="N9a-Z9-oQt">
-                                <rect key="frame" x="82" y="18" width="214" height="40"/>
+                                <rect key="frame" x="81" y="16" width="216" height="43"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="212" id="KHV-oJ-4hz"/>
                                     <constraint firstAttribute="height" constant="37" id="qNY-Ve-WjT"/>

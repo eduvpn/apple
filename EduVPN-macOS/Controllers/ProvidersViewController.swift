@@ -86,7 +86,6 @@ class ProvidersViewController: NSViewController {
         }
         
         do {
-            NSLog("access fetchedResultsController from refresh")
             try fetchedResultsController.performFetch()
         } catch {
             os_log("Failed to fetch objects: %{public}@", log: Log.general, type: .error, error.localizedDescription)
@@ -171,40 +170,30 @@ class ProvidersViewController: NSViewController {
         delegate?.addProvider(providersViewController: self)
     }
     
-    @IBAction func connectProvider(_ sender: Any) {
-        let row = tableView.selectedRow
+    private func selectProvider(at row: Int) {
         guard row >= 0 else {
             return
         }
         
         let tableRow = rows[row]
         switch tableRow {
+            
         case .section:
-            // Ignore
             break
+            
         case .row(_, let instance):
-            // <UNCOMMENT>
+            delegate?.didSelect(instance: instance, providersViewController: self)
             break
-//            authenticateAndConnect(to: instance)
-            // </UNCOMMENT>
+            
         }
     }
     
+    @IBAction func connectProvider(_ sender: Any) {
+        selectProvider(at: tableView.selectedRow)
+    }
+    
     @IBAction func connectProviderUsingDoubleClick(_ sender: Any) {
-        let row = tableView.clickedRow
-        guard row >= 0 else {
-            return
-        }
-        
-        let tableRow = rows[row]
-        switch tableRow {
-        case .section:
-            // Ignore
-            break
-        case .row(_, let instance):
-            break
-//            authenticateAndConnect(to: instance)
-        }
+        selectProvider(at: tableView.clickedRow)
     }
     
     @IBAction func removeProvider(_ sender: Any) {
@@ -215,9 +204,10 @@ class ProvidersViewController: NSViewController {
         
         let tableRow = rows[row]
         switch tableRow {
+            
         case .section:
-            // Ignore
             break
+            
         case .row(let providerType, let instance):
             let alert = NSAlert()
             alert.alertStyle = .critical
@@ -244,6 +234,7 @@ class ProvidersViewController: NSViewController {
                     break
                 }
             }
+            
         }
     }
     

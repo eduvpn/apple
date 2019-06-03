@@ -34,6 +34,7 @@ extension AppCoordinator {
     func refresh(instance: Instance) -> Promise<Void> {
         #if os(iOS)
         showActivityIndicator(messageKey: "Fetching instance configuration")
+        #endif
         
         return InstancesRepository.shared.refresher.refresh(instance: instance)
             .then { api -> Promise<Void> in
@@ -41,18 +42,22 @@ extension AppCoordinator {
                 guard let authorizingDynamicApiProvider = DynamicApiProvider(api: api) else {
                     return .value(())
                 }
+
+//                #if os(iOS)
+//                self.navigationController.popToRootViewController(animated: true)
+//                #elseif os(macOS)
+//                #endif
+                self.popToRootViewController()
                 
-                self.navigationController.popToRootViewController(animated: true)
                 return self.refreshProfiles(for: authorizingDynamicApiProvider)
             }
             .ensure {
                 self.providersViewController.refresh()
+                
+                #if os(iOS)
                 self.hideActivityIndicator()
+                #endif
             }
-        #elseif os(macOS)
-        // TODO: Implement macOS
-        abort()
-        #endif
     }
     
     func fetchProfile(for profile: Profile, retry: Bool = false) -> Promise<URL> {
@@ -125,16 +130,25 @@ extension AppCoordinator {
     private func refreshProfiles(for dynamicApiProvider: DynamicApiProvider) -> Promise<Void> {
         #if os(iOS)
         showActivityIndicator(messageKey: "Refreshing profiles")
+        #endif
         
         return ProfilesRepository.shared.refresher.refresh(for: dynamicApiProvider)
             .recover { error throws -> Promise<Void> in
-                NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
+                #if os(iOS)
+                self.hideActivityIndicator()
+                #endif
                 
                 switch error {
                     
                 case ApiServiceError.tokenRefreshFailed:
                     self.authorizingDynamicApiProvider = dynamicApiProvider
-                    return dynamicApiProvider.authorize(presentingViewController: self.navigationController)
+                    #if os(iOS)
+                    let authorizeRequest = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
+                    #elseif os(macOS)
+                    let authorizeRequest = dynamicApiProvider.authorize()
+                    #endif
+                    
+                    return authorizeRequest
                         .then { _ -> Promise<Void> in self.refreshProfiles(for: dynamicApiProvider) }
                         .recover { error throws in
                             self.showError(error)
@@ -143,7 +157,13 @@ extension AppCoordinator {
                     
                 case ApiServiceError.noAuthState:
                     self.authorizingDynamicApiProvider = dynamicApiProvider
-                    return dynamicApiProvider.authorize(presentingViewController: self.navigationController)
+                    #if os(iOS)
+                    let authorizeRequest = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
+                    #elseif os(macOS)
+                    let authorizeRequest = dynamicApiProvider.authorize()
+                    #endif
+                    
+                    return authorizeRequest
                         .then { _ -> Promise<Void> in self.refreshProfiles(for: dynamicApiProvider) }
                         .recover { error throws in
                             self.showError(error)
@@ -156,9 +176,5 @@ extension AppCoordinator {
                     
                 }
         }
-        #elseif os(macOS)
-        // TODO: Implement macOS
-        abort()
-        #endif
     }
 }
