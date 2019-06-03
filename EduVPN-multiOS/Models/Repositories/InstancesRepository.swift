@@ -73,7 +73,7 @@ class InstancesLoader {
         
         let provider = MoyaProvider<StaticService>()
         let instanceGroupIdentifier = "\(target.baseURL.absoluteString)/\(target.path)"
-        
+
         provider.request(target: sigTarget)
             .then(validateSodiumSignature)
             .then { provider.request(target: target).then(self.verifyResponse(signature: $0)) }
@@ -134,7 +134,6 @@ class InstancesLoader {
     private func parseInstances(instanceGroupIdentifier: String, providerType: ProviderType) -> (InstancesModel) -> Promise<Void> {
         return { instances in
             let instanceIdentifiers = instances.instances.map { $0.baseUri.absoluteString }
-            
             return Promise(resolver: { seal in
                 self.persistentContainer.performBackgroundTask { context in
                     let group = try! InstanceGroup.findFirstInContext(context, predicate: NSPredicate(format: "discoveryIdentifier == %@", instanceGroupIdentifier)) ?? InstanceGroup(context: context)//swiftlint:disable:this force_try

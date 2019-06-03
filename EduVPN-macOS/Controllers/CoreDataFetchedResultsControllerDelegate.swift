@@ -58,6 +58,7 @@ class CoreDataFetchedResultsControllerDelegate<T: NSManagedObject>: NSObject, Fe
     func fetchedResultsController(_ controller: FetchedResultsController<T>,
                                   didChangeSection change: FetchedResultsSectionChange<T>) {
         
-        fatalError("This should not happen in macOS")
+        // macOS doesn't support sections, thus simply reload whole table view
+        tableView?.reloadData()
     }
 }

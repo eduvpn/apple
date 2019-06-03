@@ -373,6 +373,8 @@
 		34D71AD4228DA4670027DE84 /* eduVPN-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "eduVPN-Bridging-Header.h"; sourceTree = "<group>"; };
 		34D71AD5228DA4670027DE84 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
 		34D71AD8228DA4850027DE84 /* openvpn-2.4.7-openssl-1.1.1b */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "openvpn-2.4.7-openssl-1.1.1b"; sourceTree = "<group>"; };
+		34FD2ACD22A4F841002AABB3 /* eduVPN.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = eduVPN.entitlements; sourceTree = "<group>"; };
+		34FD2ACE22A56C2D002AABB3 /* Let's Connect!.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "Let's Connect!.entitlements"; path = "LetsConnect-macOS/Let's Connect!.entitlements"; sourceTree = "<group>"; };
 		417DD34C1C9EFF60C64C80CB /* Pods-LetsConnect-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsConnect-macOS.release.xcconfig"; path = "Target Support Files/Pods-LetsConnect-macOS/Pods-LetsConnect-macOS.release.xcconfig"; sourceTree = "<group>"; };
 		4A01329921CDA2C2009B8B02 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
 		4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNConnectionViewController.swift; sourceTree = "<group>"; };
@@ -754,6 +756,7 @@
 		34D719DF228D75550027DE84 /* EduVPN-macOS */ = {
 			isa = PBXGroup;
 			children = (
+				34FD2ACD22A4F841002AABB3 /* eduVPN.entitlements */,
 				340A505522A3BFE500170E51 /* Coordinators */,
 				34D719E0228D75550027DE84 /* AppDelegate.swift */,
 				3434529D22A1375700C0476E /* Views */,
@@ -871,6 +874,7 @@
 		4AAC1F6D1F2D0E3400DD0252 = {
 			isa = PBXGroup;
 			children = (
+				34FD2ACE22A56C2D002AABB3 /* Let's Connect!.entitlements */,
 				34186C9B2296B318009B4121 /* EduVPN-multiOS */,
 				4AAC1F781F2D0E3400DD0252 /* EduVPN */,
 				4AAC1F8D1F2D0E3400DD0252 /* EduVPNTests */,
@@ -1138,10 +1142,20 @@
 					34D719DD228D75550027DE84 = {
 						CreatedOnToolsVersion = 10.2.1;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 					34D719F2228D75C00027DE84 = {
 						CreatedOnToolsVersion = 10.2.1;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 					4A901C1020C87511000C1BF0 = {
 						CreatedOnToolsVersion = 9.4;
@@ -2045,7 +2059,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "EduVPN-macOS/Targets/eduVPN/EduVPN_macOS.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "EduVPN-macOS/eduVPN.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -2093,7 +2107,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "EduVPN-macOS/Targets/eduVPN/EduVPN_macOS.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "EduVPN-macOS/eduVPN.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -2140,7 +2154,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "EduVPN-macOS/Targets/LetsConnect/LetsConnect_macOS.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "LetsConnect-macOS/Let's Connect!.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -2188,7 +2202,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "EduVPN-macOS/Targets/LetsConnect/LetsConnect_macOS.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "LetsConnect-macOS/Let's Connect!.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
