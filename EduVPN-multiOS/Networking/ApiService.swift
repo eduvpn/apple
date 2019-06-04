@@ -97,6 +97,11 @@ struct DynamicApiService: TargetType, AcceptJson {
 
 class DynamicApiProvider: MoyaProvider<DynamicApiService> {
     
+    #if os(macOS)
+    // Store it in object strongly, so redirect doesn't fail
+    private let redirectHttpHandler = OIDRedirectHTTPHandler(successURL: nil)
+    #endif
+    
     let api: Api
     let authConfig: OIDServiceConfiguration
     private var credentialStorePlugin: CredentialStorePlugin
@@ -108,10 +113,29 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
     // MARK: - Authorization
     
     private func makeAuthorizeRequest() -> OIDAuthorizationRequest {
+        #if os(iOS)
+        
+        let redirectUrl = Config.shared.redirectUrl
+        
+        #elseif os(macOS)
+        
+        var redirectUrl: URL!
+        if Thread.isMainThread {
+            redirectUrl = redirectHttpHandler.startHTTPListener(nil)
+        } else {
+            DispatchQueue.main.sync {
+                redirectUrl = redirectHttpHandler.startHTTPListener(nil)
+            }
+        }
+        
+        redirectUrl = URL(string: "callback", relativeTo: redirectUrl)
+        
+        #endif
+        
         return OIDAuthorizationRequest(configuration: authConfig,
                                        clientId: Config.shared.clientId,
                                        scopes: ["config"],
-                                       redirectURL: Config.shared.redirectUrl,
+                                       redirectURL: redirectUrl,
                                        responseType: OIDResponseTypeCode,
                                        additionalParameters: nil)
     }
@@ -159,6 +183,7 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
         return Promise(resolver: { seal in
             currentAuthorizationFlow = OIDAuthState.authState(byPresenting: self.makeAuthorizeRequest(),
                                                               callback: self.makeAuthorizeCallback(seal))
+            redirectHttpHandler.currentAuthorizationFlow = currentAuthorizationFlow
         })
     }
     
