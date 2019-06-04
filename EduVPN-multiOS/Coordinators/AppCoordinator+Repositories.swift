@@ -43,11 +43,13 @@ extension AppCoordinator {
                     return .value(())
                 }
 
-//                #if os(iOS)
-//                self.navigationController.popToRootViewController(animated: true)
-//                #elseif os(macOS)
-//                #endif
+                #if os(iOS)
                 self.popToRootViewController()
+                #elseif os(macOS)
+                self.popToRootViewController(animated: false, completionHandler: {
+                    self.dismissViewController()
+                })
+                #endif
                 
                 return self.refreshProfiles(for: authorizingDynamicApiProvider)
             }

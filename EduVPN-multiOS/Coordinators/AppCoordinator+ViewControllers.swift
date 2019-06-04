@@ -37,8 +37,14 @@ extension AppCoordinator {
         (windowController as! MainWindowController).show(viewController: viewController, presentation: .present)
     }
     
-    internal func popToRootViewController() {
-        (windowController as! MainWindowController).popToRoot(animated: true, completionHandler: nil)
+    internal func popToRootViewController(animated: Bool = true, completionHandler: (() -> ())? = nil) {
+        (windowController as! MainWindowController).popToRoot(animated: animated, completionHandler: completionHandler)
+    }
+    
+    internal func dismissViewController() {
+        (windowController as! MainWindowController).do {
+            $0.close(viewController: $0.navigationStackStack.last!.last!)
+        }
     }
     
     #endif

@@ -16,7 +16,7 @@ class MainWindow: NSWindow {
 
 class MainWindowController: NSWindowController {
 
-    private var navigationStackStack: [[NSViewController]] = [[]]
+    var navigationStackStack: [[NSViewController]] = [[]]
     private var navigationStack: [NSViewController] {
         get {
             return navigationStackStack.last!

@@ -149,7 +149,6 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
             }
             
             self.actualApi.authState = authState
-            
             precondition(authState != nil, "THIS SHOULD NEVER HAPPEN")
             
             self.api.managedObjectContext?.performAndWait {
