@@ -63,7 +63,6 @@ extension AppCoordinator {
     }
     
     func fetchProfile(for profile: Profile, retry: Bool = false) -> Promise<URL> {
-        #if os(iOS)
         guard let api = profile.api else {
             precondition(false, "This should never happen")
             return Promise(error: AppCoordinatorError.apiMissing)
@@ -73,11 +72,15 @@ extension AppCoordinator {
             return Promise(error: AppCoordinatorError.apiProviderCreateFailed)
         }
         
+        #if os(iOS)
         setActivityIndicatorMessage(key: "Loading certificate")
+        #endif
         
         return loadCertificate(for: api)
             .then { _ -> Promise<Response> in
+                #if os(iOS)
                 self.setActivityIndicatorMessage(key: "Requesting profile config")
+                #endif
                 return dynamicApiProvider.request(apiService: .profileConfig(profileId: profile.profileId!))
             }
             .map { response -> URL in
@@ -93,7 +96,9 @@ extension AppCoordinator {
                 return try self.saveToOvpnFile(content: ovpnFileContent, to: filename)
             }
             .recover { error throws -> Promise<URL> in
-                NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
+                #if os(iOS)
+                self.hideActivityIndicator()
+                #endif
                 
                 if retry {
                     self.showError(error)
@@ -102,13 +107,20 @@ extension AppCoordinator {
                 
                 func retryFetchProile() -> Promise<URL> {
                     self.authorizingDynamicApiProvider = dynamicApiProvider
-                    return dynamicApiProvider.authorize(presentingViewController: self.navigationController).then { _ -> Promise<URL> in
+                    #if os(iOS)
+                    let authorizeRequest = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
+                    #elseif os(macOS)
+                    let authorizeRequest = dynamicApiProvider.authorize()
+                    #endif
+                    
+                    return authorizeRequest.then { _ -> Promise<URL> in
                         return self.fetchProfile(for: profile, retry: true)
                     }
                     
                 }
                 
-                if let nsError = error as NSError?, nsError.domain == NSURLErrorDomain && nsError.code == NSURLErrorNetworkConnectionLost {
+                if let nsError = error as NSError?,
+                    nsError.domain == NSURLErrorDomain && nsError.code == NSURLErrorNetworkConnectionLost {
                     return retryFetchProile()
                 }
                 
@@ -123,10 +135,6 @@ extension AppCoordinator {
                     
                 }
         }
-        #elseif os(macOS)
-        // TODO: Implement macOS
-        abort()
-        #endif
     }
     
     private func refreshProfiles(for dynamicApiProvider: DynamicApiProvider) -> Promise<Void> {
