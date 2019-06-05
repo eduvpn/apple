@@ -317,58 +317,56 @@ class AppCoordinator: RootViewCoordinator {
             showProfilesViewController()
         }
     }
-
-    fileprivate func scheduleCertificateExpirationNotification(for certificate: CertificateModel, on api: Api) {
-        #if os(iOS)
+    
+    private func _scheduleCertificateExpirationNotification(for certificate: CertificateModel, on api: Api) {
+        guard let expirationDate = certificate.x509Certificate?.notAfter else { return }
+        guard let identifier = certificate.uniqueIdentifier else { return }
         
-        UNUserNotificationCenter.current().getNotificationSettings { settings in
-            guard settings.authorizationStatus == UNAuthorizationStatus.authorized else {
-                os_log("Not Authorised", log: Log.general, type: .info)
-                return
-            }
-            
-            guard let expirationDate = certificate.x509Certificate?.notAfter else { return }
-            guard let identifier = certificate.uniqueIdentifier else { return }
-
-            let content = UNMutableNotificationContent()
-            content.title = NSString.localizedUserNotificationString(forKey: "VPN certificate is expiring", arguments: nil)
-            if let certificateTitle = api.instance?.displayNames?.localizedValue {
-                content.body = NSString.localizedUserNotificationString(forKey: "Once expired the certificate for instance %@ needs to be refreshed.",
-                                                                        arguments: [certificateTitle])
-            }
-
-            #if DEBUG
-                guard let expirationWarningDate = NSCalendar.current.date(byAdding: .second, value: 10, to: Date()) else { return }
-                let expirationWarningDateComponents = NSCalendar.current.dateComponents(in: NSTimeZone.default, from: expirationWarningDate)
-            #else
-                guard let expirationWarningDate = (expirationDate.timeIntervalSinceNow < 86400 * 7) ? (NSCalendar.current.date(byAdding: .day, value: -7, to: expirationDate)) : (NSCalendar.current.date(byAdding: .minute, value: 10, to: Date())) else { return }
-
-                var expirationWarningDateComponents = NSCalendar.current.dateComponents(in: NSTimeZone.default, from: expirationWarningDate)
-
-                // Configure the trigger for 10am.
-                expirationWarningDateComponents.hour = 10
-                expirationWarningDateComponents.minute = 0
-                expirationWarningDateComponents.second = 0
-            #endif
-            
-            let trigger = UNCalendarNotificationTrigger(dateMatching: expirationWarningDateComponents, repeats: false)
-
-            // Create the request object.
-            let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
-            UNUserNotificationCenter.current().add(request) { error in
-                if let error = error {
-                    os_log("Error occured when scheduling a cert expiration reminder %{public}@",
-                           log: Log.general,
-                           type: .info, error.localizedDescription)
-                }
-            }
+        let notificationTitle = NSLocalizedString("VPN certificate is expiring", comment: "")
+        
+        var notificationBody: String? = nil
+        if let certificateTitle = api.instance?.displayNames?.localizedValue {
+            notificationBody = String.localizedStringWithFormat("Once expired the certificate for instance %@ needs to be refreshed.", certificateTitle)
         }
         
-        #elseif os(macOS)
+        let notification = NotificationsService.makeNotification(title: notificationTitle, body: notificationBody)
+
         
-        fatalError("Not yet supported in macOS")
+        #if DEBUG
+        
+        guard let expirationWarningDate = NSCalendar.current.date(byAdding: .second, value: 10, to: Date()) else { return }
+        let expirationWarningDateComponents = NSCalendar.current.dateComponents(in: NSTimeZone.default, from: expirationWarningDate)
+        
+        #else
+        
+        guard let expirationWarningDate = (expirationDate.timeIntervalSinceNow < 86400 * 7) ? (NSCalendar.current.date(byAdding: .day, value: -7, to: expirationDate)) : (NSCalendar.current.date(byAdding: .minute, value: 10, to: Date())) else { return }
+        
+        var expirationWarningDateComponents = NSCalendar.current.dateComponents(in: NSTimeZone.default, from: expirationWarningDate)
+        
+        // Configure the trigger for 10am.
+        expirationWarningDateComponents.hour = 10
+        expirationWarningDateComponents.minute = 0
+        expirationWarningDateComponents.second = 0
         
         #endif
+        
+        NotificationsService.sendNotification(notification, withIdentifier: identifier, at: expirationWarningDateComponents) { error in
+            if let error = error {
+                os_log("Error occured when scheduling a cert expiration reminder %{public}@",
+                       log: Log.general,
+                       type: .info, error.localizedDescription)
+            }
+        }
+    }
+    
+    fileprivate func scheduleCertificateExpirationNotification(for certificate: CertificateModel, on api: Api) {
+        NotificationsService.permissionGranted {
+            if $0 {
+                self._scheduleCertificateExpirationNotification(for: certificate, on: api)
+            } else {
+                os_log("Not Authorised", log: Log.general, type: .info)
+            }
+        }
     }
 
     func resumeAuthorizationFlow(url: URL) -> Bool {

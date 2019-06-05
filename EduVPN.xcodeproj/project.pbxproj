@@ -194,6 +194,9 @@
 		34D71AE9228DA4CC0027DE84 /* String+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAC228DA39F0027DE84 /* String+URL.swift */; };
 		34D71AEA228DA4CC0027DE84 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AB0228DA39F0027DE84 /* UserInfo.swift */; };
 		34D71B08228DA4D20027DE84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D719E0228D75550027DE84 /* AppDelegate.swift */; };
+		34FD2AD022A7CF61002AABB3 /* NotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FD2ACF22A7CF61002AABB3 /* NotificationsService.swift */; };
+		34FD2AD122A7CFA0002AABB3 /* NotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FD2ACF22A7CF61002AABB3 /* NotificationsService.swift */; };
+		34FD2AD222A7CFA1002AABB3 /* NotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FD2ACF22A7CF61002AABB3 /* NotificationsService.swift */; };
 		4A1140841F78490C00D61100 /* VPNConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */; };
 		4A140BBC21B5D7F5000A87E3 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A140BBB21B5D7F5000A87E3 /* Message.swift */; };
 		4A2803D91FA6867D00FA895C /* CustomProviderInPutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2803D81FA6867D00FA895C /* CustomProviderInPutViewController.swift */; };
@@ -375,6 +378,7 @@
 		34D71AD8228DA4850027DE84 /* openvpn-2.4.7-openssl-1.1.1b */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "openvpn-2.4.7-openssl-1.1.1b"; sourceTree = "<group>"; };
 		34FD2ACD22A4F841002AABB3 /* eduVPN.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = eduVPN.entitlements; sourceTree = "<group>"; };
 		34FD2ACE22A56C2D002AABB3 /* Let's Connect!.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "Let's Connect!.entitlements"; path = "LetsConnect-macOS/Let's Connect!.entitlements"; sourceTree = "<group>"; };
+		34FD2ACF22A7CF61002AABB3 /* NotificationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsService.swift; sourceTree = "<group>"; };
 		417DD34C1C9EFF60C64C80CB /* Pods-LetsConnect-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsConnect-macOS.release.xcconfig"; path = "Target Support Files/Pods-LetsConnect-macOS/Pods-LetsConnect-macOS.release.xcconfig"; sourceTree = "<group>"; };
 		4A01329921CDA2C2009B8B02 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
 		4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNConnectionViewController.swift; sourceTree = "<group>"; };
@@ -668,6 +672,7 @@
 			isa = PBXGroup;
 			children = (
 				34186D05229802C0009B4121 /* FileService.swift */,
+				34FD2ACF22A7CF61002AABB3 /* NotificationsService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1677,6 +1682,7 @@
 				34186CB62296B5B2009B4121 /* DisplayName+CoreDataProperties.swift in Sources */,
 				34186CF62297CE19009B4121 /* ApiService.swift in Sources */,
 				342B9CE822902BB500C006D7 /* MainWindowController.swift in Sources */,
+				34FD2AD122A7CFA0002AABB3 /* NotificationsService.swift in Sources */,
 				34186CD02296B707009B4121 /* ProfileModel.swift in Sources */,
 				340A504122A26ECC00170E51 /* AppCoordinator+ViewControllers.swift in Sources */,
 				34186CB52296B5B2009B4121 /* DisplayName+CoreDataClass.swift in Sources */,
@@ -1711,6 +1717,7 @@
 				34186CF02296E6CE009B4121 /* Moya+ResponseHandling.swift in Sources */,
 				340A504322A26FE000170E51 /* ConnectionsTableViewControllerDelegate.swift in Sources */,
 				34186CC42296B5B7009B4121 /* DisplayName+CoreDataProperties.swift in Sources */,
+				34FD2AD222A7CFA1002AABB3 /* NotificationsService.swift in Sources */,
 				34186CD52296B707009B4121 /* InstanceInfoModel.swift in Sources */,
 				34186CC82296B5B7009B4121 /* Logo+CoreDataProperties.swift in Sources */,
 				340A504D22A2788C00170E51 /* EduVPN.xcdatamodeld in Sources */,
@@ -1836,6 +1843,7 @@
 				4AEAC32720F13D0C007B67AB /* Log.swift in Sources */,
 				4ACA042E1F311863004B35AA /* InstanceService.swift in Sources */,
 				34186D0D22994DDF009B4121 /* UserInfo.swift in Sources */,
+				34FD2AD022A7CF61002AABB3 /* NotificationsService.swift in Sources */,
 				4AAC2EE92027117400F9D0D2 /* Logo+CoreDataClass.swift in Sources */,
 				4A4057D1204344A1002B1A4F /* AuthServer+CoreDataProperties.swift in Sources */,
 				4AAC2EE62027117400F9D0D2 /* DisplayName+CoreDataProperties.swift in Sources */,
