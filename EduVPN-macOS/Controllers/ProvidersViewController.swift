@@ -128,14 +128,9 @@ class ProvidersViewController: NSViewController {
     
     override func viewDidAppear() {
         super.viewDidAppear()
+        
         tableView.deselectAll(nil)
         tableView.isEnabled = true
-        
-        // <UNCOMMENT>
-//        if !ServiceContainer.providerService.hasAtLeastOneStoredProvider {
-//            addOtherProvider(animated: false)
-//        }
-        // </UNCOMMENT>
         
         discoverAccessibleProviders()
         try? reachability?.startNotifier()
@@ -226,10 +221,11 @@ class ProvidersViewController: NSViewController {
             alert.beginSheetModal(for: self.view.window!) { response in
                 switch response {
                 case NSApplication.ModalResponse.alertFirstButtonReturn:
-                    // <UNCOMMENT>
-//                    ServiceContainer.providerService.deleteProvider(provider: provider)
-                    // </UNCOMMENT>
+                    self.delegate?.delete(instance: instance)
                     self.discoverAccessibleProviders()
+                    
+                    self.tableView.deselectRow(row)
+                    self.updateInterface()
                 default:
                     break
                 }
@@ -354,10 +350,7 @@ class ProvidersViewController: NSViewController {
                 
             case .row(_, let instance):
                 providerSelected = true
-                // <UNCOMMENT>
-                canRemoveProvider = false
-//                canRemoveProvider = ServiceContainer.providerService.storedProviders[provider.connectionType]?.contains(where: { $0.id == provider.id }) ?? false
-                // </UNCOMMENT>
+                canRemoveProvider = true
                 
             }
         }
