@@ -28,6 +28,7 @@ def pods_macos
   pod 'Sparkle', '1.21.3'
   pod 'Then'
   pod 'TunnelKit', '1.7.1'
+  pod 'FileKit', '~> 5.2.0'
 end
 
 # Setup targets
@@ -44,6 +45,7 @@ target 'EduVPN' do
   pod 'NVActivityIndicatorView'
   pod 'PromiseKit/CorePromise'
   pod 'Then'
+  pod 'FileKit', '~> 5.2.0'
 end
 
 target 'EduVPNTunnelExtension' do

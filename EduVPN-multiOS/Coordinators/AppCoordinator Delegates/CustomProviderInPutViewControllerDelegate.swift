@@ -6,12 +6,9 @@
 //  Copyright © 2019 SURFNet. All rights reserved.
 //
 
+import FileKit
 import Foundation
 import PromiseKit
-
-#if os(iOS)
-import Disk
-#endif
 
 protocol CustomProviderInPutViewControllerDelegate: class {
     @discardableResult func connect(url: URL) -> Promise<Void>

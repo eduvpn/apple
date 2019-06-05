@@ -8,6 +8,7 @@
 
 import AppAuth
 import CoreData
+import FileKit
 import Moya
 import NetworkExtension
 import os.log
@@ -456,7 +457,17 @@ class AppCoordinator: RootViewCoordinator {
         
         #elseif os(macOS)
         
-        fatalError("Not yet supported in macOS")
+        let temp = Path.userApplicationSupport + "/tmp"
+        try temp.createDirectory(withIntermediateDirectories: true) // create if it didn't exist
+        
+        for file in temp {
+            try file.deleteFile()
+        }
+        
+        let destination = temp + "/\(filename)"
+        try content |> TextFile(path: destination)
+        
+        return destination.url
         
         #endif
     }
