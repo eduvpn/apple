@@ -1218,7 +1218,7 @@ CA
         <!--Connection View Controller-->
         <scene sceneID="rmV-Wn-uOa">
             <objects>
-                <viewController storyboardIdentifier="Connection" id="f5D-Eq-JOa" customClass="ConnectionViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Connection" id="f5D-Eq-JOa" customClass="VPNConnectionViewController" customModule="AppForce1" sceneMemberID="viewController">
                     <view key="view" id="2mZ-VK-Lri">
                         <rect key="frame" x="0.0" y="0.0" width="500" height="520"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2075,7 +2075,7 @@ DQ
                                 </buttonCell>
                             </button>
                             <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="N9a-Z9-oQt">
-                                <rect key="frame" x="81" y="16" width="216" height="43"/>
+                                <rect key="frame" x="82" y="18" width="214" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="212" id="KHV-oJ-4hz"/>
                                     <constraint firstAttribute="height" constant="37" id="qNY-Ve-WjT"/>

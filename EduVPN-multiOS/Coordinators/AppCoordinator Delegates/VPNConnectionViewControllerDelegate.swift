@@ -9,6 +9,12 @@
 import Foundation
 import PromiseKit
 
+extension VPNConnectionViewController: Identifyable {}
+
+protocol VPNConnectionViewControllerDelegate: class {
+    @discardableResult func systemMessages(for profile: Profile) -> Promise<SystemMessages>
+}
+
 extension AppCoordinator: VPNConnectionViewControllerDelegate {
 
     func systemMessages(for profile: Profile) -> Promise<SystemMessages> {

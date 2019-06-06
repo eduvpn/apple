@@ -1,5 +1,5 @@
 //
-//  ConnectionViewController.swift
+//  VPNConnectionViewController.swift
 //  eduVPN
 //
 //  Created by Johan Kool on 28/06/2017.
@@ -10,7 +10,11 @@ import Cocoa
 import Kingfisher
 import Socket
 
-class ConnectionViewController: NSViewController {
+class VPNConnectionViewController: NSViewController {
+    
+    weak var delegate: VPNConnectionViewControllerDelegate
+    var profile: Profile!
+    var providerManagerCoordinator: TunnelProviderManagerCoordinator!
     
     @IBOutlet var backButton: NSButton!
     @IBOutlet var stateImageView: NSImageView!
@@ -28,7 +32,6 @@ class ConnectionViewController: NSViewController {
     @IBOutlet var ipv4AddressField: NSTextField!
     @IBOutlet var ipv6AddressField: NSTextField!
     
-    var profile: InstanceProfileModel!
     var userInfo: UserInfo!
     private var systemMessages: [Message] = []
     private var userMessages: [Message] = []

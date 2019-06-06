@@ -19,8 +19,10 @@ extension AppCoordinator {
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    internal func presentViewController(_ viewController: NSViewController) {
-        present(viewController, animated: true)
+    internal func presentViewController(_ viewController: UIViewController,
+                                        animated: Bool = true,
+                                        completion: (() -> ())? = nil) {
+        present(viewController, animated: animated, completion: completion)
     }
     
     internal func popToRootViewController() {
@@ -33,8 +35,14 @@ extension AppCoordinator {
         (windowController as! MainWindowController).show(viewController: viewController, presentation: .push)
     }
     
-    internal func presentViewController(_ viewController: NSViewController) {
-        (windowController as! MainWindowController).show(viewController: viewController, presentation: .present)
+    internal func presentViewController(_ viewController: NSViewController,
+                                        animated: Bool = true,
+                                        completion: (() -> ())? = nil) {
+        
+        (windowController as! MainWindowController).show(viewController: viewController,
+                                                         presentation: .present,
+                                                         animated: animated,
+                                                         completionHandler: completion)
     }
     
     internal func popToRootViewController(animated: Bool = true, completionHandler: (() -> ())? = nil) {
@@ -139,19 +147,24 @@ extension AppCoordinator {
     }
     
     internal func showConnectionViewController(for profile: Profile) -> Promise<Void> {
-        #if os(iOS)
         let connectionVc = storyboard.instantiateViewController(type: VPNConnectionViewController.self).then {
             $0.providerManagerCoordinator = tunnelProviderManagerCoordinator
             $0.delegate = self
             $0.profile = profile
         }
     
+        #if os(iOS)
         let nc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(type: UINavigationController.self).with {
             $0.viewControllers = [connectionVc]
         }
+        #endif
         
-        let presentationPromise = Promise(resolver: { seal in
-            self.navigationController.present(nc, animated: true, completion: { seal.resolve(nil) })
+        let presentationPromise = Promise<Void>(resolver: { seal in
+            #if os(iOS)
+            self.presentViewController(nc, animated: true, completion: { seal.resolve(nil) })
+            #elseif os(macOS)
+            self.presentViewController(connectionVc, animated: true, completion: { seal.resolve(nil) })
+            #endif
         })
         
         // We are configured and active.
@@ -168,10 +181,6 @@ extension AppCoordinator {
         return presentationPromise
             .then { self.tunnelProviderManagerCoordinator.configure(profile: profile) }
             .then { self.tunnelProviderManagerCoordinator.connect() }
-        #elseif os(macOS)
-        // TODO: Implement macOS
-        abort()
-        #endif
     }
     
     internal func showSettingsTableViewController() {

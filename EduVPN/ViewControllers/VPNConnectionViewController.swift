@@ -19,11 +19,8 @@ private let intervalFormatter: DateComponentsFormatter = {
     return formatter
 }()
 
-protocol VPNConnectionViewControllerDelegate: class {
-    @discardableResult func systemMessages(for profile: Profile) -> Promise<SystemMessages>
-}
-
 class VPNConnectionViewController: UIViewController {
+    
     weak var delegate: VPNConnectionViewControllerDelegate?
 
     @IBOutlet var buttonConnection: UIButton!
@@ -209,8 +206,6 @@ class VPNConnectionViewController: UIViewController {
         }
     }
 }
-
-extension VPNConnectionViewController: Identifyable {}
 
 extension NEVPNStatus {
     var stringRepresentation: String {

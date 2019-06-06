@@ -199,6 +199,9 @@
 		34FD2AD222A7CFA1002AABB3 /* NotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FD2ACF22A7CF61002AABB3 /* NotificationsService.swift */; };
 		34FD2AD422A828AC002AABB3 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34FD2AD322A828AC002AABB3 /* NetworkExtension.framework */; };
 		34FD2AD522A934C5002AABB3 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34FD2AD322A828AC002AABB3 /* NetworkExtension.framework */; };
+		34FD2AD722A93530002AABB3 /* VPNConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FD2AD622A9352F002AABB3 /* VPNConnectionViewController.swift */; };
+		34FD2AD822A946E3002AABB3 /* VPNConnectionViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345287229FF33000C0476E /* VPNConnectionViewControllerDelegate.swift */; };
+		34FD2AD922A946E4002AABB3 /* VPNConnectionViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345287229FF33000C0476E /* VPNConnectionViewControllerDelegate.swift */; };
 		4A1140841F78490C00D61100 /* VPNConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */; };
 		4A140BBC21B5D7F5000A87E3 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A140BBB21B5D7F5000A87E3 /* Message.swift */; };
 		4A2803D91FA6867D00FA895C /* CustomProviderInPutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2803D81FA6867D00FA895C /* CustomProviderInPutViewController.swift */; };
@@ -382,6 +385,7 @@
 		34FD2ACE22A56C2D002AABB3 /* Let's Connect!.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "Let's Connect!.entitlements"; path = "LetsConnect-macOS/Let's Connect!.entitlements"; sourceTree = "<group>"; };
 		34FD2ACF22A7CF61002AABB3 /* NotificationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsService.swift; sourceTree = "<group>"; };
 		34FD2AD322A828AC002AABB3 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/NetworkExtension.framework; sourceTree = DEVELOPER_DIR; };
+		34FD2AD622A9352F002AABB3 /* VPNConnectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VPNConnectionViewController.swift; sourceTree = "<group>"; };
 		417DD34C1C9EFF60C64C80CB /* Pods-LetsConnect-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsConnect-macOS.release.xcconfig"; path = "Target Support Files/Pods-LetsConnect-macOS/Pods-LetsConnect-macOS.release.xcconfig"; sourceTree = "<group>"; };
 		4A01329921CDA2C2009B8B02 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
 		4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNConnectionViewController.swift; sourceTree = "<group>"; };
@@ -829,6 +833,7 @@
 				342B9CDA22902BB500C006D7 /* MainWindowController.swift */,
 				343452BF22A157E000C0476E /* ProvidersViewController.swift */,
 				340A504E22A3BD9D00170E51 /* ProfilesViewController.swift */,
+				34FD2AD622A9352F002AABB3 /* VPNConnectionViewController.swift */,
 				340A505322A3BF8900170E51 /* EnterProviderURLViewController.swift */,
 				3434529A22A0665600C0476E /* CoreDataFetchedResultsControllerDelegate.swift */,
 			);
@@ -1643,6 +1648,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				343452BA22A1420D00C0476E /* InstancesRepository.swift in Sources */,
+				34FD2AD722A93530002AABB3 /* VPNConnectionViewController.swift in Sources */,
 				343452A322A13A9500C0476E /* AppCoordinator.swift in Sources */,
 				34186CB92296B5B2009B4121 /* Logo+CoreDataClass.swift in Sources */,
 				34D71A96228D9C6A0027DE84 /* URL+Unused.swift in Sources */,
@@ -1687,6 +1693,7 @@
 				34186CEB2296DEE5009B4121 /* CertificateModel.swift in Sources */,
 				34186CA52296B5A6009B4121 /* AuthServer.swift in Sources */,
 				34186CB72296B5B2009B4121 /* Api+CoreDataClass.swift in Sources */,
+				34FD2AD922A946E4002AABB3 /* VPNConnectionViewControllerDelegate.swift in Sources */,
 				34186CA12296B5A1009B4121 /* NSManagedObjectContext+SaveHelpers.swift in Sources */,
 				343452A022A139C600C0476E /* AppCoordinator+Alert.swift in Sources */,
 				34186CB42296B5B2009B4121 /* InstanceGroup+CoreDataProperties.swift in Sources */,
@@ -1755,6 +1762,7 @@
 				34D71AA9228D9CCC0027DE84 /* URL+Unused.swift in Sources */,
 				34186CD42296B707009B4121 /* InstanceModel.swift in Sources */,
 				340A503D22A26E2300170E51 /* ProvidersViewControllerDelegate.swift in Sources */,
+				34FD2AD822A946E3002AABB3 /* VPNConnectionViewControllerDelegate.swift in Sources */,
 				34186CAC2296B5A7009B4121 /* Instance.swift in Sources */,
 				343452A922A13EDE00C0476E /* Log.swift in Sources */,
 				34D71B08228DA4D20027DE84 /* AppDelegate.swift in Sources */,
