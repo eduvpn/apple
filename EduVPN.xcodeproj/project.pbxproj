@@ -197,6 +197,8 @@
 		34FD2AD022A7CF61002AABB3 /* NotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FD2ACF22A7CF61002AABB3 /* NotificationsService.swift */; };
 		34FD2AD122A7CFA0002AABB3 /* NotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FD2ACF22A7CF61002AABB3 /* NotificationsService.swift */; };
 		34FD2AD222A7CFA1002AABB3 /* NotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FD2ACF22A7CF61002AABB3 /* NotificationsService.swift */; };
+		34FD2AD422A828AC002AABB3 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34FD2AD322A828AC002AABB3 /* NetworkExtension.framework */; };
+		34FD2AD522A934C5002AABB3 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34FD2AD322A828AC002AABB3 /* NetworkExtension.framework */; };
 		4A1140841F78490C00D61100 /* VPNConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */; };
 		4A140BBC21B5D7F5000A87E3 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A140BBB21B5D7F5000A87E3 /* Message.swift */; };
 		4A2803D91FA6867D00FA895C /* CustomProviderInPutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2803D81FA6867D00FA895C /* CustomProviderInPutViewController.swift */; };
@@ -379,6 +381,7 @@
 		34FD2ACD22A4F841002AABB3 /* eduVPN.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = eduVPN.entitlements; sourceTree = "<group>"; };
 		34FD2ACE22A56C2D002AABB3 /* Let's Connect!.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "Let's Connect!.entitlements"; path = "LetsConnect-macOS/Let's Connect!.entitlements"; sourceTree = "<group>"; };
 		34FD2ACF22A7CF61002AABB3 /* NotificationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsService.swift; sourceTree = "<group>"; };
+		34FD2AD322A828AC002AABB3 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/NetworkExtension.framework; sourceTree = DEVELOPER_DIR; };
 		417DD34C1C9EFF60C64C80CB /* Pods-LetsConnect-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsConnect-macOS.release.xcconfig"; path = "Target Support Files/Pods-LetsConnect-macOS/Pods-LetsConnect-macOS.release.xcconfig"; sourceTree = "<group>"; };
 		4A01329921CDA2C2009B8B02 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
 		4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNConnectionViewController.swift; sourceTree = "<group>"; };
@@ -511,6 +514,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3C0DC40601408939625CC78 /* Pods_EduVPN_macOS.framework in Frameworks */,
+				34FD2AD422A828AC002AABB3 /* NetworkExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -519,6 +523,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B527F534A64DB402EB31AF8 /* Pods_LetsConnect_macOS.framework in Frameworks */,
+				34FD2AD522A934C5002AABB3 /* NetworkExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -553,6 +558,7 @@
 		26B4255A0C7DB00763783EF6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				34FD2AD322A828AC002AABB3 /* NetworkExtension.framework */,
 				34186CE42296D971009B4121 /* ASN1Decoder.framework */,
 				342B9C93228ECBB600C006D7 /* Security.framework */,
 				342B9C91228ECBB200C006D7 /* Foundation.framework */,
@@ -763,7 +769,6 @@
 			children = (
 				34FD2ACD22A4F841002AABB3 /* eduVPN.entitlements */,
 				340A505522A3BFE500170E51 /* Coordinators */,
-				34D719E0228D75550027DE84 /* AppDelegate.swift */,
 				3434529D22A1375700C0476E /* Views */,
 				34D71A83228D8EF20027DE84 /* Extensions */,
 				34D71A0E228D76C60027DE84 /* Controllers */,
@@ -818,6 +823,7 @@
 		34D71A0E228D76C60027DE84 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				34D719E0228D75550027DE84 /* AppDelegate.swift */,
 				34D719E6228D75560027DE84 /* Main.storyboard */,
 				342B9CD922902BB500C006D7 /* MainViewController.swift */,
 				342B9CDA22902BB500C006D7 /* MainWindowController.swift */,
@@ -1146,8 +1152,12 @@
 					};
 					34D719DD228D75550027DE84 = {
 						CreatedOnToolsVersion = 10.2.1;
+						DevelopmentTeam = 7S553Q728R;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.NetworkExtensions = {
+								enabled = 1;
+							};
 							com.apple.Sandbox = {
 								enabled = 1;
 							};
@@ -1155,8 +1165,12 @@
 					};
 					34D719F2228D75C00027DE84 = {
 						CreatedOnToolsVersion = 10.2.1;
+						DevelopmentTeam = 7S553Q728R;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.NetworkExtensions = {
+								enabled = 1;
+							};
 							com.apple.Sandbox = {
 								enabled = 1;
 							};
@@ -2074,10 +2088,11 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = "EduVPN-macOS/eduVPN.entitlements";
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 7S553Q728R;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth-macOS\"",
@@ -2105,8 +2120,9 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.eduvpn.app;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.eduvpn.app-local";
 				PRODUCT_NAME = eduVPN;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "EduVPN-macOS/Resources/eduVPN-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -2122,10 +2138,11 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = "EduVPN-macOS/eduVPN.entitlements";
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 7S553Q728R;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth-macOS\"",
@@ -2152,8 +2169,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.eduvpn.app;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.eduvpn.app-local";
 				PRODUCT_NAME = eduVPN;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "EduVPN-macOS/Resources/eduVPN-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -2169,10 +2187,11 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = "LetsConnect-macOS/Let's Connect!.entitlements";
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 7S553Q728R;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth-macOS\"",
@@ -2200,8 +2219,9 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.eduvpn.app.home;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.eduvpn.app.home-local";
 				PRODUCT_NAME = "Let's Connect!";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "EduVPN-macOS/Resources/eduVPN-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -2217,10 +2237,11 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = "LetsConnect-macOS/Let's Connect!.entitlements";
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 7S553Q728R;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth-macOS\"",
@@ -2247,8 +2268,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.eduvpn.app.home;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.eduvpn.app.home-local";
 				PRODUCT_NAME = "Let's Connect!";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "EduVPN-macOS/Resources/eduVPN-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
