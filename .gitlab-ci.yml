@@ -7,6 +7,7 @@ archive_project:
   variables:
     comment: "$CI_PROJECT_NAME: $CI_COMMIT_MESSAGE\nBuilt by Quality Robots"
   script:
+    - export LANG=en_US.UTF-8
     - echo $comment | tee archive.log
     - git submodule init | tee -a archive.log
     - git submodule update --init --recursive | tee -a archive.log
