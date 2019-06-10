@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import NetworkExtension
 import PromiseKit
 
 extension VPNConnectionViewController: Identifyable {}
@@ -22,11 +23,32 @@ extension AppCoordinator: VPNConnectionViewControllerDelegate {
             precondition(false, "This should never happen")
             return Promise(error: AppCoordinatorError.apiMissing)
         }
-        
+
         guard let dynamicApiProvider = DynamicApiProvider(api: api) else {
             return Promise(error: AppCoordinatorError.apiProviderCreateFailed)
         }
-        
+
         return systemMessages(for: dynamicApiProvider)
+    }
+}
+
+extension NEVPNStatus {
+    var stringRepresentation: String {
+        switch self {
+        case .connected:
+            return "Connected"
+        case .connecting:
+            return "Connecting"
+        case .disconnected:
+            return "Disconnected"
+        case .disconnecting:
+            return "Disconnecting"
+        case .invalid:
+            return "Invalid"
+        case .reasserting:
+            return "Reasserting"
+        @unknown default:
+            fatalError()
+        }
     }
 }

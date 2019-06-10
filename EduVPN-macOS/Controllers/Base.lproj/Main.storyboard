@@ -1268,27 +1268,10 @@ CA
                                     <font key="font" metaFont="system" size="15"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="disconnect:" target="f5D-Eq-JOa" id="QsL-5O-3GP"/>
+                                    <action selector="connectionClicked:" target="f5D-Eq-JOa" id="eHb-mK-h7h"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Lha-yM-Uco">
-                                <rect key="frame" x="143" y="18" width="214" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="212" id="FjX-dH-bfB"/>
-                                    <constraint firstAttribute="height" constant="37" id="i0E-tJ-iX9"/>
-                                </constraints>
-                                <buttonCell key="cell" type="squareTextured" title="Connect" bezelStyle="texturedSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="jFR-d1-QJJ">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system" size="15"/>
-                                    <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="connect:" target="f5D-Eq-JOa" id="2eA-hX-9d8"/>
-                                </connections>
-                            </button>
-                            <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="HSo-Og-0y9">
+                            <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="HSo-Og-0y9">
                                 <rect key="frame" x="20" y="23" width="32" height="32"/>
                             </progressIndicator>
                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="K7m-xJ-jMg">
@@ -1630,16 +1613,12 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
                             <constraint firstItem="smu-HX-KlD" firstAttribute="centerX" secondItem="2mZ-VK-Lri" secondAttribute="centerX" id="0bm-fC-RYJ"/>
                             <constraint firstItem="K7m-xJ-jMg" firstAttribute="leading" secondItem="2mZ-VK-Lri" secondAttribute="leading" id="BwN-EO-QhO"/>
                             <constraint firstItem="zXA-8H-8ch" firstAttribute="centerY" secondItem="6bp-mx-zdF" secondAttribute="centerY" id="MJz-dv-1KF"/>
-                            <constraint firstItem="Lha-yM-Uco" firstAttribute="centerY" secondItem="HSo-Og-0y9" secondAttribute="centerY" id="Tbr-Q4-Kpi"/>
                             <constraint firstAttribute="bottom" secondItem="smu-HX-KlD" secondAttribute="bottom" constant="20" id="Ze2-VK-rMh"/>
-                            <constraint firstItem="Lha-yM-Uco" firstAttribute="centerX" secondItem="2mZ-VK-Lri" secondAttribute="centerX" id="cGm-i9-vg3"/>
                             <constraint firstItem="K7m-xJ-jMg" firstAttribute="top" secondItem="2mZ-VK-Lri" secondAttribute="top" constant="60" id="e8b-aq-iZ8"/>
-                            <constraint firstItem="Lha-yM-Uco" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HSo-Og-0y9" secondAttribute="trailing" constant="8" id="fOz-JK-GTz"/>
                             <constraint firstAttribute="bottom" secondItem="K7m-xJ-jMg" secondAttribute="bottom" constant="77" id="h0g-AT-Dfk"/>
                             <constraint firstItem="6bp-mx-zdF" firstAttribute="leading" secondItem="2mZ-VK-Lri" secondAttribute="leading" constant="20" id="hUo-UE-5In"/>
                             <constraint firstItem="6bp-mx-zdF" firstAttribute="top" secondItem="2mZ-VK-Lri" secondAttribute="top" constant="8" id="ith-aY-APP"/>
                             <constraint firstItem="HSo-Og-0y9" firstAttribute="leading" secondItem="2mZ-VK-Lri" secondAttribute="leading" constant="20" id="lQ6-rI-FOn"/>
-                            <constraint firstAttribute="bottom" secondItem="Lha-yM-Uco" secondAttribute="bottom" constant="20" id="lkc-O2-Rg3"/>
                             <constraint firstItem="zXA-8H-8ch" firstAttribute="centerX" secondItem="2mZ-VK-Lri" secondAttribute="centerX" id="mQd-Pm-jhy"/>
                             <constraint firstItem="zXA-8H-8ch" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6bp-mx-zdF" secondAttribute="trailing" constant="8" id="oEI-Ob-fGk"/>
                             <constraint firstAttribute="trailing" secondItem="K7m-xJ-jMg" secondAttribute="trailing" id="pZH-hE-EY0"/>
@@ -1647,20 +1626,20 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
                     </view>
                     <connections>
                         <outlet property="backButton" destination="6bp-mx-zdF" id="C1o-UP-Ou5"/>
-                        <outlet property="bytesInField" destination="WzZ-Bk-ezY" id="YfW-ne-p5V"/>
-                        <outlet property="bytesOutField" destination="NyI-Nb-iH3" id="YfW-ne-p5W"/>
-                        <outlet property="connectButton" destination="Lha-yM-Uco" id="o5W-mH-GgU"/>
-                        <outlet property="disconnectButton" destination="smu-HX-KlD" id="IKt-W2-IuE"/>
-                        <outlet property="durationField" destination="cUC-W7-yfr" id="YfW-ne-p5X"/>
+                        <outlet property="buttonConnection" destination="smu-HX-KlD" id="4b9-6Y-h2e"/>
+                        <outlet property="durationLabel" destination="cUC-W7-yfr" id="VF7-Ts-7ny"/>
+                        <outlet property="inBytesLabel" destination="WzZ-Bk-ezY" id="kE7-oM-Ub1"/>
                         <outlet property="ipv4AddressField" destination="8Nc-td-rKB" id="YfW-ne-p5T"/>
                         <outlet property="ipv6AddressField" destination="x0q-mR-SMg" id="YfW-ne-p5U"/>
-                        <outlet property="locationImageView" destination="lQa-Os-EgV" id="Hvw-1H-X5b"/>
                         <outlet property="notificationsBox" destination="foZ-Fb-y44" id="YfW-ne-p5H"/>
                         <outlet property="notificationsField" destination="Bkm-Qe-VuB" id="YfW-ne-p5S"/>
+                        <outlet property="outBytesLabel" destination="NyI-Nb-iH3" id="HVB-pr-Bic"/>
                         <outlet property="profileLabel" destination="t6t-Oi-cJ5" id="lBD-D7-3sG"/>
+                        <outlet property="providerImage" destination="lQa-Os-EgV" id="TbX-S8-J3x"/>
+                        <outlet property="providerInfoStackView" destination="VOB-Py-wKY" id="mYj-iV-bu8"/>
                         <outlet property="spinner" destination="HSo-Og-0y9" id="Zgf-Sd-zdc"/>
-                        <outlet property="stateImageView" destination="ico-ME-n8x" id="cif-EW-M48"/>
                         <outlet property="statisticsBox" destination="gLA-m0-Zbt" id="YfW-ne-p5G"/>
+                        <outlet property="statusImage" destination="ico-ME-n8x" id="MZ3-Xz-iF1"/>
                     </connections>
                 </viewController>
                 <customObject id="FhF-Bg-4GD" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
