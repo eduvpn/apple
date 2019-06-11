@@ -96,7 +96,7 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
     public func authorize(presentingViewController: UIViewController) -> Promise<OIDAuthState> {
         let request = OIDAuthorizationRequest(configuration: authConfig, clientId: Config.shared.clientId, scopes: ["config"], redirectURL: Config.shared.redirectUrl, responseType: OIDResponseTypeCode, additionalParameters: nil)
         return Promise(resolver: { seal in
-            currentAuthorizationFlow = OIDAuthState.authState(byPresenting: request, presenting: presentingViewController, callback: { (authState, error) in
+            currentAuthorizationFlow = OIDAuthState.authState(byPresenting: request, callback: { (authState, error) in
 
                 if let error = error {
                     seal.reject(error)
