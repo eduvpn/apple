@@ -42,7 +42,7 @@ deploy_project:
     - echo "=== ALL YOUR BASE ARE BELONG TO US ==="
     - export BUILD_DIR=$(pwd)/build/
     - cd /opt/builds/
-    - ./publish.sh vlad@quality-wolves.com,ladybuga@quality-wolves.com,ilya@quality-wolves.com mac
+    - ./publish.sh vlad@quality-wolves.com,ladybuga@quality-wolves.com,ilya@quality-wolves.com,poddubny@quality-wolves.com mac
     - echo "==== INGLIP HAS BEEN SUMMONED >:E ===="
   tags:
     - paw
