@@ -15,10 +15,10 @@ archive_project:
     - ~/buildserver/update-profiles/update-profiles.sh | tee -a archive.log
     - echo "=== ALL YOUR BASE ARE BELONG TO US ===" | tee -a archive.log
     - echo "=== USING LETSCONNECT TEMPLATE ====" | tee -a archive.log
-    - cp EduVPN/Config/config-eduvpn.json EduVPN/Config/config.json
+    - cp EduVPN-macOS/Targets/eduVPN/config.json-template EduVPN-macOS/Targets/eduVPN/config.json
     - cp EduVPN/Config/Developer.xcconfig.eduvpn-template EduVPN/Config/Developer.xcconfig
     - echo "=== LET MAKE SURE WE GOT EM TEMPLATES ====" | tee -a archive.log
-    - ls -la EduVPN/Config | tee -a archive.log
+    - ls -la EduVPN-macOS/Targets/eduVPN/ | tee -a archive.log
     - xcodebuild -workspace EduVPN.xcworkspace clean archive -archivePath "EduVPN" -scheme "EduVPN-macOS" -configuration "Release" | tee -a archive.log
     - echo "==== PROJECT BUILT ====" | tee -a archive.log
     - xcodebuild EduVPN.xcodeproj -exportArchive -archivePath "EduVPN.xcarchive" -exportPath "build" -exportOptionsPlist "ExportOptions.plist" | tee -a archive.log
