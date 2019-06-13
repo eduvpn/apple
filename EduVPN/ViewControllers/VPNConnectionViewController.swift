@@ -7,7 +7,6 @@
 //
 
 import os.log
-import Kingfisher
 import NetworkExtension
 import TunnelKit
 import PromiseKit
@@ -167,8 +166,8 @@ class VPNConnectionViewController: UIViewController {
                 pointer.load(as: (UInt64, UInt64).self)
             }
 
-            self?.inBytesLabel.text = dataCount?.0?.bytesText
-            self?.outBytesLabel.text = dataCount?.1?.bytesText
+            self?.inBytesLabel.text = dataCount?.0.bytesText
+            self?.outBytesLabel.text = dataCount?.1.bytesText
         }
     }
 

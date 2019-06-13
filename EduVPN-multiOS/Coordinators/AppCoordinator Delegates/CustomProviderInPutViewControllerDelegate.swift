@@ -10,6 +10,10 @@ import FileKit
 import Foundation
 import PromiseKit
 
+#if os(iOS)
+import Disk
+#endif
+
 protocol CustomProviderInPutViewControllerDelegate: class {
     @discardableResult func connect(url: URL) -> Promise<Void>
 }

@@ -8,6 +8,7 @@
 
 import os.log
 import Cocoa
+import FileKit
 import NetworkExtension
 import Kingfisher
 import TunnelKit
@@ -84,6 +85,7 @@ class VPNConnectionViewController: NSViewController {
     }
     
     @objc private func VPNStatusDidChange(notification: NSNotification) {
+        print("VPNStatusDidChange notification: \(notification)")
         guard let status = providerManagerCoordinator.currentManager?.connection.status else {
             os_log("VPNStatusDidChange", log: Log.general, type: .debug)
             return
@@ -162,6 +164,7 @@ class VPNConnectionViewController: NSViewController {
     private func scheduleConnectionInfoUpdates() {
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] _ in
             self?.updateConnectionInfo()
+            self?.updateLog()
         })
     }
     
@@ -178,9 +181,9 @@ class VPNConnectionViewController: NSViewController {
         
         // IP
         
-        providerManagerCoordinator.
-        vpn.stopTunnel()
-        vpn.sendProviderMessage(<#T##messageData: Data##Data#>, responseHandler: <#T##((Data?) -> Void)?##((Data?) -> Void)?##(Data?) -> Void#>)
+        // TODO:
+        ipv4AddressField.stringValue = ""
+        ipv6AddressField.stringValue = ""
         
         // Interval
         
@@ -219,6 +222,34 @@ class VPNConnectionViewController: NSViewController {
     
     @IBOutlet weak var logTextView: NSTextField!
     
+    private var connectionLogPath: Path {
+        return Path.userApplicationSupport + "/tmp" + "/connection.log"
+    }
+    
+    private func updateLog() {
+        do {
+            try (Path.userApplicationSupport + "/tmp").createDirectory(withIntermediateDirectories: true)
+            try connectionLogPath.createFile()
+        } catch let error {
+            print("Couldn't create connectionLogPath error: \(error)")
+        }
+        
+        providerManagerCoordinator.loadLog { [weak self] in self?.saveLog($0) }
+    }
+    
+    private func saveLog(_ log: String) {
+        do {
+            try log |> TextFile(path: connectionLogPath)
+        } catch let error {
+            print("Couldn't save log error: \(error)")
+        }
+    }
+    
+    @objc @IBAction func viewLog(_ sender: Any) {
+        print("Log file: \(connectionLogPath.url)")
+        NSWorkspace.shared.open(connectionLogPath.url)
+    }
+    
     // MARK: - Other
     
     @IBOutlet var statisticsBox: NSBox!
@@ -244,46 +275,9 @@ class VPNConnectionViewController: NSViewController {
             _ = firstly { () -> Promise<SystemMessages> in
                 return concreteDelegate.systemMessages(for: profile)
                 }.then({ [weak self] (systemMessages) -> Guarantee<Void> in
-                    self?.notificationLabel.stringValue = systemMessages.displayString
+                    self?.notificationsField.stringValue = systemMessages.displayString
                     return Guarantee<Void>()
                 })
-        }
-        
-        //
-        
-        updateForStateChange()
-        updateMessages()
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(stateChanged(notification:)),
-                                               name: ConnectionService.stateChanged,
-                                               object: ServiceContainer.connectionService)
-        
-        // Fetch messages
-        ServiceContainer.providerService.fetchMessages(for: profile.info, audience: .system) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let messages):
-                    self.systemMessages = messages
-                    self.updateMessages()
-                case .failure:
-                    // Ignore
-                    break
-                }
-            }
-        }
-        
-        ServiceContainer.providerService.fetchMessages(for: profile.info, audience: .user) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let messages):
-                    self.userMessages = messages
-                    self.updateMessages()
-                case .failure:
-                    // Ignore
-                    break
-                }
-            }
         }
     }
     
@@ -293,121 +287,28 @@ class VPNConnectionViewController: NSViewController {
         stopConnectionInfoUpdates()
     }
     
-    private func updateForStateChange() {
-        switch ServiceContainer.connectionService.state {
-        case .connecting:
-            self.backButton.isHidden = true
-            self.stateImageView.image = #imageLiteral(resourceName: "connecting")
-            self.spinner.startAnimation(self)
-            self.disconnectButton.isHidden = false
-            self.connectButton.isHidden = true
-            self.statisticsBox.isHidden = false
-            self.startUpdatingStatistics()
-            
-        case .connected:
-            self.backButton.isHidden = true
-            self.stateImageView.image = #imageLiteral(resourceName: "connected")
-            self.spinner.stopAnimation(self)
-            self.disconnectButton.isHidden = false
-            self.connectButton.isHidden = true
-            self.statisticsBox.isHidden = false
-            
-        case .disconnecting:
-            self.backButton.isHidden = true
-            self.stateImageView.image = #imageLiteral(resourceName: "connecting")
-            self.spinner.startAnimation(self)
-            self.disconnectButton.isHidden = true
-            self.connectButton.isHidden = true
-            self.statisticsBox.isHidden = false
-            
-        case .disconnected:
-            self.backButton.isHidden = false
-            self.stateImageView.image = #imageLiteral(resourceName: "disconnected")
-            self.spinner.stopAnimation(self)
-            self.disconnectButton.isHidden = true
-            self.connectButton.isHidden = false
-            self.statisticsBox.isHidden = false
-            self.readStatistics() // Last read before stopping
-            self.stopUpdatingStatistics()
-        }
-    }
-    
-    private func updateMessages() {
-        let messages = userMessages + systemMessages
-        notificationsBox.title = messages.count == 1
-            ? NSLocalizedString("Notification", comment: "Notification box title (1 message)")
-            : NSLocalizedString("Notifications", comment: "Notifications box title")
-        notificationsBox.isHidden = messages.isEmpty
-        
-        notificationsField.attributedStringValue = messages.reduce(into: NSMutableAttributedString()) { (notifications, message) in
-            if notifications.length > 0 {
-                notifications.append(NSAttributedString(string: "\n\n", attributes: [.font: NSFont.systemFont(ofSize: NSFont.systemFontSize(for: .small))]))
-            }
-            
-            let date = DateFormatter.localizedString(from: message.date, dateStyle: .short, timeStyle: .short)
-            notifications.append(NSAttributedString(string: date + ": ",
-                                                    attributes: [.font: NSFont.boldSystemFont(ofSize: NSFont.systemFontSize(for: .small))]))
-            
-            if let message = message.message {
-                notifications.append(NSAttributedString(string: message,
-                                                        attributes: [.font: NSFont.systemFont(ofSize: NSFont.systemFontSize(for: .small))]))
-            }
-        }
-    }
-    
-    private var statisticsTimer: Timer?
-    
-    private func startUpdatingStatistics() {
-        statisticsTimer?.invalidate()
-        if #available(OSX 10.12, *) {
-            statisticsTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-                self.readStatistics()
-            }
-        } else {
-            // Fallback on earlier versions
-            statisticsTimer = Timer.scheduledTimer(timeInterval: 1,
-                                                   target: self,
-                                                   selector: #selector(updateStatistics(timer:)),
-                                                   userInfo: nil,
-                                                   repeats: true)
-        }
-    }
-    
-    @objc private func updateStatistics(timer: Timer) {
-        if #available(OSX 10.12, *) {
-            fatalError("This method is for backwards compatability only. Remove when deployment target is increased to 10.12 or later.")
-        } else {
-            // Fallback on earlier versions
-            readStatistics()
-        }
-    }
-    
-    private func stopUpdatingStatistics() {
-        statisticsTimer?.invalidate()
-        statisticsTimer = nil
-        ipv4AddressField.stringValue = ""
-        ipv6AddressField.stringValue = ""
-    }
-    
-    private func readStatistics() {
-        durationField.objectValue = ServiceContainer.connectionService.duration
-        
-        bytesInField.integerValue = ServiceContainer.connectionService.bytesIn
-        bytesOutField.integerValue = ServiceContainer.connectionService.bytesOut
-        
-        ipv4AddressField.stringValue = ServiceContainer.connectionService.localTUNTAPIPv4Address ?? ""
-        ipv6AddressField.stringValue = ServiceContainer.connectionService.localTUNTAPIPv6Address ?? ""
-        
-        stateImageView.toolTip = ServiceContainer.connectionService.openVPNState.localizedDescription
-    }
-    
-    @objc @IBAction func viewLog(_ sender: Any) {
-        guard let logURL = ServiceContainer.connectionService.logURL else {
-            NSSound.beep()
-            return
-        }
-        NSWorkspace.shared.open(logURL)
-    }
+//    private func updateMessages() {
+//        let messages = userMessages + systemMessages
+//        notificationsBox.title = messages.count == 1
+//            ? NSLocalizedString("Notification", comment: "Notification box title (1 message)")
+//            : NSLocalizedString("Notifications", comment: "Notifications box title")
+//        notificationsBox.isHidden = messages.isEmpty
+//
+//        notificationsField.attributedStringValue = messages.reduce(into: NSMutableAttributedString()) { (notifications, message) in
+//            if notifications.length > 0 {
+//                notifications.append(NSAttributedString(string: "\n\n", attributes: [.font: NSFont.systemFont(ofSize: NSFont.systemFontSize(for: .small))]))
+//            }
+//
+//            let date = DateFormatter.localizedString(from: message.date, dateStyle: .short, timeStyle: .short)
+//            notifications.append(NSAttributedString(string: date + ": ",
+//                                                    attributes: [.font: NSFont.boldSystemFont(ofSize: NSFont.systemFontSize(for: .small))]))
+//
+//            if let message = message.message {
+//                notifications.append(NSAttributedString(string: message,
+//                                                        attributes: [.font: NSFont.systemFont(ofSize: NSFont.systemFontSize(for: .small))]))
+//            }
+//        }
+//    }
 }
 
 fileprivate extension UInt64 {

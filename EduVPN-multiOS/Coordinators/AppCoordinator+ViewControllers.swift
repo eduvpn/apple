@@ -22,7 +22,7 @@ extension AppCoordinator {
     internal func presentViewController(_ viewController: UIViewController,
                                         animated: Bool = true,
                                         completion: (() -> ())? = nil) {
-        present(viewController, animated: animated, completion: completion)
+        navigationController.present(viewController, animated: animated, completion: completion)
     }
     
     internal func popToRootViewController() {

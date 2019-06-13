@@ -15,12 +15,9 @@ class ProfilesViewController: UIViewController {
     @IBOutlet weak var secureInternetView: UIView!
     @IBOutlet weak var settingsButton: UIBarButtonItem!
     
-    func allowClose(_ state: Bool) {
-    }
-    
     private var allowClose = true {
         didSet {
-            navigationItem?.hidesBackButton = !state
+            navigationItem.hidesBackButton = !allowClose
         }
     }
     
