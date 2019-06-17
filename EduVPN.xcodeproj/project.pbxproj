@@ -462,7 +462,7 @@
 		4AA9E544202CBA41006D197E /* InstanceGroup+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InstanceGroup+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4AA9E545202CBA41006D197E /* InstanceGroup+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InstanceGroup+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4AAA157A21C2EF530097A1B5 /* TunnelProviderManagerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelProviderManagerCoordinator.swift; sourceTree = "<group>"; };
-		4AAC1F761F2D0E3400DD0252 /* AppForce1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppForce1.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4AAC1F761F2D0E3400DD0252 /* AppForce1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = AppForce1.app; path = .app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AAC1F791F2D0E3400DD0252 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4AAC1F7E1F2D0E3400DD0252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4AAC1F831F2D0E3400DD0252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -2116,7 +2116,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = "";
@@ -2139,7 +2139,7 @@
 				);
 				PRODUCT_MODULE_NAME = org.eduvpn.app.openvpnhelper;
 				PRODUCT_NAME = org.eduvpn.app.openvpnhelper;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = EduVPNDevelopment;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 4.2;
 			};
@@ -2152,7 +2152,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
@@ -2174,7 +2174,7 @@
 				);
 				PRODUCT_MODULE_NAME = org.eduvpn.app.openvpnhelper;
 				PRODUCT_NAME = org.eduvpn.app.openvpnhelper;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = EduVPNDevelopment;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 4.2;
 			};
@@ -2188,7 +2188,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = "LoginItemHelper-macOS/LoginItemHelper.entitlements";
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -2214,7 +2214,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = "LoginItemHelper-macOS/LoginItemHelper.entitlements";
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
