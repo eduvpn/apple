@@ -22,13 +22,13 @@ PODS:
     - NVActivityIndicatorView/Presenter (= 4.7.0)
   - NVActivityIndicatorView/Presenter (4.7.0)
   - OpenSSL-Apple (1.1.0j.2)
-  - PromiseKit/CorePromise (6.8.4)
+  - PromiseKit/CorePromise (6.8.5)
   - ReachabilitySwift (4.3.1)
   - Result (4.1.0)
   - Sodium (0.8.0)
   - Sparkle (1.21.3)
   - SwiftyBeaver (1.7.0)
-  - Then (2.4.0)
+  - Then (2.5.0)
   - TunnelKit (1.7.1):
     - TunnelKit/AppExtension (= 1.7.1)
     - TunnelKit/Core (= 1.7.1)
@@ -85,7 +85,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   AppAuth:
-    :commit: 28fc6c6d9d2e4b274fb403b03b6236140d4ee64c
+    :commit: 687a30e6957bef3e3b36f9cdb7fb45ec5c758bfd
     :git: https://github.com/openid/AppAuth-iOS.git
 
 SPEC CHECKSUMS:
@@ -101,15 +101,15 @@ SPEC CHECKSUMS:
   Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
   NVActivityIndicatorView: b19ddab2576f805cbe0fb2306cba3476e09a1dea
   OpenSSL-Apple: e88e1eb314acb4a05e2348069790c4aa49f6d319
-  PromiseKit: 51794a832647e7b819336dc2279039ce9f1cc49b
+  PromiseKit: 9616b0afef31eae56ab9ce044c8ec2b8612a15cd
   ReachabilitySwift: 4032e2f59586e11e3b0ebe15b167abdd587a388b
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   Sodium: 63c0ca312a932e6da481689537d4b35568841bdc
   Sparkle: 3f75576db8b0265adef36c43249d747f22d0b708
   SwiftyBeaver: 4cc0080d2e23f980652e28978db11a5c9da39165
-  Then: 71866660c7af35a7343831f7668e7cd2b62ee0f2
+  Then: 0157115e883545c77967b452fe74a1d25fb796e1
   TunnelKit: d1e02dea5cb58ea0d4dbfcdcb387e653d148d800
 
-PODFILE CHECKSUM: 06381b4c961d23dffcf6d90ebbe0925f5a3ad072
+PODFILE CHECKSUM: e4c486fcde0c7ce6bce1869ebd8d41356988b3af
 
 COCOAPODS: 1.7.1

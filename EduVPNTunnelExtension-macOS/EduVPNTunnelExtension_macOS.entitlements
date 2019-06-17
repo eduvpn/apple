@@ -4,6 +4,7 @@
 <dict>
 	<key>com.apple.developer.networking.networkextension</key>
 	<array>
+		<string>app-proxy-provider</string>
 		<string>packet-tunnel-provider</string>
 	</array>
 	<key>com.apple.security.app-sandbox</key>
@@ -12,8 +13,6 @@
 	<array>
 		<string>group.org.eduvpn.app</string>
 	</array>
-	<key>com.apple.security.files.user-selected.read-only</key>
-	<true/>
 	<key>com.apple.security.network.client</key>
 	<true/>
 	<key>com.apple.security.network.server</key>

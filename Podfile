@@ -56,6 +56,10 @@ target 'EduVPN-macOS' do
   pods_macos
 end
 
+target 'EduVPNTunnelExtension-macOS' do
+  pods_macos
+end
+
 target 'LetsConnect-macOS' do
   pods_macos
 end

@@ -138,6 +138,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
             let session = self.currentManager?.connection as? NETunnelProviderSession
             do {
                 self.currentManager?.isOnDemandEnabled = UserDefaults.standard.onDemand
+                print("startTunnel()")
                 try session?.startTunnel()
                 resolver.resolve(Result.fulfilled(()))
             } catch let error {
