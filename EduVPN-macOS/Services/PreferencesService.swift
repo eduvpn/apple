@@ -11,6 +11,8 @@ import ServiceManagement
 
 class PreferencesService: NSObject {
     
+    static let shared = PreferencesService()
+    
     override init() {
         launchAtLogin = PreferencesService.launchAtLogin(bundle: PreferencesService.loginHelperBundle)
         UserDefaults.standard.set(launchAtLogin, forKey: "launchAtLogin")

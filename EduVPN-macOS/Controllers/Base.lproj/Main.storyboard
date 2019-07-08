@@ -797,7 +797,7 @@
         <!--Preferences-->
         <scene sceneID="xfC-iv-REz">
             <objects>
-                <viewController title="Preferences" showSeguePresentationStyle="single" id="TRM-HQ-ggb" sceneMemberID="viewController">
+                <viewController title="Preferences" showSeguePresentationStyle="single" id="TRM-HQ-ggb" customClass="PreferencesViewController" customModule="eduVPN" sceneMemberID="viewController">
                     <view key="view" id="TOs-5F-9Ou">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="374"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -954,6 +954,9 @@ DQ
                             </button>
                         </subviews>
                     </view>
+                    <connections>
+                        <outlet property="launchAtLoginCheckbox" destination="Adq-lA-U3V" id="w5U-8J-QTb"/>
+                    </connections>
                 </viewController>
                 <customObject id="URQ-m7-vBM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <arrayController id="Nor-Pd-Yr2">
