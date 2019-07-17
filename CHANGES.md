@@ -1,9 +1,13 @@
 # Changelog
 
+## iOS 13 release (version as of yet unknown)
+
+- Dark mode
+
 ## 2.0.4 
 
 - Update dependencies.
-- Restrict encryption to known secure tlMinimum value is "128 bits" (level 3). More details about other effects of changing the TLS security level: [https://www.openssl.org/docs/manmaster/man3/SSL_CTX_set_security_level.html](https://www.openssl.org/docs/manmaster/man3/SSL_CTX_set_security_level.html).s security ciphers.
+- Restrict encryption to known secure tlMinimum value is "128 bits" (level 3). More details about other effects of changing the TLS security level: [https://www.openssl.org/docs/manmaster/man3/SSL_CTX_set_security_level.html](https://www.openssl.org/docs/manmaster/man3/SSL_CTX_set_security_level.html).
 - Version is now defined in AppVersion.xcconfig.
 - Better handling of old discovery information.
 - Fix for when switching to an other provided while connected. #86
@@ -13,6 +17,7 @@
 - Give an indication to the user what profile is configured on the system level, and show an in app connected status display.
 - Lots and lots of updates to third party dependencies.
 - "Split tunnel" should now work. #75
+- Key and certificate material is now only ever stored in the keychain.
 
 ## 2.0.3
 
