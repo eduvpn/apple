@@ -12,7 +12,6 @@ import UserNotifications
 import os.log
 
 import Moya
-import Disk
 import PromiseKit
 
 import CoreData
@@ -854,18 +853,6 @@ extension AppCoordinator: ProviderTableViewControllerDelegate {
 }
 
 extension AppCoordinator: CustomProviderInPutViewControllerDelegate {
-    private func createLocalUrl(forImageNamed name: String) throws -> URL {
-        let filename = "\(name).png"
-        if Disk.exists(filename, in: .applicationSupport) {
-            return try Disk.url(for: filename, in: .applicationSupport)
-        }
-
-        let image = UIImage(named: name)!
-        try Disk.save(image, to: .applicationSupport, as: filename)
-
-        return try Disk.url(for: filename, in: .applicationSupport)
-    }
-
     func connect(url: URL) -> Promise<Void> {
         return Promise<Instance>(resolver: { seal in
             persistentContainer.performBackgroundTask { (context) in
