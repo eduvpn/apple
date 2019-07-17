@@ -21,7 +21,7 @@ enum TunnelProviderManagerCoordinatorError: Error {
 private let profileIdKey = "EduVPNprofileId"
 
 protocol TunnelProviderManagerCoordinatorDelegate: class {
-    func profileConfig(for profile: Profile) -> Promise<URL>
+    func profileConfig(for profile: Profile) -> Promise<[String]>
     func updateProfileStatus(with status: NEVPNStatus)
 }
 
@@ -71,12 +71,12 @@ class TunnelProviderManagerCoordinator: Coordinator {
         guard let delegate = delegate else {
             return Promise(error: TunnelProviderManagerCoordinatorError.missingDelegate)
         }
-        return delegate.profileConfig(for: profile).then({ (configUrl) -> Promise<Void> in
+        return delegate.profileConfig(for: profile).then({ (configLines) -> Promise<Void> in
             #if targetEnvironment(simulator)
             print("SIMULATOR DOES NOT SUPPORT NETWORK EXTENSIONS")
             return Promise.value(())
             #else
-            let parseResult = try! OpenVPN.ConfigurationParser.parsed(fromURL: configUrl) //swiftlint:disable:this force_try
+            let parseResult = try! OpenVPN.ConfigurationParser.parsed(fromLines: configLines) //swiftlint:disable:this force_try
 
             return Promise(resolver: { (resolver) in
                 var configBuilder = parseResult.configuration.builder()

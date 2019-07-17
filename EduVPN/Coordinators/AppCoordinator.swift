@@ -536,7 +536,7 @@ class AppCoordinator: RootViewCoordinator {
         })
     }
 
-    func fetchProfile(for profile: Profile, retry: Bool = false) -> Promise<URL> {
+    func fetchProfile(for profile: Profile, retry: Bool = false) -> Promise<[String]> {
         guard let api = profile.api else {
             precondition(false, "This should never happen")
             return Promise(error: AppCoordinatorError.apiMissing)
@@ -551,7 +551,7 @@ class AppCoordinator: RootViewCoordinator {
         return loadCertificate(for: api).then { _ -> Promise<Response> in
             NVActivityIndicatorPresenter.sharedInstance.setMessage(NSLocalizedString("Requesting profile config", comment: ""))
             return dynamicApiProvider.request(apiService: .profileConfig(profileId: profile.profileId!))
-            }.map { response -> URL in
+            }.map { response -> [String] in
                 guard var ovpnFileContent = String(data: response.data, encoding: .utf8) else {
                     throw AppCoordinatorError.ovpnConfigTemplate
                 }
@@ -559,10 +559,14 @@ class AppCoordinator: RootViewCoordinator {
                 ovpnFileContent = self.forceTcp(on: ovpnFileContent)
                 try self.validateRemote(on: ovpnFileContent)
                 ovpnFileContent = self.merge(key: api.certificateModel!.privateKeyString, certificate: api.certificateModel!.certificateString, into: ovpnFileContent)
+                let lines = ovpnFileContent.components(separatedBy: .newlines).map {
+                    $0.trimmingCharacters(in: .whitespacesAndNewlines)
+                    }.filter {
+                        !$0.isEmpty
+                }
 
-                let filename = "\(profile.displayNames?.localizedValue ?? "")-\(api.instance?.displayNames?.localizedValue ?? "") \(profile.profileId ?? "").ovpn"
-                return try self.saveToOvpnFile(content: ovpnFileContent, to: filename)
-            }.recover { (error) throws -> Promise<URL> in
+                return lines
+            }.recover { (error) throws -> Promise<[String]> in
                 NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
 
                 if retry {
@@ -570,21 +574,21 @@ class AppCoordinator: RootViewCoordinator {
                     throw error
                 }
 
-                func retryFetchProile() -> Promise<URL> {
+                func retryFetchProfile() -> Promise<[String]> {
                     self.authorizingDynamicApiProvider = dynamicApiProvider
-                    return dynamicApiProvider.authorize(presentingViewController: self.navigationController).then { _ -> Promise<URL> in
+                    return dynamicApiProvider.authorize(presentingViewController: self.navigationController).then { _ -> Promise<[String]> in
                         return self.fetchProfile(for: profile, retry: true)
                     }
 
                 }
 
                 if let nsError = error as NSError?, nsError.domain == NSURLErrorDomain && nsError.code == NSURLErrorNetworkConnectionLost {
-                    return retryFetchProile()
+                    return retryFetchProfile()
                 }
 
                 switch error {
                 case ApiServiceError.tokenRefreshFailed, ApiServiceError.noAuthState :
-                    return retryFetchProile()
+                    return retryFetchProfile()
                 default:
                     self.showError(error)
                     throw error
@@ -738,14 +742,6 @@ class AppCoordinator: RootViewCoordinator {
         if 0 == remoteTcpRegex.numberOfMatches(in: ovpnFileContent, options: [], range: NSRange(location: 0, length: ovpnFileContent.utf16.count)) {
             throw AppCoordinatorError.ovpnConfigTemplateNoRemotes
         }
-    }
-
-    private func saveToOvpnFile(content: String, to filename: String) throws -> URL {
-        // TODO: validate response
-        try Disk.clear(.temporary)
-        try Disk.save(content.data(using: .utf8)!, to: .temporary, as: filename)
-        let url = try Disk.url(for: filename, in: .temporary)
-        return url
     }
 }
 
@@ -915,7 +911,7 @@ extension AppCoordinator: TunnelProviderManagerCoordinatorDelegate {
         }
     }
 
-    func profileConfig(for profile: Profile) -> Promise<URL> {
+    func profileConfig(for profile: Profile) -> Promise<[String]> {
         let activityData = ActivityData()
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData, nil)
 
