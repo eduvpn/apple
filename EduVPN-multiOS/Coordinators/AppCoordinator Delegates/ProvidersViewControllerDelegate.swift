@@ -50,9 +50,10 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
                 let count = try Profile.countInContext(persistentContainer.viewContext,
                                                        predicate: NSPredicate(format: "api.instance == %@", instance))
                 
-                if count > 1 {
-                    showConnectionsTableViewController(for: instance)
-                } else if let profile = instance.apis?.first?.profiles.first {
+//                if count > 1 {
+//                    showConnectionsTableViewController(for: instance)
+//                } else
+                if let profile = instance.apis?.first?.profiles.first {
                     connect(profile: profile)
                 }
             } catch {
