@@ -17,7 +17,6 @@
 - Give an indication to the user what profile is configured on the system level, and show an in app connected status display.
 - Lots and lots of updates to third party dependencies.
 - "Split tunnel" should now work. #75
-- Key and certificate material is now only ever stored in the keychain.
 
 ## 2.0.3
 
