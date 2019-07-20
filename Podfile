@@ -16,7 +16,7 @@ target 'EduVPN' do
   pod 'Disk'
   pod 'AlamofireImage'
   pod 'libsodium'
-  pod 'ASN1Decoder', :git => 'https://github.com/jeroenleenarts/ASN1Decoder.git'
+  pod 'ASN1Decoder', :git => 'https://github.com/filom/ASN1Decoder.git'
   pod 'NVActivityIndicatorView'
 
   tunnelkit_pod
