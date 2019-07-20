@@ -37,7 +37,7 @@ PODS:
 DEPENDENCIES:
   - AlamofireImage
   - AppAuth (from `https://github.com/openid/AppAuth-iOS.git`)
-  - ASN1Decoder
+  - ASN1Decoder (from `https://github.com/jeroenleenarts/ASN1Decoder.git`)
   - Disk
   - libsodium
   - Moya
@@ -49,7 +49,6 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - AlamofireImage
-    - ASN1Decoder
     - Disk
     - libsodium
     - Moya
@@ -63,17 +62,22 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   AppAuth:
     :git: https://github.com/openid/AppAuth-iOS.git
+  ASN1Decoder:
+    :git: https://github.com/jeroenleenarts/ASN1Decoder.git
 
 CHECKOUT OPTIONS:
   AppAuth:
     :commit: ae38a4a96d7c090c115b439d14b8b4da7b85196a
     :git: https://github.com/openid/AppAuth-iOS.git
+  ASN1Decoder:
+    :commit: 8f6bbe05844394e99e6f385bf98cf07ae22655d3
+    :git: https://github.com/jeroenleenarts/ASN1Decoder.git
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   AlamofireImage: 63cfe3baf1370be6c498149687cf6db3e3b00999
   AppAuth: c42547576838bf025b852736dd9b8a1c943fe68f
-  ASN1Decoder: 93c53c3d4d7a6281040a9db05b8efa7e5605872e
+  ASN1Decoder: a45efbda885c723fd2a7cd71bf4ce518b2bb57af
   Disk: 76cccb6fed1c27cd661bbdea7b117d887c2f72e5
   libsodium: 9a8faa5ef2fa0d2d57bd7f7d79bf8fb7c1a9f0ea
   Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
@@ -84,6 +88,6 @@ SPEC CHECKSUMS:
   SwiftyBeaver: 4cc0080d2e23f980652e28978db11a5c9da39165
   TunnelKit: a1477f296a481c2ccefe9e6788aea090a1fb6f18
 
-PODFILE CHECKSUM: cb0b4df769941475513f26e0163746a07da7fa57
+PODFILE CHECKSUM: 07534c0288fa1a2aa982c1d2fef302a57b277282
 
-COCOAPODS: 1.7.4
+COCOAPODS: 1.7.5
