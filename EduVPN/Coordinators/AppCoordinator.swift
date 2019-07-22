@@ -836,6 +836,14 @@ extension AppCoordinator: ProviderTableViewControllerDelegate {
     }
 
     func delete(instance: Instance) {
+        // Check current profile UUID against profile UUIDs.
+        if let configuredProfileId = UserDefaults.standard.configuredProfileId {
+            let profiles = instance.apis?.flatMap { $0.profiles } ?? []
+            if (profiles.compactMap { $0.uuid?.uuidString}.contains(configuredProfileId)) {
+                _ = tunnelProviderManagerCoordinator.deleteConfiguration()
+            }
+        }
+
         _ = Promise<Void>(resolver: { seal in
             persistentContainer.performBackgroundTask { (context) in
                 if let backgroundProfile = context.object(with: instance.objectID) as? Instance {

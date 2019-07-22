@@ -67,6 +67,29 @@ class TunnelProviderManagerCoordinator: Coordinator {
         }
     }
 
+    func deleteConfiguration() -> Promise<Void> {
+        return Promise(resolver: { (resolver) in
+            reloadCurrentManager { (error) in
+                if let error = error {
+                    os_log("error reloading preferences: %{public}@", log: Log.general, type: .error, error.localizedDescription)
+                    resolver.reject(error)
+                    return
+                }
+
+                let manager = self.currentManager!
+
+                manager.removeFromPreferences(completionHandler: { (error) in
+                    if let error = error {
+                        os_log("error removing preferences: %{public}@", log: Log.general, type: .error, error.localizedDescription)
+                        resolver.reject(error)
+                        return
+                    }
+                })
+                resolver.fulfill(())
+            }
+        })
+    }
+
     func configure(profile: Profile)  -> Promise<Void> {
         guard let delegate = delegate else {
             return Promise(error: TunnelProviderManagerCoordinatorError.missingDelegate)
