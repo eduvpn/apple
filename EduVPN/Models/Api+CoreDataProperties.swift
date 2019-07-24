@@ -94,8 +94,8 @@ extension Api {
         get {
             guard let authStateUrl = authStateUrl else { return nil }
             if FileManager.default.fileExists(atPath: authStateUrl.path) {
-                if let data = try? Data(contentsOf: authStateUrl) {
-                    return NSKeyedUnarchiver.unarchiveObject(with: data) as? OIDAuthState
+                if let data = try? Data(contentsOf: authStateUrl), let clearTextData = Crypto.decrypt(data: data) {
+                    return NSKeyedUnarchiver.unarchiveObject(with: clearTextData) as? OIDAuthState
                 }
             }
 
@@ -105,7 +105,8 @@ extension Api {
             guard let authStateUrl = authStateUrl else { return }
             if let newValue = newValue {
                 let data = NSKeyedArchiver.archivedData(withRootObject: newValue)
-                try? data.write(to: authStateUrl, options: [.atomicWrite, .completeFileProtectionUntilFirstUserAuthentication])
+                let encryptedData = try? Crypto.encrypt(data: data)
+                try? encryptedData?.write(to: authStateUrl, options: [.atomicWrite, .completeFileProtectionUntilFirstUserAuthentication])
 
                 excludeFromBackup(url: authStateUrl)
             } else {

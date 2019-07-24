@@ -69,6 +69,7 @@
 		4AD0AD5D1F35048E006E1337 /* ProviderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD5C1F35048E006E1337 /* ProviderTableViewController.swift */; };
 		4AD0AD5F1F350822006E1337 /* Moya+ResponseHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD5E1F350822006E1337 /* Moya+ResponseHandling.swift */; };
 		4AD0AD621F350906006E1337 /* InstanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD611F350906006E1337 /* InstanceModel.swift */; };
+		4ADCA4A522E8E2B90058D753 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADCA4A422E8E2B90058D753 /* Crypto.swift */; };
 		4AE728161F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE728151F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift */; };
 		4AEAC32720F13D0C007B67AB /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEAC32620F13D0C007B67AB /* Log.swift */; };
 		4AECAB422027091900B5105B /* EduVPN.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4AECAB402027091900B5105B /* EduVPN.xcdatamodeld */; };
@@ -196,6 +197,7 @@
 		4AD0AD5C1F35048E006E1337 /* ProviderTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderTableViewController.swift; sourceTree = "<group>"; };
 		4AD0AD5E1F350822006E1337 /* Moya+ResponseHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Moya+ResponseHandling.swift"; sourceTree = "<group>"; };
 		4AD0AD611F350906006E1337 /* InstanceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceModel.swift; sourceTree = "<group>"; };
+		4ADCA4A422E8E2B90058D753 /* Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
 		4ADF8E7B21ADF7030099C397 /* EduVPN 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EduVPN 3.xcdatamodel"; sourceTree = "<group>"; };
 		4AE728151F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+EduVPN.swift"; sourceTree = "<group>"; };
 		4AEAC32620F13D0C007B67AB /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
@@ -447,6 +449,7 @@
 				4A81DF9B2003BFB7002827A8 /* CertificateModel.swift */,
 				4A140BBB21B5D7F5000A87E3 /* Message.swift */,
 				4A3971AE21E9401E00782A28 /* Config.swift */,
+				4ADCA4A422E8E2B90058D753 /* Crypto.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -810,6 +813,7 @@
 				4AAC2EED2027117400F9D0D2 /* Instance+CoreDataClass.swift in Sources */,
 				4A2BAC8B225B8CB500AECEE6 /* NSManagedObject+FetchHelpers.swift in Sources */,
 				4A8D24351F3A40F2004A9343 /* InstanceInfoModel.swift in Sources */,
+				4ADCA4A522E8E2B90058D753 /* Crypto.swift in Sources */,
 				4AAC2EEA2027117400F9D0D2 /* Logo+CoreDataProperties.swift in Sources */,
 				4AAC2EE82027117400F9D0D2 /* Api+CoreDataProperties.swift in Sources */,
 				4A2BAC8D225B8CEE00AECEE6 /* FetchedResultsController.swift in Sources */,
