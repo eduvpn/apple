@@ -15,8 +15,9 @@
 - The app does not perform superflous refreshes of the proile list. This improves responsiveness. #88
 - Fix for incorrectly displayed profile names. # 87
 - Give an indication to the user what profile is configured on the system level, and show an in app connected status display.
-- Lots and lots of updates to third party dependencies.
 - "Split tunnel" should now work. #75
+- Attempt to delete the configuration if it is the current active configuration. #98
+
 
 ## 2.0.3
 
