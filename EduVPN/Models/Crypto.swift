@@ -19,11 +19,9 @@ class Crypto {
                                             flags,
                                             nil)!
         let tag = name.data(using: .utf8)!
-        #if targetEnvironment(simulator)
         let attributes: [String: Any] = [
             kSecAttrKeyType as String           : kSecAttrKeyTypeEC,
             kSecAttrKeySizeInBits as String     : 256,
-            //            kSecAttrTokenID as String           : kSecAttrTokenIDSecureEnclave,
             kSecPrivateKeyAttrs as String : [
                 kSecAttrCanDecrypt as String        : true,
                 kSecAttrIsPermanent as String       : true,
@@ -31,19 +29,6 @@ class Crypto {
                 kSecAttrAccessControl as String     : access
             ]
         ]
-        #else
-        let attributes: [String: Any] = [
-            kSecAttrKeyType as String           : kSecAttrKeyTypeEC,
-            kSecAttrKeySizeInBits as String     : 256,
-            kSecAttrTokenID as String           : kSecAttrTokenIDSecureEnclave,
-            kSecPrivateKeyAttrs as String : [
-                kSecAttrCanDecrypt as String        : true,
-                kSecAttrIsPermanent as String       : true,
-                kSecAttrApplicationTag as String    : tag,
-                kSecAttrAccessControl as String     : access
-            ]
-        ]
-        #endif
 
         var error: Unmanaged<CFError>?
         guard let privateKey = SecKeyCreateRandomKey(attributes as CFDictionary, &error) else {
@@ -110,9 +95,6 @@ class Crypto {
             return nil
         }
 
-        // SecKeyCreateDecryptedData call is blocking when the used key
-        // is protected by biometry authentication. If that's not the case,
-        // dispatching to a background thread isn't necessary.
         var error: Unmanaged<CFError>?
         let clearTextData = SecKeyCreateDecryptedData(key,
                                                       algorithm,
