@@ -11,10 +11,18 @@ import os.log
 
 struct Log {
      static var general: OSLog = {
+        return createLog(with: "general")
+    }()
+
+    static var crypto: OSLog = {
+        return createLog(with: "crypto")
+    }()
+
+    private static func createLog(with category: String) -> OSLog {
         if let bundleID = Bundle.main.bundleIdentifier {
-            return OSLog(subsystem: bundleID, category: "general")
+            return OSLog(subsystem: bundleID, category: category)
         } else {
             fatalError("missing bundle ID")
         }
-    }()
+    }
 }

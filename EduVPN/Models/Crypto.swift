@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os.log
 
 class Crypto {
     private static let keyName = "disk_storage_key"
@@ -64,9 +65,7 @@ class Crypto {
         }
         let algorithm: SecKeyAlgorithm = .eciesEncryptionCofactorVariableIVX963SHA256AESGCM
         guard SecKeyIsAlgorithmSupported(publicKey, .encrypt, algorithm) else {
-            //TODO log error
-            //            UIAlertController.showSimple(title: "Can't encrypt",
-            //                                         text: "Algorith not supported", from: self)
+            os_log("Can't encrypt. Algorith not supported.", log: Log.crypto, type: .error)
             return nil
         }
         var error: Unmanaged<CFError>?
@@ -74,10 +73,7 @@ class Crypto {
                                                        clearTextData as CFData,
                                                        &error) as Data?
         guard cipherTextData != nil else {
-            // TODO log error
-            //            UIAlertController.showSimple(title: "Can't encrypt",
-            //                                         text: (error!.takeRetainedValue() as Error).localizedDescription,
-            //                                         from: self)
+            os_log("Can't encrypt. %{public}@", log: Log.crypto, type: .error, (error!.takeRetainedValue() as Error).localizedDescription)
             return nil
         }
 
@@ -89,9 +85,7 @@ class Crypto {
 
         let algorithm: SecKeyAlgorithm = .eciesEncryptionCofactorVariableIVX963SHA256AESGCM
         guard SecKeyIsAlgorithmSupported(key, .decrypt, algorithm) else {
-            //TODO log error
-            //            UIAlertController.showSimple(title: "Can't decrypt",
-            //                                         text: "Algorith not supported", from: self)
+            os_log("Can't decrypt. Algorith not supported.", log: Log.general, type: .error)
             return nil
         }
 
@@ -101,10 +95,7 @@ class Crypto {
                                                       cipherTextData as CFData,
                                                       &error) as Data?
         guard clearTextData != nil else {
-            //TODO log error
-            //                    UIAlertController.showSimple(title: "Can't decrypt",
-            //                                                 text: (error!.takeRetainedValue() as Error).localizedDescription,
-            //                                                 from: self)
+            os_log("Can't decrypt. %{public}@", log: Log.crypto, type: .error, (error!.takeRetainedValue() as Error).localizedDescription)
             return nil
         }
         return clearTextData
