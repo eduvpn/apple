@@ -12,11 +12,12 @@
 - Better handling of old discovery information.
 - Fix for when switching to an other provided while connected. #86
 - Enabled Data Protection.
-- The app does not perform superflous refreshes of the proile list. This improves responsiveness. #88
+- The app does not perform superflous refreshes of the profile list. This improves responsiveness. #88
 - Fix for incorrectly displayed profile names. # 87
 - Give an indication to the user what profile is configured on the system level, and show an in app connected status display.
 - "Split tunnel" should now work. #75
 - Attempt to delete the configuration if it is the current active configuration. #98
+- Store OAuth.x509 data more securely. #91
 
 
 ## 2.0.3
