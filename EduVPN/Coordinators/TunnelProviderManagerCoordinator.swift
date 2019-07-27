@@ -108,6 +108,11 @@ class TunnelProviderManagerCoordinator: Coordinator {
                 self.configureVPN({ (_) in
                     var builder = OpenVPNTunnelProvider.ConfigurationBuilder(sessionConfiguration: configBuilder.build())
                     builder.masksPrivateData = false
+
+                    #if DEBUG
+                    #else
+                    builder.debugLogFormat = "$HH:mm:ss$d $L - $M"
+                    #endif
                     let configuration = builder.build()
 
                     let tunnelProviderProtocolConfiguration = try! configuration.generatedTunnelProtocol( //swiftlint:disable:this force_try
