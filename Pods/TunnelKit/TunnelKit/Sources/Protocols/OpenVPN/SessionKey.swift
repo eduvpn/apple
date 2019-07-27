@@ -53,6 +53,8 @@ extension OpenVPN {
 
         let id: UInt8 // 3-bit
         
+        let timeout: TimeInterval
+        
         let startTime: Date
         
         var state = State.invalid
@@ -70,16 +72,14 @@ extension OpenVPN {
         
         var dataPath: DataPath?
         
-        var softReset: Bool
-
         private var isTLSConnected: Bool
         
-        init(id: UInt8) {
+        init(id: UInt8, timeout: TimeInterval) {
             self.id = id
+            self.timeout = timeout
 
             startTime = Date()
             state = .invalid
-            softReset = false
             isTLSConnected = false
         }
 
@@ -90,8 +90,6 @@ extension OpenVPN {
         
         // Ruby: Key.negotiate_timeout
         func didNegotiationTimeOut(link: LinkInterface) -> Bool {
-            let timeout = (softReset ? CoreConfiguration.OpenVPN.softNegotiationTimeout : CoreConfiguration.OpenVPN.negotiationTimeout)
-            
             return ((controlState != .connected) && (-startTime.timeIntervalSinceNow > timeout))
         }
         

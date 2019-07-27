@@ -241,6 +241,7 @@ open class OpenVPNTunnelProvider: NEPacketTunnelProvider {
         guard let session = session else {
             flushLog()
             completionHandler()
+            forceExitOnMac()
             return
         }
 
@@ -255,6 +256,7 @@ open class OpenVPNTunnelProvider: NEPacketTunnelProvider {
             log.warning("Tunnel not responding after \(weakSelf.shutdownTimeout) milliseconds, forcing stop")
             weakSelf.flushLog()
             pendingHandler()
+            self?.forceExitOnMac()
         }
         tunnelQueue.sync {
             session.shutdown(error: nil)
@@ -333,7 +335,7 @@ open class OpenVPNTunnelProvider: NEPacketTunnelProvider {
         flushLog()
 
         // failed to start
-        if (pendingStartHandler != nil) {
+        if pendingStartHandler != nil {
             
             //
             // CAUTION
@@ -355,13 +357,15 @@ open class OpenVPNTunnelProvider: NEPacketTunnelProvider {
             pendingStartHandler = nil
         }
         // stopped intentionally
-        else if (pendingStopHandler != nil) {
+        else if pendingStopHandler != nil {
             pendingStopHandler?()
             pendingStopHandler = nil
+            forceExitOnMac()
         }
         // stopped externally, unrecoverable
         else {
             cancelTunnelWithError(error)
+            forceExitOnMac()
         }
     }
     
@@ -628,7 +632,9 @@ extension OpenVPNTunnelProvider: OpenVPNSessionDelegate {
         var dnsServers = cfg.sessionConfiguration.dnsServers ?? options.dnsServers ?? []
 
         // fall back
-        if dnsServers.isEmpty {
+        if !dnsServers.isEmpty {
+            log.info("DNS: Using servers \(dnsServers.maskedDescription)")
+        } else {
             log.warning("DNS: No servers provided, using fall-back servers: \(fallbackDNSServers.maskedDescription)")
             dnsServers = fallbackDNSServers
         }
@@ -839,5 +845,13 @@ extension OpenVPNTunnelProvider {
 private extension Proxy {
     func neProxy() -> NEProxyServer {
         return NEProxyServer(address: address, port: Int(port))
+    }
+}
+
+private extension NEPacketTunnelProvider {
+    func forceExitOnMac() {
+        #if os(macOS)
+        exit(0)
+        #endif
     }
 }

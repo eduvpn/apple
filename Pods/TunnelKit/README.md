@@ -194,6 +194,7 @@ For more details please see [CONTRIBUTING][contrib-readme].
 - [lzo][dep-lzo-website] - © 1996 - 2017 Markus F.X.J. Oberhumer
 - [PIATunnel][dep-piatunnel-repo] - © 2018-Present Private Internet Access
 - [SwiftyBeaver][dep-swiftybeaver-repo] - © 2015 Sebastian Kreutzberger
+- [SURFnet][surfnet]
 
 This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit. ([https://www.openssl.org/][dep-openssl])
 
@@ -227,6 +228,7 @@ Website: [passepartoutvpn.app][about-website]
 [dep-piatunnel-repo]: https://github.com/pia-foss/tunnel-apple
 [dep-swiftybeaver-repo]: https://github.com/SwiftyBeaver/SwiftyBeaver
 [dep-lzo-website]: http://www.oberhumer.com/opensource/lzo/
+[surfnet]: https://www.surf.nl/en/about-surf/subsidiaries/surfnet
 
 [about-twitter]: https://twitter.com/keeshux
 [about-website]: https://passepartoutvpn.app

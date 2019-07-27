@@ -57,8 +57,6 @@ extension CoreConfiguration {
         
         static let retransmissionLimit = 0.1
         
-        static let softResetDelay = 5.0
-        
         static let softNegotiationTimeout = 120.0
         
         // MARK: Authentication

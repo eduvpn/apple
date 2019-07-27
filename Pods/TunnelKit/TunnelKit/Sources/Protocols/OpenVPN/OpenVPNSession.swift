@@ -116,6 +116,8 @@ public class OpenVPNSession: Session {
     
     private var currentKeyIdx: UInt8?
     
+    private var isRenegotiating: Bool
+    
     private var negotiationKey: OpenVPN.SessionKey {
         guard let key = keys[negotiationKeyIdx] else {
             fatalError("Keys are empty or index \(negotiationKeyIdx) not found in \(keys.keys)")
@@ -196,6 +198,7 @@ public class OpenVPNSession: Session {
         keys = [:]
         oldKeys = []
         negotiationKeyIdx = 0
+        isRenegotiating = false
         lastPing = BidirectionalState(withResetValue: Date.distantPast)
         isStopping = false
         
@@ -324,6 +327,7 @@ public class OpenVPNSession: Session {
         oldKeys.removeAll()
         negotiationKeyIdx = 0
         currentKeyIdx = nil
+        isRenegotiating = false
         
         nextPushRequestDate = nil
         connectedDate = nil
@@ -479,11 +483,20 @@ public class OpenVPNSession: Session {
 //                deferStop(.shutdown, e)
 //                return
             }
-            if (code == .hardResetServerV2) && (negotiationKey.controlState == .connected) {
-                deferStop(.shutdown, OpenVPNError.staleSession)
-                return
-            } else if (code == .softResetV1) && !negotiationKey.softReset {
-                softReset(isServerInitiated: true)
+            switch code {
+            case .hardResetServerV2:
+                guard negotiationKey.state == .hardReset else {
+                    deferStop(.shutdown, OpenVPNError.staleSession)
+                    return
+                }
+                
+            case .softResetV1:
+                if !isRenegotiating {
+                    softReset(isServerInitiated: true)
+                }
+
+            default:
+                break
             }
 
             sendAck(for: controlPacket)
@@ -571,7 +584,7 @@ public class OpenVPNSession: Session {
         continuatedPushReplyMessage = nil
         pushReply = nil
         negotiationKeyIdx = 0
-        let newKey = OpenVPN.SessionKey(id: UInt8(negotiationKeyIdx))
+        let newKey = OpenVPN.SessionKey(id: UInt8(negotiationKeyIdx), timeout: CoreConfiguration.OpenVPN.negotiationTimeout)
         keys[negotiationKeyIdx] = newKey
         log.debug("Negotiation key index is \(negotiationKeyIdx)")
 
@@ -605,6 +618,10 @@ public class OpenVPNSession: Session {
     
     // Ruby: soft_reset
     private func softReset(isServerInitiated: Bool) {
+        guard !isRenegotiating else {
+            log.warning("Renegotiation already in progress")
+            return
+        }
         if isServerInitiated {
             log.debug("Handle soft reset")
         } else {
@@ -613,12 +630,12 @@ public class OpenVPNSession: Session {
         
         resetControlChannel(forNewSession: false)
         negotiationKeyIdx = max(1, (negotiationKeyIdx + 1) % OpenVPN.ProtocolMacros.numberOfKeys)
-        let newKey = OpenVPN.SessionKey(id: UInt8(negotiationKeyIdx))
+        let newKey = OpenVPN.SessionKey(id: UInt8(negotiationKeyIdx), timeout: CoreConfiguration.OpenVPN.softNegotiationTimeout)
         keys[negotiationKeyIdx] = newKey
         log.debug("Negotiation key index is \(negotiationKeyIdx)")
 
         negotiationKey.state = .softReset
-        negotiationKey.softReset = true
+        isRenegotiating = true
         loopNegotiation()
         if !isServerInitiated {
             enqueueControlPackets(code: .softResetV1, key: UInt8(negotiationKeyIdx), payload: Data())
@@ -685,8 +702,9 @@ public class OpenVPNSession: Session {
         log.debug("TLS.ifconfig: Send pulled ciphertext (\(cipherTextOut.count) bytes)")
         enqueueControlPackets(code: .controlV1, key: negotiationKey.id, payload: cipherTextOut)
         
-        if negotiationKey.softReset {
+        if isRenegotiating {
             completeConnection()
+            isRenegotiating = false
         }
         nextPushRequestDate = Date().addingTimeInterval(CoreConfiguration.OpenVPN.pushRequestInterval)
     }
@@ -853,8 +871,9 @@ public class OpenVPNSession: Session {
             }
             
             negotiationKey.controlState = .preIfConfig
-            nextPushRequestDate = Date().addingTimeInterval(negotiationKey.softReset ? CoreConfiguration.OpenVPN.softResetDelay : CoreConfiguration.OpenVPN.retransmissionLimit)
+            nextPushRequestDate = Date()
             pushRequest()
+            nextPushRequestDate?.addTimeInterval(isRenegotiating ? CoreConfiguration.OpenVPN.pushRequestInterval : CoreConfiguration.OpenVPN.retransmissionLimit)
         }
         
         for message in auth.parseMessages() {
@@ -1114,13 +1133,6 @@ public class OpenVPNSession: Session {
             controlChannel.addSentDataCount(encryptedPackets.flatCount)
             link?.writePackets(encryptedPackets) { [weak self] (error) in
                 if let error = error {
-                    
-                    // try mitigating "No buffer space available"
-                    if let posixError = error as? POSIXError, posixError.code == POSIXErrorCode.ENOBUFS {
-                        log.warning("Data: Packets dropped, no buffer space available")
-                        return
-                    }
-                    
                     self?.queue.sync {
                         log.error("Data: Failed LINK write during send data: \(error)")
                         self?.deferStop(.shutdown, OpenVPNError.failedLinkWrite)
@@ -1179,6 +1191,9 @@ public class OpenVPNSession: Session {
     }
     
     private func deferStop(_ method: StopMethod, _ error: Error?) {
+        guard !isStopping else {
+            return
+        }
         isStopping = true
 
         let completion = { [weak self] in
