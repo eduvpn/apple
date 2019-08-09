@@ -289,27 +289,18 @@ class AppCoordinator: RootViewCoordinator {
             guard let identifier = certificate.uniqueIdentifier else { return }
 
             let content = UNMutableNotificationContent()
-            content.title = NSString.localizedUserNotificationString(forKey: "VPN certificate is expiring", arguments: nil)
+            content.title = NSString.localizedUserNotificationString(forKey: "VPN certificate is expiring and needs to be refreshed", arguments: nil)
             if let certificateTitle = api.instance?.displayNames?.localizedValue {
-                content.body = NSString.localizedUserNotificationString(forKey: "Once expired the certificate for instance %@ needs to be refreshed.",
-                                                                        arguments: [certificateTitle])
+                content.body = NSString.localizedUserNotificationString(forKey: "The certificate for instance %@ is set to expire %@.",
+                                                                        arguments: [certificateTitle, displayDateFormatter.string(from: expirationDate)])
             }
 
             #if DEBUG
-                guard let expirationWarningDate = NSCalendar.current.date(byAdding: .second, value: 10, to: Date()) else { return }
-                let expirationWarningDateComponents = NSCalendar.current.dateComponents(in: NSTimeZone.default, from: expirationWarningDate)
+                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
             #else
-                guard let expirationWarningDate = (expirationDate.timeIntervalSinceNow < 86400 * 7) ? (NSCalendar.current.date(byAdding: .day, value: -7, to: expirationDate)) : (NSCalendar.current.date(byAdding: .minute, value: 10, to: Date())) else { return }
-
-                var expirationWarningDateComponents = NSCalendar.current.dateComponents(in: NSTimeZone.default, from: expirationWarningDate)
-
-                // Configure the trigger for 10am.
-                expirationWarningDateComponents.hour = 10
-                expirationWarningDateComponents.minute = 0
-                expirationWarningDateComponents.second = 0
+                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: expirationDate.timeIntervalSinceNow, repeats: false)
             #endif
 
-            let trigger = UNCalendarNotificationTrigger(dateMatching: expirationWarningDateComponents, repeats: false)
 
             // Create the request object.
             let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
