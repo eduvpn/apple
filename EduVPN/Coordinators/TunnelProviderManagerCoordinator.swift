@@ -143,6 +143,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
     }
 
     func connect() -> Promise<Void> {
+        os_log("starting tunnel", log: Log.general, type: .info)
         #if targetEnvironment(simulator)
         print("SIMULATOR DOES NOT SUPPORT NETWORK EXTENSIONS")
         return Promise.value(())
@@ -162,6 +163,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
     }
 
     func disconnect() -> Promise<Void> {
+        os_log("stopping tunnel", log: Log.general, type: .info)
         #if targetEnvironment(simulator)
         print("SIMULATOR DOES NOT SUPPORT NETWORK EXTENSIONS")
         return Promise.value(())

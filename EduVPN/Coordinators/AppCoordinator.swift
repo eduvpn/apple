@@ -118,6 +118,7 @@ class AppCoordinator: RootViewCoordinator {
 
     /// Starts the coordinator
     public func start() {
+        os_log("Starting App Coordinator", log: Log.general, type: .info)
         persistentContainer.loadPersistentStores { [weak self] (_, error) in
             if let error = error {
                 os_log("Unable to Load Persistent Store. %{public}@", log: Log.general, type: .info, error.localizedDescription)
@@ -299,6 +300,7 @@ class AppCoordinator: RootViewCoordinator {
                 let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
             #else
                 let trigger = UNTimeIntervalNotificationTrigger(timeInterval: expirationDate.timeIntervalSinceNow, repeats: false)
+            os_log("Scheduling a cert expiration reminder for %{public}@ on %{public}@.", log: Log.general, type: .info, certificate.uniqueIdentifier, expirationDate)
             #endif
 
 

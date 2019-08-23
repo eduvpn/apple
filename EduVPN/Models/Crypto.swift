@@ -77,6 +77,7 @@ class Crypto {
             return nil
         }
 
+        os_log("Encrypted data.", log: Log.crypto, type: .info)
         return cipherTextData
     }
 
@@ -85,7 +86,7 @@ class Crypto {
 
         let algorithm: SecKeyAlgorithm = .eciesEncryptionCofactorVariableIVX963SHA256AESGCM
         guard SecKeyIsAlgorithmSupported(key, .decrypt, algorithm) else {
-            os_log("Can't decrypt. Algorith not supported.", log: Log.general, type: .error)
+            os_log("Can't decrypt. Algorith not supported.", log: Log.crypto, type: .error)
             return nil
         }
 
@@ -98,6 +99,7 @@ class Crypto {
             os_log("Can't decrypt. %{public}@", log: Log.crypto, type: .error, (error!.takeRetainedValue() as Error).localizedDescription)
             return nil
         }
+        os_log("Decrypted data.", log: Log.crypto, type: .info)
         return clearTextData
     }
 }
