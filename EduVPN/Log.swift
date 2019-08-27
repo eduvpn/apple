@@ -14,6 +14,10 @@ struct Log {
         return createLog(with: "general")
     }()
 
+    static var auth: OSLog = {
+        return createLog(with: "general")
+    }()
+
     static var crypto: OSLog = {
         return createLog(with: "crypto")
     }()

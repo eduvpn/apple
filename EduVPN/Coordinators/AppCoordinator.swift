@@ -300,7 +300,7 @@ class AppCoordinator: RootViewCoordinator {
                 let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
             #else
                 let trigger = UNTimeIntervalNotificationTrigger(timeInterval: expirationDate.timeIntervalSinceNow, repeats: false)
-            os_log("Scheduling a cert expiration reminder for %{public}@ on %{public}@.", log: Log.general, type: .info, certificate.uniqueIdentifier, expirationDate)
+            os_log("Scheduling a cert expiration reminder for %{public}@ on %{public}@.", log: Log.general, type: .info, certificate.uniqueIdentifier ?? "", signedAtDateFormatter.string(from: expirationDate))
             #endif
 
 

@@ -13,6 +13,8 @@ import Moya
 import PromiseKit
 import AppAuth
 
+import os.log
+
 enum ApiServiceError: Swift.Error {
     case noAuthState
     case tokenRefreshFailed(rootCause: Error)
@@ -157,6 +159,7 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
                         if (error as NSError).code == OIDErrorCode.networkError.rawValue {
                             seal.reject(error)
                         } else {
+                            os_log("Token refresh failed.", log: Log.auth, type: .error)
                             seal.reject(ApiServiceError.tokenRefreshFailed(rootCause: error))
                         }
                         return
@@ -166,6 +169,7 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
                     seal.fulfill(())
                 })
             } else {
+                os_log("No auth state.", log: Log.auth, type: .error)
                 seal.reject(ApiServiceError.noAuthState)
             }
 
