@@ -32,6 +32,8 @@
 		340A505822A3C01100170E51 /* AppCoordinator+Mac.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340A505622A3BFF100170E51 /* AppCoordinator+Mac.swift */; };
 		340F956D22B7118C00835D56 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340F956C22B7118C00835D56 /* NetworkExtension.framework */; };
 		340F956E22B7119600835D56 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340F956C22B7118C00835D56 /* NetworkExtension.framework */; };
+		3415C02123181191005B9E6C /* СonnectionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3415C02023181191005B9E6C /* СonnectionsTableViewController.swift */; };
+		3415C022231811A3005B9E6C /* СonnectionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3415C02023181191005B9E6C /* СonnectionsTableViewController.swift */; };
 		34186CA12296B5A1009B4121 /* NSManagedObjectContext+SaveHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2BAC86225B8C0700AECEE6 /* NSManagedObjectContext+SaveHelpers.swift */; };
 		34186CA22296B5A1009B4121 /* NSManagedObjectContext+AsyncHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2BAC88225B8C8700AECEE6 /* NSManagedObjectContext+AsyncHelpers.swift */; };
 		34186CA32296B5A1009B4121 /* NSManagedObject+FetchHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2BAC8A225B8CB500AECEE6 /* NSManagedObject+FetchHelpers.swift */; };
@@ -332,6 +334,7 @@
 		340A505322A3BF8900170E51 /* EnterProviderURLViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterProviderURLViewController.swift; sourceTree = "<group>"; };
 		340A505622A3BFF100170E51 /* AppCoordinator+Mac.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppCoordinator+Mac.swift"; sourceTree = "<group>"; };
 		340F956C22B7118C00835D56 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/NetworkExtension.framework; sourceTree = DEVELOPER_DIR; };
+		3415C02023181191005B9E6C /* СonnectionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "СonnectionsTableViewController.swift"; sourceTree = "<group>"; };
 		34186CE42296D971009B4121 /* ASN1Decoder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ASN1Decoder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		34186CFF2297E801009B4121 /* config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
 		34186D012297EA9A009B4121 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
@@ -855,6 +858,7 @@
 				34FD2AD622A9352F002AABB3 /* VPNConnectionViewController.swift */,
 				340A505322A3BF8900170E51 /* EnterProviderURLViewController.swift */,
 				3434529A22A0665600C0476E /* CoreDataFetchedResultsControllerDelegate.swift */,
+				3415C02023181191005B9E6C /* СonnectionsTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1793,6 +1797,7 @@
 				34D71AB2228DA3A00027DE84 /* String+URL.swift in Sources */,
 				340A504622A2706400170E51 /* CustomProviderInPutViewControllerDelegate.swift in Sources */,
 				343452A422A13C8B00C0476E /* RootCoordinator.swift in Sources */,
+				3415C02123181191005B9E6C /* СonnectionsTableViewController.swift in Sources */,
 				340A504A22A2745600170E51 /* Identifyable.swift in Sources */,
 				34186D06229802C0009B4121 /* FileService.swift in Sources */,
 				34D71A92228D9C6A0027DE84 /* NSAlert+Custom.swift in Sources */,
@@ -1821,6 +1826,7 @@
 				340A504322A26FE000170E51 /* ConnectionsTableViewControllerDelegate.swift in Sources */,
 				34186CC42296B5B7009B4121 /* DisplayName+CoreDataProperties.swift in Sources */,
 				34FD2AD222A7CFA1002AABB3 /* NotificationsService.swift in Sources */,
+				3415C022231811A3005B9E6C /* СonnectionsTableViewController.swift in Sources */,
 				34186CD52296B707009B4121 /* InstanceInfoModel.swift in Sources */,
 				34186CC82296B5B7009B4121 /* Logo+CoreDataProperties.swift in Sources */,
 				340A504D22A2788C00170E51 /* EduVPN.xcdatamodeld in Sources */,

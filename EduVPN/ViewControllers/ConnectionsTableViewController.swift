@@ -142,5 +142,3 @@ class ConnectionsTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
-
-extension ConnectionsTableViewController: Identifyable {}

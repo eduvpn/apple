@@ -70,17 +70,15 @@ extension AppCoordinator {
     }
     
     internal func showConnectionsTableViewController(for instance: Instance) {
-        #if os(iOS)
         let connectionsVc = storyboard.instantiateViewController(type: ConnectionsTableViewController.self).with {
             $0.delegate = self
             $0.instance = instance
             $0.viewContext = persistentContainer.viewContext
         }
-        
+        #if os(iOS)
         navigationController.pushViewController(connectionsVc, animated: true)
         #elseif os(macOS)
-        // TODO: Implement macOS
-        abort()
+        pushViewController(connectionsVc)
         #endif
     }
     
