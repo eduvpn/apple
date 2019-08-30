@@ -23,8 +23,8 @@ class Crypto {
         let attributes: [String: Any] = [
             kSecAttrKeyType as String           : kSecAttrKeyTypeEC,
             kSecAttrKeySizeInBits as String     : 256,
+            kSecAttrTokenID as String           : kSecAttrTokenIDSecureEnclave,
             kSecPrivateKeyAttrs as String : [
-                kSecAttrCanDecrypt as String        : true,
                 kSecAttrIsPermanent as String       : true,
                 kSecAttrApplicationTag as String    : tag,
                 kSecAttrAccessControl as String     : access
