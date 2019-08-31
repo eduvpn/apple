@@ -72,6 +72,7 @@ protocol ProviderTableViewControllerDelegate: class {
     func didSelect(instance: Instance, providerTableViewController: ProviderTableViewController)
     func settings(providerTableViewController: ProviderTableViewController)
     func delete(instance: Instance)
+    func noProfiles(providerTableViewController: ProviderTableViewController)
 }
 
 class ProviderTableViewController: UITableViewController {
@@ -118,6 +119,10 @@ class ProviderTableViewController: UITableViewController {
         super.viewWillAppear(animated)
 
         refresh()
+
+        if providerType == .unknown {
+            delegate?.noProfiles(providerTableViewController: self)
+        }
     }
 
     @objc func refresh() {

@@ -87,7 +87,7 @@ class AppCoordinator: RootViewCoordinator {
     let accessTokenPlugin =  CredentialStorePlugin()
 
     private var currentDocumentInteractionController: UIDocumentInteractionController?
-
+    private var refreshingProfiles: Bool = false
     private var authorizingDynamicApiProvider: DynamicApiProvider?
 
     var childCoordinators: [Coordinator] = []
@@ -133,17 +133,6 @@ class AppCoordinator: RootViewCoordinator {
                         self?.providerTableViewController.delegate = self
                         self?.providerTableViewController.providerManagerCoordinator = self?.tunnelProviderManagerCoordinator
                         self?.navigationController.viewControllers = [providerTableViewController]
-                        do {
-                            if let context = self?.persistentContainer.viewContext, try Profile.countInContext(context) == 0 {
-                                if let predefinedProvider = Config.shared.predefinedProvider {
-                                    _ = self?.connect(url: predefinedProvider)
-                                } else {
-                                    self?.addProvider()
-                                }
-                            }
-                        } catch {
-                            self?.showError(error)
-                        }
                     }
                 }
             }
@@ -365,10 +354,6 @@ class AppCoordinator: RootViewCoordinator {
 
     private func showProfilesViewController() {
         let profilesViewController = storyboard.instantiateViewController(type: ProfilesViewController.self)
-
-        let fetchRequest = NSFetchRequest<Profile>()
-        fetchRequest.entity = Profile.entity()
-        fetchRequest.predicate = NSPredicate(format: "api.instance.providerType == %@", ProviderType.secureInternet.rawValue)
 
         profilesViewController.delegate = self
         do {
@@ -659,6 +644,8 @@ class AppCoordinator: RootViewCoordinator {
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData, nil)
         NVActivityIndicatorPresenter.sharedInstance.setMessage(NSLocalizedString("Refreshing profiles", comment: ""))
 
+        self.refreshingProfiles = true
+
         return dynamicApiProvider.request(apiService: .profileList).then { response -> Promise<ProfilesModel> in
             return response.mapResponse()
         }.then { profiles -> Promise<Void> in
@@ -703,6 +690,8 @@ class AppCoordinator: RootViewCoordinator {
                 self.showError(error)
                 throw error
             }
+        }.ensure {
+            self.refreshingProfiles = false
         }
     }
 
@@ -787,6 +776,10 @@ extension AppCoordinator: ProfilesViewControllerDelegate {
 }
 
 extension AppCoordinator: ProviderTableViewControllerDelegate {
+    func noProfiles(providerTableViewController: ProviderTableViewController) {
+        addProfilesWhenNoneAvailable()
+    }
+
     func addProvider(providerTableViewController: ProviderTableViewController) {
         addProvider()
     }
@@ -837,19 +830,47 @@ extension AppCoordinator: ProviderTableViewControllerDelegate {
             }
         }
 
+        var forced = false
+        if let totalProfileCount = try? Profile.countInContext(persistentContainer.viewContext), let instanceProfileCount = instance.apis?.reduce(0, { (partial, api) -> Int in
+            return partial + api.profiles.count
+        }) {
+            forced = totalProfileCount == instanceProfileCount
+        }
+
         _ = Promise<Void>(resolver: { seal in
             persistentContainer.performBackgroundTask { (context) in
-                if let backgroundProfile = context.object(with: instance.objectID) as? Instance {
-                    backgroundProfile.apis?.forEach {
+                if let backgroundInstance = context.object(with: instance.objectID) as? Instance {
+                    backgroundInstance.apis?.forEach {
                         $0.certificateModel = nil
                         $0.authState = nil
                     }
-                    context.delete(backgroundProfile)
+                    context.delete(backgroundInstance)
                 }
                 context.saveContext()
+                seal.fulfill(())
             }
-            seal.fulfill(())
-        })
+        }).ensure {
+            self.addProfilesWhenNoneAvailable(forced: forced)
+        }
+    }
+
+    private func addProfilesWhenNoneAvailable(forced: Bool = false) {
+        do {
+            if try Profile.countInContext(persistentContainer.viewContext) == 0 || forced {
+                // When running an authorization, do nothing. The user might already be adding a profile.
+                if refreshingProfiles {
+                    return
+                }
+
+                if let predefinedProvider = Config.shared.predefinedProvider {
+                    _ = connect(url: predefinedProvider)
+                } else {
+                    addProvider()
+                }
+            }
+        } catch {
+            os_log("Failed to count Profile objects: %{public}@", log: Log.general, type: .error, error.localizedDescription)
+        }
     }
 }
 
