@@ -95,9 +95,9 @@ extension ConnectionsTableViewController: NSTableViewDelegate {
             return
         }
         
-        tableView.isEnabled = false
-        
         let profile = profiles[tableView.selectedRow]
         delegate?.connect(profile: profile)
+        
+        tableView.deselectRow(tableView.selectedRow)
     }
 }
