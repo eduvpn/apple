@@ -15,7 +15,6 @@ import CoreData
 
 enum TunnelProviderManagerCoordinatorError: Error {
     case missingDelegate
-    case missingHostname
 }
 
 private let profileIdKey = "EduVPNprofileId"

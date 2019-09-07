@@ -17,7 +17,19 @@ import os.log
 
 enum ApiServiceError: Swift.Error {
     case noAuthState
+    case unauthorized
     case tokenRefreshFailed(rootCause: Error)
+
+    var localizedDescription: String {
+        switch self {
+        case .noAuthState:
+            return NSLocalizedString("No stored auth state.", comment: "")
+        case .unauthorized:
+            return NSLocalizedString("You are not authorized.", comment: "")
+        case .tokenRefreshFailed(let rootCause):
+            return String(format: NSLocalizedString("Token refresh failed due to %@", comment: ""), rootCause.localizedDescription)
+        }
+    }
 }
 
 enum ApiService {
@@ -175,7 +187,13 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
 
         }).then {_ -> Promise<Moya.Response> in
             return self.request(target: DynamicApiService(baseURL: URL(string: self.api.apiBaseUri!)!, apiService: apiService))
-        }
+            }.then({ response throws -> Promise<Moya.Response> in
+                if response.statusCode == 401 {
+                    throw ApiServiceError.unauthorized
+                }
+
+                return Promise.value(response)
+            })
     }
 }
 

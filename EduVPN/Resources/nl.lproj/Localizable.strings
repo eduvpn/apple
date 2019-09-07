@@ -3,9 +3,6 @@
 /* No comment provided by engineer. */
 "A call to `resumeAuthFlow` was called, but none available" = "Een aanroep naar `resumeAuthFlow` werd gedaan, maar er is geen instantie beschikbaar.";
 
-/* Cancel button */
-"Cancel" = "Annuleer";
-
 /* No comment provided by engineer. */
 "Connect" = "Verbind";
 
@@ -39,11 +36,11 @@
 /* No comment provided by engineer. */
 "No concrete API instance while expecting one." = "Geen concrete API instantie, terwijl die wel verwacht wordt.";
 
-/* No comment provided by engineer. */
-"No known VPN configured" = "Geen bekende VPN geconfigureerd";
-
 /* No profiles available title */
 "No profiles available" = "Geen profielen beschikbaar";
+
+/* No comment provided by engineer. */
+"No stored auth state." = "Geen autorisatie opgeslagen.";
 
 /* OK button */
 "OK" = "OK";
@@ -66,8 +63,14 @@
 /* No comment provided by engineer. */
 "Signature verification of discovery file failed." = "Signatuur verificatie van discovery file mislukt.";
 
+/* No comment provided by engineer. */
+"Static target configuration is incomplete." = "Static target configuratie is onvolledig.";
+
 /* No profiles available message */
 "There are no profiles configured for you on the instance you selected." = "Er zijn geen profielen geconfigureerd op de instance die je hebt geselecteerd.";
+
+/* No comment provided by engineer. */
+"Token refresh failed due to %@" = "Token refresh mislukt vanwege %@";
 
 /* No comment provided by engineer. */
 "Unable to extract Common Name from VPN certificate." = "Niet in staat om de Common Name uit het VPN certificaat te halen.";
@@ -87,3 +90,7 @@
 /* User notification */
 "VPN certificate is expiring and needs to be refreshed" = "VPN certificaat verloopt en moet verlengd worden";
 "The certificate for instance %@ is set to expire %@." = "Het certificaat voor instantie %@ verloopt op %@.";
+
+/* No comment provided by engineer. */
+"You are not authorized." = "Je bent niet geautoriseerd.";
+

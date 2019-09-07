@@ -234,6 +234,7 @@ class AppCoordinator: RootViewCoordinator {
 
         let commonName = String(commonNameElements[1])
         return dynamicApiProvider.request(apiService: .checkCertificate(commonName: commonName)).then { response throws -> Promise<CertificateModel> in
+
             if response.statusCode == 404 {
                 return .value(certificateModel)
             }

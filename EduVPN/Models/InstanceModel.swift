@@ -8,10 +8,6 @@
 
 import Foundation
 
-enum InstancesModelError: Swift.Error {
-    case signedAtDate
-}
-
 enum AuthorizationType: String, Decodable {
     case local
     case distributed
