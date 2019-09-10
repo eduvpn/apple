@@ -21,13 +21,13 @@ class Crypto {
                                             nil)!
         let tag = name.data(using: .utf8)!
         let attributes: [String: Any] = [
-            kSecAttrKeyType as String           : kSecAttrKeyTypeEC,
-            kSecAttrKeySizeInBits as String     : 256,
-            kSecAttrTokenID as String           : kSecAttrTokenIDSecureEnclave,
-            kSecPrivateKeyAttrs as String : [
-                kSecAttrIsPermanent as String       : true,
-                kSecAttrApplicationTag as String    : tag,
-                kSecAttrAccessControl as String     : access
+            kSecAttrKeyType as String: kSecAttrKeyTypeEC,
+            kSecAttrKeySizeInBits as String: 256,
+            kSecAttrTokenID as String: kSecAttrTokenIDSecureEnclave,
+            kSecPrivateKeyAttrs as String: [
+                kSecAttrIsPermanent as String: true,
+                kSecAttrApplicationTag as String: tag,
+                kSecAttrAccessControl as String: access
             ]
         ]
 
@@ -42,10 +42,10 @@ class Crypto {
     private static func loadKey(name: String) -> SecKey? {
         let tag = name.data(using: .utf8)!
         let query: [String: Any] = [
-            kSecClass as String                 : kSecClassKey,
-            kSecAttrApplicationTag as String    : tag,
-            kSecAttrKeyType as String           : kSecAttrKeyTypeEC,
-            kSecReturnRef as String             : true
+            kSecClass as String: kSecClassKey,
+            kSecAttrApplicationTag as String: tag,
+            kSecAttrKeyType as String: kSecAttrKeyTypeEC,
+            kSecReturnRef as String: true
         ]
 
         var item: CFTypeRef?
@@ -53,7 +53,7 @@ class Crypto {
         guard status == errSecSuccess else {
             return nil
         }
-        return (item as! SecKey)
+        return (item as! SecKey) // swiftlint:disable:this force_cast
     }
 
     static func encrypt(data clearTextData: Data) throws -> Data? {

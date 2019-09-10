@@ -654,7 +654,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# swiftlint autocorrect\n# swiftlint\n";
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		4AAC1F9A1F2D104000DD0252 /* Set build number */ = {
 			isa = PBXShellScriptBuildPhase;

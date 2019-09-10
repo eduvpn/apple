@@ -252,7 +252,7 @@ class AppCoordinator: RootViewCoordinator {
             } else {
                 throw AppCoordinatorError.certificateStatusUnknown
             }
-        }.recover{ (error) throws -> Promise<CertificateModel> in
+        }.recover { (error) throws -> Promise<CertificateModel> in
             if case ApiServiceError.unauthorized = error {
                 return dynamicApiProvider.authorize(presentingViewController: self.navigationController).then { _ -> Promise<CertificateModel> in
                     return self.checkCertificate(api: api, for: dynamicApiProvider)
@@ -300,7 +300,6 @@ class AppCoordinator: RootViewCoordinator {
                 let trigger = UNTimeIntervalNotificationTrigger(timeInterval: expirationDate.timeIntervalSinceNow, repeats: false)
             os_log("Scheduling a cert expiration reminder for %{public}@ on %{public}@.", log: Log.general, type: .info, certificate.uniqueIdentifier ?? "", signedAtDateFormatter.string(from: expirationDate))
             #endif
-
 
             // Create the request object.
             let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
@@ -386,7 +385,7 @@ class AppCoordinator: RootViewCoordinator {
             return false
         }
 
-        return 0 == crypto_sign_verify_detached (
+        return 0 == crypto_sign_verify_detached(
             signature,
             message, UInt64(message.count),
             publicKey
