@@ -598,14 +598,7 @@ class AppCoordinator: RootViewCoordinator {
             return presentationPromise
         }
 
-        // We are configured and not active.
-        if profile.isActiveConfig {
-            return presentationPromise.then {
-                return self.tunnelProviderManagerCoordinator.connect()
-            }
-        }
-
-        // We are unconfigured and not active.
+        // We are configured and not active / We are unconfigured and not active.
         return presentationPromise.then {
             return self.tunnelProviderManagerCoordinator.configure(profile: profile)
         }.then {
