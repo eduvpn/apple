@@ -13,22 +13,25 @@ class Crypto {
     private static let keyName = "disk_storage_key"
 
     private static func makeAndStoreKey(name: String) throws -> SecKey {
-        let flags: SecAccessControlCreateFlags = .privateKeyUsage
         let access =
             SecAccessControlCreateWithFlags(kCFAllocatorDefault,
                                             kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
-                                            flags,
+                                            SecAccessControlCreateFlags.privateKeyUsage,
                                             nil)!
+        var attributes = [String: Any]()
+        attributes[kSecAttrKeyType as String] = kSecAttrKeyTypeEC
+        attributes[kSecAttrKeySizeInBits as String] = 256
+        #if targetEnvironment(simulator)
+        print("SIMULATOR does not support secure enclave.")
+        #else
+        attributes[kSecAttrTokenID as String] = kSecAttrTokenIDSecureEnclave
+        #endif
+
         let tag = name.data(using: .utf8)!
-        let attributes: [String: Any] = [
-            kSecAttrKeyType as String: kSecAttrKeyTypeEC,
-            kSecAttrKeySizeInBits as String: 256,
-            kSecAttrTokenID as String: kSecAttrTokenIDSecureEnclave,
-            kSecPrivateKeyAttrs as String: [
-                kSecAttrIsPermanent as String: true,
-                kSecAttrApplicationTag as String: tag,
-                kSecAttrAccessControl as String: access
-            ]
+        attributes[kSecPrivateKeyAttrs as String] = [
+            kSecAttrIsPermanent as String: true,
+            kSecAttrApplicationTag as String: tag,
+            kSecAttrAccessControl as String: access
         ]
 
         var error: Unmanaged<CFError>?
