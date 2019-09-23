@@ -1,7 +1,8 @@
 # Changelog
 
-## iOS 13 release (version as of yet unknown)
+## 2.1.0 (unreleased)
 
+- Built against SDK 13
 - Dark mode
 
 ## 2.0.4 
