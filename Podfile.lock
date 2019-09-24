@@ -14,9 +14,9 @@ PODS:
   - Moya/Core (13.0.1):
     - Alamofire (~> 4.1)
     - Result (~> 4.1)
-  - NVActivityIndicatorView (4.7.0):
-    - NVActivityIndicatorView/Presenter (= 4.7.0)
-  - NVActivityIndicatorView/Presenter (4.7.0)
+  - NVActivityIndicatorView (4.8.0):
+    - NVActivityIndicatorView/Presenter (= 4.8.0)
+  - NVActivityIndicatorView/Presenter (4.8.0)
   - OpenSSL-Apple (1.1.0j.2)
   - PromiseKit/CorePromise (6.11.0)
   - Result (4.1.0)
@@ -44,7 +44,7 @@ DEPENDENCIES:
   - TunnelKit
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://cdn.cocoapods.org/:
     - Alamofire
     - AlamofireImage
     - libsodium
@@ -77,13 +77,13 @@ SPEC CHECKSUMS:
   ASN1Decoder: a45efbda885c723fd2a7cd71bf4ce518b2bb57af
   libsodium: 9a8faa5ef2fa0d2d57bd7f7d79bf8fb7c1a9f0ea
   Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
-  NVActivityIndicatorView: b19ddab2576f805cbe0fb2306cba3476e09a1dea
+  NVActivityIndicatorView: d24b7ebcf80af5dcd994adb650e2b6c93379270f
   OpenSSL-Apple: e88e1eb314acb4a05e2348069790c4aa49f6d319
   PromiseKit: e4863d06976e7dee5e41c04fc7371c16b3600292
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   SwiftyBeaver: da5e573ad583586c18236324c36900990afe1733
   TunnelKit: ce2ede930fd464042b4d4efba14ff1fb580d7519
 
-PODFILE CHECKSUM: 41ef7ec8f8af62e4a0c0eeb1ace748dae83dcea9
+PODFILE CHECKSUM: ee0c4f0408086022f743f0d40f66594daebd3603
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.8.0

@@ -3744,6 +3744,21 @@
 			};
 			name = Debug;
 		};
+		13EDDA52F392FE80466FCB904C08A08B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0C92AECE386590E2631B2CA0F8521C75 /* OpenSSL-Apple.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
 		165A4EBA7F91794E7B54C2F3F528FFA9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 84B780BDB53431574ACD195C985BFA55 /* NVActivityIndicatorView.xcconfig */;
@@ -3934,57 +3949,6 @@
 			};
 			name = Release;
 		};
-		25C5D5443788B6FDAAC9327E1DA133CA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0C92AECE386590E2631B2CA0F8521C75 /* OpenSSL-Apple.xcconfig */;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		25E83C02B824F8BA641404C23A63FF2F /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 62ACF69B37E9829E96C9ABC7EB6CE893 /* TunnelKit.xcconfig */;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/TunnelKit/TunnelKit-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/TunnelKit/TunnelKit-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/TunnelKit/TunnelKit.modulemap";
-				PRODUCT_MODULE_NAME = TunnelKit;
-				PRODUCT_NAME = TunnelKit;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		293ED412246BEA5A082008299952D7CF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 366CF94476D6DAC06661701224F1D031 /* Result.xcconfig */;
@@ -4076,42 +4040,6 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_VERSION = 5.1;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		35FFD99B52EFF5E26BB54C667EDE6FC7 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 34C78ECEB0E607796EDD006908D8F872 /* Pods-EduVPNTunnelExtension.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -4216,6 +4144,39 @@
 			};
 			name = Debug;
 		};
+		475025F8EEDB89EF3C300207808E4467 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0408E459BF8ACD3B3D52CB95B87C9689 /* SwiftyBeaver.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SwiftyBeaver/SwiftyBeaver-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SwiftyBeaver/SwiftyBeaver-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SwiftyBeaver/SwiftyBeaver.modulemap";
+				PRODUCT_MODULE_NAME = SwiftyBeaver;
+				PRODUCT_NAME = SwiftyBeaver;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		5DA6761BCA66CA510ADCCAD4EF7CA65A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1B5CD9D3CE45E7B745B5F88DA9B976C1 /* AlamofireImage.xcconfig */;
@@ -4313,12 +4274,13 @@
 			};
 			name = Release;
 		};
-		6BDE91FFA3847A1750FF4150980AD771 /* Release */ = {
+		623E45A5C192EE3A22BB8539D21CD41E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0408E459BF8ACD3B3D52CB95B87C9689 /* SwiftyBeaver.xcconfig */;
+			baseConfigurationReference = 34C78ECEB0E607796EDD006908D8F872 /* Pods-EduVPNTunnelExtension.debug.xcconfig */;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -4328,24 +4290,24 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SwiftyBeaver/SwiftyBeaver-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SwiftyBeaver/SwiftyBeaver-Info.plist";
+				INFOPLIST_FILE = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SwiftyBeaver/SwiftyBeaver.modulemap";
-				PRODUCT_MODULE_NAME = SwiftyBeaver;
-				PRODUCT_NAME = SwiftyBeaver;
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
 		};
 		72E37764A0CC13DE5EECEB0FAD912696 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -4379,6 +4341,40 @@
 			};
 			name = Debug;
 		};
+		7AFDF12050E5769D64D11D4E7DD53A76 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 62ACF69B37E9829E96C9ABC7EB6CE893 /* TunnelKit.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/TunnelKit/TunnelKit-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/TunnelKit/TunnelKit-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/TunnelKit/TunnelKit.modulemap";
+				PRODUCT_MODULE_NAME = TunnelKit;
+				PRODUCT_NAME = TunnelKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		7CC233AEF674F907539F28B80753B148 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F393B04C0CAE3C8D0F11B14A411D72F8 /* Alamofire.xcconfig */;
@@ -4409,23 +4405,6 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		816535567C91938C7AEA47E26EC1975F /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0C92AECE386590E2631B2CA0F8521C75 /* OpenSSL-Apple.xcconfig */;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -4462,11 +4441,26 @@
 			};
 			name = Release;
 		};
-		8E07FD884D5A8B54E0FDCCBF4CF680AA /* Debug */ = {
+		92A27CA5F91E9E4C052D8064D3F4449C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0C92AECE386590E2631B2CA0F8521C75 /* OpenSSL-Apple.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9601B878CD107D2F8A9EF8D3687791A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 62ACF69B37E9829E96C9ABC7EB6CE893 /* TunnelKit.xcconfig */;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -4496,45 +4490,11 @@
 			};
 			name = Debug;
 		};
-		C588ABB0A9651D5D339488AB1F6AE29F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0408E459BF8ACD3B3D52CB95B87C9689 /* SwiftyBeaver.xcconfig */;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SwiftyBeaver/SwiftyBeaver-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SwiftyBeaver/SwiftyBeaver-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SwiftyBeaver/SwiftyBeaver.modulemap";
-				PRODUCT_MODULE_NAME = SwiftyBeaver;
-				PRODUCT_NAME = SwiftyBeaver;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		DD3E807EE366D023750C77A52D77FFB9 /* Release */ = {
+		B4BEA5F2937EEB2BA0DB043B86F029DF /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 713044EA3B13F6E00DBFED0783B9E9EC /* Pods-EduVPNTunnelExtension.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				APPLICATION_EXTENSION_API_ONLY = YES;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -4663,6 +4623,38 @@
 			};
 			name = Release;
 		};
+		F1994730E1DF8BEA8CB5B910D6640D62 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0408E459BF8ACD3B3D52CB95B87C9689 /* SwiftyBeaver.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SwiftyBeaver/SwiftyBeaver-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SwiftyBeaver/SwiftyBeaver-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SwiftyBeaver/SwiftyBeaver.modulemap";
+				PRODUCT_MODULE_NAME = SwiftyBeaver;
+				PRODUCT_NAME = SwiftyBeaver;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		F8043CEE718E88215C459F6EC657DE32 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 766EEF237C35C36E6637B70D1C7EBF01 /* Pods-EduVPN.release.xcconfig */;
@@ -4738,8 +4730,8 @@
 		01E4D4606AD23E4E3B8FDF7AB0F33BCC /* Build configuration list for PBXNativeTarget "TunnelKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8E07FD884D5A8B54E0FDCCBF4CF680AA /* Debug */,
-				25E83C02B824F8BA641404C23A63FF2F /* Release */,
+				9601B878CD107D2F8A9EF8D3687791A4 /* Debug */,
+				7AFDF12050E5769D64D11D4E7DD53A76 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -4765,8 +4757,8 @@
 		2C6B51E34A0129A0E1C6878ABDC01FAB /* Build configuration list for PBXNativeTarget "SwiftyBeaver" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C588ABB0A9651D5D339488AB1F6AE29F /* Debug */,
-				6BDE91FFA3847A1750FF4150980AD771 /* Release */,
+				F1994730E1DF8BEA8CB5B910D6640D62 /* Debug */,
+				475025F8EEDB89EF3C300207808E4467 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -4801,8 +4793,8 @@
 		4B2FF9B93E9D5A77EABEADE96A16E37C /* Build configuration list for PBXNativeTarget "Pods-EduVPNTunnelExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				35FFD99B52EFF5E26BB54C667EDE6FC7 /* Debug */,
-				DD3E807EE366D023750C77A52D77FFB9 /* Release */,
+				623E45A5C192EE3A22BB8539D21CD41E /* Debug */,
+				B4BEA5F2937EEB2BA0DB043B86F029DF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -4819,8 +4811,8 @@
 		7CF05F4E8433289F81624BAD0397FE4B /* Build configuration list for PBXAggregateTarget "OpenSSL-Apple" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				25C5D5443788B6FDAAC9327E1DA133CA /* Debug */,
-				816535567C91938C7AEA47E26EC1975F /* Release */,
+				13EDDA52F392FE80466FCB904C08A08B /* Debug */,
+				92A27CA5F91E9E4C052D8064D3F4449C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
