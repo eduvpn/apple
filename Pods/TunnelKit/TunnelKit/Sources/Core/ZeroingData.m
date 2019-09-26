@@ -270,8 +270,10 @@
 - (BOOL)isEqualToData:(NSData *)data
 {
     NSParameterAssert(data);
-    NSParameterAssert(data.length <= _count);
 
+    if (data.length != _count) {
+        return NO;
+    }
     return !memcmp(_bytes, data.bytes, _count);
 }
 

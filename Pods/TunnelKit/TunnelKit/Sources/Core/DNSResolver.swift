@@ -81,7 +81,7 @@ public class DNSResolver {
         }
         
         var ipAddresses: [String] = []
-        for case var rawAddress as Data in rawAddresses {
+        for case let rawAddress as Data in rawAddresses {
             var ipAddress = [CChar](repeating: 0, count: Int(NI_MAXHOST))
             let result: Int32 = rawAddress.withUnsafeBytes {
                 let addr = $0.bindMemory(to: sockaddr.self).baseAddress!
