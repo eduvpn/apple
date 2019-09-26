@@ -139,7 +139,7 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
     public init?(api: Api, endpointClosure: @escaping EndpointClosure = MoyaProvider.defaultEndpointMapping,
                  stubClosure: @escaping StubClosure = MoyaProvider.neverStub,
                  callbackQueue: DispatchQueue? = nil,
-                 manager: Manager = MoyaProvider<Target>.defaultAlamofireManager(),
+                 manager: Manager = MoyaProvider<Target>.ephemeralAlamofireManager(),
                  plugins: [PluginType] = [],
                  trackInflights: Bool = false) {
 //    public init(api: Api, endpointClosure: @escaping EndpointClosure = MoyaProvider.defaultEndpointMapping,

@@ -312,7 +312,7 @@ class AppCoordinator: RootViewCoordinator {
     }
 
     fileprivate func refresh(instance: Instance) -> Promise<Void> {
-        let provider = MoyaProvider<DynamicInstanceService>()
+        let provider = MoyaProvider<DynamicInstanceService>(manager: MoyaProvider<DynamicInstanceService>.ephemeralAlamofireManager())
 
         let activityData = ActivityData()
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData, nil)
@@ -426,7 +426,7 @@ class AppCoordinator: RootViewCoordinator {
 
         providerTableViewController.providerType = providerType
 
-        let provider = MoyaProvider<StaticService>()
+        let provider = MoyaProvider<StaticService>(manager: MoyaProvider<StaticService>.ephemeralAlamofireManager())
 
         provider.request(target: sigTarget).then { response throws -> Promise<Data> in
             if let signature = Data(base64Encoded: response.data) {

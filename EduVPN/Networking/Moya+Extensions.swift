@@ -26,3 +26,14 @@ extension TargetType where Self: EmptySampleData {
         return "".data(using: String.Encoding.utf8)!
     }
 }
+
+public extension MoyaProvider {
+    final class func ephemeralAlamofireManager() -> Manager {
+        let configuration = URLSessionConfiguration.ephemeral
+        configuration.httpAdditionalHeaders = Manager.defaultHTTPHeaders
+
+        let manager = Manager(configuration: configuration)
+        manager.startRequestsImmediately = false
+        return manager
+    }
+}
