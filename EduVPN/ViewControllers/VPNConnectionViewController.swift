@@ -28,6 +28,8 @@ class VPNConnectionViewController: UIViewController {
 
     @IBOutlet var buttonConnection: UIButton!
 
+    @IBOutlet weak var buttonDisplayLog: UIButton!
+
     @IBOutlet weak var notificationLabel: UILabel!
 
     @IBOutlet var durationLabel: UILabel!
@@ -43,6 +45,8 @@ class VPNConnectionViewController: UIViewController {
     var providerManagerCoordinator: TunnelProviderManagerCoordinator!
 
     private var connectionInfoUpdateTimer: Timer?
+
+    private var refreshLog: Bool = false
 
     var status = NEVPNStatus.invalid {
         didSet {
@@ -98,7 +102,7 @@ class VPNConnectionViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] (_) in
+        connectionInfoUpdateTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] (_) in
             self?.updateConnectionInfo()
         })
         if let concreteDelegate = delegate {
@@ -123,9 +127,9 @@ class VPNConnectionViewController: UIViewController {
     }
 
     @IBAction func displayLogClicked(_ sender: Any) {
-        self.providerManagerCoordinator.loadLog { [weak self] (log) in
-            self?.logTextView.text = log
-        }
+        refreshLog.toggle()
+
+        buttonDisplayLog.titleLabel?.text = refreshLog ? NSLocalizedString("Stop refreshing log", comment: "") : NSLocalizedString("Display log", comment: "")
     }
 
     @IBAction func connectionClicked(_ sender: Any) {
@@ -206,6 +210,12 @@ class VPNConnectionViewController: UIViewController {
                 self?.outBytesLabel.text = ByteCountFormatter.string(fromByteCount: Int64(outByteCount), countStyle: .binary )
             } else {
                 self?.outBytesLabel.text = nil
+            }
+        }
+
+        if refreshLog {
+            self.providerManagerCoordinator.loadLog { [weak self] (log) in
+                self?.logTextView.text = log
             }
         }
     }
