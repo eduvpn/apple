@@ -77,12 +77,19 @@ class ConnectionsTableViewController: UITableViewController {
         return ProfileFetchedResultsControllerDelegate(tableView: self.tableView)
     }()
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        refresh()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.tableFooterView = UIView()
-        refresh()
+
         NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: Notification.Name.InstanceRefreshed, object: nil)
     }
 
     @objc func refresh() {

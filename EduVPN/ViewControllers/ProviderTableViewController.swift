@@ -134,9 +134,9 @@ class ProviderTableViewController: UITableViewController {
     }
 
     override func viewDidLoad() {
-        tableView.tableFooterView = UIView()
-
         super.viewDidLoad()
+
+        tableView.tableFooterView = UIView()
 
         if Config.shared.predefinedProvider != nil, providerType == .unknown {
             // There is a predefined provider. So do not allow adding.
@@ -148,6 +148,7 @@ class ProviderTableViewController: UITableViewController {
         }
 
         NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: Notification.Name.InstanceRefreshed, object: nil)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {

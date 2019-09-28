@@ -341,7 +341,7 @@ class AppCoordinator: RootViewCoordinator {
                 self.navigationController.popToRootViewController(animated: true)
                 return self.refreshProfiles(for: authorizingDynamicApiProvider)
             }.ensure {
-                self.providerTableViewController.refresh()
+                NotificationCenter.default.post(name: Notification.Name.InstanceRefreshed, object: self)
                 NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
         }
     }
@@ -944,4 +944,8 @@ extension AppCoordinator: VPNConnectionViewControllerDelegate {
 
         return self.systemMessages(for: dynamicApiProvider)
     }
+}
+
+extension Notification.Name {
+    static let InstanceRefreshed = Notification.Name("InstanceRefreshed")
 }
