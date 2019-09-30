@@ -60,7 +60,12 @@ class TunnelProviderManagerCoordinator: Coordinator {
 
     var appGroup: String {
         if let bundleID = Bundle.main.bundleIdentifier {
-            return "group.\(bundleID)"
+            #if os(macOS)
+            let prefix = (Bundle.main.infoDictionary?["AppIdentifierPrefix"] as? String) ?? ""
+            #else
+            let prefix = ""
+            #endif
+            return "\(prefix)group.\(bundleID)"
         } else {
             fatalError("missing bundle ID")
         }
@@ -98,6 +103,8 @@ class TunnelProviderManagerCoordinator: Coordinator {
                     builder.masksPrivateData = false
                     let configuration = builder.build()
 
+                    print("App group: \(self.appGroup)")
+                    
                     let tunnelProviderProtocolConfiguration = try! configuration.generatedTunnelProtocol( //swiftlint:disable:this force_try
                         withBundleIdentifier: self.vpnBundle,
                         appGroup: self.appGroup)
@@ -252,10 +259,10 @@ class TunnelProviderManagerCoordinator: Coordinator {
             }
 
             var manager: NETunnelProviderManager?
-
             for man in managers! {
                 if let prot = man.protocolConfiguration as? NETunnelProviderProtocol {
                     if prot.providerBundleIdentifier == self.vpnBundle {
+                        print("provider config: \(prot.providerConfiguration)")
                         manager = man
                         break
                     }
