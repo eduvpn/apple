@@ -919,6 +919,7 @@ extension AppCoordinator: TunnelProviderManagerCoordinatorDelegate {
             }
             context.saveContextToStore()
         }
+        NotificationCenter.default.post(name: Notification.Name.InstanceRefreshed, object: self)
     }
 
     func profileConfig(for profile: Profile) -> Promise<[String]> {
