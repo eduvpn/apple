@@ -4,6 +4,10 @@
 
 - Built against SDK 13
 - Dark mode
+- Update dependencies
+- Auto refresh log view
+- Status images are now kept up to date with the actual VPN status
+
 
 ## 2.0.4 
 
