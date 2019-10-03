@@ -137,6 +137,7 @@ class AppCoordinator: RootViewCoordinator {
         persistentContainer.loadPersistentStores { [weak self] (_, error) in
             if let error = error {
                 os_log("Unable to Load Persistent Store. %{public}@", log: Log.general, type: .info, error.localizedDescription)
+                self?.showError(error)
             } else {
                 DispatchQueue.main.async {
 
