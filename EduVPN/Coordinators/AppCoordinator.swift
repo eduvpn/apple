@@ -34,12 +34,17 @@ enum AppCoordinatorError: Swift.Error {
     case certificateCommonNameNotFound
     case certificateStatusUnknown
     case apiMissing
+    case profileIdMissing
     case apiProviderCreateFailed
     case sodiumSignatureFetchFailed
+    case sodiumSignatureMissing
     case sodiumSignatureVerifyFailed
     case ovpnConfigTemplate
+    case certificateModelMissing
     case ovpnConfigTemplateNoRemotes
     case missingStaticTargets
+    case urlCreation
+    case ovpnTemplate
 
     var localizedDescription: String {
         switch self {
@@ -53,18 +58,28 @@ enum AppCoordinatorError: Swift.Error {
             return NSLocalizedString("VPN certificate status is unknown.", comment: "")
         case .apiMissing:
             return NSLocalizedString("No concrete API instance while expecting one.", comment: "")
+        case .profileIdMissing:
+            return NSLocalizedString("No concrete profileId while expecting one.", comment: "")
         case .apiProviderCreateFailed:
             return NSLocalizedString("Failed to create dynamic API provider.", comment: "")
         case .sodiumSignatureFetchFailed:
             return NSLocalizedString("Fetching signature failed.", comment: "")
+        case .sodiumSignatureMissing:
+            return NSLocalizedString("Verify signature missing.", comment: "")
         case .sodiumSignatureVerifyFailed:
             return NSLocalizedString("Signature verification of discovery file failed.", comment: "")
         case .ovpnConfigTemplate:
             return NSLocalizedString("Unable to materialize an OpenVPN config.", comment: "")
+        case .certificateModelMissing:
+            return NSLocalizedString("Missing certificate model.", comment: "")
         case .ovpnConfigTemplateNoRemotes:
             return NSLocalizedString("OpenVPN template has no remotes.", comment: "")
         case .missingStaticTargets:
             return NSLocalizedString("Static target configuration is incomplete.", comment: "")
+        case .urlCreation:
+            return NSLocalizedString("Failed to create URL.", comment: "")
+        case .ovpnTemplate:
+            return NSLocalizedString("OVPN template is not valid.", comment: "")
         }
     }
 }
@@ -84,7 +99,7 @@ class AppCoordinator: RootViewCoordinator {
 
     // MARK: - Properties
 
-    let accessTokenPlugin =  CredentialStorePlugin()
+    let accessTokenPlugin = CredentialStorePlugin()
 
     private var currentDocumentInteractionController: UIDocumentInteractionController?
     private var refreshingProfiles: Bool = false
@@ -140,7 +155,7 @@ class AppCoordinator: RootViewCoordinator {
 
         // Migratation
         self.persistentContainer.performBackgroundTask({ (context) in
-            let profiles =  try? Profile.allInContext(context)
+            let profiles = try? Profile.allInContext(context)
             // Make sure all profiles have a UUID
             profiles?.forEach({ (profile) in
                 if profile.uuid == nil {
@@ -177,7 +192,7 @@ class AppCoordinator: RootViewCoordinator {
     }
 
     func loadCertificate(for api: Api) -> Promise<CertificateModel> {
-        guard let dynamicApiProvider = DynamicApiProvider(api: api) else { return Promise.init(error: AppCoordinatorError.apiProviderCreateFailed) }
+        guard let dynamicApiProvider = DynamicApiProvider(api: api) else { return Promise(error: AppCoordinatorError.apiProviderCreateFailed) }
 
         if let certificateModel = api.certificateModel {
             if certificateModel.x509Certificate?.checkValidity() ?? false {
@@ -209,7 +224,7 @@ class AppCoordinator: RootViewCoordinator {
             }
         }).then {response -> Promise<CertificateModel> in
                 return response.mapResponse()
-            }.map { (model) -> CertificateModel in
+        }.map { (model) -> CertificateModel in
                 api.certificateModel = model
                 self.scheduleCertificateExpirationNotification(for: model, on: api)
                 return model
@@ -318,9 +333,16 @@ class AppCoordinator: RootViewCoordinator {
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData, nil)
         NVActivityIndicatorPresenter.sharedInstance.setMessage(NSLocalizedString("Fetching instance configuration", comment: ""))
 
-        return provider.request(target: DynamicInstanceService(baseURL: URL(string: instance.baseUri!)!)).then { response -> Promise<InstanceInfoModel> in
+        return firstly { () -> Promise<URL> in
+            guard let baseURL = (instance.baseUri.flatMap {URL(string: $0)}) else {
+                throw AppCoordinatorError.urlCreation
+            }
+            return .value(baseURL)
+        }.then { (baseURL) -> Promise<Moya.Response> in
+            return provider.request(target: DynamicInstanceService(baseURL: baseURL))
+        }.then { response -> Promise<InstanceInfoModel> in
             return response.mapResponse()
-            }.then { instanceInfoModel -> Promise<Api> in
+        }.then { instanceInfoModel -> Promise<Api> in
                 return Promise<Api>(resolver: { seal in
                     self.persistentContainer.performBackgroundTask({ (context) in
                         let authServer = AuthServer.upsert(with: instanceInfoModel, on: context)
@@ -335,12 +357,12 @@ class AppCoordinator: RootViewCoordinator {
                         seal.fulfill(api)
                     })
                 })
-            }.then { (api) -> Promise<Void> in
+        }.then { (api) -> Promise<Void> in
                 let api = self.persistentContainer.viewContext.object(with: api.objectID) as! Api //swiftlint:disable:this force_cast
                 guard let authorizingDynamicApiProvider = DynamicApiProvider(api: api) else { return .value(()) }
                 self.navigationController.popToRootViewController(animated: true)
                 return self.refreshProfiles(for: authorizingDynamicApiProvider)
-            }.ensure {
+        }.ensure {
                 NotificationCenter.default.post(name: Notification.Name.InstanceRefreshed, object: self)
                 NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
         }
@@ -436,7 +458,10 @@ class AppCoordinator: RootViewCoordinator {
             }
         }.then { signature -> Promise<Moya.Response> in
             return provider.request(target: target).then { response throws -> Promise<Moya.Response> in
-                guard self.verify(message: Array(response.data), publicKey: Array(StaticService.publicKey), signature: Array(signature)) else {
+                guard let publicKey = StaticService.publicKey else {
+                    throw AppCoordinatorError.sodiumSignatureMissing
+                }
+                guard self.verify(message: Array(response.data), publicKey: Array(publicKey), signature: Array(signature)) else {
                     throw AppCoordinatorError.sodiumSignatureVerifyFailed
                 }
                 return Promise.value(response)
@@ -527,6 +552,11 @@ class AppCoordinator: RootViewCoordinator {
             return Promise(error: AppCoordinatorError.apiMissing)
         }
 
+        guard let profileId = profile.profileId else {
+            precondition(false, "This should never happen")
+            return Promise(error: AppCoordinatorError.profileIdMissing)
+        }
+
         guard let dynamicApiProvider = DynamicApiProvider(api: api) else {
             return Promise(error: AppCoordinatorError.apiProviderCreateFailed)
         }
@@ -535,49 +565,53 @@ class AppCoordinator: RootViewCoordinator {
 
         return loadCertificate(for: api).then { _ -> Promise<Response> in
             NVActivityIndicatorPresenter.sharedInstance.setMessage(NSLocalizedString("Requesting profile config", comment: ""))
-            return dynamicApiProvider.request(apiService: .profileConfig(profileId: profile.profileId!))
-            }.map { response -> [String] in
-                guard var ovpnFileContent = String(data: response.data, encoding: .utf8) else {
-                    throw AppCoordinatorError.ovpnConfigTemplate
+            return dynamicApiProvider.request(apiService: .profileConfig(profileId: profileId))
+        }.map { response throws -> [String] in
+            guard var ovpnFileContent = String(data: response.data, encoding: .utf8) else {
+                throw AppCoordinatorError.ovpnConfigTemplate
+            }
+
+            guard let certificateModel = api.certificateModel else {
+                throw AppCoordinatorError.certificateModelMissing
+            }
+
+            ovpnFileContent = self.forceTcp(on: ovpnFileContent)
+            try self.validateRemote(on: ovpnFileContent)
+            ovpnFileContent = try self.merge(key: certificateModel.privateKeyString, certificate: certificateModel.certificateString, into: ovpnFileContent)
+            let lines = ovpnFileContent.components(separatedBy: .newlines).map {
+                $0.trimmingCharacters(in: .whitespacesAndNewlines)
+            }.filter {
+                !$0.isEmpty
+            }
+
+            return lines
+        }.recover { (error) throws -> Promise<[String]> in
+            NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
+
+            if retry {
+                self.showError(error)
+                throw error
+            }
+
+            func retryFetchProfile() -> Promise<[String]> {
+                self.authorizingDynamicApiProvider = dynamicApiProvider
+                return dynamicApiProvider.authorize(presentingViewController: self.navigationController).then { _ -> Promise<[String]> in
+                    return self.fetchProfile(for: profile, retry: true)
                 }
 
-                ovpnFileContent = self.forceTcp(on: ovpnFileContent)
-                try self.validateRemote(on: ovpnFileContent)
-                ovpnFileContent = self.merge(key: api.certificateModel!.privateKeyString, certificate: api.certificateModel!.certificateString, into: ovpnFileContent)
-                let lines = ovpnFileContent.components(separatedBy: .newlines).map {
-                    $0.trimmingCharacters(in: .whitespacesAndNewlines)
-                    }.filter {
-                        !$0.isEmpty
-                }
+            }
 
-                return lines
-            }.recover { (error) throws -> Promise<[String]> in
-                NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
+            if let nsError = error as NSError?, nsError.domain == NSURLErrorDomain && nsError.code == NSURLErrorNetworkConnectionLost {
+                return retryFetchProfile()
+            }
 
-                if retry {
-                    self.showError(error)
-                    throw error
-                }
-
-                func retryFetchProfile() -> Promise<[String]> {
-                    self.authorizingDynamicApiProvider = dynamicApiProvider
-                    return dynamicApiProvider.authorize(presentingViewController: self.navigationController).then { _ -> Promise<[String]> in
-                        return self.fetchProfile(for: profile, retry: true)
-                    }
-
-                }
-
-                if let nsError = error as NSError?, nsError.domain == NSURLErrorDomain && nsError.code == NSURLErrorNetworkConnectionLost {
-                    return retryFetchProfile()
-                }
-
-                switch error {
-                case ApiServiceError.tokenRefreshFailed, ApiServiceError.noAuthState :
-                    return retryFetchProfile()
-                default:
-                    self.showError(error)
-                    throw error
-                }
+            switch error {
+            case ApiServiceError.tokenRefreshFailed, ApiServiceError.noAuthState :
+                return retryFetchProfile()
+            default:
+                self.showError(error)
+                throw error
+            }
         }
     }
 
@@ -697,10 +731,13 @@ class AppCoordinator: RootViewCoordinator {
     }
 
     /// merge ovpn profile with keypair
-    private func merge(key: String, certificate: String, into ovpnFileContent: String) -> String {
+    private func merge(key: String, certificate: String, into ovpnFileContent: String) throws -> String {
         var ovpnFileContent = ovpnFileContent
 
-        let insertionIndex = ovpnFileContent.range(of: "</ca>")!.upperBound
+        guard let caRange = ovpnFileContent.range(of: "</ca>") else {
+            throw AppCoordinatorError.ovpnTemplate
+        }
+        let insertionIndex = caRange.upperBound
         ovpnFileContent.insert(contentsOf: "\n<key>\n\(key)\n</key>", at: insertionIndex)
         ovpnFileContent.insert(contentsOf: "\n<cert>\n\(certificate)\n</cert>", at: insertionIndex)
         ovpnFileContent = ovpnFileContent.replacingOccurrences(of: "auth none\r\n", with: "")
@@ -721,7 +758,7 @@ class AppCoordinator: RootViewCoordinator {
 
     private func validateRemote(on ovpnFileContent: String) throws {
         guard let remoteTcpRegex = try? NSRegularExpression(pattern: "remote.*", options: []) else { fatalError("Regular expression has been validated to compile, should not fail.") }
-        if 0 == remoteTcpRegex.numberOfMatches(in: ovpnFileContent, options: [], range: NSRange(location: 0, length: ovpnFileContent.utf16.count)) {
+        if remoteTcpRegex.numberOfMatches(in: ovpnFileContent, options: [], range: NSRange(location: 0, length: ovpnFileContent.utf16.count)) == 0 {
             throw AppCoordinatorError.ovpnConfigTemplateNoRemotes
         }
     }

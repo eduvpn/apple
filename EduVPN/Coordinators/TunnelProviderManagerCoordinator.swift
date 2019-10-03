@@ -15,6 +15,7 @@ import CoreData
 
 enum TunnelProviderManagerCoordinatorError: Error {
     case missingDelegate
+    case missingTunnelProviderManager
 }
 
 private let profileIdKey = "EduVPNprofileId"
@@ -75,7 +76,10 @@ class TunnelProviderManagerCoordinator: Coordinator {
                     return
                 }
 
-                let manager = self.currentManager!
+                guard let manager = self.currentManager else {
+                    resolver.reject(TunnelProviderManagerCoordinatorError.missingTunnelProviderManager)
+                    return
+                }
 
                 manager.removeFromPreferences(completionHandler: { (error) in
                     if let error = error {
@@ -89,7 +93,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
         })
     }
 
-    func configure(profile: Profile)  -> Promise<Void> {
+    func configure(profile: Profile) -> Promise<Void> {
         guard let delegate = delegate else {
             return Promise(error: TunnelProviderManagerCoordinatorError.missingDelegate)
         }
@@ -218,7 +222,11 @@ class TunnelProviderManagerCoordinator: Coordinator {
                 return
             }
 
-            let manager = self.currentManager!
+            guard let manager = self.currentManager else {
+                completionHandler(TunnelProviderManagerCoordinatorError.missingTunnelProviderManager)
+                return
+            }
+
             if let protocolConfiguration = configure(manager) {
                 manager.protocolConfiguration = protocolConfiguration
             }
@@ -251,7 +259,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
 
             var manager: NETunnelProviderManager?
 
-            for man in managers! {
+            for man in managers ?? [] {
                 if let prot = man.protocolConfiguration as? NETunnelProviderProtocol {
                     if prot.providerBundleIdentifier == self.vpnBundle {
                         manager = man

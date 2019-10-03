@@ -9,15 +9,21 @@
 import Foundation
 import os.log
 
+enum CryptoError: Error {
+    case keyCreationFailed
+}
+
 class Crypto {
     private static let keyName = "disk_storage_key"
 
     private static func makeAndStoreKey(name: String) throws -> SecKey {
-        let access =
+        guard let access =
             SecAccessControlCreateWithFlags(kCFAllocatorDefault,
                                             kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
                                             SecAccessControlCreateFlags.privateKeyUsage,
-                                            nil)!
+                                            nil) else {
+                                                throw CryptoError.keyCreationFailed
+        }
         var attributes = [String: Any]()
         attributes[kSecAttrKeyType as String] = kSecAttrKeyTypeEC
         attributes[kSecAttrKeySizeInBits as String] = 256
@@ -27,7 +33,7 @@ class Crypto {
         attributes[kSecAttrTokenID as String] = kSecAttrTokenIDSecureEnclave
         #endif
 
-        let tag = name.data(using: .utf8)!
+        let tag = name.data(using: .utf8) ?? Data()
         attributes[kSecPrivateKeyAttrs as String] = [
             kSecAttrIsPermanent as String: true,
             kSecAttrApplicationTag as String: tag,
@@ -35,15 +41,21 @@ class Crypto {
         ]
 
         var error: Unmanaged<CFError>?
-        guard let privateKey = SecKeyCreateRandomKey(attributes as CFDictionary, &error) else {
-            throw error!.takeRetainedValue() as Error
+        let privateKey = SecKeyCreateRandomKey(attributes as CFDictionary, &error)
+
+        if let error = error {
+            throw error.takeRetainedValue() as Error
         }
 
-        return privateKey
+        guard let unwrappedPrivateKey = privateKey else {
+            throw CryptoError.keyCreationFailed
+        }
+
+        return unwrappedPrivateKey
     }
 
     private static func loadKey(name: String) -> SecKey? {
-        let tag = name.data(using: .utf8)!
+        let tag = name.data(using: .utf8) ?? Data()
         let query: [String: Any] = [
             kSecClass as String: kSecClassKey,
             kSecAttrApplicationTag as String: tag,
@@ -75,8 +87,12 @@ class Crypto {
         let cipherTextData = SecKeyCreateEncryptedData(publicKey, algorithm,
                                                        clearTextData as CFData,
                                                        &error) as Data?
+        if let error = error {
+            os_log("Can't encrypt. %{public}@", log: Log.crypto, type: .error, (error.takeRetainedValue() as Error).localizedDescription)
+            return nil
+        }
         guard cipherTextData != nil else {
-            os_log("Can't encrypt. %{public}@", log: Log.crypto, type: .error, (error!.takeRetainedValue() as Error).localizedDescription)
+            os_log("Can't encrypt. No resulting cipherTextData", log: Log.crypto, type: .error)
             return nil
         }
 
@@ -98,8 +114,12 @@ class Crypto {
                                                       algorithm,
                                                       cipherTextData as CFData,
                                                       &error) as Data?
+        if let error = error {
+            os_log("Can't decrypt. %{public}@", log: Log.crypto, type: .error, (error.takeRetainedValue() as Error).localizedDescription)
+            return nil
+        }
         guard clearTextData != nil else {
-            os_log("Can't decrypt. %{public}@", log: Log.crypto, type: .error, (error!.takeRetainedValue() as Error).localizedDescription)
+            os_log("Can't decrypt. No resulting cleartextData.", log: Log.crypto, type: .error)
             return nil
         }
         os_log("Decrypted data.", log: Log.crypto, type: .info)

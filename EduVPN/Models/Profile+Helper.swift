@@ -25,8 +25,7 @@ extension Profile {
 
         if let api = context.object(with: api.objectID) as? Api {
             api.profiles.forEach {
-                let profileId = $0.profileId!
-                if let model = keyedModels.removeValue(forKey: profileId) {
+                if let profileId = $0.profileId, let model = keyedModels.removeValue(forKey: profileId) {
                     // Update existing models
                     $0.update(with: model)
                 } else {
@@ -46,18 +45,21 @@ extension Profile {
     }
 
     func update(with profileModel: InstanceProfileModel) {
+        guard let managedObjectContext = self.managedObjectContext else {
+            return
+        }
         self.profileId = profileModel.profileId
 
         if let displayNames = profileModel.displayNames {
             self.displayNames = Set(displayNames.compactMap({ (displayData) -> DisplayName? in
-                let displayName = DisplayName(context: self.managedObjectContext!)
+                let displayName = DisplayName(context: managedObjectContext)
                 displayName.locale = displayData.key
                 displayName.displayName = displayData.value
                 displayName.profile = self
                 return displayName
             }))
         } else if let displayNameString = profileModel.displayName {
-            let displayName = DisplayName(context: self.managedObjectContext!)
+            let displayName = DisplayName(context: managedObjectContext)
             displayName.displayName = displayNameString
             displayName.profile = self
         } else {

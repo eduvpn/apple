@@ -7,7 +7,7 @@
 //
 
 import Foundation
-extension Set where Element  == Logo {
+extension Set where Element == Logo {
     var localizedValue: String? {
         var mapping = [String: String]()
 

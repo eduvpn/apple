@@ -34,12 +34,12 @@ struct StaticService: TargetType, AcceptJson {
 
     var method: Moya.Method { return .get }
     var task: Task { return .requestPlain }
-    var sampleData: Data { return "".data(using: String.Encoding.utf8)! }
+    var sampleData: Data { return "".data(using: String.Encoding.utf8) ?? Data() }
 
     var baseURL: URL
     var path: String
 
-    static var publicKey: Data {
-        return Config.shared.discovery!.signaturePublicKey!
+    static var publicKey: Data? {
+        return Config.shared.discovery?.signaturePublicKey
     }
 }
