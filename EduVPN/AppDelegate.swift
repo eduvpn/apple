@@ -22,9 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = UIColor(named: "tintColor")
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)]
 
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.appCoordinator = AppCoordinator(window: self.window!)
-        self.appCoordinator.start()
+        let freshWindow = UIWindow(frame: UIScreen.main.bounds)
+        window = freshWindow
+        appCoordinator = AppCoordinator(window: freshWindow)
+        appCoordinator.start()
 
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { (granted, error) in
             if !granted {
