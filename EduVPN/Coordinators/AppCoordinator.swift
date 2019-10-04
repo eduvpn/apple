@@ -624,6 +624,7 @@ class AppCoordinator: RootViewCoordinator {
 
         let navController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(type: UINavigationController.self)
         navController.viewControllers = [connectionViewController]
+        navController.modalPresentationStyle = .pageSheet
         let presentationPromise = Promise(resolver: { (seal) in
             self.navigationController.present(navController, animated: true, completion: { seal.resolve(nil) })
         })
