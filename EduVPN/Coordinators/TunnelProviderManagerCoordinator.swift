@@ -279,10 +279,14 @@ class TunnelProviderManagerCoordinator: Coordinator {
 
     @objc private func refresh() {
         reloadCurrentManager { [weak self] (_) in
-            guard let status = self?.currentManager?.connection.status else {
-                return
+            guard let self = self else { return }
+
+            if let prot = self.currentManager?.protocolConfiguration as? NETunnelProviderProtocol {
+                if prot.providerBundleIdentifier == self.vpnBundle {
+                    let status = self.currentManager?.connection.status ?? NEVPNStatus.invalid
+                    self.delegate?.updateProfileStatus(with: status)
+                }
             }
-            self?.delegate?.updateProfileStatus(with: status)
         }
     }
 
