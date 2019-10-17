@@ -99,6 +99,10 @@ class ProviderTableViewController: UITableViewController {
         }
 
         var sortDescriptors = [NSSortDescriptor]()
+        if case .unknown = providerType {
+            sortDescriptors.append(NSSortDescriptor(key: "lastAccessedTimeInterval", ascending: false))
+        }
+
         if Config.shared.discovery != nil {
             sortDescriptors.append(NSSortDescriptor(key: "providerType", ascending: true))
         }

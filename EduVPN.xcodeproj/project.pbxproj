@@ -115,6 +115,7 @@
 		11EE63FC99D26438F0B980F7 /* Pods-EduVPNTunnelExtension.release appforce1.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension.release appforce1.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.release appforce1.xcconfig"; sourceTree = "<group>"; };
 		1C644DAFAF71735E397E6E30 /* Pods-EduVPN.release appforce1.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPN.release appforce1.xcconfig"; path = "Target Support Files/Pods-EduVPN/Pods-EduVPN.release appforce1.xcconfig"; sourceTree = "<group>"; };
 		4A01329921CDA2C2009B8B02 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
+		4A08F183235902CF00986091 /* EduVPN 7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EduVPN 7.xcdatamodel"; sourceTree = "<group>"; };
 		4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNConnectionViewController.swift; sourceTree = "<group>"; };
 		4A140BBB21B5D7F5000A87E3 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		4A2803D81FA6867D00FA895C /* CustomProviderInPutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProviderInPutViewController.swift; sourceTree = "<group>"; };
@@ -1191,6 +1192,7 @@
 		4AECAB402027091900B5105B /* EduVPN.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				4A08F183235902CF00986091 /* EduVPN 7.xcdatamodel */,
 				4A90E31D225FE3F700F08E5F /* EduVPN 6.xcdatamodel */,
 				4A8B951721F10DE300667A34 /* EduVPN 5.xcdatamodel */,
 				4AAEBDF321BAFC9B00D3A940 /* EduVPN 4.xcdatamodel */,
@@ -1198,7 +1200,7 @@
 				4AC8991320F3176D008696A1 /* EduVPN 2.xcdatamodel */,
 				4AECAB412027091900B5105B /* EduVPN.xcdatamodel */,
 			);
-			currentVersion = 4A90E31D225FE3F700F08E5F /* EduVPN 6.xcdatamodel */;
+			currentVersion = 4A08F183235902CF00986091 /* EduVPN 7.xcdatamodel */;
 			path = EduVPN.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

@@ -36,7 +36,7 @@ class Crypto {
         let tag = name.data(using: .utf8) ?? Data()
         attributes[kSecPrivateKeyAttrs as String] = [
             kSecAttrIsPermanent as String: true,
-            kSecAttrApplicationTag as String: tag,
+            kSecAttrLabel as String: tag,
             kSecAttrAccessControl as String: access
         ]
 
@@ -58,8 +58,9 @@ class Crypto {
         let tag = name.data(using: .utf8) ?? Data()
         let query: [String: Any] = [
             kSecClass as String: kSecClassKey,
-            kSecAttrApplicationTag as String: tag,
+            kSecAttrLabel as String: tag,
             kSecAttrKeyType as String: kSecAttrKeyTypeEC,
+            kSecAttrKeyClass as String: kSecAttrKeyClassPrivate,
             kSecReturnRef as String: true
         ]
 

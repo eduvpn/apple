@@ -841,6 +841,13 @@ extension AppCoordinator: ProviderTableViewControllerDelegate {
     func didSelect(instance: Instance, providerTableViewController: ProviderTableViewController) {
         if providerTableViewController.providerType == .unknown {
             do {
+                persistentContainer.performBackgroundTask { (context) in
+                    if let backgroundInstance = context.object(with: instance.objectID) as? Instance {
+                        let now = Date().timeIntervalSince1970
+                        backgroundInstance.lastAccessedTimeInterval = now
+                        context.saveContext()
+                    }
+                }
                 let count = try Profile.countInContext(self.persistentContainer.viewContext, predicate: NSPredicate(format: "api.instance == %@", instance))
                 if count > 1 {
                     self.showConnectionsTableViewController(for: instance)
