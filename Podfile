@@ -14,21 +14,8 @@ end
 # macOS Pods
 
 def pods_macos
-  platform :osx, '10.12'
-
-  pod 'AppAuth', :git => 'https://github.com/openid/AppAuth-iOS.git'
-  pod 'ASN1Decoder'
-  pod 'BlueSocket', '1.0.46'
-  pod 'Kingfisher', '5.5.0'
-  pod 'libsodium'
-  pod 'Moya'
-  pod 'PromiseKit/CorePromise'
-  pod 'ReachabilitySwift', '4.3.1'
-  pod 'Sodium', '0.8.0'
-  pod 'Sparkle', '1.21.3'
-  pod 'Then'
+  platform :osx, '10.13'
   pod 'TunnelKit', '1.7.1'
-  pod 'FileKit', '~> 5.2.0'
 end
 
 # Setup targets
@@ -54,13 +41,22 @@ end
 
 target 'EduVPN-macOS' do
   pods_macos
+  
+  pod 'AppAuth', :git => 'https://github.com/openid/AppAuth-iOS.git'
+  pod 'ASN1Decoder'
+  pod 'BlueSocket', '1.0.46'
+  pod 'Kingfisher', '5.5.0'
+  pod 'libsodium'
+  pod 'Moya'
+  pod 'PromiseKit/CorePromise'
+  pod 'ReachabilitySwift', '4.3.1'
+  pod 'Sodium', '0.8.0'
+  pod 'Sparkle', '1.21.3'
+  pod 'Then'
+  pod 'FileKit', '~> 5.2.0'
 end
 
 target 'EduVPNTunnelExtension-macOS' do
-  pods_macos
-end
-
-target 'LetsConnect-macOS' do
   pods_macos
 end
 
