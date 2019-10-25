@@ -48,6 +48,8 @@ class VPNConnectionViewController: UIViewController {
 
     // MARK: - Status
 
+    private var refreshLog: Bool = false
+
     var status = NEVPNStatus.invalid {
         didSet {
             switch status {
@@ -161,8 +163,8 @@ class VPNConnectionViewController: UIViewController {
 
         durationLabel.text = intervalString
 
-        try? vpn.sendProviderMessage(TunnelKitProvider.Message.dataCount.data) { [weak self] data in
-            let dataCount = data?.withUnsafeBytes { pointer -> (UInt64, UInt64) in
+        try? vpn.sendProviderMessage(OpenVPNTunnelProvider.Message.dataCount.data) { [weak self] (data) in
+            let dataCount = data?.withUnsafeBytes({ (pointer) -> (UInt64, UInt64) in
                 pointer.load(as: (UInt64, UInt64).self)
             }
 
@@ -214,6 +216,12 @@ class VPNConnectionViewController: UIViewController {
                 self?.notificationLabel.text = systemMessages.displayString
                 return Guarantee<Void>()
             })
+        }
+
+        if refreshLog {
+            self.providerManagerCoordinator.loadLog { [weak self] (log) in
+                self?.logTextView.text = log
+            }
         }
     }
 

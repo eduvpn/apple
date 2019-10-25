@@ -1,9 +1,9 @@
 //
 //  Instance+CoreDataProperties.swift
-//  eduVPN
+//  EduVPN
 //
-//  Created by Jeroen Leenarts on 11-02-18.
-//  Copyright © 2018 SURFNet. All rights reserved.
+//  Created by Jeroen Leenarts on 17/10/2019.
+//  Copyright © 2019 SURFNet. All rights reserved.
 //
 //
 
@@ -19,6 +19,7 @@ extension Instance {
     @NSManaged public var baseUri: String?
     @NSManaged public var providerType: String?
     @NSManaged public var publicKey: String?
+    @NSManaged public var lastAccessedTimeInterval: Double
     @NSManaged public var apis: Set<Api>?
     @NSManaged public var displayNames: Set<DisplayName>?
     @NSManaged public var logos: Set<Logo>?

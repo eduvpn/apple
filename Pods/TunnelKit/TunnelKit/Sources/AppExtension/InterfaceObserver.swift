@@ -33,7 +33,6 @@
 //
 //      THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
-//
 
 import Foundation
 import SystemConfiguration.CaptiveNetwork
@@ -42,17 +41,25 @@ import SwiftyBeaver
 private let log = SwiftyBeaver.self
 
 extension NSNotification.Name {
-    static let __InterfaceObserverDidDetectWifiChange = NSNotification.Name("__InterfaceObserverDidDetectWifiChange")
+
+    /// A change in Wi-Fi state occurred.
+    public static let InterfaceObserverDidDetectWifiChange = NSNotification.Name("InterfaceObserverDidDetectWifiChange")
 }
 
-class InterfaceObserver: NSObject {
+/// Observes changes in the current Wi-Fi network.
+public class InterfaceObserver: NSObject {
     private var queue: DispatchQueue?
     
     private var timer: DispatchSourceTimer?
     
     private var lastWifiName: String?
-    
-    func start(queue: DispatchQueue) {
+
+    /**
+     Starts observing Wi-Fi updates.
+
+     - Parameter queue: The `DispatchQueue` to deliver notifications to.
+     **/
+    public func start(queue: DispatchQueue) {
         self.queue = queue
 
         let timer = DispatchSource.makeTimerSource(flags: DispatchSource.TimerFlags(rawValue: UInt(0)), queue: queue)
@@ -64,8 +71,11 @@ class InterfaceObserver: NSObject {
 
         self.timer = timer
     }
-    
-    func stop() {
+
+    /**
+     Stops observing Wi-Fi updates.
+     **/
+    public func stop() {
         timer?.cancel()
         timer = nil
         queue = nil
@@ -78,7 +88,7 @@ class InterfaceObserver: NSObject {
                 log.debug("SSID is now '\(current.maskedDescription)'")
                 if let last = lastWifiName, (current != last) {
                     queue?.async {
-                        NotificationCenter.default.post(name: .__InterfaceObserverDidDetectWifiChange, object: nil)
+                        NotificationCenter.default.post(name: .InterfaceObserverDidDetectWifiChange, object: nil)
                     }
                 }
             } else {
@@ -88,7 +98,12 @@ class InterfaceObserver: NSObject {
         lastWifiName = currentWifiName
     }
 
-    func currentWifiNetworkName() -> String? {
+    /**
+     Returns the current Wi-Fi SSID if any.
+
+     - Returns: The current Wi-Fi SSID if any.
+     **/
+    public func currentWifiNetworkName() -> String? {
         #if os(iOS)
         guard let interfaceNames = CNCopySupportedInterfaces() as? [CFString] else {
             return nil

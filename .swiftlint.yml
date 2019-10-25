@@ -1,3 +1,22 @@
+opt_in_rules:
+ - operator_usage_whitespace
+ - closure_end_indentation
+ - closure_parameter_position
+ - explicit_init
+ - unused_import
+ - first_where
+ - empty_string
+ - last_where
+ - modifier_order
+ - legacy_random
+ - prohibited_super_call
+ - override_in_extension
+ - unused_optional_binding
+ - yoda_condition
+ - force_unwrapping
+ - fallthrough
+ - empty_count
+
 disabled_rules:
  - line_length
  - trailing_comma

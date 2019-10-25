@@ -1,5 +1,5 @@
 //
-//  showProfilesViewController.swift
+//  ProfilesViewController.swift
 //  eduVPN
 //
 //  Created by Jeroen Leenarts on 08-08-17.

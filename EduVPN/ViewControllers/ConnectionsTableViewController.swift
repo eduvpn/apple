@@ -86,6 +86,12 @@ class ConnectionsTableViewController: UITableViewController {
         return CoreDataFetchedResultsControllerDelegate<Profile>(tableView: self.tableView)
     }()
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        refresh()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 

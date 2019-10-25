@@ -8,5 +8,5 @@
 
 import TunnelKit
 
-class PacketTunnelProvider: TunnelKitProvider {
+class PacketTunnelProvider: OpenVPNTunnelProvider {
 }

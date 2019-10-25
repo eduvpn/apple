@@ -42,7 +42,7 @@ class CustomProviderInPutViewController: UIViewController {
     }
 
     private func urlFromInput() -> URL? {
-        guard let input = addressField.text, input.count > 0 else { return nil }
+        guard let input = addressField.text, !input.isEmpty else { return nil }
         let urlString = "https://\(input)"
         return URL(string: urlString)
     }

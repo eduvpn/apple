@@ -18,13 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-        UINavigationBar.appearance().barTintColor = #colorLiteral(red: 0, green: 0.7509453893, blue: 0.8513121009, alpha: 1)
-        UINavigationBar.appearance().tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        UINavigationBar.appearance().barTintColor = UIColor(named: "barTintColor")
+        UINavigationBar.appearance().tintColor = UIColor(named: "tintColor")
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)]
 
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.appCoordinator = AppCoordinator(window: self.window!)
-        self.appCoordinator.start()
+        let freshWindow = UIWindow(frame: UIScreen.main.bounds)
+        window = freshWindow
+        appCoordinator = AppCoordinator(window: freshWindow)
+        appCoordinator.start()
 
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { (granted, error) in
             if !granted {

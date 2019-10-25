@@ -33,44 +33,51 @@
 //
 //      THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
-//
 
 import Foundation
 import SwiftyBeaver
 
-class MemoryDestination: BaseDestination, CustomStringConvertible {
+/// Implements a `SwiftyBeaver.BaseDestination` logging to a memory buffer.
+public class MemoryDestination: BaseDestination, CustomStringConvertible {
     private var buffer: [String] = []
-    
-    var maxLines: Int?
-    
-    override init() {
+
+    /// Max number of retained lines.
+    public var maxLines: Int?
+
+    /// :nodoc:
+    public override init() {
         super.init()
         asynchronously = false
     }
     
-    func start(with existing: [String]) {
+    /**
+     Starts logging. Optionally prepend an array of lines.
+
+     - Parameter existing: The optional lines to prepend (none by default).
+     **/
+    public func start(with existing: [String] = []) {
         execute(synchronously: true) {
             self.buffer = existing
         }
     }
-    
-    func flush(to url: URL) {
+
+    /**
+     Flushes the log content to an URL.
+     
+     - Parameter url: The URL to write the log content to.
+     **/
+    public func flush(to url: URL) {
         execute(synchronously: true) {
             let content = self.buffer.joined(separator: "\n")
             try? content.write(to: url, atomically: true, encoding: .utf8)
         }
     }
     
-    var description: String {
-        return executeSynchronously {
-            return self.buffer.joined(separator: "\n")
-        }
-    }
-    
     // MARK: BaseDestination
 
     // XXX: executed in SwiftyBeaver queue. DO NOT invoke execute* here (sync in sync would crash otherwise)
-    override func send(_ level: SwiftyBeaver.Level, msg: String, thread: String, file: String, function: String, line: Int, context: Any?) -> String? {
+    /// :nodoc:
+    public override func send(_ level: SwiftyBeaver.Level, msg: String, thread: String, file: String, function: String, line: Int, context: Any?) -> String? {
         guard let message = super.send(level, msg: msg, thread: thread, file: file, function: function, line: line) else {
             return nil
         }
@@ -81,5 +88,14 @@ class MemoryDestination: BaseDestination, CustomStringConvertible {
             }
         }
         return message
+    }
+
+    // MARK: CustomStringConvertible
+    
+    /// :nodoc:
+    public var description: String {
+        return executeSynchronously {
+            return self.buffer.joined(separator: "\n")
+        }
     }
 }

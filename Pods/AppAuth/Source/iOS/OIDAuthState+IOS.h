@@ -34,7 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
         OIDAuthState.updateWithTokenResponse:error:).
     @param authorizationRequest The authorization request to present.
     @param presentingViewController The view controller from which to present the
-        @c SFSafariViewController.
+        @c SFSafariViewController. On iOS 13, the window of this UIViewController
+        is used as the ASPresentationAnchor.
     @param callback The method called when the request has completed or failed.
     @return A @c OIDExternalUserAgentSession instance which will terminate when it
         receives a @c OIDExternalUserAgentSession.cancel message, or after processing a
@@ -63,6 +64,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (id<OIDExternalUserAgentSession>)
     authStateByPresentingAuthorizationRequest:(OIDAuthorizationRequest *)authorizationRequest
                      callback:(OIDAuthStateAuthorizationCallback)callback API_AVAILABLE(ios(11));
+
++ (id<OIDExternalUserAgentSession>)
+    authStateByPresentingAuthorizationRequest:(OIDAuthorizationRequest *)authorizationRequest
+                     callback:(OIDAuthStateAuthorizationCallback)callback API_AVAILABLE(ios(11))
+    __deprecated_msg("This method will not work on iOS 13. Use "
+        "authStateByPresentingAuthorizationRequest:presentingViewController:callback:");
 
 @end
 
