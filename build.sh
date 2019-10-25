@@ -60,11 +60,4 @@ echo "Exporting"
 xcodebuild -exportArchive -archivePath $FILENAME.xcarchive -exportPath $FILENAME -exportOptionsPlist ExportOptions.plist
 
 echo ""
-echo "Re-signing up and down scripts"
-DOWN=$(find $FILENAME -name "*.down.*.sh" -print)
-codesign -f -s "$SIGNINGIDENTITY" "$DOWN"
-UP=$(find $FILENAME -name "*.up.*.sh" -print)
-codesign -f -s "$SIGNINGIDENTITY" "$UP"
-
-echo ""
 echo "Done! You can now upload the archive to the AppStore. Also remember to set a new version tag on the next commit on master."
