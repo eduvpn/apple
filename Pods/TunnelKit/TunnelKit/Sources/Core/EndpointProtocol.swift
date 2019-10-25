@@ -76,19 +76,3 @@ public struct EndpointProtocol: RawRepresentable, Equatable, CustomStringConvert
         return rawValue
     }
 }
-
-/// :nodoc:
-extension EndpointProtocol: Codable {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        guard let proto = try EndpointProtocol(rawValue: container.decode(String.self)) else {
-            throw ConfigurationError.malformed(option: "remote/proto")
-        }
-        self.init(proto.socketType, proto.port)
-    }
-    
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        try container.encode(rawValue)
-    }
-}

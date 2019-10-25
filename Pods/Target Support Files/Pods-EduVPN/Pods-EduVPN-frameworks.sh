@@ -164,15 +164,10 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/ASN1Decoder-iOS/ASN1Decoder.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework"
-<<<<<<< ours
   install_framework "${BUILT_PRODUCTS_DIR}/AppAuth-iOS/AppAuth.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Disk/Disk.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FileKit-iOS/FileKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Moya-iOS/Moya.framework"
-=======
-  install_framework "${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/Moya/Moya.framework"
->>>>>>> theirs
   install_framework "${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework"
   install_framework "${PODS_ROOT}/OpenSSL-Apple/frameworks/iPhone/openssl.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PromiseKit-iOS/PromiseKit.framework"
@@ -186,15 +181,10 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/ASN1Decoder-iOS/ASN1Decoder.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework"
-<<<<<<< ours
   install_framework "${BUILT_PRODUCTS_DIR}/AppAuth-iOS/AppAuth.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Disk/Disk.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FileKit-iOS/FileKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Moya-iOS/Moya.framework"
-=======
-  install_framework "${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/Moya/Moya.framework"
->>>>>>> theirs
   install_framework "${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework"
   install_framework "${PODS_ROOT}/OpenSSL-Apple/frameworks/iPhone/openssl.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PromiseKit-iOS/PromiseKit.framework"

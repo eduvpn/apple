@@ -34,11 +34,23 @@
 //      THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-module __TunnelKitCore {
-    header "DNS.h"
+module __TunnelKitNative {
     header "Errors.h"
+    header "ZeroingData.h"
+    header "TLSBox.h"
+    header "Crypto.h"
+    header "CryptoBox.h"
+    header "MSS.h"
+    header "PacketMacros.h"
+    header "PacketStream.h"
+    header "ControlPacket.h"
+    header "ReplayProtector.h"
+    header "CompressionFramingNative.h"
+    header "CompressionAlgorithmNative.h"
+    header "DataPath.h"
+    header "DataPathCrypto.h"
+    header "DNS.h"
     header "LZO.h"
     header "RoutingTable.h"
-    header "ZeroingData.h"
     export *
 }

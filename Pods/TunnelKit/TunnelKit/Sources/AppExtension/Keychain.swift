@@ -33,52 +33,35 @@
 //
 //      THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
+//
 
 import Foundation
 
-/// Error raised by `Keychain` methods.
+/// :nodoc:
 public enum KeychainError: Error {
-
-    /// Unable to add.
     case add
     
-    /// Item not found.
     case notFound
     
-//    /// Unexpected item type returned.
-//    case typeMismatch
+    case typeMismatch
 }
 
-/// Wrapper for easy keychain access and modification.
+/// :nodoc:
 public class Keychain {
     private let service: String?
 
     private let accessGroup: String?
 
-    /// :nodoc:
     public init() {
         service = Bundle.main.bundleIdentifier
         accessGroup = nil
     }
 
-    /**
-     Creates a keychain in an App Group.
-
-     - Parameter group: The App Group.
-     - Precondition: Proper App Group entitlements.
-     **/
     public init(group: String) {
         service = nil
         accessGroup = group
     }
     
-    /**
-     Creates a keychain in an App Group and a Team ID prefix.
-     
-     - Parameter team: The Team ID prefix.
-     - Parameter group: The App Group.
-     - Precondition: Proper App Group entitlements.
-     **/
     public init(team: String, group: String) {
         service = nil
         accessGroup = "\(team).\(group)"
@@ -86,14 +69,6 @@ public class Keychain {
     
     // MARK: Password
     
-    /**
-     Sets a password.
-
-     - Parameter password: The password to set.
-     - Parameter username: The username to set the password for.
-     - Parameter label: An optional label.
-     - Throws: `KeychainError.add` if unable to add the password to the keychain.
-     **/
     public func set(password: String, for username: String, label: String? = nil) throws {
         do {
             let currentPassword = try self.password(for: username)
@@ -122,12 +97,6 @@ public class Keychain {
         }
     }
     
-    /**
-     Removes a password.
-
-     - Parameter username: The username to remove the password for.
-     - Returns: `true` if the password was successfully removed.
-     **/
     @discardableResult public func removePassword(for username: String) -> Bool {
         var query = [String: Any]()
         setScope(query: &query)
@@ -138,13 +107,6 @@ public class Keychain {
         return (status == errSecSuccess)
     }
 
-    /**
-     Gets a password.
-
-     - Parameter username: The username to get the password for.
-     - Returns: The password for the input username.
-     - Throws: `KeychainError.notFound` if unable to find the password in the keychain.
-     **/
     public func password(for username: String) throws -> String {
         var query = [String: Any]()
         setScope(query: &query)
@@ -167,13 +129,6 @@ public class Keychain {
         return password
     }
 
-    /**
-     Gets a password reference.
-
-     - Parameter username: The username to get the password for.
-     - Returns: The password reference for the input username.
-     - Throws: `KeychainError.notFound` if unable to find the password in the keychain.
-     **/
     public func passwordReference(for username: String) throws -> Data {
         var query = [String: Any]()
         setScope(query: &query)
@@ -193,14 +148,6 @@ public class Keychain {
         return data
     }
     
-    /**
-     Gets a password associated with a password reference.
-
-     - Parameter username: The username to get the password for.
-     - Parameter reference: The password reference.
-     - Returns: The password for the input username and reference.
-     - Throws: `KeychainError.notFound` if unable to find the password in the keychain.
-     **/
     public static func password(for username: String, reference: Data) throws -> String {
         var query = [String: Any]()
         query[kSecClass as String] = kSecClassGenericPassword
@@ -226,14 +173,6 @@ public class Keychain {
     
     // https://forums.developer.apple.com/thread/13748
     
-    /**
-     Adds a public key.
-
-     - Parameter identifier: The unique identifier.
-     - Parameter data: The public key data.
-     - Returns: The `SecKey` object representing the public key.
-     - Throws: `KeychainError.add` if unable to add the public key to the keychain.
-     **/
     public func add(publicKeyWithIdentifier identifier: String, data: Data) throws -> SecKey {
         var query = [String: Any]()
         query[kSecClass as String] = kSecClassKey
@@ -252,13 +191,6 @@ public class Keychain {
         return try publicKey(withIdentifier: identifier)
     }
     
-    /**
-     Gets a public key.
-
-     - Parameter identifier: The unique identifier.
-     - Returns: The `SecKey` object representing the public key.
-     - Throws: `KeychainError.notFound` if unable to find the public key in the keychain.
-     **/
     public func publicKey(withIdentifier identifier: String) throws -> SecKey {
         var query = [String: Any]()
         query[kSecClass as String] = kSecClassKey
@@ -282,12 +214,6 @@ public class Keychain {
         return result as! SecKey
     }
     
-    /**
-     Removes a public key.
-
-     - Parameter identifier: The unique identifier.
-     - Returns: `true` if the public key was successfully removed.
-     **/
     @discardableResult public func remove(publicKeyWithIdentifier identifier: String) -> Bool {
         var query = [String: Any]()
         query[kSecClass as String] = kSecClassKey

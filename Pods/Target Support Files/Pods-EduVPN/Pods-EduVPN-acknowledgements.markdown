@@ -278,7 +278,6 @@ THE SOFTWARE.
    limitations under the License.
 
 
-<<<<<<< ours
 ## Disk
 
 The MIT License (MIT)
@@ -329,8 +328,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-=======
->>>>>>> theirs
 ## Moya
 
 The MIT License (MIT)

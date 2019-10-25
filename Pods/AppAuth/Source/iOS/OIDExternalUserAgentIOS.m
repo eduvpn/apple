@@ -49,13 +49,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable instancetype)init {
-<<<<<<< ours
-  return [self initWithPresentingViewController:nil];
-}
-
-- (nullable instancetype)initWithPresentingViewController:
-        (nullable UIViewController *)presentingViewController {
-=======
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wnonnull"
   return [self initWithPresentingViewController:nil];
@@ -64,7 +57,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable instancetype)initWithPresentingViewController:
     (UIViewController *)presentingViewController {
->>>>>>> theirs
   self = [super init];
   if (self) {
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000

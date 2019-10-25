@@ -29,22 +29,16 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface OIDExternalUserAgentIOS : NSObject<OIDExternalUserAgent>
 
-<<<<<<< ours
-/*! @brief The convenience initializer for devices with iOS 11+
- */
-- (nullable instancetype)init API_AVAILABLE(ios(11));
-=======
 - (nullable instancetype)init API_AVAILABLE(ios(11))
     __deprecated_msg("This method will not work on iOS 13, use "
                      "initWithPresentingViewController:presentingViewController");
->>>>>>> theirs
 
 /*! @brief The designated initializer.
     @param presentingViewController The view controller from which to present the
         \SFSafariViewController.
  */
 - (nullable instancetype)initWithPresentingViewController:
-    (nullable UIViewController *)presentingViewController
+    (UIViewController *)presentingViewController
     NS_DESIGNATED_INITIALIZER;
 
 @end

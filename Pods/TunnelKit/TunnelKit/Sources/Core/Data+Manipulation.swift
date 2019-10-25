@@ -203,7 +203,7 @@ extension Data {
 
 extension Array where Element == Data {
     var flatCount: Int {
-        return reduce(0) { $0 + $1.count }
+        return map { $0.count }.reduce(0) { $0 + $1 }
     }
 }
 
