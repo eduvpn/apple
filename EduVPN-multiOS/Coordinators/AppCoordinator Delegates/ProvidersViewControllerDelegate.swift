@@ -53,7 +53,7 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
 //                if count > 1 {
 //                    showConnectionsTableViewController(for: instance)
 //                } else
-                if let profile = instance.apis?.first?.profiles.first {
+                    if let profile = instance.apis?.first?.profiles.first {
                     connect(profile: profile)
                 }
             } catch {

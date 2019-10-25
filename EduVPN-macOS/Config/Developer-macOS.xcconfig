@@ -1,0 +1,22 @@
+// Developer.xcconfig
+
+APP_NAME = johanVPN
+
+// Your Apple developer account's Team ID
+DEVELOPMENT_TEAM = CRU5YWAZ4Y
+
+// The bundle identifier of this app.
+// Should be an app id created at developer.apple.com
+// with App Groups, Data Protection, Network Extensions capabilty.
+APP_ID = nl.johankool.org.eduvpn.mac
+
+// Tunnel bundle identifer = $(APP_ID).TunnelExtension
+
+// The identifier for the App Group to use
+// Should be an app group id created at developer.apple.com
+GROUP_ID = group.nl.johankool.org.eduvpn
+
+
+PROVISIONING_PROFILE_SPECIFIER_APP = eduVPN Mac App Dev
+PROVISIONING_PROFILE_SPECIFIER_TUNNEL = eduVPN Mac Tunnel Dev
+PROVISIONING_PROFILE_SPECIFIER_TEST = <provisioning-profile-test>
