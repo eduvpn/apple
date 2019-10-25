@@ -166,7 +166,7 @@ class VPNConnectionViewController: UIViewController {
         try? vpn.sendProviderMessage(OpenVPNTunnelProvider.Message.dataCount.data) { [weak self] (data) in
             let dataCount = data?.withUnsafeBytes({ (pointer) -> (UInt64, UInt64) in
                 pointer.load(as: (UInt64, UInt64).self)
-            }
+            })
 
             self?.inBytesLabel.text = dataCount?.0.bytesText
             self?.outBytesLabel.text = dataCount?.1.bytesText

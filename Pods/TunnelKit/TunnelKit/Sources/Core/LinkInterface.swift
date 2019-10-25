@@ -33,7 +33,6 @@
 //
 //      THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
-//
 
 import Foundation
 
@@ -51,10 +50,4 @@ public protocol LinkInterface: IOInterface {
     
     /// The number of packets that this interface is able to bufferize.
     var packetBufferSize: Int { get }
-
-    /// Timeout in seconds for negotiation start.
-    var negotiationTimeout: TimeInterval { get }
-
-    /// Timeout in seconds for HARD_RESET response.
-    var hardResetTimeout: TimeInterval { get }
 }

@@ -195,7 +195,7 @@ class VPNConnectionViewController: NSViewController {
         
         // Bytes
         
-        try? vpn.sendProviderMessage(TunnelKitProvider.Message.dataCount.data) { [weak self] data in
+        try? vpn.sendProviderMessage(OpenVPNTunnelProvider.Message.dataCount.data) { [weak self] data in
             let dataCount = data?.withUnsafeBytes { pointer -> (UInt64, UInt64) in
                 pointer.load(as: (UInt64, UInt64).self)
             }

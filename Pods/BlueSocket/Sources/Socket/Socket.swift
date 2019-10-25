@@ -690,12 +690,20 @@ public class Socket: SocketReader, SocketWriter {
 			var memLoc = 0
 
 			// macOS uses one byte for sa_family_t, Linux uses two...
+			//	Note: on Linux, account for endianess...
 			#if os(Linux)
 				let afUnixShort = UInt16(AF_UNIX)
-				addrPtr[memLoc] = UInt8(afUnixShort & 0xFF)
-				memLoc += 1
-				addrPtr[memLoc] = UInt8((afUnixShort >> 8) & 0xFF)
-				memLoc += 1
+		        if isLittleEndian {
+				  addrPtr[memLoc] = UInt8(afUnixShort & 0xFF)
+				  memLoc += 1
+				  addrPtr[memLoc] = UInt8((afUnixShort >> 8) & 0xFF)
+				  memLoc += 1
+				} else {
+				  addrPtr[memLoc] = UInt8((afUnixShort >> 8) & 0xFF)
+				  memLoc += 1
+				  addrPtr[memLoc] = UInt8(afUnixShort & 0xFF)
+				  memLoc += 1
+				}
 			#else
 				addrPtr[memLoc] = UInt8(addrLen)
 				memLoc += 1
@@ -1230,7 +1238,7 @@ public class Socket: SocketReader, SocketWriter {
 		var info: UnsafeMutablePointer<addrinfo>?
 
 		// Retrieve the info on our target...
-		var status: Int32 = getaddrinfo(host, String(port), nil, &info)
+		let status: Int32 = getaddrinfo(host, String(port), nil, &info)
 		if status != 0 {
 
 			return nil
