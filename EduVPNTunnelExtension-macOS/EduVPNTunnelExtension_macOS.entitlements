@@ -4,18 +4,15 @@
 <dict>
 	<key>com.apple.developer.networking.networkextension</key>
 	<array>
-		<string>app-proxy-provider</string>
 		<string>packet-tunnel-provider</string>
 	</array>
 	<key>com.apple.security.app-sandbox</key>
 	<true/>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.nl.johankool.org.eduvpn.app</string>
+		<string>$(TeamIdentifierPrefix)group.nl.johankool.org.eduvpn.app</string>
 	</array>
 	<key>com.apple.security.network.client</key>
-	<true/>
-	<key>com.apple.security.network.server</key>
 	<true/>
 	<key>keychain-access-groups</key>
 	<array>
