@@ -448,7 +448,7 @@
 		4AA9E544202CBA41006D197E /* InstanceGroup+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InstanceGroup+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4AA9E545202CBA41006D197E /* InstanceGroup+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InstanceGroup+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4AAA157A21C2EF530097A1B5 /* TunnelProviderManagerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelProviderManagerCoordinator.swift; sourceTree = "<group>"; };
-		4AAC1F761F2D0E3400DD0252 /* .app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = .app; path = johanVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4AAC1F761F2D0E3400DD0252 /* johanVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = johanVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AAC1F791F2D0E3400DD0252 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4AAC1F7E1F2D0E3400DD0252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4AAC1F831F2D0E3400DD0252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -932,7 +932,7 @@
 		4AAC1F771F2D0E3400DD0252 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4AAC1F761F2D0E3400DD0252 /* .app */,
+				4AAC1F761F2D0E3400DD0252 /* johanVPN.app */,
 				4AAC1F8A1F2D0E3400DD0252 /* EduVPNTests.xctest */,
 				4A901C1120C87511000C1BF0 /* EduVPNTunnelExtension.appex */,
 				34D719DE228D75550027DE84 /* eduVPN.app */,
@@ -1142,7 +1142,7 @@
 			);
 			name = EduVPN;
 			productName = EduVPN;
-			productReference = 4AAC1F761F2D0E3400DD0252 /* .app */;
+			productReference = 4AAC1F761F2D0E3400DD0252 /* johanVPN.app */;
 			productType = "com.apple.product-type.application";
 		};
 		4AAC1F891F2D0E3400DD0252 /* EduVPNTests */ = {
@@ -2165,7 +2165,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DAD9835E38DF6A6E0B23037B /* Pods-EduVPN-macOS.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = eduVPNAppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -2216,7 +2215,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9C2602D94D6FDE288F8DDD4E /* Pods-EduVPN-macOS.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = eduVPNAppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
