@@ -8,4 +8,13 @@ DEVELOPMENT_TEAM = ZYJ4TZX4UU
 // The bundle identifier of this app.
 // Should be an app id created at developer.apple.com
 // with Network Extensions capabilty.
-APP_ID = org.eduvpn.client
+APP_ID = org.eduvpn.app
+
+// Tunnel bundle identifer = $(APP_ID).TunnelExtension
+
+// The identifier for the group id to use
+GROUP_ID = group.org.eduvpn.test
+
+// PROVISIONING_PROFILE_SPECIFIER_APP = EduVPNTestAdhoc
+// PROVISIONING_PROFILE_SPECIFIER_TUNNEL = EdutVPNTestTunnelExtensionDev
+// PROVISIONING_PROFILE_SPECIFIER_TEST = EduVPNTestAdhoc

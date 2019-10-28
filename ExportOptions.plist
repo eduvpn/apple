@@ -3,14 +3,32 @@
 <plist version="1.0">
 <dict>
 	<key>compileBitcode</key>
-	<true/>
+	<false/>
 	<key>method</key>
-	<string>developer-id</string>
+	<string>mac-application</string>
+	<key>provisioningProfiles</key>
+	<dict>
+		<key>org.eduvpn.app-local</key>
+		<string>EduVPNDevelopment</string>
+	</dict>
 	<key>signingCertificate</key>
-	<string>Developer ID Application</string>
+	<string>Mac Developer</string>
 	<key>signingStyle</key>
 	<string>manual</string>
+	<key>stripSwiftSymbols</key>
+	<true/>
 	<key>teamID</key>
-	<string>ZYJ4TZX4UU</string>
+	<string>4685VULTFQ</string>
+	<key>thinning</key>
+	<string>&lt;none&gt;</string>
+	<key>manifest</key>
+	<dict>
+		<key>appURL</key>
+		<string>https://paw.quality-wolves.com/urlplaceholder</string>
+		<key>displayImageURL</key>
+		<string>https://paw.quality-wolves.com/icon57placeholder.png</string>
+		<key>fullSizeImageURL</key>
+		<string>https://paw.quality-wolves.com/icon512placeholder.png</string>
+	</dict>
 </dict>
 </plist>

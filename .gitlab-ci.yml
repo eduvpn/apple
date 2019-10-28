@@ -1,0 +1,48 @@
+stages:
+  - archive
+  - deploy
+
+archive_project:
+  stage: archive
+  variables:
+    comment: "$CI_PROJECT_NAME: $CI_COMMIT_MESSAGE\nBuilt by Quality Robots"
+  script:
+    - export LANG=en_US.UTF-8
+    - echo $comment | tee archive.log
+    - git submodule init | tee -a archive.log
+    - git submodule update --init --recursive | tee -a archive.log
+    - pod update | tee -a archive.log
+    - ~/buildserver/update-profiles/update-profiles.sh | tee -a archive.log
+    - echo "=== ALL YOUR BASE ARE BELONG TO US ===" | tee -a archive.log
+    - echo "=== USING LETSCONNECT TEMPLATE ====" | tee -a archive.log
+    - cp EduVPN-macOS/Targets/eduVPN/config.json-template EduVPN-macOS/Targets/eduVPN/config.json
+    - cp EduVPN/Config/Developer.xcconfig.eduvpn-template EduVPN/Config/Developer.xcconfig
+    - echo "=== LET MAKE SURE WE GOT EM TEMPLATES ====" | tee -a archive.log
+    - ls -la EduVPN-macOS/Targets/eduVPN/ | tee -a archive.log
+    - xcodebuild -workspace EduVPN.xcworkspace clean archive -archivePath "EduVPN" -scheme "EduVPN-macOS" -configuration "Release" | tee -a archive.log
+    - echo "==== PROJECT BUILT ====" | tee -a archive.log
+    - xcodebuild EduVPN.xcodeproj -exportArchive -archivePath "EduVPN.xcarchive" -exportPath "build" -exportOptionsPlist "ExportOptions.plist" | tee -a archive.log
+    - echo "==== PROJECT EXPORTED ====" | tee -a archive.log
+  artifacts:
+    paths:
+    - build/eduVPN.app
+    - archive.log
+  tags:
+    - ios
+    - ios-certificates
+
+
+deploy_project:
+  stage: deploy
+  variables:
+    comment: "$CI_PROJECT_NAME: $CI_COMMIT_MESSAGE\nBuilt by Quality Robots\n"
+  script:
+    - pwd
+    - echo $comment
+    - echo "=== ALL YOUR BASE ARE BELONG TO US ==="
+    - export BUILD_DIR=$(pwd)/build/
+    - cd /opt/builds/
+    - ./publish.sh vlad@quality-wolves.com,ladybuga@quality-wolves.com,ilya@quality-wolves.com,poddubny@quality-wolves.com mac
+    - echo "==== INGLIP HAS BEEN SUMMONED >:E ===="
+  tags:
+    - paw

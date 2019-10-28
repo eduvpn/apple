@@ -1,8 +1,8 @@
-# EduVPN iOS app
+# EduVPN iOS and macOS apps
 
-This app depends on [TunnelKit](https://github.com/keeshux/tunnelkit).
+These apps depend on [TunnelKit](https://github.com/keeshux/tunnelkit).
 
-The app contains a [Network Tunneling Protocol Client](https://developer.apple.com/documentation/networkextension) and allows it's users to create a VPN tunnel if you are able to connect to an EduVPN or Let's Connect enabled server.
+The app contains a [Network Tunneling Protocol Client](https://developer.apple.com/documentation/networkextension) and allows its users to create a VPN tunnel if you are able to connect to an EduVPN or Let's Connect enabled server.
 
 ## Beware
 

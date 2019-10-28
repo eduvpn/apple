@@ -1,31 +1,68 @@
-source 'https://cdn.cocoapods.org/'
+source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
-
-platform :ios, '11.0'
-
-def tunnelkit_pod
-  pod 'TunnelKit'
-end
+inhibit_all_warnings!
 
 project 'EduVPN', 'Debug' => :debug, 'Release' => :release
 
+# iOS Pods
+
+def pods_ios
+  platform :ios, '11.0'
+  pod 'TunnelKit', '~> 2.0.5'
+end
+
+# macOS Pods
+
+def pods_macos
+  platform :osx, '10.13'
+  pod 'TunnelKit', '~> 2.0.5'
+end
+
+# Setup targets
+
 target 'EduVPN' do
-  pod 'PromiseKit/CorePromise'
-  pod 'AppAuth', :git => 'https://github.com/openid/AppAuth-iOS.git'
-  pod 'Moya'
+  pods_ios
+
   pod 'AlamofireImage'
+  pod 'AppAuth', :git => 'https://github.com/openid/AppAuth-iOS.git'
+  pod 'ASN1Decoder'
+  pod 'Disk'
   pod 'libsodium'
-  pod 'ASN1Decoder', :git => 'https://github.com/filom/ASN1Decoder.git'
+  pod 'Moya'
   pod 'NVActivityIndicatorView'
-
-  tunnelkit_pod
-
-  post_install do | installer |
-    require 'fileutils'
-    FileUtils.cp_r('Pods/Target Support Files/Pods-EduVPN/Pods-EduVPN-Acknowledgements.plist', 'EduVPN/Resources/Settings.bundle/Acknowledgements.plist', :remove_destination => true)
-  end
+  pod 'PromiseKit/CorePromise'
+  pod 'Then'
+  pod 'FileKit', '~> 5.2.0'
 end
 
 target 'EduVPNTunnelExtension' do
-  tunnelkit_pod
+  pods_ios
+end
+
+target 'EduVPN-macOS' do
+  pods_macos
+  
+  pod 'AppAuth', :git => 'https://github.com/openid/AppAuth-iOS.git'
+  pod 'ASN1Decoder'
+  pod 'BlueSocket', '~> 1.0.46'
+  pod 'Kingfisher', '~> 5.5.0'
+  pod 'libsodium'
+  pod 'Moya'
+  pod 'PromiseKit/CorePromise'
+  pod 'ReachabilitySwift', '~> 4.3.1'
+  pod 'Sodium', '~> 0.8.0'
+  pod 'Sparkle', '~> 1.22.0'
+  pod 'Then'
+  pod 'FileKit', '~> 5.2.0'
+end
+
+target 'EduVPNTunnelExtension-macOS' do
+  pods_macos
+end
+
+# Post install
+
+post_install do | installer |
+  require 'fileutils'
+  FileUtils.cp_r('Pods/Target Support Files/Pods-EduVPN/Pods-EduVPN-Acknowledgements.plist', 'EduVPN/Resources/Settings.bundle/Acknowledgements.plist', :remove_destination => true)
 end
