@@ -10,7 +10,7 @@
 	<true/>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>$(TeamIdentifierPrefix)group.nl.johankool.org.eduvpn.app</string>
+		<string>$(TeamIdentifierPrefix)group.$(APP_ID)</string>
 	</array>
 	<key>com.apple.security.network.client</key>
 	<true/>
