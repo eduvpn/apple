@@ -181,6 +181,7 @@ class VPNConnectionViewController: NSViewController {
         
         // IP
         
+        let vpn2 = providerManagerCoordinator.currentManager?.connection
         // TODO:
         ipv4AddressField.stringValue = ""
         ipv6AddressField.stringValue = ""

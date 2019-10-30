@@ -121,6 +121,7 @@
 		C7230D892363240A00B9C691 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = C75B2CB42363138200D700EC /* config.json */; };
 		C7230D8C236324C100B9C691 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7230D8B236324C100B9C691 /* Assets.xcassets */; };
 		C7517542236340C900058D95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7517541236340C900058D95 /* Assets.xcassets */; };
+		C7EB81512369B63A006C141F /* LoginItemHelper-macOS.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C7FA7A0E23633694006501E8 /* CertificateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A0023633694006501E8 /* CertificateModel.swift */; };
 		C7FA7A0F23633694006501E8 /* CertificateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A0023633694006501E8 /* CertificateModel.swift */; };
 		C7FA7A1023633694006501E8 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A0123633694006501E8 /* Config.swift */; };
@@ -236,6 +237,16 @@
 				4A901C1920C87512000C1BF0 /* EduVPNTunnelExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C7EB81502369B626006C141F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LoginItems;
+			dstSubfolderSpec = 1;
+			files = (
+				C7EB81512369B63A006C141F /* LoginItemHelper-macOS.app in CopyFiles */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -1019,6 +1030,7 @@
 				C7230D882363234E00B9C691 /* Set build number */,
 				349D85CE22B706A4006E9540 /* Embed App Extensions */,
 				91B7815FF7D024914F18FA03 /* [CP] Embed Pods Frameworks */,
+				C7EB81502369B626006C141F /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -1969,28 +1981,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = CRU5YWAZ4Y;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth-macOS\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/BlueSocket\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/ReachabilitySwift\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/Sodium\"",
-					"\"${PODS_ROOT}/Sparkle\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/ASN1Decoder\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/Moya\"",
-				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth-macOS/AppAuth.framework/Headers\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/BlueSocket/Socket.framework/Headers\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher/Kingfisher.framework/Headers\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/ReachabilitySwift/Reachability.framework/Headers\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/Sodium/Sodium.framework/Headers\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/ASN1Decoder/ASN1Decoder.framework/Headers\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/Moya/Moya.framework/Headers\"",
-				);
 				INFOPLIST_FILE = "$(SRCROOT)/EduVPN-macOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
@@ -2019,28 +2010,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = CRU5YWAZ4Y;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth-macOS\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/BlueSocket\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/ReachabilitySwift\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/Sodium\"",
-					"\"${PODS_ROOT}/Sparkle\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/ASN1Decoder\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/Moya\"",
-				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth-macOS/AppAuth.framework/Headers\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/BlueSocket/Socket.framework/Headers\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher/Kingfisher.framework/Headers\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/ReachabilitySwift/Reachability.framework/Headers\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/Sodium/Sodium.framework/Headers\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/ASN1Decoder/ASN1Decoder.framework/Headers\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/Moya/Moya.framework/Headers\"",
-				);
 				INFOPLIST_FILE = "$(SRCROOT)/EduVPN-macOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;

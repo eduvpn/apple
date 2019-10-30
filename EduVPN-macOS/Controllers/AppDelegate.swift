@@ -12,14 +12,8 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     var appCoordinator: AppCoordinator!
-    var statusItem: NSStatusItem?
-    @IBOutlet var statusMenu: NSMenu!
     
     func applicationWillFinishLaunching(_ notification: Notification) {
-        // <UNCOMMENT>
-        //        ServiceContainer.preferencesService.updateForUIPreferences()
-        // </UNCOMMENT>
-        
         // Disabled until best approach to get token is determined
         //        // Setup incoming URL handling
         //        NSAppleEventManager.shared().setEventHandler(self, andSelector: #selector(AppDelegate.handleAppleEvent(event:with:)), forEventClass: AEEventClass(kInternetEventClass), andEventID: AEEventID(kAEGetURL))
@@ -28,17 +22,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
         UserDefaults.standard.register(defaults: NSDictionary(contentsOf: Bundle.main.url(forResource: "Defaults", withExtension: "plist")!)! as! [String: Any]) //swiftlint:disable:this force_cast
+        PreferencesService.shared.updateForUIPreferences()
         
-        if #available(OSX 10.12, *) {
-            createStatusItem()
-        }
-        
-        // <UNCOMMENT>
-        //        NotificationCenter.default.addObserver(self,
-        //                                               selector: #selector(connectionStateChanged(notification:)),
-        //                                               name: ConnectionService.stateChanged,
-        //                                               object: ServiceContainer.connectionService)
-        // </UNCOMMENT>
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(connectionStateChanged(notification:)),
+                                               name: .NEVPNStatusDidChange,
+                                               object: nil)
+  
         
         ValueTransformer.setValueTransformer(DurationTransformer(),
                                              forName: NSValueTransformerName(rawValue: "DurationTransformer"))
@@ -59,7 +49,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
             }
             
-            statusMenu.items.forEach(fix)
             appCoordinator.fixAppName(to: appName)
         }
     }
@@ -138,51 +127,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         window.endSheet(preferencesWindow)
     }
-    
-    private func createStatusItem() {
-        statusItem = NSStatusBar.system.statusItem(withLength: 26)
-        statusItem?.menu = statusMenu
-        updateStatusItemImage()
-    }
-    
-    private func updateStatusItemImage() {
-        // <UNCOMMENT>
-        //        switch ServiceContainer.connectionService.state {
-        //        case .connecting, .disconnecting:
-        //            statusItem?.image = #imageLiteral(resourceName: "Status-connecting")
-        //            NSApp.applicationIconImage = #imageLiteral(resourceName: "Icon-connecting")
-        //        case .connected:
-        //            statusItem?.image = #imageLiteral(resourceName: "Status-connected")
-        //            NSApp.applicationIconImage = #imageLiteral(resourceName: "Icon-connected")
-        //        case .disconnected:
-        //            statusItem?.image = #imageLiteral(resourceName: "Status-disconnected")
-        //            NSApp.applicationIconImage = #imageLiteral(resourceName: "Icon-disconnected")
-        //        }
-        // </UNCOMMENT>
-    }
-    
-    var statusItemIsVisible: Bool = false {
-        didSet {
-            if #available(OSX 10.12, *) {
-                statusItem?.isVisible = statusItemIsVisible
-            } else {
-                // Fallback on earlier versions
-                if oldValue != statusItemIsVisible {
-                    if statusItemIsVisible {
-                        createStatusItem()
-                    } else {
-                        if let statusItem = statusItem {
-                            NSStatusBar.system.removeStatusItem(statusItem)
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
+
     @objc private func connectionStateChanged(notification: NSNotification) {
         DispatchQueue.main.async {
-            self.updateStatusItemImage()
+            guard let status = self.appCoordinator.tunnelProviderManagerCoordinator.currentManager?.connection.status else {
+                NSApp.applicationIconImage = NSImage(named: "Icon-off")
+                return
+            }
+            switch status {
+            case .connecting, .disconnecting, .reasserting:
+                NSApp.applicationIconImage = NSImage(named: "Icon-connecting")
+            case .connected:
+                NSApp.applicationIconImage = NSImage(named: "Icon-connected")
+            case .disconnected:
+                NSApp.applicationIconImage = NSImage(named: "Icon-off")
+            case .invalid:
+                NSApp.applicationIconImage = NSImage(named: "Icon-invalid")
+            @unknown default:
+                NSApp.applicationIconImage = NSImage(named: "Icon-off")
+            }
         }
     }
 }
