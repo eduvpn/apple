@@ -21,7 +21,7 @@ class ProviderTableViewCell: UITableViewCell {
     func configure(with instance: Instance, and providerType: ProviderType, displayConnectedStatus: Bool) {
         let profiles = instance.apis?.flatMap { api -> Set<Profile> in
             return api.profiles
-            } ?? []
+        } ?? []
         
         let configuredProfileId = UserDefaults.standard.configuredProfileId
         let configuredProfile = profiles.first { profile -> Bool in

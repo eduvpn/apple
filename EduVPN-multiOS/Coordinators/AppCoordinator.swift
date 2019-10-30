@@ -261,13 +261,13 @@ class AppCoordinator: RootViewCoordinator {
                     throw error
                     
                 }
-        }
-        .then { response -> Promise<CertificateModel> in response.mapResponse() }
-        .map { model -> CertificateModel in
-            api.certificateModel = model
-            self.scheduleCertificateExpirationNotification(for: model, on: api)
-            return model
-        }
+            }
+            .then { response -> Promise<CertificateModel> in response.mapResponse() }
+            .map { model -> CertificateModel in
+                api.certificateModel = model
+                self.scheduleCertificateExpirationNotification(for: model, on: api)
+                return model
+            }
     }
     
     func checkCertificate(api: Api, for dynamicApiProvider: DynamicApiProvider) -> Promise<CertificateModel> {

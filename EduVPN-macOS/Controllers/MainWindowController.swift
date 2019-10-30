@@ -7,12 +7,6 @@
 //
 
 import Cocoa
-//import AppAuth
-
-/// Does nothing but silence Xcode 9.1 warning
-class MainWindow: NSWindow {
-    
-}
 
 class MainWindowController: NSWindowController {
     
@@ -32,31 +26,19 @@ class MainWindowController: NSWindowController {
     override func windowDidLoad() {
         super.windowDidLoad()
         
-        //        window?.backgroundColor = .white
-        
         // Disabled, clips
         //        window?.titlebarAppearsTransparent = true
         //        topView.frame = CGRect(x: 0, y: 539, width: 378, height: 60)
         //        window?.contentView?.addSubview(topView)
         
         navigationStack.append(mainViewController.currentViewController)
-        
-        //        NotificationCenter.default.addObserver(self,
-        //                                               selector: #selector(didStartAuthenticating(notification:)),
-        //                                               name: AuthenticationService.authenticationStarted,
-        //                                               object: ServiceContainer.authenticationService)
-        //
-        //        NotificationCenter.default.addObserver(self,
-        //                                               selector: #selector(didFinishAuthenticating(notification:)),
-        //                                               name: AuthenticationService.authenticationFinished,
-        //                                               object: ServiceContainer.authenticationService)
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
     
-    private var mainViewController: MainViewController {
+    var mainViewController: MainViewController {
         return contentViewController as! MainViewController  //swiftlint:disable:this force_cast
     }
     
@@ -150,87 +132,7 @@ class MainWindowController: NSWindowController {
             animated: animated,
             completionHandler: completionHandler)
     }
-    
-    // MARK: - Authenticating
-    @objc private func didStartAuthenticating(notification: NSNotification) {
-        // <UNCOMMENT>
-        //        let authenticatingViewController = storyboard!.instantiateController(withIdentifier: "Authenticating")
-        //            as! AuthenticatingViewController
-        //        present(viewController: authenticatingViewController)
-        // </UNCOMMENT>
-    }
-    
-    @objc private func didFinishAuthenticating(notification: NSNotification) {
-        if let success = notification.userInfo?["success"] as? Bool, success {
-            dismiss()
-        } else {
-            dismiss()
-        }
-    }
-    
-    // <UNCOMMENT>
-    //    // MARK: - Switching to screens
-    //
-    //    /// Prompts user to chose a connection type
-    //    ///
-    //    /// - Parameters:
-    //    ///   - allowClose: Wether user may close screen
-    //    ///   - animated: Wether to show with animation
-    //    func showChooseConnectionType(allowClose: Bool, animated: Bool = true) {
-    //        let chooseConnectionTypeViewController = storyboard!.instantiateController(withIdentifier: "ChooseConnectionType")
-    //            as! ChooseConnectionTypeViewController
-    //
-    //        chooseConnectionTypeViewController.allowClose = allowClose
-    //        present(viewController: chooseConnectionTypeViewController, animated: animated)
-    //    }
-    //
-    //    /// Prompts user to chose a provider
-    //    ///
-    //    /// - Parameters:
-    //    ///   - connectionType: Connection type for the providers
-    //    ///   - providers: Providers to chose from
-    //    ///   - animated: Wether to show with animation
-    //    func showChooseProvider(for connectionType: ConnectionType, from providers: [Provider], animated: Bool = true) {
-    //        let chooseProviderViewController = storyboard!.instantiateController(withIdentifier: "ChooseProvider")
-    //            as! ChooseProviderViewController
-    //
-    //        chooseProviderViewController.connectionType = connectionType
-    //        chooseProviderViewController.providers = providers
-    //        push(viewController: chooseProviderViewController, animated: animated)
-    //    }
-    //
-    //    /// Prompts user to choose a profile
-    //    ///
-    //    /// - Parameters:
-    //    ///   - profiles: InstanceProfileModel to chose from
-    //    ///   - userInfo: User info
-    //    ///   - animated: Wether to show with animation
-    //    func showChooseProfile(from profiles: [InstanceProfileModel], userInfo: UserInfo, animated: Bool = true) {
-    //        let chooseProfileViewController = storyboard!.instantiateController(withIdentifier: "ChooseProfile")
-    //            as! ChooseProfileViewController
-    //
-    //        chooseProfileViewController.profiles = profiles
-    //        chooseProfileViewController.userInfo = userInfo
-    //        push(viewController: chooseProfileViewController, animated: animated)
-    //    }
-    //
-    //    /// Shows and starts connection
-    //    ///
-    //    /// - Parameters:
-    //    ///   - profile: InstanceProfileModel
-    //    ///   - userInfo: User info
-    //    ///   - animated: Wether to show with animation
-    //    func showConnection(for profile: InstanceProfileModel, userInfo: UserInfo, animated: Bool = true) {
-    //        let connectionViewController = storyboard!.instantiateController(withIdentifier: "Connection")
-    //            as! ConnectionViewController
-    //
-    //        connectionViewController.profile = profile
-    //        connectionViewController.userInfo = userInfo
-    //        push(viewController: connectionViewController, animated: animated) {
-    //            connectionViewController.connect()
-    //        }
-    //    }
-    // </UNCOMMENT>
+
 }
 
 extension NSViewController {

@@ -48,6 +48,6 @@ class ProfilesRefresher {
                         seal.fulfill(())
                     }
                 })
-        }
+            }
     }
 }

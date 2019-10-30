@@ -29,7 +29,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                                name: .NEVPNStatusDidChange,
                                                object: nil)
   
-        
         ValueTransformer.setValueTransformer(DurationTransformer(),
                                              forName: NSValueTransformerName(rawValue: "DurationTransformer"))
         

@@ -26,7 +26,7 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
                 .then { _ -> Promise<Void> in
                     self.providersViewController.tableView.reloadData()
                     return self.showConnectionViewController(for: profile)
-            }
+                }
         }
     }
 }

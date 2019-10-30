@@ -86,7 +86,7 @@ class InstancesLoader {
                 #elseif os(macOS)
                 (NSApp.delegate as? AppDelegate)?.appCoordinator.showError($0)
                 #endif
-        }
+            }
     }
     
     // Load steps
@@ -180,7 +180,7 @@ class InstancesLoader {
                             newInstance.providerType = providerType.rawValue
                             newInstance.authServer = authServer
                             newInstance.update(with: instanceModel)
-                    }
+                        }
                     
                     context.saveContextToStore { result in
                         switch result {
@@ -227,6 +227,6 @@ class InstanceRefresher {
                         seal.fulfill(api)
                     }
                 })
-        }
+            }
     }
 }

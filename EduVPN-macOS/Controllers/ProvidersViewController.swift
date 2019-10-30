@@ -202,11 +202,11 @@ class ProvidersViewController: NSViewController {
         case .section:
             break
             
-        case .row(let providerType, let instance):
+        case .row(_, let instance):
             let alert = NSAlert()
             alert.alertStyle = .critical
             alert.messageText = NSLocalizedString("Remove \(instance.displayName)?", comment: "")
-            alert.informativeText = NSLocalizedString("You will no longer be able to connect to \(providerType.title).", comment: "")
+            alert.informativeText = NSLocalizedString("You will no longer be able to connect to \(instance.displayName).", comment: "")
             
             switch instance.group!.authorizationTypeEnum {
             case .local:
