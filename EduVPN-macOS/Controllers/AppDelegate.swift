@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import PromiseKit
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -52,37 +53,42 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    // <UNCOMMENT>
-    //    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
-    //        switch ServiceContainer.connectionService.state {
-    //        case .disconnected:
-    //            return .terminateNow
-    //        case .connecting, .disconnecting:
-    //            return .terminateCancel
-    //        case .connected:
-    //            ServiceContainer.connectionService.disconnect { result in
-    //                DispatchQueue.main.async {
-    //                    switch result {
-    //                    case .success:
-    //                        NSApp.reply(toApplicationShouldTerminate: true)
-    //                    case .failure(let error):
-    //                        if let alert = NSAlert(customizedError: error) {
-    //                            NSApp.reply(toApplicationShouldTerminate: false)
-    //                            if let window = self.mainWindowController.window {
-    //                                alert.beginSheetModal(for: window)
-    //                            } else {
-    //                                alert.runModal()
-    //                            }
-    //                        } else {
-    //                            NSApp.reply(toApplicationShouldTerminate: true)
-    //                        }
-    //                    }
-    //                }
-    //            }
-    //            return .terminateLater
-    //        }
-    //    }
-    // </UNCOMMENT>
+    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
+        guard let status = appCoordinator.tunnelProviderManagerCoordinator.currentManager?.connection.status else {
+            return .terminateNow
+        }
+        
+        switch status {
+        case .disconnected, .invalid:
+            return .terminateNow
+        case .connecting, .disconnecting, .reasserting:
+            return .terminateCancel
+        case .connected:
+            // TODO: Prompt user first
+            appCoordinator.tunnelProviderManagerCoordinator
+                .disconnect()
+                .then { _ -> Promise<Void> in
+                    NSApp.reply(toApplicationShouldTerminate: true)
+                    return Promise.value(())
+                }
+                .recover { error in
+                    if let alert = NSAlert(customizedError: error) {
+                        NSApp.reply(toApplicationShouldTerminate: false)
+                        if let window = self.appCoordinator.mainWindowController.window {
+                            alert.beginSheetModal(for: window)
+                        } else {
+                            alert.runModal()
+                        }
+                    } else {
+                        NSApp.reply(toApplicationShouldTerminate: true)
+                    }
+                }
+                
+            return .terminateLater
+        @unknown default:
+            return .terminateCancel
+        }
+    }
     
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
