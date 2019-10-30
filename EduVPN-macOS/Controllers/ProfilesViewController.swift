@@ -11,7 +11,7 @@ import Cocoa
 class ProfilesViewController: NSViewController {
     
     weak var delegate: ProfilesViewControllerDelegate?
-
+    
     @IBOutlet var secureInternetButton: NSButton!
     @IBOutlet var instituteAccessButton: NSButton!
     @IBOutlet var closeButton: NSButton!
@@ -47,7 +47,7 @@ class ProfilesViewController: NSViewController {
         delegate?.profilesViewControllerDidSelectProviderType(profilesViewController: self,
                                                               providerType: .secureInternet)
     }
-   
+    
     @IBAction func chooseInstituteAccess(_ sender: Any) {
         delegate?.profilesViewControllerDidSelectProviderType(profilesViewController: self,
                                                               providerType: .instituteAccess)

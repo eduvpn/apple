@@ -14,11 +14,11 @@ import PromiseKit
 import Disk
 #endif
 
-protocol CustomProviderInPutViewControllerDelegate: class {
+protocol CustomProviderInputViewControllerDelegate: class {
     @discardableResult func connect(url: URL) -> Promise<Void>
 }
 
-extension AppCoordinator: CustomProviderInPutViewControllerDelegate {
+extension AppCoordinator: CustomProviderInputViewControllerDelegate {
     
     private func createLocalUrl(forImageNamed name: String) throws -> URL {
         #if os(iOS)
@@ -42,8 +42,7 @@ extension AppCoordinator: CustomProviderInPutViewControllerDelegate {
             persistentContainer.performBackgroundTask { context in
                 let instanceGroupIdentifier = url.absoluteString
                 let predicate = NSPredicate(format: "discoveryIdentifier == %@", instanceGroupIdentifier)
-                let group = try! InstanceGroup.findFirstInContext(context, predicate: predicate)
-                    ?? InstanceGroup(context: context)//swiftlint:disable:this force_try
+                let group = try! InstanceGroup.findFirstInContext(context, predicate: predicate) ?? InstanceGroup(context: context) //swiftlint:disable:this force_try
                 
                 let instance = Instance(context: context)
                 instance.providerType = ProviderType.other.rawValue
@@ -68,4 +67,3 @@ extension AppCoordinator: CustomProviderInPutViewControllerDelegate {
         }
     }
 }
-

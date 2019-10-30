@@ -9,7 +9,7 @@
 import Cocoa
 
 class EnterProviderURLViewController: NSViewController {
-
+    
     enum Error: Swift.Error, LocalizedError {
         case invalidURL
         
@@ -28,7 +28,7 @@ class EnterProviderURLViewController: NSViewController {
     @IBOutlet var textField: NSTextField!
     @IBOutlet var backButton: NSButton!
     @IBOutlet var doneButton: NSButton!
-   
+    
     var url: URL?
     
     override func viewDidLoad() {
@@ -45,12 +45,15 @@ class EnterProviderURLViewController: NSViewController {
     }
     
     @IBAction func goBack(_ sender: Any) {
-        view.window?.sheetParent?.endSheet(view.window!, returnCode: .cancel)
+        guard let window = view.window else {
+            return
+        }
+        window.sheetParent?.endSheet(window, returnCode: .cancel)
     }
     
     private var validURL: URL? {
         let string = textField.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
-        if let url = URL(string: string), let scheme = url.scheme, ["http", "https"].contains(scheme), let _ = url.host {
+        if let url = URL(string: string), let scheme = url.scheme, ["http", "https"].contains(scheme), url.host != nil {
             return url
         } else {
             return nil
@@ -62,9 +65,12 @@ class EnterProviderURLViewController: NSViewController {
         textField.isEnabled = false
         doneButton.isEnabled = false
         
-        guard let url = validURL, let _ = url.host else {
+        guard let url = validURL, let window = view.window, url.host != nil else {
+            guard let window = view.window else {
+                return
+            }
             let alert = NSAlert(customizedError: Error.invalidURL)
-            alert?.beginSheetModal(for: self.view.window!) { _ in
+            alert?.beginSheetModal(for: window) { _ in
                 self.textField.isEnabled = true
             }
             return
@@ -72,7 +78,7 @@ class EnterProviderURLViewController: NSViewController {
         
         self.url = url
         
-        view.window?.sheetParent?.endSheet(view.window!, returnCode: .OK)
+        window.sheetParent?.endSheet(window, returnCode: .OK)
     }
 }
 

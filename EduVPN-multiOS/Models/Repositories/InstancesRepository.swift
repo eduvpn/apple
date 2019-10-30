@@ -73,7 +73,7 @@ class InstancesLoader {
         
         let provider = MoyaProvider<StaticService>()
         let instanceGroupIdentifier = "\(target.baseURL.absoluteString)/\(target.path)"
-
+        
         provider.request(target: sigTarget)
             .then(validateSodiumSignature)
             .then { provider.request(target: target).then(self.verifyResponse(signature: $0)) }
@@ -86,7 +86,7 @@ class InstancesLoader {
                 #elseif os(macOS)
                 (NSApp.delegate as? AppDelegate)?.appCoordinator.showError($0)
                 #endif
-            }
+        }
     }
     
     // Load steps
@@ -227,6 +227,6 @@ class InstanceRefresher {
                         seal.fulfill(api)
                     }
                 })
-            }
+        }
     }
 }

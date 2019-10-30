@@ -8,8 +8,6 @@
 
 import Foundation
 
-// swiftlint:disable identifier_name
-
 let displayDateFormatter: DateFormatter = {
     let dateFormatter = DateFormatter()
     dateFormatter.dateStyle = .medium
@@ -38,10 +36,10 @@ extension SystemMessages {
         case systemMessages = "system_messages"
         case data
     }
-
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: SystemMessagesKeys.self)
-
+        
         let messagesContainer = try container.nestedContainer(keyedBy: SystemMessagesKeys.self, forKey: .systemMessages)
         let systemMessages = try messagesContainer.decode([Message].self, forKey: .data)
         
@@ -52,7 +50,7 @@ extension SystemMessages {
             return message
         }
     }
-
+    
     var displayString: String {
         return systemMessages.compactMap { $0.displayString }.joined(separator: "\n\n")
     }
@@ -94,16 +92,16 @@ extension Message {
         case endDate = "end"
         case type
     }
-
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: MessageKeys.self)
-
+        
         type = try container.decode(NotificationType.self, forKey: .type)
         
         date = try container.decode(Date.self, forKey: .date)
         beginDate = try? container.decode(Date.self, forKey: .beginDate)
         endDate = try? container.decode(Date.self, forKey: .endDate)
-
+        
         // Here we try to deocde the `message` key into both a String and a [String: String]. The localizedMessage implementatation tries to obtain the "locale correct" value.
         message = try? container.decode(String.self, forKey: .message)
         messages = try? container.decode([String: String].self, forKey: .message)
@@ -126,7 +124,7 @@ extension Message {
         
         return ""
     }
-
+    
     var displayString: String? {
         guard let message = localizedMessage else {
             return nil

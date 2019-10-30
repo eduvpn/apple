@@ -9,7 +9,6 @@
 import Foundation
 
 #if os(iOS)
-
 import UIKit
 
 #elseif os(macOS)
@@ -17,22 +16,23 @@ import Cocoa
 
 #endif
 
-public protocol Identifyable: class {
+public protocol Identifiable: class {
     static var identifier: String { get }
 }
 
-public extension Identifyable {
-    
+public extension Identifiable {
+
     static var identifier: String {
         return String(describing: Self.self)
     }
+    
 }
 
 #if os(iOS)
 
 extension UIStoryboard {
 
-    public func instantiateViewController<T: Identifyable>(type: T.Type) -> T where T: UIViewController {
+    public func instantiateViewController<T: Identifiable>(type: T.Type) -> T where T: UIViewController {
         return instantiateViewController(withIdentifier: type.identifier) as! T // swiftlint:disable:this force_cast
     }
 }
@@ -40,8 +40,8 @@ extension UIStoryboard {
 #elseif os(macOS)
 
 extension NSStoryboard {
-    
-    public func instantiateViewController<T: Identifyable>(type: T.Type) -> T where T: NSViewController {
+
+    public func instantiateViewController<T: Identifiable>(type: T.Type) -> T where T: NSViewController {
         return instantiateController(withIdentifier: type.identifier) as! T // swiftlint:disable:this force_cast
     }
 }

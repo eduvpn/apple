@@ -21,14 +21,14 @@ import CoreData
  */
 public enum FetchedResultsObjectChange<T: NSManagedObject> {
     case insert(object: T, indexPath: IndexPath)
-
+    
     /**
      Change type when an object is deleted.
      - parameter object: The deleted object of type `<T>`
      - parameter indexPath: The previous `NSIndexPath` of the deleted object
      */
     case delete(object: T, indexPath: IndexPath)
-
+    
     /**
      Change type when an object is moved.
      - parameter object: The moved object of type `<T>`
@@ -36,7 +36,7 @@ public enum FetchedResultsObjectChange<T: NSManagedObject> {
      - parameter toIndexPath: The `NSIndexPath` of the new location of the object
      */
     case move(object: T, fromIndexPath: IndexPath, toIndexPath: IndexPath)
-
+    
     /**
      Change type when an object is updated.
      - parameter object: The updated object of type `<T>`
@@ -56,7 +56,7 @@ public enum FetchedResultsSectionChange<T: NSManagedObject> {
      - parameter index: The index where the section was inserted
      */
     case insert(info: FetchedResultsSectionInfo<T>, index: Int)
-
+    
     /**
      Change type when a section is deleted.
      - parameter info: The deleted section's information
@@ -73,7 +73,7 @@ public protocol FetchedResultsControllerDelegate: class { // : class for weak ca
     /// Type of object being monitored. Must inherit from `NSManagedObject` and implement `CoreDataModelable`
     // swiftlint:disable type_name
     associatedtype T: NSManagedObject
-
+    
     /**
      Callback including all processed changes to objects
      - parameter controller: The `FetchedResultsController` posting the callback
@@ -81,7 +81,7 @@ public protocol FetchedResultsControllerDelegate: class { // : class for weak ca
      */
     func fetchedResultsController(_ controller: FetchedResultsController<T>,
                                   didChangeObject change: FetchedResultsObjectChange<T>)
-
+    
     /**
      Callback including all processed changes to sections
      - parameter controller: The `FetchedResultsController` posting the callback
@@ -89,19 +89,19 @@ public protocol FetchedResultsControllerDelegate: class { // : class for weak ca
      */
     func fetchedResultsController(_ controller: FetchedResultsController<T>,
                                   didChangeSection change: FetchedResultsSectionChange<T>)
-
+    
     /**
      Callback immediately before content will be changed
      - parameter controller: The `FetchedResultsController` posting the callback
      */
     func fetchedResultsControllerWillChangeContent(_ controller: FetchedResultsController<T>)
-
+    
     /**
      Callback immediately after content has been changed
      - parameter controller: The `FetchedResultsController` posting the callback
      */
     func fetchedResultsControllerDidChangeContent(_ controller: FetchedResultsController<T>)
-
+    
     /**
      Callback immediately after the fetch request has been executed
      - parameter controller: The `FetchedResultsController` posting the callback
@@ -115,13 +115,13 @@ public protocol FetchedResultsControllerDelegate: class { // : class for weak ca
 public struct FetchedResultsSectionInfo<T: NSManagedObject> {
     /// Array of objects belonging to the section.
     public let objects: [T]
-
+    
     /// The name of the section
     public let name: String?
-
+    
     /// The string used as an index title of the section
     public let indexTitle: String?
-
+    
     fileprivate init(_ info: NSFetchedResultsSectionInfo) {
         objects = (info.objects as? [T]) ?? []
         name = info.name
@@ -133,7 +133,7 @@ public struct FetchedResultsSectionInfo<T: NSManagedObject> {
  A type safe wrapper around an `NSFetchedResultsController`
  */
 public class FetchedResultsController<T: NSManagedObject> {
-
+    
     /// The `NSFetchRequest` being used by the `FetchedResultsController`
     public var fetchRequest: NSFetchRequest<T> { return internalController.fetchRequest }
     /// The objects that match the fetch request
@@ -157,7 +157,7 @@ public class FetchedResultsController<T: NSManagedObject> {
     public subscript(indexPath: IndexPath) -> T { return internalController.object(at: indexPath) }
     /// The `NSIndexPath` for a specific object in the fetchedObjects
     public func indexPathForObject(_ object: T) -> IndexPath? { return internalController.indexPath(forObject: object) }
-
+    
     // MARK: - Lifecycle
     /**
      Initializer for the `FetchedResultsController`
@@ -173,13 +173,13 @@ public class FetchedResultsController<T: NSManagedObject> {
         
         internalController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: sectionNameKeyPath, cacheName: cacheName)
     }
-
+    
     deinit {
         // Core Data does not yet use weak references for delegates; the
         // delegate must be nilled out for thread safety reasons.
         internalController.delegate = nil
     }
-
+    
     // MARK: - Public Functions
     /**
      Function for setting the `FetchedResultsControllerDelegate` that will receive callback events.
@@ -188,7 +188,7 @@ public class FetchedResultsController<T: NSManagedObject> {
     public func setDelegate<U: FetchedResultsControllerDelegate>(_ delegate: U) where U.T == T {
         self.delegateHost = ForwardingFetchedResultsControllerDelegate<U>(owner: self, delegate: delegate)
     }
-
+    
     /**
      Executes the fetch request tied to the `FetchedResultsController`
      - throws: Any errors produced by the `NSFetchResultsController`s `performFetch()` function.
@@ -199,7 +199,7 @@ public class FetchedResultsController<T: NSManagedObject> {
         }
         try internalController.performFetch()
     }
-
+    
     // MARK: - Internal/Private Information
     private let internalController: NSFetchedResultsController<T>
     private var delegateHost: BaseFetchedResultsControllerDelegate<T>? {
@@ -225,17 +225,17 @@ private extension FetchedResultsObjectChange {
             // also makes no sense) - we check for that here and ignore those erroneous messages.
             // For more discussion, see https://forums.developer.apple.com/thread/12184
             return nil
-
+            
         case let (.insert, nil, newIndexPath?):
             self = .insert(object: object, indexPath: newIndexPath)
-
+            
         case let (.delete, indexPath?, nil):
             self = .delete(object: object, indexPath: indexPath)
-
+            
         case let (.update, indexPath?, _):
             // in pre iOS 9 runtimes a newIndexPath value is also passed in
             self = .update(object: object, indexPath: indexPath)
-
+            
         case let (.move, fromIndexPath?, toIndexPath?):
             // There are at least two different .Move-related bugs running on Xcode 7.3.1:
             //
@@ -255,7 +255,7 @@ private extension FetchedResultsObjectChange {
             } else {
                 self = .move(object: object, fromIndexPath: fromIndexPath, toIndexPath: toIndexPath)
             }
-
+            
         default:
             preconditionFailure("Invalid change. Missing a required index path for corresponding change type.")
         }
@@ -287,27 +287,27 @@ private class BaseFetchedResultsControllerDelegate<T>: NSObject, NSFetchedResult
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         fatalError()
     }
-
+    
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         fatalError()
     }
-
+    
     func controller(
         _ controller: NSFetchedResultsController<NSFetchRequestResult>,
         didChange anObject: Any, at indexPath: IndexPath?,
         for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?
-        ) {
+    ) {
         fatalError()
     }
-
+    
     func controller(
         _ controller: NSFetchedResultsController<NSFetchRequestResult>,
         didChange sectionInfo: NSFetchedResultsSectionInfo,
         atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType
-        ) {
+    ) {
         fatalError()
     }
-
+    
     func fetchedResultsControllerDidPerformFetch() {
         fatalError()
     }
@@ -316,35 +316,35 @@ private class BaseFetchedResultsControllerDelegate<T>: NSObject, NSFetchedResult
 private final class ForwardingFetchedResultsControllerDelegate<Delegate: FetchedResultsControllerDelegate>: BaseFetchedResultsControllerDelegate<Delegate.T> {
     
     typealias Owner = FetchedResultsController<Delegate.T>
-
+    
     weak var delegate: Delegate?
     unowned let owner: Owner
-
+    
     init(owner: Owner, delegate: Delegate) {
         self.delegate = delegate
         self.owner = owner
     }
-
+    
     override func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         delegate?.fetchedResultsControllerWillChangeContent(owner)
     }
-
+    
     override func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         delegate?.fetchedResultsControllerDidChangeContent(owner)
     }
-
+    
     override func controller(
         _ controller: NSFetchedResultsController<NSFetchRequestResult>,
         didChange anObject: Any, at indexPath: IndexPath?,
         for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?
-        ) {
+    ) {
         guard let object = anObject as? Delegate.T else { return }
         guard let change = FetchedResultsObjectChange<Delegate.T>(object: object, indexPath: indexPath,
                                                                   changeType: type, newIndexPath: newIndexPath)
             else { return }
         delegate?.fetchedResultsController(owner, didChangeObject: change)
     }
-
+    
     override func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
                              didChange sectionInfo: NSFetchedResultsSectionInfo,
                              atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
@@ -352,7 +352,7 @@ private final class ForwardingFetchedResultsControllerDelegate<Delegate: Fetched
         let change = FetchedResultsSectionChange<Delegate.T>(section: sectionInfo, index: sectionIndex, changeType: type)
         delegate?.fetchedResultsController(owner, didChangeSection: change)
     }
-
+    
     override func fetchedResultsControllerDidPerformFetch() {
         delegate?.fetchedResultsControllerDidPerformFetch(owner)
     }

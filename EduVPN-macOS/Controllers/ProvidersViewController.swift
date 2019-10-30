@@ -14,7 +14,7 @@ import Reachability
 class ProvidersViewController: NSViewController {
     
     weak var delegate: ProvidersViewControllerDelegate?
-
+    
     @IBOutlet var tableView: DeselectingTableView!
     @IBOutlet var unreachableLabel: NSTextField?
     
@@ -93,17 +93,17 @@ class ProvidersViewController: NSViewController {
     }
     
     private let reachability = Reachability()
-  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
         // Close orphaned connection
         //         <UNCOMMENT>
-//        busy = true
-//        ServiceContainer.connectionService.closeOrphanedConnectionIfNeeded { _ in
-//            self.busy = false
-//            self.updateInterface()
-//        }
+        //        busy = true
+        //        ServiceContainer.connectionService.closeOrphanedConnectionIfNeeded { _ in
+        //            self.busy = false
+        //            self.updateInterface()
+        //        }
         // </UNCOMMENT>
         
         tableView.registerForDraggedTypes([kUTTypeFileURL as NSPasteboard.PasteboardType,
@@ -143,21 +143,21 @@ class ProvidersViewController: NSViewController {
     
     private func discoverAccessibleProviders() {
         // <UNCOMMENT>
-//        ServiceContainer.providerService.discoverAccessibleProviders { result in
-//            DispatchQueue.main.async {
-//                switch result {
-//
-//                case .success(let providers):
-//                    self.providers = providers
-//                    self.tableView.reloadData()
-//                    self.updateInterface()
-//
-//                case .failure(let error):
-//                    NSAlert(customizedError: error)?.beginSheetModal(for: self.view.window!)
-//
-//                }
-//            }
-//        }
+        //        ServiceContainer.providerService.discoverAccessibleProviders { result in
+        //            DispatchQueue.main.async {
+        //                switch result {
+        //
+        //                case .success(let providers):
+        //                    self.providers = providers
+        //                    self.tableView.reloadData()
+        //                    self.updateInterface()
+        //
+        //                case .failure(let error):
+        //                    NSAlert(customizedError: error)?.beginSheetModal(for: self.view.window!)
+        //
+        //                }
+        //            }
+        //        }
         // </UNCOMMENT>
     }
     
@@ -178,7 +178,6 @@ class ProvidersViewController: NSViewController {
             
         case .row(_, let instance):
             delegate?.didSelect(instance: instance, providersViewController: self)
-            break
             
         }
     }
@@ -237,90 +236,90 @@ class ProvidersViewController: NSViewController {
     private var busy: Bool = false
     
     // <UNCOMMENT>
-//    fileprivate func authenticateAndConnect(to instance: Instance) {
-//        if let authState = ServiceContainer.authenticationService.authState(for: provider), authState.isAuthorized {
-//            busy = true
-//            updateInterface()
-//
-//            ServiceContainer.providerService.fetchInfo(for: provider) { result in
-//                DispatchQueue.main.async {
-//                    self.busy = false
-//                    self.updateInterface()
-//
-//                    switch result {
-//                    case .success(let info):
-//                        self.fetchProfiles(for: info)
-//                    case .failure(let error):
-//                        self.handleError(error)
-//                    }
-//                }
-//            }
-//        } else {
-//            // No (valid) authentication token
-//            busy = true
-//            updateInterface()
-//
-//            ServiceContainer.providerService.fetchInfo(for: provider) { result in
-//                DispatchQueue.main.async {
-//                    self.busy = false
-//                    self.updateInterface()
-//
-//                    switch result {
-//                    case .success(let info):
-//                        self.authenticate(with: info)
-//                    case .failure(let error):
-//                        self.handleError(error)
-//                    }
-//                }
-//            }
-//        }
-//    }
-//
-//
-//    private func authenticate(with info: ProviderInfo) {
-//        busy = true
-//        updateInterface()
-//        ServiceContainer.authenticationService.authenticate(using: info) { result in
-//            DispatchQueue.main.async {
-//
-//                self.busy = false
-//                self.updateInterface()
-//
-//                switch result {
-//                case .success:
-//                    ServiceContainer.providerService.storeProvider(provider: info.provider)
-//                    self.fetchProfiles(for: info)
-//                case .failure(let error):
-//                    self.handleError(error)
-//                }
-//            }
-//        }
-//    }
-//
-//    private func fetchProfiles(for info: ProviderInfo) {
-//        busy = true
-//        updateInterface()
-//
-//        ServiceContainer.providerService.fetchUserInfoAndProfiles(for: info) { result in
-//            DispatchQueue.main.async {
-//                self.busy = false
-//                self.updateInterface()
-//
-//                switch result {
-//                case .success(let userInfo, let profiles):
-//                    if profiles.count == 1 {
-//                        let profile = profiles[0]
-//                        self.mainWindowController?.showConnection(for: profile, userInfo: userInfo)
-//                    } else {
-//                        // Choose profile
-//                        self.mainWindowController?.showChooseProfile(from: profiles, userInfo: userInfo)
-//                    }
-//                case .failure(let error):
-//                    self.handleError(error)
-//                }
-//            }
-//        }
-//    }
+    //    fileprivate func authenticateAndConnect(to instance: Instance) {
+    //        if let authState = ServiceContainer.authenticationService.authState(for: provider), authState.isAuthorized {
+    //            busy = true
+    //            updateInterface()
+    //
+    //            ServiceContainer.providerService.fetchInfo(for: provider) { result in
+    //                DispatchQueue.main.async {
+    //                    self.busy = false
+    //                    self.updateInterface()
+    //
+    //                    switch result {
+    //                    case .success(let info):
+    //                        self.fetchProfiles(for: info)
+    //                    case .failure(let error):
+    //                        self.handleError(error)
+    //                    }
+    //                }
+    //            }
+    //        } else {
+    //            // No (valid) authentication token
+    //            busy = true
+    //            updateInterface()
+    //
+    //            ServiceContainer.providerService.fetchInfo(for: provider) { result in
+    //                DispatchQueue.main.async {
+    //                    self.busy = false
+    //                    self.updateInterface()
+    //
+    //                    switch result {
+    //                    case .success(let info):
+    //                        self.authenticate(with: info)
+    //                    case .failure(let error):
+    //                        self.handleError(error)
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //
+    //
+    //    private func authenticate(with info: ProviderInfo) {
+    //        busy = true
+    //        updateInterface()
+    //        ServiceContainer.authenticationService.authenticate(using: info) { result in
+    //            DispatchQueue.main.async {
+    //
+    //                self.busy = false
+    //                self.updateInterface()
+    //
+    //                switch result {
+    //                case .success:
+    //                    ServiceContainer.providerService.storeProvider(provider: info.provider)
+    //                    self.fetchProfiles(for: info)
+    //                case .failure(let error):
+    //                    self.handleError(error)
+    //                }
+    //            }
+    //        }
+    //    }
+    //
+    //    private func fetchProfiles(for info: ProviderInfo) {
+    //        busy = true
+    //        updateInterface()
+    //
+    //        ServiceContainer.providerService.fetchUserInfoAndProfiles(for: info) { result in
+    //            DispatchQueue.main.async {
+    //                self.busy = false
+    //                self.updateInterface()
+    //
+    //                switch result {
+    //                case .success(let userInfo, let profiles):
+    //                    if profiles.count == 1 {
+    //                        let profile = profiles[0]
+    //                        self.mainWindowController?.showConnection(for: profile, userInfo: userInfo)
+    //                    } else {
+    //                        // Choose profile
+    //                        self.mainWindowController?.showChooseProfile(from: profiles, userInfo: userInfo)
+    //                    }
+    //                case .failure(let error):
+    //                    self.handleError(error)
+    //                }
+    //            }
+    //        }
+    //    }
     // </UNCOMMENT>
     
     private func handleError(_ error: Error) {
@@ -348,7 +347,7 @@ class ProvidersViewController: NSViewController {
                 providerSelected = false
                 canRemoveProvider = false
                 
-            case .row(_, let instance):
+            case .row:
                 providerSelected = true
                 canRemoveProvider = true
                 
@@ -361,7 +360,7 @@ class ProvidersViewController: NSViewController {
         } else {
             reachable = true
         }
-    
+        
         unreachableLabel?.isHidden = reachable
         
         tableView.superview?.superview?.isHidden = !reachable
@@ -378,7 +377,7 @@ class ProvidersViewController: NSViewController {
     }
 }
 
-// MARK - TableView
+// MARK: - TableView
 
 extension ProvidersViewController {
     
@@ -412,7 +411,7 @@ extension ProvidersViewController {
 }
 
 extension ProvidersViewController: NSTableViewDataSource {
-
+    
     func numberOfRows(in tableView: NSTableView) -> Int {
         return rows.count
     }
@@ -523,30 +522,30 @@ extension ProvidersViewController: NSTableViewDelegate {
     
     private func chooseConfigFile(configFileURL: URL, recover: Bool = false) {
         // <UNCOMMENT>
-//        ServiceContainer.providerService.addProvider(configFileURL: configFileURL, recover: recover) { result in
-//            DispatchQueue.main.async {
-//                switch result {
-//                case .success:
-//                    self.discoverAccessibleProviders()
-//                case .failure(let error):
-//                    let alert = NSAlert(customizedError: error)
-//                    if let error = error as? ProviderService.Error, !error.recoveryOptions.isEmpty {
-//                        error.recoveryOptions.forEach {
-//                            alert?.addButton(withTitle: $0)
-//                        }
-//                    }
-//
-//                    alert?.beginSheetModal(for: self.view.window!) { response in
-//                        switch response.rawValue {
-//                        case 1000:
-//                            self.chooseConfigFile(configFileURL: configFileURL, recover: true)
-//                        default:
-//                            break
-//                        }
-//                    }
-//                }
-//            }
-//        }
+        //        ServiceContainer.providerService.addProvider(configFileURL: configFileURL, recover: recover) { result in
+        //            DispatchQueue.main.async {
+        //                switch result {
+        //                case .success:
+        //                    self.discoverAccessibleProviders()
+        //                case .failure(let error):
+        //                    let alert = NSAlert(customizedError: error)
+        //                    if let error = error as? ProviderService.Error, !error.recoveryOptions.isEmpty {
+        //                        error.recoveryOptions.forEach {
+        //                            alert?.addButton(withTitle: $0)
+        //                        }
+        //                    }
+        //
+        //                    alert?.beginSheetModal(for: self.view.window!) { response in
+        //                        switch response.rawValue {
+        //                        case 1000:
+        //                            self.chooseConfigFile(configFileURL: configFileURL, recover: true)
+        //                        default:
+        //                            break
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
         // <UNCOMMENT>
     }
 }

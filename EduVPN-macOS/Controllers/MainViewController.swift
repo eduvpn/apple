@@ -27,7 +27,7 @@ class MainViewController: NSViewController {
     func show(viewController: NSViewController,
               options: NSViewController.TransitionOptions = [],
               animated: Bool = true,
-              completionHandler: (() -> ())?) {
+              completionHandler: (() -> Void)?) {
         
         let currentViewController = self.currentViewController
         addChild(viewController)

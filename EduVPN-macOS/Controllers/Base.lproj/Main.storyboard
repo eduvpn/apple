@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15400"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="cells containing NSDateComponentsFormatter" minSystemVersion="10.12"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -667,7 +667,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Let_s_Connect_" customModuleProvider="target">
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="eduVPN" customModuleProvider="target">
                     <connections>
                         <outlet property="statusMenu" destination="QdB-u5-YNJ" id="13s-wb-31K"/>
                     </connections>
@@ -716,7 +716,7 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController storyboardIdentifier="MainWindowController" showSeguePresentationStyle="single" id="B8D-0N-5wS" customClass="MainWindowController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
+                <windowController storyboardIdentifier="MainWindowController" showSeguePresentationStyle="single" id="B8D-0N-5wS" customClass="MainWindowController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="eduVPN" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="Main" animationBehavior="default" tabbingMode="disallowed" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
@@ -747,7 +747,7 @@
         <!--Main View Controller-->
         <scene sceneID="pls-UA-ly7">
             <objects>
-                <viewController storyboardIdentifier="MainViewController" id="khn-a8-CTC" customClass="MainViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainViewController" id="khn-a8-CTC" customClass="MainViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="8OX-OJ-cMR">
                         <rect key="frame" x="0.0" y="0.0" width="378" height="575"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -773,7 +773,7 @@
         <scene sceneID="jUN-uA-o3q">
             <objects>
                 <windowController storyboardIdentifier="PreferencesController" showSeguePresentationStyle="single" id="QBP-pf-Gdt" sceneMemberID="viewController">
-                    <window key="window" title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" tabbingMode="disallowed" id="g8w-C1-RJw" customClass="MainWindow" customModule="Let_s_Connect_" customModuleProvider="target">
+                    <window key="window" title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" tabbingMode="disallowed" id="g8w-C1-RJw" customClass="MainWindow" customModule="eduVPN" customModuleProvider="target">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
                         <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
                         <rect key="contentRect" x="-159" y="1614" width="480" height="332"/>
@@ -802,17 +802,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="374"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GEf-t5-7wD">
-                                <rect key="frame" x="18" y="234" width="149" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Use Developer Mode" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="zSO-mA-g3Q">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <binding destination="cF9-Lp-W07" name="value" keyPath="values.developerMode" id="GGb-K2-0Ia"/>
-                                </connections>
-                            </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ikE-fS-AfB">
                                 <rect key="frame" x="18" y="286" width="136" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -875,16 +864,16 @@
                                     <rect key="frame" x="1" y="0.0" width="438" height="109"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" headerView="Pif-N7-flZ" id="277-ff-rBp">
+                                        <tableView verticalHuggingPriority="750" ambiguous="YES" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" headerView="Pif-N7-flZ" id="277-ff-rBp">
                                             <rect key="frame" x="0.0" y="0.0" width="438" height="86"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
                                                 <tableColumn width="435" minWidth="40" maxWidth="1000" id="vEX-nM-780">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Provider">
-                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <font key="font" metaFont="message" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -972,7 +961,7 @@ DQ
         <!--Providers View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController storyboardIdentifier="ChooseProvider" id="XfG-lQ-9wD" customClass="ProvidersViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChooseProvider" id="XfG-lQ-9wD" customClass="ProvidersViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="379" height="575"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -985,7 +974,7 @@ DQ
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="44" viewBased="YES" id="V0j-Nq-69P">
                                             <rect key="frame" x="0.0" y="0.0" width="379" height="515"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
@@ -993,7 +982,7 @@ DQ
                                             <tableColumns>
                                                 <tableColumn width="376" minWidth="40" maxWidth="1000" id="Gls-PW-Y62">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <font key="font" metaFont="message" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -1038,7 +1027,7 @@ DQ
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="MqL-Ci-4h7"/>
                                                                 </imageView>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jd8-DZ-ish">
-                                                                    <rect key="frame" x="6" y="11" width="123" height="21"/>
+                                                                    <rect key="frame" x="6" y="11" width="123" height="20"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="0b6-r5-HVq">
                                                                         <font key="font" metaFont="systemMedium" size="17"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1070,7 +1059,7 @@ DQ
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="YUv-rv-qvH"/>
                                                                 </imageView>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BcU-w2-Trx">
-                                                                    <rect key="frame" x="57" y="12" width="120" height="21"/>
+                                                                    <rect key="frame" x="57" y="12" width="120" height="20"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="6RI-YI-KXh">
                                                                         <font key="font" metaFont="system" size="17"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1133,7 +1122,7 @@ CA
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="t43-wz-i0I">
-                                <rect key="frame" x="102" y="538" width="176" height="21"/>
+                                <rect key="frame" x="102" y="539" width="176" height="20"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Choose your Provider" id="hbN-Xn-nVI">
                                     <font key="font" metaFont="systemSemibold" size="17"/>
                                     <color key="textColor" name="Primary Color"/>
@@ -1165,7 +1154,7 @@ CA
         <!--Authenticating View Controller-->
         <scene sceneID="paG-B8-GbA">
             <objects>
-                <viewController storyboardIdentifier="Authenticating" id="UOS-Lh-Hiq" customClass="AuthenticatingViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Authenticating" id="UOS-Lh-Hiq" customClass="AuthenticatingViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="gv0-k4-ChA">
                         <rect key="frame" x="0.0" y="0.0" width="378" height="575"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1191,7 +1180,7 @@ CA
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9uI-9f-KsG">
-                                <rect key="frame" x="71" y="538" width="236" height="21"/>
+                                <rect key="frame" x="71" y="539" width="236" height="20"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Authenticating with Provider" id="SFI-Qy-wTD">
                                     <font key="font" metaFont="systemSemibold" size="17"/>
                                     <color key="textColor" name="Primary Color"/>
@@ -1253,7 +1242,7 @@ CA
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zXA-8H-8ch">
-                                <rect key="frame" x="181" y="483" width="139" height="21"/>
+                                <rect key="frame" x="181" y="484" width="139" height="20"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="VPN Connection" id="OUW-TZ-f9l">
                                     <font key="font" metaFont="systemSemibold" size="17"/>
                                     <color key="textColor" name="Primary Color"/>
@@ -1284,13 +1273,13 @@ CA
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="Riu-Th-fuD" userLabel="Scroll Content View">
-                                            <rect key="frame" x="0.0" y="-10" width="500" height="393"/>
+                                            <rect key="frame" x="0.0" y="-8" width="500" height="391"/>
                                             <subviews>
                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9kU-ef-v7I">
-                                                    <rect key="frame" x="12" y="0.0" width="476" height="393"/>
+                                                    <rect key="frame" x="12" y="0.0" width="476" height="391"/>
                                                     <subviews>
                                                         <stackView distribution="fillEqually" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UYa-kI-1Fn">
-                                                            <rect key="frame" x="0.0" y="324" width="476" height="69"/>
+                                                            <rect key="frame" x="0.0" y="322" width="476" height="69"/>
                                                             <subviews>
                                                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="6dy-fD-hy9" userLabel="Status View">
                                                                     <rect key="frame" x="0.0" y="0.0" width="153" height="69"/>
@@ -1354,7 +1343,7 @@ CA
                                                                     <rect key="frame" x="323" y="0.0" width="153" height="69"/>
                                                                     <subviews>
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dQ7-ql-jwE">
-                                                                            <rect key="frame" x="-2" y="52" width="43" height="17"/>
+                                                                            <rect key="frame" x="-2" y="53" width="43" height="16"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Profile" id="Zvb-Se-whw">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1362,7 +1351,7 @@ CA
                                                                             </textFieldCell>
                                                                         </textField>
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t6t-Oi-cJ5">
-                                                                            <rect key="frame" x="-2" y="30" width="91" height="14"/>
+                                                                            <rect key="frame" x="-2" y="31" width="91" height="14"/>
                                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Secure Internet" id="amV-64-Fbo">
                                                                                 <font key="font" metaFont="smallSystemBold"/>
                                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1395,7 +1384,7 @@ CA
                                                             </customSpacing>
                                                         </stackView>
                                                         <box verticalHuggingPriority="251" borderType="line" title="Notification" translatesAutoresizingMaskIntoConstraints="NO" id="foZ-Fb-y44">
-                                                            <rect key="frame" x="-3" y="169" width="466" height="135"/>
+                                                            <rect key="frame" x="-3" y="168" width="466" height="134"/>
                                                             <view key="contentView" id="7Pk-2m-FDr">
                                                                 <rect key="frame" x="11" y="11" width="444" height="106"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1403,7 +1392,7 @@ CA
                                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bkm-Qe-VuB">
                                                                         <rect key="frame" x="-2" y="0.0" width="448" height="98"/>
                                                                         <textFieldCell key="cell" selectable="YES" sendsActionOnEndEditing="YES" allowsEditingTextAttributes="YES" id="E7D-Hd-XLz">
-                                                                            <font key="font" metaFont="smallSystem"/>
+                                                                            <font key="font" metaFont="message" size="11"/>
                                                                             <string key="title">Today, 14:23: The lorem is ipsum when it rains
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
                                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1422,7 +1411,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
                                                             <font key="titleFont" metaFont="system"/>
                                                         </box>
                                                         <box borderType="line" title="Connection Info" translatesAutoresizingMaskIntoConstraints="NO" id="gLA-m0-Zbt">
-                                                            <rect key="frame" x="-3" y="-4" width="466" height="157"/>
+                                                            <rect key="frame" x="-3" y="-4" width="466" height="156"/>
                                                             <view key="contentView" id="DVk-f7-A1z">
                                                                 <rect key="frame" x="3" y="3" width="460" height="136"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1442,7 +1431,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
                                                                         </constraints>
                                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" id="7my-uL-F9n">
                                                                             <byteCountFormatter key="formatter" countStyle="binary" zeroPadsFractionDigits="YES" id="5gX-Kq-aNS"/>
-                                                                            <font key="font" metaFont="smallSystem"/>
+                                                                            <font key="font" metaFont="message" size="11"/>
                                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
@@ -1462,7 +1451,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
                                                                         </constraints>
                                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" id="1rB-Yp-fQH">
                                                                             <byteCountFormatter key="formatter" countStyle="binary" zeroPadsFractionDigits="YES" id="3ih-gh-5ar"/>
-                                                                            <font key="font" metaFont="smallSystem"/>
+                                                                            <font key="font" metaFont="message" size="11"/>
                                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
@@ -1481,7 +1470,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
                                                                             <constraint firstAttribute="width" constant="100" id="j4o-GI-1yv"/>
                                                                         </constraints>
                                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" id="uiV-Ac-KOg">
-                                                                            <font key="font" metaFont="smallSystem"/>
+                                                                            <font key="font" metaFont="message" size="11"/>
                                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
@@ -1500,7 +1489,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
                                                                             <constraint firstAttribute="width" constant="200" id="BDd-Og-ErT"/>
                                                                         </constraints>
                                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" id="omE-nE-LU5">
-                                                                            <font key="font" metaFont="smallSystem"/>
+                                                                            <font key="font" metaFont="message" size="11"/>
                                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
@@ -1522,7 +1511,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
                                                                             <dateComponentsFormatter key="formatter" unitsStyle="positional" id="X0e-z2-oj5">
                                                                                 <zeroFormattingBehavior key="zeroFormattingBehavior" none="YES"/>
                                                                             </dateComponentsFormatter>
-                                                                            <font key="font" metaFont="smallSystem"/>
+                                                                            <font key="font" metaFont="message" size="11"/>
                                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
@@ -1531,7 +1520,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
                                                                         <rect key="frame" x="93" y="7" width="66" height="19"/>
                                                                         <buttonCell key="cell" type="roundRect" title="View Log" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hfa-Gc-j1c">
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                            <font key="font" metaFont="cellTitle"/>
+                                                                            <font key="font" metaFont="label" size="12"/>
                                                                             <string key="keyEquivalent">l</string>
                                                                         </buttonCell>
                                                                         <connections>
@@ -1652,7 +1641,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
         <!--Profiles View Controller-->
         <scene sceneID="R5C-VG-0tb">
             <objects>
-                <viewController storyboardIdentifier="ProfilesViewController" id="Lns-jv-Aqp" customClass="ProfilesViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfilesViewController" id="Lns-jv-Aqp" customClass="ProfilesViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="NKN-qH-oxC">
                         <rect key="frame" x="0.0" y="0.0" width="511" height="696"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1661,14 +1650,14 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
                         </userGuides>
                         <subviews>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="1" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="T7X-NY-cOV">
-                                <rect key="frame" x="136" y="254" width="240" height="268"/>
+                                <rect key="frame" x="136" y="256" width="240" height="264"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="dPz-d7-4Mn"/>
                                 </constraints>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AddProviderPlaceholder" id="kew-7o-6k6"/>
                             </imageView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2PS-WV-Mnd">
-                                <rect key="frame" x="136" y="398" width="240" height="124"/>
+                                <rect key="frame" x="136" y="398" width="240" height="122"/>
                                 <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="secure_internet" imagePosition="above" alignment="center" imageScaling="proportionallyDown" inset="2" id="jUV-dy-GT9">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <string key="title">Connect to the internet securely, for 
@@ -1730,7 +1719,7 @@ CA
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bVa-Ah-Opn">
-                                <rect key="frame" x="136" y="254" width="240" height="124"/>
+                                <rect key="frame" x="136" y="256" width="240" height="122"/>
                                 <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="secure_access" imagePosition="above" alignment="center" imageScaling="proportionallyDown" inset="2" id="gDJ-XU-EmI">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <string key="title">Institute Access
@@ -1782,7 +1771,7 @@ CA
         <!--Connections Table View Controller-->
         <scene sceneID="q3V-V1-a5D">
             <objects>
-                <viewController identifier="ConnectionsTableViewController" storyboardIdentifier="ConnectionsTableViewController" id="xQP-Pr-Baz" customClass="ConnectionsTableViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController identifier="ConnectionsTableViewController" storyboardIdentifier="ConnectionsTableViewController" id="xQP-Pr-Baz" customClass="ConnectionsTableViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="4nJ-ev-Mfz">
                         <rect key="frame" x="0.0" y="0.0" width="378" height="575"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1793,9 +1782,9 @@ CA
                                     <rect key="frame" x="0.0" y="0.0" width="378" height="515"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="44" viewBased="YES" id="Xgt-x3-Ooi" customClass="DeselectingTableView" customModule="Let_s_Connect_" customModuleProvider="target">
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="44" viewBased="YES" id="Xgt-x3-Ooi" customClass="DeselectingTableView" customModule="eduVPN" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="378" height="515"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
@@ -1803,7 +1792,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn width="375" minWidth="40" maxWidth="1000" id="15T-aJ-TcM">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <font key="font" metaFont="message" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -1869,7 +1858,7 @@ CA
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wdA-71-Y7f">
-                                <rect key="frame" x="120" y="538" width="139" height="21"/>
+                                <rect key="frame" x="120" y="539" width="139" height="20"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Choose a Profile" id="dgC-MV-cO3">
                                     <font key="font" metaFont="systemSemibold" size="17"/>
                                     <color key="textColor" name="Primary Color"/>
@@ -1901,7 +1890,7 @@ CA
         <!--Providers View Controller-->
         <scene sceneID="4WM-oH-o6s">
             <objects>
-                <viewController storyboardIdentifier="Providers" id="d3v-OK-Unm" customClass="ProvidersViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Providers" id="d3v-OK-Unm" customClass="ProvidersViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="mHf-nK-qZy">
                         <rect key="frame" x="0.0" y="0.0" width="378" height="575"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1912,9 +1901,9 @@ CA
                                     <rect key="frame" x="0.0" y="0.0" width="378" height="438"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="44" viewBased="YES" id="GYp-9D-CGo" customClass="DeselectingTableView" customModule="Let_s_Connect_" customModuleProvider="target">
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="44" viewBased="YES" id="GYp-9D-CGo" customClass="DeselectingTableView" customModule="eduVPN" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="378" height="438"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
@@ -1922,7 +1911,7 @@ CA
                                             <tableColumns>
                                                 <tableColumn width="375" minWidth="40" maxWidth="1000" id="eQe-hu-mpC">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <font key="font" metaFont="message" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -1943,7 +1932,7 @@ CA
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="Qo6-AI-y4p"/>
                                                                 </imageView>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k7N-48-BwA">
-                                                                    <rect key="frame" x="6" y="11" width="123" height="21"/>
+                                                                    <rect key="frame" x="6" y="11" width="123" height="20"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="2jL-Vy-gnJ">
                                                                         <font key="font" metaFont="systemMedium" size="17"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1975,7 +1964,7 @@ CA
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="9zI-bM-15M"/>
                                                                 </imageView>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KOt-Dl-T81">
-                                                                    <rect key="frame" x="57" y="12" width="120" height="21"/>
+                                                                    <rect key="frame" x="57" y="12" width="120" height="20"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="F7O-oS-9qj">
                                                                         <font key="font" metaFont="system" size="17"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -2032,7 +2021,7 @@ CA
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6dl-Y3-ZZC">
-                                <rect key="frame" x="124" y="538" width="131" height="21"/>
+                                <rect key="frame" x="124" y="539" width="131" height="20"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Connect to VPN" id="KBv-D2-Xgq">
                                     <font key="font" metaFont="systemSemibold" size="17"/>
                                     <color key="textColor" name="Primary Color"/>
@@ -2125,7 +2114,7 @@ CA
         <!--Enter Provider URL View Controller-->
         <scene sceneID="D1l-yj-M3U">
             <objects>
-                <viewController storyboardIdentifier="EnterProviderURL" id="JTX-Fe-25d" customClass="EnterProviderURLViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EnterProviderURL" id="JTX-Fe-25d" customClass="EnterProviderURLViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="C5T-y0-cXd">
                         <rect key="frame" x="0.0" y="0.0" width="420" height="116"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2194,7 +2183,7 @@ Gw
         <!--Enter Credentials View Controller-->
         <scene sceneID="kU9-LA-Gwx">
             <objects>
-                <viewController storyboardIdentifier="EnterCredentials" id="uq9-CJ-wT3" customClass="EnterCredentialsViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EnterCredentials" id="uq9-CJ-wT3" customClass="EnterCredentialsViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="f3e-f3-Qip">
                         <rect key="frame" x="0.0" y="0.0" width="420" height="168"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2306,7 +2295,7 @@ Gw
         <!--Enter2FA View Controller-->
         <scene sceneID="3Lr-zQ-H48">
             <objects>
-                <viewController storyboardIdentifier="Enter2FA" id="nGZ-CL-mTb" customClass="Enter2FAViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Enter2FA" id="nGZ-CL-mTb" customClass="Enter2FAViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="cVK-LL-9ZC">
                         <rect key="frame" x="0.0" y="0.0" width="344" height="575"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2329,7 +2318,7 @@ CA
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="n1C-jr-F6t">
-                                <rect key="frame" x="63" y="538" width="218" height="21"/>
+                                <rect key="frame" x="63" y="539" width="218" height="20"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Two Factor Authentication" id="8PU-eH-uqC">
                                     <font key="font" metaFont="systemSemibold" size="17"/>
                                     <color key="textColor" name="Primary Color"/>
@@ -2355,7 +2344,7 @@ DQ
                                 </connections>
                             </button>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nqY-pj-yA4">
-                                <rect key="frame" x="20" y="445" width="304" height="36"/>
+                                <rect key="frame" x="20" y="446" width="304" height="35"/>
                                 <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Enter code here" drawsBackground="YES" id="w9X-xl-9Wu">
                                     <font key="font" metaFont="system" size="26"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -2412,7 +2401,7 @@ DQ
         <!--Enroll2FA View Controller-->
         <scene sceneID="8aH-wQ-FRP">
             <objects>
-                <viewController storyboardIdentifier="Enroll2FA" id="b5G-d1-wPp" customClass="Enroll2FAViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Enroll2FA" id="b5G-d1-wPp" customClass="Enroll2FAViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="I1t-t4-8ax">
                         <rect key="frame" x="0.0" y="0.0" width="344" height="660"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2435,7 +2424,7 @@ CA
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DnE-Xc-p5E">
-                                <rect key="frame" x="63" y="623" width="218" height="21"/>
+                                <rect key="frame" x="63" y="624" width="218" height="20"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Two Factor Authentication" id="kqB-9m-JFq">
                                     <font key="font" metaFont="systemSemibold" size="17"/>
                                     <color key="textColor" name="Primary Color"/>
@@ -2473,16 +2462,16 @@ DQ
                                 </connections>
                             </segmentedControl>
                             <tabView drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="2QT-GX-Lbu">
-                                <rect key="frame" x="20" y="222" width="304" height="349"/>
+                                <rect key="frame" x="20" y="227" width="304" height="344"/>
                                 <font key="font" metaFont="system"/>
                                 <tabViewItems>
                                     <tabViewItem label="TOTP" identifier="totp" id="Tm9-O7-UlM">
                                         <view key="view" id="CzY-x5-Y9R">
-                                            <rect key="frame" x="0.0" y="0.0" width="304" height="349"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="304" height="344"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XoX-vt-Rlk">
-                                                    <rect key="frame" x="-2" y="69" width="308" height="17"/>
+                                                    <rect key="frame" x="-2" y="68" width="308" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" alignment="center" title="&lt;&lt;&lt; SECRET HERE &gt;&gt;&gt;" id="obf-Vz-ND1">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -2490,7 +2479,7 @@ DQ
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="pSj-3B-JEt">
-                                                    <rect key="frame" x="-2" y="298" width="308" height="51"/>
+                                                    <rect key="frame" x="-2" y="296" width="308" height="48"/>
                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="You need to setup two factor authentication. To enroll scan the QR-code below or enter the code into your authenticator app." id="hhm-6Y-8g0">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -2498,7 +2487,7 @@ DQ
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1h7-re-8yN">
-                                                    <rect key="frame" x="-2" y="44" width="308" height="17"/>
+                                                    <rect key="frame" x="-2" y="44" width="308" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Then enter the generated code below to continue:" id="NXb-u3-azC">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -2506,7 +2495,7 @@ DQ
                                                     </textFieldCell>
                                                 </textField>
                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="g8p-ub-P5d">
-                                                    <rect key="frame" x="52" y="90" width="200" height="200"/>
+                                                    <rect key="frame" x="52" y="88" width="200" height="200"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="200" id="D7T-gA-ta0"/>
                                                         <constraint firstAttribute="height" constant="200" id="R1c-mp-fU1"/>
@@ -2550,12 +2539,12 @@ DQ
                                         </view>
                                     </tabViewItem>
                                     <tabViewItem label="YubiKey" identifier="yubikey" id="hi0-H5-NBZ">
-                                        <view key="view" id="Gtg-G3-w4K">
+                                        <view key="view" misplaced="YES" id="Gtg-G3-w4K">
                                             <rect key="frame" x="0.0" y="0.0" width="556" height="78"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="YcE-EA-c9b">
-                                                    <rect key="frame" x="-2" y="44" width="560" height="34"/>
+                                                    <rect key="frame" x="-2" y="44" width="560" height="32"/>
                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="You need to setup two factor authentication. To enroll enter the code from your YubiKey here." id="Kct-Zf-OIY">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -2628,7 +2617,7 @@ DQ
         </scene>
     </scenes>
     <resources>
-        <image name="AddProviderPlaceholder" width="1133" height="602"/>
+        <image name="AddProviderPlaceholder" width="10" height="10"/>
         <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSGoLeftTemplate" width="9" height="12"/>
         <image name="NSLeftFacingTriangleTemplate" width="9" height="12"/>

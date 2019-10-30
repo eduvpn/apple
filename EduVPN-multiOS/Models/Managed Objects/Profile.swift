@@ -15,7 +15,7 @@ extension Profile {
     var displayString: String? {
         return api?.instance?.displayNames?.localizedValue ?? api?.instance?.baseUri
     }
-
+    
     static func upsert(with profileModels: [InstanceProfileModel], for api: Api, on context: NSManagedObjectContext) {
         // Key new models on profile ID.
         var keyedModels = profileModels.reduce([String: InstanceProfileModel]()) { (dict, model) -> [String: InstanceProfileModel] in
@@ -23,7 +23,7 @@ extension Profile {
             dict[model.profileId] = model
             return dict
         }
-
+        
         if let api = context.object(with: api.objectID) as? Api {
             api.profiles.forEach {
                 let profileId = $0.profileId!
@@ -35,7 +35,7 @@ extension Profile {
                     context.delete($0)
                 }
             }
-
+            
             // Insert new models
             keyedModels.values.forEach { newModel in
                 let newProfile = Profile(context: context)
@@ -45,10 +45,10 @@ extension Profile {
             }
         }
     }
-
+    
     func update(with profileModel: InstanceProfileModel) {
         self.profileId = profileModel.profileId
-
+        
         if let displayNames = profileModel.displayNames {
             self.displayNames = Set(displayNames.compactMap({ (displayData) -> DisplayName? in
                 let displayName = DisplayName(context: self.managedObjectContext!)
@@ -65,12 +65,12 @@ extension Profile {
             self.displayNames = []
         }
     }
-
+    
     var isActiveConfig: Bool {
         guard let configuredProfileId = UserDefaults.standard.configuredProfileId else { return false }
         return configuredProfileId == uuid?.uuidString
     }
-
+    
     var vpnStatus: NEVPNStatus {
         get {
             return NEVPNStatus(rawValue: Int(rawVpnStatus)) ?? NEVPNStatus.invalid

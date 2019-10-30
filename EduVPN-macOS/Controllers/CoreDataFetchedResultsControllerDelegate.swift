@@ -35,7 +35,6 @@ class CoreDataFetchedResultsControllerDelegate<T: NSManagedObject>: NSObject, Fe
         
         guard let tableView = tableView else { return }
         
-        
         switch change {
             
         case let .insert(_, indexPath):

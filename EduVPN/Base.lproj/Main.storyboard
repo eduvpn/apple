@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_0" orientation="portrait" appearance="dark"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,15 +14,15 @@
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="HyS-tw-Pp4">
-                                <rect key="frame" x="16" y="0.0" width="288" height="360"/>
+                                <rect key="frame" x="20" y="0.0" width="560" height="360"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select one of the VPN types below." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V7l-Ik-1PT">
-                                        <rect key="frame" x="0.0" y="0.0" width="288" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="560" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="QBK-3m-I2p"/>
                                         </constraints>
@@ -33,10 +31,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CWV-KN-nO1" userLabel="Secure Internet View">
-                                        <rect key="frame" x="0.0" y="70" width="288" height="100"/>
+                                        <rect key="frame" x="0.0" y="70" width="560" height="100"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xgu-wb-22i">
-                                                <rect key="frame" x="0.0" y="0.0" width="288" height="100"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="560" height="100"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="secure_internet" translatesAutoresizingMaskIntoConstraints="NO" id="FGC-rf-EWG">
                                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
@@ -46,7 +44,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect to the internet securely, for example when using public WiFi." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kUO-0c-vgJ">
-                                                        <rect key="frame" x="100" y="0.0" width="188" height="100"/>
+                                                        <rect key="frame" x="100" y="0.0" width="460" height="100"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -72,10 +70,10 @@
                                         </connections>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u0P-BA-ng4" userLabel="Secure Access View">
-                                        <rect key="frame" x="0.0" y="190" width="288" height="100"/>
+                                        <rect key="frame" x="0.0" y="190" width="560" height="100"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IEe-JN-lTc">
-                                                <rect key="frame" x="0.0" y="0.0" width="288" height="100"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="560" height="100"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="secure_access" translatesAutoresizingMaskIntoConstraints="NO" id="Kdl-Wv-NLW">
                                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
@@ -85,7 +83,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Access your institute's network from outside the institution." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TrB-uC-Yx9">
-                                                        <rect key="frame" x="100" y="0.0" width="188" height="100"/>
+                                                        <rect key="frame" x="100" y="0.0" width="460" height="100"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -111,10 +109,10 @@
                                         </connections>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CUs-eR-fIP">
-                                        <rect key="frame" x="0.0" y="310" width="288" height="50"/>
+                                        <rect key="frame" x="0.0" y="310" width="560" height="50"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add other Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgp-i2-K5S">
-                                                <rect key="frame" x="72.5" y="15" width="143" height="20.5"/>
+                                                <rect key="frame" x="208.5" y="15" width="143" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.70196078429999997" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -180,7 +178,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="SettingsTableViewController" hidesBottomBarWhenPushed="YES" id="u52-OQ-OnN" customClass="SettingsTableViewController" customModule="AppForce1" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="0vT-oo-Jgu">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -188,20 +186,20 @@
                                 <string key="footerTitle">With on demand enabled, the VPN connection is started whenever an application running on the system opens a network connection. Network connectivity will be blocked until the VPN is connected.</string>
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Nsj-pb-wbZ">
-                                        <rect key="frame" x="0.0" y="18" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="18" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Nsj-pb-wbZ" id="cVp-nr-u7B">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JPq-pi-jpH">
-                                                    <rect key="frame" x="263" y="6.5" width="51" height="31"/>
+                                                    <rect key="frame" x="543" y="6.5" width="51" height="31"/>
                                                     <connections>
                                                         <action selector="onDemandChanged:" destination="u52-OQ-OnN" eventType="valueChanged" id="mIe-K2-oB8"/>
                                                     </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On Demand" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n5F-Rw-ixR">
-                                                    <rect key="frame" x="16" y="11.5" width="247" height="21"/>
+                                                    <rect key="frame" x="20" y="11.5" width="523" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -222,20 +220,20 @@
                                 <string key="footerTitle">With Force TCP enabled, the VPN connection is always forced to use TCP only. In some network environments forcing TCP can help when UDP is not working. This setting only applies to new connections started after setting this option.</string>
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="mWm-QB-A5Q">
-                                        <rect key="frame" x="0.0" y="174" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="142" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mWm-QB-A5Q" id="aTC-zn-zcu">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FAb-Eg-fyS">
-                                                    <rect key="frame" x="263" y="6.5" width="51" height="31"/>
+                                                    <rect key="frame" x="543" y="6.5" width="51" height="31"/>
                                                     <connections>
                                                         <action selector="forceTcpChanged:" destination="u52-OQ-OnN" eventType="valueChanged" id="xNw-Cg-6HS"/>
                                                     </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Force TCP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1PI-fG-1Lj">
-                                                    <rect key="frame" x="16" y="11.5" width="247" height="21"/>
+                                                    <rect key="frame" x="20" y="11.5" width="523" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -274,7 +272,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="ProvidersViewController" title="Choose Provider" id="Jxg-KJ-i9R" customClass="ProvidersViewController" customModule="AppForce1" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="64" sectionHeaderHeight="28" sectionFooterHeight="28" id="bhN-Pl-odX">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
@@ -362,7 +360,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Hxd-zJ-b7y"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Cum-k4-a3E">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="tRT-iA-4Hw">
@@ -616,17 +614,17 @@
         <!--Provide the URL to your provider-->
         <scene sceneID="bSn-Nd-0se">
             <objects>
-                <viewController storyboardIdentifier="CustomProviderInPutViewController" hidesBottomBarWhenPushed="YES" id="KZY-IT-pRj" customClass="CustomProviderInPutViewController" customModule="AppForce1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CustomProviderInPutViewController" hidesBottomBarWhenPushed="YES" id="KZY-IT-pRj" customClass="CustomProviderInputViewController" customModule="AppForce1" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eai-eu-qF9"/>
                         <viewControllerLayoutGuide type="bottom" id="flK-T7-Zab"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="c2O-1v-CwK">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="c2O-1v-CwK">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eoq-wR-HEK">
-                                <rect key="frame" x="8" y="486" width="304" height="30"/>
+                                <rect key="frame" x="8" y="512" width="584" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="9bu-YX-eLB"/>
                                 </constraints>
@@ -636,7 +634,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MpY-jL-VFr">
-                                <rect key="frame" x="71" y="100" width="233" height="34"/>
+                                <rect key="frame" x="75" y="100" width="505" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="url"/>
                                 <connections>
@@ -645,7 +643,7 @@
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="https://" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DDH-r5-hXt">
-                                <rect key="frame" x="16" y="106.5" width="55" height="21"/>
+                                <rect key="frame" x="20" y="106.5" width="55" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -680,7 +678,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="ConnectionsTableViewController" hidesBottomBarWhenPushed="YES" id="Uux-Jq-wjR" customClass="ConnectionsTableViewController" customModule="AppForce1" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="64" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ws9-C0-bF6">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>

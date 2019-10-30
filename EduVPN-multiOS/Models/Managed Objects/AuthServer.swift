@@ -16,7 +16,7 @@ extension AuthServer {
         let authorizationEndpoint = instanceInfoModel.authorizationEndpoint.absoluteString
         return upsert(tokenEndpoint: tokenEndpoint, authorizationEndpoint: authorizationEndpoint, on: context)
     }
-
+    
     static func upsert(with instances: InstancesModel, on context: NSManagedObjectContext) -> AuthServer? {
         guard
             let tokenEndpoint = instances.tokenEndpoint?.absoluteString,
@@ -25,19 +25,18 @@ extension AuthServer {
         
         return upsert(tokenEndpoint: tokenEndpoint, authorizationEndpoint: authorizationEndpoint, on: context)
     }
-
+    
     static func upsert(tokenEndpoint: String, authorizationEndpoint: String,
                        on context: NSManagedObjectContext) -> AuthServer {
         
         let predicate = NSPredicate(format: "authorizationEndpoint == %@ AND tokenEndpoint == %@",
                                     authorizationEndpoint, tokenEndpoint)
         
-        let authServer = try! AuthServer.findFirstInContext(context, predicate: predicate)
-            ?? AuthServer(context: context)//swiftlint:disable:this force_try
+        let authServer = try! AuthServer.findFirstInContext(context, predicate: predicate) ?? AuthServer(context: context) //swiftlint:disable:this force_try
         authServer.authorizationEndpoint = authorizationEndpoint
         authServer.tokenEndpoint = tokenEndpoint
-
+        
         return authServer
     }
-
+    
 }

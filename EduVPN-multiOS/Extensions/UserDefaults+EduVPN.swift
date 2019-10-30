@@ -30,7 +30,7 @@ extension UserDefaults {
             set(newValue, forKey: onDemandDefaultsKey)
         }
     }
-
+    
     var forceTcp: Bool {
         get {
             return bool(forKey: forceTcpDefaultsKey)
@@ -39,7 +39,7 @@ extension UserDefaults {
             set(newValue, forKey: forceTcpDefaultsKey)
         }
     }
-
+    
     var configuredProfileId: String? {
         get {
             return string(forKey: configuredProfileUuidKey)
@@ -48,7 +48,7 @@ extension UserDefaults {
             set(newValue, forKey: configuredProfileUuidKey)
         }
     }
-
+    
     var tlsSecurityLevel: TlsSecurityLevel {
         get {
             return TlsSecurityLevel(rawValue: integer(forKey: tlsSecurityLevelKey)) ?? TlsSecurityLevel.bits128

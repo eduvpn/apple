@@ -9,7 +9,7 @@
 import Foundation
 import PromiseKit
 
-extension ConnectionsTableViewController: Identifyable {}
+extension ConnectionsTableViewController: Identifiable {}
 
 protocol ConnectionsTableViewControllerDelegate: class {
     func connect(profile: Profile)

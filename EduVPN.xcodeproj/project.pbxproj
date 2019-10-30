@@ -12,8 +12,8 @@
 		340A504122A26ECC00170E51 /* AppCoordinator+ViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345298229FF89800C0476E /* AppCoordinator+ViewControllers.swift */; };
 		340A504222A26FDF00170E51 /* ConnectionsTableViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345286229FF33000C0476E /* ConnectionsTableViewControllerDelegate.swift */; };
 		340A504422A2702D00170E51 /* TunnelProviderManagerCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3434528C229FF33100C0476E /* TunnelProviderManagerCoordinatorDelegate.swift */; };
-		340A504622A2706400170E51 /* CustomProviderInPutViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3434528A229FF33000C0476E /* CustomProviderInPutViewControllerDelegate.swift */; };
-		340A504A22A2745600170E51 /* Identifyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2CC2211F4233E8004119B1 /* Identifyable.swift */; };
+		340A504622A2706400170E51 /* CustomProviderInputViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3434528A229FF33000C0476E /* CustomProviderInputViewControllerDelegate.swift */; };
+		340A504A22A2745600170E51 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2CC2211F4233E8004119B1 /* Identifiable.swift */; };
 		340A504F22A3BD9E00170E51 /* ProfilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340A504E22A3BD9D00170E51 /* ProfilesViewController.swift */; };
 		340A505122A3BDDF00170E51 /* ProfilesViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3434528B229FF33100C0476E /* ProfilesViewControllerDelegate.swift */; };
 		340A505422A3BF8900170E51 /* EnterProviderURLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340A505322A3BF8900170E51 /* EnterProviderURLViewController.swift */; };
@@ -48,7 +48,7 @@
 		3434528E229FF33100C0476E /* VPNConnectionViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345287229FF33000C0476E /* VPNConnectionViewControllerDelegate.swift */; };
 		3434528F229FF33100C0476E /* ProvidersViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345288229FF33000C0476E /* ProvidersViewControllerDelegate.swift */; };
 		34345290229FF33100C0476E /* SettingsTableViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345289229FF33000C0476E /* SettingsTableViewControllerDelegate.swift */; };
-		34345291229FF33100C0476E /* CustomProviderInPutViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3434528A229FF33000C0476E /* CustomProviderInPutViewControllerDelegate.swift */; };
+		34345291229FF33100C0476E /* CustomProviderInputViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3434528A229FF33000C0476E /* CustomProviderInputViewControllerDelegate.swift */; };
 		34345292229FF33100C0476E /* ProfilesViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3434528B229FF33100C0476E /* ProfilesViewControllerDelegate.swift */; };
 		34345293229FF33100C0476E /* TunnelProviderManagerCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3434528C229FF33100C0476E /* TunnelProviderManagerCoordinatorDelegate.swift */; };
 		34345297229FF71800C0476E /* AppCoordinator+Repositories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345296229FF71800C0476E /* AppCoordinator+Repositories.swift */; };
@@ -75,14 +75,13 @@
 		34D71AB2228DA3A00027DE84 /* String+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAC228DA39F0027DE84 /* String+URL.swift */; };
 		34D71AD6228DA4670027DE84 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 34D71AD3228DA4670027DE84 /* dsa_pub.pem */; };
 		34D71AD7228DA4670027DE84 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34D71AD5228DA4670027DE84 /* Defaults.plist */; };
-		34D71ADD228DA4B00027DE84 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34D719E9228D75560027DE84 /* Info.plist */; };
 		34FD2AD022A7CF61002AABB3 /* NotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FD2ACF22A7CF61002AABB3 /* NotificationsService.swift */; };
 		34FD2AD122A7CFA0002AABB3 /* NotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FD2ACF22A7CF61002AABB3 /* NotificationsService.swift */; };
 		34FD2AD722A93530002AABB3 /* VPNConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FD2AD622A9352F002AABB3 /* VPNConnectionViewController.swift */; };
 		34FD2AD922A946E4002AABB3 /* VPNConnectionViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345287229FF33000C0476E /* VPNConnectionViewControllerDelegate.swift */; };
 		4A1140841F78490C00D61100 /* VPNConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */; };
-		4A2803D91FA6867D00FA895C /* CustomProviderInPutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2803D81FA6867D00FA895C /* CustomProviderInPutViewController.swift */; };
-		4A2CC2221F4233E8004119B1 /* Identifyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2CC2211F4233E8004119B1 /* Identifyable.swift */; };
+		4A2803D91FA6867D00FA895C /* CustomProviderInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2803D81FA6867D00FA895C /* CustomProviderInputViewController.swift */; };
+		4A2CC2221F4233E8004119B1 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2CC2211F4233E8004119B1 /* Identifiable.swift */; };
 		4A3971B321E9500100782A28 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = 4A3971B221E9500100782A28 /* config.json */; };
 		4A3E029C1F6C4B3D00D20292 /* Moya+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3E029B1F6C4B3D00D20292 /* Moya+Extensions.swift */; };
 		4A4CA90F1F55F4300021FD5D /* UITableView+EduVPN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CA90E1F55F4300021FD5D /* UITableView+EduVPN.swift */; };
@@ -128,8 +127,6 @@
 		C7FA7A1123633694006501E8 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A0123633694006501E8 /* Config.swift */; };
 		C7FA7A1423633694006501E8 /* InstanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A0323633694006501E8 /* InstanceModel.swift */; };
 		C7FA7A1523633694006501E8 /* InstanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A0323633694006501E8 /* InstanceModel.swift */; };
-		C7FA7A1823633694006501E8 /* EduVPN.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A0523633694006501E8 /* EduVPN.xcdatamodeld */; };
-		C7FA7A1923633694006501E8 /* EduVPN.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A0523633694006501E8 /* EduVPN.xcdatamodeld */; };
 		C7FA7A7623633895006501E8 /* InstancesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A5923633894006501E8 /* InstancesRepository.swift */; };
 		C7FA7A7723633895006501E8 /* InstancesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A5923633894006501E8 /* InstancesRepository.swift */; };
 		C7FA7A7823633895006501E8 /* ProfilesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A5A23633894006501E8 /* ProfilesRepository.swift */; };
@@ -273,7 +270,7 @@
 		34345287229FF33000C0476E /* VPNConnectionViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VPNConnectionViewControllerDelegate.swift; sourceTree = "<group>"; };
 		34345288229FF33000C0476E /* ProvidersViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProvidersViewControllerDelegate.swift; sourceTree = "<group>"; };
 		34345289229FF33000C0476E /* SettingsTableViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewControllerDelegate.swift; sourceTree = "<group>"; };
-		3434528A229FF33000C0476E /* CustomProviderInPutViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomProviderInPutViewControllerDelegate.swift; sourceTree = "<group>"; };
+		3434528A229FF33000C0476E /* CustomProviderInputViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomProviderInputViewControllerDelegate.swift; sourceTree = "<group>"; };
 		3434528B229FF33100C0476E /* ProfilesViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilesViewControllerDelegate.swift; sourceTree = "<group>"; };
 		3434528C229FF33100C0476E /* TunnelProviderManagerCoordinatorDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TunnelProviderManagerCoordinatorDelegate.swift; sourceTree = "<group>"; };
 		34345296229FF71800C0476E /* AppCoordinator+Repositories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppCoordinator+Repositories.swift"; sourceTree = "<group>"; };
@@ -305,8 +302,8 @@
 		417DD34C1C9EFF60C64C80CB /* Pods-LetsConnect-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsConnect-macOS.release.xcconfig"; path = "Target Support Files/Pods-LetsConnect-macOS/Pods-LetsConnect-macOS.release.xcconfig"; sourceTree = "<group>"; };
 		4A01329921CDA2C2009B8B02 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
 		4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNConnectionViewController.swift; sourceTree = "<group>"; };
-		4A2803D81FA6867D00FA895C /* CustomProviderInPutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProviderInPutViewController.swift; sourceTree = "<group>"; };
-		4A2CC2211F4233E8004119B1 /* Identifyable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifyable.swift; sourceTree = "<group>"; };
+		4A2803D81FA6867D00FA895C /* CustomProviderInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProviderInputViewController.swift; sourceTree = "<group>"; };
+		4A2CC2211F4233E8004119B1 /* Identifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		4A2DA16D21C5ACF90026BCF5 /* EduVPN.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EduVPN.entitlements; sourceTree = "<group>"; };
 		4A3971B221E9500100782A28 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
 		4A3E029B1F6C4B3D00D20292 /* Moya+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Moya+Extensions.swift"; sourceTree = "<group>"; };
@@ -533,7 +530,7 @@
 			isa = PBXGroup;
 			children = (
 				4AEAC32620F13D0C007B67AB /* Log.swift */,
-				4A2CC2211F4233E8004119B1 /* Identifyable.swift */,
+				4A2CC2211F4233E8004119B1 /* Identifiable.swift */,
 				343452AA22A13F4500C0476E /* Coordinators */,
 				34186D04229802AF009B4121 /* Services */,
 				C7FA79FD23633694006501E8 /* Models */,
@@ -596,7 +593,7 @@
 			isa = PBXGroup;
 			children = (
 				34345286229FF33000C0476E /* ConnectionsTableViewControllerDelegate.swift */,
-				3434528A229FF33000C0476E /* CustomProviderInPutViewControllerDelegate.swift */,
+				3434528A229FF33000C0476E /* CustomProviderInputViewControllerDelegate.swift */,
 				3434528B229FF33100C0476E /* ProfilesViewControllerDelegate.swift */,
 				34345288229FF33000C0476E /* ProvidersViewControllerDelegate.swift */,
 				34345289229FF33000C0476E /* SettingsTableViewControllerDelegate.swift */,
@@ -858,7 +855,7 @@
 				4AF3DF051F424535003EC0BA /* SettingsTableViewController.swift */,
 				4AF3DF071F4245A5003EC0BA /* ConnectionsTableViewController.swift */,
 				4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */,
-				4A2803D81FA6867D00FA895C /* CustomProviderInPutViewController.swift */,
+				4A2803D81FA6867D00FA895C /* CustomProviderInputViewController.swift */,
 				34345270229FC66A00C0476E /* CoreDataFetchedResultsControllerDelegate.swift */,
 			);
 			path = ViewControllers;
@@ -1149,7 +1146,7 @@
 					};
 					4A901C1020C87511000C1BF0 = {
 						CreatedOnToolsVersion = 9.4;
-						DevelopmentTeam = T4CMEHXPLL;
+						DevelopmentTeam = CRU5YWAZ4Y;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -1165,7 +1162,7 @@
 					};
 					4AAC1F751F2D0E3400DD0252 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = T4CMEHXPLL;
+						DevelopmentTeam = CRU5YWAZ4Y;
 						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -1188,7 +1185,7 @@
 					};
 					4AAC1F891F2D0E3400DD0252 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = T4CMEHXPLL;
+						DevelopmentTeam = CRU5YWAZ4Y;
 						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 4AAC1F751F2D0E3400DD0252;
@@ -1242,7 +1239,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				34D71AD7228DA4670027DE84 /* Defaults.plist in Resources */,
-				34D71ADD228DA4B00027DE84 /* Info.plist in Resources */,
 				C7230D892363240A00B9C691 /* config.json in Resources */,
 				34D71AD6228DA4670027DE84 /* dsa_pub.pem in Resources */,
 				C7230D8C236324C100B9C691 /* Assets.xcassets in Resources */,
@@ -1583,7 +1579,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# swiftlint autocorrect\n# swiftlint\n";
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1645,7 +1641,6 @@
 				343452C322A1610400C0476E /* TunnelProviderManagerCoordinator.swift in Sources */,
 				C7FA7AB623633D61006501E8 /* NSManagedObjectContext+SaveHelpers.swift in Sources */,
 				342B9CE722902BB500C006D7 /* MainViewController.swift in Sources */,
-				C7FA7A1923633694006501E8 /* EduVPN.xcdatamodeld in Sources */,
 				C7FA7A9D23633895006501E8 /* Profile.swift in Sources */,
 				340A503C22A26E2200170E51 /* ProvidersViewControllerDelegate.swift in Sources */,
 				347B50D322D4052C00B3C040 /* PreferencesService.swift in Sources */,
@@ -1682,11 +1677,11 @@
 				34FD2AD122A7CFA0002AABB3 /* NotificationsService.swift in Sources */,
 				340A504122A26ECC00170E51 /* AppCoordinator+ViewControllers.swift in Sources */,
 				34D71AB2228DA3A00027DE84 /* String+URL.swift in Sources */,
-				340A504622A2706400170E51 /* CustomProviderInPutViewControllerDelegate.swift in Sources */,
+				340A504622A2706400170E51 /* CustomProviderInputViewControllerDelegate.swift in Sources */,
 				343452A422A13C8B00C0476E /* RootCoordinator.swift in Sources */,
 				3415C02123181191005B9E6C /* СonnectionsTableViewController.swift in Sources */,
 				C7FA7A8123633895006501E8 /* Api+CoreDataClass.swift in Sources */,
-				340A504A22A2745600170E51 /* Identifyable.swift in Sources */,
+				340A504A22A2745600170E51 /* Identifiable.swift in Sources */,
 				34186D06229802C0009B4121 /* FileService.swift in Sources */,
 				34D71A92228D9C6A0027DE84 /* NSAlert+Custom.swift in Sources */,
 				340A505722A3BFF100170E51 /* AppCoordinator+Mac.swift in Sources */,
@@ -1722,7 +1717,7 @@
 				C7FA7A1023633694006501E8 /* Config.swift in Sources */,
 				4AD0AD5F1F350822006E1337 /* Moya+ResponseHandling.swift in Sources */,
 				3434528F229FF33100C0476E /* ProvidersViewControllerDelegate.swift in Sources */,
-				4A2803D91FA6867D00FA895C /* CustomProviderInPutViewController.swift in Sources */,
+				4A2803D91FA6867D00FA895C /* CustomProviderInputViewController.swift in Sources */,
 				C7FA7A7823633895006501E8 /* ProfilesRepository.swift in Sources */,
 				3434528D229FF33100C0476E /* ConnectionsTableViewControllerDelegate.swift in Sources */,
 				34345297229FF71800C0476E /* AppCoordinator+Repositories.swift in Sources */,
@@ -1735,13 +1730,13 @@
 				34186D08229802E1009B4121 /* FileService.swift in Sources */,
 				3434528E229FF33100C0476E /* VPNConnectionViewControllerDelegate.swift in Sources */,
 				C7FA7A8223633895006501E8 /* AuthServer+CoreDataProperties.swift in Sources */,
-				34345291229FF33100C0476E /* CustomProviderInPutViewControllerDelegate.swift in Sources */,
+				34345291229FF33100C0476E /* CustomProviderInputViewControllerDelegate.swift in Sources */,
 				34345293229FF33100C0476E /* TunnelProviderManagerCoordinatorDelegate.swift in Sources */,
 				34345290229FF33100C0476E /* SettingsTableViewControllerDelegate.swift in Sources */,
 				4A62C8B81FB03B47007D3FAA /* KeyboardWrapper.swift in Sources */,
 				C7FA7AB323633D61006501E8 /* FetchedResultsController.swift in Sources */,
 				C7FA7AA623633895006501E8 /* ProviderType.swift in Sources */,
-				4A2CC2221F4233E8004119B1 /* Identifyable.swift in Sources */,
+				4A2CC2221F4233E8004119B1 /* Identifiable.swift in Sources */,
 				C7FA7AA223633895006501E8 /* ProfileModel.swift in Sources */,
 				C7FA7A1423633694006501E8 /* InstanceModel.swift in Sources */,
 				4A1140841F78490C00D61100 /* VPNConnectionViewController.swift in Sources */,
@@ -1764,7 +1759,6 @@
 				C7FA7A9623633895006501E8 /* Instance+CoreDataClass.swift in Sources */,
 				4AD0AD5D1F35048E006E1337 /* ProvidersViewController.swift in Sources */,
 				4AAC1F7A1F2D0E3400DD0252 /* AppDelegate.swift in Sources */,
-				C7FA7A1823633694006501E8 /* EduVPN.xcdatamodeld in Sources */,
 				C7FA7A8023633895006501E8 /* Api+CoreDataClass.swift in Sources */,
 				4AE728161F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift in Sources */,
 				C7FA7A0E23633694006501E8 /* CertificateModel.swift in Sources */,

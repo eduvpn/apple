@@ -13,7 +13,7 @@ extension AppCoordinator: SettingsTableViewControllerDelegate {
     func reconnect() {
         _ = tunnelProviderManagerCoordinator.reconnect()
     }
-
+    
     func readOnDemand() -> Bool {
         return tunnelProviderManagerCoordinator.currentManager?.isOnDemandEnabled ?? UserDefaults.standard.onDemand
     }

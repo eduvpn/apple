@@ -71,7 +71,7 @@ struct NotificationsService {
     
     #endif
     
-    static func permissionGranted(callback: @escaping (Bool) -> ()) {
+    static func permissionGranted(callback: @escaping (Bool) -> Void) {
         #if os(iOS)
         
         UNUserNotificationCenter.current().getNotificationSettings { settings in

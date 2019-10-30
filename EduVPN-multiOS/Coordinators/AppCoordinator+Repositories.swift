@@ -15,7 +15,7 @@ import NVActivityIndicatorView
 #endif
 
 extension AppCoordinator {
-
+    
     #if os(iOS)
     private func showActivityIndicator(messageKey: String) {
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(ActivityData(), nil)
@@ -42,7 +42,7 @@ extension AppCoordinator {
                 guard let authorizingDynamicApiProvider = DynamicApiProvider(api: api) else {
                     return .value(())
                 }
-
+                
                 #if os(iOS)
                 self.popToRootViewController()
                 #elseif os(macOS)
@@ -52,14 +52,14 @@ extension AppCoordinator {
                 #endif
                 
                 return self.refreshProfiles(for: authorizingDynamicApiProvider)
-            }
-            .ensure {
-                self.providersViewController.refresh()
-                
-                #if os(iOS)
-                self.hideActivityIndicator()
-                #endif
-            }
+        }
+        .ensure {
+            self.providersViewController.refresh()
+            
+            #if os(iOS)
+            self.hideActivityIndicator()
+            #endif
+        }
     }
     
     func fetchProfile(for profile: Profile, retry: Bool = false) -> Promise<URL> {
@@ -82,58 +82,58 @@ extension AppCoordinator {
                 self.setActivityIndicatorMessage(key: "Requesting profile config")
                 #endif
                 return dynamicApiProvider.request(apiService: .profileConfig(profileId: profile.profileId!))
+        }
+        .map { response -> URL in
+            guard var ovpnFileContent = String(data: response.data, encoding: .utf8) else {
+                throw AppCoordinatorError.ovpnConfigTemplate
             }
-            .map { response -> URL in
-                guard var ovpnFileContent = String(data: response.data, encoding: .utf8) else {
-                    throw AppCoordinatorError.ovpnConfigTemplate
-                }
-                
-                ovpnFileContent = self.forceTcp(on: ovpnFileContent)
-                try self.validateRemote(on: ovpnFileContent)
-                ovpnFileContent = self.merge(key: api.certificateModel!.privateKeyString, certificate: api.certificateModel!.certificateString, into: ovpnFileContent)
-                
-                let filename = "\(profile.displayNames?.localizedValue ?? "")-\(api.instance?.displayNames?.localizedValue ?? "") \(profile.profileId ?? "").ovpn"
-                return try self.saveToOvpnFile(content: ovpnFileContent, to: filename)
+            
+            ovpnFileContent = self.forceTcp(on: ovpnFileContent)
+            try self.validateRemote(on: ovpnFileContent)
+            ovpnFileContent = self.merge(key: api.certificateModel!.privateKeyString, certificate: api.certificateModel!.certificateString, into: ovpnFileContent)
+            
+            let filename = "\(profile.displayNames?.localizedValue ?? "")-\(api.instance?.displayNames?.localizedValue ?? "") \(profile.profileId ?? "").ovpn"
+            return try self.saveToOvpnFile(content: ovpnFileContent, to: filename)
+        }
+        .recover { error throws -> Promise<URL> in
+            #if os(iOS)
+            self.hideActivityIndicator()
+            #endif
+            
+            if retry {
+                self.showError(error)
+                throw error
             }
-            .recover { error throws -> Promise<URL> in
+            
+            func retryFetchProile() -> Promise<URL> {
+                self.authorizingDynamicApiProvider = dynamicApiProvider
                 #if os(iOS)
-                self.hideActivityIndicator()
+                let authorizeRequest = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
+                #elseif os(macOS)
+                let authorizeRequest = dynamicApiProvider.authorize()
                 #endif
                 
-                if retry {
-                    self.showError(error)
-                    throw error
+                return authorizeRequest.then { _ -> Promise<URL> in
+                    return self.fetchProfile(for: profile, retry: true)
                 }
                 
-                func retryFetchProile() -> Promise<URL> {
-                    self.authorizingDynamicApiProvider = dynamicApiProvider
-                    #if os(iOS)
-                    let authorizeRequest = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
-                    #elseif os(macOS)
-                    let authorizeRequest = dynamicApiProvider.authorize()
-                    #endif
-                    
-                    return authorizeRequest.then { _ -> Promise<URL> in
-                        return self.fetchProfile(for: profile, retry: true)
-                    }
-                    
-                }
+            }
+            
+            if let nsError = error as NSError?,
+                nsError.domain == NSURLErrorDomain && nsError.code == NSURLErrorNetworkConnectionLost {
+                return retryFetchProile()
+            }
+            
+            switch error {
                 
-                if let nsError = error as NSError?,
-                    nsError.domain == NSURLErrorDomain && nsError.code == NSURLErrorNetworkConnectionLost {
-                    return retryFetchProile()
-                }
+            case ApiServiceError.tokenRefreshFailed, ApiServiceError.noAuthState :
+                return retryFetchProile()
                 
-                switch error {
-                    
-                case ApiServiceError.tokenRefreshFailed, ApiServiceError.noAuthState :
-                    return retryFetchProile()
-                    
-                default:
-                    self.showError(error)
-                    throw error
-                    
-                }
+            default:
+                self.showError(error)
+                throw error
+                
+            }
         }
     }
     

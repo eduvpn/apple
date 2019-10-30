@@ -14,19 +14,19 @@ import AppAuth
 import UserNotifications
 
 extension Api {
-
+    
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Api> {
         return NSFetchRequest<Api>(entityName: "Api")
     }
-
+    
     @NSManaged public var apiBaseUri: String?
     @NSManaged public var instance: Instance?
     @NSManaged public var profiles: Set<Profile>
     @NSManaged public var authServer: AuthServer?
-
+    
     var authorizationEndpoint: String? {
         guard let authorizationType = instance?.group?.authorizationTypeEnum else { return authServer?.authorizationEndpoint }
-
+        
         switch authorizationType {
         case .local:
             return authServer?.authorizationEndpoint
@@ -36,10 +36,10 @@ extension Api {
             return instance?.authServer?.authorizationEndpoint ?? authServer?.authorizationEndpoint
         }
     }
-
+    
     var tokenEndpoint: String? {
         guard let authorizationType = instance?.group?.authorizationTypeEnum else { return authServer?.tokenEndpoint }
-
+        
         switch authorizationType {
         case .local:
             return authServer?.tokenEndpoint
@@ -49,44 +49,44 @@ extension Api {
             return instance?.authServer?.tokenEndpoint ?? authServer?.tokenEndpoint
         }
     }
-
+    
     private var authStateUrl: URL? {
         guard let authStateUrl = authorizationEndpointFileUrl else { return nil }
         return authStateUrl.appendingPathComponent("authState.bin")
     }
-
+    
     private var certificateUrl: URL? {
         guard var certificateUrl = apiBaseFileUrl else { return nil }
         certificateUrl.appendPathComponent("client.certificate")
         return certificateUrl
     }
-
+    
     private var apiBaseFileUrl: URL? {
         guard let apiBaseUri = apiBaseUri, let apiBaseUriUrl = URL(string: apiBaseUri) else { return nil }
         return filePathUrl(from: apiBaseUriUrl)
     }
-
+    
     private var authorizationEndpointFileUrl: URL? {
         guard let authorizationEndpoint = authorizationEndpoint, let authorizationEndpointUrl = URL(string: authorizationEndpoint) else { return nil }
         return filePathUrl(from: authorizationEndpointUrl)
     }
-
+    
     private func filePathUrl(from url: URL) -> URL? {
         guard var fileUrl = applicationSupportDirectoryUrl() else { return nil }
         
         if let host = url.host {
             fileUrl.appendPathComponent(host)
         }
-
+        
         if !url.path.isEmpty {
             fileUrl.appendPathComponent(url.path)
         }
         
         do {
             #if os(iOS)
-            let attributes: [FileAttributeKey : Any]? = [FileAttributeKey.protectionKey: FileProtectionType.completeUntilFirstUserAuthentication]
+            let attributes: [FileAttributeKey: Any]? = [FileAttributeKey.protectionKey: FileProtectionType.completeUntilFirstUserAuthentication]
             #elseif os(macOS)
-            let attributes: [FileAttributeKey : Any]? = nil
+            let attributes: [FileAttributeKey: Any]? = nil
             #endif
             
             try FileManager.default.createDirectory(at: fileUrl,
@@ -95,10 +95,10 @@ extension Api {
         } catch {
             return nil
         }
-
+        
         return fileUrl
     }
-
+    
     var authState: OIDAuthState? {
         get {
             guard let authStateUrl = authStateUrl else { return nil }
@@ -107,7 +107,7 @@ extension Api {
                     return NSKeyedUnarchiver.unarchiveObject(with: data) as? OIDAuthState
                 }
             }
-
+            
             return nil
         }
         set {
@@ -122,14 +122,14 @@ extension Api {
                 #endif
                 
                 try? data.write(to: authStateUrl, options: options)
-
+                
                 excludeFromBackup(url: authStateUrl)
             } else {
                 try? FileManager.default.removeItem(at: authStateUrl)
             }
         }
     }
-
+    
     var certificateModel: CertificateModel? {
         get {
             guard let certificateUrl = certificateUrl else { return nil }
@@ -142,7 +142,7 @@ extension Api {
                     }
                 }
             }
-
+            
             return nil
         }
         set {
@@ -159,7 +159,7 @@ extension Api {
                     #endif
                 }
             }
-
+            
             if let newValue = newValue {
                 let data = try? JSONEncoder().encode(newValue)
                 
@@ -171,14 +171,14 @@ extension Api {
                 #endif
                 
                 try? data?.write(to: certificateUrl, options: options)
-
+                
                 excludeFromBackup(url: certificateUrl)
             } else {
                 try? FileManager.default.removeItem(at: certificateUrl)
             }
         }
     }
-
+    
     private func excludeFromBackup(url: URL) {
         var url = url
         var resourceValues = URLResourceValues()
@@ -189,17 +189,17 @@ extension Api {
 
 // MARK: Generated accessors for profiles
 extension Api {
-
+    
     @objc(addProfilesObject:)
     @NSManaged public func addToProfiles(_ value: Profile)
-
+    
     @objc(removeProfilesObject:)
     @NSManaged public func removeFromProfiles(_ value: Profile)
-
+    
     @objc(addProfiles:)
     @NSManaged public func addToProfiles(_ values: NSSet)
-
+    
     @objc(removeProfiles:)
     @NSManaged public func removeFromProfiles(_ values: NSSet)
-
+    
 }

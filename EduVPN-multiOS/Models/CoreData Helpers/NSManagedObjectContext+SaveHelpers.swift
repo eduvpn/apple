@@ -23,7 +23,7 @@ public typealias CoreDataStackSaveCompletion = (SaveResult) -> Void
  `MainQueueConcurrencyType` and `PrivateQueueConcurrencyType` are dispatched on the correct GCD queue.
  */
 public extension NSManagedObjectContext {
-
+    
     /**
      Convenience method to synchronously save the `NSManagedObjectContext` if changes are present.
      Method also ensures that the save is executed on the correct queue when using Main/Private queue concurrency types.
@@ -44,7 +44,7 @@ public extension NSManagedObjectContext {
             
         }
     }
-
+    
     /**
      Convenience method to asynchronously save the `NSManagedObjectContext` if changes are present.
      Method also ensures that the save is executed on the correct queue when using Main/Private queue concurrency types.
@@ -59,7 +59,7 @@ public extension NSManagedObjectContext {
                 completion?(.failure(saveError))
             }
         }
-
+        
         switch concurrencyType {
             
         case .confinementConcurrencyType:
@@ -74,7 +74,7 @@ public extension NSManagedObjectContext {
             
         }
     }
-
+    
     /**
      Convenience method to synchronously save the `NSManagedObjectContext` if changes are present.
      If any parent contexts are found, they too will be saved synchronously.
@@ -88,7 +88,7 @@ public extension NSManagedObjectContext {
                 try parentContext.saveContextToStoreAndWait()
             }
         }
-
+        
         switch concurrencyType {
             
         case .confinementConcurrencyType:
@@ -103,7 +103,7 @@ public extension NSManagedObjectContext {
             
         }
     }
-
+    
     /**
      Convenience method to asynchronously save the `NSManagedObjectContext` if changes are present.
      If any parent contexts are found, they too will be saved asynchronously.
@@ -124,7 +124,7 @@ public extension NSManagedObjectContext {
                 completion?(.failure(saveError))
             }
         }
-
+        
         switch concurrencyType {
             
         case .confinementConcurrencyType:
@@ -139,12 +139,12 @@ public extension NSManagedObjectContext {
             
         }
     }
-
+    
     private func sharedSaveFlow() throws {
         guard hasChanges else {
             return
         }
-
+        
         try save()
     }
 }

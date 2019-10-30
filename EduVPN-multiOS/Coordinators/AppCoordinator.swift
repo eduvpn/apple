@@ -22,7 +22,7 @@ import libsodium
 import NVActivityIndicatorView
 import UIKit
 
-extension UINavigationController: Identifyable {}
+extension UINavigationController: Identifiable {}
 
 #elseif os(macOS)
 
@@ -30,13 +30,10 @@ import Cocoa
 
 #endif
 
-
 // swiftlint:disable type_body_length
-// swiftlint:disable file_length
-// swiftlint:disable function_body_length
 
 class AppCoordinator: RootViewCoordinator {
-
+    
     lazy var tunnelProviderManagerCoordinator: TunnelProviderManagerCoordinator = {
         let tpmCoordinator = TunnelProviderManagerCoordinator()
         tpmCoordinator.viewContext = persistentContainer.viewContext
@@ -47,23 +44,23 @@ class AppCoordinator: RootViewCoordinator {
     }()
     
     let persistentContainer = NSPersistentContainer(name: "EduVPN")
-
+    
     // MARK: - Properties
-
+    
     let accessTokenPlugin = CredentialStorePlugin()
-
+    
     #if os(iOS)
     private var currentDocumentInteractionController: UIDocumentInteractionController?
     #endif
     
     internal var authorizingDynamicApiProvider: DynamicApiProvider?
-
+    
     var childCoordinators: [Coordinator] = []
     
-    // Mark: - App instantiation
+    // MARK: - App instantiation
     
     var providersViewController: ProvidersViewController!
-
+    
     #if os(iOS)
     
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -84,7 +81,7 @@ class AppCoordinator: RootViewCoordinator {
     
     let windowController: NSWindowController = {
         return NSStoryboard(name: "Main", bundle: nil).instantiateController(withIdentifier: "MainWindowController")
-            as! NSWindowController
+            as! MainWindowController //swiftlint:disable:this force_cast
     }()
     
     var window: NSWindow? {
@@ -92,7 +89,7 @@ class AppCoordinator: RootViewCoordinator {
     }
     
     #endif
-
+    
     // MARK: - Init
     
     #if os(iOS)
@@ -110,7 +107,7 @@ class AppCoordinator: RootViewCoordinator {
     
     public init() {
         windowController.window?.makeKeyAndOrderFront(nil)
-        providersViewController = windowController.contentViewController!.children.first! as! ProvidersViewController
+        providersViewController = windowController.contentViewController!.children.first! as! ProvidersViewController //swiftlint:disable:this force_cast
         providePersistentContainer()
     }
     
@@ -125,9 +122,9 @@ class AppCoordinator: RootViewCoordinator {
         InstancesRepository.shared.refresher.persistentContainer = persistentContainer
         ProfilesRepository.shared.refresher.persistentContainer = persistentContainer
     }
-
+    
     // MARK: - Functions
-
+    
     /// Starts the coordinator
     private func instantiateProvidersViewController() {
         #if os(iOS)
@@ -144,7 +141,7 @@ class AppCoordinator: RootViewCoordinator {
         #if os(iOS)
         navigationController.viewControllers = [providersViewController]
         #elseif os(macOS)
-    
+        
         providersViewController.start()
         #endif
         
@@ -172,17 +169,17 @@ class AppCoordinator: RootViewCoordinator {
                 }
             }
         }
-
+        
         // Migration
         persistentContainer.performBackgroundTask { context in
-            let profiles =  try? Profile.allInContext(context)
+            let profiles = try? Profile.allInContext(context)
             // Make sure all profiles have a UUID
             profiles?.forEach { profile in
                 if profile.uuid == nil {
                     profile.uuid = UUID()
                 }
             }
-
+            
             // Fix an issue where a slash was missing in the discoveryIdentifiers.
             let targets = [StaticService(type: .instituteAccess),
                            StaticService(type: .secureInternet)].compactMap { $0 }
@@ -196,27 +193,27 @@ class AppCoordinator: RootViewCoordinator {
                     }
                 }
             }
-
+            
             // Remove groups no longer active in the app due to changed discovery files.
             let activeDiscoveryIdentifiers = targets.map { "\($0.baseURL.absoluteString)/\($0.path)" }
-
+            
             let groups = try? InstanceGroup.allInContext(context)
             let obsoleteGroups = groups?.filter { group in
                 guard let discoveryIdentifier = group.discoveryIdentifier else { return false }
                 return !activeDiscoveryIdentifiers.contains(discoveryIdentifier)
             }
             obsoleteGroups?.forEach { context.delete($0) }
-
+            
             // We're done, save everything.
             context.saveContext()
         }
     }
-
+    
     func loadCertificate(for api: Api) -> Promise<CertificateModel> {
         guard let dynamicApiProvider = DynamicApiProvider(api: api) else {
             return Promise(error: AppCoordinatorError.apiProviderCreateFailed)
         }
-
+        
         if let certificateModel = api.certificateModel {
             if let certificate = certificateModel.x509Certificate, certificate.checkValidity() {
                 return checkCertificate(api: api, for: dynamicApiProvider).recover { error -> Promise<CertificateModel> in
@@ -235,12 +232,12 @@ class AppCoordinator: RootViewCoordinator {
                 api.certificateModel = nil
             }
         }
-
+        
         guard let appName: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String else {
             fatalError("An app should always have a `CFBundleName`.")
         }
         let keyPairDisplayName = "\(appName) for iOS"
-
+        
         return dynamicApiProvider.request(apiService: .createKeypair(displayName: keyPairDisplayName))
             .recover { error throws -> Promise<Response> in
                 switch error {
@@ -264,20 +261,20 @@ class AppCoordinator: RootViewCoordinator {
                     throw error
                     
                 }
-            }
-            .then { response -> Promise<CertificateModel> in response.mapResponse() }
-            .map { model -> CertificateModel in
-                api.certificateModel = model
-                self.scheduleCertificateExpirationNotification(for: model, on: api)
-                return model
-            }
+        }
+        .then { response -> Promise<CertificateModel> in response.mapResponse() }
+        .map { model -> CertificateModel in
+            api.certificateModel = model
+            self.scheduleCertificateExpirationNotification(for: model, on: api)
+            return model
+        }
     }
-
+    
     func checkCertificate(api: Api, for dynamicApiProvider: DynamicApiProvider) -> Promise<CertificateModel> {
         guard let certificateModel = api.certificateModel else {
             return Promise<CertificateModel>(error: AppCoordinatorError.certificateNil)
         }
-
+        
         guard let commonNameElements = certificateModel.x509Certificate?.subjectDistinguishedName?.split(separator: "=") else {
             return Promise<CertificateModel>(error: AppCoordinatorError.certificateCommonNameNotFound)
         }
@@ -285,14 +282,14 @@ class AppCoordinator: RootViewCoordinator {
         guard commonNameElements.count == 2, commonNameElements[0] == "CN" else {
             return Promise<CertificateModel>(error: AppCoordinatorError.certificateCommonNameNotFound)
         }
-
+        
         let commonName = String(commonNameElements[1])
         return dynamicApiProvider.request(apiService: .checkCertificate(commonName: commonName)).then { response throws -> Promise<CertificateModel> in
             
             if response.statusCode == 404 {
                 return .value(certificateModel)
             }
-
+            
             if let jsonResult = try response.mapJSON() as? [String: AnyObject],
                 let checkResult = jsonResult["check_certificate"] as? [String: AnyObject],
                 let dataResult = checkResult["data"] as? [String: AnyObject],
@@ -309,11 +306,11 @@ class AppCoordinator: RootViewCoordinator {
             }
         }
     }
-
+    
     func addProvider() {
         // We can not create a static service, so no discovery files are defined. Fall back to adding "another" service.
         if StaticService(type: .instituteAccess) == nil {
-            showCustomProviderInPutViewController(for: .other)
+            showCustomProviderInputViewController(for: .other)
         } else {
             showProfilesViewController()
         }
@@ -325,13 +322,12 @@ class AppCoordinator: RootViewCoordinator {
         
         let notificationTitle = NSLocalizedString("VPN certificate is expiring", comment: "")
         
-        var notificationBody: String? = nil
+        var notificationBody: String?
         if let certificateTitle = api.instance?.displayNames?.localizedValue {
             notificationBody = String.localizedStringWithFormat("Once expired the certificate for instance %@ needs to be refreshed.", certificateTitle)
         }
         
         let notification = NotificationsService.makeNotification(title: notificationTitle, body: notificationBody)
-
         
         #if DEBUG
         
@@ -369,7 +365,7 @@ class AppCoordinator: RootViewCoordinator {
             }
         }
     }
-
+    
     func resumeAuthorizationFlow(url: URL) -> Bool {
         if let authorizingDynamicApiProvider = authorizingDynamicApiProvider {
             guard let authFlow = authorizingDynamicApiProvider.currentAuthorizationFlow else {
@@ -396,27 +392,27 @@ class AppCoordinator: RootViewCoordinator {
                 return true
             }
         }
-
+        
         return false
     }
-
+    
     func systemMessages(for dynamicApiProvider: DynamicApiProvider) -> Promise<SystemMessages> {
         return dynamicApiProvider.request(apiService: .systemMessages)
             .then { response -> Promise<SystemMessages> in response.mapResponse() }
     }
-
+    
     /// merge ovpn profile with keypair
     internal func merge(key: String, certificate: String, into ovpnFileContent: String) -> String {
         var ovpnFileContent = ovpnFileContent
-
+        
         let insertionIndex = ovpnFileContent.range(of: "</ca>")!.upperBound
         ovpnFileContent.insert(contentsOf: "\n<key>\n\(key)\n</key>", at: insertionIndex)
         ovpnFileContent.insert(contentsOf: "\n<cert>\n\(certificate)\n</cert>", at: insertionIndex)
         ovpnFileContent = ovpnFileContent.replacingOccurrences(of: "auth none\r\n", with: "")
-
+        
         return ovpnFileContent
     }
-
+    
     internal func forceTcp(on ovpnFileContent: String) -> String {
         guard UserDefaults.standard.forceTcp else {
             return ovpnFileContent
@@ -435,17 +431,17 @@ class AppCoordinator: RootViewCoordinator {
         
         return ovpnFileContent
     }
-
+    
     internal func validateRemote(on ovpnFileContent: String) throws {
         guard let remoteTcpRegex = try? NSRegularExpression(pattern: "remote.*", options: []) else {
             fatalError("Regular expression has been validated to compile, should not fail.")
         }
         
-        if 0 == remoteTcpRegex.numberOfMatches(in: ovpnFileContent, options: [], range: NSRange(location: 0, length: ovpnFileContent.utf16.count)) {
+        if remoteTcpRegex.numberOfMatches(in: ovpnFileContent, options: [], range: NSRange(location: 0, length: ovpnFileContent.utf16.count)) == 0 {
             throw AppCoordinatorError.ovpnConfigTemplateNoRemotes
         }
     }
-
+    
     internal func saveToOvpnFile(content: String, to filename: String) throws -> URL {
         // TODO: validate response
         #if os(iOS)

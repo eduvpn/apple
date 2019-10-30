@@ -21,7 +21,7 @@ extension TargetType where Self: AcceptJson {
 protocol EmptySampleData {}
 
 extension TargetType where Self: EmptySampleData {
-
+    
     var sampleData: Data {
         return "".data(using: String.Encoding.utf8)!
     }
