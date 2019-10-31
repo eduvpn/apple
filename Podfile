@@ -44,13 +44,11 @@ target 'EduVPN-macOS' do
   
   pod 'AppAuth', :git => 'https://github.com/openid/AppAuth-iOS.git'
   pod 'ASN1Decoder'
-  pod 'BlueSocket', '~> 1.0.46'
   pod 'Kingfisher', '~> 5.5.0'
   pod 'libsodium'
   pod 'Moya'
   pod 'PromiseKit/CorePromise'
   pod 'ReachabilitySwift', '~> 4.3.1'
-  pod 'Sodium', '~> 0.8.0'
   pod 'Sparkle', '~> 1.22.0'
   pod 'Then'
   pod 'FileKit', '~> 5.2.0'

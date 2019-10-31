@@ -401,7 +401,6 @@
 		C75B2CB72363138200D700EC /* Development-macOS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Development-macOS.xcconfig"; sourceTree = "<group>"; };
 		C75B2CB82363138200D700EC /* Developer-macOS.xcconfig.template */ = {isa = PBXFileReference; explicitFileType = text.xcconfig; path = "Developer-macOS.xcconfig.template"; sourceTree = "<group>"; };
 		C75B2CB92363138200D700EC /* Release-macOS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-macOS.xcconfig"; sourceTree = "<group>"; };
-		C75B2CBA2363138200D700EC /* config-eduvpn-macos.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-eduvpn-macos.json"; sourceTree = "<group>"; };
 		C75B2CBB2363138200D700EC /* Development-macOS-TunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Development-macOS-TunnelExtension.xcconfig"; sourceTree = "<group>"; };
 		C75B2CBC2363138200D700EC /* Developer-macOS.xcconfig.letsconnect-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer-macOS.xcconfig.letsconnect-template"; sourceTree = "<group>"; };
 		C75B2CBE2363138200D700EC /* config-eduvpn.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-eduvpn.json"; sourceTree = "<group>"; };
@@ -891,7 +890,6 @@
 				C75B2CBE2363138200D700EC /* config-eduvpn.json */,
 				C75B2CC02363138200D700EC /* config-template.json */,
 				C75B2CB62363138200D700EC /* config-letsconnect.json */,
-				C75B2CBA2363138200D700EC /* config-eduvpn-macos.json */,
 				C75B2CB22363138200D700EC /* Developer-macOS.xcconfig */,
 				C75B2CB02363138200D700EC /* Developer-macOS.xcconfig.eduvpn-template */,
 				C75B2CB82363138200D700EC /* Developer-macOS.xcconfig.template */,
@@ -1462,10 +1460,8 @@
 				"${BUILT_PRODUCTS_DIR}/Then-macOS/Then.framework",
 				"${BUILT_PRODUCTS_DIR}/TunnelKit-macOS/TunnelKit.framework",
 				"${BUILT_PRODUCTS_DIR}/libsodium-macOS/libsodium.framework",
-				"${BUILT_PRODUCTS_DIR}/BlueSocket/Socket.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
-				"${BUILT_PRODUCTS_DIR}/Sodium/Sodium.framework",
 				"${PODS_ROOT}/Sparkle/Sparkle.framework",
 				"${PODS_ROOT}/Sparkle/Sparkle.framework.dSYM",
 			);
@@ -1483,10 +1479,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Then.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TunnelKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libsodium.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Socket.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sodium.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework",
 				"${DWARF_DSYM_FOLDER_PATH}/Sparkle.framework.dSYM",
 			);

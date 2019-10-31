@@ -1485,7 +1485,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
                                                                         <rect key="frame" x="93" y="7" width="66" height="19"/>
                                                                         <buttonCell key="cell" type="roundRect" title="View Log" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hfa-Gc-j1c">
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                            <font key="font" metaFont="controlContent"/>
+                                                                            <font key="font" metaFont="label" size="12"/>
                                                                             <string key="keyEquivalent">l</string>
                                                                         </buttonCell>
                                                                         <connections>
@@ -1622,12 +1622,12 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
                                 </constraints>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AddProviderPlaceholder" id="kew-7o-6k6"/>
                             </imageView>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2PS-WV-Mnd">
+                            <button verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="2PS-WV-Mnd">
                                 <rect key="frame" x="136" y="398" width="240" height="122"/>
                                 <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="secure_internet" imagePosition="above" alignment="center" imageScaling="proportionallyDown" inset="2" id="jUV-dy-GT9">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <string key="title">Connect to the internet securely, for 
-example when using public WiFi</string>
+                                    <string key="title">Connect to the internet securely, 
+for example when using public WiFi.</string>
                                     <font key="font" metaFont="system"/>
                                     <string key="keyEquivalent">1</string>
                                 </buttonCell>
@@ -1653,7 +1653,7 @@ CA
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qcy-zA-XYg">
-                                <rect key="frame" x="149" y="75" width="214" height="40"/>
+                                <rect key="frame" x="149" y="18" width="214" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="212" id="GdF-AE-0rH"/>
                                     <constraint firstAttribute="height" constant="37" id="rdh-QC-1Ph"/>
@@ -1668,7 +1668,7 @@ CA
                                     <action selector="enterProviderURL:" target="Lns-jv-Aqp" id="bfK-7J-Uyf"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sey-v6-tfe">
+                            <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sey-v6-tfe">
                                 <rect key="frame" x="149" y="18" width="214" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="212" id="Yel-mq-yhi"/>
@@ -1684,12 +1684,12 @@ CA
                                     <action selector="chooseConfigFile:" target="Lns-jv-Aqp" id="ZTE-Mp-NfD"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bVa-Ah-Opn">
+                            <button verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="bVa-Ah-Opn">
                                 <rect key="frame" x="136" y="256" width="240" height="122"/>
                                 <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="secure_access" imagePosition="above" alignment="center" imageScaling="proportionallyDown" inset="2" id="gDJ-XU-EmI">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <string key="title">Institute Access
-</string>
+                                    <string key="title">Access your institute's network 
+from outside the institution.</string>
                                     <font key="font" metaFont="system"/>
                                     <string key="keyEquivalent">2</string>
                                 </buttonCell>
@@ -1705,13 +1705,13 @@ CA
                             <constraint firstItem="Dgk-N8-JjD" firstAttribute="top" secondItem="NKN-qH-oxC" secondAttribute="top" constant="8" id="9Ic-bD-AbE"/>
                             <constraint firstItem="2PS-WV-Mnd" firstAttribute="top" secondItem="T7X-NY-cOV" secondAttribute="top" id="Bsm-W4-jjM"/>
                             <constraint firstItem="2PS-WV-Mnd" firstAttribute="centerX" secondItem="NKN-qH-oxC" secondAttribute="centerX" id="EvQ-Rm-qhO"/>
-                            <constraint firstItem="sey-v6-tfe" firstAttribute="top" secondItem="Qcy-zA-XYg" secondAttribute="bottom" constant="20" id="KLr-hB-LJm"/>
+                            <constraint firstAttribute="bottom" secondItem="Qcy-zA-XYg" secondAttribute="bottom" constant="20" id="KLr-hB-LJm"/>
                             <constraint firstItem="2PS-WV-Mnd" firstAttribute="trailing" secondItem="T7X-NY-cOV" secondAttribute="trailing" id="Oja-Rt-EYU"/>
                             <constraint firstItem="sey-v6-tfe" firstAttribute="centerX" secondItem="NKN-qH-oxC" secondAttribute="centerX" id="bVb-R7-ld2"/>
                             <constraint firstItem="Dgk-N8-JjD" firstAttribute="leading" secondItem="NKN-qH-oxC" secondAttribute="leading" constant="20" id="bbc-c7-5y9"/>
                             <constraint firstItem="Qcy-zA-XYg" firstAttribute="top" relation="greaterThanOrEqual" secondItem="bVa-Ah-Opn" secondAttribute="bottom" constant="20" id="dYm-eP-79S"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2PS-WV-Mnd" secondAttribute="trailing" constant="20" id="fsX-5Z-Ka7"/>
-                            <constraint firstItem="bVa-Ah-Opn" firstAttribute="height" secondItem="2PS-WV-Mnd" secondAttribute="height" id="gmu-mY-PX8"/>
+                            <constraint firstItem="bVa-Ah-Opn" firstAttribute="height" secondItem="2PS-WV-Mnd" secondAttribute="height" priority="750" id="gmu-mY-PX8"/>
                             <constraint firstAttribute="bottom" secondItem="sey-v6-tfe" secondAttribute="bottom" constant="20" id="kyN-ZT-RAi"/>
                             <constraint firstItem="2PS-WV-Mnd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="NKN-qH-oxC" secondAttribute="leading" constant="20" id="oKn-Ip-E8y"/>
                             <constraint firstItem="2PS-WV-Mnd" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Dgk-N8-JjD" secondAttribute="bottom" constant="20" id="oS9-eP-bdC"/>

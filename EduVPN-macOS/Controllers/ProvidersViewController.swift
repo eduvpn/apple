@@ -97,22 +97,20 @@ class ProvidersViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.registerForDraggedTypes([kUTTypeFileURL as NSPasteboard.PasteboardType,
-                                           kUTTypeURL as NSPasteboard.PasteboardType])
+        // Disable while local ovpn file support isn't here yet
+        // tableView.registerForDraggedTypes([kUTTypeFileURL as NSPasteboard.PasteboardType,
+        //                                    kUTTypeURL as NSPasteboard.PasteboardType])
         
-//        // Handle internet connection state
-//        if let reachability = reachability {
-//            reachability.whenReachable = { [weak self] reachability in
-//                self?.discoverAccessibleProviders()
-//                self?.updateInterface()
-//            }
-//
-//            reachability.whenUnreachable = { [weak self] _ in
-//                self?.updateInterface()
-//            }
-//        } else {
-//            discoverAccessibleProviders()
-//        }
+        // Handle internet connection state
+        if let reachability = reachability {
+            reachability.whenReachable = { [weak self] _ in
+                self?.updateInterface()
+            }
+
+            reachability.whenUnreachable = { [weak self] _ in
+                self?.updateInterface()
+            }
+        }
         
         updateInterface()
     }
@@ -393,7 +391,8 @@ extension ProvidersViewController: NSTableViewDelegate {
         }
         
         if url.isFileURL {
-            chooseConfigFile(configFileURL: url as URL)
+            // TODO: Use version in app coordinator
+            // chooseConfigFile(configFileURL: url as URL)
         } else {
             delegate?.addCustomProviderWithUrl(url as URL)
         }
@@ -401,32 +400,4 @@ extension ProvidersViewController: NSTableViewDelegate {
         return true
     }
     
-    private func chooseConfigFile(configFileURL: URL, recover: Bool = false) {
-        // <UNCOMMENT>
-        //        ServiceContainer.providerService.addProvider(configFileURL: configFileURL, recover: recover) { result in
-        //            DispatchQueue.main.async {
-        //                switch result {
-        //                case .success:
-        //                    self.discoverAccessibleProviders()
-        //                case .failure(let error):
-        //                    let alert = NSAlert(customizedError: error)
-        //                    if let error = error as? ProviderService.Error, !error.recoveryOptions.isEmpty {
-        //                        error.recoveryOptions.forEach {
-        //                            alert?.addButton(withTitle: $0)
-        //                        }
-        //                    }
-        //
-        //                    alert?.beginSheetModal(for: self.view.window!) { response in
-        //                        switch response.rawValue {
-        //                        case 1000:
-        //                            self.chooseConfigFile(configFileURL: configFileURL, recover: true)
-        //                        default:
-        //                            break
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //        }
-        // <UNCOMMENT>
-    }
 }
