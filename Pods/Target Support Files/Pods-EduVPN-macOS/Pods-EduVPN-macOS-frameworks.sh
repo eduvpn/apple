@@ -173,12 +173,8 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Then-macOS/Then.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TunnelKit-macOS/TunnelKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/libsodium-macOS/libsodium.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/BlueSocket/Socket.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/Sodium/Sodium.framework"
-  install_framework "${PODS_ROOT}/Sparkle/Sparkle.framework"
-  install_dsym "${PODS_ROOT}/Sparkle/Sparkle.framework.dSYM"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/ASN1Decoder-macOS/ASN1Decoder.framework"
@@ -193,12 +189,8 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Then-macOS/Then.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TunnelKit-macOS/TunnelKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/libsodium-macOS/libsodium.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/BlueSocket/Socket.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/Sodium/Sodium.framework"
-  install_framework "${PODS_ROOT}/Sparkle/Sparkle.framework"
-  install_dsym "${PODS_ROOT}/Sparkle/Sparkle.framework.dSYM"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

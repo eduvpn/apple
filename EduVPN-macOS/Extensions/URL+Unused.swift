@@ -27,7 +27,7 @@ extension URL {
             if  let last = parts.last, let counter = Int(last), counter > 0 {
                 lastPathComponent = parts.dropLast().joined(separator: " ")  + " \(counter + 1)"
             } else {
-                lastPathComponent = lastPathComponent + " 2"
+                lastPathComponent += " 2"
             }
             
             candidate = candidate

@@ -15,26 +15,36 @@ import NVActivityIndicatorView
 #endif
 
 extension AppCoordinator {
-
-    #if os(iOS)
+    
     private func showActivityIndicator(messageKey: String) {
+        #if os(iOS)
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(ActivityData(), nil)
+        #elseif os(macOS)
+        mainWindowController.mainViewController.activityIndicatorView.isHidden = false
+        mainWindowController.mainViewController.activityIndicator.startAnimation(nil)
+        #endif
         setActivityIndicatorMessage(key: messageKey)
     }
     
     private func setActivityIndicatorMessage(key messageKey: String) {
+        #if os(iOS)
         NVActivityIndicatorPresenter.sharedInstance.setMessage(NSLocalizedString(messageKey, comment: ""))
+        #elseif os(macOS)
+        mainWindowController.mainViewController.activityLabel.stringValue = NSLocalizedString(messageKey, comment: "")
+        #endif
     }
     
     private func hideActivityIndicator() {
+        #if os(iOS)
         NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
+        #elseif os(macOS)
+        mainWindowController.mainViewController.activityIndicatorView.isHidden = true
+        mainWindowController.mainViewController.activityIndicator.stopAnimation(nil)
+        #endif
     }
-    #endif
     
     func refresh(instance: Instance) -> Promise<Void> {
-        #if os(iOS)
         showActivityIndicator(messageKey: "Fetching instance configuration")
-        #endif
         
         return InstancesRepository.shared.refresher.refresh(instance: instance)
             .then { api -> Promise<Void> in
@@ -42,7 +52,7 @@ extension AppCoordinator {
                 guard let authorizingDynamicApiProvider = DynamicApiProvider(api: api) else {
                     return .value(())
                 }
-
+                
                 #if os(iOS)
                 self.popToRootViewController()
                 #elseif os(macOS)
@@ -56,9 +66,7 @@ extension AppCoordinator {
             .ensure {
                 self.providersViewController.refresh()
                 
-                #if os(iOS)
                 self.hideActivityIndicator()
-                #endif
             }
     }
     
@@ -72,15 +80,11 @@ extension AppCoordinator {
             return Promise(error: AppCoordinatorError.apiProviderCreateFailed)
         }
         
-        #if os(iOS)
         setActivityIndicatorMessage(key: "Loading certificate")
-        #endif
         
         return loadCertificate(for: api)
             .then { _ -> Promise<Response> in
-                #if os(iOS)
                 self.setActivityIndicatorMessage(key: "Requesting profile config")
-                #endif
                 return dynamicApiProvider.request(apiService: .profileConfig(profileId: profile.profileId!))
             }
             .map { response -> URL in
@@ -96,9 +100,7 @@ extension AppCoordinator {
                 return try self.saveToOvpnFile(content: ovpnFileContent, to: filename)
             }
             .recover { error throws -> Promise<URL> in
-                #if os(iOS)
                 self.hideActivityIndicator()
-                #endif
                 
                 if retry {
                     self.showError(error)
@@ -113,7 +115,10 @@ extension AppCoordinator {
                     let authorizeRequest = dynamicApiProvider.authorize()
                     #endif
                     
+                    self.showActivityIndicator(messageKey: "Authorizing with provider")
+                                
                     return authorizeRequest.then { _ -> Promise<URL> in
+                        self.hideActivityIndicator()
                         return self.fetchProfile(for: profile, retry: true)
                     }
                     
@@ -134,19 +139,15 @@ extension AppCoordinator {
                     throw error
                     
                 }
-        }
+            }
     }
     
     private func refreshProfiles(for dynamicApiProvider: DynamicApiProvider) -> Promise<Void> {
-        #if os(iOS)
         showActivityIndicator(messageKey: "Refreshing profiles")
-        #endif
         
         return ProfilesRepository.shared.refresher.refresh(for: dynamicApiProvider)
             .recover { error throws -> Promise<Void> in
-                #if os(iOS)
                 self.hideActivityIndicator()
-                #endif
                 
                 switch error {
                     
@@ -158,12 +159,17 @@ extension AppCoordinator {
                     let authorizeRequest = dynamicApiProvider.authorize()
                     #endif
                     
+                    self.showActivityIndicator(messageKey: "Authorizing with provider")
                     return authorizeRequest
-                        .then { _ -> Promise<Void> in self.refreshProfiles(for: dynamicApiProvider) }
+                        .then { _ -> Promise<Void> in
+                            self.hideActivityIndicator()
+                            return self.refreshProfiles(for: dynamicApiProvider)
+                        }
                         .recover { error throws in
+                            self.hideActivityIndicator()
                             self.showError(error)
                             throw error
-                    }
+                        }
                     
                 case ApiServiceError.noAuthState:
                     self.authorizingDynamicApiProvider = dynamicApiProvider
@@ -173,18 +179,23 @@ extension AppCoordinator {
                     let authorizeRequest = dynamicApiProvider.authorize()
                     #endif
                     
+                    self.showActivityIndicator(messageKey: "Authorizing with provider")
                     return authorizeRequest
-                        .then { _ -> Promise<Void> in self.refreshProfiles(for: dynamicApiProvider) }
+                        .then { _ -> Promise<Void> in
+                            self.hideActivityIndicator()
+                            return self.refreshProfiles(for: dynamicApiProvider)
+                        }
                         .recover { error throws in
+                            self.hideActivityIndicator()
                             self.showError(error)
                             throw error
-                    }
+                        }
                     
                 default:
                     self.showError(error)
                     throw error
                     
                 }
-        }
+            }
     }
 }

@@ -21,13 +21,13 @@ extension ProfilesModel {
         case profiles
         case instanceInfo = "instance_info"
     }
-
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: ProfilesModelKeys.self)
-
+        
         let profileListContainer = try container.nestedContainer(keyedBy: ProfilesModelKeys.self, forKey: .profileList)
         let profiles = try profileListContainer.decode([InstanceProfileModel].self, forKey: .data)
-
+        
         self.init(profiles: profiles)
     }
 }
@@ -35,7 +35,7 @@ extension ProfilesModel {
 struct InstanceProfileModel: Decodable {
     
     var displayNames: [String: String]?
-
+    
     var displayName: String?
     var profileId: String
     let twoFactor: Bool
@@ -50,15 +50,15 @@ extension InstanceProfileModel {
         case profileId = "profile_id"
         case twoFactor = "two_factor"
     }
-
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: InstanceProfileModelKeys.self)
-
+        
         let profileId = try container.decode(String.self, forKey: .profileId)
-
+        
         var displayName: String?
         let displayNames = try? container.decode(Dictionary<String, String>.self, forKey: .displayName)
-
+        
         if let displayNames = displayNames {
             let preferedLocalization = Bundle.preferredLocalizations(from: Array(displayNames.keys))
             for localeIdentifier in preferedLocalization {
@@ -70,7 +70,7 @@ extension InstanceProfileModel {
         } else {
             displayName = try container.decode(String.self, forKey: .displayName)
         }
-
+        
         let twoFactor = try container.decodeIfPresent(Bool.self, forKey: .twoFactor) ?? false
         
         self.init(displayNames: displayNames,
@@ -87,7 +87,7 @@ extension InstanceProfileModel: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(profileId)
     }
-
+    
     static func == (lhs: InstanceProfileModel, rhs: InstanceProfileModel) -> Bool {
         return lhs.profileId == rhs.profileId && lhs.instanceApiBaseUrl == rhs.instanceApiBaseUrl
     }

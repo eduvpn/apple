@@ -13,21 +13,21 @@ import os.log
 import UIKit
 
 class ProviderTableViewCell: UITableViewCell {
-
+    
     @IBOutlet private weak var providerImageView: UIImageView!
     @IBOutlet private weak var providerTitleLabel: UILabel!
     @IBOutlet private weak var statusImageView: UIImageView!
-
+    
     func configure(with instance: Instance, and providerType: ProviderType, displayConnectedStatus: Bool) {
         let profiles = instance.apis?.flatMap { api -> Set<Profile> in
             return api.profiles
         } ?? []
-
+        
         let configuredProfileId = UserDefaults.standard.configuredProfileId
         let configuredProfile = profiles.first { profile -> Bool in
             return profile.uuid?.uuidString == configuredProfileId
         }
-
+        
         if displayConnectedStatus {
             statusImageView.isHidden = false
             accessoryType = .none
@@ -55,7 +55,7 @@ class ProviderTableViewCell: UITableViewCell {
             statusImageView.isHidden = true
             accessoryType = .none
         }
-
+        
         if let logoString = instance.logos?.localizedValue, let logoUrl = URL(string: logoString) {
             providerImageView?.af_setImage(withURL: logoUrl)
             providerImageView.isHidden = false
@@ -69,22 +69,22 @@ class ProviderTableViewCell: UITableViewCell {
     }
 }
 
-extension ProviderTableViewCell: Identifyable {}
+extension ProviderTableViewCell: Identifiable {}
 
 class ProvidersViewController: UITableViewController {
     
     weak var delegate: ProvidersViewControllerDelegate?
-
+    
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var settingsButton: UIBarButtonItem!
-
+    
     var providerManagerCoordinator: TunnelProviderManagerCoordinator!
-
+    
     var viewContext: NSManagedObjectContext!
     var selectingConfig: Bool = false
-
+    
     var providerType: ProviderType = .unknown
-
+    
     private lazy var fetchedResultsController: FetchedResultsController<Instance> = {
         let fetchRequest = NSFetchRequest<Instance>()
         fetchRequest.entity = Instance.entity()
@@ -98,7 +98,7 @@ class ProvidersViewController: UITableViewController {
             fetchRequest.predicate = NSPredicate(format: "providerType == %@", providerType.rawValue)
             
         }
-
+        
         var sortDescriptors = [NSSortDescriptor]()
         if Config.shared.discovery != nil {
             sortDescriptors.append(NSSortDescriptor(key: "providerType", ascending: true))
@@ -108,23 +108,23 @@ class ProvidersViewController: UITableViewController {
         fetchRequest.sortDescriptors = sortDescriptors
         
         let frc = FetchedResultsController<Instance>(fetchRequest: fetchRequest,
-                                                    managedObjectContext: viewContext,
-                                                    sectionNameKeyPath: Config.shared.discovery != nil ? "providerType": nil)
+                                                     managedObjectContext: viewContext,
+                                                     sectionNameKeyPath: Config.shared.discovery != nil ? "providerType": nil)
         frc.setDelegate(self.frcDelegate)
         
         return frc
     }()
-
+    
     private lazy var frcDelegate: CoreDataFetchedResultsControllerDelegate<Instance> = { // swiftlint:disable:this weak_delegate
         return CoreDataFetchedResultsControllerDelegate<Instance>(tableView: self.tableView)
     }()
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         refresh()
     }
-
+    
     @objc func refresh() {
         do {
             try fetchedResultsController.performFetch()
@@ -132,12 +132,12 @@ class ProvidersViewController: UITableViewController {
             os_log("Failed to fetch objects: %{public}@", log: Log.general, type: .error, error.localizedDescription)
         }
     }
-
+    
     override func viewDidLoad() {
         tableView.tableFooterView = UIView()
-
+        
         super.viewDidLoad()
-
+        
         if Config.shared.predefinedProvider != nil, providerType == .unknown {
             // There is a predefined provider. So do not allow adding.
             navigationItem.rightBarButtonItems = [settingsButton]
@@ -146,13 +146,13 @@ class ProvidersViewController: UITableViewController {
         } else {
             navigationItem.rightBarButtonItems = []
         }
-
+        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(refresh),
                                                name: UIApplication.didBecomeActiveNotification,
                                                object: nil)
     }
-
+    
     @IBAction func addProvider(_ sender: Any) {
         if Config.shared.predefinedProvider != nil {
             delegate?.addPredefinedProvider(providersViewController: self)
@@ -160,7 +160,7 @@ class ProvidersViewController: UITableViewController {
             delegate?.addProvider(providersViewController: self)
         }
     }
-
+    
     @IBAction func settings(_ sender: Any) {
         delegate?.settings(providersViewController: self)
     }

@@ -9,7 +9,7 @@
 import Foundation
 import PromiseKit
 
-extension ProvidersViewController: Identifyable {}
+extension ProvidersViewController: Identifiable {}
 
 protocol ProvidersViewControllerDelegate: class {
     func addProvider(providersViewController: ProvidersViewController)
@@ -39,7 +39,7 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
     }
     
     func didSelectOther(providerType: ProviderType) {
-        showCustomProviderInPutViewController(for: providerType)
+        showCustomProviderInputViewController(for: providerType)
     }
     
     func didSelect(instance: Instance, providersViewController: ProvidersViewController) {
@@ -50,10 +50,9 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
                 let count = try Profile.countInContext(persistentContainer.viewContext,
                                                        predicate: NSPredicate(format: "api.instance == %@", instance))
                 
-//                if count > 1 {
-//                    showConnectionsTableViewController(for: instance)
-//                } else
-                    if let profile = instance.apis?.first?.profiles.first {
+                if count > 1 {
+                    showConnectionsTableViewController(for: instance)
+                } else if let profile = instance.apis?.first?.profiles.first {
                     connect(profile: profile)
                 }
             } catch {
@@ -67,7 +66,7 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
             }
         }
     }
-
+    
     func delete(instance: Instance) {
         _ = Promise<Void>(resolver: { seal in
             persistentContainer.performBackgroundTask { context in

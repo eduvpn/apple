@@ -19,7 +19,7 @@ extension Instance {
         self.baseUri = model.baseUri.absoluteString
         self.displayNames?.forEach { self.managedObjectContext?.delete($0) }
         self.logos?.forEach { self.managedObjectContext?.delete($0) }
-
+        
         if let logoUrls = model.logoUrls {
             self.logos = Set(logoUrls.compactMap { (logoData) -> Logo? in
                 let newLogo = Logo(context: self.managedObjectContext!)
@@ -37,7 +37,7 @@ extension Instance {
         } else {
             self.logos = []
         }
-
+        
         if let displayNames = model.displayNames {
             self.displayNames = Set(displayNames.compactMap { (displayData) -> DisplayName? in
                 let displayName = DisplayName(context: self.managedObjectContext!)

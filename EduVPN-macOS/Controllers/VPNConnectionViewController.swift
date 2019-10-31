@@ -13,7 +13,6 @@ import NetworkExtension
 import Kingfisher
 import TunnelKit
 import PromiseKit
-import Socket
 
 private let intervalFormatter: DateComponentsFormatter = {
     let formatter = DateComponentsFormatter()
@@ -245,7 +244,7 @@ class VPNConnectionViewController: NSViewController {
         }
     }
     
-    @objc @IBAction func viewLog(_ sender: Any) {
+    @IBAction func viewLog(_ sender: Any) {
         print("Log file: \(connectionLogPath.url)")
         NSWorkspace.shared.open(connectionLogPath.url)
     }
@@ -274,10 +273,10 @@ class VPNConnectionViewController: NSViewController {
         if let concreteDelegate = delegate {
             _ = firstly { () -> Promise<SystemMessages> in
                 return concreteDelegate.systemMessages(for: profile)
-                }.then({ [weak self] (systemMessages) -> Guarantee<Void> in
-                    self?.notificationsField.stringValue = systemMessages.displayString
-                    return Guarantee<Void>()
-                })
+            }.then({ [weak self] (systemMessages) -> Guarantee<Void> in
+                self?.notificationsField.stringValue = systemMessages.displayString
+                return Guarantee<Void>()
+            })
         }
     }
     
@@ -287,28 +286,6 @@ class VPNConnectionViewController: NSViewController {
         stopConnectionInfoUpdates()
     }
     
-//    private func updateMessages() {
-//        let messages = userMessages + systemMessages
-//        notificationsBox.title = messages.count == 1
-//            ? NSLocalizedString("Notification", comment: "Notification box title (1 message)")
-//            : NSLocalizedString("Notifications", comment: "Notifications box title")
-//        notificationsBox.isHidden = messages.isEmpty
-//
-//        notificationsField.attributedStringValue = messages.reduce(into: NSMutableAttributedString()) { (notifications, message) in
-//            if notifications.length > 0 {
-//                notifications.append(NSAttributedString(string: "\n\n", attributes: [.font: NSFont.systemFont(ofSize: NSFont.systemFontSize(for: .small))]))
-//            }
-//
-//            let date = DateFormatter.localizedString(from: message.date, dateStyle: .short, timeStyle: .short)
-//            notifications.append(NSAttributedString(string: date + ": ",
-//                                                    attributes: [.font: NSFont.boldSystemFont(ofSize: NSFont.systemFontSize(for: .small))]))
-//
-//            if let message = message.message {
-//                notifications.append(NSAttributedString(string: message,
-//                                                        attributes: [.font: NSFont.systemFont(ofSize: NSFont.systemFontSize(for: .small))]))
-//            }
-//        }
-//    }
 }
 
 fileprivate extension UInt64 {

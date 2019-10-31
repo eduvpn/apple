@@ -73,7 +73,7 @@ class InstancesLoader {
         
         let provider = MoyaProvider<StaticService>()
         let instanceGroupIdentifier = "\(target.baseURL.absoluteString)/\(target.path)"
-
+        
         provider.request(target: sigTarget)
             .then(validateSodiumSignature)
             .then { provider.request(target: target).then(self.verifyResponse(signature: $0)) }
@@ -180,7 +180,7 @@ class InstancesLoader {
                             newInstance.providerType = providerType.rawValue
                             newInstance.authServer = authServer
                             newInstance.update(with: instanceModel)
-                    }
+                        }
                     
                     context.saveContextToStore { result in
                         switch result {

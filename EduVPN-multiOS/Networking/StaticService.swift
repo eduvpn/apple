@@ -17,27 +17,27 @@ struct StaticService: TargetType, AcceptJson {
         case secureInternet
         case secureInternetSignature
     }
-
+    
     init?(type: StaticService.StaticServiceType) {
         guard let baseURL = Config.shared.discovery?.server else {
             return nil
         }
-
+        
         self.baseURL = baseURL
-
+        
         guard let path: String = Config.shared.discovery?.path(forServiceType: type) else {
             return nil
         }
-
+        
         self.path = path
     }
-
+    
     var method: Moya.Method { return .get }
     var task: Task { return .requestPlain }
     var sampleData: Data { return "".data(using: String.Encoding.utf8)! }
-
+    
     var baseURL: URL
     var path: String
-
+    
     static var publicKey: Data { return Config.shared.discovery!.signaturePublicKey! }
 }

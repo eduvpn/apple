@@ -24,7 +24,7 @@ struct InstancesModel: Decodable {
     var seq: Int
     var signedAt: Date?
     var instances: [InstanceModel]
-
+    
     var authorizationEndpoint: URL?
     var tokenEndpoint: URL?
 }
@@ -40,22 +40,22 @@ extension InstancesModel {
         case signedAt = "signed_at"
         case instances
     }
-
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: InstancesModelKeys.self)
-
+        
         let providerType = try container.decodeIfPresent(ProviderType.self, forKey: .providerType) ?? .unknown
-
+        
         let authorizationEndpoint = try container.decodeIfPresent(URL.self, forKey: .authorizationEndpoint)
         let tokenEndpoint = try container.decodeIfPresent(URL.self, forKey: .tokenEndpoint)
-
+        
         let authorizationType = try container.decode(AuthorizationType.self, forKey: .authorizationType)
         let seq = try container.decode(Int.self, forKey: .seq)
         var signedAt: Date?
         if let signedAtString = try container.decodeIfPresent(String.self, forKey: .signedAt) {
             signedAt = signedAtDateFormatter.date(from: signedAtString)
         }
-
+        
         var instances = try container.decode([InstanceModel].self, forKey: .instances)
         // Temporarily apply fields, which are required by macOS logic
         instances = instances.map {
@@ -83,7 +83,7 @@ struct InstanceModel: Decodable {
     var baseUri: URL
     var displayNames: [String: String]?
     var logoUrls: [String: URL]?
-
+    
     var displayName: String?
     var logoUrl: URL?
     
@@ -100,16 +100,16 @@ extension InstanceModel {
         case displayName = "display_name"
         case logo = "logo"
     }
-
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: InstanceModelKeys.self)
-
+        
         let baseUri = try container.decode(URL.self, forKey: .baseUri)
         let providerType = try container.decodeIfPresent(ProviderType.self, forKey: .providerType) ?? .unknown
-
+        
         var displayName: String?
         let displayNames = try? container.decode(Dictionary<String, String>.self, forKey: .displayName)
-
+        
         if let displayNames = displayNames {
             let preferedLocalization = Bundle.preferredLocalizations(from: Array(displayNames.keys))
             for localeIdentifier in preferedLocalization {
@@ -121,10 +121,10 @@ extension InstanceModel {
         } else {
             displayName = try container.decodeIfPresent(String.self, forKey: .displayName)
         }
-
+        
         var logoUrl: URL?
         let logoUrls: [String: URL]? = try? container.decode([String: URL].self, forKey: .logo)
-
+        
         if let logoUrls = logoUrls {
             let preferedLocalization = Bundle.preferredLocalizations(from: Array(logoUrls.keys))
             for localeIdentifier in preferedLocalization {
@@ -136,7 +136,7 @@ extension InstanceModel {
         } else {
             logoUrl = try container.decodeIfPresent(URL.self, forKey: .logo)
         }
-
+        
         self.init(providerType: providerType,
                   baseUri: baseUri,
                   displayNames: displayNames,

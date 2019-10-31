@@ -50,7 +50,7 @@ extension ApiService {
             
         }
     }
-
+    
     var method: Moya.Method {
         switch self {
             
@@ -62,7 +62,7 @@ extension ApiService {
             
         }
     }
-
+    
     var task: Task {
         switch self {
             
@@ -80,7 +80,7 @@ extension ApiService {
             
         }
     }
-
+    
     var sampleData: Data { return "".data(using: String.Encoding.utf8)! }
 }
 
@@ -88,7 +88,7 @@ struct DynamicApiService: TargetType, AcceptJson {
     
     let baseURL: URL
     let apiService: ApiService
-
+    
     var path: String { return apiService.path }
     var method: Moya.Method { return apiService.method }
     var task: Task { return apiService.task }
@@ -105,11 +105,11 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
     let api: Api
     let authConfig: OIDServiceConfiguration
     private var credentialStorePlugin: CredentialStorePlugin
-
+    
     var actualApi: Api { return api.instance?.group?.distributedAuthorizationApi ?? api }
-
+    
     var currentAuthorizationFlow: OIDExternalUserAgentSession?
-
+    
     // MARK: - Authorization
     
     private func makeAuthorizeRequest() -> OIDAuthorizationRequest {
@@ -189,7 +189,7 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
     #endif
     
     // MARK: - Constructor
-
+    
     public init?(api: Api,
                  endpointClosure: @escaping EndpointClosure = MoyaProvider.defaultEndpointMapping,
                  stubClosure: @escaping StubClosure = MoyaProvider.neverStub,
@@ -203,10 +203,10 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
         
         self.api = api
         self.credentialStorePlugin = CredentialStorePlugin()
-
+        
         var plugins = plugins
         plugins.append(self.credentialStorePlugin)
-
+        
         self.authConfig = OIDServiceConfiguration(authorizationEndpoint: URL(string: authorizationEndpoint)!,
                                                   tokenEndpoint: URL(string: tokenEndpoint)!)
         
@@ -216,7 +216,7 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
                    plugins: plugins,
                    trackInflights: trackInflights)
     }
-
+    
     public func request(apiService: ApiService,
                         queue: DispatchQueue? = nil,
                         progress: Moya.ProgressBlock? = nil) -> Promise<Moya.Response> {
@@ -232,14 +232,14 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
                         }
                         return
                     }
-
+                    
                     self.credentialStorePlugin.accessToken = accessToken
                     seal.fulfill(())
                 }
             } else {
                 seal.reject(ApiServiceError.noAuthState)
             }
-
+            
         }).then {_ -> Promise<Moya.Response> in
             self.request(target: DynamicApiService(baseURL: URL(string: self.api.apiBaseUri!)!, apiService: apiService))
         }
@@ -251,7 +251,7 @@ extension DynamicApiProvider: Hashable {
     static func == (lhs: DynamicApiProvider, rhs: DynamicApiProvider) -> Bool {
         return lhs.api.apiBaseUri == rhs.api.apiBaseUri
     }
-
+    
     func hash(into hasher: inout Hasher) {
         hasher.combine(api.apiBaseUri)
     }

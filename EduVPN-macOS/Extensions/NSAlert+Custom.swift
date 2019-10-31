@@ -7,20 +7,19 @@
 //
 
 import AppKit
-import Socket
 
-fileprivate typealias ErrorDomainAndCode = (NSErrorDomain, NSInteger)
+private typealias ErrorDomainAndCode = (NSErrorDomain, NSInteger)
 
-fileprivate let ignoredOpenIdAuthErrors: [ErrorDomainAndCode] = [
+private let ignoredOpenIdAuthErrors: [ErrorDomainAndCode] = [
     ("org.openid.appauth.general", -4),
     ("org.openid.appauth.oauth_authorization", -4)
 ]
 
-fileprivate func shouldIgnoreError(_ error: NSError, ignoreList: [ErrorDomainAndCode]) -> Bool {
+private func shouldIgnoreError(_ error: NSError, ignoreList: [ErrorDomainAndCode]) -> Bool {
     return ignoreList.contains(where: { $0 as String == error.domain && $1 == error.code })
 }
 
-fileprivate func customizedOrDefaultError(_ error: NSError) -> Error {
+private func customizedOrDefaultError(_ error: NSError) -> Error {
     guard error.domain == NSURLErrorDomain, error.code == NSURLErrorServerCertificateUntrusted else {
         return error
     }
@@ -33,22 +32,7 @@ fileprivate func customizedOrDefaultError(_ error: NSError) -> Error {
 extension NSAlert {
     
     convenience init?(customizedError error: Error) {
-        // TODO: Clean up and include in switch statement below
-        // UNCOMMENT
-//        if let error = error as? ConnectionService.Error {
-//            let isUserCancelledError = error.errorDescription == ConnectionService.Error.userCancelled.errorDescription
-//            let isUnexpectedStateError = error.errorDescription == ConnectionService.Error.unexpectedState.errorDescription
-//
-//            if isUserCancelledError || isUnexpectedStateError {
-//                NSLog("Ignored error: \(error)")
-//                return nil
-//            }
-//        }
-        
         if (error as NSError).domain == NSOSStatusErrorDomain, (error as NSError).code == errSecUserCanceled {
-            NSLog("Ignored error: \(error)")
-            return nil
-        } else if let error = error as? Socket.Error, [1, -9974].contains(error.errorCode) {
             NSLog("Ignored error: \(error)")
             return nil
         }

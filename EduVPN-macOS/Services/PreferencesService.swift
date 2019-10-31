@@ -18,8 +18,6 @@ class PreferencesService: NSObject {
         UserDefaults.standard.set(launchAtLogin, forKey: "launchAtLogin")
         super.init()
         UserDefaults.standard.addObserver(self, forKeyPath: "launchAtLogin", options: .new, context: nil)
-        UserDefaults.standard.addObserver(self, forKeyPath: "showInDock", options: .new, context: nil)
-        UserDefaults.standard.addObserver(self, forKeyPath: "showInStatusBar", options: .new, context: nil)
     }
     
     var launchAtLogin: Bool {
@@ -28,19 +26,10 @@ class PreferencesService: NSObject {
         }
     }
     
-    var developerMode: Bool {
-        get {
-            return  UserDefaults.standard.bool(forKey: "developerMode")
-        }
-        set {
-            UserDefaults.standard.set(developerMode, forKey: "developerMode")
-        }
-    }
-    
     private static var loginHelperBundle: Bundle {
         let mainBundle = Bundle.main
-        let bundlePath = (mainBundle.bundlePath as NSString).appendingPathComponent("Contents/Library/LoginItems/LoginItemHelper.app")
-        return Bundle(path: bundlePath)!
+        let bundlePath = (mainBundle.bundlePath as NSString).appendingPathComponent("Contents/Library/LoginItems/LoginItemHelper-macOS.app")
+        return Bundle(path: bundlePath)! //swiftlint:disable:this force_unwrapping
     }
     
     private static func launchAtLogin(bundle: Bundle) -> Bool {
@@ -61,38 +50,22 @@ class PreferencesService: NSObject {
             NSLog("LSRegisterURL failed to register \(bundle.bundleURL) [\(status)]")
         }
         
-        if !SMLoginItemSetEnabled(bundle.bundleIdentifier! as CFString, enabled) {
+        if !SMLoginItemSetEnabled(bundle.bundleIdentifier! as CFString, enabled) { //swiftlint:disable:this force_unwrapping
             NSLog("SMLoginItemSetEnabled failed!")
         }
     }
     
     override func observeValue(forKeyPath keyPath: String?,
                                of object: Any?,
-                               change: [NSKeyValueChangeKey : Any]?,
+                               change: [NSKeyValueChangeKey: Any]?,
                                context: UnsafeMutableRawPointer?) {
         
-         updateForUIPreferences()
+        updateForUIPreferences()
     }
-
+    
     func updateForUIPreferences() {
         let launchAtLogin = UserDefaults.standard.bool(forKey: "launchAtLogin")
-        var showInDock = UserDefaults.standard.bool(forKey: "showInDock")
-        let showInStatusBar = UserDefaults.standard.bool(forKey: "showInStatusBar")
         
         self.launchAtLogin = launchAtLogin
-        
-        // We should always be visible somewhere
-        if !showInDock && !showInStatusBar {
-            showInDock = true
-            UserDefaults.standard.set(true, forKey: "showInDock")
-        }
-        
-        if showInDock {
-            NSApp.setActivationPolicy(.regular)
-        } else {
-            NSApp.setActivationPolicy(.accessory)
-        }
-        
-        (NSApp.delegate as! AppDelegate).statusItemIsVisible = showInStatusBar
     }
 }

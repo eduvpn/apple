@@ -11,11 +11,12 @@ import os.log
 
 struct Log {
     
-     static var general: OSLog = {
+    static var general: OSLog = {
         if let bundleID = Bundle.main.bundleIdentifier {
             return OSLog(subsystem: bundleID, category: "general")
         } else {
             fatalError("missing bundle ID")
         }
     }()
+    
 }

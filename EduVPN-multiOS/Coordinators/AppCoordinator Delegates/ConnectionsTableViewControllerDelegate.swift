@@ -9,7 +9,7 @@
 import Foundation
 import PromiseKit
 
-extension ConnectionsTableViewController: Identifyable {}
+extension ConnectionsTableViewController: Identifiable {}
 
 protocol ConnectionsTableViewControllerDelegate: class {
     func connect(profile: Profile)
@@ -26,7 +26,7 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
                 .then { _ -> Promise<Void> in
                     self.providersViewController.tableView.reloadData()
                     return self.showConnectionViewController(for: profile)
-            }
+                }
         }
     }
 }

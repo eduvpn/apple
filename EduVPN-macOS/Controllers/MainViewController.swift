@@ -15,6 +15,10 @@ class MainViewController: NSViewController {
     @IBOutlet var menuButton: NSButton!
     @IBOutlet var actionMenu: NSMenu!
     
+    @IBOutlet weak var activityIndicatorView: NSVisualEffectView!
+    @IBOutlet weak var activityIndicator: NSProgressIndicator!
+    @IBOutlet weak var activityLabel: NSTextField!
+    
     @IBAction func showMenu(_ sender: NSControl) {
         actionMenu.popUp(positioning: nil, at: sender.frame.origin, in: sender.superview)
     }
@@ -22,12 +26,13 @@ class MainViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.wantsLayer = true
+        activityIndicatorView.isHidden = true
     }
     
     func show(viewController: NSViewController,
               options: NSViewController.TransitionOptions = [],
               animated: Bool = true,
-              completionHandler: (() -> ())?) {
+              completionHandler: (() -> Void)?) {
         
         let currentViewController = self.currentViewController
         addChild(viewController)

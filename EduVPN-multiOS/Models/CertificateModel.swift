@@ -16,7 +16,7 @@ struct CertificateModel: Codable {
     var x509Certificate: X509Certificate? {
         return try? X509Certificate(data: certificateString.data(using: .utf8)!)
     }
-
+    
     var uniqueIdentifier: String? {
         return x509Certificate?.signature?.base64EncodedString()
     }
@@ -29,9 +29,9 @@ extension CertificateModel {
         case data
         case certificate
         case privateKey = "private_key"
-//        case okKey = "ok"
+        //        case okKey = "ok"
     }
-
+    
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CertificateModelKeys.self)
         var createKeypairContainer = container.nestedContainer(keyedBy: CertificateModelKeys.self, forKey: .createKeypair)
@@ -39,11 +39,11 @@ extension CertificateModel {
         try dataContainer.encode(certificateString, forKey: .certificate)
         try dataContainer.encode(privateKeyString, forKey: .privateKey)
     }
-
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CertificateModelKeys.self)
         let createKeypairResponse = try container.nestedContainer(keyedBy: CertificateModelKeys.self, forKey: .createKeypair)
-//        let okResult = try createKeypairResponse.decode(Bool.self, forKey: .okKey)
+        //        let okResult = try createKeypairResponse.decode(Bool.self, forKey: .okKey)
         let data = try createKeypairResponse.nestedContainer(keyedBy: CertificateModelKeys.self, forKey: .data)
         certificateString = try data.decode(String.self, forKey: .certificate)
         privateKeyString = try data.decode(String.self, forKey: .privateKey)

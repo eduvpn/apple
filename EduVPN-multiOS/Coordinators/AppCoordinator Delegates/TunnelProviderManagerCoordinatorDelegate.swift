@@ -15,7 +15,7 @@ import NVActivityIndicatorView
 #endif
 
 extension AppCoordinator: TunnelProviderManagerCoordinatorDelegate {
-
+    
     func updateProfileStatus(with status: NEVPNStatus) {
         let context = persistentContainer.newBackgroundContext()
         context.performAndWait {

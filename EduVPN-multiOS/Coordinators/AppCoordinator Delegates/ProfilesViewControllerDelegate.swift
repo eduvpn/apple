@@ -9,7 +9,7 @@
 import Foundation
 import os.log
 
-extension ProfilesViewController: Identifyable {}
+extension ProfilesViewController: Identifiable {}
 
 protocol ProfilesViewControllerDelegate: class {
     
@@ -32,14 +32,14 @@ extension AppCoordinator: ProfilesViewControllerDelegate {
     
     func profilesViewControllerDidSelectProviderType(profilesViewController: ProfilesViewController,
                                                      providerType: ProviderType) {
-    
+        
         switch providerType {
             
         case .instituteAccess, .secureInternet:
             showProvidersViewController(for: providerType)
             
         case .other:
-            showCustomProviderInPutViewController(for: providerType)
+            showCustomProviderInputViewController(for: providerType)
             
         case .unknown, .local:
             os_log("Unknown provider type chosen", log: Log.general, type: .error)
@@ -56,8 +56,10 @@ extension AppCoordinator: ProfilesViewControllerDelegate {
     #elseif os(macOS)
     
     func profilesViewControllerWantsToAddUrl() {
-        let enterProviderURLViewController = storyboard.instantiateController(withIdentifier: "EnterProviderURL")
-            as! EnterProviderURLViewController
+        guard let enterProviderURLViewController = storyboard.instantiateController(withIdentifier: "EnterProviderURL")
+            as? EnterProviderURLViewController else {
+                return
+        }
         
         let panel = NSPanel(contentViewController: enterProviderURLViewController)
         window?.beginSheet(panel) { response in

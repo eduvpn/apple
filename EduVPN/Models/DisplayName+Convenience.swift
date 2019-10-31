@@ -9,7 +9,7 @@
 import Foundation
 
 extension Set where Element == DisplayName {
-    
+
     var localizedValue: String? {
         var mapping = [String: String]()
 

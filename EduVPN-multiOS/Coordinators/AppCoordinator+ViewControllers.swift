@@ -21,7 +21,7 @@ extension AppCoordinator {
     
     internal func presentViewController(_ viewController: UIViewController,
                                         animated: Bool = true,
-                                        completion: (() -> ())? = nil) {
+                                        completion: (() -> Void)? = nil) {
         navigationController.present(viewController, animated: animated, completion: completion)
     }
     
@@ -31,26 +31,30 @@ extension AppCoordinator {
     
     #elseif os(macOS)
     
+    var mainWindowController: MainWindowController {
+        return windowController as! MainWindowController //swiftlint:disable:this force_cast
+    }
+    
     internal func pushViewController(_ viewController: NSViewController) {
-        (windowController as! MainWindowController).show(viewController: viewController, presentation: .push)
+        mainWindowController.show(viewController: viewController, presentation: .push)
     }
     
     internal func presentViewController(_ viewController: NSViewController,
                                         animated: Bool = true,
-                                        completion: (() -> ())? = nil) {
+                                        completion: (() -> Void)? = nil) {
         
-        (windowController as! MainWindowController).show(viewController: viewController,
-                                                         presentation: .present,
-                                                         animated: animated,
-                                                         completionHandler: completion)
+        mainWindowController.show(viewController: viewController,
+                                  presentation: .present,
+                                  animated: animated,
+                                  completionHandler: completion)
     }
     
-    internal func popToRootViewController(animated: Bool = true, completionHandler: (() -> ())? = nil) {
-        (windowController as! MainWindowController).popToRoot(animated: animated, completionHandler: completionHandler)
+    internal func popToRootViewController(animated: Bool = true, completionHandler: (() -> Void)? = nil) {
+        mainWindowController.popToRoot(animated: animated, completionHandler: completionHandler)
     }
     
     internal func dismissViewController() {
-        (windowController as! MainWindowController).do {
+        mainWindowController.do {
             $0.close(viewController: $0.navigationStackStack.last!.last!)
         }
     }
@@ -105,9 +109,9 @@ extension AppCoordinator {
         }
     }
     
-    internal func showCustomProviderInPutViewController(for providerType: ProviderType) {
+    internal func showCustomProviderInputViewController(for providerType: ProviderType) {
         #if os(iOS)
-        let customProviderInputVc = storyboard.instantiateViewController(type: CustomProviderInPutViewController.self).with {
+        let customProviderInputVc = storyboard.instantiateViewController(type: CustomProviderInputViewController.self).with {
             $0.delegate = self
         }
         navigationController.pushViewController(customProviderInputVc, animated: true)
@@ -123,7 +127,9 @@ extension AppCoordinator {
         #elseif os(macOS)
         // Do separate instantiation with identifier
         // Because macOS reuses VC class, but uses two different layouts
-        let providersVc = storyboard.instantiateController(withIdentifier: "ChooseProvider") as! ProvidersViewController
+        guard let providersVc = storyboard.instantiateController(withIdentifier: "ChooseProvider") as? ProvidersViewController else {
+            return
+        }
         #endif
         
         providersVc.do {
@@ -150,16 +156,16 @@ extension AppCoordinator {
             $0.delegate = self
             $0.profile = profile
         }
-    
+        
         #if os(iOS)
-        let nc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(type: UINavigationController.self).with {
+        let navigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(type: UINavigationController.self).with {
             $0.viewControllers = [connectionVc]
         }
         #endif
         
         let presentationPromise = Promise<Void>(resolver: { seal in
             #if os(iOS)
-            self.presentViewController(nc, animated: true, completion: { seal.resolve(nil) })
+            self.presentViewController(navigationController, animated: true, completion: { seal.resolve(nil) })
             #elseif os(macOS)
             self.presentViewController(connectionVc, animated: true, completion: { seal.resolve(nil) })
             #endif
