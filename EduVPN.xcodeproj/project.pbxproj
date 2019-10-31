@@ -318,6 +318,8 @@
 		4A2DA16D21C5ACF90026BCF5 /* EduVPN.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EduVPN.entitlements; sourceTree = "<group>"; };
 		4A3971B221E9500100782A28 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
 		4A3E029B1F6C4B3D00D20292 /* Moya+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Moya+Extensions.swift"; sourceTree = "<group>"; };
+		4A3E78DB236B692A009CE595 /* config-appforce1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-appforce1.json"; sourceTree = "<group>"; };
+		4A3E78DC236B694A009CE595 /* Developer.xcconfig.appforce1-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer.xcconfig.appforce1-template"; sourceTree = "<group>"; };
 		4A4CA90E1F55F4300021FD5D /* UITableView+EduVPN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+EduVPN.swift"; sourceTree = "<group>"; };
 		4A4F36521F31972C0032C96B /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		4A62C8B71FB03B47007D3FAA /* KeyboardWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardWrapper.swift; sourceTree = "<group>"; };
@@ -828,10 +830,12 @@
 				C75B2CC22363141200D700EC /* config-eduvpn.json */,
 				C75B2CC52363141200D700EC /* config-letsconnect.json */,
 				C75B2CC72363141200D700EC /* config-template.json */,
+				4A3E78DB236B692A009CE595 /* config-appforce1.json */,
 				4ABCCBDB21E5269B0020CB6D /* Developer.xcconfig */,
 				C75B2CC62363141200D700EC /* Developer.xcconfig.eduvpn-template */,
 				C75B2CC42363141200D700EC /* Developer.xcconfig.letsconnect-template */,
 				C75B2CC12363141200D700EC /* Developer.xcconfig.template */,
+				4A3E78DC236B694A009CE595 /* Developer.xcconfig.appforce1-template */,
 				4ABCCBE421E527B50020CB6D /* Development.xcconfig */,
 				4ABCCBE621E528260020CB6D /* Development-TunnelExtension.xcconfig */,
 				4ABCCBE321E527A40020CB6D /* Release.xcconfig */,
