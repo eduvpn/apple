@@ -393,8 +393,8 @@
 		C75B2CAB2363123700D700EC /* build.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = build.sh; sourceTree = SOURCE_ROOT; };
 		C75B2CAD2363138200D700EC /* config-eduvpn_dev.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-eduvpn_dev.json"; sourceTree = "<group>"; };
 		C75B2CAE2363138200D700EC /* Release-macOS-TunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-macOS-TunnelExtension.xcconfig"; sourceTree = "<group>"; };
-		C75B2CB02363138200D700EC /* Developer-macOS.xcconfig.eduvpn-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer-macOS.xcconfig.eduvpn-template"; sourceTree = "<group>"; };
-		C75B2CB22363138200D700EC /* Developer-macOS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Developer-macOS.xcconfig"; sourceTree = "<group>"; };
+		C75B2CB02363138200D700EC /* Developer-macOS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Developer-macOS.xcconfig"; sourceTree = "<group>"; };
+		C75B2CB22363138200D700EC /* Developer-macOS.xcconfig.johan-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer-macOS.xcconfig.johan-template"; sourceTree = "<group>"; };
 		C75B2CB32363138200D700EC /* Assets-eduVPN.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets-eduVPN.xcassets"; sourceTree = "<group>"; };
 		C75B2CB42363138200D700EC /* config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
 		C75B2CB62363138200D700EC /* config-letsconnect.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-letsconnect.json"; sourceTree = "<group>"; };
@@ -413,6 +413,7 @@
 		C75B2CC52363141200D700EC /* config-letsconnect.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-letsconnect.json"; sourceTree = "<group>"; };
 		C75B2CC62363141200D700EC /* Developer.xcconfig.eduvpn-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer.xcconfig.eduvpn-template"; sourceTree = "<group>"; };
 		C75B2CC72363141200D700EC /* config-template.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-template.json"; sourceTree = "<group>"; };
+		C7C69A5E236B328200F9B8B3 /* Developer-macOS.xcconfig.eduvpn-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer-macOS.xcconfig.eduvpn-template"; sourceTree = "<group>"; };
 		C7FA7A0023633694006501E8 /* CertificateModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateModel.swift; sourceTree = "<group>"; };
 		C7FA7A0123633694006501E8 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		C7FA7A0323633694006501E8 /* InstanceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceModel.swift; sourceTree = "<group>"; };
@@ -890,8 +891,9 @@
 				C75B2CBE2363138200D700EC /* config-eduvpn.json */,
 				C75B2CC02363138200D700EC /* config-template.json */,
 				C75B2CB62363138200D700EC /* config-letsconnect.json */,
-				C75B2CB22363138200D700EC /* Developer-macOS.xcconfig */,
-				C75B2CB02363138200D700EC /* Developer-macOS.xcconfig.eduvpn-template */,
+				C75B2CB02363138200D700EC /* Developer-macOS.xcconfig */,
+				C7C69A5E236B328200F9B8B3 /* Developer-macOS.xcconfig.eduvpn-template */,
+				C75B2CB22363138200D700EC /* Developer-macOS.xcconfig.johan-template */,
 				C75B2CB82363138200D700EC /* Developer-macOS.xcconfig.template */,
 				C75B2CBC2363138200D700EC /* Developer-macOS.xcconfig.letsconnect-template */,
 				C75B2CB72363138200D700EC /* Development-macOS.xcconfig */,
@@ -1156,7 +1158,7 @@
 					};
 					4A901C1020C87511000C1BF0 = {
 						CreatedOnToolsVersion = 9.4;
-						DevelopmentTeam = CRU5YWAZ4Y;
+						DevelopmentTeam = ZYJ4TZX4UU;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -1172,7 +1174,7 @@
 					};
 					4AAC1F751F2D0E3400DD0252 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = CRU5YWAZ4Y;
+						DevelopmentTeam = ZYJ4TZX4UU;
 						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -1195,7 +1197,7 @@
 					};
 					4AAC1F891F2D0E3400DD0252 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = CRU5YWAZ4Y;
+						DevelopmentTeam = ZYJ4TZX4UU;
 						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 4AAC1F751F2D0E3400DD0252;
@@ -1970,7 +1972,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = CRU5YWAZ4Y;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "$(SRCROOT)/EduVPN-macOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -1999,7 +2000,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = CRU5YWAZ4Y;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "$(SRCROOT)/EduVPN-macOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
