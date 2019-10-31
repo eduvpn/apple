@@ -357,6 +357,7 @@
 		4ABCCBE521E528140020CB6D /* Release-TunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-TunnelExtension.xcconfig"; sourceTree = "<group>"; };
 		4ABCCBE621E528260020CB6D /* Development-TunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Development-TunnelExtension.xcconfig"; sourceTree = "<group>"; };
 		4ABFF78820C71E7200638480 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
+		4AC84CAD236B6E2000932B89 /* Developer-macOS.xcconfig.appforce1-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer-macOS.xcconfig.appforce1-template"; sourceTree = "<group>"; };
 		4ACA04291F311507004B35AA /* StaticService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticService.swift; sourceTree = "<group>"; };
 		4ACA042B1F3116D5004B35AA /* Moya+Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Moya+Promise.swift"; sourceTree = "<group>"; };
 		4ACA042D1F311863004B35AA /* InstanceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceService.swift; sourceTree = "<group>"; };
@@ -894,9 +895,11 @@
 				C75B2CBE2363138200D700EC /* config-eduvpn.json */,
 				C75B2CC02363138200D700EC /* config-template.json */,
 				C75B2CB62363138200D700EC /* config-letsconnect.json */,
+                C75B2CBA2363138200D700EC /* config-eduvpn-macos.json */,
 				C75B2CB02363138200D700EC /* Developer-macOS.xcconfig */,
 				C7C69A5E236B328200F9B8B3 /* Developer-macOS.xcconfig.eduvpn-template */,
 				C75B2CB22363138200D700EC /* Developer-macOS.xcconfig.johan-template */,
+				4AC84CAD236B6E2000932B89 /* Developer-macOS.xcconfig.appforce1-template */,
 				C75B2CB82363138200D700EC /* Developer-macOS.xcconfig.template */,
 				C75B2CBC2363138200D700EC /* Developer-macOS.xcconfig.letsconnect-template */,
 				C75B2CB72363138200D700EC /* Development-macOS.xcconfig */,
