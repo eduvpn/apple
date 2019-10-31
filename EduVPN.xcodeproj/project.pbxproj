@@ -340,7 +340,7 @@
 		4A983B781F397289004F82D5 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		4A983B7A1F3972BE004F82D5 /* RootCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
 		4AAA157A21C2EF530097A1B5 /* TunnelProviderManagerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelProviderManagerCoordinator.swift; sourceTree = "<group>"; };
-		4AAC1F761F2D0E3400DD0252 /* EduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4AAC1F761F2D0E3400DD0252 /* EduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = EduVPN.app; path = AppForce1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AAC1F791F2D0E3400DD0252 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4AAC1F7E1F2D0E3400DD0252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4AAC1F831F2D0E3400DD0252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -419,7 +419,6 @@
 		C7FA7A0023633694006501E8 /* CertificateModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateModel.swift; sourceTree = "<group>"; };
 		C7FA7A0123633694006501E8 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		C7FA7A0323633694006501E8 /* InstanceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceModel.swift; sourceTree = "<group>"; };
-		C7FA7A0623633694006501E8 /* EduVPN 7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EduVPN 7.xcdatamodel"; sourceTree = "<group>"; };
 		C7FA7A5923633894006501E8 /* InstancesRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstancesRepository.swift; sourceTree = "<group>"; };
 		C7FA7A5A23633894006501E8 /* ProfilesRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilesRepository.swift; sourceTree = "<group>"; };
 		C7FA7A5B23633894006501E8 /* InstanceInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceInfoModel.swift; sourceTree = "<group>"; };
@@ -925,7 +924,6 @@
 				C7FA7A0023633694006501E8 /* CertificateModel.swift */,
 				C7FA7A0123633694006501E8 /* Config.swift */,
 				C7FA7A0323633694006501E8 /* InstanceModel.swift */,
-				C7FA7A0523633694006501E8 /* EduVPN.xcdatamodeld */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2333,16 +2331,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		C7FA7A0523633694006501E8 /* EduVPN.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				C7FA7A0623633694006501E8 /* EduVPN 7.xcdatamodel */,
-			);
-			currentVersion = C7FA7A0623633694006501E8 /* EduVPN 7.xcdatamodel */;
-			path = EduVPN.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
 		C7FA7AB723633E68006501E8 /* EduVPN.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
