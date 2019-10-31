@@ -678,10 +678,11 @@
             <objects>
                 <windowController storyboardIdentifier="MainWindowController" showSeguePresentationStyle="single" id="B8D-0N-5wS" customClass="MainWindowController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="eduVPN" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="Main" animationBehavior="default" tabbingMode="disallowed" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="IQv-IB-iLA">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES" resizable="YES"/>
                         <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
                         <rect key="contentRect" x="684" y="489" width="378" height="575"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <value key="maxSize" type="size" width="600" height="800"/>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="08a-s7-Jl4"/>
                         </connections>
@@ -702,7 +703,7 @@
                     <color key="fillColor" red="0.3162727058" green="0.69435155390000003" blue="0.80810165410000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                 </box>
             </objects>
-            <point key="canvasLocation" x="-441" y="335"/>
+            <point key="canvasLocation" x="-441" y="334.5"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="pls-UA-ly7">
