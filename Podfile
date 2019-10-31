@@ -14,7 +14,7 @@ end
 # macOS Pods
 
 def pods_macos
-  platform :osx, '10.13'
+  platform :osx, '10.12'
   pod 'TunnelKit', '~> 2.0.5'
 end
 
