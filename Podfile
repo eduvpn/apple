@@ -49,7 +49,6 @@ target 'EduVPN-macOS' do
   pod 'Moya'
   pod 'PromiseKit/CorePromise'
   pod 'ReachabilitySwift', '~> 4.3.1'
-  pod 'Sparkle', '~> 1.22.0'
   pod 'Then'
   pod 'FileKit', '~> 5.2.0'
 end
