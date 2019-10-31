@@ -64,26 +64,52 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         case .connecting, .disconnecting, .reasserting:
             return .terminateCancel
         case .connected:
-            // TODO: Prompt user first
-            appCoordinator.tunnelProviderManagerCoordinator
-                .disconnect()
-                .then { _ -> Promise<Void> in
-                    NSApp.reply(toApplicationShouldTerminate: true)
-                    return Promise.value(())
-                }
-                .recover { error in
-                    if let alert = NSAlert(customizedError: error) {
-                        NSApp.reply(toApplicationShouldTerminate: false)
-                        if let window = self.appCoordinator.mainWindowController.window {
-                            alert.beginSheetModal(for: window)
-                        } else {
-                            alert.runModal()
-                        }
-                    } else {
+            func disconnect() {
+                appCoordinator.tunnelProviderManagerCoordinator
+                    .disconnect()
+                    .then { _ -> Promise<Void> in
                         NSApp.reply(toApplicationShouldTerminate: true)
+                        return Promise.value(())
                     }
+                    .recover { error in
+                        if let alert = NSAlert(customizedError: error) {
+                            NSApp.reply(toApplicationShouldTerminate: false)
+                            if let window = self.appCoordinator.mainWindowController.window {
+                                alert.beginSheetModal(for: window)
+                            } else {
+                                alert.runModal()
+                            }
+                        } else {
+                            NSApp.reply(toApplicationShouldTerminate: true)
+                        }
+                    }
+            }
+            
+            func handleResult(_ result: NSApplication.ModalResponse) {
+                switch result {
+                case .alertFirstButtonReturn:
+                    disconnect()
+                default:
+                    NSApp.reply(toApplicationShouldTerminate: false)
                 }
-                
+            }
+            
+            let alert = NSAlert()
+            alert.alertStyle = .warning
+            alert.messageText = NSLocalizedString("Are you sure you want to quit \(Config.shared.appName)?", comment: "")
+            alert.informativeText = NSLocalizedString("Your VPN connection will be disconnected when you quit.", comment: "")
+            alert.addButton(withTitle: NSLocalizedString("Disconnect & Quit", comment: ""))
+            alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
+            
+            if let window = self.appCoordinator.mainWindowController.window {
+                alert.beginSheetModal(for: window) { result in
+                    handleResult(result)
+                }
+            } else {
+                let result = alert.runModal()
+                handleResult(result)
+            }
+            
             return .terminateLater
         @unknown default:
             return .terminateCancel
