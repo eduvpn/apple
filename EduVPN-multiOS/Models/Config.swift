@@ -14,13 +14,13 @@ struct Config: Decodable {
     static var shared: Config = {
         // This is very much hard coded. If this ever fails. It SHOULD crash.
         let url = Bundle.main.url(forResource: "config", withExtension: "json")!
-        guard let config = try? JSONDecoder().decode(Config.self, from: Data(contentsOf: url)) else {
-            fatalError("Failed to load config \(url)")
+        do {
+            return try JSONDecoder().decode(Config.self, from: Data(contentsOf: url))
+        } catch {
+            fatalError("Failed to load config \(url) due to error: \(error)")
         }
-        
-        return config
     }()
-    
+
     enum ConfigKeys: String, CodingKey {
         case client_id
         case redirect_url
@@ -36,8 +36,8 @@ struct Config: Decodable {
     var predefinedProvider: URL?
     var discovery: DiscoveryConfig?
     
-    var appName: String
-    var apiDiscoveryEnabled: Bool
+    var appName: String?
+    var apiDiscoveryEnabled: Bool?
 }
 
 struct DiscoveryConfig: Decodable {
@@ -72,8 +72,8 @@ extension Config {
         predefinedProvider = try container.decodeIfPresent(URL.self, forKey: .predefined_provider)
         discovery = try container.decodeIfPresent(DiscoveryConfig.self, forKey: .discovery)
         
-        appName = try container.decode(String.self, forKey: .appName)
-        apiDiscoveryEnabled = try container.decodeIfPresent(Bool.self, forKey: .apiDiscoveryEnabled) ?? false
+        appName = try? container.decode(String.self, forKey: .appName)
+        apiDiscoveryEnabled = try? container.decodeIfPresent(Bool.self, forKey: .apiDiscoveryEnabled) ?? false
     }
 }
 
