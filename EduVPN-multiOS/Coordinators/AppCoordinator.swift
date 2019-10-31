@@ -236,7 +236,11 @@ class AppCoordinator: RootViewCoordinator {
         guard let appName: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String else {
             fatalError("An app should always have a `CFBundleName`.")
         }
+        #if os(iOS)
         let keyPairDisplayName = "\(appName) for iOS"
+        #elseif os(macOS)
+        let keyPairDisplayName = "\(appName) for macOS"
+        #endif
         
         return dynamicApiProvider.request(apiService: .createKeypair(displayName: keyPairDisplayName))
             .recover { error throws -> Promise<Response> in
