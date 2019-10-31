@@ -318,6 +318,8 @@
 		4A2DA16D21C5ACF90026BCF5 /* EduVPN.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EduVPN.entitlements; sourceTree = "<group>"; };
 		4A3971B221E9500100782A28 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
 		4A3E029B1F6C4B3D00D20292 /* Moya+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Moya+Extensions.swift"; sourceTree = "<group>"; };
+		4A3E78DB236B692A009CE595 /* config-appforce1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-appforce1.json"; sourceTree = "<group>"; };
+		4A3E78DC236B694A009CE595 /* Developer.xcconfig.appforce1-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer.xcconfig.appforce1-template"; sourceTree = "<group>"; };
 		4A4CA90E1F55F4300021FD5D /* UITableView+EduVPN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+EduVPN.swift"; sourceTree = "<group>"; };
 		4A4F36521F31972C0032C96B /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		4A62C8B71FB03B47007D3FAA /* KeyboardWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardWrapper.swift; sourceTree = "<group>"; };
@@ -338,7 +340,7 @@
 		4A983B781F397289004F82D5 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		4A983B7A1F3972BE004F82D5 /* RootCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
 		4AAA157A21C2EF530097A1B5 /* TunnelProviderManagerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelProviderManagerCoordinator.swift; sourceTree = "<group>"; };
-		4AAC1F761F2D0E3400DD0252 /* EduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4AAC1F761F2D0E3400DD0252 /* EduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = EduVPN.app; path = AppForce1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AAC1F791F2D0E3400DD0252 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4AAC1F7E1F2D0E3400DD0252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4AAC1F831F2D0E3400DD0252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -355,6 +357,7 @@
 		4ABCCBE521E528140020CB6D /* Release-TunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-TunnelExtension.xcconfig"; sourceTree = "<group>"; };
 		4ABCCBE621E528260020CB6D /* Development-TunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Development-TunnelExtension.xcconfig"; sourceTree = "<group>"; };
 		4ABFF78820C71E7200638480 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
+		4AC84CAD236B6E2000932B89 /* Developer-macOS.xcconfig.appforce1-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer-macOS.xcconfig.appforce1-template"; sourceTree = "<group>"; };
 		4ACA04291F311507004B35AA /* StaticService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticService.swift; sourceTree = "<group>"; };
 		4ACA042B1F3116D5004B35AA /* Moya+Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Moya+Promise.swift"; sourceTree = "<group>"; };
 		4ACA042D1F311863004B35AA /* InstanceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceService.swift; sourceTree = "<group>"; };
@@ -417,7 +420,6 @@
 		C7FA7A0023633694006501E8 /* CertificateModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateModel.swift; sourceTree = "<group>"; };
 		C7FA7A0123633694006501E8 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		C7FA7A0323633694006501E8 /* InstanceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceModel.swift; sourceTree = "<group>"; };
-		C7FA7A0623633694006501E8 /* EduVPN 7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EduVPN 7.xcdatamodel"; sourceTree = "<group>"; };
 		C7FA7A5923633894006501E8 /* InstancesRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstancesRepository.swift; sourceTree = "<group>"; };
 		C7FA7A5A23633894006501E8 /* ProfilesRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilesRepository.swift; sourceTree = "<group>"; };
 		C7FA7A5B23633894006501E8 /* InstanceInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceInfoModel.swift; sourceTree = "<group>"; };
@@ -828,10 +830,12 @@
 				C75B2CC22363141200D700EC /* config-eduvpn.json */,
 				C75B2CC52363141200D700EC /* config-letsconnect.json */,
 				C75B2CC72363141200D700EC /* config-template.json */,
+				4A3E78DB236B692A009CE595 /* config-appforce1.json */,
 				4ABCCBDB21E5269B0020CB6D /* Developer.xcconfig */,
 				C75B2CC62363141200D700EC /* Developer.xcconfig.eduvpn-template */,
 				C75B2CC42363141200D700EC /* Developer.xcconfig.letsconnect-template */,
 				C75B2CC12363141200D700EC /* Developer.xcconfig.template */,
+				4A3E78DC236B694A009CE595 /* Developer.xcconfig.appforce1-template */,
 				4ABCCBE421E527B50020CB6D /* Development.xcconfig */,
 				4ABCCBE621E528260020CB6D /* Development-TunnelExtension.xcconfig */,
 				4ABCCBE321E527A40020CB6D /* Release.xcconfig */,
@@ -891,9 +895,11 @@
 				C75B2CBE2363138200D700EC /* config-eduvpn.json */,
 				C75B2CC02363138200D700EC /* config-template.json */,
 				C75B2CB62363138200D700EC /* config-letsconnect.json */,
+                C75B2CBA2363138200D700EC /* config-eduvpn-macos.json */,
 				C75B2CB02363138200D700EC /* Developer-macOS.xcconfig */,
 				C7C69A5E236B328200F9B8B3 /* Developer-macOS.xcconfig.eduvpn-template */,
 				C75B2CB22363138200D700EC /* Developer-macOS.xcconfig.johan-template */,
+				4AC84CAD236B6E2000932B89 /* Developer-macOS.xcconfig.appforce1-template */,
 				C75B2CB82363138200D700EC /* Developer-macOS.xcconfig.template */,
 				C75B2CBC2363138200D700EC /* Developer-macOS.xcconfig.letsconnect-template */,
 				C75B2CB72363138200D700EC /* Development-macOS.xcconfig */,
@@ -921,7 +927,6 @@
 				C7FA7A0023633694006501E8 /* CertificateModel.swift */,
 				C7FA7A0123633694006501E8 /* Config.swift */,
 				C7FA7A0323633694006501E8 /* InstanceModel.swift */,
-				C7FA7A0523633694006501E8 /* EduVPN.xcdatamodeld */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1915,7 +1920,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = CRU5YWAZ4Y;
+				DEVELOPMENT_TEAM = "$(DEVELOPMENT_TEAM)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "EduVPNTunnelExtension-macOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
@@ -1941,7 +1946,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = CRU5YWAZ4Y;
+				DEVELOPMENT_TEAM = "$(DEVELOPMENT_TEAM)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "EduVPNTunnelExtension-macOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
@@ -2329,16 +2334,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		C7FA7A0523633694006501E8 /* EduVPN.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				C7FA7A0623633694006501E8 /* EduVPN 7.xcdatamodel */,
-			);
-			currentVersion = C7FA7A0623633694006501E8 /* EduVPN 7.xcdatamodel */;
-			path = EduVPN.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
 		C7FA7AB723633E68006501E8 /* EduVPN.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (

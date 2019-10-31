@@ -1,0 +1,17 @@
+// Developer.xcconfig
+
+APP_NAME = eduVPN
+
+// Your Apple developer account's Team ID
+DEVELOPMENT_TEAM = T4CMEHXPLL
+
+// The bundle identifier of this app.
+// Should be an app id created at developer.apple.com
+// with App Groups, Data Protection, Network Extensions capabilty.
+APP_ID = net.appforce1.eduvpn.app.mac
+
+// Tunnel bundle identifer = $(APP_ID).TunnelExtension
+
+// The identifier for the App Group to use
+// Should be an app group id created at developer.apple.com (?? not anymore?!)
+GROUP_ID = group.net.appforce1.eduvpn.app.mac
