@@ -39,8 +39,8 @@ class ProfilesViewController: NSViewController {
         secureInternetButton.isEnabled = true
         instituteAccessButton.isEnabled = true
         
-        secureInternetButton.isHidden = !Config.shared.apiDiscoveryEnabled ?? false
-        instituteAccessButton.isHidden = !Config.shared.apiDiscoveryEnabled ?? false
+        secureInternetButton.isHidden = !(Config.shared.apiDiscoveryEnabled ?? false)
+        instituteAccessButton.isHidden = !(Config.shared.apiDiscoveryEnabled ?? false)
     }
     
     @IBAction func chooseSecureInternet(_ sender: Any) {

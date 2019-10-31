@@ -35,9 +35,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         appCoordinator = AppCoordinator()
         appCoordinator.start()
-        
+
         // Adjust app name in menu and window
-        let appName = Config.shared.appName
+        let appName = Config.shared.appName ?? "eduVPN"
         if appName != "eduVPN" {
             let fix: (NSMenuItem) -> Void = { menuItem in
                 menuItem.title = menuItem.title.replacingOccurrences(of: "eduVPN", with: appName)
