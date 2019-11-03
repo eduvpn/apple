@@ -20,21 +20,21 @@ PODS:
   - NVActivityIndicatorView (4.8.0):
     - NVActivityIndicatorView/Presenter (= 4.8.0)
   - NVActivityIndicatorView/Presenter (4.8.0)
-  - OpenSSL-Apple (1.1.0l.4)
+  - OpenSSL-Apple (1.1.1d.5a)
   - PromiseKit/CorePromise (6.11.0)
   - ReachabilitySwift (4.3.1)
   - Result (4.1.0)
   - SwiftyBeaver (1.8.3)
   - Then (2.6.0)
-  - TunnelKit (2.0.5):
-    - TunnelKit/Protocols/OpenVPN (= 2.0.5)
-  - TunnelKit/AppExtension (2.0.5):
+  - TunnelKit (2.1.0):
+    - TunnelKit/Protocols/OpenVPN (= 2.1.0)
+  - TunnelKit/AppExtension (2.1.0):
     - SwiftyBeaver
     - TunnelKit/Core
-  - TunnelKit/Core (2.0.5):
+  - TunnelKit/Core (2.1.0):
     - SwiftyBeaver
-  - TunnelKit/Protocols/OpenVPN (2.0.5):
-    - OpenSSL-Apple (~> 1.1.0j.4)
+  - TunnelKit/Protocols/OpenVPN (2.1.0):
+    - OpenSSL-Apple (~> 1.1.1d.5a)
     - TunnelKit/AppExtension
     - TunnelKit/Core
 
@@ -51,7 +51,7 @@ DEPENDENCIES:
   - PromiseKit/CorePromise
   - ReachabilitySwift (~> 4.3.1)
   - Then
-  - TunnelKit (~> 2.0.5)
+  - TunnelKit
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -92,14 +92,14 @@ SPEC CHECKSUMS:
   libsodium: 9a8faa5ef2fa0d2d57bd7f7d79bf8fb7c1a9f0ea
   Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
   NVActivityIndicatorView: d24b7ebcf80af5dcd994adb650e2b6c93379270f
-  OpenSSL-Apple: f3d1668588ea8f06b076dcfa6177cd90452e3800
+  OpenSSL-Apple: 2c9efbc94e0a1ada434cc197b02bd70052a82281
   PromiseKit: e4863d06976e7dee5e41c04fc7371c16b3600292
   ReachabilitySwift: 4032e2f59586e11e3b0ebe15b167abdd587a388b
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   SwiftyBeaver: 3d3e93a12d648bd400b6f2948a7ef128b5b183c7
   Then: 90cd104fd951cec1980a03f57704ad8f784d4d79
-  TunnelKit: f33216415cd9d5e37b6acf02edb0c79350598b36
+  TunnelKit: ddcccbf8c984e2760a42899e311e7991f21e42cc
 
-PODFILE CHECKSUM: 92aa71c266d1d4a58e1b2aa886ff72349675c3b9
+PODFILE CHECKSUM: 8228e5c11938b65a36d16a3deac74bc64fd27ab4
 
-COCOAPODS: 1.8.3
+COCOAPODS: 1.8.4

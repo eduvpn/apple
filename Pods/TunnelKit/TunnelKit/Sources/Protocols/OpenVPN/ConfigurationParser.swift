@@ -52,6 +52,8 @@ extension OpenVPN {
             
             static let ping = NSRegularExpression("^ping +\\d+")
             
+            static let pingRestart = NSRegularExpression("^ping-restart +\\d+")
+            
             static let renegSec = NSRegularExpression("^reneg-sec +\\d+")
             
             static let blockBegin = NSRegularExpression("^<[\\w\\-]+>")
@@ -94,7 +96,7 @@ extension OpenVPN {
             
             static let domain = NSRegularExpression("^dhcp-option +DOMAIN +[^ ]+")
             
-            static let proxy = NSRegularExpression("^dhcp-option +PROXY_(HTTPS?) +[^ ]+ +\\d+")
+            static let proxy = NSRegularExpression("^dhcp-option +PROXY_(HTTPS? +[^ ]+ +\\d+|AUTO_CONFIG_URL +[^ ]+)")
             
             static let proxyBypass = NSRegularExpression("^dhcp-option +PROXY_BYPASS +.+")
             
@@ -203,6 +205,7 @@ extension OpenVPN {
             var optTLSKeyLines: [Substring]?
             var optTLSStrategy: TLSWrap.Strategy?
             var optKeepAliveSeconds: TimeInterval?
+            var optKeepAliveTimeoutSeconds: TimeInterval?
             var optRenegotiateAfterSeconds: TimeInterval?
             //
             var optHostname: String?
@@ -222,9 +225,10 @@ extension OpenVPN {
             var optRoutes4: [(String, String, String?)] = [] // address, netmask, gateway
             var optRoutes6: [(String, UInt8, String?)] = [] // destination, prefix, gateway
             var optDNSServers: [String]?
-            var optSearchDomain: String?
+            var optSearchDomains: [String]?
             var optHTTPProxy: Proxy?
             var optHTTPSProxy: Proxy?
+            var optProxyAutoConfigurationURL: URL?
             var optProxyBypass: [String]?
             var optRedirectGateway: Set<RedirectGateway>?
 
@@ -398,6 +402,13 @@ extension OpenVPN {
                     }
                     optKeepAliveSeconds = TimeInterval(arg)
                 }
+                Regex.pingRestart.enumerateArguments(in: line) {
+                    isHandled = true
+                    guard let arg = $0.first else {
+                        return
+                    }
+                    optKeepAliveTimeoutSeconds = TimeInterval(arg)
+                }
                 Regex.renegSec.enumerateArguments(in: line) {
                     isHandled = true
                     guard let arg = $0.first else {
@@ -480,7 +491,10 @@ extension OpenVPN {
                     
                     let address = routeEntryArguments[0]
                     let mask = (routeEntryArguments.count > 1) ? routeEntryArguments[1] : "255.255.255.255"
-                    let gateway = (routeEntryArguments.count > 2) ? routeEntryArguments[2] : nil // defaultGateway4
+                    var gateway = (routeEntryArguments.count > 2) ? routeEntryArguments[2] : nil // defaultGateway4
+                    if gateway == "vpn_gateway" {
+                        gateway = nil
+                    }
                     optRoutes4.append((address, mask, gateway))
                 }
                 Regex.route6.enumerateArguments(in: line) {
@@ -495,7 +509,10 @@ extension OpenVPN {
                     }
                     
                     let destination = destinationComponents[0]
-                    let gateway = (routeEntryArguments.count > 1) ? routeEntryArguments[1] : nil // defaultGateway6
+                    var gateway = (routeEntryArguments.count > 1) ? routeEntryArguments[1] : nil // defaultGateway6
+                    if gateway == "vpn_gateway" {
+                        gateway = nil
+                    }
                     optRoutes6.append((destination, prefix, gateway))
                 }
                 Regex.gateway.enumerateArguments(in: line) {
@@ -514,9 +531,21 @@ extension OpenVPN {
                     guard $0.count == 2 else {
                         return
                     }
-                    optSearchDomain = $0[1]
+                    if optSearchDomains == nil {
+                        optSearchDomains = []
+                    }
+                    optSearchDomains?.append($0[1])
                 }
                 Regex.proxy.enumerateArguments(in: line) {
+                    if $0.count == 2 {
+                        guard let url = URL(string: $0[1]) else {
+                            unsupportedError = ConfigurationError.malformed(option: "dhcp-option PROXY_AUTO_CONFIG_URL has malformed URL")
+                            return
+                        }
+                        optProxyAutoConfigurationURL = url
+                        return
+                    }
+
                     guard $0.count == 3, let port = UInt16($0[2]) else {
                         return
                     }
@@ -526,7 +555,7 @@ extension OpenVPN {
                         
                     case "PROXY_HTTP":
                         optHTTPProxy = Proxy($0[1], port)
-                        
+
                     default:
                         break
                     }
@@ -599,6 +628,7 @@ extension OpenVPN {
             }
             
             sessionBuilder.keepAliveInterval = optKeepAliveSeconds
+            sessionBuilder.keepAliveTimeout = optKeepAliveTimeoutSeconds
             sessionBuilder.renegotiatesAfter = optRenegotiateAfterSeconds
             
             // MARK: Client
@@ -711,9 +741,10 @@ extension OpenVPN {
             }
             
             sessionBuilder.dnsServers = optDNSServers
-            sessionBuilder.searchDomain = optSearchDomain
+            sessionBuilder.searchDomains = optSearchDomains
             sessionBuilder.httpProxy = optHTTPProxy
             sessionBuilder.httpsProxy = optHTTPSProxy
+            sessionBuilder.proxyAutoConfigurationURL = optProxyAutoConfigurationURL
             sessionBuilder.proxyBypassDomains = optProxyBypass
 
             if let flags = optRedirectGateway {

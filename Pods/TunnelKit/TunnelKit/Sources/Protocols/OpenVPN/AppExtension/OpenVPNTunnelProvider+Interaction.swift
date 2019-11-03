@@ -51,6 +51,11 @@ extension OpenVPNTunnelProvider {
         /// Data is 16 bytes: low 8 = received, high 8 = sent.
         public static let dataCount = Message(0xfe)
         
+        /// Requests the configuration pulled from the server (if connected and available).
+        ///
+        /// Data is JSON (Decodable).
+        public static let serverConfiguration = Message(0xfd)
+
         /// The underlying raw message `Data` to forward to the tunnel via IPC.
         public let data: Data
         

@@ -55,16 +55,16 @@ public struct IPv4Settings: Codable, CustomStringConvertible {
     }
     
     /// The address.
-    let address: String
+    public let address: String
     
     /// The address mask.
-    let addressMask: String
+    public let addressMask: String
     
     /// The address of the default gateway.
-    let defaultGateway: String
+    public let defaultGateway: String
     
     /// The additional routes.
-    let routes: [Route]
+    public let routes: [Route]
     
     // MARK: CustomStringConvertible
     
