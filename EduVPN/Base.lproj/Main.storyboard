@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -11,7 +11,7 @@
         <!--Profiles-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="ProfilesViewController" title="Profiles" hidesBottomBarWhenPushed="YES" id="BYZ-38-t0r" customClass="ProfilesViewController" customModule="EduVPN" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfilesViewController" title="Profiles" hidesBottomBarWhenPushed="YES" id="BYZ-38-t0r" customClass="ProfilesViewController" customModule="AppForce1" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -178,7 +178,7 @@
         <!--Settings-->
         <scene sceneID="SKp-ZI-526">
             <objects>
-                <tableViewController storyboardIdentifier="SettingsTableViewController" hidesBottomBarWhenPushed="YES" id="u52-OQ-OnN" customClass="SettingsTableViewController" customModule="EduVPN" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SettingsTableViewController" hidesBottomBarWhenPushed="YES" id="u52-OQ-OnN" customClass="SettingsTableViewController" customModule="AppForce1" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="0vT-oo-Jgu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -272,14 +272,14 @@
         <!--Choose Provider-->
         <scene sceneID="5Hi-3b-G6q">
             <objects>
-                <tableViewController storyboardIdentifier="ProvidersViewController" title="Choose Provider" id="Jxg-KJ-i9R" customClass="ProvidersViewController" customModule="EduVPN" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ProvidersViewController" title="Choose Provider" id="Jxg-KJ-i9R" customClass="ProvidersViewController" customModule="AppForce1" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="64" sectionHeaderHeight="28" sectionFooterHeight="28" id="bhN-Pl-odX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProviderTableViewCell" id="Fom-sq-y5y" customClass="ProviderTableViewCell" customModule="EduVPN" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProviderTableViewCell" id="Fom-sq-y5y" customClass="ProviderTableViewCell" customModule="AppForce1" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="320" height="64"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fom-sq-y5y" id="hh9-4Q-4Iw">
@@ -356,7 +356,7 @@
         <!--VPN Connection-->
         <scene sceneID="uqT-9o-vDt">
             <objects>
-                <viewController storyboardIdentifier="VPNConnectionViewController" id="5zJ-zO-eIg" customClass="VPNConnectionViewController" customModule="EduVPN" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VPNConnectionViewController" id="5zJ-zO-eIg" customClass="VPNConnectionViewController" customModule="AppForce1" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ehj-uu-4pc"/>
                         <viewControllerLayoutGuide type="bottom" id="Hxd-zJ-b7y"/>
@@ -616,7 +616,7 @@
         <!--Provide the URL to your provider-->
         <scene sceneID="bSn-Nd-0se">
             <objects>
-                <viewController storyboardIdentifier="CustomProviderInPutViewController" hidesBottomBarWhenPushed="YES" id="KZY-IT-pRj" customClass="CustomProviderInputViewController" customModule="EduVPN" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CustomProviderInputViewController" hidesBottomBarWhenPushed="YES" id="KZY-IT-pRj" customClass="CustomProviderInputViewController" customModule="AppForce1" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eai-eu-qF9"/>
                         <viewControllerLayoutGuide type="bottom" id="flK-T7-Zab"/>
@@ -678,14 +678,14 @@
         <!--Connect to VPN-->
         <scene sceneID="Ns6-kN-aOV">
             <objects>
-                <tableViewController storyboardIdentifier="ConnectionsTableViewController" hidesBottomBarWhenPushed="YES" id="Uux-Jq-wjR" customClass="ConnectionsTableViewController" customModule="EduVPN" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ConnectionsTableViewController" hidesBottomBarWhenPushed="YES" id="Uux-Jq-wjR" customClass="ConnectionsTableViewController" customModule="AppForce1" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="64" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ws9-C0-bF6">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ConnectTableViewCell" id="G2S-el-n9b" customClass="ConnectTableViewCell" customModule="EduVPN" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ConnectTableViewCell" id="G2S-el-n9b" customClass="ConnectTableViewCell" customModule="AppForce1" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="320" height="64"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="G2S-el-n9b" id="jDe-96-obA">
@@ -782,7 +782,7 @@
         <image name="secure_access" width="90" height="90"/>
         <image name="secure_internet" width="90" height="90"/>
         <namedColor name="barTintColor">
-            <color red="0.0" green="0.31999999284744263" blue="0.36399999260902405" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.75099998712539673" blue="0.85100001096725464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
     <color key="tintColor" name="barTintColor"/>
