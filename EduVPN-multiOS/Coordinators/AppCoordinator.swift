@@ -17,7 +17,6 @@ import UserNotifications
 
 #if os(iOS)
 
-import Disk
 import libsodium
 import NVActivityIndicatorView
 import UIKit

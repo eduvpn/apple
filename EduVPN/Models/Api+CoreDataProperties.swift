@@ -15,8 +15,6 @@ import os.log
 import AppAuth
 import UserNotifications
 
-import os.log
-
 extension Api {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Api> {

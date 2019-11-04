@@ -98,12 +98,12 @@ class KeychainService {
             throw Error.loadPassword(status)
         }
 
-        let certificate = dataTypeRef as! SecCertificate
+        let certificate = dataTypeRef as! SecCertificate  // swiftlint:disable:this force_cast
 
         return certificate
     }
 
-    static public func decodeToDER(pem pemData: Data) -> Data? {
+    public static func decodeToDER(pem pemData: Data) -> Data? {
 
         let beginPemBlock = "-----BEGIN CERTIFICATE-----"
         let endPemBlock   = "-----END CERTIFICATE-----"
