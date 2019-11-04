@@ -88,7 +88,10 @@ class TunnelProviderManagerCoordinator: Coordinator {
                     return
                 }
 
-                let manager = self.currentManager!
+                guard let manager = self.currentManager else {
+                    resolver.reject(TunnelProviderManagerCoordinatorError.missingTunnelProviderManager)
+                    return
+                }
 
                 manager.removeFromPreferences(completionHandler: { (error) in
                     if let error = error {
@@ -118,7 +121,6 @@ class TunnelProviderManagerCoordinator: Coordinator {
 
             let parseResult = try! OpenVPN.ConfigurationParser.parsed(fromLines: configLines) //swiftlint:disable:this force_try
 
-            
             return Promise(resolver: { resolver in
                 var configBuilder = parseResult.configuration.builder()
                 configBuilder.tlsSecurityLevel = UserDefaults.standard.tlsSecurityLevel.rawValue

@@ -221,21 +221,21 @@ class InstanceRefresher {
         }.then { response -> Promise<InstanceInfoModel> in
             response.mapResponse()
         }.then { instanceInfoModel -> Promise<Api> in
-                return Promise<Api>(resolver: { seal in
-                    self.persistentContainer.performBackgroundTask { context in
-                        let authServer = AuthServer.upsert(with: instanceInfoModel, on: context)
-                        let api = Api.upsert(with: instanceInfoModel, for: instance, on: context)
-                        api.authServer = authServer
-                        
-                        do {
-                            try context.save()
-                        } catch {
-                            seal.reject(error)
-                        }
-                        
-                        seal.fulfill(api)
+            return Promise<Api>(resolver: { seal in
+                self.persistentContainer.performBackgroundTask { context in
+                    let authServer = AuthServer.upsert(with: instanceInfoModel, on: context)
+                    let api = Api.upsert(with: instanceInfoModel, for: instance, on: context)
+                    api.authServer = authServer
+                    
+                    do {
+                        try context.save()
+                    } catch {
+                        seal.reject(error)
                     }
-                })
-            }
+                    
+                    seal.fulfill(api)
+                }
+            })
+        }
     }
 }

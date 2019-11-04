@@ -29,8 +29,6 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
         addProfilesWhenNoneAvailable()
     }
 
-
-    
     func addProvider(providersViewController: ProvidersViewController) {
         addProvider()
     }
@@ -96,7 +94,6 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
         }) {
             forced = totalProfileCount == instanceProfileCount
         }
-
 
         _ = Promise<Void>(resolver: { seal in
             persistentContainer.performBackgroundTask { context in

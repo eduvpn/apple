@@ -166,8 +166,10 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
             }
             
             self.actualApi.authState = authState
-            precondition(authState != nil, "THIS SHOULD NEVER HAPPEN")
-            
+            guard let authState = authState else {
+                fatalError("THIS SHOULD NEVER HAPPEN")
+            }
+
             self.api.managedObjectContext?.performAndWait {
                 self.api.instance?.group?.distributedAuthorizationApi = self.actualApi
             }
@@ -179,7 +181,7 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
                 return
             }
             
-            seal.fulfill(authState!)
+            seal.fulfill(authState)
         }
     }
     
@@ -229,7 +231,6 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
         
         self.authConfig = OIDServiceConfiguration(authorizationEndpoint: authorizationEndpointURL, tokenEndpoint: tokenEndpointURL)
 
-        
         super.init(endpointClosure: endpointClosure,
                    stubClosure: stubClosure,
                    manager: manager,

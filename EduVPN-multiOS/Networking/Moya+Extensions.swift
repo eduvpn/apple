@@ -37,4 +37,3 @@ public extension MoyaProvider {
         return manager
     }
 }
-

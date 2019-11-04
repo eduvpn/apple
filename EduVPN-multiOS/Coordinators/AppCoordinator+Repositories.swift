@@ -96,8 +96,8 @@ extension AppCoordinator {
                 ovpnFileContent = try self.merge(key: api.certificateModel!.privateKeyString, certificate: api.certificateModel!.certificateString, into: ovpnFileContent)
                 let lines = ovpnFileContent.components(separatedBy: .newlines).map {
                     $0.trimmingCharacters(in: .whitespacesAndNewlines)
-                    }.filter {
-                        !$0.isEmpty
+                }.filter {
+                    !$0.isEmpty
                 }
 
                 return lines
@@ -206,4 +206,3 @@ extension AppCoordinator {
 extension Notification.Name {
     static let InstanceRefreshed = Notification.Name("InstanceRefreshed")
 }
-
