@@ -87,10 +87,6 @@ extension AppCoordinator {
     }
     
     internal func showProfilesViewController() {
-        let fetchRequest = NSFetchRequest<Profile>()
-        fetchRequest.entity = Profile.entity()
-        fetchRequest.predicate = NSPredicate(format: "api.instance.providerType == %@", ProviderType.secureInternet.rawValue)
-        
         let profilesVc = storyboard.instantiateViewController(type: ProfilesViewController.self).with {
             $0.delegate = self
         }
@@ -160,6 +156,7 @@ extension AppCoordinator {
         #if os(iOS)
         let navigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(type: UINavigationController.self).with {
             $0.viewControllers = [connectionVc]
+            $0.modalPresentationStyle = .pageSheet
         }
         #endif
         
@@ -176,12 +173,7 @@ extension AppCoordinator {
             return presentationPromise
         }
         
-        // We are configured and not active.
-        if profile.isActiveConfig {
-            return presentationPromise.then { self.tunnelProviderManagerCoordinator.connect() }
-        }
-        
-        // We are unconfigured and not active.
+        // We are configured and not active / We are unconfigured and not active.
         return presentationPromise
             .then { self.tunnelProviderManagerCoordinator.configure(profile: profile) }
             .then { self.tunnelProviderManagerCoordinator.connect() }

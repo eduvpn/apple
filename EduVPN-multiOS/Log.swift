@@ -18,5 +18,21 @@ struct Log {
             fatalError("missing bundle ID")
         }
     }()
-    
+
+    static var crypto: OSLog = {
+        if let bundleID = Bundle.main.bundleIdentifier {
+            return OSLog(subsystem: bundleID, category: "crypto")
+        } else {
+            fatalError("missing bundle ID")
+        }
+    }()
+
+    static var auth: OSLog = {
+        if let bundleID = Bundle.main.bundleIdentifier {
+            return OSLog(subsystem: bundleID, category: "auth")
+        } else {
+            fatalError("missing bundle ID")
+        }
+    }()
+
 }

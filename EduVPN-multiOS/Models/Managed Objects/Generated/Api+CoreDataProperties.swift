@@ -13,6 +13,8 @@ import CoreData
 import AppAuth
 import UserNotifications
 
+import os.log
+
 extension Api {
     
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Api> {
@@ -103,8 +105,8 @@ extension Api {
         get {
             guard let authStateUrl = authStateUrl else { return nil }
             if FileManager.default.fileExists(atPath: authStateUrl.path) {
-                if let data = try? Data(contentsOf: authStateUrl) {
-                    return NSKeyedUnarchiver.unarchiveObject(with: data) as? OIDAuthState
+                if let data = try? Data(contentsOf: authStateUrl), let clearTextData = Crypto.decrypt(data: data) {
+                    return NSKeyedUnarchiver.unarchiveObject(with: clearTextData) as? OIDAuthState
                 }
             }
             
@@ -120,10 +122,15 @@ extension Api {
                 #elseif os(macOS)
                 let options: Data.WritingOptions = []
                 #endif
-                
-                try? data.write(to: authStateUrl, options: options)
-                
-                excludeFromBackup(url: authStateUrl)
+
+                do {
+                    let encryptedData = try Crypto.encrypt(data: data)
+                    try encryptedData?.write(to: authStateUrl, options: options)
+
+                    excludeFromBackup(url: authStateUrl)
+                } catch {
+                    os_log("Failed to fetch objects: %{public}@", log: Log.crypto, type: .error, error.localizedDescription)
+                }
             } else {
                 try? FileManager.default.removeItem(at: authStateUrl)
             }

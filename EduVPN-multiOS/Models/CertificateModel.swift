@@ -14,7 +14,7 @@ struct CertificateModel: Codable {
     var certificateString: String
     var privateKeyString: String
     var x509Certificate: X509Certificate? {
-        return try? X509Certificate(data: certificateString.data(using: .utf8)!)
+        return certificateString.data(using: .utf8).flatMap { try? X509Certificate(data: $0) }
     }
     
     var uniqueIdentifier: String? {

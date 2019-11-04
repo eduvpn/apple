@@ -71,7 +71,7 @@ class InstancesLoader {
             return
         }
         
-        let provider = MoyaProvider<StaticService>()
+        let provider = MoyaProvider<StaticService>(manager: MoyaProvider<StaticService>.ephemeralAlamofireManager())
         let instanceGroupIdentifier = "\(target.baseURL.absoluteString)/\(target.path)"
         
         provider.request(target: sigTarget)
@@ -101,8 +101,11 @@ class InstancesLoader {
     
     private func verifyResponse(signature: Data) -> (Moya.Response) throws -> Promise<Moya.Response> {
         return { response in
+            guard let publicKey = StaticService.publicKey else {
+                throw AppCoordinatorError.sodiumSignatureVerifyFailed
+            }
             let isVerified = self.verify(message: Array(response.data),
-                                         publicKey: Array(StaticService.publicKey),
+                                         publicKey: Array(publicKey),
                                          signature: Array(signature))
             
             guard isVerified else {
@@ -203,15 +206,21 @@ class InstancesLoader {
 
 class InstanceRefresher {
     
-    private let provider = MoyaProvider<DynamicInstanceService>()
+    let provider = MoyaProvider<DynamicInstanceService>(manager: MoyaProvider<DynamicInstanceService>.ephemeralAlamofireManager())
+
     weak var persistentContainer: NSPersistentContainer!
     
     func refresh(instance: Instance) -> Promise<Api> {
-        let baseUrl = URL(string: instance.baseUri!)!
-        
-        return provider.request(target: DynamicInstanceService(baseURL: baseUrl))
-            .then { response -> Promise<InstanceInfoModel> in response.mapResponse() }
-            .then { instanceInfoModel -> Promise<Api> in
+        return firstly { () -> Promise<URL> in
+            guard let baseURL = (instance.baseUri.flatMap {URL(string: $0)}) else {
+                throw AppCoordinatorError.urlCreation
+            }
+            return .value(baseURL)
+        }.then { (baseURL) -> Promise<Moya.Response> in
+            return self.provider.request(target: DynamicInstanceService(baseURL: baseURL))
+        }.then { response -> Promise<InstanceInfoModel> in
+            response.mapResponse()
+        }.then { instanceInfoModel -> Promise<Api> in
                 return Promise<Api>(resolver: { seal in
                     self.persistentContainer.performBackgroundTask { context in
                         let authServer = AuthServer.upsert(with: instanceInfoModel, on: context)

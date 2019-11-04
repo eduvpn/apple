@@ -65,12 +65,12 @@ extension AppCoordinator {
             }
             .ensure {
                 self.providersViewController.refresh()
-                
+                NotificationCenter.default.post(name: Notification.Name.InstanceRefreshed, object: self)
                 self.hideActivityIndicator()
             }
     }
     
-    func fetchProfile(for profile: Profile, retry: Bool = false) -> Promise<URL> {
+        func fetchProfile(for profile: Profile, retry: Bool = false) -> Promise<[String]> {
         guard let api = profile.api else {
             precondition(false, "This should never happen")
             return Promise(error: AppCoordinatorError.apiMissing)
@@ -86,20 +86,22 @@ extension AppCoordinator {
             .then { _ -> Promise<Response> in
                 self.setActivityIndicatorMessage(key: "Requesting profile config")
                 return dynamicApiProvider.request(apiService: .profileConfig(profileId: profile.profileId!))
-            }
-            .map { response -> URL in
+            }.map { response -> [String] in
                 guard var ovpnFileContent = String(data: response.data, encoding: .utf8) else {
                     throw AppCoordinatorError.ovpnConfigTemplate
                 }
                 
                 ovpnFileContent = self.forceTcp(on: ovpnFileContent)
                 try self.validateRemote(on: ovpnFileContent)
-                ovpnFileContent = self.merge(key: api.certificateModel!.privateKeyString, certificate: api.certificateModel!.certificateString, into: ovpnFileContent)
-                
-                let filename = "\(profile.displayNames?.localizedValue ?? "")-\(api.instance?.displayNames?.localizedValue ?? "") \(profile.profileId ?? "").ovpn"
-                return try self.saveToOvpnFile(content: ovpnFileContent, to: filename)
-            }
-            .recover { error throws -> Promise<URL> in
+                ovpnFileContent = try self.merge(key: api.certificateModel!.privateKeyString, certificate: api.certificateModel!.certificateString, into: ovpnFileContent)
+                let lines = ovpnFileContent.components(separatedBy: .newlines).map {
+                    $0.trimmingCharacters(in: .whitespacesAndNewlines)
+                    }.filter {
+                        !$0.isEmpty
+                }
+
+                return lines
+            }.recover { (error) throws -> Promise<[String]> in
                 self.hideActivityIndicator()
                 
                 if retry {
@@ -107,17 +109,18 @@ extension AppCoordinator {
                     throw error
                 }
                 
-                func retryFetchProile() -> Promise<URL> {
+                func retryFetchProfile() -> Promise<[String]> {
                     self.authorizingDynamicApiProvider = dynamicApiProvider
                     #if os(iOS)
                     let authorizeRequest = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
+
                     #elseif os(macOS)
                     let authorizeRequest = dynamicApiProvider.authorize()
                     #endif
                     
                     self.showActivityIndicator(messageKey: "Authorizing with provider")
                                 
-                    return authorizeRequest.then { _ -> Promise<URL> in
+                    return authorizeRequest.then { _ -> Promise<[String]> in
                         self.hideActivityIndicator()
                         return self.fetchProfile(for: profile, retry: true)
                     }
@@ -126,14 +129,14 @@ extension AppCoordinator {
                 
                 if let nsError = error as NSError?,
                     nsError.domain == NSURLErrorDomain && nsError.code == NSURLErrorNetworkConnectionLost {
-                    return retryFetchProile()
+                    return retryFetchProfile()
                 }
                 
                 switch error {
                     
                 case ApiServiceError.tokenRefreshFailed, ApiServiceError.noAuthState :
-                    return retryFetchProile()
-                    
+                    return retryFetchProfile()
+
                 default:
                     self.showError(error)
                     throw error
@@ -199,3 +202,8 @@ extension AppCoordinator {
             }
     }
 }
+
+extension Notification.Name {
+    static let InstanceRefreshed = Notification.Name("InstanceRefreshed")
+}
+

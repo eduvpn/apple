@@ -26,7 +26,6 @@ target 'EduVPN' do
   pod 'AlamofireImage'
   pod 'AppAuth', :git => 'https://github.com/openid/AppAuth-iOS.git'
   pod 'ASN1Decoder'
-  pod 'Disk'
   pod 'libsodium'
   pod 'Moya'
   pod 'NVActivityIndicatorView'

@@ -11,9 +11,26 @@ import Foundation
 import Moya
 import PromiseKit
 
+import os.log
+
 enum ApiServiceError: Swift.Error {
     case noAuthState
+    case unauthorized
+    case urlCreationFailed
     case tokenRefreshFailed(rootCause: Error)
+
+    var localizedDescription: String {
+        switch self {
+        case .noAuthState:
+            return NSLocalizedString("No stored auth state.", comment: "")
+        case .unauthorized:
+            return NSLocalizedString("You are not authorized.", comment: "")
+        case .urlCreationFailed:
+            return NSLocalizedString("URL creation failed.", comment: "")
+        case .tokenRefreshFailed(let rootCause):
+            return String(format: NSLocalizedString("Token refresh failed due to %@", comment: ""), rootCause.localizedDescription)
+        }
+    }
 }
 
 enum ApiService {
@@ -81,7 +98,7 @@ extension ApiService {
         }
     }
     
-    var sampleData: Data { return "".data(using: String.Encoding.utf8)! }
+    var sampleData: Data { return "".data(using: String.Encoding.utf8) ?? Data() }
 }
 
 struct DynamicApiService: TargetType, AcceptJson {
@@ -194,12 +211,15 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
                  endpointClosure: @escaping EndpointClosure = MoyaProvider.defaultEndpointMapping,
                  stubClosure: @escaping StubClosure = MoyaProvider.neverStub,
                  callbackQueue: DispatchQueue? = nil,
-                 manager: Manager = MoyaProvider<Target>.defaultAlamofireManager(),
+                 manager: Manager = MoyaProvider<Target>.ephemeralAlamofireManager(),
                  plugins: [PluginType] = [],
                  trackInflights: Bool = false) {
         
         guard let authorizationEndpoint = api.authorizationEndpoint else { return nil }
+        guard let authorizationEndpointURL = URL(string: authorizationEndpoint) else { return nil }
+
         guard let tokenEndpoint = api.tokenEndpoint else { return nil }
+        guard let tokenEndpointURL = URL(string: tokenEndpoint) else { return nil }
         
         self.api = api
         self.credentialStorePlugin = CredentialStorePlugin()
@@ -207,8 +227,8 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
         var plugins = plugins
         plugins.append(self.credentialStorePlugin)
         
-        self.authConfig = OIDServiceConfiguration(authorizationEndpoint: URL(string: authorizationEndpoint)!,
-                                                  tokenEndpoint: URL(string: tokenEndpoint)!)
+        self.authConfig = OIDServiceConfiguration(authorizationEndpoint: authorizationEndpointURL, tokenEndpoint: tokenEndpointURL)
+
         
         super.init(endpointClosure: endpointClosure,
                    stubClosure: stubClosure,
@@ -229,6 +249,7 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
                             seal.reject(error)
                         } else {
                             seal.reject(ApiServiceError.tokenRefreshFailed(rootCause: error))
+                            os_log("Token refresh failed.", log: Log.auth, type: .error)
                         }
                         return
                     }
@@ -237,12 +258,22 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
                     seal.fulfill(())
                 }
             } else {
+                os_log("No auth state.", log: Log.auth, type: .error)
                 seal.reject(ApiServiceError.noAuthState)
             }
             
         }).then {_ -> Promise<Moya.Response> in
-            self.request(target: DynamicApiService(baseURL: URL(string: self.api.apiBaseUri!)!, apiService: apiService))
-        }
+            guard let apiBaseUri = self.api.apiBaseUri, let baseURL = URL(string: apiBaseUri) else {
+                throw ApiServiceError.urlCreationFailed
+            }
+            return self.request(target: DynamicApiService(baseURL: baseURL, apiService: apiService))
+        }.then({ response throws -> Promise<Moya.Response> in
+            if response.statusCode == 401 {
+                throw ApiServiceError.unauthorized
+            }
+
+            return Promise.value(response)
+        })
     }
 }
 
