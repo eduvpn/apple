@@ -16,7 +16,10 @@ func applicationSupportDirectoryUrl() -> URL? {
         else { return nil }
     
     #if os(macOS)
-    url.appendPathComponent(Bundle.main.bundleIdentifier!)
+    guard let bundleID = Bundle.main.bundleIdentifier else {
+        fatalError("missing bundle ID")
+    }
+    url.appendPathComponent(bundleID)
     do {
         try FileManager.default.createDirectory(at: url,
                                                 withIntermediateDirectories: true,

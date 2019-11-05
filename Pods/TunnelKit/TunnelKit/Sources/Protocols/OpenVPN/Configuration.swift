@@ -202,6 +202,9 @@ extension OpenVPN {
         /// Sends periodical keep-alive packets if set.
         public var keepAliveInterval: TimeInterval?
         
+        /// Disconnects after no keep-alive packets are received within timeout interval if set.
+        public var keepAliveTimeout: TimeInterval?
+        
         /// The number of seconds after which a renegotiation should be initiated. If `nil`, the client will never initiate a renegotiation.
         public var renegotiatesAfter: TimeInterval?
         
@@ -242,11 +245,26 @@ extension OpenVPN {
         public var dnsServers: [String]?
         
         /// The search domain.
-        public var searchDomain: String?
+        @available(*, deprecated, message: "Use searchDomains instead")
+        public var searchDomain: String? {
+            didSet {
+                guard let searchDomain = searchDomain else {
+                    searchDomains = nil
+                    return
+                }
+                searchDomains = [searchDomain]
+            }
+        }
 
+        /// The search domains. The first one is interpreted as the main domain name.
+        public var searchDomains: [String]?
+
+        /// The Proxy Auto-Configuration (PAC) url.
+        public var proxyAutoConfigurationURL: URL?
+        
         /// The HTTP proxy.
         public var httpProxy: Proxy?
-        
+
         /// The HTTPS proxy.
         public var httpsProxy: Proxy?
         
@@ -277,6 +295,7 @@ extension OpenVPN {
                 tlsWrap: tlsWrap,
                 tlsSecurityLevel: tlsSecurityLevel,
                 keepAliveInterval: keepAliveInterval,
+                keepAliveTimeout: keepAliveTimeout,
                 renegotiatesAfter: renegotiatesAfter,
                 hostname: hostname,
                 endpointProtocols: endpointProtocols,
@@ -288,9 +307,10 @@ extension OpenVPN {
                 ipv4: ipv4,
                 ipv6: ipv6,
                 dnsServers: dnsServers,
-                searchDomain: searchDomain,
+                searchDomains: searchDomains,
                 httpProxy: httpProxy,
                 httpsProxy: httpsProxy,
+                proxyAutoConfigurationURL: proxyAutoConfigurationURL,
                 proxyBypassDomains: proxyBypassDomains,
                 routingPolicies: routingPolicies
             )
@@ -346,6 +366,9 @@ extension OpenVPN {
 
         /// - Seealso: `ConfigurationBuilder.keepAliveInterval`
         public let keepAliveInterval: TimeInterval?
+        
+        /// - Seealso: `ConfigurationBuilder.keepAliveTimeout`
+        public let keepAliveTimeout: TimeInterval?
 
         /// - Seealso: `ConfigurationBuilder.renegotiatesAfter`
         public let renegotiatesAfter: TimeInterval?
@@ -380,15 +403,18 @@ extension OpenVPN {
         /// - Seealso: `ConfigurationBuilder.dnsServers`
         public let dnsServers: [String]?
         
-        /// - Seealso: `ConfigurationBuilder.searchDomain`
-        public let searchDomain: String?
-        
+        /// - Seealso: `ConfigurationBuilder.searchDomains`
+        public let searchDomains: [String]?
+
         /// - Seealso: `ConfigurationBuilder.httpProxy`
         public let httpProxy: Proxy?
-        
+
         /// - Seealso: `ConfigurationBuilder.httpsProxy`
         public let httpsProxy: Proxy?
         
+        /// - Seealso: `ConfigurationBuilder.proxyAutoConfigurationURL`
+        public let proxyAutoConfigurationURL: URL?
+
         /// - Seealso: `ConfigurationBuilder.proxyBypassDomains`
         public let proxyBypassDomains: [String]?
         
@@ -435,6 +461,7 @@ extension OpenVPN.Configuration {
         builder.tlsWrap = tlsWrap
         builder.tlsSecurityLevel = tlsSecurityLevel
         builder.keepAliveInterval = keepAliveInterval
+        builder.keepAliveTimeout = keepAliveTimeout
         builder.renegotiatesAfter = renegotiatesAfter
         builder.hostname = hostname
         builder.endpointProtocols = endpointProtocols
@@ -446,9 +473,10 @@ extension OpenVPN.Configuration {
         builder.ipv4 = ipv4
         builder.ipv6 = ipv6
         builder.dnsServers = dnsServers
-        builder.searchDomain = searchDomain
+        builder.searchDomains = searchDomains
         builder.httpProxy = httpProxy
         builder.httpsProxy = httpsProxy
+        builder.proxyAutoConfigurationURL = proxyAutoConfigurationURL
         builder.proxyBypassDomains = proxyBypassDomains
         builder.routingPolicies = routingPolicies
         return builder

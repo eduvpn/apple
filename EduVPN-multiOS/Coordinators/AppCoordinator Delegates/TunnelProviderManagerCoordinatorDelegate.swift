@@ -30,9 +30,10 @@ extension AppCoordinator: TunnelProviderManagerCoordinatorDelegate {
             }
             context.saveContextToStore()
         }
+        NotificationCenter.default.post(name: Notification.Name.InstanceRefreshed, object: self)
     }
     
-    func profileConfig(for profile: Profile) -> Promise<URL> {
+    func profileConfig(for profile: Profile) -> Promise<[String]> {
         #if os(iOS)
         let activityData = ActivityData()
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData, nil)

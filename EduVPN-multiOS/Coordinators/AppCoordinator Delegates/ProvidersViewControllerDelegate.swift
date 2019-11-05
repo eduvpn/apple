@@ -9,6 +9,8 @@
 import Foundation
 import PromiseKit
 
+import os.log
+
 extension ProvidersViewController: Identifiable {}
 
 protocol ProvidersViewControllerDelegate: class {
@@ -23,7 +25,10 @@ protocol ProvidersViewControllerDelegate: class {
 }
 
 extension AppCoordinator: ProvidersViewControllerDelegate {
-    
+    func noProfiles(providerTableViewController: ProvidersViewControllerDelegate) {
+        addProfilesWhenNoneAvailable()
+    }
+
     func addProvider(providersViewController: ProvidersViewController) {
         addProvider()
     }
@@ -47,6 +52,13 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
         print("didSelect instance: \(instance)")
         if providersViewController.providerType == .unknown {
             do {
+                persistentContainer.performBackgroundTask { (context) in
+                    if let backgroundInstance = context.object(with: instance.objectID) as? Instance {
+                        let now = Date().timeIntervalSince1970
+                        backgroundInstance.lastAccessedTimeInterval = now
+                        context.saveContext()
+                    }
+                }
                 let count = try Profile.countInContext(persistentContainer.viewContext,
                                                        predicate: NSPredicate(format: "api.instance == %@", instance))
                 
@@ -68,22 +80,58 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
     }
     
     func delete(instance: Instance) {
+        // Check current profile UUID against profile UUIDs.
+        if let configuredProfileId = UserDefaults.standard.configuredProfileId {
+            let profiles = instance.apis?.flatMap { $0.profiles } ?? []
+            if (profiles.compactMap { $0.uuid?.uuidString}.contains(configuredProfileId)) {
+                _ = tunnelProviderManagerCoordinator.deleteConfiguration()
+            }
+        }
+
+        var forced = false
+        if let totalProfileCount = try? Profile.countInContext(persistentContainer.viewContext), let instanceProfileCount = instance.apis?.reduce(0, { (partial, api) -> Int in
+            return partial + api.profiles.count
+        }) {
+            forced = totalProfileCount == instanceProfileCount
+        }
+
         _ = Promise<Void>(resolver: { seal in
             persistentContainer.performBackgroundTask { context in
-                if let backgroundProfile = context.object(with: instance.objectID) as? Instance {
-                    backgroundProfile.apis?.forEach {
+                if let backgroundInstance = context.object(with: instance.objectID) as? Instance {
+                    backgroundInstance.apis?.forEach {
                         $0.certificateModel = nil
                         $0.authState = nil
                     }
-                    
-                    context.delete(backgroundProfile)
+
+                    context.delete(backgroundInstance)
                 }
                 
                 context.saveContext()
             }
             
             seal.fulfill(())
-        })
+        }).ensure {
+            self.addProfilesWhenNoneAvailable(forced: forced)
+        }
+    }
+
+    private func addProfilesWhenNoneAvailable(forced: Bool = false) {
+        do {
+            if try Profile.countInContext(persistentContainer.viewContext) == 0 || forced {
+                // When running an authorization, do nothing. The user might already be adding a profile.
+                // TODO fix this:if refreshingProfiles {
+//                    return
+//                }
+
+                if let predefinedProvider = Config.shared.predefinedProvider {
+                    _ = connect(url: predefinedProvider)
+                } else {
+                    addProvider()
+                }
+            }
+        } catch {
+            os_log("Failed to count Profile objects: %{public}@", log: Log.general, type: .error, error.localizedDescription)
+        }
     }
     
     #if os(macOS)

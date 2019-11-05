@@ -29,6 +29,7 @@ class VPNConnectionViewController: UIViewController {
 
     @IBOutlet weak var providerImage: UIImageView!
     @IBOutlet weak var profileNameLabel: UILabel!
+    @IBOutlet weak var buttonDisplayLog: UIButton!
     @IBOutlet weak var instanceNameLabel: UILabel!
     @IBOutlet weak var providerInfoStackView: UIStackView!
 
@@ -141,7 +142,7 @@ class VPNConnectionViewController: UIViewController {
     private var connectionInfoUpdateTimer: Timer?
 
     private func scheduleConnectionInfoUpdates() {
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] _ in
+        connectionInfoUpdateTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] (_) in
             self?.updateConnectionInfo()
         })
     }
@@ -171,6 +172,12 @@ class VPNConnectionViewController: UIViewController {
             self?.inBytesLabel.text = dataCount?.0.bytesText
             self?.outBytesLabel.text = dataCount?.1.bytesText
         }
+
+        if refreshLog {
+            self.providerManagerCoordinator.loadLog { [weak self] (log) in
+                self?.logTextView.text = log
+            }
+        }
     }
 
     // MARK: - Back
@@ -184,9 +191,9 @@ class VPNConnectionViewController: UIViewController {
     @IBOutlet weak var logTextView: UITextView!
 
     @IBAction func displayLogClicked(_ sender: Any) {
-        self.providerManagerCoordinator.loadLog { [weak self] log in
-            self?.logTextView.text = log
-        }
+        refreshLog.toggle()
+
+        buttonDisplayLog.titleLabel?.text = refreshLog ? NSLocalizedString("Stop refreshing log", comment: "") : NSLocalizedString("Display log", comment: "")
     }
 
     // MARK: - Other

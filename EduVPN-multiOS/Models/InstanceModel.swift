@@ -8,10 +8,6 @@
 
 import Foundation
 
-enum InstancesModelError: Swift.Error {
-    case signedAtDate
-}
-
 enum AuthorizationType: String, Codable {
     case local
     case distributed
@@ -59,12 +55,12 @@ extension InstancesModel {
         var instances = try container.decode([InstanceModel].self, forKey: .instances)
         // Temporarily apply fields, which are required by macOS logic
         instances = instances.map {
-            var im = $0
-            im.authorizationType = authorizationType
-            im.authorizationEndpoint = authorizationEndpoint
-            im.tokenEndpoint = tokenEndpoint
+            var model = $0
+            model.authorizationType = authorizationType
+            model.authorizationEndpoint = authorizationEndpoint
+            model.tokenEndpoint = tokenEndpoint
             
-            return im
+            return model
         }
         
         self.init(providerType: providerType,

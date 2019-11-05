@@ -80,6 +80,8 @@
 		34FD2AD722A93530002AABB3 /* VPNConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FD2AD622A9352F002AABB3 /* VPNConnectionViewController.swift */; };
 		34FD2AD922A946E4002AABB3 /* VPNConnectionViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345287229FF33000C0476E /* VPNConnectionViewControllerDelegate.swift */; };
 		4A1140841F78490C00D61100 /* VPNConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */; };
+		4A1163282370523B00577755 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1163272370523B00577755 /* KeychainService.swift */; };
+		4A11632A2370539F00577755 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1163292370539E00577755 /* Crypto.swift */; };
 		4A2803D91FA6867D00FA895C /* CustomProviderInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2803D81FA6867D00FA895C /* CustomProviderInputViewController.swift */; };
 		4A2CC2221F4233E8004119B1 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2CC2211F4233E8004119B1 /* Identifiable.swift */; };
 		4A3971B321E9500100782A28 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = 4A3971B221E9500100782A28 /* config.json */; };
@@ -313,6 +315,8 @@
 		417DD34C1C9EFF60C64C80CB /* Pods-LetsConnect-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsConnect-macOS.release.xcconfig"; path = "Target Support Files/Pods-LetsConnect-macOS/Pods-LetsConnect-macOS.release.xcconfig"; sourceTree = "<group>"; };
 		4A01329921CDA2C2009B8B02 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
 		4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNConnectionViewController.swift; sourceTree = "<group>"; };
+		4A1163272370523B00577755 /* KeychainService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		4A1163292370539E00577755 /* Crypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Crypto.swift; path = EduVPN/Models/Crypto.swift; sourceTree = SOURCE_ROOT; };
 		4A2803D81FA6867D00FA895C /* CustomProviderInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProviderInputViewController.swift; sourceTree = "<group>"; };
 		4A2CC2211F4233E8004119B1 /* Identifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		4A2DA16D21C5ACF90026BCF5 /* EduVPN.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EduVPN.entitlements; sourceTree = "<group>"; };
@@ -796,6 +800,7 @@
 				4AAC1F791F2D0E3400DD0252 /* AppDelegate.swift */,
 				4AAC1F821F2D0E3400DD0252 /* LaunchScreen.storyboard */,
 				4AAC1F851F2D0E3400DD0252 /* Info.plist */,
+				4A1163272370523B00577755 /* KeychainService.swift */,
 				4A62C8B71FB03B47007D3FAA /* KeyboardWrapper.swift */,
 			);
 			name = "EduVPN-iOS";
@@ -895,7 +900,6 @@
 				C75B2CBE2363138200D700EC /* config-eduvpn.json */,
 				C75B2CC02363138200D700EC /* config-template.json */,
 				C75B2CB62363138200D700EC /* config-letsconnect.json */,
-                C75B2CBA2363138200D700EC /* config-eduvpn-macos.json */,
 				C75B2CB02363138200D700EC /* Developer-macOS.xcconfig */,
 				C7C69A5E236B328200F9B8B3 /* Developer-macOS.xcconfig.eduvpn-template */,
 				C75B2CB22363138200D700EC /* Developer-macOS.xcconfig.johan-template */,
@@ -926,6 +930,7 @@
 				C7FA7A7223633895006501E8 /* UserInfo.swift */,
 				C7FA7A0023633694006501E8 /* CertificateModel.swift */,
 				C7FA7A0123633694006501E8 /* Config.swift */,
+				4A1163292370539E00577755 /* Crypto.swift */,
 				C7FA7A0323633694006501E8 /* InstanceModel.swift */,
 			);
 			path = Models;
@@ -1120,12 +1125,12 @@
 				TargetAttributes = {
 					342B9C98228ECFDB00C006D7 = {
 						CreatedOnToolsVersion = 10.2.1;
-						DevelopmentTeam = CRU5YWAZ4Y;
+						DevelopmentTeam = T4CMEHXPLL;
 						ProvisioningStyle = Automatic;
 					};
 					349D85C122B706A4006E9540 = {
 						CreatedOnToolsVersion = 10.2.1;
-						DevelopmentTeam = CRU5YWAZ4Y;
+						DevelopmentTeam = T4CMEHXPLL;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.Mac = {
@@ -1144,7 +1149,7 @@
 					};
 					34D719DD228D75550027DE84 = {
 						CreatedOnToolsVersion = 10.2.1;
-						DevelopmentTeam = CRU5YWAZ4Y;
+						DevelopmentTeam = T4CMEHXPLL;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.Mac = {
@@ -1163,7 +1168,7 @@
 					};
 					4A901C1020C87511000C1BF0 = {
 						CreatedOnToolsVersion = 9.4;
-						DevelopmentTeam = ZYJ4TZX4UU;
+						DevelopmentTeam = T4CMEHXPLL;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -1179,7 +1184,7 @@
 					};
 					4AAC1F751F2D0E3400DD0252 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = ZYJ4TZX4UU;
+						DevelopmentTeam = T4CMEHXPLL;
 						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -1202,7 +1207,7 @@
 					};
 					4AAC1F891F2D0E3400DD0252 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = ZYJ4TZX4UU;
+						DevelopmentTeam = T4CMEHXPLL;
 						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 4AAC1F751F2D0E3400DD0252;
@@ -1413,7 +1418,6 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/AppAuth-iOS/AppAuth.framework",
-				"${BUILT_PRODUCTS_DIR}/Disk/Disk.framework",
 				"${BUILT_PRODUCTS_DIR}/FileKit-iOS/FileKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya-iOS/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
@@ -1431,7 +1435,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Disk.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FileKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
@@ -1756,6 +1759,7 @@
 				C7FA7A9C23633895006501E8 /* Profile.swift in Sources */,
 				C7FA7A7623633895006501E8 /* InstancesRepository.swift in Sources */,
 				C7FA7AB123633D61006501E8 /* NSManagedObject+FetchHelpers.swift in Sources */,
+				4A1163282370523B00577755 /* KeychainService.swift in Sources */,
 				C7FA7A8A23633895006501E8 /* DisplayName+CoreDataProperties.swift in Sources */,
 				4ACA042E1F311863004B35AA /* InstanceService.swift in Sources */,
 				C7FA7A9023633895006501E8 /* Profile+CoreDataProperties.swift in Sources */,
@@ -1778,6 +1782,7 @@
 				C7FA7AB523633D61006501E8 /* NSManagedObjectContext+SaveHelpers.swift in Sources */,
 				4A97D78620CC4F4D00472216 /* AppCoordinator+Alert.swift in Sources */,
 				C7FA7A9E23633895006501E8 /* Instance.swift in Sources */,
+				4A11632A2370539F00577755 /* Crypto.swift in Sources */,
 				4AD0AD5A1F34F887006E1337 /* CredentialStorePlugin.swift in Sources */,
 				4AF3DF061F424535003EC0BA /* SettingsTableViewController.swift in Sources */,
 				34345285229FF2F000C0476E /* AppCoordinatorError.swift in Sources */,

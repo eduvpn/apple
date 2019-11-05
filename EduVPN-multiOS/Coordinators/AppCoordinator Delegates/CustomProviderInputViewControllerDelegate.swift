@@ -10,32 +10,11 @@ import FileKit
 import Foundation
 import PromiseKit
 
-#if os(iOS)
-import Disk
-#endif
-
 protocol CustomProviderInputViewControllerDelegate: class {
     @discardableResult func connect(url: URL) -> Promise<Void>
 }
 
 extension AppCoordinator: CustomProviderInputViewControllerDelegate {
-    
-    private func createLocalUrl(forImageNamed name: String) throws -> URL {
-        #if os(iOS)
-        let filename = "\(name).png"
-        if Disk.exists(filename, in: .applicationSupport) {
-            return try Disk.url(for: filename, in: .applicationSupport)
-        }
-        
-        let image = UIImage(named: name)!
-        try Disk.save(image, to: .applicationSupport, as: filename)
-        
-        return try Disk.url(for: filename, in: .applicationSupport)
-        #elseif os(macOS)
-        // TODO: Implement in macOS
-        abort()
-        #endif
-    }
     
     func connect(url: URL) -> Promise<Void> {
         return Promise<Instance>(resolver: { seal in

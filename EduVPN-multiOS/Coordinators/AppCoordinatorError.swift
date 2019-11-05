@@ -14,12 +14,17 @@ enum AppCoordinatorError: Swift.Error {
     case certificateCommonNameNotFound
     case certificateStatusUnknown
     case apiMissing
+    case profileIdMissing
     case apiProviderCreateFailed
     case sodiumSignatureFetchFailed
+    case sodiumSignatureMissing
     case sodiumSignatureVerifyFailed
     case ovpnConfigTemplate
+    case certificateModelMissing
     case ovpnConfigTemplateNoRemotes
     case missingStaticTargets
+    case urlCreation
+    case ovpnTemplate
     
     var localizedDescription: String {
         switch self {
@@ -33,18 +38,28 @@ enum AppCoordinatorError: Swift.Error {
             return NSLocalizedString("VPN certificate status is unknown.", comment: "")
         case .apiMissing:
             return NSLocalizedString("No concrete API instance while expecting one.", comment: "")
+        case .profileIdMissing:
+            return NSLocalizedString("No concrete profileId while expecting one.", comment: "")
         case .apiProviderCreateFailed:
             return NSLocalizedString("Failed to create dynamic API provider.", comment: "")
         case .sodiumSignatureFetchFailed:
             return NSLocalizedString("Fetching signature failed.", comment: "")
+        case .sodiumSignatureMissing:
+            return NSLocalizedString("Verify signature missing.", comment: "")
         case .sodiumSignatureVerifyFailed:
             return NSLocalizedString("Signature verification of discovery file failed.", comment: "")
         case .ovpnConfigTemplate:
             return NSLocalizedString("Unable to materialize an OpenVPN config.", comment: "")
+        case .certificateModelMissing:
+            return NSLocalizedString("Missing certificate model.", comment: "")
         case .ovpnConfigTemplateNoRemotes:
             return NSLocalizedString("OpenVPN template has no remotes.", comment: "")
         case .missingStaticTargets:
             return NSLocalizedString("Static target configuration is incomplete.", comment: "")
+        case .urlCreation:
+            return NSLocalizedString("Failed to create URL.", comment: "")
+        case .ovpnTemplate:
+            return NSLocalizedString("OVPN template is not valid.", comment: "")
         }
     }
 }

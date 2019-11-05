@@ -40,14 +40,12 @@ import SwiftyBeaver
 
 private let log = SwiftyBeaver.self
 
-extension NSNotification.Name {
-
-    /// A change in Wi-Fi state occurred.
-    public static let InterfaceObserverDidDetectWifiChange = NSNotification.Name("InterfaceObserverDidDetectWifiChange")
-}
-
 /// Observes changes in the current Wi-Fi network.
 public class InterfaceObserver: NSObject {
+
+    /// A change in Wi-Fi state occurred.
+    public static let didDetectWifiChange = NSNotification.Name("InterfaceObserverDidDetectWifiChange")
+
     private var queue: DispatchQueue?
     
     private var timer: DispatchSourceTimer?
@@ -88,7 +86,7 @@ public class InterfaceObserver: NSObject {
                 log.debug("SSID is now '\(current.maskedDescription)'")
                 if let last = lastWifiName, (current != last) {
                     queue?.async {
-                        NotificationCenter.default.post(name: .InterfaceObserverDidDetectWifiChange, object: nil)
+                        NotificationCenter.default.post(name: InterfaceObserver.didDetectWifiChange, object: nil)
                     }
                 }
             } else {

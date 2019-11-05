@@ -15,14 +15,14 @@ import CoreData
 
 enum TunnelProviderManagerCoordinatorError: Error {
     case missingDelegate
-    case missingHostname
+    case missingTunnelProviderManager
 }
 
 private let profileIdKey = "EduVPNprofileId"
 
 protocol TunnelProviderManagerCoordinatorDelegate: class {
     
-    func profileConfig(for profile: Profile) -> Promise<URL>
+    func profileConfig(for profile: Profile) -> Promise<[String]>
     func updateProfileStatus(with status: NEVPNStatus)
 }
 
@@ -78,22 +78,49 @@ class TunnelProviderManagerCoordinator: Coordinator {
             fatalError("missing bundle ID")
         }
     }
+
+    func deleteConfiguration() -> Promise<Void> {
+        return Promise(resolver: { (resolver) in
+            reloadCurrentManager { (error) in
+                if let error = error {
+                    os_log("error reloading preferences: %{public}@", log: Log.general, type: .error, error.localizedDescription)
+                    resolver.reject(error)
+                    return
+                }
+
+                guard let manager = self.currentManager else {
+                    resolver.reject(TunnelProviderManagerCoordinatorError.missingTunnelProviderManager)
+                    return
+                }
+
+                manager.removeFromPreferences(completionHandler: { (error) in
+                    if let error = error {
+                        os_log("error removing preferences: %{public}@", log: Log.general, type: .error, error.localizedDescription)
+                        resolver.reject(error)
+                        return
+                    }
+                })
+                resolver.fulfill(())
+            }
+        })
+    }
     
     func configure(profile: Profile) -> Promise<Void> {
         guard let delegate = delegate else {
             return Promise(error: TunnelProviderManagerCoordinatorError.missingDelegate)
         }
         
-        return delegate.profileConfig(for: profile).then { configUrl -> Promise<Void> in
+        return delegate.profileConfig(for: profile).then({ (configLines) -> Promise<Void> in
+
             #if targetEnvironment(simulator)
             
             print("SIMULATOR DOES NOT SUPPORT NETWORK EXTENSIONS")
             return Promise.value(())
             
             #else
-            
-            let parseResult = try! OpenVPN.ConfigurationParser.parsed(fromURL: configUrl) //swiftlint:disable:this force_try
-            
+
+            let parseResult = try! OpenVPN.ConfigurationParser.parsed(fromLines: configLines) //swiftlint:disable:this force_try
+
             return Promise(resolver: { resolver in
                 var configBuilder = parseResult.configuration.builder()
                 configBuilder.tlsSecurityLevel = UserDefaults.standard.tlsSecurityLevel.rawValue
@@ -101,6 +128,12 @@ class TunnelProviderManagerCoordinator: Coordinator {
                 self.configureVPN({ _ in
                     var builder = OpenVPNTunnelProvider.ConfigurationBuilder(sessionConfiguration: configBuilder.build())
                     builder.masksPrivateData = false
+
+                    #if DEBUG
+                    #else
+                    builder.debugLogFormat = "$HH:mm:ss$d $L - $M"
+                    #endif
+
                     let configuration = builder.build()
                     
                     print("App group: \(self.appGroup)")
@@ -130,10 +163,11 @@ class TunnelProviderManagerCoordinator: Coordinator {
             })
             
             #endif
-        }
+        })
     }
     
     func connect() -> Promise<Void> {
+        os_log("starting tunnel", log: Log.general, type: .info)
         #if targetEnvironment(simulator)
         
         print("SIMULATOR DOES NOT SUPPORT NETWORK EXTENSIONS")
@@ -145,7 +179,6 @@ class TunnelProviderManagerCoordinator: Coordinator {
             let session = self.currentManager?.connection as? NETunnelProviderSession
             do {
                 self.currentManager?.isOnDemandEnabled = UserDefaults.standard.onDemand
-                print("startTunnel()")
                 try session?.startTunnel()
                 resolver.resolve(Result.fulfilled(()))
             } catch let error {
@@ -158,6 +191,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
     }
     
     func disconnect() -> Promise<Void> {
+        os_log("stopping tunnel", log: Log.general, type: .info)
         #if targetEnvironment(simulator)
         
         print("SIMULATOR DOES NOT SUPPORT NETWORK EXTENSIONS")
@@ -227,7 +261,11 @@ class TunnelProviderManagerCoordinator: Coordinator {
                 return
             }
             
-            let manager = self.currentManager!
+            guard let manager = self.currentManager else {
+                completionHandler(TunnelProviderManagerCoordinatorError.missingTunnelProviderManager)
+                return
+            }
+
             if let protocolConfiguration = configure(manager) {
                 manager.protocolConfiguration = protocolConfiguration
             }
@@ -259,7 +297,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
             }
             
             var manager: NETunnelProviderManager?
-            for man in managers! {
+            for man in managers ?? [] {
                 if let prot = man.protocolConfiguration as? NETunnelProviderProtocol {
                     if prot.providerBundleIdentifier == self.vpnBundle {
                         //    os_log("provider config: \(prot.providerConfiguration)", log: Log.general, type: .info)
@@ -281,11 +319,14 @@ class TunnelProviderManagerCoordinator: Coordinator {
     
     @objc private func refresh() {
         reloadCurrentManager { [weak self] _ in
-            guard let status = self?.currentManager?.connection.status else {
-                return
+            guard let self = self else { return }
+
+            if let prot = self.currentManager?.protocolConfiguration as? NETunnelProviderProtocol {
+                if prot.providerBundleIdentifier == self.vpnBundle {
+                    let status = self.currentManager?.connection.status ?? NEVPNStatus.invalid
+                    self.delegate?.updateProfileStatus(with: status)
+                }
             }
-            
-            self?.delegate?.updateProfileStatus(with: status)
         }
     }
     

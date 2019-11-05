@@ -277,6 +277,12 @@ open class OpenVPNTunnelProvider: NEPacketTunnelProvider {
                 response?.append(UInt64(dataCount.1)) // outbound
             }
             
+        case .serverConfiguration:
+            if let cfg = session?.serverConfiguration() {
+                let encoder = JSONEncoder()
+                response = try? encoder.encode(cfg)
+            }
+            
         default:
             break
         }
@@ -484,8 +490,6 @@ extension OpenVPNTunnelProvider: OpenVPNSessionDelegate {
     
     /// :nodoc:
     public func sessionDidStart(_ session: OpenVPNSession, remoteAddress: String, options: OpenVPN.Configuration) {
-        reasserting = false
-        
         log.info("Session did start")
         
         log.info("Returned ifconfig parameters:")
@@ -502,13 +506,13 @@ extension OpenVPNTunnelProvider: OpenVPNSessionDelegate {
         } else {
             log.info("\tDNS: not configured")
         }
-        if let searchDomain = options.searchDomain, !searchDomain.isEmpty {
-            log.info("\tDomain: \(searchDomain.maskedDescription)")
+        if let searchDomains = options.searchDomains, !searchDomains.isEmpty {
+            log.info("\tSearch domains: \(searchDomains.maskedDescription)")
         } else {
-            log.info("\tDomain: not configured")
+            log.info("\tSearch domains: not configured")
         }
 
-        if options.httpProxy != nil || options.httpsProxy != nil {
+        if options.httpProxy != nil || options.httpsProxy != nil || options.proxyAutoConfigurationURL != nil {
             log.info("\tProxy:")
             if let proxy = options.httpProxy {
                 log.info("\t\tHTTP: \(proxy.maskedDescription)")
@@ -516,12 +520,17 @@ extension OpenVPNTunnelProvider: OpenVPNSessionDelegate {
             if let proxy = options.httpsProxy {
                 log.info("\t\tHTTPS: \(proxy.maskedDescription)")
             }
+            if let pacURL = options.proxyAutoConfigurationURL {
+                log.info("\t\tPAC: \(pacURL)")
+            }
             if let bypass = options.proxyBypassDomains {
                 log.info("\t\tBypass domains: \(bypass.maskedDescription)")
             }
         }
 
         bringNetworkUp(remoteAddress: remoteAddress, localOptions: session.configuration, options: options) { (error) in
+            self.reasserting = false
+            
             if let error = error {
                 log.error("Failed to configure tunnel: \(error)")
                 self.pendingStartHandler?(error)
@@ -643,9 +652,10 @@ extension OpenVPNTunnelProvider: OpenVPNSessionDelegate {
         if !isGateway {
             dnsSettings.matchDomains = [""]
         }
-        if let searchDomain = cfg.sessionConfiguration.searchDomain ?? options.searchDomain {
-            dnsSettings.domainName = searchDomain
-            dnsSettings.searchDomains = [searchDomain]
+        if let searchDomains = cfg.sessionConfiguration.searchDomains ?? options.searchDomains {
+            log.info("DNS: Using search domains \(searchDomains.maskedDescription)")
+            dnsSettings.domainName = searchDomains.first
+            dnsSettings.searchDomains = searchDomains
             if !isGateway {
                 dnsSettings.matchDomains = dnsSettings.searchDomains
             }
@@ -676,6 +686,14 @@ extension OpenVPNTunnelProvider: OpenVPNSessionDelegate {
             proxySettings?.httpServer = httpProxy.neProxy()
             proxySettings?.httpEnabled = true
             log.info("Routing: Setting HTTP proxy \(httpProxy.address.maskedDescription):\(httpProxy.port)")
+        }
+        if let pacURL = cfg.sessionConfiguration.proxyAutoConfigurationURL ?? options.proxyAutoConfigurationURL {
+            if proxySettings == nil {
+                proxySettings = NEProxySettings()
+            }
+            proxySettings?.proxyAutoConfigurationURL = pacURL
+            proxySettings?.autoProxyConfigurationEnabled = true
+            log.info("Routing: Setting PAC \(pacURL)")
         }
 
         // only set if there is a proxy (proxySettings set to non-nil above)

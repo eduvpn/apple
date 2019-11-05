@@ -87,14 +87,24 @@ public class OpenVPNSession: Session {
     
     private var keepAliveInterval: TimeInterval? {
         let interval: TimeInterval?
-        if let negInterval = pushReply?.options.keepAliveInterval, negInterval > 0 {
-            interval = TimeInterval(negInterval)
+        if let negInterval = pushReply?.options.keepAliveInterval, negInterval > 0.0 {
+            interval = negInterval
         } else if let cfgInterval = configuration.keepAliveInterval, cfgInterval > 0.0 {
             interval = cfgInterval
         } else {
             return nil
         }
         return interval
+    }
+    
+    private var keepAliveTimeout: TimeInterval {
+        if let negTimeout = pushReply?.options.keepAliveTimeout, negTimeout > 0.0 {
+            return negTimeout
+        } else if let cfgTimeout = configuration.keepAliveTimeout, cfgTimeout > 0.0 {
+            return cfgTimeout
+        } else {
+            return CoreConfiguration.OpenVPN.pingTimeout
+        }
     }
     
     /// An optional `OpenVPNSessionDelegate` for receiving session events.
@@ -296,6 +306,10 @@ public class OpenVPNSession: Session {
             return nil
         }
         return controlChannel.currentDataCount()
+    }
+    
+    public func serverConfiguration() -> OpenVPN.Configuration? {
+        return pushReply?.options
     }
     
     public func shutdown(error: Error?) {
@@ -535,7 +549,7 @@ public class OpenVPNSession: Session {
         }
         
         let now = Date()
-        guard (now.timeIntervalSince(lastPing.inbound) <= CoreConfiguration.OpenVPN.pingTimeout) else {
+        guard (now.timeIntervalSince(lastPing.inbound) <= keepAliveTimeout) else {
             deferStop(.shutdown, OpenVPNError.pingTimeout)
             return
         }
@@ -1070,7 +1084,10 @@ public class OpenVPNSession: Session {
             log.info("\tNegotiated compression algorithm: \(negCompression)")
         }
         if let negPing = pushReply.options.keepAliveInterval {
-            log.info("\tNegotiated keep-alive: \(negPing) seconds")
+            log.info("\tNegotiated keep-alive interval: \(negPing) seconds")
+        }
+        if let negPingRestart = pushReply.options.keepAliveTimeout {
+            log.info("\tNegotiated keep-alive timeout: \(negPingRestart) seconds")
         }
 
         let bridge: OpenVPN.EncryptionBridge

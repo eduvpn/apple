@@ -58,6 +58,15 @@ class ConnectionsTableViewController: NSViewController {
         tableView.isEnabled = true
         
         refresh()
+
+        if providerType == .unknown {
+            delegate?.noProfiles(providerTableViewController: self)
+        }
+    }
+
+    override func viewWillAppear() {
+        super.viewWillAppear()
+
     }
     
     @objc func refresh() {

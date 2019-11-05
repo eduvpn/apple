@@ -10,10 +10,10 @@
 import Foundation
 import CoreData
 
+import os.log
+
 import AppAuth
 import UserNotifications
-
-import os.log
 
 extension Api {
 
@@ -124,33 +124,43 @@ extension Api {
     var certificateModel: CertificateModel? {
         get {
             guard let certificateUrl = certificateUrl else { return nil }
-            if FileManager.default.fileExists(atPath: certificateUrl.path) {
-                if let data = try? Data(contentsOf: certificateUrl) {
-                    do {
-                        return try JSONDecoder().decode(CertificateModel.self, from: data)
-                    } catch {
-                        return nil
-                    }
+
+            do {
+                if let certString = try KeychainService.loadPassword(service: certificateUrl.absoluteString, account: "certString"), let keyString = try KeychainService.loadPassword(service: certificateUrl.absoluteString, account: "keyString") {
+                    return CertificateModel(certificateString: certString, privateKeyString: keyString)
                 }
+            } catch {
+                os_log("Unable to fetch from keychain. %{public}@", log: Log.general, type: .info, error.localizedDescription)
+                return nil
             }
 
             return nil
         }
         set {
-            guard let certificateUrl = certificateUrl else { return }
             if let oldIdentifier = certificateModel?.uniqueIdentifier {
                 if oldIdentifier != newValue?.uniqueIdentifier ?? "" {
                     UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [oldIdentifier])
                 }
             }
 
-            if let newValue = newValue {
-                let data = try? JSONEncoder().encode(newValue)
-                try? data?.write(to: certificateUrl, options: [Data.WritingOptions.atomicWrite, .completeFileProtectionUntilFirstUserAuthentication])
+            guard let certificateUrl = certificateUrl else { return }
 
-                excludeFromBackup(url: certificateUrl)
+            if let newValue = newValue {
+                do {
+                try KeychainService.savePassword(service: certificateUrl.absoluteString, account: "certString", password: newValue.certificateString)
+                try KeychainService.savePassword(service: certificateUrl.absoluteString, account: "keyString", password: newValue.privateKeyString)
+                } catch {
+                    os_log("Unable to store to keychain. %{public}@", log: Log.general, type: .info, error.localizedDescription)
+                }
+
             } else {
-                try? FileManager.default.removeItem(at: certificateUrl)
+                do {
+                    try KeychainService.removePassword(service: certificateUrl.absoluteString, account: "certString")
+                    try KeychainService.removePassword(service: certificateUrl.absoluteString, account: "keyString")
+                } catch {
+                    os_log("Unable to store to clear from keychain. %{public}@", log: Log.general, type: .info, error.localizedDescription)
+
+                }
             }
         }
     }

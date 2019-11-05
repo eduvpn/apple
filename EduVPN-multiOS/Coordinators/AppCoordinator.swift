@@ -17,7 +17,6 @@ import UserNotifications
 
 #if os(iOS)
 
-import Disk
 import libsodium
 import NVActivityIndicatorView
 import UIKit
@@ -52,7 +51,7 @@ class AppCoordinator: RootViewCoordinator {
     #if os(iOS)
     private var currentDocumentInteractionController: UIDocumentInteractionController?
     #endif
-    
+
     internal var authorizingDynamicApiProvider: DynamicApiProvider?
     
     var childCoordinators: [Coordinator] = []
@@ -144,25 +143,14 @@ class AppCoordinator: RootViewCoordinator {
         
         providersViewController.start()
         #endif
-        
-        do {
-            let context = persistentContainer.viewContext
-            if try Profile.countInContext(context) == 0 {
-                if let predefinedProvider = Config.shared.predefinedProvider {
-                    _ = connect(url: predefinedProvider)
-                } else {
-                    addProvider()
-                }
-            }
-        } catch {
-            showError(error)
-        }
     }
     
     public func start() {
+        os_log("Starting App Coordinator", log: Log.general, type: .info)
         persistentContainer.loadPersistentStores { [weak self] (_, error) in
             if let error = error {
                 os_log("Unable to Load Persistent Store. %{public}@", log: Log.general, type: .info, error.localizedDescription)
+                self?.showError(error)
             } else {
                 DispatchQueue.main.async {
                     self?.instantiateProvidersViewController()
@@ -308,6 +296,14 @@ class AppCoordinator: RootViewCoordinator {
             } else {
                 throw AppCoordinatorError.certificateStatusUnknown
             }
+        }.recover { (error) throws -> Promise<CertificateModel> in
+            if case ApiServiceError.unauthorized = error {
+                return dynamicApiProvider.authorize(presentingViewController: self.navigationController).then { _ -> Promise<CertificateModel> in
+                    return self.checkCertificate(api: api, for: dynamicApiProvider)
+                }
+            }
+
+            throw error
         }
     }
     
@@ -350,7 +346,8 @@ class AppCoordinator: RootViewCoordinator {
         expirationWarningDateComponents.second = 0
         
         #endif
-        
+
+        os_log("Scheduling a cert expiration reminder for %{public}@ on %{public}@.", log: Log.general, type: .info, certificate.uniqueIdentifier ?? "", expirationDate.description)
         NotificationsService.sendNotification(notification, withIdentifier: identifier, at: expirationWarningDateComponents) { error in
             if let error = error {
                 os_log("Error occured when scheduling a cert expiration reminder %{public}@",
@@ -406,10 +403,13 @@ class AppCoordinator: RootViewCoordinator {
     }
     
     /// merge ovpn profile with keypair
-    internal func merge(key: String, certificate: String, into ovpnFileContent: String) -> String {
+    internal func merge(key: String, certificate: String, into ovpnFileContent: String) throws -> String {
         var ovpnFileContent = ovpnFileContent
         
-        let insertionIndex = ovpnFileContent.range(of: "</ca>")!.upperBound
+        guard let caRange = ovpnFileContent.range(of: "</ca>") else {
+            throw AppCoordinatorError.ovpnTemplate
+        }
+        let insertionIndex = caRange.upperBound
         ovpnFileContent.insert(contentsOf: "\n<key>\n\(key)\n</key>", at: insertionIndex)
         ovpnFileContent.insert(contentsOf: "\n<cert>\n\(certificate)\n</cert>", at: insertionIndex)
         ovpnFileContent = ovpnFileContent.replacingOccurrences(of: "auth none\r\n", with: "")
@@ -444,31 +444,5 @@ class AppCoordinator: RootViewCoordinator {
         if remoteTcpRegex.numberOfMatches(in: ovpnFileContent, options: [], range: NSRange(location: 0, length: ovpnFileContent.utf16.count)) == 0 {
             throw AppCoordinatorError.ovpnConfigTemplateNoRemotes
         }
-    }
-    
-    internal func saveToOvpnFile(content: String, to filename: String) throws -> URL {
-        // TODO: validate response
-        #if os(iOS)
-        
-        try Disk.clear(.temporary)
-        try Disk.save(content.data(using: .utf8)!, to: .temporary, as: filename)
-        let url = try Disk.url(for: filename, in: .temporary)
-        return url
-        
-        #elseif os(macOS)
-        
-        let temp = Path.userApplicationSupport + "/tmp"
-        try temp.createDirectory(withIntermediateDirectories: true) // create if it didn't exist
-        
-        for file in temp {
-            try file.deleteFile()
-        }
-        
-        let destination = temp + "/\(filename)"
-        try content |> TextFile(path: destination)
-        
-        return destination.url
-        
-        #endif
     }
 }

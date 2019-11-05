@@ -161,7 +161,7 @@ class VPNConnectionViewController: NSViewController {
     private var connectionInfoUpdateTimer: Timer?
     
     private func scheduleConnectionInfoUpdates() {
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] _ in
+        connectionInfoUpdateTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] (_) in
             self?.updateConnectionInfo()
             self?.updateLog()
         })

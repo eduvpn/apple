@@ -8,14 +8,14 @@ project 'EduVPN', 'Debug' => :debug, 'Release' => :release
 
 def pods_ios
   platform :ios, '11.0'
-  pod 'TunnelKit', '~> 2.0.5'
+  pod 'TunnelKit'
 end
 
 # macOS Pods
 
 def pods_macos
   platform :osx, '10.12'
-  pod 'TunnelKit', '~> 2.0.5'
+  pod 'TunnelKit'
 end
 
 # Setup targets
@@ -26,7 +26,6 @@ target 'EduVPN' do
   pod 'AlamofireImage'
   pod 'AppAuth', :git => 'https://github.com/openid/AppAuth-iOS.git'
   pod 'ASN1Decoder'
-  pod 'Disk'
   pod 'libsodium'
   pod 'Moya'
   pod 'NVActivityIndicatorView'
