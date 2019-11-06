@@ -8,6 +8,7 @@
 
 import Foundation
 import os.log
+import PromiseKit
 
 extension ProfilesViewController: Identifiable {}
 
@@ -67,6 +68,13 @@ extension AppCoordinator: ProfilesViewControllerDelegate {
             case .OK:
                 if let baseUrl = enterProviderURLViewController.url {
                     _ = self.connect(url: baseUrl)
+                        .then { _ -> Promise<Void> in
+                            // Close profiles view once connected
+                            return Promise(resolver: { seal in
+                                self.dismissViewController()
+                                seal.fulfill(())
+                            })
+                        }
                 }
             default:
                 break

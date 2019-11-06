@@ -11,6 +11,7 @@ import Kingfisher
 import os.log
 import Reachability
 
+/// Used to display configure providers (when providerType == .unknown) and to select a specific provider to add.
 class ProvidersViewController: NSViewController {
     
     weak var delegate: ProvidersViewControllerDelegate?
@@ -49,16 +50,14 @@ class ProvidersViewController: NSViewController {
         }
         
         var sortDescriptors = [NSSortDescriptor]()
-        if Config.shared.discovery != nil {
-            sortDescriptors.append(NSSortDescriptor(key: "providerType", ascending: true))
-        }
-        
+        sortDescriptors.append(NSSortDescriptor(key: "providerType", ascending: true))
+        // This would be nicer: sortDescriptors.append(NSSortDescriptor(key: "displayName", ascending: true))
         sortDescriptors.append(NSSortDescriptor(key: "baseUri", ascending: true))
         fetchRequest.sortDescriptors = sortDescriptors
         
         let frc = FetchedResultsController<Instance>(fetchRequest: fetchRequest,
                                                      managedObjectContext: viewContext,
-                                                     sectionNameKeyPath: Config.shared.discovery != nil ? "providerType": nil)
+                                                     sectionNameKeyPath: "providerType")
         frc.setDelegate(self.frcDelegate)
         
         return frc
@@ -87,6 +86,9 @@ class ProvidersViewController: NSViewController {
         
         do {
             try fetchedResultsController.performFetch()
+            if providerType == .unknown && rows.isEmpty {
+                delegate?.addProvider(providersViewController: self, animated: false)
+            }
         } catch {
             os_log("Failed to fetch objects: %{public}@", log: Log.general, type: .error, error.localizedDescription)
         }
@@ -120,6 +122,7 @@ class ProvidersViewController: NSViewController {
         
         tableView.deselectAll(nil)
         tableView.isEnabled = true
+        updateInterface()
         
         try? reachability?.startNotifier()
     }
@@ -130,7 +133,7 @@ class ProvidersViewController: NSViewController {
     }
     
     @IBAction func addOtherProvider(_ sender: Any) {
-        delegate?.addProvider(providersViewController: self)
+        delegate?.addProvider(providersViewController: self, animated: true)
     }
     
     private func selectProvider(at row: Int) {

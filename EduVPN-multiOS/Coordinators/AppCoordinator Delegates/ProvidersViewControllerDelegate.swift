@@ -14,7 +14,7 @@ import os.log
 extension ProvidersViewController: Identifiable {}
 
 protocol ProvidersViewControllerDelegate: class {
-    func addProvider(providersViewController: ProvidersViewController)
+    func addProvider(providersViewController: ProvidersViewController, animated: Bool)
     func addPredefinedProvider(providersViewController: ProvidersViewController)
     func didSelect(instance: Instance, providersViewController: ProvidersViewController)
     func settings(providersViewController: ProvidersViewController)
@@ -29,8 +29,8 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
         addProfilesWhenNoneAvailable()
     }
 
-    func addProvider(providersViewController: ProvidersViewController) {
-        addProvider()
+    func addProvider(providersViewController: ProvidersViewController, animated: Bool) {
+        addProvider(animated: animated)
     }
     
     func addPredefinedProvider(providersViewController: ProvidersViewController) {
@@ -48,8 +48,8 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
     }
     
     func didSelect(instance: Instance, providersViewController: ProvidersViewController) {
-        print("didSelect providerType: \(providersViewController.providerType)")
-        print("didSelect instance: \(instance)")
+        os_log("Did select provider type: %{public}@ instance: %{public}@", log: Log.general, type: .info, "\(providersViewController.providerType)", "\(instance)")
+
         if providersViewController.providerType == .unknown {
             do {
                 persistentContainer.performBackgroundTask { (context) in

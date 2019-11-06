@@ -36,7 +36,11 @@ enum ProviderType: String, Codable {
             return NSLocalizedString("Local", comment: "")
             
         case .unknown:
-            return "."
+            #if os(iOS)
+            return NSLocalizedString(".", comment: "")
+            #elseif os(macOS)
+            return NSLocalizedString("Unknown", comment: "")
+            #endif
             
         }
     }

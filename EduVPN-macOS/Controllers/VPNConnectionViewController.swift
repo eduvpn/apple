@@ -86,7 +86,6 @@ class VPNConnectionViewController: NSViewController {
     }
     
     @objc private func VPNStatusDidChange(notification: NSNotification) {
-        print("VPNStatusDidChange notification: \(notification)")
         guard let status = providerManagerCoordinator.currentManager?.connection.status else {
             os_log("VPNStatusDidChange", log: Log.general, type: .debug)
             return
@@ -216,7 +215,7 @@ class VPNConnectionViewController: NSViewController {
     
     @IBAction func goBack(_ sender: Any) {
         assert(status == .disconnected)
-        mainWindowController?.dismiss()
+        mainWindowController?.popToRoot()
     }
     
     // MARK: - Log
@@ -232,7 +231,7 @@ class VPNConnectionViewController: NSViewController {
             try (Path.userApplicationSupport + "/tmp").createDirectory(withIntermediateDirectories: true)
             try connectionLogPath.createFile()
         } catch let error {
-            print("Couldn't create connectionLogPath error: \(error)")
+            os_log("Couldn't create connectionLogPath error:: %{public}@", log: Log.general, type: .error, "\(error)")
         }
         
         providerManagerCoordinator.loadLog { [weak self] in self?.saveLog($0) }
@@ -242,12 +241,12 @@ class VPNConnectionViewController: NSViewController {
         do {
             try log |> TextFile(path: connectionLogPath)
         } catch let error {
-            print("Couldn't save log error: \(error)")
+            os_log("Couldn't save log error: %{public}@", log: Log.general, type: .error, "\(error)")
         }
     }
     
     @IBAction func viewLog(_ sender: Any) {
-        print("Log file: \(connectionLogPath.url)")
+        os_log("Log file: %{public}@", log: Log.general, type: .info, "\(connectionLogPath.url)")
         NSWorkspace.shared.open(connectionLogPath.url)
     }
     

@@ -33,9 +33,6 @@ extension AppCoordinator {
         
         let displayedError = underlyingError(for: error) ?? error
         showAlert(title: NSLocalizedString("Error", comment: "Error alert title"), message: displayedError.localizedDescription)
-        #if DEBUG
-        print("error: \(error)")
-        #endif
         os_log("Error occured %{public}@", log: Log.general, type: .error, error.localizedDescription)
     }
     

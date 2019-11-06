@@ -10,18 +10,10 @@ import Cocoa
 
 class MainViewController: NSViewController {
     
-    @IBOutlet var topView: NSView!
     @IBOutlet var containerView: NSView!
-    @IBOutlet var menuButton: NSButton!
-    @IBOutlet var actionMenu: NSMenu!
-    
     @IBOutlet weak var activityIndicatorView: NSVisualEffectView!
     @IBOutlet weak var activityIndicator: NSProgressIndicator!
     @IBOutlet weak var activityLabel: NSTextField!
-    
-    @IBAction func showMenu(_ sender: NSControl) {
-        actionMenu.popUp(positioning: nil, at: sender.frame.origin, in: sender.superview)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

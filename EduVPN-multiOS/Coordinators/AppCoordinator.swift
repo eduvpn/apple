@@ -318,12 +318,16 @@ class AppCoordinator: RootViewCoordinator {
         }
     }
     
-    func addProvider() {
+    func addProvider(animated: Bool = true) {
         // We can not create a static service, so no discovery files are defined. Fall back to adding "another" service.
         if StaticService(type: .instituteAccess) == nil {
+            #if os(iOS)
             showCustomProviderInputViewController(for: .other)
+            #elseif os(macOS)
+            showProfilesViewController(animated: animated)
+            #endif
         } else {
-            showProfilesViewController()
+            showProfilesViewController(animated: animated)
         }
     }
     
