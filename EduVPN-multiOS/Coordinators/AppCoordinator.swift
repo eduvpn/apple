@@ -298,9 +298,20 @@ class AppCoordinator: RootViewCoordinator {
             }
         }.recover { (error) throws -> Promise<CertificateModel> in
             if case ApiServiceError.unauthorized = error {
+                #if os(iOS)
+                
                 return dynamicApiProvider.authorize(presentingViewController: self.navigationController).then { _ -> Promise<CertificateModel> in
                     return self.checkCertificate(api: api, for: dynamicApiProvider)
                 }
+                
+                #elseif os(macOS)
+                
+                return dynamicApiProvider.authorize().then { _ -> Promise<CertificateModel> in
+                    return self.checkCertificate(api: api, for: dynamicApiProvider)
+                }
+                
+                #endif
+               
             }
 
             throw error

@@ -30,7 +30,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4AAC1F751F2D0E3400DD0252"
-               BuildableName = "AppForce1.app"
+               BuildableName = "EduVPN.app"
                BlueprintName = "EduVPN"
                ReferencedContainer = "container:EduVPN.xcodeproj">
             </BuildableReference>
@@ -42,24 +42,25 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
+      <Testables>
+      </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4AAC1F751F2D0E3400DD0252"
-            BuildableName = "AppForce1.app"
+            BuildableName = "EduVPN.app"
             BlueprintName = "EduVPN"
             ReferencedContainer = "container:EduVPN.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <Testables>
-      </Testables>
+      <AdditionalOptions>
+      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug LetsConnect"
       selectedDebuggerIdentifier = ""
       selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
       launchStyle = "0"
-      askForAppToLaunch = "Yes"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
@@ -71,11 +72,13 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4AAC1F751F2D0E3400DD0252"
-            BuildableName = "AppForce1.app"
+            BuildableName = "EduVPN.app"
             BlueprintName = "EduVPN"
             ReferencedContainer = "container:EduVPN.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <AdditionalOptions>
+      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release LetsConnect"
@@ -89,7 +92,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4AAC1F751F2D0E3400DD0252"
-            BuildableName = "AppForce1.app"
+            BuildableName = "EduVPN.app"
             BlueprintName = "EduVPN"
             ReferencedContainer = "container:EduVPN.xcodeproj">
          </BuildableReference>

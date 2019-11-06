@@ -55,7 +55,7 @@ class Crypto {
     }
 
     private static func loadKey(name: String) -> SecKey? {
-        let tag = name.data(using: .utf8) ?? Data()
+        let tag = name
         let query: [String: Any] = [
             kSecClass as String: kSecClassKey,
             kSecAttrLabel as String: tag,

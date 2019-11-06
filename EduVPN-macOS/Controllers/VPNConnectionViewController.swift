@@ -80,7 +80,9 @@ class VPNConnectionViewController: NSViewController {
     }
     
     private func unsubscribeFromStatusChanges() {
-        NotificationCenter.default.removeObserver(self)
+        NotificationCenter.default.removeObserver(self,
+                                                  name: .NEVPNStatusDidChange,
+                                                  object: nil)
     }
     
     @objc private func VPNStatusDidChange(notification: NSNotification) {
@@ -258,6 +260,9 @@ class VPNConnectionViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        notificationsField.stringValue = ""
+        notificationsBox.isHidden = true
+        
         displayProfile()
         providerManagerCoordinator.reloadCurrentManager { _ in
             self.updateButton()
@@ -275,6 +280,7 @@ class VPNConnectionViewController: NSViewController {
                 return concreteDelegate.systemMessages(for: profile)
             }.then({ [weak self] (systemMessages) -> Guarantee<Void> in
                 self?.notificationsField.stringValue = systemMessages.displayString
+                self?.notificationsBox.isHidden = systemMessages.displayString.isEmpty
                 return Guarantee<Void>()
             })
         }

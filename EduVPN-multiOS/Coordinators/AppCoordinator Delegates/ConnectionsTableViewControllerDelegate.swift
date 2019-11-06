@@ -13,6 +13,7 @@ extension ConnectionsTableViewController: Identifiable {}
 
 protocol ConnectionsTableViewControllerDelegate: class {
     func connect(profile: Profile)
+    func noProfiles(providerTableViewController: ConnectionsTableViewController)
 }
 
 extension AppCoordinator: ConnectionsTableViewControllerDelegate {
@@ -29,4 +30,9 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
                 }
         }
     }
+    
+    func noProfiles(providerTableViewController: ConnectionsTableViewController) {
+        showNoProfilesAlert()
+    }
+    
 }

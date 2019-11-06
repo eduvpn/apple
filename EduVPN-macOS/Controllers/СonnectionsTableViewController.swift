@@ -59,7 +59,7 @@ class ConnectionsTableViewController: NSViewController {
         
         refresh()
 
-        if providerType == .unknown {
+        if profiles.isEmpty {
             delegate?.noProfiles(providerTableViewController: self)
         }
     }
