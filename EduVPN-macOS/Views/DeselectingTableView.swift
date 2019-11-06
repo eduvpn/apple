@@ -22,8 +22,8 @@ class DeselectingTableView: NSTableView {
             deselectAll(nil)
         } else if rowIndex == beforeIndex {
             deselectRow(rowIndex)
-        } else if let delegate = delegate {
-            if !delegate.tableView!(self, shouldSelectRow: rowIndex) {
+        } else if let delegate = delegate, let shouldSelectRow = delegate.tableView?(self, shouldSelectRow: rowIndex) {
+            if !shouldSelectRow {
                 deselectAll(nil)
             }
         }
