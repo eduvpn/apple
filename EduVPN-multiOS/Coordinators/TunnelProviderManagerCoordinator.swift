@@ -136,8 +136,8 @@ class TunnelProviderManagerCoordinator: Coordinator {
 
                     let configuration = builder.build()
                     
-                    print("App group: \(self.appGroup)")
-                    
+                    os_log("App group: %{public}@", log: Log.general, type: .info, self.appGroup)
+
                     let tunnelProviderProtocolConfiguration = try! configuration.generatedTunnelProtocol( //swiftlint:disable:this force_try
                         withBundleIdentifier: self.vpnBundle,
                         appGroup: self.appGroup)

@@ -8,6 +8,7 @@
 
 import Cocoa
 
+/// This screen lets the user choose what type of provider to add. It uses the same name as iOS, but has a confusing name.
 class ProfilesViewController: NSViewController {
     
     weak var delegate: ProfilesViewControllerDelegate?

@@ -36,7 +36,6 @@
 		34186D0B2298068C009B4121 /* NSError+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34186D0A2298068C009B4121 /* NSError+App.swift */; };
 		342B9CB4228ED01400C006D7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CAF228ED01400C006D7 /* main.m */; };
 		342B9CB5228ED01400C006D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 342B9CB0228ED01400C006D7 /* Assets.xcassets */; };
-		342B9CB6228ED01400C006D7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 342B9CB1228ED01400C006D7 /* Info.plist */; };
 		342B9CB7228ED01400C006D7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CB2228ED01400C006D7 /* AppDelegate.m */; };
 		342B9CBB228ED02E00C006D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 342B9CB9228ED02E00C006D7 /* Main.storyboard */; };
 		342B9CE622902BB500C006D7 /* DurationTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CD822902BB500C006D7 /* DurationTransformer.swift */; };
@@ -70,7 +69,6 @@
 		34D719E8228D75560027DE84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34D719E6228D75560027DE84 /* Main.storyboard */; };
 		34D71A92228D9C6A0027DE84 /* NSAlert+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A85228D9C690027DE84 /* NSAlert+Custom.swift */; };
 		34D71A96228D9C6A0027DE84 /* URL+Unused.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A89228D9C6A0027DE84 /* URL+Unused.swift */; };
-		34D71A98228D9C6A0027DE84 /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A8B228D9C6A0027DE84 /* Debug.swift */; };
 		34D71A9A228D9C6A0027DE84 /* String+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A8D228D9C6A0027DE84 /* String+Random.swift */; };
 		34D71AB2228DA3A00027DE84 /* String+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAC228DA39F0027DE84 /* String+URL.swift */; };
 		34D71AD6228DA4670027DE84 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 34D71AD3228DA4670027DE84 /* dsa_pub.pem */; };
@@ -303,7 +301,6 @@
 		34D719E9228D75560027DE84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		34D71A85228D9C690027DE84 /* NSAlert+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSAlert+Custom.swift"; sourceTree = "<group>"; };
 		34D71A89228D9C6A0027DE84 /* URL+Unused.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+Unused.swift"; sourceTree = "<group>"; };
-		34D71A8B228D9C6A0027DE84 /* Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
 		34D71A8D228D9C6A0027DE84 /* String+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Random.swift"; sourceTree = "<group>"; };
 		34D71AAC228DA39F0027DE84 /* String+URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+URL.swift"; sourceTree = "<group>"; };
 		34D71AD3228DA4670027DE84 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
@@ -421,6 +418,7 @@
 		C75B2CC52363141200D700EC /* config-letsconnect.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-letsconnect.json"; sourceTree = "<group>"; };
 		C75B2CC62363141200D700EC /* Developer.xcconfig.eduvpn-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer.xcconfig.eduvpn-template"; sourceTree = "<group>"; };
 		C75B2CC72363141200D700EC /* config-template.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-template.json"; sourceTree = "<group>"; };
+		C78D202A2372DF34007067B1 /* Assets-Let‘s Connect!.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets-Let‘s Connect!.xcassets"; sourceTree = "<group>"; };
 		C7C69A5E236B328200F9B8B3 /* Developer-macOS.xcconfig.eduvpn-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer-macOS.xcconfig.eduvpn-template"; sourceTree = "<group>"; };
 		C7FA7A0023633694006501E8 /* CertificateModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateModel.swift; sourceTree = "<group>"; };
 		C7FA7A0123633694006501E8 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
@@ -682,6 +680,7 @@
 		34D719EE228D75790027DE84 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				34D719E6228D75560027DE84 /* Main.storyboard */,
 				C7230D8B236324C100B9C691 /* Assets.xcassets */,
 				34D71AD5228DA4670027DE84 /* Defaults.plist */,
 				34D71AD3228DA4670027DE84 /* dsa_pub.pem */,
@@ -694,11 +693,10 @@
 			isa = PBXGroup;
 			children = (
 				34D719E0228D75550027DE84 /* AppDelegate.swift */,
-				34D719E6228D75560027DE84 /* Main.storyboard */,
 				342B9CDA22902BB500C006D7 /* MainWindowController.swift */,
 				342B9CD922902BB500C006D7 /* MainViewController.swift */,
-				343452BF22A157E000C0476E /* ProvidersViewController.swift */,
 				340A504E22A3BD9D00170E51 /* ProfilesViewController.swift */,
+				343452BF22A157E000C0476E /* ProvidersViewController.swift */,
 				34FD2AD622A9352F002AABB3 /* VPNConnectionViewController.swift */,
 				340A505322A3BF8900170E51 /* EnterProviderURLViewController.swift */,
 				3434529A22A0665600C0476E /* CoreDataFetchedResultsControllerDelegate.swift */,
@@ -715,7 +713,6 @@
 				34D71A85228D9C690027DE84 /* NSAlert+Custom.swift */,
 				34D71A8D228D9C6A0027DE84 /* String+Random.swift */,
 				34D71A89228D9C6A0027DE84 /* URL+Unused.swift */,
-				34D71A8B228D9C6A0027DE84 /* Debug.swift */,
 				34186D0A2298068C009B4121 /* NSError+App.swift */,
 			);
 			path = Extensions;
@@ -913,6 +910,7 @@
 				C75B2CAE2363138200D700EC /* Release-macOS-TunnelExtension.xcconfig */,
 				C75B2CBF2363138200D700EC /* AppVersion-macOS.xcconfig */,
 				C75B2CB32363138200D700EC /* Assets-eduVPN.xcassets */,
+				C78D202A2372DF34007067B1 /* Assets-Let‘s Connect!.xcassets */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -1038,7 +1036,6 @@
 				34D719DA228D75550027DE84 /* Sources */,
 				34D719DB228D75550027DE84 /* Frameworks */,
 				34D719DC228D75550027DE84 /* Resources */,
-				C7230D882363234E00B9C691 /* Set build number */,
 				349D85CE22B706A4006E9540 /* Embed App Extensions */,
 				91B7815FF7D024914F18FA03 /* [CP] Embed Pods Frameworks */,
 				C7EB81502369B626006C141F /* CopyFiles */,
@@ -1245,7 +1242,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				342B9CBB228ED02E00C006D7 /* Main.storyboard in Resources */,
-				342B9CB6228ED01400C006D7 /* Info.plist in Resources */,
 				342B9CB5228ED01400C006D7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1540,24 +1536,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C7230D882363234E00B9C691 /* Set build number */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Set build number";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "$SRCROOT/Scripts/set_build_number.sh\n";
-		};
 		C75B2CC923631E9900D700EC /* Copy Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1626,7 +1604,6 @@
 				343452A322A13A9500C0476E /* AppCoordinator.swift in Sources */,
 				34D71A96228D9C6A0027DE84 /* URL+Unused.swift in Sources */,
 				C7FA7A7B23633895006501E8 /* InstanceInfoModel.swift in Sources */,
-				34D71A98228D9C6A0027DE84 /* Debug.swift in Sources */,
 				C7FA7AB023633D61006501E8 /* NSManagedObjectContext+AsyncHelpers.swift in Sources */,
 				C7FA7A7D23633895006501E8 /* Message.swift in Sources */,
 				34186CDD2296B711009B4121 /* DisplayName+Convenience.swift in Sources */,
@@ -1984,7 +1961,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID)";
-				PRODUCT_NAME = eduVPN;
+				PRODUCT_NAME = "$(APP_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "EduVPN-macOS/Resources/eduVPN-Bridging-Header.h";
@@ -2010,7 +1987,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID)";
-				PRODUCT_NAME = eduVPN;
+				PRODUCT_NAME = "$(APP_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "EduVPN-macOS/Resources/eduVPN-Bridging-Header.h";

@@ -35,8 +35,12 @@ extension AppCoordinator {
         return windowController as! MainWindowController //swiftlint:disable:this force_cast
     }
     
-    internal func pushViewController(_ viewController: NSViewController) {
-        mainWindowController.show(viewController: viewController, presentation: .push)
+    internal func pushViewController(_ viewController: NSViewController, animated: Bool = true,
+                                          completion: (() -> Void)? = nil) {
+        mainWindowController.show(viewController: viewController,
+                                  presentation: .push,
+                                  animated: animated,
+                                  completionHandler: completion)
     }
     
     internal func presentViewController(_ viewController: NSViewController,
@@ -86,7 +90,7 @@ extension AppCoordinator {
         #endif
     }
     
-    internal func showProfilesViewController() {
+    internal func showProfilesViewController(animated: Bool = true) {
         let profilesVc = storyboard.instantiateViewController(type: ProfilesViewController.self).with {
             $0.delegate = self
         }
@@ -96,9 +100,9 @@ extension AppCoordinator {
             profilesVc.allowClose(allowClose)
             
             #if os(iOS)
-            pushViewController(profilesVc)
+            pushViewController(profilesVc, animated: animated)
             #elseif os(macOS)
-            presentViewController(profilesVc)
+            presentViewController(profilesVc, animated: animated)
             #endif
         } catch {
             showError(error)
@@ -112,8 +116,7 @@ extension AppCoordinator {
         }
         navigationController.pushViewController(customProviderInputVc, animated: true)
         #elseif os(macOS)
-        // TODO: Implement macOS
-        abort()
+        profilesViewControllerWantsToAddUrl()
         #endif
     }
     
@@ -164,7 +167,7 @@ extension AppCoordinator {
             #if os(iOS)
             self.presentViewController(navigationController, animated: true, completion: { seal.resolve(nil) })
             #elseif os(macOS)
-            self.presentViewController(connectionVc, animated: true, completion: { seal.resolve(nil) })
+            self.pushViewController(connectionVc, animated: true, completion: { seal.resolve(nil) })
             #endif
         })
         
@@ -178,16 +181,5 @@ extension AppCoordinator {
             .then { self.tunnelProviderManagerCoordinator.configure(profile: profile) }
             .then { self.tunnelProviderManagerCoordinator.connect() }
     }
-    
-    internal func showSettingsTableViewController() {
-        #if os(iOS)
-        let settingsVc = storyboard.instantiateViewController(type: SettingsTableViewController.self).with {
-            $0.delegate = self
-        }
-        navigationController.pushViewController(settingsVc, animated: true)
-        #elseif os(macOS)
-        // TODO: Implement macOS
-        abort()
-        #endif
-    }
+
 }
