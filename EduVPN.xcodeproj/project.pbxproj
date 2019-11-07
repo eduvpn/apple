@@ -120,6 +120,8 @@
 		8B0680A7F56DFB05A02F36F3 /* Pods_EduVPN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C537F33C8FB4D4E929A1CB68 /* Pods_EduVPN.framework */; };
 		C7230D892363240A00B9C691 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = C75B2CB42363138200D700EC /* config.json */; };
 		C7230D8C236324C100B9C691 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7230D8B236324C100B9C691 /* Assets.xcassets */; };
+		C7265C0423747A70004496B8 /* ServerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7265C0323747A70004496B8 /* ServerConfiguration.swift */; };
+		C7265C0523747A70004496B8 /* ServerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7265C0323747A70004496B8 /* ServerConfiguration.swift */; };
 		C7517542236340C900058D95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7517541236340C900058D95 /* Assets.xcassets */; };
 		C7D485232372BC22006AC96C /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1163292370539E00577755 /* Crypto.swift */; };
 		C7EB81512369B63A006C141F /* LoginItemHelper-macOS.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -389,6 +391,9 @@
 		C537F33C8FB4D4E929A1CB68 /* Pods_EduVPN.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EduVPN.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7230D8A2363248900B9C691 /* copy_resources_macos.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = copy_resources_macos.sh; sourceTree = "<group>"; };
 		C7230D8B236324C100B9C691 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C7265C0323747A70004496B8 /* ServerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfiguration.swift; sourceTree = "<group>"; };
+		C730CD6223746B4900C21AF9 /* Development-macOS-LoginItemHelper.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Development-macOS-LoginItemHelper.xcconfig"; sourceTree = "<group>"; };
+		C730CD6323746B4900C21AF9 /* Release-macOS-LoginItemHelper.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-macOS-LoginItemHelper.xcconfig"; sourceTree = "<group>"; };
 		C7517541236340C900058D95 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C75B2CA3236311D100D700EC /* CODE_OF_CONDUCT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CODE_OF_CONDUCT.md; sourceTree = "<group>"; };
 		C75B2CA4236311D100D700EC /* CHANGES.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGES.md; sourceTree = "<group>"; };
@@ -931,6 +936,8 @@
 				C7FA7A0123633694006501E8 /* Config.swift */,
 				4A1163292370539E00577755 /* Crypto.swift */,
 				C7FA7A0323633694006501E8 /* InstanceModel.swift */,
+				C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */,
+				C7265C0323747A70004496B8 /* ServerConfiguration.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1617,6 +1624,7 @@
 				343452C022A157E000C0476E /* ProvidersViewController.swift in Sources */,
 				C7FA7AB423633D61006501E8 /* FetchedResultsController.swift in Sources */,
 				340A503F22A26EC900170E51 /* AppCoordinator+Repositories.swift in Sources */,
+				C7265C0523747A70004496B8 /* ServerConfiguration.swift in Sources */,
 				C7FA7AB223633D61006501E8 /* NSManagedObject+FetchHelpers.swift in Sources */,
 				34186CDE2296B711009B4121 /* Logo+Convenience.swift in Sources */,
 				C7FA7A8523633895006501E8 /* InstanceGroup+CoreDataClass.swift in Sources */,
@@ -1718,6 +1726,7 @@
 				C7FA7A8623633895006501E8 /* Logo+CoreDataClass.swift in Sources */,
 				4A983B7B1F3972BE004F82D5 /* RootCoordinator.swift in Sources */,
 				C7FA7A9823633895006501E8 /* Logo+CoreDataProperties.swift in Sources */,
+				C7265C0423747A70004496B8 /* ServerConfiguration.swift in Sources */,
 				34186D08229802E1009B4121 /* FileService.swift in Sources */,
 				3434528E229FF33100C0476E /* VPNConnectionViewControllerDelegate.swift in Sources */,
 				C7FA7A8223633895006501E8 /* AuthServer+CoreDataProperties.swift in Sources */,

@@ -173,6 +173,8 @@ class VPNConnectionViewController: NSViewController {
         connectionInfoUpdateTimer = nil
     }
     
+    private lazy var decoder = JSONDecoder()
+    
     func updateConnectionInfo() {
         guard
             let vpn = providerManagerCoordinator.currentManager?.connection as? NETunnelProviderSession,
@@ -181,9 +183,16 @@ class VPNConnectionViewController: NSViewController {
         
         // IP
         
-        // TODO:
-        ipv4AddressField.stringValue = ""
-        ipv6AddressField.stringValue = ""
+        try? vpn.sendProviderMessage(OpenVPNTunnelProvider.Message.serverConfiguration.data) { [weak self] data in
+            guard let data = data, let serverConfiguration = try? self?.decoder.decode(ServerConfiguration.self, from: data) else {
+                self?.ipv4AddressField.stringValue = ""
+                self?.ipv6AddressField.stringValue = ""
+                return
+            }
+            
+            self?.ipv4AddressField.stringValue = serverConfiguration.ipv4?.address ?? ""
+            self?.ipv6AddressField.stringValue = serverConfiguration.ipv6?.address ?? ""
+        }
         
         // Interval
         
