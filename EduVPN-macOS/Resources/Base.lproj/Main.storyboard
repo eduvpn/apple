@@ -421,11 +421,30 @@
                                             <real value="3.4028234663852886e+38"/>
                                         </customSpacing>
                                     </stackView>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="txC-08-fky">
+                                        <rect key="frame" x="19" y="528" width="39" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="37" id="Bn6-HJ-DFD"/>
+                                            <constraint firstAttribute="width" constant="37" id="v5X-3G-nPI"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="NSStopProgressTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Kbn-8S-ohZ">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                            <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="cancel:" target="khn-a8-CTC" id="1C7-gk-bTL"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="1bo-XI-U6o" firstAttribute="centerY" secondItem="dj6-Ha-xoy" secondAttribute="centerY" id="7gJ-nn-Bfa"/>
                                     <constraint firstItem="1bo-XI-U6o" firstAttribute="centerX" secondItem="dj6-Ha-xoy" secondAttribute="centerX" id="Tra-LZ-7E8"/>
                                     <constraint firstItem="1bo-XI-U6o" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dj6-Ha-xoy" secondAttribute="leading" constant="40" id="gHF-Ds-c5o"/>
+                                    <constraint firstItem="txC-08-fky" firstAttribute="top" secondItem="dj6-Ha-xoy" secondAttribute="top" constant="8" id="qgs-4a-3YU"/>
+                                    <constraint firstItem="txC-08-fky" firstAttribute="leading" secondItem="dj6-Ha-xoy" secondAttribute="leading" constant="20" id="vC3-V0-J0P"/>
                                 </constraints>
                             </visualEffectView>
                         </subviews>
@@ -440,6 +459,7 @@
                         <outlet property="activityIndicator" destination="Hva-WR-6dW" id="ZNP-bj-lw0"/>
                         <outlet property="activityIndicatorView" destination="dj6-Ha-xoy" id="PRY-2J-ZuF"/>
                         <outlet property="activityLabel" destination="upx-U1-bwG" id="HQK-VK-aW1"/>
+                        <outlet property="cancelButton" destination="txC-08-fky" id="wGk-TV-eoA"/>
                         <outlet property="containerView" destination="J99-In-5OI" id="UQf-Z5-Npz"/>
                     </connections>
                 </viewController>
@@ -1926,7 +1946,7 @@ Gw
         <image name="NSLeftFacingTriangleTemplate" width="9" height="12"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="NSStopProgressTemplate" width="11" height="11"/>
-        <image name="disconnected" width="44" height="55"/>
+        <image name="disconnected" width="44" height="37"/>
         <image name="secure_access" width="90" height="90"/>
         <image name="secure_internet" width="90" height="90"/>
         <namedColor name="Primary Color">

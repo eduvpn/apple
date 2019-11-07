@@ -19,7 +19,24 @@ extension AppCoordinator {
     
     public func dueToUserCancellation(error: Error) -> Bool {
         let error = error as NSError
-        return error.domain == OIDGeneralErrorDomain && (error.code == OIDErrorCode.programCanceledAuthorizationFlow.rawValue || error.code == OIDErrorCode.userCanceledAuthorizationFlow.rawValue)
+        switch error.domain {
+        case OIDGeneralErrorDomain:
+            switch error.code {
+            case OIDErrorCode.programCanceledAuthorizationFlow.rawValue, OIDErrorCode.userCanceledAuthorizationFlow.rawValue:
+                return true
+            default:
+                return false
+            }
+        case "eduVPN.PromiseCancelledError":
+            switch error.code {
+            case 1:
+                return true
+            default:
+                return false
+            }
+        default:
+            return false
+        }
     }
     
     public func underlyingError(for error: Error) -> Error? {

@@ -159,7 +159,7 @@ class ProvidersViewController: UITableViewController {
         if Config.shared.predefinedProvider != nil {
             delegate?.addPredefinedProvider(providersViewController: self)
         } else {
-            delegate?.addProvider(providersViewController: self)
+            delegate?.addProvider(providersViewController: self, animated: true)
         }
     }
     
