@@ -15,8 +15,8 @@ extension AppCoordinator {
     
     #if os(iOS)
     
-    internal func pushViewController(_ viewController: UIViewController) {
-        navigationController.pushViewController(viewController, animated: true)
+    internal func pushViewController(_ viewController: UIViewController, animated: Bool = true) {
+        navigationController.pushViewController(viewController, animated: animated)
     }
     
     internal func presentViewController(_ viewController: UIViewController,

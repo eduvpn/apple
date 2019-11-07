@@ -112,6 +112,16 @@ struct DynamicApiService: TargetType, AcceptJson {
     var sampleData: Data { return apiService.sampleData }
 }
 
+#if os(macOS)
+extension OIDRedirectHTTPHandler: Cancellable {
+    
+    public func cancel() {
+        cancelHTTPListener()
+    }
+    
+}
+#endif
+
 class DynamicApiProvider: MoyaProvider<DynamicApiService> {
     
     #if os(macOS)
@@ -197,12 +207,12 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
     
     #elseif os(macOS)
     
-    public func authorize() -> Promise<OIDAuthState> {
-        return Promise(resolver: { seal in
-            currentAuthorizationFlow = OIDAuthState.authState(byPresenting: self.makeAuthorizeRequest(),
+    public func authorize() -> CancellablePromise<OIDAuthState> {
+        return CancellablePromise(resolver: { seal in
+            self.currentAuthorizationFlow = OIDAuthState.authState(byPresenting: self.makeAuthorizeRequest(),
                                                               callback: self.makeAuthorizeCallback(seal))
-            redirectHttpHandler.currentAuthorizationFlow = currentAuthorizationFlow
-        })
+            self.redirectHttpHandler.currentAuthorizationFlow = self.currentAuthorizationFlow
+        }, cancellable: redirectHttpHandler)
     }
     
     #endif
