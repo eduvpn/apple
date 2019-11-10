@@ -122,6 +122,8 @@
 		C7230D8C236324C100B9C691 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7230D8B236324C100B9C691 /* Assets.xcassets */; };
 		C7517542236340C900058D95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7517541236340C900058D95 /* Assets.xcassets */; };
 		C7D485232372BC22006AC96C /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1163292370539E00577755 /* Crypto.swift */; };
+		C7D8E1D523742A4E009536C9 /* CancellablePromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */; };
+		C7D8E1D623742A4E009536C9 /* CancellablePromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */; };
 		C7EB81512369B63A006C141F /* LoginItemHelper-macOS.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C7FA7A0E23633694006501E8 /* CertificateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A0023633694006501E8 /* CertificateModel.swift */; };
 		C7FA7A0F23633694006501E8 /* CertificateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A0023633694006501E8 /* CertificateModel.swift */; };
@@ -420,6 +422,7 @@
 		C75B2CC72363141200D700EC /* config-template.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-template.json"; sourceTree = "<group>"; };
 		C78D202A2372DF34007067B1 /* Assets-Let’s Connect!.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets-Let’s Connect!.xcassets"; sourceTree = "<group>"; };
 		C7C69A5E236B328200F9B8B3 /* Developer-macOS.xcconfig.eduvpn-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer-macOS.xcconfig.eduvpn-template"; sourceTree = "<group>"; };
+		C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancellablePromise.swift; sourceTree = "<group>"; };
 		C7FA7A0023633694006501E8 /* CertificateModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateModel.swift; sourceTree = "<group>"; };
 		C7FA7A0123633694006501E8 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		C7FA7A0323633694006501E8 /* InstanceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceModel.swift; sourceTree = "<group>"; };
@@ -931,6 +934,7 @@
 				C7FA7A0123633694006501E8 /* Config.swift */,
 				4A1163292370539E00577755 /* Crypto.swift */,
 				C7FA7A0323633694006501E8 /* InstanceModel.swift */,
+				C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1123,12 +1127,12 @@
 				TargetAttributes = {
 					342B9C98228ECFDB00C006D7 = {
 						CreatedOnToolsVersion = 10.2.1;
-						DevelopmentTeam = ZYJ4TZX4UU;
+						DevelopmentTeam = CRU5YWAZ4Y;
 						ProvisioningStyle = Automatic;
 					};
 					349D85C122B706A4006E9540 = {
 						CreatedOnToolsVersion = 10.2.1;
-						DevelopmentTeam = ZYJ4TZX4UU;
+						DevelopmentTeam = CRU5YWAZ4Y;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.Mac = {
@@ -1147,7 +1151,7 @@
 					};
 					34D719DD228D75550027DE84 = {
 						CreatedOnToolsVersion = 10.2.1;
-						DevelopmentTeam = ZYJ4TZX4UU;
+						DevelopmentTeam = CRU5YWAZ4Y;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.Mac = {
@@ -1641,6 +1645,7 @@
 				C7FA7A9123633895006501E8 /* Profile+CoreDataProperties.swift in Sources */,
 				34186CF52297CE19009B4121 /* Moya+Promise.swift in Sources */,
 				C7FA7A7923633895006501E8 /* ProfilesRepository.swift in Sources */,
+				C7D8E1D623742A4E009536C9 /* CancellablePromise.swift in Sources */,
 				340A504422A2702D00170E51 /* TunnelProviderManagerCoordinatorDelegate.swift in Sources */,
 				3434529F22A137B700C0476E /* DeselectingTableView.swift in Sources */,
 				34186CE02296B7BC009B4121 /* UserDefaults+EduVPN.swift in Sources */,
@@ -1721,6 +1726,7 @@
 				34186D08229802E1009B4121 /* FileService.swift in Sources */,
 				3434528E229FF33100C0476E /* VPNConnectionViewControllerDelegate.swift in Sources */,
 				C7FA7A8223633895006501E8 /* AuthServer+CoreDataProperties.swift in Sources */,
+				C7D8E1D523742A4E009536C9 /* CancellablePromise.swift in Sources */,
 				34345291229FF33100C0476E /* CustomProviderInputViewControllerDelegate.swift in Sources */,
 				34345293229FF33100C0476E /* TunnelProviderManagerCoordinatorDelegate.swift in Sources */,
 				34345290229FF33100C0476E /* SettingsTableViewControllerDelegate.swift in Sources */,

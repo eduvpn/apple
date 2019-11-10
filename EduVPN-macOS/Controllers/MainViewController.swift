@@ -11,10 +11,13 @@ import Cocoa
 class MainViewController: NSViewController {
     
     @IBOutlet var containerView: NSView!
+    @IBOutlet weak var cancelButton: NSButton!
     @IBOutlet weak var activityIndicatorView: NSVisualEffectView!
     @IBOutlet weak var activityIndicator: NSProgressIndicator!
     @IBOutlet weak var activityLabel: NSTextField!
     
+    var cancellable: Cancellable?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.wantsLayer = true
@@ -53,4 +56,9 @@ class MainViewController: NSViewController {
     var currentViewController: NSViewController {
         return children[0]
     }
+    
+    @IBAction func cancel(_ sender: Any) {
+        cancellable?.cancel()
+    }
+    
 }

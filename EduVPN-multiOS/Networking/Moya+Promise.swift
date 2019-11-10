@@ -11,7 +11,7 @@ import PromiseKit
 
 public extension MoyaProvider {
     
-    typealias PendingRequestPromise = (promise: Promise<Moya.Response>, cancellable: Cancellable)
+    typealias PendingRequestPromise = (promise: Promise<Moya.Response>, cancellable: Moya.Cancellable)
     
     func request(target: Target,
                  queue: DispatchQueue? = nil,
