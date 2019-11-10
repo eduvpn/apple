@@ -178,7 +178,9 @@ class TunnelProviderManagerCoordinator: Coordinator {
         return Promise(resolver: { resolver in
             let session = self.currentManager?.connection as? NETunnelProviderSession
             do {
+                #if os(iOS)
                 self.currentManager?.isOnDemandEnabled = UserDefaults.standard.onDemand
+                #endif
                 try session?.startTunnel()
                 resolver.resolve(Result.fulfilled(()))
             } catch let error {
