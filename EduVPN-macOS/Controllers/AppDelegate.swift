@@ -179,4 +179,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
     }
+    
+    @IBAction func showSupportURL(_ sender: Any?) {
+        guard let url = Config.shared.supportURL else {
+            return
+        }
+        NSWorkspace.shared.open(url)
+    }
+    
 }

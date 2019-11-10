@@ -16,12 +16,14 @@ import NVActivityIndicatorView
 
 extension AppCoordinator {
     
-    private func showActivityIndicator(messageKey: String) {
+    private func showActivityIndicator(messageKey: String, cancellable: Cancellable? = nil) {
         #if os(iOS)
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(ActivityData(), nil)
         #elseif os(macOS)
         mainWindowController.mainViewController.activityIndicatorView.isHidden = false
         mainWindowController.mainViewController.activityIndicator.startAnimation(nil)
+        mainWindowController.mainViewController.cancelButton.isHidden = cancellable == nil
+        mainWindowController.mainViewController.cancellable = cancellable
         #endif
         setActivityIndicatorMessage(key: messageKey)
     }
@@ -40,6 +42,7 @@ extension AppCoordinator {
         #elseif os(macOS)
         mainWindowController.mainViewController.activityIndicatorView.isHidden = true
         mainWindowController.mainViewController.activityIndicator.stopAnimation(nil)
+        mainWindowController.mainViewController.cancellable = nil
         #endif
     }
     
@@ -113,12 +116,11 @@ extension AppCoordinator {
                     self.authorizingDynamicApiProvider = dynamicApiProvider
                     #if os(iOS)
                     let authorizeRequest = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
-
+                    self.showActivityIndicator(messageKey: "Authorizing with provider")
                     #elseif os(macOS)
                     let authorizeRequest = dynamicApiProvider.authorize()
+                    self.showActivityIndicator(messageKey: "Authorizing with provider", cancellable: authorizeRequest)
                     #endif
-                    
-                    self.showActivityIndicator(messageKey: "Authorizing with provider")
                                 
                     return authorizeRequest.then { _ -> Promise<[String]> in
                         self.hideActivityIndicator()
@@ -158,11 +160,12 @@ extension AppCoordinator {
                     self.authorizingDynamicApiProvider = dynamicApiProvider
                     #if os(iOS)
                     let authorizeRequest = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
+                    self.showActivityIndicator(messageKey: "Authorizing with provider")
                     #elseif os(macOS)
                     let authorizeRequest = dynamicApiProvider.authorize()
+                    self.showActivityIndicator(messageKey: "Authorizing with provider", cancellable: authorizeRequest)
                     #endif
                     
-                    self.showActivityIndicator(messageKey: "Authorizing with provider")
                     return authorizeRequest
                         .then { _ -> Promise<Void> in
                             self.hideActivityIndicator()
@@ -178,11 +181,12 @@ extension AppCoordinator {
                     self.authorizingDynamicApiProvider = dynamicApiProvider
                     #if os(iOS)
                     let authorizeRequest = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
+                    self.showActivityIndicator(messageKey: "Authorizing with provider")
                     #elseif os(macOS)
                     let authorizeRequest = dynamicApiProvider.authorize()
+                    self.showActivityIndicator(messageKey: "Authorizing with provider", cancellable: authorizeRequest)
                     #endif
                     
-                    self.showActivityIndicator(messageKey: "Authorizing with provider")
                     return authorizeRequest
                         .then { _ -> Promise<Void> in
                             self.hideActivityIndicator()
