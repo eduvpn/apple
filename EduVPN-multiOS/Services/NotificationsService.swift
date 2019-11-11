@@ -30,12 +30,12 @@ struct NotificationsService {
                                  callback: ((Error?) -> Void)? = nil) {
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: repeats)
-        let request = UNNotificationRequest(identifier: identifier, content: UNMutableNotificationContent().with {
-            $0.title = notification.title
-            if let body = notification.body {
-                $0.body = body
-            }
-        }, trigger: trigger)
+        let notificationContent = UNMutableNotificationContent()
+        notificationContent.title = notification.title
+        if let body = notification.body {
+            notificationContent.body = body
+        }
+        let request = UNNotificationRequest(identifier: identifier, content: notificationContent, trigger: trigger)
         UNUserNotificationCenter.current().add(request, withCompletionHandler: callback)
     }
     
@@ -49,21 +49,22 @@ struct NotificationsService {
         
         if #available(OSX 10.14, *) {
             let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: repeats)
-            let request = UNNotificationRequest(identifier: identifier, content: UNMutableNotificationContent().with {
-                $0.title = notification.title
-                if let body = notification.body {
-                    $0.body = body
-                }
-            }, trigger: trigger)
+            let notificationContent = UNMutableNotificationContent()
+            notificationContent.title = notification.title
+            if let body = notification.body {
+                notificationContent.body = body
+            }
+            let request = UNNotificationRequest(identifier: identifier, content: notificationContent, trigger: trigger)
             
             UNUserNotificationCenter.current().add(request, withCompletionHandler: callback)
         } else {
-            NSUserNotificationCenter.default.scheduleNotification(NSUserNotification().with {
-                $0.title = notification.title
-                $0.informativeText = notification.body
-                $0.deliveryDate = NSCalendar.current.date(from: triggerDate)
-                // TODO: support `repeats` for notification
-            })
+            let payload = NSUserNotification()
+            payload.title = notification.title
+            payload.informativeText = notification.body
+            payload.deliveryDate = NSCalendar.current.date(from: triggerDate)
+            // TODO: support `repeats` for notification
+
+            NSUserNotificationCenter.default.scheduleNotification(payload)
             
             callback?(nil)
         }
