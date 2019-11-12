@@ -165,6 +165,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire-macOS/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/AppAuth-macOS/AppAuth.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FileKit-macOS/FileKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Kingfisher-macOS/Kingfisher.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Moya-macOS/Moya.framework"
   install_framework "${PODS_ROOT}/OpenSSL-Apple/frameworks/MacOSX/openssl.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PromiseKit-macOS/PromiseKit.framework"
@@ -172,7 +173,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyBeaver-macOS/SwiftyBeaver.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TunnelKit-macOS/TunnelKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/libsodium-macOS/libsodium.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
@@ -180,6 +180,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire-macOS/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/AppAuth-macOS/AppAuth.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FileKit-macOS/FileKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Kingfisher-macOS/Kingfisher.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Moya-macOS/Moya.framework"
   install_framework "${PODS_ROOT}/OpenSSL-Apple/frameworks/MacOSX/openssl.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PromiseKit-macOS/PromiseKit.framework"
@@ -187,7 +188,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyBeaver-macOS/SwiftyBeaver.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TunnelKit-macOS/TunnelKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/libsodium-macOS/libsodium.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
