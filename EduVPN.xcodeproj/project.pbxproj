@@ -1432,7 +1432,6 @@
 				"${BUILT_PRODUCTS_DIR}/ASN1Decoder-iOS/ASN1Decoder.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AppAuth-iOS/AppAuth.framework",
-				"${BUILT_PRODUCTS_DIR}/FileKit-iOS/FileKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher-iOS/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya-iOS/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
@@ -1448,7 +1447,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ASN1Decoder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FileKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
@@ -1474,7 +1472,6 @@
 				"${BUILT_PRODUCTS_DIR}/ASN1Decoder-macOS/ASN1Decoder.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-macOS/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AppAuth-macOS/AppAuth.framework",
-				"${BUILT_PRODUCTS_DIR}/FileKit-macOS/FileKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher-macOS/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya-macOS/Moya.framework",
 				"${PODS_ROOT}/OpenSSL-Apple/frameworks/MacOSX/openssl.framework",
@@ -1483,6 +1480,7 @@
 				"${BUILT_PRODUCTS_DIR}/SwiftyBeaver-macOS/SwiftyBeaver.framework",
 				"${BUILT_PRODUCTS_DIR}/TunnelKit-macOS/TunnelKit.framework",
 				"${BUILT_PRODUCTS_DIR}/libsodium-macOS/libsodium.framework",
+				"${BUILT_PRODUCTS_DIR}/FileKit/FileKit.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -1490,7 +1488,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ASN1Decoder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FileKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
@@ -1499,6 +1496,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyBeaver.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TunnelKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libsodium.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FileKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

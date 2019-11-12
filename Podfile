@@ -30,7 +30,6 @@ target 'EduVPN' do
   pod 'Moya'
   pod 'NVActivityIndicatorView'
   pod 'PromiseKit/CorePromise'
-  pod 'FileKit', '~> 5.2.0'
 end
 
 target 'EduVPNTunnelExtension' do
@@ -47,7 +46,7 @@ target 'EduVPN-macOS' do
   pod 'Moya'
   pod 'PromiseKit/CorePromise'
   pod 'ReachabilitySwift', '~> 4.3.1'
-  pod 'FileKit', '~> 5.2.0'
+  pod 'FileKit'
 end
 
 target 'EduVPNTunnelExtension-macOS' do
