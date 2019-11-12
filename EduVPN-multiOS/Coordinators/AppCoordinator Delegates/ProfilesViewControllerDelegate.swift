@@ -87,17 +87,15 @@ extension AppCoordinator: ProfilesViewControllerDelegate {
             return
         }
         
-        NSOpenPanel().do {
-            $0.canChooseFiles = true
-            $0.canChooseDirectories = false
-            $0.allowedFileTypes = ["ovpn"]
-            $0.prompt = NSLocalizedString("Add", comment: "")
-            
-            let panel = $0
-            $0.beginSheetModal(for: window) { response in
-                if response == .OK, let url = panel.urls.first {
-                    self.chooseConfigFile(configFileURL: url)
-                }
+        let panel = NSOpenPanel()
+        panel.canChooseFiles = true
+        panel.canChooseDirectories = false
+        panel.allowedFileTypes = ["ovpn"]
+        panel.prompt = NSLocalizedString("Add", comment: "")
+
+        panel.beginSheetModal(for: window) { response in
+            if response == .OK, let url = panel.urls.first {
+                self.chooseConfigFile(configFileURL: url)
             }
         }
     }

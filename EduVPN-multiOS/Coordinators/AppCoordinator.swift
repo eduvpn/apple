@@ -130,13 +130,11 @@ class AppCoordinator: RootViewCoordinator {
         providersViewController = storyboard.instantiateViewController(type: ProvidersViewController.self)
         #endif
         
-        providersViewController.do {
-            persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
-            $0.viewContext = persistentContainer.viewContext
-            $0.delegate = self
-            $0.providerManagerCoordinator = tunnelProviderManagerCoordinator
-        }
-        
+        persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
+        providersViewController.viewContext = persistentContainer.viewContext
+        providersViewController.delegate = self
+        providersViewController.providerManagerCoordinator = tunnelProviderManagerCoordinator
+
         #if os(iOS)
         navigationController.viewControllers = [providersViewController]
         #elseif os(macOS)

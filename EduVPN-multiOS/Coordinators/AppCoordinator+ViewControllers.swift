@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 import PromiseKit
-import Then
 
 extension AppCoordinator {
     
@@ -58,18 +57,15 @@ extension AppCoordinator {
     }
     
     internal func dismissViewController() {
-        mainWindowController.do {
-            $0.close(viewController: $0.navigationStackStack.last!.last!)
-        }
+        mainWindowController.close(viewController: mainWindowController.navigationStackStack.last!.last!)
     }
     
     #endif
     
     internal func showSettings() {
         #if os(iOS)
-        let settingsVc = storyboard.instantiateViewController(type: SettingsTableViewController.self).with {
-            $0.delegate = self
-        }
+        let settingsVc = storyboard.instantiateViewController(type: SettingsTableViewController.self)
+        settingsVc.delegate = self
         navigationController.pushViewController(settingsVc, animated: true)
         #elseif os(macOS)
         // TODO: Implement macOS
@@ -78,11 +74,10 @@ extension AppCoordinator {
     }
     
     internal func showConnectionsTableViewController(for instance: Instance) {
-        let connectionsVc = storyboard.instantiateViewController(type: ConnectionsTableViewController.self).with {
-            $0.delegate = self
-            $0.instance = instance
-            $0.viewContext = persistentContainer.viewContext
-        }
+        let connectionsVc = storyboard.instantiateViewController(type: ConnectionsTableViewController.self)
+        connectionsVc.delegate = self
+        connectionsVc.instance = instance
+        connectionsVc.viewContext = persistentContainer.viewContext
         #if os(iOS)
         navigationController.pushViewController(connectionsVc, animated: true)
         #elseif os(macOS)
@@ -91,10 +86,9 @@ extension AppCoordinator {
     }
     
     internal func showProfilesViewController(animated: Bool = true) {
-        let profilesVc = storyboard.instantiateViewController(type: ProfilesViewController.self).with {
-            $0.delegate = self
-        }
-        
+        let profilesVc = storyboard.instantiateViewController(type: ProfilesViewController.self)
+        profilesVc.delegate = self
+
         do {
             let allowClose = try Profile.countInContext(persistentContainer.viewContext) != 0
             profilesVc.allowClose(allowClose)
@@ -111,9 +105,9 @@ extension AppCoordinator {
     
     internal func showCustomProviderInputViewController(for providerType: ProviderType) {
         #if os(iOS)
-        let customProviderInputVc = storyboard.instantiateViewController(type: CustomProviderInputViewController.self).with {
-            $0.delegate = self
-        }
+        let customProviderInputVc = storyboard.instantiateViewController(type: CustomProviderInputViewController.self)
+        customProviderInputVc.delegate = self
+
         navigationController.pushViewController(customProviderInputVc, animated: true)
         #elseif os(macOS)
         profilesViewControllerWantsToAddUrl()
@@ -131,14 +125,12 @@ extension AppCoordinator {
         }
         #endif
         
-        providersVc.do {
-            $0.providerType = providerType
-            $0.viewContext = persistentContainer.viewContext
-            $0.delegate = self
-            $0.selectingConfig = true
-            $0.providerType = providerType
-        }
-        
+        providersVc.providerType = providerType
+        providersVc.viewContext = persistentContainer.viewContext
+        providersVc.delegate = self
+        providersVc.selectingConfig = true
+        providersVc.providerType = providerType
+
         pushViewController(providersVc)
         
         // Required for startup safety purpose
@@ -150,17 +142,15 @@ extension AppCoordinator {
     }
     
     internal func showConnectionViewController(for profile: Profile) -> Promise<Void> {
-        let connectionVc = storyboard.instantiateViewController(type: VPNConnectionViewController.self).then {
-            $0.providerManagerCoordinator = tunnelProviderManagerCoordinator
-            $0.delegate = self
-            $0.profile = profile
-        }
-        
+        let connectionVc = storyboard.instantiateViewController(type: VPNConnectionViewController.self)
+        connectionVc.providerManagerCoordinator = tunnelProviderManagerCoordinator
+        connectionVc.delegate = self
+        connectionVc.profile = profile
+
         #if os(iOS)
-        let navigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(type: UINavigationController.self).with {
-            $0.viewControllers = [connectionVc]
-            $0.modalPresentationStyle = .pageSheet
-        }
+        let navigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(type: UINavigationController.self)
+        navigationController.viewControllers = [connectionVc]
+        navigationController.modalPresentationStyle = .pageSheet
         #endif
         
         let presentationPromise = Promise<Void>(resolver: { seal in
