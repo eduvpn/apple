@@ -29,7 +29,7 @@ class EduVPNTests: XCTestCase {
     }
 
     func testFailure() {
-        XCTFail("This is an intentional failure to validate pull requests.")
+//        XCTFail("This is an intentional failure to validate pull requests.")
     }
 
     func testConfig() {
