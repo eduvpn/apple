@@ -15,5 +15,7 @@ jobs:
       run: cp EduVPN/Config/Developer.xcconfig.eduvpn-template EduVPN/Config/Developer.xcconfig
     - name: Prepare config.json
       run: cp EduVPN/Config/config-eduvpn_dev.json EduVPN/Config/config.json
+    - name: Prepare assets
+      run: cp -r EduVPN/Config/Assets-EduVPN.xcassets EduVPN/Resources/Assets.xcassets
     - name: Run tests
       run: xcodebuild test -scheme EduVPN -workspace EduVPN.xcworkspace -destination 'platform=iOS Simulator,name=iPhone 11,OS=13.2' | xcpretty && exit ${PIPESTATUS[0]}
