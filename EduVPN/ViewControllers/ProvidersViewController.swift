@@ -6,11 +6,12 @@
 //  Copyright © 2017 SURFNet. All rights reserved.
 //
 
-import AlamofireImage
 import CoreData
 import NetworkExtension
 import os.log
 import UIKit
+
+import Kingfisher
 
 class ProviderTableViewCell: UITableViewCell {
     
@@ -57,10 +58,10 @@ class ProviderTableViewCell: UITableViewCell {
         }
         
         if let logoString = instance.logos?.localizedValue, let logoUrl = URL(string: logoString) {
-            providerImageView?.af_setImage(withURL: logoUrl)
+            providerImageView?.kf.setImage(with: logoUrl)
             providerImageView.isHidden = false
         } else {
-            providerImageView.af_cancelImageRequest()
+            providerImageView.kf.cancelDownloadTask()
             providerImageView.image = nil
             providerImageView.isHidden = true
         }

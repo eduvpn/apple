@@ -23,14 +23,13 @@ end
 target 'EduVPN' do
   pods_ios
 
-  pod 'AlamofireImage'
+  pod 'Kingfisher'
   pod 'AppAuth', :git => 'https://github.com/openid/AppAuth-iOS.git'
   pod 'ASN1Decoder'
   pod 'libsodium'
   pod 'Moya'
   pod 'NVActivityIndicatorView'
   pod 'PromiseKit/CorePromise'
-  pod 'FileKit', '~> 5.2.0'
 end
 
 target 'EduVPNTunnelExtension' do
@@ -42,12 +41,12 @@ target 'EduVPN-macOS' do
   
   pod 'AppAuth', :git => 'https://github.com/openid/AppAuth-iOS.git'
   pod 'ASN1Decoder'
-  pod 'Kingfisher', '~> 5.5.0'
+  pod 'Kingfisher'
   pod 'libsodium'
   pod 'Moya'
   pod 'PromiseKit/CorePromise'
   pod 'ReachabilitySwift', '~> 4.3.1'
-  pod 'FileKit', '~> 5.2.0'
+  pod 'FileKit'
 end
 
 target 'EduVPNTunnelExtension-macOS' do
