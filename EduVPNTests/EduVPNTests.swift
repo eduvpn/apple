@@ -28,6 +28,10 @@ class EduVPNTests: XCTestCase {
         super.tearDown()
     }
 
+    func testFailure() {
+        XCTFail("This is an intentional failure to validate pull requests.")
+    }
+
     func testConfig() {
         let actual = Config.shared.clientId
         let expected = "org.eduvpn.app.ios"
