@@ -35,4 +35,4 @@ jobs:
     - name: Prepare assets
       run: cp -r EduVPN-macOS/Config/Assets-eduVPN.xcassets EduVPN/Resources/Assets-macOS.xcassets
     - name: Run MacOS build
-      run: xcodebuild build -scheme EduVPN-macOS -workspace EduVPN.xcworkspace -destination 'platform=macOS' | xcpretty && exit ${PIPESTATUS[0]}
+      run: xcodebuild build -scheme EduVPN-macOS -workspace EduVPN.xcworkspace -destination 'platform=macOS' CODE_SIGNING_ALLOWED=NO | xcpretty && exit ${PIPESTATUS[0]}
