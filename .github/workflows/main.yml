@@ -3,8 +3,8 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  build:
-
+  build-ios:
+    name: Build and test iOS target
     runs-on: macOS-latest
 
     steps:
@@ -17,5 +17,22 @@ jobs:
       run: cp EduVPN/Config/config-eduvpn_dev.json EduVPN/Config/config.json
     - name: Prepare assets
       run: cp -r EduVPN/Config/Assets-EduVPN.xcassets EduVPN/Resources/Assets.xcassets
-    - name: Run tests
+    - name: Run iOS tests
       run: xcodebuild test -scheme EduVPN -workspace EduVPN.xcworkspace -destination 'platform=iOS Simulator,name=iPhone 11,OS=13.2' | xcpretty && exit ${PIPESTATUS[0]}
+
+  build-macos:
+    name: Build macOS target
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Select Xcode
+      run: sudo xcode-select -switch /Applications/Xcode_11.2.app
+    - name: Prepare Developer-macos.xcconfig
+      run: cp EduVPN-macOS/Config/Developer-macos.xcconfig.eduvpn-template EduVPN-macOS/Config/Developer-macos.xcconfig
+    - name: Prepare config.json
+      run: cp EduVPN-macOS/Config/config-eduvpn_dev.json EduVPN-macOS/Config/config.json
+    - name: Prepare assets
+      run: cp -r EduVPN-macOS/Config/Assets-eduVPN.xcassets EduVPN/Resources/Assets-macOS.xcassets
+    - name: Run MacOS build
+      run: xcodebuild build -scheme EduVPN-macOS -workspace EduVPN.xcworkspace -destination 'platform=macOS' | xcpretty && exit ${PIPESTATUS[0]}
