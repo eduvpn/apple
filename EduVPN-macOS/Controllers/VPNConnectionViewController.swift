@@ -10,7 +10,6 @@ import os.log
 import Cocoa
 import FileKit
 import NetworkExtension
-import Kingfisher
 import TunnelKit
 import PromiseKit
 
@@ -39,10 +38,10 @@ class VPNConnectionViewController: NSViewController {
             .joined(separator: "\n")
         
         if let logo = profile.api?.instance?.logos?.localizedValue, let logoUri = URL(string: logo) {
-            providerImage.kf.setImage(with: logoUri)
+            updateImage(with: logoUri)
             providerInfoStackView.isHidden = false
         } else {
-            providerImage.kf.cancelDownloadTask()
+            cancelImageDownload()
             providerImage.image = nil
             providerInfoStackView.isHidden = true
         }
