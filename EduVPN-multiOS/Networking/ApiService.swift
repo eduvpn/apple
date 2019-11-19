@@ -35,7 +35,6 @@ enum ApiServiceError: Swift.Error {
 
 enum ApiService {
     case profileList
-    case userInfo
     case createKeypair(displayName: String)
     case checkCertificate(commonName: String)
     case profileConfig(profileId: String)
@@ -49,9 +48,6 @@ extension ApiService {
             
         case .profileList:
             return "/profile_list"
-            
-        case .userInfo:
-            return "/user_info"
             
         case .createKeypair:
             return "/create_keypair"
@@ -71,7 +67,7 @@ extension ApiService {
     var method: Moya.Method {
         switch self {
             
-        case .profileList, .userInfo, .profileConfig, .systemMessages, .checkCertificate:
+        case .profileList, .profileConfig, .systemMessages, .checkCertificate:
             return .get
             
         case .createKeypair:
@@ -83,7 +79,7 @@ extension ApiService {
     var task: Task {
         switch self {
             
-        case .profileList, .userInfo, .systemMessages:
+        case .profileList, .systemMessages:
             return .requestPlain
             
         case .createKeypair(let displayName):
