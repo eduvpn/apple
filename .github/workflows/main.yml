@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Select Xcode
-      run: sudo xcode-select -switch /Applications/Xcode_11.2.app
+      run: sudo xcode-select -switch /Applications/Xcode_11.2.1.app && /usr/bin/xcodebuild -version
     - name: Prepare Developer.xcconfig
       run: cp EduVPN/Config/Developer.xcconfig.eduvpn-template EduVPN/Config/Developer.xcconfig
     - name: Prepare config.json
