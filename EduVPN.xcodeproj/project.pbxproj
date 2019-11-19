@@ -180,8 +180,6 @@
 		C7FA7AA123633895006501E8 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A7023633895006501E8 /* Api.swift */; };
 		C7FA7AA223633895006501E8 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A7123633895006501E8 /* ProfileModel.swift */; };
 		C7FA7AA323633895006501E8 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A7123633895006501E8 /* ProfileModel.swift */; };
-		C7FA7AA423633895006501E8 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A7223633895006501E8 /* UserInfo.swift */; };
-		C7FA7AA523633895006501E8 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A7223633895006501E8 /* UserInfo.swift */; };
 		C7FA7AA623633895006501E8 /* ProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A7323633895006501E8 /* ProviderType.swift */; };
 		C7FA7AA723633895006501E8 /* ProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A7323633895006501E8 /* ProviderType.swift */; };
 		C7FA7AAF23633D61006501E8 /* NSManagedObjectContext+AsyncHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7AAB23633D61006501E8 /* NSManagedObjectContext+AsyncHelpers.swift */; };
@@ -348,7 +346,7 @@
 		4A983B7A1F3972BE004F82D5 /* RootCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
 		4A9D29EC237E001C0092D77E /* VPNConnectionViewController+OperatorConflict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VPNConnectionViewController+OperatorConflict.swift"; sourceTree = "<group>"; };
 		4AAA157A21C2EF530097A1B5 /* TunnelProviderManagerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelProviderManagerCoordinator.swift; sourceTree = "<group>"; };
-		4AAC1F761F2D0E3400DD0252 /* EduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4AAC1F761F2D0E3400DD0252 /* EduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = EduVPN.app; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AAC1F791F2D0E3400DD0252 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4AAC1F7E1F2D0E3400DD0252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4AAC1F831F2D0E3400DD0252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -458,7 +456,6 @@
 		C7FA7A6F23633895006501E8 /* Instance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instance.swift; sourceTree = "<group>"; };
 		C7FA7A7023633895006501E8 /* Api.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		C7FA7A7123633895006501E8 /* ProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
-		C7FA7A7223633895006501E8 /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		C7FA7A7323633895006501E8 /* ProviderType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderType.swift; sourceTree = "<group>"; };
 		C7FA7AAB23633D61006501E8 /* NSManagedObjectContext+AsyncHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+AsyncHelpers.swift"; sourceTree = "<group>"; };
 		C7FA7AAC23633D61006501E8 /* NSManagedObject+FetchHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+FetchHelpers.swift"; sourceTree = "<group>"; };
@@ -945,7 +942,6 @@
 				C7FA7A7123633895006501E8 /* ProfileModel.swift */,
 				C7FA7A7323633895006501E8 /* ProviderType.swift */,
 				C7FA7A5823633894006501E8 /* Repositories */,
-				C7FA7A7223633895006501E8 /* UserInfo.swift */,
 				C7FA7A0023633694006501E8 /* CertificateModel.swift */,
 				C7FA7A0123633694006501E8 /* Config.swift */,
 				4A1163292370539E00577755 /* Crypto.swift */,
@@ -1144,12 +1140,12 @@
 				TargetAttributes = {
 					342B9C98228ECFDB00C006D7 = {
 						CreatedOnToolsVersion = 10.2.1;
-						DevelopmentTeam = CRU5YWAZ4Y;
+						DevelopmentTeam = T4CMEHXPLL;
 						ProvisioningStyle = Automatic;
 					};
 					349D85C122B706A4006E9540 = {
 						CreatedOnToolsVersion = 10.2.1;
-						DevelopmentTeam = CRU5YWAZ4Y;
+						DevelopmentTeam = T4CMEHXPLL;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.Mac = {
@@ -1168,7 +1164,7 @@
 					};
 					34D719DD228D75550027DE84 = {
 						CreatedOnToolsVersion = 10.2.1;
-						DevelopmentTeam = CRU5YWAZ4Y;
+						DevelopmentTeam = T4CMEHXPLL;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.Mac = {
@@ -1653,7 +1649,6 @@
 				347B50D322D4052C00B3C040 /* PreferencesService.swift in Sources */,
 				34186CF42297CE19009B4121 /* InstanceService.swift in Sources */,
 				342B9CE622902BB500C006D7 /* DurationTransformer.swift in Sources */,
-				C7FA7AA523633895006501E8 /* UserInfo.swift in Sources */,
 				C7FA7A9123633895006501E8 /* Profile+CoreDataProperties.swift in Sources */,
 				34186CF52297CE19009B4121 /* Moya+Promise.swift in Sources */,
 				C7FA7A7923633895006501E8 /* ProfilesRepository.swift in Sources */,
@@ -1731,7 +1726,6 @@
 				3434528D229FF33100C0476E /* ConnectionsTableViewControllerDelegate.swift in Sources */,
 				34345297229FF71800C0476E /* AppCoordinator+Repositories.swift in Sources */,
 				4A8D241F1F3976A2004A9343 /* ProfilesViewController.swift in Sources */,
-				C7FA7AA423633895006501E8 /* UserInfo.swift in Sources */,
 				4A983B791F397289004F82D5 /* Coordinator.swift in Sources */,
 				C7FA7A8623633895006501E8 /* Logo+CoreDataClass.swift in Sources */,
 				4A983B7B1F3972BE004F82D5 /* RootCoordinator.swift in Sources */,
