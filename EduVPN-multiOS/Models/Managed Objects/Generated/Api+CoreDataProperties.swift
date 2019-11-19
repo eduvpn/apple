@@ -81,7 +81,13 @@ extension Api {
         }
         
         if !url.path.isEmpty {
-            fileUrl.appendPathComponent(url.path)
+            let path: String
+            if url.path.hasPrefix("/") {
+                path = String(url.path.dropFirst())
+            } else {
+                path = url.path
+            }
+            fileUrl.appendPathComponent(path)
         }
         
         do {
