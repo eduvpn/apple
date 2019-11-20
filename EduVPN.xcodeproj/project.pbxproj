@@ -113,6 +113,7 @@
 		4AD0AD5A1F34F887006E1337 /* CredentialStorePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD591F34F887006E1337 /* CredentialStorePlugin.swift */; };
 		4AD0AD5D1F35048E006E1337 /* ProvidersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD5C1F35048E006E1337 /* ProvidersViewController.swift */; };
 		4AD0AD5F1F350822006E1337 /* Moya+ResponseHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD5E1F350822006E1337 /* Moya+ResponseHandling.swift */; };
+		4AD5688D238491FA00EC0ABD /* FileServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD5688C238491FA00EC0ABD /* FileServiceTests.swift */; };
 		4AE728161F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE728151F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift */; };
 		4AEAC32720F13D0C007B67AB /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEAC32620F13D0C007B67AB /* Log.swift */; };
 		4AF3DF061F424535003EC0BA /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF3DF051F424535003EC0BA /* SettingsTableViewController.swift */; };
@@ -370,6 +371,7 @@
 		4AD0AD591F34F887006E1337 /* CredentialStorePlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CredentialStorePlugin.swift; sourceTree = "<group>"; };
 		4AD0AD5C1F35048E006E1337 /* ProvidersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProvidersViewController.swift; sourceTree = "<group>"; };
 		4AD0AD5E1F350822006E1337 /* Moya+ResponseHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Moya+ResponseHandling.swift"; sourceTree = "<group>"; };
+		4AD5688C238491FA00EC0ABD /* FileServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileServiceTests.swift; sourceTree = "<group>"; };
 		4AE728151F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+EduVPN.swift"; sourceTree = "<group>"; };
 		4AEAC32620F13D0C007B67AB /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		4AF3DF051F424535003EC0BA /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -824,6 +826,7 @@
 			children = (
 				4AAC1F8E1F2D0E3400DD0252 /* EduVPNTests.swift */,
 				4AAC1F901F2D0E3400DD0252 /* Info.plist */,
+				4AD5688C238491FA00EC0ABD /* FileServiceTests.swift */,
 			);
 			path = EduVPNTests;
 			sourceTree = "<group>";
@@ -1787,6 +1790,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AAC1F8F1F2D0E3400DD0252 /* EduVPNTests.swift in Sources */,
+				4AD5688D238491FA00EC0ABD /* FileServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

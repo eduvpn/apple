@@ -73,34 +73,6 @@ extension Api {
         return filePathUrl(from: authorizationEndpointUrl)
     }
     
-    private func filePathUrl(from url: URL) -> URL? {
-        guard var fileUrl = applicationSupportDirectoryUrl() else { return nil }
-        
-        if let host = url.host {
-            fileUrl.appendPathComponent(host)
-        }
-        
-        if !url.path.isEmpty {
-            fileUrl.appendPathComponent(url.path)
-        }
-        
-        do {
-            #if os(iOS)
-            let attributes: [FileAttributeKey: Any]? = [FileAttributeKey.protectionKey: FileProtectionType.completeUntilFirstUserAuthentication]
-            #elseif os(macOS)
-            let attributes: [FileAttributeKey: Any]? = nil
-            #endif
-            
-            try FileManager.default.createDirectory(at: fileUrl,
-                                                    withIntermediateDirectories: true,
-                                                    attributes: attributes)
-        } catch {
-            return nil
-        }
-        
-        return fileUrl
-    }
-    
     var authState: OIDAuthState? {
         get {
             guard let authStateUrl = authStateUrl else { return nil }
