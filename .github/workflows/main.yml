@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Select Xcode
-      run: sudo xcode-select -switch /Applications/Xcode_11.2.app
+      run: sudo xcode-select -switch /Applications/Xcode_11.2.1.app && /usr/bin/xcodebuild -version
     - name: Prepare Developer.xcconfig
       run: cp EduVPN/Config/Developer.xcconfig.eduvpn-template EduVPN/Config/Developer.xcconfig
     - name: Prepare config.json
@@ -18,7 +18,7 @@ jobs:
     - name: Prepare assets
       run: cp -r EduVPN/Config/Assets-EduVPN.xcassets EduVPN/Resources/Assets.xcassets
     - name: Run iOS tests
-      run: xcodebuild test -scheme EduVPN -workspace EduVPN.xcworkspace -destination 'platform=iOS Simulator,name=iPhone 11,OS=13.2' | xcpretty && exit ${PIPESTATUS[0]}
+      run: xcodebuild test -scheme EduVPN -workspace EduVPN.xcworkspace -destination 'platform=iOS Simulator,name=iPhone 11,OS=13.2.2' | xcpretty && exit ${PIPESTATUS[0]}
 
   build-macos:
     name: Build macOS target
