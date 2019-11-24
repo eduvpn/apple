@@ -22,7 +22,10 @@ class FileServiceTests: XCTestCase {
         let commonRoot = applicationSupportDirectoryUrl()!.standardizedFileURL.absoluteString
 
         let result = filePathUrl(from: URL(string: "http://www.example.com//foo//bar//")!)?.absoluteString
-        let expected = "\(commonRoot)www.example.com/foo/bar/"
+        var expected = "\(commonRoot)www.example.com/foo/bar"
+        if result?.last == "/" {
+            expected.append("/")
+        }
         XCTAssertEqual(result, expected)
     }
 
