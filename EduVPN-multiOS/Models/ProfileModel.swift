@@ -38,7 +38,6 @@ struct InstanceProfileModel: Decodable {
     
     var displayName: String?
     var profileId: String
-    let twoFactor: Bool
     var instanceApiBaseUrl: URL?
     var info: InstanceModel!
 }
@@ -48,7 +47,6 @@ extension InstanceProfileModel {
     enum InstanceProfileModelKeys: String, CodingKey {
         case displayName = "display_name"
         case profileId = "profile_id"
-        case twoFactor = "two_factor"
     }
     
     init(from decoder: Decoder) throws {
@@ -70,13 +68,10 @@ extension InstanceProfileModel {
         } else {
             displayName = try container.decode(String.self, forKey: .displayName)
         }
-        
-        let twoFactor = try container.decodeIfPresent(Bool.self, forKey: .twoFactor) ?? false
-        
+
         self.init(displayNames: displayNames,
                   displayName: displayName,
                   profileId: profileId,
-                  twoFactor: twoFactor,
                   instanceApiBaseUrl: nil,
                   info: nil)
     }
