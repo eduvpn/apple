@@ -25,6 +25,7 @@ enum AppCoordinatorError: Swift.Error {
     case missingStaticTargets
     case urlCreation
     case ovpnTemplate
+    case discoverySeqNotIncremented
     
     var localizedDescription: String {
         switch self {
@@ -60,6 +61,8 @@ enum AppCoordinatorError: Swift.Error {
             return NSLocalizedString("Failed to create URL.", comment: "")
         case .ovpnTemplate:
             return NSLocalizedString("OVPN template is not valid.", comment: "")
+        case .discoverySeqNotIncremented:
+            return NSLocalizedString("Discovery sequence number not incremented", comment: "")
         }
     }
 }

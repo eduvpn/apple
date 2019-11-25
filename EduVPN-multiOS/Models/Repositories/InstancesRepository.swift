@@ -140,6 +140,11 @@ class InstancesLoader {
             return Promise(resolver: { seal in
                 self.persistentContainer.performBackgroundTask { context in
                     let group = try! InstanceGroup.findFirstInContext(context, predicate: NSPredicate(format: "discoveryIdentifier == %@", instanceGroupIdentifier)) ?? InstanceGroup(context: context)//swiftlint:disable:this force_try
+
+                    guard group.seq < instances.seq else {
+                        seal.reject(AppCoordinatorError.discoverySeqNotIncremented)
+                        return
+                    }
                     
                     group.discoveryIdentifier = instanceGroupIdentifier
                     group.authorizationType = instances.authorizationType.rawValue

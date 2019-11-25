@@ -316,6 +316,7 @@
 		3BCF6B73BE29909C0802E49A /* Pods_EduVPNTunnelExtension_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EduVPNTunnelExtension_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		417DD34C1C9EFF60C64C80CB /* Pods-LetsConnect-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsConnect-macOS.release.xcconfig"; path = "Target Support Files/Pods-LetsConnect-macOS/Pods-LetsConnect-macOS.release.xcconfig"; sourceTree = "<group>"; };
 		4A01329921CDA2C2009B8B02 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
+		4A04CDF5238C71CC00C1D581 /* EduVPN 8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EduVPN 8.xcdatamodel"; sourceTree = "<group>"; };
 		4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNConnectionViewController.swift; sourceTree = "<group>"; };
 		4A1163272370523B00577755 /* KeychainService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		4A1163292370539E00577755 /* Crypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Crypto.swift; path = EduVPN/Models/Crypto.swift; sourceTree = SOURCE_ROOT; };
@@ -979,19 +980,19 @@
 		C7FA7A5E23633895006501E8 /* Generated */ = {
 			isa = PBXGroup;
 			children = (
-				C7FA7A5F23633895006501E8 /* Api+CoreDataProperties.swift */,
 				C7FA7A6023633895006501E8 /* Api+CoreDataClass.swift */,
+				C7FA7A5F23633895006501E8 /* Api+CoreDataProperties.swift */,
+				C7FA7A6423633895006501E8 /* AuthServer+CoreDataClass.swift */,
 				C7FA7A6123633895006501E8 /* AuthServer+CoreDataProperties.swift */,
 				C7FA7A6223633895006501E8 /* InstanceGroup+CoreDataClass.swift */,
-				C7FA7A6323633895006501E8 /* Logo+CoreDataClass.swift */,
-				C7FA7A6423633895006501E8 /* AuthServer+CoreDataClass.swift */,
-				C7FA7A6523633895006501E8 /* DisplayName+CoreDataProperties.swift */,
 				C7FA7A6623633895006501E8 /* InstanceGroup+CoreDataProperties.swift */,
-				C7FA7A6723633895006501E8 /* Instance+CoreDataProperties.swift */,
-				C7FA7A6823633895006501E8 /* Profile+CoreDataProperties.swift */,
-				C7FA7A6923633895006501E8 /* Profile+CoreDataClass.swift */,
 				C7FA7A6A23633895006501E8 /* DisplayName+CoreDataClass.swift */,
+				C7FA7A6523633895006501E8 /* DisplayName+CoreDataProperties.swift */,
 				C7FA7A6B23633895006501E8 /* Instance+CoreDataClass.swift */,
+				C7FA7A6723633895006501E8 /* Instance+CoreDataProperties.swift */,
+				C7FA7A6923633895006501E8 /* Profile+CoreDataClass.swift */,
+				C7FA7A6823633895006501E8 /* Profile+CoreDataProperties.swift */,
+				C7FA7A6323633895006501E8 /* Logo+CoreDataClass.swift */,
 				C7FA7A6C23633895006501E8 /* Logo+CoreDataProperties.swift */,
 			);
 			path = Generated;
@@ -2337,6 +2338,7 @@
 		C7FA7AB723633E68006501E8 /* EduVPN.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				4A04CDF5238C71CC00C1D581 /* EduVPN 8.xcdatamodel */,
 				C7FA7AB823633E68006501E8 /* EduVPN 6.xcdatamodel */,
 				C7FA7AB923633E68006501E8 /* EduVPN 3.xcdatamodel */,
 				C7FA7ABA23633E68006501E8 /* EduVPN.xcdatamodel */,
@@ -2345,7 +2347,7 @@
 				C7FA7ABD23633E68006501E8 /* EduVPN 7.xcdatamodel */,
 				C7FA7ABE23633E68006501E8 /* EduVPN 4.xcdatamodel */,
 			);
-			currentVersion = C7FA7ABD23633E68006501E8 /* EduVPN 7.xcdatamodel */;
+			currentVersion = 4A04CDF5238C71CC00C1D581 /* EduVPN 8.xcdatamodel */;
 			path = EduVPN.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
