@@ -24,6 +24,7 @@ extension InstanceGroup {
     @NSManaged public var discoveryIdentifier: String?
     @NSManaged public var authorizationType: String?
     @NSManaged public var instances: Set<Instance>
+    @NSManaged public var seq: Int32
 
     @NSManaged public var distributedAuthorizationApi: Api?
 
