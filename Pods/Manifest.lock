@@ -16,9 +16,6 @@ PODS:
   - Moya/Core (13.0.1):
     - Alamofire (~> 4.1)
     - Result (~> 4.1)
-  - NVActivityIndicatorView (4.8.0):
-    - NVActivityIndicatorView/Presenter (= 4.8.0)
-  - NVActivityIndicatorView/Presenter (4.8.0)
   - OpenSSL-Apple (1.1.1d.5a)
   - PromiseKit/CorePromise (6.11.0)
   - ReachabilitySwift (4.3.1)
@@ -43,7 +40,6 @@ DEPENDENCIES:
   - Kingfisher
   - libsodium
   - Moya
-  - NVActivityIndicatorView
   - PromiseKit/CorePromise
   - ReachabilitySwift (~> 4.3.1)
   - TunnelKit
@@ -56,7 +52,6 @@ SPEC REPOS:
     - Kingfisher
     - libsodium
     - Moya
-    - NVActivityIndicatorView
     - OpenSSL-Apple
     - PromiseKit
     - ReachabilitySwift
@@ -81,7 +76,6 @@ SPEC CHECKSUMS:
   Kingfisher: ff98240aebb7302bdc4f1ecd701761030ce18b16
   libsodium: 9a8faa5ef2fa0d2d57bd7f7d79bf8fb7c1a9f0ea
   Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
-  NVActivityIndicatorView: d24b7ebcf80af5dcd994adb650e2b6c93379270f
   OpenSSL-Apple: 2c9efbc94e0a1ada434cc197b02bd70052a82281
   PromiseKit: e4863d06976e7dee5e41c04fc7371c16b3600292
   ReachabilitySwift: 4032e2f59586e11e3b0ebe15b167abdd587a388b
@@ -89,6 +83,6 @@ SPEC CHECKSUMS:
   SwiftyBeaver: 3d3e93a12d648bd400b6f2948a7ef128b5b183c7
   TunnelKit: ddcccbf8c984e2760a42899e311e7991f21e42cc
 
-PODFILE CHECKSUM: 96b4f4192db35500d2c879ae24b7480f352bf6c6
+PODFILE CHECKSUM: 32054391cc4d68ade90f60f91204cf4a6d66f6cd
 
 COCOAPODS: 1.8.4

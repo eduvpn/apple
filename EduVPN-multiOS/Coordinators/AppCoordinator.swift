@@ -17,7 +17,6 @@ import UserNotifications
 #if os(iOS)
 
 import libsodium
-import NVActivityIndicatorView
 import UIKit
 
 extension UINavigationController: Identifiable {}
@@ -68,6 +67,14 @@ class AppCoordinator: RootViewCoordinator {
     let navigationController: UINavigationController = {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(type: UINavigationController.self)
     }()
+
+    let activityViewController: ActivityViewController = {
+        let activityViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(type: ActivityViewController.self)
+        activityViewController.modalPresentationStyle = .overCurrentContext
+        activityViewController.modalTransitionStyle = .crossDissolve
+        return activityViewController
+    }()
+
     
     var rootViewController: UIViewController {
         return providersViewController
@@ -94,7 +101,10 @@ class AppCoordinator: RootViewCoordinator {
     
     public init(window: UIWindow) {
         self.window = window
-        
+
+//        self.navigationController.addChild(self.activityViewController)
+//        self.navigationController.view.addSubview(self.activityViewController.view)
+
         self.window.rootViewController = self.navigationController
         self.window.makeKeyAndVisible()
         

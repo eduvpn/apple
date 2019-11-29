@@ -28,7 +28,6 @@ target 'EduVPN' do
   pod 'ASN1Decoder'
   pod 'libsodium'
   pod 'Moya'
-  pod 'NVActivityIndicatorView'
   pod 'PromiseKit/CorePromise'
 end
 
