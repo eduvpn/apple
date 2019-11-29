@@ -27,9 +27,9 @@ extension AppCoordinator {
     
     func setActivityIndicatorMessage(key messageKey: String?) {
         #if os(iOS)
-        activityViewController.infoLabel.text = messageKey.map{ NSLocalizedString($0, comment: "") }
+        activityViewController.infoLabel.text = messageKey.map { NSLocalizedString($0, comment: "") }
         #elseif os(macOS)
-        mainWindowController.mainViewController.activityLabel.stringValue = messageKey.map{ NSLocalizedString($0, comment: "") }
+        mainWindowController.mainViewController.activityLabel.stringValue = messageKey.map { NSLocalizedString($0, comment: "") } ?? ""
         #endif
     }
     
