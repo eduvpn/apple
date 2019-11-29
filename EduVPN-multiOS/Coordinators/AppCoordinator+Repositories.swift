@@ -14,7 +14,9 @@ extension AppCoordinator {
     
     func showActivityIndicator(messageKey: String?, cancellable: Cancellable? = nil) {
         #if os(iOS)
-        rootViewController.present(activityViewController, animated: true)
+        if activityViewController.presentingViewController == nil {
+            rootViewController.present(activityViewController, animated: true)
+        }
         activityViewController.activityIndicator.startAnimating()
         #elseif os(macOS)
         mainWindowController.mainViewController.activityIndicatorView.isHidden = false
@@ -35,7 +37,7 @@ extension AppCoordinator {
     
     func hideActivityIndicator() {
         #if os(iOS)
-        if rootViewController.presentedViewController == activityViewController {
+        if activityViewController.presentingViewController != nil {
             activityViewController.activityIndicator.stopAnimating()
             rootViewController.dismiss(animated: true)
         }
