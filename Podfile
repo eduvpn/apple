@@ -44,7 +44,6 @@ target 'EduVPN-macOS' do
   pod 'libsodium'
   pod 'Moya'
   pod 'PromiseKit/CorePromise'
-  pod 'ReachabilitySwift', '~> 4.3.1'
   pod 'FileKit'
 end
 
