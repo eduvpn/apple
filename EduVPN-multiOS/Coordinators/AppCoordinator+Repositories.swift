@@ -10,15 +10,13 @@ import Foundation
 import Moya
 import PromiseKit
 
-#if os(iOS)
-import NVActivityIndicatorView
-#endif
-
 extension AppCoordinator {
     
-    private func showActivityIndicator(messageKey: String, cancellable: Cancellable? = nil) {
+    func showActivityIndicator(messageKey: String?, cancellable: Cancellable? = nil) {
         #if os(iOS)
-        NVActivityIndicatorPresenter.sharedInstance.startAnimating(ActivityData(), nil)
+        if activityViewController.presentingViewController == nil {
+            rootViewController.present(activityViewController, animated: true)
+        }
         #elseif os(macOS)
         mainWindowController.mainViewController.activityIndicatorView.isHidden = false
         mainWindowController.mainViewController.activityIndicator.startAnimation(nil)
@@ -28,17 +26,21 @@ extension AppCoordinator {
         setActivityIndicatorMessage(key: messageKey)
     }
     
-    private func setActivityIndicatorMessage(key messageKey: String) {
+    func setActivityIndicatorMessage(key messageKey: String?) {
         #if os(iOS)
-        NVActivityIndicatorPresenter.sharedInstance.setMessage(NSLocalizedString(messageKey, comment: ""))
+        let infoString = messageKey.map { NSLocalizedString($0, comment: "") } ?? ""
+        activityViewController.activityViewModel = ActivityViewModel(infoString: infoString)
         #elseif os(macOS)
-        mainWindowController.mainViewController.activityLabel.stringValue = NSLocalizedString(messageKey, comment: "")
+        mainWindowController.mainViewController.activityLabel.stringValue = messageKey.map { NSLocalizedString($0, comment: "") } ?? ""
         #endif
     }
     
-    private func hideActivityIndicator() {
+    func hideActivityIndicator() {
         #if os(iOS)
-        NVActivityIndicatorPresenter.sharedInstance.stopAnimating(nil)
+        if activityViewController.presentingViewController != nil {
+            rootViewController.dismiss(animated: true)
+        }
+        activityViewController.view.isHidden = false
         #elseif os(macOS)
         mainWindowController.mainViewController.activityIndicatorView.isHidden = true
         mainWindowController.mainViewController.activityIndicator.stopAnimation(nil)
