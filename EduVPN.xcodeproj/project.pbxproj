@@ -107,6 +107,7 @@
 		4AAC1F9E1F2D134200DD0252 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4AAC1F9D1F2D134200DD0252 /* Settings.bundle */; };
 		4AAC2EF02027927300F9D0D2 /* DisplayName+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EEF2027927300F9D0D2 /* DisplayName+Convenience.swift */; };
 		4AAC2EF220279F0000F9D0D2 /* Logo+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EF120279F0000F9D0D2 /* Logo+Convenience.swift */; };
+		4ABD454223929A7E00660A18 /* CryptoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABD454123929A7E00660A18 /* CryptoTests.swift */; };
 		4ABD454423929EE300660A18 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABD454323929EE200660A18 /* Device.swift */; };
 		4ABD454523929F4000660A18 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABD454323929EE200660A18 /* Device.swift */; };
 		4ABFF78920C71E7200638480 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ABFF78820C71E7200638480 /* NetworkExtension.framework */; };
@@ -368,6 +369,7 @@
 		4ABCCBE421E527B50020CB6D /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		4ABCCBE521E528140020CB6D /* Release-TunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-TunnelExtension.xcconfig"; sourceTree = "<group>"; };
 		4ABCCBE621E528260020CB6D /* Development-TunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Development-TunnelExtension.xcconfig"; sourceTree = "<group>"; };
+		4ABD454123929A7E00660A18 /* CryptoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoTests.swift; sourceTree = "<group>"; };
 		4ABD454323929EE200660A18 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		4ABFF78820C71E7200638480 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		4AC84CAD236B6E2000932B89 /* Developer-macOS.xcconfig.appforce1-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer-macOS.xcconfig.appforce1-template"; sourceTree = "<group>"; };
@@ -831,6 +833,7 @@
 		4AAC1F8D1F2D0E3400DD0252 /* EduVPNTests */ = {
 			isa = PBXGroup;
 			children = (
+				4ABD454123929A7E00660A18 /* CryptoTests.swift */,
 				4AAC1F8E1F2D0E3400DD0252 /* EduVPNTests.swift */,
 				4AAC1F901F2D0E3400DD0252 /* Info.plist */,
 				4AD5688C238491FA00EC0ABD /* FileServiceTests.swift */,
@@ -1799,6 +1802,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AAC1F8F1F2D0E3400DD0252 /* EduVPNTests.swift in Sources */,
+				4ABD454223929A7E00660A18 /* CryptoTests.swift in Sources */,
 				4AD5688D238491FA00EC0ABD /* FileServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
