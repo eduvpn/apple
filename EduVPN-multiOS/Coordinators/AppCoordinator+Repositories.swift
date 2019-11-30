@@ -17,7 +17,6 @@ extension AppCoordinator {
         if activityViewController.presentingViewController == nil {
             rootViewController.present(activityViewController, animated: true)
         }
-        activityViewController.activityIndicator.startAnimating()
         #elseif os(macOS)
         mainWindowController.mainViewController.activityIndicatorView.isHidden = false
         mainWindowController.mainViewController.activityIndicator.startAnimation(nil)
@@ -29,7 +28,8 @@ extension AppCoordinator {
     
     func setActivityIndicatorMessage(key messageKey: String?) {
         #if os(iOS)
-        activityViewController.infoLabel.text = messageKey.map { NSLocalizedString($0, comment: "") }
+        let infoString = messageKey.map { NSLocalizedString($0, comment: "") } ?? ""
+        activityViewController.activityViewModel = ActivityViewModel(infoString: infoString)
         #elseif os(macOS)
         mainWindowController.mainViewController.activityLabel.stringValue = messageKey.map { NSLocalizedString($0, comment: "") } ?? ""
         #endif
@@ -38,7 +38,6 @@ extension AppCoordinator {
     func hideActivityIndicator() {
         #if os(iOS)
         if activityViewController.presentingViewController != nil {
-            activityViewController.activityIndicator.stopAnimating()
             rootViewController.dismiss(animated: true)
         }
         activityViewController.view.isHidden = false
