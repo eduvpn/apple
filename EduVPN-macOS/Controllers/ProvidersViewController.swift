@@ -9,7 +9,7 @@
 import Cocoa
 import Kingfisher
 import os.log
-import Reachability
+import Alamofire
 
 /// Used to display configure providers (when providerType == .unknown) and to select a specific provider to add.
 class ProvidersViewController: NSViewController {
@@ -94,7 +94,7 @@ class ProvidersViewController: NSViewController {
         }
     }
     
-    private let reachability = Reachability()
+    private let reachabilityManager = NetworkReachabilityManager(host: "www.eduvpn.org")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,14 +104,8 @@ class ProvidersViewController: NSViewController {
         //                                    kUTTypeURL as NSPasteboard.PasteboardType])
         
         // Handle internet connection state
-        if let reachability = reachability {
-            reachability.whenReachable = { [weak self] _ in
-                self?.updateInterface()
-            }
-
-            reachability.whenUnreachable = { [weak self] _ in
-                self?.updateInterface()
-            }
+        reachabilityManager?.listener = {[weak self] _ in
+            self?.updateInterface()
         }
         
         updateInterface()
@@ -123,13 +117,13 @@ class ProvidersViewController: NSViewController {
         tableView.deselectAll(nil)
         tableView.isEnabled = true
         updateInterface()
-        
-        try? reachability?.startNotifier()
+
+        reachabilityManager?.startListening()
     }
     
     override func viewWillDisappear() {
         super.viewWillDisappear()
-        reachability?.stopNotifier()
+        reachabilityManager?.stopListening()
     }
     
     @IBAction func addOtherProvider(_ sender: Any) {
@@ -236,13 +230,8 @@ class ProvidersViewController: NSViewController {
             }
         }
         
-        let reachable: Bool
-        if let reachability = reachability {
-            reachable = reachability.connection != .none
-        } else {
-            reachable = true
-        }
-        
+        let reachable = reachabilityManager?.isReachable ?? true
+
         unreachableLabel?.isHidden = reachable
         
         tableView.superview?.superview?.isHidden = !reachable
