@@ -1,6 +1,7 @@
-source 'https://github.com/CocoaPods/Specs.git'
+source 'https://cdn.cocoapods.org/'
 use_frameworks!
 inhibit_all_warnings!
+install! 'cocoapods', :generate_multiple_pod_projects => true
 
 project 'EduVPN', 'Debug' => :debug, 'Release' => :release
 
