@@ -14,10 +14,17 @@ extension VPNConnectionViewController: Identifiable {}
 
 protocol VPNConnectionViewControllerDelegate: class {
     @discardableResult func systemMessages(for profile: Profile) -> Promise<SystemMessages>
+    func confirmDisconnectWhileOnDemandEnabled() -> Promise<Bool>
 }
 
 extension AppCoordinator: VPNConnectionViewControllerDelegate {
-    
+    func confirmDisconnectWhileOnDemandEnabled() -> Promise<Bool> {
+        return showActionSheet(title: NSLocalizedString("OnDemand enabled",comment: ""),
+                               message: NSLocalizedString("Are you sure you want to disconnect while OnDemand is enabled?", comment: ""),
+                               confirmTitle: NSLocalizedString("Disconnect", comment: ""),
+                               declineTitle: NSLocalizedString("Cancel", comment: ""))
+    }
+
     func systemMessages(for profile: Profile) -> Promise<SystemMessages> {
         guard let api = profile.api else {
             precondition(false, "This should never happen")

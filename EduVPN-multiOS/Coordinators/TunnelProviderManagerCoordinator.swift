@@ -191,6 +191,14 @@ class TunnelProviderManagerCoordinator: Coordinator {
         
         #endif
     }
+
+    func checkOnDemandEnabled() -> Promise<Bool> {
+        return Promise(resolver: { resolver in
+            reloadCurrentManager { _ in
+                resolver.fulfill(self.currentManager?.isOnDemandEnabled ?? false)
+            }
+        })
+    }
     
     func disconnect() -> Promise<Void> {
         os_log("stopping tunnel", log: Log.general, type: .info)
