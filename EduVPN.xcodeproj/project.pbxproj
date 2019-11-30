@@ -107,6 +107,8 @@
 		4AAC1F9E1F2D134200DD0252 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4AAC1F9D1F2D134200DD0252 /* Settings.bundle */; };
 		4AAC2EF02027927300F9D0D2 /* DisplayName+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EEF2027927300F9D0D2 /* DisplayName+Convenience.swift */; };
 		4AAC2EF220279F0000F9D0D2 /* Logo+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC2EF120279F0000F9D0D2 /* Logo+Convenience.swift */; };
+		4ABD454423929EE300660A18 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABD454323929EE200660A18 /* Device.swift */; };
+		4ABD454523929F4000660A18 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABD454323929EE200660A18 /* Device.swift */; };
 		4ABFF78920C71E7200638480 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ABFF78820C71E7200638480 /* NetworkExtension.framework */; };
 		4ACA042A1F311507004B35AA /* StaticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACA04291F311507004B35AA /* StaticService.swift */; };
 		4ACA042C1F3116D5004B35AA /* Moya+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACA042B1F3116D5004B35AA /* Moya+Promise.swift */; };
@@ -366,6 +368,7 @@
 		4ABCCBE421E527B50020CB6D /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		4ABCCBE521E528140020CB6D /* Release-TunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-TunnelExtension.xcconfig"; sourceTree = "<group>"; };
 		4ABCCBE621E528260020CB6D /* Development-TunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Development-TunnelExtension.xcconfig"; sourceTree = "<group>"; };
+		4ABD454323929EE200660A18 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		4ABFF78820C71E7200638480 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		4AC84CAD236B6E2000932B89 /* Developer-macOS.xcconfig.appforce1-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer-macOS.xcconfig.appforce1-template"; sourceTree = "<group>"; };
 		4ACA04291F311507004B35AA /* StaticService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticService.swift; sourceTree = "<group>"; };
@@ -568,6 +571,7 @@
 				C7FA79FD23633694006501E8 /* Models */,
 				4ACA04281F311507004B35AA /* Networking */,
 				34186C9C2296B336009B4121 /* Extensions */,
+				4ABD454323929EE200660A18 /* Device.swift */,
 			);
 			path = "EduVPN-multiOS";
 			sourceTree = "<group>";
@@ -1660,6 +1664,7 @@
 				C7D8E1D623742A4E009536C9 /* CancellablePromise.swift in Sources */,
 				340A504422A2702D00170E51 /* TunnelProviderManagerCoordinatorDelegate.swift in Sources */,
 				3434529F22A137B700C0476E /* DeselectingTableView.swift in Sources */,
+				4ABD454523929F4000660A18 /* Device.swift in Sources */,
 				34186CE02296B7BC009B4121 /* UserDefaults+EduVPN.swift in Sources */,
 				340A504F22A3BD9E00170E51 /* ProfilesViewController.swift in Sources */,
 				34186CF22296E7C6009B4121 /* Moya+Extensions.swift in Sources */,
@@ -1742,6 +1747,7 @@
 				C7FA7A8223633895006501E8 /* AuthServer+CoreDataProperties.swift in Sources */,
 				C7D8E1D523742A4E009536C9 /* CancellablePromise.swift in Sources */,
 				34345291229FF33100C0476E /* CustomProviderInputViewControllerDelegate.swift in Sources */,
+				4ABD454423929EE300660A18 /* Device.swift in Sources */,
 				34345293229FF33100C0476E /* TunnelProviderManagerCoordinatorDelegate.swift in Sources */,
 				34345290229FF33100C0476E /* SettingsTableViewControllerDelegate.swift in Sources */,
 				4A62C8B81FB03B47007D3FAA /* KeyboardWrapper.swift in Sources */,

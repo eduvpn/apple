@@ -25,13 +25,14 @@ class Crypto {
                                                 throw CryptoError.keyCreationFailed
         }
         var attributes = [String: Any]()
-        attributes[kSecAttrKeyType as String] = kSecAttrKeyTypeEC
-        attributes[kSecAttrKeySizeInBits as String] = 256
-        #if targetEnvironment(simulator)
-        print("SIMULATOR does not support secure enclave.")
-        #else
-        attributes[kSecAttrTokenID as String] = kSecAttrTokenIDSecureEnclave
-        #endif
+        if Device.hasSecureEnclave {
+            attributes[kSecAttrKeyType as String] = kSecAttrKeyTypeEC
+            attributes[kSecAttrKeySizeInBits as String] = 256
+            attributes[kSecAttrTokenID as String] = kSecAttrTokenIDSecureEnclave
+        } else {
+            attributes[kSecAttrKeyType as String] = kSecAttrKeyTypeRSA
+            attributes[kSecAttrKeySizeInBits as String] = 4096
+        }
 
         let tag = name.data(using: .utf8) ?? Data()
         attributes[kSecPrivateKeyAttrs as String] = [
@@ -59,7 +60,7 @@ class Crypto {
         let query: [String: Any] = [
             kSecClass as String: kSecClassKey,
             kSecAttrLabel as String: tag,
-            kSecAttrKeyType as String: kSecAttrKeyTypeEC,
+            kSecAttrKeyType as String: (Device.hasSecureEnclave ? kSecAttrKeyTypeEC: kSecAttrKeyTypeRSA),
             kSecAttrKeyClass as String: kSecAttrKeyClassPrivate,
             kSecReturnRef as String: true
         ]
@@ -79,7 +80,7 @@ class Crypto {
             // Can't get public key
             return nil
         }
-        let algorithm: SecKeyAlgorithm = .eciesEncryptionCofactorVariableIVX963SHA256AESGCM
+        let algorithm: SecKeyAlgorithm = Device.hasSecureEnclave ? .eciesEncryptionCofactorVariableIVX963SHA256AESGCM: .rsaEncryptionOAEPSHA512AESGCM
         guard SecKeyIsAlgorithmSupported(publicKey, .encrypt, algorithm) else {
             os_log("Can't encrypt. Algorith not supported.", log: Log.crypto, type: .error)
             return nil
@@ -104,7 +105,7 @@ class Crypto {
     static func decrypt(data cipherTextData: Data) -> Data? {
         guard let key = loadKey(name: keyName) else { return nil }
 
-        let algorithm: SecKeyAlgorithm = .eciesEncryptionCofactorVariableIVX963SHA256AESGCM
+        let algorithm: SecKeyAlgorithm = Device.hasSecureEnclave ? .eciesEncryptionCofactorVariableIVX963SHA256AESGCM: .rsaEncryptionOAEPSHA512AESGCM
         guard SecKeyIsAlgorithmSupported(key, .decrypt, algorithm) else {
             os_log("Can't decrypt. Algorith not supported.", log: Log.crypto, type: .error)
             return nil
