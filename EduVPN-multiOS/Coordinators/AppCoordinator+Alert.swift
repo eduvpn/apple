@@ -7,13 +7,13 @@
 //
 
 import AppAuth
+import PromiseKit
 #if os(macOS)
 import Cocoa
 #endif
 import os
 #if os(iOS)
 import UIKit
-import PromiseKit
 #endif
 
 extension AppCoordinator {
