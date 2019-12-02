@@ -14,9 +14,44 @@ enum CryptoError: Error {
 }
 
 class Crypto {
-    private static let keyName = "disk_storage_key"
-
-    private static func makeAndStoreKey(name: String) throws -> SecKey {
+    
+    static var shared: Crypto {
+        return self.sharedInstance
+    }
+    
+    private static let sharedInstance = Crypto()
+    
+    private let keyName = "disk_storage_key"
+    
+    private let hasSecurityEnclave: Bool
+    private let algorithm: SecKeyAlgorithm
+    private let keySize: Int
+    private let keyType: CFString
+    
+    init() {
+        var attributes = [String: Any]()
+        attributes[kSecAttrKeyType as String] = kSecAttrKeyTypeEC
+        attributes[kSecAttrKeySizeInBits as String] = 256
+        
+        var error: Unmanaged<CFError>?
+        let _ = SecKeyCreateRandomKey(attributes as CFDictionary, &error)
+        
+        if let error = error?.takeRetainedValue(),
+            CFErrorGetCode(error) == errSecUnimplemented {
+            
+            self.hasSecurityEnclave = true
+            self.keySize = 256
+            self.keyType = kSecAttrKeyTypeEC
+            self.algorithm = .eciesEncryptionCofactorVariableIVX963SHA256AESGCM
+        } else {
+            self.hasSecurityEnclave = false
+            self.keySize = 4096
+            self.keyType = kSecAttrKeyTypeRSA
+            self.algorithm = .rsaEncryptionOAEPSHA512AESGCM
+        }
+    }
+    
+    private func makeAndStoreKey(name: String) throws -> SecKey {
         guard let access =
             SecAccessControlCreateWithFlags(kCFAllocatorDefault,
                                             kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
@@ -25,18 +60,20 @@ class Crypto {
                                                 throw CryptoError.keyCreationFailed
         }
         var attributes = [String: Any]()
-        attributes[kSecAttrKeyType as String] = kSecAttrKeyTypeEC
-        attributes[kSecAttrKeySizeInBits as String] = 256
+        attributes[kSecAttrKeyType as String] = self.keyType
+        attributes[kSecAttrKeySizeInBits as String] = self.keySize
         #if targetEnvironment(simulator)
         print("SIMULATOR does not support secure enclave.")
         #else
-        attributes[kSecAttrTokenID as String] = kSecAttrTokenIDSecureEnclave
+        if self.hasSecurityEnclave {
+            attributes[kSecAttrTokenID as String] = kSecAttrTokenIDSecureEnclave
+        }
         #endif
 
-        let tag = name.data(using: .utf8) ?? Data()
+        let tag = name
         attributes[kSecPrivateKeyAttrs as String] = [
             kSecAttrIsPermanent as String: true,
-            kSecAttrLabel as String: tag,
+            kSecAttrApplicationTag as String: tag,
             kSecAttrAccessControl as String: access
         ]
 
@@ -54,12 +91,12 @@ class Crypto {
         return unwrappedPrivateKey
     }
 
-    private static func loadKey(name: String) -> SecKey? {
+    private func loadKey(name: String) -> SecKey? {
         let tag = name
         let query: [String: Any] = [
             kSecClass as String: kSecClassKey,
-            kSecAttrLabel as String: tag,
-            kSecAttrKeyType as String: kSecAttrKeyTypeEC,
+            kSecAttrApplicationTag as String: tag,
+            kSecAttrKeyType as String: self.keyType,
             kSecAttrKeyClass as String: kSecAttrKeyClassPrivate,
             kSecReturnRef as String: true
         ]
@@ -72,16 +109,16 @@ class Crypto {
         return (item as! SecKey) // swiftlint:disable:this force_cast
     }
 
-    static func encrypt(data clearTextData: Data) throws -> Data? {
+    func encrypt(data clearTextData: Data) throws -> Data? {
         let key = try loadKey(name: keyName) ?? makeAndStoreKey(name: keyName)
 
         guard let publicKey = SecKeyCopyPublicKey(key) else {
             // Can't get public key
             return nil
         }
-        let algorithm: SecKeyAlgorithm = .eciesEncryptionCofactorVariableIVX963SHA256AESGCM
+        let algorithm: SecKeyAlgorithm = self.algorithm
         guard SecKeyIsAlgorithmSupported(publicKey, .encrypt, algorithm) else {
-            os_log("Can't encrypt. Algorith not supported.", log: Log.crypto, type: .error)
+            os_log("Can't encrypt. Algorithm not supported.", log: Log.crypto, type: .error)
             return nil
         }
         var error: Unmanaged<CFError>?
@@ -101,12 +138,12 @@ class Crypto {
         return cipherTextData
     }
 
-    static func decrypt(data cipherTextData: Data) -> Data? {
+    func decrypt(data cipherTextData: Data) -> Data? {
         guard let key = loadKey(name: keyName) else { return nil }
 
-        let algorithm: SecKeyAlgorithm = .eciesEncryptionCofactorVariableIVX963SHA256AESGCM
+        let algorithm: SecKeyAlgorithm = self.algorithm
         guard SecKeyIsAlgorithmSupported(key, .decrypt, algorithm) else {
-            os_log("Can't decrypt. Algorith not supported.", log: Log.crypto, type: .error)
+            os_log("Can't decrypt. Algorithm not supported.", log: Log.crypto, type: .error)
             return nil
         }
 
