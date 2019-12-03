@@ -16,7 +16,6 @@ import UserNotifications
 
 #if os(iOS)
 
-import libsodium
 import UIKit
 
 extension UINavigationController: Identifiable {}
