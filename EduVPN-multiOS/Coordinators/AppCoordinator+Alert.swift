@@ -7,6 +7,7 @@
 //
 
 import AppAuth
+import PromiseKit
 #if os(macOS)
 import Cocoa
 #endif
@@ -78,6 +79,26 @@ extension AppCoordinator {
         alert.addButton(withTitle: NSLocalizedString("OK", comment: "OK button"))
         alert.beginSheetModal(for: windowController.window!)
         
+        #endif
+    }
+
+    func showActionSheet(title: String, message: String, confirmTitle: String, declineTitle: String) -> Promise<Bool> {
+        #if os(iOS)
+        return Promise<Bool>(resolver: { seal in
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+            alert.addAction(UIAlertAction(title: confirmTitle, style: .default, handler: { (action) in
+                seal.fulfill(true)
+            }))
+            alert.addAction(UIAlertAction(title: declineTitle, style: .cancel, handler: { (action) in
+                seal.fulfill(false)
+            }))
+
+            let presentingViewController = navigationController.presentedViewController ?? navigationController
+            presentingViewController.present(alert, animated: true)
+        })
+        #elseif os(macOS)
+        // TODO: implement on MacOS.
+        return Promise.value(true)
         #endif
     }
 }
