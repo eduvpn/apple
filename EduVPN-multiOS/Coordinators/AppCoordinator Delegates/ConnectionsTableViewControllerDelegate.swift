@@ -12,6 +12,7 @@ import PromiseKit
 extension ConnectionsTableViewController: Identifiable {}
 
 protocol ConnectionsTableViewControllerDelegate: class {
+    func refresh(instance: Instance) -> Promise<Void>
     func connect(profile: Profile)
     func noProfiles(providerTableViewController: ConnectionsTableViewController)
 }
