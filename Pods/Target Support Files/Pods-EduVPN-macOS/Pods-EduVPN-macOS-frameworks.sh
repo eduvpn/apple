@@ -173,7 +173,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/TunnelKit-macOS/TunnelKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/libsodium-macOS/libsodium.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FileKit/FileKit.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/ASN1Decoder-macOS/ASN1Decoder.framework"
@@ -188,7 +187,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/TunnelKit-macOS/TunnelKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/libsodium-macOS/libsodium.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FileKit/FileKit.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait
