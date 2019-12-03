@@ -10,6 +10,8 @@ import UIKit
 import CoreData
 import os.log
 
+import PromiseKit
+
 class ConnectTableViewCell: UITableViewCell {
     
     @IBOutlet private weak var connectImageView: UIImageView!
@@ -57,11 +59,13 @@ class ConnectTableViewCell: UITableViewCell {
 extension ConnectTableViewCell: Identifiable {}
 
 class ConnectionsTableViewController: UITableViewController {
-    
+
+    @IBOutlet weak var refreshButton: UIBarButtonItem!
+
     weak var delegate: ConnectionsTableViewControllerDelegate?
     
     var instance: Instance?
-    
+
     var viewContext: NSManagedObjectContext!
     
     private lazy var fetchedResultsController: FetchedResultsController<Profile> = {
@@ -100,6 +104,16 @@ class ConnectionsTableViewController: UITableViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: Notification.Name.InstanceRefreshed, object: nil)
+    }
+
+    @IBAction func refreshAction(_ sender: Any) {
+        guard let delegate = delegate, let instance = instance else { return }
+        _ = firstly { () -> Promise<Void> in
+            refreshButton.isEnabled = false
+            return delegate.refresh(instance: instance)
+        }.ensure {
+            self.refreshButton.isEnabled = true
+        }
     }
     
     @objc func refresh() {
