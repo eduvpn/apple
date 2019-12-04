@@ -54,8 +54,8 @@ public class CancellablePromise<T>: Cancellable, Thenable, CatchMixin {
         return promise.value
     }
     
-    public func pipe(to: @escaping (PromiseKit.Result<T>) -> Void) {
-        promise.pipe(to: to)
+    public func pipe(to body: @escaping (PromiseKit.Result<T>) -> Void) {
+        promise.pipe(to: body)
     }
     
     public var result: PromiseKit.Result<T>? {
