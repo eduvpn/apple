@@ -35,7 +35,7 @@ extension AppCoordinator {
     }
     
     internal func pushViewController(_ viewController: NSViewController, animated: Bool = true,
-                                          completion: (() -> Void)? = nil) {
+                                           completion: (() -> Void)? = nil) {
         mainWindowController.show(viewController: viewController,
                                   presentation: .push,
                                   animated: animated,

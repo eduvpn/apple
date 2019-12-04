@@ -86,10 +86,10 @@ extension AppCoordinator {
         #if os(iOS)
         return Promise<Bool>(resolver: { seal in
             let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
-            alert.addAction(UIAlertAction(title: confirmTitle, style: .default, handler: { (action) in
+            alert.addAction(UIAlertAction(title: confirmTitle, style: .default, handler: { (_) in
                 seal.fulfill(true)
             }))
-            alert.addAction(UIAlertAction(title: declineTitle, style: .cancel, handler: { (action) in
+            alert.addAction(UIAlertAction(title: declineTitle, style: .cancel, handler: { (_) in
                 seal.fulfill(false)
             }))
 

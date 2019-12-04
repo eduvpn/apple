@@ -74,7 +74,6 @@ class AppCoordinator: RootViewCoordinator {
         return activityViewController
     }()
 
-    
     var rootViewController: UIViewController {
         return providersViewController
     }
