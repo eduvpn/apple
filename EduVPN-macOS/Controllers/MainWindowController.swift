@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class MainWindowController: NSWindowController {
+class MainWindowController: NSWindowController, NSWindowDelegate {
     
     var navigationStackStack: [[NSViewController]] = [[]]
     private var navigationStack: [NSViewController] {
@@ -40,6 +40,11 @@ class MainWindowController: NSWindowController {
     
     var mainViewController: MainViewController {
         return contentViewController as! MainViewController  //swiftlint:disable:this force_cast
+    }
+    
+    func windowShouldClose(_ sender: NSWindow) -> Bool {
+        NSApp.terminate(nil)
+        return false
     }
     
     // MARK: - Navigation
