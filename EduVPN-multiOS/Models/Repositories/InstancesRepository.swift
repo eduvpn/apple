@@ -109,7 +109,7 @@ class InstancesLoader {
 
             if #available(iOS 13.0, macOS 10.15, *) {
                 let cryptoKey = try Curve25519.Signing.PublicKey(rawRepresentation: publicKey)
-               isVerified = cryptoKey.isValidSignature(signature, for: response.data)
+                isVerified = cryptoKey.isValidSignature(signature, for: response.data)
             } else {
                 isVerified = self.verify(message: Array(response.data),
                                          publicKey: Array(publicKey),
