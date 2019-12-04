@@ -34,11 +34,9 @@ class Crypto {
         attributes[kSecAttrKeySizeInBits as String] = 256
         
         var error: Unmanaged<CFError>?
-        let _ = SecKeyCreateRandomKey(attributes as CFDictionary, &error)
+        let randomKey = SecKeyCreateRandomKey(attributes as CFDictionary, &error)
         
-        if let error = error?.takeRetainedValue(),
-            CFErrorGetCode(error) == errSecUnimplemented {
-            
+        if randomKey != nil {
             self.hasSecurityEnclave = true
             self.keySize = 256
             self.keyType = kSecAttrKeyTypeEC
