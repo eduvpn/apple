@@ -72,12 +72,14 @@ extension AppCoordinator {
         presentingViewController.present(alert, animated: true)
         
         #elseif os(macOS)
-        
-        let alert = NSAlert()
-        alert.messageText = title
-        alert.informativeText = message
-        alert.addButton(withTitle: NSLocalizedString("OK", comment: "OK button"))
-        alert.beginSheetModal(for: windowController.window!)
+
+        if let window = windowController.window {
+            let alert = NSAlert()
+            alert.messageText = title
+            alert.informativeText = message
+            alert.addButton(withTitle: NSLocalizedString("OK", comment: "OK button"))
+            alert.beginSheetModal(for: window)
+        }
         
         #endif
     }
