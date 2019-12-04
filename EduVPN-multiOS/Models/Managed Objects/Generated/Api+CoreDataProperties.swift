@@ -77,8 +77,14 @@ extension Api {
         get {
             guard let authStateUrl = authStateUrl else { return nil }
             if FileManager.default.fileExists(atPath: authStateUrl.path) {
-                if let data = try? Data(contentsOf: authStateUrl), let clearTextData = Crypto.shared.decrypt(data: data) {
-                    return NSKeyedUnarchiver.unarchiveObject(with: clearTextData) as? OIDAuthState
+                do {
+                    let data = try Data(contentsOf: authStateUrl)
+                    if let clearTextData = Crypto.shared.decrypt(data: data) {
+                        return try NSKeyedUnarchiver.unarchivedObject(ofClass: OIDAuthState.self, from: clearTextData)
+                    }
+                } catch {
+                    os_log("Failed load Authstate. %{public}@", log: Log.crypto, type: .error, error.localizedDescription)
+                    return nil
                 }
             }
             
@@ -87,21 +93,21 @@ extension Api {
         set {
             guard let authStateUrl = authStateUrl else { return }
             if let newValue = newValue {
-                let data = NSKeyedArchiver.archivedData(withRootObject: newValue)
-                
-                #if os(iOS)
-                let options: Data.WritingOptions = [.atomicWrite, .completeFileProtectionUntilFirstUserAuthentication]
-                #elseif os(macOS)
-                let options: Data.WritingOptions = []
-                #endif
-
                 do {
+                    let data = try NSKeyedArchiver.archivedData(withRootObject: newValue, requiringSecureCoding: false)
+
+                    #if os(iOS)
+                    let options: Data.WritingOptions = [.atomicWrite, .completeFileProtectionUntilFirstUserAuthentication]
+                    #elseif os(macOS)
+                    let options: Data.WritingOptions = []
+                    #endif
+
                     let encryptedData = try Crypto.shared.encrypt(data: data)
                     try encryptedData?.write(to: authStateUrl, options: options)
 
                     excludeFromBackup(url: authStateUrl)
                 } catch {
-                    os_log("Failed to fetch objects: %{public}@", log: Log.crypto, type: .error, error.localizedDescription)
+                    os_log("Failed to write Authstate %{public}@", log: Log.crypto, type: .error, error.localizedDescription)
                 }
             } else {
                 try? FileManager.default.removeItem(at: authStateUrl)
