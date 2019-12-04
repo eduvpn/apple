@@ -128,7 +128,6 @@ extension AppCoordinator {
                         self.hideActivityIndicator()
                         return self.fetchProfile(for: profile, retry: true)
                     }
-                    
                 }
                 
                 if let nsError = error as NSError?,
@@ -158,7 +157,7 @@ extension AppCoordinator {
                 
                 switch error {
                     
-                case ApiServiceError.tokenRefreshFailed:
+                case ApiServiceError.tokenRefreshFailed, ApiServiceError.noAuthState:
                     self.authorizingDynamicApiProvider = dynamicApiProvider
                     #if os(iOS)
                     let authorizeRequest = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
@@ -178,28 +177,6 @@ extension AppCoordinator {
                             self.showError(error)
                             throw error
                         }
-                    
-                case ApiServiceError.noAuthState:
-                    self.authorizingDynamicApiProvider = dynamicApiProvider
-                    #if os(iOS)
-                    let authorizeRequest = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
-                    self.showActivityIndicator(messageKey: "Authorizing with provider")
-                    #elseif os(macOS)
-                    let authorizeRequest = dynamicApiProvider.authorize()
-                    self.showActivityIndicator(messageKey: "Authorizing with provider", cancellable: authorizeRequest)
-                    #endif
-                    
-                    return authorizeRequest
-                        .then { _ -> Promise<Void> in
-                            self.hideActivityIndicator()
-                            return self.refreshProfiles(for: dynamicApiProvider)
-                        }
-                        .recover { error throws in
-                            self.hideActivityIndicator()
-                            self.showError(error)
-                            throw error
-                        }
-                    
                 default:
                     self.showError(error)
                     throw error
