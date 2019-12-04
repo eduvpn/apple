@@ -11,6 +11,7 @@ import Foundation
 import libsodium
 import Moya
 import PromiseKit
+import CryptoKit
 
 struct InstancesRepository {
     
@@ -104,9 +105,16 @@ class InstancesLoader {
             guard let publicKey = StaticService.publicKey else {
                 throw AppCoordinatorError.sodiumSignatureVerifyFailed
             }
-            let isVerified = self.verify(message: Array(response.data),
+            let isVerified: Bool
+
+            if #available(iOS 13.0, macOS 10.15, *) {
+                let cryptoKey = try Curve25519.Signing.PublicKey(rawRepresentation: publicKey)
+                isVerified = cryptoKey.isValidSignature(signature, for: response.data)
+            } else {
+                isVerified = self.verify(message: Array(response.data),
                                          publicKey: Array(publicKey),
                                          signature: Array(signature))
+            }
             
             guard isVerified else {
                 throw AppCoordinatorError.sodiumSignatureVerifyFailed
