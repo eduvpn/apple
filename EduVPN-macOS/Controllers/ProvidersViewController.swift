@@ -168,13 +168,16 @@ class ProvidersViewController: NSViewController {
             break
             
         case .row(_, let instance):
+            guard let window = view.window else {
+                break
+            }
             let alert = NSAlert()
             alert.alertStyle = .critical
             alert.messageText = NSLocalizedString("Remove \(instance.displayName)?", comment: "")
             alert.informativeText = NSLocalizedString("You will no longer be able to connect to \(instance.displayName).", comment: "")
             
-            switch instance.group!.authorizationTypeEnum {
-            case .local:
+            switch instance.group?.authorizationTypeEnum {
+            case .local, .none:
                 break
             case .distributed, .federated:
                 alert.informativeText += NSLocalizedString(" You may also no longer be able to connect to additional providers that were authorized via this provider.", comment: "")
@@ -182,7 +185,7 @@ class ProvidersViewController: NSViewController {
             
             alert.addButton(withTitle: NSLocalizedString("Remove", comment: ""))
             alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
-            alert.beginSheetModal(for: self.view.window!) { response in
+            alert.beginSheetModal(for: window) { response in
                 switch response {
                 case NSApplication.ModalResponse.alertFirstButtonReturn:
                     self.delegate?.delete(instance: instance)
@@ -199,7 +202,9 @@ class ProvidersViewController: NSViewController {
     private var busy: Bool = false
     
     private func handleError(_ error: Error) {
-        NSAlert(customizedError: error)?.beginSheetModal(for: self.view.window!)
+        if let window = view.window {
+            NSAlert(customizedError: error)?.beginSheetModal(for: window)
+        }
     }
     
     @IBAction func goBack(_ sender: Any) {

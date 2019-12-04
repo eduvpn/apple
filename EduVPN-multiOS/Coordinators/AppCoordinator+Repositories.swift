@@ -80,7 +80,12 @@ extension AppCoordinator {
             precondition(false, "This should never happen")
             return Promise(error: AppCoordinatorError.apiMissing)
         }
-        
+
+        guard let profileId = profile.profileId else {
+            precondition(false, "This should never happen")
+            return Promise(error: AppCoordinatorError.profileIdMissing)
+        }
+
         guard let dynamicApiProvider = DynamicApiProvider(api: api) else {
             return Promise(error: AppCoordinatorError.apiProviderCreateFailed)
         }
@@ -90,7 +95,7 @@ extension AppCoordinator {
         return loadCertificate(for: api)
             .then { _ -> Promise<Response> in
                 self.setActivityIndicatorMessage(key: "Requesting profile config")
-                return dynamicApiProvider.request(apiService: .profileConfig(profileId: profile.profileId!))
+                return dynamicApiProvider.request(apiService: .profileConfig(profileId: profileId))
             }.map { response -> [String] in
                 guard var ovpnFileContent = String(data: response.data, encoding: .utf8) else {
                     throw AppCoordinatorError.ovpnConfigTemplate

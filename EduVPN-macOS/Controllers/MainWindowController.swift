@@ -13,7 +13,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
     var navigationStackStack: [[NSViewController]] = [[]]
     private var navigationStack: [NSViewController] {
         get {
-            return navigationStackStack.last!
+            return navigationStackStack.last ?? []
         }
         set {
             navigationStackStack.removeLast()
@@ -70,7 +70,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
     func close(viewController: NSViewController, animated: Bool = true, completionHandler: (() -> Void)? = nil) {
         if navigationStack.count > 1, navigationStack.last == viewController {
             pop(animated: animated, completionHandler: completionHandler)
-        } else if navigationStackStack.count > 1, navigationStackStack.last!.last == viewController {
+        } else if navigationStackStack.count > 1, navigationStackStack.last?.last == viewController {
             dismiss(animated: animated, completionHandler: completionHandler)
         }
     }
@@ -87,9 +87,13 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
         guard navigationStack.count > 1 else {
             return
         }
-        
+
         navigationStack.removeLast()
-        mainViewController.show(viewController: navigationStack.last!,
+        guard let last = navigationStack.last else {
+            return
+        }
+
+        mainViewController.show(viewController: last,
                                 options: .slideBackward,
                                 animated: animated,
                                 completionHandler: completionHandler)
@@ -99,9 +103,13 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
         guard navigationStack.count > 1 else {
             return
         }
+
+        guard let root = navigationStack.first else {
+            return
+        }
         
-        navigationStack = [navigationStack.first!]
-        mainViewController.show(viewController: navigationStack.last!,
+        navigationStack = [root]
+        mainViewController.show(viewController: root,
                                 options: .slideBackward,
                                 animated: animated,
                                 completionHandler: completionHandler)

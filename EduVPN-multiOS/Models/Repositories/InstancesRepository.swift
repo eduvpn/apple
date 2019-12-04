@@ -141,7 +141,8 @@ class InstancesLoader {
             return Promise.value(instances)
         }
     }
-    
+
+    //swiftlint:disable:next function_body_length
     private func parseInstances(instanceGroupIdentifier: String, providerType: ProviderType) -> (InstancesModel) -> Promise<Void> {
         return { instances in
             let instanceIdentifiers = instances.instances.map { $0.baseUri.absoluteString }
