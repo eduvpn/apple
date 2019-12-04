@@ -35,7 +35,12 @@ class Crypto {
         attributes[kSecAttrTokenID as String] = kSecAttrTokenIDSecureEnclave
         
         var error: Unmanaged<CFError>?
-        let randomKey = SecKeyCreateRandomKey(attributes as CFDictionary, &error)
+        var randomKey = SecKeyCreateRandomKey(attributes as CFDictionary, &error)
+
+        #if targetEnvironment(simulator)
+        print("SIMULATOR does not support secure enclave.")
+        randomKey = nil
+        #endif
         
         if randomKey != nil {
             self.hasSecurityEnclave = true
@@ -63,13 +68,9 @@ class Crypto {
         var attributes = [String: Any]()
         attributes[kSecAttrKeyType as String] = self.keyType
         attributes[kSecAttrKeySizeInBits as String] = self.keySize
-        #if targetEnvironment(simulator)
-        print("SIMULATOR does not support secure enclave.")
-        #else
         if self.hasSecurityEnclave {
             attributes[kSecAttrTokenID as String] = kSecAttrTokenIDSecureEnclave
         }
-        #endif
 
         let tag = name
         attributes[kSecPrivateKeyAttrs as String] = [
@@ -89,6 +90,7 @@ class Crypto {
             throw CryptoError.keyCreationFailed
         }
 
+        os_log("Created and stored key.", log: Log.crypto, type: .info)
         return unwrappedPrivateKey
     }
 
@@ -107,6 +109,7 @@ class Crypto {
         guard status == errSecSuccess else {
             return nil
         }
+        os_log("Retreived key.", log: Log.crypto, type: .info)
         return (item as! SecKey) // swiftlint:disable:this force_cast
     }
 
@@ -115,6 +118,7 @@ class Crypto {
 
         guard let publicKey = SecKeyCopyPublicKey(key) else {
             // Can't get public key
+            os_log("Can't encrypt. Can't get public key.", log: Log.crypto, type: .error)
             return nil
         }
         let algorithm: SecKeyAlgorithm = self.algorithm
@@ -140,7 +144,10 @@ class Crypto {
     }
 
     func decrypt(data cipherTextData: Data) -> Data? {
-        guard let key = loadKey(name: keyName) else { return nil }
+        guard let key = loadKey(name: keyName) else {
+            os_log("Can't decrypt. Key not found.", log: Log.crypto, type: .error)
+            return nil
+        }
 
         let algorithm: SecKeyAlgorithm = self.algorithm
         guard SecKeyIsAlgorithmSupported(key, .decrypt, algorithm) else {

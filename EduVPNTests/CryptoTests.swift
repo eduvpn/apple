@@ -10,6 +10,8 @@ import XCTest
 
 #if eduVPN
 @testable import eduVPN
+#elseif EduVPN
+@testable import EduVPN
 #elseif AppForce1
 @testable import AppForce1_VPN
 #elseif LetsConnect
