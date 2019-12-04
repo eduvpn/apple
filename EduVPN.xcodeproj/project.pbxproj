@@ -1979,6 +1979,44 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"resolv\"",
+					"-framework",
+					"\"ASN1Decoder\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"AppAuth\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"FileKit\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"Kingfisher\"",
+					"-framework",
+					"\"Moya\"",
+					"-framework",
+					"\"NetworkExtension\"",
+					"-framework",
+					"\"PromiseKit\"",
+					"-framework",
+					"\"Result\"",
+					"-framework",
+					"\"SwiftyBeaver\"",
+					"-framework",
+					"\"TunnelKit\"",
+					"-framework",
+					"\"libsodium\"",
+					"-framework",
+					"\"openssl\"",
+					"-weak_framework",
+					"\"CryptoKit\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID)";
 				PRODUCT_NAME = "$(APP_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2005,6 +2043,44 @@
 				INFOPLIST_FILE = "$(SRCROOT)/EduVPN-macOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"resolv\"",
+					"-framework",
+					"\"ASN1Decoder\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"AppAuth\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"FileKit\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"Kingfisher\"",
+					"-framework",
+					"\"Moya\"",
+					"-framework",
+					"\"NetworkExtension\"",
+					"-framework",
+					"\"PromiseKit\"",
+					"-framework",
+					"\"Result\"",
+					"-framework",
+					"\"SwiftyBeaver\"",
+					"-framework",
+					"\"TunnelKit\"",
+					"-framework",
+					"\"libsodium\"",
+					"-framework",
+					"\"openssl\"",
+					"-weak_framework",
+					"\"CryptoKit\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID)";
 				PRODUCT_NAME = "$(APP_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
