@@ -216,28 +216,42 @@
 /* Begin PBXContainerItemProxy section */
 		19D44510839C429255E04DB605A41E60 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C094CFC7F3AAC957E8FF182009BCB82F /* SwiftyBeaver.xcodeproj */;
+			containerPortal = C094CFC7F3AAC957E8FF182009BCB82F /* SwiftyBeaver */;
 			proxyType = 1;
 			remoteGlobalIDString = 0560915E6205753C7CA9BEF89C663EDE;
 			remoteInfo = "SwiftyBeaver-iOS";
 		};
 		472393FF57F8E50C8D9B233F7A1ACBB4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C094CFC7F3AAC957E8FF182009BCB82F /* SwiftyBeaver.xcodeproj */;
+			containerPortal = C094CFC7F3AAC957E8FF182009BCB82F /* SwiftyBeaver */;
 			proxyType = 1;
 			remoteGlobalIDString = ADAF532753EB5CC97E9208DF06BCB783;
 			remoteInfo = "SwiftyBeaver-macOS";
 		};
+		4A0D5262239835F70030B34A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C094CFC7F3AAC957E8FF182009BCB82F /* SwiftyBeaver */;
+			proxyType = 2;
+			remoteGlobalIDString = 60DA3C7AD6CA14EEE6F0971F14F43D0F;
+			remoteInfo = "SwiftyBeaver-iOS";
+		};
+		4A0D5264239835F70030B34A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C094CFC7F3AAC957E8FF182009BCB82F /* SwiftyBeaver */;
+			proxyType = 2;
+			remoteGlobalIDString = F55DFC3BF892032E50096FA35E5A7877;
+			remoteInfo = "SwiftyBeaver-macOS";
+		};
 		8CCF92DDD0EB3FEDEC23CB247BB68172 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = E54B7252D5244116E4643E2EA7ED6211 /* OpenSSL-Apple.xcodeproj */;
+			containerPortal = E54B7252D5244116E4643E2EA7ED6211 /* OpenSSL-Apple */;
 			proxyType = 1;
 			remoteGlobalIDString = A3C2E5EFCC4D13E10511CE8D6F554C9F;
 			remoteInfo = "OpenSSL-Apple-iOS";
 		};
 		E895F4B84D64B04C86CDE98390626BBD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = E54B7252D5244116E4643E2EA7ED6211 /* OpenSSL-Apple.xcodeproj */;
+			containerPortal = E54B7252D5244116E4643E2EA7ED6211 /* OpenSSL-Apple */;
 			proxyType = 1;
 			remoteGlobalIDString = 40683090B8D8AB8FA1A78F00E455ED4B;
 			remoteInfo = "OpenSSL-Apple-macOS";
@@ -282,7 +296,7 @@
 		4D2EF33C2888E19D84B817F8FE18EB76 /* PacketMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PacketMacros.h; path = TunnelKit/Sources/Protocols/OpenVPN/PacketMacros.h; sourceTree = "<group>"; };
 		4D861D2CC89E699488A88835F7BB2084 /* OpenVPNTunnelProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OpenVPNTunnelProvider.swift; path = TunnelKit/Sources/Protocols/OpenVPN/AppExtension/OpenVPNTunnelProvider.swift; sourceTree = "<group>"; };
 		538E2643C78E06B579D1946DF577916C /* StaticKey.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StaticKey.swift; path = TunnelKit/Sources/Protocols/OpenVPN/StaticKey.swift; sourceTree = "<group>"; };
-		53C638FBB29BD4A6DF043BCE51DEA4DE /* TunnelKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = TunnelKit.framework; path = "TunnelKit-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		53C638FBB29BD4A6DF043BCE51DEA4DE /* TunnelKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TunnelKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FD6CFA9770F23EF0C26961E830E059 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/NetworkExtension.framework; sourceTree = DEVELOPER_DIR; };
 		572F9F4397EAB793E9668558908EB681 /* TunnelKit-macOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "TunnelKit-macOS-Info.plist"; path = "../TunnelKit-macOS/TunnelKit-macOS-Info.plist"; sourceTree = "<group>"; };
 		57EEC27E8C211311F4302173270FE344 /* CoreConfiguration+OpenVPN.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CoreConfiguration+OpenVPN.swift"; path = "TunnelKit/Sources/Protocols/OpenVPN/CoreConfiguration+OpenVPN.swift"; sourceTree = "<group>"; };
@@ -309,7 +323,7 @@
 		81A534EC6D72CEC2E182FE8FAF2CE2FF /* RoutingTable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RoutingTable.h; path = TunnelKit/Sources/Core/RoutingTable.h; sourceTree = "<group>"; };
 		845B1E1D6F8CD0C4D83FC84F26A52DD5 /* DataPathCrypto.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DataPathCrypto.h; path = TunnelKit/Sources/Protocols/OpenVPN/DataPathCrypto.h; sourceTree = "<group>"; };
 		859D32701972E67FFD1D9EF6F5910701 /* ConfigurationError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConfigurationError.swift; path = TunnelKit/Sources/Core/ConfigurationError.swift; sourceTree = "<group>"; };
-		87B8DF0DA320B8991B269F1B22035F44 /* TunnelKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = TunnelKit.framework; path = "TunnelKit-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		87B8DF0DA320B8991B269F1B22035F44 /* TunnelKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TunnelKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A5D11E6B5FA78C1DCB632DA5C2CB34A /* Keychain.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Keychain.swift; path = TunnelKit/Sources/AppExtension/Keychain.swift; sourceTree = "<group>"; };
 		8F98C3A0D59DA4D1AAF7E43126D0B952 /* TLSWrap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TLSWrap.swift; path = TunnelKit/Sources/Protocols/OpenVPN/TLSWrap.swift; sourceTree = "<group>"; };
 		90ADBAA4C251E909A133D6A531FB74D6 /* CryptoBox.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CryptoBox.m; path = TunnelKit/Sources/Protocols/OpenVPN/CryptoBox.m; sourceTree = "<group>"; };
@@ -423,6 +437,22 @@
 				9617E0C19941C84F4893BF051426BAE3 /* Products */,
 				E955F3BD8469D2E616C9A5AFE967E1BC /* TunnelKit */,
 			);
+			sourceTree = "<group>";
+		};
+		4A0D52302398354F0030B34A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4A0D52322398354F0030B34A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4A0D5263239835F70030B34A /* SwiftyBeaver.framework */,
+				4A0D5265239835F70030B34A /* SwiftyBeaver.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		83DE5CFF6380F9ED331ECC0715B6D463 /* OS X */ = {
@@ -549,7 +579,6 @@
 				A60E558BADA02D1C0D50B7ACAC5DF157 /* Protocols */,
 				B68F31502A626FF799D81A3A0B85BB32 /* Support Files */,
 			);
-			name = TunnelKit;
 			path = TunnelKit;
 			sourceTree = "<group>";
 		};
@@ -720,7 +749,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1120;
 			};
 			buildConfigurationList = 938C1E9488D33DF2A749264263A9AFCB /* Build configuration list for PBXProject "TunnelKit" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -735,10 +764,12 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProjectRef = C094CFC7F3AAC957E8FF182009BCB82F /* SwiftyBeaver */;
+					ProductGroup = 4A0D52302398354F0030B34A /* Products */;
+					ProjectRef = E54B7252D5244116E4643E2EA7ED6211 /* OpenSSL-Apple */;
 				},
 				{
-					ProjectRef = E54B7252D5244116E4643E2EA7ED6211 /* OpenSSL-Apple */;
+					ProductGroup = 4A0D52322398354F0030B34A /* Products */;
+					ProjectRef = C094CFC7F3AAC957E8FF182009BCB82F /* SwiftyBeaver */;
 				},
 			);
 			projectRoot = "";
@@ -748,6 +779,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		4A0D5263239835F70030B34A /* SwiftyBeaver.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftyBeaver.framework;
+			remoteRef = 4A0D5262239835F70030B34A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4A0D5265239835F70030B34A /* SwiftyBeaver.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftyBeaver.framework;
+			remoteRef = 4A0D5264239835F70030B34A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		1BFE3097B369941A509611D76CBF5FC5 /* Resources */ = {
@@ -1009,8 +1057,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
@@ -1020,7 +1067,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AB20FA30DF5E35F216A594F4E6A0B4F7 /* TunnelKit-iOS.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1054,7 +1100,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7051A9DF59BBB174DA5803CD3F98BBFE /* TunnelKit-macOS.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1088,7 +1133,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AB20FA30DF5E35F216A594F4E6A0B4F7 /* TunnelKit-iOS.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1121,7 +1165,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7051A9DF59BBB174DA5803CD3F98BBFE /* TunnelKit-macOS.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";

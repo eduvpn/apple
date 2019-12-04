@@ -88,7 +88,7 @@
 		4DD8D08AF1B939D5029D4F264643EF8C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		5884BF370685AF57FCC03B3142F8FF63 /* race.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = race.m; path = Sources/race.m; sourceTree = "<group>"; };
 		5BF88738A34E8284C80FD5323489EFF2 /* PromiseKit-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "PromiseKit-iOS-dummy.m"; sourceTree = "<group>"; };
-		6017F1A17B80D594F9D449EC4DCFA19A /* PromiseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = PromiseKit.framework; path = "PromiseKit-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6017F1A17B80D594F9D449EC4DCFA19A /* PromiseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PromiseKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		60AF3DFC4CD2FA8F32959B2361696B7F /* PromiseKit-macOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "PromiseKit-macOS-umbrella.h"; path = "../PromiseKit-macOS/PromiseKit-macOS-umbrella.h"; sourceTree = "<group>"; };
 		61ACAEA8B03D7DFF5C7407682F8DC047 /* PromiseKit-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PromiseKit-iOS-umbrella.h"; sourceTree = "<group>"; };
 		679F6D58CEB0F7DB52EBB50BB5FBB9D8 /* AnyPromise.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AnyPromise.h; path = Sources/AnyPromise.h; sourceTree = "<group>"; };
@@ -97,7 +97,7 @@
 		792D5350BAA63010ACFFBC84A09A03D2 /* race.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = race.swift; path = Sources/race.swift; sourceTree = "<group>"; };
 		7DEAAC8B04A22F8191C8D101E4619E89 /* Guarantee.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Guarantee.swift; path = Sources/Guarantee.swift; sourceTree = "<group>"; };
 		8274B499B75603521DB741FA67BA7CAB /* PromiseKit-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "PromiseKit-iOS.xcconfig"; sourceTree = "<group>"; };
-		8734A58C2891CB09EE4D7737D41625CA /* PromiseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = PromiseKit.framework; path = "PromiseKit-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8734A58C2891CB09EE4D7737D41625CA /* PromiseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PromiseKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		88245B23018204EB6E01DBE7F71B717D /* hang.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = hang.swift; path = Sources/hang.swift; sourceTree = "<group>"; };
 		8A82A3B98378F5049DEF5184DB9F5F82 /* Box.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Box.swift; path = Sources/Box.swift; sourceTree = "<group>"; };
 		8EB703D7ADF2DE04CB9A73C82780A5A4 /* when.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = when.m; path = Sources/when.m; sourceTree = "<group>"; };
@@ -153,7 +153,6 @@
 				FBED2DE416B05B764B52FA8369A7DD5E /* CorePromise */,
 				BD91F7FB31F26B166D3FA52DFD94F839 /* Support Files */,
 			);
-			name = PromiseKit;
 			path = PromiseKit;
 			sourceTree = "<group>";
 		};
@@ -317,7 +316,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1120;
 			};
 			buildConfigurationList = 3F5B793BB8DB20B8FB63F457FEDF3F4E /* Build configuration list for PBXProject "PromiseKit" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -427,7 +426,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8274B499B75603521DB741FA67BA7CAB /* PromiseKit-iOS.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -574,8 +572,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
@@ -585,7 +582,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CDF514D0F30879ABB60196363F4B3E0E /* PromiseKit-macOS.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -619,7 +615,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8274B499B75603521DB741FA67BA7CAB /* PromiseKit-iOS.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -652,7 +647,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CDF514D0F30879ABB60196363F4B3E0E /* PromiseKit-macOS.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";

@@ -80,7 +80,7 @@
 		A3ECD0289B323C1CF70ECC57636ED933 /* JSONType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JSONType.swift; path = Sources/JSONType.swift; sourceTree = "<group>"; };
 		A6211E07AFADB3E35C33F5F33AC6881E /* DictionaryFile.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DictionaryFile.swift; path = Sources/DictionaryFile.swift; sourceTree = "<group>"; };
 		A71465822BD4C626D8A1EAD93D280099 /* PropertyListType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PropertyListType.swift; path = Sources/PropertyListType.swift; sourceTree = "<group>"; };
-		B3FEEBC0F0E13578AD7B8E7788DD2FF1 /* FileKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FileKit.framework; path = FileKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3FEEBC0F0E13578AD7B8E7788DD2FF1 /* FileKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FileKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B80D18DE21A72A43F60F7ACD237E83ED /* TextFile.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TextFile.swift; path = Sources/TextFile.swift; sourceTree = "<group>"; };
 		BD539A264100FC771474A3A39642C960 /* FileType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FileType.swift; path = Sources/FileType.swift; sourceTree = "<group>"; };
 		BF41C3425F436FDA94F573A0E09DB906 /* Bundle+FileKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Bundle+FileKit.swift"; path = "Sources/Bundle+FileKit.swift"; sourceTree = "<group>"; };
@@ -184,7 +184,6 @@
 				B80D18DE21A72A43F60F7ACD237E83ED /* TextFile.swift */,
 				46481DB23D722C26C30234109ADD3511 /* Support Files */,
 			);
-			name = FileKit;
 			path = FileKit;
 			sourceTree = "<group>";
 		};
@@ -235,7 +234,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1120;
 			};
 			buildConfigurationList = 785F135C243E174A939D6F01F1402068 /* Build configuration list for PBXProject "FileKit" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -380,7 +379,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6223A2B688541021381789EF6EA0BD6F /* FileKit.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -414,7 +412,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6223A2B688541021381789EF6EA0BD6F /* FileKit.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -497,8 +494,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
