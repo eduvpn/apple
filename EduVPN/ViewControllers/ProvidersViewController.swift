@@ -101,14 +101,15 @@ class ProvidersViewController: UITableViewController {
         }
         
         var sortDescriptors = [NSSortDescriptor]()
-        if case .unknown = providerType {
-            sortDescriptors.append(NSSortDescriptor(key: "lastAccessedTimeInterval", ascending: false))
-        }
 
         if Config.shared.discovery != nil {
             sortDescriptors.append(NSSortDescriptor(key: "providerType", ascending: true))
         }
-        
+
+        if case .unknown = providerType {
+            sortDescriptors.append(NSSortDescriptor(key: "lastAccessedTimeInterval", ascending: false))
+        }
+
         sortDescriptors.append(NSSortDescriptor(key: "baseUri", ascending: true))
         fetchRequest.sortDescriptors = sortDescriptors
         
