@@ -80,7 +80,12 @@ extension AppCoordinator {
             precondition(false, "This should never happen")
             return Promise(error: AppCoordinatorError.apiMissing)
         }
-        
+
+        guard let profileId = profile.profileId else {
+            precondition(false, "This should never happen")
+            return Promise(error: AppCoordinatorError.profileIdMissing)
+        }
+
         guard let dynamicApiProvider = DynamicApiProvider(api: api) else {
             return Promise(error: AppCoordinatorError.apiProviderCreateFailed)
         }
@@ -90,7 +95,7 @@ extension AppCoordinator {
         return loadCertificate(for: api)
             .then { _ -> Promise<Response> in
                 self.setActivityIndicatorMessage(key: "Requesting profile config")
-                return dynamicApiProvider.request(apiService: .profileConfig(profileId: profile.profileId!))
+                return dynamicApiProvider.request(apiService: .profileConfig(profileId: profileId))
             }.map { response -> [String] in
                 guard var ovpnFileContent = String(data: response.data, encoding: .utf8) else {
                     throw AppCoordinatorError.ovpnConfigTemplate
@@ -128,7 +133,6 @@ extension AppCoordinator {
                         self.hideActivityIndicator()
                         return self.fetchProfile(for: profile, retry: true)
                     }
-                    
                 }
                 
                 if let nsError = error as NSError?,
@@ -158,7 +162,7 @@ extension AppCoordinator {
                 
                 switch error {
                     
-                case ApiServiceError.tokenRefreshFailed:
+                case ApiServiceError.tokenRefreshFailed, ApiServiceError.noAuthState:
                     self.authorizingDynamicApiProvider = dynamicApiProvider
                     #if os(iOS)
                     let authorizeRequest = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
@@ -178,28 +182,6 @@ extension AppCoordinator {
                             self.showError(error)
                             throw error
                         }
-                    
-                case ApiServiceError.noAuthState:
-                    self.authorizingDynamicApiProvider = dynamicApiProvider
-                    #if os(iOS)
-                    let authorizeRequest = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
-                    self.showActivityIndicator(messageKey: "Authorizing with provider")
-                    #elseif os(macOS)
-                    let authorizeRequest = dynamicApiProvider.authorize()
-                    self.showActivityIndicator(messageKey: "Authorizing with provider", cancellable: authorizeRequest)
-                    #endif
-                    
-                    return authorizeRequest
-                        .then { _ -> Promise<Void> in
-                            self.hideActivityIndicator()
-                            return self.refreshProfiles(for: dynamicApiProvider)
-                        }
-                        .recover { error throws in
-                            self.hideActivityIndicator()
-                            self.showError(error)
-                            throw error
-                        }
-                    
                 default:
                     self.showError(error)
                     throw error

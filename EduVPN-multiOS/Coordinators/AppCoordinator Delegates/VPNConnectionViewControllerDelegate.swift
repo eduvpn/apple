@@ -19,7 +19,7 @@ protocol VPNConnectionViewControllerDelegate: class {
 
 extension AppCoordinator: VPNConnectionViewControllerDelegate {
     func confirmDisconnectWhileOnDemandEnabled() -> Promise<Bool> {
-        return showActionSheet(title: NSLocalizedString("OnDemand enabled",comment: ""),
+        return showActionSheet(title: NSLocalizedString("OnDemand enabled", comment: ""),
                                message: NSLocalizedString("Are you sure you want to disconnect while OnDemand is enabled?", comment: ""),
                                confirmTitle: NSLocalizedString("Disconnect", comment: ""),
                                declineTitle: NSLocalizedString("Cancel", comment: ""))

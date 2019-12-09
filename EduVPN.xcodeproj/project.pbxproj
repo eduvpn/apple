@@ -33,7 +33,6 @@
 		34186CF72297CE19009B4121 /* CredentialStorePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD591F34F887006E1337 /* CredentialStorePlugin.swift */; };
 		34186D06229802C0009B4121 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34186D05229802C0009B4121 /* FileService.swift */; };
 		34186D08229802E1009B4121 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34186D05229802C0009B4121 /* FileService.swift */; };
-		34186D0B2298068C009B4121 /* NSError+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34186D0A2298068C009B4121 /* NSError+App.swift */; };
 		342B9CB4228ED01400C006D7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CAF228ED01400C006D7 /* main.m */; };
 		342B9CB5228ED01400C006D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 342B9CB0228ED01400C006D7 /* Assets.xcassets */; };
 		342B9CB7228ED01400C006D7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CB2228ED01400C006D7 /* AppDelegate.m */; };
@@ -267,7 +266,6 @@
 		3415C02023181191005B9E6C /* СonnectionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "СonnectionsTableViewController.swift"; sourceTree = "<group>"; };
 		34186CE42296D971009B4121 /* ASN1Decoder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ASN1Decoder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		34186D05229802C0009B4121 /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
-		34186D0A2298068C009B4121 /* NSError+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSError+App.swift"; sourceTree = "<group>"; };
 		342B9C91228ECBB200C006D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		342B9C93228ECBB600C006D7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LoginItemHelper-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -730,7 +728,6 @@
 				34D71A85228D9C690027DE84 /* NSAlert+Custom.swift */,
 				34D71A8D228D9C6A0027DE84 /* String+Random.swift */,
 				34D71A89228D9C6A0027DE84 /* URL+Unused.swift */,
-				34186D0A2298068C009B4121 /* NSError+App.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1670,7 +1667,6 @@
 				343452A822A13EDE00C0476E /* Log.swift in Sources */,
 				34D71A9A228D9C6A0027DE84 /* String+Random.swift in Sources */,
 				34186CF72297CE19009B4121 /* CredentialStorePlugin.swift in Sources */,
-				34186D0B2298068C009B4121 /* NSError+App.swift in Sources */,
 				C7FA7A7723633895006501E8 /* InstancesRepository.swift in Sources */,
 				340A505422A3BF8900170E51 /* EnterProviderURLViewController.swift in Sources */,
 				C7FA7A1523633694006501E8 /* InstanceModel.swift in Sources */,

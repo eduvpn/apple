@@ -72,12 +72,14 @@ extension AppCoordinator {
         presentingViewController.present(alert, animated: true)
         
         #elseif os(macOS)
-        
-        let alert = NSAlert()
-        alert.messageText = title
-        alert.informativeText = message
-        alert.addButton(withTitle: NSLocalizedString("OK", comment: "OK button"))
-        alert.beginSheetModal(for: windowController.window!)
+
+        if let window = windowController.window {
+            let alert = NSAlert()
+            alert.messageText = title
+            alert.informativeText = message
+            alert.addButton(withTitle: NSLocalizedString("OK", comment: "OK button"))
+            alert.beginSheetModal(for: window)
+        }
         
         #endif
     }
@@ -86,10 +88,10 @@ extension AppCoordinator {
         #if os(iOS)
         return Promise<Bool>(resolver: { seal in
             let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
-            alert.addAction(UIAlertAction(title: confirmTitle, style: .default, handler: { (action) in
+            alert.addAction(UIAlertAction(title: confirmTitle, style: .default, handler: { (_) in
                 seal.fulfill(true)
             }))
-            alert.addAction(UIAlertAction(title: declineTitle, style: .cancel, handler: { (action) in
+            alert.addAction(UIAlertAction(title: declineTitle, style: .cancel, handler: { (_) in
                 seal.fulfill(false)
             }))
 

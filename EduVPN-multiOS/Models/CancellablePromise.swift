@@ -28,8 +28,8 @@ public class CancellablePromise<T>: Cancellable, Thenable, CatchMixin {
     var resolver: Resolver<T>!
     var cancellable: Cancellable!
 
-    init(resolver: ((Resolver<T>) throws ->())!, cancellable: Cancellable) {
-        self.promise = Promise<T>.init(resolver: { otherResolver in
+    init(resolver: ((Resolver<T>) throws -> Void)!, cancellable: Cancellable) {
+        self.promise = Promise<T>(resolver: { otherResolver in
             self.resolver = otherResolver
             try resolver(otherResolver)
         })
@@ -54,8 +54,8 @@ public class CancellablePromise<T>: Cancellable, Thenable, CatchMixin {
         return promise.value
     }
     
-    public func pipe(to: @escaping (PromiseKit.Result<T>) -> Void) {
-        promise.pipe(to: to)
+    public func pipe(to body: @escaping (PromiseKit.Result<T>) -> Void) {
+        promise.pipe(to: body)
     }
     
     public var result: PromiseKit.Result<T>? {
@@ -64,7 +64,7 @@ public class CancellablePromise<T>: Cancellable, Thenable, CatchMixin {
     
     public func _map<U>( _ transform: @escaping (T) throws -> U) -> CancellablePromise<U> { //swiftlint:disable:this identifier_name
         
-        return CancellablePromise<U>.init(resolver: { (otherResolver) in
+        return CancellablePromise<U>(resolver: { (otherResolver) in
             self.pipe(to: { (result) in
                 otherResolver.resolve(result.map(transform))
             })
@@ -80,7 +80,7 @@ extension PromiseKit.Result {
         do {
             let mappedValue = try transform(value)
             return PromiseKit.Result<U>.fulfilled(mappedValue)
-        } catch (let error) {
+        } catch let error {
             return PromiseKit.Result<U>.rejected(error)
         }
         case .rejected(let error):

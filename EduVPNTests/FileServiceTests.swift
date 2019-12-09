@@ -19,9 +19,17 @@ import XCTest
 class FileServiceTests: XCTestCase {
 
     func testFilePathUrl() {
-        let commonRoot = applicationSupportDirectoryUrl()!.standardizedFileURL.absoluteString
+        guard let commonRoot = applicationSupportDirectoryUrl()?.standardizedFileURL.absoluteString else {
+            XCTFail("No commonRoot.")
+            return
+        }
 
-        let result = filePathUrl(from: URL(string: "http://www.example.com//foo//bar//")!)?.absoluteString
+        guard let input = URL(string: "http://www.example.com//foo//bar//") else {
+            XCTFail("No input.")
+            return
+        }
+
+        let result = filePathUrl(from: input)?.absoluteString
         var expected = "\(commonRoot)www.example.com/foo/bar"
         if result?.last == "/" {
             expected.append("/")

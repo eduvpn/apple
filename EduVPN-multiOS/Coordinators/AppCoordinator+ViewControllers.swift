@@ -34,8 +34,9 @@ extension AppCoordinator {
         return windowController as! MainWindowController //swiftlint:disable:this force_cast
     }
     
-    internal func pushViewController(_ viewController: NSViewController, animated: Bool = true,
-                                          completion: (() -> Void)? = nil) {
+    internal func pushViewController(_ viewController: NSViewController,
+                                             animated: Bool = true,
+                                           completion: (() -> Void)? = nil) {
         mainWindowController.show(viewController: viewController,
                                   presentation: .push,
                                   animated: animated,
@@ -57,7 +58,9 @@ extension AppCoordinator {
     }
     
     internal func dismissViewController() {
-        mainWindowController.close(viewController: mainWindowController.navigationStackStack.last!.last!)
+        if let lastOfLastViewController = mainWindowController.navigationStackStack.last?.last {
+            mainWindowController.close(viewController: lastOfLastViewController)
+        }
     }
     
     #endif

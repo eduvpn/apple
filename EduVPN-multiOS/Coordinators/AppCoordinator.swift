@@ -74,7 +74,6 @@ class AppCoordinator: RootViewCoordinator {
         return activityViewController
     }()
 
-    
     var rootViewController: UIViewController {
         return providersViewController
     }
@@ -114,7 +113,7 @@ class AppCoordinator: RootViewCoordinator {
     
     public init() {
         windowController.window?.makeKeyAndOrderFront(nil)
-        providersViewController = windowController.contentViewController!.children.first! as! ProvidersViewController //swiftlint:disable:this force_cast
+        providersViewController = windowController.contentViewController?.children.first as? ProvidersViewController
         providePersistentContainer()
     }
     
