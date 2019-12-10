@@ -126,7 +126,7 @@ extension AppCoordinator {
                     self.showActivityIndicator(messageKey: "Authorizing with provider")
                     #elseif os(macOS)
                     let authorizeRequest = dynamicApiProvider.authorize()
-                    self.showActivityIndicator(messageKey: "Authorizing with provider", cancellable: authorizeRequest)
+                    self.showActivityIndicator(messageKey: "Continue in your web browser…", cancellable: authorizeRequest)
                     #endif
                                 
                     return authorizeRequest.then { _ -> Promise<[String]> in
@@ -169,7 +169,7 @@ extension AppCoordinator {
                     self.showActivityIndicator(messageKey: "Authorizing with provider")
                     #elseif os(macOS)
                     let authorizeRequest = dynamicApiProvider.authorize()
-                    self.showActivityIndicator(messageKey: "Authorizing with provider", cancellable: authorizeRequest)
+                    self.showActivityIndicator(messageKey: "Continue in your web browser…", cancellable: authorizeRequest)
                     #endif
                     
                     return authorizeRequest
