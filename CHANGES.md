@@ -7,6 +7,10 @@
 - Update dependencies
 - Auto refresh log view
 - Status images are now kept up to date with the actual VPN status
+- Respect config `seq` value in configs.
+- Ask for confirmation when disconnecting. #152
+- Support Ed25519 X.509 certificates #107
+- Bug fixing and clean up of old code.
 
 
 ## 2.0.4 
