@@ -32,6 +32,7 @@ class Crypto {
         var attributes = [String: Any]()
         attributes[kSecAttrKeyType as String] = kSecAttrKeyTypeEC
         attributes[kSecAttrKeySizeInBits as String] = 256
+        attributes[kSecAttrTokenID as String] = kSecAttrTokenIDSecureEnclave
         
         var error: Unmanaged<CFError>?
         let randomKey = SecKeyCreateRandomKey(attributes as CFDictionary, &error)
@@ -50,10 +51,12 @@ class Crypto {
     }
     
     private func makeAndStoreKey(name: String) throws -> SecKey {
+        
+        // TODO: Check when this flag is appropriate
         guard let access =
             SecAccessControlCreateWithFlags(kCFAllocatorDefault,
                                             kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
-                                            SecAccessControlCreateFlags.privateKeyUsage,
+                                            [], // SecAccessControlCreateFlags.privateKeyUsage,
                                             nil) else {
                                                 throw CryptoError.keyCreationFailed
         }
@@ -68,7 +71,7 @@ class Crypto {
         }
         #endif
 
-        let tag = name
+        let tag = name //.data(using: .utf8)!
         attributes[kSecPrivateKeyAttrs as String] = [
             kSecAttrIsPermanent as String: true,
             kSecAttrApplicationTag as String: tag,
