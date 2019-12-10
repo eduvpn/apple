@@ -59,7 +59,6 @@ extension AppCoordinator {
                 }
                 
                 #if os(iOS)
-                self.popToRootViewController()
                 #elseif os(macOS)
                 self.popToRootViewController(animated: false, completionHandler: {
                     self.dismissViewController()
