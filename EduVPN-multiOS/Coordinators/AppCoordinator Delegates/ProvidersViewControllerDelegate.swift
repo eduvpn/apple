@@ -72,7 +72,10 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
             }
         } else {
             // Move this to pull to refresh?
-            refresh(instance: instance).recover { error in
+            refresh(instance: instance).then { _ -> Promise<Void> in
+                self.popToRootViewController()
+                return .value(())
+            }.recover { error in
                 let error = error as NSError
                 self.showError(error)
             }
