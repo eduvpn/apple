@@ -130,6 +130,9 @@ extension AppCoordinator {
                                 
                     return authorizeRequest.then { _ -> Promise<[String]> in
                         self.hideActivityIndicator()
+                        #if os(macOS)
+                        NSApp.activate(ignoringOtherApps: true)
+                        #endif
                         return self.fetchProfile(for: profile, retry: true)
                     }
                 }
@@ -174,6 +177,9 @@ extension AppCoordinator {
                     return authorizeRequest
                         .then { _ -> Promise<Void> in
                             self.hideActivityIndicator()
+                            #if os(macOS)
+                            NSApp.activate(ignoringOtherApps: true)
+                            #endif
                             return self.refreshProfiles(for: dynamicApiProvider)
                         }
                         .recover { error throws in
