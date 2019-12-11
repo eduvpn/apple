@@ -45,10 +45,6 @@ class AppCoordinator: RootViewCoordinator {
     
     let accessTokenPlugin = CredentialStorePlugin()
     
-    #if os(iOS)
-    private var currentDocumentInteractionController: UIDocumentInteractionController?
-    #endif
-
     internal var authorizingDynamicApiProvider: DynamicApiProvider?
     
     var childCoordinators: [Coordinator] = []
