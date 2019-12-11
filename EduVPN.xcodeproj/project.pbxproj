@@ -1019,6 +1019,7 @@
 				342B9C95228ECFDB00C006D7 /* Sources */,
 				342B9C96228ECFDB00C006D7 /* Frameworks */,
 				342B9C97228ECFDB00C006D7 /* Resources */,
+				C7FDFA7323A0F980006D9FF9 /* Set Build Number */,
 			);
 			buildRules = (
 			);
@@ -1037,6 +1038,7 @@
 				349D85BE22B706A4006E9540 /* Sources */,
 				349D85BF22B706A4006E9540 /* Frameworks */,
 				349D85C022B706A4006E9540 /* Resources */,
+				C7FDFA7223A0F968006D9FF9 /* Set Build Number */,
 			);
 			buildRules = (
 			);
@@ -1057,6 +1059,7 @@
 				34D719DA228D75550027DE84 /* Sources */,
 				34D719DB228D75550027DE84 /* Frameworks */,
 				34D719DC228D75550027DE84 /* Resources */,
+				C7FDFA7123A0F83F006D9FF9 /* Set Build Number */,
 				349D85CE22B706A4006E9540 /* Embed App Extensions */,
 				91B7815FF7D024914F18FA03 /* [CP] Embed Pods Frameworks */,
 				C7EB81502369B626006C141F /* CopyFiles */,
@@ -1582,6 +1585,60 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		C7FDFA7123A0F83F006D9FF9 /* Set Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Set Build Number";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$SRCROOT/Scripts/set_build_number.sh\n";
+		};
+		C7FDFA7223A0F968006D9FF9 /* Set Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Set Build Number";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$SRCROOT/Scripts/set_build_number.sh\n";
+		};
+		C7FDFA7323A0F980006D9FF9 /* Set Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Set Build Number";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$SRCROOT/Scripts/set_build_number.sh\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
