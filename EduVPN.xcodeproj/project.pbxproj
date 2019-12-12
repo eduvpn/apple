@@ -1484,7 +1484,6 @@
 				"${BUILT_PRODUCTS_DIR}/SwiftyBeaver-macOS/SwiftyBeaver.framework",
 				"${BUILT_PRODUCTS_DIR}/TunnelKit-macOS/TunnelKit.framework",
 				"${BUILT_PRODUCTS_DIR}/libsodium-macOS/libsodium.framework",
-				"${BUILT_PRODUCTS_DIR}/FileKit/FileKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -1499,7 +1498,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyBeaver.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TunnelKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libsodium.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FileKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2046,8 +2044,6 @@
 					"-framework",
 					"\"CFNetwork\"",
 					"-framework",
-					"\"FileKit\"",
-					"-framework",
 					"\"Foundation\"",
 					"-framework",
 					"\"Kingfisher\"",
@@ -2109,8 +2105,6 @@
 					"\"AppAuth\"",
 					"-framework",
 					"\"CFNetwork\"",
-					"-framework",
-					"\"FileKit\"",
 					"-framework",
 					"\"Foundation\"",
 					"-framework",

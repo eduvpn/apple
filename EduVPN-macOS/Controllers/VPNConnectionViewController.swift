@@ -8,7 +8,6 @@
 
 import os.log
 import Cocoa
-import FileKit
 import NetworkExtension
 import TunnelKit
 import PromiseKit
@@ -19,6 +18,10 @@ private let intervalFormatter: DateComponentsFormatter = {
     formatter.unitsStyle = DateComponentsFormatter.UnitsStyle.abbreviated
     return formatter
 }()
+
+enum LogFileError: Error {
+    case pathCreationFailed
+}
 
 class VPNConnectionViewController: NSViewController {
     
@@ -229,33 +232,37 @@ class VPNConnectionViewController: NSViewController {
     // MARK: - Log
     
     @IBOutlet weak var logTextView: NSTextField!
-    
-    private var connectionLogPath: Path {
-        return Path.userApplicationSupport + "/tmp" + "/connection.log"
+
+    private func connectionLogPathDir() throws -> URL {
+        guard let logDirPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { throw LogFileError.pathCreationFailed }
+        return logDirPath.appendingPathComponent("tmp")
+    }
+
+    private func connectionLogPath() throws -> URL {
+        return try connectionLogPathDir().appendingPathComponent("connection.log")
     }
     
     private func updateLog() {
-        do {
-            try (Path.userApplicationSupport + "/tmp").createDirectory(withIntermediateDirectories: true)
-            try connectionLogPath.createFile()
-        } catch let error {
-            os_log("Couldn't create connectionLogPath error:: %{public}@", log: Log.general, type: .error, "\(error)")
-        }
-        
+        // TODO: Is creating the file required?
         providerManagerCoordinator.loadLog { [weak self] in self?.saveLog($0) }
     }
     
     private func saveLog(_ log: String) {
+        guard let logData = log.data(using: .utf8) else { return }
         do {
-            try log |> TextFile(path: connectionLogPath)
+            let fileHandle = try FileHandle(forUpdating: connectionLogPath())
+            fileHandle.seekToEndOfFile()
+            fileHandle.write(logData)
         } catch let error {
             os_log("Couldn't save log error: %{public}@", log: Log.general, type: .error, "\(error)")
         }
     }
     
     @IBAction func viewLog(_ sender: Any) {
-        os_log("Log file: %{public}@", log: Log.general, type: .info, "\(connectionLogPath.url)")
-        NSWorkspace.shared.open(connectionLogPath.url)
+        if let connectionLogPath = try? connectionLogPath() {
+            os_log("Log file: %{public}@", log: Log.general, type: .info, "\(connectionLogPath)")
+            NSWorkspace.shared.open(connectionLogPath)
+        }
     }
     
     // MARK: - Other

@@ -45,7 +45,6 @@ target 'EduVPN-macOS' do
   pod 'libsodium'
   pod 'Moya'
   pod 'PromiseKit/CorePromise'
-  pod 'FileKit'
 end
 
 target 'EduVPNTunnelExtension-macOS' do
