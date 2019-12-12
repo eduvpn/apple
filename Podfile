@@ -24,7 +24,6 @@ end
 target 'EduVPN' do
   pods_ios
 
-  pod 'Kingfisher'
   pod 'AppAuth', :git => 'https://github.com/openid/AppAuth-iOS.git'
   pod 'ASN1Decoder'
   pod 'libsodium'
@@ -41,7 +40,6 @@ target 'EduVPN-macOS' do
   
   pod 'AppAuth', :git => 'https://github.com/openid/AppAuth-iOS.git'
   pod 'ASN1Decoder'
-  pod 'Kingfisher'
   pod 'libsodium'
   pod 'Moya'
   pod 'PromiseKit/CorePromise'

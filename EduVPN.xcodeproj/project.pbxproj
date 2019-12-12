@@ -114,6 +114,7 @@
 		4AD5688D238491FA00EC0ABD /* FileServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD5688C238491FA00EC0ABD /* FileServiceTests.swift */; };
 		4AE728161F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE728151F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift */; };
 		4AE81E1E23A2E73E002C793D /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE81E1D23A2E73E002C793D /* ImageLoader.swift */; };
+		4AE81EE223A2F500002C793D /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE81E1D23A2E73E002C793D /* ImageLoader.swift */; };
 		4AEAC32720F13D0C007B67AB /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEAC32620F13D0C007B67AB /* Log.swift */; };
 		4AF3DF061F424535003EC0BA /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF3DF051F424535003EC0BA /* SettingsTableViewController.swift */; };
 		4AF3DF081F4245A5003EC0BA /* ConnectionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF3DF071F4245A5003EC0BA /* ConnectionsTableViewController.swift */; };
@@ -1443,7 +1444,6 @@
 				"${BUILT_PRODUCTS_DIR}/ASN1Decoder-iOS/ASN1Decoder.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AppAuth-iOS/AppAuth.framework",
-				"${BUILT_PRODUCTS_DIR}/Kingfisher-iOS/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya-iOS/Moya.framework",
 				"${PODS_ROOT}/OpenSSL-Apple/frameworks/iPhone/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit-iOS/PromiseKit.framework",
@@ -1457,7 +1457,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ASN1Decoder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
@@ -1481,7 +1480,6 @@
 				"${BUILT_PRODUCTS_DIR}/ASN1Decoder-macOS/ASN1Decoder.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-macOS/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AppAuth-macOS/AppAuth.framework",
-				"${BUILT_PRODUCTS_DIR}/Kingfisher-macOS/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya-macOS/Moya.framework",
 				"${PODS_ROOT}/OpenSSL-Apple/frameworks/MacOSX/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit-macOS/PromiseKit.framework",
@@ -1495,7 +1493,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ASN1Decoder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
@@ -1726,6 +1723,7 @@
 				C7FA7A8723633895006501E8 /* Logo+CoreDataClass.swift in Sources */,
 				343452A822A13EDE00C0476E /* Log.swift in Sources */,
 				34D71A9A228D9C6A0027DE84 /* String+Random.swift in Sources */,
+				4AE81EE223A2F500002C793D /* ImageLoader.swift in Sources */,
 				34186CF72297CE19009B4121 /* CredentialStorePlugin.swift in Sources */,
 				C7FA7A7723633895006501E8 /* InstancesRepository.swift in Sources */,
 				340A505422A3BF8900170E51 /* EnterProviderURLViewController.swift in Sources */,
@@ -2050,8 +2048,6 @@
 					"-framework",
 					"\"Foundation\"",
 					"-framework",
-					"\"Kingfisher\"",
-					"-framework",
 					"\"Moya\"",
 					"-framework",
 					"\"NetworkExtension\"",
@@ -2111,8 +2107,6 @@
 					"\"CFNetwork\"",
 					"-framework",
 					"\"Foundation\"",
-					"-framework",
-					"\"Kingfisher\"",
 					"-framework",
 					"\"Moya\"",
 					"-framework",
