@@ -166,7 +166,7 @@ class VPNConnectionViewController: NSViewController {
     private func scheduleConnectionInfoUpdates() {
         connectionInfoUpdateTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] (_) in
             self?.updateConnectionInfo()
-            self?.updateLog()
+            try? self?.updateLog()
         })
     }
     
@@ -242,8 +242,9 @@ class VPNConnectionViewController: NSViewController {
         return try connectionLogPathDir().appendingPathComponent("connection.log")
     }
     
-    private func updateLog() {
-        // TODO: Is creating the file required?
+    private func updateLog() throws {
+        try FileManager.default.createDirectory(at: connectionLogPathDir(), withIntermediateDirectories: true)
+        try FileManager.default.createFile(atPath: connectionLogPath().path, contents: nil)
         providerManagerCoordinator.loadLog { [weak self] in self?.saveLog($0) }
     }
     
