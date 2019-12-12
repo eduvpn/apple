@@ -11,8 +11,6 @@ import NetworkExtension
 import os.log
 import UIKit
 
-import Kingfisher
-
 class ProviderTableViewCell: UITableViewCell {
     
     @IBOutlet private weak var providerImageView: UIImageView!
@@ -58,10 +56,10 @@ class ProviderTableViewCell: UITableViewCell {
         }
         
         if let logoString = instance.logos?.localizedValue, let logoUrl = URL(string: logoString) {
-            providerImageView?.kf.setImage(with: logoUrl)
+            ImageLoader.loadImage(logoUrl, target: providerImageView)
             providerImageView.isHidden = false
         } else {
-            providerImageView.kf.cancelDownloadTask()
+            ImageLoader.cancelLoadImage(target: providerImageView)
             providerImageView.image = nil
             providerImageView.isHidden = true
         }

@@ -46,10 +46,10 @@ class ConnectTableViewCell: UITableViewCell {
         connectSubTitleLabel?.text = profile.displayString
         
         if let logo = profile.api?.instance?.logos?.localizedValue, let logoUri = URL(string: logo) {
-            connectImageView?.kf.setImage(with: logoUri)
+            ImageLoader.loadImage(logoUri, target: connectImageView)
             connectImageView.isHidden = false
         } else {
-            connectImageView.kf.cancelDownloadTask()
+            ImageLoader.cancelLoadImage(target: connectImageView)
             connectImageView.image = nil
             connectImageView.isHidden = true
         }

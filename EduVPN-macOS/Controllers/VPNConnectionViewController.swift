@@ -41,10 +41,10 @@ class VPNConnectionViewController: NSViewController {
             .joined(separator: "\n")
         
         if let logo = profile.api?.instance?.logos?.localizedValue, let logoUri = URL(string: logo) {
-            updateImage(with: logoUri)
+            ImageLoader.loadImage(logoUri, target: providerImage)
             providerInfoStackView.isHidden = false
         } else {
-            cancelImageDownload()
+            ImageLoader.cancelLoadImage(target: providerImage)
             providerImage.image = nil
             providerInfoStackView.isHidden = true
         }

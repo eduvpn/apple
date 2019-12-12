@@ -96,7 +96,6 @@
 		4A983B771F397243004F82D5 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A983B761F397243004F82D5 /* AppCoordinator.swift */; };
 		4A983B791F397289004F82D5 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A983B781F397289004F82D5 /* Coordinator.swift */; };
 		4A983B7B1F3972BE004F82D5 /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A983B7A1F3972BE004F82D5 /* RootCoordinator.swift */; };
-		4A9D29ED237E001C0092D77E /* VPNConnectionViewController+OperatorConflict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9D29EC237E001C0092D77E /* VPNConnectionViewController+OperatorConflict.swift */; };
 		4AAA157B21C2EF530097A1B5 /* TunnelProviderManagerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAA157A21C2EF530097A1B5 /* TunnelProviderManagerCoordinator.swift */; };
 		4AAC1F7A1F2D0E3400DD0252 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC1F791F2D0E3400DD0252 /* AppDelegate.swift */; };
 		4AAC1F7F1F2D0E3400DD0252 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AAC1F7D1F2D0E3400DD0252 /* Main.storyboard */; };
@@ -114,6 +113,7 @@
 		4AD0AD5F1F350822006E1337 /* Moya+ResponseHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD5E1F350822006E1337 /* Moya+ResponseHandling.swift */; };
 		4AD5688D238491FA00EC0ABD /* FileServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD5688C238491FA00EC0ABD /* FileServiceTests.swift */; };
 		4AE728161F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE728151F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift */; };
+		4AE81E1E23A2E73E002C793D /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE81E1D23A2E73E002C793D /* ImageLoader.swift */; };
 		4AEAC32720F13D0C007B67AB /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEAC32620F13D0C007B67AB /* Log.swift */; };
 		4AF3DF061F424535003EC0BA /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF3DF051F424535003EC0BA /* SettingsTableViewController.swift */; };
 		4AF3DF081F4245A5003EC0BA /* ConnectionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF3DF071F4245A5003EC0BA /* ConnectionsTableViewController.swift */; };
@@ -344,7 +344,6 @@
 		4A983B761F397243004F82D5 /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		4A983B781F397289004F82D5 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		4A983B7A1F3972BE004F82D5 /* RootCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
-		4A9D29EC237E001C0092D77E /* VPNConnectionViewController+OperatorConflict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VPNConnectionViewController+OperatorConflict.swift"; sourceTree = "<group>"; };
 		4AAA157A21C2EF530097A1B5 /* TunnelProviderManagerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelProviderManagerCoordinator.swift; sourceTree = "<group>"; };
 		4AAC1F761F2D0E3400DD0252 /* AppForce1 VPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AppForce1 VPN.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AAC1F791F2D0E3400DD0252 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -372,6 +371,7 @@
 		4AD0AD5E1F350822006E1337 /* Moya+ResponseHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Moya+ResponseHandling.swift"; sourceTree = "<group>"; };
 		4AD5688C238491FA00EC0ABD /* FileServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileServiceTests.swift; sourceTree = "<group>"; };
 		4AE728151F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+EduVPN.swift"; sourceTree = "<group>"; };
+		4AE81E1D23A2E73E002C793D /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		4AEAC32620F13D0C007B67AB /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		4AF3DF051F424535003EC0BA /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		4AF3DF071F4245A5003EC0BA /* ConnectionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionsTableViewController.swift; sourceTree = "<group>"; };
@@ -557,6 +557,7 @@
 		34186C9B2296B318009B4121 /* EduVPN-multiOS */ = {
 			isa = PBXGroup;
 			children = (
+				4AE81E1C23A2E728002C793D /* ImageLoading */,
 				4AEAC32620F13D0C007B67AB /* Log.swift */,
 				4A2CC2211F4233E8004119B1 /* Identifiable.swift */,
 				343452AA22A13F4500C0476E /* Coordinators */,
@@ -710,7 +711,6 @@
 				340A504E22A3BD9D00170E51 /* ProfilesViewController.swift */,
 				343452BF22A157E000C0476E /* ProvidersViewController.swift */,
 				34FD2AD622A9352F002AABB3 /* VPNConnectionViewController.swift */,
-				4A9D29EC237E001C0092D77E /* VPNConnectionViewController+OperatorConflict.swift */,
 				340A505322A3BF8900170E51 /* EnterProviderURLViewController.swift */,
 				3434529A22A0665600C0476E /* CoreDataFetchedResultsControllerDelegate.swift */,
 				3415C02023181191005B9E6C /* СonnectionsTableViewController.swift */,
@@ -892,6 +892,14 @@
 				34345270229FC66A00C0476E /* CoreDataFetchedResultsControllerDelegate.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		4AE81E1C23A2E728002C793D /* ImageLoading */ = {
+			isa = PBXGroup;
+			children = (
+				4AE81E1D23A2E73E002C793D /* ImageLoader.swift */,
+			);
+			path = ImageLoading;
 			sourceTree = "<group>";
 		};
 		C75B2CA62363122900D700EC /* Scripts */ = {
@@ -1729,7 +1737,6 @@
 				C7FA7AA723633895006501E8 /* ProviderType.swift in Sources */,
 				342B9CE822902BB500C006D7 /* MainWindowController.swift in Sources */,
 				34FD2AD122A7CFA0002AABB3 /* NotificationsService.swift in Sources */,
-				4A9D29ED237E001C0092D77E /* VPNConnectionViewController+OperatorConflict.swift in Sources */,
 				340A504122A26ECC00170E51 /* AppCoordinator+ViewControllers.swift in Sources */,
 				34D71AB2228DA3A00027DE84 /* String+URL.swift in Sources */,
 				340A504622A2706400170E51 /* CustomProviderInputViewControllerDelegate.swift in Sources */,
@@ -1804,6 +1811,7 @@
 				C7FA7A9C23633895006501E8 /* Profile.swift in Sources */,
 				C7FA7A7623633895006501E8 /* InstancesRepository.swift in Sources */,
 				C7FA7AB123633D61006501E8 /* NSManagedObject+FetchHelpers.swift in Sources */,
+				4AE81E1E23A2E73E002C793D /* ImageLoader.swift in Sources */,
 				C7FA7A8A23633895006501E8 /* DisplayName+CoreDataProperties.swift in Sources */,
 				4ACA042E1F311863004B35AA /* InstanceService.swift in Sources */,
 				C7FA7A9023633895006501E8 /* Profile+CoreDataProperties.swift in Sources */,
