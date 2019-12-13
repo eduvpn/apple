@@ -7,7 +7,6 @@
 //
 
 import Cocoa
-import Kingfisher
 import os.log
 import Alamofire
 
@@ -306,9 +305,9 @@ extension ProvidersViewController: NSTableViewDelegate {
             
         case .instituteAccess, .secureInternet:
             if let logoString = instance.logos?.localizedValue, let logoUrl = URL(string: logoString) {
-                cellView.imageView?.kf.setImage(with: logoUrl)
+                ImageLoader.loadImage(logoUrl, target: cellView.imageView)
             } else {
-                cellView.imageView?.kf.cancelDownloadTask()
+                ImageLoader.cancelLoadImage(target: cellView.imageView)
                 cellView.imageView?.image = nil
                 cellView.imageView?.isHidden = true
             }

@@ -44,10 +44,10 @@ class VPNConnectionViewController: UIViewController {
         instanceNameLabel.text = profile.displayString
 
         if let logo = profile.api?.instance?.logos?.localizedValue, let logoUri = URL(string: logo) {
-            providerImage.kf.setImage(with: logoUri)
+            ImageLoader.loadImage(logoUri, target: providerImage)
             providerInfoStackView.isHidden = false
         } else {
-            providerImage.kf.cancelDownloadTask()
+            ImageLoader.cancelLoadImage(target: providerImage)
             providerImage.image = nil
             providerInfoStackView.isHidden = true
         }

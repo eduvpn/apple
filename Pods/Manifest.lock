@@ -6,9 +6,6 @@ PODS:
   - AppAuth/Core (1.3.0)
   - AppAuth/ExternalUserAgent (1.3.0)
   - ASN1Decoder (1.3.3)
-  - Kingfisher (5.11.0):
-    - Kingfisher/Core (= 5.11.0)
-  - Kingfisher/Core (5.11.0)
   - libsodium (1.0.12)
   - Moya (13.0.1):
     - Moya/Core (= 13.0.1)
@@ -34,7 +31,6 @@ PODS:
 DEPENDENCIES:
   - AppAuth (from `https://github.com/openid/AppAuth-iOS.git`)
   - ASN1Decoder
-  - Kingfisher
   - libsodium
   - Moya
   - PromiseKit/CorePromise
@@ -44,7 +40,6 @@ SPEC REPOS:
   https://cdn.cocoapods.org/:
     - Alamofire
     - ASN1Decoder
-    - Kingfisher
     - libsodium
     - Moya
     - OpenSSL-Apple
@@ -66,7 +61,6 @@ SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   AppAuth: 73574f3013a1e65b9601a3ddc8b3158cce68c09d
   ASN1Decoder: c85bbe9d75370dab47503c13c4de213adf3a1442
-  Kingfisher: 4569606189149e19c7d9439f47e885d0679b7a90
   libsodium: 9a8faa5ef2fa0d2d57bd7f7d79bf8fb7c1a9f0ea
   Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
   OpenSSL-Apple: 2c9efbc94e0a1ada434cc197b02bd70052a82281
@@ -75,6 +69,6 @@ SPEC CHECKSUMS:
   SwiftyBeaver: 3d3e93a12d648bd400b6f2948a7ef128b5b183c7
   TunnelKit: ddcccbf8c984e2760a42899e311e7991f21e42cc
 
-PODFILE CHECKSUM: a132c7c1c317ce5fd720baeced746260f567a32f
+PODFILE CHECKSUM: d6178527058ade2957bb10f6d5483defbb3f6551
 
 COCOAPODS: 1.8.4
