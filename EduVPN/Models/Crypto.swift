@@ -52,13 +52,13 @@ class Crypto {
     
     private func makeAndStoreKey(name: String) throws -> SecKey {
         
-        // TODO: Check when this flag is appropriate
         guard let access =
-            SecAccessControlCreateWithFlags(kCFAllocatorDefault,
-                                            kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
-                                            [], // SecAccessControlCreateFlags.privateKeyUsage,
-                                            nil) else {
-                                                throw CryptoError.keyCreationFailed
+            SecAccessControlCreateWithFlags(
+                kCFAllocatorDefault,
+                kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+                self.hasSecurityEnclave ? SecAccessControlCreateFlags.privateKeyUsage : [],
+                nil) else {
+                    throw CryptoError.keyCreationFailed
         }
         var attributes = [String: Any]()
         attributes[kSecAttrKeyType as String] = self.keyType
