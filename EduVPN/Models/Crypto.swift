@@ -71,7 +71,7 @@ class Crypto {
         }
         #endif
 
-        let tag = name //.data(using: .utf8)!
+        let tag = name
         attributes[kSecPrivateKeyAttrs as String] = [
             kSecAttrIsPermanent as String: true,
             kSecAttrApplicationTag as String: tag,
