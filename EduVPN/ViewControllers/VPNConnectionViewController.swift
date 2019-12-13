@@ -25,6 +25,12 @@ class VPNConnectionViewController: UIViewController {
     var profile: Profile!
     var providerManagerCoordinator: TunnelProviderManagerCoordinator!
 
+    private var postponeButtonUpdates = false {
+        didSet {
+            updateButton()
+        }
+    }
+
     // MARK: - Profile
 
     @IBOutlet weak var providerImage: UIImageView!
@@ -91,15 +97,20 @@ class VPNConnectionViewController: UIViewController {
     func updateButton() {
         switch status {
 
-        case .connected, .connecting, .disconnecting, .reasserting:
+        case .connected:
             if profile.isActiveConfig {
                 buttonConnection.setTitle(NSLocalizedString("Disconnect", comment: ""), for: .normal)
             } else {
                 buttonConnection.setTitle(NSLocalizedString("Disconnect existing profile and reconfigure", comment: ""), for: .normal)
             }
+            buttonConnection.isHidden = false || postponeButtonUpdates
+        case .connecting, .disconnecting, .reasserting:
+            buttonConnection.setTitle(nil, for: .normal)
+            buttonConnection.isHidden = true
 
         case .disconnected, .invalid:
             buttonConnection.setTitle(NSLocalizedString("Connect", comment: ""), for: .normal)
+            buttonConnection.isHidden = false || postponeButtonUpdates
 
         @unknown default:
             fatalError()
@@ -108,32 +119,46 @@ class VPNConnectionViewController: UIViewController {
 
     private func statusUpdated() {
         switch status {
-
         case .invalid, .disconnected:
-            _ = providerManagerCoordinator.configure(profile: profile).then {
-                return self.providerManagerCoordinator.connect()
-            }
-
+            _ = connect()
         case .connected, .connecting:
-            _ = providerManagerCoordinator.checkOnDemandEnabled().then { onDemandEnabled -> Promise<Void> in
-                if let delegate = self.delegate, onDemandEnabled {
-                    return delegate.confirmDisconnectWhileOnDemandEnabled().then({ disconnect -> Promise<Void> in
-                        if disconnect {
-                            return self.providerManagerCoordinator.disconnect()
-                        } else {
-                            return Promise.value(())
-                        }
-                    })
-                } else {
-                    return self.providerManagerCoordinator.disconnect()
-                }
-            }
+            _ = disconnect()
         default:
-            break
+            _ = self.providerManagerCoordinator.disconnect()
         }
+    }
 
-        updateButton()
-        status = self.providerManagerCoordinator.currentManager?.connection.status ?? .invalid
+    private func postStatusUpdatePromise() -> Promise<Void> {
+        self.status = self.providerManagerCoordinator.currentManager?.connection.status ?? .invalid
+        self.postponeButtonUpdates = false
+        return Promise.value(())
+
+    }
+
+    func connect() -> Promise<Void> {
+        self.postponeButtonUpdates = true
+
+        return providerManagerCoordinator.configure(profile: profile).then {
+            return self.providerManagerCoordinator.connect()
+        }.then { return self.postStatusUpdatePromise() }
+    }
+
+    func disconnect() -> Promise<Void> {
+        self.postponeButtonUpdates = true
+
+        return providerManagerCoordinator.checkOnDemandEnabled().then { onDemandEnabled -> Promise<Void> in
+            if let delegate = self.delegate, onDemandEnabled {
+                return delegate.confirmDisconnectWhileOnDemandEnabled().then({ disconnect -> Promise<Void> in
+                    if disconnect {
+                        return self.providerManagerCoordinator.disconnect()
+                    } else {
+                        return Promise.value(())
+                    }
+                })
+            } else {
+                return self.providerManagerCoordinator.disconnect()
+            }
+        }.then { return self.postStatusUpdatePromise() }
     }
 
     @IBAction func connectionClicked(_ sender: Any) {
@@ -215,10 +240,8 @@ class VPNConnectionViewController: UIViewController {
         super.viewDidLoad()
 
         displayProfile()
-        subscribeForStatusChanges()
 
         providerManagerCoordinator.reloadCurrentManager { _ in
-            self.updateButton()
             self.status = self.providerManagerCoordinator.currentManager?.connection.status ?? .invalid
         }
     }
@@ -226,6 +249,7 @@ class VPNConnectionViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         scheduleConnectionInfoUpdates()
+        subscribeForStatusChanges()
 
         if let concreteDelegate = delegate {
             _ = firstly { () -> Promise<SystemMessages> in
