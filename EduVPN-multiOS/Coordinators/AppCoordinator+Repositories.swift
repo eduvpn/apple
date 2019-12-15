@@ -35,16 +35,25 @@ extension AppCoordinator {
         #endif
     }
     
-    func hideActivityIndicator() {
+    func hideActivityIndicator() -> Guarantee<Void> {
         #if os(iOS)
+        activityViewController.view.isHidden = true
         if activityViewController.presentingViewController != nil {
-            rootViewController.navigationController?.dismiss(animated: true)
+            return Guarantee(resolver: { seal in
+                rootViewController.navigationController?.dismiss(animated: true, completion: {
+                    seal(())
+                })
+            })
+        } else {
+            return .value(())
         }
-        activityViewController.view.isHidden = false
+
         #elseif os(macOS)
         mainWindowController.mainViewController.activityIndicatorView.isHidden = true
         mainWindowController.mainViewController.activityIndicator.stopAnimation(nil)
         mainWindowController.mainViewController.cancellable = nil
+
+        return .value(())
         #endif
     }
     
@@ -66,11 +75,10 @@ extension AppCoordinator {
                 #endif
                 
                 return self.refreshProfiles(for: authorizingDynamicApiProvider)
-            }
-            .ensure {
+            }.ensureThen {
                 self.providersViewController.refresh()
                 NotificationCenter.default.post(name: Notification.Name.InstanceRefreshed, object: self)
-                self.hideActivityIndicator()
+                return self.hideActivityIndicator()
             }
     }
     
@@ -111,8 +119,6 @@ extension AppCoordinator {
 
                 return lines
             }.recover { (error) throws -> Promise<[String]> in
-                self.hideActivityIndicator()
-                
                 if retry {
                     self.showError(error)
                     throw error
@@ -129,11 +135,12 @@ extension AppCoordinator {
                     #endif
                                 
                     return authorizeRequest.then { _ -> Promise<[String]> in
-                        self.hideActivityIndicator()
-                        #if os(macOS)
-                        NSApp.activate(ignoringOtherApps: true)
-                        #endif
-                        return self.fetchProfile(for: profile, retry: true)
+                        return self.hideActivityIndicator().then { _ -> Promise<[String]> in
+                            #if os(macOS)
+                            NSApp.activate(ignoringOtherApps: true)
+                            #endif
+                            return self.fetchProfile(for: profile, retry: true)
+                        }
                     }
                 }
                 
@@ -148,9 +155,10 @@ extension AppCoordinator {
                     return retryFetchProfile()
 
                 default:
-                    self.showError(error)
-                    throw error
-                    
+                    return self.hideActivityIndicator().then { _ -> Guarantee<[String]> in
+                        self.showError(error)
+                        throw error
+                    }
                 }
             }
     }
@@ -160,8 +168,6 @@ extension AppCoordinator {
         
         return ProfilesRepository.shared.refresher.refresh(for: dynamicApiProvider)
             .recover { error throws -> Promise<Void> in
-                self.hideActivityIndicator()
-                
                 switch error {
                     
                 case ApiServiceError.tokenRefreshFailed, ApiServiceError.noAuthState:
@@ -176,21 +182,25 @@ extension AppCoordinator {
                     
                     return authorizeRequest
                         .then { _ -> Promise<Void> in
-                            self.hideActivityIndicator()
-                            #if os(macOS)
-                            NSApp.activate(ignoringOtherApps: true)
-                            #endif
-                            return self.refreshProfiles(for: dynamicApiProvider)
+                            return self.hideActivityIndicator().then { _ -> Promise<Void> in
+                                #if os(macOS)
+                                NSApp.activate(ignoringOtherApps: true)
+                                #endif
+                                return self.refreshProfiles(for: dynamicApiProvider)
+                            }
                         }
                         .recover { error throws in
-                            self.hideActivityIndicator()
-                            self.showError(error)
+                            self.hideActivityIndicator().then { _ -> Guarantee<Void> in
+                                self.showError(error)
+                                return .value(())
+                            }
                             throw error
                         }
                 default:
-                    self.showError(error)
-                    throw error
-                    
+                    return self.hideActivityIndicator().then { _ -> Guarantee<Void> in
+                        self.showError(error)
+                        throw error
+                    }
                 }
             }
     }

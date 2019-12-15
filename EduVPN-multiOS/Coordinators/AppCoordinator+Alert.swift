@@ -68,7 +68,7 @@ extension AppCoordinator {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "OK button"), style: .default))
         
-        let presentingViewController = navigationController.presentedViewController ?? navigationController
+        let presentingViewController = navigationController
         presentingViewController.present(alert, animated: true)
         
         #elseif os(macOS)

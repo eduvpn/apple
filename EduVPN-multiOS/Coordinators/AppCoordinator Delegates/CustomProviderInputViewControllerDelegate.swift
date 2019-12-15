@@ -52,6 +52,9 @@ extension AppCoordinator: CustomProviderInputViewControllerDelegate {
 
                 return Promise.value(())
             }
+        }.recover { error in
+                let error = error as NSError
+                self.showError(error)
         }
     }
 }
