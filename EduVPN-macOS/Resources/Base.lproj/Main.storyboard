@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15702"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="cells containing NSDateComponentsFormatter" minSystemVersion="10.12"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -341,7 +341,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Let_s_Connect_" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="eduVPN" customModuleProvider="target"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="119" y="-407"/>
@@ -349,7 +349,7 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController storyboardIdentifier="MainWindowController" showSeguePresentationStyle="single" id="B8D-0N-5wS" customClass="MainWindowController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
+                <windowController storyboardIdentifier="MainWindowController" showSeguePresentationStyle="single" id="B8D-0N-5wS" customClass="MainWindowController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="eduVPN" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="Main" animationBehavior="default" tabbingMode="disallowed" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
@@ -381,7 +381,7 @@
         <!--Main View Controller-->
         <scene sceneID="pls-UA-ly7">
             <objects>
-                <viewController storyboardIdentifier="MainViewController" id="khn-a8-CTC" customClass="MainViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainViewController" id="khn-a8-CTC" customClass="MainViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="8OX-OJ-cMR">
                         <rect key="frame" x="0.0" y="0.0" width="440" height="575"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -661,7 +661,7 @@ DQ
         <!--Providers View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController storyboardIdentifier="ChooseProvider" id="XfG-lQ-9wD" customClass="ProvidersViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChooseProvider" id="XfG-lQ-9wD" customClass="ProvidersViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="379" height="575"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -854,7 +854,7 @@ CA
         <!--Connection View Controller-->
         <scene sceneID="rmV-Wn-uOa">
             <objects>
-                <viewController identifier="VPNConnectionViewController" storyboardIdentifier="VPNConnectionViewController" id="f5D-Eq-JOa" customClass="VPNConnectionViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController identifier="VPNConnectionViewController" storyboardIdentifier="VPNConnectionViewController" id="f5D-Eq-JOa" customClass="VPNConnectionViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="2mZ-VK-Lri">
                         <rect key="frame" x="0.0" y="0.0" width="500" height="502"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1286,7 +1286,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
         <!--Profiles View Controller-->
         <scene sceneID="R5C-VG-0tb">
             <objects>
-                <viewController storyboardIdentifier="ProfilesViewController" id="Lns-jv-Aqp" customClass="ProfilesViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfilesViewController" id="Lns-jv-Aqp" customClass="ProfilesViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="NKN-qH-oxC">
                         <rect key="frame" x="0.0" y="0.0" width="511" height="696"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1418,7 +1418,7 @@ from outside the institution.</string>
         <!--Connections Table View Controller-->
         <scene sceneID="q3V-V1-a5D">
             <objects>
-                <viewController identifier="ConnectionsTableViewController" storyboardIdentifier="ConnectionsTableViewController" id="xQP-Pr-Baz" customClass="ConnectionsTableViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController identifier="ConnectionsTableViewController" storyboardIdentifier="ConnectionsTableViewController" id="xQP-Pr-Baz" customClass="ConnectionsTableViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="4nJ-ev-Mfz">
                         <rect key="frame" x="0.0" y="0.0" width="378" height="575"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1429,7 +1429,7 @@ from outside the institution.</string>
                                     <rect key="frame" x="0.0" y="0.0" width="378" height="515"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="44" viewBased="YES" id="Xgt-x3-Ooi" customClass="DeselectingTableView" customModule="Let_s_Connect_" customModuleProvider="target">
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="44" viewBased="YES" id="Xgt-x3-Ooi" customClass="DeselectingTableView" customModule="eduVPN" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="378" height="515"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
@@ -1537,7 +1537,7 @@ CA
         <!--Providers View Controller-->
         <scene sceneID="4WM-oH-o6s">
             <objects>
-                <viewController storyboardIdentifier="Providers" id="d3v-OK-Unm" customClass="ProvidersViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Providers" id="d3v-OK-Unm" customClass="ProvidersViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="mHf-nK-qZy">
                         <rect key="frame" x="0.0" y="0.0" width="378" height="575"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1548,7 +1548,7 @@ CA
                                     <rect key="frame" x="0.0" y="0.0" width="378" height="438"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="44" viewBased="YES" id="GYp-9D-CGo" customClass="DeselectingTableView" customModule="Let_s_Connect_" customModuleProvider="target">
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="44" viewBased="YES" id="GYp-9D-CGo" customClass="DeselectingTableView" customModule="eduVPN" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="378" height="438"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
@@ -1761,7 +1761,7 @@ CA
         <!--Enter Provider URL View Controller-->
         <scene sceneID="D1l-yj-M3U">
             <objects>
-                <viewController storyboardIdentifier="EnterProviderURL" id="JTX-Fe-25d" customClass="EnterProviderURLViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EnterProviderURL" id="JTX-Fe-25d" customClass="EnterProviderURLViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="C5T-y0-cXd">
                         <rect key="frame" x="0.0" y="0.0" width="420" height="116"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1830,7 +1830,7 @@ Gw
         <!--Enter Credentials View Controller-->
         <scene sceneID="kU9-LA-Gwx">
             <objects>
-                <viewController storyboardIdentifier="EnterCredentials" id="uq9-CJ-wT3" customClass="EnterCredentialsViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EnterCredentials" id="uq9-CJ-wT3" customClass="EnterCredentialsViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="f3e-f3-Qip">
                         <rect key="frame" x="0.0" y="0.0" width="420" height="168"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1947,7 +1947,7 @@ Gw
         <image name="NSLeftFacingTriangleTemplate" width="9" height="12"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="NSStopProgressTemplate" width="11" height="11"/>
-        <image name="disconnected" width="44" height="37"/>
+        <image name="disconnected" width="44" height="55"/>
         <image name="secure_access" width="90" height="90"/>
         <image name="secure_internet" width="90" height="90"/>
         <namedColor name="Primary Color">

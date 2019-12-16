@@ -36,7 +36,7 @@ extension AppCoordinator: TunnelProviderManagerCoordinatorDelegate {
         
         return fetchProfile(for: profile).ensure {
             #if os(iOS)
-            self.hideActivityIndicator()
+            _ = self.hideActivityIndicator()
             #endif
         }
     }
