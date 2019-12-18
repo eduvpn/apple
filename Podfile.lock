@@ -34,10 +34,10 @@ DEPENDENCIES:
   - libsodium
   - Moya
   - PromiseKit/CorePromise
-  - TunnelKit
+  - TunnelKit (from `https://github.com/johankool/tunnelkit.git`, branch `feature/ipv4_mojave`)
 
 SPEC REPOS:
-  trunk:
+  https://cdn.cocoapods.org/:
     - Alamofire
     - ASN1Decoder
     - libsodium
@@ -46,16 +46,21 @@ SPEC REPOS:
     - PromiseKit
     - Result
     - SwiftyBeaver
-    - TunnelKit
 
 EXTERNAL SOURCES:
   AppAuth:
     :git: https://github.com/openid/AppAuth-iOS.git
+  TunnelKit:
+    :branch: feature/ipv4_mojave
+    :git: https://github.com/johankool/tunnelkit.git
 
 CHECKOUT OPTIONS:
   AppAuth:
     :commit: 7e0b5c100d69caac34372efdad34b22b3464ddea
     :git: https://github.com/openid/AppAuth-iOS.git
+  TunnelKit:
+    :commit: b72222f1e12fc6d217a33fc3aa8c2889525dfec8
+    :git: https://github.com/johankool/tunnelkit.git
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
@@ -69,6 +74,6 @@ SPEC CHECKSUMS:
   SwiftyBeaver: f9a9aba96a6a6166e21682377804d728b0d20b95
   TunnelKit: 554b30f3a37387169d00be45d120fa8df6c8068e
 
-PODFILE CHECKSUM: d6178527058ade2957bb10f6d5483defbb3f6551
+PODFILE CHECKSUM: 7fca1f05c4c03de902eaefc8847c17e7c10ad360
 
 COCOAPODS: 1.8.4
