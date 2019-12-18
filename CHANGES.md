@@ -13,6 +13,7 @@
 - Support Ed25519 X.509 certificates #107
 - Bug fixing and clean up of old code.
 - Codebase now supports both MacOS and iOS.
+- X.509 vpn cert/key now stored encrypted
 
 
 ## 2.0.4 

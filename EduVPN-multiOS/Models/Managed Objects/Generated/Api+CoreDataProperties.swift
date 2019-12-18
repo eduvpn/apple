@@ -119,12 +119,14 @@ extension Api {
         get {
             guard let certificateUrl = certificateUrl else { return nil }
             if FileManager.default.fileExists(atPath: certificateUrl.path) {
-                if let data = try? Data(contentsOf: certificateUrl) {
-                    do {
-                        return try JSONDecoder().decode(CertificateModel.self, from: data)
-                    } catch {
-                        return nil
+                do {
+                    let data = try Data(contentsOf: certificateUrl)
+                    if let clearTextData = Crypto.shared.decrypt(data: data) {
+                        return try JSONDecoder().decode(CertificateModel.self, from: clearTextData)
                     }
+                } catch {
+                    os_log("Failed load certificate model. %{public}@", log: Log.crypto, type: .error, error.localizedDescription)
+                    return nil
                 }
             }
             
@@ -146,18 +148,23 @@ extension Api {
             }
             
             if let newValue = newValue {
-                let data = try? JSONEncoder().encode(newValue)
-                
-                #if os(iOS)
-                let options: Data.WritingOptions = [Data.WritingOptions.atomicWrite,
-                                                    .completeFileProtectionUntilFirstUserAuthentication]
-                #elseif os(macOS)
-                let options: Data.WritingOptions = []
-                #endif
-                
-                try? data?.write(to: certificateUrl, options: options)
-                
-                excludeFromBackup(url: certificateUrl)
+                do {
+                    let data = try JSONEncoder().encode(newValue)
+
+                    #if os(iOS)
+                    let options: Data.WritingOptions = [Data.WritingOptions.atomicWrite,
+                                                        .completeFileProtectionUntilFirstUserAuthentication]
+                    #elseif os(macOS)
+                    let options: Data.WritingOptions = []
+                    #endif
+
+                    let encryptedData = try Crypto.shared.encrypt(data: data)
+                    try encryptedData?.write(to: certificateUrl, options: options)
+
+                    excludeFromBackup(url: certificateUrl)
+                } catch {
+                    os_log("Failed to write certificate model %{public}@", log: Log.crypto, type: .error, error.localizedDescription)
+                }
             } else {
                 try? FileManager.default.removeItem(at: certificateUrl)
             }
