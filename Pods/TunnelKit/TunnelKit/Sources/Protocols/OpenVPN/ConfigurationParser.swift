@@ -174,20 +174,21 @@ extension OpenVPN {
          */
         public static func parsed(fromURL url: URL, passphrase: String? = nil, returnsStripped: Bool = false) throws -> Result {
             let lines = try String(contentsOf: url).trimmedLines()
-            return try parsed(fromLines: lines, passphrase: passphrase, originalURL: url, returnsStripped: returnsStripped)
+            return try parsed(fromLines: lines, isClient: true, passphrase: passphrase, originalURL: url, returnsStripped: returnsStripped)
         }
 
         /**
          Parses a configuration from an array of lines.
          
          - Parameter lines: The array of lines holding the configuration.
+         - Parameter isClient: Enables additional checks for client configurations.
          - Parameter passphrase: The optional passphrase for encrypted data.
          - Parameter originalURL: The optional original URL of the configuration file.
          - Parameter returnsStripped: When `true`, stores the stripped file into `Result.strippedLines`. Defaults to `false`.
          - Returns: The `Result` outcome of the parsing.
          - Throws: `ConfigurationError` if the configuration file is wrong or incomplete.
          */
-        public static func parsed(fromLines lines: [String], passphrase: String? = nil, originalURL: URL? = nil, returnsStripped: Bool = false) throws -> Result {
+        public static func parsed(fromLines lines: [String], isClient: Bool = false, passphrase: String? = nil, originalURL: URL? = nil, returnsStripped: Bool = false) throws -> Result {
             var optStrippedLines: [String]? = returnsStripped ? [] : nil
             var optWarning: ConfigurationError?
             var unsupportedError: ConfigurationError?
@@ -584,6 +585,15 @@ extension OpenVPN {
                 
                 if let error = unsupportedError {
                     throw error
+                }
+            }
+            
+            if isClient {
+                guard let _ = optCA else {
+                    throw ConfigurationError.missingConfiguration(option: "ca")
+                }
+                guard let _ = optCipher else {
+                    throw ConfigurationError.missingConfiguration(option: "cipher")
                 }
             }
             
