@@ -129,7 +129,15 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
     let authConfig: OIDServiceConfiguration
     private var credentialStorePlugin: CredentialStorePlugin
     
-    var actualApi: Api { return api.instance?.group?.distributedAuthorizationApi ?? api }
+    var actualApi: Api {
+        let providertType = api.instance?.providerType.map { ProviderType(rawValue: $0 ) } ?? ProviderType.unknown
+        switch providertType {
+        case .instituteAccess:
+            return api
+        default:
+            return api.instance?.group?.distributedAuthorizationApi ?? api
+        }
+    }
     
     var currentAuthorizationFlow: OIDExternalUserAgentSession?
     
@@ -176,8 +184,11 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
                 fatalError("THIS SHOULD NEVER HAPPEN")
             }
 
-            self.api.managedObjectContext?.performAndWait {
-                self.api.instance?.group?.distributedAuthorizationApi = self.actualApi
+            let providertType = self.api.instance?.providerType.map { ProviderType(rawValue: $0 ) } ?? ProviderType.unknown
+            if providertType != .instituteAccess {
+                self.api.managedObjectContext?.performAndWait {
+                    self.api.instance?.group?.distributedAuthorizationApi = self.actualApi
+                }
             }
             
             do {
