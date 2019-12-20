@@ -130,8 +130,8 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
     private var credentialStorePlugin: CredentialStorePlugin
     
     var actualApi: Api {
-        let providertType = api.instance?.providerType.map { ProviderType(rawValue: $0 ) } ?? ProviderType.unknown
-        switch providertType {
+        let providerType = api.instance?.providerType.map { ProviderType(rawValue: $0 ) } ?? ProviderType.unknown
+        switch providerType {
         case .instituteAccess:
             return api
         default:
@@ -184,8 +184,8 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
                 fatalError("THIS SHOULD NEVER HAPPEN")
             }
 
-            let providertType = self.api.instance?.providerType.map { ProviderType(rawValue: $0 ) } ?? ProviderType.unknown
-            if providertType != .instituteAccess {
+            let providerType = self.api.instance?.providerType.map { ProviderType(rawValue: $0 ) } ?? ProviderType.unknown
+            if providerType != .instituteAccess {
                 self.api.managedObjectContext?.performAndWait {
                     self.api.instance?.group?.distributedAuthorizationApi = self.actualApi
                 }
