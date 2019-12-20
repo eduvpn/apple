@@ -365,7 +365,18 @@ extension ProvidersViewController: NSTableViewDelegate {
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
-        updateInterface()
+        switch providerType {
+        case .unknown:
+            updateInterface()
+        default:
+            guard tableView.selectedRow >= 0 else {
+                return
+            }
+
+            selectProvider(at: tableView.selectedRow)
+
+            tableView.deselectRow(tableView.selectedRow)
+        }
     }
     
     func tableView(_ tableView: NSTableView,
