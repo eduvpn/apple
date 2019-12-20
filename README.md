@@ -41,18 +41,21 @@ Either copy the default template:
 ```
 $ cp EduVPN/Config/config-template.json EduVPN/Config/config.json
 $ cp EduVPN/Config/Developer.xcconfig-template EduVPN/Config/Developer.xcconfig
+$ cp -r EduVPN/Config/Assets-EduVPN.xcassets EduVPN/Resources/Assets.xcassets
 ```
 
 Or copy the letsconnect template:
 ```
 $ cp EduVPN/Config/config-letsconnect.json EduVPN/Config/config.json
 $ cp EduVPN/Config/Developer.xcconfig.letsconnect-template EduVPN/Config/Developer.xcconfig
+$ cp -r EduVPN/Config/Assets-LetsConnect.xcassets EduVPN/Resources/Assets.xcassets
 ```
 
 Or the EduVPN template:
 ```
 $ cp EduVPN/Config/config-eduvpn.json EduVPN/Config/config.json
 $ cp EduVPN/Config/Developer.xcconfig.eduvpn-template EduVPN/Config/Developer.xcconfig
+$ cp -r EduVPN/Config/Assets-EduVPN.xcassets EduVPN/Resources/Assets.xcassets
 ```
 
 Edit app_name, development_team, app_ID, client_ID, REDIRECT_URL.
