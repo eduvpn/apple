@@ -160,7 +160,7 @@ public class OpenVPNSession: Session {
 
     private var lastPing: BidirectionalState<Date>
     
-    private var isStopping: Bool
+    private(set) var isStopping: Bool
     
     /// The optional reason why the session stopped.
     public private(set) var stopError: Error?
@@ -407,6 +407,8 @@ public class OpenVPNSession: Session {
             }
             if let error = error {
                 log.error("Failed LINK read: \(error)")
+                
+                // XXX: why isn't the tunnel shutting down at this point?
                 return
             }
             
@@ -428,7 +430,7 @@ public class OpenVPNSession: Session {
             }
 
             if let packets = newPackets, !packets.isEmpty {
-//                log.verbose("Received \(packets.count) packets from \(self.tunnelName)")
+//                log.verbose("Received \(packets.count) packets from TUN")
                 self?.receiveTunnel(packets: packets)
             }
         }
@@ -437,6 +439,7 @@ public class OpenVPNSession: Session {
     // Ruby: recv_link
     private func receiveLink(packets: [Data]) {
         guard shouldHandlePackets() else {
+            log.warning("Discarding \(packets.count) LINK packets (should not handle)")
             return
         }
         
@@ -470,8 +473,8 @@ public class OpenVPNSession: Session {
             if (code == .dataV1) || (code == .dataV2) {
                 let key = firstByte & 0b111
                 guard let _ = keys[key] else {
-                    log.error("Key with id \(key) not found")
-                    deferStop(.shutdown, OpenVPNError.badKey)
+                    log.warning("Key with id \(key) not found")
+//                    deferStop(.shutdown, OpenVPNError.badKey)
                     return
                 }
 
@@ -536,46 +539,46 @@ public class OpenVPNSession: Session {
     // Ruby: recv_tun
     private func receiveTunnel(packets: [Data]) {
         guard shouldHandlePackets() else {
+            log.warning("Discarding \(packets.count) TUN packets (should not handle)")
             return
         }
         sendDataPackets(packets)
-        lastPing.outbound = Date()
     }
     
     // Ruby: ping
     private func ping() {
-        guard (currentKey?.controlState == .connected) else {
+        guard currentKey?.controlState == .connected else {
             return
         }
         
         let now = Date()
-        guard (now.timeIntervalSince(lastPing.inbound) <= keepAliveTimeout) else {
+        guard now.timeIntervalSince(lastPing.inbound) <= keepAliveTimeout else {
             deferStop(.shutdown, OpenVPNError.pingTimeout)
             return
         }
 
-        // postpone ping if elapsed less than keep-alive
-        if let interval = keepAliveInterval {
-            let elapsed = now.timeIntervalSince(lastPing.outbound)
-            guard (elapsed >= interval) else {
-                scheduleNextPing(elapsed: elapsed)
-                return
-            }
+        // is keep-alive enabled?
+        if let _ = keepAliveInterval {
+            log.debug("Send ping")
+            sendDataPackets([OpenVPN.DataPacket.pingString])
+            lastPing.outbound = Date()
         }
 
-        log.debug("Send ping")
-        sendDataPackets([OpenVPN.DataPacket.pingString])
-        lastPing.outbound = Date()
-
+        // schedule even just to check for ping timeout
         scheduleNextPing()
     }
     
-    private func scheduleNextPing(elapsed: TimeInterval = 0.0) {
-        guard let interval = keepAliveInterval else {
-            return
+    private func scheduleNextPing() {
+        let interval: TimeInterval
+        if let keepAliveInterval = keepAliveInterval {
+            interval = keepAliveInterval
+            log.verbose("Schedule ping after \(interval) seconds")
+        } else {
+            interval = CoreConfiguration.OpenVPN.pingTimeoutCheckInterval
+            log.verbose("Schedule ping timeout check after \(interval) seconds")
         }
-        let remaining = min(interval, interval - elapsed)
-        queue.asyncAfter(deadline: .now() + remaining) { [weak self] in
+        queue.asyncAfter(deadline: .now() + interval) { [weak self] in
+            log.verbose("Running ping block")
             self?.ping()
         }
     }
@@ -1221,7 +1224,7 @@ public class OpenVPNSession: Session {
     // MARK: Stop
     
     private func shouldHandlePackets() -> Bool {
-        return (!isStopping && !keys.isEmpty)
+        return !isStopping && !keys.isEmpty
     }
     
     private func deferStop(_ method: StopMethod, _ error: Error?) {

@@ -50,6 +50,7 @@ Unsupported:
 - External file references (inline `<block>` only)
 - Static key encryption (non-TLS)
 - `<connection>` blocks
+- `vpn_gateway` and `net_gateway` literals in routes
 
 Ignored:
 
@@ -57,6 +58,7 @@ Ignored:
     - `--*-mtu` and variants
     - `--mssfix`
 - Multiple `--remote` with different `host` values (first wins)
+- Static client-side routes
 
 Many other flags are ignored too but it's normally not an issue.
 
@@ -193,8 +195,8 @@ For more details please see [CONTRIBUTING][contrib-readme].
 
 - [lzo][dep-lzo-website] - © 1996 - 2017 Markus F.X.J. Oberhumer
 - [PIATunnel][dep-piatunnel-repo] - © 2018-Present Private Internet Access
-- [SwiftyBeaver][dep-swiftybeaver-repo] - © 2015 Sebastian Kreutzberger
 - [SURFnet][surfnet]
+- [SwiftyBeaver][dep-swiftybeaver-repo] - © 2015 Sebastian Kreutzberger
 
 This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit. ([https://www.openssl.org/][dep-openssl])
 

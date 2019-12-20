@@ -315,7 +315,7 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		1548D213AD655ECBCD45F3EA793D19AA /* Debug */ = {
+		49225FADDF7E477D1EB03AF791CE32F8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DAFBA93776B2BAB0A56B0DFE083CFBDE /* SwiftyBeaver-macOS.xcconfig */;
 			buildSettings = {
@@ -343,11 +343,11 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 5.1;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
 		718F6163DF9971CEC5237FFC52E1339C /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -414,7 +414,7 @@
 			};
 			name = Debug;
 		};
-		899ECF829911FA56716BD90347ADBD78 /* Release */ = {
+		ADEB4937EEAA00F96D920ACBE5B3EC12 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3DC99461BAD70E46EDA309059F69EB65 /* SwiftyBeaver-iOS.xcconfig */;
 			buildSettings = {
@@ -439,13 +439,12 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 5.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
 		};
 		B61DBD0ED4D2AE213466301F9054DF51 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -508,39 +507,7 @@
 			};
 			name = Release;
 		};
-		C2EFC9631C8088BB31B92B35FC6B122A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3DC99461BAD70E46EDA309059F69EB65 /* SwiftyBeaver-iOS.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SwiftyBeaver-iOS/SwiftyBeaver-iOS-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SwiftyBeaver-iOS/SwiftyBeaver-iOS-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SwiftyBeaver-iOS/SwiftyBeaver-iOS.modulemap";
-				PRODUCT_MODULE_NAME = SwiftyBeaver;
-				PRODUCT_NAME = SwiftyBeaver;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		EF246C17A154F5081C3BF458989B0BA6 /* Release */ = {
+		D4EBF94C91843D9083F5077FC0FE682B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DAFBA93776B2BAB0A56B0DFE083CFBDE /* SwiftyBeaver-macOS.xcconfig */;
 			buildSettings = {
@@ -568,7 +535,40 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 5.1;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		E60F98EF03EBC63A19E9D0CC8417B5BC /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3DC99461BAD70E46EDA309059F69EB65 /* SwiftyBeaver-iOS.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SwiftyBeaver-iOS/SwiftyBeaver-iOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SwiftyBeaver-iOS/SwiftyBeaver-iOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SwiftyBeaver-iOS/SwiftyBeaver-iOS.modulemap";
+				PRODUCT_MODULE_NAME = SwiftyBeaver;
+				PRODUCT_NAME = SwiftyBeaver;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.1;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -580,8 +580,8 @@
 		2370E682F370FFB41D1F64CA0514783A /* Build configuration list for PBXNativeTarget "SwiftyBeaver-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1548D213AD655ECBCD45F3EA793D19AA /* Debug */,
-				EF246C17A154F5081C3BF458989B0BA6 /* Release */,
+				D4EBF94C91843D9083F5077FC0FE682B /* Debug */,
+				49225FADDF7E477D1EB03AF791CE32F8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -589,8 +589,8 @@
 		344E3660056EC91E59923C8F533E2CE0 /* Build configuration list for PBXNativeTarget "SwiftyBeaver-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C2EFC9631C8088BB31B92B35FC6B122A /* Debug */,
-				899ECF829911FA56716BD90347ADBD78 /* Release */,
+				ADEB4937EEAA00F96D920ACBE5B3EC12 /* Debug */,
+				E60F98EF03EBC63A19E9D0CC8417B5BC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

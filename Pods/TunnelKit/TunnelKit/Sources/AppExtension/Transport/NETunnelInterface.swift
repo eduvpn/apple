@@ -46,7 +46,16 @@ public class NETunnelInterface: TunnelInterface {
     /// :nodoc:
     public init(impl: NEPacketTunnelFlow, isIPv6: Bool) {
         self.impl = impl
+        #if os(macOS)
+        if #available(OSX 10.15, *) {
+            protocolNumber = (isIPv6 ? AF_INET6 : AF_INET) as NSNumber
+        } else {
+            // Force IPv4 on Mojave otherwise it breaks
+            protocolNumber = AF_INET as NSNumber
+        }
+        #else
         protocolNumber = (isIPv6 ? AF_INET6 : AF_INET) as NSNumber
+        #endif
     }
     
     // MARK: TunnelInterface

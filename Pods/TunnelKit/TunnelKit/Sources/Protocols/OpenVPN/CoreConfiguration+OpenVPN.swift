@@ -53,6 +53,8 @@ extension CoreConfiguration {
         
         static let pushRequestInterval = 2.0
         
+        static let pingTimeoutCheckInterval = 10.0
+        
         static let pingTimeout = 120.0
         
         static let retransmissionLimit = 0.1
