@@ -40,8 +40,8 @@ class VPNConnectionViewController: UIViewController {
     @IBOutlet weak var providerInfoStackView: UIStackView!
 
     private func displayProfile() {
-        profileNameLabel.text = profile.profileId
-        instanceNameLabel.text = profile.displayString
+        profileNameLabel.text = profile.displayString
+        instanceNameLabel.text = profile.providerDisplayString
 
         if let logo = profile.api?.instance?.logos?.localizedValue, let logoUri = URL(string: logo) {
             ImageLoader.loadImage(logoUri, target: providerImage)

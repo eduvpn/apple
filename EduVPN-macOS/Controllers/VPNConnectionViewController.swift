@@ -36,7 +36,7 @@ class VPNConnectionViewController: NSViewController {
     @IBOutlet weak var providerInfoStackView: NSView!
     
     private func displayProfile() {
-        profileLabel.stringValue = [profile.profileId, profile.displayString]
+        profileLabel.stringValue = [profile.displayString, profile.providerDisplayString]
             .map { $0 ?? "" }
             .joined(separator: "\n")
         
