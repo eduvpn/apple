@@ -299,6 +299,9 @@ extension ProvidersViewController: NSTableViewDelegate {
     }
     
     private func configureRowCellView(_ cellView: NSTableCellView, providerType: ProviderType, instance: Instance) {
+        // Cancel loading of any previous image load attempts since this view may be reused
+        ImageLoader.cancelLoadImage(target: cellView.imageView)
+        cellView.imageView?.image = nil
         cellView.imageView?.isHidden = false
         
         switch providerType {
@@ -307,8 +310,6 @@ extension ProvidersViewController: NSTableViewDelegate {
             if let logoString = instance.logos?.localizedValue, let logoUrl = URL(string: logoString) {
                 ImageLoader.loadImage(logoUrl, target: cellView.imageView)
             } else {
-                ImageLoader.cancelLoadImage(target: cellView.imageView)
-                cellView.imageView?.image = nil
                 cellView.imageView?.isHidden = true
             }
             
