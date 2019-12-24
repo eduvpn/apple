@@ -30,7 +30,15 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
     }
 
     func addProvider(providersViewController: ProvidersViewController, animated: Bool) {
+        #if os(iOS)
         addProvider(animated: animated)
+        #elseif os(macOS)
+        if Config.shared.apiDiscoveryEnabled ?? false {
+            addProvider(animated: animated)
+        } else {
+            showCustomProviderInputViewController(for: .other)
+        }
+        #endif
     }
     
     func addPredefinedProvider(providersViewController: ProvidersViewController) {
