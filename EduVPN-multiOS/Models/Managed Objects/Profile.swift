@@ -12,8 +12,12 @@ import NetworkExtension
 
 extension Profile {
     
-    var displayString: String? {
+    var providerDisplayString: String? {
         return api?.instance?.displayNames?.localizedValue ?? api?.instance?.baseUri
+    }
+    
+    var displayString: String? {
+        return displayNames?.localizedValue ?? profileId
     }
     
     static func upsert(with profileModels: [InstanceProfileModel], for api: Api, on context: NSManagedObjectContext) {

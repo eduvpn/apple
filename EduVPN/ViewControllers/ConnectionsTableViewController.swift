@@ -42,8 +42,8 @@ class ConnectTableViewCell: UITableViewCell {
             
         }
         
-        connectTitleLabel?.text = profile.displayNames?.localizedValue ?? profile.displayString ?? profile.profileId
-        connectSubTitleLabel?.text = profile.displayString
+        connectTitleLabel?.text = profile.displayNames?.localizedValue ?? profile.profileId
+        connectSubTitleLabel?.text = profile.providerDisplayString
         
         if let logo = profile.api?.instance?.logos?.localizedValue, let logoUri = URL(string: logo) {
             ImageLoader.loadImage(logoUri, target: connectImageView)
