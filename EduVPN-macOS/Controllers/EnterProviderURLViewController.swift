@@ -42,6 +42,10 @@ class EnterProviderURLViewController: NSViewController {
         
         view.window?.contentMaxSize = view.frame.size
         view.window?.contentMinSize = view.frame.size
+        
+        // Move cursor behind prefilled https://
+        textField.currentEditor()?.selectedRange = NSRange(location: textField.stringValue.count, length: 0)
+        textField.displayIfNeeded()
     }
     
     @IBAction func goBack(_ sender: Any) {
