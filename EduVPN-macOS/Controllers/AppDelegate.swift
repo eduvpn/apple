@@ -22,7 +22,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
-        UserDefaults.standard.register(defaults: NSDictionary(contentsOf: Bundle.main.url(forResource: "Defaults", withExtension: "plist")!)! as! [String: Any]) //swiftlint:disable:this force_cast
+        if let defaultsPlist = Bundle.main.url(forResource: "Defaults", withExtension: "plist"), let defaultsDict = NSDictionary(contentsOf: defaultsPlist) as? [String: Any] {
+            UserDefaults.standard.register(defaults: defaultsDict)
+        }
         PreferencesService.shared.updateForUIPreferences()
         
         NotificationCenter.default.addObserver(self,
@@ -64,36 +66,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         case .connecting, .disconnecting, .reasserting:
             return .terminateCancel
         case .connected:
-            func disconnect() {
-                appCoordinator.tunnelProviderManagerCoordinator
-                    .disconnect()
-                    .then { _ -> Promise<Void> in
-                        NSApp.reply(toApplicationShouldTerminate: true)
-                        return Promise.value(())
-                    }
-                    .recover { error in
-                        if let alert = NSAlert(customizedError: error) {
-                            NSApp.reply(toApplicationShouldTerminate: false)
-                            if let window = self.appCoordinator.mainWindowController.window {
-                                alert.beginSheetModal(for: window)
-                            } else {
-                                alert.runModal()
-                            }
-                        } else {
-                            NSApp.reply(toApplicationShouldTerminate: true)
-                        }
-                    }
-            }
-            
-            func handleResult(_ result: NSApplication.ModalResponse) {
-                switch result {
-                case .alertFirstButtonReturn:
-                    disconnect()
-                default:
-                    NSApp.reply(toApplicationShouldTerminate: false)
-                }
-            }
-            
             let alert = NSAlert()
             alert.alertStyle = .warning
             alert.messageText = NSLocalizedString("Are you sure you want to quit \(Config.shared.appName)?", comment: "")
@@ -115,7 +87,33 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             return .terminateCancel
         }
     }
-    
+
+    private func handleResult(_ result: NSApplication.ModalResponse) {
+        switch result {
+        case .alertFirstButtonReturn:
+            appCoordinator.tunnelProviderManagerCoordinator
+                .disconnect()
+                .then { _ -> Promise<Void> in
+                    NSApp.reply(toApplicationShouldTerminate: true)
+                    return Promise.value(())
+                }
+                .recover { error in
+                    if let alert = NSAlert(customizedError: error) {
+                        NSApp.reply(toApplicationShouldTerminate: false)
+                        if let window = self.appCoordinator.mainWindowController.window {
+                            alert.beginSheetModal(for: window)
+                        } else {
+                            alert.runModal()
+                        }
+                    } else {
+                        NSApp.reply(toApplicationShouldTerminate: true)
+                    }
+                }
+        default:
+            NSApp.reply(toApplicationShouldTerminate: false)
+        }
+    }
+
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
