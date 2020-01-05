@@ -75,11 +75,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             
             if let window = self.appCoordinator.mainWindowController.window {
                 alert.beginSheetModal(for: window) { result in
-                    handleResult(result)
+                    self.handleResult(result)
                 }
             } else {
                 let result = alert.runModal()
-                handleResult(result)
+                self.handleResult(result)
             }
             
             return .terminateLater
