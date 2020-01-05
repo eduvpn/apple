@@ -3,6 +3,13 @@ name: CI
 on: [push, pull_request]
 
 jobs:
+  SwiftLint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: GitHub Action for SwiftLint
+      uses: norio-nomura/action-swiftlint@3.0.1
+
   build-ios:
     name: Build and test iOS target
     runs-on: macOS-latest
