@@ -19,13 +19,9 @@ struct ProfilesRepository {
 // MARK: - ProfilesRefresher
 
 class ProfilesRefresher {
-
-    private var refreshingProfiles: Bool = false
-
     weak var persistentContainer: NSPersistentContainer!
     
     func refresh(for dynamicApiProvider: DynamicApiProvider) -> Promise<Void> {
-        refreshingProfiles = true
         return dynamicApiProvider.request(apiService: .profileList)
             .then { response -> Promise<ProfilesModel> in response.mapResponse() }
             .then { profiles -> Promise<Void> in
@@ -51,8 +47,6 @@ class ProfilesRefresher {
                         seal.fulfill(())
                     }
                 })
-            }.ensure {
-                self.refreshingProfiles = false
             }
     }
 }

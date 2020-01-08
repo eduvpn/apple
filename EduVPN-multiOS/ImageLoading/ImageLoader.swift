@@ -19,7 +19,7 @@ public typealias CrossPlatformImageView = UIImageView
 #endif
 
 public class ImageLoader {
-    private static var dataTasks = Dictionary<CrossPlatformImageView, URLSessionDataTask>()
+    private static var dataTasks = [CrossPlatformImageView: URLSessionDataTask]()
 
     public static func loadImage(_ sourceUrl: URL, target: CrossPlatformImageView?) {
         guard Thread.isMainThread else {
@@ -33,12 +33,12 @@ public class ImageLoader {
         if let data = cache.cachedResponse(for: request)?.data, let image = CrossPlatformImage(data: data) {
             target.image = image
         } else {
-            let dataTask = URLSession.shared.dataTask(with: sourceUrl, completionHandler: { (data, response, error) in
+            let dataTask = URLSession.shared.dataTask(with: sourceUrl, completionHandler: { (data, response, _) in
                 if let data = data, let response = response, ((response as? HTTPURLResponse)?.statusCode ?? 500) < 300, let image = CrossPlatformImage(data: data) {
                     let cachedData = CachedURLResponse(response: response, data: data)
                     cache.storeCachedResponse(cachedData, for: request)
                     DispatchQueue.main.async {
-                        if let _ = dataTasks.removeValue(forKey: target) {
+                        if dataTasks.removeValue(forKey: target) != nil {
                             target.image = image
                         }
                     }
@@ -49,7 +49,7 @@ public class ImageLoader {
         }
     }
 
-    static public func cancelLoadImage(target: CrossPlatformImageView?) {
+    public static func cancelLoadImage(target: CrossPlatformImageView?) {
         guard Thread.isMainThread else {
             fatalError("ImageLoader should only be called on MainThread.")
         }

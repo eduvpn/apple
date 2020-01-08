@@ -110,7 +110,11 @@ extension AppCoordinator {
                 
                 ovpnFileContent = self.forceTcp(on: ovpnFileContent)
                 try self.validateRemote(on: ovpnFileContent)
-                ovpnFileContent = try self.merge(key: api.certificateModel!.privateKeyString, certificate: api.certificateModel!.certificateString, into: ovpnFileContent)
+
+                guard let certificateModel = api.certificateModel else {
+                    throw AppCoordinatorError.certificateModelMissing
+                }
+                ovpnFileContent = try self.merge(key: certificateModel.privateKeyString, certificate: certificateModel.certificateString, into: ovpnFileContent)
                 let lines = ovpnFileContent.components(separatedBy: .newlines).map {
                     $0.trimmingCharacters(in: .whitespacesAndNewlines)
                 }.filter {
@@ -124,35 +128,14 @@ extension AppCoordinator {
                     throw error
                 }
                 
-                func retryFetchProfile() -> Promise<[String]> {
-                    self.authorizingDynamicApiProvider = dynamicApiProvider
-                    #if os(iOS)
-                    let authorizeRequest = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
-                    self.showActivityIndicator(messageKey: "Authorizing with provider")
-                    #elseif os(macOS)
-                    let authorizeRequest = dynamicApiProvider.authorize()
-                    self.showActivityIndicator(messageKey: "Continue in your web browser…", cancellable: authorizeRequest)
-                    #endif
-                                
-                    return authorizeRequest.then { _ -> Promise<[String]> in
-                        return self.hideActivityIndicator().then { _ -> Promise<[String]> in
-                            #if os(macOS)
-                            NSApp.activate(ignoringOtherApps: true)
-                            #endif
-                            return self.fetchProfile(for: profile, retry: true)
-                        }
-                    }
-                }
-                
-                if let nsError = error as NSError?,
-                    nsError.domain == NSURLErrorDomain && nsError.code == NSURLErrorNetworkConnectionLost {
-                    return retryFetchProfile()
+                if let nsError = error as NSError?, nsError.domain == NSURLErrorDomain && nsError.code == NSURLErrorNetworkConnectionLost {
+                    return self.retryFetchProfile(with: dynamicApiProvider, for: profile)
                 }
                 
                 switch error {
                     
                 case ApiServiceError.tokenRefreshFailed, ApiServiceError.noAuthState :
-                    return retryFetchProfile()
+                    return self.retryFetchProfile(with: dynamicApiProvider, for: profile)
 
                 default:
                     return self.hideActivityIndicator().then { _ -> Guarantee<[String]> in
@@ -161,6 +144,26 @@ extension AppCoordinator {
                     }
                 }
             }
+    }
+
+    private func retryFetchProfile(with dynamicApiProvider: DynamicApiProvider, for profile: Profile) -> Promise<[String]> {
+        self.authorizingDynamicApiProvider = dynamicApiProvider
+        #if os(iOS)
+        let authorizeRequest = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
+        self.showActivityIndicator(messageKey: "Authorizing with provider")
+        #elseif os(macOS)
+        let authorizeRequest = dynamicApiProvider.authorize()
+        self.showActivityIndicator(messageKey: "Continue in your web browser…", cancellable: authorizeRequest)
+        #endif
+
+        return authorizeRequest.then { _ -> Promise<[String]> in
+            return self.hideActivityIndicator().then { _ -> Promise<[String]> in
+                #if os(macOS)
+                NSApp.activate(ignoringOtherApps: true)
+                #endif
+                return self.fetchProfile(for: profile, retry: true)
+            }
+        }
     }
     
     private func refreshProfiles(for dynamicApiProvider: DynamicApiProvider) -> Promise<Void> {
