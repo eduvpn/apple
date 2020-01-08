@@ -22,9 +22,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
-        if let defaultsPlist = Bundle.main.url(forResource: "Defaults", withExtension: "plist"), let defaultsDict = NSDictionary(contentsOf: defaultsPlist) as? [String: Any] {
-            UserDefaults.standard.register(defaults: defaultsDict)
+        guard let defaultsPlist = Bundle.main.url(forResource: "Defaults", withExtension: "plist"), let defaultsDict = NSDictionary(contentsOf: defaultsPlist) as? [String: Any] else {
+            fatalError("Defaults.plist should be available to register default values.")
         }
+        UserDefaults.standard.register(defaults: defaultsDict)
+
         PreferencesService.shared.updateForUIPreferences()
         
         NotificationCenter.default.addObserver(self,
