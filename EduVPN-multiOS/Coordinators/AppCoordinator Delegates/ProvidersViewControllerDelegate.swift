@@ -129,11 +129,6 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
     private func addProfilesWhenNoneAvailable(forced: Bool = false) {
         do {
             if try Profile.countInContext(persistentContainer.viewContext) == 0 || forced {
-                // When running an authorization, do nothing. The user might already be adding a profile.
-                // TODO fix this:if refreshingProfiles {
-//                    return
-//                }
-
                 if let predefinedProvider = Config.shared.predefinedProvider {
                     _ = connect(url: predefinedProvider)
                 } else {

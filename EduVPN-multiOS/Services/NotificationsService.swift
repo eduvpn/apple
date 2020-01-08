@@ -62,7 +62,6 @@ struct NotificationsService {
             payload.title = notification.title
             payload.informativeText = notification.body
             payload.deliveryDate = NSCalendar.current.date(from: triggerDate)
-            // TODO: support `repeats` for notification
 
             NSUserNotificationCenter.default.scheduleNotification(payload)
             
