@@ -67,14 +67,6 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
         }
     }
     
-    func close(viewController: NSViewController, animated: Bool = true, completionHandler: (() -> Void)? = nil) {
-        if navigationStack.count > 1, navigationStack.last == viewController {
-            pop(animated: animated, completionHandler: completionHandler)
-        } else if navigationStackStack.count > 1, navigationStackStack.last?.last == viewController {
-            dismiss(animated: animated, completionHandler: completionHandler)
-        }
-    }
-    
     func push(viewController: NSViewController, animated: Bool = true, completionHandler: (() -> Void)? = nil) {
         navigationStack.append(viewController)
         mainViewController.show(viewController: viewController,
@@ -85,11 +77,13 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
     
     func pop(animated: Bool = true, completionHandler: (() -> Void)? = nil) {
         guard navigationStack.count > 1 else {
+            assertionFailure("Failed to pop (1)")
             return
         }
 
         navigationStack.removeLast()
         guard let last = navigationStack.last else {
+            assertionFailure("Failed to pop (2)")
             return
         }
 
@@ -101,10 +95,12 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
     
     func popToRoot(animated: Bool = true, completionHandler: (() -> Void)? = nil) {
         guard navigationStack.count > 1 else {
+            assertionFailure("Failed to pop to root (1)")
             return
         }
 
         guard let root = navigationStack.first else {
+            assertionFailure("Failed to pop to root (2)")
             return
         }
         
@@ -132,12 +128,14 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
                  completionHandler: (() -> Void)? = nil) {
         
         guard navigationStackStack.count > 1 else {
+            assertionFailure("Failed to pop to dismiss (1)")
             return
         }
         
         navigationStackStack.removeLast()
         
         guard let last = navigationStack.last else {
+            assertionFailure("Failed to pop to dismiss (2)")
             return
         }
         mainViewController.show(viewController: last,
@@ -146,11 +144,4 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
             completionHandler: completionHandler)
     }
 
-}
-
-extension NSViewController {
-    
-    var mainWindowController: MainWindowController? {
-        return (NSApp.delegate as? AppDelegate)?.appCoordinator.windowController as? MainWindowController
-    }
 }

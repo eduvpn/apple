@@ -15,6 +15,10 @@ protocol ConnectionsTableViewControllerDelegate: class {
     func refresh(instance: Instance) -> Promise<Void>
     func connect(profile: Profile)
     func noProfiles(providerTableViewController: ConnectionsTableViewController)
+    
+    #if os(macOS)
+    func connectionsTableViewControllerWantsToClose(_ controller: ConnectionsTableViewController)
+    #endif
 }
 
 extension AppCoordinator: ConnectionsTableViewControllerDelegate {
@@ -35,5 +39,11 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
     func noProfiles(providerTableViewController: ConnectionsTableViewController) {
         showNoProfilesAlert()
     }
+    
+    #if os(macOS)
+    func connectionsTableViewControllerWantsToClose(_ controller: ConnectionsTableViewController) {
+        mainWindowController.pop()
+    }
+    #endif
     
 }

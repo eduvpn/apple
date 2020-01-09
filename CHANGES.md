@@ -1,6 +1,10 @@
 # Changelog
 
-## 2.1.0 (unreleased)
+## 2.1.1
+
+- macOS: Fix for UI not updating after approving #209
+
+## 2.1.0
 
 - Built against SDK 13
 - Dark mode
@@ -12,7 +16,7 @@
 - Ask for confirmation when disconnecting. #152
 - Support Ed25519 X.509 certificates #107
 - Bug fixing and clean up of old code.
-- Codebase now supports both MacOS and iOS.
+- Codebase now supports both macOS and iOS.
 - X.509 vpn cert/key now stored encrypted #188
 - Workaround for macOS Mojave (10.14) now breaking IPv6 instead of IPv4 #191
 - Institute access always uses own Auth server.

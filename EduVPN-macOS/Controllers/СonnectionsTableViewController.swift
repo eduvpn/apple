@@ -78,7 +78,7 @@ class ConnectionsTableViewController: NSViewController {
     }
     
     @IBAction func goBack(_ sender: Any) {
-        mainWindowController?.pop()
+        delegate?.connectionsTableViewControllerWantsToClose(self)
     }
 }
 

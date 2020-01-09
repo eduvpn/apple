@@ -67,18 +67,17 @@ extension AppCoordinator {
                     return .value(())
                 }
                 
-                #if os(iOS)
-                #elseif os(macOS)
-                self.popToRootViewController(animated: false, completionHandler: {
-                    self.dismissViewController()
-                })
-                #endif
-                
                 return self.refreshProfiles(for: authorizingDynamicApiProvider)
             }.ensureThen {
                 self.providersViewController.refresh()
                 NotificationCenter.default.post(name: Notification.Name.InstanceRefreshed, object: self)
                 return self.hideActivityIndicator()
+            }.ensureThen {
+                // TODO: See also ProvidersViewControllerDelegate didSelect(instance:, providersViewController: )
+                #if os(macOS)
+                self.dismissViewController()
+                #endif
+                return .value(())
             }
     }
     
@@ -153,7 +152,7 @@ extension AppCoordinator {
         self.showActivityIndicator(messageKey: "Authorizing with provider")
         #elseif os(macOS)
         let authorizeRequest = dynamicApiProvider.authorize()
-        self.showActivityIndicator(messageKey: "Continue in your web browser…", cancellable: authorizeRequest)
+        self.showActivityIndicator(messageKey: "Authorizing with provider", cancellable: authorizeRequest)
         #endif
 
         return authorizeRequest.then { _ -> Promise<[String]> in
@@ -180,7 +179,7 @@ extension AppCoordinator {
                     self.showActivityIndicator(messageKey: "Authorizing with provider")
                     #elseif os(macOS)
                     let authorizeRequest = dynamicApiProvider.authorize()
-                    self.showActivityIndicator(messageKey: "Continue in your web browser…", cancellable: authorizeRequest)
+                    self.showActivityIndicator(messageKey: "Authorizing with provider", cancellable: authorizeRequest)
                     #endif
                     
                     return authorizeRequest

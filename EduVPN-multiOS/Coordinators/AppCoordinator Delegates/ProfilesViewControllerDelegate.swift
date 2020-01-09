@@ -23,8 +23,9 @@ protocol ProfilesViewControllerDelegate: class {
     
     #elseif os(macOS)
     
-    func profilesViewControllerWantsToAddUrl()
-    func profilesViewControllerWantsChooseConfigFile()
+    func profilesViewControllerWantsToClose(_ controller: ProfilesViewController)
+    func profilesViewControllerWantsToAddUrl(_ controller: ProfilesViewController)
+    func profilesViewControllerWantsChooseConfigFile(_ controller: ProfilesViewController)
     
     #endif
 }
@@ -56,6 +57,14 @@ extension AppCoordinator: ProfilesViewControllerDelegate {
     
     #elseif os(macOS)
     
+    func profilesViewControllerWantsToClose(_ controller: ProfilesViewController) {
+        mainWindowController.dismiss()
+    }
+    
+    func profilesViewControllerWantsToAddUrl(_ controller: ProfilesViewController) {
+        profilesViewControllerWantsToAddUrl()
+    }
+    
     func profilesViewControllerWantsToAddUrl() {
         guard let enterProviderURLViewController = storyboard.instantiateController(withIdentifier: "EnterProviderURL")
             as? EnterProviderURLViewController else {
@@ -82,7 +91,7 @@ extension AppCoordinator: ProfilesViewControllerDelegate {
         }
     }
     
-    func profilesViewControllerWantsChooseConfigFile() {
+    func profilesViewControllerWantsChooseConfigFile(_ controller: ProfilesViewController) {
         guard let window = window else {
             return
         }

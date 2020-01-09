@@ -179,6 +179,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
             let session = self.currentManager?.connection as? NETunnelProviderSession
             do {
                 #if os(iOS)
+                // onDemand is currently not exposed on macOS, when enabled make sure that showActionSheet is implemented in AppCoordinator+Alert.swift
                 self.currentManager?.isOnDemandEnabled = UserDefaults.standard.onDemand
                 #endif
                 try session?.startTunnel()

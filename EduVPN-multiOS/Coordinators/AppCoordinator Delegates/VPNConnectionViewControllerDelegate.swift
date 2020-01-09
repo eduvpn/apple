@@ -15,6 +15,10 @@ extension VPNConnectionViewController: Identifiable {}
 protocol VPNConnectionViewControllerDelegate: class {
     @discardableResult func systemMessages(for profile: Profile) -> Promise<SystemMessages>
     func confirmDisconnectWhileOnDemandEnabled() -> Promise<Bool>
+    
+    #if os(macOS)
+    func vpnConnectionViewControllerWantsToClose(_ controller: VPNConnectionViewController)
+    #endif
 }
 
 extension AppCoordinator: VPNConnectionViewControllerDelegate {
@@ -37,6 +41,12 @@ extension AppCoordinator: VPNConnectionViewControllerDelegate {
         
         return systemMessages(for: dynamicApiProvider)
     }
+    
+    #if os(macOS)
+    func vpnConnectionViewControllerWantsToClose(_ controller: VPNConnectionViewController) {
+        mainWindowController.popToRoot()
+    }
+    #endif
 }
 
 extension NEVPNStatus {

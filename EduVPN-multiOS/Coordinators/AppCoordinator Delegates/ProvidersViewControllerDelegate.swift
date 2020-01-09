@@ -17,9 +17,16 @@ protocol ProvidersViewControllerDelegate: class {
     func addProvider(providersViewController: ProvidersViewController, animated: Bool)
     func addPredefinedProvider(providersViewController: ProvidersViewController)
     func didSelect(instance: Instance, providersViewController: ProvidersViewController)
+  
+    #if os(iOS)
     func settings(providersViewController: ProvidersViewController)
+    #endif
+      
     func delete(instance: Instance)
+    
     #if os(macOS)
+    func providersViewControllerWantsToClose(_ controller: ProvidersViewController)
+    
     func addCustomProviderWithUrl(_ url: URL)
     #endif
 }
@@ -47,9 +54,11 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
         }
     }
     
+    #if os(iOS)
     func settings(providersViewController: ProvidersViewController) {
         showSettings()
     }
+    #endif
     
     func didSelectOther(providerType: ProviderType) {
         showCustomProviderInputViewController(for: providerType)
@@ -81,7 +90,12 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
         } else {
             // Move this to pull to refresh?
             refresh(instance: instance).then { _ -> Promise<Void> in
+                #if os(iOS)
                 self.popToRootViewController()
+                #elseif os(macOS)
+                // TODO: It is unclear to me why iOS pops to root here. For macOS dismiss seems wrong.
+                // self.dismissViewController()
+                #endif
                 return .value(())
             }.recover { error in
                 let error = error as NSError
@@ -141,6 +155,10 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
     }
     
     #if os(macOS)
+    func providersViewControllerWantsToClose(_ controller: ProvidersViewController) {
+        mainWindowController.pop()
+    }
+    
     func addCustomProviderWithUrl(_ url: URL) {
         
     }
