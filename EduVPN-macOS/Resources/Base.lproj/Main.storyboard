@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15702"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="cells containing NSDateComponentsFormatter" minSystemVersion="10.12"/>
@@ -341,7 +342,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="eduVPN" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Let_s_Connect_" customModuleProvider="target"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="119" y="-407"/>
@@ -349,7 +350,7 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController storyboardIdentifier="MainWindowController" showSeguePresentationStyle="single" id="B8D-0N-5wS" customClass="MainWindowController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
+                <windowController storyboardIdentifier="MainWindowController" showSeguePresentationStyle="single" id="B8D-0N-5wS" customClass="MainWindowController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="eduVPN" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="Main" animationBehavior="default" tabbingMode="disallowed" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
@@ -381,7 +382,7 @@
         <!--Main View Controller-->
         <scene sceneID="pls-UA-ly7">
             <objects>
-                <viewController storyboardIdentifier="MainViewController" id="khn-a8-CTC" customClass="MainViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainViewController" id="khn-a8-CTC" customClass="MainViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="8OX-OJ-cMR">
                         <rect key="frame" x="0.0" y="0.0" width="440" height="575"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -393,7 +394,7 @@
                                     <segue destination="d3v-OK-Unm" kind="embed" id="2u7-wx-JfW"/>
                                 </connections>
                             </containerView>
-                            <visualEffectView blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="dj6-Ha-xoy">
+                            <visualEffectView blendingMode="behindWindow" material="windowBackground" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="dj6-Ha-xoy">
                                 <rect key="frame" x="0.0" y="0.0" width="440" height="575"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1bo-XI-U6o">
@@ -661,7 +662,7 @@ DQ
         <!--Providers View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController storyboardIdentifier="ChooseProvider" id="XfG-lQ-9wD" customClass="ProvidersViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChooseProvider" id="XfG-lQ-9wD" customClass="ProvidersViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="379" height="575"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -854,7 +855,7 @@ CA
         <!--Connection View Controller-->
         <scene sceneID="rmV-Wn-uOa">
             <objects>
-                <viewController identifier="VPNConnectionViewController" storyboardIdentifier="VPNConnectionViewController" id="f5D-Eq-JOa" customClass="VPNConnectionViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController identifier="VPNConnectionViewController" storyboardIdentifier="VPNConnectionViewController" id="f5D-Eq-JOa" customClass="VPNConnectionViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="2mZ-VK-Lri">
                         <rect key="frame" x="0.0" y="0.0" width="500" height="502"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -897,7 +898,7 @@ CA
                                 <rect key="frame" x="143" y="18" width="214" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="37" id="Pgd-6Z-VDm"/>
-                                    <constraint firstAttribute="width" constant="212" id="Qcu-G2-O78"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="212" id="Qcu-G2-O78"/>
                                 </constraints>
                                 <buttonCell key="cell" type="squareTextured" title="Disconnect" bezelStyle="texturedSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="AZN-gg-1EV">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -950,6 +951,7 @@ CA
                                                                         <constraint firstItem="ico-ME-n8x" firstAttribute="top" secondItem="luj-3S-G9z" secondAttribute="bottom" constant="8" id="HRd-h5-h1v"/>
                                                                         <constraint firstItem="luj-3S-G9z" firstAttribute="top" secondItem="6dy-fD-hy9" secondAttribute="top" id="MfL-Ny-Pbv"/>
                                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ico-ME-n8x" secondAttribute="trailing" id="d9o-jJ-2A5"/>
+                                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="luj-3S-G9z" secondAttribute="trailing" constant="8" id="ddZ-Wm-XlE"/>
                                                                         <constraint firstItem="ico-ME-n8x" firstAttribute="leading" secondItem="6dy-fD-hy9" secondAttribute="leading" constant="8" id="efo-h7-7lX"/>
                                                                         <constraint firstItem="luj-3S-G9z" firstAttribute="leading" secondItem="6dy-fD-hy9" secondAttribute="leading" constant="8" id="gMM-iC-gNf"/>
                                                                     </constraints>
@@ -978,6 +980,7 @@ CA
                                                                         <constraint firstItem="Zzp-Db-YSQ" firstAttribute="top" secondItem="VOB-Py-wKY" secondAttribute="top" id="66t-3c-HyI"/>
                                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lQa-Os-EgV" secondAttribute="trailing" id="6Ge-CP-2Xn"/>
                                                                         <constraint firstAttribute="bottom" secondItem="lQa-Os-EgV" secondAttribute="bottom" id="JJs-jf-SOu"/>
+                                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Zzp-Db-YSQ" secondAttribute="trailing" constant="8" id="ZqF-gq-wAl"/>
                                                                         <constraint firstItem="lQa-Os-EgV" firstAttribute="leading" secondItem="VOB-Py-wKY" secondAttribute="leading" id="dRB-GX-hBS"/>
                                                                         <constraint firstItem="lQa-Os-EgV" firstAttribute="top" secondItem="Zzp-Db-YSQ" secondAttribute="bottom" constant="8" id="gOM-7A-gjx"/>
                                                                         <constraint firstItem="Zzp-Db-YSQ" firstAttribute="leading" secondItem="VOB-Py-wKY" secondAttribute="leading" id="gsw-1g-swu"/>
@@ -1009,6 +1012,7 @@ CA
                                                                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="t6t-Oi-cJ5" secondAttribute="bottom" id="acV-cX-YqX"/>
                                                                         <constraint firstItem="dQ7-ql-jwE" firstAttribute="leading" secondItem="7Rj-P3-8dO" secondAttribute="leading" id="ixC-b6-Jeq"/>
                                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="t6t-Oi-cJ5" secondAttribute="trailing" constant="8" id="keT-6d-Jar"/>
+                                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="dQ7-ql-jwE" secondAttribute="trailing" constant="8" id="nyl-S1-Oel"/>
                                                                         <constraint firstItem="t6t-Oi-cJ5" firstAttribute="leading" secondItem="7Rj-P3-8dO" secondAttribute="leading" id="ztC-VP-cOh"/>
                                                                     </constraints>
                                                                 </customView>
@@ -1173,8 +1177,10 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
                                                                     </button>
                                                                 </subviews>
                                                                 <constraints>
+                                                                    <constraint firstItem="WzZ-Bk-ezY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3f5-fB-3Gb" secondAttribute="trailing" constant="8" symbolic="YES" id="012-j8-Aka"/>
                                                                     <constraint firstItem="x0q-mR-SMg" firstAttribute="leading" secondItem="cUC-W7-yfr" secondAttribute="leading" id="5Rn-1V-I7d"/>
                                                                     <constraint firstItem="8Nc-td-rKB" firstAttribute="top" secondItem="NyI-Nb-iH3" secondAttribute="bottom" constant="6" id="6iR-XA-2NN"/>
+                                                                    <constraint firstItem="x0q-mR-SMg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="UPx-Zp-TUA" secondAttribute="trailing" constant="8" symbolic="YES" id="8d3-QN-6zm"/>
                                                                     <constraint firstItem="3f5-fB-3Gb" firstAttribute="leading" secondItem="5YG-l3-VrO" secondAttribute="leading" id="954-wq-jKV"/>
                                                                     <constraint firstItem="NyI-Nb-iH3" firstAttribute="leading" secondItem="cUC-W7-yfr" secondAttribute="leading" id="9jG-5e-CeQ"/>
                                                                     <constraint firstItem="kDF-pN-QJq" firstAttribute="top" secondItem="3f5-fB-3Gb" secondAttribute="bottom" constant="6" id="9xy-3R-90o"/>
@@ -1187,16 +1193,19 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
                                                                     <constraint firstItem="5YG-l3-VrO" firstAttribute="top" secondItem="DVk-f7-A1z" secondAttribute="top" constant="8" id="IdP-vh-bPK"/>
                                                                     <constraint firstItem="5YG-l3-VrO" firstAttribute="leading" secondItem="DVk-f7-A1z" secondAttribute="leading" constant="10" id="JwE-MA-bfx"/>
                                                                     <constraint firstAttribute="bottom" secondItem="Yjd-E0-Eam" secondAttribute="bottom" constant="8" id="LER-dq-aSS"/>
+                                                                    <constraint firstItem="8Nc-td-rKB" firstAttribute="leading" secondItem="i8S-eG-fax" secondAttribute="trailing" constant="8" id="S1x-k8-tSQ"/>
+                                                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Yjd-E0-Eam" secondAttribute="trailing" constant="20" symbolic="YES" id="TU7-B0-zPf"/>
                                                                     <constraint firstItem="x0q-mR-SMg" firstAttribute="top" secondItem="8Nc-td-rKB" secondAttribute="bottom" constant="6" id="XwV-ys-H53"/>
                                                                     <constraint firstItem="kDF-pN-QJq" firstAttribute="leading" secondItem="5YG-l3-VrO" secondAttribute="leading" id="Z3b-hX-lLX"/>
                                                                     <constraint firstItem="i8S-eG-fax" firstAttribute="leading" secondItem="5YG-l3-VrO" secondAttribute="leading" id="a3H-7T-H5V"/>
+                                                                    <constraint firstItem="NyI-Nb-iH3" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kDF-pN-QJq" secondAttribute="trailing" constant="8" symbolic="YES" id="bT5-Gz-bci"/>
                                                                     <constraint firstItem="i8S-eG-fax" firstAttribute="top" secondItem="kDF-pN-QJq" secondAttribute="bottom" constant="6" id="esa-me-030"/>
                                                                     <constraint firstItem="Yjd-E0-Eam" firstAttribute="top" secondItem="x0q-mR-SMg" secondAttribute="bottom" constant="8" id="gKa-pf-yu0"/>
-                                                                    <constraint firstItem="8Nc-td-rKB" firstAttribute="leading" secondItem="i8S-eG-fax" secondAttribute="trailing" constant="8" id="iST-OM-zbR"/>
                                                                     <constraint firstItem="3f5-fB-3Gb" firstAttribute="top" secondItem="5YG-l3-VrO" secondAttribute="bottom" constant="6" id="lnN-1E-8v7"/>
                                                                     <constraint firstItem="NyI-Nb-iH3" firstAttribute="top" secondItem="WzZ-Bk-ezY" secondAttribute="bottom" constant="6" id="npq-QH-thx"/>
                                                                     <constraint firstItem="UPx-Zp-TUA" firstAttribute="leading" secondItem="5YG-l3-VrO" secondAttribute="leading" id="paJ-4A-L70"/>
                                                                     <constraint firstItem="8Nc-td-rKB" firstAttribute="leading" secondItem="cUC-W7-yfr" secondAttribute="leading" id="qT0-aw-wq0"/>
+                                                                    <constraint firstItem="cUC-W7-yfr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5YG-l3-VrO" secondAttribute="trailing" constant="8" symbolic="YES" id="rEC-ZW-eo9"/>
                                                                 </constraints>
                                                             </view>
                                                             <font key="titleFont" metaFont="system"/>
@@ -1250,6 +1259,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
                             <constraint firstItem="K7m-xJ-jMg" firstAttribute="leading" secondItem="2mZ-VK-Lri" secondAttribute="leading" id="BwN-EO-QhO"/>
                             <constraint firstItem="zXA-8H-8ch" firstAttribute="centerY" secondItem="6bp-mx-zdF" secondAttribute="centerY" id="MJz-dv-1KF"/>
                             <constraint firstAttribute="bottom" secondItem="smu-HX-KlD" secondAttribute="bottom" constant="20" id="Ze2-VK-rMh"/>
+                            <constraint firstItem="smu-HX-KlD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HSo-Og-0y9" secondAttribute="trailing" constant="8" symbolic="YES" id="bCu-Ho-haL"/>
                             <constraint firstItem="K7m-xJ-jMg" firstAttribute="top" secondItem="2mZ-VK-Lri" secondAttribute="top" constant="60" id="e8b-aq-iZ8"/>
                             <constraint firstAttribute="bottom" secondItem="K7m-xJ-jMg" secondAttribute="bottom" constant="77" id="h0g-AT-Dfk"/>
                             <constraint firstItem="6bp-mx-zdF" firstAttribute="leading" secondItem="2mZ-VK-Lri" secondAttribute="leading" constant="20" id="hUo-UE-5In"/>
@@ -1286,7 +1296,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
         <!--Profiles View Controller-->
         <scene sceneID="R5C-VG-0tb">
             <objects>
-                <viewController storyboardIdentifier="ProfilesViewController" id="Lns-jv-Aqp" customClass="ProfilesViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfilesViewController" id="Lns-jv-Aqp" customClass="ProfilesViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="NKN-qH-oxC">
                         <rect key="frame" x="0.0" y="0.0" width="511" height="696"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1335,7 +1345,7 @@ CA
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qcy-zA-XYg">
                                 <rect key="frame" x="149" y="18" width="214" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="212" id="GdF-AE-0rH"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="212" id="GdF-AE-0rH"/>
                                     <constraint firstAttribute="height" constant="37" id="rdh-QC-1Ph"/>
                                 </constraints>
                                 <buttonCell key="cell" type="squareTextured" title="Use Custom URL" bezelStyle="texturedSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Pyt-hE-lLA">
@@ -1351,7 +1361,7 @@ CA
                             <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sey-v6-tfe">
                                 <rect key="frame" x="149" y="18" width="214" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="212" id="Yel-mq-yhi"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="212" id="Yel-mq-yhi"/>
                                     <constraint firstAttribute="height" constant="37" id="Zua-Ao-kDL"/>
                                 </constraints>
                                 <buttonCell key="cell" type="squareTextured" title="Use Local Config File" bezelStyle="texturedSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sOB-lu-So2">
@@ -1407,6 +1417,7 @@ from outside the institution.</string>
                         <outlet property="chooseConfigFileButton" destination="sey-v6-tfe" id="dyw-oR-xzQ"/>
                         <outlet property="closeButton" destination="Dgk-N8-JjD" id="rVC-P5-Q9O"/>
                         <outlet property="enterProviderButton" destination="Qcy-zA-XYg" id="dyw-oR-xzP"/>
+                        <outlet property="imageView" destination="T7X-NY-cOV" id="rMR-dZ-7IQ"/>
                         <outlet property="instituteAccessButton" destination="bVa-Ah-Opn" id="JJq-Gf-81o"/>
                         <outlet property="secureInternetButton" destination="2PS-WV-Mnd" id="iza-mD-rNn"/>
                     </connections>
@@ -1418,7 +1429,7 @@ from outside the institution.</string>
         <!--Connections Table View Controller-->
         <scene sceneID="q3V-V1-a5D">
             <objects>
-                <viewController identifier="ConnectionsTableViewController" storyboardIdentifier="ConnectionsTableViewController" id="xQP-Pr-Baz" customClass="ConnectionsTableViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController identifier="ConnectionsTableViewController" storyboardIdentifier="ConnectionsTableViewController" id="xQP-Pr-Baz" customClass="ConnectionsTableViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="4nJ-ev-Mfz">
                         <rect key="frame" x="0.0" y="0.0" width="378" height="575"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1429,7 +1440,7 @@ from outside the institution.</string>
                                     <rect key="frame" x="0.0" y="0.0" width="378" height="515"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="44" viewBased="YES" id="Xgt-x3-Ooi" customClass="DeselectingTableView" customModule="eduVPN" customModuleProvider="target">
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="44" viewBased="YES" id="Xgt-x3-Ooi" customClass="DeselectingTableView" customModule="Let_s_Connect_" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="378" height="515"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
@@ -1537,7 +1548,7 @@ CA
         <!--Providers View Controller-->
         <scene sceneID="4WM-oH-o6s">
             <objects>
-                <viewController storyboardIdentifier="Providers" id="d3v-OK-Unm" customClass="ProvidersViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Providers" id="d3v-OK-Unm" customClass="ProvidersViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="mHf-nK-qZy">
                         <rect key="frame" x="0.0" y="0.0" width="378" height="575"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1548,7 +1559,7 @@ CA
                                     <rect key="frame" x="0.0" y="0.0" width="378" height="438"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="44" viewBased="YES" id="GYp-9D-CGo" customClass="DeselectingTableView" customModule="eduVPN" customModuleProvider="target">
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="44" viewBased="YES" id="GYp-9D-CGo" customClass="DeselectingTableView" customModule="Let_s_Connect_" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="378" height="438"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
@@ -1679,7 +1690,7 @@ CA
                                 <rect key="frame" x="82" y="18" width="214" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="37" id="LHL-xI-Mze"/>
-                                    <constraint firstAttribute="width" constant="212" id="Ot0-Ug-uh3"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="212" id="Ot0-Ug-uh3"/>
                                 </constraints>
                                 <buttonCell key="cell" type="squareTextured" title="Add Provider" bezelStyle="texturedSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="edN-2T-PQc">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1695,7 +1706,7 @@ DQ
                             <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="N9a-Z9-oQt">
                                 <rect key="frame" x="82" y="18" width="214" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="212" id="KHV-oJ-4hz"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="212" id="KHV-oJ-4hz"/>
                                     <constraint firstAttribute="height" constant="37" id="qNY-Ve-WjT"/>
                                 </constraints>
                                 <buttonCell key="cell" type="squareTextured" title="Connect" bezelStyle="texturedSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Yma-C5-7cP">
@@ -1761,23 +1772,21 @@ CA
         <!--Enter Provider URL View Controller-->
         <scene sceneID="D1l-yj-M3U">
             <objects>
-                <viewController storyboardIdentifier="EnterProviderURL" id="JTX-Fe-25d" customClass="EnterProviderURLViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EnterProviderURL" id="JTX-Fe-25d" customClass="EnterProviderURLViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="C5T-y0-cXd">
-                        <rect key="frame" x="0.0" y="0.0" width="420" height="116"/>
+                        <rect key="frame" x="0.0" y="0.0" width="420" height="114"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VTz-eb-Hy5">
-                                <rect key="frame" x="18" y="79" width="73" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VTz-eb-Hy5">
+                                <rect key="frame" x="18" y="78" width="73" height="16"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Enter URL" id="8fW-yY-tNC">
                                     <font key="font" metaFont="systemBold"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AyI-7a-sGz">
-                                <rect key="frame" x="20" y="49" width="380" height="22"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AyI-7a-sGz">
+                                <rect key="frame" x="20" y="49" width="380" height="21"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="https://" placeholderString="Enter URL here" drawsBackground="YES" id="CpD-AF-Od5">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1787,9 +1796,8 @@ CA
                                     <outlet property="delegate" destination="JTX-Fe-25d" id="jn0-NC-KnH"/>
                                 </connections>
                             </textField>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2cx-oP-LQ7">
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2cx-oP-LQ7">
                                 <rect key="frame" x="324" y="13" width="82" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Add" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hHT-yt-dZO">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -1801,9 +1809,8 @@ DQ
                                     <action selector="done:" target="JTX-Fe-25d" id="B0O-2h-zW2"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gSl-DR-Dz3">
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gSl-DR-Dz3">
                                 <rect key="frame" x="242" y="13" width="82" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="F7w-CM-8Zl">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -1816,6 +1823,22 @@ Gw
                                 </connections>
                             </button>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="2cx-oP-LQ7" secondAttribute="trailing" constant="20" symbolic="YES" id="48b-6y-4cO"/>
+                            <constraint firstItem="VTz-eb-Hy5" firstAttribute="top" secondItem="C5T-y0-cXd" secondAttribute="top" constant="20" symbolic="YES" id="ALr-fp-BPs"/>
+                            <constraint firstItem="gSl-DR-Dz3" firstAttribute="top" secondItem="AyI-7a-sGz" secondAttribute="bottom" constant="8" symbolic="YES" id="Fdo-8f-nYr"/>
+                            <constraint firstItem="2cx-oP-LQ7" firstAttribute="top" secondItem="AyI-7a-sGz" secondAttribute="bottom" constant="8" symbolic="YES" id="JBl-y4-Qgc"/>
+                            <constraint firstItem="2cx-oP-LQ7" firstAttribute="leading" secondItem="gSl-DR-Dz3" secondAttribute="trailing" constant="12" symbolic="YES" id="JLb-DU-7cd"/>
+                            <constraint firstItem="AyI-7a-sGz" firstAttribute="leading" secondItem="C5T-y0-cXd" secondAttribute="leading" constant="20" symbolic="YES" id="Jya-Ew-YwQ"/>
+                            <constraint firstItem="AyI-7a-sGz" firstAttribute="top" secondItem="VTz-eb-Hy5" secondAttribute="bottom" constant="8" symbolic="YES" id="Lkc-zv-bes"/>
+                            <constraint firstItem="2cx-oP-LQ7" firstAttribute="width" secondItem="gSl-DR-Dz3" secondAttribute="width" id="Q2u-RX-zyy"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="VTz-eb-Hy5" secondAttribute="trailing" constant="20" symbolic="YES" id="VAI-ps-ybd"/>
+                            <constraint firstItem="gSl-DR-Dz3" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="C5T-y0-cXd" secondAttribute="leading" constant="20" symbolic="YES" id="bBp-rg-hBK"/>
+                            <constraint firstAttribute="trailing" secondItem="AyI-7a-sGz" secondAttribute="trailing" constant="20" symbolic="YES" id="duk-7x-2Oz"/>
+                            <constraint firstItem="VTz-eb-Hy5" firstAttribute="leading" secondItem="C5T-y0-cXd" secondAttribute="leading" constant="20" symbolic="YES" id="vCg-DL-8h7"/>
+                            <constraint firstAttribute="bottom" secondItem="2cx-oP-LQ7" secondAttribute="bottom" constant="20" symbolic="YES" id="vJm-gs-eYo"/>
+                            <constraint firstAttribute="bottom" secondItem="gSl-DR-Dz3" secondAttribute="bottom" constant="20" symbolic="YES" id="xNI-h2-lSG"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="backButton" destination="gSl-DR-Dz3" id="8Gf-0P-xJe"/>
@@ -1826,118 +1849,6 @@ Gw
                 <customObject id="ivm-tg-6o0" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="34" y="1693.5"/>
-        </scene>
-        <!--Enter Credentials View Controller-->
-        <scene sceneID="kU9-LA-Gwx">
-            <objects>
-                <viewController storyboardIdentifier="EnterCredentials" id="uq9-CJ-wT3" customClass="EnterCredentialsViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" wantsLayer="YES" id="f3e-f3-Qip">
-                        <rect key="frame" x="0.0" y="0.0" width="420" height="168"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZwQ-i9-gmd">
-                                <rect key="frame" x="18" y="131" width="151" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Enter your credentials" id="ltf-LY-iCS">
-                                    <font key="font" metaFont="systemBold"/>
-                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="721-SW-8p5">
-                                <rect key="frame" x="98" y="101" width="302" height="22"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="jzs-Xr-aDS">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                                <connections>
-                                    <outlet property="delegate" destination="uq9-CJ-wT3" id="kUZ-Al-1eD"/>
-                                </connections>
-                            </textField>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bfH-hr-5Oe">
-                                <rect key="frame" x="324" y="13" width="82" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KLe-kv-mRe">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                    <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="done:" target="uq9-CJ-wT3" id="3pJ-wX-QPN"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xaD-sX-I3Y">
-                                <rect key="frame" x="242" y="13" width="82" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="jws-0a-gZZ">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                    <string key="keyEquivalent" base64-UTF8="YES">
-Gw
-</string>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="goBack:" target="uq9-CJ-wT3" id="VyS-SV-dfX"/>
-                                </connections>
-                            </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E1M-37-JZ3">
-                                <rect key="frame" x="22" y="104" width="70" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Username:" id="opJ-VW-wEI">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EhS-Yf-8Nt">
-                                <rect key="frame" x="26" y="73" width="66" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Password:" id="M1k-nC-SIE">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BzY-X2-jIl">
-                                <rect key="frame" x="96" y="47" width="124" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Save in Keychain" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Va4-FU-UAP">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                            </button>
-                            <secureTextField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QPm-ZI-y2P">
-                                <rect key="frame" x="98" y="73" width="302" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="cdE-7i-V1R">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <allowedInputSourceLocales>
-                                        <string>NSAllRomanInputSourcesLocaleIdentifier</string>
-                                    </allowedInputSourceLocales>
-                                </secureTextFieldCell>
-                                <connections>
-                                    <outlet property="delegate" destination="uq9-CJ-wT3" id="ksZ-Al-1eD"/>
-                                </connections>
-                            </secureTextField>
-                        </subviews>
-                    </view>
-                    <connections>
-                        <outlet property="cancelButton" destination="xaD-sX-I3Y" id="caD-sX-I3Y"/>
-                        <outlet property="okButton" destination="bfH-hr-5Oe" id="bfH-hr-cOe"/>
-                        <outlet property="passwordField" destination="QPm-ZI-y2P" id="QPm-cI-y2P"/>
-                        <outlet property="saveInKeychainButton" destination="BzY-X2-jIl" id="BcY-X2-jIl"/>
-                        <outlet property="usernameField" destination="721-SW-8p5" id="721-cW-8p5"/>
-                    </connections>
-                </viewController>
-                <customObject id="qA1-dp-22f" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-413" y="1718"/>
         </scene>
     </scenes>
     <resources>

@@ -13,6 +13,7 @@ class ProfilesViewController: NSViewController {
     
     weak var delegate: ProfilesViewControllerDelegate?
     
+    @IBOutlet var imageView: NSImageView!
     @IBOutlet var secureInternetButton: NSButton!
     @IBOutlet var instituteAccessButton: NSButton!
     @IBOutlet var closeButton: NSButton!
@@ -21,6 +22,9 @@ class ProfilesViewController: NSViewController {
     
     private var allowClose = true {
         didSet {
+            guard isViewLoaded else {
+                return
+            }
             closeButton?.isHidden = !allowClose
         }
     }
@@ -42,6 +46,8 @@ class ProfilesViewController: NSViewController {
         
         secureInternetButton.isHidden = !(Config.shared.apiDiscoveryEnabled ?? false)
         instituteAccessButton.isHidden = !(Config.shared.apiDiscoveryEnabled ?? false)
+        
+        imageView.isHidden = (Config.shared.apiDiscoveryEnabled ?? false)
     }
     
     @IBAction func chooseSecureInternet(_ sender: Any) {
@@ -55,14 +61,14 @@ class ProfilesViewController: NSViewController {
     }
     
     @IBAction func close(_ sender: Any) {
-        mainWindowController?.dismiss()
+        delegate?.profilesViewControllerWantsToClose(self)
     }
     
     @IBAction func enterProviderURL(_ sender: Any) {
-        delegate?.profilesViewControllerWantsToAddUrl()
+        delegate?.profilesViewControllerWantsToAddUrl(self)
     }
     
     @IBAction func chooseConfigFile(_ sender: Any) {
-        delegate?.profilesViewControllerWantsChooseConfigFile()
+        delegate?.profilesViewControllerWantsChooseConfigFile(self)
     }
 }

@@ -207,7 +207,7 @@ class ProvidersViewController: NSViewController {
     }
     
     @IBAction func goBack(_ sender: Any) {
-        mainWindowController?.pop()
+        delegate?.providersViewControllerWantsToClose(self)
     }
     
     fileprivate func updateInterface() {
@@ -389,23 +389,19 @@ extension ProvidersViewController: NSTableViewDelegate {
         return .copy
     }
     
-    func tableView(_ tableView: NSTableView,
-                   acceptDrop info: NSDraggingInfo,
-                   row: Int,
-                   dropOperation: NSTableView.DropOperation) -> Bool {
-        
-        guard let url = NSURL(from: info.draggingPasteboard) else {
-            return false
-        }
-        
-        if url.isFileURL {
-            // TODO: Use version in app coordinator
-            // chooseConfigFile(configFileURL: url as URL)
-        } else {
-            delegate?.addCustomProviderWithUrl(url as URL)
-        }
-        
-        return true
-    }
+    // Drag and drop currently not supported
+//    func tableView(_ tableView: NSTableView,
+//                   acceptDrop info: NSDraggingInfo,
+//                   row: Int,
+//                   dropOperation: NSTableView.DropOperation) -> Bool {
+//
+//        guard let url = NSURL(from: info.draggingPasteboard) else {
+//            return false
+//        }
+//
+//        delegate?.addCustomProviderWithUrl(url as URL)
+//
+//        return true
+//    }
     
 }

@@ -226,7 +226,8 @@ class VPNConnectionViewController: NSViewController {
     
     @IBAction func goBack(_ sender: Any) {
         assert(status == .disconnected)
-        mainWindowController?.popToRoot()
+      
+        delegate?.vpnConnectionViewControllerWantsToClose(self)
     }
     
     // MARK: - Log

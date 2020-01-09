@@ -58,24 +58,19 @@ extension AppCoordinator {
     }
     
     internal func dismissViewController() {
-        if let lastOfLastViewController = mainWindowController.navigationStackStack.last?.last {
-            mainWindowController.close(viewController: lastOfLastViewController)
-        }
+        mainWindowController.dismiss()
     }
     
     #endif
     
+    #if os(iOS)
     internal func showSettings() {
-        #if os(iOS)
         let settingsVc = storyboard.instantiateViewController(type: SettingsTableViewController.self)
         settingsVc.delegate = self
         navigationController.pushViewController(settingsVc, animated: true)
-        #elseif os(macOS)
-        // TODO: Implement macOS
-        abort()
-        #endif
     }
-    
+    #endif
+
     internal func showConnectionsTableViewController(for instance: Instance) {
         let connectionsVc = storyboard.instantiateViewController(type: ConnectionsTableViewController.self)
         connectionsVc.delegate = self
@@ -96,6 +91,7 @@ extension AppCoordinator {
             let allowClose = try Profile.countInContext(persistentContainer.viewContext) != 0
             profilesVc.allowClose(allowClose)
             
+            // TODO: Push vs. present causes difference in how to handle flow elsewhere
             #if os(iOS)
             pushViewController(profilesVc, animated: animated)
             #elseif os(macOS)

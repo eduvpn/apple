@@ -30,7 +30,10 @@ class MainViewController: NSViewController {
               completionHandler: (() -> Void)?) {
         
         let currentViewController = self.currentViewController
-        addChild(viewController)
+     
+        if !children.contains(viewController) {
+            addChild(viewController)
+        }
         
         // Ensure the layer is available
         currentViewController.view.superview?.wantsLayer = true
