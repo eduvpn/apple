@@ -1,5 +1,7 @@
 # Changelog
 
+## Unreleased
+
 ## 2.1.1
 
 - macOS: Fix for UI not updating after approving #209
