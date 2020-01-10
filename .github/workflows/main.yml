@@ -11,6 +11,18 @@ on:
       - master
 
 jobs:
+  remind:
+    name: Changelog Reminder
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Changelog Reminder
+      uses: peterjgrainger/action-changelog-reminder@v1.2.0
+      with:
+        changelog_regex: '/CHANGES.md'
+        customPrMessage: 'Make sure to keep CHANGES.md up to date!'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   SwiftLint:
     runs-on: ubuntu-latest
     steps:
