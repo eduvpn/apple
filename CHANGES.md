@@ -2,11 +2,11 @@
 
 ## Unreleased
 
-## 2.1.1
+## 2.1.1 (2020-01-06)
 
 - macOS: Fix for UI not updating after approving #209
 
-## 2.1.0
+## 2.1.0 (2019-12-22)
 
 - Built against SDK 13
 - Dark mode
@@ -24,7 +24,7 @@
 - Institute access always uses own Auth server.
 
 
-## 2.0.4 
+## 2.0.4  (2019-09-21)
 
 - Update dependencies.
 - Restrict encryption to known secure tlMinimum value is "128 bits" (level 3). More details about other effects of changing the TLS security level: [https://www.openssl.org/docs/manmaster/man3/SSL_CTX_set_security_level.html](https://www.openssl.org/docs/manmaster/man3/SSL_CTX_set_security_level.html).
@@ -40,13 +40,13 @@
 - Store OAuth.x509 data more securely. #91
 
 
-## 2.0.3
+## 2.0.3 (2019-04-04)
 
 - Fix for data corruption when removing profile configs. #85
 - Swift 5.
 - Do not mask IP addresses in logging. #69
 
-## 2.0.2
+## 2.0.2 (2019-03-19)
 
 - Fall back to instance base URI if no display name is defined.
 - Fix crash on start-up if no "discovery" is defined.
@@ -93,7 +93,7 @@ Localization.
 - Start improving VPN connection screen.
 - Update design of VPN selection screen. Also only allow adding a secure internet when there is not a already a secure internet profile present.
 
-## 2.0.1
+## 2.0.1 (2019-03-14)
 
 - Retry refresh profile after a successful re-auth.
 - Remove detection of OpenVPN.
@@ -104,18 +104,15 @@ Localization.
 - Switch to TunnelKit. Migrate to Swift 4.2, update dependencies.
 - Convert "print" statements to os_log.
 - Allow log display.
-
-## 2.0.0
-
 - App now contains it's own tunnel extension. No need to have the OpenVPN connect app installed.
 
-## 1.0.0
+## 1.0.0 (unreleased)
 
 - Distributed authorization/authentication support.
 - Show activity information when loading a new instance.
 
 
-## 0.113 (?)
+## 0.113 (2018-06-01)
 
 - Log in on EduVPN
 - Handoff OpenVPN certificate to OpenVPN Connect app.
