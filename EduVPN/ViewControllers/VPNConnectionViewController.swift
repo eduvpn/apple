@@ -105,8 +105,8 @@ class VPNConnectionViewController: UIViewController {
             }
             buttonConnection.isHidden = false || postponeButtonUpdates
         case .connecting, .disconnecting, .reasserting:
-            buttonConnection.setTitle(nil, for: .normal)
-            buttonConnection.isHidden = true
+            buttonConnection.setTitle(NSLocalizedString("Disconnect", comment: ""), for: .normal, for: .normal)
+            buttonConnection.isHidden = false || postponeButtonUpdates
 
         case .disconnected, .invalid:
             buttonConnection.setTitle(NSLocalizedString("Connect", comment: ""), for: .normal)
