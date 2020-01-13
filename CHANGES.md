@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- iOS: Fix for #216: "when 'connecting' there is no 'disconnect' button"
+
 ## 2.1.1 (2020-01-06)
 
 - macOS: Fix for UI not updating after approving #209
