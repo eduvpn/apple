@@ -28,14 +28,15 @@ extension AppCoordinator {
             default:
                 return false
             }
-        case "eduVPN.PromiseCancelledError":
-            switch error.code {
-            case 1:
-                return true
-            default:
-                return false
-            }
         default:
+            if error.domain.hasSuffix("PromiseCancelledError") {
+                switch error.code {
+                case 1:
+                    return true
+                default:
+                    return false
+                }
+            }
             return false
         }
     }
