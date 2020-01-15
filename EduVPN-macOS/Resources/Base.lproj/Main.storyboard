@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15702"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="cells containing NSDateComponentsFormatter" minSystemVersion="10.12"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -497,102 +497,102 @@ CA
             <objects>
                 <viewController title="Preferences" showSeguePresentationStyle="single" id="TRM-HQ-ggb" sceneMemberID="viewController">
                     <view key="view" id="TOs-5F-9Ou">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="171"/>
+                        <rect key="frame" x="0.0" y="0.0" width="495" height="263"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Adq-lA-U3V">
-                                <rect key="frame" x="18" y="135" width="119" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Launch at Login" bezelStyle="regularSquare" imagePosition="left" inset="2" id="d17-8e-A58">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <binding destination="cF9-Lp-W07" name="value" keyPath="values.launchAtLogin" id="0vd-dx-N5m"/>
-                                </connections>
-                            </button>
-                            <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yvD-in-gmY">
-                                <rect key="frame" x="20" y="-74" width="60" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Key Pairs" id="J4w-7w-2NM">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <scrollView hidden="YES" fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Djn-30-jlr">
-                                <rect key="frame" x="20" y="89" width="440" height="1"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <clipView key="contentView" ambiguous="YES" id="C8f-mg-sD8">
-                                    <rect key="frame" x="1" y="0.0" width="438" height="0.0"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <tableView verticalHuggingPriority="750" ambiguous="YES" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" headerView="Pif-N7-flZ" id="277-ff-rBp">
-                                            <rect key="frame" x="0.0" y="0.0" width="438" height="19"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <size key="intercellSpacing" width="3" height="2"/>
-                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                            <tableColumns>
-                                                <tableColumn width="435" minWidth="40" maxWidth="1000" id="vEX-nM-780">
-                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Provider">
-                                                        <font key="font" metaFont="message" size="11"/>
-                                                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                                    </tableHeaderCell>
-                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" title="Text Cell" id="9ET-YC-8FJ">
-                                                        <font key="font" metaFont="system"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                        <connections>
-                                                            <binding destination="Nor-Pd-Yr2" name="value" keyPath="selection.provider" id="SrJ-0c-f8p">
-                                                                <dictionary key="options">
-                                                                    <bool key="NSConditionallySetsEditable" value="NO"/>
-                                                                </dictionary>
-                                                            </binding>
-                                                        </connections>
-                                                    </textFieldCell>
-                                                    <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                                    <connections>
-                                                        <binding destination="Nor-Pd-Yr2" name="value" keyPath="arrangedObjects.provider" id="2rG-Tl-64a">
-                                                            <dictionary key="options">
-                                                                <bool key="NSConditionallySetsEditable" value="NO"/>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </tableColumn>
-                                            </tableColumns>
-                                        </tableView>
-                                    </subviews>
-                                </clipView>
-                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="ptW-MC-ycG">
-                                    <rect key="frame" x="1" y="7" width="0.0" height="16"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </scroller>
-                                <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="dqu-X3-R8Q">
-                                    <rect key="frame" x="423" y="0.0" width="16" height="0.0"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </scroller>
-                                <tableHeaderView key="headerView" id="Pif-N7-flZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="438" height="23"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableHeaderView>
-                            </scrollView>
-                            <button hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k8T-Bi-mme">
-                                <rect key="frame" x="14" y="54" width="89" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <buttonCell key="cell" type="push" title="Remove" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="RWq-kx-jlo">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="remove:" target="Nor-Pd-Yr2" id="tBx-AV-qts"/>
-                                    <binding destination="Nor-Pd-Yr2" name="enabled" keyPath="canRemove" id="9lO-k1-hEu"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5kb-lR-sJo">
-                                <rect key="frame" x="394" y="13" width="72" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TbT-vN-QRt">
+                                <rect key="frame" x="20" y="61" width="455" height="182"/>
+                                <subviews>
+                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="Adq-lA-U3V">
+                                        <rect key="frame" x="-2" y="166" width="119" height="18"/>
+                                        <buttonCell key="cell" type="check" title="Launch at Login" bezelStyle="regularSquare" imagePosition="left" inset="2" id="d17-8e-A58">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <binding destination="cF9-Lp-W07" name="value" keyPath="values.launchAtLogin" id="0vd-dx-N5m"/>
+                                        </connections>
+                                    </button>
+                                    <customView focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="9aB-73-1Rs">
+                                        <rect key="frame" x="0.0" y="84" width="455" height="64"/>
+                                        <subviews>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gDa-Sj-4aN">
+                                                <rect key="frame" x="-2" y="48" width="94" height="18"/>
+                                                <buttonCell key="cell" type="check" title="On Demand" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="oNu-fM-Y0Z">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <binding destination="cF9-Lp-W07" name="value" keyPath="values.on_demand" id="irz-nX-kkN"/>
+                                                </connections>
+                                            </button>
+                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="uTA-Pw-OvN">
+                                                <rect key="frame" x="18" y="0.0" width="439" height="42"/>
+                                                <textFieldCell key="cell" selectable="YES" id="htD-5f-wNE">
+                                                    <font key="font" metaFont="message" size="11"/>
+                                                    <string key="title">With on demand enabled, the VPN connection is started whenever an application running on the system opens a network connection. Network connectivity will be blocked until the VPN is connected.</string>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="uTA-Pw-OvN" secondAttribute="trailing" id="CeA-3v-jRH"/>
+                                            <constraint firstItem="uTA-Pw-OvN" firstAttribute="leading" secondItem="9aB-73-1Rs" secondAttribute="leading" constant="20" id="FzQ-bJ-nM3"/>
+                                            <constraint firstItem="gDa-Sj-4aN" firstAttribute="leading" secondItem="9aB-73-1Rs" secondAttribute="leading" id="RAd-4U-o8c"/>
+                                            <constraint firstAttribute="bottom" secondItem="uTA-Pw-OvN" secondAttribute="bottom" id="Y5G-43-kui"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gDa-Sj-4aN" secondAttribute="trailing" id="a6J-le-mB7"/>
+                                            <constraint firstItem="uTA-Pw-OvN" firstAttribute="top" secondItem="gDa-Sj-4aN" secondAttribute="bottom" constant="8" id="mdv-Qs-QYr"/>
+                                            <constraint firstItem="gDa-Sj-4aN" firstAttribute="top" secondItem="9aB-73-1Rs" secondAttribute="top" id="phL-HM-NyO"/>
+                                        </constraints>
+                                    </customView>
+                                    <customView focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="1Rx-Hx-Vvm">
+                                        <rect key="frame" x="0.0" y="0.0" width="455" height="64"/>
+                                        <subviews>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hDl-2r-oOI">
+                                                <rect key="frame" x="-2" y="48" width="85" height="18"/>
+                                                <buttonCell key="cell" type="check" title="Force TCP" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Wnd-Xi-GW6">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <binding destination="cF9-Lp-W07" name="value" keyPath="values.force_tcp" id="xY2-9j-Es8"/>
+                                                </connections>
+                                            </button>
+                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Dix-gj-nZs">
+                                                <rect key="frame" x="18" y="0.0" width="439" height="42"/>
+                                                <textFieldCell key="cell" selectable="YES" id="8W8-rS-srJ">
+                                                    <font key="font" metaFont="message" size="11"/>
+                                                    <string key="title">With Force TCP enabled, the VPN connection is always forced to use TCP only. In some network environments forcing TCP can help when UDP is not working. This setting only applies to new connections started after setting this option.</string>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="hDl-2r-oOI" firstAttribute="top" secondItem="1Rx-Hx-Vvm" secondAttribute="top" id="CBq-sd-o6A"/>
+                                            <constraint firstAttribute="bottom" secondItem="Dix-gj-nZs" secondAttribute="bottom" id="DyQ-nz-Yeq"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hDl-2r-oOI" secondAttribute="trailing" id="RXV-UZ-Ewd"/>
+                                            <constraint firstAttribute="trailing" secondItem="Dix-gj-nZs" secondAttribute="trailing" id="Wij-we-wEf"/>
+                                            <constraint firstItem="hDl-2r-oOI" firstAttribute="leading" secondItem="1Rx-Hx-Vvm" secondAttribute="leading" id="da1-D3-mpO"/>
+                                            <constraint firstItem="Dix-gj-nZs" firstAttribute="top" secondItem="hDl-2r-oOI" secondAttribute="bottom" constant="8" id="jtY-rU-tbD"/>
+                                            <constraint firstItem="Dix-gj-nZs" firstAttribute="leading" secondItem="1Rx-Hx-Vvm" secondAttribute="leading" constant="20" id="msu-IM-bKG"/>
+                                        </constraints>
+                                    </customView>
+                                </subviews>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5kb-lR-sJo">
+                                <rect key="frame" x="409" y="13" width="72" height="32"/>
                                 <buttonCell key="cell" type="push" title="Done" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="L4N-yD-1aA">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -604,49 +604,16 @@ DQ
                                     <action selector="closePreferences:" target="URQ-m7-vBM" id="Ex6-Ob-jhS"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gDa-Sj-4aN">
-                                <rect key="frame" x="18" y="109" width="94" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="On Demand" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="oNu-fM-Y0Z">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <binding destination="cF9-Lp-W07" name="value" keyPath="values.on_demand" id="irz-nX-kkN"/>
-                                </connections>
-                            </button>
-                            <textField hidden="YES" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uTA-Pw-OvN">
-                                <rect key="frame" x="38" y="60" width="424" height="43"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" selectable="YES" id="htD-5f-wNE">
-                                    <font key="font" metaFont="message" size="11"/>
-                                    <string key="title">With on demand enabled, the VPN connection is started whenever an application running on the system opens a network connection. Network connectivity will be blocked until the VPN is connected.</string>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hDl-2r-oOI">
-                                <rect key="frame" x="18" y="109" width="90" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Force TCP" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Wnd-Xi-GW6">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <binding destination="cF9-Lp-W07" name="value" keyPath="values.force_tcp" id="xY2-9j-Es8"/>
-                                </connections>
-                            </button>
-                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dix-gj-nZs">
-                                <rect key="frame" x="38" y="61" width="424" height="42"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" selectable="YES" id="8W8-rS-srJ">
-                                    <font key="font" metaFont="message" size="11"/>
-                                    <string key="title">With Force TCP enabled, the VPN connection is always forced to use TCP only. In some network environments forcing TCP can help when UDP is not working. This setting only applies to new connections started after setting this option.</string>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="TbT-vN-QRt" secondAttribute="trailing" constant="20" symbolic="YES" id="5te-3G-07s"/>
+                            <constraint firstItem="TbT-vN-QRt" firstAttribute="leading" secondItem="TOs-5F-9Ou" secondAttribute="leading" constant="20" symbolic="YES" id="VKn-36-XNy"/>
+                            <constraint firstItem="5kb-lR-sJo" firstAttribute="top" secondItem="TbT-vN-QRt" secondAttribute="bottom" constant="20" symbolic="YES" id="WW6-jl-0RS"/>
+                            <constraint firstAttribute="bottom" secondItem="5kb-lR-sJo" secondAttribute="bottom" constant="20" symbolic="YES" id="cRh-1Q-g5U"/>
+                            <constraint firstItem="TbT-vN-QRt" firstAttribute="top" secondItem="TOs-5F-9Ou" secondAttribute="top" constant="20" symbolic="YES" id="ciZ-JO-PpM"/>
+                            <constraint firstItem="5kb-lR-sJo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="TOs-5F-9Ou" secondAttribute="leading" constant="20" symbolic="YES" id="lhm-KP-gO1"/>
+                            <constraint firstAttribute="trailing" secondItem="5kb-lR-sJo" secondAttribute="trailing" constant="20" symbolic="YES" id="nBh-X6-GhA"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <customObject id="URQ-m7-vBM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -657,7 +624,7 @@ DQ
                 </arrayController>
                 <userDefaultsController representsSharedInstance="YES" id="cF9-Lp-W07"/>
             </objects>
-            <point key="canvasLocation" x="1431" y="-359"/>
+            <point key="canvasLocation" x="1430.5" y="-328.5"/>
         </scene>
         <!--Providers View Controller-->
         <scene sceneID="hIz-AP-VOD">

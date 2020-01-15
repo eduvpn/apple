@@ -126,7 +126,19 @@ class VPNConnectionViewController: NSViewController {
             }
             
         case .connected, .connecting:
-            _ = providerManagerCoordinator.disconnect()
+            _ = providerManagerCoordinator.checkOnDemandEnabled().then { onDemandEnabled -> Promise<Void> in
+                if let delegate = self.delegate, onDemandEnabled {
+                    return delegate.confirmDisconnectWhileOnDemandEnabled().then({ disconnect -> Promise<Void> in
+                        if disconnect {
+                            return self.providerManagerCoordinator.disconnect()
+                        } else {
+                            return Promise.value(())
+                        }
+                    })
+                } else {
+                    return self.providerManagerCoordinator.disconnect()
+                }
+            }
             
         default:
             break
