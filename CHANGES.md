@@ -5,6 +5,7 @@
 - iOS: Fix for #216: "when 'connecting' there is no 'disconnect' button"
 - macOS: Fix UI not updating correctly after removing provider #213
 - macOS: Don't tell users about them pressing cancel, they know already
+- macOS: Added popup for uninstall instructions older app #212
 
 ## 2.1.1 (2020-01-06)
 

@@ -55,8 +55,81 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             
             appCoordinator.fixAppName(to: appName)
         }
+        
+        checkForOldApp()
     }
     
+    private func checkForOldApp() {
+        guard UserDefaults.standard.bool(forKey: "SUHasLaunchedBefore"), Config.shared.uninstallURL != nil else {
+            return
+        }
+        
+        let alert = NSAlert()
+        alert.alertStyle = .informational
+        alert.messageText = NSLocalizedString("You previously had an older version of \(Config.shared.appName) installed. Do you want to uninstall it?", comment: "")
+        alert.informativeText = NSLocalizedString("It is recommended that you uninstall the previous version by following the instructions on our website.", comment: "")
+        alert.addButton(withTitle: NSLocalizedString("Show Instructions", comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("Remind Me Later", comment: ""))
+        
+        func handleResponse(_ response: NSApplication.ModalResponse) {
+            switch response {
+            case NSApplication.ModalResponse.alertFirstButtonReturn:
+                self.showUninstallInstructions()
+            case NSApplication.ModalResponse.alertSecondButtonReturn:
+                break
+            default:
+                break
+            }
+        }
+        
+        if let window = self.appCoordinator.mainWindowController.window {
+            alert.beginSheetModal(for: window) { response in
+                handleResponse(response)
+            }
+        } else {
+            let response = alert.runModal()
+            handleResponse(response)
+        }
+    }
+    
+    private func showUninstallInstructions() {
+        guard let url = Config.shared.uninstallURL else {
+            return
+        }
+        
+        NSWorkspace.shared.open(url)
+        
+        // Wait 5 seconds
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
+            let alert = NSAlert()
+            alert.alertStyle = .informational
+            alert.messageText = NSLocalizedString("Did you uninstall an older version of \(Config.shared.appName)?", comment: "")
+            alert.informativeText = NSLocalizedString("It is recommended that you uninstall the previous version by following the instructions on our website.", comment: "")
+            alert.addButton(withTitle: NSLocalizedString("Uninstall Completed", comment: ""))
+            alert.addButton(withTitle: NSLocalizedString("Remind Me Later", comment: ""))
+            
+            func handleResponse(_ response: NSApplication.ModalResponse) {
+                switch response {
+                case NSApplication.ModalResponse.alertFirstButtonReturn:
+                    UserDefaults.standard.removeObject(forKey: "SUHasLaunchedBefore")
+                case NSApplication.ModalResponse.alertSecondButtonReturn:
+                    break
+                default:
+                    break
+                }
+            }
+            if let window = self.appCoordinator.mainWindowController.window {
+                alert.beginSheetModal(for: window) { response in
+                    handleResponse(response)
+                }
+            } else {
+                let response = alert.runModal()
+                handleResponse(response)
+            }
+        }
+        
+    }
+
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
         guard let status = appCoordinator.tunnelProviderManagerCoordinator.currentManager?.connection.status else {
             return .terminateNow

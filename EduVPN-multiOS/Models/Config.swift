@@ -30,6 +30,7 @@ struct Config: Decodable {
         case appName
         case apiDiscoveryEnabled
         case supportURL
+        case uninstallURL
     }
     
     var clientId: String
@@ -41,6 +42,7 @@ struct Config: Decodable {
     var appName: String
     var apiDiscoveryEnabled: Bool?
     var supportURL: URL?
+    var uninstallURL: URL?
 }
 
 struct DiscoveryConfig: Decodable {
@@ -78,6 +80,7 @@ extension Config {
         appName = try container.decode(String.self, forKey: .appName)
         apiDiscoveryEnabled = try? container.decodeIfPresent(Bool.self, forKey: .apiDiscoveryEnabled) ?? false
         supportURL = try? container.decodeIfPresent(URL.self, forKey: .supportURL)
+        uninstallURL = try? container.decodeIfPresent(URL.self, forKey: .uninstallURL)
     }
 }
 
