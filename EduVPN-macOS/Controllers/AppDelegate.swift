@@ -13,6 +13,8 @@ import PromiseKit
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     var appCoordinator: AppCoordinator!
+    var statusItem: NSStatusItem?
+    @IBOutlet var statusMenu: NSMenu!
     
     func applicationWillFinishLaunching(_ notification: Notification) {
         // Disabled until best approach to get token is determined
@@ -27,6 +29,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         UserDefaults.standard.register(defaults: defaultsDict)
 
+        createStatusItem()
+        
         PreferencesService.shared.updateForUIPreferences()
         
         NotificationCenter.default.addObserver(self,
@@ -52,7 +56,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     fix($0)
                 }
             }
-            
+            statusMenu.items.forEach(fix)
             appCoordinator.fixAppName(to: appName)
         }
     }
@@ -163,19 +167,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DispatchQueue.main.async {
             guard let status = self.appCoordinator.tunnelProviderManagerCoordinator.currentManager?.connection.status else {
                 NSApp.applicationIconImage = NSImage(named: "Icon-off")
+                self.statusItem?.button?.image = NSImage(named: "Status-off")
                 return
             }
             switch status {
             case .connecting, .disconnecting, .reasserting:
                 NSApp.applicationIconImage = NSImage(named: "Icon-connecting")
+                self.statusItem?.button?.image = NSImage(named: "Status-connecting")
             case .connected:
                 NSApp.applicationIconImage = NSImage(named: "Icon-connected")
+                self.statusItem?.button?.image = NSImage(named: "Status-connected")
             case .disconnected:
                 NSApp.applicationIconImage = NSImage(named: "Icon-off")
+                self.statusItem?.button?.image = NSImage(named: "Status-off")
             case .invalid:
                 NSApp.applicationIconImage = NSImage(named: "Icon-invalid")
+                self.statusItem?.button?.image = NSImage(named: "Status-invalid")
             @unknown default:
                 NSApp.applicationIconImage = NSImage(named: "Icon-off")
+                self.statusItem?.button?.image = NSImage(named: "Status-off")
             }
         }
     }
@@ -187,4 +197,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSWorkspace.shared.open(url)
     }
     
+    private func createStatusItem() {
+        statusItem = NSStatusBar.system.statusItem(withLength: 26)
+        statusItem?.menu = statusMenu
+        statusItem?.button?.image = NSImage(named: "Status-off")
+    }
+    
+    var statusItemIsVisible: Bool = false {
+        didSet {
+            statusItem?.isVisible = statusItemIsVisible
+        }
+    }
+
 }

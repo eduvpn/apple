@@ -43,8 +43,12 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
     }
     
     func windowShouldClose(_ sender: NSWindow) -> Bool {
-        NSApp.terminate(nil)
-        return false
+        if UserDefaults.standard.bool(forKey: "showInDock") {
+            NSApp.terminate(nil)
+            return false
+        } else {
+            return true
+        }
     }
     
     // MARK: - Navigation

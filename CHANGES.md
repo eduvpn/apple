@@ -4,6 +4,7 @@
 
 - iOS: Fix for #216: "when 'connecting' there is no 'disconnect' button"
 - macOS: Support for "on demand" preference added #220
+- macOS: Added ability to hide dock icon and added statusbar #221
 
 ## 2.1.1 (2020-01-06)
 
