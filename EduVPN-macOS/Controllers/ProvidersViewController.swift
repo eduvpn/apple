@@ -63,7 +63,7 @@ class ProvidersViewController: NSViewController {
     }()
     
     private lazy var frcDelegate: CoreDataFetchedResultsControllerDelegate<Instance> = { // swiftlint:disable:this weak_delegate
-        return CoreDataFetchedResultsControllerDelegate<Instance>(tableView: self.tableView)
+        return CoreDataFetchedResultsControllerDelegate<Instance>(tableView: self.tableView, sectioned: true)
     }()
     
     override func viewWillAppear() {
@@ -187,9 +187,9 @@ class ProvidersViewController: NSViewController {
             alert.beginSheetModal(for: window) { response in
                 switch response {
                 case NSApplication.ModalResponse.alertFirstButtonReturn:
-                    self.delegate?.delete(instance: instance)
                     self.tableView.deselectRow(row)
-                    self.updateInterface()
+                    self.delegate?.delete(instance: instance)
+
                 default:
                     break
                 }
@@ -377,6 +377,8 @@ extension ProvidersViewController: NSTableViewDelegate {
             selectProvider(at: tableView.selectedRow)
 
             tableView.deselectRow(tableView.selectedRow)
+            
+            updateInterface()
         }
     }
     
