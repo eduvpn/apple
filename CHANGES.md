@@ -3,6 +3,7 @@
 ## Unreleased
 
 - iOS: Fix for #216: "when 'connecting' there is no 'disconnect' button"
+- macOS: Support for "on demand" preference added #220
 
 ## 2.1.1 (2020-01-06)
 

@@ -176,18 +176,38 @@ class TunnelProviderManagerCoordinator: Coordinator {
         #else
         
         return Promise(resolver: { resolver in
-            let session = self.currentManager?.connection as? NETunnelProviderSession
-            do {
-                #if os(iOS)
-                // onDemand is currently not exposed on macOS, when enabled make sure that showActionSheet is implemented in AppCoordinator+Alert.swift
-                self.currentManager?.isOnDemandEnabled = UserDefaults.standard.onDemand
-                #endif
-                try session?.startTunnel()
-                resolver.resolve(Result.fulfilled(()))
-            } catch let error {
-                os_log("error starting tunnel: %{public}@", log: Log.general, type: .error, error.localizedDescription)
+            guard let currentManager = self.currentManager, let session = currentManager.connection as? NETunnelProviderSession else {
+                let error = TunnelProviderManagerCoordinatorError.missingTunnelProviderManager
+                os_log("error connecting tunnel: %{public}@", log: Log.general, type: .error, error.localizedDescription)
                 resolver.reject(error)
+                return
             }
+            
+            if UserDefaults.standard.onDemand {
+                currentManager.isOnDemandEnabled = true
+                let rule = NEOnDemandRuleConnect()
+                rule.interfaceTypeMatch = .any
+                currentManager.onDemandRules = [rule]
+            } else {
+                currentManager.isOnDemandEnabled = false
+                currentManager.onDemandRules = nil
+            }
+            
+            currentManager.saveToPreferences(completionHandler: { error in
+                if let error = error {
+                    os_log("error saveToPreferences tunnel: %{public}@", log: Log.general, type: .error, error.localizedDescription)
+                    resolver.reject(error)
+                    return
+                }
+                
+                do {
+                    try session.startTunnel()
+                    resolver.resolve(Result.fulfilled(()))
+                } catch let error {
+                    os_log("error starting tunnel: %{public}@", log: Log.general, type: .error, error.localizedDescription)
+                    resolver.reject(error)
+                }
+            })
         })
         
         #endif

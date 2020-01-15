@@ -99,8 +99,28 @@ extension AppCoordinator {
             presentingViewController.present(alert, animated: true)
         })
         #elseif os(macOS)
-        // TODO: implement on MacOS.
-        return Promise.value(true)
+        return Promise<Bool>(resolver: { seal in
+            if let window = windowController.window {
+                let alert = NSAlert()
+                alert.alertStyle = .warning
+                alert.messageText = title
+                alert.informativeText = message
+                alert.addButton(withTitle: confirmTitle)
+                alert.addButton(withTitle: declineTitle)
+                alert.beginSheetModal(for: window) { response in
+                    switch response {
+                    case NSApplication.ModalResponse.alertFirstButtonReturn:
+                        seal.fulfill(true)
+                    case NSApplication.ModalResponse.cancel:
+                        seal.fulfill(false)
+                    default:
+                        break
+                    }
+                }
+            } else {
+                seal.fulfill(true)
+            }
+        })
         #endif
     }
 }
