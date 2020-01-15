@@ -12,10 +12,12 @@ import CoreData
 class CoreDataFetchedResultsControllerDelegate<T: NSManagedObject>: NSObject, FetchedResultsControllerDelegate {
     
     private weak var tableView: DeselectingTableView?
+    let sectioned: Bool
     
     // MARK: - Lifecycle
-    init(tableView: DeselectingTableView) {
+    init(tableView: DeselectingTableView, sectioned: Bool = false) {
         self.tableView = tableView
+        self.sectioned = sectioned
     }
     
     func fetchedResultsControllerDidPerformFetch(_ controller: FetchedResultsController<T>) {
@@ -23,15 +25,27 @@ class CoreDataFetchedResultsControllerDelegate<T: NSManagedObject>: NSObject, Fe
     }
     
     func fetchedResultsControllerWillChangeContent(_ controller: FetchedResultsController<T>) {
+        guard !sectioned else {
+            return
+        }
         tableView?.beginUpdates()
     }
     
     func fetchedResultsControllerDidChangeContent(_ controller: FetchedResultsController<T>) {
+        guard !sectioned else {
+            // NSTableView on macOS doesn't support sections, thus simply reload whole table view
+            tableView?.reloadData()
+            return
+        }
+        
         tableView?.endUpdates()
     }
     
     func fetchedResultsController(_ controller: FetchedResultsController<T>,
                                   didChangeObject change: FetchedResultsObjectChange<T>) {
+        guard !sectioned else {
+            return
+        }
         
         guard let tableView = tableView else { return }
         
@@ -56,7 +70,6 @@ class CoreDataFetchedResultsControllerDelegate<T: NSManagedObject>: NSObject, Fe
     
     func fetchedResultsController(_ controller: FetchedResultsController<T>,
                                   didChangeSection change: FetchedResultsSectionChange<T>) {
-        
         // macOS doesn't support sections, thus simply reload whole table view
         tableView?.reloadData()
     }
