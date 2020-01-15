@@ -151,6 +151,11 @@ class TunnelProviderManagerCoordinator: Coordinator {
                         profile.managedObjectContext?.saveContext()
                     }
                     
+                    if #available(OSX 10.15, *) {
+                        tunnelProviderProtocolConfiguration.includeAllNetworks = UserDefaults.standard.bool(forKey: "includeAllNetworks")
+                        tunnelProviderProtocolConfiguration.excludeLocalNetworks = UserDefaults.standard.bool(forKey: "excludeLocalNetworks")
+                    }
+                    
                     tunnelProviderProtocolConfiguration.providerConfiguration?[profileIdKey] = uuid.uuidString
                     
                     return tunnelProviderProtocolConfiguration

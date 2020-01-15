@@ -536,15 +536,15 @@ CA
         <scene sceneID="xfC-iv-REz">
             <objects>
                 <viewController title="Preferences" showSeguePresentationStyle="single" id="TRM-HQ-ggb" sceneMemberID="viewController">
-                    <view key="view" misplaced="YES" id="TOs-5F-9Ou">
-                        <rect key="frame" x="0.0" y="0.0" width="495" height="329"/>
+                    <view key="view" id="TOs-5F-9Ou">
+                        <rect key="frame" x="0.0" y="0.0" width="495" height="472"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TbT-vN-QRt">
-                                <rect key="frame" x="20" y="61" width="455" height="250"/>
+                                <rect key="frame" x="20" y="61" width="455" height="391"/>
                                 <subviews>
-                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="Adq-lA-U3V">
-                                        <rect key="frame" x="-2" y="234" width="119" height="18"/>
+                                    <button ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Adq-lA-U3V">
+                                        <rect key="frame" x="-2" y="374" width="119" height="19"/>
                                         <buttonCell key="cell" type="check" title="Launch at Login" bezelStyle="regularSquare" imagePosition="left" inset="2" id="d17-8e-A58">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -553,8 +553,8 @@ CA
                                             <binding destination="cF9-Lp-W07" name="value" keyPath="values.launchAtLogin" id="0vd-dx-N5m"/>
                                         </connections>
                                     </button>
-                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="VEp-DF-Wrc">
-                                        <rect key="frame" x="-2" y="200" width="105" height="18"/>
+                                    <button ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VEp-DF-Wrc">
+                                        <rect key="frame" x="-2" y="340" width="105" height="18"/>
                                         <buttonCell key="cell" type="check" title="Show in Dock" bezelStyle="regularSquare" imagePosition="left" inset="2" id="EdF-AD-3n3">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -564,8 +564,8 @@ CA
                                             <binding destination="cF9-Lp-W07" name="value" keyPath="values.showInDock" id="rE5-Hi-p2B"/>
                                         </connections>
                                     </button>
-                                    <button translatesAutoresizingMaskIntoConstraints="NO" id="Yf5-wk-7R4">
-                                        <rect key="frame" x="-2" y="166" width="131" height="18"/>
+                                    <button ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yf5-wk-7R4">
+                                        <rect key="frame" x="-2" y="306" width="131" height="18"/>
                                         <buttonCell key="cell" type="check" title="Show in menu bar" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Q3I-Zs-Wlv">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -576,7 +576,7 @@ CA
                                         </connections>
                                     </button>
                                     <customView focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="9aB-73-1Rs">
-                                        <rect key="frame" x="0.0" y="84" width="455" height="64"/>
+                                        <rect key="frame" x="0.0" y="224" width="455" height="64"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gDa-Sj-4aN">
                                                 <rect key="frame" x="-2" y="48" width="94" height="18"/>
@@ -609,7 +609,7 @@ CA
                                         </constraints>
                                     </customView>
                                     <customView focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="1Rx-Hx-Vvm">
-                                        <rect key="frame" x="0.0" y="0.0" width="455" height="64"/>
+                                        <rect key="frame" x="0.0" y="140" width="455" height="64"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hDl-2r-oOI">
                                                 <rect key="frame" x="-2" y="48" width="85" height="18"/>
@@ -641,6 +641,71 @@ CA
                                             <constraint firstItem="Dix-gj-nZs" firstAttribute="leading" secondItem="1Rx-Hx-Vvm" secondAttribute="leading" constant="20" id="msu-IM-bKG"/>
                                         </constraints>
                                     </customView>
+                                    <customView focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="Qn5-3L-T1q">
+                                        <rect key="frame" x="0.0" y="70" width="455" height="50"/>
+                                        <subviews>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aG9-Ex-iTV">
+                                                <rect key="frame" x="-2" y="34" width="146" height="18"/>
+                                                <buttonCell key="cell" type="check" title="Include All Networks" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="nyu-Se-BFj">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <binding destination="cF9-Lp-W07" name="value" keyPath="values.includeAllNetworks" id="qiB-b0-moR"/>
+                                                </connections>
+                                            </button>
+                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="XeW-0G-Tns">
+                                                <rect key="frame" x="18" y="0.0" width="439" height="28"/>
+                                                <textFieldCell key="cell" selectable="YES" id="aCN-xQ-l4k">
+                                                    <font key="font" metaFont="message" size="11"/>
+                                                    <string key="title">If enabled, all traffic will be sent over the tunnel, and all traffic will be dropped if the tunnel is down. (Requires macOS 10.15 or later.)</string>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="XeW-0G-Tns" secondAttribute="trailing" id="3qI-YJ-mNP"/>
+                                            <constraint firstAttribute="bottom" secondItem="XeW-0G-Tns" secondAttribute="bottom" id="4L4-wY-DjA"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="aG9-Ex-iTV" secondAttribute="trailing" id="KGl-qu-cCf"/>
+                                            <constraint firstItem="XeW-0G-Tns" firstAttribute="top" secondItem="aG9-Ex-iTV" secondAttribute="bottom" constant="8" id="RKP-PD-UtD"/>
+                                            <constraint firstItem="aG9-Ex-iTV" firstAttribute="top" secondItem="Qn5-3L-T1q" secondAttribute="top" id="UEI-40-PeJ"/>
+                                            <constraint firstItem="aG9-Ex-iTV" firstAttribute="leading" secondItem="Qn5-3L-T1q" secondAttribute="leading" id="a4s-hu-iGU"/>
+                                            <constraint firstItem="XeW-0G-Tns" firstAttribute="leading" secondItem="Qn5-3L-T1q" secondAttribute="leading" constant="20" id="r2j-el-ZWS"/>
+                                        </constraints>
+                                    </customView>
+                                    <customView focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="QKt-j5-dj5">
+                                        <rect key="frame" x="0.0" y="0.0" width="455" height="50"/>
+                                        <subviews>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Beu-z4-0mg">
+                                                <rect key="frame" x="-2" y="34" width="166" height="18"/>
+                                                <buttonCell key="cell" type="check" title="Exclude Local Networks" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="gZV-yU-2qo">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <binding destination="cF9-Lp-W07" name="value" keyPath="values.excludeLocalNetworks" id="tgQ-q5-MCi"/>
+                                                </connections>
+                                            </button>
+                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="n05-Ja-oxz">
+                                                <rect key="frame" x="18" y="0.0" width="439" height="28"/>
+                                                <textFieldCell key="cell" selectable="YES" title="If enabled, all traffic destined for local networks will be excluded from the tunnel. (Requires macOS 10.15 or later.)" id="7g0-Nd-BpY">
+                                                    <font key="font" metaFont="message" size="11"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="Beu-z4-0mg" firstAttribute="leading" secondItem="QKt-j5-dj5" secondAttribute="leading" id="2Z0-6e-fbS"/>
+                                            <constraint firstItem="n05-Ja-oxz" firstAttribute="top" secondItem="Beu-z4-0mg" secondAttribute="bottom" constant="8" id="8pB-f4-yXn"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Beu-z4-0mg" secondAttribute="trailing" id="Amd-cF-WPr"/>
+                                            <constraint firstAttribute="bottom" secondItem="n05-Ja-oxz" secondAttribute="bottom" id="OWm-gz-5if"/>
+                                            <constraint firstItem="n05-Ja-oxz" firstAttribute="leading" secondItem="QKt-j5-dj5" secondAttribute="leading" constant="20" id="Oyx-ex-MN9"/>
+                                            <constraint firstItem="Beu-z4-0mg" firstAttribute="top" secondItem="QKt-j5-dj5" secondAttribute="top" id="khb-92-jp3"/>
+                                            <constraint firstAttribute="trailing" secondItem="n05-Ja-oxz" secondAttribute="trailing" id="vnf-QK-Tmc"/>
+                                        </constraints>
+                                    </customView>
                                 </subviews>
                                 <visibilityPriorities>
                                     <integer value="1000"/>
@@ -648,8 +713,12 @@ CA
                                     <integer value="1000"/>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
@@ -690,7 +759,7 @@ DQ
                 </arrayController>
                 <userDefaultsController representsSharedInstance="YES" id="cF9-Lp-W07"/>
             </objects>
-            <point key="canvasLocation" x="1430.5" y="-312.5"/>
+            <point key="canvasLocation" x="1430.5" y="-241"/>
         </scene>
         <!--Providers View Controller-->
         <scene sceneID="hIz-AP-VOD">
@@ -1891,7 +1960,7 @@ Gw
         <image name="NSLeftFacingTriangleTemplate" width="9" height="12"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="NSStopProgressTemplate" width="11" height="11"/>
-        <image name="disconnected" width="44" height="55"/>
+        <image name="disconnected" width="44" height="37"/>
         <image name="secure_access" width="90" height="90"/>
         <image name="secure_internet" width="90" height="90"/>
         <namedColor name="Primary Color">
