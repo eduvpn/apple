@@ -5,6 +5,9 @@
 - iOS: Fix for #216: "when 'connecting' there is no 'disconnect' button"
 - macOS: Support for "on demand" preference added #220
 - macOS: Added ability to hide dock icon and added statusbar #221
+- macOS: Fix UI not updating correctly after removing provider #213
+- macOS: Don't tell users about them pressing cancel, they know already
+- macOS: Added popup for uninstall instructions older app #212
 - macOS: Fixed resizing issue on connection view  #192
 
 ## 2.1.1 (2020-01-06)
