@@ -560,8 +560,8 @@ CA
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
-                                            <binding destination="cF9-Lp-W07" name="enabled" keyPath="values.showInStatusBar" id="6ZO-8y-fKn"/>
                                             <binding destination="cF9-Lp-W07" name="value" keyPath="values.showInDock" id="rE5-Hi-p2B"/>
+                                            <binding destination="cF9-Lp-W07" name="enabled" keyPath="values.showInStatusBar" id="6ZO-8y-fKn"/>
                                         </connections>
                                     </button>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="Yf5-wk-7R4">
@@ -1290,11 +1290,12 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
                         <constraints>
                             <constraint firstItem="smu-HX-KlD" firstAttribute="centerX" secondItem="2mZ-VK-Lri" secondAttribute="centerX" id="0bm-fC-RYJ"/>
                             <constraint firstItem="K7m-xJ-jMg" firstAttribute="leading" secondItem="2mZ-VK-Lri" secondAttribute="leading" id="BwN-EO-QhO"/>
+                            <constraint firstAttribute="bottom" secondItem="K7m-xJ-jMg" secondAttribute="bottom" priority="250" constant="77" id="MH7-hF-FpT"/>
                             <constraint firstItem="zXA-8H-8ch" firstAttribute="centerY" secondItem="6bp-mx-zdF" secondAttribute="centerY" id="MJz-dv-1KF"/>
                             <constraint firstAttribute="bottom" secondItem="smu-HX-KlD" secondAttribute="bottom" constant="20" id="Ze2-VK-rMh"/>
                             <constraint firstItem="smu-HX-KlD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HSo-Og-0y9" secondAttribute="trailing" constant="8" symbolic="YES" id="bCu-Ho-haL"/>
                             <constraint firstItem="K7m-xJ-jMg" firstAttribute="top" secondItem="2mZ-VK-Lri" secondAttribute="top" constant="60" id="e8b-aq-iZ8"/>
-                            <constraint firstAttribute="bottom" secondItem="K7m-xJ-jMg" secondAttribute="bottom" constant="77" id="h0g-AT-Dfk"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="K7m-xJ-jMg" secondAttribute="bottom" constant="77" id="h0g-AT-Dfk"/>
                             <constraint firstItem="6bp-mx-zdF" firstAttribute="leading" secondItem="2mZ-VK-Lri" secondAttribute="leading" constant="20" id="hUo-UE-5In"/>
                             <constraint firstItem="6bp-mx-zdF" firstAttribute="top" secondItem="2mZ-VK-Lri" secondAttribute="top" constant="8" id="ith-aY-APP"/>
                             <constraint firstItem="HSo-Og-0y9" firstAttribute="leading" secondItem="2mZ-VK-Lri" secondAttribute="leading" constant="20" id="lQ6-rI-FOn"/>
