@@ -23,10 +23,15 @@ protocol VPNConnectionViewControllerDelegate: class {
 
 extension AppCoordinator: VPNConnectionViewControllerDelegate {
     func confirmDisconnectWhileOnDemandEnabled() -> Promise<Bool> {
-        return showActionSheet(title: NSLocalizedString("On Demand enabled", comment: ""),
-                               message: NSLocalizedString("Are you sure you want to disconnect while “On Demand” is enabled?", comment: ""),
-                               confirmTitle: NSLocalizedString("Disconnect", comment: ""),
-                               declineTitle: NSLocalizedString("Cancel", comment: ""))
+        // For now always say yes
+        return Promise<Bool> { seal in
+            seal.fulfill(true)
+        }
+        // Disabled dialog as it doesn't make sense if the setting can't be changed by the user
+//        return showActionSheet(title: NSLocalizedString("On Demand enabled", comment: ""),
+//                               message: NSLocalizedString("Are you sure you want to disconnect while “On Demand” is enabled?", comment: ""),
+//                               confirmTitle: NSLocalizedString("Disconnect", comment: ""),
+//                               declineTitle: NSLocalizedString("Cancel", comment: ""))
     }
 
     func systemMessages(for profile: Profile) -> Promise<SystemMessages> {

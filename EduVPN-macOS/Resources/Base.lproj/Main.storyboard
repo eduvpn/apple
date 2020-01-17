@@ -536,15 +536,15 @@ CA
         <scene sceneID="xfC-iv-REz">
             <objects>
                 <viewController title="Preferences" showSeguePresentationStyle="single" id="TRM-HQ-ggb" sceneMemberID="viewController">
-                    <view key="view" misplaced="YES" id="TOs-5F-9Ou">
-                        <rect key="frame" x="0.0" y="0.0" width="495" height="329"/>
+                    <view key="view" id="TOs-5F-9Ou">
+                        <rect key="frame" x="0.0" y="0.0" width="495" height="247"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TbT-vN-QRt">
-                                <rect key="frame" x="20" y="61" width="455" height="250"/>
+                                <rect key="frame" x="20" y="61" width="455" height="166"/>
                                 <subviews>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="Adq-lA-U3V">
-                                        <rect key="frame" x="-2" y="234" width="119" height="18"/>
+                                        <rect key="frame" x="-2" y="150" width="119" height="18"/>
                                         <buttonCell key="cell" type="check" title="Launch at Login" bezelStyle="regularSquare" imagePosition="left" inset="2" id="d17-8e-A58">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -554,7 +554,7 @@ CA
                                         </connections>
                                     </button>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="VEp-DF-Wrc">
-                                        <rect key="frame" x="-2" y="200" width="105" height="18"/>
+                                        <rect key="frame" x="-2" y="116" width="105" height="18"/>
                                         <buttonCell key="cell" type="check" title="Show in Dock" bezelStyle="regularSquare" imagePosition="left" inset="2" id="EdF-AD-3n3">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -565,7 +565,7 @@ CA
                                         </connections>
                                     </button>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="Yf5-wk-7R4">
-                                        <rect key="frame" x="-2" y="166" width="131" height="18"/>
+                                        <rect key="frame" x="-2" y="82" width="131" height="18"/>
                                         <buttonCell key="cell" type="check" title="Show in menu bar" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Q3I-Zs-Wlv">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -575,8 +575,8 @@ CA
                                             <binding destination="cF9-Lp-W07" name="value" keyPath="values.showInStatusBar" id="0JV-xX-0Qa"/>
                                         </connections>
                                     </button>
-                                    <customView focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="9aB-73-1Rs">
-                                        <rect key="frame" x="0.0" y="84" width="455" height="64"/>
+                                    <customView hidden="YES" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="9aB-73-1Rs">
+                                        <rect key="frame" x="0.0" y="102" width="455" height="64"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gDa-Sj-4aN">
                                                 <rect key="frame" x="-2" y="48" width="94" height="18"/>
@@ -690,7 +690,7 @@ DQ
                 </arrayController>
                 <userDefaultsController representsSharedInstance="YES" id="cF9-Lp-W07"/>
             </objects>
-            <point key="canvasLocation" x="1430.5" y="-312.5"/>
+            <point key="canvasLocation" x="1430.5" y="-353"/>
         </scene>
         <!--Providers View Controller-->
         <scene sceneID="hIz-AP-VOD">
