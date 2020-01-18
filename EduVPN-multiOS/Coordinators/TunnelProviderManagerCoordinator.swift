@@ -183,15 +183,11 @@ class TunnelProviderManagerCoordinator: Coordinator {
                 return
             }
             
-            if UserDefaults.standard.onDemand {
-                currentManager.isOnDemandEnabled = true
-                let rule = NEOnDemandRuleConnect()
-                rule.interfaceTypeMatch = .any
-                currentManager.onDemandRules = [rule]
-            } else {
-                currentManager.isOnDemandEnabled = false
-                currentManager.onDemandRules = nil
-            }
+            // Always enable "on demand"
+            currentManager.isOnDemandEnabled = true
+            let rule = NEOnDemandRuleConnect()
+            rule.interfaceTypeMatch = .any
+            currentManager.onDemandRules = [rule]
             
             currentManager.saveToPreferences(completionHandler: { error in
                 if let error = error {

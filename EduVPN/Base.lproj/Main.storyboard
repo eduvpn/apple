@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -184,45 +184,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
-                            <tableViewSection id="2fY-ta-THv">
-                                <string key="footerTitle">With on demand enabled, the VPN connection is started whenever an application running on the system opens a network connection. Network connectivity will be blocked until the VPN is connected.</string>
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Nsj-pb-wbZ">
-                                        <rect key="frame" x="0.0" y="18" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Nsj-pb-wbZ" id="cVp-nr-u7B">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JPq-pi-jpH">
-                                                    <rect key="frame" x="263" y="6.5" width="51" height="31"/>
-                                                    <connections>
-                                                        <action selector="onDemandChanged:" destination="u52-OQ-OnN" eventType="valueChanged" id="mIe-K2-oB8"/>
-                                                    </connections>
-                                                </switch>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On Demand" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n5F-Rw-ixR">
-                                                    <rect key="frame" x="16" y="11.5" width="247" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="JPq-pi-jpH" firstAttribute="centerY" secondItem="cVp-nr-u7B" secondAttribute="centerY" id="NTn-NB-GvK"/>
-                                                <constraint firstItem="n5F-Rw-ixR" firstAttribute="leading" secondItem="cVp-nr-u7B" secondAttribute="leadingMargin" id="gtL-NC-3A2"/>
-                                                <constraint firstAttribute="trailing" secondItem="JPq-pi-jpH" secondAttribute="trailing" constant="8" id="nSR-xb-0Gm"/>
-                                                <constraint firstItem="n5F-Rw-ixR" firstAttribute="centerY" secondItem="cVp-nr-u7B" secondAttribute="centerY" id="sxi-Ja-j1P"/>
-                                                <constraint firstItem="JPq-pi-jpH" firstAttribute="leading" secondItem="n5F-Rw-ixR" secondAttribute="trailing" id="yOQ-3h-AMq"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                             <tableViewSection id="PfW-bG-4JB">
                                 <string key="footerTitle">With Force TCP enabled, the VPN connection is always forced to use TCP only. In some network environments forcing TCP can help when UDP is not working. This setting only applies to new connections started after setting this option.</string>
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="mWm-QB-A5Q">
-                                        <rect key="frame" x="0.0" y="174" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="18" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mWm-QB-A5Q" id="aTC-zn-zcu">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -262,7 +228,6 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="forceTcpSwitch" destination="FAb-Eg-fyS" id="S4M-MD-q1z"/>
-                        <outlet property="onDemandSwitch" destination="JPq-pi-jpH" id="YwG-zX-Yzj"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sIU-ng-eKu" userLabel="First Responder" sceneMemberID="firstResponder"/>
