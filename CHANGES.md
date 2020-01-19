@@ -10,6 +10,7 @@
 - macOS: Don't tell users about them pressing cancel, they know already
 - macOS: Added popup for uninstall instructions older app #212
 - macOS: Fixed resizing issue on connection view  #192
+- iOS: Fix for app when no profiles configured. App should move to "add" screen.
 
 ## 2.1.1 (2020-01-06)
 
