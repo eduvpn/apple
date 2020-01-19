@@ -128,7 +128,7 @@ class ProvidersViewController: UITableViewController {
         
         refresh()
 
-        if fetchedResultsController.count == 0 {
+        if fetchedResultsController.count == 0 { // swiftlint:disable:this empty_count
             delegate?.noProfiles(providerTableViewController: self)
         }
     }
