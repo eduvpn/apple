@@ -127,6 +127,10 @@ class ProvidersViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         refresh()
+
+        if fetchedResultsController.count == 0 { // swiftlint:disable:this empty_count
+            delegate?.noProfiles(providerTableViewController: self)
+        }
     }
     
     @objc func refresh() {
