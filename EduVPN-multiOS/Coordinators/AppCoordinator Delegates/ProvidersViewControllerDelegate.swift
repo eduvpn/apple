@@ -14,6 +14,7 @@ import os.log
 extension ProvidersViewController: Identifiable {}
 
 protocol ProvidersViewControllerDelegate: class {
+    func noProfiles(providerTableViewController: ProvidersViewController)
     func addProvider(providersViewController: ProvidersViewController, animated: Bool)
     func addPredefinedProvider(providersViewController: ProvidersViewController)
     func didSelect(instance: Instance, providersViewController: ProvidersViewController)
@@ -32,7 +33,7 @@ protocol ProvidersViewControllerDelegate: class {
 }
 
 extension AppCoordinator: ProvidersViewControllerDelegate {
-    func noProfiles(providerTableViewController: ProvidersViewControllerDelegate) {
+    func noProfiles(providerTableViewController: ProvidersViewController) {
         addProfilesWhenNoneAvailable()
     }
 
