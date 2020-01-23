@@ -11,6 +11,7 @@
 - macOS: Added popup for uninstall instructions older app #212
 - macOS: Fixed resizing issue on connection view  #192
 - iOS: Fix for app when no profiles configured. App should move to "add" screen.
+- iOS: Fix crash on iOS 12 due to CryptoKit Linking. #238
 
 ## 2.1.1 (2020-01-06)
 
