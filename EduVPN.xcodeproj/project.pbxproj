@@ -2319,6 +2319,40 @@
 				INFOPLIST_FILE = EduVPN/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"resolv\"",
+					"-framework",
+					"\"ASN1Decoder\"",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"AppAuth\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"Moya\"",
+					"-framework",
+					"\"NetworkExtension\"",
+					"-framework",
+					"\"PromiseKit\"",
+					"-framework",
+					"\"Result\"",
+					"-framework",
+					"\"SafariServices\"",
+					"-framework",
+					"\"SwiftyBeaver\"",
+					"-framework",
+					"\"TunnelKit\"",
+					"-framework",
+					"\"libsodium\"",
+					"-framework",
+					"\"openssl\"",
+					"-weak_framework",
+					"\"AuthenticationServices\"",
+					"-weak_framework",
+					"\"CryptoKit\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID)";
 				PRODUCT_NAME = "$(APP_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2340,6 +2374,40 @@
 				INFOPLIST_FILE = EduVPN/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"resolv\"",
+					"-framework",
+					"\"ASN1Decoder\"",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"AppAuth\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"Moya\"",
+					"-framework",
+					"\"NetworkExtension\"",
+					"-framework",
+					"\"PromiseKit\"",
+					"-framework",
+					"\"Result\"",
+					"-framework",
+					"\"SafariServices\"",
+					"-framework",
+					"\"SwiftyBeaver\"",
+					"-framework",
+					"\"TunnelKit\"",
+					"-framework",
+					"\"libsodium\"",
+					"-framework",
+					"\"openssl\"",
+					"-weak_framework",
+					"\"AuthenticationServices\"",
+					"-weak_framework",
+					"\"CryptoKit\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID)";
 				PRODUCT_NAME = "$(APP_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
