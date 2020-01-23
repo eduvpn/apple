@@ -372,6 +372,7 @@
 		4AD0AD5E1F350822006E1337 /* Moya+ResponseHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Moya+ResponseHandling.swift"; sourceTree = "<group>"; };
 		4AD5688C238491FA00EC0ABD /* FileServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileServiceTests.swift; sourceTree = "<group>"; };
 		4AE728151F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+EduVPN.swift"; sourceTree = "<group>"; };
+		4AE763AB23DA4D1F00A98BCC /* main.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = main.yml; sourceTree = "<group>"; };
 		4AE81E1D23A2E73E002C793D /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		4AEAC32620F13D0C007B67AB /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		4AF3DF051F424535003EC0BA /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -772,6 +773,7 @@
 		4AAC1F6D1F2D0E3400DD0252 = {
 			isa = PBXGroup;
 			children = (
+				4AE763A923DA4D1F00A98BCC /* .github */,
 				C75B2CA5236311D100D700EC /* README.md */,
 				C75B2CA4236311D100D700EC /* CHANGES.md */,
 				C75B2CA3236311D100D700EC /* CODE_OF_CONDUCT.md */,
@@ -893,6 +895,22 @@
 				34345270229FC66A00C0476E /* CoreDataFetchedResultsControllerDelegate.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		4AE763A923DA4D1F00A98BCC /* .github */ = {
+			isa = PBXGroup;
+			children = (
+				4AE763AA23DA4D1F00A98BCC /* workflows */,
+			);
+			path = .github;
+			sourceTree = "<group>";
+		};
+		4AE763AA23DA4D1F00A98BCC /* workflows */ = {
+			isa = PBXGroup;
+			children = (
+				4AE763AB23DA4D1F00A98BCC /* main.yml */,
+			);
+			path = workflows;
 			sourceTree = "<group>";
 		};
 		4AE81E1C23A2E728002C793D /* ImageLoading */ = {
