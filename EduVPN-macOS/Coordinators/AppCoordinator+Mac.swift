@@ -3,7 +3,7 @@
 //  EduVPN-macOS
 //
 //  Created by Aleksandr Poddubny on 02/06/2019.
-//  Copyright © 2019 SURFNet. All rights reserved.
+//  Copyright © 2020 SURFNet. All rights reserved.
 //
 
 import Foundation

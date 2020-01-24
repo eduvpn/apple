@@ -3,7 +3,7 @@
 //  eduVPN
 //
 //  Created by Johan Kool on 24/09/2018.
-//  Copyright © 2017-2019 Commons Conservancy.
+//  Copyright © 2017-2020 Commons Conservancy.
 //
 
 import AppKit

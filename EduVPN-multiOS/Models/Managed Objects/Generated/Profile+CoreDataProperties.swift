@@ -3,7 +3,7 @@
 //  eduVPN
 //
 //  Created by Jeroen Leenarts on 11/04/2019.
-//  Copyright © 2019 SURFNet. All rights reserved.
+//  Copyright © 2020 SURFNet. All rights reserved.
 //
 //
 
