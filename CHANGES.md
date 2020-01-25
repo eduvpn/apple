@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- macOS/iOS: Remove certificate experiation notification.
+
 - iOS: Fix for #216: "when 'connecting' there is no 'disconnect' button"
 - macOS: Support for "on demand" added (always on) #220
 - iOS: "On demand" preference removed (now always on) #228
