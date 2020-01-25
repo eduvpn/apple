@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- iOS: On removing the "home" instance, all instances authentating through this home insance will alse be removed. Cascade deletion of Api accross `authorizingForGroup` relation. #241
+
+## Unreleased
+
 - iOS: Fix for #216: "when 'connecting' there is no 'disconnect' button"
 - macOS: Support for "on demand" added (always on) #220
 - iOS: "On demand" preference removed (now always on) #228
