@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum AppCoordinatorError: Swift.Error {
+enum AppCoordinatorError: LocalizedError {
     case certificateInvalid
     case certificateNil
     case certificateCommonNameNotFound
@@ -27,7 +27,7 @@ enum AppCoordinatorError: Swift.Error {
     case ovpnTemplate
     case discoverySeqNotIncremented
     
-    var localizedDescription: String {
+    var errorDescription: String {
         switch self {
         case .certificateInvalid:
             return NSLocalizedString("VPN certificate is invalid.", comment: "")
