@@ -13,13 +13,13 @@ import PromiseKit
 
 import os.log
 
-enum ApiServiceError: Swift.Error {
+enum ApiServiceError: LocalizedError {
     case noAuthState
     case unauthorized
     case urlCreationFailed
     case tokenRefreshFailed(rootCause: Error)
 
-    var localizedDescription: String {
+    var errorDescription: String? {
         switch self {
         case .noAuthState:
             return NSLocalizedString("No stored auth state.", comment: "")
