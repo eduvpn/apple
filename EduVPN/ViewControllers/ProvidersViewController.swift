@@ -84,6 +84,7 @@ class ProvidersViewController: UITableViewController {
     
     var providerType: ProviderType = .unknown
 
+    /// When `providerType == .unknown` the ProvidersViewController is supposed to display only instances that have been configured.
     var configuredForInstancesDisplay: Bool {
         return providerType == .unknown
     }
