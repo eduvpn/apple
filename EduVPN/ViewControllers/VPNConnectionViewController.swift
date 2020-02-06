@@ -128,19 +128,15 @@ class VPNConnectionViewController: UIViewController {
         }
     }
 
-    private func postStatusUpdatePromise() -> Promise<Void> {
-        self.status = self.providerManagerCoordinator.currentManager?.connection.status ?? .invalid
-        self.postponeButtonUpdates = false
-        return Promise.value(())
-
-    }
-
     func connect() -> Promise<Void> {
         self.postponeButtonUpdates = true
 
         return providerManagerCoordinator.configure(profile: profile).then {
             return self.providerManagerCoordinator.connect()
-        }.then { return self.postStatusUpdatePromise() }
+        }.ensure {
+            self.status = self.providerManagerCoordinator.currentManager?.connection.status ?? .invalid
+            self.postponeButtonUpdates = false
+        }
     }
 
     func disconnect() -> Promise<Void> {
@@ -158,7 +154,10 @@ class VPNConnectionViewController: UIViewController {
             } else {
                 return self.providerManagerCoordinator.disconnect()
             }
-        }.then { return self.postStatusUpdatePromise() }
+        }.ensure {
+            self.status = self.providerManagerCoordinator.currentManager?.connection.status ?? .invalid
+            self.postponeButtonUpdates = false
+        }
     }
 
     @IBAction func connectionClicked(_ sender: Any) {
