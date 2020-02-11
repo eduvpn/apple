@@ -10,7 +10,7 @@ import Cocoa
 import os.log
 import Alamofire
 
-/// Used to display configure providers (when providerType == .unknown) and to select a specific provider to add.
+/// Used to display configure providers (when providerType == .unknown aka. configuredForInstancesDisplay)  and to select a specific provider to add.
 class ProvidersViewController: NSViewController {
     
     weak var delegate: ProvidersViewControllerDelegate?
@@ -32,6 +32,11 @@ class ProvidersViewController: NSViewController {
     var selectingConfig: Bool = false
     
     var providerType: ProviderType = .unknown
+
+    var configuredForInstancesDisplay: Bool {
+        return providerType == .unknown
+    }
+    
     private var started = false
     
     private lazy var fetchedResultsController: FetchedResultsController<Instance> = {
@@ -85,7 +90,7 @@ class ProvidersViewController: NSViewController {
         
         do {
             try fetchedResultsController.performFetch()
-            if providerType == .unknown && rows.isEmpty {
+            if configuredForInstancesDisplay && rows.isEmpty {
                 delegate?.addProvider(providersViewController: self, animated: false)
             }
         } catch {

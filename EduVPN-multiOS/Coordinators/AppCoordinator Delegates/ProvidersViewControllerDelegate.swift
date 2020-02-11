@@ -68,7 +68,7 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
     func didSelect(instance: Instance, providersViewController: ProvidersViewController) {
         os_log("Did select provider type: %{public}@ instance: %{public}@", log: Log.general, type: .info, "\(providersViewController.providerType)", "\(instance)")
 
-        if providersViewController.providerType == .unknown {
+        if providersViewController.configuredForInstancesDisplay {
             do {
                 persistentContainer.performBackgroundTask { (context) in
                     if let backgroundInstance = context.object(with: instance.objectID) as? Instance {

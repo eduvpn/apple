@@ -83,6 +83,11 @@ class ProvidersViewController: UITableViewController {
     var selectingConfig: Bool = false
     
     var providerType: ProviderType = .unknown
+
+    /// When `providerType == .unknown` the ProvidersViewController is supposed to display only instances that have been configured.
+    var configuredForInstancesDisplay: Bool {
+        return providerType == .unknown
+    }
     
     private lazy var fetchedResultsController: FetchedResultsController<Instance> = {
         let fetchRequest = NSFetchRequest<Instance>()
@@ -128,7 +133,7 @@ class ProvidersViewController: UITableViewController {
         
         refresh()
 
-        if fetchedResultsController.count == 0 { // swiftlint:disable:this empty_count
+        if configuredForInstancesDisplay && fetchedResultsController.count == 0 { // swiftlint:disable:this empty_count
             delegate?.noProfiles(providerTableViewController: self)
         }
     }
@@ -146,10 +151,10 @@ class ProvidersViewController: UITableViewController {
 
         tableView.tableFooterView = UIView()
 
-        if Config.shared.predefinedProvider != nil, providerType == .unknown {
+        if Config.shared.predefinedProvider != nil, configuredForInstancesDisplay {
             // There is a predefined provider. So do not allow adding.
             navigationItem.rightBarButtonItems = [settingsButton]
-        } else if providerType == .unknown {
+        } else if configuredForInstancesDisplay {
             navigationItem.rightBarButtonItems = [settingsButton, addButton]
         } else {
             navigationItem.rightBarButtonItems = []
@@ -226,7 +231,7 @@ extension ProvidersViewController {
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return providerType == .unknown
+        return configuredForInstancesDisplay
     }
     
     override func tableView(_ tableView: UITableView,
