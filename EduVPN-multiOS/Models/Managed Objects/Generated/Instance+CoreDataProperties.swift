@@ -2,9 +2,6 @@
 //  Instance+CoreDataProperties.swift
 //  EduVPN
 //
-//  Created by Jeroen Leenarts on 17/10/2019.
-//  Copyright © 2020 SURFNet. All rights reserved.
-//
 //
 
 import Foundation

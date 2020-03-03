@@ -2,9 +2,6 @@
 //  String+Random.swift
 //  eduVPN
 //
-//  Created by Johan Kool on 18/04/2018.
-//  Copyright © 2017-2020 Commons Conservancy.
-//
 
 import Foundation
 

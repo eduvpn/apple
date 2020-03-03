@@ -2,9 +2,6 @@
 //  URL+Unused.swift
 //  eduVPN
 //
-//  Created by Johan Kool on 07/09/2018.
-//  Copyright © 2017-2020 Commons Conservancy.
-//
 
 import Foundation
 

@@ -2,9 +2,6 @@
 //  CoreDataFetchedResultsControllerDelegate.swift
 //  EduVPN-macOS
 //
-//  Created by Aleksandr Poddubny on 30/05/2019.
-//  Copyright © 2020 SURFNet. All rights reserved.
-//
 
 import Cocoa
 import CoreData

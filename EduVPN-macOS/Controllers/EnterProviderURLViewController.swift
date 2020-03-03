@@ -2,9 +2,6 @@
 //  EnterProviderURLViewController.swift
 //  eduVPN
 //
-//  Created by Johan Kool on 03/11/2017.
-//  Copyright © 2017-2020 Commons Conservancy.
-//
 
 import Cocoa
 

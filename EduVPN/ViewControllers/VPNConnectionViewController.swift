@@ -2,9 +2,6 @@
 //  VPNConnectionViewController.swift
 //  eduVPN
 //
-//  Created by Jeroen Leenarts on 24-09-17.
-//  Copyright © 2017 SURFNet. All rights reserved.
-//
 
 import os.log
 import NetworkExtension
