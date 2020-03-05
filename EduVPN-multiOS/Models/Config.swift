@@ -2,9 +2,6 @@
 //  Config.swift
 //  eduVPN
 //
-//  Created by Jeroen Leenarts on 11/01/2019.
-//  Copyright © 2020 SURFNet. All rights reserved.
-//
 
 import Foundation
 

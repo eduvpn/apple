@@ -2,9 +2,6 @@
 //  CertificateModel.swift
 //  eduVPN
 //
-//  Created by Jeroen Leenarts on 08-01-18.
-//  Copyright © 2018 SURFNet. All rights reserved.
-//
 
 import ASN1Decoder
 import Foundation

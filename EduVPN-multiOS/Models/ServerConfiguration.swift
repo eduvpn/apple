@@ -2,9 +2,6 @@
 //  ServerConfiguration.swift
 //  EduVPN
 //
-//  Created by Johan Kool on 07/11/2019.
-//  Copyright © 2020 SURFNet. All rights reserved.
-//
 
 import Foundation
 

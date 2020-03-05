@@ -2,9 +2,6 @@
 //  FileServiceTests.swift
 //  EduVPNTests
 //
-//  Created by Jeroen Leenarts on 19/11/2019.
-//  Copyright © 2020 SURFNet. All rights reserved.
-//
 
 import XCTest
 

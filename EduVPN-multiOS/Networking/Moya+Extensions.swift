@@ -2,9 +2,6 @@
 //  Moya+Extensions.swift
 //  eduVPN
 //
-//  Created by Jeroen Leenarts on 15-09-17.
-//  Copyright © 2017 SURFNet. All rights reserved.
-//
 
 import Foundation
 import Moya

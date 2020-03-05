@@ -2,9 +2,6 @@
 //  СonnectionsTableViewController.swift
 //  EduVPN-macOS
 //
-//  Created by Aleksandr Poddubny on 29/08/2019.
-//  Copyright © 2020 SURFNet. All rights reserved.
-//
 
 import Cocoa
 import CoreData

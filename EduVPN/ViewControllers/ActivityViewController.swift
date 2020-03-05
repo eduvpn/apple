@@ -2,9 +2,6 @@
 //  ActivityViewController.swift
 //  EduVPN
 //
-//  Created by Jeroen Leenarts on 29/11/2019.
-//  Copyright © 2020 SURFNet. All rights reserved.
-//
 
 import UIKit
 

@@ -2,9 +2,6 @@
 //  ProfilesViewController.swift
 //  eduVPN
 //
-//  Created by Johan Kool on 06/07/2017.
-//  Copyright © 2017-2020 Commons Conservancy.
-//
 
 import Cocoa
 
