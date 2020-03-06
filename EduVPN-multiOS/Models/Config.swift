@@ -46,6 +46,8 @@ struct DiscoveryConfig: Decodable {
     
     enum DiscoveryConfigKeys: String, CodingKey {
         case server
+        case path_organization_list
+        case path_organization_list_signature
         case path_institute_access
         case path_institute_access_signature
         case path_secure_internet
@@ -55,6 +57,8 @@ struct DiscoveryConfig: Decodable {
     
     var server: URL
     
+    var pathOrganizationList: String
+    var pathOrganizationListSignature: String
     var pathInstituteAccess: String
     var pathInstituteAccessSignature: String
     var pathSecureInternet: String
@@ -88,6 +92,8 @@ extension DiscoveryConfig {
         
         server = try container.decode(URL.self, forKey: .server)
         
+        pathOrganizationList = try container.decode(String.self, forKey: .path_organization_list)
+        pathOrganizationListSignature = try container.decode(String.self, forKey: .path_organization_list_signature)
         pathInstituteAccess = try container.decode(String.self, forKey: .path_institute_access)
         pathInstituteAccessSignature = try container.decode(String.self, forKey: .path_institute_access_signature)
         pathSecureInternet = try container.decode(String.self, forKey: .path_secure_internet)
@@ -99,6 +105,12 @@ extension DiscoveryConfig {
     
     public func path(forServiceType type: StaticService.StaticServiceType) -> String? {
         switch type {
+          
+        case .organizationList:
+            return pathOrganizationList
+            
+        case .organizationListSignature:
+            return pathOrganizationListSignature
             
         case .instituteAccess:
             return pathInstituteAccess

@@ -18,7 +18,7 @@
         <attribute name="displayName" attributeType="String"/>
         <attribute name="locale" optional="YES" attributeType="String"/>
         <relationship name="instance" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Instance" inverseName="displayNames" inverseEntity="Instance"/>
-        <relationship name="organisation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Organisation" inverseName="displayNames" inverseEntity="Organisation"/>
+        <relationship name="organization" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Organization" inverseName="displayNames" inverseEntity="Organization"/>
         <relationship name="profile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profile" inverseName="displayNames" inverseEntity="Profile"/>
     </entity>
     <entity name="Instance" representedClassName="Instance" syncable="YES">
@@ -47,7 +47,7 @@
     <entity name="Keywords" representedClassName="Keywords" syncable="YES" codeGenerationType="class">
         <attribute name="keywords" attributeType="String"/>
         <attribute name="locale" optional="YES" attributeType="String"/>
-        <relationship name="organisation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Organisation" inverseName="keywords" inverseEntity="Organisation"/>
+        <relationship name="organization" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Organization" inverseName="keywords" inverseEntity="Organization"/>
     </entity>
     <entity name="Local" representedClassName="Local" parentEntity="Provider" syncable="YES" codeGenerationType="class">
         <attribute name="fileUri" attributeType="URI"/>
@@ -61,9 +61,9 @@
         <attribute name="serverInfoUri" optional="YES" attributeType="URI"/>
         <relationship name="servers" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Instance" inverseName="provider" inverseEntity="Instance"/>
     </entity>
-    <entity name="Organisation" representedClassName="Organisation" parentEntity="ManagedProvider" syncable="YES" codeGenerationType="class">
-        <relationship name="displayNames" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="DisplayName" inverseName="organisation" inverseEntity="DisplayName"/>
-        <relationship name="keywords" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Keywords" inverseName="organisation" inverseEntity="Keywords"/>
+    <entity name="Organization" representedClassName="Organization" parentEntity="ManagedProvider" syncable="YES" codeGenerationType="class">
+        <relationship name="displayNames" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="DisplayName" inverseName="organization" inverseEntity="DisplayName"/>
+        <relationship name="keywords" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Keywords" inverseName="organization" inverseEntity="Keywords"/>
     </entity>
     <entity name="Profile" representedClassName="Profile" syncable="YES">
         <attribute name="profileId" attributeType="String"/>
@@ -84,7 +84,7 @@
         <element name="Local" positionX="-651.28125" positionY="-104.5703125" width="128" height="58"/>
         <element name="Logo" positionX="-834.64453125" positionY="274.84765625" width="128" height="88"/>
         <element name="ManagedProvider" positionX="-870.109375" positionY="-196.58984375" width="128" height="73"/>
-        <element name="Organisation" positionX="-997.2578125" positionY="-49.19140625" width="128" height="73"/>
+        <element name="Organization" positionX="-997.2578125" positionY="-49.19140625" width="128" height="73"/>
         <element name="Profile" positionX="-387.53515625" positionY="260.59765625" width="128" height="120"/>
         <element name="Provider" positionX="-716.4765625" positionY="-268.8046875" width="128" height="43"/>
     </elements>

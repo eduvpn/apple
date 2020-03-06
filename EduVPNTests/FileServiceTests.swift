@@ -1,5 +1,5 @@
 //
-//  FileServiceTests.swift
+//  FileHelperTests.swift
 //  EduVPNTests
 //
 
@@ -13,10 +13,10 @@ import XCTest
 @testable import LetsConnect
 #endif
 
-class FileServiceTests: XCTestCase {
+class FileHelperTests: XCTestCase {
 
     func testFilePathUrl() {
-        guard let commonRoot = applicationSupportDirectoryUrl()?.standardizedFileURL.absoluteString else {
+        guard let commonRoot = FileHelper.applicationSupportDirectoryUrl()?.standardizedFileURL.absoluteString else {
             XCTFail("No commonRoot.")
             return
         }
@@ -26,7 +26,7 @@ class FileServiceTests: XCTestCase {
             return
         }
 
-        let result = filePathUrl(from: input)?.absoluteString
+        let result = FileHelper.filePathUrl(from: input)?.absoluteString
         var expected = "\(commonRoot)www.example.com/foo/bar"
         if result?.last == "/" {
             expected.append("/")

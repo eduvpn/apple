@@ -4,6 +4,18 @@ These apps depend on [TunnelKit](https://github.com/keeshux/tunnelkit).
 
 The app contains a [Network Tunneling Protocol Client](https://developer.apple.com/documentation/networkextension) and allows its users to create a VPN tunnel if you are able to connect to an eduVPN or Let's Connect enabled server.
 
+## New Discovery Method
+
+To use the new discovery method on macOS set the hidden preference `use_new_discovery_method` to `true`.
+
+Close the app and run:
+
+    defaults write org.eduvpn.app use_new_discovery_method YES
+
+To go back to default value use:
+
+    defaults delete org.eduvpn.app use_new_discovery_method
+
 ## Beware
 
 Due to the usage of Network Extensions, you can not fully test this app on a Simulator.

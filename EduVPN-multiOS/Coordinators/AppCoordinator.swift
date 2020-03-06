@@ -93,9 +93,6 @@ class AppCoordinator: RootViewCoordinator {
     public init(window: UIWindow) {
         self.window = window
 
-//        self.navigationController.addChild(self.activityViewController)
-//        self.navigationController.view.addSubview(self.activityViewController.view)
-
         self.window.rootViewController = self.navigationController
         self.window.makeKeyAndVisible()
         
@@ -143,7 +140,7 @@ class AppCoordinator: RootViewCoordinator {
         #endif
     }
     
-    public func start() {
+    public func start() {        
         os_log("Starting App Coordinator", log: Log.general, type: .info)
         persistentContainer.loadPersistentStores { [weak self] (_, error) in
             if let error = error {
@@ -316,15 +313,17 @@ class AppCoordinator: RootViewCoordinator {
     }
     
     func addProvider(animated: Bool = true) {
-        // We can not create a static service, so no discovery files are defined. Fall back to adding "another" service.
         if StaticService(type: .instituteAccess) == nil {
-            #if os(iOS)
-            showCustomProviderInputViewController(for: .other)
-            #elseif os(macOS)
-            showProfilesViewController(animated: animated)
-            #endif
+            // We can not create a static service, so no discovery files are defined. Fall back to adding "another" service.
+            showCustomProviderInputViewController(for: .other, animated: animated)
         } else {
-            showProfilesViewController(animated: animated)
+            if UserDefaults.standard.useNewDiscoveryMethod {
+                os_log("Using new discovery method", log: Log.general, type: .info)
+                showProvidersViewController(for: .organization, animated: animated)
+            } else {
+                os_log("Using old discovery method", log: Log.general, type: .info)
+                showProfilesViewController(animated: animated)
+            }
         }
     }
     

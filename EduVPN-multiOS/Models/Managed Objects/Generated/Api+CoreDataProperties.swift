@@ -62,12 +62,12 @@ extension Api {
     
     private var apiBaseFileUrl: URL? {
         guard let apiBaseUri = apiBaseUri, let apiBaseUriUrl = URL(string: apiBaseUri) else { return nil }
-        return filePathUrl(from: apiBaseUriUrl)
+        return FileHelper.filePathUrl(from: apiBaseUriUrl)
     }
     
     private var authorizationEndpointFileUrl: URL? {
         guard let authorizationEndpoint = authorizationEndpoint, let authorizationEndpointUrl = URL(string: authorizationEndpoint) else { return nil }
-        return filePathUrl(from: authorizationEndpointUrl)
+        return FileHelper.filePathUrl(from: authorizationEndpointUrl)
     }
     
     var authState: OIDAuthState? {

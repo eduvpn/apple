@@ -9,6 +9,8 @@ import Moya
 struct StaticService: TargetType, AcceptJson {
     
     enum StaticServiceType {
+        case organizationList
+        case organizationListSignature
         case instituteAccess
         case instituteAccessSignature
         case secureInternet

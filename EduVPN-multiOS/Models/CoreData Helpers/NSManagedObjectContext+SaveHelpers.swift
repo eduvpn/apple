@@ -22,27 +22,6 @@ public typealias CoreDataStackSaveCompletion = (SaveResult) -> Void
 public extension NSManagedObjectContext {
     
     /**
-     Convenience method to synchronously save the `NSManagedObjectContext` if changes are present.
-     Method also ensures that the save is executed on the correct queue when using Main/Private queue concurrency types.
-     - throws: Errors produced by the `save()` function on the `NSManagedObjectContext`
-     */
-    func saveContextAndWait() throws {
-        switch concurrencyType {
-            
-        case .confinementConcurrencyType:
-            try sharedSaveFlow()
-            
-        case .mainQueueConcurrencyType,
-             .privateQueueConcurrencyType:
-            try performAndWaitOrThrow(sharedSaveFlow)
-            
-        @unknown default:
-            fatalError()
-            
-        }
-    }
-    
-    /**
      Convenience method to asynchronously save the `NSManagedObjectContext` if changes are present.
      Method also ensures that the save is executed on the correct queue when using Main/Private queue concurrency types.
      - parameter completion: Completion closure with a `SaveResult` to be executed upon the completion of the save operation.
@@ -72,34 +51,6 @@ public extension NSManagedObjectContext {
         }
     }
     
-    /**
-     Convenience method to synchronously save the `NSManagedObjectContext` if changes are present.
-     If any parent contexts are found, they too will be saved synchronously.
-     Method also ensures that the save is executed on the correct queue when using Main/Private queue concurrency types.
-     - throws: Errors produced by the `save()` function on the `NSManagedObjectContext`
-     */
-    func saveContextToStoreAndWait() throws {
-        func saveFlow() throws {
-            try sharedSaveFlow()
-            if let parentContext = parent {
-                try parentContext.saveContextToStoreAndWait()
-            }
-        }
-        
-        switch concurrencyType {
-            
-        case .confinementConcurrencyType:
-            try saveFlow()
-            
-        case .mainQueueConcurrencyType,
-             .privateQueueConcurrencyType:
-            try performAndWaitOrThrow(saveFlow)
-            
-        @unknown default:
-            fatalError()
-            
-        }
-    }
     
     /**
      Convenience method to asynchronously save the `NSManagedObjectContext` if changes are present.

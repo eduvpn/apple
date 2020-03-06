@@ -8,6 +8,7 @@ import Foundation
 enum ProviderType: String, Codable {
     
     case unknown
+    case organization
     case secureInternet
     case instituteAccess
     case other
@@ -15,6 +16,9 @@ enum ProviderType: String, Codable {
     
     var title: String {
         switch self {
+          
+        case .organization:
+            return "TODO"
             
         case .secureInternet:
             return NSLocalizedString("Secure Internet", comment: "")

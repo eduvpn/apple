@@ -41,7 +41,7 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
         if Config.shared.apiDiscoveryEnabled ?? false {
             addProvider(animated: animated)
         } else {
-            showCustomProviderInputViewController(for: .other)
+            showCustomProviderInputViewController(for: .other, animated: animated)
         }
         #endif
     }
@@ -59,7 +59,7 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
     #endif
     
     func didSelectOther(providerType: ProviderType) {
-        showCustomProviderInputViewController(for: providerType)
+        showCustomProviderInputViewController(for: providerType, animated: true)
     }
     
     func didSelect(instance: Instance, providersViewController: ProvidersViewController) {

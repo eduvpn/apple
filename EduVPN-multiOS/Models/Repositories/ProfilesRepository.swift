@@ -19,7 +19,8 @@ class ProfilesRefresher {
     weak var persistentContainer: NSPersistentContainer!
     
     func refresh(for dynamicApiProvider: DynamicApiProvider) -> Promise<Void> {
-        return dynamicApiProvider.request(apiService: .profileList)
+        return dynamicApiProvider
+            .request(apiService: .profileList)
             .then { response -> Promise<ProfilesModel> in response.mapResponse() }
             .then { profiles -> Promise<Void> in
                 if profiles.profiles.isEmpty {

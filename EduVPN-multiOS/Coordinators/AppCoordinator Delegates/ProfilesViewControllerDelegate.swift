@@ -35,12 +35,12 @@ extension AppCoordinator: ProfilesViewControllerDelegate {
         switch providerType {
             
         case .instituteAccess, .secureInternet:
-            showProvidersViewController(for: providerType)
+            showProvidersViewController(for: providerType, animated: true)
             
         case .other:
-            showCustomProviderInputViewController(for: providerType)
+            showCustomProviderInputViewController(for: providerType, animated: true)
             
-        case .unknown, .local:
+        case .unknown, .local, .organization:
             os_log("Unknown provider type chosen", log: Log.general, type: .error)
             
         }

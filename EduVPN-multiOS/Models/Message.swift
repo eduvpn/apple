@@ -5,7 +5,7 @@
 
 import Foundation
 
-let displayDateFormatter: DateFormatter = {
+private let displayDateFormatter: DateFormatter = {
     let dateFormatter = DateFormatter()
     dateFormatter.dateStyle = .medium
     dateFormatter.timeStyle = .medium

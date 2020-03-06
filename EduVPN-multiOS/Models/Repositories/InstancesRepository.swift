@@ -28,6 +28,9 @@ class InstancesLoader {
         let sigTarget: StaticService!
         
         switch providerType {
+        case .organization:
+            target = StaticService(type: .organizationList)
+            sigTarget = StaticService(type: .organizationListSignature)
             
         case .instituteAccess:
             target = StaticService(type: .instituteAccess)
@@ -72,9 +75,12 @@ class InstancesLoader {
         let provider = MoyaProvider<StaticService>(manager: MoyaProvider<StaticService>.ephemeralAlamofireManager())
         let instanceGroupIdentifier = "\(target.baseURL.absoluteString)/\(target.path)"
         
-        provider.request(target: sigTarget)
-            .then(validateSodiumSignature)
-            .then { provider.request(target: target).then(self.verifyResponse(signature: $0)) }
+        provider
+            // TODO: Reenable signature check when available
+            // .request(target: sigTarget)
+            // .then(validateSodiumSignature)
+            // .then { provider.request(target: target).then(self.verifyResponse(signature: $0)) }
+            .request(target: target)
             .then(decodeInstances)
             .then(setProviderTypeForInstances(providerType: providerType))
             .then(parseInstances(instanceGroupIdentifier: instanceGroupIdentifier, providerType: providerType))

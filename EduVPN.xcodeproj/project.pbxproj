@@ -31,8 +31,8 @@
 		34186CF52297CE19009B4121 /* Moya+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACA042B1F3116D5004B35AA /* Moya+Promise.swift */; };
 		34186CF62297CE19009B4121 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4F36521F31972C0032C96B /* ApiService.swift */; };
 		34186CF72297CE19009B4121 /* CredentialStorePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD591F34F887006E1337 /* CredentialStorePlugin.swift */; };
-		34186D06229802C0009B4121 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34186D05229802C0009B4121 /* FileService.swift */; };
-		34186D08229802E1009B4121 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34186D05229802C0009B4121 /* FileService.swift */; };
+		34186D06229802C0009B4121 /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34186D05229802C0009B4121 /* FileHelper.swift */; };
+		34186D08229802E1009B4121 /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34186D05229802C0009B4121 /* FileHelper.swift */; };
 		342B9CB4228ED01400C006D7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CAF228ED01400C006D7 /* main.m */; };
 		342B9CB5228ED01400C006D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 342B9CB0228ED01400C006D7 /* Assets.xcassets */; };
 		342B9CB7228ED01400C006D7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CB2228ED01400C006D7 /* AppDelegate.m */; };
@@ -109,7 +109,6 @@
 		4AD0AD5A1F34F887006E1337 /* CredentialStorePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD591F34F887006E1337 /* CredentialStorePlugin.swift */; };
 		4AD0AD5D1F35048E006E1337 /* ProvidersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD5C1F35048E006E1337 /* ProvidersViewController.swift */; };
 		4AD0AD5F1F350822006E1337 /* Moya+ResponseHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD5E1F350822006E1337 /* Moya+ResponseHandling.swift */; };
-		4AD5688D238491FA00EC0ABD /* FileServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD5688C238491FA00EC0ABD /* FileServiceTests.swift */; };
 		4AE728161F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE728151F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift */; };
 		4AE81E1E23A2E73E002C793D /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE81E1D23A2E73E002C793D /* ImageLoader.swift */; };
 		4AE81EE223A2F500002C793D /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE81E1D23A2E73E002C793D /* ImageLoader.swift */; };
@@ -126,6 +125,9 @@
 		C7D485232372BC22006AC96C /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1163292370539E00577755 /* Crypto.swift */; };
 		C7D8E1D523742A4E009536C9 /* CancellablePromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */; };
 		C7D8E1D623742A4E009536C9 /* CancellablePromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */; };
+		C7E21E17241296AD0052F4C5 /* OrganizationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E21E16241296AC0052F4C5 /* OrganizationModel.swift */; };
+		C7E21E18241296AD0052F4C5 /* OrganizationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E21E16241296AC0052F4C5 /* OrganizationModel.swift */; };
+		C7E21E1A2412A0660052F4C5 /* FileServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E21E192412A0660052F4C5 /* FileServiceTests.swift */; };
 		C7EB81512369B63A006C141F /* LoginItemHelper-macOS.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C7FA7A0E23633694006501E8 /* CertificateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A0023633694006501E8 /* CertificateModel.swift */; };
 		C7FA7A0F23633694006501E8 /* CertificateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A0023633694006501E8 /* CertificateModel.swift */; };
@@ -181,8 +183,6 @@
 		C7FA7AA323633895006501E8 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A7123633895006501E8 /* ProfileModel.swift */; };
 		C7FA7AA623633895006501E8 /* ProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A7323633895006501E8 /* ProviderType.swift */; };
 		C7FA7AA723633895006501E8 /* ProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A7323633895006501E8 /* ProviderType.swift */; };
-		C7FA7AAF23633D61006501E8 /* NSManagedObjectContext+AsyncHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7AAB23633D61006501E8 /* NSManagedObjectContext+AsyncHelpers.swift */; };
-		C7FA7AB023633D61006501E8 /* NSManagedObjectContext+AsyncHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7AAB23633D61006501E8 /* NSManagedObjectContext+AsyncHelpers.swift */; };
 		C7FA7AB123633D61006501E8 /* NSManagedObject+FetchHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7AAC23633D61006501E8 /* NSManagedObject+FetchHelpers.swift */; };
 		C7FA7AB223633D61006501E8 /* NSManagedObject+FetchHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7AAC23633D61006501E8 /* NSManagedObject+FetchHelpers.swift */; };
 		C7FA7AB323633D61006501E8 /* FetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7AAD23633D61006501E8 /* FetchedResultsController.swift */; };
@@ -263,7 +263,7 @@
 		340F956C22B7118C00835D56 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/NetworkExtension.framework; sourceTree = DEVELOPER_DIR; };
 		3415C02023181191005B9E6C /* СonnectionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "СonnectionsTableViewController.swift"; sourceTree = "<group>"; };
 		34186CE42296D971009B4121 /* ASN1Decoder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ASN1Decoder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		34186D05229802C0009B4121 /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
+		34186D05229802C0009B4121 /* FileHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileHelper.swift; sourceTree = "<group>"; };
 		342B9C91228ECBB200C006D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		342B9C93228ECBB600C006D7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LoginItemHelper-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -344,7 +344,7 @@
 		4A983B781F397289004F82D5 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		4A983B7A1F3972BE004F82D5 /* RootCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
 		4AAA157A21C2EF530097A1B5 /* TunnelProviderManagerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelProviderManagerCoordinator.swift; sourceTree = "<group>"; };
-		4AAC1F761F2D0E3400DD0252 /* AppForce1 VPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "AppForce1 VPN.app"; path = EduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4AAC1F761F2D0E3400DD0252 /* eduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AAC1F791F2D0E3400DD0252 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4AAC1F7E1F2D0E3400DD0252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4AAC1F831F2D0E3400DD0252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -369,7 +369,6 @@
 		4AD0AD591F34F887006E1337 /* CredentialStorePlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CredentialStorePlugin.swift; sourceTree = "<group>"; };
 		4AD0AD5C1F35048E006E1337 /* ProvidersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProvidersViewController.swift; sourceTree = "<group>"; };
 		4AD0AD5E1F350822006E1337 /* Moya+ResponseHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Moya+ResponseHandling.swift"; sourceTree = "<group>"; };
-		4AD5688C238491FA00EC0ABD /* FileServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileServiceTests.swift; sourceTree = "<group>"; };
 		4AE728151F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+EduVPN.swift"; sourceTree = "<group>"; };
 		4AE763AB23DA4D1F00A98BCC /* main.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = main.yml; sourceTree = "<group>"; };
 		4AE81E1D23A2E73E002C793D /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
@@ -430,10 +429,11 @@
 		C75B2CC62363141200D700EC /* Developer.xcconfig.eduvpn-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer.xcconfig.eduvpn-template"; sourceTree = "<group>"; };
 		C75B2CC72363141200D700EC /* config-template.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-template.json"; sourceTree = "<group>"; };
 		C777831F24113FF700B3BBA1 /* EduVPN 10.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EduVPN 10.xcdatamodel"; sourceTree = "<group>"; };
-		C777832024114BB500B3BBA1 /* EduVPN 11.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EduVPN 11.xcdatamodel"; sourceTree = "<group>"; };
 		C78D202A2372DF34007067B1 /* Assets-Let’s Connect!.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets-Let’s Connect!.xcassets"; sourceTree = "<group>"; };
 		C7C69A5E236B328200F9B8B3 /* Developer-macOS.xcconfig.eduvpn-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer-macOS.xcconfig.eduvpn-template"; sourceTree = "<group>"; };
 		C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancellablePromise.swift; sourceTree = "<group>"; };
+		C7E21E16241296AC0052F4C5 /* OrganizationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationModel.swift; sourceTree = "<group>"; };
+		C7E21E192412A0660052F4C5 /* FileServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileServiceTests.swift; sourceTree = "<group>"; };
 		C7FA7A0023633694006501E8 /* CertificateModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateModel.swift; sourceTree = "<group>"; };
 		C7FA7A0123633694006501E8 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		C7FA7A0323633694006501E8 /* InstanceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceModel.swift; sourceTree = "<group>"; };
@@ -461,7 +461,6 @@
 		C7FA7A7023633895006501E8 /* Api.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		C7FA7A7123633895006501E8 /* ProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		C7FA7A7323633895006501E8 /* ProviderType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderType.swift; sourceTree = "<group>"; };
-		C7FA7AAB23633D61006501E8 /* NSManagedObjectContext+AsyncHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+AsyncHelpers.swift"; sourceTree = "<group>"; };
 		C7FA7AAC23633D61006501E8 /* NSManagedObject+FetchHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+FetchHelpers.swift"; sourceTree = "<group>"; };
 		C7FA7AAD23633D61006501E8 /* FetchedResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchedResultsController.swift; sourceTree = "<group>"; };
 		C7FA7AAE23633D61006501E8 /* NSManagedObjectContext+SaveHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+SaveHelpers.swift"; sourceTree = "<group>"; };
@@ -564,7 +563,7 @@
 				4AEAC32620F13D0C007B67AB /* Log.swift */,
 				4A2CC2211F4233E8004119B1 /* Identifiable.swift */,
 				343452AA22A13F4500C0476E /* Coordinators */,
-				34186D04229802AF009B4121 /* Services */,
+				34186D04229802AF009B4121 /* Helpers */,
 				C7FA79FD23633694006501E8 /* Models */,
 				4ACA04281F311507004B35AA /* Networking */,
 				34186C9C2296B336009B4121 /* Extensions */,
@@ -590,12 +589,12 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		34186D04229802AF009B4121 /* Services */ = {
+		34186D04229802AF009B4121 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				34186D05229802C0009B4121 /* FileService.swift */,
+				34186D05229802C0009B4121 /* FileHelper.swift */,
 			);
-			path = Services;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		342B9C9A228ECFDB00C006D7 /* LoginItemHelper-macOS */ = {
@@ -794,7 +793,7 @@
 		4AAC1F771F2D0E3400DD0252 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4AAC1F761F2D0E3400DD0252 /* AppForce1 VPN.app */,
+				4AAC1F761F2D0E3400DD0252 /* eduVPN.app */,
 				4AAC1F8A1F2D0E3400DD0252 /* EduVPNTests.xctest */,
 				4A901C1120C87511000C1BF0 /* EduVPNTunnelExtension.appex */,
 				34D719DE228D75550027DE84 /* eduVPN.app */,
@@ -825,8 +824,8 @@
 			isa = PBXGroup;
 			children = (
 				4AAC1F8E1F2D0E3400DD0252 /* EduVPNTests.swift */,
+				C7E21E192412A0660052F4C5 /* FileServiceTests.swift */,
 				4AAC1F901F2D0E3400DD0252 /* Info.plist */,
-				4AD5688C238491FA00EC0ABD /* FileServiceTests.swift */,
 			);
 			path = EduVPNTests;
 			sourceTree = "<group>";
@@ -975,6 +974,7 @@
 				C7FA7A0123633694006501E8 /* Config.swift */,
 				4A1163292370539E00577755 /* Crypto.swift */,
 				C7FA7A0323633694006501E8 /* InstanceModel.swift */,
+				C7E21E16241296AC0052F4C5 /* OrganizationModel.swift */,
 				C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */,
 				C7265C0323747A70004496B8 /* ServerConfiguration.swift */,
 			);
@@ -1026,7 +1026,6 @@
 		C7FA7AAA23633D61006501E8 /* CoreData Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				C7FA7AAB23633D61006501E8 /* NSManagedObjectContext+AsyncHelpers.swift */,
 				C7FA7AAC23633D61006501E8 /* NSManagedObject+FetchHelpers.swift */,
 				C7FA7AAD23633D61006501E8 /* FetchedResultsController.swift */,
 				C7FA7AAE23633D61006501E8 /* NSManagedObjectContext+SaveHelpers.swift */,
@@ -1139,7 +1138,7 @@
 			);
 			name = EduVPN;
 			productName = EduVPN;
-			productReference = 4AAC1F761F2D0E3400DD0252 /* AppForce1 VPN.app */;
+			productReference = 4AAC1F761F2D0E3400DD0252 /* eduVPN.app */;
 			productType = "com.apple.product-type.application";
 		};
 		4AAC1F891F2D0E3400DD0252 /* EduVPNTests */ = {
@@ -1691,7 +1690,6 @@
 				343452A322A13A9500C0476E /* AppCoordinator.swift in Sources */,
 				34D71A96228D9C6A0027DE84 /* URL+Unused.swift in Sources */,
 				C7FA7A7B23633895006501E8 /* InstanceInfoModel.swift in Sources */,
-				C7FA7AB023633D61006501E8 /* NSManagedObjectContext+AsyncHelpers.swift in Sources */,
 				C7FA7A7D23633895006501E8 /* Message.swift in Sources */,
 				34186CDD2296B711009B4121 /* DisplayName+Convenience.swift in Sources */,
 				C7FA7A7F23633895006501E8 /* Api+CoreDataProperties.swift in Sources */,
@@ -1760,7 +1758,8 @@
 				3415C02123181191005B9E6C /* СonnectionsTableViewController.swift in Sources */,
 				C7FA7A8123633895006501E8 /* Api+CoreDataClass.swift in Sources */,
 				340A504A22A2745600170E51 /* Identifiable.swift in Sources */,
-				34186D06229802C0009B4121 /* FileService.swift in Sources */,
+				C7E21E18241296AD0052F4C5 /* OrganizationModel.swift in Sources */,
+				34186D06229802C0009B4121 /* FileHelper.swift in Sources */,
 				34D71A92228D9C6A0027DE84 /* NSAlert+Custom.swift in Sources */,
 				340A505722A3BFF100170E51 /* AppCoordinator+Mac.swift in Sources */,
 			);
@@ -1787,6 +1786,7 @@
 				C7FA7A7A23633895006501E8 /* InstanceInfoModel.swift in Sources */,
 				4ACA042A1F311507004B35AA /* StaticService.swift in Sources */,
 				C7FA7A9223633895006501E8 /* Profile+CoreDataClass.swift in Sources */,
+				C7E21E17241296AD0052F4C5 /* OrganizationModel.swift in Sources */,
 				4A3E029C1F6C4B3D00D20292 /* Moya+Extensions.swift in Sources */,
 				34345271229FC66A00C0476E /* CoreDataFetchedResultsControllerDelegate.swift in Sources */,
 				C7FA7A8823633895006501E8 /* AuthServer+CoreDataClass.swift in Sources */,
@@ -1806,7 +1806,7 @@
 				4A983B7B1F3972BE004F82D5 /* RootCoordinator.swift in Sources */,
 				C7FA7A9823633895006501E8 /* Logo+CoreDataProperties.swift in Sources */,
 				C7265C0423747A70004496B8 /* ServerConfiguration.swift in Sources */,
-				34186D08229802E1009B4121 /* FileService.swift in Sources */,
+				34186D08229802E1009B4121 /* FileHelper.swift in Sources */,
 				3434528E229FF33100C0476E /* VPNConnectionViewControllerDelegate.swift in Sources */,
 				C7FA7A8223633895006501E8 /* AuthServer+CoreDataProperties.swift in Sources */,
 				C7D8E1D523742A4E009536C9 /* CancellablePromise.swift in Sources */,
@@ -1822,7 +1822,6 @@
 				4A1140841F78490C00D61100 /* VPNConnectionViewController.swift in Sources */,
 				C7FA7A7E23633895006501E8 /* Api+CoreDataProperties.swift in Sources */,
 				C7FA7ABF23633E68006501E8 /* EduVPN.xcdatamodeld in Sources */,
-				C7FA7AAF23633D61006501E8 /* NSManagedObjectContext+AsyncHelpers.swift in Sources */,
 				4AEAC32720F13D0C007B67AB /* Log.swift in Sources */,
 				C7FA7A9C23633895006501E8 /* Profile.swift in Sources */,
 				C7FA7A7623633895006501E8 /* InstancesRepository.swift in Sources */,
@@ -1861,7 +1860,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AAC1F8F1F2D0E3400DD0252 /* EduVPNTests.swift in Sources */,
-				4AD5688D238491FA00EC0ABD /* FileServiceTests.swift in Sources */,
+				C7E21E1A2412A0660052F4C5 /* FileServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

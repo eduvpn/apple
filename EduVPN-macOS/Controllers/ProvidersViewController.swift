@@ -308,7 +308,7 @@ extension ProvidersViewController: NSTableViewDelegate {
         
         switch providerType {
             
-        case .instituteAccess, .secureInternet:
+        case .instituteAccess, .secureInternet, .organization:
             if let logoString = instance.logos?.localizedValue, let logoUrl = URL(string: logoString) {
                 ImageLoader.loadImage(logoUrl, target: cellView.imageView)
             } else {

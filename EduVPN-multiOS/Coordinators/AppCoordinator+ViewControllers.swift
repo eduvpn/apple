@@ -99,18 +99,18 @@ extension AppCoordinator {
         }
     }
     
-    internal func showCustomProviderInputViewController(for providerType: ProviderType) {
+    internal func showCustomProviderInputViewController(for providerType: ProviderType, animated: Bool) {
         #if os(iOS)
         let customProviderInputVc = storyboard.instantiateViewController(type: CustomProviderInputViewController.self)
         customProviderInputVc.delegate = self
 
-        navigationController.pushViewController(customProviderInputVc, animated: true)
+        navigationController.pushViewController(customProviderInputVc, animated: animated)
         #elseif os(macOS)
         profilesViewControllerWantsToAddUrl()
         #endif
     }
     
-    internal func showProvidersViewController(for providerType: ProviderType) {
+    internal func showProvidersViewController(for providerType: ProviderType, animated: Bool) {
         #if os(iOS)
         let providersVc = storyboard.instantiateViewController(type: ProvidersViewController.self)
         #elseif os(macOS)
@@ -127,7 +127,7 @@ extension AppCoordinator {
         providersVc.selectingConfig = true
         providersVc.providerType = providerType
 
-        pushViewController(providersVc)
+        pushViewController(providersVc, animated: animated)
         
         // Required for startup safety purpose
         #if os(macOS)
