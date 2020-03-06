@@ -34,9 +34,9 @@ extension OrganizationsModel {
 //        // Temporarily apply fields, which are required by macOS logic
 //        organizations = organizations.map {
 //            var model = $0
-////            model.authorizationType = authorizationType
-////            model.authorizationEndpoint = authorizationEndpoint
-////            model.tokenEndpoint = tokenEndpoint
+//            model.authorizationType = authorizationType
+//            model.authorizationEndpoint = authorizationEndpoint
+//            model.tokenEndpoint = tokenEndpoint
 //
 //            return model
 //        }

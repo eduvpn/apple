@@ -13,7 +13,7 @@ PODS:
     - Alamofire (~> 4.1)
     - Result (~> 4.1)
   - OpenSSL-Apple (1.1.1d.5a)
-  - PromiseKit/CorePromise (6.12.0)
+  - PromiseKit/CorePromise (6.13.1)
   - Result (4.1.0)
   - SwiftyBeaver (1.8.4)
   - TunnelKit (2.2.1):
@@ -32,12 +32,12 @@ DEPENDENCIES:
   - AppAuth (from `https://github.com/openid/AppAuth-iOS.git`)
   - ASN1Decoder
   - libsodium
-  - Moya
+  - Moya (~> 13.0)
   - PromiseKit/CorePromise
   - TunnelKit (from `https://github.com/johankool/tunnelkit.git`, branch `feature/ipv4_mojave`)
 
 SPEC REPOS:
-  https://cdn.cocoapods.org/:
+  trunk:
     - Alamofire
     - ASN1Decoder
     - libsodium
@@ -69,11 +69,11 @@ SPEC CHECKSUMS:
   libsodium: 9a8faa5ef2fa0d2d57bd7f7d79bf8fb7c1a9f0ea
   Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
   OpenSSL-Apple: 2c9efbc94e0a1ada434cc197b02bd70052a82281
-  PromiseKit: c06835ba442ce5454ce3cdde470232804a6e4ff8
+  PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   SwiftyBeaver: f9a9aba96a6a6166e21682377804d728b0d20b95
   TunnelKit: 554b30f3a37387169d00be45d120fa8df6c8068e
 
-PODFILE CHECKSUM: 7fca1f05c4c03de902eaefc8847c17e7c10ad360
+PODFILE CHECKSUM: 26275e4354f052ff680e32cd7da31ae501784138
 
 COCOAPODS: 1.8.4

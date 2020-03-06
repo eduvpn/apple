@@ -296,7 +296,7 @@
 		349D85C422B706A4006E9540 /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
 		349D85C622B706A4006E9540 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		349D85C722B706A4006E9540 /* EduVPNTunnelExtension_macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EduVPNTunnelExtension_macOS.entitlements; sourceTree = "<group>"; };
-		34D719DE228D75550027DE84 /* eduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = eduVPN.app; path = "Let’s Connect!.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		34D719DE228D75550027DE84 /* Let’s Connect!.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Let’s Connect!.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		34D719E0228D75550027DE84 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		34D719E7228D75560027DE84 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		34D719E9228D75560027DE84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -796,7 +796,7 @@
 				4AAC1F761F2D0E3400DD0252 /* eduVPN.app */,
 				4AAC1F8A1F2D0E3400DD0252 /* EduVPNTests.xctest */,
 				4A901C1120C87511000C1BF0 /* EduVPNTunnelExtension.appex */,
-				34D719DE228D75550027DE84 /* eduVPN.app */,
+				34D719DE228D75550027DE84 /* Let’s Connect!.app */,
 				342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */,
 				349D85C222B706A4006E9540 /* EduVPNTunnelExtension-macOS.appex */,
 			);
@@ -1095,7 +1095,7 @@
 			);
 			name = "EduVPN-macOS";
 			productName = "EduVPN-macOS";
-			productReference = 34D719DE228D75550027DE84 /* eduVPN.app */;
+			productReference = 34D719DE228D75550027DE84 /* Let’s Connect!.app */;
 			productType = "com.apple.product-type.application";
 		};
 		4A901C1020C87511000C1BF0 /* EduVPNTunnelExtension */ = {
@@ -1166,7 +1166,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1020;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = SURFNet;
 				TargetAttributes = {
 					342B9C98228ECFDB00C006D7 = {
@@ -1945,6 +1945,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "LoginItemHelper-macOS/Info.plist";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -1970,6 +1971,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "LoginItemHelper-macOS/Info.plist";
 				MTL_FAST_MATH = YES;
@@ -1992,6 +1994,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "EduVPNTunnelExtension-macOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
@@ -2017,6 +2020,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "EduVPNTunnelExtension-macOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
@@ -2043,6 +2047,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "$(SRCROOT)/EduVPN-macOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -2104,6 +2109,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "$(SRCROOT)/EduVPN-macOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";

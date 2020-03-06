@@ -175,7 +175,7 @@
 		34548172B999A3158470B9003D0362EE /* OIDAuthorizationService+Mac.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "OIDAuthorizationService+Mac.h"; path = "Source/macOS/OIDAuthorizationService+Mac.h"; sourceTree = "<group>"; };
 		3528EE6596BBCF90245FF0906BDA4B33 /* AppAuth-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "AppAuth-iOS.xcconfig"; sourceTree = "<group>"; };
 		3819C186180AAC67BD7193983D192D86 /* OIDExternalUserAgentIOS.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDExternalUserAgentIOS.h; path = Source/iOS/OIDExternalUserAgentIOS.h; sourceTree = "<group>"; };
-		3A5E83BD78AB18CA5CD3F40516DE816E /* AppAuth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = AppAuth.framework; path = "AppAuth-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A5E83BD78AB18CA5CD3F40516DE816E /* AppAuth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppAuth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B06D2EE962F1B22DC7FE2B77C9C9DE6 /* OIDLoopbackHTTPServer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDLoopbackHTTPServer.m; path = Source/macOS/LoopbackHTTPServer/OIDLoopbackHTTPServer.m; sourceTree = "<group>"; };
 		3B2247A8763FE65C14534432A428F5A0 /* OIDServiceDiscovery.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDServiceDiscovery.h; path = Source/OIDServiceDiscovery.h; sourceTree = "<group>"; };
 		42DB745176883376377CB69F73679EDE /* OIDAuthorizationService+Mac.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "OIDAuthorizationService+Mac.m"; path = "Source/macOS/OIDAuthorizationService+Mac.m"; sourceTree = "<group>"; };
@@ -205,7 +205,7 @@
 		87A28931ACF165DC6A32323BE5E8B5E1 /* OIDEndSessionResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDEndSessionResponse.m; path = Source/OIDEndSessionResponse.m; sourceTree = "<group>"; };
 		898D3896A5B3ED27AA961E9D17109580 /* AppAuth.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AppAuth.h; path = Source/AppAuth.h; sourceTree = "<group>"; };
 		89D0286D495ED3E96AE2B234E510F5F9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		8A4D714C1AB24A7B49B7AE929E655A88 /* AppAuth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = AppAuth.framework; path = "AppAuth-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A4D714C1AB24A7B49B7AE929E655A88 /* AppAuth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppAuth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A61838ED59A3A02C2B08AF78B2B369D /* OIDServiceDiscovery.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDServiceDiscovery.m; path = Source/OIDServiceDiscovery.m; sourceTree = "<group>"; };
 		8AAE5D818EFC0E2E4711E7BF9DBB98DE /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		8B2A1E67855A4DD863B122A9367E1E0B /* AppAuth-macOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; name = "AppAuth-macOS.modulemap"; path = "../AppAuth-macOS/AppAuth-macOS.modulemap"; sourceTree = "<group>"; };
@@ -343,7 +343,6 @@
 				C0476FF7B86CD7F21614A5586ABE6163 /* ExternalUserAgent */,
 				ED36622A0B5AC8951D74FA9F6B69B653 /* Support Files */,
 			);
-			name = AppAuth;
 			path = AppAuth;
 			sourceTree = "<group>";
 		};
@@ -569,7 +568,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1130;
 			};
 			buildConfigurationList = CF9EC65B070BA085EAC0E2A967DE3DE9 /* Build configuration list for PBXProject "AppAuth" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -689,7 +688,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3528EE6596BBCF90245FF0906BDA4B33 /* AppAuth-iOS.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -722,7 +720,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 86ED15AA258E1E65296D396A2930D0E6 /* AppAuth-macOS.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -755,7 +752,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 86ED15AA258E1E65296D396A2930D0E6 /* AppAuth-macOS.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -838,8 +834,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
@@ -849,7 +844,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3528EE6596BBCF90245FF0906BDA4B33 /* AppAuth-iOS.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";

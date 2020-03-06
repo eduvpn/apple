@@ -51,7 +51,6 @@ public extension NSManagedObjectContext {
         }
     }
     
-    
     /**
      Convenience method to asynchronously save the `NSManagedObjectContext` if changes are present.
      If any parent contexts are found, they too will be saved asynchronously.

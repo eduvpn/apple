@@ -25,12 +25,12 @@
 
 /* Begin PBXFileReference section */
 		04088962D8CEABB92A3E8AFD21A8AEC1 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
-		05DF8346FFD9CB0D6DA5940EAF81310F /* Result.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Result.framework; path = "Result-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		05DF8346FFD9CB0D6DA5940EAF81310F /* Result.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Result.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0691E7B58CF4C37CE851111AB4695435 /* Result-macOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Result-macOS-umbrella.h"; path = "../Result-macOS/Result-macOS-umbrella.h"; sourceTree = "<group>"; };
 		254C0E12F5C37409FBFD781321B8A522 /* Result-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Result-iOS.xcconfig"; sourceTree = "<group>"; };
 		38D1286BB49E3B4A026C7359129EF392 /* Result.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Result.swift; path = Result/Result.swift; sourceTree = "<group>"; };
 		3EFD05B9DAE23734EEC517E621AEEBE2 /* Result-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Result-iOS-dummy.m"; sourceTree = "<group>"; };
-		47B0A4A1E131E1708C67BA022A818883 /* Result.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Result.framework; path = "Result-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		47B0A4A1E131E1708C67BA022A818883 /* Result.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Result.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A3130157EDFC3011E6C7EB9EC171418 /* NoError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NoError.swift; path = Result/NoError.swift; sourceTree = "<group>"; };
 		50F82F2984FCF65FF59C3099FD95BE3D /* Result-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Result-iOS-prefix.pch"; sourceTree = "<group>"; };
 		6D62564BEBCF656AF699B994DF8F3D32 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -92,7 +92,6 @@
 				E727687C9FB7DC17B40CF0A3C04DF366 /* ResultProtocol.swift */,
 				DB2E7A32B59A926B8769804720341600 /* Support Files */,
 			);
-			name = Result;
 			path = Result;
 			sourceTree = "<group>";
 		};
@@ -207,7 +206,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1130;
+				TargetAttributes = {
+					A40EFEF2E9AA4FBA8569AC95F8D47AA3 = {
+						LastSwiftMigration = 1130;
+					};
+				};
 			};
 			buildConfigurationList = 1505FF95DE6E788D32B6DD16DAA576F3 /* Build configuration list for PBXProject "Result" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -342,7 +346,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 254C0E12F5C37409FBFD781321B8A522 /* Result-iOS.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -425,8 +428,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
@@ -436,7 +438,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D91C4510AD8F2878D21E950DC8EB9373 /* Result-macOS.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -459,7 +460,7 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -469,7 +470,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 254C0E12F5C37409FBFD781321B8A522 /* Result-iOS.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -501,7 +501,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D91C4510AD8F2878D21E950DC8EB9373 /* Result-macOS.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -524,7 +523,7 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};

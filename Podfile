@@ -27,7 +27,7 @@ target 'EduVPN' do
   pod 'AppAuth', :git => 'https://github.com/openid/AppAuth-iOS.git'
   pod 'ASN1Decoder'
   pod 'libsodium'
-  pod 'Moya'
+  pod 'Moya', '~> 13.0'
   pod 'PromiseKit/CorePromise'
 end
 
@@ -41,7 +41,7 @@ target 'EduVPN-macOS' do
   pod 'AppAuth', :git => 'https://github.com/openid/AppAuth-iOS.git'
   pod 'ASN1Decoder'
   pod 'libsodium'
-  pod 'Moya'
+  pod 'Moya', '~> 13.0'
   pod 'PromiseKit/CorePromise'
 end
 
