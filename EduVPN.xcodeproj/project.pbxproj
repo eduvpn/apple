@@ -68,8 +68,6 @@
 		34D719E8228D75560027DE84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34D719E6228D75560027DE84 /* Main.storyboard */; };
 		34D71A92228D9C6A0027DE84 /* NSAlert+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A85228D9C690027DE84 /* NSAlert+Custom.swift */; };
 		34D71A96228D9C6A0027DE84 /* URL+Unused.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A89228D9C6A0027DE84 /* URL+Unused.swift */; };
-		34D71A9A228D9C6A0027DE84 /* String+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A8D228D9C6A0027DE84 /* String+Random.swift */; };
-		34D71AB2228DA3A00027DE84 /* String+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71AAC228DA39F0027DE84 /* String+URL.swift */; };
 		34D71AD6228DA4670027DE84 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 34D71AD3228DA4670027DE84 /* dsa_pub.pem */; };
 		34D71AD7228DA4670027DE84 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34D71AD5228DA4670027DE84 /* Defaults.plist */; };
 		34FD2AD722A93530002AABB3 /* VPNConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FD2AD622A9352F002AABB3 /* VPNConnectionViewController.swift */; };
@@ -302,8 +300,6 @@
 		34D719E9228D75560027DE84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		34D71A85228D9C690027DE84 /* NSAlert+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSAlert+Custom.swift"; sourceTree = "<group>"; };
 		34D71A89228D9C6A0027DE84 /* URL+Unused.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+Unused.swift"; sourceTree = "<group>"; };
-		34D71A8D228D9C6A0027DE84 /* String+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Random.swift"; sourceTree = "<group>"; };
-		34D71AAC228DA39F0027DE84 /* String+URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+URL.swift"; sourceTree = "<group>"; };
 		34D71AD3228DA4670027DE84 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		34D71AD4228DA4670027DE84 /* eduVPN-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "eduVPN-Bridging-Header.h"; sourceTree = "<group>"; };
 		34D71AD5228DA4670027DE84 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
@@ -723,9 +719,7 @@
 			isa = PBXGroup;
 			children = (
 				342B9CD822902BB500C006D7 /* DurationTransformer.swift */,
-				34D71AAC228DA39F0027DE84 /* String+URL.swift */,
 				34D71A85228D9C690027DE84 /* NSAlert+Custom.swift */,
-				34D71A8D228D9C6A0027DE84 /* String+Random.swift */,
 				34D71A89228D9C6A0027DE84 /* URL+Unused.swift */,
 			);
 			path = Extensions;
@@ -1739,7 +1733,6 @@
 				C7FA7A8D23633895006501E8 /* InstanceGroup+CoreDataProperties.swift in Sources */,
 				C7FA7A8723633895006501E8 /* Logo+CoreDataClass.swift in Sources */,
 				343452A822A13EDE00C0476E /* Log.swift in Sources */,
-				34D71A9A228D9C6A0027DE84 /* String+Random.swift in Sources */,
 				4AE81EE223A2F500002C793D /* ImageLoader.swift in Sources */,
 				34186CF72297CE19009B4121 /* CredentialStorePlugin.swift in Sources */,
 				C7FA7A7723633895006501E8 /* InstancesRepository.swift in Sources */,
@@ -1752,7 +1745,6 @@
 				C7FA7AA723633895006501E8 /* ProviderType.swift in Sources */,
 				342B9CE822902BB500C006D7 /* MainWindowController.swift in Sources */,
 				340A504122A26ECC00170E51 /* AppCoordinator+ViewControllers.swift in Sources */,
-				34D71AB2228DA3A00027DE84 /* String+URL.swift in Sources */,
 				340A504622A2706400170E51 /* CustomProviderInputViewControllerDelegate.swift in Sources */,
 				343452A422A13C8B00C0476E /* RootCoordinator.swift in Sources */,
 				3415C02123181191005B9E6C /* СonnectionsTableViewController.swift in Sources */,
