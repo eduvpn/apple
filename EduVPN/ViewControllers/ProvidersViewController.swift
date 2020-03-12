@@ -74,8 +74,6 @@ class ProvidersViewController: UITableViewController {
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var settingsButton: UIBarButtonItem!
     
-    var providerManagerCoordinator: TunnelProviderManagerCoordinator!
-    
     var viewContext: NSManagedObjectContext!
     var selectingConfig: Bool = false
     

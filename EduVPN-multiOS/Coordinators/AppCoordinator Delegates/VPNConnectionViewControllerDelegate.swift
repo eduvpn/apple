@@ -13,6 +13,8 @@ protocol VPNConnectionViewControllerDelegate: class {
     @discardableResult func systemMessages(for profile: Profile) -> Promise<SystemMessages>
     func confirmDisconnectWhileOnDemandEnabled() -> Promise<Bool>
     
+    var tunnelProviderManagerCoordinator: TunnelProviderManagerCoordinator { get }
+    
     #if os(macOS)
     func vpnConnectionViewControllerWantsToClose(_ controller: VPNConnectionViewController)
     #endif

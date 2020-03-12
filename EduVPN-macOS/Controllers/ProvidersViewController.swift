@@ -22,9 +22,7 @@ class ProvidersViewController: NSViewController {
     
     // Choose provider VC buttons
     @IBOutlet var backButton: NSButton?
-    
-    var providerManagerCoordinator: TunnelProviderManagerCoordinator!
-    
+        
     var viewContext: NSManagedObjectContext!
     var selectingConfig: Bool = false
     

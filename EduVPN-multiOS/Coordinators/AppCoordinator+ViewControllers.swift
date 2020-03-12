@@ -139,7 +139,6 @@ extension AppCoordinator {
     
     internal func showConnectionViewController(for profile: Profile) -> Promise<Void> {
         let connectionVc = storyboard.instantiateViewController(type: VPNConnectionViewController.self)
-        connectionVc.providerManagerCoordinator = tunnelProviderManagerCoordinator
         connectionVc.delegate = self
         connectionVc.profile = profile
 

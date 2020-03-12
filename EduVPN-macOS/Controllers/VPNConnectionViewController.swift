@@ -24,7 +24,6 @@ class VPNConnectionViewController: NSViewController {
     
     weak var delegate: VPNConnectionViewControllerDelegate?
     var profile: Profile!
-    var providerManagerCoordinator: TunnelProviderManagerCoordinator!
     
     // MARK: - Profile
     
@@ -85,7 +84,7 @@ class VPNConnectionViewController: NSViewController {
     }
     
     @objc private func VPNStatusDidChange(notification: NSNotification) {
-        guard let status = providerManagerCoordinator.currentManager?.connection.status else {
+        guard let providerManagerCoordinator = delegate?.tunnelProviderManagerCoordinator, let status = providerManagerCoordinator.currentManager?.connection.status else {
             os_log("VPNStatusDidChange", log: Log.general, type: .debug)
             return
         }
@@ -115,25 +114,29 @@ class VPNConnectionViewController: NSViewController {
     }
     
     private func statusUpdated() {
+        guard let providerManagerCoordinator = delegate?.tunnelProviderManagerCoordinator else {
+            return
+        }
+        
         switch status {
             
         case .invalid, .disconnected:
             _ = providerManagerCoordinator.configure(profile: profile).then {
-                return self.providerManagerCoordinator.connect()
+                return providerManagerCoordinator.connect()
             }
             
         case .connected, .connecting:
-            _ = providerManagerCoordinator.checkOnDemandEnabled().then { onDemandEnabled -> Promise<Void> in
-                if let delegate = self.delegate, onDemandEnabled {
+            _ = providerManagerCoordinator.checkOnDemandEnabled().then { [weak self] onDemandEnabled -> Promise<Void> in
+                if let delegate = self?.delegate, onDemandEnabled {
                     return delegate.confirmDisconnectWhileOnDemandEnabled().then({ disconnect -> Promise<Void> in
                         if disconnect {
-                            return self.providerManagerCoordinator.disconnect()
+                            return providerManagerCoordinator.disconnect()
                         } else {
                             return Promise.value(())
                         }
                     })
                 } else {
-                    return self.providerManagerCoordinator.disconnect()
+                    return providerManagerCoordinator.disconnect()
                 }
             }
             
@@ -142,12 +145,18 @@ class VPNConnectionViewController: NSViewController {
         }
         
         updateButton()
-        status = self.providerManagerCoordinator.currentManager?.connection.status ?? .invalid
+        status = providerManagerCoordinator.currentManager?.connection.status ?? .invalid
     }
     
     @IBAction func connectionClicked(_ sender: Any) {
+        guard let providerManagerCoordinator = delegate?.tunnelProviderManagerCoordinator else {
+            return
+        }
+        
         if status == .invalid {
-            providerManagerCoordinator.reloadCurrentManager { [weak self] _ in self?.statusUpdated() }
+            providerManagerCoordinator.reloadCurrentManager { [weak self] _ in
+                self?.statusUpdated()
+            }
         } else {
             statusUpdated()
         }
@@ -187,10 +196,9 @@ class VPNConnectionViewController: NSViewController {
     private lazy var decoder = JSONDecoder()
     
     func updateConnectionInfo() {
-        guard
-            let vpn = providerManagerCoordinator.currentManager?.connection as? NETunnelProviderSession,
-            profile.isActiveConfig
-            else { return }
+        guard let providerManagerCoordinator = delegate?.tunnelProviderManagerCoordinator, let vpn = providerManagerCoordinator.currentManager?.connection as? NETunnelProviderSession, profile.isActiveConfig else {
+            return
+        }
         
         // IP
         
@@ -253,9 +261,15 @@ class VPNConnectionViewController: NSViewController {
     }
     
     private func updateLog() throws {
+        guard let providerManagerCoordinator = delegate?.tunnelProviderManagerCoordinator else {
+            return
+        }
+        
         try FileManager.default.createDirectory(at: connectionLogPathDir(), withIntermediateDirectories: true)
         try FileManager.default.createFile(atPath: connectionLogPath().path, contents: nil)
-        providerManagerCoordinator.loadLog { [weak self] in self?.saveLog($0) }
+        providerManagerCoordinator.loadLog { [weak self] in
+            self?.saveLog($0)
+        }
     }
     
     private func saveLog(_ log: String) {
@@ -289,9 +303,12 @@ class VPNConnectionViewController: NSViewController {
         notificationsBox.isHidden = true
         
         displayProfile()
-        providerManagerCoordinator.reloadCurrentManager { _ in
-            self.updateButton()
-            self.status = self.providerManagerCoordinator.currentManager?.connection.status ?? .invalid
+        
+        if let providerManagerCoordinator = delegate?.tunnelProviderManagerCoordinator {
+            providerManagerCoordinator.reloadCurrentManager { [weak self] _ in
+                self?.updateButton()
+                self?.status = providerManagerCoordinator.currentManager?.connection.status ?? .invalid
+            }
         }
     }
     

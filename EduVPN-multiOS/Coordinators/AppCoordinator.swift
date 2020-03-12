@@ -130,7 +130,6 @@ class AppCoordinator: RootViewCoordinator {
         persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
         providersViewController.viewContext = persistentContainer.viewContext
         providersViewController.delegate = self
-        providersViewController.providerManagerCoordinator = tunnelProviderManagerCoordinator
 
         #if os(iOS)
         navigationController.viewControllers = [providersViewController]
