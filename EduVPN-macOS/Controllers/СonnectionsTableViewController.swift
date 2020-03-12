@@ -6,6 +6,14 @@
 import Cocoa
 import CoreData
 import os.log
+import PromiseKit
+
+protocol ConnectionsTableViewControllerDelegate: class {
+    func connectionsTableViewController(_ controller: ConnectionsTableViewController, refresh instance: Instance) -> Promise<Void>
+    func connectionsTableViewController(_ controller: ConnectionsTableViewController, connect profile: Profile)
+    func connectionsTableViewControllerNoProfiles(_ controller: ConnectionsTableViewController)
+    func connectionsTableViewControllerWantsToClose(_ controller: ConnectionsTableViewController)
+}
 
 class ConnectionsTableViewController: NSViewController {
     
@@ -57,7 +65,7 @@ class ConnectionsTableViewController: NSViewController {
         refresh()
 
         if profiles.isEmpty {
-            delegate?.noProfiles(providerTableViewController: self)
+            delegate?.connectionsTableViewControllerNoProfiles(self)
         }
     }
 
@@ -102,7 +110,7 @@ extension ConnectionsTableViewController: NSTableViewDelegate {
         }
         
         let profile = profiles[tableView.selectedRow]
-        delegate?.connect(profile: profile)
+        delegate?.connectionsTableViewController(self, connect: profile)
         
         tableView.deselectRow(tableView.selectedRow)
     }

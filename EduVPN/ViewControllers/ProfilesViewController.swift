@@ -5,6 +5,13 @@
 
 import UIKit
 
+protocol ProfilesViewControllerDelegate: class {
+    
+    func profilesViewControllerDidSelectProviderType(_ controller: ProfilesViewController, providerType: ProviderType)
+    func profilesViewControllerShowSettings(_ controller: ProfilesViewController)
+    
+}
+
 class ProfilesViewController: UIViewController {
     
     weak var delegate: ProfilesViewControllerDelegate?
@@ -28,21 +35,18 @@ class ProfilesViewController: UIViewController {
     }
     
     @IBAction func didTapSecureAccess(_ sender: Any) {
-        delegate?.profilesViewControllerDidSelectProviderType(profilesViewController: self,
-                                                              providerType: .secureInternet)
+        delegate?.profilesViewControllerDidSelectProviderType(self, providerType: .secureInternet)
     }
     
     @IBAction func didTapInstituteAccess(_ sender: Any) {
-        delegate?.profilesViewControllerDidSelectProviderType(profilesViewController: self,
-                                                              providerType: .instituteAccess)
+        delegate?.profilesViewControllerDidSelectProviderType(self, providerType: .instituteAccess)
     }
     
     @IBAction func didTapOtherAccess(_ sender: Any) {
-        delegate?.profilesViewControllerDidSelectProviderType(profilesViewController: self,
-                                                              providerType: .other)
+        delegate?.profilesViewControllerDidSelectProviderType(self, providerType: .other)
     }
     
     @IBAction func settings(_ sender: Any) {
-        delegate?.settings(profilesViewController: self)
+        delegate?.profilesViewControllerShowSettings(self)
     }
 }

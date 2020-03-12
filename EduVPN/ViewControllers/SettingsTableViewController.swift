@@ -6,7 +6,7 @@
 import UIKit
 
 protocol SettingsTableViewControllerDelegate: class {
-    func reconnect()
+    func settingsTableViewControllerShouldReconnect(_ controller: SettingsTableViewController)
 }
 
 class SettingsTableViewController: UITableViewController {
@@ -16,7 +16,7 @@ class SettingsTableViewController: UITableViewController {
     
     @IBAction func forceTcpChanged(_ sender: Any) {
         UserDefaults.standard.forceTcp = forceTcpSwitch.isOn
-        delegate?.reconnect()
+        delegate?.settingsTableViewControllerShouldReconnect(self)
     }
     
     override func viewWillAppear(_ animated: Bool) {

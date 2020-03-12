@@ -20,6 +20,16 @@ enum LogFileError: Error {
     case pathCreationFailed
 }
 
+protocol VPNConnectionViewControllerDelegate: class {
+    @discardableResult func vpnConnectionViewController(_ controller: VPNConnectionViewController, systemMessagesForProfile profile: Profile) -> Promise<SystemMessages>
+    func vpnConnectionViewControllerConfirmDisconnectWhileOnDemandEnabled(_ controller: VPNConnectionViewController) -> Promise<Bool>
+    
+    // TODO: Don't expose coordinator to view controllers
+    var tunnelProviderManagerCoordinator: TunnelProviderManagerCoordinator { get }
+    
+    func vpnConnectionViewControllerWantsToClose(_ controller: VPNConnectionViewController)
+}
+
 class VPNConnectionViewController: NSViewController {
     
     weak var delegate: VPNConnectionViewControllerDelegate?
@@ -127,8 +137,8 @@ class VPNConnectionViewController: NSViewController {
             
         case .connected, .connecting:
             _ = providerManagerCoordinator.checkOnDemandEnabled().then { [weak self] onDemandEnabled -> Promise<Void> in
-                if let delegate = self?.delegate, onDemandEnabled {
-                    return delegate.confirmDisconnectWhileOnDemandEnabled().then({ disconnect -> Promise<Void> in
+                if let self = self, let delegate = self.delegate, onDemandEnabled {
+                    return delegate.vpnConnectionViewControllerConfirmDisconnectWhileOnDemandEnabled(self).then({ disconnect -> Promise<Void> in
                         if disconnect {
                             return providerManagerCoordinator.disconnect()
                         } else {
@@ -319,7 +329,7 @@ class VPNConnectionViewController: NSViewController {
         
         if let concreteDelegate = delegate {
             _ = firstly { () -> Promise<SystemMessages> in
-                return concreteDelegate.systemMessages(for: profile)
+                return concreteDelegate.vpnConnectionViewController(self, systemMessagesForProfile: profile)
             }.then({ [weak self] (systemMessages) -> Guarantee<Void> in
                 self?.notificationsField.stringValue = systemMessages.displayString
                 self?.notificationsBox.isHidden = systemMessages.displayString.isEmpty

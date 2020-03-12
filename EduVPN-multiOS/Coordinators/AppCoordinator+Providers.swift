@@ -5,36 +5,17 @@
 
 import Foundation
 import PromiseKit
-
 import os.log
 
 extension ProvidersViewController: Identifiable {}
 
-protocol ProvidersViewControllerDelegate: class {
-    func noProfiles(providerTableViewController: ProvidersViewController)
-    func addProvider(providersViewController: ProvidersViewController, animated: Bool)
-    func addPredefinedProvider(providersViewController: ProvidersViewController)
-    func didSelect(instance: Instance, providersViewController: ProvidersViewController)
-  
-    #if os(iOS)
-    func settings(providersViewController: ProvidersViewController)
-    #endif
-      
-    func delete(instance: Instance)
-    
-    #if os(macOS)
-    func providersViewControllerWantsToClose(_ controller: ProvidersViewController)
-    
-    func addCustomProviderWithUrl(_ url: URL)
-    #endif
-}
-
 extension AppCoordinator: ProvidersViewControllerDelegate {
-    func noProfiles(providerTableViewController: ProvidersViewController) {
+    
+    func providersViewControllerNoProfiles(_ controller: ProvidersViewController) {
         addProfilesWhenNoneAvailable()
     }
 
-    func addProvider(providersViewController: ProvidersViewController, animated: Bool) {
+    func providersViewController(_ controller: ProvidersViewController, addProviderAnimated animated: Bool) {
         #if os(iOS)
         addProvider(animated: animated)
         #elseif os(macOS)
@@ -46,14 +27,14 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
         #endif
     }
     
-    func addPredefinedProvider(providersViewController: ProvidersViewController) {
+    func providersViewControllerAddPredefinedProvider(_ controller: ProvidersViewController) {
         if let providerUrl = Config.shared.predefinedProvider {
             _ = connect(url: providerUrl)
         }
     }
     
     #if os(iOS)
-    func settings(providersViewController: ProvidersViewController) {
+    func providersViewControllerShowSettings(_ controller: ProvidersViewController) {
         showSettings()
     }
     #endif
@@ -62,10 +43,10 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
         showCustomProviderInputViewController(for: providerType, animated: true)
     }
     
-    func didSelect(instance: Instance, providersViewController: ProvidersViewController) {
-        os_log("Did select provider type: %{public}@ instance: %{public}@", log: Log.general, type: .info, "\(providersViewController.providerType)", "\(instance)")
+    func providersViewController(_ controller: ProvidersViewController, didSelect instance: Instance) {
+        os_log("Did select provider type: %{public}@ instance: %{public}@", log: Log.general, type: .info, "\(controller.providerType)", "\(instance)")
 
-        if providersViewController.configuredForInstancesDisplay {
+        if controller.configuredForInstancesDisplay {
             do {
                 persistentContainer.performBackgroundTask { (context) in
                     if let backgroundInstance = context.object(with: instance.objectID) as? Instance {
@@ -102,7 +83,7 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
         }
     }
     
-    func delete(instance: Instance) {
+    func providersViewController(_ controller: ProvidersViewController, didDelete instance: Instance) {
         // Check current profile UUID against profile UUIDs.
         if let configuredProfileId = UserDefaults.standard.configuredProfileId {
             let profiles = instance.apis?.flatMap { $0.profiles } ?? []
@@ -153,11 +134,11 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
     }
     
     #if os(macOS)
-    func providersViewControllerWantsToClose(_ controller: ProvidersViewController) {
+    func providersViewControllerShouldClose(_ controller: ProvidersViewController) {
         mainWindowController.pop()
     }
     
-    func addCustomProviderWithUrl(_ url: URL) {
+    func providersViewController(_ controller: ProvidersViewController, addCustomProviderWithUrl url: URL) {
         
     }
     #endif

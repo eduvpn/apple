@@ -7,6 +7,16 @@ import Cocoa
 import os.log
 import Alamofire
 
+protocol ProvidersViewControllerDelegate: class {
+    func providersViewControllerNoProfiles(_ controller: ProvidersViewController)
+    func providersViewController(_ controller: ProvidersViewController, addProviderAnimated animated: Bool)
+    func providersViewControllerAddPredefinedProvider(_ controller: ProvidersViewController)
+    func providersViewController(_ controller: ProvidersViewController, didSelect instance: Instance)
+    func providersViewController(_ controller: ProvidersViewController, didDelete instance: Instance)
+    func providersViewControllerShouldClose(_ controller: ProvidersViewController)
+    func providersViewController(_ controller: ProvidersViewController, addCustomProviderWithUrl url: URL)
+}
+
 /// Used to display configure providers (when providerType == .unknown aka. configuredForInstancesDisplay)  and to select a specific provider to add.
 class ProvidersViewController: NSViewController {
     
@@ -86,7 +96,7 @@ class ProvidersViewController: NSViewController {
         do {
             try fetchedResultsController.performFetch()
             if configuredForInstancesDisplay && rows.isEmpty {
-                delegate?.addProvider(providersViewController: self, animated: false)
+                delegate?.providersViewController(self, addProviderAnimated: false)
             }
         } catch {
             os_log("Failed to fetch objects: %{public}@", log: Log.general, type: .error, error.localizedDescription)
@@ -126,7 +136,7 @@ class ProvidersViewController: NSViewController {
     }
     
     @IBAction func addOtherProvider(_ sender: Any) {
-        delegate?.addProvider(providersViewController: self, animated: true)
+        delegate?.providersViewController(self, addProviderAnimated: true)
     }
     
     private func selectProvider(at row: Int) {
@@ -141,7 +151,7 @@ class ProvidersViewController: NSViewController {
             break
             
         case .row(_, let instance):
-            delegate?.didSelect(instance: instance, providersViewController: self)
+            delegate?.providersViewController(self, didSelect: instance)
             
         }
     }
@@ -188,7 +198,7 @@ class ProvidersViewController: NSViewController {
                 switch response {
                 case NSApplication.ModalResponse.alertFirstButtonReturn:
                     self.tableView.deselectRow(row)
-                    self.delegate?.delete(instance: instance)
+                    self.delegate?.providersViewController(self, didDelete: instance)
 
                 default:
                     break
@@ -207,7 +217,7 @@ class ProvidersViewController: NSViewController {
     }
     
     @IBAction func goBack(_ sender: Any) {
-        delegate?.providersViewControllerWantsToClose(self)
+        delegate?.providersViewControllerShouldClose(self)
     }
     
     fileprivate func updateInterface() {

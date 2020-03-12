@@ -55,6 +55,12 @@ class ConnectTableViewCell: UITableViewCell {
 
 extension ConnectTableViewCell: Identifiable {}
 
+protocol ConnectionsTableViewControllerDelegate: class {
+    func connectionsTableViewController(_ controller: ConnectionsTableViewController, refresh instance: Instance) -> Promise<Void>
+    func connectionsTableViewController(_ controller: ConnectionsTableViewController, connect profile: Profile)
+    func connectionsTableViewControllerNoProfiles(_ controller: ConnectionsTableViewController)
+}
+
 class ConnectionsTableViewController: UITableViewController {
 
     @IBOutlet weak var refreshButton: UIBarButtonItem!
@@ -107,7 +113,7 @@ class ConnectionsTableViewController: UITableViewController {
         guard let delegate = delegate, let instance = instance else { return }
         _ = firstly { () -> Promise<Void> in
             refreshButton.isEnabled = false
-            return delegate.refresh(instance: instance)
+            return delegate.connectionsTableViewController(self, refresh: instance)
         }.ensure {
             self.refreshButton.isEnabled = true
         }
@@ -152,7 +158,7 @@ class ConnectionsTableViewController: UITableViewController {
         let section = sections[indexPath.section]
         let profile = section.objects[indexPath.row]
         
-        delegate?.connect(profile: profile)
+        delegate?.connectionsTableViewController(self, connect: profile)
         
         tableView.deselectRow(at: indexPath, animated: true)
     }

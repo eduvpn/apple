@@ -5,6 +5,15 @@
 
 import Cocoa
 
+protocol ProfilesViewControllerDelegate: class {
+    
+    func profilesViewControllerDidSelectProviderType(_ controller: ProfilesViewController, providerType: ProviderType)
+    func profilesViewControllerWantsToClose(_ controller: ProfilesViewController)
+    func profilesViewControllerWantsToAddUrl(_ controller: ProfilesViewController)
+    func profilesViewControllerWantsChooseConfigFile(_ controller: ProfilesViewController)
+    
+}
+
 /// This screen lets the user choose what type of provider to add. It uses the same name as iOS, but has a confusing name.
 class ProfilesViewController: NSViewController {
     
@@ -48,13 +57,11 @@ class ProfilesViewController: NSViewController {
     }
     
     @IBAction func chooseSecureInternet(_ sender: Any) {
-        delegate?.profilesViewControllerDidSelectProviderType(profilesViewController: self,
-                                                              providerType: .secureInternet)
+        delegate?.profilesViewControllerDidSelectProviderType(self, providerType: .secureInternet)
     }
     
     @IBAction func chooseInstituteAccess(_ sender: Any) {
-        delegate?.profilesViewControllerDidSelectProviderType(profilesViewController: self,
-                                                              providerType: .instituteAccess)
+        delegate?.profilesViewControllerDidSelectProviderType(self, providerType: .instituteAccess)
     }
     
     @IBAction func close(_ sender: Any) {

@@ -6,6 +6,10 @@
 import UIKit
 import PromiseKit
 
+protocol CustomProviderInputViewControllerDelegate: class {
+    @discardableResult func customProviderInputViewController(_ controller: CustomProviderInputViewController, connect url: URL) -> Promise<Void>
+}
+
 class CustomProviderInputViewController: UIViewController {
     weak var delegate: CustomProviderInputViewControllerDelegate?
     @IBOutlet weak var bottomKeyboardConstraint: NSLayoutConstraint?
@@ -33,23 +37,25 @@ class CustomProviderInputViewController: UIViewController {
     }
     
     @IBAction func connect(_ sender: UIButton) {
-        guard let url = urlFromInput() else { return }
-        self.view.endEditing(false)
-        delegate?.connect(url: url)
+        connect()
     }
-    
+
     private func urlFromInput() -> URL? {
         guard let input = addressField.text, !input.isEmpty else { return nil }
         let urlString = "https://\(input)"
         return URL(string: urlString)
     }
+    
+    private func connect() {
+        guard let url = urlFromInput() else { return }
+        self.view.endEditing(false)
+        delegate?.customProviderInputViewController(self, connect: url)
+    }
 }
 
 extension CustomProviderInputViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard let url = urlFromInput() else { return true }
-        self.view.endEditing(false)
-        delegate?.connect(url: url)
+        connect()
         return true
     }
 }

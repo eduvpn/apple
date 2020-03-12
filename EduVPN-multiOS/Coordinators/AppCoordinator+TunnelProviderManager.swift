@@ -9,7 +9,7 @@ import PromiseKit
 
 extension AppCoordinator: TunnelProviderManagerCoordinatorDelegate {
     
-    func updateProfileStatus(with status: NEVPNStatus) {
+    func tunnelProviderManagerCoordinator(_ coordinator: TunnelProviderManagerCoordinator, updateProfileWithStatus status: NEVPNStatus) {
         let context = persistentContainer.newBackgroundContext()
         context.performAndWait {
             let configuredProfileId = UserDefaults.standard.configuredProfileId
@@ -26,7 +26,7 @@ extension AppCoordinator: TunnelProviderManagerCoordinatorDelegate {
         NotificationCenter.default.post(name: Notification.Name.InstanceRefreshed, object: self)
     }
     
-    func profileConfig(for profile: Profile) -> Promise<[String]> {
+    func tunnelProviderManagerCoordinator(_ coordinator: TunnelProviderManagerCoordinator, configForProfile profile: Profile) -> Promise<[String]> {
         #if os(iOS)
         showActivityIndicator(messageKey: "")
         #endif

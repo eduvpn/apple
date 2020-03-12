@@ -18,9 +18,8 @@ enum TunnelProviderManagerCoordinatorError: Error {
 private let profileIdKey = "EduVPNprofileId"
 
 protocol TunnelProviderManagerCoordinatorDelegate: class {
-    
-    func profileConfig(for profile: Profile) -> Promise<[String]>
-    func updateProfileStatus(with status: NEVPNStatus)
+    func tunnelProviderManagerCoordinator(_ coordinator: TunnelProviderManagerCoordinator, configForProfile profile: Profile) -> Promise<[String]>
+    func tunnelProviderManagerCoordinator(_ coordinator: TunnelProviderManagerCoordinator, updateProfileWithStatus status: NEVPNStatus)
 }
 
 class TunnelProviderManagerCoordinator: Coordinator {
@@ -107,7 +106,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
             return Promise(error: TunnelProviderManagerCoordinatorError.missingDelegate)
         }
         
-        return delegate.profileConfig(for: profile).then({ (configLines) -> Promise<Void> in
+        return delegate.tunnelProviderManagerCoordinator(self, configForProfile: profile).then({ (configLines) -> Promise<Void> in
 
             #if targetEnvironment(simulator)
             
@@ -348,7 +347,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
             if let prot = self.currentManager?.protocolConfiguration as? NETunnelProviderProtocol {
                 if prot.providerBundleIdentifier == self.vpnBundle {
                     let status = self.currentManager?.connection.status ?? NEVPNStatus.invalid
-                    self.delegate?.updateProfileStatus(with: status)
+                    self.delegate?.tunnelProviderManagerCoordinator(self, updateProfileWithStatus: status)
                 }
             }
         }
@@ -359,6 +358,6 @@ class TunnelProviderManagerCoordinator: Coordinator {
             return
         }
         
-        delegate?.updateProfileStatus(with: status)
+        delegate?.tunnelProviderManagerCoordinator(self, updateProfileWithStatus: status)
     }
 }

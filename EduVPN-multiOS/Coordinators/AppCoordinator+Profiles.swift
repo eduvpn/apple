@@ -9,29 +9,9 @@ import PromiseKit
 
 extension ProfilesViewController: Identifiable {}
 
-protocol ProfilesViewControllerDelegate: class {
-    
-    func profilesViewControllerDidSelectProviderType(profilesViewController: ProfilesViewController,
-                                                     providerType: ProviderType)
-    
-    #if os(iOS)
-    
-    func settings(profilesViewController: ProfilesViewController)
-    
-    #elseif os(macOS)
-    
-    func profilesViewControllerWantsToClose(_ controller: ProfilesViewController)
-    func profilesViewControllerWantsToAddUrl(_ controller: ProfilesViewController)
-    func profilesViewControllerWantsChooseConfigFile(_ controller: ProfilesViewController)
-    
-    #endif
-}
-
 extension AppCoordinator: ProfilesViewControllerDelegate {
     
-    func profilesViewControllerDidSelectProviderType(profilesViewController: ProfilesViewController,
-                                                     providerType: ProviderType) {
-        
+    func profilesViewControllerDidSelectProviderType(_ controller: ProfilesViewController, providerType: ProviderType) {
         switch providerType {
             
         case .instituteAccess, .secureInternet:
@@ -48,7 +28,7 @@ extension AppCoordinator: ProfilesViewControllerDelegate {
     
     #if os(iOS)
     
-    func settings(profilesViewController: ProfilesViewController) {
+    func profilesViewControllerShowSettings(_ controller: ProfilesViewController) {
         showSettings()
     }
     

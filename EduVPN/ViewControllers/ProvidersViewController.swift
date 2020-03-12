@@ -67,6 +67,15 @@ class ProviderTableViewCell: UITableViewCell {
 
 extension ProviderTableViewCell: Identifiable {}
 
+protocol ProvidersViewControllerDelegate: class {
+    func providersViewControllerNoProfiles(_ controller: ProvidersViewController)
+    func providersViewController(_ controller: ProvidersViewController, addProviderAnimated animated: Bool)
+    func providersViewControllerAddPredefinedProvider(_ controller: ProvidersViewController)
+    func providersViewController(_ controller: ProvidersViewController, didSelect instance: Instance)
+    func providersViewController(_ controller: ProvidersViewController, didDelete instance: Instance)
+    func providersViewControllerShowSettings(_ controller: ProvidersViewController)
+}
+
 class ProvidersViewController: UITableViewController {
     
     weak var delegate: ProvidersViewControllerDelegate?
@@ -129,7 +138,7 @@ class ProvidersViewController: UITableViewController {
         refresh()
 
         if configuredForInstancesDisplay && fetchedResultsController.count == 0 { // swiftlint:disable:this empty_count
-            delegate?.noProfiles(providerTableViewController: self)
+            delegate?.providersViewControllerNoProfiles(self)
         }
     }
     
@@ -160,15 +169,16 @@ class ProvidersViewController: UITableViewController {
     }
     
     @IBAction func addProvider(_ sender: Any) {
+        // TODO: Move this logic to the delegate
         if Config.shared.predefinedProvider != nil {
-            delegate?.addPredefinedProvider(providersViewController: self)
+            delegate?.providersViewControllerAddPredefinedProvider(self)
         } else {
-            delegate?.addProvider(providersViewController: self, animated: true)
+            delegate?.providersViewController(self, addProviderAnimated: true)
         }
     }
     
     @IBAction func settings(_ sender: Any) {
-        delegate?.settings(providersViewController: self)
+        delegate?.providersViewControllerShowSettings(self)
     }
 }
 
@@ -222,7 +232,7 @@ extension ProvidersViewController {
         let section = sections[indexPath.section]
         let instance = section.objects[indexPath.row]
         
-        delegate?.didSelect(instance: instance, providersViewController: self)
+        delegate?.providersViewController(self, didSelect: instance)
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -241,7 +251,7 @@ extension ProvidersViewController {
             let section = sections[indexPath.section]
             let instance = section.objects[indexPath.row]
             
-            delegate?.delete(instance: instance)
+            delegate?.providersViewController(self, didDelete: instance)
         }
     }
 }
