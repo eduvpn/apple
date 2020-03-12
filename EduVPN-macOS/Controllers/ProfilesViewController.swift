@@ -11,6 +11,7 @@ protocol ProfilesViewControllerDelegate: class {
     func profilesViewControllerWantsToClose(_ controller: ProfilesViewController)
     func profilesViewControllerWantsToAddUrl(_ controller: ProfilesViewController)
     func profilesViewControllerWantsChooseConfigFile(_ controller: ProfilesViewController)
+    func profilesViewControllerApiDiscoveryEnabled(_ controller: ProfilesViewController) -> Bool
     
 }
 
@@ -50,10 +51,12 @@ class ProfilesViewController: NSViewController {
         secureInternetButton.isEnabled = true
         instituteAccessButton.isEnabled = true
         
-        secureInternetButton.isHidden = !(Config.shared.apiDiscoveryEnabled ?? false)
-        instituteAccessButton.isHidden = !(Config.shared.apiDiscoveryEnabled ?? false)
+        let apiDiscoveryEnabled = delegate?.profilesViewControllerApiDiscoveryEnabled(self) ?? false
         
-        imageView.isHidden = (Config.shared.apiDiscoveryEnabled ?? false)
+        secureInternetButton.isHidden = !apiDiscoveryEnabled
+        instituteAccessButton.isHidden = !apiDiscoveryEnabled
+        
+        imageView.isHidden = apiDiscoveryEnabled
     }
     
     @IBAction func chooseSecureInternet(_ sender: Any) {

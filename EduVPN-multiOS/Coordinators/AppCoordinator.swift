@@ -27,6 +27,8 @@ import Cocoa
 
 class AppCoordinator: RootViewCoordinator {
     
+    let config: Config
+    
     lazy var tunnelProviderManagerCoordinator: TunnelProviderManagerCoordinator = {
         let tpmCoordinator = TunnelProviderManagerCoordinator()
         tpmCoordinator.viewContext = persistentContainer.viewContext
@@ -90,8 +92,9 @@ class AppCoordinator: RootViewCoordinator {
     
     #if os(iOS)
     
-    public init(window: UIWindow) {
+    public init(window: UIWindow, config: Config = Config.shared) {
         self.window = window
+        self.config = config
 
         self.window.rootViewController = self.navigationController
         self.window.makeKeyAndVisible()
@@ -101,7 +104,9 @@ class AppCoordinator: RootViewCoordinator {
     
     #elseif os(macOS)
     
-    public init() {
+    public init(config: Config = Config.shared) {
+        self.config = config
+        
         windowController.window?.makeKeyAndOrderFront(nil)
         providersViewController = windowController.contentViewController?.children.first as? ProvidersViewController
         providePersistentContainer()

@@ -19,7 +19,7 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
         #if os(iOS)
         addProvider(animated: animated)
         #elseif os(macOS)
-        if Config.shared.apiDiscoveryEnabled ?? false {
+        if config.apiDiscoveryEnabled ?? false {
             addProvider(animated: animated)
         } else {
             showCustomProviderInputViewController(for: .other, animated: animated)
@@ -28,7 +28,7 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
     }
     
     func providersViewControllerAddPredefinedProvider(_ controller: ProvidersViewController) {
-        if let providerUrl = Config.shared.predefinedProvider {
+        if let providerUrl = config.predefinedProvider {
             _ = connect(url: providerUrl)
         }
     }
@@ -122,7 +122,7 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
     private func addProfilesWhenNoneAvailable(forced: Bool = false) {
         do {
             if try Profile.countInContext(persistentContainer.viewContext) == 0 || forced {
-                if let predefinedProvider = Config.shared.predefinedProvider {
+                if let predefinedProvider = config.predefinedProvider {
                     _ = connect(url: predefinedProvider)
                 } else {
                     addProvider()
