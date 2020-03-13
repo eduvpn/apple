@@ -87,7 +87,7 @@ extension AppCoordinator: ProfilesViewControllerDelegate {
     }
     
     func profilesViewControllerApiDiscoveryEnabled(_ controller: ProfilesViewController) -> Bool {
-        return config.apiDiscoveryEnabled
+        return config.apiDiscoveryEnabled ?? false
     }
     #endif
 }

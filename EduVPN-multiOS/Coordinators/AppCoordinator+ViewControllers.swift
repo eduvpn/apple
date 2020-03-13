@@ -134,8 +134,35 @@ extension AppCoordinator {
         providersVc.start()
         #endif
         
-        InstancesRepository.shared.loader.load(with: providerType)
+        instancesRepository.loader.load(with: providerType)
     }
+    
+    internal func showOrganizationsViewController(animated: Bool) {
+           #if os(iOS)
+           let providersVc = storyboard.instantiateViewController(type: ProvidersViewController.self)
+           #elseif os(macOS)
+           // Do separate instantiation with identifier
+           // Because macOS reuses VC class, but uses two different layouts
+           guard let providersVc = storyboard.instantiateController(withIdentifier: "ChooseProvider") as? ProvidersViewController else {
+               return
+           }
+           #endif
+           
+           providersVc.providerType = providerType
+           providersVc.viewContext = persistentContainer.viewContext
+           providersVc.delegate = self
+           providersVc.selectingConfig = true
+           providersVc.providerType = providerType
+
+           pushViewController(providersVc, animated: animated)
+           
+           // Required for startup safety purpose
+           #if os(macOS)
+           providersVc.start()
+           #endif
+           
+           instancesRepository.loader.load(with: providerType)
+       }
     
     internal func showConnectionViewController(for profile: Profile) -> Promise<Void> {
         let connectionVc = storyboard.instantiateViewController(type: VPNConnectionViewController.self)

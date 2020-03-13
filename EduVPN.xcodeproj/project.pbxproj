@@ -118,6 +118,65 @@
 		C7230D8C236324C100B9C691 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7230D8B236324C100B9C691 /* Assets.xcassets */; };
 		C7265C0423747A70004496B8 /* ServerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7265C0323747A70004496B8 /* ServerConfiguration.swift */; };
 		C7265C0523747A70004496B8 /* ServerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7265C0323747A70004496B8 /* ServerConfiguration.swift */; };
+		C740BBD0241A8597002D7C64 /* Api+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F32742241A823900B9CBB5 /* Api+CoreDataClass.swift */; };
+		C740BBD1241A8597002D7C64 /* Api+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3273C241A823900B9CBB5 /* Api+CoreDataProperties.swift */; };
+		C740BBD2241A8597002D7C64 /* AuthServer+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F32731241A823800B9CBB5 /* AuthServer+CoreDataClass.swift */; };
+		C740BBD3241A8597002D7C64 /* AuthServer+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F32743241A823900B9CBB5 /* AuthServer+CoreDataProperties.swift */; };
+		C740BBD6241A8597002D7C64 /* DisplayName+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F32734241A823800B9CBB5 /* DisplayName+CoreDataClass.swift */; };
+		C740BBD7241A8597002D7C64 /* DisplayName+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3272C241A823800B9CBB5 /* DisplayName+CoreDataProperties.swift */; };
+		C740BBD8241A8597002D7C64 /* Instance+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3273A241A823900B9CBB5 /* Instance+CoreDataClass.swift */; };
+		C740BBD9241A8597002D7C64 /* Instance+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3272D241A823800B9CBB5 /* Instance+CoreDataProperties.swift */; };
+		C740BBDA241A8597002D7C64 /* InstanceGroup+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F32740241A823900B9CBB5 /* InstanceGroup+CoreDataClass.swift */; };
+		C740BBDB241A8597002D7C64 /* InstanceGroup+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3273E241A823900B9CBB5 /* InstanceGroup+CoreDataProperties.swift */; };
+		C740BBE0241A8597002D7C64 /* Logo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3272A241A823800B9CBB5 /* Logo+CoreDataClass.swift */; };
+		C740BBE1241A8597002D7C64 /* Logo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F32741241A823900B9CBB5 /* Logo+CoreDataProperties.swift */; };
+		C740BBE6241A8597002D7C64 /* Profile+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3273B241A823900B9CBB5 /* Profile+CoreDataClass.swift */; };
+		C740BBE7241A8597002D7C64 /* Profile+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3273F241A823900B9CBB5 /* Profile+CoreDataProperties.swift */; };
+		C740BBEA241A8599002D7C64 /* Api+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F32742241A823900B9CBB5 /* Api+CoreDataClass.swift */; };
+		C740BBEB241A8599002D7C64 /* Api+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3273C241A823900B9CBB5 /* Api+CoreDataProperties.swift */; };
+		C740BBEC241A8599002D7C64 /* AuthServer+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F32731241A823800B9CBB5 /* AuthServer+CoreDataClass.swift */; };
+		C740BBED241A8599002D7C64 /* AuthServer+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F32743241A823900B9CBB5 /* AuthServer+CoreDataProperties.swift */; };
+		C740BBEE241A8599002D7C64 /* Custom+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3272F241A823800B9CBB5 /* Custom+CoreDataClass.swift */; };
+		C740BBEF241A8599002D7C64 /* Custom+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F32736241A823900B9CBB5 /* Custom+CoreDataProperties.swift */; };
+		C740BBF0241A8599002D7C64 /* DisplayName+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F32734241A823800B9CBB5 /* DisplayName+CoreDataClass.swift */; };
+		C740BBF1241A8599002D7C64 /* DisplayName+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3272C241A823800B9CBB5 /* DisplayName+CoreDataProperties.swift */; };
+		C740BBF2241A8599002D7C64 /* Instance+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3273A241A823900B9CBB5 /* Instance+CoreDataClass.swift */; };
+		C740BBF3241A8599002D7C64 /* Instance+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3272D241A823800B9CBB5 /* Instance+CoreDataProperties.swift */; };
+		C740BBF4241A8599002D7C64 /* InstanceGroup+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F32740241A823900B9CBB5 /* InstanceGroup+CoreDataClass.swift */; };
+		C740BBF5241A8599002D7C64 /* InstanceGroup+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3273E241A823900B9CBB5 /* InstanceGroup+CoreDataProperties.swift */; };
+		C740BBF6241A8599002D7C64 /* Keywords+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F32738241A823900B9CBB5 /* Keywords+CoreDataClass.swift */; };
+		C740BBF7241A8599002D7C64 /* Keywords+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F32739241A823900B9CBB5 /* Keywords+CoreDataProperties.swift */; };
+		C740BBF8241A8599002D7C64 /* Local+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F32733241A823800B9CBB5 /* Local+CoreDataClass.swift */; };
+		C740BBF9241A8599002D7C64 /* Local+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F32735241A823800B9CBB5 /* Local+CoreDataProperties.swift */; };
+		C740BBFA241A8599002D7C64 /* Logo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3272A241A823800B9CBB5 /* Logo+CoreDataClass.swift */; };
+		C740BBFB241A8599002D7C64 /* Logo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F32741241A823900B9CBB5 /* Logo+CoreDataProperties.swift */; };
+		C740BBFC241A8599002D7C64 /* ManagedProvider+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F32732241A823800B9CBB5 /* ManagedProvider+CoreDataClass.swift */; };
+		C740BBFD241A8599002D7C64 /* ManagedProvider+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F32730241A823800B9CBB5 /* ManagedProvider+CoreDataProperties.swift */; };
+		C740BBFE241A8599002D7C64 /* Organization+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F32737241A823900B9CBB5 /* Organization+CoreDataClass.swift */; };
+		C740BBFF241A8599002D7C64 /* Organization+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3272E241A823800B9CBB5 /* Organization+CoreDataProperties.swift */; };
+		C740BC00241A8599002D7C64 /* Profile+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3273B241A823900B9CBB5 /* Profile+CoreDataClass.swift */; };
+		C740BC01241A8599002D7C64 /* Profile+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3273F241A823900B9CBB5 /* Profile+CoreDataProperties.swift */; };
+		C740BC02241A8599002D7C64 /* Provider+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3273D241A823900B9CBB5 /* Provider+CoreDataClass.swift */; };
+		C740BC03241A8599002D7C64 /* Provider+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3272B241A823800B9CBB5 /* Provider+CoreDataProperties.swift */; };
+		C740BC04241A884C002D7C64 /* Custom+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3272F241A823800B9CBB5 /* Custom+CoreDataClass.swift */; };
+		C740BC05241A884C002D7C64 /* Custom+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F32736241A823900B9CBB5 /* Custom+CoreDataProperties.swift */; };
+		C740BC06241A884C002D7C64 /* Keywords+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F32738241A823900B9CBB5 /* Keywords+CoreDataClass.swift */; };
+		C740BC07241A884C002D7C64 /* Keywords+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F32739241A823900B9CBB5 /* Keywords+CoreDataProperties.swift */; };
+		C740BC08241A884C002D7C64 /* Local+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F32733241A823800B9CBB5 /* Local+CoreDataClass.swift */; };
+		C740BC09241A884C002D7C64 /* Local+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F32735241A823800B9CBB5 /* Local+CoreDataProperties.swift */; };
+		C740BC0A241A884C002D7C64 /* ManagedProvider+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F32732241A823800B9CBB5 /* ManagedProvider+CoreDataClass.swift */; };
+		C740BC0B241A884C002D7C64 /* ManagedProvider+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F32730241A823800B9CBB5 /* ManagedProvider+CoreDataProperties.swift */; };
+		C740BC0C241A884C002D7C64 /* Organization+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F32737241A823900B9CBB5 /* Organization+CoreDataClass.swift */; };
+		C740BC0D241A884C002D7C64 /* Organization+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3272E241A823800B9CBB5 /* Organization+CoreDataProperties.swift */; };
+		C740BC0E241A884C002D7C64 /* Provider+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3273D241A823900B9CBB5 /* Provider+CoreDataClass.swift */; };
+		C740BC0F241A884C002D7C64 /* Provider+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F3272B241A823800B9CBB5 /* Provider+CoreDataProperties.swift */; };
+		C740BC11241A8A82002D7C64 /* InstanceGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740BC10241A8A82002D7C64 /* InstanceGroup.swift */; };
+		C740BC12241A8A82002D7C64 /* InstanceGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740BC10241A8A82002D7C64 /* InstanceGroup.swift */; };
+		C740BC14241A8E89002D7C64 /* ServerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740BC13241A8E89002D7C64 /* ServerModel.swift */; };
+		C740BC15241A8E89002D7C64 /* ServerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740BC13241A8E89002D7C64 /* ServerModel.swift */; };
+		C740BC17241A9B78002D7C64 /* OrganizationsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740BC16241A9B78002D7C64 /* OrganizationsRepository.swift */; };
+		C740BC18241A9B78002D7C64 /* OrganizationsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740BC16241A9B78002D7C64 /* OrganizationsRepository.swift */; };
+		C740BC1A241A9F16002D7C64 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740BC19241A9F15002D7C64 /* MainWindowController.swift */; };
 		C7517542236340C900058D95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7517541236340C900058D95 /* Assets.xcassets */; };
 		C7D485232372BC22006AC96C /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1163292370539E00577755 /* Crypto.swift */; };
 		C7D8E1D523742A4E009536C9 /* CancellablePromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */; };
@@ -128,8 +187,8 @@
 		C7EB81512369B63A006C141F /* LoginItemHelper-macOS.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C7F326E7241A484A00B9CBB5 /* NEVPNStatus+Representation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F326E6241A484A00B9CBB5 /* NEVPNStatus+Representation.swift */; };
 		C7F326E8241A484A00B9CBB5 /* NEVPNStatus+Representation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F326E6241A484A00B9CBB5 /* NEVPNStatus+Representation.swift */; };
-		C7F326E9241A4A0100B9CBB5 /* AppCoordinator+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345289229FF33000C0476E /* AppCoordinator+Settings.swift */; };
-		C7F326EA241A4A0100B9CBB5 /* AppCoordinator+CustomInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3434528A229FF33000C0476E /* AppCoordinator+CustomInput.swift */; };
+		C7F326EC241A753700B9CBB5 /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F326EB241A753700B9CBB5 /* Organization.swift */; };
+		C7F326ED241A753700B9CBB5 /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F326EB241A753700B9CBB5 /* Organization.swift */; };
 		C7FA7A0E23633694006501E8 /* CertificateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A0023633694006501E8 /* CertificateModel.swift */; };
 		C7FA7A0F23633694006501E8 /* CertificateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A0023633694006501E8 /* CertificateModel.swift */; };
 		C7FA7A1023633694006501E8 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A0123633694006501E8 /* Config.swift */; };
@@ -144,34 +203,6 @@
 		C7FA7A7B23633895006501E8 /* InstanceInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A5B23633894006501E8 /* InstanceInfoModel.swift */; };
 		C7FA7A7C23633895006501E8 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A5C23633894006501E8 /* Message.swift */; };
 		C7FA7A7D23633895006501E8 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A5C23633894006501E8 /* Message.swift */; };
-		C7FA7A7E23633895006501E8 /* Api+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A5F23633895006501E8 /* Api+CoreDataProperties.swift */; };
-		C7FA7A7F23633895006501E8 /* Api+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A5F23633895006501E8 /* Api+CoreDataProperties.swift */; };
-		C7FA7A8023633895006501E8 /* Api+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6023633895006501E8 /* Api+CoreDataClass.swift */; };
-		C7FA7A8123633895006501E8 /* Api+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6023633895006501E8 /* Api+CoreDataClass.swift */; };
-		C7FA7A8223633895006501E8 /* AuthServer+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6123633895006501E8 /* AuthServer+CoreDataProperties.swift */; };
-		C7FA7A8323633895006501E8 /* AuthServer+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6123633895006501E8 /* AuthServer+CoreDataProperties.swift */; };
-		C7FA7A8423633895006501E8 /* InstanceGroup+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6223633895006501E8 /* InstanceGroup+CoreDataClass.swift */; };
-		C7FA7A8523633895006501E8 /* InstanceGroup+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6223633895006501E8 /* InstanceGroup+CoreDataClass.swift */; };
-		C7FA7A8623633895006501E8 /* Logo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6323633895006501E8 /* Logo+CoreDataClass.swift */; };
-		C7FA7A8723633895006501E8 /* Logo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6323633895006501E8 /* Logo+CoreDataClass.swift */; };
-		C7FA7A8823633895006501E8 /* AuthServer+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6423633895006501E8 /* AuthServer+CoreDataClass.swift */; };
-		C7FA7A8923633895006501E8 /* AuthServer+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6423633895006501E8 /* AuthServer+CoreDataClass.swift */; };
-		C7FA7A8A23633895006501E8 /* DisplayName+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6523633895006501E8 /* DisplayName+CoreDataProperties.swift */; };
-		C7FA7A8B23633895006501E8 /* DisplayName+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6523633895006501E8 /* DisplayName+CoreDataProperties.swift */; };
-		C7FA7A8C23633895006501E8 /* InstanceGroup+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6623633895006501E8 /* InstanceGroup+CoreDataProperties.swift */; };
-		C7FA7A8D23633895006501E8 /* InstanceGroup+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6623633895006501E8 /* InstanceGroup+CoreDataProperties.swift */; };
-		C7FA7A8E23633895006501E8 /* Instance+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6723633895006501E8 /* Instance+CoreDataProperties.swift */; };
-		C7FA7A8F23633895006501E8 /* Instance+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6723633895006501E8 /* Instance+CoreDataProperties.swift */; };
-		C7FA7A9023633895006501E8 /* Profile+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6823633895006501E8 /* Profile+CoreDataProperties.swift */; };
-		C7FA7A9123633895006501E8 /* Profile+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6823633895006501E8 /* Profile+CoreDataProperties.swift */; };
-		C7FA7A9223633895006501E8 /* Profile+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6923633895006501E8 /* Profile+CoreDataClass.swift */; };
-		C7FA7A9323633895006501E8 /* Profile+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6923633895006501E8 /* Profile+CoreDataClass.swift */; };
-		C7FA7A9423633895006501E8 /* DisplayName+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6A23633895006501E8 /* DisplayName+CoreDataClass.swift */; };
-		C7FA7A9523633895006501E8 /* DisplayName+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6A23633895006501E8 /* DisplayName+CoreDataClass.swift */; };
-		C7FA7A9623633895006501E8 /* Instance+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6B23633895006501E8 /* Instance+CoreDataClass.swift */; };
-		C7FA7A9723633895006501E8 /* Instance+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6B23633895006501E8 /* Instance+CoreDataClass.swift */; };
-		C7FA7A9823633895006501E8 /* Logo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6C23633895006501E8 /* Logo+CoreDataProperties.swift */; };
-		C7FA7A9923633895006501E8 /* Logo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6C23633895006501E8 /* Logo+CoreDataProperties.swift */; };
 		C7FA7A9A23633895006501E8 /* AuthServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6D23633895006501E8 /* AuthServer.swift */; };
 		C7FA7A9B23633895006501E8 /* AuthServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6D23633895006501E8 /* AuthServer.swift */; };
 		C7FA7A9C23633895006501E8 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6E23633895006501E8 /* Profile.swift */; };
@@ -398,6 +429,10 @@
 		C7265C0323747A70004496B8 /* ServerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfiguration.swift; sourceTree = "<group>"; };
 		C730CD6223746B4900C21AF9 /* Development-macOS-LoginItemHelper.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Development-macOS-LoginItemHelper.xcconfig"; sourceTree = "<group>"; };
 		C730CD6323746B4900C21AF9 /* Release-macOS-LoginItemHelper.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-macOS-LoginItemHelper.xcconfig"; sourceTree = "<group>"; };
+		C740BC10241A8A82002D7C64 /* InstanceGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstanceGroup.swift; sourceTree = "<group>"; };
+		C740BC13241A8E89002D7C64 /* ServerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerModel.swift; sourceTree = "<group>"; };
+		C740BC16241A9B78002D7C64 /* OrganizationsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationsRepository.swift; sourceTree = "<group>"; };
+		C740BC19241A9F15002D7C64 /* MainWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		C7517541236340C900058D95 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C75B2CA3236311D100D700EC /* CODE_OF_CONDUCT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CODE_OF_CONDUCT.md; sourceTree = "<group>"; };
 		C75B2CA4236311D100D700EC /* CHANGES.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGES.md; sourceTree = "<group>"; };
@@ -434,6 +469,33 @@
 		C7E21E16241296AC0052F4C5 /* OrganizationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationModel.swift; sourceTree = "<group>"; };
 		C7E21E192412A0660052F4C5 /* FileServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileServiceTests.swift; sourceTree = "<group>"; };
 		C7F326E6241A484A00B9CBB5 /* NEVPNStatus+Representation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NEVPNStatus+Representation.swift"; sourceTree = "<group>"; };
+		C7F326EB241A753700B9CBB5 /* Organization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Organization.swift; sourceTree = "<group>"; };
+		C7F3272A241A823800B9CBB5 /* Logo+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Logo+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C7F3272B241A823800B9CBB5 /* Provider+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Provider+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C7F3272C241A823800B9CBB5 /* DisplayName+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DisplayName+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C7F3272D241A823800B9CBB5 /* Instance+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Instance+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C7F3272E241A823800B9CBB5 /* Organization+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Organization+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C7F3272F241A823800B9CBB5 /* Custom+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Custom+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C7F32730241A823800B9CBB5 /* ManagedProvider+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ManagedProvider+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C7F32731241A823800B9CBB5 /* AuthServer+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AuthServer+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C7F32732241A823800B9CBB5 /* ManagedProvider+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ManagedProvider+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C7F32733241A823800B9CBB5 /* Local+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Local+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C7F32734241A823800B9CBB5 /* DisplayName+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DisplayName+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C7F32735241A823800B9CBB5 /* Local+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Local+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C7F32736241A823900B9CBB5 /* Custom+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Custom+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C7F32737241A823900B9CBB5 /* Organization+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Organization+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C7F32738241A823900B9CBB5 /* Keywords+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Keywords+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C7F32739241A823900B9CBB5 /* Keywords+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Keywords+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C7F3273A241A823900B9CBB5 /* Instance+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Instance+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C7F3273B241A823900B9CBB5 /* Profile+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Profile+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C7F3273C241A823900B9CBB5 /* Api+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Api+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C7F3273D241A823900B9CBB5 /* Provider+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Provider+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C7F3273E241A823900B9CBB5 /* InstanceGroup+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "InstanceGroup+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C7F3273F241A823900B9CBB5 /* Profile+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Profile+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C7F32740241A823900B9CBB5 /* InstanceGroup+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "InstanceGroup+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C7F32741241A823900B9CBB5 /* Logo+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Logo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C7F32742241A823900B9CBB5 /* Api+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Api+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C7F32743241A823900B9CBB5 /* AuthServer+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AuthServer+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C7FA7A0023633694006501E8 /* CertificateModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateModel.swift; sourceTree = "<group>"; };
 		C7FA7A0123633694006501E8 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		C7FA7A0323633694006501E8 /* InstanceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceModel.swift; sourceTree = "<group>"; };
@@ -441,20 +503,6 @@
 		C7FA7A5A23633894006501E8 /* ProfilesRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilesRepository.swift; sourceTree = "<group>"; };
 		C7FA7A5B23633894006501E8 /* InstanceInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceInfoModel.swift; sourceTree = "<group>"; };
 		C7FA7A5C23633894006501E8 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
-		C7FA7A5F23633895006501E8 /* Api+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Api+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		C7FA7A6023633895006501E8 /* Api+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Api+CoreDataClass.swift"; sourceTree = "<group>"; };
-		C7FA7A6123633895006501E8 /* AuthServer+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AuthServer+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		C7FA7A6223633895006501E8 /* InstanceGroup+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "InstanceGroup+CoreDataClass.swift"; sourceTree = "<group>"; };
-		C7FA7A6323633895006501E8 /* Logo+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Logo+CoreDataClass.swift"; sourceTree = "<group>"; };
-		C7FA7A6423633895006501E8 /* AuthServer+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AuthServer+CoreDataClass.swift"; sourceTree = "<group>"; };
-		C7FA7A6523633895006501E8 /* DisplayName+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DisplayName+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		C7FA7A6623633895006501E8 /* InstanceGroup+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "InstanceGroup+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		C7FA7A6723633895006501E8 /* Instance+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Instance+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		C7FA7A6823633895006501E8 /* Profile+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Profile+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		C7FA7A6923633895006501E8 /* Profile+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Profile+CoreDataClass.swift"; sourceTree = "<group>"; };
-		C7FA7A6A23633895006501E8 /* DisplayName+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DisplayName+CoreDataClass.swift"; sourceTree = "<group>"; };
-		C7FA7A6B23633895006501E8 /* Instance+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Instance+CoreDataClass.swift"; sourceTree = "<group>"; };
-		C7FA7A6C23633895006501E8 /* Logo+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Logo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C7FA7A6D23633895006501E8 /* AuthServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthServer.swift; sourceTree = "<group>"; };
 		C7FA7A6E23633895006501E8 /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		C7FA7A6F23633895006501E8 /* Instance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instance.swift; sourceTree = "<group>"; };
@@ -700,13 +748,14 @@
 			isa = PBXGroup;
 			children = (
 				34D719E0228D75550027DE84 /* AppDelegate.swift */,
-				342B9CDA22902BB500C006D7 /* MainWindowController.swift */,
+				3434529A22A0665600C0476E /* CoreDataFetchedResultsControllerDelegate.swift */,
+				340A505322A3BF8900170E51 /* EnterProviderURLViewController.swift */,
 				342B9CD922902BB500C006D7 /* MainViewController.swift */,
+				342B9CDA22902BB500C006D7 /* MainWindowController.swift */,
 				340A504E22A3BD9D00170E51 /* ProfilesViewController.swift */,
+				C740BC19241A9F15002D7C64 /* MainWindowController.swift */,
 				343452BF22A157E000C0476E /* ProvidersViewController.swift */,
 				34FD2AD622A9352F002AABB3 /* VPNConnectionViewController.swift */,
-				340A505322A3BF8900170E51 /* EnterProviderURLViewController.swift */,
-				3434529A22A0665600C0476E /* CoreDataFetchedResultsControllerDelegate.swift */,
 				3415C02023181191005B9E6C /* СonnectionsTableViewController.swift */,
 			);
 			path = Controllers;
@@ -966,6 +1015,7 @@
 				4A1163292370539E00577755 /* Crypto.swift */,
 				C7FA7A0323633694006501E8 /* InstanceModel.swift */,
 				C7E21E16241296AC0052F4C5 /* OrganizationModel.swift */,
+				C740BC13241A8E89002D7C64 /* ServerModel.swift */,
 				C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */,
 				C7265C0323747A70004496B8 /* ServerConfiguration.swift */,
 			);
@@ -976,6 +1026,7 @@
 			isa = PBXGroup;
 			children = (
 				C7FA7A5923633894006501E8 /* InstancesRepository.swift */,
+				C740BC16241A9B78002D7C64 /* OrganizationsRepository.swift */,
 				C7FA7A5A23633894006501E8 /* ProfilesRepository.swift */,
 			);
 			path = Repositories;
@@ -988,7 +1039,9 @@
 				C7FA7A6D23633895006501E8 /* AuthServer.swift */,
 				C7FA7A6E23633895006501E8 /* Profile.swift */,
 				C7FA7A6F23633895006501E8 /* Instance.swift */,
+				C7F326EB241A753700B9CBB5 /* Organization.swift */,
 				C7FA7A7023633895006501E8 /* Api.swift */,
+				C740BC10241A8A82002D7C64 /* InstanceGroup.swift */,
 			);
 			path = "Managed Objects";
 			sourceTree = "<group>";
@@ -996,20 +1049,32 @@
 		C7FA7A5E23633895006501E8 /* Generated */ = {
 			isa = PBXGroup;
 			children = (
-				C7FA7A6023633895006501E8 /* Api+CoreDataClass.swift */,
-				C7FA7A5F23633895006501E8 /* Api+CoreDataProperties.swift */,
-				C7FA7A6423633895006501E8 /* AuthServer+CoreDataClass.swift */,
-				C7FA7A6123633895006501E8 /* AuthServer+CoreDataProperties.swift */,
-				C7FA7A6223633895006501E8 /* InstanceGroup+CoreDataClass.swift */,
-				C7FA7A6623633895006501E8 /* InstanceGroup+CoreDataProperties.swift */,
-				C7FA7A6A23633895006501E8 /* DisplayName+CoreDataClass.swift */,
-				C7FA7A6523633895006501E8 /* DisplayName+CoreDataProperties.swift */,
-				C7FA7A6B23633895006501E8 /* Instance+CoreDataClass.swift */,
-				C7FA7A6723633895006501E8 /* Instance+CoreDataProperties.swift */,
-				C7FA7A6923633895006501E8 /* Profile+CoreDataClass.swift */,
-				C7FA7A6823633895006501E8 /* Profile+CoreDataProperties.swift */,
-				C7FA7A6323633895006501E8 /* Logo+CoreDataClass.swift */,
-				C7FA7A6C23633895006501E8 /* Logo+CoreDataProperties.swift */,
+				C7F32742241A823900B9CBB5 /* Api+CoreDataClass.swift */,
+				C7F3273C241A823900B9CBB5 /* Api+CoreDataProperties.swift */,
+				C7F32731241A823800B9CBB5 /* AuthServer+CoreDataClass.swift */,
+				C7F32743241A823900B9CBB5 /* AuthServer+CoreDataProperties.swift */,
+				C7F3272F241A823800B9CBB5 /* Custom+CoreDataClass.swift */,
+				C7F32736241A823900B9CBB5 /* Custom+CoreDataProperties.swift */,
+				C7F32734241A823800B9CBB5 /* DisplayName+CoreDataClass.swift */,
+				C7F3272C241A823800B9CBB5 /* DisplayName+CoreDataProperties.swift */,
+				C7F3273A241A823900B9CBB5 /* Instance+CoreDataClass.swift */,
+				C7F3272D241A823800B9CBB5 /* Instance+CoreDataProperties.swift */,
+				C7F32740241A823900B9CBB5 /* InstanceGroup+CoreDataClass.swift */,
+				C7F3273E241A823900B9CBB5 /* InstanceGroup+CoreDataProperties.swift */,
+				C7F32738241A823900B9CBB5 /* Keywords+CoreDataClass.swift */,
+				C7F32739241A823900B9CBB5 /* Keywords+CoreDataProperties.swift */,
+				C7F32733241A823800B9CBB5 /* Local+CoreDataClass.swift */,
+				C7F32735241A823800B9CBB5 /* Local+CoreDataProperties.swift */,
+				C7F3272A241A823800B9CBB5 /* Logo+CoreDataClass.swift */,
+				C7F32741241A823900B9CBB5 /* Logo+CoreDataProperties.swift */,
+				C7F32732241A823800B9CBB5 /* ManagedProvider+CoreDataClass.swift */,
+				C7F32730241A823800B9CBB5 /* ManagedProvider+CoreDataProperties.swift */,
+				C7F32737241A823900B9CBB5 /* Organization+CoreDataClass.swift */,
+				C7F3272E241A823800B9CBB5 /* Organization+CoreDataProperties.swift */,
+				C7F3273B241A823900B9CBB5 /* Profile+CoreDataClass.swift */,
+				C7F3273F241A823900B9CBB5 /* Profile+CoreDataProperties.swift */,
+				C7F3273D241A823900B9CBB5 /* Provider+CoreDataClass.swift */,
+				C7F3272B241A823800B9CBB5 /* Provider+CoreDataProperties.swift */,
 			);
 			path = Generated;
 			sourceTree = "<group>";
@@ -1674,64 +1739,79 @@
 			buildActionMask = 2147483647;
 			files = (
 				34FD2AD722A93530002AABB3 /* VPNConnectionViewController.swift in Sources */,
-				C7FA7A8323633895006501E8 /* AuthServer+CoreDataProperties.swift in Sources */,
 				C7FA7AA123633895006501E8 /* Api.swift in Sources */,
 				C7D485232372BC22006AC96C /* Crypto.swift in Sources */,
-				C7FA7A9323633895006501E8 /* Profile+CoreDataClass.swift in Sources */,
+				C740BBE6241A8597002D7C64 /* Profile+CoreDataClass.swift in Sources */,
+				C740BC04241A884C002D7C64 /* Custom+CoreDataClass.swift in Sources */,
 				343452A322A13A9500C0476E /* AppCoordinator.swift in Sources */,
+				C740BC0E241A884C002D7C64 /* Provider+CoreDataClass.swift in Sources */,
 				34D71A96228D9C6A0027DE84 /* URL+Unused.swift in Sources */,
 				C7FA7A7B23633895006501E8 /* InstanceInfoModel.swift in Sources */,
+				C740BC0C241A884C002D7C64 /* Organization+CoreDataClass.swift in Sources */,
 				C7FA7A7D23633895006501E8 /* Message.swift in Sources */,
+				C740BBD3241A8597002D7C64 /* AuthServer+CoreDataProperties.swift in Sources */,
 				34186CDD2296B711009B4121 /* DisplayName+Convenience.swift in Sources */,
-				C7FA7A7F23633895006501E8 /* Api+CoreDataProperties.swift in Sources */,
 				C7FA7AA323633895006501E8 /* ProfileModel.swift in Sources */,
 				34186CEF2296E6CE009B4121 /* Moya+ResponseHandling.swift in Sources */,
 				34186CF12296E7B4009B4121 /* StaticService.swift in Sources */,
+				C740BC12241A8A82002D7C64 /* InstanceGroup.swift in Sources */,
 				340A504222A26FDF00170E51 /* AppCoordinator+Connections.swift in Sources */,
+				C740BC15241A8E89002D7C64 /* ServerModel.swift in Sources */,
 				34D719E1228D75550027DE84 /* AppDelegate.swift in Sources */,
+				C740BC07241A884C002D7C64 /* Keywords+CoreDataProperties.swift in Sources */,
 				C7FA7AC023633E68006501E8 /* EduVPN.xcdatamodeld in Sources */,
+				C740BC0D241A884C002D7C64 /* Organization+CoreDataProperties.swift in Sources */,
 				343452C022A157E000C0476E /* ProvidersViewController.swift in Sources */,
 				C7FA7AB423633D61006501E8 /* FetchedResultsController.swift in Sources */,
 				340A503F22A26EC900170E51 /* AppCoordinator+Repositories.swift in Sources */,
 				C7265C0523747A70004496B8 /* ServerConfiguration.swift in Sources */,
 				C7FA7AB223633D61006501E8 /* NSManagedObject+FetchHelpers.swift in Sources */,
 				34186CDE2296B711009B4121 /* Logo+Convenience.swift in Sources */,
-				C7F326E9241A4A0100B9CBB5 /* AppCoordinator+Settings.swift in Sources */,
-				C7FA7A8523633895006501E8 /* InstanceGroup+CoreDataClass.swift in Sources */,
 				3434529B22A0665600C0476E /* CoreDataFetchedResultsControllerDelegate.swift in Sources */,
 				343452AB22A13F6A00C0476E /* AppCoordinatorError.swift in Sources */,
 				340A505122A3BDDF00170E51 /* AppCoordinator+Profiles.swift in Sources */,
-				C7F326EA241A4A0100B9CBB5 /* AppCoordinator+CustomInput.swift in Sources */,
 				C7FA7A9B23633895006501E8 /* AuthServer.swift in Sources */,
-				C7FA7A9723633895006501E8 /* Instance+CoreDataClass.swift in Sources */,
-				C7FA7A9523633895006501E8 /* DisplayName+CoreDataClass.swift in Sources */,
-				C7FA7A8B23633895006501E8 /* DisplayName+CoreDataProperties.swift in Sources */,
+				C7F326ED241A753700B9CBB5 /* Organization.swift in Sources */,
+				C740BC18241A9B78002D7C64 /* OrganizationsRepository.swift in Sources */,
 				C7FA7A0F23633694006501E8 /* CertificateModel.swift in Sources */,
-				C7FA7A9923633895006501E8 /* Logo+CoreDataProperties.swift in Sources */,
+				C740BBD1241A8597002D7C64 /* Api+CoreDataProperties.swift in Sources */,
 				343452C322A1610400C0476E /* TunnelProviderManagerCoordinator.swift in Sources */,
 				C7FA7AB623633D61006501E8 /* NSManagedObjectContext+SaveHelpers.swift in Sources */,
 				342B9CE722902BB500C006D7 /* MainViewController.swift in Sources */,
+				C740BBE1241A8597002D7C64 /* Logo+CoreDataProperties.swift in Sources */,
+				C740BBD2241A8597002D7C64 /* AuthServer+CoreDataClass.swift in Sources */,
 				C7FA7A9D23633895006501E8 /* Profile.swift in Sources */,
 				340A503C22A26E2200170E51 /* AppCoordinator+Providers.swift in Sources */,
+				C740BC1A241A9F16002D7C64 /* MainWindowController.swift in Sources */,
+				C740BC06241A884C002D7C64 /* Keywords+CoreDataClass.swift in Sources */,
 				347B50D322D4052C00B3C040 /* PreferencesService.swift in Sources */,
+				C740BBD0241A8597002D7C64 /* Api+CoreDataClass.swift in Sources */,
 				34186CF42297CE19009B4121 /* InstanceService.swift in Sources */,
+				C740BBD8241A8597002D7C64 /* Instance+CoreDataClass.swift in Sources */,
+				C740BC08241A884C002D7C64 /* Local+CoreDataClass.swift in Sources */,
 				342B9CE622902BB500C006D7 /* DurationTransformer.swift in Sources */,
-				C7FA7A9123633895006501E8 /* Profile+CoreDataProperties.swift in Sources */,
+				C740BC09241A884C002D7C64 /* Local+CoreDataProperties.swift in Sources */,
+				C740BBE7241A8597002D7C64 /* Profile+CoreDataProperties.swift in Sources */,
 				C7F326E8241A484A00B9CBB5 /* NEVPNStatus+Representation.swift in Sources */,
+				C740BBD9241A8597002D7C64 /* Instance+CoreDataProperties.swift in Sources */,
 				34186CF52297CE19009B4121 /* Moya+Promise.swift in Sources */,
+				C740BC05241A884C002D7C64 /* Custom+CoreDataProperties.swift in Sources */,
 				C7FA7A7923633895006501E8 /* ProfilesRepository.swift in Sources */,
 				C7D8E1D623742A4E009536C9 /* CancellablePromise.swift in Sources */,
 				340A504422A2702D00170E51 /* AppCoordinator+TunnelProviderManager.swift in Sources */,
 				3434529F22A137B700C0476E /* DeselectingTableView.swift in Sources */,
+				C740BC0F241A884C002D7C64 /* Provider+CoreDataProperties.swift in Sources */,
+				C740BBD6241A8597002D7C64 /* DisplayName+CoreDataClass.swift in Sources */,
 				34186CE02296B7BC009B4121 /* UserDefaults+EduVPN.swift in Sources */,
 				340A504F22A3BD9E00170E51 /* ProfilesViewController.swift in Sources */,
+				C740BBE0241A8597002D7C64 /* Logo+CoreDataClass.swift in Sources */,
 				34186CF22296E7C6009B4121 /* Moya+Extensions.swift in Sources */,
+				C740BC0B241A884C002D7C64 /* ManagedProvider+CoreDataProperties.swift in Sources */,
+				C740BC0A241A884C002D7C64 /* ManagedProvider+CoreDataClass.swift in Sources */,
 				34FD2AD922A946E4002AABB3 /* AppCoordinator+Connection.swift in Sources */,
-				C7FA7A8923633895006501E8 /* AuthServer+CoreDataClass.swift in Sources */,
 				343452A022A139C600C0476E /* AppCoordinator+Alert.swift in Sources */,
 				343452A622A13DDC00C0476E /* Coordinator.swift in Sources */,
-				C7FA7A8D23633895006501E8 /* InstanceGroup+CoreDataProperties.swift in Sources */,
-				C7FA7A8723633895006501E8 /* Logo+CoreDataClass.swift in Sources */,
+				C740BBDA241A8597002D7C64 /* InstanceGroup+CoreDataClass.swift in Sources */,
 				343452A822A13EDE00C0476E /* Log.swift in Sources */,
 				4AE81EE223A2F500002C793D /* ImageLoader.swift in Sources */,
 				34186CF72297CE19009B4121 /* CredentialStorePlugin.swift in Sources */,
@@ -1739,15 +1819,15 @@
 				340A505422A3BF8900170E51 /* EnterProviderURLViewController.swift in Sources */,
 				C7FA7A1523633694006501E8 /* InstanceModel.swift in Sources */,
 				C7FA7A1123633694006501E8 /* Config.swift in Sources */,
-				C7FA7A8F23633895006501E8 /* Instance+CoreDataProperties.swift in Sources */,
 				C7FA7A9F23633895006501E8 /* Instance.swift in Sources */,
 				34186CF62297CE19009B4121 /* ApiService.swift in Sources */,
 				C7FA7AA723633895006501E8 /* ProviderType.swift in Sources */,
 				342B9CE822902BB500C006D7 /* MainWindowController.swift in Sources */,
 				340A504122A26ECC00170E51 /* AppCoordinator+ViewControllers.swift in Sources */,
+				C740BBD7241A8597002D7C64 /* DisplayName+CoreDataProperties.swift in Sources */,
+				C740BBDB241A8597002D7C64 /* InstanceGroup+CoreDataProperties.swift in Sources */,
 				343452A422A13C8B00C0476E /* RootCoordinator.swift in Sources */,
 				3415C02123181191005B9E6C /* СonnectionsTableViewController.swift in Sources */,
-				C7FA7A8123633895006501E8 /* Api+CoreDataClass.swift in Sources */,
 				340A504A22A2745600170E51 /* Identifiable.swift in Sources */,
 				C7E21E18241296AD0052F4C5 /* OrganizationModel.swift in Sources */,
 				34186D06229802C0009B4121 /* FileHelper.swift in Sources */,
@@ -1771,78 +1851,94 @@
 				4ACA042C1F3116D5004B35AA /* Moya+Promise.swift in Sources */,
 				C7FA7A9A23633895006501E8 /* AuthServer.swift in Sources */,
 				4A983B771F397243004F82D5 /* AppCoordinator.swift in Sources */,
+				C740BC00241A8599002D7C64 /* Profile+CoreDataClass.swift in Sources */,
 				4A4F36531F31972C0032C96B /* ApiService.swift in Sources */,
+				C740BBF4241A8599002D7C64 /* InstanceGroup+CoreDataClass.swift in Sources */,
 				34345292229FF33100C0476E /* AppCoordinator+Profiles.swift in Sources */,
-				C7FA7A8E23633895006501E8 /* Instance+CoreDataProperties.swift in Sources */,
 				C7FA7A7A23633895006501E8 /* InstanceInfoModel.swift in Sources */,
 				4ACA042A1F311507004B35AA /* StaticService.swift in Sources */,
-				C7FA7A9223633895006501E8 /* Profile+CoreDataClass.swift in Sources */,
 				C7E21E17241296AD0052F4C5 /* OrganizationModel.swift in Sources */,
+				C740BBF9241A8599002D7C64 /* Local+CoreDataProperties.swift in Sources */,
+				C740BC03241A8599002D7C64 /* Provider+CoreDataProperties.swift in Sources */,
 				4A3E029C1F6C4B3D00D20292 /* Moya+Extensions.swift in Sources */,
 				34345271229FC66A00C0476E /* CoreDataFetchedResultsControllerDelegate.swift in Sources */,
-				C7FA7A8823633895006501E8 /* AuthServer+CoreDataClass.swift in Sources */,
 				4AF3DF081F4245A5003EC0BA /* ConnectionsTableViewController.swift in Sources */,
 				4AAA157B21C2EF530097A1B5 /* TunnelProviderManagerCoordinator.swift in Sources */,
+				C740BBF3241A8599002D7C64 /* Instance+CoreDataProperties.swift in Sources */,
+				C740BBF7241A8599002D7C64 /* Keywords+CoreDataProperties.swift in Sources */,
+				C740BBED241A8599002D7C64 /* AuthServer+CoreDataProperties.swift in Sources */,
 				C7FA7A1023633694006501E8 /* Config.swift in Sources */,
 				4AD0AD5F1F350822006E1337 /* Moya+ResponseHandling.swift in Sources */,
 				3434528F229FF33100C0476E /* AppCoordinator+Providers.swift in Sources */,
 				4A7E098F2391AF90002C719D /* ActivityViewController.swift in Sources */,
 				4A2803D91FA6867D00FA895C /* CustomProviderInputViewController.swift in Sources */,
 				C7FA7A7823633895006501E8 /* ProfilesRepository.swift in Sources */,
+				C740BBF5241A8599002D7C64 /* InstanceGroup+CoreDataProperties.swift in Sources */,
 				3434528D229FF33100C0476E /* AppCoordinator+Connections.swift in Sources */,
 				34345297229FF71800C0476E /* AppCoordinator+Repositories.swift in Sources */,
 				4A8D241F1F3976A2004A9343 /* ProfilesViewController.swift in Sources */,
 				C7F326E7241A484A00B9CBB5 /* NEVPNStatus+Representation.swift in Sources */,
 				4A983B791F397289004F82D5 /* Coordinator.swift in Sources */,
-				C7FA7A8623633895006501E8 /* Logo+CoreDataClass.swift in Sources */,
+				C740BBF6241A8599002D7C64 /* Keywords+CoreDataClass.swift in Sources */,
 				4A983B7B1F3972BE004F82D5 /* RootCoordinator.swift in Sources */,
-				C7FA7A9823633895006501E8 /* Logo+CoreDataProperties.swift in Sources */,
+				C740BBF1241A8599002D7C64 /* DisplayName+CoreDataProperties.swift in Sources */,
 				C7265C0423747A70004496B8 /* ServerConfiguration.swift in Sources */,
 				34186D08229802E1009B4121 /* FileHelper.swift in Sources */,
+				C740BBFC241A8599002D7C64 /* ManagedProvider+CoreDataClass.swift in Sources */,
 				3434528E229FF33100C0476E /* AppCoordinator+Connection.swift in Sources */,
-				C7FA7A8223633895006501E8 /* AuthServer+CoreDataProperties.swift in Sources */,
 				C7D8E1D523742A4E009536C9 /* CancellablePromise.swift in Sources */,
 				34345291229FF33100C0476E /* AppCoordinator+CustomInput.swift in Sources */,
 				34345293229FF33100C0476E /* AppCoordinator+TunnelProviderManager.swift in Sources */,
+				C740BC01241A8599002D7C64 /* Profile+CoreDataProperties.swift in Sources */,
 				34345290229FF33100C0476E /* AppCoordinator+Settings.swift in Sources */,
 				4A62C8B81FB03B47007D3FAA /* KeyboardWrapper.swift in Sources */,
+				C740BC17241A9B78002D7C64 /* OrganizationsRepository.swift in Sources */,
+				C740BBFA241A8599002D7C64 /* Logo+CoreDataClass.swift in Sources */,
 				C7FA7AB323633D61006501E8 /* FetchedResultsController.swift in Sources */,
 				C7FA7AA623633895006501E8 /* ProviderType.swift in Sources */,
 				4A2CC2221F4233E8004119B1 /* Identifiable.swift in Sources */,
 				C7FA7AA223633895006501E8 /* ProfileModel.swift in Sources */,
+				C740BBEF241A8599002D7C64 /* Custom+CoreDataProperties.swift in Sources */,
 				C7FA7A1423633694006501E8 /* InstanceModel.swift in Sources */,
 				4A1140841F78490C00D61100 /* VPNConnectionViewController.swift in Sources */,
-				C7FA7A7E23633895006501E8 /* Api+CoreDataProperties.swift in Sources */,
 				C7FA7ABF23633E68006501E8 /* EduVPN.xcdatamodeld in Sources */,
+				C7F326EC241A753700B9CBB5 /* Organization.swift in Sources */,
 				4AEAC32720F13D0C007B67AB /* Log.swift in Sources */,
 				C7FA7A9C23633895006501E8 /* Profile.swift in Sources */,
 				C7FA7A7623633895006501E8 /* InstancesRepository.swift in Sources */,
 				C7FA7AB123633D61006501E8 /* NSManagedObject+FetchHelpers.swift in Sources */,
+				C740BBEC241A8599002D7C64 /* AuthServer+CoreDataClass.swift in Sources */,
+				C740BBFD241A8599002D7C64 /* ManagedProvider+CoreDataProperties.swift in Sources */,
 				4AE81E1E23A2E73E002C793D /* ImageLoader.swift in Sources */,
-				C7FA7A8A23633895006501E8 /* DisplayName+CoreDataProperties.swift in Sources */,
 				4ACA042E1F311863004B35AA /* InstanceService.swift in Sources */,
-				C7FA7A9023633895006501E8 /* Profile+CoreDataProperties.swift in Sources */,
 				4AAC2EF02027927300F9D0D2 /* DisplayName+Convenience.swift in Sources */,
+				C740BBEB241A8599002D7C64 /* Api+CoreDataProperties.swift in Sources */,
 				4AAC2EF220279F0000F9D0D2 /* Logo+Convenience.swift in Sources */,
+				C740BBEA241A8599002D7C64 /* Api+CoreDataClass.swift in Sources */,
 				34345299229FF89800C0476E /* AppCoordinator+ViewControllers.swift in Sources */,
+				C740BBFE241A8599002D7C64 /* Organization+CoreDataClass.swift in Sources */,
 				C7FA7AA023633895006501E8 /* Api.swift in Sources */,
+				C740BBF8241A8599002D7C64 /* Local+CoreDataClass.swift in Sources */,
+				C740BBFB241A8599002D7C64 /* Logo+CoreDataProperties.swift in Sources */,
+				C740BC14241A8E89002D7C64 /* ServerModel.swift in Sources */,
 				4A4CA90F1F55F4300021FD5D /* UITableView+EduVPN.swift in Sources */,
-				C7FA7A9623633895006501E8 /* Instance+CoreDataClass.swift in Sources */,
 				4AD0AD5D1F35048E006E1337 /* ProvidersViewController.swift in Sources */,
+				C740BBEE241A8599002D7C64 /* Custom+CoreDataClass.swift in Sources */,
 				4AAC1F7A1F2D0E3400DD0252 /* AppDelegate.swift in Sources */,
-				C7FA7A8023633895006501E8 /* Api+CoreDataClass.swift in Sources */,
 				4AE728161F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift in Sources */,
 				C7FA7A0E23633694006501E8 /* CertificateModel.swift in Sources */,
-				C7FA7A9423633895006501E8 /* DisplayName+CoreDataClass.swift in Sources */,
-				C7FA7A8C23633895006501E8 /* InstanceGroup+CoreDataProperties.swift in Sources */,
-				C7FA7A8423633895006501E8 /* InstanceGroup+CoreDataClass.swift in Sources */,
+				C740BBF0241A8599002D7C64 /* DisplayName+CoreDataClass.swift in Sources */,
 				C7FA7A7C23633895006501E8 /* Message.swift in Sources */,
+				C740BBF2241A8599002D7C64 /* Instance+CoreDataClass.swift in Sources */,
 				C7FA7AB523633D61006501E8 /* NSManagedObjectContext+SaveHelpers.swift in Sources */,
 				4A97D78620CC4F4D00472216 /* AppCoordinator+Alert.swift in Sources */,
+				C740BC11241A8A82002D7C64 /* InstanceGroup.swift in Sources */,
+				C740BBFF241A8599002D7C64 /* Organization+CoreDataProperties.swift in Sources */,
 				C7FA7A9E23633895006501E8 /* Instance.swift in Sources */,
 				4A11632A2370539F00577755 /* Crypto.swift in Sources */,
 				4AD0AD5A1F34F887006E1337 /* CredentialStorePlugin.swift in Sources */,
 				4AF3DF061F424535003EC0BA /* SettingsTableViewController.swift in Sources */,
+				C740BC02241A8599002D7C64 /* Provider+CoreDataClass.swift in Sources */,
 				34345285229FF2F000C0476E /* AppCoordinatorError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

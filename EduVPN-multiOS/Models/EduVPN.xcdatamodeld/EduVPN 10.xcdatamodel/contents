@@ -13,7 +13,7 @@
         <relationship name="apis" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Api" inverseName="authServer" inverseEntity="Api"/>
         <relationship name="instances" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Instance" inverseName="authServer" inverseEntity="Instance"/>
     </entity>
-    <entity name="Custom" representedClassName="Custom" parentEntity="ManagedProvider" syncable="YES" codeGenerationType="class"/>
+    <entity name="Custom" representedClassName="Custom" parentEntity="ManagedProvider" syncable="YES"/>
     <entity name="DisplayName" representedClassName="DisplayName" syncable="YES">
         <attribute name="displayName" attributeType="String"/>
         <attribute name="locale" optional="YES" attributeType="String"/>
@@ -44,12 +44,12 @@
         <relationship name="distributedAuthorizationApi" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Api" inverseName="authorizingForGroup" inverseEntity="Api"/>
         <relationship name="instances" toMany="YES" deletionRule="Cascade" destinationEntity="Instance" inverseName="group" inverseEntity="Instance"/>
     </entity>
-    <entity name="Keywords" representedClassName="Keywords" syncable="YES" codeGenerationType="class">
+    <entity name="Keywords" representedClassName="Keywords" syncable="YES">
         <attribute name="keywords" attributeType="String"/>
         <attribute name="locale" optional="YES" attributeType="String"/>
         <relationship name="organization" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Organization" inverseName="keywords" inverseEntity="Organization"/>
     </entity>
-    <entity name="Local" representedClassName="Local" parentEntity="Provider" syncable="YES" codeGenerationType="class">
+    <entity name="Local" representedClassName="Local" parentEntity="Provider" syncable="YES">
         <attribute name="fileUri" attributeType="URI"/>
     </entity>
     <entity name="Logo" representedClassName="Logo" syncable="YES">
@@ -57,11 +57,12 @@
         <attribute name="logo" attributeType="String"/>
         <relationship name="instance" maxCount="1" deletionRule="Nullify" destinationEntity="Instance" inverseName="logos" inverseEntity="Instance"/>
     </entity>
-    <entity name="ManagedProvider" representedClassName="ManagedProvider" isAbstract="YES" parentEntity="Provider" syncable="YES" codeGenerationType="class">
-        <attribute name="serverInfoUri" optional="YES" attributeType="URI"/>
+    <entity name="ManagedProvider" representedClassName="ManagedProvider" isAbstract="YES" parentEntity="Provider" syncable="YES">
+        <attribute name="infoUri" optional="YES" attributeType="URI"/>
         <relationship name="servers" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Instance" inverseName="provider" inverseEntity="Instance"/>
     </entity>
-    <entity name="Organization" representedClassName="Organization" parentEntity="ManagedProvider" syncable="YES" codeGenerationType="class">
+    <entity name="Organization" representedClassName="Organization" parentEntity="ManagedProvider" syncable="YES">
+        <attribute name="groupUri" attributeType="String"/>
         <relationship name="displayNames" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="DisplayName" inverseName="organization" inverseEntity="DisplayName"/>
         <relationship name="keywords" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Keywords" inverseName="organization" inverseEntity="Keywords"/>
     </entity>
@@ -72,7 +73,7 @@
         <relationship name="api" maxCount="1" deletionRule="Nullify" destinationEntity="Api" inverseName="profiles" inverseEntity="Api"/>
         <relationship name="displayNames" toMany="YES" deletionRule="Nullify" destinationEntity="DisplayName" inverseName="profile" inverseEntity="DisplayName"/>
     </entity>
-    <entity name="Provider" representedClassName="Provider" syncable="YES" codeGenerationType="class"/>
+    <entity name="Provider" representedClassName="Provider" syncable="YES"/>
     <elements>
         <element name="Api" positionX="-206.01171875" positionY="-64.86328125" width="128" height="118"/>
         <element name="AuthServer" positionX="-457.40625" positionY="-130.03125" width="128" height="105"/>
@@ -84,7 +85,7 @@
         <element name="Local" positionX="-651.28125" positionY="-104.5703125" width="128" height="58"/>
         <element name="Logo" positionX="-834.64453125" positionY="274.84765625" width="128" height="88"/>
         <element name="ManagedProvider" positionX="-870.109375" positionY="-196.58984375" width="128" height="73"/>
-        <element name="Organization" positionX="-997.2578125" positionY="-49.19140625" width="128" height="73"/>
+        <element name="Organization" positionX="-997.2578125" positionY="-49.19140625" width="128" height="88"/>
         <element name="Profile" positionX="-387.53515625" positionY="260.59765625" width="128" height="120"/>
         <element name="Provider" positionX="-716.4765625" positionY="-268.8046875" width="128" height="43"/>
     </elements>

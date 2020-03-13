@@ -16,6 +16,7 @@ extension DisplayName {
     @NSManaged public var displayName: String?
     @NSManaged public var locale: String?
     @NSManaged public var instance: Instance?
+    @NSManaged public var organization: Organization?
     @NSManaged public var profile: Profile?
 
 }

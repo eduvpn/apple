@@ -57,7 +57,7 @@ extension AppCoordinator {
     func refresh(instance: Instance) -> Promise<Void> {
         showActivityIndicator(messageKey: "Fetching instance configuration")
         
-        return InstancesRepository.shared.refresher.refresh(instance: instance)
+        return instancesRepository.refresher.refresh(instance: instance)
             .then { api -> Promise<Void> in
                 let api = self.persistentContainer.viewContext.object(with: api.objectID) as! Api //swiftlint:disable:this force_cast
                 guard let authorizingDynamicApiProvider = DynamicApiProvider(api: api) else {

@@ -13,10 +13,10 @@ extension AuthServer {
         return NSFetchRequest<AuthServer>(entityName: "AuthServer")
     }
 
-    @NSManaged public var tokenEndpoint: String?
     @NSManaged public var authorizationEndpoint: String?
-    @NSManaged public var apis: NSSet?
-    @NSManaged public var instances: NSSet?
+    @NSManaged public var tokenEndpoint: String?
+    @NSManaged public var apis: Set<Api>?
+    @NSManaged public var instances: Set<Instance>?
 
 }
 

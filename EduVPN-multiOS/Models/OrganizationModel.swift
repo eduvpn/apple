@@ -17,63 +17,37 @@ extension OrganizationsModel {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: OrganizationsModelKeys.self)
-        
-//        let providerType = try container.decodeIfPresent(ProviderType.self, forKey: .providerType) ?? .unknown
-//
-//        let authorizationEndpoint = try container.decodeIfPresent(URL.self, forKey: .authorizationEndpoint)
-//        let tokenEndpoint = try container.decodeIfPresent(URL.self, forKey: .tokenEndpoint)
-//
-//        let authorizationType = try container.decode(AuthorizationType.self, forKey: .authorizationType)
-//        let seq = try container.decode(Int.self, forKey: .seq)
-//        var signedAt: Date?
-//        if let signedAtString = try container.decodeIfPresent(String.self, forKey: .signedAt) {
-//            signedAt = signedAtDateFormatter.date(from: signedAtString)
-//        }
-        
         let organizations = try container.decode([OrganizationModel].self, forKey: .organizations)
-//        // Temporarily apply fields, which are required by macOS logic
-//        organizations = organizations.map {
-//            var model = $0
-//            model.authorizationType = authorizationType
-//            model.authorizationEndpoint = authorizationEndpoint
-//            model.tokenEndpoint = tokenEndpoint
-//
-//            return model
-//        }
-//
+
         self.init(organizations: organizations)
-                
     }
 }
 
 struct OrganizationModel: Decodable {
     
-    var providerType: ProviderType
-    var baseUri: URL
+    let providerType: ProviderType = .organization
+    var infoUri: URL
+    
     var displayNames: [String: String]?
-    
     var displayName: String?
-    var logoUrl: URL?
-    
-//    var authorizationType: AuthorizationType!
-//    var authorizationEndpoint: URL?
-//    var tokenEndpoint: URL?
+      
+    var keywordLists: [String: String]?
+    var keywordList: String?
+
 }
 
 extension OrganizationModel {
     
     enum OrganizationModelKeys: String, CodingKey {
-//        case providerType = "provider_type"
-        case baseUri = "server_info_url"
+        case infoUri = "server_info_url"
         case displayName = "display_name"
-        case logo = "logo"
+        case keywordList = "keyword_list"
     }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: OrganizationModelKeys.self)
         
-        let baseUri = try container.decode(URL.self, forKey: .baseUri)
-//        let providerType = try container.decodeIfPresent(ProviderType.self, forKey: .providerType) ?? .unknown
+        let infoUri = try container.decode(URL.self, forKey: .infoUri)
         
         var displayName: String?
         let displayNames = try? container.decode(Dictionary<String, String>.self, forKey: .displayName)
@@ -90,9 +64,25 @@ extension OrganizationModel {
             displayName = try container.decodeIfPresent(String.self, forKey: .displayName)
         }
         
-        self.init(providerType: .unknown,
-                  baseUri: baseUri,
+        var keywordList: String?
+        let keywordLists = try? container.decode(Dictionary<String, String>.self, forKey: .keywordList)
+        
+        if let keywordLists = keywordLists {
+            let preferedLocalization = Bundle.preferredLocalizations(from: Array(keywordLists.keys))
+            for localeIdentifier in preferedLocalization {
+                if let keywordListCandidate = keywordLists[localeIdentifier] {
+                    keywordList = keywordListCandidate
+                    break
+                }
+            }
+        } else {
+            keywordList = try? container.decodeIfPresent(String.self, forKey: .keywordList)
+        }
+
+        self.init(infoUri: infoUri,
                   displayNames: displayNames,
-                  displayName: displayName)
+                  displayName: displayName,
+                  keywordLists: keywordLists,
+                  keywordList: keywordList)
     }
 }

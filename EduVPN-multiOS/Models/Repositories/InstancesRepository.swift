@@ -11,8 +11,6 @@ import PromiseKit
 import CryptoKit
 
 struct InstancesRepository {
-    
-    static let shared = InstancesRepository()
     let loader = InstancesLoader()
     let refresher = InstanceRefresher()
 }
@@ -76,11 +74,9 @@ class InstancesLoader {
         let instanceGroupIdentifier = "\(target.baseURL.absoluteString)/\(target.path)"
         
         provider
-            // TODO: Reenable signature check when available
-            // .request(target: sigTarget)
-            // .then(validateSodiumSignature)
-            // .then { provider.request(target: target).then(self.verifyResponse(signature: $0)) }
-            .request(target: target)
+            .request(target: sigTarget)
+            .then(validateSodiumSignature)
+            .then { provider.request(target: target).then(self.verifyResponse(signature: $0)) }
             .then(decodeInstances)
             .then(setProviderTypeForInstances(providerType: providerType))
             .then(parseInstances(instanceGroupIdentifier: instanceGroupIdentifier, providerType: providerType))
@@ -217,6 +213,7 @@ class InstancesLoader {
             })
         }
     }
+    
 }
 
 // MARK: - InstanceRefresher
