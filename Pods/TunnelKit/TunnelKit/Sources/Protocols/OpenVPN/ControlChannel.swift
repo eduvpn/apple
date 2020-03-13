@@ -3,7 +3,7 @@
 //  TunnelKit
 //
 //  Created by Davide De Rosa on 9/9/18.
-//  Copyright (c) 2019 Davide De Rosa. All rights reserved.
+//  Copyright (c) 2020 Davide De Rosa. All rights reserved.
 //
 //  https://github.com/passepartoutvpn
 //
@@ -199,10 +199,8 @@ extension OpenVPN {
             }
             
             // drop queued out packets if ack-ed
-            for (i, packet) in queue.outbound.enumerated() {
-                if packetIds.contains(packet.packetId) {
-                    queue.outbound.remove(at: i)
-                }
+            queue.outbound.removeAll {
+                return packetIds.contains($0.packetId)
             }
             
             // remove ack-ed packets from pending
