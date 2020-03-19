@@ -16,14 +16,14 @@ PODS:
   - PromiseKit/CorePromise (6.13.1)
   - Result (4.1.0)
   - SwiftyBeaver (1.8.4)
-  - TunnelKit (2.2.1):
-    - TunnelKit/Protocols/OpenVPN (= 2.2.1)
-  - TunnelKit/AppExtension (2.2.1):
+  - TunnelKit (2.2.2):
+    - TunnelKit/Protocols/OpenVPN (= 2.2.2)
+  - TunnelKit/AppExtension (2.2.2):
     - SwiftyBeaver
     - TunnelKit/Core
-  - TunnelKit/Core (2.2.1):
+  - TunnelKit/Core (2.2.2):
     - SwiftyBeaver
-  - TunnelKit/Protocols/OpenVPN (2.2.1):
+  - TunnelKit/Protocols/OpenVPN (2.2.2):
     - OpenSSL-Apple (~> 1.1.1d.5a)
     - TunnelKit/AppExtension
     - TunnelKit/Core
@@ -59,7 +59,7 @@ CHECKOUT OPTIONS:
     :commit: 7e0b5c100d69caac34372efdad34b22b3464ddea
     :git: https://github.com/openid/AppAuth-iOS.git
   TunnelKit:
-    :commit: b72222f1e12fc6d217a33fc3aa8c2889525dfec8
+    :commit: d5ed3990d2c1a0604286584cc8ac22de396f1770
     :git: https://github.com/johankool/tunnelkit.git
 
 SPEC CHECKSUMS:
@@ -72,7 +72,7 @@ SPEC CHECKSUMS:
   PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   SwiftyBeaver: f9a9aba96a6a6166e21682377804d728b0d20b95
-  TunnelKit: 554b30f3a37387169d00be45d120fa8df6c8068e
+  TunnelKit: 1733ed87934deb57edc7aa5f4b25185bf302a7d4
 
 PODFILE CHECKSUM: 26275e4354f052ff680e32cd7da31ae501784138
 

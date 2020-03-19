@@ -194,7 +194,6 @@ class VPNConnectionViewController: NSViewController {
     private func scheduleConnectionInfoUpdates() {
         connectionInfoUpdateTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] (_) in
             self?.updateConnectionInfo()
-            try? self?.updateLog()
         })
     }
     
@@ -294,9 +293,18 @@ class VPNConnectionViewController: NSViewController {
     }
     
     @IBAction func viewLog(_ sender: Any) {
-        if let connectionLogPath = try? connectionLogPath() {
-            os_log("Log file: %{public}@", log: Log.general, type: .info, "\(connectionLogPath)")
-            NSWorkspace.shared.open(connectionLogPath)
+        do {
+            try FileManager.default.createDirectory(at: connectionLogPathDir(), withIntermediateDirectories: true)
+            _ = try FileManager.default.createFile(atPath: connectionLogPath().path, contents: nil)
+            if let connectionLogPath = try? connectionLogPath() {
+                os_log("Log file: %{public}@", log: Log.general, type: .info, "\(connectionLogPath)")
+                providerManagerCoordinator.loadLog { [weak self] in
+                    self?.saveLog($0)
+                    NSWorkspace.shared.open(connectionLogPath)
+                }
+            }
+        } catch {
+            os_log("Couldn't view log error: %{public}@", log: Log.general, type: .error, "\(error)")
         }
     }
     
