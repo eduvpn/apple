@@ -475,7 +475,7 @@ public class OpenVPNSession: Session {
                 guard let _ = keys[key] else {
                     log.warning("Key with id \(key) not found")
 //                    deferStop(.shutdown, OpenVPNError.badKey)
-                    return
+                    continue // JK: This used to be return, but we'd see connections that would stay in Connecting… state forever
                 }
 
                 // XXX: improve with array reference
