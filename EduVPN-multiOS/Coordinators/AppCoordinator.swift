@@ -29,6 +29,7 @@ class AppCoordinator: RootViewCoordinator {
     
     let config: Config
     let instancesRepository: InstancesRepository
+    let organizationsRepository: OrganizationsRepository
     
     lazy var tunnelProviderManagerCoordinator: TunnelProviderManagerCoordinator = {
         let tpmCoordinator = TunnelProviderManagerCoordinator()
@@ -106,9 +107,10 @@ class AppCoordinator: RootViewCoordinator {
     
     #elseif os(macOS)
     
-    public init(config: Config = Config.shared, instancesRepository: InstancesRepository = InstancesRepository()) {
+    public init(config: Config = Config.shared, instancesRepository: InstancesRepository = InstancesRepository(), organizationsRepository: OrganizationsRepository = OrganizationsRepository()) {
         self.config = config
         self.instancesRepository = instancesRepository
+        self.organizationsRepository = organizationsRepository
         
         windowController.window?.makeKeyAndOrderFront(nil)
         providersViewController = windowController.contentViewController?.children.first as? ProvidersViewController
@@ -124,6 +126,8 @@ class AppCoordinator: RootViewCoordinator {
     private func providePersistentContainer() {
         instancesRepository.loader.persistentContainer = persistentContainer
         instancesRepository.refresher.persistentContainer = persistentContainer
+        organizationsRepository.loader.persistentContainer = persistentContainer
+        organizationsRepository.refresher.persistentContainer = persistentContainer
         ProfilesRepository.shared.refresher.persistentContainer = persistentContainer
     }
     
@@ -382,7 +386,7 @@ class AppCoordinator: RootViewCoordinator {
         } else {
             if UserDefaults.standard.useNewDiscoveryMethod {
                 os_log("Using new discovery method", log: Log.general, type: .info)
-                showProvidersViewController(for: .organization, animated: animated)
+                showOrganizationsViewController(animated: animated)
             } else {
                 os_log("Using old discovery method", log: Log.general, type: .info)
                 showProfilesViewController(animated: animated)

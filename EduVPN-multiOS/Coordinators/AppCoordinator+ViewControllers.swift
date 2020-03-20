@@ -138,31 +138,31 @@ extension AppCoordinator {
     }
     
     internal func showOrganizationsViewController(animated: Bool) {
-           #if os(iOS)
-           let providersVc = storyboard.instantiateViewController(type: ProvidersViewController.self)
-           #elseif os(macOS)
-           // Do separate instantiation with identifier
-           // Because macOS reuses VC class, but uses two different layouts
-           guard let providersVc = storyboard.instantiateController(withIdentifier: "ChooseProvider") as? ProvidersViewController else {
-               return
-           }
-           #endif
-           
-           providersVc.providerType = providerType
-           providersVc.viewContext = persistentContainer.viewContext
-           providersVc.delegate = self
-           providersVc.selectingConfig = true
-           providersVc.providerType = providerType
-
-           pushViewController(providersVc, animated: animated)
-           
-           // Required for startup safety purpose
-           #if os(macOS)
-           providersVc.start()
-           #endif
-           
-           instancesRepository.loader.load(with: providerType)
-       }
+        #if os(iOS)
+        let providersVc = storyboard.instantiateViewController(type: ProvidersViewController.self)
+        #elseif os(macOS)
+        // Do separate instantiation with identifier
+        // Because macOS reuses VC class, but uses two different layouts
+        guard let organizationsViewController = storyboard.instantiateController(withIdentifier: "ChooseOrganization") as? OrganizationsViewController else {
+            return
+        }
+        #endif
+        
+        //organizationsViewController.providerType = providerType
+        organizationsViewController.viewContext = persistentContainer.viewContext
+        organizationsViewController.delegate = self
+//        organizationsViewController.selectingConfig = true
+     //   organizationsViewController.providerType = providerType
+        
+        pushViewController(organizationsViewController, animated: animated)
+        
+        // Required for startup safety purpose
+        #if os(macOS)
+        organizationsViewController.start()
+        #endif
+        
+        organizationsRepository.loader.load()
+    }
     
     internal func showConnectionViewController(for profile: Profile) -> Promise<Void> {
         let connectionVc = storyboard.instantiateViewController(type: VPNConnectionViewController.self)

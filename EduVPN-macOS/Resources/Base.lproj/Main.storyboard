@@ -342,7 +342,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Let_s_Connect_" customModuleProvider="target">
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="eduVPN" customModuleProvider="target">
                     <connections>
                         <outlet property="statusMenu" destination="hv3-NX-lTu" id="LZM-aM-niF"/>
                     </connections>
@@ -390,7 +390,7 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController storyboardIdentifier="MainWindowController" showSeguePresentationStyle="single" id="B8D-0N-5wS" customClass="MainWindowController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
+                <windowController storyboardIdentifier="MainWindowController" showSeguePresentationStyle="single" id="B8D-0N-5wS" customClass="MainWindowController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="eduVPN" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="Main" animationBehavior="default" tabbingMode="disallowed" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
@@ -422,7 +422,7 @@
         <!--Main View Controller-->
         <scene sceneID="pls-UA-ly7">
             <objects>
-                <viewController storyboardIdentifier="MainViewController" id="khn-a8-CTC" customClass="MainViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainViewController" id="khn-a8-CTC" customClass="MainViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="8OX-OJ-cMR">
                         <rect key="frame" x="0.0" y="0.0" width="440" height="575"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -695,7 +695,7 @@ DQ
         <!--Providers View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController storyboardIdentifier="ChooseProvider" id="XfG-lQ-9wD" customClass="ProvidersViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChooseProvider" id="XfG-lQ-9wD" customClass="ProvidersViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="379" height="575"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -888,7 +888,7 @@ CA
         <!--Connection View Controller-->
         <scene sceneID="rmV-Wn-uOa">
             <objects>
-                <viewController identifier="VPNConnectionViewController" storyboardIdentifier="VPNConnectionViewController" id="f5D-Eq-JOa" customClass="VPNConnectionViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController identifier="VPNConnectionViewController" storyboardIdentifier="VPNConnectionViewController" id="f5D-Eq-JOa" customClass="VPNConnectionViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="2mZ-VK-Lri">
                         <rect key="frame" x="0.0" y="0.0" width="500" height="502"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1330,7 +1330,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
         <!--Profiles View Controller-->
         <scene sceneID="R5C-VG-0tb">
             <objects>
-                <viewController storyboardIdentifier="ProfilesViewController" id="Lns-jv-Aqp" customClass="ProfilesViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfilesViewController" id="Lns-jv-Aqp" customClass="ProfilesViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="NKN-qH-oxC">
                         <rect key="frame" x="0.0" y="0.0" width="511" height="696"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1463,7 +1463,7 @@ from outside the institution.</string>
         <!--Connections Table View Controller-->
         <scene sceneID="q3V-V1-a5D">
             <objects>
-                <viewController identifier="ConnectionsTableViewController" storyboardIdentifier="ConnectionsTableViewController" id="xQP-Pr-Baz" customClass="ConnectionsTableViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController identifier="ConnectionsTableViewController" storyboardIdentifier="ConnectionsTableViewController" id="xQP-Pr-Baz" customClass="ConnectionsTableViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="4nJ-ev-Mfz">
                         <rect key="frame" x="0.0" y="0.0" width="378" height="575"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1474,7 +1474,7 @@ from outside the institution.</string>
                                     <rect key="frame" x="0.0" y="0.0" width="378" height="515"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="44" viewBased="YES" id="Xgt-x3-Ooi" customClass="DeselectingTableView" customModule="Let_s_Connect_" customModuleProvider="target">
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="44" viewBased="YES" id="Xgt-x3-Ooi" customClass="DeselectingTableView" customModule="eduVPN" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="378" height="515"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
@@ -1582,7 +1582,7 @@ CA
         <!--Providers View Controller-->
         <scene sceneID="4WM-oH-o6s">
             <objects>
-                <viewController storyboardIdentifier="Providers" id="d3v-OK-Unm" customClass="ProvidersViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Providers" id="d3v-OK-Unm" customClass="ProvidersViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="mHf-nK-qZy">
                         <rect key="frame" x="0.0" y="0.0" width="378" height="575"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1593,7 +1593,7 @@ CA
                                     <rect key="frame" x="0.0" y="0.0" width="378" height="438"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="44" viewBased="YES" id="GYp-9D-CGo" customClass="DeselectingTableView" customModule="Let_s_Connect_" customModuleProvider="target">
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="44" viewBased="YES" id="GYp-9D-CGo" customClass="DeselectingTableView" customModule="eduVPN" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="378" height="438"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
@@ -1806,7 +1806,7 @@ CA
         <!--Enter Provider URL View Controller-->
         <scene sceneID="D1l-yj-M3U">
             <objects>
-                <viewController storyboardIdentifier="EnterProviderURL" id="JTX-Fe-25d" customClass="EnterProviderURLViewController" customModule="Let_s_Connect_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EnterProviderURL" id="JTX-Fe-25d" customClass="EnterProviderURLViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="C5T-y0-cXd">
                         <rect key="frame" x="0.0" y="0.0" width="420" height="114"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1884,6 +1884,142 @@ Gw
             </objects>
             <point key="canvasLocation" x="34" y="1693.5"/>
         </scene>
+        <!--Organizations View Controller-->
+        <scene sceneID="CsM-oW-oRY">
+            <objects>
+                <viewController storyboardIdentifier="ChooseOrganization" id="HKx-s4-Lgr" customClass="OrganizationsViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" wantsLayer="YES" id="gW3-wC-f7Y">
+                        <rect key="frame" x="0.0" y="0.0" width="379" height="550"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="46" horizontalPageScroll="10" verticalLineScroll="46" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k08-zH-kGe">
+                                <rect key="frame" x="0.0" y="0.0" width="379" height="452"/>
+                                <clipView key="contentView" drawsBackground="NO" id="PJ2-OW-bts">
+                                    <rect key="frame" x="0.0" y="0.0" width="379" height="452"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="44" viewBased="YES" id="1hr-hc-zBU">
+                                            <rect key="frame" x="0.0" y="0.0" width="379" height="452"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <size key="intercellSpacing" width="3" height="2"/>
+                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
+                                            <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                            <tableColumns>
+                                                <tableColumn width="376" minWidth="40" maxWidth="1000" id="wvI-Ey-mYs">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+                                                        <font key="font" metaFont="message" size="11"/>
+                                                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                    </tableHeaderCell>
+                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="tfz-al-lsl">
+                                                        <font key="font" metaFont="system"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                    <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                    <prototypeCellViews>
+                                                        <tableCellView identifier="OrganizationCell" id="p3G-Tv-hv8">
+                                                            <rect key="frame" x="1" y="1" width="376" height="44"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aaT-gs-uO5">
+                                                                    <rect key="frame" x="20" y="11" width="340" height="21"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="mbN-vK-z9A">
+                                                                        <font key="font" metaFont="system" size="17"/>
+                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                </textField>
+                                                            </subviews>
+                                                            <connections>
+                                                                <outlet property="textField" destination="aaT-gs-uO5" id="dkW-JS-mfl"/>
+                                                            </connections>
+                                                        </tableCellView>
+                                                    </prototypeCellViews>
+                                                </tableColumn>
+                                            </tableColumns>
+                                            <connections>
+                                                <action trigger="doubleAction" selector="connectProviderUsingDoubleClick:" target="HKx-s4-Lgr" id="tVR-R7-AhA"/>
+                                                <outlet property="dataSource" destination="HKx-s4-Lgr" id="C0O-FC-lqU"/>
+                                                <outlet property="delegate" destination="HKx-s4-Lgr" id="zwX-EU-I0d"/>
+                                            </connections>
+                                        </tableView>
+                                    </subviews>
+                                    <nil key="backgroundColor"/>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="GVF-nl-L3I">
+                                    <rect key="frame" x="0.0" y="-16" width="0.0" height="16"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="enc-1d-TFj">
+                                    <rect key="frame" x="224" y="17" width="15" height="102"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Rst-je-CDW">
+                                <rect key="frame" x="19" y="503" width="39" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="37" id="GOF-JK-lUL"/>
+                                    <constraint firstAttribute="height" constant="37" id="cZI-jx-Igg"/>
+                                </constraints>
+                                <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="NSGoLeftTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="XFA-Wa-KU5">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="goBack:" target="HKx-s4-Lgr" id="LYe-NT-XwZ"/>
+                                </connections>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oLs-rw-brf">
+                                <rect key="frame" x="84" y="514" width="212" height="20"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Choose your Organization" id="kfj-bd-iLS">
+                                    <font key="font" metaFont="systemSemibold" size="17"/>
+                                    <color key="textColor" name="Primary Color"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <searchField wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J6O-gy-Zfw">
+                                <rect key="frame" x="20" y="472" width="339" height="22"/>
+                                <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="7nT-i8-MDc">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </searchFieldCell>
+                                <connections>
+                                    <action selector="search:" target="HKx-s4-Lgr" id="m1t-yp-ZKX"/>
+                                </connections>
+                            </searchField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="J6O-gy-Zfw" firstAttribute="top" secondItem="oLs-rw-brf" secondAttribute="bottom" constant="20" id="4az-MV-zQb"/>
+                            <constraint firstItem="oLs-rw-brf" firstAttribute="centerY" secondItem="Rst-je-CDW" secondAttribute="centerY" id="98P-57-Trj"/>
+                            <constraint firstAttribute="trailing" secondItem="J6O-gy-Zfw" secondAttribute="trailing" constant="20" id="Bgk-f0-mbF"/>
+                            <constraint firstItem="Rst-je-CDW" firstAttribute="top" secondItem="gW3-wC-f7Y" secondAttribute="top" constant="8" id="Ggu-bk-PsP"/>
+                            <constraint firstAttribute="trailing" secondItem="k08-zH-kGe" secondAttribute="trailing" id="Jqh-Tw-5a2"/>
+                            <constraint firstItem="k08-zH-kGe" firstAttribute="top" secondItem="J6O-gy-Zfw" secondAttribute="bottom" constant="20" id="Kh3-J8-P0K"/>
+                            <constraint firstItem="J6O-gy-Zfw" firstAttribute="leading" secondItem="gW3-wC-f7Y" secondAttribute="leading" constant="20" id="RDS-Do-XFl"/>
+                            <constraint firstAttribute="bottom" secondItem="k08-zH-kGe" secondAttribute="bottom" id="Vhh-zd-EYL"/>
+                            <constraint firstItem="oLs-rw-brf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Rst-je-CDW" secondAttribute="trailing" constant="8" id="WmL-rf-GEk"/>
+                            <constraint firstItem="oLs-rw-brf" firstAttribute="centerX" secondItem="gW3-wC-f7Y" secondAttribute="centerX" id="Wqr-gH-YNI"/>
+                            <constraint firstItem="Rst-je-CDW" firstAttribute="leading" secondItem="gW3-wC-f7Y" secondAttribute="leading" constant="20" id="eYI-kA-TkG"/>
+                            <constraint firstItem="k08-zH-kGe" firstAttribute="leading" secondItem="gW3-wC-f7Y" secondAttribute="leading" id="fIa-gR-DeF"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backButton" destination="Rst-je-CDW" id="PE1-0U-R6u"/>
+                        <outlet property="searchField" destination="J6O-gy-Zfw" id="Qai-Js-lCv"/>
+                        <outlet property="tableView" destination="1hr-hc-zBU" id="olP-lc-qN7"/>
+                    </connections>
+                </viewController>
+                <customObject id="VY4-wZ-NXc" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="958.5" y="1074"/>
+        </scene>
     </scenes>
     <resources>
         <image name="AddProviderPlaceholder" width="1133" height="602"/>
@@ -1892,7 +2028,7 @@ Gw
         <image name="NSLeftFacingTriangleTemplate" width="9" height="12"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="NSStopProgressTemplate" width="11" height="11"/>
-        <image name="disconnected" width="44" height="55"/>
+        <image name="disconnected" width="44" height="37"/>
         <image name="secure_access" width="90" height="90"/>
         <image name="secure_internet" width="90" height="90"/>
         <namedColor name="Primary Color">

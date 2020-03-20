@@ -296,7 +296,7 @@ class VPNConnectionViewController: NSViewController {
         do {
             try FileManager.default.createDirectory(at: connectionLogPathDir(), withIntermediateDirectories: true)
             _ = try FileManager.default.createFile(atPath: connectionLogPath().path, contents: nil)
-            if let connectionLogPath = try? connectionLogPath() {
+            if let providerManagerCoordinator = delegate?.tunnelProviderManagerCoordinator, let connectionLogPath = try? connectionLogPath() {
                 os_log("Log file: %{public}@", log: Log.general, type: .info, "\(connectionLogPath)")
                 providerManagerCoordinator.loadLog { [weak self] in
                     self?.saveLog($0)

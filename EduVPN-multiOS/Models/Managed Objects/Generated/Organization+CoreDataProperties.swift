@@ -12,8 +12,10 @@ extension Organization {
         return NSFetchRequest<Organization>(entityName: "Organization")
     }
 
-    @NSManaged public var baseUri: String?
+    @NSManaged public var identifier: String?
+    @NSManaged public var displayName: String?
     @NSManaged public var displayNames: Set<DisplayName>?
+    @NSManaged public var keyword: String?
     @NSManaged public var keywords: Set<Keywords>?
 
 }

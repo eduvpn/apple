@@ -11,15 +11,17 @@ import CoreData
 
 extension Organization {
     
-    var displayName: String {
-        return displayNames?.localizedValue ?? baseUri ?? ""
+    override public func awakeFromFetch() {
+        super.awakeFromFetch()
+        displayName = displayNames?.localizedValue
+        keyword = keywords?.localizedValue
     }
     
     func update(with model: OrganizationModel) {
         guard let managedObjectContext = self.managedObjectContext else {
             return
         }
-        self.baseUri = model.infoUri.absoluteString
+        self.identifier = model.identifier
         self.displayNames?.forEach { managedObjectContext.delete($0) }
         
         if let displayNames = model.displayNames {
@@ -37,5 +39,27 @@ extension Organization {
         } else {
             self.displayNames = []
         }
+        
+        displayName = displayNames?.localizedValue
+        
+        self.keywords?.forEach { managedObjectContext.delete($0) }
+        
+        if let keywordList = model.keywordLists {
+            self.keywords = Set(keywordList.compactMap { (displayData) -> Keywords? in
+                let keywords = Keywords(context: managedObjectContext)
+                keywords.locale = displayData.key
+                keywords.keywords = displayData.value
+                keywords.organization = self
+                return keywords
+            })
+        } else if let keywordList = model.keywordList {
+            let keywords = Keywords(context: managedObjectContext)
+            keywords.keywords = keywordList
+            keywords.organization = self
+        } else {
+            self.keywords = []
+        }
+        
+        keyword = keywords?.localizedValue
     }
 }

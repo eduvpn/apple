@@ -18,17 +18,29 @@ struct StaticService: TargetType, AcceptJson {
     }
     
     init?(type: StaticService.StaticServiceType) {
-        guard let baseURL = Config.shared.discovery?.server else {
-            return nil
+        // Workaround different base URLs
+        switch type {
+        case .organizationList, .organizationListSignature:
+            guard let urlString: String = Config.shared.discovery?.path(forServiceType: type), let url = URL(string: urlString), let baseURL = URL(string: "/", relativeTo:url)?.absoluteURL else {
+                return nil
+            }
+            self.baseURL = baseURL
+            self.path = url.path
+            
+        default:
+            guard let baseURL = Config.shared.discovery?.server else {
+                return nil
+            }
+            
+            self.baseURL = baseURL
+            
+            guard let path: String = Config.shared.discovery?.path(forServiceType: type) else {
+                return nil
+            }
+            
+            self.path = path
         }
         
-        self.baseURL = baseURL
-        
-        guard let path: String = Config.shared.discovery?.path(forServiceType: type) else {
-            return nil
-        }
-        
-        self.path = path
     }
     
     var method: Moya.Method { return .get }

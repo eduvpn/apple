@@ -26,7 +26,7 @@ extension OrganizationsModel {
 struct OrganizationModel: Decodable {
     
     let providerType: ProviderType = .organization
-    var infoUri: URL
+    var identifier: String
     
     var displayNames: [String: String]?
     var displayName: String?
@@ -39,7 +39,7 @@ struct OrganizationModel: Decodable {
 extension OrganizationModel {
     
     enum OrganizationModelKeys: String, CodingKey {
-        case infoUri = "server_info_url"
+        case identifier = "org_id"
         case displayName = "display_name"
         case keywordList = "keyword_list"
     }
@@ -47,7 +47,7 @@ extension OrganizationModel {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: OrganizationModelKeys.self)
         
-        let infoUri = try container.decode(URL.self, forKey: .infoUri)
+        let identifier = try container.decode(String.self, forKey: .identifier)
         
         var displayName: String?
         let displayNames = try? container.decode(Dictionary<String, String>.self, forKey: .displayName)
@@ -79,7 +79,7 @@ extension OrganizationModel {
             keywordList = try? container.decodeIfPresent(String.self, forKey: .keywordList)
         }
 
-        self.init(infoUri: infoUri,
+        self.init(identifier: identifier,
                   displayNames: displayNames,
                   displayName: displayName,
                   keywordLists: keywordLists,

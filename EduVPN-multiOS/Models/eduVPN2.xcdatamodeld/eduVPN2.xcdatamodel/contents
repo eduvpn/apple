@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Organization" representedClassName="Organization" syncable="YES" codeGenerationType="class">
+        <attribute name="uri" attributeType="URI"/>
+        <relationship name="servers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Server" inverseName="organization" inverseEntity="Server"/>
+    </entity>
+    <entity name="Server" representedClassName="Server" syncable="YES" codeGenerationType="class">
+        <attribute name="accessToken" optional="YES" attributeType="String"/>
+        <relationship name="organization" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Organization" inverseName="servers" inverseEntity="Organization"/>
+    </entity>
+    <elements>
+        <element name="Organization" positionX="-20474.6484375" positionY="-3927.95703125" width="128" height="73"/>
+        <element name="Server" positionX="-20135.71875" positionY="-3849.75390625" width="128" height="73"/>
+    </elements>
+</model>

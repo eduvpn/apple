@@ -178,6 +178,11 @@
 		C740BC18241A9B78002D7C64 /* OrganizationsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740BC16241A9B78002D7C64 /* OrganizationsRepository.swift */; };
 		C740BC1A241A9F16002D7C64 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740BC19241A9F15002D7C64 /* MainWindowController.swift */; };
 		C7517542236340C900058D95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7517541236340C900058D95 /* Assets.xcassets */; };
+		C7814D892424C048009F258E /* OrganizationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7814D882424C047009F258E /* OrganizationsViewController.swift */; };
+		C7814D8B2424C17B009F258E /* AppCoordinator+Organizations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7814D8A2424C17B009F258E /* AppCoordinator+Organizations.swift */; };
+		C7814D8C2424C17B009F258E /* AppCoordinator+Organizations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7814D8A2424C17B009F258E /* AppCoordinator+Organizations.swift */; };
+		C7814D8E2424EA9A009F258E /* Keywords+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7814D8D2424EA9A009F258E /* Keywords+Convenience.swift */; };
+		C7814D8F2424EA9A009F258E /* Keywords+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7814D8D2424EA9A009F258E /* Keywords+Convenience.swift */; };
 		C7D485232372BC22006AC96C /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1163292370539E00577755 /* Crypto.swift */; };
 		C7D8E1D523742A4E009536C9 /* CancellablePromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */; };
 		C7D8E1D623742A4E009536C9 /* CancellablePromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */; };
@@ -328,7 +333,7 @@
 		349D85C422B706A4006E9540 /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
 		349D85C622B706A4006E9540 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		349D85C722B706A4006E9540 /* EduVPNTunnelExtension_macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EduVPNTunnelExtension_macOS.entitlements; sourceTree = "<group>"; };
-		34D719DE228D75550027DE84 /* Let’s Connect!.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Let’s Connect!.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		34D719DE228D75550027DE84 /* Let’s Connect!.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Let’s Connect!.app"; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34D719E0228D75550027DE84 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		34D719E7228D75560027DE84 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		34D719E9228D75560027DE84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -463,6 +468,9 @@
 		C75B2CC62363141200D700EC /* Developer.xcconfig.eduvpn-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer.xcconfig.eduvpn-template"; sourceTree = "<group>"; };
 		C75B2CC72363141200D700EC /* config-template.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-template.json"; sourceTree = "<group>"; };
 		C777831F24113FF700B3BBA1 /* EduVPN 10.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EduVPN 10.xcdatamodel"; sourceTree = "<group>"; };
+		C7814D882424C047009F258E /* OrganizationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationsViewController.swift; sourceTree = "<group>"; };
+		C7814D8A2424C17B009F258E /* AppCoordinator+Organizations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppCoordinator+Organizations.swift"; sourceTree = "<group>"; };
+		C7814D8D2424EA9A009F258E /* Keywords+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Keywords+Convenience.swift"; sourceTree = "<group>"; };
 		C78D202A2372DF34007067B1 /* Assets-Let’s Connect!.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets-Let’s Connect!.xcassets"; sourceTree = "<group>"; };
 		C7C69A5E236B328200F9B8B3 /* Developer-macOS.xcconfig.eduvpn-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer-macOS.xcconfig.eduvpn-template"; sourceTree = "<group>"; };
 		C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancellablePromise.swift; sourceTree = "<group>"; };
@@ -623,6 +631,7 @@
 			isa = PBXGroup;
 			children = (
 				4AAC2EEF2027927300F9D0D2 /* DisplayName+Convenience.swift */,
+				C7814D8D2424EA9A009F258E /* Keywords+Convenience.swift */,
 				4AAC2EF120279F0000F9D0D2 /* Logo+Convenience.swift */,
 				4AE728151F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift */,
 				C7F326E6241A484A00B9CBB5 /* NEVPNStatus+Representation.swift */,
@@ -686,6 +695,7 @@
 				34345287229FF33000C0476E /* AppCoordinator+Connection.swift */,
 				34345286229FF33000C0476E /* AppCoordinator+Connections.swift */,
 				3434528A229FF33000C0476E /* AppCoordinator+CustomInput.swift */,
+				C7814D8A2424C17B009F258E /* AppCoordinator+Organizations.swift */,
 				3434528B229FF33100C0476E /* AppCoordinator+Profiles.swift */,
 				34345288229FF33000C0476E /* AppCoordinator+Providers.swift */,
 				34345296229FF71800C0476E /* AppCoordinator+Repositories.swift */,
@@ -755,6 +765,7 @@
 				340A504E22A3BD9D00170E51 /* ProfilesViewController.swift */,
 				C740BC19241A9F15002D7C64 /* MainWindowController.swift */,
 				343452BF22A157E000C0476E /* ProvidersViewController.swift */,
+				C7814D882424C047009F258E /* OrganizationsViewController.swift */,
 				34FD2AD622A9352F002AABB3 /* VPNConnectionViewController.swift */,
 				3415C02023181191005B9E6C /* СonnectionsTableViewController.swift */,
 			);
@@ -1757,6 +1768,7 @@
 				C740BC12241A8A82002D7C64 /* InstanceGroup.swift in Sources */,
 				340A504222A26FDF00170E51 /* AppCoordinator+Connections.swift in Sources */,
 				C740BC15241A8E89002D7C64 /* ServerModel.swift in Sources */,
+				C7814D8F2424EA9A009F258E /* Keywords+Convenience.swift in Sources */,
 				34D719E1228D75550027DE84 /* AppDelegate.swift in Sources */,
 				C740BC07241A884C002D7C64 /* Keywords+CoreDataProperties.swift in Sources */,
 				C7FA7AC023633E68006501E8 /* EduVPN.xcdatamodeld in Sources */,
@@ -1779,6 +1791,8 @@
 				C7FA7AB623633D61006501E8 /* NSManagedObjectContext+SaveHelpers.swift in Sources */,
 				342B9CE722902BB500C006D7 /* MainViewController.swift in Sources */,
 				C740BBE1241A8597002D7C64 /* Logo+CoreDataProperties.swift in Sources */,
+				C7814D8C2424C17B009F258E /* AppCoordinator+Organizations.swift in Sources */,
+				C7814D892424C048009F258E /* OrganizationsViewController.swift in Sources */,
 				C740BBD2241A8597002D7C64 /* AuthServer+CoreDataClass.swift in Sources */,
 				C7FA7A9D23633895006501E8 /* Profile.swift in Sources */,
 				340A503C22A26E2200170E51 /* AppCoordinator+Providers.swift in Sources */,
@@ -1869,6 +1883,7 @@
 				C740BBED241A8599002D7C64 /* AuthServer+CoreDataProperties.swift in Sources */,
 				C7FA7A1023633694006501E8 /* Config.swift in Sources */,
 				4AD0AD5F1F350822006E1337 /* Moya+ResponseHandling.swift in Sources */,
+				C7814D8B2424C17B009F258E /* AppCoordinator+Organizations.swift in Sources */,
 				3434528F229FF33100C0476E /* AppCoordinator+Providers.swift in Sources */,
 				4A7E098F2391AF90002C719D /* ActivityViewController.swift in Sources */,
 				4A2803D91FA6867D00FA895C /* CustomProviderInputViewController.swift in Sources */,
@@ -1922,6 +1937,7 @@
 				C740BBFB241A8599002D7C64 /* Logo+CoreDataProperties.swift in Sources */,
 				C740BC14241A8E89002D7C64 /* ServerModel.swift in Sources */,
 				4A4CA90F1F55F4300021FD5D /* UITableView+EduVPN.swift in Sources */,
+				C7814D8E2424EA9A009F258E /* Keywords+Convenience.swift in Sources */,
 				4AD0AD5D1F35048E006E1337 /* ProvidersViewController.swift in Sources */,
 				C740BBEE241A8599002D7C64 /* Custom+CoreDataClass.swift in Sources */,
 				4AAC1F7A1F2D0E3400DD0252 /* AppDelegate.swift in Sources */,
