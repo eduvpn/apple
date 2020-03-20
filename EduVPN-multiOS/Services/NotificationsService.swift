@@ -8,8 +8,9 @@
 
 import Foundation
 import UserNotifications
+import os.log
 
-struct NotificationsService {
+class NotificationsService {
     
     struct Notification {
         
@@ -17,13 +18,13 @@ struct NotificationsService {
         let body: String?
     }
     
-    static func makeNotification(title: String, body: String?) -> Notification {
+    func makeNotification(title: String, body: String?) -> Notification {
         return Notification(title: title, body: body)
     }
     
     #if os(iOS)
     
-    static func sendNotification(_ notification: Notification,
+    func sendNotification(_ notification: Notification,
                                  withIdentifier identifier: String,
                                  at triggerDate: DateComponents,
                                  repeats: Bool = false,
@@ -41,7 +42,7 @@ struct NotificationsService {
     
     #elseif os(macOS)
     
-    static func sendNotification(_ notification: Notification,
+    func sendNotification(_ notification: Notification,
                                  withIdentifier identifier: String,
                                  at triggerDate: DateComponents,
                                  repeats: Bool = false,
@@ -71,7 +72,7 @@ struct NotificationsService {
     
     #endif
     
-    static func permissionGranted(callback: @escaping (Bool) -> Void) {
+    func permissionGranted(callback: @escaping (Bool) -> Void) {
         #if os(iOS)
         
         UNUserNotificationCenter.current().getNotificationSettings { settings in
@@ -89,5 +90,35 @@ struct NotificationsService {
         }
         
         #endif
+    }
+
+    func scheduleCertificateExpirationNotification(for certificate: CertificateModel, on api: Api) {
+        guard let expirationDate = certificate.x509Certificate?.notAfter else { return }
+        guard let identifier = certificate.uniqueIdentifier else { return }
+
+        let notificationTitle = NSLocalizedString("VPN certificate is expiring", comment: "")
+
+        var notificationBody: String?
+        if let certificateTitle = api.instance?.displayNames?.localizedValue {
+            notificationBody = String.localizedStringWithFormat("Once expired the certificate for instance %@ needs to be refreshed.", certificateTitle)
+        }
+
+        let notification = makeNotification(title: notificationTitle, body: notificationBody)
+
+#if DEBUG
+        guard let expirationWarningDate = NSCalendar.current.date(byAdding: .second, value: 10, to: Date()) else { return }
+#else
+        guard let expirationWarningDate = NSCalendar.current.date(byAdding: .minute, value: -15, to: expirationDate), expirationDate.timeIntervalSince(Date()) < 0 else { return }
+#endif
+        let expirationWarningDateComponents = NSCalendar.current.dateComponents(in: NSTimeZone.default, from: expirationWarningDate)
+
+        os_log("Scheduling a cert expiration reminder for %{public}@ on %{public}@.", log: Log.general, type: .info, certificate.uniqueIdentifier ?? "", expirationDate.description)
+        sendNotification(notification, withIdentifier: identifier, at: expirationWarningDateComponents) { error in
+            if let error = error {
+                os_log("Error occured when scheduling a cert expiration reminder %{public}@",
+                       log: Log.general,
+                       type: .info, error.localizedDescription)
+            }
+        }
     }
 }

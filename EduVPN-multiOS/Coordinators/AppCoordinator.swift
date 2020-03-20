@@ -37,6 +37,7 @@ class AppCoordinator: RootViewCoordinator {
     }()
     
     let persistentContainer = NSPersistentContainer(name: "EduVPN")
+    let notificationsService = NotificationsService()
     
     // MARK: - Properties
     
@@ -329,40 +330,10 @@ class AppCoordinator: RootViewCoordinator {
         }
     }
     
-    private func _scheduleCertificateExpirationNotification(for certificate: CertificateModel, on api: Api) {
-        guard let expirationDate = certificate.x509Certificate?.notAfter else { return }
-        guard let identifier = certificate.uniqueIdentifier else { return }
-        
-        let notificationTitle = NSLocalizedString("VPN certificate is expiring", comment: "")
-        
-        var notificationBody: String?
-        if let certificateTitle = api.instance?.displayNames?.localizedValue {
-            notificationBody = String.localizedStringWithFormat("Once expired the certificate for instance %@ needs to be refreshed.", certificateTitle)
-        }
-        
-        let notification = NotificationsService.makeNotification(title: notificationTitle, body: notificationBody)
-
-#if DEBUG
-        guard let expirationWarningDate = NSCalendar.current.date(byAdding: .second, value: 10, to: Date()) else { return }
-#else
-        guard let expirationWarningDate = NSCalendar.current.date(byAdding: .minute, value: -15, to: expirationDate), expirationDate.timeIntervalSince(Date()) < 0 else { return }
-#endif
-        let expirationWarningDateComponents = NSCalendar.current.dateComponents(in: NSTimeZone.default, from: expirationWarningDate)
-
-        os_log("Scheduling a cert expiration reminder for %{public}@ on %{public}@.", log: Log.general, type: .info, certificate.uniqueIdentifier ?? "", expirationDate.description)
-        NotificationsService.sendNotification(notification, withIdentifier: identifier, at: expirationWarningDateComponents) { error in
-            if let error = error {
-                os_log("Error occured when scheduling a cert expiration reminder %{public}@",
-                       log: Log.general,
-                       type: .info, error.localizedDescription)
-            }
-        }
-    }
-    
     fileprivate func scheduleCertificateExpirationNotification(for certificate: CertificateModel, on api: Api) {
-        NotificationsService.permissionGranted {
+        notificationsService.permissionGranted {
             if $0 {
-                self._scheduleCertificateExpirationNotification(for: certificate, on: api)
+                self.notificationsService.scheduleCertificateExpirationNotification(for: certificate, on: api)
             } else {
                 os_log("Not Authorised", log: Log.general, type: .info)
             }
