@@ -37,4 +37,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return appCoordinator.resumeAuthorizationFlow(url: url)
     }
 }
-
