@@ -3,6 +3,7 @@
 ## Unreleased
 
 - iOS/Mac: Fix for connection getting stuck in Connecting state #248
+- iOS/Mac: Add back notification indicating certificate expiration. #235
 - iOS: On removing the "home" instance, all instances authentating through this home insance will alse be removed. Cascade deletion of Api accross `authorizingForGroup` relation. #241
 - macOS/iOS: Remove certificate experiation notification.
 - iOS: Fix for #216: "when 'connecting' there is no 'disconnect' button"
