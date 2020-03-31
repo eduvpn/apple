@@ -183,6 +183,8 @@
 		C7814D8C2424C17B009F258E /* AppCoordinator+Organizations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7814D8A2424C17B009F258E /* AppCoordinator+Organizations.swift */; };
 		C7814D8E2424EA9A009F258E /* Keywords+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7814D8D2424EA9A009F258E /* Keywords+Convenience.swift */; };
 		C7814D8F2424EA9A009F258E /* Keywords+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7814D8D2424EA9A009F258E /* Keywords+Convenience.swift */; };
+		C781590D2424FDBB0030D380 /* ServersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C781590C2424FDBB0030D380 /* ServersRepository.swift */; };
+		C781590E2424FDBB0030D380 /* ServersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C781590C2424FDBB0030D380 /* ServersRepository.swift */; };
 		C7D485232372BC22006AC96C /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1163292370539E00577755 /* Crypto.swift */; };
 		C7D8E1D523742A4E009536C9 /* CancellablePromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */; };
 		C7D8E1D623742A4E009536C9 /* CancellablePromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */; };
@@ -471,6 +473,7 @@
 		C7814D882424C047009F258E /* OrganizationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationsViewController.swift; sourceTree = "<group>"; };
 		C7814D8A2424C17B009F258E /* AppCoordinator+Organizations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppCoordinator+Organizations.swift"; sourceTree = "<group>"; };
 		C7814D8D2424EA9A009F258E /* Keywords+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Keywords+Convenience.swift"; sourceTree = "<group>"; };
+		C781590C2424FDBB0030D380 /* ServersRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServersRepository.swift; sourceTree = "<group>"; };
 		C78D202A2372DF34007067B1 /* Assets-Let’s Connect!.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets-Let’s Connect!.xcassets"; sourceTree = "<group>"; };
 		C7C69A5E236B328200F9B8B3 /* Developer-macOS.xcconfig.eduvpn-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer-macOS.xcconfig.eduvpn-template"; sourceTree = "<group>"; };
 		C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancellablePromise.swift; sourceTree = "<group>"; };
@@ -1039,6 +1042,7 @@
 				C7FA7A5923633894006501E8 /* InstancesRepository.swift */,
 				C740BC16241A9B78002D7C64 /* OrganizationsRepository.swift */,
 				C7FA7A5A23633894006501E8 /* ProfilesRepository.swift */,
+				C781590C2424FDBB0030D380 /* ServersRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -1802,6 +1806,7 @@
 				C740BBD0241A8597002D7C64 /* Api+CoreDataClass.swift in Sources */,
 				34186CF42297CE19009B4121 /* InstanceService.swift in Sources */,
 				C740BBD8241A8597002D7C64 /* Instance+CoreDataClass.swift in Sources */,
+				C781590E2424FDBB0030D380 /* ServersRepository.swift in Sources */,
 				C740BC08241A884C002D7C64 /* Local+CoreDataClass.swift in Sources */,
 				342B9CE622902BB500C006D7 /* DurationTransformer.swift in Sources */,
 				C740BC09241A884C002D7C64 /* Local+CoreDataProperties.swift in Sources */,
@@ -1905,6 +1910,7 @@
 				34345291229FF33100C0476E /* AppCoordinator+CustomInput.swift in Sources */,
 				34345293229FF33100C0476E /* AppCoordinator+TunnelProviderManager.swift in Sources */,
 				C740BC01241A8599002D7C64 /* Profile+CoreDataProperties.swift in Sources */,
+				C781590D2424FDBB0030D380 /* ServersRepository.swift in Sources */,
 				34345290229FF33100C0476E /* AppCoordinator+Settings.swift in Sources */,
 				4A62C8B81FB03B47007D3FAA /* KeyboardWrapper.swift in Sources */,
 				C740BC17241A9B78002D7C64 /* OrganizationsRepository.swift in Sources */,

@@ -71,7 +71,7 @@ class OrganizationsLoader {
                 #elseif os(macOS)
                 (NSApp.delegate as? AppDelegate)?.appCoordinator.showError($0)
                 #endif
-        }
+            }
     }
     
     // Load steps

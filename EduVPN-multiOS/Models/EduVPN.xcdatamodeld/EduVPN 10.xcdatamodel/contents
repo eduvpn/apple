@@ -64,6 +64,7 @@
         <attribute name="displayName" optional="YES" attributeType="String"/>
         <attribute name="identifier" attributeType="String"/>
         <attribute name="keyword" optional="YES" attributeType="String"/>
+        <attribute name="serverListUri" optional="YES" attributeType="URI"/>
         <relationship name="displayNames" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="DisplayName" inverseName="organization" inverseEntity="DisplayName"/>
         <relationship name="keywords" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Keywords" inverseName="organization" inverseEntity="Keywords"/>
     </entity>
@@ -86,7 +87,7 @@
         <element name="Local" positionX="-651.28125" positionY="-104.5703125" width="128" height="58"/>
         <element name="Logo" positionX="-834.64453125" positionY="274.84765625" width="128" height="88"/>
         <element name="ManagedProvider" positionX="-870.109375" positionY="-196.58984375" width="128" height="58"/>
-        <element name="Organization" positionX="-997.2578125" positionY="-49.19140625" width="128" height="118"/>
+        <element name="Organization" positionX="-997.2578125" positionY="-49.19140625" width="128" height="133"/>
         <element name="Profile" positionX="-387.53515625" positionY="260.59765625" width="128" height="120"/>
         <element name="Provider" positionX="-716.4765625" positionY="-268.8046875" width="128" height="43"/>
     </elements>

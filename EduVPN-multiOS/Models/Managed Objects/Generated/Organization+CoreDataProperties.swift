@@ -13,6 +13,7 @@ extension Organization {
     }
 
     @NSManaged public var identifier: String?
+    @NSManaged public var serverListUri: URL?
     @NSManaged public var displayName: String?
     @NSManaged public var displayNames: Set<DisplayName>?
     @NSManaged public var keyword: String?

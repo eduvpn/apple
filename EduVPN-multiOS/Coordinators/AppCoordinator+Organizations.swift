@@ -44,8 +44,17 @@ extension AppCoordinator: OrganizationsViewControllerDelegate {
 //    }
     
     func organizationsViewController(_ controller: OrganizationsViewController, didSelect organization: Organization) {
-        os_log("Did select organization: %{public}@", log: Log.general, type: .info, "\(organization.displayName)")
+        os_log("Did select organization: %{public}@", log: Log.general, type: .info, "\(organization.displayName ?? "")")
 
+        serversRepository.loader.load(with: organization)
+//            .then { _ -> Promise<Void> in
+//                self.dismissViewController()
+//                return .value(())
+//            }.recover { error in
+//                let error = error as NSError
+//                self.showError(error)
+//            }
+        
 //        if controller.configuredForInstancesDisplay {
 //            do {
 //                persistentContainer.performBackgroundTask { (context) in
@@ -67,20 +76,38 @@ extension AppCoordinator: OrganizationsViewControllerDelegate {
 //                showError(error)
 //            }
 //        } else {
-//            // Move this to pull to refresh?
-//            refresh(instance: instance).then { _ -> Promise<Void> in
-//                #if os(iOS)
-//                self.popToRootViewController()
-//                #elseif os(macOS)
-//                // TODO: It is unclear to me why iOS pops to root here. For macOS dismiss seems wrong.
-//                // self.dismissViewController()
-//                #endif
+        
+//          Promise<Instance>(resolver: { seal in
+//              persistentContainer.performBackgroundTask { context in
+//                  let instanceGroupIdentifier = url.absoluteString
+//                  let predicate = NSPredicate(format: "discoveryIdentifier == %@", instanceGroupIdentifier)
+//                  let group = try! InstanceGroup.findFirstInContext(context, predicate: predicate) ?? InstanceGroup(context: context) //swiftlint:disable:this force_try
+//
+//                  let instance = Instance(context: context)
+//                  instance.providerType = ProviderType.other.rawValue
+//                  instance.baseUri = url.absoluteString
+//
+//                  let displayName = DisplayName(context: context)
+//                  displayName.displayName = url.host
+//                  instance.addToDisplayNames(displayName)
+//                  instance.group = group
+//
+//                  do {
+//                      try context.save()
+//                  } catch {
+//                      seal.reject(error)
+//                  }
+//
+//                  seal.fulfill(instance)
+//              }
+//          }).then { _ -> Promise<Void> in
+//                self.dismissViewController()
 //                return .value(())
 //            }.recover { error in
 //                let error = error as NSError
 //                self.showError(error)
 //            }
-//        }
+//
     }
     
     func organizationsViewController(_ controller: OrganizationsViewController, didDelete instance: Organization) {
@@ -135,7 +162,7 @@ extension AppCoordinator: OrganizationsViewControllerDelegate {
     
     #if os(macOS)
     func organizationsViewControllerShouldClose(_ controller: OrganizationsViewController) {
-        mainWindowController.pop()
+        mainWindowController.dismiss()
     }
     
     func organizationsViewController(_ controller: OrganizationsViewController, addCustomProviderWithUrl url: URL) {

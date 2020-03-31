@@ -154,7 +154,8 @@ extension AppCoordinator {
 //        organizationsViewController.selectingConfig = true
      //   organizationsViewController.providerType = providerType
         
-        pushViewController(organizationsViewController, animated: animated)
+        presentViewController(organizationsViewController, animated: animated, completion: nil)
+//        pushViewController(organizationsViewController, animated: animated)
         
         // Required for startup safety purpose
         #if os(macOS)

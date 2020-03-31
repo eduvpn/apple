@@ -124,6 +124,14 @@ extension DiscoveryConfig {
         case .secureInternetSignature:
             return pathSecureInternetSignature
             
+        case .organizationServerList(let organization):
+            return organization.serverListUri?.path
+            
+        case .organizationServerListSignature(let organization):
+            guard let path = organization.serverListUri?.path else {
+                return nil
+            }
+            return path + ".sig"
         }
     }
 }

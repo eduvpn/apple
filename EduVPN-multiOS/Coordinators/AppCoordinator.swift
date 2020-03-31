@@ -30,6 +30,7 @@ class AppCoordinator: RootViewCoordinator {
     let config: Config
     let instancesRepository: InstancesRepository
     let organizationsRepository: OrganizationsRepository
+    let serversRepository: ServersRepository
     
     lazy var tunnelProviderManagerCoordinator: TunnelProviderManagerCoordinator = {
         let tpmCoordinator = TunnelProviderManagerCoordinator()
@@ -107,10 +108,11 @@ class AppCoordinator: RootViewCoordinator {
     
     #elseif os(macOS)
     
-    public init(config: Config = Config.shared, instancesRepository: InstancesRepository = InstancesRepository(), organizationsRepository: OrganizationsRepository = OrganizationsRepository()) {
+    public init(config: Config = Config.shared, instancesRepository: InstancesRepository = InstancesRepository(), organizationsRepository: OrganizationsRepository = OrganizationsRepository(), serversRepository: ServersRepository = ServersRepository()) {
         self.config = config
         self.instancesRepository = instancesRepository
         self.organizationsRepository = organizationsRepository
+        self.serversRepository = serversRepository
         
         windowController.window?.makeKeyAndOrderFront(nil)
         providersViewController = windowController.contentViewController?.children.first as? ProvidersViewController
@@ -128,6 +130,8 @@ class AppCoordinator: RootViewCoordinator {
         instancesRepository.refresher.persistentContainer = persistentContainer
         organizationsRepository.loader.persistentContainer = persistentContainer
         organizationsRepository.refresher.persistentContainer = persistentContainer
+        serversRepository.loader.persistentContainer = persistentContainer
+     //   serversRepository.refresher.persistentContainer = persistentContainer
         ProfilesRepository.shared.refresher.persistentContainer = persistentContainer
     }
     

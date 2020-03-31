@@ -22,6 +22,8 @@ extension Organization {
             return
         }
         self.identifier = model.identifier
+        self.serverListUri = model.serverList
+        
         self.displayNames?.forEach { managedObjectContext.delete($0) }
         
         if let displayNames = model.displayNames {

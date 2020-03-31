@@ -27,6 +27,7 @@ struct OrganizationModel: Decodable {
     
     let providerType: ProviderType = .organization
     var identifier: String
+    var serverList: URL
     
     var displayNames: [String: String]?
     var displayName: String?
@@ -36,10 +37,15 @@ struct OrganizationModel: Decodable {
 
 }
 
+enum OrganizationModelError: Error {
+    case invalidServerListURL
+}
+
 extension OrganizationModel {
     
     enum OrganizationModelKeys: String, CodingKey {
         case identifier = "org_id"
+        case serverList = "server_list"
         case displayName = "display_name"
         case keywordList = "keyword_list"
     }
@@ -48,6 +54,11 @@ extension OrganizationModel {
         let container = try decoder.container(keyedBy: OrganizationModelKeys.self)
         
         let identifier = try container.decode(String.self, forKey: .identifier)
+        
+        let serverList = try container.decode(String.self, forKey: .serverList)
+        guard let baseURLString = Config.shared.discovery?.pathOrganizationList, let baseURL = URL(string: baseURLString), let serverListURL = URL(string: serverList, relativeTo: baseURL) else {
+            throw OrganizationModelError.invalidServerListURL
+        }
         
         var displayName: String?
         let displayNames = try? container.decode(Dictionary<String, String>.self, forKey: .displayName)
@@ -80,6 +91,7 @@ extension OrganizationModel {
         }
 
         self.init(identifier: identifier,
+                  serverList: serverListURL,
                   displayNames: displayNames,
                   displayName: displayName,
                   keywordLists: keywordLists,

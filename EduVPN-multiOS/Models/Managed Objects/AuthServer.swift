@@ -23,6 +23,17 @@ extension AuthServer {
         return upsert(tokenEndpoint: tokenEndpoint, authorizationEndpoint: authorizationEndpoint, on: context)
     }
     
+    static func upsert(with instances: ServersModel, on context: NSManagedObjectContext) -> AuthServer? {
+        return nil
+        
+//        guard
+//            let tokenEndpoint = instances.tokenEndpoint?.absoluteString,
+//            let authorizationEndpoint = instances.authorizationEndpoint?.absoluteString
+//            else { return nil }
+        
+//        return upsert(tokenEndpoint: tokenEndpoint, authorizationEndpoint: authorizationEndpoint, on: context)
+    }
+    
     static func upsert(tokenEndpoint: String, authorizationEndpoint: String,
                        on context: NSManagedObjectContext) -> AuthServer {
         

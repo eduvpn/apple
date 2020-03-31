@@ -1889,17 +1889,17 @@ Gw
             <objects>
                 <viewController storyboardIdentifier="ChooseOrganization" id="HKx-s4-Lgr" customClass="OrganizationsViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="gW3-wC-f7Y">
-                        <rect key="frame" x="0.0" y="0.0" width="379" height="550"/>
+                        <rect key="frame" x="0.0" y="0.0" width="379" height="575"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="46" horizontalPageScroll="10" verticalLineScroll="46" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k08-zH-kGe">
-                                <rect key="frame" x="0.0" y="0.0" width="379" height="452"/>
+                                <rect key="frame" x="0.0" y="0.0" width="379" height="477"/>
                                 <clipView key="contentView" drawsBackground="NO" id="PJ2-OW-bts">
-                                    <rect key="frame" x="0.0" y="0.0" width="379" height="452"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="379" height="477"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="44" viewBased="YES" id="1hr-hc-zBU">
-                                            <rect key="frame" x="0.0" y="0.0" width="379" height="452"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="379" height="477"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1959,12 +1959,12 @@ Gw
                                 </scroller>
                             </scrollView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Rst-je-CDW">
-                                <rect key="frame" x="19" y="503" width="39" height="40"/>
+                                <rect key="frame" x="19" y="528" width="39" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="37" id="GOF-JK-lUL"/>
                                     <constraint firstAttribute="height" constant="37" id="cZI-jx-Igg"/>
                                 </constraints>
-                                <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="NSGoLeftTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="XFA-Wa-KU5">
+                                <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="NSStopProgressTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="XFA-Wa-KU5">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                     <string key="keyEquivalent" base64-UTF8="YES">
@@ -1976,7 +1976,7 @@ CA
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oLs-rw-brf">
-                                <rect key="frame" x="84" y="514" width="212" height="20"/>
+                                <rect key="frame" x="84" y="539" width="212" height="20"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Choose your Organization" id="kfj-bd-iLS">
                                     <font key="font" metaFont="systemSemibold" size="17"/>
                                     <color key="textColor" name="Primary Color"/>
@@ -1984,7 +1984,7 @@ CA
                                 </textFieldCell>
                             </textField>
                             <searchField wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J6O-gy-Zfw">
-                                <rect key="frame" x="20" y="472" width="339" height="22"/>
+                                <rect key="frame" x="20" y="497" width="339" height="22"/>
                                 <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="7nT-i8-MDc">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -2018,7 +2018,7 @@ CA
                 </viewController>
                 <customObject id="VY4-wZ-NXc" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="958.5" y="1074"/>
+            <point key="canvasLocation" x="994.5" y="1046.5"/>
         </scene>
     </scenes>
     <resources>
