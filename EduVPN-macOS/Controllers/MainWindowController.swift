@@ -129,14 +129,14 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
                  completionHandler: (() -> Void)? = nil) {
         
         guard navigationStackStack.count > 1 else {
-            assertionFailure("Failed to pop to dismiss (1)")
+//            assertionFailure("Failed to pop to dismiss (1)")
             return
         }
         
         navigationStackStack.removeLast()
         
         guard let last = navigationStack.last else {
-            assertionFailure("Failed to pop to dismiss (2)")
+//            assertionFailure("Failed to pop to dismiss (2)")
             return
         }
         mainViewController.show(viewController: last,

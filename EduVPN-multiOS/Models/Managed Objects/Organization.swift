@@ -64,4 +64,9 @@ extension Organization {
         
         keyword = keywords?.localizedValue
     }
+    
+    override var groupName: String {
+        return displayName ?? NSLocalizedString("Organization", comment: "")
+    }
+    
 }

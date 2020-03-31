@@ -62,6 +62,20 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
                     showConnectionsTableViewController(for: instance)
                 } else if let profile = instance.apis?.first?.profiles.first {
                     connect(profile: profile)
+                } else {
+                    // Move this to pull to refresh?
+                               refresh(instance: instance).then { _ -> Promise<Void> in
+                                   #if os(iOS)
+                                   self.popToRootViewController()
+                                   #elseif os(macOS)
+                                   // TODO: It is unclear to me why iOS pops to root here. For macOS dismiss seems wrong.
+                                   // self.dismissViewController()
+                                   #endif
+                                   return .value(())
+                               }.recover { error in
+                                   let error = error as NSError
+                                   self.showError(error)
+                               }
                 }
             } catch {
                 showError(error)

@@ -114,6 +114,13 @@
 		4AF3DF081F4245A5003EC0BA /* ConnectionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF3DF071F4245A5003EC0BA /* ConnectionsTableViewController.swift */; };
 		5432F6540989FC55D4177F87 /* Pods_EduVPNTunnelExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B954E3699D9E9CC26F5C3E7 /* Pods_EduVPNTunnelExtension.framework */; };
 		8B0680A7F56DFB05A02F36F3 /* Pods_EduVPN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C537F33C8FB4D4E929A1CB68 /* Pods_EduVPN.framework */; };
+		C70C0CA72433477A00EE8AE7 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70C0CA62433477A00EE8AE7 /* Provider.swift */; };
+		C70C0CA82433477A00EE8AE7 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70C0CA62433477A00EE8AE7 /* Provider.swift */; };
+		C70C0CAA243347C900EE8AE7 /* Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70C0CA9243347C900EE8AE7 /* Custom.swift */; };
+		C70C0CAB243347C900EE8AE7 /* Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70C0CA9243347C900EE8AE7 /* Custom.swift */; };
+		C70C0CAD2433483000EE8AE7 /* Local.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70C0CAC2433483000EE8AE7 /* Local.swift */; };
+		C70C0CAE2433483000EE8AE7 /* Local.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70C0CAC2433483000EE8AE7 /* Local.swift */; };
+		C70C0CB02433693400EE8AE7 /* ServersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70C0CAF2433693400EE8AE7 /* ServersViewController.swift */; };
 		C7230D892363240A00B9C691 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = C75B2CB42363138200D700EC /* config.json */; };
 		C7230D8C236324C100B9C691 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7230D8B236324C100B9C691 /* Assets.xcassets */; };
 		C7265C0423747A70004496B8 /* ServerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7265C0323747A70004496B8 /* ServerConfiguration.swift */; };
@@ -431,6 +438,10 @@
 		BC15BFAF62E45899B859C4A9 /* Pods-EduVPN.release letsconnect.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPN.release letsconnect.xcconfig"; path = "Target Support Files/Pods-EduVPN/Pods-EduVPN.release letsconnect.xcconfig"; sourceTree = "<group>"; };
 		C230B0CBF6380D0C00000596 /* Pods-EduVPNTunnelExtension-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension-macOS.release.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension-macOS/Pods-EduVPNTunnelExtension-macOS.release.xcconfig"; sourceTree = "<group>"; };
 		C537F33C8FB4D4E929A1CB68 /* Pods_EduVPN.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EduVPN.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C70C0CA62433477A00EE8AE7 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
+		C70C0CA9243347C900EE8AE7 /* Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Custom.swift; sourceTree = "<group>"; };
+		C70C0CAC2433483000EE8AE7 /* Local.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Local.swift; sourceTree = "<group>"; };
+		C70C0CAF2433693400EE8AE7 /* ServersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServersViewController.swift; sourceTree = "<group>"; };
 		C7230D8A2363248900B9C691 /* copy_resources_macos.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = copy_resources_macos.sh; sourceTree = "<group>"; };
 		C7230D8B236324C100B9C691 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7265C0323747A70004496B8 /* ServerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfiguration.swift; sourceTree = "<group>"; };
@@ -767,6 +778,7 @@
 				342B9CDA22902BB500C006D7 /* MainWindowController.swift */,
 				340A504E22A3BD9D00170E51 /* ProfilesViewController.swift */,
 				C740BC19241A9F15002D7C64 /* MainWindowController.swift */,
+				C70C0CAF2433693400EE8AE7 /* ServersViewController.swift */,
 				343452BF22A157E000C0476E /* ProvidersViewController.swift */,
 				C7814D882424C047009F258E /* OrganizationsViewController.swift */,
 				34FD2AD622A9352F002AABB3 /* VPNConnectionViewController.swift */,
@@ -1053,10 +1065,13 @@
 				C7FA7A5E23633895006501E8 /* Generated */,
 				C7FA7A6D23633895006501E8 /* AuthServer.swift */,
 				C7FA7A6E23633895006501E8 /* Profile.swift */,
+				C70C0CA62433477A00EE8AE7 /* Provider.swift */,
 				C7FA7A6F23633895006501E8 /* Instance.swift */,
 				C7F326EB241A753700B9CBB5 /* Organization.swift */,
 				C7FA7A7023633895006501E8 /* Api.swift */,
 				C740BC10241A8A82002D7C64 /* InstanceGroup.swift */,
+				C70C0CA9243347C900EE8AE7 /* Custom.swift */,
+				C70C0CAC2433483000EE8AE7 /* Local.swift */,
 			);
 			path = "Managed Objects";
 			sourceTree = "<group>";
@@ -1761,6 +1776,7 @@
 				343452A322A13A9500C0476E /* AppCoordinator.swift in Sources */,
 				C740BC0E241A884C002D7C64 /* Provider+CoreDataClass.swift in Sources */,
 				34D71A96228D9C6A0027DE84 /* URL+Unused.swift in Sources */,
+				C70C0CA82433477A00EE8AE7 /* Provider.swift in Sources */,
 				C7FA7A7B23633895006501E8 /* InstanceInfoModel.swift in Sources */,
 				C740BC0C241A884C002D7C64 /* Organization+CoreDataClass.swift in Sources */,
 				C7FA7A7D23633895006501E8 /* Message.swift in Sources */,
@@ -1771,6 +1787,7 @@
 				34186CF12296E7B4009B4121 /* StaticService.swift in Sources */,
 				C740BC12241A8A82002D7C64 /* InstanceGroup.swift in Sources */,
 				340A504222A26FDF00170E51 /* AppCoordinator+Connections.swift in Sources */,
+				C70C0CB02433693400EE8AE7 /* ServersViewController.swift in Sources */,
 				C740BC15241A8E89002D7C64 /* ServerModel.swift in Sources */,
 				C7814D8F2424EA9A009F258E /* Keywords+Convenience.swift in Sources */,
 				34D719E1228D75550027DE84 /* AppDelegate.swift in Sources */,
@@ -1779,6 +1796,7 @@
 				C740BC0D241A884C002D7C64 /* Organization+CoreDataProperties.swift in Sources */,
 				343452C022A157E000C0476E /* ProvidersViewController.swift in Sources */,
 				C7FA7AB423633D61006501E8 /* FetchedResultsController.swift in Sources */,
+				C70C0CAE2433483000EE8AE7 /* Local.swift in Sources */,
 				340A503F22A26EC900170E51 /* AppCoordinator+Repositories.swift in Sources */,
 				C7265C0523747A70004496B8 /* ServerConfiguration.swift in Sources */,
 				C7FA7AB223633D61006501E8 /* NSManagedObject+FetchHelpers.swift in Sources */,
@@ -1838,6 +1856,7 @@
 				340A505422A3BF8900170E51 /* EnterProviderURLViewController.swift in Sources */,
 				C7FA7A1523633694006501E8 /* InstanceModel.swift in Sources */,
 				C7FA7A1123633694006501E8 /* Config.swift in Sources */,
+				C70C0CAB243347C900EE8AE7 /* Custom.swift in Sources */,
 				C7FA7A9F23633895006501E8 /* Instance.swift in Sources */,
 				34186CF62297CE19009B4121 /* ApiService.swift in Sources */,
 				C7FA7AA723633895006501E8 /* ProviderType.swift in Sources */,
@@ -1918,7 +1937,9 @@
 				C7FA7AB323633D61006501E8 /* FetchedResultsController.swift in Sources */,
 				C7FA7AA623633895006501E8 /* ProviderType.swift in Sources */,
 				4A2CC2221F4233E8004119B1 /* Identifiable.swift in Sources */,
+				C70C0CAD2433483000EE8AE7 /* Local.swift in Sources */,
 				C7FA7AA223633895006501E8 /* ProfileModel.swift in Sources */,
+				C70C0CA72433477A00EE8AE7 /* Provider.swift in Sources */,
 				C740BBEF241A8599002D7C64 /* Custom+CoreDataProperties.swift in Sources */,
 				C7FA7A1423633694006501E8 /* InstanceModel.swift in Sources */,
 				4A1140841F78490C00D61100 /* VPNConnectionViewController.swift in Sources */,
@@ -1947,6 +1968,7 @@
 				4AD0AD5D1F35048E006E1337 /* ProvidersViewController.swift in Sources */,
 				C740BBEE241A8599002D7C64 /* Custom+CoreDataClass.swift in Sources */,
 				4AAC1F7A1F2D0E3400DD0252 /* AppDelegate.swift in Sources */,
+				C70C0CAA243347C900EE8AE7 /* Custom.swift in Sources */,
 				4AE728161F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift in Sources */,
 				C7FA7A0E23633694006501E8 /* CertificateModel.swift in Sources */,
 				C740BBF0241A8599002D7C64 /* DisplayName+CoreDataClass.swift in Sources */,

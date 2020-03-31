@@ -12,7 +12,7 @@ import CryptoKit
 
 struct ServersRepository {
     let loader = ServersLoader()
-    let refresher = ServerRefresher()
+    let refresher = InstanceRefresher()
 }
 
 // MARK: - ServersLoader
@@ -165,6 +165,7 @@ class ServersLoader {
                             group.addToInstances(newServer)
                             organization!.addToServers(newServer)
                             newServer.group = group
+//                            newServer.providerType = organization?.displayName
 //                            newServer.providerType = providerType.rawValue
                             newServer.authServer = authServer
                             newServer.update(with: serverModel)
