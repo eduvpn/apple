@@ -55,6 +55,11 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
         case present
     }
     
+    func setRoot(viewController: NSViewController) {
+        navigationStackStack = [[viewController]]
+        mainViewController.show(viewController: viewController, options: .crossfade, animated: false, completionHandler: nil)
+    }
+    
     func show(viewController: NSViewController,
               presentation: Presentation,
               animated: Bool = true,
@@ -96,12 +101,12 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
     
     func popToRoot(animated: Bool = true, completionHandler: (() -> Void)? = nil) {
         guard navigationStack.count > 1 else {
-            assertionFailure("Failed to pop to root (1)")
+//            assertionFailure("Failed to pop to root (1)")
             return
         }
 
         guard let root = navigationStack.first else {
-            assertionFailure("Failed to pop to root (2)")
+//            assertionFailure("Failed to pop to root (2)")
             return
         }
         

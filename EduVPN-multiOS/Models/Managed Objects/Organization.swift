@@ -11,10 +11,18 @@ import CoreData
 
 extension Organization {
     
+    public override func awakeFromInsert() {
+        super.awakeFromInsert()
+        displayName = displayNames?.localizedValue
+        keyword = keywords?.localizedValue
+        groupName = displayName
+    }
+    
     override public func awakeFromFetch() {
         super.awakeFromFetch()
         displayName = displayNames?.localizedValue
         keyword = keywords?.localizedValue
+        groupName = displayName
     }
     
     func update(with model: OrganizationModel) {
@@ -63,10 +71,8 @@ extension Organization {
         }
         
         keyword = keywords?.localizedValue
-    }
-    
-    override var groupName: String {
-        return displayName ?? NSLocalizedString("Organization", comment: "")
+        
+        groupName = displayName
     }
     
 }

@@ -7,11 +7,3 @@
 //
 
 import Foundation
-
-extension Provider {
-    
-    @objc var groupName: String {
-        return "Provider"
-    }
-    
-}

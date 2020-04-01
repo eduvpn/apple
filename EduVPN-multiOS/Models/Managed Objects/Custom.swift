@@ -10,8 +10,14 @@ import Foundation
 
 extension Custom {
     
-    override var groupName: String {
-        return NSLocalizedString("Custom", comment: "")
+    public override func awakeFromInsert() {
+        super.awakeFromInsert()
+        groupName = NSLocalizedString("Custom", comment: "")
+    }
+    
+    override public func awakeFromFetch() {
+        super.awakeFromFetch()
+        groupName = NSLocalizedString("Custom", comment: "")
     }
     
 }

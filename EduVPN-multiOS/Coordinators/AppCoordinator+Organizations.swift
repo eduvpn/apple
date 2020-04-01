@@ -48,7 +48,7 @@ extension AppCoordinator: OrganizationsViewControllerDelegate {
 
         serversRepository.loader.load(with: organization)
 //            .then { _ -> Promise<Void> in
-//                self.dismissViewController()
+                self.dismissViewController()
 //                return .value(())
 //            }.recover { error in
 //                let error = error as NSError
@@ -163,6 +163,10 @@ extension AppCoordinator: OrganizationsViewControllerDelegate {
     #if os(macOS)
     func organizationsViewControllerShouldClose(_ controller: OrganizationsViewController) {
         mainWindowController.dismiss()
+    }
+    
+    func organizationsViewControllerWantsToAddUrl(_ controller: OrganizationsViewController) {
+        profilesViewControllerWantsToAddUrl()
     }
     
     func organizationsViewController(_ controller: OrganizationsViewController, addCustomProviderWithUrl url: URL) {

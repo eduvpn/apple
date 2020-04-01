@@ -14,7 +14,11 @@ extension Instance {
     }
 
     @NSManaged public var available: Bool
+    @NSManaged public var isParent: Bool
+    @NSManaged public var isExpanded: Bool
     @NSManaged public var baseUri: String?
+    @NSManaged public var displayName: String?
+    @NSManaged public var sortName: String?
     @NSManaged public var lastAccessedTimeInterval: Double
     @NSManaged public var providerType: String?
     @NSManaged public var publicKey: String?

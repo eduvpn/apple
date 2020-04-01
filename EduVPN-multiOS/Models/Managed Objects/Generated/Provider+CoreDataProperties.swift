@@ -12,4 +12,6 @@ extension Provider {
         return NSFetchRequest<Provider>(entityName: "Provider")
     }
 
+    @NSManaged public var groupName: String?
+      
 }

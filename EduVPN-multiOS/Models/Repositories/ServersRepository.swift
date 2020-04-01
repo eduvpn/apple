@@ -143,6 +143,7 @@ class ServersLoader {
 //                                $0.providerType = providerType.rawValue
                                 $0.authServer = authServer
                                 $0.update(with: updatedModel)
+                                // TODO update children
                             }
                         }
                     }
@@ -165,10 +166,23 @@ class ServersLoader {
                             group.addToInstances(newServer)
                             organization!.addToServers(newServer)
                             newServer.group = group
-//                            newServer.providerType = organization?.displayName
-//                            newServer.providerType = providerType.rawValue
+                            newServer.providerType = ProviderType.organization.rawValue
+                            newServer.isParent = true
                             newServer.authServer = authServer
                             newServer.update(with: serverModel)
+                            
+                            for peerModel in serverModel.peers ?? [] {
+                                newServer.isExpanded = false
+                                let newPeer = Instance(context: context)
+                                group.addToInstances(newPeer)
+                                organization!.addToServers(newPeer)
+                                newPeer.parent = newServer
+                                newPeer.isParent = false
+                                newPeer.group = group
+                                newPeer.authServer = authServer
+                                newPeer.providerType = ProviderType.organization.rawValue
+                                newPeer.update(with: peerModel)
+                            }
                         }
                     
                     context.saveContextToStore { result in

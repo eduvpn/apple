@@ -10,8 +10,14 @@ import Foundation
 
 extension Local {
     
-    override var groupName: String {
-        return NSLocalizedString("Local", comment: "")
+    public override func awakeFromInsert() {
+        super.awakeFromInsert()
+        groupName = NSLocalizedString("Local", comment: "")
     }
     
+    override public func awakeFromFetch() {
+        super.awakeFromFetch()
+        groupName = NSLocalizedString("Local", comment: "")
+    }
+
 }

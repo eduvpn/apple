@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="9">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E266" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="9">
     <entity name="Api" representedClassName="Api" syncable="YES">
         <attribute name="apiBaseUri" attributeType="String"/>
         <relationship name="authorizingForGroup" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="InstanceGroup" inverseName="distributedAuthorizationApi" inverseEntity="InstanceGroup"/>
@@ -24,10 +24,14 @@
     <entity name="Instance" representedClassName="Instance" syncable="YES">
         <attribute name="available" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="baseUri" attributeType="String"/>
+        <attribute name="displayName" optional="YES" attributeType="String"/>
+        <attribute name="isExpanded" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="isParent" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="lastAccessedTimeInterval" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="providerType" optional="YES" attributeType="String"/>
         <attribute name="publicKey" optional="YES" attributeType="String"/>
         <attribute name="serverGroupUri" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="sortName" optional="YES" attributeType="String"/>
         <relationship name="apis" toMany="YES" deletionRule="Cascade" destinationEntity="Api" inverseName="instance" inverseEntity="Api"/>
         <relationship name="authServer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AuthServer" inverseName="instances" inverseEntity="AuthServer"/>
         <relationship name="children" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Instance" inverseName="parent" inverseEntity="Instance"/>
@@ -75,13 +79,15 @@
         <relationship name="api" maxCount="1" deletionRule="Nullify" destinationEntity="Api" inverseName="profiles" inverseEntity="Api"/>
         <relationship name="displayNames" toMany="YES" deletionRule="Nullify" destinationEntity="DisplayName" inverseName="profile" inverseEntity="DisplayName"/>
     </entity>
-    <entity name="Provider" representedClassName="Provider" syncable="YES"/>
+    <entity name="Provider" representedClassName="Provider" syncable="YES">
+        <attribute name="groupName" attributeType="String" defaultValueString=""/>
+    </entity>
     <elements>
         <element name="Api" positionX="-206.01171875" positionY="-64.86328125" width="128" height="118"/>
         <element name="AuthServer" positionX="-457.40625" positionY="-130.03125" width="128" height="105"/>
         <element name="Custom" positionX="-829.75" positionY="-43.76953125" width="128" height="43"/>
         <element name="DisplayName" positionX="-1000.0859375" positionY="314.62890625" width="128" height="118"/>
-        <element name="Instance" positionX="-638.671875" positionY="95.20703125" width="128" height="253"/>
+        <element name="Instance" positionX="-638.671875" positionY="95.20703125" width="128" height="313"/>
         <element name="InstanceGroup" positionX="-424.45703125" positionY="56.1328125" width="128" height="118"/>
         <element name="Keywords" positionX="-1241.47265625" positionY="131.359375" width="128" height="88"/>
         <element name="Local" positionX="-651.28125" positionY="-104.5703125" width="128" height="58"/>
@@ -89,6 +95,6 @@
         <element name="ManagedProvider" positionX="-870.109375" positionY="-196.58984375" width="128" height="58"/>
         <element name="Organization" positionX="-997.2578125" positionY="-49.19140625" width="128" height="133"/>
         <element name="Profile" positionX="-387.53515625" positionY="260.59765625" width="128" height="120"/>
-        <element name="Provider" positionX="-716.4765625" positionY="-268.8046875" width="128" height="43"/>
+        <element name="Provider" positionX="-716.4765625" positionY="-268.8046875" width="128" height="58"/>
     </elements>
 </model>

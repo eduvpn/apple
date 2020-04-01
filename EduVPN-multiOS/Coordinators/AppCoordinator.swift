@@ -54,6 +54,7 @@ class AppCoordinator: RootViewCoordinator {
     // MARK: - App instantiation
     
     var providersViewController: ProvidersViewController!
+    var serversViewController: ServersViewController!
     
     #if os(iOS)
     
@@ -114,8 +115,21 @@ class AppCoordinator: RootViewCoordinator {
         self.organizationsRepository = organizationsRepository
         self.serversRepository = serversRepository
         
-        windowController.window?.makeKeyAndOrderFront(nil)
         providersViewController = windowController.contentViewController?.children.first as? ProvidersViewController
+        serversViewController = storyboard.instantiateController(withIdentifier: "Servers") as? ServersViewController
+        
+        if UserDefaults.standard.useNewDiscoveryMethod {
+            os_log("Using new discovery method", log: Log.general, type: .info)
+            (windowController as? MainWindowController)?.setRoot(viewController: serversViewController)
+//            (windowController.contentViewController as? MainViewController)?.addChild(serversViewController)
+        } else {
+            os_log("Using old discovery method", log: Log.general, type: .info)
+              (windowController as? MainWindowController)?.setRoot(viewController: providersViewController)
+//            (windowController.contentViewController as? MainViewController)?.addChild(providersViewController)
+        }
+        
+        windowController.window?.makeKeyAndOrderFront(nil)
+        
         providePersistentContainer()
     }
     
@@ -155,6 +169,23 @@ class AppCoordinator: RootViewCoordinator {
         #endif
     }
     
+    /// Starts the coordinator for new discovery methor
+    private func instantiateServersViewController() {
+        #if os(iOS)
+        providersViewController = storyboard.instantiateViewController(type: ProvidersViewController.self)
+        #endif
+        
+        persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
+        serversViewController.viewContext = persistentContainer.viewContext
+        serversViewController.delegate = self
+
+        #if os(iOS)
+        navigationController.viewControllers = [serversViewController]
+        #elseif os(macOS)
+        serversViewController.start()
+        #endif
+    }
+    
     func connect(url: URL) -> Promise<Void> {
         return Promise<Instance>(resolver: { seal in
             persistentContainer.performBackgroundTask { context in
@@ -170,6 +201,10 @@ class AppCoordinator: RootViewCoordinator {
                 displayName.displayName = url.host
                 instance.addToDisplayNames(displayName)
                 instance.group = group
+                
+                let provider = Custom.init(context: context)
+                instance.provider = provider
+                instance.isParent = true
                 
                 do {
                     try context.save()
@@ -219,48 +254,54 @@ class AppCoordinator: RootViewCoordinator {
                 self?.showError(error)
             } else {
                 DispatchQueue.main.async {
-                    self?.instantiateProvidersViewController()
+                    if UserDefaults.standard.useNewDiscoveryMethod {
+                        os_log("Using new discovery method", log: Log.general, type: .info)
+                        self?.instantiateServersViewController()
+                    } else {
+                        os_log("Using old discovery method", log: Log.general, type: .info)
+                        self?.instantiateProvidersViewController()
+                    }
                 }
             }
         }
         
-        // Migration
-        persistentContainer.performBackgroundTask { context in
-            let profiles = try? Profile.allInContext(context)
-            // Make sure all profiles have a UUID
-            profiles?.forEach { profile in
-                if profile.uuid == nil {
-                    profile.uuid = UUID()
-                }
-            }
-            
-            // Fix an issue where a slash was missing in the discoveryIdentifiers.
-            let targets = [StaticService(type: .instituteAccess),
-                           StaticService(type: .secureInternet)].compactMap { $0 }
-            
-            targets.forEach { target in
-                let fetch = InstanceGroup.fetchRequestForEntity(inContext: context)
-                fetch.predicate = NSPredicate(format: "discoveryIdentifier == %@", "\(target.baseURL.absoluteString)\(target.path)")
-                if let instanceGroups = try? fetch.execute() {
-                    instanceGroups.forEach {
-                        $0.discoveryIdentifier = "\(target.baseURL.absoluteString)/\(target.path)"
-                    }
-                }
-            }
-            
-            // Remove groups no longer active in the app due to changed discovery files.
-            let activeDiscoveryIdentifiers = targets.map { "\($0.baseURL.absoluteString)/\($0.path)" }
-            
-            let groups = try? InstanceGroup.allInContext(context)
-            let obsoleteGroups = groups?.filter { group in
-                guard let discoveryIdentifier = group.discoveryIdentifier else { return false }
-                return !activeDiscoveryIdentifiers.contains(discoveryIdentifier)
-            }
-            obsoleteGroups?.forEach { context.delete($0) }
-            
-            // We're done, save everything.
-            context.saveContext()
-        }
+//        // Migration
+//        persistentContainer.performBackgroundTask { context in
+//            let profiles = try? Profile.allInContext(context)
+//            // Make sure all profiles have a UUID
+//            profiles?.forEach { profile in
+//                if profile.uuid == nil {
+//                    profile.uuid = UUID()
+//                }
+//            }
+//
+//            // Fix an issue where a slash was missing in the discoveryIdentifiers.
+//            let targets = [StaticService(type: .instituteAccess),
+//                           StaticService(type: .secureInternet)].compactMap { $0 }
+//
+//            targets.forEach { target in
+//                let fetch = InstanceGroup.fetchRequestForEntity(inContext: context)
+//                fetch.predicate = NSPredicate(format: "discoveryIdentifier == %@", "\(target.baseURL.absoluteString)\(target.path)")
+//                if let instanceGroups = try? fetch.execute() {
+//                    instanceGroups.forEach {
+//                        $0.discoveryIdentifier = "\(target.baseURL.absoluteString)/\(target.path)"
+//                    }
+//                }
+//            }
+//
+//            // Remove groups no longer active in the app due to changed discovery files.
+//            let activeDiscoveryIdentifiers = targets.map { "\($0.baseURL.absoluteString)/\($0.path)" }
+//
+//            let groups = try? InstanceGroup.allInContext(context)
+//            let obsoleteGroups = groups?.filter { group in
+//                guard let discoveryIdentifier = group.discoveryIdentifier else { return false }
+//                return !activeDiscoveryIdentifiers.contains(discoveryIdentifier)
+//            }
+//            obsoleteGroups?.forEach { context.delete($0) }
+//
+//            // We're done, save everything.
+//            context.saveContext()
+//        }
     }
     
     func loadCertificate(for api: Api) -> Promise<CertificateModel> {

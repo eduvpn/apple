@@ -15,6 +15,7 @@ protocol OrganizationsViewControllerDelegate: class {
     func organizationsViewController(_ controller: OrganizationsViewController, didDelete instance: Organization)
     func organizationsViewControllerShouldClose(_ controller: OrganizationsViewController)
     func organizationsViewController(_ controller: OrganizationsViewController, addCustomProviderWithUrl url: URL)
+    func organizationsViewControllerWantsToAddUrl(_ controller: OrganizationsViewController)
 }
 
 /// Used to display configure organizations (when organizationType == .unknown aka. configuredForInstancesDisplay)  and to select a specific organization to add.
@@ -35,14 +36,7 @@ class OrganizationsViewController: NSViewController {
     @IBOutlet var backButton: NSButton?
         
     var viewContext: NSManagedObjectContext!
-//var selectingConfig: Bool = false
-    
-//    var organizationType: ProviderType = .unknown
 
-//    var configuredForInstancesDisplay: Bool {
-//        return organizationType == .unknown
-//    }
-//
     private var started = false
     
     private lazy var fetchedResultsController: FetchedResultsController<Organization> = {
@@ -122,6 +116,8 @@ class OrganizationsViewController: NSViewController {
         updateInterface()
 
         reachabilityManager?.startListening()
+        
+        searchField.becomeFirstResponder()
     }
     
     override func viewWillDisappear() {
@@ -129,8 +125,8 @@ class OrganizationsViewController: NSViewController {
         reachabilityManager?.stopListening()
     }
     
-    @IBAction func addOtherProvider(_ sender: Any) {
-        delegate?.organizationsViewController(self, addProviderAnimated: true)
+    @IBAction func enterProviderURL(_ sender: Any) {
+        delegate?.organizationsViewControllerWantsToAddUrl(self)
     }
     
     @IBAction func search(_ sender: Any) {
@@ -157,47 +153,6 @@ class OrganizationsViewController: NSViewController {
     
     @IBAction func connectProviderUsingDoubleClick(_ sender: Any) {
         selectProvider(at: tableView.clickedRow)
-    }
-    
-    @IBAction func removeProvider(_ sender: Any) {
-        let row = tableView.selectedRow
-        guard row >= 0 else {
-            return
-        }
-        
-        let tableRow = rows[row]
-        switch tableRow {
-            
-        case .row(let instance):
-            guard let window = view.window else {
-                break
-            }
-            let alert = NSAlert()
-            alert.alertStyle = .critical
-            alert.messageText = NSLocalizedString("Remove \(instance.displayName)?", comment: "")
-            alert.informativeText = NSLocalizedString("You will no longer be able to connect to \(instance.displayName).", comment: "")
-            
-//            switch instance.group?.authorizationTypeEnum {
-//            case .local, .none:
-//                break
-//            case .distributed, .federated:
-//                alert.informativeText += NSLocalizedString(" You may also no longer be able to connect to additional organizations that were authorized via this organization.", comment: "")
-//            }
-            
-            alert.addButton(withTitle: NSLocalizedString("Remove", comment: ""))
-            alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
-            alert.beginSheetModal(for: window) { response in
-                switch response {
-                case NSApplication.ModalResponse.alertFirstButtonReturn:
-                    self.tableView.deselectRow(row)
-                    self.delegate?.organizationsViewController(self, didDelete: instance)
-
-                default:
-                    break
-                }
-            }
-            
-        }
     }
     
     private var busy: Bool = false

@@ -8,19 +8,20 @@ import os.log
 import Alamofire
 
 protocol ServersViewControllerDelegate: class {
-    func providersViewControllerNoProfiles(_ controller: ProvidersViewController)
-    func providersViewController(_ controller: ProvidersViewController, addProviderAnimated animated: Bool)
-    func providersViewControllerAddPredefinedProvider(_ controller: ProvidersViewController)
-    func providersViewController(_ controller: ProvidersViewController, didSelect instance: Instance)
-    func providersViewController(_ controller: ProvidersViewController, didDelete instance: Instance)
-    func providersViewControllerShouldClose(_ controller: ProvidersViewController)
-    func providersViewController(_ controller: ProvidersViewController, addCustomProviderWithUrl url: URL)
+    func serversViewControllerNoProfiles(_ controller: ServersViewController)
+    func serversViewController(_ controller: ServersViewController, addProviderAnimated animated: Bool)
+    func serversViewControllerAddPredefinedProvider(_ controller: ServersViewController)
+    func serversViewController(_ controller: ServersViewController, didSelect instance: Instance)
+    func serversViewController(_ controller: ServersViewController, didDelete instance: Instance)
+    func serversViewController(_ controller: ServersViewController, didDelete organization: Organization)
+    func serversViewControllerShouldClose(_ controller: ServersViewController)
+    func serversViewController(_ controller: ServersViewController, addCustomProviderWithUrl url: URL)
 }
 
-/// Used to display configure providers (when providerType == .unknown aka. configuredForInstancesDisplay)  and to select a specific provider to add.
+/// Used to display configure servers (when providerType == .unknown aka. configuredForInstancesDisplay)  and to select a specific provider to add.
 class ServersViewController: NSViewController {
     
-    weak var delegate: ProvidersViewControllerDelegate?
+    weak var delegate: ServersViewControllerDelegate?
     
     @IBOutlet var tableView: DeselectingTableView!
     @IBOutlet var unreachableLabel: NSTextField?
@@ -30,17 +31,11 @@ class ServersViewController: NSViewController {
     @IBOutlet var connectButton: NSButton?
     @IBOutlet var removeButton: NSButton?
     
-    // Choose provider VC buttons
+    // Choose server VC buttons
     @IBOutlet var backButton: NSButton?
         
     var viewContext: NSManagedObjectContext!
     var selectingConfig: Bool = false
-    
-    var providerType: ProviderType = .unknown
-
-    var configuredForInstancesDisplay: Bool {
-        return providerType == .unknown
-    }
     
     private var started = false
     
@@ -48,20 +43,17 @@ class ServersViewController: NSViewController {
         let fetchRequest = NSFetchRequest<Instance>()
         fetchRequest.entity = Instance.entity()
         
-        switch providerType {
-            
-        case .unknown:
-          //  fetchRequest.predicate = NSPredicate(format: "apis.@count > 0 AND (SUBQUERY(apis, $y, (SUBQUERY($y.profiles, $z, $z != NIL).@count > 0)).@count > 0)")
-            break
-        default:
-            fetchRequest.predicate = NSPredicate(format: "providerType == %@", providerType.rawValue)
-            
-        }
+        // TODO: Use this too?  fetchRequest.predicate = NSPredicate(format: "apis.@count > 0 AND (SUBQUERY(apis, $y, (SUBQUERY($y.profiles, $z, $z != NIL).@count > 0)).@count > 0)")
+
+        fetchRequest.predicate = NSPredicate(format: "provider != NIL AND (isParent == TRUE OR parent.isExpanded == TRUE)")
         
-        var sortDescriptors = [NSSortDescriptor]()
-   //     sortDescriptors.append(NSSortDescriptor(key: "provider.groupName", ascending: true))
-        // This would be nicer: sortDescriptors.append(NSSortDescriptor(key: "displayName", ascending: true))
-        sortDescriptors.append(NSSortDescriptor(key: "baseUri", ascending: true))
+        var sortDescriptors = [NSSortDescriptor]() // TODO: This doesn't make much sense
+        sortDescriptors.append(NSSortDescriptor(key: "provider.groupName", ascending: true))
+        sortDescriptors.append(NSSortDescriptor(key: "parent.displayName", ascending: true))
+        sortDescriptors.append(NSSortDescriptor(key: "sortName", ascending: true))
+        // This would be nicer:
+        sortDescriptors.append(NSSortDescriptor(key: "displayName", ascending: true))
+        //        sortDescriptors.append(NSSortDescriptor(key: "baseUri", ascending: true))
         fetchRequest.sortDescriptors = sortDescriptors
         
         let frc = FetchedResultsController<Instance>(fetchRequest: fetchRequest,
@@ -95,9 +87,10 @@ class ServersViewController: NSViewController {
         
         do {
             try fetchedResultsController.performFetch()
-            if configuredForInstancesDisplay && rows.isEmpty {
-                delegate?.providersViewController(self, addProviderAnimated: false)
-            }
+            updateInterface()
+//            if rows.isEmpty {
+//                delegate?.serversViewController(self, addProviderAnimated: false)
+//            }
         } catch {
             os_log("Failed to fetch objects: %{public}@", log: Log.general, type: .error, error.localizedDescription)
         }
@@ -136,7 +129,7 @@ class ServersViewController: NSViewController {
     }
     
     @IBAction func addOtherProvider(_ sender: Any) {
-        delegate?.providersViewController(self, addProviderAnimated: true)
+        delegate?.serversViewController(self, addProviderAnimated: true)
     }
     
     private func selectProvider(at row: Int) {
@@ -150,8 +143,8 @@ class ServersViewController: NSViewController {
         case .section:
             break
             
-        case .row(_, let instance):
-            delegate?.providersViewController(self, didSelect: instance)
+        case .row(let instance):
+            delegate?.serversViewController(self, didSelect: instance)
             
         }
     }
@@ -173,10 +166,31 @@ class ServersViewController: NSViewController {
         let tableRow = rows[row]
         switch tableRow {
             
-        case .section:
+        case .section(_, let organization):
+            guard let window = view.window, let organization = organization else {
+                break
+            }
+            let alert = NSAlert()
+            alert.alertStyle = .critical
+            let name = organization.displayName ?? NSLocalizedString("this organization", comment: "")
+            alert.messageText = NSLocalizedString("Remove \(name)?", comment: "")
+            alert.informativeText = NSLocalizedString("You will no longer be able to connect to \(name).", comment: "")
+
+            alert.addButton(withTitle: NSLocalizedString("Remove", comment: ""))
+            alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
+            alert.beginSheetModal(for: window) { response in
+                switch response {
+                case NSApplication.ModalResponse.alertFirstButtonReturn:
+                    self.tableView.deselectRow(row)
+                    self.delegate?.serversViewController(self, didDelete: organization)
+
+                default:
+                    break
+                }
+            }
             break
             
-        case .row(_, let instance):
+        case .row(let instance):
             guard let window = view.window else {
                 break
             }
@@ -189,7 +203,7 @@ class ServersViewController: NSViewController {
             case .local, .none:
                 break
             case .distributed, .federated:
-                alert.informativeText += NSLocalizedString(" You may also no longer be able to connect to additional providers that were authorized via this provider.", comment: "")
+                alert.informativeText += NSLocalizedString(" You may also no longer be able to connect to additional servers that were authorized via this organization.", comment: "")
             }
             
             alert.addButton(withTitle: NSLocalizedString("Remove", comment: ""))
@@ -198,7 +212,7 @@ class ServersViewController: NSViewController {
                 switch response {
                 case NSApplication.ModalResponse.alertFirstButtonReturn:
                     self.tableView.deselectRow(row)
-                    self.delegate?.providersViewController(self, didDelete: instance)
+                    self.delegate?.serversViewController(self, didDelete: instance)
 
                 default:
                     break
@@ -217,7 +231,7 @@ class ServersViewController: NSViewController {
     }
     
     @IBAction func goBack(_ sender: Any) {
-        delegate?.providersViewControllerShouldClose(self)
+        delegate?.serversViewControllerShouldClose(self)
     }
     
     fileprivate func updateInterface() {
@@ -233,13 +247,15 @@ class ServersViewController: NSViewController {
             
             switch tableRow {
                 
-            case .section:
+            case .section(_, let organization):
                 providerSelected = false
-                canRemoveProvider = false
+                canRemoveProvider = organization != nil
                 
-            case .row:
+            case .row(let instance):
                 providerSelected = true
-                canRemoveProvider = true
+                
+                let organization = (instance.provider as? Organization)
+                canRemoveProvider = organization == nil
                 
             }
         }
@@ -257,18 +273,18 @@ class ServersViewController: NSViewController {
         connectButton?.isHidden = !providerSelected || !reachable
         connectButton?.isEnabled = !busy
         
-        removeButton?.isHidden = !providerSelected || !reachable
+        removeButton?.isHidden = !reachable
         removeButton?.isEnabled = canRemoveProvider && !busy
     }
 }
 
 // MARK: - TableView
 
-extension ProvidersViewController {
+extension ServersViewController {
     
     fileprivate enum TableRow {
-        case section(String)
-        case row(String, Instance)
+        case section(String, Organization?)
+        case row(Instance)
     }
     
     fileprivate var rows: [TableRow] {
@@ -278,17 +294,12 @@ extension ProvidersViewController {
         }
         
         sections.forEach { section in
-            let sectionName = section.name ?? ""
-//            let providerType: ProviderType
-//            if let sectionName = section.name {
-//                providerType = ProviderType(rawValue: sectionName) ?? .unknown
-//            } else {
-//                providerType = .unknown
-//            }
+            let sectionName = section.name ?? "-"
+            let organization = (section.objects.first?.provider as? Organization)
             
-            rows.append(.section(sectionName))
+            rows.append(.section(sectionName, organization))
             section.objects.forEach { instance in
-                rows.append(.row(sectionName, instance))
+                rows.append(.row(instance))
             }
         }
         
@@ -296,17 +307,37 @@ extension ProvidersViewController {
     }
 }
 
-extension ProvidersViewController: NSTableViewDataSource {
+extension ServersViewController: NSTableViewDataSource {
     
     func numberOfRows(in tableView: NSTableView) -> Int {
         return rows.count
     }
 }
 
-extension ProvidersViewController: NSTableViewDelegate {
+extension ServersViewController: NSTableViewDelegate {
     
-    private func configureSectionCellView(_ cellView: NSTableCellView, providerType: ProviderType) {
-        cellView.textField?.stringValue = providerType.title
+    @IBAction func toggleExpand(_ sender: NSButton) {
+        guard let cellView = sender.superview else {
+            return
+        }
+        
+        let rowIndex = tableView.row(for: cellView)
+        
+        guard rows.indices.contains(rowIndex) else {
+            return
+        }
+        
+        let row = rows[rowIndex]
+        switch row {
+        case .row(let instance):
+            if instance.isParent {
+                instance.isExpanded.toggle()
+                try! instance.managedObjectContext?.save()
+                refresh()
+            }
+        default:
+            break
+        }
     }
     
     private func configureSectionCellView(_ cellView: NSTableCellView, title: String) {
@@ -319,20 +350,22 @@ extension ProvidersViewController: NSTableViewDelegate {
         cellView.imageView?.image = nil
         cellView.imageView?.isHidden = false
         
+        let button = cellView.viewWithTag(3) as? NSButton
+        button?.isHidden = !(instance.isParent && instance.children?.count ?? 0 > 0)
+        button?.state = instance.isExpanded ? .on : .off
+        button?.target = self
+        button?.action = #selector(toggleExpand(_:))
+        
         switch providerType {
             
         case .instituteAccess, .secureInternet, .organization:
-            if let logoString = instance.logos?.localizedValue, let logoUrl = URL(string: logoString) {
-                ImageLoader.loadImage(logoUrl, target: cellView.imageView)
-            } else {
-                cellView.imageView?.isHidden = true
-            }
+            cellView.imageView?.image = (!instance.isParent || instance.children?.count ?? 0 > 0) ? NSImage(named: "Secure Internet") :  NSImage(named: "Institute Access")
             
         case .other:
-            cellView.imageView?.image = NSWorkspace.shared.icon(forFileType: NSFileTypeForHFSTypeCode(OSType(kGenericNetworkIcon)))
+            cellView.imageView?.image = NSImage(named: "Other")
             
         case .local:
-            cellView.imageView?.image = NSWorkspace.shared.icon(forFileType: NSFileTypeForHFSTypeCode(OSType(kGenericDocumentIcon)))
+            cellView.imageView?.image = NSImage(named: "Local")
             
         case .unknown:
             cellView.imageView?.image = nil
@@ -340,7 +373,9 @@ extension ProvidersViewController: NSTableViewDelegate {
             
         }
         
-        cellView.textField?.stringValue = instance.displayName
+        cellView.constraints.first(where: { $0.identifier == "Indentation" })?.constant = instance.isParent ? 8 : 28
+        
+        cellView.textField?.stringValue = instance.displayName ?? "-"
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
@@ -348,7 +383,7 @@ extension ProvidersViewController: NSTableViewDelegate {
         
         switch tableRow {
             
-        case .section(let title):
+        case .section(let title, _):
             let cellView = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "SectionCell"),
                                               owner: self)
             
@@ -358,12 +393,12 @@ extension ProvidersViewController: NSTableViewDelegate {
             
             return cellView
             
-        case .row(let providerType, let instance):
+        case .row(let instance):
             let cellView = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "ProfileCell"),
                                               owner: self)
             
             if let cellView = cellView as? NSTableCellView {
-                configureRowCellView(cellView, providerType: .organization, instance: instance)
+                configureRowCellView(cellView, providerType: ProviderType(rawValue: instance.providerType ?? "") ?? .unknown, instance: instance)
             }
             
             return cellView
@@ -373,28 +408,15 @@ extension ProvidersViewController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
         let tableRow = rows[row]
         switch tableRow {
-        case .section:
-            return false
+        case .section(_, let organization):
+            return organization != nil
         case .row:
             return true
         }
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
-        switch providerType {
-        case .unknown:
-            updateInterface()
-        default:
-            guard tableView.selectedRow >= 0 else {
-                return
-            }
-
-            selectProvider(at: tableView.selectedRow)
-
-            tableView.deselectRow(tableView.selectedRow)
-            
-            updateInterface()
-        }
+        updateInterface()
     }
     
     func tableView(_ tableView: NSTableView,

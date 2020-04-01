@@ -65,8 +65,8 @@ class ProvidersViewController: NSViewController {
         fetchRequest.sortDescriptors = sortDescriptors
         
         let frc = FetchedResultsController<Instance>(fetchRequest: fetchRequest,
-                                                     managedObjectContext: viewContext)//,
-                                                     //sectionNameKeyPath: "providerType")
+                                                     managedObjectContext: viewContext,
+                                                     sectionNameKeyPath: "providerType")
         frc.setDelegate(self.frcDelegate)
         
         return frc
@@ -335,7 +335,7 @@ extension ProvidersViewController: NSTableViewDelegate {
             
         }
         
-        cellView.textField?.stringValue = instance.displayName
+        cellView.textField?.stringValue = instance.displayName ?? "-"
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
