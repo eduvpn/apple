@@ -165,7 +165,7 @@ class AppCoordinator: RootViewCoordinator {
     /// Starts the coordinator for new discovery methor
     private func instantiateServersViewController() {
         #if os(iOS)
-        providersViewController = storyboard.instantiateViewController(type: ProvidersViewController.self)
+        serversViewController = storyboard.instantiateViewController(type: ServersViewController.self)
         #elseif os(macOS)
         serversViewController = storyboard.instantiateController(withIdentifier: "Servers") as? ServersViewController
         #endif
