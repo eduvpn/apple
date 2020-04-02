@@ -106,7 +106,7 @@ extension AppCoordinator {
 
         navigationController.pushViewController(customProviderInputVc, animated: animated)
         #elseif os(macOS)
-        profilesViewControllerWantsToAddUrl()
+        userWantsToAddUrl()
         #endif
     }
     
@@ -156,11 +156,6 @@ extension AppCoordinator {
         
         presentViewController(organizationsViewController, animated: animated, completion: nil)
 //        pushViewController(organizationsViewController, animated: animated)
-        
-        // Required for startup safety purpose
-        #if os(macOS)
-        organizationsViewController.start()
-        #endif
         
         organizationsRepository.loader.load()
     }

@@ -39,10 +39,10 @@ extension AppCoordinator: ProfilesViewControllerDelegate {
     }
     
     func profilesViewControllerWantsToAddUrl(_ controller: ProfilesViewController) {
-        profilesViewControllerWantsToAddUrl()
+        userWantsToAddUrl()
     }
     
-    func profilesViewControllerWantsToAddUrl() {
+    func userWantsToAddUrl() {
         guard let enterProviderURLViewController = storyboard.instantiateController(withIdentifier: "EnterProviderURL")
             as? EnterProviderURLViewController else {
                 return

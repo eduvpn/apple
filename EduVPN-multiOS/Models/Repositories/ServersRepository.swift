@@ -15,6 +15,10 @@ struct ServersRepository {
     let refresher = InstanceRefresher()
 }
 
+enum ServersLoaderError: Error {
+    case staticTargetError
+}
+
 // MARK: - ServersLoader
 
 class ServersLoader {
@@ -47,27 +51,20 @@ class ServersLoader {
     
     // Load
     
-    func load(with organization: Organization) {
-        guard let (target, sigTarget) = try? pickStaticTargets(for: organization) else {
-            return
+    func load(with organization: Organization) -> Promise<Void> {
+        guard let (target, sigTarget) = try? pickStaticTargets(for: organization), let identifier = organization.identifier else {
+            return Promise(error: ServersLoaderError.staticTargetError)
         }
         
         let provider = MoyaProvider<StaticService>(manager: MoyaProvider<StaticService>.ephemeralAlamofireManager())
         
-        provider
+        return provider
 //            .request(target: sigTarget)
 //            .then(validateSodiumSignature)
 //            .then { provider.request(target: target).then(self.verifyResponse(signature: $0)) }
             .request(target: target)
             .then(decodeServers)
-            .then(parseServers(organizationIdentifier: organization.identifier!))
-            .recover {
-                #if os(iOS)
-                (UIApplication.shared.delegate as? AppDelegate)?.appCoordinator.showError($0)
-                #elseif os(macOS)
-                (NSApp.delegate as? AppDelegate)?.appCoordinator.showError($0)
-                #endif
-            }
+            .then(parseServers(organizationIdentifier: identifier))
     }
     
     // Load steps

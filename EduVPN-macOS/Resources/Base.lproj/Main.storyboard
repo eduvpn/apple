@@ -1937,7 +1937,6 @@ Gw
                                                 </tableColumn>
                                             </tableColumns>
                                             <connections>
-                                                <action trigger="doubleAction" selector="connectProviderUsingDoubleClick:" target="HKx-s4-Lgr" id="tVR-R7-AhA"/>
                                                 <outlet property="dataSource" destination="HKx-s4-Lgr" id="C0O-FC-lqU"/>
                                                 <outlet property="delegate" destination="HKx-s4-Lgr" id="zwX-EU-I0d"/>
                                             </connections>
@@ -2201,7 +2200,7 @@ CA
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="212" id="2wx-EO-TXx"/>
                                     <constraint firstAttribute="height" constant="37" id="Q6y-rA-gjC"/>
                                 </constraints>
-                                <buttonCell key="cell" type="squareTextured" title="Add Provider" bezelStyle="texturedSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gG6-GF-5Nr">
+                                <buttonCell key="cell" type="squareTextured" title="Add Organization" bezelStyle="texturedSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gG6-GF-5Nr">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system" size="15"/>
                                     <string key="keyEquivalent" base64-UTF8="YES">

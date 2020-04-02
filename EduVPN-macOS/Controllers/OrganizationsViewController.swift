@@ -8,17 +8,12 @@ import os.log
 import Alamofire
 
 protocol OrganizationsViewControllerDelegate: class {
-    func organizationsViewControllerNoProfiles(_ controller: OrganizationsViewController)
-    func organizationsViewController(_ controller: OrganizationsViewController, addProviderAnimated animated: Bool)
-    func organizationsViewControllerAddPredefinedProvider(_ controller: OrganizationsViewController)
     func organizationsViewController(_ controller: OrganizationsViewController, didSelect instance: Organization)
-    func organizationsViewController(_ controller: OrganizationsViewController, didDelete instance: Organization)
     func organizationsViewControllerShouldClose(_ controller: OrganizationsViewController)
-    func organizationsViewController(_ controller: OrganizationsViewController, addCustomProviderWithUrl url: URL)
     func organizationsViewControllerWantsToAddUrl(_ controller: OrganizationsViewController)
 }
 
-/// Used to display configure organizations (when organizationType == .unknown aka. configuredForInstancesDisplay)  and to select a specific organization to add.
+/// Used to display and search all available organizations and to select a specific organization to add.
 class OrganizationsViewController: NSViewController {
     
     weak var delegate: OrganizationsViewControllerDelegate?
@@ -28,16 +23,12 @@ class OrganizationsViewController: NSViewController {
     
     // Initial VC buttons
     @IBOutlet var otherProviderButton: NSButton?
-    @IBOutlet var connectButton: NSButton?
-    @IBOutlet var removeButton: NSButton?
     @IBOutlet weak var searchField: NSSearchField!
     
     // Choose organization VC buttons
     @IBOutlet var backButton: NSButton?
         
     var viewContext: NSManagedObjectContext!
-
-    private var started = false
     
     private lazy var fetchedResultsController: FetchedResultsController<Organization> = {
         let fetchRequest = NSFetchRequest<Organization>()
@@ -64,17 +55,7 @@ class OrganizationsViewController: NSViewController {
         refresh()
     }
     
-    func start() {
-        started = true
-        refresh()
-    }
-    
     @objc func refresh() {
-        if !started {
-            // Prevent from executing until AppCoordinator assigned all required values
-            return
-        }
-        
         do {
             let query = searchField.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
             if !query.isEmpty {
@@ -83,9 +64,6 @@ class OrganizationsViewController: NSViewController {
                 fetchedResultsController.fetchRequest.predicate = nil
             }
             try fetchedResultsController.performFetch()
-//            if configuredForInstancesDisplay && rows.isEmpty {
-//                delegate?.organizationsViewController(self, addProviderAnimated: false)
-//            }
         } catch {
             os_log("Failed to fetch objects: %{public}@", log: Log.general, type: .error, error.localizedDescription)
         }
@@ -95,11 +73,7 @@ class OrganizationsViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Disable while local ovpn file support isn't here yet
-        // tableView.registerForDraggedTypes([kUTTypeFileURL as NSPasteboard.PasteboardType,
-        //                                    kUTTypeURL as NSPasteboard.PasteboardType])
-        
+         
         // Handle internet connection state
         reachabilityManager?.listener = {[weak self] _ in
             self?.updateInterface()
@@ -134,25 +108,15 @@ class OrganizationsViewController: NSViewController {
     }
     
     private func selectProvider(at row: Int) {
-        guard row >= 0 else {
+        guard rows.indices.contains(row) else {
             return
         }
         
         let tableRow = rows[row]
         switch tableRow {
-            
-        case .row(let instance):
-            delegate?.organizationsViewController(self, didSelect: instance)
-            
+        case .row(let organization):
+            delegate?.organizationsViewController(self, didSelect: organization)
         }
-    }
-    
-    @IBAction func connectProvider(_ sender: Any) {
-        selectProvider(at: tableView.selectedRow)
-    }
-    
-    @IBAction func connectProviderUsingDoubleClick(_ sender: Any) {
-        selectProvider(at: tableView.clickedRow)
     }
     
     private var busy: Bool = false
@@ -168,25 +132,6 @@ class OrganizationsViewController: NSViewController {
     }
     
     fileprivate func updateInterface() {
-        let row = tableView.selectedRow
-        let organizationSelected: Bool
-        let canRemoveProvider: Bool
-        
-        if row < 0 {
-            organizationSelected = false
-            canRemoveProvider = false
-        } else {
-            let tableRow = rows[row]
-            
-            switch tableRow {
-        
-            case .row:
-                organizationSelected = true
-                canRemoveProvider = true
-                
-            }
-        }
-        
         let reachable = reachabilityManager?.isReachable ?? true
 
         unreachableLabel?.isHidden = reachable
@@ -194,14 +139,8 @@ class OrganizationsViewController: NSViewController {
         tableView.superview?.superview?.isHidden = !reachable
         tableView.isEnabled = !busy
         
-        otherProviderButton?.isHidden = organizationSelected || !reachable
+        otherProviderButton?.isHidden = !reachable
         otherProviderButton?.isEnabled = !busy
-        
-        connectButton?.isHidden = !organizationSelected || !reachable
-        connectButton?.isEnabled = !busy
-        
-        removeButton?.isHidden = !organizationSelected || !reachable
-        removeButton?.isEnabled = canRemoveProvider && !busy
     }
 }
 
@@ -215,7 +154,7 @@ extension OrganizationsViewController {
     
     fileprivate var rows: [TableRow] {
         var rows: [TableRow] = []
-        guard started, let sections = fetchedResultsController.sections else {
+        guard let sections = fetchedResultsController.sections else {
             return rows
         }
         
@@ -238,16 +177,7 @@ extension OrganizationsViewController: NSTableViewDataSource {
 
 extension OrganizationsViewController: NSTableViewDelegate {
     
-    private func configureSectionCellView(_ cellView: NSTableCellView, organizationType: ProviderType) {
-        cellView.textField?.stringValue = organizationType.title
-    }
-    
     private func configureRowCellView(_ cellView: NSTableCellView, organization: Organization) {
-        // Cancel loading of any previous image load attempts since this view may be reused
-        ImageLoader.cancelLoadImage(target: cellView.imageView)
-        cellView.imageView?.image = nil
-        cellView.imageView?.isHidden = true
-        
         cellView.textField?.stringValue = organization.displayName ?? ""
     }
     
@@ -256,8 +186,7 @@ extension OrganizationsViewController: NSTableViewDelegate {
         
         switch tableRow {
         case .row(let organization):
-            let cellView = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "OrganizationCell"),
-                                              owner: self)
+            let cellView = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "OrganizationCell"), owner: self)
             
             if let cellView = cellView as? NSTableCellView {
                 configureRowCellView(cellView, organization: organization)
@@ -285,15 +214,6 @@ extension OrganizationsViewController: NSTableViewDelegate {
         tableView.deselectRow(tableView.selectedRow)
         
         updateInterface()
-    }
-    
-    func tableView(_ tableView: NSTableView,
-                   validateDrop info: NSDraggingInfo,
-                   proposedRow row: Int,
-                   proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
-        
-        tableView.setDropRow(-1, dropOperation: .on)
-        return .copy
     }
     
 }
