@@ -39,7 +39,7 @@ jobs:
     - name: List available Xcode versions
       run: ls /Applications | grep Xcode
     - name: Select Xcode
-      run: sudo xcode-select -switch /Applications/Xcode_11.3.app && /usr/bin/xcodebuild -version
+      run: sudo xcode-select -switch /Applications/Xcode_11.3.1.app && /usr/bin/xcodebuild -version
     - name: Prepare Developer.xcconfig
       run: cp EduVPN/Config/Developer.xcconfig.eduvpn-template EduVPN/Config/Developer.xcconfig
     - name: Prepare config.json
@@ -58,7 +58,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Select Xcode
-      run: sudo xcode-select -switch /Applications/Xcode_11.3.app
+      run: sudo xcode-select -switch /Applications/Xcode_11.3.1.app
     - name: Prepare Developer-macos.xcconfig
       run: cp EduVPN-macOS/Config/Developer-macos.xcconfig.eduvpn-template EduVPN-macOS/Config/Developer-macos.xcconfig
     - name: Prepare config.json
