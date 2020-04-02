@@ -15,12 +15,12 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
         addProfilesWhenNoneAvailable()
     }
 
-    func providersViewController(_ controller: ProvidersViewController, addProviderAnimated animated: Bool) {
+    func providersViewController(_ controller: ProvidersViewController, addProviderAnimated animated: Bool, allowClose: Bool) {
         #if os(iOS)
         addProvider(animated: animated)
         #elseif os(macOS)
         if config.apiDiscoveryEnabled ?? false {
-            addProvider(animated: animated)
+            addProvider(animated: animated, allowClose: allowClose)
         } else {
             showCustomProviderInputViewController(for: .other, animated: animated)
         }
@@ -64,18 +64,18 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
                     connect(profile: profile)
                 } else {
                     // Move this to pull to refresh?
-                               refresh(instance: instance).then { _ -> Promise<Void> in
-                                   #if os(iOS)
-                                   self.popToRootViewController()
-                                   #elseif os(macOS)
-                                   // TODO: It is unclear to me why iOS pops to root here. For macOS dismiss seems wrong.
-                                   // self.dismissViewController()
-                                   #endif
-                                   return .value(())
-                               }.recover { error in
-                                   let error = error as NSError
-                                   self.showError(error)
-                               }
+                    refresh(instance: instance).then { _ -> Promise<Void> in
+                        #if os(iOS)
+                        self.popToRootViewController()
+                        #elseif os(macOS)
+                        // TODO: It is unclear to me why iOS pops to root here. For macOS dismiss seems wrong.
+                        // self.dismissViewController()
+                        #endif
+                        return .value(())
+                    }.recover { error in
+                        let error = error as NSError
+                        self.showError(error)
+                    }
                 }
             } catch {
                 showError(error)
@@ -139,7 +139,7 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
                 if let predefinedProvider = config.predefinedProvider {
                     _ = connect(url: predefinedProvider)
                 } else {
-                    addProvider()
+                    addProvider(allowClose: false)
                 }
             }
         } catch {

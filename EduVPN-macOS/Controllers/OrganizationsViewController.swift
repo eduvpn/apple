@@ -18,6 +18,19 @@ class OrganizationsViewController: NSViewController {
     
     weak var delegate: OrganizationsViewControllerDelegate?
     
+    private var allowClose = true {
+        didSet {
+            guard isViewLoaded else {
+                return
+            }
+            backButton?.isHidden = !allowClose
+        }
+    }
+    
+    func allowClose(_ state: Bool) {
+        self.allowClose = state
+    }
+    
     @IBOutlet var tableView: DeselectingTableView!
     @IBOutlet var unreachableLabel: NSTextField?
     
@@ -74,6 +87,8 @@ class OrganizationsViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
          
+         (allowClose = allowClose)
+        
         // Handle internet connection state
         reachabilityManager?.listener = {[weak self] _ in
             self?.updateInterface()

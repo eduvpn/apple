@@ -55,9 +55,11 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
         case present
     }
     
-    func setRoot(viewController: NSViewController) {
+    func setRoot(viewController: NSViewController,
+                 animated: Bool = true,
+                 completionHandler: (() -> Void)? = nil) {
         navigationStackStack = [[viewController]]
-        mainViewController.show(viewController: viewController, options: .crossfade, animated: false, completionHandler: nil)
+        mainViewController.show(viewController: viewController, options: .crossfade, animated: animated, completionHandler: completionHandler)
     }
     
     func show(viewController: NSViewController,

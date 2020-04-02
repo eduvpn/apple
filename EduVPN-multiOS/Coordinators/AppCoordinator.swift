@@ -115,22 +115,9 @@ class AppCoordinator: RootViewCoordinator {
         self.organizationsRepository = organizationsRepository
         self.serversRepository = serversRepository
         
-        providersViewController = windowController.contentViewController?.children.first as? ProvidersViewController
-        serversViewController = storyboard.instantiateController(withIdentifier: "Servers") as? ServersViewController
-        
-        if UserDefaults.standard.useNewDiscoveryMethod {
-            os_log("Using new discovery method", log: Log.general, type: .info)
-            (windowController as? MainWindowController)?.setRoot(viewController: serversViewController)
-//            (windowController.contentViewController as? MainViewController)?.addChild(serversViewController)
-        } else {
-            os_log("Using old discovery method", log: Log.general, type: .info)
-              (windowController as? MainWindowController)?.setRoot(viewController: providersViewController)
-//            (windowController.contentViewController as? MainViewController)?.addChild(providersViewController)
-        }
+        providePersistentContainer()
         
         windowController.window?.makeKeyAndOrderFront(nil)
-        
-        providePersistentContainer()
     }
     
     func fixAppName(to appName: String) {
@@ -155,6 +142,8 @@ class AppCoordinator: RootViewCoordinator {
     private func instantiateProvidersViewController() {
         #if os(iOS)
         providersViewController = storyboard.instantiateViewController(type: ProvidersViewController.self)
+      
+        providersViewController = windowController.contentViewController?.children.first as? ProvidersViewController
         #endif
         
         persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
@@ -164,8 +153,9 @@ class AppCoordinator: RootViewCoordinator {
         #if os(iOS)
         navigationController.viewControllers = [providersViewController]
         #elseif os(macOS)
-        
-        providersViewController.start()
+        (windowController as? MainWindowController)?.setRoot(viewController: providersViewController, animated: false) {
+            self.providersViewController.start()
+        }
         #endif
     }
     
@@ -173,6 +163,8 @@ class AppCoordinator: RootViewCoordinator {
     private func instantiateServersViewController() {
         #if os(iOS)
         providersViewController = storyboard.instantiateViewController(type: ProvidersViewController.self)
+        #elseif os(macOS)
+        serversViewController = storyboard.instantiateController(withIdentifier: "Servers") as? ServersViewController
         #endif
         
         persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
@@ -182,7 +174,9 @@ class AppCoordinator: RootViewCoordinator {
         #if os(iOS)
         navigationController.viewControllers = [serversViewController]
         #elseif os(macOS)
-        serversViewController.start()
+        (windowController as? MainWindowController)?.setRoot(viewController: serversViewController, animated: false) {
+            self.serversViewController.start()
+        }
         #endif
     }
     
@@ -265,43 +259,49 @@ class AppCoordinator: RootViewCoordinator {
             }
         }
         
-//        // Migration
-//        persistentContainer.performBackgroundTask { context in
-//            let profiles = try? Profile.allInContext(context)
-//            // Make sure all profiles have a UUID
-//            profiles?.forEach { profile in
-//                if profile.uuid == nil {
-//                    profile.uuid = UUID()
-//                }
-//            }
-//
-//            // Fix an issue where a slash was missing in the discoveryIdentifiers.
-//            let targets = [StaticService(type: .instituteAccess),
-//                           StaticService(type: .secureInternet)].compactMap { $0 }
-//
-//            targets.forEach { target in
-//                let fetch = InstanceGroup.fetchRequestForEntity(inContext: context)
-//                fetch.predicate = NSPredicate(format: "discoveryIdentifier == %@", "\(target.baseURL.absoluteString)\(target.path)")
-//                if let instanceGroups = try? fetch.execute() {
-//                    instanceGroups.forEach {
-//                        $0.discoveryIdentifier = "\(target.baseURL.absoluteString)/\(target.path)"
-//                    }
-//                }
-//            }
-//
-//            // Remove groups no longer active in the app due to changed discovery files.
-//            let activeDiscoveryIdentifiers = targets.map { "\($0.baseURL.absoluteString)/\($0.path)" }
-//
-//            let groups = try? InstanceGroup.allInContext(context)
-//            let obsoleteGroups = groups?.filter { group in
-//                guard let discoveryIdentifier = group.discoveryIdentifier else { return false }
-//                return !activeDiscoveryIdentifiers.contains(discoveryIdentifier)
-//            }
-//            obsoleteGroups?.forEach { context.delete($0) }
-//
-//            // We're done, save everything.
-//            context.saveContext()
-//        }
+        // Migration
+        persistentContainer.performBackgroundTask { context in
+            guard UserDefaults.standard.useNewDiscoveryMethod == false else {
+                // TODO: See which migration is needed with new discovery method
+                // Currently it is too eager and removes everything
+                return
+            }
+            
+            let profiles = try? Profile.allInContext(context)
+            // Make sure all profiles have a UUID
+            profiles?.forEach { profile in
+                if profile.uuid == nil {
+                    profile.uuid = UUID()
+                }
+            }
+
+            // Fix an issue where a slash was missing in the discoveryIdentifiers.
+            let targets = [StaticService(type: .instituteAccess),
+                           StaticService(type: .secureInternet)].compactMap { $0 }
+
+            targets.forEach { target in
+                let fetch = InstanceGroup.fetchRequestForEntity(inContext: context)
+                fetch.predicate = NSPredicate(format: "discoveryIdentifier == %@", "\(target.baseURL.absoluteString)\(target.path)")
+                if let instanceGroups = try? fetch.execute() {
+                    instanceGroups.forEach {
+                        $0.discoveryIdentifier = "\(target.baseURL.absoluteString)/\(target.path)"
+                    }
+                }
+            }
+
+            // Remove groups no longer active in the app due to changed discovery files.
+            let activeDiscoveryIdentifiers = targets.map { "\($0.baseURL.absoluteString)/\($0.path)" }
+
+            let groups = try? InstanceGroup.allInContext(context)
+            let obsoleteGroups = groups?.filter { group in
+                guard let discoveryIdentifier = group.discoveryIdentifier else { return false }
+                return !activeDiscoveryIdentifiers.contains(discoveryIdentifier)
+            }
+            obsoleteGroups?.forEach { context.delete($0) }
+
+            // We're done, save everything.
+            context.saveContext()
+        }
     }
     
     func loadCertificate(for api: Api) -> Promise<CertificateModel> {
@@ -424,14 +424,14 @@ class AppCoordinator: RootViewCoordinator {
         }
     }
     
-    func addProvider(animated: Bool = true) {
+    func addProvider(animated: Bool = true, allowClose: Bool) {
         if StaticService(type: .instituteAccess) == nil {
             // We can not create a static service, so no discovery files are defined. Fall back to adding "another" service.
             showCustomProviderInputViewController(for: .other, animated: animated)
         } else {
             if UserDefaults.standard.useNewDiscoveryMethod {
                 os_log("Using new discovery method", log: Log.general, type: .info)
-                showOrganizationsViewController(animated: animated)
+                showOrganizationsViewController(animated: animated, allowClose: allowClose)
             } else {
                 os_log("Using old discovery method", log: Log.general, type: .info)
                 showProfilesViewController(animated: animated)

@@ -137,25 +137,20 @@ extension AppCoordinator {
         instancesRepository.loader.load(with: providerType)
     }
     
-    internal func showOrganizationsViewController(animated: Bool) {
+    internal func showOrganizationsViewController(animated: Bool, allowClose: Bool) {
         #if os(iOS)
         let providersVc = storyboard.instantiateViewController(type: ProvidersViewController.self)
         #elseif os(macOS)
-        // Do separate instantiation with identifier
-        // Because macOS reuses VC class, but uses two different layouts
         guard let organizationsViewController = storyboard.instantiateController(withIdentifier: "ChooseOrganization") as? OrganizationsViewController else {
             return
         }
         #endif
         
-        //organizationsViewController.providerType = providerType
         organizationsViewController.viewContext = persistentContainer.viewContext
         organizationsViewController.delegate = self
-//        organizationsViewController.selectingConfig = true
-     //   organizationsViewController.providerType = providerType
+        organizationsViewController.allowClose(allowClose)
         
         presentViewController(organizationsViewController, animated: animated, completion: nil)
-//        pushViewController(organizationsViewController, animated: animated)
         
         organizationsRepository.loader.load()
     }

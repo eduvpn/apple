@@ -15,12 +15,12 @@ extension AppCoordinator: ServersViewControllerDelegate {
         addProfilesWhenNoneAvailable()
     }
 
-    func serversViewController(_ controller: ServersViewController, addProviderAnimated animated: Bool) {
+    func serversViewController(_ controller: ServersViewController, addProviderAnimated animated: Bool, allowClose: Bool) {
         #if os(iOS)
         addProvider(animated: animated)
         #elseif os(macOS)
         if config.apiDiscoveryEnabled ?? false {
-            addProvider(animated: animated)
+            addProvider(animated: animated, allowClose: allowClose)
         } else {
             showCustomProviderInputViewController(for: .other, animated: animated)
         }
@@ -155,7 +155,7 @@ extension AppCoordinator: ServersViewControllerDelegate {
                 if let predefinedProvider = config.predefinedProvider {
                     _ = connect(url: predefinedProvider)
                 } else {
-                    addProvider()
+                    addProvider(allowClose: false)
                 }
             }
         } catch {

@@ -9,7 +9,7 @@ import Alamofire
 
 protocol ServersViewControllerDelegate: class {
     func serversViewControllerNoProfiles(_ controller: ServersViewController)
-    func serversViewController(_ controller: ServersViewController, addProviderAnimated animated: Bool)
+    func serversViewController(_ controller: ServersViewController, addProviderAnimated animated: Bool, allowClose: Bool)
     func serversViewControllerAddPredefinedProvider(_ controller: ServersViewController)
     func serversViewController(_ controller: ServersViewController, didSelect instance: Instance)
     func serversViewController(_ controller: ServersViewController, didDelete instance: Instance)
@@ -63,15 +63,15 @@ class ServersViewController: NSViewController {
     override func viewWillAppear() {
         super.viewWillAppear()
         
-        refresh()
+        refresh(animated: false)
     }
     
     func start() {
         started = true
-        refresh()
+        refresh(animated: false)
     }
     
-    @objc func refresh() {
+    @objc func refresh(animated: Bool) {
         if !started {
             // Prevent from executing until AppCoordinator assigned all required values
             return
@@ -80,9 +80,10 @@ class ServersViewController: NSViewController {
         do {
             try fetchedResultsController.performFetch()
             updateInterface()
-//            if rows.isEmpty {
-//                delegate?.serversViewController(self, addProviderAnimated: false)
-//            }
+            
+            if rows.isEmpty {
+                delegate?.serversViewController(self, addProviderAnimated: animated, allowClose: false)
+            }
         } catch {
             os_log("Failed to fetch objects: %{public}@", log: Log.general, type: .error, error.localizedDescription)
         }
@@ -121,7 +122,7 @@ class ServersViewController: NSViewController {
     }
     
     @IBAction func addOtherProvider(_ sender: Any) {
-        delegate?.serversViewController(self, addProviderAnimated: true)
+        delegate?.serversViewController(self, addProviderAnimated: true, allowClose: true)
     }
     
     private func selectProvider(at row: Int) {
@@ -315,7 +316,7 @@ extension ServersViewController: NSTableViewDelegate {
             if instance.isParent {
                 instance.isExpanded.toggle()
                 try? instance.managedObjectContext?.save()
-                refresh()
+                refresh(animated: true)
             }
         default:
             break

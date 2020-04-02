@@ -9,7 +9,7 @@ import Alamofire
 
 protocol ProvidersViewControllerDelegate: class {
     func providersViewControllerNoProfiles(_ controller: ProvidersViewController)
-    func providersViewController(_ controller: ProvidersViewController, addProviderAnimated animated: Bool)
+    func providersViewController(_ controller: ProvidersViewController, addProviderAnimated animated: Bool, allowClose: Bool)
     func providersViewControllerAddPredefinedProvider(_ controller: ProvidersViewController)
     func providersViewController(_ controller: ProvidersViewController, didSelect instance: Instance)
     func providersViewController(_ controller: ProvidersViewController, didDelete instance: Instance)
@@ -96,7 +96,7 @@ class ProvidersViewController: NSViewController {
         do {
             try fetchedResultsController.performFetch()
             if configuredForInstancesDisplay && rows.isEmpty {
-                delegate?.providersViewController(self, addProviderAnimated: false)
+                delegate?.providersViewController(self, addProviderAnimated: false, allowClose: false)
             }
         } catch {
             os_log("Failed to fetch objects: %{public}@", log: Log.general, type: .error, error.localizedDescription)
@@ -136,7 +136,7 @@ class ProvidersViewController: NSViewController {
     }
     
     @IBAction func addOtherProvider(_ sender: Any) {
-        delegate?.providersViewController(self, addProviderAnimated: true)
+        delegate?.providersViewController(self, addProviderAnimated: true, allowClose: true)
     }
     
     private func selectProvider(at row: Int) {
