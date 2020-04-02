@@ -39,14 +39,9 @@ extension AppCoordinator: ServersViewControllerDelegate {
     }
     #endif
     
-//    func didSelectOther(providerType: ProviderType) {
-//        showCustomProviderInputViewController(for: providerType, animated: true)
-//    }
-    
     func serversViewController(_ controller: ServersViewController, didSelect instance: Instance) {
         os_log("Did select server from provider: %{public}@ instance: %{public}@", log: Log.general, type: .info, "\(instance.provider.debugDescription ?? "-")", "\(instance)")
 
-//        if controller.configuredForInstancesDisplay {
             do {
                 persistentContainer.performBackgroundTask { (context) in
                     if let backgroundInstance = context.object(with: instance.objectID) as? Instance {
@@ -65,12 +60,6 @@ extension AppCoordinator: ServersViewControllerDelegate {
                 } else {
                     // Move this to pull to refresh?
                                refresh(instance: instance).then { _ -> Promise<Void> in
-                                   #if os(iOS)
-                                   self.popToRootViewController()
-                                   #elseif os(macOS)
-                                   // TODO: It is unclear to me why iOS pops to root here. For macOS dismiss seems wrong.
-                                   // self.dismissViewController()
-                                   #endif
                                    return .value(())
                                }.recover { error in
                                    let error = error as NSError
@@ -80,21 +69,7 @@ extension AppCoordinator: ServersViewControllerDelegate {
             } catch {
                 showError(error)
             }
-//        } else {
-//            // Move this to pull to refresh?
-//            refresh(instance: instance).then { _ -> Promise<Void> in
-//                #if os(iOS)
-//                self.popToRootViewController()
-//                #elseif os(macOS)
-//                // TODO: It is unclear to me why iOS pops to root here. For macOS dismiss seems wrong.
-//                // self.dismissViewController()
-//                #endif
-//                return .value(())
-//            }.recover { error in
-//                let error = error as NSError
-//                self.showError(error)
-//            }
-//        }
+
     }
     
     func serversViewController(_ controller: ServersViewController, didDelete instance: Instance) {
@@ -174,7 +149,6 @@ extension AppCoordinator: ServersViewControllerDelegate {
 //        }
     }
 
-
     private func addProfilesWhenNoneAvailable(forced: Bool = false) {
         do {
             if try Profile.countInContext(persistentContainer.viewContext) == 0 || forced {
@@ -188,14 +162,5 @@ extension AppCoordinator: ServersViewControllerDelegate {
             os_log("Failed to count Profile objects: %{public}@", log: Log.general, type: .error, error.localizedDescription)
         }
     }
-    
-    #if os(macOS)
-    func serversViewControllerShouldClose(_ controller: ServersViewController) {
-        mainWindowController.pop()
-    }
-    
-    func serversViewController(_ controller: ServersViewController, addCustomProviderWithUrl url: URL) {
-        
-    }
-    #endif
+
 }

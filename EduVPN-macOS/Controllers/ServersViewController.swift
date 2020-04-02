@@ -14,11 +14,9 @@ protocol ServersViewControllerDelegate: class {
     func serversViewController(_ controller: ServersViewController, didSelect instance: Instance)
     func serversViewController(_ controller: ServersViewController, didDelete instance: Instance)
     func serversViewController(_ controller: ServersViewController, didDelete organization: Organization)
-    func serversViewControllerShouldClose(_ controller: ServersViewController)
-    func serversViewController(_ controller: ServersViewController, addCustomProviderWithUrl url: URL)
 }
 
-/// Used to display configure servers (when providerType == .unknown aka. configuredForInstancesDisplay)  and to select a specific provider to add.
+/// Used to display configured servers grouped by organization (or custom/local)
 class ServersViewController: NSViewController {
     
     weak var delegate: ServersViewControllerDelegate?
@@ -26,16 +24,11 @@ class ServersViewController: NSViewController {
     @IBOutlet var tableView: DeselectingTableView!
     @IBOutlet var unreachableLabel: NSTextField?
     
-    // Initial VC buttons
     @IBOutlet var otherProviderButton: NSButton?
     @IBOutlet var connectButton: NSButton?
     @IBOutlet var removeButton: NSButton?
-    
-    // Choose server VC buttons
-    @IBOutlet var backButton: NSButton?
         
     var viewContext: NSManagedObjectContext!
-    var selectingConfig: Bool = false
     
     private var started = false
     
@@ -51,9 +44,8 @@ class ServersViewController: NSViewController {
         sortDescriptors.append(NSSortDescriptor(key: "provider.groupName", ascending: true))
         sortDescriptors.append(NSSortDescriptor(key: "parent.displayName", ascending: true))
         sortDescriptors.append(NSSortDescriptor(key: "sortName", ascending: true))
-        // This would be nicer:
         sortDescriptors.append(NSSortDescriptor(key: "displayName", ascending: true))
-        //        sortDescriptors.append(NSSortDescriptor(key: "baseUri", ascending: true))
+        sortDescriptors.append(NSSortDescriptor(key: "baseUri", ascending: true))
         fetchRequest.sortDescriptors = sortDescriptors
         
         let frc = FetchedResultsController<Instance>(fetchRequest: fetchRequest,
@@ -196,16 +188,10 @@ class ServersViewController: NSViewController {
             }
             let alert = NSAlert()
             alert.alertStyle = .critical
-            alert.messageText = NSLocalizedString("Remove \(instance.displayName)?", comment: "")
-            alert.informativeText = NSLocalizedString("You will no longer be able to connect to \(instance.displayName).", comment: "")
-            
-            switch instance.group?.authorizationTypeEnum {
-            case .local, .none:
-                break
-            case .distributed, .federated:
-                alert.informativeText += NSLocalizedString(" You may also no longer be able to connect to additional servers that were authorized via this organization.", comment: "")
-            }
-            
+            let name = instance.displayName ?? NSLocalizedString("this server", comment: "")
+            alert.messageText = NSLocalizedString("Remove \(name)?", comment: "")
+            alert.informativeText = NSLocalizedString("You will no longer be able to connect to \(name).", comment: "")
+           
             alert.addButton(withTitle: NSLocalizedString("Remove", comment: ""))
             alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
             alert.beginSheetModal(for: window) { response in
@@ -230,18 +216,14 @@ class ServersViewController: NSViewController {
         }
     }
     
-    @IBAction func goBack(_ sender: Any) {
-        delegate?.serversViewControllerShouldClose(self)
-    }
-    
     fileprivate func updateInterface() {
         let row = tableView.selectedRow
         let providerSelected: Bool
-        let canRemoveProvider: Bool
+        let canRemove: Bool
         
         if row < 0 {
             providerSelected = false
-            canRemoveProvider = false
+            canRemove = false
         } else {
             let tableRow = rows[row]
             
@@ -249,13 +231,13 @@ class ServersViewController: NSViewController {
                 
             case .section(_, let organization):
                 providerSelected = false
-                canRemoveProvider = organization != nil
+                canRemove = organization != nil
                 
             case .row(let instance):
                 providerSelected = true
                 
                 let organization = (instance.provider as? Organization)
-                canRemoveProvider = organization == nil
+                canRemove = organization == nil
                 
             }
         }
@@ -274,7 +256,7 @@ class ServersViewController: NSViewController {
         connectButton?.isEnabled = !busy
         
         removeButton?.isHidden = !reachable
-        removeButton?.isEnabled = canRemoveProvider && !busy
+        removeButton?.isEnabled = canRemove && !busy
     }
 }
 
@@ -332,7 +314,7 @@ extension ServersViewController: NSTableViewDelegate {
         case .row(let instance):
             if instance.isParent {
                 instance.isExpanded.toggle()
-                try! instance.managedObjectContext?.save()
+                try? instance.managedObjectContext?.save()
                 refresh()
             }
         default:
@@ -345,10 +327,26 @@ extension ServersViewController: NSTableViewDelegate {
     }
     
     private func configureRowCellView(_ cellView: NSTableCellView, providerType: ProviderType, instance: Instance) {
-        // Cancel loading of any previous image load attempts since this view may be reused
-        ImageLoader.cancelLoadImage(target: cellView.imageView)
-        cellView.imageView?.image = nil
-        cellView.imageView?.isHidden = false
+        switch providerType {
+        case .organization:
+            cellView.imageView?.image = (!instance.isParent || instance.children?.count ?? 0 > 0) ? NSImage(named: "Secure Internet") :  NSImage(named: "Institute Access")
+            cellView.imageView?.isHidden = false
+            
+        case .other:
+            cellView.imageView?.image = NSImage(named: "Other")
+            cellView.imageView?.isHidden = false
+            
+        case .local:
+            cellView.imageView?.image = NSImage(named: "Local")
+            cellView.imageView?.isHidden = false
+            
+        case .instituteAccess, .secureInternet, .unknown:
+            cellView.imageView?.image = nil
+            cellView.imageView?.isHidden = true
+            
+        }
+        
+        cellView.textField?.stringValue = instance.displayName ?? "-"
         
         let button = cellView.viewWithTag(3) as? NSButton
         button?.isHidden = !(instance.isParent && instance.children?.count ?? 0 > 0)
@@ -356,26 +354,7 @@ extension ServersViewController: NSTableViewDelegate {
         button?.target = self
         button?.action = #selector(toggleExpand(_:))
         
-        switch providerType {
-            
-        case .instituteAccess, .secureInternet, .organization:
-            cellView.imageView?.image = (!instance.isParent || instance.children?.count ?? 0 > 0) ? NSImage(named: "Secure Internet") :  NSImage(named: "Institute Access")
-            
-        case .other:
-            cellView.imageView?.image = NSImage(named: "Other")
-            
-        case .local:
-            cellView.imageView?.image = NSImage(named: "Local")
-            
-        case .unknown:
-            cellView.imageView?.image = nil
-            cellView.imageView?.isHidden = true
-            
-        }
-        
         cellView.constraints.first(where: { $0.identifier == "Indentation" })?.constant = instance.isParent ? 8 : 28
-        
-        cellView.textField?.stringValue = instance.displayName ?? "-"
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
@@ -419,16 +398,16 @@ extension ServersViewController: NSTableViewDelegate {
         updateInterface()
     }
     
-    func tableView(_ tableView: NSTableView,
-                   validateDrop info: NSDraggingInfo,
-                   proposedRow row: Int,
-                   proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
-        
-        tableView.setDropRow(-1, dropOperation: .on)
-        return .copy
-    }
-    
     // Drag and drop currently not supported
+//    func tableView(_ tableView: NSTableView,
+//                   validateDrop info: NSDraggingInfo,
+//                   proposedRow row: Int,
+//                   proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
+//
+//        tableView.setDropRow(-1, dropOperation: .on)
+//        return .copy
+//    }
+//
 //    func tableView(_ tableView: NSTableView,
 //                   acceptDrop info: NSDraggingInfo,
 //                   row: Int,
