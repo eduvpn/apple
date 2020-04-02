@@ -139,7 +139,7 @@ extension AppCoordinator {
     
     internal func showOrganizationsViewController(animated: Bool, allowClose: Bool) {
         #if os(iOS)
-        let providersVc = storyboard.instantiateViewController(type: ProvidersViewController.self)
+        let organizationsViewController = storyboard.instantiateViewController(type: OrganizationsViewController.self)
         #elseif os(macOS)
         guard let organizationsViewController = storyboard.instantiateController(withIdentifier: "ChooseOrganization") as? OrganizationsViewController else {
             return

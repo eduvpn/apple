@@ -69,7 +69,7 @@ extension ProviderTableViewCell: Identifiable {}
 
 protocol ProvidersViewControllerDelegate: class {
     func providersViewControllerNoProfiles(_ controller: ProvidersViewController)
-    func providersViewController(_ controller: ProvidersViewController, addProviderAnimated animated: Bool)
+    func providersViewController(_ controller: ProvidersViewController, addProviderAnimated animated: Bool, allowClose: Bool)
     func providersViewControllerAddPredefinedProvider(_ controller: ProvidersViewController)
     func providersViewController(_ controller: ProvidersViewController, didSelect instance: Instance)
     func providersViewController(_ controller: ProvidersViewController, didDelete instance: Instance)
@@ -173,7 +173,7 @@ class ProvidersViewController: UITableViewController {
         if Config.shared.predefinedProvider != nil {
             delegate?.providersViewControllerAddPredefinedProvider(self)
         } else {
-            delegate?.providersViewController(self, addProviderAnimated: true)
+            delegate?.providersViewController(self, addProviderAnimated: true, allowClose: true)
         }
     }
     

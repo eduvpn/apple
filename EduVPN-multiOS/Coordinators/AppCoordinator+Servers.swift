@@ -17,7 +17,7 @@ extension AppCoordinator: ServersViewControllerDelegate {
 
     func serversViewController(_ controller: ServersViewController, addProviderAnimated animated: Bool, allowClose: Bool) {
         #if os(iOS)
-        addProvider(animated: animated)
+        addProvider(animated: animated, allowClose: allowClose)
         #elseif os(macOS)
         if config.apiDiscoveryEnabled ?? false {
             addProvider(animated: animated, allowClose: allowClose)

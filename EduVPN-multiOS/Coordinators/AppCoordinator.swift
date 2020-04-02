@@ -97,11 +97,13 @@ class AppCoordinator: RootViewCoordinator {
     
     #if os(iOS)
     
-    public init(window: UIWindow, config: Config = Config.shared, instancesRepository: InstancesRepository = InstancesRepository()) {
+    public init(window: UIWindow, config: Config = Config.shared, instancesRepository: InstancesRepository = InstancesRepository(),  organizationsRepository: OrganizationsRepository = OrganizationsRepository(), serversRepository: ServersRepository = ServersRepository()) {
         self.window = window
         self.config = config
         self.instancesRepository = instancesRepository
-
+        self.organizationsRepository = organizationsRepository
+        self.serversRepository = serversRepository
+        
         self.window.rootViewController = self.navigationController
         self.window.makeKeyAndVisible()
         
@@ -143,7 +145,7 @@ class AppCoordinator: RootViewCoordinator {
     private func instantiateProvidersViewController() {
         #if os(iOS)
         providersViewController = storyboard.instantiateViewController(type: ProvidersViewController.self)
-      
+        #elseif os(macOS)
         providersViewController = windowController.contentViewController?.children.first as? ProvidersViewController
         #endif
         

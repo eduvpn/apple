@@ -69,8 +69,6 @@
 		34D71A96228D9C6A0027DE84 /* URL+Unused.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D71A89228D9C6A0027DE84 /* URL+Unused.swift */; };
 		34D71AD6228DA4670027DE84 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 34D71AD3228DA4670027DE84 /* dsa_pub.pem */; };
 		34D71AD7228DA4670027DE84 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34D71AD5228DA4670027DE84 /* Defaults.plist */; };
-		34FD2AD022A7CF61002AABB3 /* NotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FD2ACF22A7CF61002AABB3 /* NotificationsService.swift */; };
-		34FD2AD122A7CFA0002AABB3 /* NotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FD2ACF22A7CF61002AABB3 /* NotificationsService.swift */; };
 		34FD2AD722A93530002AABB3 /* VPNConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FD2AD622A9352F002AABB3 /* VPNConnectionViewController.swift */; };
 		34FD2AD922A946E4002AABB3 /* AppCoordinator+Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345287229FF33000C0476E /* AppCoordinator+Connection.swift */; };
 		4A1140841F78490C00D61100 /* VPNConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */; };
@@ -189,7 +187,6 @@
 		C740BC1A241A9F16002D7C64 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740BC19241A9F15002D7C64 /* MainWindowController.swift */; };
 		C7517542236340C900058D95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7517541236340C900058D95 /* Assets.xcassets */; };
 		C7814D892424C048009F258E /* OrganizationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7814D882424C047009F258E /* OrganizationsViewController.swift */; };
-		C7814D8B2424C17B009F258E /* AppCoordinator+Organizations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7814D8A2424C17B009F258E /* AppCoordinator+Organizations.swift */; };
 		C7814D8C2424C17B009F258E /* AppCoordinator+Organizations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7814D8A2424C17B009F258E /* AppCoordinator+Organizations.swift */; };
 		C7814D8E2424EA9A009F258E /* Keywords+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7814D8D2424EA9A009F258E /* Keywords+Convenience.swift */; };
 		C7814D8F2424EA9A009F258E /* Keywords+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7814D8D2424EA9A009F258E /* Keywords+Convenience.swift */; };
@@ -203,6 +200,13 @@
 		C7E21E1A2412A0660052F4C5 /* FileServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E21E192412A0660052F4C5 /* FileServiceTests.swift */; };
 		C7E625AD24336CDA007609D5 /* ServersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70C0CAF2433693400EE8AE7 /* ServersViewController.swift */; };
 		C7EB81512369B63A006C141F /* LoginItemHelper-macOS.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C7EBC2D12435EDB6008BEE80 /* NotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBC2D02435EDB5008BEE80 /* NotificationsService.swift */; };
+		C7EBC2D22435EDB6008BEE80 /* NotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBC2D02435EDB5008BEE80 /* NotificationsService.swift */; };
+		C7EBC2D32435EF02008BEE80 /* AppCoordinator+Organizations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7814D8A2424C17B009F258E /* AppCoordinator+Organizations.swift */; };
+		C7EBC2D62435EF28008BEE80 /* OrganizationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBC2D42435EF28008BEE80 /* OrganizationsViewController.swift */; };
+		C7EBC2D72435EFA1008BEE80 /* OrganizationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBC2D42435EF28008BEE80 /* OrganizationsViewController.swift */; };
+		C7EBC2D92435F044008BEE80 /* ServersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBC2D82435F044008BEE80 /* ServersViewController.swift */; };
+		C7EBC2DA2435F044008BEE80 /* ServersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EBC2D82435F044008BEE80 /* ServersViewController.swift */; };
 		C7F326E7241A484A00B9CBB5 /* NEVPNStatus+Representation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F326E6241A484A00B9CBB5 /* NEVPNStatus+Representation.swift */; };
 		C7F326E8241A484A00B9CBB5 /* NEVPNStatus+Representation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F326E6241A484A00B9CBB5 /* NEVPNStatus+Representation.swift */; };
 		C7F326EC241A753700B9CBB5 /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F326EB241A753700B9CBB5 /* Organization.swift */; };
@@ -356,7 +360,6 @@
 		34D71AD4228DA4670027DE84 /* eduVPN-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "eduVPN-Bridging-Header.h"; sourceTree = "<group>"; };
 		34D71AD5228DA4670027DE84 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
 		34FD2ACD22A4F841002AABB3 /* eduVPN.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = eduVPN.entitlements; sourceTree = "<group>"; };
-		34FD2ACF22A7CF61002AABB3 /* NotificationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsService.swift; sourceTree = "<group>"; };
 		34FD2AD622A9352F002AABB3 /* VPNConnectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VPNConnectionViewController.swift; sourceTree = "<group>"; };
 		3BCF6B73BE29909C0802E49A /* Pods_EduVPNTunnelExtension_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EduVPNTunnelExtension_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		417DD34C1C9EFF60C64C80CB /* Pods-LetsConnect-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsConnect-macOS.release.xcconfig"; path = "Target Support Files/Pods-LetsConnect-macOS/Pods-LetsConnect-macOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -496,6 +499,9 @@
 		C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancellablePromise.swift; sourceTree = "<group>"; };
 		C7E21E16241296AC0052F4C5 /* OrganizationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationModel.swift; sourceTree = "<group>"; };
 		C7E21E192412A0660052F4C5 /* FileServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileServiceTests.swift; sourceTree = "<group>"; };
+		C7EBC2D02435EDB5008BEE80 /* NotificationsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsService.swift; sourceTree = "<group>"; };
+		C7EBC2D42435EF28008BEE80 /* OrganizationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationsViewController.swift; sourceTree = "<group>"; };
+		C7EBC2D82435F044008BEE80 /* ServersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServersViewController.swift; sourceTree = "<group>"; };
 		C7F326E6241A484A00B9CBB5 /* NEVPNStatus+Representation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NEVPNStatus+Representation.swift"; sourceTree = "<group>"; };
 		C7F326EB241A753700B9CBB5 /* Organization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Organization.swift; sourceTree = "<group>"; };
 		C7F3272A241A823800B9CBB5 /* Logo+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Logo+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -640,6 +646,7 @@
 				4A2CC2211F4233E8004119B1 /* Identifiable.swift */,
 				343452AA22A13F4500C0476E /* Coordinators */,
 				34186D04229802AF009B4121 /* Helpers */,
+				C7EBC2CF2435EDB5008BEE80 /* Services */,
 				C7FA79FD23633694006501E8 /* Models */,
 				4ACA04281F311507004B35AA /* Networking */,
 				34186C9C2296B336009B4121 /* Extensions */,
@@ -671,8 +678,6 @@
 			isa = PBXGroup;
 			children = (
 				34186D05229802C0009B4121 /* FileHelper.swift */,
-				34186D05229802C0009B4121 /* FileService.swift */,
-				34FD2ACF22A7CF61002AABB3 /* NotificationsService.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -968,6 +973,8 @@
 				4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */,
 				4A2803D81FA6867D00FA895C /* CustomProviderInputViewController.swift */,
 				34345270229FC66A00C0476E /* CoreDataFetchedResultsControllerDelegate.swift */,
+				C7EBC2D42435EF28008BEE80 /* OrganizationsViewController.swift */,
+				C7EBC2D82435F044008BEE80 /* ServersViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1032,6 +1039,14 @@
 				C78D202A2372DF34007067B1 /* Assets-Let’s Connect!.xcassets */,
 			);
 			path = Config;
+			sourceTree = "<group>";
+		};
+		C7EBC2CF2435EDB5008BEE80 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C7EBC2D02435EDB5008BEE80 /* NotificationsService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		C7FA79FD23633694006501E8 /* Models */ = {
@@ -1819,6 +1834,7 @@
 				C740BC18241A9B78002D7C64 /* OrganizationsRepository.swift in Sources */,
 				C7FA7A0F23633694006501E8 /* CertificateModel.swift in Sources */,
 				C740BBD1241A8597002D7C64 /* Api+CoreDataProperties.swift in Sources */,
+				C7EBC2D22435EDB6008BEE80 /* NotificationsService.swift in Sources */,
 				343452C322A1610400C0476E /* TunnelProviderManagerCoordinator.swift in Sources */,
 				C7FA7AB623633D61006501E8 /* NSManagedObjectContext+SaveHelpers.swift in Sources */,
 				342B9CE722902BB500C006D7 /* MainViewController.swift in Sources */,
@@ -1859,6 +1875,7 @@
 				343452A022A139C600C0476E /* AppCoordinator+Alert.swift in Sources */,
 				343452A622A13DDC00C0476E /* Coordinator.swift in Sources */,
 				C740BBDA241A8597002D7C64 /* InstanceGroup+CoreDataClass.swift in Sources */,
+				C7EBC2D62435EF28008BEE80 /* OrganizationsViewController.swift in Sources */,
 				343452A822A13EDE00C0476E /* Log.swift in Sources */,
 				4AE81EE223A2F500002C793D /* ImageLoader.swift in Sources */,
 				34186CF72297CE19009B4121 /* CredentialStorePlugin.swift in Sources */,
@@ -1871,10 +1888,10 @@
 				34186CF62297CE19009B4121 /* ApiService.swift in Sources */,
 				C7FA7AA723633895006501E8 /* ProviderType.swift in Sources */,
 				342B9CE822902BB500C006D7 /* MainWindowController.swift in Sources */,
-				34FD2AD122A7CFA0002AABB3 /* NotificationsService.swift in Sources */,
 				340A504122A26ECC00170E51 /* AppCoordinator+ViewControllers.swift in Sources */,
 				C740BBD7241A8597002D7C64 /* DisplayName+CoreDataProperties.swift in Sources */,
 				C740BBDB241A8597002D7C64 /* InstanceGroup+CoreDataProperties.swift in Sources */,
+				C7EBC2DA2435F044008BEE80 /* ServersViewController.swift in Sources */,
 				343452A422A13C8B00C0476E /* RootCoordinator.swift in Sources */,
 				3415C02123181191005B9E6C /* СonnectionsTableViewController.swift in Sources */,
 				340A504A22A2745600170E51 /* Identifiable.swift in Sources */,
@@ -1898,6 +1915,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4ACA042C1F3116D5004B35AA /* Moya+Promise.swift in Sources */,
+				C7EBC2D32435EF02008BEE80 /* AppCoordinator+Organizations.swift in Sources */,
 				C7FA7A9A23633895006501E8 /* AuthServer.swift in Sources */,
 				4A983B771F397243004F82D5 /* AppCoordinator.swift in Sources */,
 				C740BC00241A8599002D7C64 /* Profile+CoreDataClass.swift in Sources */,
@@ -1909,6 +1927,7 @@
 				C7E21E17241296AD0052F4C5 /* OrganizationModel.swift in Sources */,
 				C740BBF9241A8599002D7C64 /* Local+CoreDataProperties.swift in Sources */,
 				C740BC03241A8599002D7C64 /* Provider+CoreDataProperties.swift in Sources */,
+				C7EBC2D12435EDB6008BEE80 /* NotificationsService.swift in Sources */,
 				4A3E029C1F6C4B3D00D20292 /* Moya+Extensions.swift in Sources */,
 				34345271229FC66A00C0476E /* CoreDataFetchedResultsControllerDelegate.swift in Sources */,
 				4AF3DF081F4245A5003EC0BA /* ConnectionsTableViewController.swift in Sources */,
@@ -1918,7 +1937,6 @@
 				C740BBED241A8599002D7C64 /* AuthServer+CoreDataProperties.swift in Sources */,
 				C7FA7A1023633694006501E8 /* Config.swift in Sources */,
 				4AD0AD5F1F350822006E1337 /* Moya+ResponseHandling.swift in Sources */,
-				C7814D8B2424C17B009F258E /* AppCoordinator+Organizations.swift in Sources */,
 				3434528F229FF33100C0476E /* AppCoordinator+Providers.swift in Sources */,
 				4A7E098F2391AF90002C719D /* ActivityViewController.swift in Sources */,
 				4A2803D91FA6867D00FA895C /* CustomProviderInputViewController.swift in Sources */,
@@ -1959,14 +1977,13 @@
 				C7F326EC241A753700B9CBB5 /* Organization.swift in Sources */,
 				4AEAC32720F13D0C007B67AB /* Log.swift in Sources */,
 				C7FA7A9C23633895006501E8 /* Profile.swift in Sources */,
+				C7EBC2D92435F044008BEE80 /* ServersViewController.swift in Sources */,
 				C7FA7A7623633895006501E8 /* InstancesRepository.swift in Sources */,
 				C7FA7AB123633D61006501E8 /* NSManagedObject+FetchHelpers.swift in Sources */,
 				C740BBEC241A8599002D7C64 /* AuthServer+CoreDataClass.swift in Sources */,
 				C740BBFD241A8599002D7C64 /* ManagedProvider+CoreDataProperties.swift in Sources */,
 				4AE81E1E23A2E73E002C793D /* ImageLoader.swift in Sources */,
 				4ACA042E1F311863004B35AA /* InstanceService.swift in Sources */,
-				C7FA7A9023633895006501E8 /* Profile+CoreDataProperties.swift in Sources */,
-				34FD2AD022A7CF61002AABB3 /* NotificationsService.swift in Sources */,
 				4AAC2EF02027927300F9D0D2 /* DisplayName+Convenience.swift in Sources */,
 				C740BBEB241A8599002D7C64 /* Api+CoreDataProperties.swift in Sources */,
 				4AAC2EF220279F0000F9D0D2 /* Logo+Convenience.swift in Sources */,
@@ -1996,6 +2013,7 @@
 				4A11632A2370539F00577755 /* Crypto.swift in Sources */,
 				4AD0AD5A1F34F887006E1337 /* CredentialStorePlugin.swift in Sources */,
 				4AF3DF061F424535003EC0BA /* SettingsTableViewController.swift in Sources */,
+				C7EBC2D72435EFA1008BEE80 /* OrganizationsViewController.swift in Sources */,
 				C740BC02241A8599002D7C64 /* Provider+CoreDataClass.swift in Sources */,
 				34345285229FF2F000C0476E /* AppCoordinatorError.swift in Sources */,
 			);
