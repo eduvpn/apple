@@ -268,7 +268,35 @@
             </objects>
             <point key="canvasLocation" x="1965" y="-1015"/>
         </scene>
-        <!--Servers View Controller-->
+        <!--Organizations View Controller-->
+        <scene sceneID="8E0-Pu-Ez0">
+            <objects>
+                <tableViewController storyboardIdentifier="OrganizationsViewController" id="xV8-dy-fwZ" customClass="OrganizationsViewController" customModule="AppForce1_VPN" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="QQk-4n-n7Z">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="JLB-xs-HVg">
+                                <rect key="frame" x="0.0" y="28" width="320" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JLB-xs-HVg" id="LIT-wJ-ALh">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="xV8-dy-fwZ" id="mSK-RJ-yjg"/>
+                            <outlet property="delegate" destination="xV8-dy-fwZ" id="lNs-8C-V2W"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dbj-mJ-XE4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3623" y="-1015"/>
+        </scene>
+        <!--Connect to VPN-->
         <scene sceneID="ohu-FN-mMe">
             <objects>
                 <tableViewController storyboardIdentifier="ServersViewController" id="kBc-mE-50V" customClass="ServersViewController" customModule="AppForce1_VPN" customModuleProvider="target" sceneMemberID="viewController">
@@ -277,7 +305,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Cii-h1-JHv">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ServerTableViewCell" id="Cii-h1-JHv" customClass="ServerTableViewCell" customModule="AppForce1_VPN" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="320" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Cii-h1-JHv" id="4eC-vB-tAL">
@@ -291,10 +319,21 @@
                             <outlet property="delegate" destination="kBc-mE-50V" id="PKJ-yp-V8N"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Connect to VPN" id="Fjn-kG-CVP">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="PqY-XI-pjL">
+                            <connections>
+                                <action selector="addOtherProvider:" destination="kBc-mE-50V" id="zg9-PA-uIV"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="otherProviderButton" destination="PqY-XI-pjL" id="H1F-h6-22J"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UGX-UE-yfa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2878" y="-995"/>
+            <point key="canvasLocation" x="2852" y="-1015"/>
         </scene>
         <!--Choose Provider-->
         <scene sceneID="5Hi-3b-G6q">

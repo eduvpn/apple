@@ -26,8 +26,6 @@ class ServersViewController: UITableViewController {
     @IBOutlet var unreachableLabel: UILabel?
 
     @IBOutlet var otherProviderButton: UIButton?
-    @IBOutlet var connectButton: UIButton?
-    @IBOutlet var removeButton: UIButton?
 
     var viewContext: NSManagedObjectContext!
 
@@ -95,3 +93,98 @@ class ServersViewController: UITableViewController {
     }
 
 }
+
+// MARK: - TableView
+
+extension ServersViewController {
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return fetchedResultsController.sections?.count ?? 0
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return fetchedResultsController.sections?[section].objects.count ?? 0
+    }
+
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard let sections = fetchedResultsController.sections else {
+            fatalError("FetchedResultsController \(fetchedResultsController) should have sections, but found nil")
+        }
+        let section = sections[section]
+        return section.name
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        let serverCell = tableView.dequeueReusableCell(type: ServerTableViewCell.self, for: indexPath)
+
+        guard let sections = fetchedResultsController.sections else {
+            fatalError("FetchedResultsController \(fetchedResultsController) should have sections, but found nil")
+        }
+
+        let section = sections[indexPath.section]
+        let instance = section.objects[indexPath.row]
+
+        serverCell.configure(with: instance)
+
+        return serverCell
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let sections = fetchedResultsController.sections else {
+            fatalError("FetchedResultsController \(fetchedResultsController) should have sections, but found nil")
+        }
+
+        let section = sections[indexPath.section]
+        let instance = section.objects[indexPath.row]
+
+        delegate?.serversViewController(self, didSelect: instance)
+    }
+
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // TODO re-enable editing. But first need to make sure handling of instances and organizations is complete
+        return false
+    }
+
+    override func tableView(_ tableView: UITableView,
+                            commit editingStyle: UITableViewCell.EditingStyle,
+                            forRowAt indexPath: IndexPath) {
+
+        if editingStyle == .delete {
+            guard let sections = fetchedResultsController.sections else {
+                fatalError("FetchedResultsController \(fetchedResultsController) should have sections, but found nil")
+            }
+
+            let section = sections[indexPath.section]
+            let instance = section.objects[indexPath.row]
+
+            delegate?.serversViewController(self, didDelete: instance)
+        }
+    }
+
+}
+
+class ServerTableViewCell: UITableViewCell {
+    func configure(with instance: Instance) {
+        let providerType = ProviderType(rawValue: instance.providerType ?? "") ?? .unknown
+
+        switch providerType {
+        case .organization:
+            imageView?.image = (!instance.isParent || instance.children?.count ?? 0 > 0) ? UIImage(named: "Secure Internet") :  UIImage(named: "Institute Access")
+            imageView?.isHidden = false
+        case .other:
+            imageView?.image = UIImage.init(named: "Other")
+            imageView?.isHidden = false
+        case .local:
+            imageView?.image = UIImage.init(named: "Local")
+            imageView?.isHidden = false
+        case .instituteAccess, .secureInternet, .unknown:
+            imageView?.image = nil
+            imageView?.isHidden = true
+        }
+
+        textLabel?.text = instance.displayName ?? "-"
+    }
+}
+
+extension ServerTableViewCell: Identifiable {}

@@ -16,7 +16,7 @@ protocol OrganizationsViewControllerDelegate: class {
 }
 
 /// Used to display and search all available organizations and to select a specific organization to add.
-class OrganizationsViewController: UIViewController {
+class OrganizationsViewController: UITableViewController {
     
     weak var delegate: OrganizationsViewControllerDelegate?
     
