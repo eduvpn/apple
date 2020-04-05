@@ -29,8 +29,6 @@ class ServersViewController: UITableViewController {
 
     var viewContext: NSManagedObjectContext!
 
-    private var started = false
-
     private lazy var fetchedResultsController: FetchedResultsController<Instance> = {
         let fetchRequest = NSFetchRequest<Instance>()
         fetchRequest.entity = Instance.entity()
@@ -65,27 +63,18 @@ class ServersViewController: UITableViewController {
         refresh()
     }
 
-    func start() {
-        started = true
-        refresh()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        tableView.tableFooterView = UIView()
     }
 
     @objc func refresh() {
-        if !started {
-            // Prevent from executing until AppCoordinator assigned all required values
-            return
-        }
-
         do {
             try fetchedResultsController.performFetch()
         } catch {
             os_log("Failed to fetch objects: %{public}@", log: Log.general, type: .error, error.localizedDescription)
         }
-    }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
     @IBAction func addOtherProvider(_ sender: Any) {
