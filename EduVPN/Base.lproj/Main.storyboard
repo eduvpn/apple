@@ -268,7 +268,7 @@
             </objects>
             <point key="canvasLocation" x="1965" y="-1015"/>
         </scene>
-        <!--Organizations View Controller-->
+        <!--Organizations-->
         <scene sceneID="8E0-Pu-Ez0">
             <objects>
                 <tableViewController storyboardIdentifier="OrganizationsViewController" id="xV8-dy-fwZ" customClass="OrganizationsViewController" customModule="AppForce1_VPN" customModuleProvider="target" sceneMemberID="viewController">
@@ -276,9 +276,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="L8d-AY-wLC">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <scopeButtonTitles>
+                                <string>Title</string>
+                                <string>Title</string>
+                            </scopeButtonTitles>
+                            <connections>
+                                <outlet property="delegate" destination="xV8-dy-fwZ" id="Y4L-1V-YCO"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="JLB-xs-HVg">
-                                <rect key="frame" x="0.0" y="28" width="320" height="43.5"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OrganizationTableViewCell" id="JLB-xs-HVg" customClass="OrganizationTableViewCell" customModule="AppForce1_VPN" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="84" width="320" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JLB-xs-HVg" id="LIT-wJ-ALh">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -291,6 +303,11 @@
                             <outlet property="delegate" destination="xV8-dy-fwZ" id="lNs-8C-V2W"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Organizations" id="slp-4z-lPa"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="searchBar" destination="L8d-AY-wLC" id="I1L-wD-aN7"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dbj-mJ-XE4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

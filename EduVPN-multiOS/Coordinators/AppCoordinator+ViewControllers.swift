@@ -140,6 +140,8 @@ extension AppCoordinator {
     internal func showOrganizationsViewController(animated: Bool, allowClose: Bool) {
         #if os(iOS)
         let organizationsViewController = storyboard.instantiateViewController(type: OrganizationsViewController.self)
+        let navController = storyboard.instantiateViewController(type: UINavigationController.self)
+        navController.setViewControllers([organizationsViewController], animated: false)
         #elseif os(macOS)
         guard let organizationsViewController = storyboard.instantiateController(withIdentifier: "ChooseOrganization") as? OrganizationsViewController else {
             return
@@ -149,8 +151,12 @@ extension AppCoordinator {
         organizationsViewController.viewContext = persistentContainer.viewContext
         organizationsViewController.delegate = self
         organizationsViewController.allowClose(allowClose)
-        
+
+        #if os(iOS)
+        presentViewController(navController, animated: animated, completion: nil)
+        #elseif os(macOS)
         presentViewController(organizationsViewController, animated: animated, completion: nil)
+        #endif
         
         organizationsRepository.loader.load()
     }

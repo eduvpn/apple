@@ -58,9 +58,11 @@ class OrganizationsLoader {
         let provider = MoyaProvider<StaticService>(manager: MoyaProvider<StaticService>.ephemeralAlamofireManager())
         
         provider
-             .request(target: sigTarget)
-             .then(validateSodiumSignature)
-             .then { provider.request(target: target).then(self.verifyResponse(signature: $0)) }
+            // TODO: Reenable signature check when available
+            // .request(target: sigTarget)
+            // .then(validateSodiumSignature)
+            // .then { provider.request(target: target).then(self.verifyResponse(signature: $0)) }
+            .request(target: target)
             .then(decodeOrganizations)
             .then(parseOrganizations())
             .recover {
