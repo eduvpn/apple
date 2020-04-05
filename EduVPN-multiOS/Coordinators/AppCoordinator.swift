@@ -75,7 +75,11 @@ class AppCoordinator: RootViewCoordinator {
     }()
 
     var rootViewController: UIViewController {
-        return providersViewController
+        if UserDefaults.standard.useNewDiscoveryMethod {
+            return serversViewController
+        } else {
+            return providersViewController
+        }
     }
     
     #elseif os(macOS)
