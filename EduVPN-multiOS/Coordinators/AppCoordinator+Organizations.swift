@@ -16,7 +16,9 @@ extension AppCoordinator: OrganizationsViewControllerDelegate {
 
         serversRepository.loader.load(with: organization)
             .then { _ -> Promise<Void> in
-                #if os(macOS)
+                #if os(iOS)
+                controller.dismiss(animated: true, completion: nil)
+                #elseif os(macOS)
                 self.dismissViewController()
                 #endif
                 return .value(())

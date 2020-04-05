@@ -115,6 +115,12 @@ extension OrganizationsViewController {
 
         return organizationCell
     }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let organization = fetchedResultsController.sections?[indexPath.section].objects[indexPath.row] {
+            delegate?.organizationsViewController(self, didSelect: organization)
+        }
+    }
 }
 
 extension OrganizationsViewController: UISearchBarDelegate {
