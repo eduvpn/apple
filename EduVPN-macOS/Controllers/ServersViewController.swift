@@ -40,7 +40,7 @@ class ServersViewController: NSViewController {
 
         fetchRequest.predicate = NSPredicate(format: "provider != NIL AND (isParent == TRUE OR parent.isExpanded == TRUE)")
         
-        var sortDescriptors = [NSSortDescriptor]() // TODO: This doesn't make much sense
+        var sortDescriptors = [NSSortDescriptor]()
         sortDescriptors.append(NSSortDescriptor(key: "provider.groupName", ascending: true))
         sortDescriptors.append(NSSortDescriptor(key: "parent.displayName", ascending: true))
         sortDescriptors.append(NSSortDescriptor(key: "sortName", ascending: true))
