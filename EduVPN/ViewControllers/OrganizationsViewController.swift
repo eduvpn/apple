@@ -11,7 +11,7 @@ import os.log
 import CoreData
 
 protocol OrganizationsViewControllerDelegate: class {
-    func organizationsViewController(_ controller: OrganizationsViewController, didSelect instance: Organization)
+    func organizationsViewController(_ controller: OrganizationsViewController, didSelect organization: Organization)
     func organizationsViewControllerShouldClose(_ controller: OrganizationsViewController)
     func organizationsViewControllerWantsToAddUrl(_ controller: OrganizationsViewController)
 }
