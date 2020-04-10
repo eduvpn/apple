@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E266" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="9">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="9">
     <entity name="Api" representedClassName="Api" syncable="YES">
         <attribute name="apiBaseUri" attributeType="String"/>
         <relationship name="authorizingForGroup" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="InstanceGroup" inverseName="distributedAuthorizationApi" inverseEntity="InstanceGroup"/>
@@ -31,7 +31,7 @@
         <attribute name="providerType" optional="YES" attributeType="String"/>
         <attribute name="publicKey" optional="YES" attributeType="String"/>
         <attribute name="serverGroupUri" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="sortName" optional="YES" attributeType="String"/>
+        <attribute name="sortName" optional="YES" attributeType="String" defaultValueString="" spotlightIndexingEnabled="YES"/>
         <relationship name="apis" toMany="YES" deletionRule="Cascade" destinationEntity="Api" inverseName="instance" inverseEntity="Api"/>
         <relationship name="authServer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AuthServer" inverseName="instances" inverseEntity="AuthServer"/>
         <relationship name="children" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Instance" inverseName="parent" inverseEntity="Instance"/>

@@ -133,6 +133,7 @@ class ServersLoader {
                             newServer.isParent = true
                             newServer.authServer = authServer
                             newServer.update(with: serverModel)
+                            newServer.updateDisplayAndSortNames()
                             
                             for peerModel in serverModel.peers ?? [] {
                                 newServer.isExpanded = false
@@ -145,6 +146,7 @@ class ServersLoader {
                                 newPeer.authServer = authServer
                                 newPeer.providerType = ProviderType.organization.rawValue
                                 newPeer.update(with: peerModel)
+                                newPeer.updateDisplayAndSortNames()
                             }
                         }
                     

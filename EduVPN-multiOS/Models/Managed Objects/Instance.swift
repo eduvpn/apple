@@ -8,27 +8,23 @@ import CoreData
 
 extension Instance {
 
-    private func update() {
+    func updateDisplayAndSortNames() {
         displayName =  displayNames?.localizedValue ?? baseUri ?? ""
         if isParent {
             sortName = "\(provider?.groupName ?? "") / \(displayName ?? "")"
         } else {
             sortName = "\(provider?.groupName ?? "") / \(parent?.displayName ?? "") / \(displayName ?? "")"
         }
-        
-        if managedObjectContext?.hasChanges ?? false {
-            try? managedObjectContext?.save()
-        }
     }
     
     public override func awakeFromInsert() {
         super.awakeFromInsert()
-        update()
+        updateDisplayAndSortNames()
     }
     
     override public func awakeFromFetch() {
         super.awakeFromFetch()
-        update()
+        updateDisplayAndSortNames()
     }
     
     func update(with model: InstanceModel) {
