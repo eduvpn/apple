@@ -5,7 +5,7 @@
 
 import CoreData
 import Foundation
-import libsodium
+
 import Moya
 import PromiseKit
 import CryptoKit
@@ -35,19 +35,6 @@ class OrganizationsLoader {
         return (target, sigTarget)
     }
     
-    private typealias Bytes = [UInt8]
-    
-    private func verify(message: Bytes, publicKey: Bytes, signature: Bytes) -> Bool {
-        guard publicKey.count == 32 else {
-            return false
-        }
-        
-        return 0 == crypto_sign_verify_detached(signature,
-                                                message,
-                                                UInt64(message.count),
-                                                publicKey)
-    }
-    
     // Load
     
     func load() {
@@ -58,11 +45,9 @@ class OrganizationsLoader {
         let provider = MoyaProvider<StaticService>(manager: MoyaProvider<StaticService>.ephemeralAlamofireManager())
         
         provider
-            // TODO: Reenable signature check when available
-            // .request(target: sigTarget)
-            // .then(validateSodiumSignature)
-            // .then { provider.request(target: target).then(self.verifyResponse(signature: $0)) }
-            .request(target: target)
+            .request(target: sigTarget)
+            .then(validateMinisignSignature)
+            .then { provider.request(target: target).then(self.verifyResponse(signatureWithMetadata: $0)) }
             .then(decodeOrganizations)
             .then(parseOrganizations())
             .recover {
@@ -76,34 +61,14 @@ class OrganizationsLoader {
     
     // Load steps
     
-    private func validateSodiumSignature(response: Moya.Response) throws -> Promise<Data> {
-        if let signature = Data(base64Encoded: response.data) {
-            return Promise.value(signature)
-        } else {
-            throw AppCoordinatorError.sodiumSignatureFetchFailed
-        }
+    private func validateMinisignSignature(response: Moya.Response) throws -> Promise<Data> {
+        let data = try SignatureHelper.minisignSignatureFromFile(data: response.data)
+        return Promise.value(data)
     }
     
-    private func verifyResponse(signature: Data) -> (Moya.Response) throws -> Promise<Moya.Response> {
+    private func verifyResponse(signatureWithMetadata: Data) -> (Moya.Response) throws -> Promise<Moya.Response> {
         return { response in
-            guard let publicKey = StaticService.publicKey else {
-                throw AppCoordinatorError.sodiumSignatureVerifyFailed
-            }
-            let isVerified: Bool
-            
-            if #available(iOS 13.0, macOS 10.15, *) {
-                let cryptoKey = try Curve25519.Signing.PublicKey(rawRepresentation: publicKey)
-                isVerified = cryptoKey.isValidSignature(signature, for: response.data)
-            } else {
-                isVerified = self.verify(message: Array(response.data),
-                                         publicKey: Array(publicKey),
-                                         signature: Array(signature))
-            }
-            
-            guard isVerified else {
-                throw AppCoordinatorError.sodiumSignatureVerifyFailed
-            }
-            
+            try SignatureHelper.verify(signatureWithMetadata: signatureWithMetadata, data: response.data)
             return Promise.value(response)
         }
     }

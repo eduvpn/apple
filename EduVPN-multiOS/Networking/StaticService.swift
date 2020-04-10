@@ -29,12 +29,19 @@ struct StaticService: TargetType, AcceptJson {
             self.baseURL = baseURL
             self.path = url.path
             
-        case .organizationServerList(let organization), .organizationServerListSignature(let organization):
+        case .organizationServerList(let organization):
             guard let url = organization.serverListUri, let baseURL = URL(string: "/", relativeTo: url)?.absoluteURL else {
                 return nil
             }
             self.baseURL = baseURL
             self.path = url.path
+            
+        case .organizationServerListSignature(let organization):
+            guard let url = organization.serverListUri, let baseURL = URL(string: "/", relativeTo: url)?.absoluteURL else {
+                return nil
+            }
+            self.baseURL = baseURL
+            self.path = url.path + ".sig"
             
         default:
             guard let baseURL = Config.shared.discovery?.server else {

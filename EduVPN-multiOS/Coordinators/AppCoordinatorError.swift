@@ -23,6 +23,13 @@ enum AppCoordinatorError: LocalizedError {
     case urlCreation
     case ovpnTemplate
     case discoverySeqNotIncremented
+    case minisignSignatureFetchFailed
+    case minisignatureVerifyMissingPublicKey
+    case minisignatureVerifyInvalidPublicKey
+    case minisignatureVerifyInvalidSignature
+    case minisignatureVerifyPublicKeySignatureMismatch
+    case minisignatureVerifyUnsupportedAlgorithm
+    case minisignatureVerifyInvalid
     
     var errorDescription: String? {
         switch self {
@@ -59,7 +66,21 @@ enum AppCoordinatorError: LocalizedError {
         case .ovpnTemplate:
             return NSLocalizedString("OVPN template is not valid.", comment: "")
         case .discoverySeqNotIncremented:
-            return NSLocalizedString("Discovery sequence number not incremented", comment: "")
+            return NSLocalizedString("Discovery sequence number not incremented.", comment: "")
+        case .minisignSignatureFetchFailed:
+            return NSLocalizedString("Fetching signature failed.", comment: "")
+        case .minisignatureVerifyMissingPublicKey:
+            return NSLocalizedString("Missing public key", comment: "")
+        case .minisignatureVerifyInvalidPublicKey:
+            return NSLocalizedString("Invalid public key", comment: "")
+        case .minisignatureVerifyInvalidSignature:
+            return NSLocalizedString("Invalid signature", comment: "")
+        case .minisignatureVerifyPublicKeySignatureMismatch:
+            return NSLocalizedString("Public key and signature mismatch", comment: "")
+        case .minisignatureVerifyUnsupportedAlgorithm:
+            return NSLocalizedString("Unsupported algorithm.", comment: "")
+        case .minisignatureVerifyInvalid:
+            return NSLocalizedString("Signature was invalid.", comment: "")
         }
     }
 }
