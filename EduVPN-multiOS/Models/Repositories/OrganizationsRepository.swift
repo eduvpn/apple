@@ -83,6 +83,13 @@ class OrganizationsLoader {
             return Promise(resolver: { seal in
                 self.persistentContainer.performBackgroundTask { context in
                     do {
+                        let organizationList = try OrganizationList.findFirstInContext(context) ?? OrganizationList(context: context)
+                        if let localVersion = organizationList.version, localVersion.compare(organizations.version) == ComparisonResult.orderedDescending {
+                                seal.reject(AppCoordinatorError.discoveryVersionNotIncremented)
+                        } else {
+                            organizationList.version = organizations.version
+                        }
+
                         let allOrganizations = try Organization.allInContext(context)
                         
                         let updatedOrganizations = allOrganizations.filter {

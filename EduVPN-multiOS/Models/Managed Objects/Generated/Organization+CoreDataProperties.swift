@@ -17,7 +17,9 @@ extension Organization {
     @NSManaged public var displayName: String?
     @NSManaged public var displayNames: Set<DisplayName>?
     @NSManaged public var keyword: String?
+    @NSManaged public var version: String?
     @NSManaged public var keywords: Set<Keywords>?
+    @NSManaged public var organizationList: OrganizationList?
 
 }
 

@@ -23,6 +23,7 @@ enum AppCoordinatorError: LocalizedError {
     case urlCreation
     case ovpnTemplate
     case discoverySeqNotIncremented
+    case discoveryVersionNotIncremented
     case minisignSignatureFetchFailed
     case minisignatureVerifyMissingPublicKey
     case minisignatureVerifyInvalidPublicKey
@@ -65,6 +66,8 @@ enum AppCoordinatorError: LocalizedError {
             return NSLocalizedString("Failed to create URL.", comment: "")
         case .ovpnTemplate:
             return NSLocalizedString("OVPN template is not valid.", comment: "")
+        case .discoveryVersionNotIncremented:
+            return NSLocalizedString("Discovery version not incremented.", comment: "")
         case .discoverySeqNotIncremented:
             return NSLocalizedString("Discovery sequence number not incremented.", comment: "")
         case .minisignSignatureFetchFailed:

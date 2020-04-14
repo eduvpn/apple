@@ -7,19 +7,22 @@ import Foundation
 
 struct OrganizationsModel: Decodable {
     var organizations: [OrganizationModel]
+    var version: String
 }
 
 extension OrganizationsModel {
     
     enum OrganizationsModelKeys: String, CodingKey {
         case organizations = "organization_list"
+        case version = "v"
     }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: OrganizationsModelKeys.self)
         let organizations = try container.decode([OrganizationModel].self, forKey: .organizations)
+        let version = try container.decode(String.self, forKey: .version)
 
-        self.init(organizations: organizations)
+        self.init(organizations: organizations, version: version)
     }
 }
 

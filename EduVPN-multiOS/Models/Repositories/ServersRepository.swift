@@ -80,13 +80,14 @@ class ServersLoader {
                     let serverGroupIdentifier = organizationIdentifier
                     
                     let organization = try! Organization.findFirstInContext(context, predicate: NSPredicate(format: "identifier == %@", serverGroupIdentifier))//swiftlint:disable:this force_try
+                    if let localVersion = organization?.version, localVersion.compare(servers.version) == ComparisonResult.orderedDescending {
+                            seal.reject(AppCoordinatorError.discoveryVersionNotIncremented)
+                    } else {
+                        organization?.version = servers.version
+                    }
+
                     
                     let group = try! InstanceGroup.findFirstInContext(context, predicate: NSPredicate(format: "discoveryIdentifier == %@", serverGroupIdentifier)) ?? InstanceGroup(context: context)//swiftlint:disable:this force_try
-
-//                    guard group.seq < servers.seq else {
-//                        seal.reject(AppCoordinatorError.discoverySeqNotIncremented)
-//                        return
-//                    }
 
                     group.discoveryIdentifier = serverGroupIdentifier
 //                    group.authorizationType = servers.authorizationType.rawValue
