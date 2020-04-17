@@ -15,7 +15,7 @@ PODS:
   - OpenSSL-Apple (1.1.1d.5a)
   - PromiseKit/CorePromise (6.12.0)
   - Result (4.1.0)
-  - SwiftyBeaver (1.8.4)
+  - SwiftyBeaver (1.9.1)
   - TunnelKit (2.2.2):
     - TunnelKit/Protocols/OpenVPN (= 2.2.2)
   - TunnelKit/AppExtension (2.2.2):
@@ -34,7 +34,7 @@ DEPENDENCIES:
   - libsodium
   - Moya
   - PromiseKit/CorePromise
-  - TunnelKit (from `https://github.com/johankool/tunnelkit.git`, branch `feature/ipv4_mojave`)
+  - TunnelKit (from `https://github.com/passepartoutvpn/tunnelkit.git`, branch `master`)
 
 SPEC REPOS:
   trunk:
@@ -51,16 +51,16 @@ EXTERNAL SOURCES:
   AppAuth:
     :git: https://github.com/openid/AppAuth-iOS.git
   TunnelKit:
-    :branch: feature/ipv4_mojave
-    :git: https://github.com/johankool/tunnelkit.git
+    :branch: master
+    :git: https://github.com/passepartoutvpn/tunnelkit.git
 
 CHECKOUT OPTIONS:
   AppAuth:
     :commit: 7e0b5c100d69caac34372efdad34b22b3464ddea
     :git: https://github.com/openid/AppAuth-iOS.git
   TunnelKit:
-    :commit: d5ed3990d2c1a0604286584cc8ac22de396f1770
-    :git: https://github.com/johankool/tunnelkit.git
+    :commit: d24fe30c7ed508a72ca63b0ade38927e721d72ed
+    :git: https://github.com/passepartoutvpn/tunnelkit.git
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
@@ -71,9 +71,9 @@ SPEC CHECKSUMS:
   OpenSSL-Apple: 2c9efbc94e0a1ada434cc197b02bd70052a82281
   PromiseKit: c06835ba442ce5454ce3cdde470232804a6e4ff8
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
-  SwiftyBeaver: f9a9aba96a6a6166e21682377804d728b0d20b95
+  SwiftyBeaver: a1f5691458561414bcfab51874b2b7445451602b
   TunnelKit: 1733ed87934deb57edc7aa5f4b25185bf302a7d4
 
-PODFILE CHECKSUM: 7fca1f05c4c03de902eaefc8847c17e7c10ad360
+PODFILE CHECKSUM: 7d7733d459e0873f9236edc400c6c9e08cf6eadc
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.1

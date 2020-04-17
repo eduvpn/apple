@@ -66,7 +66,7 @@ extension OpenVPNTunnelProvider {
         /// - Seealso: `fallbackServerAddresses`
         public var prefersResolvedAddresses: Bool
         
-        /// Resolved addresses in case DNS fails or `prefersResolvedAddresses` is `true`.
+        /// Resolved addresses in case DNS fails or `prefersResolvedAddresses` is `true` (IPv4 only).
         public var resolvedAddresses: [String]?
         
         /// The MTU of the link.

@@ -77,4 +77,7 @@ public enum OpenVPNError: String, Error {
 
     /// Missing routing information.
     case noRouting
+
+    /// Remote server shut down (--explicit-exit-notify).
+    case serverShutdown
 }
