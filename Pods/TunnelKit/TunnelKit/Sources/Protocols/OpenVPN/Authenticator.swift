@@ -62,9 +62,9 @@ extension OpenVPN {
 
         private(set) var serverRandom2: ZeroingData?
 
-        let username: ZeroingData?
+        private(set) var username: ZeroingData?
         
-        let password: ZeroingData?
+        private(set) var password: ZeroingData?
         
         var withLocalOptions: Bool
         
@@ -85,6 +85,17 @@ extension OpenVPN {
             withLocalOptions = true
             
             controlBuffer = Z()
+        }
+        
+        func reset() {
+            controlBuffer.zero()
+            preMaster.zero()
+            random1.zero()
+            random2.zero()
+            serverRandom1?.zero()
+            serverRandom2?.zero()
+            username = nil
+            password = nil
         }
         
         // MARK: Authentication request

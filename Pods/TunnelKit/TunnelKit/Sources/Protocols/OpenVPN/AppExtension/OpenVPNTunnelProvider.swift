@@ -311,7 +311,7 @@ open class OpenVPNTunnelProvider: NEPacketTunnelProvider {
     
     // MARK: Connection (tunnel queue)
     
-    private func connectTunnel(upgradedSocket: GenericSocket? = nil, preferredAddress: String? = nil) {
+    private func connectTunnel(upgradedSocket: GenericSocket? = nil) {
         log.info("Creating link session")
         
         // reuse upgraded socket
@@ -321,7 +321,7 @@ open class OpenVPNTunnelProvider: NEPacketTunnelProvider {
             return
         }
         
-        strategy.createSocket(from: self, timeout: dnsTimeout, preferredAddress: preferredAddress, queue: tunnelQueue) { (socket, error) in
+        strategy.createSocket(from: self, timeout: dnsTimeout, queue: tunnelQueue) { (socket, error) in
             guard let socket = socket else {
                 self.disposeTunnel(error: error)
                 return
@@ -424,7 +424,7 @@ extension OpenVPNTunnelProvider: GenericSocketDelegate {
 
         // fallback: TCP connection timeout suggests falling back
         if let _ = socket as? NETCPSocket {
-            guard tryNextProtocol() else {
+            guard tryNextEndpoint() else {
                 // disposeTunnel
                 return
             }
@@ -471,7 +471,7 @@ extension OpenVPNTunnelProvider: GenericSocketDelegate {
 
         // fallback: UDP is connection-less, treat negotiation timeout as socket timeout
         if didTimeoutNegotiation {
-            guard tryNextProtocol() else {
+            guard tryNextEndpoint() else {
                 // disposeTunnel
                 return
             }
@@ -489,7 +489,7 @@ extension OpenVPNTunnelProvider: GenericSocketDelegate {
                     return
                 }
 
-                self.connectTunnel(upgradedSocket: upgradedSocket, preferredAddress: socket.remoteAddress)
+                self.connectTunnel(upgradedSocket: upgradedSocket)
             }
             return
         }
@@ -775,8 +775,8 @@ extension OpenVPNTunnelProvider: OpenVPNSessionDelegate {
 }
 
 extension OpenVPNTunnelProvider {
-    private func tryNextProtocol() -> Bool {
-        guard strategy.tryNextProtocol() else {
+    private func tryNextEndpoint() -> Bool {
+        guard strategy.tryNextEndpoint() else {
             disposeTunnel(error: ProviderError.exhaustedProtocols)
             return false
         }
@@ -876,6 +876,9 @@ extension OpenVPNTunnelProvider {
                 
             case .noRouting:
                 return .routing
+                
+            case .serverShutdown:
+                return .serverShutdown
 
             default:
                 return .unexpectedReply

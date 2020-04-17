@@ -85,19 +85,25 @@ extension Data {
 extension Data {
     mutating func append(_ value: UInt16) {
         var localValue = value
-        let buffer = UnsafeBufferPointer(start: &localValue, count: 1)
+        let buffer = withUnsafePointer(to: &localValue) {
+            return UnsafeBufferPointer(start: $0, count: 1)
+        }
         append(buffer)
     }
     
     mutating func append(_ value: UInt32) {
         var localValue = value
-        let buffer = UnsafeBufferPointer(start: &localValue, count: 1)
+        let buffer = withUnsafePointer(to: &localValue) {
+            return UnsafeBufferPointer(start: $0, count: 1)
+        }
         append(buffer)
     }
     
     mutating func append(_ value: UInt64) {
         var localValue = value
-        let buffer = UnsafeBufferPointer(start: &localValue, count: 1)
+        let buffer = withUnsafePointer(to: &localValue) {
+            return UnsafeBufferPointer(start: $0, count: 1)
+        }
         append(buffer)
     }
     

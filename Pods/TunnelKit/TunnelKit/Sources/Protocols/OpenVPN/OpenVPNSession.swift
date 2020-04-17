@@ -745,7 +745,7 @@ public class OpenVPNSession: Session {
     
     private func completeConnection() {
         setupEncryption()
-        authenticator = nil
+        authenticator?.reset()
         negotiationKey.controlState = .connected
         connectedDate = Date()
         transitionKeys()
@@ -907,6 +907,11 @@ public class OpenVPNSession: Session {
 
     // Ruby: handle_ctrl_msg
     private func handleControlMessage(_ message: String) {
+        if CoreConfiguration.logsSensitiveData {
+            log.debug("Received control message: \"\(message)\"")
+        }
+
+        // disconnect on authentication failure
         guard !message.hasPrefix("AUTH_FAILED") else {
 
             // XXX: retry without client options
@@ -921,14 +926,18 @@ public class OpenVPNSession: Session {
             return
         }
         
-        guard (negotiationKey.controlState == .preIfConfig) else {
+        // disconnect on remote server restart (--explicit-exit-notify)
+        guard !message.hasPrefix("RESTART") else {
+            log.debug("Disconnecting due to server shutdown")
+            deferStop(.shutdown, OpenVPNError.serverShutdown)
+            return
+        }
+        
+        // handle authentication from now on
+        guard negotiationKey.controlState == .preIfConfig else {
             return
         }
 
-        if CoreConfiguration.logsSensitiveData {
-            log.debug("Received control message: \"\(message)\"")
-        }
-        
         let completeMessage: String
         if let continuated = continuatedPushReplyMessage {
             completeMessage = "\(continuated),\(message)"
