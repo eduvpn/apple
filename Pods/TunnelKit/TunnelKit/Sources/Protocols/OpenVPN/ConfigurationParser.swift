@@ -62,11 +62,11 @@ extension OpenVPN {
             
             // MARK: Client
             
-            static let proto = NSRegularExpression("^proto +(udp6?|tcp6?)")
+            static let proto = NSRegularExpression("^proto +(udp[46]?|tcp[46]?)")
             
             static let port = NSRegularExpression("^port +\\d+")
             
-            static let remote = NSRegularExpression("^remote +[^ ]+( +\\d+)?( +(udp6?|tcp6?))?")
+            static let remote = NSRegularExpression("^remote +[^ ]+( +\\d+)?( +(udp[46]?|tcp[46]?))?")
             
             static let eku = NSRegularExpression("^remote-cert-tls +server")
             
@@ -209,7 +209,6 @@ extension OpenVPN {
             var optKeepAliveTimeoutSeconds: TimeInterval?
             var optRenegotiateAfterSeconds: TimeInterval?
             //
-            var optHostname: String?
             var optDefaultProto: SocketType?
             var optDefaultPort: UInt16?
             var optRemotes: [(String, UInt16?, SocketType?)] = [] // address, port, socket
@@ -818,10 +817,6 @@ private extension String {
 
 private extension SocketType {
     init?(protoString: String) {
-        var str = protoString
-        if str.hasSuffix("6") {
-            str.removeLast()
-        }
-        self.init(rawValue: str.uppercased())
+        self.init(rawValue: protoString.uppercased())
     }
 }

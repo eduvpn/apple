@@ -142,6 +142,9 @@ extension OpenVPNTunnelProvider {
         /// Default gateway could not be attained.
         case gatewayUnattainable
         
+        /// Remove server has shut down.
+        case serverShutdown
+        
         /// The server replied in an unexpected way.
         case unexpectedReply
     }

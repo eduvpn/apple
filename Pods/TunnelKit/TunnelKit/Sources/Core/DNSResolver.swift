@@ -36,6 +36,16 @@
 
 import Foundation
 
+/// Result of `DNSResolver`.
+public struct DNSRecord {
+
+    /// Address string.
+    public let address: String
+
+    /// `true` if IPv6.
+    public let isIPv6: Bool
+}
+
 /// Convenient methods for DNS resolution.
 public class DNSResolver {
     private static let queue = DispatchQueue(label: "DNSResolver")
@@ -48,17 +58,17 @@ public class DNSResolver {
      - Parameter queue: The queue to execute the `completionHandler` in.
      - Parameter completionHandler: The completion handler with the resolved addresses and an optional error.
      */
-    public static func resolve(_ hostname: String, timeout: Int, queue: DispatchQueue, completionHandler: @escaping ([String]?, Error?) -> Void) {
-        var pendingHandler: (([String]?, Error?) -> Void)? = completionHandler
+    public static func resolve(_ hostname: String, timeout: Int, queue: DispatchQueue, completionHandler: @escaping ([DNSRecord]?, Error?) -> Void) {
+        var pendingHandler: (([DNSRecord]?, Error?) -> Void)? = completionHandler
         let host = CFHostCreateWithName(nil, hostname as CFString).takeRetainedValue()
         DNSResolver.queue.async {
             CFHostStartInfoResolution(host, .addresses, nil)
             guard let handler = pendingHandler else {
                 return
             }
-            DNSResolver.didResolve(host: host) { (addrs, error) in
+            DNSResolver.didResolve(host: host) { (records, error) in
                 queue.async {
-                    handler(addrs, error)
+                    handler(records, error)
                     pendingHandler = nil
                 }
             }
@@ -73,14 +83,14 @@ public class DNSResolver {
         }
     }
     
-    private static func didResolve(host: CFHost, completionHandler: @escaping ([String]?, Error?) -> Void) {
+    private static func didResolve(host: CFHost, completionHandler: @escaping ([DNSRecord]?, Error?) -> Void) {
         var success: DarwinBoolean = false
         guard let rawAddresses = CFHostGetAddressing(host, &success)?.takeUnretainedValue() as Array? else {
             completionHandler(nil, nil)
             return
         }
         
-        var ipAddresses: [String] = []
+        var records: [DNSRecord] = []
         for case let rawAddress as Data in rawAddresses {
             var ipAddress = [CChar](repeating: 0, count: Int(NI_MAXHOST))
             let result: Int32 = rawAddress.withUnsafeBytes {
@@ -98,9 +108,14 @@ public class DNSResolver {
             guard result == 0 else {
                 continue
             }
-            ipAddresses.append(String(cString: ipAddress))
+            let address = String(cString: ipAddress)
+            if rawAddress.count == 16 {
+                records.append(DNSRecord(address: address, isIPv6: false))
+            } else {
+                records.append(DNSRecord(address: address, isIPv6: true))
+            }
         }
-        completionHandler(ipAddresses, nil)
+        completionHandler(records, nil)
     }
 
     /**
@@ -110,19 +125,15 @@ public class DNSResolver {
      - Returns: The string representation of `ipv4`.
      */
     public static func string(fromIPv4 ipv4: UInt32) -> String {
-        var addr = in_addr(s_addr: CFSwapInt32HostToBig(ipv4))
-        var buf = Data(count: Int(INET_ADDRSTRLEN))
-        let bufCount = socklen_t(buf.count)
-        let resultPtr: UnsafePointer<CChar>? = buf.withUnsafeMutableBytes {
-            let bufPtr = $0.bindMemory(to: CChar.self).baseAddress!
-            return withUnsafePointer(to: &addr) {
-                return inet_ntop(AF_INET, $0, bufPtr, bufCount)
-            }
+        var remainder = ipv4
+        var groups: [UInt32] = []
+        var base: UInt32 = 1 << 24
+        while base > 0 {
+            groups.append(remainder / base)
+            remainder %= base
+            base >>= 8
         }
-        guard let result = resultPtr else {
-            preconditionFailure()
-        }
-        return String(cString: result)
+        return groups.map { "\($0)" }.joined(separator: ".")
     }
     
     /**
