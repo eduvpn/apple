@@ -54,8 +54,8 @@ class AppCoordinator: RootViewCoordinator {
     
     // MARK: - App instantiation
     
-    var providersViewController: ProvidersViewController!
-    var serversViewController: ServersViewController!
+    var providersViewController: ProvidersViewController?
+    var serversViewController: ServersViewController?
     
     #if os(iOS)
     
@@ -76,9 +76,9 @@ class AppCoordinator: RootViewCoordinator {
 
     var rootViewController: UIViewController {
         if UserDefaults.standard.useNewDiscoveryMethod {
-            return serversViewController
+            return serversViewController!
         } else {
-            return providersViewController
+            return providersViewController!
         }
     }
     
@@ -148,11 +148,12 @@ class AppCoordinator: RootViewCoordinator {
     /// Starts the coordinator
     private func instantiateProvidersViewController() {
         #if os(iOS)
-        providersViewController = storyboard.instantiateViewController(type: ProvidersViewController.self)
+        let providersViewController = storyboard.instantiateViewController(type: ProvidersViewController.self)
         #elseif os(macOS)
-        providersViewController = windowController.contentViewController?.children.first as? ProvidersViewController
+        let providersViewController = windowController.contentViewController?.children.first as! ProvidersViewController
         #endif
-        
+        self.providersViewController = providersViewController
+            
         persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
         providersViewController.viewContext = persistentContainer.viewContext
         providersViewController.delegate = self
@@ -161,7 +162,7 @@ class AppCoordinator: RootViewCoordinator {
         navigationController.viewControllers = [providersViewController]
         #elseif os(macOS)
         (windowController as? MainWindowController)?.setRoot(viewController: providersViewController, animated: false) {
-            self.providersViewController.start()
+            providersViewController.start()
         }
         #endif
     }
@@ -169,11 +170,12 @@ class AppCoordinator: RootViewCoordinator {
     /// Starts the coordinator for new discovery methor
     private func instantiateServersViewController() {
         #if os(iOS)
-        serversViewController = storyboard.instantiateViewController(type: ServersViewController.self)
+        let serversViewController = storyboard.instantiateViewController(type: ServersViewController.self)
         #elseif os(macOS)
-        serversViewController = storyboard.instantiateController(withIdentifier: "Servers") as? ServersViewController
+        let serversViewController = storyboard.instantiateController(withIdentifier: "Servers") as! ServersViewController
         #endif
-        
+        self.serversViewController = serversViewController
+          
         persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
         serversViewController.viewContext = persistentContainer.viewContext
         serversViewController.delegate = self
@@ -182,7 +184,7 @@ class AppCoordinator: RootViewCoordinator {
         navigationController.viewControllers = [serversViewController]
         #elseif os(macOS)
         (windowController as? MainWindowController)?.setRoot(viewController: serversViewController, animated: false) {
-            self.serversViewController.start()
+            serversViewController.start()
         }
         #endif
     }
@@ -241,7 +243,7 @@ class AppCoordinator: RootViewCoordinator {
             _ = tunnelProviderManagerCoordinator.disconnect()
                 .recover { _ in self.tunnelProviderManagerCoordinator.configure(profile: profile) }
                 .then { _ -> Promise<Void> in
-                    self.providersViewController.tableView.reloadData()
+                    self.providersViewController?.tableView.reloadData()
                     return self.showConnectionViewController(for: profile)
                 }
         }

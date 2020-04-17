@@ -66,7 +66,8 @@ extension AppCoordinator {
                 
                 return self.refreshProfiles(for: authorizingDynamicApiProvider)
             }.ensureThen {
-                self.providersViewController.refresh()
+                self.providersViewController?.refresh()
+                self.serversViewController?.refresh(animated: true)
                 NotificationCenter.default.post(name: Notification.Name.InstanceRefreshed, object: self)
                 return self.hideActivityIndicator()
             }.ensureThen {

@@ -69,7 +69,7 @@ class ServersViewController: UITableViewController {
         tableView.tableFooterView = UIView()
     }
 
-    @objc func refresh() {
+    @objc func refresh(animated: Bool = false) {
         do {
             try fetchedResultsController.performFetch()
         } catch {
