@@ -11,7 +11,7 @@ import CoreData
 
 extension Organization {
     
-    public override func awakeFromInsert() {
+    override public func awakeFromInsert() {
         super.awakeFromInsert()
         displayName = displayNames?.localizedValue
         keyword = keywords?.localizedValue

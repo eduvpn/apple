@@ -7,7 +7,6 @@
 import Foundation
 import CoreData
 
-
 extension Profile {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Profile> {

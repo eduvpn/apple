@@ -162,10 +162,10 @@ class ServerTableViewCell: UITableViewCell {
             imageView?.image = (!instance.isParent || instance.children?.count ?? 0 > 0) ? UIImage(named: "Secure Internet") :  UIImage(named: "Institute Access")
             imageView?.isHidden = false
         case .other:
-            imageView?.image = UIImage.init(named: "Other")
+            imageView?.image = UIImage(named: "Other")
             imageView?.isHidden = false
         case .local:
-            imageView?.image = UIImage.init(named: "Local")
+            imageView?.image = UIImage(named: "Local")
             imageView?.isHidden = false
         case .instituteAccess, .secureInternet, .unknown:
             imageView?.image = nil

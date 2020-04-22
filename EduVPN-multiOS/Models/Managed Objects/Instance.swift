@@ -1,5 +1,5 @@
 //
-//  Instace.swift
+//  Instance.swift
 //  eduVPN
 //
 
@@ -9,7 +9,7 @@ import CoreData
 extension Instance {
 
     func updateDisplayAndSortNames() {
-        displayName =  displayNames?.localizedValue ?? baseUri ?? ""
+        displayName = displayNames?.localizedValue ?? baseUri ?? ""
         if isParent {
             sortName = "\(provider?.groupName ?? "") / \(displayName ?? "")"
         } else {
@@ -17,7 +17,7 @@ extension Instance {
         }
     }
     
-    public override func awakeFromInsert() {
+    override public func awakeFromInsert() {
         super.awakeFromInsert()
         updateDisplayAndSortNames()
     }

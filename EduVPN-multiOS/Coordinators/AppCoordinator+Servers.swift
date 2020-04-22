@@ -108,7 +108,7 @@ extension AppCoordinator: ServersViewControllerDelegate {
         }
     }
     
-    func serversViewController(_ controller: ServersViewController, didDelete organization: Organization){
+    func serversViewController(_ controller: ServersViewController, didDelete organization: Organization) {
 //        // Check current profile UUID against profile UUIDs.
 //        if let configuredProfileId = UserDefaults.standard.configuredProfileId {
 //            let profiles = instance.apis?.flatMap { $0.profiles } ?? []

@@ -7,7 +7,6 @@
 import Foundation
 import CoreData
 
-
 extension InstanceGroup {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<InstanceGroup> {

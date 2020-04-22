@@ -5,7 +5,6 @@
 import Foundation
 import CoreData
 
-
 extension Keywords {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Keywords> {

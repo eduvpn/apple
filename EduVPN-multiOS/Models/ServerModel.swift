@@ -102,7 +102,6 @@ struct PeerModel: Decodable {
     var displayName: String?
 }
 
-
 extension PeerModel {
     
     enum PeerModelKeys: String, CodingKey {

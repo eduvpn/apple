@@ -10,7 +10,6 @@
 import Foundation
 import CoreData
 
-
 extension OrganizationList {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<OrganizationList> {

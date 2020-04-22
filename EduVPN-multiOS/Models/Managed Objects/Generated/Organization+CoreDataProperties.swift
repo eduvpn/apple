@@ -5,7 +5,6 @@
 import Foundation
 import CoreData
 
-
 extension Organization {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Organization> {

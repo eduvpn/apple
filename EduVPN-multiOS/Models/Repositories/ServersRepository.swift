@@ -85,7 +85,6 @@ class ServersLoader {
                     } else {
                         organization?.version = servers.version
                     }
-
                     
                     let group = try! InstanceGroup.findFirstInContext(context, predicate: NSPredicate(format: "discoveryIdentifier == %@", serverGroupIdentifier)) ?? InstanceGroup(context: context)//swiftlint:disable:this force_try
 

@@ -10,7 +10,7 @@ import Foundation
 
 extension Custom {
     
-    public override func awakeFromInsert() {
+    override public func awakeFromInsert() {
         super.awakeFromInsert()
         groupName = NSLocalizedString("Custom", comment: "")
     }

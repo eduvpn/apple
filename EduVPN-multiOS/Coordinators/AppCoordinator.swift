@@ -101,7 +101,7 @@ class AppCoordinator: RootViewCoordinator {
     
     #if os(iOS)
     
-    public init(window: UIWindow, config: Config = Config.shared, instancesRepository: InstancesRepository = InstancesRepository(),  organizationsRepository: OrganizationsRepository = OrganizationsRepository(), serversRepository: ServersRepository = ServersRepository()) {
+    public init(window: UIWindow, config: Config = Config.shared, instancesRepository: InstancesRepository = InstancesRepository(), organizationsRepository: OrganizationsRepository = OrganizationsRepository(), serversRepository: ServersRepository = ServersRepository()) {
         self.window = window
         self.config = config
         self.instancesRepository = instancesRepository
@@ -150,7 +150,7 @@ class AppCoordinator: RootViewCoordinator {
         #if os(iOS)
         let providersViewController = storyboard.instantiateViewController(type: ProvidersViewController.self)
         #elseif os(macOS)
-        let providersViewController = windowController.contentViewController?.children.first as! ProvidersViewController
+        let providersViewController = windowController.contentViewController?.children.first as! ProvidersViewController //swiftlint:disable:this force_cast
         #endif
         self.providersViewController = providersViewController
             
@@ -172,7 +172,7 @@ class AppCoordinator: RootViewCoordinator {
         #if os(iOS)
         let serversViewController = storyboard.instantiateViewController(type: ServersViewController.self)
         #elseif os(macOS)
-        let serversViewController = storyboard.instantiateController(withIdentifier: "Servers") as! ServersViewController
+        let serversViewController = storyboard.instantiateController(withIdentifier: "Servers") as! ServersViewController //swiftlint:disable:this force_cast
         #endif
         self.serversViewController = serversViewController
           
@@ -205,7 +205,7 @@ class AppCoordinator: RootViewCoordinator {
                 instance.addToDisplayNames(displayName)
                 instance.group = group
                 
-                let provider = Custom.init(context: context)
+                let provider = Custom(context: context)
                 instance.provider = provider
                 instance.isParent = true
                 
