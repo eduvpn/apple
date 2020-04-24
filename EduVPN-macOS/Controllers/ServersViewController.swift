@@ -11,8 +11,8 @@ protocol ServersViewControllerDelegate: class {
     func serversViewControllerNoProfiles(_ controller: ServersViewController)
     func serversViewController(_ controller: ServersViewController, addProviderAnimated animated: Bool, allowClose: Bool)
     func serversViewControllerAddPredefinedProvider(_ controller: ServersViewController)
-    func serversViewController(_ controller: ServersViewController, didSelect instance: Instance)
-    func serversViewController(_ controller: ServersViewController, didDelete instance: Instance)
+    func serversViewController(_ controller: ServersViewController, didSelect server: Server)
+    func serversViewController(_ controller: ServersViewController, didDelete server: Server)
     func serversViewController(_ controller: ServersViewController, didDelete organization: Organization)
 }
 
@@ -32,9 +32,9 @@ class ServersViewController: NSViewController {
     
     private var started = false
     
-    private lazy var fetchedResultsController: FetchedResultsController<Instance> = {
+    private lazy var fetchedResultsController: FetchedResultsController<Server> = {
         let fetchRequest = NSFetchRequest<Instance>()
-        fetchRequest.entity = Instance.entity()
+        fetchRequest.entity = Server.entity()
         
         // TODO: Use this too?  fetchRequest.predicate = NSPredicate(format: "apis.@count > 0 AND (SUBQUERY(apis, $y, (SUBQUERY($y.profiles, $z, $z != NIL).@count > 0)).@count > 0)")
 
