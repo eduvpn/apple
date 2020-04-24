@@ -22,7 +22,7 @@ extension Server {
     @NSManaged public var children: Set<Server>?
     @NSManaged public var displayNames: Set<DisplayName>?
     @NSManaged public var parent: Server?
-    @NSManaged public var profiles: Profile?
+    @NSManaged public var profiles: Set<Profile>?
     @NSManaged public var provider: ManagedProvider?
 
 }
@@ -58,5 +58,22 @@ extension Server {
 
     @objc(removeDisplayNames:)
     @NSManaged public func removeFromDisplayNames(_ values: NSSet)
+
+}
+
+// MARK: Generated accessors for profiles
+extension Server {
+
+    @objc(addProfilesObject:)
+    @NSManaged public func addToProfiles(_ value: Profile)
+
+    @objc(removeProfilesObject:)
+    @NSManaged public func removeFromProfiles(_ value: Profile)
+
+    @objc(addProfiles:)
+    @NSManaged public func addToProfiles(_ values: NSSet)
+
+    @objc(removeProfiles:)
+    @NSManaged public func removeFromProfiles(_ values: NSSet)
 
 }

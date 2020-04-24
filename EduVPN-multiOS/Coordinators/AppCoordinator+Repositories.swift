@@ -79,6 +79,32 @@ extension AppCoordinator {
             }
     }
     
+    func refresh(server: Server) -> Promise<Void> {
+        showActivityIndicator(messageKey: "Fetching server configuration")
+        
+        return serversRepository.refresher.refresh(server: server)
+        // TODO
+//            .then { _ -> Promise<Void> in
+//             //   let api = self.persistentContainer.viewContext.object(with: api.objectID) as! Api //swiftlint:disable:this force_cast
+//                guard let authorizingDynamicApiProvider = DynamicApiProvider(api: api) else {
+//                    return .value(())
+//                }
+//
+//                return self.refreshProfiles(for: authorizingDynamicApiProvider)
+//            }.ensureThen {
+//                self.providersViewController?.refresh()
+//                self.serversViewController?.refresh(animated: true)
+//                NotificationCenter.default.post(name: Notification.Name.InstanceRefreshed, object: self)
+//                return self.hideActivityIndicator()
+//            }.ensureThen {
+//                // TODO: See also ProvidersViewControllerDelegate didSelect(instance:, providersViewController: )
+//                #if os(macOS)
+//                self.dismissViewController()
+//                #endif
+//                return .value(())
+//            }
+    }
+    
     func fetchProfile(for profile: Profile, retry: Bool = false) -> Promise<[String]> {
         guard let api = profile.api else {
             precondition(false, "This should never happen")

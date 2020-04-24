@@ -192,6 +192,10 @@
 		C7517542236340C900058D95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7517541236340C900058D95 /* Assets.xcassets */; };
 		C764509924532EE2001C18A1 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = C764509824532EE1001C18A1 /* Server.swift */; };
 		C764509A24532EE2001C18A1 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = C764509824532EE1001C18A1 /* Server.swift */; };
+		C764509C24533BCD001C18A1 /* ServerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C764509B24533BCD001C18A1 /* ServerService.swift */; };
+		C764509D24533BCD001C18A1 /* ServerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C764509B24533BCD001C18A1 /* ServerService.swift */; };
+		C764509F24533EA0001C18A1 /* ServerInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C764509E24533EA0001C18A1 /* ServerInfoModel.swift */; };
+		C76450A024533EA0001C18A1 /* ServerInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C764509E24533EA0001C18A1 /* ServerInfoModel.swift */; };
 		C7814D892424C048009F258E /* OrganizationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7814D882424C047009F258E /* OrganizationsViewController.swift */; };
 		C7814D8C2424C17B009F258E /* AppCoordinator+Organizations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7814D8A2424C17B009F258E /* AppCoordinator+Organizations.swift */; };
 		C7814D8E2424EA9A009F258E /* Keywords+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7814D8D2424EA9A009F258E /* Keywords+Convenience.swift */; };
@@ -502,6 +506,8 @@
 		C75B2CC62363141200D700EC /* Developer.xcconfig.eduvpn-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer.xcconfig.eduvpn-template"; sourceTree = "<group>"; };
 		C75B2CC72363141200D700EC /* config-template.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-template.json"; sourceTree = "<group>"; };
 		C764509824532EE1001C18A1 /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
+		C764509B24533BCD001C18A1 /* ServerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerService.swift; sourceTree = "<group>"; };
+		C764509E24533EA0001C18A1 /* ServerInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerInfoModel.swift; sourceTree = "<group>"; };
 		C777831F24113FF700B3BBA1 /* EduVPN 10.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EduVPN 10.xcdatamodel"; sourceTree = "<group>"; };
 		C7814D882424C047009F258E /* OrganizationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationsViewController.swift; sourceTree = "<group>"; };
 		C7814D8A2424C17B009F258E /* AppCoordinator+Organizations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppCoordinator+Organizations.swift"; sourceTree = "<group>"; };
@@ -969,6 +975,7 @@
 			children = (
 				4ACA04291F311507004B35AA /* StaticService.swift */,
 				4ACA042D1F311863004B35AA /* InstanceService.swift */,
+				C764509B24533BCD001C18A1 /* ServerService.swift */,
 				4ACA042B1F3116D5004B35AA /* Moya+Promise.swift */,
 				4A4F36521F31972C0032C96B /* ApiService.swift */,
 				4AD0AD591F34F887006E1337 /* CredentialStorePlugin.swift */,
@@ -1071,6 +1078,7 @@
 			children = (
 				C7FA7AB723633E68006501E8 /* EduVPN.xcdatamodeld */,
 				C7FA7A5B23633894006501E8 /* InstanceInfoModel.swift */,
+				C764509E24533EA0001C18A1 /* ServerInfoModel.swift */,
 				C7FA7AAA23633D61006501E8 /* CoreData Helpers */,
 				C7FA7A5D23633895006501E8 /* Managed Objects */,
 				C7FA7A5C23633894006501E8 /* Message.swift */,
@@ -1900,6 +1908,7 @@
 				C740BC0A241A884C002D7C64 /* ManagedProvider+CoreDataClass.swift in Sources */,
 				34FD2AD922A946E4002AABB3 /* AppCoordinator+Connection.swift in Sources */,
 				343452A022A139C600C0476E /* AppCoordinator+Alert.swift in Sources */,
+				C764509D24533BCD001C18A1 /* ServerService.swift in Sources */,
 				343452A622A13DDC00C0476E /* Coordinator.swift in Sources */,
 				C740BBDA241A8597002D7C64 /* InstanceGroup+CoreDataClass.swift in Sources */,
 				343452A822A13EDE00C0476E /* Log.swift in Sources */,
@@ -1923,6 +1932,7 @@
 				340A504A22A2745600170E51 /* Identifiable.swift in Sources */,
 				C7E21E18241296AD0052F4C5 /* OrganizationModel.swift in Sources */,
 				34186D06229802C0009B4121 /* FileHelper.swift in Sources */,
+				C76450A024533EA0001C18A1 /* ServerInfoModel.swift in Sources */,
 				34D71A92228D9C6A0027DE84 /* NSAlert+Custom.swift in Sources */,
 				340A505722A3BFF100170E51 /* AppCoordinator+Mac.swift in Sources */,
 			);
@@ -1960,6 +1970,7 @@
 				4AAA157B21C2EF530097A1B5 /* TunnelProviderManagerCoordinator.swift in Sources */,
 				C740BBF3241A8599002D7C64 /* Instance+CoreDataProperties.swift in Sources */,
 				C740BBF7241A8599002D7C64 /* Keywords+CoreDataProperties.swift in Sources */,
+				C764509F24533EA0001C18A1 /* ServerInfoModel.swift in Sources */,
 				C740BBED241A8599002D7C64 /* AuthServer+CoreDataProperties.swift in Sources */,
 				C7FA7A1023633694006501E8 /* Config.swift in Sources */,
 				4AD0AD5F1F350822006E1337 /* Moya+ResponseHandling.swift in Sources */,
@@ -2040,6 +2051,7 @@
 				C7FA7AB523633D61006501E8 /* NSManagedObjectContext+SaveHelpers.swift in Sources */,
 				4A97D78620CC4F4D00472216 /* AppCoordinator+Alert.swift in Sources */,
 				C740BC11241A8A82002D7C64 /* InstanceGroup.swift in Sources */,
+				C764509C24533BCD001C18A1 /* ServerService.swift in Sources */,
 				C740BBFF241A8599002D7C64 /* Organization+CoreDataProperties.swift in Sources */,
 				C7FA7A9E23633895006501E8 /* Instance.swift in Sources */,
 				4A11632A2370539F00577755 /* Crypto.swift in Sources */,

@@ -12,7 +12,7 @@ import CryptoKit
 
 struct ServersRepository {
     let loader = ServersLoader()
-    let refresher = InstanceRefresher()
+    let refresher = ServerRefresher()
 }
 
 enum ServersLoaderError: Error {
@@ -164,36 +164,37 @@ class ServersLoader {
 
 class ServerRefresher {
     
-//    let provider = MoyaProvider<DynamicServerService>(manager: MoyaProvider<DynamicServerService>.ephemeralAlamofireManager())
-//
-//    weak var persistentContainer: NSPersistentContainer!
-//
-//    func refresh(server: Server) -> Promise<Api> {
-//        return firstly { () -> Promise<URL> in
-//            guard let baseURL = (server.baseUri.flatMap {URL(string: $0)}) else {
-//                throw AppCoordinatorError.urlCreation
-//            }
-//            return .value(baseURL)
-//        }.then { (baseURL) -> Promise<Moya.Response> in
-//            return self.provider.request(target: DynamicServerService(baseURL: baseURL))
-//        }.then { response -> Promise<ServerInfoModel> in
-//            response.mapResponse()
-//        }.then { serverInfoModel -> Promise<Api> in
-//            return Promise<Api>(resolver: { seal in
-//                self.persistentContainer.performBackgroundTask { context in
+    let provider = MoyaProvider<DynamicServerService>(manager: MoyaProvider<DynamicServerService>.ephemeralAlamofireManager())
+
+    weak var persistentContainer: NSPersistentContainer!
+
+    func refresh(server: Server) -> Promise<Void> {
+        return firstly { () -> Promise<URL> in
+            guard let baseURL = server.baseURI else {
+                throw AppCoordinatorError.urlCreation
+            }
+            return .value(baseURL)
+        }.then { (baseURL) -> Promise<Moya.Response> in
+            return self.provider.request(target: DynamicServerService(baseURL: baseURL))
+        }.then { response -> Promise<ServerInfoModel> in
+            response.mapResponse()
+        }.then { serverInfoModel -> Promise<Void> in
+            return Promise<Void>(resolver: { seal in
+                self.persistentContainer.performBackgroundTask { context in
+                    // TODO: Handle info from serverInfoModel
 //                    let authServer = AuthServer.upsert(with: serverInfoModel, on: context)
 //                    let api = Api.upsert(with: serverInfoModel, for: server, on: context)
 //                    api.authServer = authServer
-//
-//                    do {
-//                        try context.save()
-//                    } catch {
-//                        seal.reject(error)
-//                    }
-//
-//                    seal.fulfill(api)
-//                }
-//            })
-//        }
-//    }
+
+                    do {
+                        try context.save()
+                    } catch {
+                        seal.reject(error)
+                    }
+
+                    seal.fulfill(())
+                }
+            })
+        }
+    }
 }

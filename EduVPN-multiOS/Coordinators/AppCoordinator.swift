@@ -139,7 +139,7 @@ class AppCoordinator: RootViewCoordinator {
         organizationsRepository.loader.persistentContainer = persistentContainer
         organizationsRepository.refresher.persistentContainer = persistentContainer
         serversRepository.loader.persistentContainer = persistentContainer
-     //   serversRepository.refresher.persistentContainer = persistentContainer
+        serversRepository.refresher.persistentContainer = persistentContainer
         ProfilesRepository.shared.refresher.persistentContainer = persistentContainer
     }
     

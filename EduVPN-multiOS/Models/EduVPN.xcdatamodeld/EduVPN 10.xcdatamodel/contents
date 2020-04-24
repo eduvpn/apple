@@ -76,7 +76,7 @@
         <attribute name="rawVpnStatus" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <relationship name="api" maxCount="1" deletionRule="Nullify" destinationEntity="Api" inverseName="profiles" inverseEntity="Api"/>
-        <relationship name="displayNames" toMany="YES" deletionRule="Nullify" destinationEntity="DisplayName" inverseName="profile" inverseEntity="DisplayName"/>
+        <relationship name="displayNames" toMany="YES" deletionRule="Cascade" destinationEntity="DisplayName" inverseName="profile" inverseEntity="DisplayName"/>
         <relationship name="server" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Server" inverseName="profiles" inverseEntity="Server"/>
     </entity>
     <entity name="Provider" representedClassName="Provider" syncable="YES">
@@ -94,7 +94,7 @@
         <relationship name="children" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Server" inverseName="parent" inverseEntity="Server"/>
         <relationship name="displayNames" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="DisplayName" inverseName="server" inverseEntity="DisplayName"/>
         <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Server" inverseName="children" inverseEntity="Server"/>
-        <relationship name="profiles" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profile" inverseName="server" inverseEntity="Profile"/>
+        <relationship name="profiles" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Profile" inverseName="server" inverseEntity="Profile"/>
         <relationship name="provider" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedProvider" inverseName="servers" inverseEntity="ManagedProvider"/>
     </entity>
     <elements>

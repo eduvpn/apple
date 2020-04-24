@@ -80,6 +80,18 @@ extension AppCoordinator {
         #endif
     }
     
+    internal func showConnectionsTableViewController(for server: Server) {
+        let connectionsVc = storyboard.instantiateViewController(type: ConnectionsTableViewController.self)
+        connectionsVc.delegate = self
+        connectionsVc.server = server
+        connectionsVc.viewContext = persistentContainer.viewContext
+        #if os(iOS)
+        navigationController.pushViewController(connectionsVc, animated: true)
+        #elseif os(macOS)
+        pushViewController(connectionsVc)
+        #endif
+    }
+    
     internal func showProfilesViewController(animated: Bool = true) {
         let profilesVc = storyboard.instantiateViewController(type: ProfilesViewController.self)
         profilesVc.delegate = self

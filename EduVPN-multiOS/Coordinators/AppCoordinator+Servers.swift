@@ -40,35 +40,35 @@ extension AppCoordinator: ServersViewControllerDelegate {
     #endif
     
     func serversViewController(_ controller: ServersViewController, didSelect server: Server) {
-        os_log("Did select server from provider: %{public}@ instance: %{public}@", log: Log.general, type: .info, "\(server.provider.debugDescription ?? "-")", "\(server)")
+        os_log("Did select server from provider: %{public}@ instance: %{public}@", log: Log.general, type: .info, "\(server.provider.debugDescription)", "\(server)")
         
-//        do {
-//            persistentContainer.performBackgroundTask { (context) in
-//                if let backgroundInstance = context.object(with: instance.objectID) as? Instance {
-//                    let now = Date().timeIntervalSince1970
-//                    backgroundInstance.lastAccessedTimeInterval = now
-//                    context.saveContext()
-//                }
-//            }
-//            let count = try Profile.countInContext(persistentContainer.viewContext,
-//                                                   predicate: NSPredicate(format: "api.instance == %@", instance))
-//
-//            if count > 1 {
-//                showConnectionsTableViewController(for: instance)
-//            } else if let profile = instance.apis?.first?.profiles.first {
-//                connect(profile: profile)
-//            } else {
-//                // Move this to pull to refresh?
-//                refresh(instance: instance).then { _ -> Promise<Void> in
-//                    return .value(())
-//                }.recover { error in
-//                    let error = error as NSError
-//                    self.showError(error)
-//                }
-//            }
-//        } catch {
-//            showError(error)
-//        }
+        do {
+            persistentContainer.performBackgroundTask { context in
+                if let backgroundInstance = context.object(with: server.objectID) as? Server {
+                    let now = Date()
+                    backgroundInstance.lastAccessed = now
+                    context.saveContext()
+                }
+            }
+            let count = try Profile.countInContext(persistentContainer.viewContext,
+                                                   predicate: NSPredicate(format: "server == %@", server))
+
+            if count > 1 {
+                showConnectionsTableViewController(for: server)
+            } else if let profile = server.profiles?.first {
+                connect(profile: profile)
+            } else {
+                // Move this to pull to refresh?
+                refresh(server: server).then { _ -> Promise<Void> in
+                    return .value(())
+                }.recover { error in
+                    let error = error as NSError
+                    self.showError(error)
+                }
+            }
+        } catch {
+            showError(error)
+        }
         
     }
     

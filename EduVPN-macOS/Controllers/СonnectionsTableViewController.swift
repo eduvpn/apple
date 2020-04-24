@@ -31,6 +31,7 @@ class ConnectionsTableViewController: NSViewController {
     weak var delegate: ConnectionsTableViewControllerDelegate?
     
     var instance: Instance?
+    var server: Server?
     
     var viewContext: NSManagedObjectContext!
     
@@ -40,6 +41,8 @@ class ConnectionsTableViewController: NSViewController {
         
         if let instance = instance {
             fetchRequest.predicate = NSPredicate(format: "api.instance == %@", instance)
+        } else if let server = server {
+            fetchRequest.predicate = NSPredicate(format: "server == %@", server)
         }
         
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "api.instance.providerType", ascending: true),
