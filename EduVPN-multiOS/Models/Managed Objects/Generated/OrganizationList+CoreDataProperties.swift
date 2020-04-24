@@ -1,10 +1,5 @@
 //
 //  OrganizationList+CoreDataProperties.swift
-//  EduVPN
-//
-//  Created by Jeroen Leenarts on 14/04/2020.
-//  Copyright © 2020 SURFNet. All rights reserved.
-//
 //
 
 import Foundation
@@ -17,7 +12,7 @@ extension OrganizationList {
     }
 
     @NSManaged public var version: String?
-    @NSManaged public var organizations: NSSet?
+    @NSManaged public var organizations: Set<Organization>?
 
 }
 

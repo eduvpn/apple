@@ -23,24 +23,16 @@
         <relationship name="server" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Server" inverseName="displayNames" inverseEntity="Server"/>
     </entity>
     <entity name="Instance" representedClassName="Instance" syncable="YES">
-        <attribute name="available" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="baseUri" attributeType="String"/>
         <attribute name="displayName" optional="YES" attributeType="String"/>
-        <attribute name="isExpanded" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
-        <attribute name="isParent" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="lastAccessedTimeInterval" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="providerType" optional="YES" attributeType="String"/>
         <attribute name="publicKey" optional="YES" attributeType="String"/>
-        <attribute name="serverGroupUri" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="sortName" optional="YES" attributeType="String" defaultValueString="" spotlightIndexingEnabled="YES"/>
         <relationship name="apis" toMany="YES" deletionRule="Cascade" destinationEntity="Api" inverseName="instance" inverseEntity="Api"/>
         <relationship name="authServer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AuthServer" inverseName="instances" inverseEntity="AuthServer"/>
-        <relationship name="children" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Instance" inverseName="parent" inverseEntity="Instance"/>
         <relationship name="displayNames" toMany="YES" deletionRule="Cascade" destinationEntity="DisplayName" inverseName="instance" inverseEntity="DisplayName"/>
         <relationship name="group" maxCount="1" deletionRule="Nullify" destinationEntity="InstanceGroup" inverseName="instances" inverseEntity="InstanceGroup"/>
         <relationship name="logos" toMany="YES" deletionRule="Cascade" destinationEntity="Logo" inverseName="instance" inverseEntity="Logo"/>
-        <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Instance" inverseName="children" inverseEntity="Instance"/>
-        <relationship name="provider" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedProvider"/>
     </entity>
     <entity name="InstanceGroup" representedClassName="InstanceGroup" syncable="YES">
         <attribute name="authorizationType" optional="YES" attributeType="String"/>
@@ -90,14 +82,14 @@
     <entity name="Provider" representedClassName="Provider" syncable="YES">
         <attribute name="groupName" attributeType="String" defaultValueString=""/>
     </entity>
-    <entity name="Server" representedClassName="Server" syncable="YES" codeGenerationType="class">
+    <entity name="Server" representedClassName="Server" syncable="YES">
         <attribute name="available" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="baseUri" optional="YES" attributeType="URI"/>
         <attribute name="baseURI" optional="YES" attributeType="URI"/>
         <attribute name="displayName" optional="YES" attributeType="String"/>
         <attribute name="isExpanded" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isParent" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="lastAccessed" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="serverGroupURI" optional="YES" attributeType="URI"/>
         <attribute name="sortName" optional="YES" attributeType="String"/>
         <relationship name="children" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Server" inverseName="parent" inverseEntity="Server"/>
         <relationship name="displayNames" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="DisplayName" inverseName="server" inverseEntity="DisplayName"/>
@@ -110,7 +102,7 @@
         <element name="AuthServer" positionX="-210.640625" positionY="-153.6875" width="128" height="105"/>
         <element name="Custom" positionX="-829.75" positionY="-43.76953125" width="128" height="43"/>
         <element name="DisplayName" positionX="-1000.0859375" positionY="314.62890625" width="128" height="133"/>
-        <element name="Instance" positionX="-369.18359375" positionY="48.8125" width="128" height="313"/>
+        <element name="Instance" positionX="-369.18359375" positionY="48.8125" width="128" height="193"/>
         <element name="InstanceGroup" positionX="-128.9375" positionY="32.19921875" width="128" height="118"/>
         <element name="Keywords" positionX="-1241.47265625" positionY="131.359375" width="128" height="88"/>
         <element name="Local" positionX="-651.28125" positionY="-104.5703125" width="128" height="58"/>

@@ -190,12 +190,18 @@
 		C740BC18241A9B78002D7C64 /* OrganizationsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740BC16241A9B78002D7C64 /* OrganizationsRepository.swift */; };
 		C740BC1A241A9F16002D7C64 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C740BC19241A9F15002D7C64 /* MainWindowController.swift */; };
 		C7517542236340C900058D95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7517541236340C900058D95 /* Assets.xcassets */; };
+		C764509924532EE2001C18A1 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = C764509824532EE1001C18A1 /* Server.swift */; };
+		C764509A24532EE2001C18A1 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = C764509824532EE1001C18A1 /* Server.swift */; };
 		C7814D892424C048009F258E /* OrganizationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7814D882424C047009F258E /* OrganizationsViewController.swift */; };
 		C7814D8C2424C17B009F258E /* AppCoordinator+Organizations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7814D8A2424C17B009F258E /* AppCoordinator+Organizations.swift */; };
 		C7814D8E2424EA9A009F258E /* Keywords+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7814D8D2424EA9A009F258E /* Keywords+Convenience.swift */; };
 		C7814D8F2424EA9A009F258E /* Keywords+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7814D8D2424EA9A009F258E /* Keywords+Convenience.swift */; };
 		C781590D2424FDBB0030D380 /* ServersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C781590C2424FDBB0030D380 /* ServersRepository.swift */; };
 		C781590E2424FDBB0030D380 /* ServersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C781590C2424FDBB0030D380 /* ServersRepository.swift */; };
+		C7A6110A24532CCA007110E7 /* Server+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A6110824532CC9007110E7 /* Server+CoreDataProperties.swift */; };
+		C7A6110B24532CCA007110E7 /* Server+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A6110824532CC9007110E7 /* Server+CoreDataProperties.swift */; };
+		C7A6110C24532CCA007110E7 /* Server+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A6110924532CCA007110E7 /* Server+CoreDataClass.swift */; };
+		C7A6110D24532CCA007110E7 /* Server+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A6110924532CCA007110E7 /* Server+CoreDataClass.swift */; };
 		C7C98DF92440A1EA00EA36FA /* SignatureHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C98DF82440A1EA00EA36FA /* SignatureHelper.swift */; };
 		C7C98DFA2440A1EA00EA36FA /* SignatureHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C98DF82440A1EA00EA36FA /* SignatureHelper.swift */; };
 		C7D485232372BC22006AC96C /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1163292370539E00577755 /* Crypto.swift */; };
@@ -495,12 +501,15 @@
 		C75B2CC52363141200D700EC /* config-letsconnect.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-letsconnect.json"; sourceTree = "<group>"; };
 		C75B2CC62363141200D700EC /* Developer.xcconfig.eduvpn-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer.xcconfig.eduvpn-template"; sourceTree = "<group>"; };
 		C75B2CC72363141200D700EC /* config-template.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-template.json"; sourceTree = "<group>"; };
+		C764509824532EE1001C18A1 /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		C777831F24113FF700B3BBA1 /* EduVPN 10.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EduVPN 10.xcdatamodel"; sourceTree = "<group>"; };
 		C7814D882424C047009F258E /* OrganizationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationsViewController.swift; sourceTree = "<group>"; };
 		C7814D8A2424C17B009F258E /* AppCoordinator+Organizations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppCoordinator+Organizations.swift"; sourceTree = "<group>"; };
 		C7814D8D2424EA9A009F258E /* Keywords+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Keywords+Convenience.swift"; sourceTree = "<group>"; };
 		C781590C2424FDBB0030D380 /* ServersRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServersRepository.swift; sourceTree = "<group>"; };
 		C78D202A2372DF34007067B1 /* Assets-Let’s Connect!.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets-Let’s Connect!.xcassets"; sourceTree = "<group>"; };
+		C7A6110824532CC9007110E7 /* Server+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Server+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C7A6110924532CCA007110E7 /* Server+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Server+CoreDataClass.swift"; sourceTree = "<group>"; };
 		C7C69A5E236B328200F9B8B3 /* Developer-macOS.xcconfig.eduvpn-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer-macOS.xcconfig.eduvpn-template"; sourceTree = "<group>"; };
 		C7C98DF82440A1EA00EA36FA /* SignatureHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureHelper.swift; sourceTree = "<group>"; };
 		C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancellablePromise.swift; sourceTree = "<group>"; };
@@ -1104,6 +1113,7 @@
 				C740BC10241A8A82002D7C64 /* InstanceGroup.swift */,
 				C70C0CA9243347C900EE8AE7 /* Custom.swift */,
 				C70C0CAC2433483000EE8AE7 /* Local.swift */,
+				C764509824532EE1001C18A1 /* Server.swift */,
 			);
 			path = "Managed Objects";
 			sourceTree = "<group>";
@@ -1139,6 +1149,8 @@
 				C7F3273F241A823900B9CBB5 /* Profile+CoreDataProperties.swift */,
 				C7F3273D241A823900B9CBB5 /* Provider+CoreDataClass.swift */,
 				C7F3272B241A823800B9CBB5 /* Provider+CoreDataProperties.swift */,
+				C7A6110924532CCA007110E7 /* Server+CoreDataClass.swift */,
+				C7A6110824532CC9007110E7 /* Server+CoreDataProperties.swift */,
 			);
 			path = Generated;
 			sourceTree = "<group>";
@@ -1839,9 +1851,11 @@
 				34186CDE2296B711009B4121 /* Logo+Convenience.swift in Sources */,
 				3434529B22A0665600C0476E /* CoreDataFetchedResultsControllerDelegate.swift in Sources */,
 				343452AB22A13F6A00C0476E /* AppCoordinatorError.swift in Sources */,
+				C764509A24532EE2001C18A1 /* Server.swift in Sources */,
 				340A505122A3BDDF00170E51 /* AppCoordinator+Profiles.swift in Sources */,
 				C7FA7A9B23633895006501E8 /* AuthServer.swift in Sources */,
 				C7F326ED241A753700B9CBB5 /* Organization.swift in Sources */,
+				C7A6110B24532CCA007110E7 /* Server+CoreDataProperties.swift in Sources */,
 				C740BC18241A9B78002D7C64 /* OrganizationsRepository.swift in Sources */,
 				C7FA7A0F23633694006501E8 /* CertificateModel.swift in Sources */,
 				C740BBD1241A8597002D7C64 /* Api+CoreDataProperties.swift in Sources */,
@@ -1905,6 +1919,7 @@
 				C740BBDB241A8597002D7C64 /* InstanceGroup+CoreDataProperties.swift in Sources */,
 				343452A422A13C8B00C0476E /* RootCoordinator.swift in Sources */,
 				3415C02123181191005B9E6C /* СonnectionsTableViewController.swift in Sources */,
+				C7A6110D24532CCA007110E7 /* Server+CoreDataClass.swift in Sources */,
 				340A504A22A2745600170E51 /* Identifiable.swift in Sources */,
 				C7E21E18241296AD0052F4C5 /* OrganizationModel.swift in Sources */,
 				34186D06229802C0009B4121 /* FileHelper.swift in Sources */,
@@ -1959,6 +1974,7 @@
 				4A8D241F1F3976A2004A9343 /* ProfilesViewController.swift in Sources */,
 				C7F326E7241A484A00B9CBB5 /* NEVPNStatus+Representation.swift in Sources */,
 				4A983B791F397289004F82D5 /* Coordinator.swift in Sources */,
+				C764509924532EE2001C18A1 /* Server.swift in Sources */,
 				C740BBF6241A8599002D7C64 /* Keywords+CoreDataClass.swift in Sources */,
 				4A983B7B1F3972BE004F82D5 /* RootCoordinator.swift in Sources */,
 				C740BBF1241A8599002D7C64 /* DisplayName+CoreDataProperties.swift in Sources */,
@@ -1968,6 +1984,7 @@
 				3434528E229FF33100C0476E /* AppCoordinator+Connection.swift in Sources */,
 				C7D8E1D523742A4E009536C9 /* CancellablePromise.swift in Sources */,
 				34345291229FF33100C0476E /* AppCoordinator+CustomInput.swift in Sources */,
+				C7A6110C24532CCA007110E7 /* Server+CoreDataClass.swift in Sources */,
 				34345293229FF33100C0476E /* AppCoordinator+TunnelProviderManager.swift in Sources */,
 				C740BC01241A8599002D7C64 /* Profile+CoreDataProperties.swift in Sources */,
 				C781590D2424FDBB0030D380 /* ServersRepository.swift in Sources */,
@@ -1995,6 +2012,7 @@
 				C7FA7A7623633895006501E8 /* InstancesRepository.swift in Sources */,
 				C7FA7AB123633D61006501E8 /* NSManagedObject+FetchHelpers.swift in Sources */,
 				C740BBEC241A8599002D7C64 /* AuthServer+CoreDataClass.swift in Sources */,
+				C7A6110A24532CCA007110E7 /* Server+CoreDataProperties.swift in Sources */,
 				C740BBFD241A8599002D7C64 /* ManagedProvider+CoreDataProperties.swift in Sources */,
 				4AE81E1E23A2E73E002C793D /* ImageLoader.swift in Sources */,
 				4ACA042E1F311863004B35AA /* InstanceService.swift in Sources */,

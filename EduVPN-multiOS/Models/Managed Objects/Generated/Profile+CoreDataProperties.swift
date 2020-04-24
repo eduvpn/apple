@@ -1,7 +1,5 @@
 //
 //  Profile+CoreDataProperties.swift
-//  eduVPN
-//
 //
 
 import Foundation
@@ -18,6 +16,7 @@ extension Profile {
     @NSManaged public var uuid: UUID?
     @NSManaged public var api: Api?
     @NSManaged public var displayNames: Set<DisplayName>?
+    @NSManaged public var server: Server?
 
 }
 

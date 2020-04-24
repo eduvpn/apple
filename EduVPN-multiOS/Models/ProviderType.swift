@@ -46,3 +46,11 @@ enum ProviderType: String, Codable {
         }
     }
 }
+//
+//extension Provider {
+//
+//    var providerType: ProviderType {
+//        switch cas
+//    }
+//
+//}

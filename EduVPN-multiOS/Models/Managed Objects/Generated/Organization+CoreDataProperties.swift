@@ -1,7 +1,7 @@
 //
 //  Organization+CoreDataProperties.swift
 //
-//
+
 import Foundation
 import CoreData
 
@@ -11,12 +11,12 @@ extension Organization {
         return NSFetchRequest<Organization>(entityName: "Organization")
     }
 
-    @NSManaged public var identifier: String?
-    @NSManaged public var serverListUri: URL?
     @NSManaged public var displayName: String?
-    @NSManaged public var displayNames: Set<DisplayName>?
+    @NSManaged public var identifier: String?
     @NSManaged public var keyword: String?
+    @NSManaged public var serverListUri: URL?
     @NSManaged public var version: String?
+    @NSManaged public var displayNames: Set<DisplayName>?
     @NSManaged public var keywords: Set<Keywords>?
     @NSManaged public var organizationList: OrganizationList?
 

@@ -1,7 +1,5 @@
 //
 //  Logo+CoreDataProperties.swift
-//  eduVPN
-//
 //
 
 import Foundation

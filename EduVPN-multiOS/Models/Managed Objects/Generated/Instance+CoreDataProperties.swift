@@ -1,7 +1,5 @@
 //
 //  Instance+CoreDataProperties.swift
-//  EduVPN
-//
 //
 
 import Foundation
@@ -13,24 +11,16 @@ extension Instance {
         return NSFetchRequest<Instance>(entityName: "Instance")
     }
 
-    @NSManaged public var available: Bool
-    @NSManaged public var isParent: Bool
-    @NSManaged public var isExpanded: Bool
     @NSManaged public var baseUri: String?
     @NSManaged public var displayName: String?
-    @NSManaged public var sortName: String?
     @NSManaged public var lastAccessedTimeInterval: Double
     @NSManaged public var providerType: String?
     @NSManaged public var publicKey: String?
-    @NSManaged public var serverGroupUri: UUID?
     @NSManaged public var apis: Set<Api>?
     @NSManaged public var authServer: AuthServer?
-    @NSManaged public var children: Set<Instance>?
     @NSManaged public var displayNames: Set<DisplayName>?
     @NSManaged public var group: InstanceGroup?
     @NSManaged public var logos: Set<Logo>?
-    @NSManaged public var parent: Instance?
-    @NSManaged public var provider: ManagedProvider?
 
 }
 
@@ -48,23 +38,6 @@ extension Instance {
 
     @objc(removeApis:)
     @NSManaged public func removeFromApis(_ values: NSSet)
-
-}
-
-// MARK: Generated accessors for children
-extension Instance {
-
-    @objc(addChildrenObject:)
-    @NSManaged public func addToChildren(_ value: Instance)
-
-    @objc(removeChildrenObject:)
-    @NSManaged public func removeFromChildren(_ value: Instance)
-
-    @objc(addChildren:)
-    @NSManaged public func addToChildren(_ values: NSSet)
-
-    @objc(removeChildren:)
-    @NSManaged public func removeFromChildren(_ values: NSSet)
 
 }
 

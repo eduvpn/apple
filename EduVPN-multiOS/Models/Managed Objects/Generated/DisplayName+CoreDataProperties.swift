@@ -1,7 +1,5 @@
 //
 //  DisplayName+CoreDataProperties.swift
-//  eduVPN
-//
 //
 
 import Foundation
@@ -18,5 +16,6 @@ extension DisplayName {
     @NSManaged public var instance: Instance?
     @NSManaged public var organization: Organization?
     @NSManaged public var profile: Profile?
+    @NSManaged public var server: Server?
 
 }

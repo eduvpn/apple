@@ -1,7 +1,7 @@
 //
 //  Custom+CoreDataProperties.swift
 //
-//
+
 import Foundation
 import CoreData
 

@@ -1,7 +1,6 @@
 //
 //  Provider+CoreDataProperties.swift
 //
-//
 
 import Foundation
 import CoreData
@@ -13,5 +12,5 @@ extension Provider {
     }
 
     @NSManaged public var groupName: String?
-      
+
 }

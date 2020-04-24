@@ -86,65 +86,57 @@ class ServersLoader {
                         organization?.version = servers.version
                     }
                     
-                    let group = try! InstanceGroup.findFirstInContext(context, predicate: NSPredicate(format: "discoveryIdentifier == %@", serverGroupIdentifier)) ?? InstanceGroup(context: context)//swiftlint:disable:this force_try
+//                    let group = try! InstanceGroup.findFirstInContext(context, predicate: NSPredicate(format: "discoveryIdentifier == %@", serverGroupIdentifier)) ?? InstanceGroup(context: context)//swiftlint:disable:this force_try
+//
+//                    group.discoveryIdentifier = serverGroupIdentifier
+////                    group.authorizationType = servers.authorizationType.rawValue
+//
+//                    let authServer = AuthServer.upsert(with: servers, on: context)
+//
+//                    let updatedServers = group.instances.filter {
+//                        guard let baseUri = $0.baseUri else { return false }
+//                        return serverIdentifiers.contains(baseUri)
+//                    }
+//
+//                    updatedServers.forEach {
+//                        if let baseUri = $0.baseUri {
+//                            if let updatedModel = servers.servers.first(where: {
+//                                $0.baseUri.absoluteString == baseUri
+//                            }) {
+////                                $0.providerType = providerType.rawValue
+//                                $0.authServer = authServer
+//                                $0.update(with: updatedModel)
+//                                // TODO update children
+//                            }
+//                        }
+//                    }
 
-                    group.discoveryIdentifier = serverGroupIdentifier
-//                    group.authorizationType = servers.authorizationType.rawValue
-
-                    let authServer = AuthServer.upsert(with: servers, on: context)
-
-                    let updatedServers = group.instances.filter {
-                        guard let baseUri = $0.baseUri else { return false }
-                        return serverIdentifiers.contains(baseUri)
-                    }
-
-                    updatedServers.forEach {
-                        if let baseUri = $0.baseUri {
-                            if let updatedModel = servers.servers.first(where: {
-                                $0.baseUri.absoluteString == baseUri
-                            }) {
-//                                $0.providerType = providerType.rawValue
-                                $0.authServer = authServer
-                                $0.update(with: updatedModel)
-                                // TODO update children
-                            }
-                        }
-                    }
-
-                    let updatedServerIdentifiers = updatedServers.compactMap { $0.baseUri}
-
-                    let deletedServers = group.instances.filter {
-                        guard let baseUri = $0.baseUri else { return false }
-                        return !updatedServerIdentifiers.contains(baseUri)
-                    }
-
-                    deletedServers.forEach {
-                        context.delete($0)
-                    }
+//                    let updatedServerIdentifiers = updatedServers.compactMap { $0.baseUri}
+//
+//                    let deletedServers = group.instances.filter {
+//                        guard let baseUri = $0.baseUri else { return false }
+//                        return !updatedServerIdentifiers.contains(baseUri)
+//                    }
+//
+//                    deletedServers.forEach {
+//                        context.delete($0)
+//                    }
 
                     servers.servers
-                        .filter { !updatedServerIdentifiers.contains($0.baseUri.absoluteString) }
+                    //    .filter { !updatedServerIdentifiers.contains($0.baseUri.absoluteString) }
                         .forEach { (serverModel: ServerModel) in
-                            let newServer = Instance(context: context)
-                            group.addToInstances(newServer)
+                            let newServer = Server(context: context)
                             organization!.addToServers(newServer)
-                            newServer.group = group
-                            newServer.providerType = ProviderType.organization.rawValue
                             newServer.isParent = true
-                            newServer.authServer = authServer
                             newServer.update(with: serverModel)
                             newServer.updateDisplayAndSortNames()
                             
                             for peerModel in serverModel.peers ?? [] {
                                 newServer.isExpanded = false
-                                let newPeer = Instance(context: context)
-                                group.addToInstances(newPeer)
+                                let newPeer = Server(context: context)
                                 organization!.addToServers(newPeer)
                                 newPeer.parent = newServer
                                 newPeer.isParent = false
-                                newPeer.group = group
-                                newPeer.authServer = authServer
-                                newPeer.providerType = ProviderType.organization.rawValue
                                 newPeer.update(with: peerModel)
                                 newPeer.updateDisplayAndSortNames()
                             }

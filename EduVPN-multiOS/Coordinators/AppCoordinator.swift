@@ -204,11 +204,7 @@ class AppCoordinator: RootViewCoordinator {
                 displayName.displayName = url.host
                 instance.addToDisplayNames(displayName)
                 instance.group = group
-                
-                let provider = Custom(context: context)
-                instance.provider = provider
-                instance.isParent = true
-                
+                                
                 do {
                     try context.save()
                 } catch {

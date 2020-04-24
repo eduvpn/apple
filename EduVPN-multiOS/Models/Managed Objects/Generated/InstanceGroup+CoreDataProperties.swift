@@ -1,7 +1,5 @@
 //
 //  InstanceGroup+CoreDataProperties.swift
-//  eduVPN
-//
 //
 
 import Foundation

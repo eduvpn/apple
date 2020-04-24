@@ -60,7 +60,7 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
                 
                 if count > 1 {
                     showConnectionsTableViewController(for: instance)
-                } else if let profile = instance.apis?.first?.profiles.first {
+                } else if let profile = instance.apis?.first?.profiles?.first {
                     connect(profile: profile)
                 } else {
                     // Move this to pull to refresh?
@@ -100,7 +100,7 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
     func providersViewController(_ controller: ProvidersViewController, didDelete instance: Instance) {
         // Check current profile UUID against profile UUIDs.
         if let configuredProfileId = UserDefaults.standard.configuredProfileId {
-            let profiles = instance.apis?.flatMap { $0.profiles } ?? []
+            let profiles = instance.apis?.flatMap { $0.profiles ?? Set() } ?? []
             if (profiles.compactMap { $0.uuid?.uuidString}.contains(configuredProfileId)) {
                 _ = tunnelProviderManagerCoordinator.deleteConfiguration()
             }
@@ -108,7 +108,7 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
 
         var forced = false
         if let totalProfileCount = try? Profile.countInContext(persistentContainer.viewContext), let instanceProfileCount = instance.apis?.reduce(0, { (partial, api) -> Int in
-            return partial + api.profiles.count
+            return partial + (api.profiles?.count ?? 0)
         }) {
             forced = totalProfileCount == instanceProfileCount
         }

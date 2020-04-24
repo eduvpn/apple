@@ -1,7 +1,5 @@
 //
 //  AuthServer+CoreDataProperties.swift
-//  eduVPN
-//
 //
 
 import Foundation

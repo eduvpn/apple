@@ -33,26 +33,23 @@ class ServersViewController: NSViewController {
     private var started = false
     
     private lazy var fetchedResultsController: FetchedResultsController<Server> = {
-        let fetchRequest = NSFetchRequest<Instance>()
+        let fetchRequest = NSFetchRequest<Server>()
         fetchRequest.entity = Server.entity()
-        
-        // TODO: Use this too?  fetchRequest.predicate = NSPredicate(format: "apis.@count > 0 AND (SUBQUERY(apis, $y, (SUBQUERY($y.profiles, $z, $z != NIL).@count > 0)).@count > 0)")
-
         fetchRequest.predicate = NSPredicate(format: "provider != NIL AND (isParent == TRUE OR parent.isExpanded == TRUE)")
         
         let sortDescriptors = [NSSortDescriptor(key: "sortName", ascending: true)]
         fetchRequest.sortDescriptors = sortDescriptors
         
-        let frc = FetchedResultsController<Instance>(fetchRequest: fetchRequest,
-                                                     managedObjectContext: viewContext,
-                                                     sectionNameKeyPath: "provider.groupName")
+        let frc = FetchedResultsController<Server>(fetchRequest: fetchRequest,
+                                                   managedObjectContext: viewContext,
+                                                   sectionNameKeyPath: "provider.groupName")
         frc.setDelegate(self.frcDelegate)
         
         return frc
     }()
     
-    private lazy var frcDelegate: CoreDataFetchedResultsControllerDelegate<Instance> = { // swiftlint:disable:this weak_delegate
-        return CoreDataFetchedResultsControllerDelegate<Instance>(tableView: self.tableView, sectioned: true)
+    private lazy var frcDelegate: CoreDataFetchedResultsControllerDelegate<Server> = { // swiftlint:disable:this weak_delegate
+        return CoreDataFetchedResultsControllerDelegate<Server>(tableView: self.tableView, sectioned: true)
     }()
     
     override func viewWillAppear() {
@@ -131,8 +128,8 @@ class ServersViewController: NSViewController {
         case .section:
             break
             
-        case .row(let instance):
-            delegate?.serversViewController(self, didSelect: instance)
+        case .row(let server):
+            delegate?.serversViewController(self, didSelect: server)
             
         }
     }
@@ -178,13 +175,13 @@ class ServersViewController: NSViewController {
             }
             break
             
-        case .row(let instance):
+        case .row(let server):
             guard let window = view.window else {
                 break
             }
             let alert = NSAlert()
             alert.alertStyle = .critical
-            let name = instance.displayName ?? NSLocalizedString("this server", comment: "")
+            let name = server.displayName ?? NSLocalizedString("this server", comment: "")
             alert.messageText = NSLocalizedString("Remove \(name)?", comment: "")
             alert.informativeText = NSLocalizedString("You will no longer be able to connect to \(name).", comment: "")
            
@@ -194,7 +191,7 @@ class ServersViewController: NSViewController {
                 switch response {
                 case NSApplication.ModalResponse.alertFirstButtonReturn:
                     self.tableView.deselectRow(row)
-                    self.delegate?.serversViewController(self, didDelete: instance)
+                    self.delegate?.serversViewController(self, didDelete: server)
 
                 default:
                     break
@@ -229,10 +226,10 @@ class ServersViewController: NSViewController {
                 providerSelected = false
                 canRemove = organization != nil
                 
-            case .row(let instance):
+            case .row(let server):
                 providerSelected = true
                 
-                let organization = (instance.provider as? Organization)
+                let organization = (server.provider as? Organization)
                 canRemove = organization == nil
                 
             }
@@ -262,7 +259,7 @@ extension ServersViewController {
     
     fileprivate enum TableRow {
         case section(String, Organization?)
-        case row(Instance)
+        case row(Server)
     }
     
     fileprivate var rows: [TableRow] {
@@ -276,8 +273,8 @@ extension ServersViewController {
             let organization = (section.objects.first?.provider as? Organization)
             
             rows.append(.section(sectionName, organization))
-            section.objects.forEach { instance in
-                rows.append(.row(instance))
+            section.objects.forEach { server in
+                rows.append(.row(server))
             }
         }
         
@@ -307,10 +304,10 @@ extension ServersViewController: NSTableViewDelegate {
         
         let row = rows[rowIndex]
         switch row {
-        case .row(let instance):
-            if instance.isParent {
-                instance.isExpanded.toggle()
-                try? instance.managedObjectContext?.save()
+        case .row(let server):
+            if server.isParent {
+                server.isExpanded.toggle()
+                try? server.managedObjectContext?.save()
                 refresh(animated: true)
             }
         default:
@@ -322,35 +319,35 @@ extension ServersViewController: NSTableViewDelegate {
         cellView.textField?.stringValue = title
     }
     
-    private func configureRowCellView(_ cellView: NSTableCellView, providerType: ProviderType, instance: Instance) {
-        switch providerType {
-        case .organization:
-            cellView.imageView?.image = (!instance.isParent || instance.children?.count ?? 0 > 0) ? NSImage(named: "Secure Internet") :  NSImage(named: "Institute Access")
+    private func configureRowCellView(_ cellView: NSTableCellView, server: Server) {
+        switch server.provider {
+        case is Organization:
+            cellView.imageView?.image = (!server.isParent || server.children?.count ?? 0 > 0) ? NSImage(named: "Secure Internet") :  NSImage(named: "Institute Access")
             cellView.imageView?.isHidden = false
             
-        case .other:
+        case is Custom:
             cellView.imageView?.image = NSImage(named: "Other")
             cellView.imageView?.isHidden = false
             
-        case .local:
-            cellView.imageView?.image = NSImage(named: "Local")
-            cellView.imageView?.isHidden = false
+//        case is Local:
+//            cellView.imageView?.image = NSImage(named: "Local")
+//            cellView.imageView?.isHidden = false
             
-        case .instituteAccess, .secureInternet, .unknown:
+        default:
             cellView.imageView?.image = nil
             cellView.imageView?.isHidden = true
             
         }
         
-        cellView.textField?.stringValue = instance.displayName ?? "-"
+        cellView.textField?.stringValue = server.displayName ?? "-"
         
         let button = cellView.viewWithTag(3) as? NSButton
-        button?.isHidden = !(instance.isParent && instance.children?.count ?? 0 > 0)
-        button?.state = instance.isExpanded ? .on : .off
+        button?.isHidden = !(server.isParent && server.children?.count ?? 0 > 0)
+        button?.state = server.isExpanded ? .on : .off
         button?.target = self
         button?.action = #selector(toggleExpand(_:))
         
-        cellView.constraints.first(where: { $0.identifier == "Indentation" })?.constant = instance.isParent ? 8 : 28
+        cellView.constraints.first(where: { $0.identifier == "Indentation" })?.constant = server.isParent ? 8 : 28
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
@@ -368,12 +365,12 @@ extension ServersViewController: NSTableViewDelegate {
             
             return cellView
             
-        case .row(let instance):
+        case .row(let server):
             let cellView = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "ProfileCell"),
                                               owner: self)
             
             if let cellView = cellView as? NSTableCellView {
-                configureRowCellView(cellView, providerType: ProviderType(rawValue: instance.providerType ?? "") ?? .unknown, instance: instance)
+                configureRowCellView(cellView, server: server)
             }
             
             return cellView
