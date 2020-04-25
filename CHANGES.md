@@ -17,6 +17,7 @@
 - iOS: Fix for app when no profiles configured. App should move to "add" screen.
 - iOS: Fix crash on iOS 12 due to CryptoKit Linking. #238
 - iOS/Mac: Fix double pushing of a screen on initial start of app when no instances are loaded yet.
+- iOS/Mac: Update to TunnelKit 2.2.3
 
 ## 2.1.1 (2020-01-06)
 

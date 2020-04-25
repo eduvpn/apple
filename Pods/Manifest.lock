@@ -12,19 +12,19 @@ PODS:
   - Moya/Core (13.0.1):
     - Alamofire (~> 4.1)
     - Result (~> 4.1)
-  - OpenSSL-Apple (1.1.1d.5a)
+  - OpenSSL-Apple (1.1.1g.6)
   - PromiseKit/CorePromise (6.12.0)
   - Result (4.1.0)
   - SwiftyBeaver (1.9.1)
-  - TunnelKit (2.2.2):
-    - TunnelKit/Protocols/OpenVPN (= 2.2.2)
-  - TunnelKit/AppExtension (2.2.2):
+  - TunnelKit (2.2.3):
+    - TunnelKit/Protocols/OpenVPN (= 2.2.3)
+  - TunnelKit/AppExtension (2.2.3):
     - SwiftyBeaver
     - TunnelKit/Core
-  - TunnelKit/Core (2.2.2):
+  - TunnelKit/Core (2.2.3):
     - SwiftyBeaver
-  - TunnelKit/Protocols/OpenVPN (2.2.2):
-    - OpenSSL-Apple (~> 1.1.1d.5a)
+  - TunnelKit/Protocols/OpenVPN (2.2.3):
+    - OpenSSL-Apple (~> 1.1.1g.6)
     - TunnelKit/AppExtension
     - TunnelKit/Core
 
@@ -34,7 +34,7 @@ DEPENDENCIES:
   - libsodium
   - Moya
   - PromiseKit/CorePromise
-  - TunnelKit (from `https://github.com/passepartoutvpn/tunnelkit.git`, branch `master`)
+  - TunnelKit (~> 2.2.3)
 
 SPEC REPOS:
   trunk:
@@ -46,21 +46,16 @@ SPEC REPOS:
     - PromiseKit
     - Result
     - SwiftyBeaver
+    - TunnelKit
 
 EXTERNAL SOURCES:
   AppAuth:
     :git: https://github.com/openid/AppAuth-iOS.git
-  TunnelKit:
-    :branch: master
-    :git: https://github.com/passepartoutvpn/tunnelkit.git
 
 CHECKOUT OPTIONS:
   AppAuth:
     :commit: 7e0b5c100d69caac34372efdad34b22b3464ddea
     :git: https://github.com/openid/AppAuth-iOS.git
-  TunnelKit:
-    :commit: d24fe30c7ed508a72ca63b0ade38927e721d72ed
-    :git: https://github.com/passepartoutvpn/tunnelkit.git
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
@@ -68,12 +63,12 @@ SPEC CHECKSUMS:
   ASN1Decoder: c85bbe9d75370dab47503c13c4de213adf3a1442
   libsodium: 9a8faa5ef2fa0d2d57bd7f7d79bf8fb7c1a9f0ea
   Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
-  OpenSSL-Apple: 2c9efbc94e0a1ada434cc197b02bd70052a82281
+  OpenSSL-Apple: c9c1b9c5b2b1fc4e1758fc5f0836b58ae7fd8183
   PromiseKit: c06835ba442ce5454ce3cdde470232804a6e4ff8
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   SwiftyBeaver: a1f5691458561414bcfab51874b2b7445451602b
-  TunnelKit: 1733ed87934deb57edc7aa5f4b25185bf302a7d4
+  TunnelKit: 45fa5cf7ca17cce5590232465ad73508ab6e295e
 
-PODFILE CHECKSUM: 7d7733d459e0873f9236edc400c6c9e08cf6eadc
+PODFILE CHECKSUM: 85a785dc74fb4e068b8354fc5e33201b8987bbee
 
 COCOAPODS: 1.9.1
