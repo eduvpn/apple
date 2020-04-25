@@ -15,7 +15,7 @@ extension Api {
     @NSManaged public var authorizingForGroup: InstanceGroup?
     @NSManaged public var authServer: AuthServer?
     @NSManaged public var instance: Instance?
-    @NSManaged public var profiles: Set<Profile>?
+    @NSManaged public var profiles: Set<Profile>
 
 }
 

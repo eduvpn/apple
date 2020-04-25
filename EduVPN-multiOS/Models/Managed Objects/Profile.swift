@@ -26,7 +26,7 @@ extension Profile {
         }
         
         if let api = context.object(with: api.objectID) as? Api {
-            api.profiles?.forEach {
+            api.profiles.forEach {
                 if let profileId = $0.profileId, let model = keyedModels.removeValue(forKey: profileId) {
                     // Update existing models
                     $0.update(with: model)

@@ -2,9 +2,6 @@
 //  ServersViewController.swift
 //  EduVPN
 //
-//  Created by Johan Kool on 02/04/2020.
-//  Copyright © 2020 SURFNet. All rights reserved.
-//
 
 import UIKit
 import os.log
@@ -14,8 +11,8 @@ protocol ServersViewControllerDelegate: class {
     func serversViewControllerNoProfiles(_ controller: ServersViewController)
     func serversViewController(_ controller: ServersViewController, addProviderAnimated animated: Bool, allowClose: Bool)
     func serversViewControllerAddPredefinedProvider(_ controller: ServersViewController)
-    func serversViewController(_ controller: ServersViewController, didSelect instance: Instance)
-    func serversViewController(_ controller: ServersViewController, didDelete instance: Instance)
+    func serversViewController(_ controller: ServersViewController, didSelect instance: Server)
+    func serversViewController(_ controller: ServersViewController, didDelete instance: Server)
     func serversViewController(_ controller: ServersViewController, didDelete organization: Organization)
 }
 
@@ -29,23 +26,15 @@ class ServersViewController: UITableViewController {
 
     var viewContext: NSManagedObjectContext!
 
-    private lazy var fetchedResultsController: FetchedResultsController<Instance> = {
-        let fetchRequest = NSFetchRequest<Instance>()
-        fetchRequest.entity = Instance.entity()
-
-        // TODO: Use this too?  fetchRequest.predicate = NSPredicate(format: "apis.@count > 0 AND (SUBQUERY(apis, $y, (SUBQUERY($y.profiles, $z, $z != NIL).@count > 0)).@count > 0)")
-
+    private lazy var fetchedResultsController: FetchedResultsController<Server> = {
+        let fetchRequest = NSFetchRequest<Server>()
+        fetchRequest.entity = Server.entity()
         fetchRequest.predicate = NSPredicate(format: "provider != NIL AND (isParent == TRUE OR parent.isExpanded == TRUE)")
 
-        var sortDescriptors = [NSSortDescriptor]()
-        sortDescriptors.append(NSSortDescriptor(key: "provider.groupName", ascending: true))
-        sortDescriptors.append(NSSortDescriptor(key: "parent.displayName", ascending: true))
-        sortDescriptors.append(NSSortDescriptor(key: "sortName", ascending: true))
-        sortDescriptors.append(NSSortDescriptor(key: "displayName", ascending: true))
-        sortDescriptors.append(NSSortDescriptor(key: "baseUri", ascending: true))
+        let sortDescriptors = [NSSortDescriptor(key: "sortName", ascending: true)]
         fetchRequest.sortDescriptors = sortDescriptors
 
-        let frc = FetchedResultsController<Instance>(fetchRequest: fetchRequest,
+        let frc = FetchedResultsController<Server>(fetchRequest: fetchRequest,
                                                      managedObjectContext: viewContext,
                                                      sectionNameKeyPath: "provider.groupName")
         frc.setDelegate(self.frcDelegate)
@@ -53,8 +42,8 @@ class ServersViewController: UITableViewController {
         return frc
     }()
 
-    private lazy var frcDelegate: CoreDataFetchedResultsControllerDelegate<Instance> = { // swiftlint:disable:this weak_delegate
-        return CoreDataFetchedResultsControllerDelegate<Instance>(tableView: self.tableView)
+    private lazy var frcDelegate: CoreDataFetchedResultsControllerDelegate<Server> = { // swiftlint:disable:this weak_delegate
+        return CoreDataFetchedResultsControllerDelegate<Server>(tableView: self.tableView)
     }()
 
     override func viewWillAppear(_ animated: Bool) {
@@ -112,9 +101,9 @@ extension ServersViewController {
         }
 
         let section = sections[indexPath.section]
-        let instance = section.objects[indexPath.row]
+        let server = section.objects[indexPath.row]
 
-        serverCell.configure(with: instance)
+        serverCell.configure(with: server)
 
         return serverCell
     }
@@ -154,25 +143,20 @@ extension ServersViewController {
 }
 
 class ServerTableViewCell: UITableViewCell {
-    func configure(with instance: Instance) {
-        let providerType = ProviderType(rawValue: instance.providerType ?? "") ?? .unknown
-
-        switch providerType {
-        case .organization:
-            imageView?.image = (!instance.isParent || instance.children?.count ?? 0 > 0) ? UIImage(named: "Secure Internet") :  UIImage(named: "Institute Access")
+    func configure(with server: Server) {
+        switch server.provider {
+        case is Organization:
+            imageView?.image = (!server.isParent || server.children?.count ?? 0 > 0) ? UIImage(named: "Secure Internet") :  UIImage(named: "Institute Access")
             imageView?.isHidden = false
-        case .other:
+        case is Custom:
             imageView?.image = UIImage(named: "Other")
             imageView?.isHidden = false
-        case .local:
-            imageView?.image = UIImage(named: "Local")
-            imageView?.isHidden = false
-        case .instituteAccess, .secureInternet, .unknown:
+        default:
             imageView?.image = nil
             imageView?.isHidden = true
         }
 
-        textLabel?.text = instance.displayName ?? "-"
+        textLabel?.text = server.displayName ?? "-"
     }
 }
 

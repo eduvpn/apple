@@ -6,7 +6,6 @@
 import UIKit
 import CoreData
 import os.log
-
 import PromiseKit
 
 class ConnectTableViewCell: UITableViewCell {
@@ -68,6 +67,7 @@ class ConnectionsTableViewController: UITableViewController {
     weak var delegate: ConnectionsTableViewControllerDelegate?
     
     var instance: Instance?
+    var server: Server?
 
     var viewContext: NSManagedObjectContext!
     
@@ -77,6 +77,8 @@ class ConnectionsTableViewController: UITableViewController {
         
         if let instance = instance {
             fetchRequest.predicate = NSPredicate(format: "api.instance == %@", instance)
+        } else if let server = server {
+            fetchRequest.predicate = NSPredicate(format: "server == %@", server)
         }
         
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "api.instance.providerType", ascending: true),
