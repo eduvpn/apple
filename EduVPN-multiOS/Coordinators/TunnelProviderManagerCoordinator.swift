@@ -229,7 +229,6 @@ class TunnelProviderManagerCoordinator: Coordinator {
                 return nil
             }, completionHandler: { error in
                 self.currentManager?.connection.stopVPNTunnel()
-                self.currentManager = NETunnelProviderManager()
                 resolver.resolve(error)
             })
         })
