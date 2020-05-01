@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.2 (2020-05-01)
 
 - iOS/Mac: Fix for connection getting stuck in Connecting state #248
 - iOS/Mac: Add back notification indicating certificate expiration. #235
