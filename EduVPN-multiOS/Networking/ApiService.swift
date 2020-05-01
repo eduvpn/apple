@@ -12,7 +12,7 @@ import os.log
 
 enum ApiServiceError: LocalizedError {
     case noAuthState
-    case unauthorized
+    case unauthorized(statusCode: Int, responseContent: String?)
     case urlCreationFailed
     case tokenRefreshFailed(rootCause: Error)
 
@@ -20,8 +20,8 @@ enum ApiServiceError: LocalizedError {
         switch self {
         case .noAuthState:
             return NSLocalizedString("No stored auth state.", comment: "")
-        case .unauthorized:
-            return NSLocalizedString("You are not authorized.", comment: "")
+        case .unauthorized(let statusCode, let responseContent):
+            return String(format: NSLocalizedString("You are not authorized. Statuscode: %@ Response body: %@", comment: ""), "\(statusCode)", responseContent ?? "")
         case .urlCreationFailed:
             return NSLocalizedString("URL creation failed.", comment: "")
         case .tokenRefreshFailed(let rootCause):
@@ -284,7 +284,7 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
             return self.request(target: DynamicApiService(baseURL: baseURL, apiService: apiService))
         }.then({ response throws -> Promise<Moya.Response> in
             if response.statusCode == 401 {
-                throw ApiServiceError.unauthorized
+                throw ApiServiceError.unauthorized(statusCode: response.statusCode, responseContent: String(data: response.data, encoding: .utf8))
             }
 
             return Promise.value(response)
