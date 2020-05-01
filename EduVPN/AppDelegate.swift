@@ -59,4 +59,3 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         completionHandler([.alert, .sound])
     }
 }
-
