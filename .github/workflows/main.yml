@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Changelog Reminder
-      uses: peterjgrainger/action-changelog-reminder@v1.2.0
+      uses: Sage/action-changelog-reminder@v1.0.1
       with:
         changelog_regex: '/CHANGES.md'
         customPrMessage: 'Make sure to keep CHANGES.md up to date!'
