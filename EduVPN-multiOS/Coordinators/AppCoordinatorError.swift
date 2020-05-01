@@ -24,7 +24,7 @@ enum AppCoordinatorError: LocalizedError {
     case ovpnTemplate
     case discoverySeqNotIncremented
     
-    var errorDescription: String {
+    var errorDescription: String? {
         switch self {
         case .certificateInvalid:
             return NSLocalizedString("VPN certificate is invalid.", comment: "")

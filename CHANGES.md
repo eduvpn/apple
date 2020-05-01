@@ -19,6 +19,8 @@
 - iOS/Mac: Fix double pushing of a screen on initial start of app when no instances are loaded yet.
 - iOS/Mac: Update to TunnelKit 2.2.3
 - macOS: Fix reconnect issue by preventing a new NESMVPNSession stuck in limbo after disconnect
+- macOS: Ensure profiles are updated #260
+- macOS: Display error messages correctly #260
 
 ## 2.1.1 (2020-01-06)
 
