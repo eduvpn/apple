@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- iOS/Mac: More detailed errors on invalid status codes. #263 #232
+
 ## 2.2 (2020-05-01)
 
 - iOS/Mac: Fix for connection getting stuck in Connecting state #248
