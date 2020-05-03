@@ -77,7 +77,9 @@ extension Api {
                 do {
                     let data = try Data(contentsOf: authStateUrl)
                     if let clearTextData = Crypto.shared.decrypt(data: data) {
-                        return try NSKeyedUnarchiver.unarchivedObject(ofClass: OIDAuthState.self, from: clearTextData)
+                        let authState = try NSKeyedUnarchiver.unarchivedObject(ofClass: OIDAuthState.self, from: clearTextData)
+                        authState?.stateChangeDelegate = self
+                        return authState
                     }
                 } catch {
                     os_log("Failed load Authstate. %{public}@", log: Log.crypto, type: .error, error.localizedDescription)
@@ -91,6 +93,7 @@ extension Api {
             guard let authStateUrl = authStateUrl else { return }
             if let newValue = newValue {
                 do {
+                    newValue.stateChangeDelegate = self
                     let data = try NSKeyedArchiver.archivedData(withRootObject: newValue, requiringSecureCoding: false)
 
                     #if os(iOS)
@@ -173,6 +176,12 @@ extension Api {
         var resourceValues = URLResourceValues()
         resourceValues.isExcludedFromBackup = true
         try? url.setResourceValues(resourceValues)
+    }
+}
+
+extension Api: OIDAuthStateChangeDelegate {
+    public func didChange(_ state: OIDAuthState) {
+        self.authState = state
     }
 }
 
