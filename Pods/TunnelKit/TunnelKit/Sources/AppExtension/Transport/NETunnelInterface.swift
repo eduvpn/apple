@@ -41,21 +41,12 @@ import NetworkExtension
 public class NETunnelInterface: TunnelInterface {
     private weak var impl: NEPacketTunnelFlow?
     
-    private let protocolNumber: NSNumber
+    private static let protocolNumberForIPv4 = NSNumber(value: AF_INET)
+    private static let protocolNumberForIPv6 = NSNumber(value: AF_INET6)
 
     /// :nodoc:
-    public init(impl: NEPacketTunnelFlow, isIPv6: Bool) {
+    public init(impl: NEPacketTunnelFlow) {
         self.impl = impl
-        #if os(macOS)
-        if #available(OSX 10.15, *) {
-            protocolNumber = (isIPv6 ? AF_INET6 : AF_INET) as NSNumber
-        } else {
-            // Force IPv4 on Mojave otherwise it breaks
-            protocolNumber = AF_INET as NSNumber
-        }
-        #else
-        protocolNumber = (isIPv6 ? AF_INET6 : AF_INET) as NSNumber
-        #endif
     }
     
     // MARK: TunnelInterface
@@ -85,14 +76,31 @@ public class NETunnelInterface: TunnelInterface {
     
     /// :nodoc:
     public func writePacket(_ packet: Data, completionHandler: ((Error?) -> Void)?) {
+        let protocolNumber = NETunnelInterface.ipProtocolNumber(inPacket: packet)
         impl?.writePackets([packet], withProtocols: [protocolNumber])
         completionHandler?(nil)
     }
     
     /// :nodoc:
     public func writePackets(_ packets: [Data], completionHandler: ((Error?) -> Void)?) {
-        let protocols = [NSNumber](repeating: protocolNumber, count: packets.count)
+        let protocols = packets.map {
+            NETunnelInterface.ipProtocolNumber(inPacket: $0)
+        }
         impl?.writePackets(packets, withProtocols: protocols)
         completionHandler?(nil)
+    }
+
+    private static func ipProtocolNumber(inPacket packet: Data) -> NSNumber {
+        // 'packet' contains the decrypted incoming IP packet data
+
+        // The first 4 bits identify the IP version
+        let ipVersion = ((packet[0] & 0xf0) >> 4)
+        assert(ipVersion == 4 || ipVersion == 6)
+
+        if ipVersion == 6 {
+            return NETunnelInterface.protocolNumberForIPv6
+        } else {
+            return NETunnelInterface.protocolNumberForIPv4
+        }
     }
 }

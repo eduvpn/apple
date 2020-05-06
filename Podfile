@@ -9,14 +9,14 @@ project 'EduVPN', 'Debug' => :debug, 'Release' => :release
 
 def pods_ios
   platform :ios, '11.0'
-  pod 'TunnelKit', '~> 2.2.3'
+  pod 'TunnelKit', :git => 'https://github.com/roop/tunnelkit.git', :branch => 'mojave-ipv4-and-ipv6'
 end
 
 # macOS Pods
 
 def pods_macos
   platform :osx, '10.12'
-  pod 'TunnelKit', '~> 2.2.3'
+  pod 'TunnelKit', :git => 'https://github.com/roop/tunnelkit.git', :branch => 'mojave-ipv4-and-ipv6'
 end
 
 # Setup targets

@@ -565,7 +565,7 @@ extension OpenVPNTunnelProvider: OpenVPNSessionDelegate {
             
             log.info("Tunnel interface is now UP")
             
-            session.setTunnel(tunnel: NETunnelInterface(impl: self.packetFlow, isIPv6: options.ipv6 != nil))
+            session.setTunnel(tunnel: NETunnelInterface(impl: self.packetFlow))
 
             self.pendingStartHandler?(nil)
             self.pendingStartHandler = nil
