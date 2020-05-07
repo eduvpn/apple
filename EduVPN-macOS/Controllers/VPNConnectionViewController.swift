@@ -186,6 +186,16 @@ class VPNConnectionViewController: NSViewController {
     private lazy var decoder = JSONDecoder()
     
     func updateConnectionInfo() {
+        if status == .disconnecting || status == .disconnected || status == .invalid {
+            ipv4AddressField.stringValue = ""
+            ipv6AddressField.stringValue = ""
+            durationLabel.stringValue = ""
+            inBytesLabel.stringValue = ""
+            outBytesLabel.stringValue = ""
+            
+            return
+        }
+        
         guard
             let vpn = providerManagerCoordinator.currentManager?.connection as? NETunnelProviderSession,
             profile.isActiveConfig

@@ -5,6 +5,7 @@
 
 import AppAuth
 import PromiseKit
+import Moya
 #if os(macOS)
 import Cocoa
 #endif
@@ -46,7 +47,15 @@ extension AppCoordinator {
         if dueToUserCancellation(error: error) {
             return
         }
-        
+
+        if case MoyaError.statusCode(let response) = error {
+            let responseContent = String(data: response.data, encoding: .utf8) ?? ""
+            let message = String(format: NSLocalizedString("Network error. Statuscode: %@ Response body: %@", comment: ""), "\(response.statusCode)", responseContent)
+
+            showAlert(title: NSLocalizedString("Error", comment: "Error alert title"), message: message)
+            return
+        }
+
         let displayedError = underlyingError(for: error) ?? error
         showAlert(title: NSLocalizedString("Error", comment: "Error alert title"), message: displayedError.localizedDescription)
         os_log("Error occured %{public}@", log: Log.general, type: .error, error.localizedDescription)

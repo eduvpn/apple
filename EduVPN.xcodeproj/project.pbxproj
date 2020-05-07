@@ -347,7 +347,7 @@
 		4A983B781F397289004F82D5 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		4A983B7A1F3972BE004F82D5 /* RootCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
 		4AAA157A21C2EF530097A1B5 /* TunnelProviderManagerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelProviderManagerCoordinator.swift; sourceTree = "<group>"; };
-		4AAC1F761F2D0E3400DD0252 /* AppForce1 VPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "AppForce1 VPN.app"; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4AAC1F761F2D0E3400DD0252 /* eduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AAC1F791F2D0E3400DD0252 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4AAC1F7E1F2D0E3400DD0252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4AAC1F831F2D0E3400DD0252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -796,7 +796,7 @@
 		4AAC1F771F2D0E3400DD0252 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4AAC1F761F2D0E3400DD0252 /* AppForce1 VPN.app */,
+				4AAC1F761F2D0E3400DD0252 /* eduVPN.app */,
 				4AAC1F8A1F2D0E3400DD0252 /* EduVPNTests.xctest */,
 				4A901C1120C87511000C1BF0 /* EduVPNTunnelExtension.appex */,
 				34D719DE228D75550027DE84 /* eduVPN.app */,
@@ -1141,7 +1141,7 @@
 			);
 			name = EduVPN;
 			productName = EduVPN;
-			productReference = 4AAC1F761F2D0E3400DD0252 /* AppForce1 VPN.app */;
+			productReference = 4AAC1F761F2D0E3400DD0252 /* eduVPN.app */;
 			productType = "com.apple.product-type.application";
 		};
 		4AAC1F891F2D0E3400DD0252 /* EduVPNTests */ = {

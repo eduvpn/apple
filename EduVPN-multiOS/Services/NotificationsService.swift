@@ -25,11 +25,11 @@ class NotificationsService {
     #if os(iOS)
     
     func sendNotification(_ notification: Notification,
-                                 withIdentifier identifier: String,
-                                 at triggerDate: DateComponents,
-                                 repeats: Bool = false,
-                                 callback: ((Error?) -> Void)? = nil) {
-        
+                          withIdentifier identifier: String,
+                          at triggerDate: DateComponents,
+                          repeats: Bool = false,
+                          callback: ((Error?) -> Void)? = nil) {
+
         let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: repeats)
         let notificationContent = UNMutableNotificationContent()
         notificationContent.title = notification.title
@@ -43,10 +43,10 @@ class NotificationsService {
     #elseif os(macOS)
     
     func sendNotification(_ notification: Notification,
-                                 withIdentifier identifier: String,
-                                 at triggerDate: DateComponents,
-                                 repeats: Bool = false,
-                                 callback: ((Error?) -> Void)? = nil) {
+                          withIdentifier identifier: String,
+                          at triggerDate: DateComponents,
+                          repeats: Bool = false,
+                          callback: ((Error?) -> Void)? = nil) {
         
         if #available(OSX 10.14, *) {
             let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: repeats)

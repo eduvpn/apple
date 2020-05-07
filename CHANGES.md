@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- iOS/Mac: More detailed errors on invalid status codes. #263 #232
+
+## 2.2 (2020-05-01)
+
 - iOS/Mac: Fix for connection getting stuck in Connecting state #248
 - iOS/Mac: Add back notification indicating certificate expiration. #235
 - iOS: On removing the "home" instance, all instances authentating through this home insance will alse be removed. Cascade deletion of Api accross `authorizingForGroup` relation. #241
@@ -18,6 +22,9 @@
 - iOS: Fix crash on iOS 12 due to CryptoKit Linking. #238
 - iOS/Mac: Fix double pushing of a screen on initial start of app when no instances are loaded yet.
 - iOS/Mac: Update to TunnelKit 2.2.3
+- macOS: Fix reconnect issue by preventing a new NESMVPNSession stuck in limbo after disconnect
+- macOS: Ensure profiles are updated #260
+- macOS: Display error messages correctly #260
 
 ## 2.1.1 (2020-01-06)
 

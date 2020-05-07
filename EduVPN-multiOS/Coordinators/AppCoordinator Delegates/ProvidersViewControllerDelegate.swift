@@ -66,24 +66,25 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
         os_log("Did select provider type: %{public}@ instance: %{public}@", log: Log.general, type: .info, "\(providersViewController.providerType)", "\(instance)")
 
         if providersViewController.configuredForInstancesDisplay {
-            do {
-                persistentContainer.performBackgroundTask { (context) in
+            refresh(instance: instance).then { _ -> Promise<Void> in
+                self.persistentContainer.performBackgroundTask { (context) in
                     if let backgroundInstance = context.object(with: instance.objectID) as? Instance {
                         let now = Date().timeIntervalSince1970
                         backgroundInstance.lastAccessedTimeInterval = now
                         context.saveContext()
                     }
                 }
-                let count = try Profile.countInContext(persistentContainer.viewContext,
+                let count = try Profile.countInContext(self.persistentContainer.viewContext,
                                                        predicate: NSPredicate(format: "api.instance == %@", instance))
                 
                 if count > 1 {
-                    showConnectionsTableViewController(for: instance)
+                    self.showConnectionsTableViewController(for: instance)
                 } else if let profile = instance.apis?.first?.profiles.first {
-                    connect(profile: profile)
+                    self.connect(profile: profile)
                 }
-            } catch {
-                showError(error)
+                return .value(())
+            }.recover { error in
+                self.showError(error)
             }
         } else {
             // Move this to pull to refresh?
