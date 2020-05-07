@@ -25,12 +25,10 @@ extension TargetType where Self: EmptySampleData {
 }
 
 public extension MoyaProvider {
-    final class func ephemeralAlamofireManager() -> Manager {
+    final class func ephemeralAlamofireSession() -> Session {
         let configuration = URLSessionConfiguration.ephemeral
-        configuration.httpAdditionalHeaders = Manager.defaultHTTPHeaders
+        configuration.headers = .default
 
-        let manager = Manager(configuration: configuration)
-        manager.startRequestsImmediately = false
-        return manager
+        return Session(configuration: configuration, startRequestsImmediately: false)
     }
 }

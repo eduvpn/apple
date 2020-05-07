@@ -104,11 +104,6 @@ class ProvidersViewController: NSViewController {
         // tableView.registerForDraggedTypes([kUTTypeFileURL as NSPasteboard.PasteboardType,
         //                                    kUTTypeURL as NSPasteboard.PasteboardType])
         
-        // Handle internet connection state
-        reachabilityManager?.listener = {[weak self] _ in
-            self?.updateInterface()
-        }
-        
         updateInterface()
     }
     
@@ -119,7 +114,10 @@ class ProvidersViewController: NSViewController {
         tableView.isEnabled = true
         updateInterface()
 
-        reachabilityManager?.startListening()
+        // Handle internet connection state
+        reachabilityManager?.startListening(onUpdatePerforming: { [weak self] _ in
+            self?.updateInterface()
+        })
     }
     
     override func viewWillDisappear() {
