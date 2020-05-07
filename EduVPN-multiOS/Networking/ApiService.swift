@@ -227,7 +227,7 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
                  endpointClosure: @escaping EndpointClosure = MoyaProvider.defaultEndpointMapping,
                  stubClosure: @escaping StubClosure = MoyaProvider.neverStub,
                  callbackQueue: DispatchQueue? = nil,
-                 manager: Manager = MoyaProvider<Target>.ephemeralAlamofireManager(),
+                 session: Session = MoyaProvider<Target>.ephemeralAlamofireSession(),
                  plugins: [PluginType] = [],
                  trackInflights: Bool = false) {
         
@@ -247,8 +247,7 @@ class DynamicApiProvider: MoyaProvider<DynamicApiService> {
 
         super.init(endpointClosure: endpointClosure,
                    stubClosure: stubClosure,
-                   manager: manager,
-                   plugins: plugins,
+                   session: session, plugins: plugins,
                    trackInflights: trackInflights)
     }
     

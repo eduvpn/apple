@@ -69,7 +69,7 @@ class InstancesLoader {
             return
         }
         
-        let provider = MoyaProvider<StaticService>(manager: MoyaProvider<StaticService>.ephemeralAlamofireManager())
+        let provider = MoyaProvider<StaticService>(session: MoyaProvider<StaticService>.ephemeralAlamofireSession())
         let instanceGroupIdentifier = "\(target.baseURL.absoluteString)/\(target.path)"
         
         provider.request(target: sigTarget)
@@ -217,7 +217,7 @@ class InstancesLoader {
 
 class InstanceRefresher {
     
-    let provider = MoyaProvider<DynamicInstanceService>(manager: MoyaProvider<DynamicInstanceService>.ephemeralAlamofireManager())
+    let provider = MoyaProvider<DynamicInstanceService>(session: MoyaProvider<DynamicInstanceService>.ephemeralAlamofireSession())
 
     weak var persistentContainer: NSPersistentContainer!
     
