@@ -5,7 +5,6 @@
 
 import Foundation
 import Moya
-import Result
 
 struct DynamicInstanceService: TargetType, AcceptJson {
     
