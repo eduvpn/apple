@@ -125,6 +125,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
                 self.configureVPN({ _ in
                     var builder = OpenVPNTunnelProvider.ConfigurationBuilder(sessionConfiguration: configBuilder.build())
                     builder.masksPrivateData = false
+                    builder.shouldDebug = true
 
                     #if DEBUG
                     #else
@@ -325,7 +326,6 @@ class TunnelProviderManagerCoordinator: Coordinator {
                 if let prot = man.protocolConfiguration as? NETunnelProviderProtocol {
                     if prot.providerBundleIdentifier == self.vpnBundle {
                         //    os_log("provider config: \(prot.providerConfiguration)", log: Log.general, type: .info)
-                        
                         manager = man
                         break
                     }
