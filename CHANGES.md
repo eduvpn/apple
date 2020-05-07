@@ -3,6 +3,7 @@
 ## Unreleased
 
 - iOS/Mac: More detailed errors on invalid status codes. #263 #232
+- iOS: Prevent NETunnelProviderSession initialization after disconnect
 
 ## 2.2 (2020-05-01)
 
