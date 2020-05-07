@@ -186,7 +186,7 @@ class VPNConnectionViewController: NSViewController {
     private lazy var decoder = JSONDecoder()
     
     func updateConnectionInfo() {
-        if status == .disconnecting || status == .disconnected || status == .invalid {
+        if status != .connected {
             ipv4AddressField.stringValue = ""
             ipv6AddressField.stringValue = ""
             durationLabel.stringValue = ""
