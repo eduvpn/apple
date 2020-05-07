@@ -185,6 +185,14 @@ class VPNConnectionViewController: UIViewController {
     }
 
     func updateConnectionInfo() {
+        if status != .connected {
+            durationLabel.text = ""
+            inBytesLabel.text = ""
+            outBytesLabel.text = ""
+            
+            return
+        }
+        
         guard
             let vpn = providerManagerCoordinator.currentManager?.connection as? NETunnelProviderSession,
             profile.isActiveConfig
