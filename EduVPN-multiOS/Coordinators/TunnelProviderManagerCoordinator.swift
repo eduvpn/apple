@@ -260,6 +260,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
     
     func loadLog(completion: ((String) -> Void)? = nil) {
         guard let session = currentManager?.connection as? NETunnelProviderSession else {
+            completion?("")
             return
         }
 
@@ -268,6 +269,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
             // Ask the tunnel process for the log
             try? session.sendProviderMessage(OpenVPNTunnelProvider.Message.requestLog.data) { data in
                 guard let data = data, let log = String(data: data, encoding: .utf8) else {
+                    completion?("")
                     return
                 }
                 completion?(log)
