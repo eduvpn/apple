@@ -89,6 +89,7 @@ class VPNConnectionViewController: UIViewController {
 
         self.status = status
         updateButton()
+        updateDisplayLogButtonEnabled()
     }
 
     func updateButton() {
@@ -234,6 +235,11 @@ class VPNConnectionViewController: UIViewController {
         refreshLog.toggle()
 
         buttonDisplayLog.titleLabel?.text = refreshLog ? NSLocalizedString("Stop refreshing log", comment: "") : NSLocalizedString("Display log", comment: "")
+    }
+
+    private func updateDisplayLogButtonEnabled() {
+        // Whether we can view the log or not depends on the connection status
+        buttonDisplayLog.isEnabled = providerManagerCoordinator.canLoadLog()
     }
 
     // MARK: - Other
