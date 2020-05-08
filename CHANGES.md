@@ -2,12 +2,8 @@
 
 ## Unreleased
 
-- iOS/Mac: More detailed errors on invalid status codes. #263 #232
-- macOS: Fix TunnelKit to get IPv6 working in macOS Mojave
-- iOS: Prevent NETunnelProviderSession initialization after disconnect
-- iOS/Mac: Update dependencies to latest versions. #273
 
-## 2.2 (2020-05-01)
+## 2.2 (2020-05-08)
 
 - iOS/Mac: Fix for connection getting stuck in Connecting state #248
 - iOS/Mac: Add back notification indicating certificate expiration. #235
@@ -28,6 +24,10 @@
 - macOS: Fix reconnect issue by preventing a new NESMVPNSession stuck in limbo after disconnect
 - macOS: Ensure profiles are updated #260
 - macOS: Display error messages correctly #260
+- iOS/Mac: More detailed errors on invalid status codes. #263 #232
+- macOS: Fix TunnelKit to get IPv6 working in macOS Mojave
+- iOS: Prevent NETunnelProviderSession initialization after disconnect
+- iOS/Mac: Update dependencies to latest versions. #273
 
 ## 2.1.1 (2020-01-06)
 
