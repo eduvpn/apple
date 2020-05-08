@@ -249,8 +249,6 @@ class VPNConnectionViewController: NSViewController {
     }
     
     // MARK: - Log
-    
-    @IBOutlet weak var logTextView: NSTextField!
 
     private func connectionLogPathDir() throws -> URL {
         guard let logDirPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { throw LogFileError.pathCreationFailed }
