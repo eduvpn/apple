@@ -295,6 +295,19 @@ class TunnelProviderManagerCoordinator: Coordinator {
             completion?("")
         }
     }
+
+    func canLoadLog() -> Bool {
+        guard let session = currentManager?.connection as? NETunnelProviderSession else {
+            return false
+        }
+
+        switch session.status {
+        case .connected, .disconnected, .reasserting:
+            return true
+        default:
+            return false
+        }
+    }
     
     func configureVPN(_ configure: @escaping (NETunnelProviderManager) -> NETunnelProviderProtocol?,
                       completionHandler: @escaping (Error?) -> Void) {
