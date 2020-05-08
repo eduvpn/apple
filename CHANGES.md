@@ -3,6 +3,7 @@
 ## Unreleased
 
 - iOS/Mac: More detailed errors on invalid status codes. #263 #232
+- macOS: Fix TunnelKit to get IPv6 working in macOS Mojave
 - iOS: Prevent NETunnelProviderSession initialization after disconnect
 - iOS/Mac: Update dependencies to latest versions. #273
 
