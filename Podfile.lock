@@ -1,10 +1,10 @@
 PODS:
   - Alamofire (5.1.0)
-  - AppAuth (1.3.0):
-    - AppAuth/Core (= 1.3.0)
-    - AppAuth/ExternalUserAgent (= 1.3.0)
-  - AppAuth/Core (1.3.0)
-  - AppAuth/ExternalUserAgent (1.3.0)
+  - AppAuth (1.3.1):
+    - AppAuth/Core (= 1.3.1)
+    - AppAuth/ExternalUserAgent (= 1.3.1)
+  - AppAuth/Core (1.3.1)
+  - AppAuth/ExternalUserAgent (1.3.1)
   - ASN1Decoder (1.3.3)
   - libsodium (1.0.12)
   - Moya (14.0.0):
@@ -14,14 +14,14 @@ PODS:
   - OpenSSL-Apple (1.1.1g.6)
   - PromiseKit/CorePromise (6.13.1)
   - SwiftyBeaver (1.9.1)
-  - TunnelKit (2.2.3):
-    - TunnelKit/Protocols/OpenVPN (= 2.2.3)
-  - TunnelKit/AppExtension (2.2.3):
+  - TunnelKit (2.2.4):
+    - TunnelKit/Protocols/OpenVPN (= 2.2.4)
+  - TunnelKit/AppExtension (2.2.4):
     - SwiftyBeaver
     - TunnelKit/Core
-  - TunnelKit/Core (2.2.3):
+  - TunnelKit/Core (2.2.4):
     - SwiftyBeaver
-  - TunnelKit/Protocols/OpenVPN (2.2.3):
+  - TunnelKit/Protocols/OpenVPN (2.2.4):
     - OpenSSL-Apple (~> 1.1.1g.6)
     - TunnelKit/AppExtension
     - TunnelKit/Core
@@ -32,7 +32,7 @@ DEPENDENCIES:
   - libsodium
   - Moya
   - PromiseKit/CorePromise
-  - TunnelKit (~> 2.2.3)
+  - TunnelKit (from `https://github.com/passepartoutvpn/tunnelkit.git`)
 
 SPEC REPOS:
   https://cdn.cocoapods.org/:
@@ -43,28 +43,32 @@ SPEC REPOS:
     - OpenSSL-Apple
     - PromiseKit
     - SwiftyBeaver
-    - TunnelKit
 
 EXTERNAL SOURCES:
   AppAuth:
     :git: https://github.com/openid/AppAuth-iOS.git
+  TunnelKit:
+    :git: https://github.com/passepartoutvpn/tunnelkit.git
 
 CHECKOUT OPTIONS:
   AppAuth:
-    :commit: 217ee92c1c0139445de5ed643a260844976e3f06
+    :commit: c63e3926c5f141db43a7d02e8c24af3463479f7b
     :git: https://github.com/openid/AppAuth-iOS.git
+  TunnelKit:
+    :commit: 5285ba7aa8c322f0729317de84c62898687519e3
+    :git: https://github.com/passepartoutvpn/tunnelkit.git
 
 SPEC CHECKSUMS:
   Alamofire: 9d5c5f602928e512395b30950c5984eca840093c
-  AppAuth: 73574f3013a1e65b9601a3ddc8b3158cce68c09d
+  AppAuth: 8803ba1aec6d00d9afd30093f82e600307eaa6ea
   ASN1Decoder: c85bbe9d75370dab47503c13c4de213adf3a1442
   libsodium: 9a8faa5ef2fa0d2d57bd7f7d79bf8fb7c1a9f0ea
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   OpenSSL-Apple: c9c1b9c5b2b1fc4e1758fc5f0836b58ae7fd8183
   PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
   SwiftyBeaver: a1f5691458561414bcfab51874b2b7445451602b
-  TunnelKit: 45fa5cf7ca17cce5590232465ad73508ab6e295e
+  TunnelKit: 37bfe4df2f089d8f729d7a32dd0a74e0d48af5f0
 
-PODFILE CHECKSUM: 85a785dc74fb4e068b8354fc5e33201b8987bbee
+PODFILE CHECKSUM: 1829a94a20794ac1f78f09583f432362a3e24198
 
 COCOAPODS: 1.9.1

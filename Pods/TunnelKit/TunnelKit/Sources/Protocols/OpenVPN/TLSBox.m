@@ -69,6 +69,8 @@ const NSInteger TLSBoxDefaultSecurityLevel = -1;
 @property (nonatomic, strong) NSString *clientCertificatePath;
 @property (nonatomic, strong) NSString *clientKeyPath;
 @property (nonatomic, assign) BOOL checksEKU;
+@property (nonatomic, assign) BOOL checksSANHost;
+@property (nonatomic, strong) NSString *hostname;
 @property (nonatomic, assign) BOOL isConnected;
 
 @property (nonatomic, unsafe_unretained) SSL_CTX *ctx;
@@ -174,14 +176,18 @@ const NSInteger TLSBoxDefaultSecurityLevel = -1;
          clientCertificatePath:(NSString *)clientCertificatePath
                  clientKeyPath:(NSString *)clientKeyPath
                      checksEKU:(BOOL)checksEKU
+                 checksSANHost:(BOOL)checksSANHost
+                      hostname:(nullable NSString *)hostname
 {
     if ((self = [super init])) {
         self.caPath = caPath;
         self.clientCertificatePath = clientCertificatePath;
         self.clientKeyPath = clientKeyPath;
         self.checksEKU = checksEKU;
+        self.checksSANHost = checksSANHost;
         self.bufferCipherText = allocate_safely(TLSBoxMaxBufferLength);
         self.securityLevel = TLSBoxDefaultSecurityLevel;
+        self.hostname = hostname;
     }
     return self;
 }
@@ -272,6 +278,13 @@ const NSInteger TLSBoxDefaultSecurityLevel = -1;
         if (self.checksEKU && ![self verifyEKUWithSSL:self.ssl]) {
             if (error) {
                 *error = TunnelKitErrorWithCode(TunnelKitErrorCodeTLSServerEKU);
+            }
+            return nil;
+        }
+        
+        if (self.checksSANHost && ![self verifySANHostWithSSL:self.ssl]) {
+            if (error) {
+                *error = TunnelKitErrorWithCode(TunnelKitErrorCodeTLSServerHost);
             }
             return nil;
         }
@@ -394,6 +407,72 @@ const NSInteger TLSBoxDefaultSecurityLevel = -1;
     EXTENDED_KEY_USAGE_free(eku);
     X509_free(cert);
 
+    return isValid;
+}
+
+#pragma mark SAN
+
+- (BOOL)verifySANHostWithSSL:(SSL *)ssl {
+    X509 *cert = SSL_get_peer_certificate(self.ssl);
+    if (!cert) {
+        return NO;
+    }
+    
+    GENERAL_NAMES* names = NULL;
+    unsigned char* utf8 = NULL;
+    names = X509_get_ext_d2i(cert, NID_subject_alt_name, 0, 0 );
+    if(!names) {
+        X509_free(cert);
+        return NO;
+    }
+    
+    int i = 0, count = sk_GENERAL_NAME_num(names);
+    if(!count) {
+        X509_free(cert);
+        GENERAL_NAMES_free(names);
+        return NO;
+    }
+    BOOL isValid = NO;
+    
+    for( i = 0; i < count; ++i )    {
+        GENERAL_NAME* entry = sk_GENERAL_NAME_value(names, i);
+        if(!entry) {
+            continue;
+        }
+        if(GEN_DNS != entry->type) {
+            continue;
+        }
+        
+        int len1 = 0, len2 = -1;
+        len1 = ASN1_STRING_to_UTF8(&utf8, entry->d.dNSName);
+        if(!utf8) {
+            continue;
+        }
+        len2 = (int)strlen((const char*)utf8);
+        
+        if(len1 != len2) {
+            OPENSSL_free(utf8);
+            utf8 = NULL;
+            continue;
+        }
+        
+        if(utf8 && len1 && len2 && (len1 == len2) && strcmp((const char *)utf8, self.hostname.UTF8String) == 0) {
+            isValid = YES;
+            break;
+        }
+        
+        OPENSSL_free(utf8);
+        utf8 = NULL;
+    }
+    
+    X509_free(cert);
+    
+    if(names) {
+        GENERAL_NAMES_free(names);
+    }
+    if(utf8) {
+        OPENSSL_free(utf8);
+    }
     return isValid;
 }
 
