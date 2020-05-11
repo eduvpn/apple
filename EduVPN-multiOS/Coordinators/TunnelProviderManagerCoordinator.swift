@@ -283,15 +283,9 @@ class TunnelProviderManagerCoordinator: Coordinator {
                 return
             }
             completion?((try? String(contentsOf: debugLogURL)) ?? "")
-        case .disconnecting:
-            // The process might be writing to the log file, so it might not be
-            // safe to access it now.
-            fallthrough
-        case .connecting:
-            // The log will only have stale info pertaining to the previous
-            // connections.
-            fallthrough
         default:
+            // When disconnecting, the tunnel process might be writing to the log.
+            // When connecting, the log would contain only on the previous connection.
             completion?("")
         }
     }
