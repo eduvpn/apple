@@ -219,6 +219,12 @@ extension OpenVPN {
         /// If true, checks EKU of server certificate.
         public var checksEKU: Bool?
         
+        /// If true, checks if hostname (sanHost) is present in certificates SAN.
+        public var checksSANHost: Bool?
+        
+        /// The server hostname used for checking certificate SAN.
+        public var sanHost: String?
+        
         /// Picks endpoint from `remotes` randomly.
         public var randomizeEndpoint: Bool?
         
@@ -300,6 +306,8 @@ extension OpenVPN {
                 hostname: hostname,
                 endpointProtocols: endpointProtocols,
                 checksEKU: checksEKU,
+                checksSANHost: checksSANHost,
+                sanHost: sanHost,
                 randomizeEndpoint: randomizeEndpoint,
                 usesPIAPatches: usesPIAPatches,
                 authToken: authToken,
@@ -381,6 +389,12 @@ extension OpenVPN {
 
         /// - Seealso: `ConfigurationBuilder.checksEKU`
         public let checksEKU: Bool?
+        
+        /// - Seealso: `ConfigurationBuilder.checksSANHost`
+        public let checksSANHost: Bool?
+        
+        /// - Seealso: `ConfigurationBuilder.sanHost`
+        public let sanHost: String?
         
         /// - Seealso: `ConfigurationBuilder.randomizeEndpoint`
         public let randomizeEndpoint: Bool?
@@ -466,6 +480,8 @@ extension OpenVPN.Configuration {
         builder.hostname = hostname
         builder.endpointProtocols = endpointProtocols
         builder.checksEKU = checksEKU
+        builder.checksSANHost = checksSANHost
+        builder.sanHost = sanHost
         builder.randomizeEndpoint = randomizeEndpoint
         builder.usesPIAPatches = usesPIAPatches
         builder.authToken = authToken

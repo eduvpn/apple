@@ -61,7 +61,9 @@ extern const NSInteger TLSBoxDefaultSecurityLevel;
 - (instancetype)initWithCAPath:(NSString *)caPath
          clientCertificatePath:(nullable NSString *)clientCertificatePath
                  clientKeyPath:(nullable NSString *)clientKeyPath
-                     checksEKU:(BOOL)checksEKU;
+                     checksEKU:(BOOL)checksEKU
+                 checksSANHost:(BOOL)checksSANHost
+                      hostname:(nullable NSString *)hostname;
 
 - (BOOL)startWithError:(NSError **)error;
 

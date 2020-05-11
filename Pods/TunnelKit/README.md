@@ -7,8 +7,6 @@
 
 This library provides a simplified Swift/Obj-C implementation of the OpenVPN® protocol for the Apple platforms. The crypto layer is built on top of [OpenSSL 1.1.1][dep-openssl], which in turn enables support for a certain range of encryption and digest algorithms.
 
-<a href="https://www.patreon.com/keeshux"><img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160"></a>
-
 ## Getting started
 
 The client is known to work with [OpenVPN®][openvpn] 2.3+ servers.
@@ -234,4 +232,3 @@ Website: [passepartoutvpn.app][about-website]
 
 [about-twitter]: https://twitter.com/keeshux
 [about-website]: https://passepartoutvpn.app
-[about-patreon]: https://www.patreon.com/keeshux

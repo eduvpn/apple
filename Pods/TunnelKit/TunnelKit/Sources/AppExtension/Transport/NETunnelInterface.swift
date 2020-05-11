@@ -36,14 +36,25 @@
 
 import Foundation
 import NetworkExtension
+import SwiftyBeaver
+
+private let log = SwiftyBeaver.self
 
 /// `TunnelInterface` implementation via NetworkExtension.
 public class NETunnelInterface: TunnelInterface {
+    private static let ipV4: UInt8 = 4
+    
+    private static let ipV6: UInt8 = 6
+    
+    private static let protocolNumbers: [UInt8: NSNumber] = [
+        ipV4: NSNumber(value: AF_INET),
+        ipV6: NSNumber(value: AF_INET6)
+    ]
+
+    private static let fallbackProtocolNumber = protocolNumbers[ipV4]!
+
     private weak var impl: NEPacketTunnelFlow?
     
-    private static let protocolNumberForIPv4 = NSNumber(value: AF_INET)
-    private static let protocolNumberForIPv6 = NSNumber(value: AF_INET6)
-
     /// :nodoc:
     public init(impl: NEPacketTunnelFlow) {
         self.impl = impl
@@ -91,16 +102,18 @@ public class NETunnelInterface: TunnelInterface {
     }
 
     private static func ipProtocolNumber(inPacket packet: Data) -> NSNumber {
+        guard !packet.isEmpty else {
+            return fallbackProtocolNumber
+        }
+
         // 'packet' contains the decrypted incoming IP packet data
 
         // The first 4 bits identify the IP version
-        let ipVersion = ((packet[0] & 0xf0) >> 4)
-        assert(ipVersion == 4 || ipVersion == 6)
-
-        if ipVersion == 6 {
-            return NETunnelInterface.protocolNumberForIPv6
-        } else {
-            return NETunnelInterface.protocolNumberForIPv4
+        let ipVersion = (packet[0] & 0xf0) >> 4
+        guard let protocolNumber = protocolNumbers[ipVersion] else {
+            log.warning("Unrecognized IP version (\(ipVersion))")
+            return fallbackProtocolNumber
         }
+        return protocolNumber
     }
 }
