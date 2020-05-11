@@ -257,52 +257,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
             }
         }
     }
-    
-    func loadLog(completion: ((String) -> Void)? = nil) {
-        guard let session = currentManager?.connection as? NETunnelProviderSession else {
-            completion?("")
-            return
-        }
 
-        switch session.status {
-        case .connected, .reasserting:
-            // Ask the tunnel process for the log
-            try? session.sendProviderMessage(OpenVPNTunnelProvider.Message.requestLog.data) { data in
-                guard let data = data, let log = String(data: data, encoding: .utf8) else {
-                    completion?("")
-                    return
-                }
-                completion?(log)
-            }
-        case .disconnected:
-            // Read the log file directly
-            let appGroupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroup)
-            let tunnelKitDebugLogFilename = "debug.log"
-            guard let debugLogURL = appGroupURL?.appendingPathComponent(tunnelKitDebugLogFilename) else {
-                completion?("")
-                return
-            }
-            completion?((try? String(contentsOf: debugLogURL)) ?? "")
-        default:
-            // When disconnecting, the tunnel process might be writing to the log.
-            // When connecting, the log would contain only on the previous connection.
-            completion?("")
-        }
-    }
-
-    func canLoadLog() -> Bool {
-        guard let session = currentManager?.connection as? NETunnelProviderSession else {
-            return false
-        }
-
-        switch session.status {
-        case .connected, .disconnected, .reasserting:
-            return true
-        default:
-            return false
-        }
-    }
-    
     func configureVPN(_ configure: @escaping (NETunnelProviderManager) -> NETunnelProviderProtocol?,
                       completionHandler: @escaping (Error?) -> Void) {
         
@@ -392,4 +347,53 @@ class TunnelProviderManagerCoordinator: Coordinator {
         
         delegate?.updateProfileStatus(with: status)
     }
+}
+
+// MARK: - Log
+
+extension TunnelProviderManagerCoordinator {
+     func loadLog(completion: ((String) -> Void)? = nil) {
+         guard let session = currentManager?.connection as? NETunnelProviderSession else {
+             completion?("")
+             return
+         }
+
+         switch session.status {
+         case .connected, .reasserting:
+             // Ask the tunnel process for the log
+             try? session.sendProviderMessage(OpenVPNTunnelProvider.Message.requestLog.data) { data in
+                 guard let data = data, let log = String(data: data, encoding: .utf8) else {
+                     completion?("")
+                     return
+                 }
+                 completion?(log)
+             }
+         case .disconnected:
+             // Read the log file directly
+             let appGroupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroup)
+             let tunnelKitDebugLogFilename = "debug.log"
+             guard let debugLogURL = appGroupURL?.appendingPathComponent(tunnelKitDebugLogFilename) else {
+                 completion?("")
+                 return
+             }
+             completion?((try? String(contentsOf: debugLogURL)) ?? "")
+         default:
+             // When disconnecting, the tunnel process might be writing to the log.
+             // When connecting, the log would contain only on the previous connection.
+             completion?("")
+         }
+     }
+
+     func canLoadLog() -> Bool {
+         guard let session = currentManager?.connection as? NETunnelProviderSession else {
+             return false
+         }
+
+         switch session.status {
+         case .connected, .disconnected, .reasserting:
+             return true
+         default:
+             return false
+         }
+     }
 }
