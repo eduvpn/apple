@@ -94,6 +94,7 @@ class VPNConnectionViewController: NSViewController {
         
         self.status = status
         updateButton()
+        updateViewLogButton()
     }
     
     func updateButton() {
@@ -249,8 +250,8 @@ class VPNConnectionViewController: NSViewController {
     }
     
     // MARK: - Log
-    
-    @IBOutlet weak var logTextView: NSTextField!
+
+    @IBOutlet weak var viewLogButton: NSButton!
 
     private func connectionLogPathDir() throws -> URL {
         guard let logDirPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { throw LogFileError.pathCreationFailed }
@@ -293,7 +294,12 @@ class VPNConnectionViewController: NSViewController {
             os_log("Couldn't view log error: %{public}@", log: Log.general, type: .error, "\(error)")
         }
     }
-    
+
+    private func updateViewLogButton() {
+        // Whether we can view the log or not depends on the connection status
+        viewLogButton.isEnabled = providerManagerCoordinator.canLoadLog()
+    }
+
     // MARK: - Other
     
     @IBOutlet var statisticsBox: NSBox!
