@@ -1,7 +1,7 @@
 # Changelog
 
 ## Unreleased
-
+- iOS/Mac: Added german translation
 - iOS/Mac: Preserve tunnel log across the previous tunnel invocation
 
 ## 2.2 (2020-05-08)
