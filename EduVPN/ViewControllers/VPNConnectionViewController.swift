@@ -129,12 +129,12 @@ class VPNConnectionViewController: UIViewController {
     func connect() -> Promise<Void> {
         self.postponeButtonUpdates = true
 
-        return providerManagerCoordinator.configure(profile: profile).then {
-            return self.providerManagerCoordinator.connect()
-        }.ensure {
-            self.status = self.providerManagerCoordinator.currentManager?.connection.status ?? .invalid
-            self.postponeButtonUpdates = false
-        }
+        return providerManagerCoordinator.configure(profile: profile)
+            .then { $0.connect() }
+            .ensure {
+                self.status = self.providerManagerCoordinator.currentManager?.connection.status ?? .invalid
+                self.postponeButtonUpdates = false
+            }
     }
 
     func disconnect() -> Promise<Void> {
@@ -160,7 +160,8 @@ class VPNConnectionViewController: UIViewController {
 
     @IBAction func connectionClicked(_ sender: Any) {
         if status == .invalid {
-            providerManagerCoordinator.reloadCurrentManager { [weak self] _ in self?.statusUpdated() }
+            providerManagerCoordinator.getCurrentTunnelProviderManager()
+                .done { [weak self] _ in self?.statusUpdated() }
         } else {
             statusUpdated()
         }
@@ -254,9 +255,9 @@ class VPNConnectionViewController: UIViewController {
 
         displayProfile()
 
-        providerManagerCoordinator.reloadCurrentManager { _ in
-            self.status = self.providerManagerCoordinator.currentManager?.connection.status ?? .invalid
-        }
+        providerManagerCoordinator.getCurrentTunnelProviderManager()
+            .done { self.status = $0?.connection.status ?? .invalid }
+            .catch { _ in /* Already printed errors */ }
     }
 
     override func viewWillAppear(_ animated: Bool) {

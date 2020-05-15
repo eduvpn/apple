@@ -168,7 +168,7 @@ extension AppCoordinator {
         #elseif os(macOS)
         return presentationPromise
             .then { self.tunnelProviderManagerCoordinator.configure(profile: profile) }
-            .then { self.tunnelProviderManagerCoordinator.connect() }
+            .then { $0.connect() }
         #endif
     }
 
