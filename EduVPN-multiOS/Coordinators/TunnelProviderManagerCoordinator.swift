@@ -181,12 +181,8 @@ class TunnelProviderManagerCoordinator: Coordinator {
                 return
             }
             
-            // Always enable "on demand"
-            currentManager.isOnDemandEnabled = true
-            let rule = NEOnDemandRuleConnect()
-            rule.interfaceTypeMatch = .any
-            currentManager.onDemandRules = [rule]
-            
+            currentManager.isOnDemandEnabled = false
+
             currentManager.saveToPreferences(completionHandler: { error in
                 if let error = error {
                     os_log("error saveToPreferences tunnel: %{public}@", log: Log.general, type: .error, error.localizedDescription)

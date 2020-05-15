@@ -130,6 +130,12 @@ open class OpenVPNTunnelProvider: NEPacketTunnelProvider {
     
     private var shouldReconnect = false
 
+    private var shouldWaitForLinkAvailabilityAfterLinkFailure = false
+
+    private var linkFailureRecoveryPathMonitor: AnyObject?
+
+    private var shouldReconnectWhenNetworkBecomesAvailable = false
+
     // MARK: NEPacketTunnelProvider (XPC queue)
     
     open override var reasserting: Bool {
@@ -412,6 +418,37 @@ open class OpenVPNTunnelProvider: NEPacketTunnelProvider {
         }
         defaults?.dataCountArray = [dataCount.0, dataCount.1]
     }
+
+    /// In case there's a link failure, should a tunnel process shutdown (the default) or should
+    /// the tunnel process wait for network availability and then try reconnecting.
+    @available(iOS 12, macOS 10.14, *)
+    public func setWaitForLinkAvailabilityAfterLinkFailure(enabled: Bool) {
+        shouldWaitForLinkAvailabilityAfterLinkFailure = enabled
+        if enabled {
+            let pathMonitor = NWPathMonitor()
+            pathMonitor.pathUpdateHandler = { [weak self] path in
+                guard let self = self else { return }
+                log.debug("NWPathMonitor path status is \(path.status)")
+                if path.status == .satisfied && self.shouldReconnectWhenNetworkBecomesAvailable {
+                    self.shouldReconnectWhenNetworkBecomesAvailable = false
+                    self.connectTunnel()
+                }
+            }
+            pathMonitor.start(queue: DispatchQueue.main)
+            linkFailureRecoveryPathMonitor = pathMonitor
+        } else {
+            if let pathMonitor = linkFailureRecoveryPathMonitor as? NWPathMonitor {
+                pathMonitor.cancel()
+            }
+            linkFailureRecoveryPathMonitor = nil
+        }
+    }
+
+    deinit {
+        if #available(iOS 12, macOS 10.14, *) {
+            (linkFailureRecoveryPathMonitor as? NWPathMonitor)?.cancel()
+        }
+    }
 }
 
 extension OpenVPNTunnelProvider: GenericSocketDelegate {
@@ -494,6 +531,14 @@ extension OpenVPNTunnelProvider: GenericSocketDelegate {
                 self.reasserting = true
                 self.connectTunnel(upgradedSocket: upgradedSocket)
             }
+            return
+        }
+
+        // reconnect later
+        if shouldWaitForLinkAvailabilityAfterLinkFailure && (shutdownError as? OpenVPNError == .failedLinkWrite) {
+            log.debug("Disconnection can't be recovered at present, tunnel will reconnect when network becomes available")
+            self.shouldReconnectWhenNetworkBecomesAvailable = true
+            self.reasserting = true
             return
         }
 
