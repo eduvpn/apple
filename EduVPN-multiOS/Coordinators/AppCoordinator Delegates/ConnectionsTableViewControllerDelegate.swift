@@ -24,11 +24,10 @@ extension AppCoordinator: ConnectionsTableViewControllerDelegate {
         if let currentProfileUuid = profile.uuid, currentProfileUuid.uuidString == UserDefaults.standard.configuredProfileId {
             _ = showConnectionViewController(for: profile)
         } else {
-            _ = tunnelProviderManagerCoordinator.disconnect()
-                .recover { _ in self.tunnelProviderManagerCoordinator.configure(profile: profile) }
-                .then { _ -> Promise<Void> in
+            _ = tunnelProviderManagerCoordinator.configure(profile: profile)
+                .ensure {
                     self.providersViewController.tableView.reloadData()
-                    return self.showConnectionViewController(for: profile)
+                    _ = self.showConnectionViewController(for: profile)
                 }
         }
     }

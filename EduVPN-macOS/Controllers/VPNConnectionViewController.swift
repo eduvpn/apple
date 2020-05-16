@@ -119,10 +119,10 @@ class VPNConnectionViewController: NSViewController {
         switch status {
             
         case .invalid, .disconnected:
-            _ = providerManagerCoordinator.configure(profile: profile).then {
-                return self.providerManagerCoordinator.connect()
-            }
-            
+            providerManagerCoordinator.configure(profile: profile)
+                .then { $0.connect() }
+                .catch { _ in /* Already printed errors */ }
+
         case .connected, .connecting:
             _ = providerManagerCoordinator.checkOnDemandEnabled().then { onDemandEnabled -> Promise<Void> in
                 if let delegate = self.delegate, onDemandEnabled {
@@ -148,7 +148,9 @@ class VPNConnectionViewController: NSViewController {
     
     @IBAction func connectionClicked(_ sender: Any) {
         if status == .invalid {
-            providerManagerCoordinator.reloadCurrentManager { [weak self] _ in self?.statusUpdated() }
+            providerManagerCoordinator.getCurrentTunnelProviderManager()
+                .done { [weak self] _ in self?.statusUpdated() }
+                .catch { _ in /* Already printed errors */ }
         } else {
             statusUpdated()
         }
@@ -313,10 +315,13 @@ class VPNConnectionViewController: NSViewController {
         notificationsBox.isHidden = true
         
         displayProfile()
-        providerManagerCoordinator.reloadCurrentManager { _ in
-            self.updateButton()
-            self.status = self.providerManagerCoordinator.currentManager?.connection.status ?? .invalid
-        }
+
+        providerManagerCoordinator.getCurrentTunnelProviderManager()
+            .done {
+                self.status = $0?.connection.status ?? .invalid
+                self.updateButton()
+            }
+            .catch { _ in /* Already printed errors */ }
     }
     
     override func viewWillAppear() {
