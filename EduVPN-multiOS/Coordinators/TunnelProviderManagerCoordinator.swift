@@ -348,7 +348,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
 // MARK: - Log
 
 extension TunnelProviderManagerCoordinator {
-     func loadLog(completion: ((String) -> Void)? = nil) {
+     func loadLog(completion: ((String?) -> Void)? = nil) {
          guard let session = currentManager?.connection as? NETunnelProviderSession else {
              completion?("")
              return
@@ -358,11 +358,7 @@ extension TunnelProviderManagerCoordinator {
          case .connected, .reasserting:
              // Ask the tunnel process for the log
              try? session.sendProviderMessage(OpenVPNTunnelProvider.Message.requestLog.data) { data in
-                 guard let data = data, let log = String(data: data, encoding: .utf8) else {
-                     completion?("")
-                     return
-                 }
-                 completion?(log)
+                completion?( (data.flatMap { $0 }.flatMap { String(data: $0, encoding: .utf8) }) )
              }
          case .disconnected:
              // Read the log file directly

@@ -268,8 +268,8 @@ class VPNConnectionViewController: NSViewController {
         providerManagerCoordinator.loadLog { [weak self] in self?.saveLog($0) }
     }
     
-    private func saveLog(_ log: String) {
-        guard let logData = log.data(using: .utf8) else { return }
+    private func saveLog(_ log: String?) {
+        guard let logData = log?.data(using: .utf8) else { return }
         do {
             let fileHandle = try FileHandle(forUpdating: connectionLogPath())
             fileHandle.seekToEndOfFile()
