@@ -259,11 +259,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
         
         reloadCurrentManager { error in
             if let error = error {
-                os_log("error reloading preferences: %{public}@",
-                       log: Log.general,
-                       type: .error,
-                       error.localizedDescription)
-                
+                os_log("error reloading preferences: %{public}@", log: Log.general, type: .error, error.localizedDescription)
                 completionHandler(error)
                 return
             }
