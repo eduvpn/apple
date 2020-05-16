@@ -392,6 +392,11 @@
 		9C5814DFFC4AFAA265AFACDF /* Pods-EduVPNTunnelExtension.debug appforce1.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension.debug appforce1.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.debug appforce1.xcconfig"; sourceTree = "<group>"; };
 		A17B0E4E7C8E497895ADB990 /* Pods-LetsConnect-macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsConnect-macOS.debug.xcconfig"; path = "Target Support Files/Pods-LetsConnect-macOS/Pods-LetsConnect-macOS.debug.xcconfig"; sourceTree = "<group>"; };
 		A73263FAA11A0300A42EF1CB /* Pods-EduVPNTunnelExtension-macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension-macOS.debug.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension-macOS/Pods-EduVPNTunnelExtension-macOS.debug.xcconfig"; sourceTree = "<group>"; };
+		AAFC2E96246BECA000FEB0F3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
+		AAFC2E97246BECA000FEB0F3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		AAFC2E98246BECA000FEB0F3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
+		AAFC2E99246BECA000FEB0F3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
+		AAFC2E9A246BECA000FEB0F3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AE1BF4D6021DD3609DCEDE95 /* Pods-EduVPN.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPN.release.xcconfig"; path = "Target Support Files/Pods-EduVPN/Pods-EduVPN.release.xcconfig"; sourceTree = "<group>"; };
 		B0A376C8FFDBB5D48E014D90 /* Pods-EduVPNTunnelExtension.release letsconnect.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension.release letsconnect.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.release letsconnect.xcconfig"; sourceTree = "<group>"; };
 		B12260AE0AF1A988010B97FF /* Pods-EduVPNTunnelExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension.debug.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1271,6 +1276,7 @@
 				en,
 				Base,
 				nl,
+				de,
 			);
 			mainGroup = 4AAC1F6D1F2D0E3400DD0252;
 			productRefGroup = 4AAC1F771F2D0E3400DD0252 /* Products */;
@@ -1890,6 +1896,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				342B9CBA228ED02E00C006D7 /* Base */,
+				AAFC2E99246BECA000FEB0F3 /* de */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1898,6 +1905,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				34D719E7228D75560027DE84 /* Base */,
+				AAFC2E98246BECA000FEB0F3 /* de */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1907,6 +1915,7 @@
 			children = (
 				4A9704C61FBA379D00B4D6C2 /* en */,
 				4A9704C81FBA379F00B4D6C2 /* nl */,
+				AAFC2E9A246BECA000FEB0F3 /* de */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1916,6 +1925,7 @@
 			children = (
 				4AAC1F7E1F2D0E3400DD0252 /* Base */,
 				4A01329921CDA2C2009B8B02 /* nl */,
+				AAFC2E96246BECA000FEB0F3 /* de */,
 			);
 			name = Main.storyboard;
 			path = ..;
@@ -1926,6 +1936,7 @@
 			children = (
 				4AAC1F831F2D0E3400DD0252 /* Base */,
 				4A9704C11FBA34DA00B4D6C2 /* nl */,
+				AAFC2E97246BECA000FEB0F3 /* de */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
