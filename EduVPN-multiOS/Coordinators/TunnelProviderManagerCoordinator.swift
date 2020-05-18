@@ -200,8 +200,12 @@ extension NETunnelProviderManager {
     }
 
     func disconnect() -> Promise<Void> {
-        return setOnDemand(enabled: false)
-            .map { self.stopTunnel() }
+        if isStatusActive(connection.status) {
+            return setOnDemand(enabled: false)
+                .map { self.stopTunnel() }
+        } else {
+            return Promise.value(())
+        }
     }
 }
 
