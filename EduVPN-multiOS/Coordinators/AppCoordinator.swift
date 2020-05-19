@@ -268,7 +268,6 @@ class AppCoordinator: RootViewCoordinator {
             .then { response -> Promise<CertificateModel> in response.mapResponse() }
             .map { model -> CertificateModel in
                 api.certificateModel = model
-                self.scheduleCertificateExpirationNotification(for: model, on: api)
                 return model
             }
     }
@@ -341,17 +340,7 @@ class AppCoordinator: RootViewCoordinator {
             showProfilesViewController(animated: animated)
         }
     }
-    
-    fileprivate func scheduleCertificateExpirationNotification(for certificate: CertificateModel, on api: Api) {
-        notificationsService.permissionGranted {
-            if $0 {
-                self.notificationsService.scheduleCertificateExpirationNotification(for: certificate, on: api)
-            } else {
-                os_log("Not Authorised", log: Log.general, type: .info)
-            }
-        }
-    }
-    
+
     func resumeAuthorizationFlow(url: URL) -> Bool {
         if let authorizingDynamicApiProvider = authorizingDynamicApiProvider {
             guard let authFlow = authorizingDynamicApiProvider.currentAuthorizationFlow else {
