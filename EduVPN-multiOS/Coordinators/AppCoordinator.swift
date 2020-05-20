@@ -206,6 +206,41 @@ class AppCoordinator: RootViewCoordinator {
             // We're done, save everything.
             context.saveContext()
         }
+
+        notificationsService.onCertificateExpiryNotificationClicked = { [weak self] in
+            self?.onCertificateExpiryNotificationClicked()
+        }
+    }
+
+    func onCertificateExpiryNotificationClicked() {
+        os_log("User clicked on certificate expiry notification", log: Log.general, type: .debug)
+
+        guard let profileId = UserDefaults.standard.configuredProfileId,
+            let profile = try? Profile.findFirstInContext(
+                self.persistentContainer.viewContext,
+                predicate: NSPredicate(format: "uuid == %@", profileId)) else {
+                os_log("No profile is active", log: Log.general, type: .debug)
+                return
+        }
+
+        guard self.tunnelProviderManagerCoordinator.isOnDemandEnabled else {
+            os_log("No tunnel is active", log: Log.general, type: .debug)
+            return
+        }
+
+        guard let api = profile.api else {
+            os_log("No api in profile", log: Log.general, type: .debug)
+            return
+        }
+
+        after(seconds: 0.5) // Allow some time for the app to come to the foreground
+            .then {
+                self.fetchCertificate(for: api, useAuthState: false)
+            }.then { _ in
+                self.tunnelProviderManagerCoordinator.configure(profile: profile)
+            }.then { manager in
+                manager.connect()
+            }.cauterize()
     }
     
     func loadCertificate(for api: Api) -> Promise<CertificateModel> {
