@@ -410,7 +410,6 @@ private func getTunnelProviderProtocol(vpnBundle: String, appGroup: String,
     var providerConfigBuilder = OpenVPNTunnelProvider.ConfigurationBuilder(sessionConfiguration: configBuilder.build())
     providerConfigBuilder.masksPrivateData = false
     providerConfigBuilder.shouldDebug = true
-    providerConfigBuilder.debugLogFormat = "$HH:mm:ss$d $L - $M"
 
     let providerConfig = providerConfigBuilder.build()
     let tunnelProviderProtocolConfig = try providerConfig.generatedTunnelProtocol(
