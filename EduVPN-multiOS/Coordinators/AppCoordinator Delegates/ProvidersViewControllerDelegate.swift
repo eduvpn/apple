@@ -90,10 +90,12 @@ extension AppCoordinator: ProvidersViewControllerDelegate {
             // Move this to pull to refresh?
             refresh(instance: instance).then { _ -> Promise<Void> in
                 #if os(iOS)
+                // Both profiles VC and providers VC are pushed onto the navigation stack
                 self.popToRootViewController()
                 #elseif os(macOS)
-                // TODO: It is unclear to me why iOS pops to root here. For macOS dismiss seems wrong.
-                // self.dismissViewController()
+                // Profiles VC is presented, and providers VC is pushed onto the presented VC.
+                // So we just dismiss the presented VC.
+                self.dismissViewController()
                 #endif
                 return .value(())
             }.recover { error in
