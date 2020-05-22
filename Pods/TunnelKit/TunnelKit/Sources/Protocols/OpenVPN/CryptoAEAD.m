@@ -311,8 +311,8 @@ static const NSInteger CryptoAEADTagLength = 16;
 {
     NSAssert(packet.length > 0, @"Decrypting an empty packet, how did it get this far?");
 
-    DATA_PATH_DECRYPT_INIT(packet.bytes)
-    if (packet.length < headerLength) {
+    DATA_PATH_DECRYPT_INIT(packet)
+    if (packet.length < headerLength + PacketIdLength) {
         return NO;
     }
     

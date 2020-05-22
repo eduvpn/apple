@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- iOS/Mac: Updated dependencies: TunnelKit & AlamoFire.
 - iOS/Mac: Added german translation
 - iOS/Mac: Preserve tunnel log across the previous tunnel invocation
 

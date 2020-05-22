@@ -71,27 +71,54 @@ static inline void MSSUpdateSum(uint16_t* sum_ptr, uint16_t* val_ptr, uint16_t n
 
 void MSSFix(uint8_t *data, NSInteger data_len)
 {
-    ip_hdr_t *iph = (ip_hdr_t*)data;
-    if (iph->proto != PROTO_TCP)  return;
-    uint32_t iph_size = iph->hdr_len*4;
-    if (iph_size+sizeof(tcp_hdr_t) > data_len)  return;
+    /* XXX Prevent buffer overread */
+    if (data_len < sizeof(ip_hdr_t)) {
+        return;
+    }
+    ip_hdr_t *iph = (ip_hdr_t *)data;
+    if (iph->proto != PROTO_TCP) {
+        return;
+    }
+    uint32_t iph_size = iph->hdr_len * 4;
+    if (iph_size + sizeof(tcp_hdr_t) > data_len) {
+        return;
+    }
     
-    tcp_hdr_t *tcph = (tcp_hdr_t*)(data + iph_size);
-    if (!(tcph->flags & FLAG_SYN))  return;
+    tcp_hdr_t *tcph = (tcp_hdr_t *)(data + iph_size);
+    if (!(tcph->flags & FLAG_SYN)) {
+        return;
+    }
     uint8_t *opts = data + iph_size + sizeof(tcp_hdr_t);
 
-    uint32_t tcph_len = tcph->hdr_len*4, optlen = tcph_len-sizeof(tcp_hdr_t);
-    if (iph_size+sizeof(tcp_hdr_t)+optlen > data_len)  return;
+    uint32_t tcph_len = tcph->hdr_len * 4, optlen = tcph_len-sizeof(tcp_hdr_t);
+    if (iph_size + sizeof(tcp_hdr_t) + optlen > data_len) {
+        return;
+    }
 
     for (uint32_t i = 0; i < optlen;) {
-        tcp_opt_t *o = (tcp_opt_t*)&opts[i];
-        if (o->opt == OPT_END)  return;
+        tcp_opt_t *o = (tcp_opt_t *)&opts[i];
+
+        /* XXX Prevent buffer overread */
+        if ((void *)(o + sizeof(tcp_opt_t)) > (void *)(data + data_len)) {
+            return;
+        }
+
+        if (o->opt == OPT_END) {
+            return;
+        }
         if (o->opt == OPT_MSS) {
-            if (i+o->size > optlen)  return;
-            if (ntohs(o->mss) <= MSS_VAL)  return;
+            if (i + o->size > optlen) {
+                return;
+            }
+            if (ntohs(o->mss) <= MSS_VAL) {
+                return;
+            }
             MSSUpdateSum(&tcph->sum, &o->mss, MSS_VAL);
             return;
         }
-        i += (o->opt == OPT_NOP) ? 1 : o->size;
+
+        /* XXX Prevent infinite loop */
+        i += (o->opt == OPT_NOP) ? 1 : (o->size ? o->size : 1);
+//        i += (o->opt == OPT_NOP) ? 1 : o->size;
     }
 }
