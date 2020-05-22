@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.2 (2020-05-22)
+## 2.1.7 Let's Connect! (2020-05-22) / eduVPN (not yet released)
 
 - iOS/Mac: Updated dependencies: TunnelKit & AlamoFire.
 - iOS/Mac: Added german translation
