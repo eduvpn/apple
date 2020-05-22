@@ -45,7 +45,8 @@ NS_ASSUME_NONNULL_BEGIN
         headerLength += PacketPeerIdLength; \
     }
 
-#define DATA_PATH_DECRYPT_INIT(ptr) \
+#define DATA_PATH_DECRYPT_INIT(packet) \
+    const uint8_t *ptr = packet.bytes; \
     PacketCode code; \
     PacketOpcodeGet(ptr, &code, NULL); \
     uint32_t peerId = PacketPeerIdDisabled; \
@@ -53,7 +54,10 @@ NS_ASSUME_NONNULL_BEGIN
     int headerLength = PacketOpcodeLength; \
     if (hasPeerId) { \
         headerLength += PacketPeerIdLength; \
-        peerId = PacketHeaderGetDataV2PeerId(packet.bytes); \
+        if (packet.length < headerLength) { \
+            return NO; \
+        } \
+        peerId = PacketHeaderGetDataV2PeerId(ptr); \
     }
 
 typedef void (^DataPathAssembleBlock)(uint8_t *packetDest, NSInteger *packetLengthOffset, NSData *payload);

@@ -30,6 +30,9 @@
 
 #import "RoutingTableEntry.h"
 
+#define ASSERT_PRINTF(r)        NSCAssert(r >= 0, @"*printf() failed")
+#define ASSERT_GETNAMEINFO(r)   NSCAssert(r == 0, @"getnameinfo() failed")
+
 // adapted from: https://github.com/jianpx/ios-cabin
 
 #define ROUNDUP(a) ((a) > 0 ? (1 + (((a) - 1) | (sizeof(uint32_t) - 1))) : sizeof(uint32_t))
@@ -80,6 +83,7 @@ static NSString *RoutingTableEntryName(struct sockaddr *sa, struct sockaddr *mas
     network = networkComps.firstObject;
     if (networkComps.count == 2) {
         prefix = [networkComps.lastObject integerValue];
+        NSAssert(prefix >= 0 && prefix <= 32, @"IPv4 prefix must lie in [0..32]");
     } else {
         prefix = 32;
     }
@@ -110,6 +114,7 @@ static NSString *RoutingTableEntryName(struct sockaddr *sa, struct sockaddr *mas
     network = networkComps.firstObject;
     if (networkComps.count == 2) {
         prefix = [networkComps.lastObject integerValue];
+        NSAssert(prefix >= 0 && prefix <= 128, @"IPv6 prefix must lie in [0..128]");
     } else {
         prefix = 128;
     }
@@ -200,6 +205,9 @@ static NSString *RoutingTableEntryName(struct sockaddr *sa, struct sockaddr *mas
     if (self.isIPv6) {
         NSData *networkAddress = RoutingTableEntryAddress6(self.network);
         NSData *destinationAddress = RoutingTableEntryAddress6(destination);
+        if (!networkAddress || !destinationAddress) {
+            return NO;
+        }
         
 //        NSLog(@"network:     %@ = %@", networkAddress, self.network);
 //        NSLog(@"destination: %@ = %@", destinationAddress, destination);
@@ -228,6 +236,9 @@ static NSString *RoutingTableEntryName(struct sockaddr *sa, struct sockaddr *mas
     else {
         const uint32_t networkAddress = RoutingTableEntryAddress4(self.network);
         const uint32_t destinationAddress = RoutingTableEntryAddress4(destination);
+        if ((networkAddress == UINT32_MAX) || (destinationAddress == UINT32_MAX)) {
+            return NO;
+        }
         const uint32_t networkMask = ~((1 << (32 - self.prefix)) - 1);
         
 //        NSLog(@"network:     %x = %@", networkAddress, self.network);
@@ -243,15 +254,23 @@ static NSString *RoutingTableEntryName(struct sockaddr *sa, struct sockaddr *mas
     NSMutableArray<RoutingTableEntry *> *segments = [[NSMutableArray alloc] init];
     const int halfPrefix = (int)(self.prefix + 1);
     if (self.isIPv6) {
+        if (self.prefix == 128) {
+            NSLog(@"Can't partition single IPv6");
+            return @[self, self];
+        }
+        
         struct in6_addr saddr1, saddr2;
         char addr[INET6_ADDRSTRLEN];
         NSData *addressData = RoutingTableEntryAddress6(self.network);
+        if (!addressData) {
+            return nil;
+        }
         memcpy(&saddr1, addressData.bytes, addressData.length);
         NSMutableData *addressData2 = [addressData mutableCopy];
-
+        
         uint8_t *addressBytes2 = (uint8_t *)addressData2.bytes;
-        const uint8_t mask2 = 1 << (8 - halfPrefix % 8);
-        addressBytes2[halfPrefix / 8] |= mask2;
+        const uint8_t mask2 = 1 << ((8 - halfPrefix % 8) % 8);
+        addressBytes2[(halfPrefix - 1) / 8] |= mask2;
 
         memcpy(&saddr2, addressData2.bytes, addressData2.length);
 
@@ -263,8 +282,16 @@ static NSString *RoutingTableEntryName(struct sockaddr *sa, struct sockaddr *mas
         [segments addObject:[[RoutingTableEntry alloc] initWithIPv6Network:network1 gateway:self.gateway networkInterface:self.networkInterface]];
         [segments addObject:[[RoutingTableEntry alloc] initWithIPv6Network:network2 gateway:self.gateway networkInterface:self.networkInterface]];
     } else {
+        if (self.prefix == 32) {
+            NSLog(@"Can't partition single IPv4");
+            return @[self, self];
+        }
+
         struct in_addr saddr1, saddr2;
         const uint32_t address = RoutingTableEntryAddress4(self.network);
+        if (address == UINT32_MAX) {
+            return nil;
+        }
         saddr1.s_addr = htonl(address);
         saddr2.s_addr = htonl(address | (1 << (32 - halfPrefix)));
 
@@ -294,7 +321,7 @@ static char *netname6(struct sockaddr_in6 *sa6, struct sockaddr *sam);
 static char *routename(uint32_t in);
 static char *routename6(struct sockaddr_in6 *sa6);
 static uint32_t forgemask(uint32_t a);
-static void domask(char *dst, uint32_t addr, uint32_t mask);
+static void domask(char *dst, size_t dstsize, uint32_t addr, uint32_t mask);
 static void trimdomain(char *cp);
 
 static inline uint32_t RoutingTableEntryAddress4(NSString *string)
@@ -376,7 +403,7 @@ char *routename(uint32_t in)
     
 #define C(x)    ((x) & 0xff)
     in = ntohl(in);
-    snprintf(line, sizeof(line), "%u.%u.%u.%u", C(in >> 24), C(in >> 16), C(in >> 8), C(in));
+    ASSERT_PRINTF(snprintf(line, sizeof(line), "%u.%u.%u.%u", C(in >> 24), C(in >> 16), C(in >> 8), C(in)));
 
     return (line);
 }
@@ -391,7 +418,7 @@ char *routename6(struct sockaddr_in6 *sa6)
     sa6_local.sin6_addr = sa6->sin6_addr;
     sa6_local.sin6_scope_id = sa6->sin6_scope_id;
     
-    getnameinfo((struct sockaddr *)&sa6_local, sa6_local.sin6_len, line, sizeof(line), NULL, 0, flag);
+    ASSERT_GETNAMEINFO(getnameinfo((struct sockaddr *)&sa6_local, sa6_local.sin6_len, line, sizeof(line), NULL, 0, flag));
     
     return line;
 }
@@ -426,37 +453,35 @@ char *netname(uint32_t in, uint32_t mask)
         switch (dmask) {
             case IN_CLASSA_NET:
                 if ((i & IN_CLASSA_HOST) == 0) {
-                    snprintf(line, sizeof(line), "%u", C(i >> 24));
+                    ASSERT_PRINTF(snprintf(line, sizeof(line), "%u", C(i >> 24)));
                     break;
                 }
                 /* FALLTHROUGH */
             case IN_CLASSB_NET:
                 if ((i & IN_CLASSB_HOST) == 0) {
-                    snprintf(line, sizeof(line), "%u.%u",
-                             C(i >> 24), C(i >> 16));
+                    ASSERT_PRINTF(snprintf(line, sizeof(line), "%u.%u", C(i >> 24), C(i >> 16)));
                     break;
                 }
                 /* FALLTHROUGH */
             case IN_CLASSC_NET:
                 if ((i & IN_CLASSC_HOST) == 0) {
-                    snprintf(line, sizeof(line), "%u.%u.%u",
-                             C(i >> 24), C(i >> 16), C(i >> 8));
+                    ASSERT_PRINTF(snprintf(line, sizeof(line), "%u.%u.%u", C(i >> 24), C(i >> 16), C(i >> 8)));
                     break;
                 }
                 /* FALLTHROUGH */
             default:
-                snprintf(line, sizeof(line), "%u.%u.%u.%u",
-                         C(i >> 24), C(i >> 16), C(i >> 8), C(i));
+                ASSERT_PRINTF(snprintf(line, sizeof(line), "%u.%u.%u.%u", C(i >> 24), C(i >> 16), C(i >> 8), C(i)));
                 break;
         }
     }
-    domask(line+strlen(line), i, omask);
+    domask(line + strlen(line), sizeof(line) - strlen(line), i, omask);
     return (line);
 }
 
 
 char *netname6(struct sockaddr_in6 *sa6, struct sockaddr *sam)
 {
+    char host[MAXHOSTNAMELEN];
     static char line[MAXHOSTNAMELEN + 10];
     u_char *lim;
     int masklen, illegal = 0, flag = NI_NUMERICHOST;
@@ -508,10 +533,12 @@ char *netname6(struct sockaddr_in6 *sa6, struct sockaddr *sam)
         return("default");
     }
     
-    getnameinfo((struct sockaddr *)sa6, sa6->sin6_len, line, sizeof(line), NULL, 0, flag);
+    ASSERT_GETNAMEINFO(getnameinfo((struct sockaddr *)sa6, sa6->sin6_len, host, sizeof(host), NULL, 0, flag));
     
     if (masklen > 0) {
-        sprintf(line, "%s/%u", line, masklen);
+        ASSERT_PRINTF(sprintf(line, "%s/%u", host, masklen));
+    } else {
+        ASSERT_PRINTF(sprintf(line, "%s", host));
     }
     
     return line;
@@ -530,7 +557,7 @@ uint32_t forgemask(uint32_t a)
     return (m);
 }
 
-void domask(char *dst, uint32_t addr, uint32_t mask)
+void domask(char *dst, size_t dstsize, uint32_t addr, uint32_t mask)
 {
     int b, i;
     
@@ -553,9 +580,9 @@ void domask(char *dst, uint32_t addr, uint32_t mask)
         }
     }
     if (i == -1) {
-        snprintf(dst, sizeof(dst), "&0x%x", mask);
+        ASSERT_PRINTF(snprintf(dst, dstsize, "&0x%x", mask));
     } else {
-        snprintf(dst, sizeof(dst), "/%d", 32-i);
+        ASSERT_PRINTF(snprintf(dst, dstsize, "/%d", 32-i));
     }
 }
 

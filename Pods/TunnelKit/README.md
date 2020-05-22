@@ -169,6 +169,8 @@ Due to the restrictive license (GPLv2), LZO support is provided as an optional s
 
 ## License
 
+Copyright (c) 2020 Davide De Rosa. All rights reserved.
+
 ### Part I
 
 This project is licensed under the [GPLv3][license-content].
@@ -191,14 +193,14 @@ For more details please see [CONTRIBUTING][contrib-readme].
 
 ## Credits
 
-- [lzo][dep-lzo-website] - © 1996 - 2017 Markus F.X.J. Oberhumer
-- [PIATunnel][dep-piatunnel-repo] - © 2018-Present Private Internet Access
+- [lzo][dep-lzo-website] - Copyright (c) 1996-2017 Markus F.X.J. Oberhumer
+- [PIATunnel][dep-piatunnel-repo] - Copyright (c) 2018-Present Private Internet Access
 - [SURFnet][surfnet]
-- [SwiftyBeaver][dep-swiftybeaver-repo] - © 2015 Sebastian Kreutzberger
+- [SwiftyBeaver][dep-swiftybeaver-repo] - Copyright (c) 2015 Sebastian Kreutzberger
 
 This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit. ([https://www.openssl.org/][dep-openssl])
 
-© 2002-2018 OpenVPN Inc. - OpenVPN is a registered trademark of OpenVPN Inc.
+Copyright (c) 2002-2018 OpenVPN Inc. - OpenVPN is a registered trademark of OpenVPN Inc.
 
 ## Contacts
 
