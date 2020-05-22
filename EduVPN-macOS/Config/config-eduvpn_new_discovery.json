@@ -1,0 +1,21 @@
+{
+    "client_id": "org.eduvpn.app.macos",
+    "redirect_url": "org.eduvpn.app.macos:/api/callback",
+
+    "discovery": {
+        "server": "https://static.eduvpn.nl",
+        "path_institute_access": "disco/institute_access.json",
+        "path_institute_access_signature": "disco/institute_access.json.sig",
+        "path_secure_internet": "disco/secure_internet.json",
+        "path_secure_internet_signature": "disco/secure_internet.json.sig",
+        "path_organization_list": "https://disco.eduvpn.org/organization_list.json",
+        "path_organization_list_signature": "https://disco.eduvpn.org/organization_list.json.sig",
+        "signature_public_key":     "RWSC3Lwn4f9mhG3XIwRUTEIqf7Ucu9+7/Rq+scUMxrjg5/kjskXKOJY/",
+        "signature_public_key_old": "E5On0JTtyUVZmcWd+I/FXRm32nSq8R2ioyW7dcu/U88="
+    },
+
+    "appName": "eduVPN",
+    "apiDiscoveryEnabled": true,
+    "supportURL": "https://www.surf.nl/en/eduvpn",
+    "uninstallURL": "https://www.eduvpn.org/blog/uninstall-macos-app.html"
+}
