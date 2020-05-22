@@ -15,6 +15,7 @@
 			dependencies = (
 			);
 			name = "OpenSSL-Apple-macOS";
+			productName = "OpenSSL-Apple-macOS";
 		};
 		A3C2E5EFCC4D13E10511CE8D6F554C9F /* OpenSSL-Apple-iOS */ = {
 			isa = PBXAggregateTarget;
@@ -24,6 +25,7 @@
 			dependencies = (
 			);
 			name = "OpenSSL-Apple-iOS";
+			productName = "OpenSSL-Apple-iOS";
 		};
 /* End PBXAggregateTarget section */
 
@@ -50,7 +52,6 @@
 				E3C8AEAD9EAFF5BB1D567CCDA371B0D2 /* Frameworks */,
 				4860C511B9501E74568D4E41CD541FF6 /* Support Files */,
 			);
-			name = "OpenSSL-Apple";
 			path = "OpenSSL-Apple";
 			sourceTree = "<group>";
 		};
@@ -98,7 +99,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1150;
 			};
 			buildConfigurationList = 1F0745755EA98903FC27BD16FE1FC525 /* Build configuration list for PBXProject "OpenSSL-Apple" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -124,7 +125,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D9A9C31E47EE4E65FFEEE89F7905EE87 /* OpenSSL-Apple-iOS.debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -139,7 +139,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A17B80261A308CDBCB658E705342854B /* OpenSSL-Apple-iOS.release.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -155,7 +154,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CC130F41E1830AF3D56B024217126E75 /* OpenSSL-Apple-macOS.debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "-";
@@ -170,7 +168,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5BB07E69C20E8387831AABD87DED5273 /* OpenSSL-Apple-macOS.release.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "-";
@@ -235,8 +232,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
