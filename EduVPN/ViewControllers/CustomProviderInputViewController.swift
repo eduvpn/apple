@@ -16,7 +16,7 @@ class CustomProviderInputViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Do any additional setup after loading the view.
         keyboardWrapper = KeyboardWrapper(delegate: self)
         
@@ -36,6 +36,9 @@ class CustomProviderInputViewController: UIViewController {
         guard let url = urlFromInput() else { return }
         self.view.endEditing(false)
         delegate?.connect(url: url)
+            .done { _ in
+                self.navigationController?.popToRootViewController(animated: true)
+            }.cauterize()
     }
     
     private func urlFromInput() -> URL? {
@@ -50,6 +53,9 @@ extension CustomProviderInputViewController: UITextFieldDelegate {
         guard let url = urlFromInput() else { return true }
         self.view.endEditing(false)
         delegate?.connect(url: url)
+            .done { _ in
+                self.navigationController?.popToRootViewController(animated: true)
+            }.cauterize()
         return true
     }
 }

@@ -38,17 +38,7 @@ extension AppCoordinator: CustomProviderInputViewControllerDelegate {
             }
         }).then { instance -> Promise<Void> in
             let instance = self.persistentContainer.viewContext.object(with: instance.objectID) as! Instance //swiftlint:disable:this force_cast
-            return self.refresh(instance: instance).then {_ -> Promise<Void> in
-                #if os(iOS)
-                self.popToRootViewController()
-                #elseif os(macOS)
-                self.popToRootViewController(animated: false, completionHandler: {
-                    self.dismissViewController()
-                })
-                #endif
-
-                return Promise.value(())
-            }
+            return self.refresh(instance: instance)
         }.recover { error in
                 let error = error as NSError
                 self.showError(error)

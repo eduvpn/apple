@@ -70,10 +70,6 @@ extension AppCoordinator {
                 NotificationCenter.default.post(name: Notification.Name.InstanceRefreshed, object: self)
                 return self.hideActivityIndicator()
             }.ensureThen {
-                // TODO: See also ProvidersViewControllerDelegate didSelect(instance:, providersViewController: )
-                #if os(macOS)
-                self.dismissViewController()
-                #endif
                 return .value(())
             }
     }
