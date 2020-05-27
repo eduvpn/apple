@@ -14,14 +14,13 @@ PODS:
   - OpenSSL-Apple (1.1.1g.6)
   - PromiseKit/CorePromise (6.13.1)
   - SwiftyBeaver (1.9.1)
-  - TunnelKit (2.2.6):
-    - TunnelKit/Protocols/OpenVPN (= 2.2.6)
-  - TunnelKit/AppExtension (2.2.6):
+  - TunnelKit/AppExtension (2.2.7):
     - SwiftyBeaver
     - TunnelKit/Core
-  - TunnelKit/Core (2.2.6):
+  - TunnelKit/Core (2.2.7):
     - SwiftyBeaver
-  - TunnelKit/Protocols/OpenVPN (2.2.6):
+  - TunnelKit/Extra/LZO (2.2.7)
+  - TunnelKit/Protocols/OpenVPN (2.2.7):
     - OpenSSL-Apple (~> 1.1.1g.6)
     - TunnelKit/AppExtension
     - TunnelKit/Core
@@ -32,7 +31,8 @@ DEPENDENCIES:
   - libsodium
   - Moya
   - PromiseKit/CorePromise
-  - TunnelKit (from `https://github.com/passepartoutvpn/tunnelkit.git`)
+  - TunnelKit/Extra/LZO (from `https://github.com/passepartoutvpn/tunnelkit.git`)
+  - TunnelKit/Protocols/OpenVPN (from `https://github.com/passepartoutvpn/tunnelkit.git`)
 
 SPEC REPOS:
   https://cdn.cocoapods.org/:
@@ -55,7 +55,7 @@ CHECKOUT OPTIONS:
     :commit: c63e3926c5f141db43a7d02e8c24af3463479f7b
     :git: https://github.com/openid/AppAuth-iOS.git
   TunnelKit:
-    :commit: e1e386c61a511949b227c94dbce133857b0d7de7
+    :commit: bb40404a517037e4a265c7757d0ed159254685f2
     :git: https://github.com/passepartoutvpn/tunnelkit.git
 
 SPEC CHECKSUMS:
@@ -67,8 +67,8 @@ SPEC CHECKSUMS:
   OpenSSL-Apple: c9c1b9c5b2b1fc4e1758fc5f0836b58ae7fd8183
   PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
   SwiftyBeaver: a1f5691458561414bcfab51874b2b7445451602b
-  TunnelKit: e8af40ef7796dc3bea3a29e4682cf3217714e69b
+  TunnelKit: cbd063b8b6f4f6a182cf48e646ff35cb2365bf91
 
-PODFILE CHECKSUM: 1829a94a20794ac1f78f09583f432362a3e24198
+PODFILE CHECKSUM: 5819f0dce11c97324c51283a247eaf52b2b81557
 
 COCOAPODS: 1.9.1

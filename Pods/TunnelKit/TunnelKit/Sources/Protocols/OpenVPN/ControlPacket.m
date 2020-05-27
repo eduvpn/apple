@@ -187,9 +187,7 @@
     
 - (BOOL)serializeTo:(uint8_t *)to encryptingWith:(nonnull id<Encrypter>)encrypter replayId:(uint32_t)replayId timestamp:(uint32_t)timestamp length:(NSInteger *)length adLength:(NSInteger)adLength error:(NSError *__autoreleasing  _Nullable * _Nullable)error
 {
-    uint8_t *ptr;
-    
-    ptr = to;
+    uint8_t *ptr = to;
     ptr += PacketHeaderSet(to, self.code, self.key, self.sessionId.bytes);
     *(uint32_t *)ptr = CFSwapInt32HostToBig(replayId);
     ptr += PacketReplayIdLength;
@@ -199,8 +197,7 @@
     NSAssert2(ptr - to == adLength, @"Incorrect AD bytes (%ld != %ld)", ptr - to, (long)adLength);
     
     NSMutableData *msg = [[NSMutableData alloc] initWithLength:self.rawCapacity];
-    ptr = msg.mutableBytes;
-    ptr += [self rawSerializeTo:ptr];
+    [self rawSerializeTo:msg.mutableBytes];
     
     CryptoFlags flags;
     flags.ad = to;

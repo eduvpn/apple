@@ -741,7 +741,7 @@ extension OpenVPNTunnelProvider: OpenVPNSessionDelegate {
                 let gateway = table.defaultGateway4()?.gateway(),
                 let route = table.broadestRoute4(matchingDestination: gateway) {
 
-                route.partitioned().forEach {
+                route.partitioned()?.forEach {
                     let destination = $0.network()
                     guard let netmask = $0.networkMask() else {
                         return
@@ -758,7 +758,7 @@ extension OpenVPNTunnelProvider: OpenVPNSessionDelegate {
                 let gateway = table.defaultGateway6()?.gateway(),
                 let route = table.broadestRoute6(matchingDestination: gateway) {
 
-                route.partitioned().forEach {
+                route.partitioned()?.forEach {
                     let destination = $0.network()
                     let prefix = $0.prefix()
                     
