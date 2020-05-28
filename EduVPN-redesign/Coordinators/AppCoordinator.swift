@@ -42,7 +42,7 @@ class AppCoordinator: Coordinator {
 extension AppCoordinator: SettingsViewControllerDelegate {
     
     func settingsViewControllerClosed(_ controller: SettingsViewController) {
-        rootViewController.dismiss(controller)
+        rootViewController.dismiss(animated: true, completion: nil)
     }
     
 }

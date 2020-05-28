@@ -23,4 +23,17 @@ typealias ApplicationDelegate = NSApplicationDelegate
 typealias ViewController = NSViewController
 typealias Window = NSWindow
 typealias Storyboard = NSStoryboard
+
+extension ViewController {
+    
+    func present(controller: ViewController, animated: Bool) {
+        
+    }
+    
+    func dismiss(animated: Bool, completion: (() -> Void)? = nil) {
+        dismiss(animated: true) // TODO: Completio
+    }
+
+}
+
 #endif

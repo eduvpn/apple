@@ -6,18 +6,36 @@
 //  Copyright © 2020 SURFNet. All rights reserved.
 //
 
+#if os(iOS)
+import UIKit
+
+@UIApplicationMain
+class AppDelegate: NSObject, ApplicationDelegate {
+
+    var coordinator: AppCoordinator?
+    
+    let window = UIWindow(frame: UIScreen.main.bounds)
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Setup environment, here you can inject alternative services for testing
+        let config = Config.shared
+        let environment = Environment(config: config, mainService: MainService(), searchService: SearchService(config: config), settingsService: SettingsService(), connectionService: ConnectionService())
+        let appCoordinator = AppCoordinator(window: window, environment: environment)
+        coordinator = appCoordinator
+        appCoordinator.start()
+        
+        return true
+    }
+
+}
+
+#elseif os(macOS)
 import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, ApplicationDelegate {
 
     var coordinator: AppCoordinator?
-    
-    #if os(iOS)
-    
-    let window: UIWindow
-    
-    #elseif os(macOS)
     
     let windowController: NSWindowController = {
         return NSStoryboard(name: "Main", bundle: nil).instantiateController(withIdentifier: "WindowController") as! NSWindowController //swiftlint:disable:this force_cast
@@ -26,8 +44,6 @@ class AppDelegate: NSObject, ApplicationDelegate {
     var window: NSWindow {
         return windowController.window! //swiftlint:disable:this force_cast
     }
-    
-    #endif
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Setup environment, here you can inject alternative services for testing
@@ -44,3 +60,4 @@ class AppDelegate: NSObject, ApplicationDelegate {
 
 }
 
+#endif

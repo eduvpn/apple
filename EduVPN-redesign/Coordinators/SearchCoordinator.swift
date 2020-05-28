@@ -48,7 +48,7 @@ extension SearchCoordinator: SearchViewControllerDelegate {
     }
     
     func searchViewControllerCancelled(_ controller: SearchViewController) {
-        presentingViewController.dismiss(controller)
+        presentingViewController.dismiss(animated: true, completion: nil)
         delegate?.searchCoordinatorDidFinish(self)
     }
     
@@ -58,12 +58,12 @@ extension SearchCoordinator: SearchViewControllerDelegate {
 extension SearchCoordinator: AddOtherViewControllerDelegate {
     
     func addOtherViewController(_ controller: AddOtherViewController, addedServer: AnyObject) {
-        presentingViewController.dismiss(controller)
+        presentingViewController.dismiss(animated: true, completion: nil)
         delegate?.searchCoordinatorDidFinish(self)
     }
     
     func addOtherViewControllerCancelled(_ controller: AddOtherViewController) {
-        presentingViewController.dismiss(controller)
+        presentingViewController.dismiss(animated: true, completion: nil)
     }
     
 }
