@@ -1,12 +1,10 @@
 # Changelog
 
-## Unreleased
+## 2.1.7 Let's Connect! (2020-05-22) / eduVPN (not yet released)
+
 - iOS/Mac: Updated dependencies: TunnelKit & AlamoFire.
 - iOS/Mac: Added german translation
 - iOS/Mac: Preserve tunnel log across the previous tunnel invocation
-
-## 2.2 (2020-05-08)
-
 - iOS/Mac: Fix for connection getting stuck in Connecting state #248
 - iOS/Mac: Add back notification indicating certificate expiration. #235
 - iOS: On removing the "home" instance, all instances authentating through this home insance will alse be removed. Cascade deletion of Api accross `authorizingForGroup` relation. #241
