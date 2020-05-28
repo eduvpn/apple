@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PromiseKit
 
 class SearchViewModel {
     
@@ -14,6 +15,10 @@ class SearchViewModel {
     
     init(environment: Environment) {
         self.environment = environment
+    }
+    
+    func search(query: String) -> Promise<Void> {
+        return .value(())
     }
     
 }

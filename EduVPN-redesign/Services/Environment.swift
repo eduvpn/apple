@@ -9,6 +9,7 @@
 import Foundation
 
 struct Environment {
+    let config: Config
     let mainService: MainServiceType
     let searchService: SearchServiceType
     let settingsService: SettingsServiceType

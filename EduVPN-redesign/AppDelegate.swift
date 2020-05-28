@@ -31,7 +31,8 @@ class AppDelegate: NSObject, ApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Setup environment, here you can inject alternative services for testing
-        let environment = Environment(mainService: MainService(), searchService: SearchService(), settingsService: SettingsService(), connectionService: ConnectionService())
+        let config = Config.shared
+        let environment = Environment(config: config, mainService: MainService(), searchService: SearchService(config: config), settingsService: SettingsService(), connectionService: ConnectionService())
         let appCoordinator = AppCoordinator(window: window, environment: environment)
         coordinator = appCoordinator
         appCoordinator.start()

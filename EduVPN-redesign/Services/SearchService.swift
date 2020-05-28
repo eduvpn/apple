@@ -9,9 +9,23 @@
 import Foundation
 
 protocol SearchServiceType {
-    
+    init(config: Config)
+    func load()
 }
 
-class SearchService: SearchServiceType {
+final class SearchService: SearchServiceType {
     
+    private let config: Config
+    
+    init(config: Config) {
+        self.config = config
+    }
+    
+    lazy var organizationsLoader = OrganizationsLoader(config: config)
+    
+    func load() {
+        organizationsLoader.load().pipe { (result) in
+            print(result)
+        }
+    }
 }

@@ -39,7 +39,6 @@
 		342B9CBB228ED02E00C006D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 342B9CB9228ED02E00C006D7 /* Main.storyboard */; };
 		342B9CE622902BB500C006D7 /* DurationTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CD822902BB500C006D7 /* DurationTransformer.swift */; };
 		342B9CE722902BB500C006D7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CD922902BB500C006D7 /* MainViewController.swift */; };
-		342B9CE822902BB500C006D7 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CDA22902BB500C006D7 /* MainWindowController.swift */; };
 		34345271229FC66A00C0476E /* CoreDataFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345270229FC66A00C0476E /* CoreDataFetchedResultsControllerDelegate.swift */; };
 		34345285229FF2F000C0476E /* AppCoordinatorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345284229FF2F000C0476E /* AppCoordinatorError.swift */; };
 		3434528D229FF33100C0476E /* ConnectionsTableViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345286229FF33000C0476E /* ConnectionsTableViewControllerDelegate.swift */; };
@@ -76,11 +75,11 @@
 		34FD2AD122A7CFA0002AABB3 /* NotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FD2ACF22A7CF61002AABB3 /* NotificationsService.swift */; };
 		34FD2AD722A93530002AABB3 /* VPNConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FD2AD622A9352F002AABB3 /* VPNConnectionViewController.swift */; };
 		34FD2AD922A946E4002AABB3 /* VPNConnectionViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345287229FF33000C0476E /* VPNConnectionViewControllerDelegate.swift */; };
+		3BEE09D754D4D52C1F966DF0 /* Pods_eduVPN_2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C76FEBE3C4AC230B9911AF0 /* Pods_eduVPN_2.framework */; };
 		4A1140841F78490C00D61100 /* VPNConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */; };
 		4A11632A2370539F00577755 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1163292370539E00577755 /* Crypto.swift */; };
 		4A2803D91FA6867D00FA895C /* CustomProviderInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2803D81FA6867D00FA895C /* CustomProviderInputViewController.swift */; };
 		4A2CC2221F4233E8004119B1 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2CC2211F4233E8004119B1 /* Identifiable.swift */; };
-		4A3971B321E9500100782A28 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = 4A3971B221E9500100782A28 /* config.json */; };
 		4A3E029C1F6C4B3D00D20292 /* Moya+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3E029B1F6C4B3D00D20292 /* Moya+Extensions.swift */; };
 		4A4CA90F1F55F4300021FD5D /* UITableView+EduVPN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CA90E1F55F4300021FD5D /* UITableView+EduVPN.swift */; };
 		4A4F36531F31972C0032C96B /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4F36521F31972C0032C96B /* ApiService.swift */; };
@@ -130,8 +129,6 @@
 		C7D8E1D623742A4E009536C9 /* CancellablePromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */; };
 		C7DB4B6B247FC198009932B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B6A247FC198009932B1 /* AppDelegate.swift */; };
 		C7DB4B70247FC198009932B1 /* eduVPN_2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B6E247FC198009932B1 /* eduVPN_2.xcdatamodeld */; };
-		C7DB4B72247FC199009932B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7DB4B71247FC199009932B1 /* Assets.xcassets */; };
-		C7DB4B75247FC199009932B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7DB4B73247FC199009932B1 /* Main.storyboard */; };
 		C7DB4B81247FC19A009932B1 /* eduVPN_2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B80247FC19A009932B1 /* eduVPN_2Tests.swift */; };
 		C7DB4B8C247FC19A009932B1 /* eduVPN_2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B8B247FC19A009932B1 /* eduVPN_2UITests.swift */; };
 		C7DB4B97247FC234009932B1 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B49247FBE32009932B1 /* AppCoordinator.swift */; };
@@ -150,13 +147,28 @@
 		C7DB4BA4247FC243009932B1 /* ConnectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B5E247FBEE3009932B1 /* ConnectionViewModel.swift */; };
 		C7DB4BA5247FC243009932B1 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B61247FBEEA009932B1 /* SettingsViewModel.swift */; };
 		C7DB4BA6247FC4B3009932B1 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A983B781F397289004F82D5 /* Coordinator.swift */; };
-		C7DB4BA8247FC4B6009932B1 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BA7247FC4B6009932B1 /* Coordinator.swift */; };
-		C7DB4BA9247FC4B6009932B1 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BA7247FC4B6009932B1 /* Coordinator.swift */; };
 		C7DB4BAB247FC763009932B1 /* MainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BAA247FC763009932B1 /* MainService.swift */; };
 		C7DB4BAD247FC76F009932B1 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BAC247FC76F009932B1 /* SearchService.swift */; };
 		C7DB4BAF247FC779009932B1 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BAE247FC779009932B1 /* SettingsService.swift */; };
 		C7DB4BB1247FC787009932B1 /* ConnectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BB0247FC787009932B1 /* ConnectionService.swift */; };
 		C7DB4BB3247FD941009932B1 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BB2247FD941009932B1 /* Environment.swift */; };
+		C7DB4BCF24803A2A009932B1 /* ServerInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BCD24803A29009932B1 /* ServerInfoModel.swift */; };
+		C7DB4BD424803B99009932B1 /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BD224803B98009932B1 /* FileHelper.swift */; };
+		C7DB4BD524803B99009932B1 /* SignatureHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BD324803B99009932B1 /* SignatureHelper.swift */; };
+		C7DB4BF224803E47009932B1 /* OrganizationsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BF024803E46009932B1 /* OrganizationsLoader.swift */; };
+		C7DB4BF624803EB8009932B1 /* ProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BF524803EB8009932B1 /* ProviderType.swift */; };
+		C7DB4BF9248040F8009932B1 /* StaticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BF8248040F8009932B1 /* StaticService.swift */; };
+		C7DB4BFB24804C1A009932B1 /* Moya+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BFA24804C1A009932B1 /* Moya+Extensions.swift */; };
+		C7DB4BFD24804C85009932B1 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BFC24804C84009932B1 /* Config.swift */; };
+		C7DB4C00248052F7009932B1 /* OrganizationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BF324803E73009932B1 /* OrganizationModel.swift */; };
+		C7DB4C02248053D8009932B1 /* Moya+ResponseHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4C01248053D8009932B1 /* Moya+ResponseHandling.swift */; };
+		C7DB4C04248055D6009932B1 /* Moya+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4C03248055D6009932B1 /* Moya+Promise.swift */; };
+		C7DB4C05248056DC009932B1 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = 4A3971B221E9500100782A28 /* config.json */; };
+		C7DB4C1024805B57009932B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7DB4C0C24805B56009932B1 /* Assets.xcassets */; };
+		C7DB4C1124805B57009932B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7DB4C0D24805B56009932B1 /* Main.storyboard */; };
+		C7DB4C1324805C4C009932B1 /* Main.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7DB4C1224805C4C009932B1 /* Main.xib */; };
+		C7DB4C1624805DB9009932B1 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4C1524805DB9009932B1 /* MainWindowController.swift */; };
+		C7DB4C1B24805F9B009932B1 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = C7DB4C1A24805F9B009932B1 /* config.json */; };
 		C7EB81512369B63A006C141F /* LoginItemHelper-macOS.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C7FA7A0E23633694006501E8 /* CertificateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A0023633694006501E8 /* CertificateModel.swift */; };
 		C7FA7A0F23633694006501E8 /* CertificateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A0023633694006501E8 /* CertificateModel.swift */; };
@@ -365,7 +377,7 @@
 		4A2803D81FA6867D00FA895C /* CustomProviderInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProviderInputViewController.swift; sourceTree = "<group>"; };
 		4A2CC2211F4233E8004119B1 /* Identifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		4A2DA16D21C5ACF90026BCF5 /* EduVPN.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EduVPN.entitlements; sourceTree = "<group>"; };
-		4A3971B221E9500100782A28 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
+		4A3971B221E9500100782A28 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = config.json; path = ../../EduVPN/Config/config.json; sourceTree = "<group>"; };
 		4A3E029B1F6C4B3D00D20292 /* Moya+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Moya+Extensions.swift"; sourceTree = "<group>"; };
 		4A3E78DB236B692A009CE595 /* config-appforce1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-appforce1.json"; sourceTree = "<group>"; };
 		4A3E78DC236B694A009CE595 /* Developer.xcconfig.appforce1-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer.xcconfig.appforce1-template"; sourceTree = "<group>"; };
@@ -425,11 +437,13 @@
 		50A9AFF70F5198CFDC331C40 /* Pods-EduVPNTunnelExtension.debug letsconnect.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension.debug letsconnect.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.debug letsconnect.xcconfig"; sourceTree = "<group>"; };
 		5B954E3699D9E9CC26F5C3E7 /* Pods_EduVPNTunnelExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EduVPNTunnelExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B9A8DF8C8CCA27F6D91B0B6 /* Pods-EduVPNTunnelExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension.release.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.release.xcconfig"; sourceTree = "<group>"; };
+		6C76FEBE3C4AC230B9911AF0 /* Pods_eduVPN_2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_eduVPN_2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7013C2FA95F12401E201F285 /* Pods_EduVPN_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EduVPN_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7915EC1C4AA3C9A8898A15CD /* Pods-LoginItemHelper-macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoginItemHelper-macOS.debug.xcconfig"; path = "Target Support Files/Pods-LoginItemHelper-macOS/Pods-LoginItemHelper-macOS.debug.xcconfig"; sourceTree = "<group>"; };
 		7A3DB98EF527A814CF83B588 /* Pods_LetsConnect_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LetsConnect_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		811B8DD91EAD9F51D4D99F8B /* Pods-EduVPN.debug appforce1.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPN.debug appforce1.xcconfig"; path = "Target Support Files/Pods-EduVPN/Pods-EduVPN.debug appforce1.xcconfig"; sourceTree = "<group>"; };
 		86675C4E6B65866BEEF5D45B /* Pods_LoginItemHelper_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LoginItemHelper_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8FE415FB32F9211EF87C7643 /* Pods-eduVPN 2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eduVPN 2.release.xcconfig"; path = "Target Support Files/Pods-eduVPN 2/Pods-eduVPN 2.release.xcconfig"; sourceTree = "<group>"; };
 		961F13129E72E6136E222838 /* Pods-EduVPN.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPN.debug.xcconfig"; path = "Target Support Files/Pods-EduVPN/Pods-EduVPN.debug.xcconfig"; sourceTree = "<group>"; };
 		9C2602D94D6FDE288F8DDD4E /* Pods-EduVPN-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPN-macOS.release.xcconfig"; path = "Target Support Files/Pods-EduVPN-macOS/Pods-EduVPN-macOS.release.xcconfig"; sourceTree = "<group>"; };
 		9C5814DFFC4AFAA265AFACDF /* Pods-EduVPNTunnelExtension.debug appforce1.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension.debug appforce1.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.debug appforce1.xcconfig"; sourceTree = "<group>"; };
@@ -444,6 +458,7 @@
 		B0A376C8FFDBB5D48E014D90 /* Pods-EduVPNTunnelExtension.release letsconnect.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension.release letsconnect.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.release letsconnect.xcconfig"; sourceTree = "<group>"; };
 		B12260AE0AF1A988010B97FF /* Pods-EduVPNTunnelExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension.debug.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		BC15BFAF62E45899B859C4A9 /* Pods-EduVPN.release letsconnect.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPN.release letsconnect.xcconfig"; path = "Target Support Files/Pods-EduVPN/Pods-EduVPN.release letsconnect.xcconfig"; sourceTree = "<group>"; };
+		C163E149D693646C5332D5F5 /* Pods-eduVPN 2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eduVPN 2.debug.xcconfig"; path = "Target Support Files/Pods-eduVPN 2/Pods-eduVPN 2.debug.xcconfig"; sourceTree = "<group>"; };
 		C230B0CBF6380D0C00000596 /* Pods-EduVPNTunnelExtension-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension-macOS.release.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension-macOS/Pods-EduVPNTunnelExtension-macOS.release.xcconfig"; sourceTree = "<group>"; };
 		C537F33C8FB4D4E929A1CB68 /* Pods_EduVPN.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EduVPN.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7230D8A2363248900B9C691 /* copy_resources_macos.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = copy_resources_macos.sh; sourceTree = "<group>"; };
@@ -501,8 +516,6 @@
 		C7DB4B68247FC198009932B1 /* eduVPN 2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "eduVPN 2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7DB4B6A247FC198009932B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7DB4B6F247FC198009932B1 /* eduVPN_2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = eduVPN_2.xcdatamodel; sourceTree = "<group>"; };
-		C7DB4B71247FC199009932B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C7DB4B74247FC199009932B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C7DB4B76247FC199009932B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C7DB4B77247FC199009932B1 /* eduVPN_2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = eduVPN_2.entitlements; sourceTree = "<group>"; };
 		C7DB4B7C247FC19A009932B1 /* eduVPN 2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "eduVPN 2Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -511,12 +524,28 @@
 		C7DB4B87247FC19A009932B1 /* eduVPN 2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "eduVPN 2UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7DB4B8B247FC19A009932B1 /* eduVPN_2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = eduVPN_2UITests.swift; sourceTree = "<group>"; };
 		C7DB4B8D247FC19A009932B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C7DB4BA7247FC4B6009932B1 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		C7DB4BAA247FC763009932B1 /* MainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainService.swift; sourceTree = "<group>"; };
 		C7DB4BAC247FC76F009932B1 /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
 		C7DB4BAE247FC779009932B1 /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
 		C7DB4BB0247FC787009932B1 /* ConnectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionService.swift; sourceTree = "<group>"; };
 		C7DB4BB2247FD941009932B1 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		C7DB4BCD24803A29009932B1 /* ServerInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerInfoModel.swift; sourceTree = "<group>"; };
+		C7DB4BD224803B98009932B1 /* FileHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileHelper.swift; sourceTree = "<group>"; };
+		C7DB4BD324803B99009932B1 /* SignatureHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignatureHelper.swift; sourceTree = "<group>"; };
+		C7DB4BF024803E46009932B1 /* OrganizationsLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationsLoader.swift; sourceTree = "<group>"; };
+		C7DB4BF324803E73009932B1 /* OrganizationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationModel.swift; sourceTree = "<group>"; };
+		C7DB4BF524803EB8009932B1 /* ProviderType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderType.swift; sourceTree = "<group>"; };
+		C7DB4BF8248040F8009932B1 /* StaticService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticService.swift; sourceTree = "<group>"; };
+		C7DB4BFA24804C1A009932B1 /* Moya+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Moya+Extensions.swift"; sourceTree = "<group>"; };
+		C7DB4BFC24804C84009932B1 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		C7DB4C01248053D8009932B1 /* Moya+ResponseHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Moya+ResponseHandling.swift"; sourceTree = "<group>"; };
+		C7DB4C03248055D6009932B1 /* Moya+Promise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Moya+Promise.swift"; sourceTree = "<group>"; };
+		C7DB4C0C24805B56009932B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C7DB4C0E24805B56009932B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C7DB4C1224805C4C009932B1 /* Main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Main.xib; sourceTree = "<group>"; };
+		C7DB4C1524805DB9009932B1 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
+		C7DB4C1824805EE9009932B1 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		C7DB4C1A24805F9B009932B1 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
 		C7FA7A0023633694006501E8 /* CertificateModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateModel.swift; sourceTree = "<group>"; };
 		C7FA7A0123633694006501E8 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		C7FA7A0323633694006501E8 /* InstanceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstanceModel.swift; sourceTree = "<group>"; };
@@ -615,6 +644,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BEE09D754D4D52C1F966DF0 /* Pods_eduVPN_2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -649,6 +679,7 @@
 				7A3DB98EF527A814CF83B588 /* Pods_LetsConnect_macOS.framework */,
 				3BCF6B73BE29909C0802E49A /* Pods_EduVPNTunnelExtension_macOS.framework */,
 				86675C4E6B65866BEEF5D45B /* Pods_LoginItemHelper_macOS.framework */,
+				6C76FEBE3C4AC230B9911AF0 /* Pods_eduVPN_2.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -813,7 +844,7 @@
 			isa = PBXGroup;
 			children = (
 				34D719E0228D75550027DE84 /* AppDelegate.swift */,
-				342B9CDA22902BB500C006D7 /* MainWindowController.swift */,
+				C7DB4C1524805DB9009932B1 /* MainWindowController.swift */,
 				342B9CD922902BB500C006D7 /* MainViewController.swift */,
 				340A504E22A3BD9D00170E51 /* ProfilesViewController.swift */,
 				343452BF22A157E000C0476E /* ProvidersViewController.swift */,
@@ -860,6 +891,8 @@
 				C230B0CBF6380D0C00000596 /* Pods-EduVPNTunnelExtension-macOS.release.xcconfig */,
 				7915EC1C4AA3C9A8898A15CD /* Pods-LoginItemHelper-macOS.debug.xcconfig */,
 				F503A93725BF22BBFA2BEB65 /* Pods-LoginItemHelper-macOS.release.xcconfig */,
+				C163E149D693646C5332D5F5 /* Pods-eduVPN 2.debug.xcconfig */,
+				8FE415FB32F9211EF87C7643 /* Pods-eduVPN 2.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -956,7 +989,7 @@
 		4ABCCBDA21E5269B0020CB6D /* Config */ = {
 			isa = PBXGroup;
 			children = (
-				4A3971B221E9500100782A28 /* config.json */,
+				C7DB4C1A24805F9B009932B1 /* config.json */,
 				C75B2CC32363141200D700EC /* config-eduvpn_dev.json */,
 				C75B2CC22363141200D700EC /* config-eduvpn.json */,
 				C75B2CC52363141200D700EC /* config-letsconnect.json */,
@@ -1074,7 +1107,6 @@
 		C7DB4B33247FBAFB009932B1 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
-				4A983B781F397289004F82D5 /* Coordinator.swift */,
 				C7DB4B49247FBE32009932B1 /* AppCoordinator.swift */,
 				C7DB4B4C247FBE4F009932B1 /* MainCoordinator.swift */,
 				C7DB4B4F247FBE5B009932B1 /* SearchCoordinator.swift */,
@@ -1122,14 +1154,19 @@
 		C7DB4B69247FC198009932B1 /* EduVPN-redesign */ = {
 			isa = PBXGroup;
 			children = (
+				C7DB4C1424805D96009932B1 /* Mac */,
 				C7DB4B6A247FC198009932B1 /* AppDelegate.swift */,
 				C7DB4B3A247FBD63009932B1 /* Multiplatform.swift */,
-				C7DB4B36247FBD24009932B1 /* Services */,
-				C7DB4B35247FBD16009932B1 /* ViewModels */,
+				C7DB4BFF24804D62009932B1 /* Config */,
 				C7DB4B34247FBB06009932B1 /* Controllers */,
 				C7DB4B33247FBAFB009932B1 /* Coordinators */,
-				C7DB4B71247FC199009932B1 /* Assets.xcassets */,
-				C7DB4B73247FC199009932B1 /* Main.storyboard */,
+				C7DB4BD124803B57009932B1 /* Helpers */,
+				C7DB4BCC248039DB009932B1 /* Models */,
+				C7DB4BF7248040B8009932B1 /* Networking */,
+				C7DB4BEE24803E2B009932B1 /* Repositories */,
+				C7DB4B36247FBD24009932B1 /* Services */,
+				C7DB4B35247FBD16009932B1 /* ViewModels */,
+				C7DB4C0A24805B56009932B1 /* Resources */,
 				C7DB4B76247FC199009932B1 /* Info.plist */,
 				C7DB4B77247FC199009932B1 /* eduVPN_2.entitlements */,
 				C7DB4B6E247FC198009932B1 /* eduVPN_2.xcdatamodeld */,
@@ -1153,6 +1190,80 @@
 				C7DB4B8D247FC19A009932B1 /* Info.plist */,
 			);
 			path = "eduVPN 2UITests";
+			sourceTree = "<group>";
+		};
+		C7DB4BCC248039DB009932B1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C7DB4BF524803EB8009932B1 /* ProviderType.swift */,
+				C7DB4BF324803E73009932B1 /* OrganizationModel.swift */,
+				C7DB4BCD24803A29009932B1 /* ServerInfoModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C7DB4BD124803B57009932B1 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				C7DB4BD224803B98009932B1 /* FileHelper.swift */,
+				C7DB4BD324803B99009932B1 /* SignatureHelper.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		C7DB4BEE24803E2B009932B1 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				C7DB4BF024803E46009932B1 /* OrganizationsLoader.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		C7DB4BF7248040B8009932B1 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				C7DB4BF8248040F8009932B1 /* StaticService.swift */,
+				C7DB4C062480570D009932B1 /* Moya */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		C7DB4BFF24804D62009932B1 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				C7DB4BFC24804C84009932B1 /* Config.swift */,
+				4A3971B221E9500100782A28 /* config.json */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		C7DB4C062480570D009932B1 /* Moya */ = {
+			isa = PBXGroup;
+			children = (
+				C7DB4C03248055D6009932B1 /* Moya+Promise.swift */,
+				C7DB4BFA24804C1A009932B1 /* Moya+Extensions.swift */,
+				C7DB4C01248053D8009932B1 /* Moya+ResponseHandling.swift */,
+			);
+			path = Moya;
+			sourceTree = "<group>";
+		};
+		C7DB4C0A24805B56009932B1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C7DB4C0C24805B56009932B1 /* Assets.xcassets */,
+				C7DB4C0D24805B56009932B1 /* Main.storyboard */,
+				C7DB4C1224805C4C009932B1 /* Main.xib */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C7DB4C1424805D96009932B1 /* Mac */ = {
+			isa = PBXGroup;
+			children = (
+				342B9CDA22902BB500C006D7 /* MainWindowController.swift */,
+				C7DB4C1824805EE9009932B1 /* MainViewController.swift */,
+			);
+			path = Mac;
 			sourceTree = "<group>";
 		};
 		C7FA79FD23633694006501E8 /* Models */ = {
@@ -1359,9 +1470,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C7DB4B8E247FC19A009932B1 /* Build configuration list for PBXNativeTarget "eduVPN 2" */;
 			buildPhases = (
+				0DACD5FDF97F5B043E6FBCCC /* [CP] Check Pods Manifest.lock */,
 				C7DB4B64247FC198009932B1 /* Sources */,
 				C7DB4B65247FC198009932B1 /* Frameworks */,
 				C7DB4B66247FC198009932B1 /* Resources */,
+				426DF7F969898466EF16DB6A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1600,7 +1713,6 @@
 				4AAC1F841F2D0E3400DD0252 /* LaunchScreen.storyboard in Resources */,
 				C7517542236340C900058D95 /* Assets.xcassets in Resources */,
 				4AAC1F7F1F2D0E3400DD0252 /* Main.storyboard in Resources */,
-				4A3971B321E9500100782A28 /* config.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1615,8 +1727,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7DB4B72247FC199009932B1 /* Assets.xcassets in Resources */,
-				C7DB4B75247FC199009932B1 /* Main.storyboard in Resources */,
+				C7DB4C1024805B57009932B1 /* Assets.xcassets in Resources */,
+				C7DB4C05248056DC009932B1 /* config.json in Resources */,
+				C7DB4C1B24805F9B009932B1 /* config.json in Resources */,
+				C7DB4C1324805C4C009932B1 /* Main.xib in Resources */,
+				C7DB4C1124805B57009932B1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1637,6 +1752,62 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0DACD5FDF97F5B043E6FBCCC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-eduVPN 2-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		426DF7F969898466EF16DB6A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-eduVPN 2/Pods-eduVPN 2-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ASN1Decoder-macOS/ASN1Decoder.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-macOS/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AppAuth-macOS/AppAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/Moya-macOS/Moya.framework",
+				"${PODS_ROOT}/OpenSSL-Apple/frameworks/MacOSX/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit-macOS/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyBeaver-macOS/SwiftyBeaver.framework",
+				"${BUILT_PRODUCTS_DIR}/TunnelKit-macOS/TunnelKit.framework",
+				"${BUILT_PRODUCTS_DIR}/libsodium-macOS/libsodium.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ASN1Decoder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyBeaver.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TunnelKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libsodium.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-eduVPN 2/Pods-eduVPN 2-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		4A900CDB2225C07100A2D180 /* Copy Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1971,6 +2142,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7DB4C1624805DB9009932B1 /* MainWindowController.swift in Sources */,
 				34FD2AD722A93530002AABB3 /* VPNConnectionViewController.swift in Sources */,
 				C7FA7A8323633895006501E8 /* AuthServer+CoreDataProperties.swift in Sources */,
 				C7FA7AA123633895006501E8 /* Api.swift in Sources */,
@@ -2040,7 +2212,6 @@
 				C7FA7A9F23633895006501E8 /* Instance.swift in Sources */,
 				34186CF62297CE19009B4121 /* ApiService.swift in Sources */,
 				C7FA7AA723633895006501E8 /* ProviderType.swift in Sources */,
-				342B9CE822902BB500C006D7 /* MainWindowController.swift in Sources */,
 				34FD2AD122A7CFA0002AABB3 /* NotificationsService.swift in Sources */,
 				340A504122A26ECC00170E51 /* AppCoordinator+ViewControllers.swift in Sources */,
 				34D71AB2228DA3A00027DE84 /* String+URL.swift in Sources */,
@@ -2161,27 +2332,38 @@
 			files = (
 				C7DB4BA4247FC243009932B1 /* ConnectionViewModel.swift in Sources */,
 				C7DB4B9A247FC234009932B1 /* ConnectionCoordinator.swift in Sources */,
+				C7DB4C04248055D6009932B1 /* Moya+Promise.swift in Sources */,
 				C7DB4BA3247FC243009932B1 /* AddOtherViewModel.swift in Sources */,
 				C7DB4B9F247FC23D009932B1 /* ConnectionViewController.swift in Sources */,
+				C7DB4BCF24803A2A009932B1 /* ServerInfoModel.swift in Sources */,
+				C7DB4BFB24804C1A009932B1 /* Moya+Extensions.swift in Sources */,
 				C7DB4B97247FC234009932B1 /* AppCoordinator.swift in Sources */,
+				C7DB4BF9248040F8009932B1 /* StaticService.swift in Sources */,
 				C7DB4BB1247FC787009932B1 /* ConnectionService.swift in Sources */,
 				C7DB4B99247FC234009932B1 /* SearchCoordinator.swift in Sources */,
 				C7DB4B9D247FC23D009932B1 /* SearchViewController.swift in Sources */,
 				C7DB4BAB247FC763009932B1 /* MainService.swift in Sources */,
 				C7DB4BA1247FC243009932B1 /* MainViewModel.swift in Sources */,
 				C7DB4BA6247FC4B3009932B1 /* Coordinator.swift in Sources */,
+				C7DB4BF224803E47009932B1 /* OrganizationsLoader.swift in Sources */,
+				C7DB4C00248052F7009932B1 /* OrganizationModel.swift in Sources */,
+				C7DB4BF624803EB8009932B1 /* ProviderType.swift in Sources */,
 				C7DB4BA5247FC243009932B1 /* SettingsViewModel.swift in Sources */,
 				C7DB4B98247FC234009932B1 /* MainCoordinator.swift in Sources */,
 				C7DB4BB3247FD941009932B1 /* Environment.swift in Sources */,
+				C7DB4BFD24804C85009932B1 /* Config.swift in Sources */,
 				C7DB4BAF247FC779009932B1 /* SettingsService.swift in Sources */,
+				C7DB4BD424803B99009932B1 /* FileHelper.swift in Sources */,
 				C7DB4B9B247FC23D009932B1 /* Multiplatform.swift in Sources */,
 				C7DB4BA2247FC243009932B1 /* SearchViewModel.swift in Sources */,
+				C7DB4BD524803B99009932B1 /* SignatureHelper.swift in Sources */,
 				C7DB4B70247FC198009932B1 /* eduVPN_2.xcdatamodeld in Sources */,
 				C7DB4B6B247FC198009932B1 /* AppDelegate.swift in Sources */,
 				C7DB4B9C247FC23D009932B1 /* MainViewController.swift in Sources */,
 				C7DB4BAD247FC76F009932B1 /* SearchService.swift in Sources */,
 				C7DB4B9E247FC23D009932B1 /* AddOtherViewController.swift in Sources */,
 				C7DB4BA0247FC23D009932B1 /* SettingsViewController.swift in Sources */,
+				C7DB4C02248053D8009932B1 /* Moya+ResponseHandling.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2281,10 +2463,10 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		C7DB4B73247FC199009932B1 /* Main.storyboard */ = {
+		C7DB4C0D24805B56009932B1 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				C7DB4B74247FC199009932B1 /* Base */,
+				C7DB4C0E24805B56009932B1 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -2831,6 +3013,7 @@
 		};
 		C7DB4B8F247FC19A009932B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C163E149D693646C5332D5F5 /* Pods-eduVPN 2.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -2857,6 +3040,7 @@
 		};
 		C7DB4B90247FC19A009932B1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8FE415FB32F9211EF87C7643 /* Pods-eduVPN 2.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
