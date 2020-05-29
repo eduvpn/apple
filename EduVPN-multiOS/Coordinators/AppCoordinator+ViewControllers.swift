@@ -167,13 +167,7 @@ extension AppCoordinator {
         }
 
         // We are configured and not active / We are unconfigured and not active.
-        #if os(iOS)
         return presentationPromise.then { connectionVc.connect() }
-        #elseif os(macOS)
-        return presentationPromise
-            .then { self.tunnelProviderManagerCoordinator.configure(profile: profile) }
-            .then { $0.connect() }
-        #endif
     }
 
 }
