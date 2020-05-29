@@ -28,6 +28,20 @@ class VPNConnectionViewController: UIViewController {
         }
     }
 
+    private var isVPNEnabled = false {
+        didSet {
+            updateButton()
+            updateDismissability()
+        }
+    }
+
+    private var isVPNBeingConfigured = false {
+        didSet {
+            updateButton()
+            updateDismissability()
+        }
+    }
+
     // MARK: - Profile
 
     @IBOutlet weak var providerImage: UIImageView!
@@ -88,51 +102,28 @@ class VPNConnectionViewController: UIViewController {
         os_log("VPNStatusDidChange: %{public}@", log: Log.general, type: .debug, status.stringRepresentation)
 
         self.status = status
-        updateButton()
         updateDisplayLogButtonEnabled()
     }
 
     func updateButton() {
-        switch status {
-
-        case .connected:
-            if profile.isActiveConfig {
-                buttonConnection.setTitle(NSLocalizedString("Disconnect", comment: ""), for: .normal)
-            } else {
-                buttonConnection.setTitle(NSLocalizedString("Disconnect existing profile and reconfigure", comment: ""), for: .normal)
-            }
-            buttonConnection.isHidden = false || postponeButtonUpdates
-        case .connecting, .disconnecting, .reasserting:
-            buttonConnection.setTitle(NSLocalizedString("Disconnect", comment: ""), for: .normal)
-            buttonConnection.isHidden = false || postponeButtonUpdates
-
-        case .disconnected, .invalid:
-            buttonConnection.setTitle(NSLocalizedString("Connect", comment: ""), for: .normal)
-            buttonConnection.isHidden = false || postponeButtonUpdates
-
-        @unknown default:
-            fatalError()
-        }
-    }
-
-    private func statusUpdated() {
-        switch status {
-        case .invalid, .disconnected:
-            _ = connect()
-        case .connected, .connecting:
-            _ = disconnect()
-        default:
-            _ = self.providerManagerCoordinator.disconnect()
-        }
+        let buttonTitle = isVPNEnabled ?
+            NSLocalizedString("Disconnect", comment: "") :
+            NSLocalizedString("Connect", comment: "")
+        buttonConnection.setTitle(buttonTitle, for: .normal)
+        buttonConnection.isEnabled = !isVPNBeingConfigured
     }
 
     func connect() -> Promise<Void> {
         self.postponeButtonUpdates = true
+        self.isVPNBeingConfigured = true
 
         return providerManagerCoordinator.configure(profile: profile)
-            .then { $0.connect() }
-            .ensure {
-                self.status = self.providerManagerCoordinator.currentManager?.connection.status ?? .invalid
+            .then {
+                $0.connect()
+            }.map {
+                self.isVPNEnabled = self.providerManagerCoordinator.isOnDemandEnabled
+            }.ensure {
+                self.isVPNBeingConfigured = false
                 self.postponeButtonUpdates = false
             }
     }
@@ -140,30 +131,21 @@ class VPNConnectionViewController: UIViewController {
     func disconnect() -> Promise<Void> {
         self.postponeButtonUpdates = true
 
-        return providerManagerCoordinator.checkOnDemandEnabled().then { onDemandEnabled -> Promise<Void> in
-            if let delegate = self.delegate, onDemandEnabled {
-                return delegate.confirmDisconnectWhileOnDemandEnabled().then({ disconnect -> Promise<Void> in
-                    if disconnect {
-                        return self.providerManagerCoordinator.disconnect()
-                    } else {
-                        return Promise.value(())
-                    }
-                })
-            } else {
-                return self.providerManagerCoordinator.disconnect()
+        return providerManagerCoordinator.disconnect()
+            .map {
+                self.isVPNEnabled = self.providerManagerCoordinator.isOnDemandEnabled
+            }.ensure {
+                self.postponeButtonUpdates = false
             }
-        }.ensure {
-            self.status = self.providerManagerCoordinator.currentManager?.connection.status ?? .invalid
-            self.postponeButtonUpdates = false
-        }
     }
 
     @IBAction func connectionClicked(_ sender: Any) {
-        if status == .invalid {
-            providerManagerCoordinator.getCurrentTunnelProviderManager()
-                .done { [weak self] _ in self?.statusUpdated() }
+        if isVPNEnabled {
+            disconnect()
+                .cauterize()
         } else {
-            statusUpdated()
+            connect()
+                .cauterize()
         }
     }
 
@@ -224,8 +206,18 @@ class VPNConnectionViewController: UIViewController {
 
     // MARK: - Back
 
+    @IBOutlet weak var closeButton: UIBarButtonItem!
+
     @IBAction func closeClicked(_ sender: Any) {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+
+    func updateDismissability() {
+        let isDismissable = (!isVPNEnabled && !isVPNBeingConfigured)
+        closeButton.isEnabled = isDismissable
+        if #available(iOS 13, *) {
+            isModalInPresentation = !isDismissable
+        }
     }
 
     // MARK: - Log
@@ -255,9 +247,13 @@ class VPNConnectionViewController: UIViewController {
 
         displayProfile()
 
+        self.buttonConnection.isEnabled = false
         providerManagerCoordinator.getCurrentTunnelProviderManager()
-            .done { self.status = $0?.connection.status ?? .invalid }
-            .catch { _ in /* Already printed errors */ }
+            .map { manager in
+                self.isVPNEnabled = self.providerManagerCoordinator.isOnDemandEnabled
+                self.status = manager?.connection.status ?? .invalid
+                self.buttonConnection.isEnabled = true
+            }.cauterize()
     }
 
     override func viewWillAppear(_ animated: Bool) {
