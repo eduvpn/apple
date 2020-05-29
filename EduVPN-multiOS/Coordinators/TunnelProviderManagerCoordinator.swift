@@ -47,6 +47,11 @@ class TunnelProviderManagerCoordinator: Coordinator {
         isStatusActive(currentManager?.connection.status ?? .invalid)
     }
 
+    var isOnDemandEnabled: Bool {
+        guard let currentManager = currentManager else { return false }
+        return currentManager.isEnabled && currentManager.isOnDemandEnabled
+    }
+
     var appGroup: String {
         if let bundleID = Bundle.main.bundleIdentifier {
             #if os(macOS)
