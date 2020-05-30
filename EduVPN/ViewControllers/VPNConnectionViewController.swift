@@ -39,6 +39,7 @@ class VPNConnectionViewController: UIViewController {
         didSet {
             updateButton()
             updateDismissability()
+            updateSpinner()
         }
     }
 
@@ -80,6 +81,7 @@ class VPNConnectionViewController: UIViewController {
             @unknown default:
                 fatalError()
             }
+            updateSpinner()
         }
     }
 
@@ -220,6 +222,26 @@ class VPNConnectionViewController: UIViewController {
         }
     }
 
+    // MARK: - Spinner
+
+    var spinner: UIActivityIndicatorView?
+
+    func addSpinner() {
+        let spinner = UIActivityIndicatorView(style: .white)
+        spinner.hidesWhenStopped = true
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: spinner)
+        spinner.startAnimating()
+        self.spinner = spinner
+    }
+
+    func updateSpinner() {
+        if isVPNBeingConfigured || status == .connecting || status == .disconnecting {
+            self.spinner?.startAnimating()
+        } else {
+            self.spinner?.stopAnimating()
+        }
+    }
+
     // MARK: - Log
 
     @IBOutlet weak var logTextView: UITextView!
@@ -246,6 +268,7 @@ class VPNConnectionViewController: UIViewController {
         super.viewDidLoad()
 
         displayProfile()
+        addSpinner()
 
         self.buttonConnection.isEnabled = false
         providerManagerCoordinator.getCurrentTunnelProviderManager()
