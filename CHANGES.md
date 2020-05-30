@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Update connection screen buttons based on on-demand status
+
 ## 2.1.7 Let's Connect! (2020-05-22) / eduVPN (not yet released)
 
 - iOS/Mac: Updated dependencies: TunnelKit & AlamoFire.
