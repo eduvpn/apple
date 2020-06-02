@@ -148,7 +148,7 @@ class VPNConnectionViewController: NSViewController {
     }
     
     private func toggleSpinner() {
-        if isVPNBeingConfigured || status == .connecting || status == .disconnecting {
+        if isVPNBeingConfigured || status == .connecting || status == .disconnecting || status == .reasserting {
             spinner.startAnimation(nil)
         } else {
             spinner.stopAnimation(nil)
