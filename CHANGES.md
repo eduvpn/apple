@@ -1,9 +1,12 @@
 # Changelog
 
-## 2.1.7 Let's Connect! (2020-05-22) / eduVPN (not yet released)
+## 2.1.8 (...)
 
 - iOS/Mac: Display Let's Connect! app with proper (full) display name.
 - iOS: More padding around Let's Connect icon.
+
+## 2.1.7 (2020-05-22)
+
 - iOS/Mac: Updated dependencies: TunnelKit & AlamoFire.
 - iOS/Mac: Added german translation
 - iOS/Mac: Preserve tunnel log across the previous tunnel invocation
