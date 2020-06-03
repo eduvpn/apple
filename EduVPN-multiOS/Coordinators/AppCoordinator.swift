@@ -126,7 +126,7 @@ class AppCoordinator: RootViewCoordinator {
     // MARK: - Functions
     
     /// Starts the coordinator
-    private func instantiateProvidersViewController() {
+    private func showInitialViewControllers() {
         #if os(iOS)
         providersViewController = storyboard.instantiateViewController(type: ProvidersViewController.self)
         #endif
@@ -139,9 +139,21 @@ class AppCoordinator: RootViewCoordinator {
         #if os(iOS)
         navigationController.viewControllers = [providersViewController]
         #elseif os(macOS)
-        
+
         providersViewController.start()
         #endif
+
+        tunnelProviderManagerCoordinator.checkOnDemandEnabled()
+            .then { enabled -> Promise<Void> in
+                if !enabled { return Promise.value(()) }
+                guard let profileId = UserDefaults.standard.configuredProfileId,
+                    let profile = try? Profile.findFirstInContext(
+                        self.persistentContainer.viewContext,
+                        predicate: NSPredicate(format: "uuid == %@", profileId)) else {
+                            return Promise.value(())
+                }
+                return self.showConnectionViewController(for: profile, connectAfterShowing: false)
+            }.cauterize()
     }
     
     public func start() {
@@ -152,7 +164,7 @@ class AppCoordinator: RootViewCoordinator {
                 self?.showError(error)
             } else {
                 DispatchQueue.main.async {
-                    self?.instantiateProvidersViewController()
+                    self?.showInitialViewControllers()
                 }
             }
         }

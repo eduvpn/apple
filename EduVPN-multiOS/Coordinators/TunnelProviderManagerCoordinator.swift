@@ -47,6 +47,11 @@ class TunnelProviderManagerCoordinator: Coordinator {
         isStatusActive(currentManager?.connection.status ?? .invalid)
     }
 
+    var isOnDemandEnabled: Bool {
+        guard let currentManager = currentManager else { return false }
+        return currentManager.isEnabled && currentManager.isOnDemandEnabled
+    }
+
     var appGroup: String {
         if let bundleID = Bundle.main.bundleIdentifier {
             #if os(macOS)
@@ -196,7 +201,7 @@ class TunnelProviderManagerCoordinator: Coordinator {
 extension NETunnelProviderManager {
     func connect() -> Promise<Void> {
         return setOnDemand(enabled: true)
-            .map { self.startTunnel() }
+            .map { try self.startTunnel() }
     }
 
     func disconnect() -> Promise<Void> {
@@ -246,7 +251,7 @@ private extension NETunnelProviderManager {
         }
     }
 
-    func startTunnel() {
+    func startTunnel() throws {
         os_log("starting tunnel", log: Log.general, type: .info)
         if let session = tunnelSession() {
             do {
@@ -254,6 +259,7 @@ private extension NETunnelProviderManager {
             } catch let error {
                 os_log("error starting tunnel: %{public}@",
                        log: Log.general, type: .error, error.localizedDescription)
+                throw error
             }
         }
     }
