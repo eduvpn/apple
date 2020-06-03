@@ -17,16 +17,10 @@ class AppDelegate: NSObject, ApplicationDelegate {
     let window = UIWindow(frame: UIScreen.main.bounds)
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Setup environment, here you can inject alternative services for testing
-        let config = Config.shared
-        let environment = Environment(config: config, mainService: MainService(), searchService: SearchService(config: config), settingsService: SettingsService(), connectionService: ConnectionService())
-        let appCoordinator = AppCoordinator(window: window, environment: environment)
-        coordinator = appCoordinator
-        appCoordinator.start()
-        
+        setup()
         return true
     }
-
+    
 }
 
 #elseif os(macOS)
@@ -34,7 +28,7 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, ApplicationDelegate {
-
+    
     var coordinator: AppCoordinator?
     
     let windowController: NSWindowController = {
@@ -46,6 +40,16 @@ class AppDelegate: NSObject, ApplicationDelegate {
     }
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        setup()
+    }
+    
+}
+
+#endif
+
+extension AppDelegate {
+    
+    private func setup() {
         // Setup environment, here you can inject alternative services for testing
         let config = Config.shared
         let environment = Environment(config: config, mainService: MainService(), searchService: SearchService(config: config), settingsService: SettingsService(), connectionService: ConnectionService())
@@ -53,11 +57,5 @@ class AppDelegate: NSObject, ApplicationDelegate {
         coordinator = appCoordinator
         appCoordinator.start()
     }
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
-    }
-
+    
 }
-
-#endif
