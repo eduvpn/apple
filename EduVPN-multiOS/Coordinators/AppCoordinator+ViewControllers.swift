@@ -137,7 +137,7 @@ extension AppCoordinator {
         InstancesRepository.shared.loader.load(with: providerType)
     }
     
-    internal func showConnectionViewController(for profile: Profile) -> Promise<Void> {
+    internal func showConnectionViewController(for profile: Profile, connectAfterShowing: Bool = true) -> Promise<Void> {
         let connectionVc = storyboard.instantiateViewController(type: VPNConnectionViewController.self)
         connectionVc.providerManagerCoordinator = tunnelProviderManagerCoordinator
         connectionVc.delegate = self
@@ -162,14 +162,12 @@ extension AppCoordinator {
             return presentationPromise
         }
         
+        if !connectAfterShowing {
+            return presentationPromise
+        }
+
         // We are configured and not active / We are unconfigured and not active.
-        #if os(iOS)
         return presentationPromise.then { connectionVc.connect() }
-        #elseif os(macOS)
-        return presentationPromise
-            .then { self.tunnelProviderManagerCoordinator.configure(profile: profile) }
-            .then { $0.connect() }
-        #endif
     }
 
 }
