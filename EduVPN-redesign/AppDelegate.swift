@@ -14,10 +14,12 @@ class AppDelegate: NSObject, ApplicationDelegate {
 
     var coordinator: AppCoordinator?
     
-    let window = UIWindow(frame: UIScreen.main.bounds)
+    var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        setup()
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        self.window = window
+        setup(window: window)
         return true
     }
     
@@ -40,7 +42,7 @@ class AppDelegate: NSObject, ApplicationDelegate {
     }
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        setup()
+        setup(window: window)
     }
     
 }
@@ -49,7 +51,7 @@ class AppDelegate: NSObject, ApplicationDelegate {
 
 extension AppDelegate {
     
-    private func setup() {
+    private func setup(window: Window) {
         // Setup environment, here you can inject alternative services for testing
         let config = Config.shared
         let environment = Environment(config: config, mainService: MainService(), searchService: SearchService(config: config), settingsService: SettingsService(), connectionService: ConnectionService())
