@@ -205,7 +205,7 @@ extension NETunnelProviderManager {
     }
 
     func disconnect() -> Promise<Void> {
-        if isStatusActive(connection.status) {
+        if protocolConfiguration != nil {
             return setOnDemand(enabled: false)
                 .map { self.stopTunnel() }
         } else {
