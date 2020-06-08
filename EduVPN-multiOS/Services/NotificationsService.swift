@@ -132,10 +132,7 @@ class NotificationsService: NSObject {
 
         let content = UNMutableNotificationContent()
         content.title = NSString.localizedUserNotificationString(
-            forKey: "eduVPN session is about to expire.",
-            arguments: nil)
-        content.subtitle = NSString.localizedUserNotificationString(
-            forKey: "Please renew session.",
+            forKey: "Your VPN session is expiring",
             arguments: nil)
 
         // We're not using localizedUserNotificationString below becuse:
