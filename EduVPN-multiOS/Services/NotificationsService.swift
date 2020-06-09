@@ -44,13 +44,18 @@ class NotificationsService: NSObject {
             identifier: CertificateExpiryNotificationAction.refreshCertificate.rawValue,
             title: NSString.localizedUserNotificationString(forKey: "Renew Session", arguments: nil),
             options: [.authenticationRequired, .foreground])
+        #if os(macOS)
         let ignoreAction = UNNotificationAction(
             identifier: CertificateExpiryNotificationAction.ignore.rawValue,
             title: NSString.localizedUserNotificationString(forKey: "Ignore", arguments: nil),
             options: [])
+        let notificationActions = [authorizeAction, ignoreAction]
+        #elseif os(iOS)
+        let notificationActions = [authorizeAction]
+        #endif
         let certificateExpiryCategory = UNNotificationCategory(
             identifier: NotificationCategory.certificateExpiry.rawValue,
-            actions: [authorizeAction, ignoreAction],
+            actions: notificationActions,
             intentIdentifiers: [],
             hiddenPreviewsBodyPlaceholder: "",
             options: [])
