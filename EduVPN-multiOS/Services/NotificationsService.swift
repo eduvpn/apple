@@ -2,7 +2,6 @@
 //  NotificationsService.swift
 //  EduVPN
 //
-//  Created by Aleksandr Poddubny on 05/06/2019.
 //  Copyright © 2020 SURFNet. All rights reserved.
 //
 
@@ -10,115 +9,198 @@ import Foundation
 import UserNotifications
 import os.log
 
-class NotificationsService {
-    
-    struct Notification {
-        
-        let title: String
-        let body: String?
-    }
-    
-    func makeNotification(title: String, body: String?) -> Notification {
-        return Notification(title: title, body: body)
-    }
-    
-    #if os(iOS)
-    
-    func sendNotification(_ notification: Notification,
-                          withIdentifier identifier: String,
-                          at triggerDate: DateComponents,
-                          repeats: Bool = false,
-                          callback: ((Error?) -> Void)? = nil) {
+import PromiseKit
 
-        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: repeats)
-        let notificationContent = UNMutableNotificationContent()
-        notificationContent.title = notification.title
-        if let body = notification.body {
-            notificationContent.body = body
-        }
-        let request = UNNotificationRequest(identifier: identifier, content: notificationContent, trigger: trigger)
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: callback)
-    }
-    
-    #elseif os(macOS)
-    
-    func sendNotification(_ notification: Notification,
-                          withIdentifier identifier: String,
-                          at triggerDate: DateComponents,
-                          repeats: Bool = false,
-                          callback: ((Error?) -> Void)? = nil) {
-        
-        if #available(OSX 10.14, *) {
-            let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: repeats)
-            let notificationContent = UNMutableNotificationContent()
-            notificationContent.title = notification.title
-            if let body = notification.body {
-                notificationContent.body = body
-            }
-            let request = UNNotificationRequest(identifier: identifier, content: notificationContent, trigger: trigger)
-            
-            UNUserNotificationCenter.current().add(request, withCompletionHandler: callback)
-        } else {
-            let payload = NSUserNotification()
-            payload.title = notification.title
-            payload.informativeText = notification.body
-            payload.deliveryDate = NSCalendar.current.date(from: triggerDate)
+// Handles local user notifications delivered from/to the app
 
-            NSUserNotificationCenter.default.scheduleNotification(payload)
-            
-            callback?(nil)
-        }
+class NotificationsService: NSObject {
+    enum NotificationCategory: String {
+        case certificateExpiry
     }
-    
-    #endif
-    
-    func permissionGranted(callback: @escaping (Bool) -> Void) {
-        #if os(iOS)
-        
-        UNUserNotificationCenter.current().getNotificationSettings { settings in
-            callback(settings.authorizationStatus == UNAuthorizationStatus.authorized)
-        }
-        
-        #elseif os(macOS)
-        
-        if #available(OSX 10.14, *) {
-            UNUserNotificationCenter.current().getNotificationSettings { settings in
-                callback(settings.authorizationStatus == UNAuthorizationStatus.authorized)
-            }
-        } else {
-            callback(true)
-        }
-        
+
+    enum CertificateExpiryNotificationAction: String {
+        case refreshCertificate
+        case ignore
+    }
+
+    // If user clicks on the 'Authorize' button or the notification itself,
+    // this block shall be called.
+    var onCertificateExpiryNotificationClicked: (() -> Void)?
+
+    static var notificationCenter: UNUserNotificationCenter {
+        UNUserNotificationCenter.current()
+    }
+
+    static var authorizationOptions: UNAuthorizationOptions = [.alert, .sound]
+
+    override init() {
+        super.init()
+        Self.notificationCenter.delegate = self
+        self.registerActionableNotifications()
+    }
+
+    func registerActionableNotifications() {
+        let authorizeAction = UNNotificationAction(
+            identifier: CertificateExpiryNotificationAction.refreshCertificate.rawValue,
+            title: NSString.localizedUserNotificationString(forKey: "Renew Session", arguments: nil),
+            options: [.authenticationRequired, .foreground])
+        #if os(macOS)
+        let ignoreAction = UNNotificationAction(
+            identifier: CertificateExpiryNotificationAction.ignore.rawValue,
+            title: NSString.localizedUserNotificationString(forKey: "Ignore", arguments: nil),
+            options: [])
+        let notificationActions = [authorizeAction, ignoreAction]
+        #elseif os(iOS)
+        let notificationActions = [authorizeAction]
         #endif
+        let certificateExpiryCategory = UNNotificationCategory(
+            identifier: NotificationCategory.certificateExpiry.rawValue,
+            actions: notificationActions,
+            intentIdentifiers: [],
+            hiddenPreviewsBodyPlaceholder: "",
+            options: [])
+        Self.notificationCenter.setNotificationCategories([certificateExpiryCategory])
     }
 
-    func scheduleCertificateExpirationNotification(for certificate: CertificateModel, on api: Api) {
-        guard let expirationDate = certificate.x509Certificate?.notAfter else { return }
-        guard let identifier = certificate.uniqueIdentifier else { return }
+    static func requestAuthorization() -> Guarantee<Bool> {
+        return Guarantee<Bool> { callback in
+            notificationCenter.requestAuthorization(options: authorizationOptions) { (granted, error) in
+                if granted {
+                    os_log("Notifications authorized", log: Log.general, type: .info)
+                } else {
+                    os_log("Notifications not authorized", log: Log.general, type: .info)
+                }
 
-        let notificationTitle = NSLocalizedString("VPN certificate is expiring", comment: "")
-
-        var notificationBody: String?
-        if let certificateTitle = api.instance?.displayNames?.localizedValue {
-            notificationBody = String.localizedStringWithFormat("Once expired the certificate for instance %@ needs to be refreshed.", certificateTitle)
-        }
-
-        let notification = makeNotification(title: notificationTitle, body: notificationBody)
-
-#if DEBUG
-        guard let expirationWarningDate = NSCalendar.current.date(byAdding: .second, value: 10, to: Date()) else { return }
-#else
-        guard let expirationWarningDate = NSCalendar.current.date(byAdding: .minute, value: -15, to: expirationDate), expirationDate.timeIntervalSince(Date()) < 0 else { return }
-#endif
-        let expirationWarningDateComponents = NSCalendar.current.dateComponents(in: NSTimeZone.default, from: expirationWarningDate)
-
-        os_log("Scheduling a cert expiration reminder for %{public}@ on %{public}@.", log: Log.general, type: .info, certificate.uniqueIdentifier ?? "", expirationDate.description)
-        sendNotification(notification, withIdentifier: identifier, at: expirationWarningDateComponents) { error in
-            if let error = error {
-                os_log("Error occured when scheduling a cert expiration reminder %{public}@",
-                       log: Log.general,
-                       type: .info, error.localizedDescription)
+                if let error = error {
+                    os_log("Error occured when requesting notification authorization. %{public}@", log: Log.general, type: .error, error.localizedDescription)
+                }
+                callback(granted)
             }
         }
+    }
+
+    static func isNotificationAllowed() -> Guarantee<Bool> {
+        return Guarantee<Bool> { callback in
+            notificationCenter.getNotificationSettings { settings in
+                callback((settings.authorizationStatus == .authorized) &&
+                    (settings.alertSetting == .enabled))
+            }
+        }
+    }
+
+    static func scheduleCertificateExpiryNotification(for profile: Profile) -> Guarantee<Bool> {
+        guard let expiryDate = profile.api?.certificateModel?.x509Certificate?.notAfter else {
+            return Guarantee.value(false)
+        }
+
+        os_log("Certificate expires at %{public}@", log: Log.general, type: .debug, expiryDate as NSDate)
+
+        return requestAuthorization()
+            .then { isAuthorized -> Guarantee<Bool> in
+                guard isAuthorized else { return Guarantee.value(false) }
+                return isNotificationAllowed()
+            }.then { canAddNotificationRequest -> Guarantee<Bool> in
+                guard canAddNotificationRequest else { return Guarantee.value(false) }
+
+                let minutesToExpiry = Calendar.current.dateComponents([.minute], from: Date(), to: expiryDate).minute ?? 0
+                guard minutesToExpiry > 0 else { // Certificate has already expired
+                    return Guarantee.value(false)
+                }
+
+                // Normally, fire the notification 30 mins before expiry. If we're already past
+                // that time, fire it 2 seconds from now.
+                let maxMinutesFromNotificationToExpiry = 30
+                let minSecondsToNotification = 2
+                let secondsToNotification = (minutesToExpiry > maxMinutesFromNotificationToExpiry) ?
+                    ((minutesToExpiry - maxMinutesFromNotificationToExpiry) * 60) : minSecondsToNotification
+                precondition(secondsToNotification > 0)
+
+                let notificationId = getOrCreateProfileID(on: profile)
+                return addCertificateExpiryNotificationRequest(
+                    notificationId: notificationId.uuidString,
+                    expiryDate: expiryDate,
+                    secondsToNotification: secondsToNotification)
+            }
+    }
+
+    static func descheduleCertificateExpiryNotification(for profile: Profile) {
+        if let notificationId = profile.uuid {
+            notificationCenter.removePendingNotificationRequests(
+                withIdentifiers: [notificationId.uuidString])
+        }
+    }
+
+    private static func addCertificateExpiryNotificationRequest(
+        notificationId: String,
+        expiryDate: Date,
+        secondsToNotification: Int) -> Guarantee<Bool> {
+
+        let content = UNMutableNotificationContent()
+        content.title = NSString.localizedUserNotificationString(
+            forKey: "Your VPN session is expiring",
+            arguments: nil)
+
+        // We're not using localizedUserNotificationString below becuse:
+        //   - we need the timestamp to be as per the current locale and
+        //     consistent with language of the body string
+        //   - when arguments: is not nil, the notifications don't seem to fire.
+        //     See: https://openradar.appspot.com/43007245
+        let formatter = DateFormatter()
+        formatter.dateStyle = .none
+        formatter.timeStyle = .short
+        content.body = String(
+            format: NSLocalizedString("Session expires at %@", comment: ""),
+            formatter.string(from: expiryDate))
+
+        content.sound = UNNotificationSound.default
+
+        content.categoryIdentifier = NotificationCategory.certificateExpiry.rawValue
+
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(secondsToNotification), repeats: false)
+        let request = UNNotificationRequest(identifier: notificationId, content: content, trigger: trigger)
+
+        return Guarantee<Bool> { callback in
+            notificationCenter.add(request) { error in
+                if let error = error {
+                    os_log("Error scheduling certificate expiry notification: %{public}@", log: Log.general, type: .error, error.localizedDescription)
+                } else {
+                    os_log("Certificate expiry notification scheduled to fire in %{public}d seconds", log: Log.general, type: .debug, secondsToNotification)
+                }
+                callback(error == nil)
+            }
+        }
+    }
+}
+
+extension NotificationsService: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        let actionId = response.actionIdentifier
+        let categoryId = response.notification.request.content.categoryIdentifier
+        if categoryId == NotificationCategory.certificateExpiry.rawValue {
+            // User clicked on 'Authorize' in the notification
+            if actionId == CertificateExpiryNotificationAction.refreshCertificate.rawValue ||
+                // User clicked on the notification itself
+                actionId == UNNotificationDefaultActionIdentifier {
+                onCertificateExpiryNotificationClicked?()
+            }
+        }
+        completionHandler()
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .sound])
+    }
+}
+
+/// If `profile` already has an uuid, return it
+/// Else, set a uuid on `profile` and return it.
+private func getOrCreateProfileID(on profile: Profile) -> UUID {
+    if let existingUUID = profile.uuid {
+        return existingUUID
+    } else {
+        let newUUID = UUID()
+        profile.uuid = newUUID
+        profile.managedObjectContext?.saveContext()
+        return newUUID
     }
 }

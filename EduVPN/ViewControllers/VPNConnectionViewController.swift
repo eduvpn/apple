@@ -124,6 +124,8 @@ class VPNConnectionViewController: UIViewController {
                 $0.connect()
             }.map {
                 self.isVPNEnabled = self.providerManagerCoordinator.isOnDemandEnabled
+                NotificationsService.scheduleCertificateExpiryNotification(for: self.profile)
+                    .done { _ in }
             }.ensure {
                 self.isVPNBeingConfigured = false
                 self.postponeButtonUpdates = false
@@ -136,6 +138,7 @@ class VPNConnectionViewController: UIViewController {
         return providerManagerCoordinator.disconnect()
             .map {
                 self.isVPNEnabled = self.providerManagerCoordinator.isOnDemandEnabled
+                NotificationsService.descheduleCertificateExpiryNotification(for: self.profile)
             }.ensure {
                 self.postponeButtonUpdates = false
             }
@@ -235,7 +238,7 @@ class VPNConnectionViewController: UIViewController {
     }
 
     func updateSpinner() {
-        if isVPNBeingConfigured || status == .connecting || status == .disconnecting {
+        if isVPNBeingConfigured || status == .connecting || status == .disconnecting || status == .reasserting {
             self.spinner?.startAnimating()
         } else {
             self.spinner?.stopAnimating()
