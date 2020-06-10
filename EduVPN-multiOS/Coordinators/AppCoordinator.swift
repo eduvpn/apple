@@ -206,6 +206,41 @@ class AppCoordinator: RootViewCoordinator {
             // We're done, save everything.
             context.saveContext()
         }
+
+        notificationsService.onCertificateExpiryNotificationClicked = { [weak self] in
+            self?.onCertificateExpiryNotificationClicked()
+        }
+    }
+
+    func onCertificateExpiryNotificationClicked() {
+        os_log("User clicked on certificate expiry notification", log: Log.general, type: .debug)
+
+        guard let profileId = UserDefaults.standard.configuredProfileId,
+            let profile = try? Profile.findFirstInContext(
+                self.persistentContainer.viewContext,
+                predicate: NSPredicate(format: "uuid == %@", profileId)) else {
+                os_log("No profile is active", log: Log.general, type: .debug)
+                return
+        }
+
+        guard self.tunnelProviderManagerCoordinator.isOnDemandEnabled else {
+            os_log("No tunnel is active", log: Log.general, type: .debug)
+            return
+        }
+
+        guard let api = profile.api else {
+            os_log("No api in profile", log: Log.general, type: .debug)
+            return
+        }
+
+        after(seconds: 0.5) // Allow some time for the app to come to the foreground
+            .then {
+                self.fetchCertificate(for: api, useAuthState: false)
+            }.then { _ in
+                self.tunnelProviderManagerCoordinator.configure(profile: profile)
+            }.then { manager in
+                manager.connect()
+            }.cauterize()
     }
     
     func loadCertificate(for api: Api) -> Promise<CertificateModel> {
@@ -231,48 +266,62 @@ class AppCoordinator: RootViewCoordinator {
                 api.certificateModel = nil
             }
         }
-        
+
+        return fetchCertificate(for: api, useAuthState: true)
+    }
+
+    /// Fetch a certificate from the server.
+    ///
+    /// If we use the existing valid authState or the existing valid browser
+    /// session, the certificate we get from the server would be bound to
+    /// the lifetime of the refresh_token / browser session.
+    /// If called with `useAuthState` false after the browser session expires,
+    /// we can get a fresh certificate that would be valid for a longer time
+    /// (compared to using an existing valid authState).
+
+    func fetchCertificate(for api: Api, useAuthState: Bool) -> Promise<CertificateModel> {
+        guard let dynamicApiProvider = DynamicApiProvider(api: api) else {
+            return Promise(error: AppCoordinatorError.apiProviderCreateFailed)
+        }
+
         guard let appName: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String else {
             fatalError("An app should always have a `CFBundleName`.")
         }
+
         #if os(iOS)
         let keyPairDisplayName = "\(appName) for iOS"
         #elseif os(macOS)
         let keyPairDisplayName = "\(appName) for macOS"
         #endif
-        
-        return dynamicApiProvider.request(apiService: .createKeypair(displayName: keyPairDisplayName))
-            .recover { error throws -> Promise<Response> in
-                switch error {
-                    
-                case ApiServiceError.noAuthState:
-                    #if os(iOS)
-                    
-                    let authorize = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
-                    
-                    #elseif os(macOS)
-                    
-                    let authorize = dynamicApiProvider.authorize()
-                    
-                    #endif
-                    
-                    return authorize.then { _ -> Promise<Response> in
-                        return dynamicApiProvider.request(apiService: .createKeypair(displayName: keyPairDisplayName))
-                    }
-                    
-                default:
-                    throw error
-                    
+
+        return firstly { () throws -> Promise<Moya.Response> in
+            guard useAuthState else { throw ApiServiceError.noAuthState }
+            return dynamicApiProvider.request(apiService: .createKeypair(displayName: keyPairDisplayName))
+        }.recover { error throws -> Promise<Response> in
+            if case ApiServiceError.noAuthState = error {
+                #if os(iOS)
+                let authorize = dynamicApiProvider.authorize(presentingViewController: self.navigationController)
+                #elseif os(macOS)
+                let authorize = dynamicApiProvider.authorize()
+                #endif
+                return authorize.then { _ -> Promise<Response> in
+                    return dynamicApiProvider.request(apiService: .createKeypair(displayName: keyPairDisplayName))
                 }
+            } else {
+                throw error
             }
-            .then { response -> Promise<CertificateModel> in response.mapResponse() }
-            .map { model -> CertificateModel in
-                api.certificateModel = model
-                self.scheduleCertificateExpirationNotification(for: model, on: api)
-                return model
+        }.then { response -> Promise<CertificateModel> in
+            response.mapResponse()
+        }.map { model -> CertificateModel in
+            if let certificateExpiryDate = model.x509Certificate?.notAfter {
+                os_log("fetchCertificate: certificate expires at: %{public}@",
+                       log: Log.general, type: .error, certificateExpiryDate as NSDate)
             }
+            api.certificateModel = model
+            return model
+        }
     }
-    
+
     func checkCertificate(api: Api, for dynamicApiProvider: DynamicApiProvider) -> Promise<CertificateModel> {
         guard let certificateModel = api.certificateModel else {
             return Promise<CertificateModel>(error: AppCoordinatorError.certificateNil)
@@ -341,17 +390,7 @@ class AppCoordinator: RootViewCoordinator {
             showProfilesViewController(animated: animated)
         }
     }
-    
-    fileprivate func scheduleCertificateExpirationNotification(for certificate: CertificateModel, on api: Api) {
-        notificationsService.permissionGranted {
-            if $0 {
-                self.notificationsService.scheduleCertificateExpirationNotification(for: certificate, on: api)
-            } else {
-                os_log("Not Authorised", log: Log.general, type: .info)
-            }
-        }
-    }
-    
+
     func resumeAuthorizationFlow(url: URL) -> Bool {
         if let authorizingDynamicApiProvider = authorizingDynamicApiProvider {
             guard let authFlow = authorizingDynamicApiProvider.currentAuthorizationFlow else {

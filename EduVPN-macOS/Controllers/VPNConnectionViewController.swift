@@ -135,6 +135,8 @@ class VPNConnectionViewController: NSViewController {
                 $0.connect()
             }.map {
                 self.isVPNEnabled = self.providerManagerCoordinator.isOnDemandEnabled
+                NotificationsService.scheduleCertificateExpiryNotification(for: self.profile)
+                    .done { _ in }
             }.ensure {
                 self.isVPNBeingConfigured = false
             }
@@ -144,6 +146,7 @@ class VPNConnectionViewController: NSViewController {
         return providerManagerCoordinator.disconnect()
             .map {
                 self.isVPNEnabled = self.providerManagerCoordinator.isOnDemandEnabled
+                NotificationsService.descheduleCertificateExpiryNotification(for: self.profile)
             }
     }
     
