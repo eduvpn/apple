@@ -26,7 +26,11 @@ class SearchCoordinator: Coordinator {
     }
     
     func start() {
-        let searchViewController = SearchViewController(viewModel: SearchViewModel(environment: environment), delegate: self)
+        guard let searchViewController = environment.storyboard.instantiateViewController(withIdentifier: "Search") as? SearchViewController else {
+            return
+        }
+        searchViewController.viewModel = SearchViewModel(environment: environment)
+        searchViewController.delegate = self
         presentingViewController.present(searchViewController, animated: true, completion: nil)
     }
     

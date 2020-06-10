@@ -16,17 +16,12 @@ protocol SearchViewControllerDelegate: class {
 
 class SearchViewController: ViewController {
     
-    let viewModel: SearchViewModel
+    var viewModel: SearchViewModel!
     weak var delegate: SearchViewControllerDelegate?
     
-    init(viewModel: SearchViewModel, delegate: SearchViewControllerDelegate) {
-        self.delegate = delegate
-        self.viewModel = viewModel
-        super.init(nibName: "Search", bundle: nil)
-    }
+    @IBOutlet private var cancelButton: Button!
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    @IBAction func cancel(_ sender: Any) {
+        delegate?.searchViewControllerCancelled(self)
     }
-    
 }

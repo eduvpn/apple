@@ -14,20 +14,19 @@ class MainCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     let environment: Environment
     
+    private let mainViewController: MainViewController
+    
     init(rootViewController: NavigationController, environment: Environment) {
         self.rootViewController = rootViewController
         self.environment = environment
+        
+        mainViewController = rootViewController.viewControllers[0] as! MainViewController
+        
     }
     
     func start() {
-        guard let mainViewController = environment.storyboard.instantiateViewController(withIdentifier: "Main") as? MainViewController else {
-            fatalError("Could not instantiate MainViewController")
-        }
         mainViewController.delegate = self
         mainViewController.viewModel = MainViewModel(environment: environment)
-//        let mainViewController = MainViewController(viewModel: MainViewModel(environment: environment), delegate: self)
-//        rootViewController.present(mainViewController, animated: false, completion: nil)
-        rootViewController.viewControllers = [mainViewController]
     }
     
     private func addOtherServer() {

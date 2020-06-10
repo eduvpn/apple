@@ -14,7 +14,6 @@ protocol Presenting {
 }
 
 protocol Navigating {
-//    init(rootViewController: ViewController)
     func pushViewController(_ viewController: ViewController, animated: Bool)
     func popViewController(animated: Bool) -> ViewController?
     func popToRootViewController(animated: Bool) -> [ViewController]?
@@ -30,6 +29,7 @@ typealias PresentingController = UIViewController
 typealias NavigationController = UINavigationController
 typealias Window = UIWindow
 typealias Storyboard = UIStoryboard
+typealias Button = UIButton
 
 extension PresentingController: Presenting { }
 extension NavigationController: Navigating { }
@@ -41,6 +41,7 @@ typealias ApplicationDelegate = NSApplicationDelegate
 typealias ViewController = NSViewController
 typealias Window = NSWindow
 typealias Storyboard = NSStoryboard
+typealias Button = NSButton
 
 extension Window {
     func makeKeyAndVisible() {
@@ -51,13 +52,14 @@ extension Window {
         get {
             return windowController?.contentViewController
         }
-        set {
-//            (windowController as! MainWindowController).show(viewController: newValue!, presentation: .present, animated: false)
-        }
     }
 }
 
 extension Storyboard {
+    
+    func instantiateInitialViewController() -> Any {
+        return instantiateInitialController()
+    }
     
     func instantiateViewController(withIdentifier identifier: SceneIdentifier) -> Any {
         return instantiateController(withIdentifier: identifier)

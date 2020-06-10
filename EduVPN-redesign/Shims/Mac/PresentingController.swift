@@ -42,19 +42,19 @@ class PresentingController: NSViewController, Presenting {
              completionHandler: completion)
     }
     
-//    @IBOutlet var containerView: NSView!
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        view.wantsLayer = true
-//    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.wantsLayer = true
+    }
 
     fileprivate func show(viewController: NSViewController,
               options: NSViewController.TransitionOptions = [],
               animated: Bool = true,
               completionHandler: (() -> Void)?) {
 
-        let currentViewController = self.currentViewController
+        guard let currentViewController = self.currentViewController else {
+            return
+        }
 
         if !children.contains(viewController) {
             addChild(viewController)
@@ -81,8 +81,8 @@ class PresentingController: NSViewController, Presenting {
         }
     }
 
-    fileprivate var currentViewController: NSViewController {
-        return children[0]
+    fileprivate var currentViewController: NSViewController? {
+        return children.last ?? view.window?.contentViewController
     }
 
     fileprivate var navigationStackStack: [[NSViewController]] = [[]]
@@ -100,6 +100,13 @@ class PresentingController: NSViewController, Presenting {
 
 class NavigationController: PresentingController, Navigating {
       
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if let currentViewController = currentViewController {
+            navigationStack = [currentViewController]
+        }
+    }
+    
     func pushViewController(_ viewController: ViewController, animated: Bool) {
         navigationStack.append(viewController)
         show(viewController: viewController,

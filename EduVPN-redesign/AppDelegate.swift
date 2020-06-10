@@ -33,15 +33,8 @@ class AppDelegate: NSObject, ApplicationDelegate {
     
     var coordinator: AppCoordinator?
     
-    let windowController: NSWindowController = {
-        return NSStoryboard(name: "Main", bundle: nil).instantiateController(withIdentifier: "WindowController") as! NSWindowController //swiftlint:disable:this force_cast
-    }()
-    
-    var window: NSWindow {
-        return windowController.window! //swiftlint:disable:this force_cast
-    }
-    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        let window = NSApp.windows[0]
         setup(window: window)
     }
     

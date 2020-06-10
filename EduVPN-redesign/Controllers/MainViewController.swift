@@ -19,14 +19,9 @@ class MainViewController: ViewController {
     var viewModel: MainViewModel!
     weak var delegate: MainViewControllerDelegate?
     
-//    init(viewModel: MainViewModel, delegate: MainViewControllerDelegate) {
-//        self.delegate = delegate
-//        self.viewModel = viewModel
-//        super.init(nibName: "Main", bundle: nil)
-//    }
+    @IBOutlet private var addOtherServerButton: Button!
     
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-    
+    @IBAction func addOtherServer(_ sender: Any) {
+        delegate?.mainViewControllerAddOtherServer(self)
+    }
 }

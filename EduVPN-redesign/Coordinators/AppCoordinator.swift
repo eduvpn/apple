@@ -20,9 +20,18 @@ class AppCoordinator: Coordinator {
         self.window = window
         self.environment = environment
         
-        rootViewController = NavigationController()
-        
+        #if os(iOS)
+        guard let rootViewController = environment.storyboard.instantiateInitialViewController() as? NavigationController else {
+            fatalError("Could not create rootViewController")
+        }
         window.rootViewController = rootViewController
+        #elseif os(macOS)
+        guard let rootViewController = window.rootViewController as? NavigationController else {
+            fatalError("Could not create rootViewController")
+        }
+        #endif
+        
+        self.rootViewController = rootViewController
     }
     
     func start() {
@@ -31,8 +40,6 @@ class AppCoordinator: Coordinator {
         let mainCoordinator = MainCoordinator(rootViewController: rootViewController, environment: environment)
         addChildCoordinator(mainCoordinator)
         mainCoordinator.start()
-        
-        
     }
     
     func showSettings() {

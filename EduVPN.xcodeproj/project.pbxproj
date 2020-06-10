@@ -128,7 +128,6 @@
 		C7517542236340C900058D95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7517541236340C900058D95 /* Assets.xcassets */; };
 		C782BA4D24879DBE00A50E00 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ABFF78820C71E7200638480 /* NetworkExtension.framework */; };
 		C782BA4E2487ACDB00A50E00 /* PresentingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4C1824805EE9009932B1 /* PresentingController.swift */; };
-		C782BA502487B81100A50E00 /* Main.xib in Resources */ = {isa = PBXBuildFile; fileRef = C782BA4F2487B81100A50E00 /* Main.xib */; };
 		C7D485232372BC22006AC96C /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1163292370539E00577755 /* Crypto.swift */; };
 		C7D8E1D523742A4E009536C9 /* CancellablePromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */; };
 		C7D8E1D623742A4E009536C9 /* CancellablePromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */; };
@@ -203,7 +202,6 @@
 		C7DB4C3F248060F5009932B1 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B46247FBE26009932B1 /* SettingsViewController.swift */; };
 		C7DB4C40248060F5009932B1 /* Moya+ResponseHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4C01248053D8009932B1 /* Moya+ResponseHandling.swift */; };
 		C7DB4C45248060F5009932B1 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = 4A3971B221E9500100782A28 /* config.json */; };
-		C7DB4C6E248064BC009932B1 /* Main.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7DB4C69248064BC009932B1 /* Main.xib */; };
 		C7DB4C6F248064BC009932B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7DB4C6A248064BC009932B1 /* Assets.xcassets */; };
 		C7DB4C70248064BC009932B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7DB4C6B248064BC009932B1 /* Main.storyboard */; };
 		C7DB4C7724806512009932B1 /* eduVPN_2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4C7524806511009932B1 /* eduVPN_2.xcdatamodeld */; };
@@ -537,7 +535,6 @@
 		C75B2CC52363141200D700EC /* config-letsconnect.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-letsconnect.json"; sourceTree = "<group>"; };
 		C75B2CC62363141200D700EC /* Developer.xcconfig.eduvpn-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer.xcconfig.eduvpn-template"; sourceTree = "<group>"; };
 		C75B2CC72363141200D700EC /* config-template.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-template.json"; sourceTree = "<group>"; };
-		C782BA4F2487B81100A50E00 /* Main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Main.xib; sourceTree = "<group>"; };
 		C782BA6A2489A09A00A50E00 /* ContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContentViewController.swift; path = "EduVPN-macOS/Controllers/ContentViewController.swift"; sourceTree = SOURCE_ROOT; };
 		C78D202A2372DF34007067B1 /* Assets-Let’s Connect!.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets-Let’s Connect!.xcassets"; sourceTree = "<group>"; };
 		C7C69A5E236B328200F9B8B3 /* Developer-macOS.xcconfig.eduvpn-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer-macOS.xcconfig.eduvpn-template"; sourceTree = "<group>"; };
@@ -585,8 +582,6 @@
 		C7DB4C1824805EE9009932B1 /* PresentingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentingController.swift; sourceTree = "<group>"; };
 		C7DB4C1A24805F9B009932B1 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
 		C7DB4C4D248060F5009932B1 /* eduVPN 2 iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "eduVPN 2 iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C7DB4C4E248060F5009932B1 /* eduVPN 2 copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "eduVPN 2 copy-Info.plist"; path = "/Users/jkool/Developer/Egeniq/eduvpn-universal/eduVPN 2 copy-Info.plist"; sourceTree = "<absolute>"; };
-		C7DB4C69248064BC009932B1 /* Main.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Main.xib; sourceTree = "<group>"; };
 		C7DB4C6A248064BC009932B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7DB4C6C248064BC009932B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C7DB4C6D248064BC009932B1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -992,7 +987,6 @@
 				4AAC1F771F2D0E3400DD0252 /* Products */,
 				26B4255A0C7DB00763783EF6 /* Frameworks */,
 				3FD80EE8F0EFC339DAE2DAEB /* Pods */,
-				C7DB4C4E248060F5009932B1 /* eduVPN 2 copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1131,6 +1125,15 @@
 			path = ImageLoading;
 			sourceTree = "<group>";
 		};
+		C7158F292490CAC6008C1317 /* Shims */ = {
+			isa = PBXGroup;
+			children = (
+				C7DB4B3A247FBD63009932B1 /* Multiplatform.swift */,
+				C7DB4C1424805D96009932B1 /* Mac */,
+			);
+			path = Shims;
+			sourceTree = "<group>";
+		};
 		C75B2CA62363122900D700EC /* Scripts */ = {
 			isa = PBXGroup;
 			children = (
@@ -1219,9 +1222,7 @@
 		C7DB4B69247FC198009932B1 /* EduVPN-redesign */ = {
 			isa = PBXGroup;
 			children = (
-				C7DB4C1424805D96009932B1 /* Mac */,
 				C7DB4B6A247FC198009932B1 /* AppDelegate.swift */,
-				C7DB4B3A247FBD63009932B1 /* Multiplatform.swift */,
 				C7DB4BFF24804D62009932B1 /* Config */,
 				C7DB4B34247FBB06009932B1 /* Controllers */,
 				C7DB4B33247FBAFB009932B1 /* Coordinators */,
@@ -1230,6 +1231,7 @@
 				C7DB4BF7248040B8009932B1 /* Networking */,
 				C7DB4BEE24803E2B009932B1 /* Repositories */,
 				C7DB4B36247FBD24009932B1 /* Services */,
+				C7158F292490CAC6008C1317 /* Shims */,
 				C7DB4B35247FBD16009932B1 /* ViewModels */,
 				C7DB4C0A24805B56009932B1 /* Resources */,
 			);
@@ -1332,10 +1334,9 @@
 		C7DB4C68248064BC009932B1 /* Mac */ = {
 			isa = PBXGroup;
 			children = (
-				C7DB4C69248064BC009932B1 /* Main.xib */,
 				C7DB4C6A248064BC009932B1 /* Assets.xcassets */,
-				C7DB4C6B248064BC009932B1 /* Main.storyboard */,
 				C7DB4C6D248064BC009932B1 /* Info.plist */,
+				C7DB4C6B248064BC009932B1 /* Main.storyboard */,
 			);
 			path = Mac;
 			sourceTree = "<group>";
@@ -1343,10 +1344,9 @@
 		C7DB4C72248064C6009932B1 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				C7DB4C90248067EE009932B1 /* LaunchScreen.storyboard */,
 				C7DB4C73248064C6009932B1 /* Info.plist */,
+				C7DB4C90248067EE009932B1 /* LaunchScreen.storyboard */,
 				C7DB4C9624806832009932B1 /* Main.storyboard */,
-				C782BA4F2487B81100A50E00 /* Main.xib */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -1839,7 +1839,6 @@
 				C7DB4C05248056DC009932B1 /* config.json in Resources */,
 				C7DB4C70248064BC009932B1 /* Main.storyboard in Resources */,
 				C7DB4C6F248064BC009932B1 /* Assets.xcassets in Resources */,
-				C7DB4C6E248064BC009932B1 /* Main.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1863,7 +1862,6 @@
 			files = (
 				C7DB4C9724806832009932B1 /* Main.storyboard in Resources */,
 				C7DB4C45248060F5009932B1 /* config.json in Resources */,
-				C782BA502487B81100A50E00 /* Main.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
