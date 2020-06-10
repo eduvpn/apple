@@ -20,7 +20,9 @@ class MainCoordinator: Coordinator {
     }
     
     func start() {
-        let mainViewController = environment.storyboard.instantiateViewController(withIdentifier: "Main") as! MainViewController
+        guard let mainViewController = environment.storyboard.instantiateViewController(withIdentifier: "Main") as? MainViewController else {
+            fatalError("Could not instantiate MainViewController")
+        }
         mainViewController.delegate = self
         mainViewController.viewModel = MainViewModel(environment: environment)
 //        let mainViewController = MainViewController(viewModel: MainViewModel(environment: environment), delegate: self)

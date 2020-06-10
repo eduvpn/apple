@@ -9,7 +9,7 @@
 import XCTest
 @testable import eduVPN_2
 
-class eduVPN_2Tests: XCTestCase {
+class EduVPN2Tests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
