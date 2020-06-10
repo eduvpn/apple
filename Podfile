@@ -55,3 +55,23 @@ post_install do | installer |
   require 'fileutils'
   FileUtils.cp_r('Pods/Target Support Files/Pods-EduVPN/Pods-EduVPN-Acknowledgements.plist', 'EduVPN/Resources/Settings.bundle/Acknowledgements.plist', :remove_destination => true)
 end
+
+target 'eduVPN 2' do
+  pods_macos
+  
+  pod 'AppAuth', :git => 'https://github.com/openid/AppAuth-iOS.git'
+  pod 'ASN1Decoder'
+  pod 'libsodium'
+  pod 'Moya'
+  pod 'PromiseKit/CorePromise'
+end
+
+target 'eduVPN 2 iOS' do
+  pods_ios
+
+  pod 'AppAuth', :git => 'https://github.com/openid/AppAuth-iOS.git'
+  pod 'ASN1Decoder'
+  pod 'libsodium'
+  pod 'Moya'
+  pod 'PromiseKit/CorePromise'
+end

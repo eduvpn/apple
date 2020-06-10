@@ -218,42 +218,28 @@
 /* Begin PBXContainerItemProxy section */
 		383622B9ACFD0DB48C69A44A2387B1AE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C094CFC7F3AAC957E8FF182009BCB82F /* SwiftyBeaver */;
+			containerPortal = C094CFC7F3AAC957E8FF182009BCB82F /* SwiftyBeaver.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = ADAF532753EB5CC97E9208DF06BCB783;
 			remoteInfo = "SwiftyBeaver-macOS";
 		};
 		6355E0FD2ACEF1DCAB89A68ED9509DA2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C094CFC7F3AAC957E8FF182009BCB82F /* SwiftyBeaver */;
+			containerPortal = C094CFC7F3AAC957E8FF182009BCB82F /* SwiftyBeaver.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 0560915E6205753C7CA9BEF89C663EDE;
 			remoteInfo = "SwiftyBeaver-iOS";
 		};
-		C79C50DB247801EF00B729B4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C094CFC7F3AAC957E8FF182009BCB82F /* SwiftyBeaver */;
-			proxyType = 2;
-			remoteGlobalIDString = 60DA3C7AD6CA14EEE6F0971F14F43D0F;
-			remoteInfo = "SwiftyBeaver-iOS";
-		};
-		C79C50DD247801EF00B729B4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C094CFC7F3AAC957E8FF182009BCB82F /* SwiftyBeaver */;
-			proxyType = 2;
-			remoteGlobalIDString = F55DFC3BF892032E50096FA35E5A7877;
-			remoteInfo = "SwiftyBeaver-macOS";
-		};
 		D7DA6A10E1A348B6EB35D570A40607FF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = E54B7252D5244116E4643E2EA7ED6211 /* OpenSSL-Apple */;
+			containerPortal = E54B7252D5244116E4643E2EA7ED6211 /* OpenSSL-Apple.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 40683090B8D8AB8FA1A78F00E455ED4B;
 			remoteInfo = "OpenSSL-Apple-macOS";
 		};
 		DE3773DD3800515E676101A29A7E2C17 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = E54B7252D5244116E4643E2EA7ED6211 /* OpenSSL-Apple */;
+			containerPortal = E54B7252D5244116E4643E2EA7ED6211 /* OpenSSL-Apple.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = A3C2E5EFCC4D13E10511CE8D6F554C9F;
 			remoteInfo = "OpenSSL-Apple-iOS";
@@ -304,7 +290,7 @@
 		4EA221A352C28D2DC0F24178500F9B1E /* TunnelInterface.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TunnelInterface.swift; path = TunnelKit/Sources/Core/TunnelInterface.swift; sourceTree = "<group>"; };
 		4EC1AE92E9C1E9EE9BE218A22D0FDCDB /* SecureRandom.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SecureRandom.swift; path = TunnelKit/Sources/Core/SecureRandom.swift; sourceTree = "<group>"; };
 		4EC372312027126E1831A0D3FF1F201B /* Configuration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Configuration.swift; path = TunnelKit/Sources/Protocols/OpenVPN/Configuration.swift; sourceTree = "<group>"; };
-		53C638FBB29BD4A6DF043BCE51DEA4DE /* TunnelKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TunnelKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		53C638FBB29BD4A6DF043BCE51DEA4DE /* TunnelKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = TunnelKit.framework; path = "TunnelKit-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		53FD4C3E3403C539368630A1AF9A3336 /* TunnelKit-iOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "TunnelKit-iOS-Info.plist"; sourceTree = "<group>"; };
 		54FD6CFA9770F23EF0C26961E830E059 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/NetworkExtension.framework; sourceTree = DEVELOPER_DIR; };
 		5684DC831BCC8FFF0D008E9665B56FCC /* Data+Manipulation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Data+Manipulation.swift"; path = "TunnelKit/Sources/Core/Data+Manipulation.swift"; sourceTree = "<group>"; };
@@ -333,7 +319,7 @@
 		7CE1A894FD3D094C3C1881341DD4A3D4 /* CryptoAEAD.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CryptoAEAD.m; path = TunnelKit/Sources/Protocols/OpenVPN/CryptoAEAD.m; sourceTree = "<group>"; };
 		7F9BEEBE2BEA1EFB6B9CF6FE070A9F8C /* LZO.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LZO.h; path = TunnelKit/Sources/Core/LZO.h; sourceTree = "<group>"; };
 		80270F23942AAC92F252D9A93608AEB9 /* DataPath.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DataPath.h; path = TunnelKit/Sources/Protocols/OpenVPN/DataPath.h; sourceTree = "<group>"; };
-		87B8DF0DA320B8991B269F1B22035F44 /* TunnelKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TunnelKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		87B8DF0DA320B8991B269F1B22035F44 /* TunnelKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = TunnelKit.framework; path = "TunnelKit-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EF6CD4BC5621E17107242BFA7B14D0D /* NETunnelInterface.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NETunnelInterface.swift; path = TunnelKit/Sources/AppExtension/Transport/NETunnelInterface.swift; sourceTree = "<group>"; };
 		8FB2C551126C9F3ADF76F72F6976BBA6 /* TLSWrap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TLSWrap.swift; path = TunnelKit/Sources/Protocols/OpenVPN/TLSWrap.swift; sourceTree = "<group>"; };
 		8FC8C2DAB9F61DC00FB6EE478C10879C /* ControlChannel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ControlChannel.swift; path = TunnelKit/Sources/Protocols/OpenVPN/ControlChannel.swift; sourceTree = "<group>"; };
@@ -485,6 +471,7 @@
 				21BE04E8711E7A009C6093BD45AA7DFF /* Protocols */,
 				D9920CB5FAD5054A3B6B5F28AFD01694 /* Support Files */,
 			);
+			name = TunnelKit;
 			path = TunnelKit;
 			sourceTree = "<group>";
 		};
@@ -581,22 +568,6 @@
 				7864F6192446752B6CF09B1C05769A03 /* NWUDPSessionState+Description.swift */,
 			);
 			name = AppExtension;
-			sourceTree = "<group>";
-		};
-		C79C50B32477FC5700B729B4 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		C79C50B52477FC5700B729B4 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C79C50DC247801EF00B729B4 /* SwiftyBeaver.framework */,
-				C79C50DE247801EF00B729B4 /* SwiftyBeaver.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		D9920CB5FAD5054A3B6B5F28AFD01694 /* Support Files */ = {
@@ -757,7 +728,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1100;
 			};
 			buildConfigurationList = 938C1E9488D33DF2A749264263A9AFCB /* Build configuration list for PBXProject "TunnelKit" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -772,12 +743,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = C79C50B32477FC5700B729B4 /* Products */;
-					ProjectRef = E54B7252D5244116E4643E2EA7ED6211 /* OpenSSL-Apple */;
+					ProjectRef = C094CFC7F3AAC957E8FF182009BCB82F /* SwiftyBeaver */;
 				},
 				{
-					ProductGroup = C79C50B52477FC5700B729B4 /* Products */;
-					ProjectRef = C094CFC7F3AAC957E8FF182009BCB82F /* SwiftyBeaver */;
+					ProjectRef = E54B7252D5244116E4643E2EA7ED6211 /* OpenSSL-Apple */;
 				},
 			);
 			projectRoot = "";
@@ -787,23 +756,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		C79C50DC247801EF00B729B4 /* SwiftyBeaver.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SwiftyBeaver.framework;
-			remoteRef = C79C50DB247801EF00B729B4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C79C50DE247801EF00B729B4 /* SwiftyBeaver.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SwiftyBeaver.framework;
-			remoteRef = C79C50DD247801EF00B729B4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		56C25C8CE512287A10B3BC05104FC09B /* Resources */ = {
@@ -1067,7 +1019,8 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
@@ -1077,6 +1030,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 11356F594FEC78B07054B08880DDEBD1 /* TunnelKit-iOS.release.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1110,6 +1064,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7A73F73EC5204C99A2EE0AB896E225F9 /* TunnelKit-iOS.debug.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1142,6 +1097,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BA4B241ADB96387E05DC228706AE63DE /* TunnelKit-macOS.debug.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1175,6 +1131,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 30B359C7C815519D36A39177A3814233 /* TunnelKit-macOS.release.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";

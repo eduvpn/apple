@@ -30,7 +30,7 @@
 
 /* Begin PBXFileReference section */
 		111F80C95227E98BCF8B656F02DA7B7F /* ASN1Decoder-macOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; name = "ASN1Decoder-macOS.modulemap"; path = "../ASN1Decoder-macOS/ASN1Decoder-macOS.modulemap"; sourceTree = "<group>"; };
-		17F1897373DEE31FEFF2779E15B025E6 /* ASN1Decoder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ASN1Decoder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		17F1897373DEE31FEFF2779E15B025E6 /* ASN1Decoder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ASN1Decoder.framework; path = "ASN1Decoder-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FBB9D40706066DCED2A1F243E83F202 /* ASN1Decoder-macOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "ASN1Decoder-macOS-Info.plist"; path = "../ASN1Decoder-macOS/ASN1Decoder-macOS-Info.plist"; sourceTree = "<group>"; };
 		37B58FB63CAE6F92E688BF85DCDB5093 /* ASN1Decoder-macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "ASN1Decoder-macOS.debug.xcconfig"; path = "../ASN1Decoder-macOS/ASN1Decoder-macOS.debug.xcconfig"; sourceTree = "<group>"; };
 		4180F2E9EDC23B06BEF80E2DF2D9E01E /* ASN1Decoder-macOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ASN1Decoder-macOS-umbrella.h"; path = "../ASN1Decoder-macOS/ASN1Decoder-macOS-umbrella.h"; sourceTree = "<group>"; };
@@ -46,7 +46,7 @@
 		8FCD46579C1B8BBEDA9F866C90FD3E50 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		A64E28D2E46C1A01679221BBCFE6ADC0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		A879E6C712B6961F0229E986DD8D70EC /* ASN1Object.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ASN1Object.swift; path = ASN1Decoder/ASN1Object.swift; sourceTree = "<group>"; };
-		B14B4ACDFE820AE0ED37E724A2FB3024 /* ASN1Decoder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ASN1Decoder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B14B4ACDFE820AE0ED37E724A2FB3024 /* ASN1Decoder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ASN1Decoder.framework; path = "ASN1Decoder-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B477E512A21DADA6F1D1BEB9EFDE41D5 /* ASN1Identifier.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ASN1Identifier.swift; path = ASN1Decoder/ASN1Identifier.swift; sourceTree = "<group>"; };
 		BA7F65A48D8904E413775A7BE6020437 /* X509Certificate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = X509Certificate.swift; path = ASN1Decoder/X509Certificate.swift; sourceTree = "<group>"; };
 		CD881F0AAB0D91791EC9D0783BCB7C68 /* ASN1Decoder-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ASN1Decoder-iOS-dummy.m"; sourceTree = "<group>"; };
@@ -136,6 +136,7 @@
 				BA7F65A48D8904E413775A7BE6020437 /* X509Certificate.swift */,
 				385458CD27E669482F124482F2ECCD1D /* Support Files */,
 			);
+			name = ASN1Decoder;
 			path = ASN1Decoder;
 			sourceTree = "<group>";
 		};
@@ -222,7 +223,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1100;
 			};
 			buildConfigurationList = 4981505873B1CF24D721189588ED59B1 /* Build configuration list for PBXProject "ASN1Decoder" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -296,6 +297,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 42643AE8653010029B6C6D23CE37F8C3 /* ASN1Decoder-macOS.release.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -378,7 +380,8 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
@@ -453,6 +456,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8743BA26B44038C3A9183C8456E59A38 /* ASN1Decoder-iOS.debug.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -483,6 +487,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 37B58FB63CAE6F92E688BF85DCDB5093 /* ASN1Decoder-macOS.debug.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -515,6 +520,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 60E62A6B4B12E072F3EE7B1832F735CA /* ASN1Decoder-iOS.release.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
