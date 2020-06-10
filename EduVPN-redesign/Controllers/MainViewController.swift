@@ -16,17 +16,17 @@ protocol MainViewControllerDelegate: class {
 
 class MainViewController: ViewController {
     
-    let viewModel: MainViewModel
+    var viewModel: MainViewModel!
     weak var delegate: MainViewControllerDelegate?
     
-    init(viewModel: MainViewModel, delegate: MainViewControllerDelegate) {
-        self.delegate = delegate
-        self.viewModel = viewModel
-        super.init(nibName: "Main", bundle: nil)
-    }
+//    init(viewModel: MainViewModel, delegate: MainViewControllerDelegate) {
+//        self.delegate = delegate
+//        self.viewModel = viewModel
+//        super.init(nibName: "Main", bundle: nil)
+//    }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
 }

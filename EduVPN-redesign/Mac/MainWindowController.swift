@@ -35,8 +35,8 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
         NotificationCenter.default.removeObserver(self)
     }
     
-    var mainViewController: MainViewController {
-        return contentViewController as! MainViewController  //swiftlint:disable:this force_cast
+    var mainViewController: ContentViewController {
+        return contentViewController as! ContentViewController  //swiftlint:disable:this force_cast
     }
     
     func windowShouldClose(_ sender: NSWindow) -> Bool {

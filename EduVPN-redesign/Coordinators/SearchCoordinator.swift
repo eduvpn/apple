@@ -14,12 +14,12 @@ protocol SearchCoordinatorDelegate: class {
 
 class SearchCoordinator: Coordinator {
     
-    var presentingViewController: ViewController
+    var presentingViewController: PresentingController
     weak var delegate: SearchCoordinatorDelegate?
     var childCoordinators: [Coordinator] = []
     let environment: Environment
     
-    init(presentingViewController: ViewController, delegate: SearchCoordinatorDelegate, environment: Environment) {
+    init(presentingViewController: PresentingController, delegate: SearchCoordinatorDelegate, environment: Environment) {
         self.presentingViewController = presentingViewController
         self.delegate = delegate
         self.environment = environment
@@ -27,12 +27,12 @@ class SearchCoordinator: Coordinator {
     
     func start() {
         let searchViewController = SearchViewController(viewModel: SearchViewModel(environment: environment), delegate: self)
-        // presentingViewController.present(searchViewController) // TODO: Generic way to present
+        presentingViewController.present(searchViewController, animated: true, completion: nil)
     }
     
     private func addOtherServer() {
         let addOtherViewController = AddOtherViewController(viewModel: AddOtherViewModel(environment: environment), delegate: self)
-        // presentingViewController.present(addOtherViewController) // TODO: Generic way to present
+        presentingViewController.present(addOtherViewController, animated: true, completion: nil)
     }
     
 }

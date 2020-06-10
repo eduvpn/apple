@@ -10,6 +10,7 @@ import Foundation
 
 struct Environment {
     let config: Config
+    let storyboard: Storyboard
     let mainService: MainServiceType
     let searchService: SearchServiceType
     let settingsService: SettingsServiceType

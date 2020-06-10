@@ -692,10 +692,21 @@
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
                         </connections>
                     </window>
+                    <connections>
+                        <segue destination="Vyy-n5-HuZ" kind="relationship" relationship="window.shadowedContentViewController" id="BE9-Yb-Ogu"/>
+                    </connections>
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="250"/>
+            <point key="canvasLocation" x="236" y="249"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="o2m-ye-sB6">
+            <objects>
+                <viewController id="Vyy-n5-HuZ" customClass="NavigationController" customModule="eduVPN_2" customModuleProvider="target" sceneMemberID="viewController"/>
+                <customObject id="P7z-fl-QbE" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="350" y="732"/>
         </scene>
     </scenes>
 </document>

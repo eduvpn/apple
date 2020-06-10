@@ -8,13 +8,31 @@
 
 import Foundation
 
+protocol Presenting {
+    func present(_ viewControllerToPresent: ViewController, animated flag: Bool, completion: (() -> Void)?)
+    func dismiss(animated flag: Bool, completion: (() -> Void)?)
+}
+
+protocol Navigating {
+//    init(rootViewController: ViewController)
+    func pushViewController(_ viewController: ViewController, animated: Bool)
+    func popViewController(animated: Bool) -> ViewController?
+    func popToRootViewController(animated: Bool) -> [ViewController]?
+}
+
+
 #if os(iOS)
 import UIKit
 
 typealias ApplicationDelegate = UIApplicationDelegate
 typealias ViewController = UIViewController
+typealias PresentingController = UIViewController
+typealias NavigationController = UINavigationController
 typealias Window = UIWindow
 typealias Storyboard = UIStoryboard
+
+extension PresentingController: Presenting { }
+extension NavigationController: Navigating { }
 
 #elseif os(macOS)
 import AppKit
@@ -24,16 +42,29 @@ typealias ViewController = NSViewController
 typealias Window = NSWindow
 typealias Storyboard = NSStoryboard
 
-extension ViewController {
-    
-    func present(controller: ViewController, animated: Bool) {
-        
+extension Window {
+    func makeKeyAndVisible() {
+        makeKey()
     }
     
-    func dismiss(animated: Bool, completion: (() -> Void)? = nil) {
-       // dismiss(animated: true) // TODO: Completio
+    var rootViewController: ViewController? {
+        get {
+            return windowController?.contentViewController
+        }
+        set {
+//            (windowController as! MainWindowController).show(viewController: newValue!, presentation: .present, animated: false)
+        }
     }
+}
 
+extension Storyboard {
+    
+    func instantiateViewController(withIdentifier identifier: SceneIdentifier) -> Any {
+        return instantiateController(withIdentifier: identifier)
+    }
 }
 
 #endif
+
+
+

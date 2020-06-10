@@ -10,18 +10,22 @@ import Foundation
 
 class MainCoordinator: Coordinator {
   
-    let rootViewController: ViewController
+    let rootViewController: NavigationController
     var childCoordinators: [Coordinator] = []
     let environment: Environment
     
-    init(rootViewController: ViewController, environment: Environment) {
+    init(rootViewController: NavigationController, environment: Environment) {
         self.rootViewController = rootViewController
         self.environment = environment
     }
     
     func start() {
-        let mainViewController = MainViewController(viewModel: MainViewModel(environment: environment), delegate: self)
-        rootViewController.addChild(mainViewController) // TODO: Add properly
+        let mainViewController = environment.storyboard.instantiateViewController(withIdentifier: "Main") as! MainViewController
+        mainViewController.delegate = self
+        mainViewController.viewModel = MainViewModel(environment: environment)
+//        let mainViewController = MainViewController(viewModel: MainViewModel(environment: environment), delegate: self)
+//        rootViewController.present(mainViewController, animated: false, completion: nil)
+        rootViewController.viewControllers = [mainViewController]
     }
     
     private func addOtherServer() {

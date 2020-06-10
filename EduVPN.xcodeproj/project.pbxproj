@@ -127,6 +127,8 @@
 		C7265C0523747A70004496B8 /* ServerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7265C0323747A70004496B8 /* ServerConfiguration.swift */; };
 		C7517542236340C900058D95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7517541236340C900058D95 /* Assets.xcassets */; };
 		C782BA4D24879DBE00A50E00 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ABFF78820C71E7200638480 /* NetworkExtension.framework */; };
+		C782BA4E2487ACDB00A50E00 /* PresentingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4C1824805EE9009932B1 /* PresentingController.swift */; };
+		C782BA502487B81100A50E00 /* Main.xib in Resources */ = {isa = PBXBuildFile; fileRef = C782BA4F2487B81100A50E00 /* Main.xib */; };
 		C7D485232372BC22006AC96C /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1163292370539E00577755 /* Crypto.swift */; };
 		C7D8E1D523742A4E009536C9 /* CancellablePromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */; };
 		C7D8E1D623742A4E009536C9 /* CancellablePromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */; };
@@ -536,6 +538,8 @@
 		C75B2CC52363141200D700EC /* config-letsconnect.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-letsconnect.json"; sourceTree = "<group>"; };
 		C75B2CC62363141200D700EC /* Developer.xcconfig.eduvpn-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer.xcconfig.eduvpn-template"; sourceTree = "<group>"; };
 		C75B2CC72363141200D700EC /* config-template.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-template.json"; sourceTree = "<group>"; };
+		C782BA4F2487B81100A50E00 /* Main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Main.xib; sourceTree = "<group>"; };
+		C782BA6A2489A09A00A50E00 /* ContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContentViewController.swift; path = "EduVPN-macOS/Controllers/ContentViewController.swift"; sourceTree = SOURCE_ROOT; };
 		C78D202A2372DF34007067B1 /* Assets-Let’s Connect!.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets-Let’s Connect!.xcassets"; sourceTree = "<group>"; };
 		C7C69A5E236B328200F9B8B3 /* Developer-macOS.xcconfig.eduvpn-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer-macOS.xcconfig.eduvpn-template"; sourceTree = "<group>"; };
 		C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancellablePromise.swift; sourceTree = "<group>"; };
@@ -579,7 +583,7 @@
 		C7DB4C01248053D8009932B1 /* Moya+ResponseHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Moya+ResponseHandling.swift"; sourceTree = "<group>"; };
 		C7DB4C03248055D6009932B1 /* Moya+Promise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Moya+Promise.swift"; sourceTree = "<group>"; };
 		C7DB4C1524805DB9009932B1 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
-		C7DB4C1824805EE9009932B1 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		C7DB4C1824805EE9009932B1 /* PresentingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentingController.swift; sourceTree = "<group>"; };
 		C7DB4C1A24805F9B009932B1 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
 		C7DB4C4D248060F5009932B1 /* eduVPN 2 iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "eduVPN 2 iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7DB4C4E248060F5009932B1 /* eduVPN 2 copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "eduVPN 2 copy-Info.plist"; path = "/Users/jkool/Developer/Egeniq/eduvpn-universal/eduVPN 2 copy-Info.plist"; sourceTree = "<absolute>"; };
@@ -1320,7 +1324,8 @@
 			isa = PBXGroup;
 			children = (
 				342B9CDA22902BB500C006D7 /* MainWindowController.swift */,
-				C7DB4C1824805EE9009932B1 /* MainViewController.swift */,
+				C782BA6A2489A09A00A50E00 /* ContentViewController.swift */,
+				C7DB4C1824805EE9009932B1 /* PresentingController.swift */,
 			);
 			path = Mac;
 			sourceTree = "<group>";
@@ -1342,6 +1347,7 @@
 				C7DB4C90248067EE009932B1 /* LaunchScreen.storyboard */,
 				C7DB4C73248064C6009932B1 /* Info.plist */,
 				C7DB4C9624806832009932B1 /* Main.storyboard */,
+				C782BA4F2487B81100A50E00 /* Main.xib */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -1858,6 +1864,7 @@
 			files = (
 				C7DB4C9724806832009932B1 /* Main.storyboard in Resources */,
 				C7DB4C45248060F5009932B1 /* config.json in Resources */,
+				C782BA502487B81100A50E00 /* Main.xib in Resources */,
 				C7DB4C46248060F5009932B1 /* config.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2513,6 +2520,7 @@
 				C7DB4B9D247FC23D009932B1 /* SearchViewController.swift in Sources */,
 				C7DB4BAB247FC763009932B1 /* MainService.swift in Sources */,
 				C7DB4BA1247FC243009932B1 /* MainViewModel.swift in Sources */,
+				C782BA4E2487ACDB00A50E00 /* PresentingController.swift in Sources */,
 				C7DB4BA6247FC4B3009932B1 /* Coordinator.swift in Sources */,
 				C7DB4BF224803E47009932B1 /* OrganizationsLoader.swift in Sources */,
 				C7DB4C00248052F7009932B1 /* OrganizationModel.swift in Sources */,

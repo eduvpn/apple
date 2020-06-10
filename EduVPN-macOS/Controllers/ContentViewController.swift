@@ -1,24 +1,24 @@
 //
-//  MainViewController.swift
+//  ContentViewController.swift
 //  eduVPN
 //
 
 import Cocoa
 
-class MainViewController: NSViewController {
+class ContentViewController: NSViewController {
     
     @IBOutlet var containerView: NSView!
-    @IBOutlet weak var cancelButton: NSButton!
-    @IBOutlet weak var activityIndicatorView: NSVisualEffectView!
-    @IBOutlet weak var activityIndicator: NSProgressIndicator!
-    @IBOutlet weak var activityLabel: NSTextField!
+//    @IBOutlet weak var cancelButton: NSButton!
+//    @IBOutlet weak var activityIndicatorView: NSVisualEffectView!
+//    @IBOutlet weak var activityIndicator: NSProgressIndicator!
+//    @IBOutlet weak var activityLabel: NSTextField!
     
-    var cancellable: Cancellable?
+//    var cancellable: Cancellable?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.wantsLayer = true
-        activityIndicatorView.isHidden = true
+//        activityIndicatorView.isHidden = true
     }
     
     func show(viewController: NSViewController,
@@ -57,8 +57,8 @@ class MainViewController: NSViewController {
         return children[0]
     }
     
-    @IBAction func cancel(_ sender: Any) {
-        cancellable?.cancel()
-    }
+//    @IBAction func cancel(_ sender: Any) {
+//        cancellable?.cancel()
+//    }
     
 }

@@ -14,23 +14,30 @@ class AppCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     let environment: Environment
     
-    private let rootViewController: ViewController
+    private let rootViewController: NavigationController
     
     init(window: Window, environment: Environment) {
         self.window = window
         self.environment = environment
         
-        rootViewController = ViewController() // TODO: Add to window
+        rootViewController = NavigationController()
+        
+        window.rootViewController = rootViewController
     }
     
     func start() {
+        window.makeKeyAndVisible()
+        
         let mainCoordinator = MainCoordinator(rootViewController: rootViewController, environment: environment)
         addChildCoordinator(mainCoordinator)
+        mainCoordinator.start()
+        
+        
     }
     
     func showSettings() {
         let settingsViewController = SettingsViewController(viewModel: SettingsViewModel(environment: environment), delegate: self)
-        //  rootViewController.present(settingsViewController, animator: )
+        rootViewController.present(settingsViewController, animated: true, completion: nil)
     }
     
     func showHelp() {
