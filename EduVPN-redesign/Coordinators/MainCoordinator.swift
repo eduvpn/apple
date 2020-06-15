@@ -20,7 +20,7 @@ class MainCoordinator: Coordinator {
         self.rootViewController = rootViewController
         self.environment = environment
         
-        mainViewController = rootViewController.viewControllers[0] as! MainViewController
+        mainViewController = rootViewController.viewControllers[0] as! MainViewController //swiftlint:disable:this force_cast
         
     }
     
