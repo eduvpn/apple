@@ -27,7 +27,7 @@
         <!--Main View Controller-->
         <scene sceneID="A2a-ns-EvP">
             <objects>
-                <viewController storyboardIdentifier="Main" id="HrM-W4-hL5" customClass="MainViewController" customModule="eduVPN_2_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Main" id="HrM-W4-hL5" customClass="MainViewController" customModule="EduVPN_redesign_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fSi-az-Zu6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -47,6 +47,14 @@
                                     <action selector="addOtherServer:" destination="HrM-W4-hL5" eventType="touchUpInside" id="BIN-td-D8G"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KXs-1M-VbS">
+                                <rect key="frame" x="206" y="312" width="59" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Connect"/>
+                                <connections>
+                                    <action selector="temporaryConnect:" destination="HrM-W4-hL5" eventType="touchUpInside" id="1Tq-F3-KU3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="pp6-4M-xfc"/>
@@ -54,6 +62,7 @@
                     <navigationItem key="navigationItem" id="4pj-bR-N40"/>
                     <connections>
                         <outlet property="addOtherServerButton" destination="mdh-Vz-SWj" id="0MG-3C-QQT"/>
+                        <outlet property="temporaryConnectButton" destination="KXs-1M-VbS" id="hSA-dH-ttF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wJf-g5-Deg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -63,7 +72,7 @@
         <!--Search View Controller-->
         <scene sceneID="49J-RA-k0m">
             <objects>
-                <viewController storyboardIdentifier="Search" id="GFf-Kn-0Ob" customClass="SearchViewController" customModule="eduVPN_2_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Search" id="GFf-Kn-0Ob" customClass="SearchViewController" customModule="EduVPN_redesign_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="adv-WH-zdz">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -92,6 +101,41 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AEy-2f-Pco" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-648" y="791"/>
+        </scene>
+        <!--Connection View Controller-->
+        <scene sceneID="iLG-Td-euY">
+            <objects>
+                <viewController storyboardIdentifier="Connection" id="Bzq-ih-idp" customClass="ConnectionViewController" customModule="EduVPN_redesign_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fUN-3t-oew">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Connection" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tm2-zQ-40N">
+                                <rect key="frame" x="133" y="294" width="88" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kNj-Xx-58N">
+                                <rect key="frame" x="190" y="161" width="34" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <action selector="back:" destination="Bzq-ih-idp" eventType="touchUpInside" id="Sr6-2f-mnM"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="QYK-F5-2FE"/>
+                    </view>
+                    <connections>
+                        <outlet property="backButton" destination="kNj-Xx-58N" id="YW1-aO-G4i"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ebj-WM-cC8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-648" y="791"/>
         </scene>

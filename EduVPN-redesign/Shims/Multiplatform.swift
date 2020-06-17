@@ -30,6 +30,10 @@ typealias NavigationController = UINavigationController
 typealias Window = UIWindow
 typealias Storyboard = UIStoryboard
 typealias Button = UIButton
+typealias Image = UIImage
+typealias Label = UILabel
+typealias ImageView = UIImageView
+typealias Switch = UISwitch
 
 extension PresentingController: Presenting { }
 extension NavigationController: Navigating { }
@@ -42,6 +46,8 @@ typealias ViewController = NSViewController
 typealias Window = NSWindow
 typealias Storyboard = NSStoryboard
 typealias Button = NSButton
+typealias Image = NSImage
+typealias ImageView = NSImageView
 
 extension Window {
     func makeKeyAndVisible() {
@@ -66,7 +72,30 @@ extension Storyboard {
     }
 }
 
+class Label: NSTextField {
+    
+    var text: String? {
+        get {
+            return stringValue
+        }
+        set {
+            stringValue = newValue ?? ""
+        }
+    }
+}
+
+class Switch: NSButton {
+    
+    var isOn: Bool {
+        get {
+            return self.state == .on
+        }
+        set {
+            self.state = newValue ? .on : .off
+        }
+    }
+   
+}
+
 #endif
-
-
 

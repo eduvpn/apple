@@ -20,8 +20,13 @@ class MainViewController: ViewController {
     weak var delegate: MainViewControllerDelegate?
     
     @IBOutlet private var addOtherServerButton: Button!
+    @IBOutlet private var temporaryConnectButton: Button!
     
     @IBAction func addOtherServer(_ sender: Any) {
         delegate?.mainViewControllerAddOtherServer(self)
+    }
+    
+    @IBAction func temporaryConnect(_ sender: Any) {
+        delegate?.mainViewController(self, connectToServer: "Server Object" as AnyObject)
     }
 }
