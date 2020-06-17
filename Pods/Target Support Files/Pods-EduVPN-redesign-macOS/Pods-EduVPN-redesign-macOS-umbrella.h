@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_eduVPN_2VersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_eduVPN_2VersionString[];
+FOUNDATION_EXPORT double Pods_EduVPN_redesign_macOSVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_EduVPN_redesign_macOSVersionString[];
 
