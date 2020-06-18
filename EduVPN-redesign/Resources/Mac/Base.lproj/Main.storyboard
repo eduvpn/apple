@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -148,8 +149,7 @@
                                                 <action selector="paste:" target="Ady-hI-5gd" id="UvS-8e-Qdg"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Paste and Match Style" keyEquivalent="V" id="WeT-3V-zwk">
-                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                        <menuItem title="Paste and Match Style" keyEquivalent="v" id="WeT-3V-zwk">
                                             <connections>
                                                 <action selector="pasteAsPlainText:" target="Ady-hI-5gd" id="cEh-KX-wJQ"/>
                                             </connections>
@@ -674,7 +674,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="eduVPN_2" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="EduVPN_redesign_macOS" customModuleProvider="target"/>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -704,7 +704,7 @@
         <!--Navigation Controller-->
         <scene sceneID="o2m-ye-sB6">
             <objects>
-                <viewController storyboardIdentifier="Navigation" id="Vyy-n5-HuZ" customClass="NavigationController" customModule="eduVPN_2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Navigation" id="Vyy-n5-HuZ" customClass="NavigationController" customModule="EduVPN_redesign_macOS" customModuleProvider="target" sceneMemberID="viewController">
                     <containerView key="view" id="Z1x-gh-VfR">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -720,7 +720,7 @@
         <!--Main View Controller-->
         <scene sceneID="skC-ru-cRn">
             <objects>
-                <viewController storyboardIdentifier="Main" id="NF9-lc-b6F" customClass="MainViewController" customModule="eduVPN_2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Main" id="NF9-lc-b6F" customClass="MainViewController" customModule="EduVPN_redesign_macOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="Omz-RM-dRy">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -758,7 +758,7 @@
         <!--Search View Controller-->
         <scene sceneID="Hfa-sK-2ss">
             <objects>
-                <viewController storyboardIdentifier="Search" id="pXj-I1-1aY" customClass="SearchViewController" customModule="eduVPN_2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Search" id="pXj-I1-1aY" customClass="SearchViewController" customModule="EduVPN_redesign_macOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="1Jn-Uk-KIc">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
