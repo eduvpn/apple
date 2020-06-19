@@ -85,7 +85,18 @@ struct SignatureHelper {
             throw SignatureHelperError.invalid
         }
     }
-    
+
+    static func isSignatureValid(data: Data, signatureWithMetadata: Data,
+                                 publicKeyWithMetadata: Data) -> Bool {
+        do {
+            try verify(signatureWithMetadata: signatureWithMetadata, data: data,
+                       publicKeyWithMetadata: publicKeyWithMetadata)
+        } catch {
+            return false
+        }
+        return true
+    }
+
     private typealias Bytes = [UInt8]
     
     private static func verify(message: Bytes, publicKey: Bytes, signature: Bytes) -> Bool {
