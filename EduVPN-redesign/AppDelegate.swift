@@ -11,8 +11,6 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: NSObject, ApplicationDelegate {
-
-    var coordinator: AppCoordinator?
     
     var window: UIWindow?
     
@@ -30,9 +28,7 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, ApplicationDelegate {
-    
-    var coordinator: AppCoordinator?
-    
+
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         let window = NSApp.windows[0]
         setup(window: window)
@@ -48,9 +44,6 @@ extension AppDelegate {
         // Setup environment, here you can inject alternative services for testing
         let config = Config.shared
         let environment = Environment(config: config, storyboard: Storyboard(name: "Main", bundle: nil), mainService: MainService(), searchService: SearchService(config: config), settingsService: SettingsService(), connectionService: ConnectionService())
-        let appCoordinator = AppCoordinator(window: window, environment: environment)
-        coordinator = appCoordinator
-        appCoordinator.start()
     }
     
 }

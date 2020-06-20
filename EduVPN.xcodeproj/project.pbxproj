@@ -145,10 +145,6 @@
 		C7D8E1D523742A4E009536C9 /* CancellablePromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */; };
 		C7D8E1D623742A4E009536C9 /* CancellablePromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */; };
 		C7DB4B6B247FC198009932B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B6A247FC198009932B1 /* AppDelegate.swift */; };
-		C7DB4B97247FC234009932B1 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B49247FBE32009932B1 /* AppCoordinator.swift */; };
-		C7DB4B98247FC234009932B1 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B4C247FBE4F009932B1 /* MainCoordinator.swift */; };
-		C7DB4B99247FC234009932B1 /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B4F247FBE5B009932B1 /* SearchCoordinator.swift */; };
-		C7DB4B9A247FC234009932B1 /* ConnectionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B52247FBE7A009932B1 /* ConnectionCoordinator.swift */; };
 		C7DB4B9B247FC23D009932B1 /* Multiplatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B3A247FBD63009932B1 /* Multiplatform.swift */; };
 		C7DB4B9C247FC23D009932B1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B37247FBD52009932B1 /* MainViewController.swift */; };
 		C7DB4B9D247FC23D009932B1 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B3D247FBDD7009932B1 /* SearchViewController.swift */; };
@@ -179,16 +175,13 @@
 		C7DB4C04248055D6009932B1 /* Moya+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4C03248055D6009932B1 /* Moya+Promise.swift */; };
 		C7DB4C1624805DB9009932B1 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4C1524805DB9009932B1 /* MainWindowController.swift */; };
 		C7DB4C1F248060F5009932B1 /* ConnectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B5E247FBEE3009932B1 /* ConnectionViewModel.swift */; };
-		C7DB4C20248060F5009932B1 /* ConnectionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B52247FBE7A009932B1 /* ConnectionCoordinator.swift */; };
 		C7DB4C21248060F5009932B1 /* Moya+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4C03248055D6009932B1 /* Moya+Promise.swift */; };
 		C7DB4C22248060F5009932B1 /* AddOtherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B5B247FBED7009932B1 /* AddOtherViewModel.swift */; };
 		C7DB4C23248060F5009932B1 /* ConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B43247FBDF5009932B1 /* ConnectionViewController.swift */; };
 		C7DB4C24248060F5009932B1 /* ServerInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BCD24803A29009932B1 /* ServerInfoModel.swift */; };
 		C7DB4C25248060F5009932B1 /* Moya+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BFA24804C1A009932B1 /* Moya+Extensions.swift */; };
-		C7DB4C26248060F5009932B1 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B49247FBE32009932B1 /* AppCoordinator.swift */; };
 		C7DB4C27248060F5009932B1 /* StaticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BF8248040F8009932B1 /* StaticService.swift */; };
 		C7DB4C28248060F5009932B1 /* ConnectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BB0247FC787009932B1 /* ConnectionService.swift */; };
-		C7DB4C29248060F5009932B1 /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B4F247FBE5B009932B1 /* SearchCoordinator.swift */; };
 		C7DB4C2A248060F5009932B1 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B3D247FBDD7009932B1 /* SearchViewController.swift */; };
 		C7DB4C2B248060F5009932B1 /* MainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BAA247FC763009932B1 /* MainService.swift */; };
 		C7DB4C2C248060F5009932B1 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B55247FBEC2009932B1 /* MainViewModel.swift */; };
@@ -197,7 +190,6 @@
 		C7DB4C2F248060F5009932B1 /* OrganizationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BF324803E73009932B1 /* OrganizationModel.swift */; };
 		C7DB4C30248060F5009932B1 /* ProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BF524803EB8009932B1 /* ProviderType.swift */; };
 		C7DB4C31248060F5009932B1 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B61247FBEEA009932B1 /* SettingsViewModel.swift */; };
-		C7DB4C32248060F5009932B1 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B4C247FBE4F009932B1 /* MainCoordinator.swift */; };
 		C7DB4C33248060F5009932B1 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BB2247FD941009932B1 /* Environment.swift */; };
 		C7DB4C34248060F5009932B1 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BFC24804C84009932B1 /* Config.swift */; };
 		C7DB4C35248060F5009932B1 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BAE247FC779009932B1 /* SettingsService.swift */; };
@@ -591,10 +583,6 @@
 		C7DB4B40247FBDE4009932B1 /* AddOtherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOtherViewController.swift; sourceTree = "<group>"; };
 		C7DB4B43247FBDF5009932B1 /* ConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionViewController.swift; sourceTree = "<group>"; };
 		C7DB4B46247FBE26009932B1 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		C7DB4B49247FBE32009932B1 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
-		C7DB4B4C247FBE4F009932B1 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
-		C7DB4B4F247FBE5B009932B1 /* SearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinator.swift; sourceTree = "<group>"; };
-		C7DB4B52247FBE7A009932B1 /* ConnectionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionCoordinator.swift; sourceTree = "<group>"; };
 		C7DB4B55247FBEC2009932B1 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		C7DB4B58247FBECC009932B1 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		C7DB4B5B247FBED7009932B1 /* AddOtherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOtherViewModel.swift; sourceTree = "<group>"; };
@@ -1202,17 +1190,6 @@
 			path = Config;
 			sourceTree = "<group>";
 		};
-		C7DB4B33247FBAFB009932B1 /* Coordinators */ = {
-			isa = PBXGroup;
-			children = (
-				C7DB4B49247FBE32009932B1 /* AppCoordinator.swift */,
-				C7DB4B4C247FBE4F009932B1 /* MainCoordinator.swift */,
-				C7DB4B4F247FBE5B009932B1 /* SearchCoordinator.swift */,
-				C7DB4B52247FBE7A009932B1 /* ConnectionCoordinator.swift */,
-			);
-			path = Coordinators;
-			sourceTree = "<group>";
-		};
 		C7DB4B34247FBB06009932B1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1255,7 +1232,6 @@
 				C7DB4B6A247FC198009932B1 /* AppDelegate.swift */,
 				C7DB4BFF24804D62009932B1 /* Config */,
 				C7DB4B34247FBB06009932B1 /* Controllers */,
-				C7DB4B33247FBAFB009932B1 /* Coordinators */,
 				C7DB4BD124803B57009932B1 /* Helpers */,
 				C7DB4BCC248039DB009932B1 /* Models */,
 				C7DB4BF7248040B8009932B1 /* Networking */,
@@ -2567,17 +2543,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7DB4BA4247FC243009932B1 /* ConnectionViewModel.swift in Sources */,
-				C7DB4B9A247FC234009932B1 /* ConnectionCoordinator.swift in Sources */,
 				C7DB4C04248055D6009932B1 /* Moya+Promise.swift in Sources */,
 				C7DB4BA3247FC243009932B1 /* AddOtherViewModel.swift in Sources */,
 				C7DB4B9F247FC23D009932B1 /* ConnectionViewController.swift in Sources */,
 				C7DB4BCF24803A2A009932B1 /* ServerInfoModel.swift in Sources */,
 				6F71FBB9249B545B0010D0FE /* DiscoveryData.swift in Sources */,
 				C7DB4BFB24804C1A009932B1 /* Moya+Extensions.swift in Sources */,
-				C7DB4B97247FC234009932B1 /* AppCoordinator.swift in Sources */,
 				C7DB4BF9248040F8009932B1 /* StaticService.swift in Sources */,
 				C7DB4BB1247FC787009932B1 /* ConnectionService.swift in Sources */,
-				C7DB4B99247FC234009932B1 /* SearchCoordinator.swift in Sources */,
 				C7DB4B9D247FC23D009932B1 /* SearchViewController.swift in Sources */,
 				C7DB4BAB247FC763009932B1 /* MainService.swift in Sources */,
 				C7DB4BA1247FC243009932B1 /* MainViewModel.swift in Sources */,
@@ -2587,7 +2560,6 @@
 				C7DB4C00248052F7009932B1 /* OrganizationModel.swift in Sources */,
 				C7DB4BF624803EB8009932B1 /* ProviderType.swift in Sources */,
 				C7DB4BA5247FC243009932B1 /* SettingsViewModel.swift in Sources */,
-				C7DB4B98247FC234009932B1 /* MainCoordinator.swift in Sources */,
 				C7DB4BB3247FD941009932B1 /* Environment.swift in Sources */,
 				6F71FBBE249CCE9E0010D0FE /* DiscoveryDataFetcher.swift in Sources */,
 				C7DB4C7724806512009932B1 /* eduVPN_2.xcdatamodeld in Sources */,
@@ -2611,16 +2583,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7DB4C1F248060F5009932B1 /* ConnectionViewModel.swift in Sources */,
-				C7DB4C20248060F5009932B1 /* ConnectionCoordinator.swift in Sources */,
 				C7DB4C21248060F5009932B1 /* Moya+Promise.swift in Sources */,
 				C7DB4C22248060F5009932B1 /* AddOtherViewModel.swift in Sources */,
 				C7DB4C23248060F5009932B1 /* ConnectionViewController.swift in Sources */,
 				C7DB4C24248060F5009932B1 /* ServerInfoModel.swift in Sources */,
 				C7DB4C25248060F5009932B1 /* Moya+Extensions.swift in Sources */,
-				C7DB4C26248060F5009932B1 /* AppCoordinator.swift in Sources */,
 				C7DB4C27248060F5009932B1 /* StaticService.swift in Sources */,
 				C7DB4C28248060F5009932B1 /* ConnectionService.swift in Sources */,
-				C7DB4C29248060F5009932B1 /* SearchCoordinator.swift in Sources */,
 				C7DB4C2A248060F5009932B1 /* SearchViewController.swift in Sources */,
 				C7DB4C2B248060F5009932B1 /* MainService.swift in Sources */,
 				C7DB4C2C248060F5009932B1 /* MainViewModel.swift in Sources */,
@@ -2629,7 +2598,6 @@
 				C7DB4C2F248060F5009932B1 /* OrganizationModel.swift in Sources */,
 				C7DB4C30248060F5009932B1 /* ProviderType.swift in Sources */,
 				C7DB4C31248060F5009932B1 /* SettingsViewModel.swift in Sources */,
-				C7DB4C32248060F5009932B1 /* MainCoordinator.swift in Sources */,
 				C7DB4C33248060F5009932B1 /* Environment.swift in Sources */,
 				C7DB4C34248060F5009932B1 /* Config.swift in Sources */,
 				C7DB4C35248060F5009932B1 /* SettingsService.swift in Sources */,
