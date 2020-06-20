@@ -26,7 +26,6 @@ import UIKit
 typealias ApplicationDelegate = UIApplicationDelegate
 typealias ViewController = UIViewController
 typealias PresentingController = UIViewController
-typealias NavigationController = UINavigationController
 typealias Window = UIWindow
 typealias Storyboard = UIStoryboard
 typealias Button = UIButton
