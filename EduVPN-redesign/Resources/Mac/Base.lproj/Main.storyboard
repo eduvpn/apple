@@ -684,7 +684,7 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController storyboardIdentifier="WindowController" id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="444" height="270"/>
@@ -705,13 +705,56 @@
         <scene sceneID="o2m-ye-sB6">
             <objects>
                 <viewController storyboardIdentifier="Navigation" id="Vyy-n5-HuZ" customClass="NavigationController" customModule="EduVPN_redesign_macOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <containerView key="view" id="Z1x-gh-VfR">
+                    <customView key="view" id="Tsh-x1-sF3">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <connections>
-                            <segue destination="NF9-lc-b6F" kind="embed" id="TNw-83-Sh2"/>
-                        </connections>
-                    </containerView>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <subviews>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="vm5-k6-z0Y" userLabel="Toolbar">
+                                <rect key="frame" x="10" y="240" width="430" height="60"/>
+                                <subviews>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PNs-Y1-pKE" userLabel="Toolbar Logo View">
+                                        <rect key="frame" x="-5" y="12" width="440" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="R6d-kC-jEw"/>
+                                        </constraints>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="TopBarLogo" id="zWs-tw-e5A"/>
+                                    </imageView>
+                                    <button verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dkp-Zd-hKw" userLabel="Toolbar Left Button">
+                                        <rect key="frame" x="14" y="10" width="36" height="39"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="36" id="2h4-2Q-R4M"/>
+                                            <constraint firstAttribute="width" secondItem="Dkp-Zd-hKw" secondAttribute="height" id="laY-fz-dDY"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="NSAddTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2ll-qr-gvb">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="7tq-72-0XI"/>
+                                    <constraint firstItem="PNs-Y1-pKE" firstAttribute="centerX" secondItem="vm5-k6-z0Y" secondAttribute="centerX" id="pZt-kd-2dG"/>
+                                    <constraint firstItem="PNs-Y1-pKE" firstAttribute="centerY" secondItem="vm5-k6-z0Y" secondAttribute="centerY" constant="-2" id="wxF-hL-9l4"/>
+                                    <constraint firstItem="Dkp-Zd-hKw" firstAttribute="centerY" secondItem="vm5-k6-z0Y" secondAttribute="centerY" id="yQt-4I-o2r"/>
+                                </constraints>
+                            </customView>
+                            <containerView translatesAutoresizingMaskIntoConstraints="NO" id="iM3-Wx-O14">
+                                <rect key="frame" x="10" y="10" width="430" height="220"/>
+                                <connections>
+                                    <segue destination="NF9-lc-b6F" kind="embed" id="X3X-kk-4e5"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="iM3-Wx-O14" firstAttribute="top" secondItem="vm5-k6-z0Y" secondAttribute="bottom" constant="10" id="0YS-xA-XF7"/>
+                            <constraint firstItem="iM3-Wx-O14" firstAttribute="leading" secondItem="Tsh-x1-sF3" secondAttribute="leading" constant="10" id="Ne1-pd-C42"/>
+                            <constraint firstAttribute="bottom" secondItem="iM3-Wx-O14" secondAttribute="bottom" constant="10" id="c6z-yp-F6y"/>
+                            <constraint firstAttribute="trailing" secondItem="vm5-k6-z0Y" secondAttribute="trailing" constant="10" id="crR-lg-mEs"/>
+                            <constraint firstItem="vm5-k6-z0Y" firstAttribute="leading" secondItem="Tsh-x1-sF3" secondAttribute="leading" constant="10" id="g96-m1-pSc"/>
+                            <constraint firstAttribute="trailing" secondItem="iM3-Wx-O14" secondAttribute="trailing" constant="10" id="qgG-Ru-E7E"/>
+                            <constraint firstItem="vm5-k6-z0Y" firstAttribute="top" secondItem="Tsh-x1-sF3" secondAttribute="top" id="reZ-8K-Beg"/>
+                        </constraints>
+                    </customView>
                 </viewController>
                 <customObject id="P7z-fl-QbE" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -797,4 +840,8 @@ Gw
             <point key="canvasLocation" x="487" y="1638"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="NSAddTemplate" width="11" height="11"/>
+        <image name="TopBarLogo" width="440" height="130"/>
+    </resources>
 </document>
