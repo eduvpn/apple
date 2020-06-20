@@ -140,7 +140,6 @@
 		C7265C0423747A70004496B8 /* ServerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7265C0323747A70004496B8 /* ServerConfiguration.swift */; };
 		C7265C0523747A70004496B8 /* ServerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7265C0323747A70004496B8 /* ServerConfiguration.swift */; };
 		C7517542236340C900058D95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7517541236340C900058D95 /* Assets.xcassets */; };
-		C782BA4E2487ACDB00A50E00 /* PresentingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4C1824805EE9009932B1 /* PresentingController.swift */; };
 		C7D485232372BC22006AC96C /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1163292370539E00577755 /* Crypto.swift */; };
 		C7D8E1D523742A4E009536C9 /* CancellablePromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */; };
 		C7D8E1D623742A4E009536C9 /* CancellablePromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */; };
@@ -403,7 +402,6 @@
 		342B9CBA228ED02E00C006D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		342B9CD822902BB500C006D7 /* DurationTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationTransformer.swift; sourceTree = "<group>"; };
 		342B9CD922902BB500C006D7 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		342B9CDA22902BB500C006D7 /* MainWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		34345270229FC66A00C0476E /* CoreDataFetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFetchedResultsControllerDelegate.swift; sourceTree = "<group>"; };
 		34345284229FF2F000C0476E /* AppCoordinatorError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinatorError.swift; sourceTree = "<group>"; };
 		34345286229FF33000C0476E /* ConnectionsTableViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionsTableViewControllerDelegate.swift; sourceTree = "<group>"; };
@@ -573,7 +571,6 @@
 		C75B2CC52363141200D700EC /* config-letsconnect.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-letsconnect.json"; sourceTree = "<group>"; };
 		C75B2CC62363141200D700EC /* Developer.xcconfig.eduvpn-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer.xcconfig.eduvpn-template"; sourceTree = "<group>"; };
 		C75B2CC72363141200D700EC /* config-template.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-template.json"; sourceTree = "<group>"; };
-		C782BA6A2489A09A00A50E00 /* ContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContentViewController.swift; path = "EduVPN-macOS/Controllers/ContentViewController.swift"; sourceTree = SOURCE_ROOT; };
 		C78D202A2372DF34007067B1 /* Assets-Let’s Connect!.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets-Let’s Connect!.xcassets"; sourceTree = "<group>"; };
 		C7C69A5E236B328200F9B8B3 /* Developer-macOS.xcconfig.eduvpn-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer-macOS.xcconfig.eduvpn-template"; sourceTree = "<group>"; };
 		C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancellablePromise.swift; sourceTree = "<group>"; };
@@ -606,7 +603,6 @@
 		C7DB4C01248053D8009932B1 /* Moya+ResponseHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Moya+ResponseHandling.swift"; sourceTree = "<group>"; };
 		C7DB4C03248055D6009932B1 /* Moya+Promise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Moya+Promise.swift"; sourceTree = "<group>"; };
 		C7DB4C1524805DB9009932B1 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
-		C7DB4C1824805EE9009932B1 /* PresentingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentingController.swift; sourceTree = "<group>"; };
 		C7DB4C1A24805F9B009932B1 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
 		C7DB4C6A248064BC009932B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7DB4C6C248064BC009932B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -1147,7 +1143,6 @@
 			isa = PBXGroup;
 			children = (
 				C7DB4B3A247FBD63009932B1 /* Multiplatform.swift */,
-				C7DB4C1424805D96009932B1 /* Mac */,
 			);
 			path = Shims;
 			sourceTree = "<group>";
@@ -1309,16 +1304,6 @@
 				C7DB4C68248064BC009932B1 /* Mac */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		C7DB4C1424805D96009932B1 /* Mac */ = {
-			isa = PBXGroup;
-			children = (
-				342B9CDA22902BB500C006D7 /* MainWindowController.swift */,
-				C782BA6A2489A09A00A50E00 /* ContentViewController.swift */,
-				C7DB4C1824805EE9009932B1 /* PresentingController.swift */,
-			);
-			path = Mac;
 			sourceTree = "<group>";
 		};
 		C7DB4C68248064BC009932B1 /* Mac */ = {
@@ -2554,7 +2539,6 @@
 				C7DB4B9D247FC23D009932B1 /* SearchViewController.swift in Sources */,
 				C7DB4BAB247FC763009932B1 /* MainService.swift in Sources */,
 				C7DB4BA1247FC243009932B1 /* MainViewModel.swift in Sources */,
-				C782BA4E2487ACDB00A50E00 /* PresentingController.swift in Sources */,
 				C7DB4BA6247FC4B3009932B1 /* Coordinator.swift in Sources */,
 				C7DB4BF224803E47009932B1 /* OrganizationsLoader.swift in Sources */,
 				C7DB4C00248052F7009932B1 /* OrganizationModel.swift in Sources */,
