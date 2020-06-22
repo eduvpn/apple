@@ -165,7 +165,6 @@
 		C7DB4BF624803EB8009932B1 /* ProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BF524803EB8009932B1 /* ProviderType.swift */; };
 		C7DB4BFB24804C1A009932B1 /* Moya+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BFA24804C1A009932B1 /* Moya+Extensions.swift */; };
 		C7DB4BFD24804C85009932B1 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BFC24804C84009932B1 /* Config.swift */; };
-		C7DB4C00248052F7009932B1 /* OrganizationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BF324803E73009932B1 /* OrganizationModel.swift */; };
 		C7DB4C02248053D8009932B1 /* Moya+ResponseHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4C01248053D8009932B1 /* Moya+ResponseHandling.swift */; };
 		C7DB4C04248055D6009932B1 /* Moya+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4C03248055D6009932B1 /* Moya+Promise.swift */; };
 		C7DB4C1624805DB9009932B1 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4C1524805DB9009932B1 /* MainWindowController.swift */; };
@@ -178,7 +177,6 @@
 		C7DB4C2A248060F5009932B1 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B3D247FBDD7009932B1 /* SearchViewController.swift */; };
 		C7DB4C2C248060F5009932B1 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B55247FBEC2009932B1 /* MainViewModel.swift */; };
 		C7DB4C2D248060F5009932B1 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A983B781F397289004F82D5 /* Coordinator.swift */; };
-		C7DB4C2F248060F5009932B1 /* OrganizationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BF324803E73009932B1 /* OrganizationModel.swift */; };
 		C7DB4C30248060F5009932B1 /* ProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BF524803EB8009932B1 /* ProviderType.swift */; };
 		C7DB4C31248060F5009932B1 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B61247FBEEA009932B1 /* SettingsViewModel.swift */; };
 		C7DB4C33248060F5009932B1 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BB2247FD941009932B1 /* Environment.swift */; };
@@ -582,7 +580,6 @@
 		C7DB4BCD24803A29009932B1 /* ServerInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerInfoModel.swift; sourceTree = "<group>"; };
 		C7DB4BD224803B98009932B1 /* FileHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileHelper.swift; sourceTree = "<group>"; };
 		C7DB4BD324803B99009932B1 /* SignatureHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignatureHelper.swift; sourceTree = "<group>"; };
-		C7DB4BF324803E73009932B1 /* OrganizationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationModel.swift; sourceTree = "<group>"; };
 		C7DB4BF524803EB8009932B1 /* ProviderType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderType.swift; sourceTree = "<group>"; };
 		C7DB4BFA24804C1A009932B1 /* Moya+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Moya+Extensions.swift"; sourceTree = "<group>"; };
 		C7DB4BFC24804C84009932B1 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
@@ -1226,7 +1223,6 @@
 			isa = PBXGroup;
 			children = (
 				C7DB4BF524803EB8009932B1 /* ProviderType.swift */,
-				C7DB4BF324803E73009932B1 /* OrganizationModel.swift */,
 				C7DB4BCD24803A29009932B1 /* ServerInfoModel.swift */,
 				6F71FBB7249B54490010D0FE /* DiscoveryData.swift */,
 				6F71FBF6249DEF480010D0FE /* DiscoveryData+Locale.swift */,
@@ -2512,7 +2508,6 @@
 				6FEF30D824A0B8C60026C786 /* ServerDiscoveryService.swift in Sources */,
 				C7DB4BA1247FC243009932B1 /* MainViewModel.swift in Sources */,
 				C7DB4BA6247FC4B3009932B1 /* Coordinator.swift in Sources */,
-				C7DB4C00248052F7009932B1 /* OrganizationModel.swift in Sources */,
 				C7DB4BF624803EB8009932B1 /* ProviderType.swift in Sources */,
 				C7DB4BA5247FC243009932B1 /* SettingsViewModel.swift in Sources */,
 				C7DB4BB3247FD941009932B1 /* Environment.swift in Sources */,
@@ -2545,7 +2540,6 @@
 				C7DB4C2A248060F5009932B1 /* SearchViewController.swift in Sources */,
 				C7DB4C2C248060F5009932B1 /* MainViewModel.swift in Sources */,
 				C7DB4C2D248060F5009932B1 /* Coordinator.swift in Sources */,
-				C7DB4C2F248060F5009932B1 /* OrganizationModel.swift in Sources */,
 				C7DB4C30248060F5009932B1 /* ProviderType.swift in Sources */,
 				C7DB4C31248060F5009932B1 /* SettingsViewModel.swift in Sources */,
 				C7DB4C33248060F5009932B1 /* Environment.swift in Sources */,
