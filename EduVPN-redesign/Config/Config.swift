@@ -34,7 +34,7 @@ struct Config: Decodable {
     var redirectUrl: URL
     
     var predefinedProvider: URL?
-    var discovery: DiscoveryConfig?
+    var discovery: DiscoveryConfig
     
     var appName: String
     var apiDiscoveryEnabled: Bool?
@@ -70,7 +70,7 @@ extension Config {
         redirectUrl = try container.decode(URL.self, forKey: .redirect_url)
         
         predefinedProvider = try container.decodeIfPresent(URL.self, forKey: .predefined_provider)
-        discovery = try container.decodeIfPresent(DiscoveryConfig.self, forKey: .discovery)
+        discovery = try container.decode(DiscoveryConfig.self, forKey: .discovery)
         
         appName = try container.decode(String.self, forKey: .appName)
         apiDiscoveryEnabled = try? container.decodeIfPresent(Bool.self, forKey: .apiDiscoveryEnabled) ?? false
