@@ -13,11 +13,14 @@ protocol SearchViewControllerDelegate: class {
     func searchViewControllerCancelled(_ controller: SearchViewController)
 }
 
-class SearchViewController: ViewController {
+final class SearchViewController: ViewController, ParametrizedViewController {
+    struct Parameters {
+        let environment: Environment
+    }
 
-    var environment: Environment! {
+    var parameters: Parameters! {
         didSet {
-            viewModel = SearchViewModel(environment: environment)
+            viewModel = SearchViewModel(environment: parameters.environment)
         }
     }
 
@@ -26,6 +29,19 @@ class SearchViewController: ViewController {
     weak var delegate: SearchViewControllerDelegate?
 
     @IBOutlet private var cancelButton: Button!
+
+    init?(coder: NSCoder, parameters: Parameters) {
+        self.parameters = parameters
+        super.init(coder: coder)
+    }
+
+    required init?(coder: NSCoder) {
+        if #available(macOS 10.15, iOS 13, *), Environment.isInstantiatingUsingCreatorBlocks {
+            fatalError("init(coder:) should not be called")
+        } else {
+            super.init(coder: coder)
+        }
+    }
 
     @IBAction func cancel(_ sender: Any) {
         delegate?.searchViewControllerCancelled(self)
