@@ -79,10 +79,10 @@ class OrganizationsLoader {
     
     private func verifyResponse(signatureWithMetadata: Data) -> (Moya.Response) throws -> Promise<Moya.Response> {
         return { response in
-            guard let signaturePublicKey = self.config.discovery?.signaturePublicKey else {
+            guard let signaturePublicKeys = self.config.discovery?.signaturePublicKeys else {
                 return Promise(error: OrganizationsLoaderError.missingPublicKey)
             }
-            try SignatureHelper.verify(signatureWithMetadata: signatureWithMetadata, data: response.data, publicKeyWithMetadata: signaturePublicKey)
+            try SignatureHelper.verify(signatureWithMetadata: signatureWithMetadata, data: response.data, publicKeyWithMetadata: signaturePublicKeys.first!)
             return Promise.value(response)
         }
     }
