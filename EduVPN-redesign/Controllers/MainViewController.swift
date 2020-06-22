@@ -15,13 +15,28 @@ protocol MainViewControllerDelegate: class {
 }
 
 class MainViewController: ViewController {
-    
+
+    var environment: Environment! {
+        didSet {
+            viewModel = MainViewModel(environment: environment)
+            environment.navigationController?.delegate = self
+        }
+    }
+
     var viewModel: MainViewModel!
+
     weak var delegate: MainViewControllerDelegate?
     
     @IBOutlet private var addOtherServerButton: Button!
-    
+
     @IBAction func addOtherServer(_ sender: Any) {
         delegate?.mainViewControllerAddOtherServer(self)
+    }
+}
+
+extension MainViewController: NavigationControllerDelegate {
+    func addServerButtonClicked() {
+        let searchVC = environment.instantiateSearchViewController()
+        environment.navigationController?.pushViewController(searchVC, animated: true)
     }
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 class SettingsViewModel {
-    
+
     let environment: Environment
     
     init(environment: Environment) {
@@ -17,7 +17,7 @@ class SettingsViewModel {
     }
     
     func reset() {
-        environment.settingsService.reset()
+        // environment.settingsService.reset()
     }
     
 }

@@ -8,11 +8,24 @@
 
 import Foundation
 
-struct Environment {
-    let config: Config
-    let storyboard: Storyboard
-    let mainService: MainServiceType
-    let searchService: SearchServiceType
-    let settingsService: SettingsServiceType
-    let connectionService: ConnectionServiceType
+class Environment {
+    private lazy var config = Config.shared
+    private lazy var storyboard = Storyboard(name: "Main", bundle: nil)
+    weak var navigationController: NavigationController?
+    // Services to be added
+
+    init(navigationController: NavigationController) {
+        self.navigationController = navigationController
+    }
+
+    func instantiateSearchViewController() -> SearchViewController {
+        let viewController = instantiate(SearchViewController.self, identifier: "Search")
+        viewController.environment = self
+        return viewController
+    }
+
+    private func instantiate<VC: ViewController>(_ type: VC.Type, identifier: String) -> VC {
+        return storyboard.instantiateViewController(withIdentifier: identifier)
+            as! VC // swiftlint:disable:this force_cast
+    }
 }

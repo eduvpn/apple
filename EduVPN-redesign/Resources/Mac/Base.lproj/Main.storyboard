@@ -729,6 +729,9 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="toolbarLeftButtonClicked:" target="Vyy-n5-HuZ" id="OD1-PP-jS8"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -755,6 +758,9 @@
                             <constraint firstItem="vm5-k6-z0Y" firstAttribute="top" secondItem="Tsh-x1-sF3" secondAttribute="top" id="reZ-8K-Beg"/>
                         </constraints>
                     </customView>
+                    <connections>
+                        <outlet property="toolbarLeftButton" destination="Dkp-Zd-hKw" id="tJX-wP-7q2"/>
+                    </connections>
                 </viewController>
                 <customObject id="P7z-fl-QbE" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
