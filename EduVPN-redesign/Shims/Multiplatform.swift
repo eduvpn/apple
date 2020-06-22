@@ -59,6 +59,13 @@ extension Storyboard {
     func instantiateViewController(withIdentifier identifier: SceneIdentifier) -> Any {
         return instantiateController(withIdentifier: identifier)
     }
+
+    @available(OSX 10.15, *)
+    func instantiateViewController<Controller>(identifier: SceneIdentifier, creator: ((NSCoder) -> Controller?)? = nil) -> Controller
+        where Controller: ViewController {
+            return instantiateController(identifier: identifier, creator: creator)
+    }
+
 }
 
 #endif
