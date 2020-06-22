@@ -158,17 +158,11 @@
 		C7DB4BA4247FC243009932B1 /* ConnectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B5E247FBEE3009932B1 /* ConnectionViewModel.swift */; };
 		C7DB4BA5247FC243009932B1 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B61247FBEEA009932B1 /* SettingsViewModel.swift */; };
 		C7DB4BA6247FC4B3009932B1 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A983B781F397289004F82D5 /* Coordinator.swift */; };
-		C7DB4BAB247FC763009932B1 /* MainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BAA247FC763009932B1 /* MainService.swift */; };
-		C7DB4BAD247FC76F009932B1 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BAC247FC76F009932B1 /* SearchService.swift */; };
-		C7DB4BAF247FC779009932B1 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BAE247FC779009932B1 /* SettingsService.swift */; };
-		C7DB4BB1247FC787009932B1 /* ConnectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BB0247FC787009932B1 /* ConnectionService.swift */; };
 		C7DB4BB3247FD941009932B1 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BB2247FD941009932B1 /* Environment.swift */; };
 		C7DB4BCF24803A2A009932B1 /* ServerInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BCD24803A29009932B1 /* ServerInfoModel.swift */; };
 		C7DB4BD424803B99009932B1 /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BD224803B98009932B1 /* FileHelper.swift */; };
 		C7DB4BD524803B99009932B1 /* SignatureHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BD324803B99009932B1 /* SignatureHelper.swift */; };
-		C7DB4BF224803E47009932B1 /* OrganizationsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BF024803E46009932B1 /* OrganizationsLoader.swift */; };
 		C7DB4BF624803EB8009932B1 /* ProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BF524803EB8009932B1 /* ProviderType.swift */; };
-		C7DB4BF9248040F8009932B1 /* StaticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BF8248040F8009932B1 /* StaticService.swift */; };
 		C7DB4BFB24804C1A009932B1 /* Moya+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BFA24804C1A009932B1 /* Moya+Extensions.swift */; };
 		C7DB4BFD24804C85009932B1 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BFC24804C84009932B1 /* Config.swift */; };
 		C7DB4C00248052F7009932B1 /* OrganizationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BF324803E73009932B1 /* OrganizationModel.swift */; };
@@ -181,26 +175,20 @@
 		C7DB4C23248060F5009932B1 /* ConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B43247FBDF5009932B1 /* ConnectionViewController.swift */; };
 		C7DB4C24248060F5009932B1 /* ServerInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BCD24803A29009932B1 /* ServerInfoModel.swift */; };
 		C7DB4C25248060F5009932B1 /* Moya+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BFA24804C1A009932B1 /* Moya+Extensions.swift */; };
-		C7DB4C27248060F5009932B1 /* StaticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BF8248040F8009932B1 /* StaticService.swift */; };
-		C7DB4C28248060F5009932B1 /* ConnectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BB0247FC787009932B1 /* ConnectionService.swift */; };
 		C7DB4C2A248060F5009932B1 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B3D247FBDD7009932B1 /* SearchViewController.swift */; };
-		C7DB4C2B248060F5009932B1 /* MainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BAA247FC763009932B1 /* MainService.swift */; };
 		C7DB4C2C248060F5009932B1 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B55247FBEC2009932B1 /* MainViewModel.swift */; };
 		C7DB4C2D248060F5009932B1 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A983B781F397289004F82D5 /* Coordinator.swift */; };
-		C7DB4C2E248060F5009932B1 /* OrganizationsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BF024803E46009932B1 /* OrganizationsLoader.swift */; };
 		C7DB4C2F248060F5009932B1 /* OrganizationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BF324803E73009932B1 /* OrganizationModel.swift */; };
 		C7DB4C30248060F5009932B1 /* ProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BF524803EB8009932B1 /* ProviderType.swift */; };
 		C7DB4C31248060F5009932B1 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B61247FBEEA009932B1 /* SettingsViewModel.swift */; };
 		C7DB4C33248060F5009932B1 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BB2247FD941009932B1 /* Environment.swift */; };
 		C7DB4C34248060F5009932B1 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BFC24804C84009932B1 /* Config.swift */; };
-		C7DB4C35248060F5009932B1 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BAE247FC779009932B1 /* SettingsService.swift */; };
 		C7DB4C36248060F5009932B1 /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BD224803B98009932B1 /* FileHelper.swift */; };
 		C7DB4C37248060F5009932B1 /* Multiplatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B3A247FBD63009932B1 /* Multiplatform.swift */; };
 		C7DB4C38248060F5009932B1 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B58247FBECC009932B1 /* SearchViewModel.swift */; };
 		C7DB4C39248060F5009932B1 /* SignatureHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BD324803B99009932B1 /* SignatureHelper.swift */; };
 		C7DB4C3B248060F5009932B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B6A247FC198009932B1 /* AppDelegate.swift */; };
 		C7DB4C3C248060F5009932B1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B37247FBD52009932B1 /* MainViewController.swift */; };
-		C7DB4C3D248060F5009932B1 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BAC247FC76F009932B1 /* SearchService.swift */; };
 		C7DB4C3E248060F5009932B1 /* AddOtherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B40247FBDE4009932B1 /* AddOtherViewController.swift */; };
 		C7DB4C3F248060F5009932B1 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B46247FBE26009932B1 /* SettingsViewController.swift */; };
 		C7DB4C40248060F5009932B1 /* Moya+ResponseHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4C01248053D8009932B1 /* Moya+ResponseHandling.swift */; };
@@ -590,18 +578,12 @@
 		C7DB4B5E247FBEE3009932B1 /* ConnectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionViewModel.swift; sourceTree = "<group>"; };
 		C7DB4B61247FBEEA009932B1 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		C7DB4B6A247FC198009932B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C7DB4BAA247FC763009932B1 /* MainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainService.swift; sourceTree = "<group>"; };
-		C7DB4BAC247FC76F009932B1 /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
-		C7DB4BAE247FC779009932B1 /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
-		C7DB4BB0247FC787009932B1 /* ConnectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionService.swift; sourceTree = "<group>"; };
 		C7DB4BB2247FD941009932B1 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		C7DB4BCD24803A29009932B1 /* ServerInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerInfoModel.swift; sourceTree = "<group>"; };
 		C7DB4BD224803B98009932B1 /* FileHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileHelper.swift; sourceTree = "<group>"; };
 		C7DB4BD324803B99009932B1 /* SignatureHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignatureHelper.swift; sourceTree = "<group>"; };
-		C7DB4BF024803E46009932B1 /* OrganizationsLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationsLoader.swift; sourceTree = "<group>"; };
 		C7DB4BF324803E73009932B1 /* OrganizationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationModel.swift; sourceTree = "<group>"; };
 		C7DB4BF524803EB8009932B1 /* ProviderType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderType.swift; sourceTree = "<group>"; };
-		C7DB4BF8248040F8009932B1 /* StaticService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticService.swift; sourceTree = "<group>"; };
 		C7DB4BFA24804C1A009932B1 /* Moya+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Moya+Extensions.swift"; sourceTree = "<group>"; };
 		C7DB4BFC24804C84009932B1 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		C7DB4C01248053D8009932B1 /* Moya+ResponseHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Moya+ResponseHandling.swift"; sourceTree = "<group>"; };
@@ -1219,10 +1201,6 @@
 			children = (
 				6FEF30D724A0B8C60026C786 /* ServerDiscoveryService.swift */,
 				C7DB4BB2247FD941009932B1 /* Environment.swift */,
-				C7DB4BAA247FC763009932B1 /* MainService.swift */,
-				C7DB4BAC247FC76F009932B1 /* SearchService.swift */,
-				C7DB4BAE247FC779009932B1 /* SettingsService.swift */,
-				C7DB4BB0247FC787009932B1 /* ConnectionService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1236,7 +1214,6 @@
 				C7DB4BD124803B57009932B1 /* Helpers */,
 				C7DB4BCC248039DB009932B1 /* Models */,
 				C7DB4BF7248040B8009932B1 /* Networking */,
-				C7DB4BEE24803E2B009932B1 /* Repositories */,
 				C7DB4B36247FBD24009932B1 /* Services */,
 				C7158F292490CAC6008C1317 /* Shims */,
 				C7DB4B35247FBD16009932B1 /* ViewModels */,
@@ -1266,19 +1243,10 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		C7DB4BEE24803E2B009932B1 /* Repositories */ = {
-			isa = PBXGroup;
-			children = (
-				C7DB4BF024803E46009932B1 /* OrganizationsLoader.swift */,
-			);
-			path = Repositories;
-			sourceTree = "<group>";
-		};
 		C7DB4BF7248040B8009932B1 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
 				6F71FBBC249CCE980010D0FE /* DiscoveryDataFetcher.swift */,
-				C7DB4BF8248040F8009932B1 /* StaticService.swift */,
 				C7DB4C062480570D009932B1 /* Moya */,
 			);
 			path = Networking;
@@ -2540,14 +2508,10 @@
 				C7DB4BCF24803A2A009932B1 /* ServerInfoModel.swift in Sources */,
 				6F71FBB9249B545B0010D0FE /* DiscoveryData.swift in Sources */,
 				C7DB4BFB24804C1A009932B1 /* Moya+Extensions.swift in Sources */,
-				C7DB4BF9248040F8009932B1 /* StaticService.swift in Sources */,
-				C7DB4BB1247FC787009932B1 /* ConnectionService.swift in Sources */,
 				C7DB4B9D247FC23D009932B1 /* SearchViewController.swift in Sources */,
-				C7DB4BAB247FC763009932B1 /* MainService.swift in Sources */,
 				6FEF30D824A0B8C60026C786 /* ServerDiscoveryService.swift in Sources */,
 				C7DB4BA1247FC243009932B1 /* MainViewModel.swift in Sources */,
 				C7DB4BA6247FC4B3009932B1 /* Coordinator.swift in Sources */,
-				C7DB4BF224803E47009932B1 /* OrganizationsLoader.swift in Sources */,
 				C7DB4C00248052F7009932B1 /* OrganizationModel.swift in Sources */,
 				C7DB4BF624803EB8009932B1 /* ProviderType.swift in Sources */,
 				C7DB4BA5247FC243009932B1 /* SettingsViewModel.swift in Sources */,
@@ -2555,7 +2519,6 @@
 				6F71FBBE249CCE9E0010D0FE /* DiscoveryDataFetcher.swift in Sources */,
 				C7DB4C7724806512009932B1 /* eduVPN_2.xcdatamodeld in Sources */,
 				C7DB4BFD24804C85009932B1 /* Config.swift in Sources */,
-				C7DB4BAF247FC779009932B1 /* SettingsService.swift in Sources */,
 				6FCCC577249E25F100F0F5A3 /* NavigationController.swift in Sources */,
 				C7DB4BD424803B99009932B1 /* FileHelper.swift in Sources */,
 				C7DB4B9B247FC23D009932B1 /* Multiplatform.swift in Sources */,
@@ -2563,7 +2526,6 @@
 				C7DB4BD524803B99009932B1 /* SignatureHelper.swift in Sources */,
 				C7DB4B6B247FC198009932B1 /* AppDelegate.swift in Sources */,
 				C7DB4B9C247FC23D009932B1 /* MainViewController.swift in Sources */,
-				C7DB4BAD247FC76F009932B1 /* SearchService.swift in Sources */,
 				C7DB4B9E247FC23D009932B1 /* AddOtherViewController.swift in Sources */,
 				C7DB4BA0247FC23D009932B1 /* SettingsViewController.swift in Sources */,
 				C7DB4C02248053D8009932B1 /* Moya+ResponseHandling.swift in Sources */,
@@ -2580,26 +2542,20 @@
 				C7DB4C23248060F5009932B1 /* ConnectionViewController.swift in Sources */,
 				C7DB4C24248060F5009932B1 /* ServerInfoModel.swift in Sources */,
 				C7DB4C25248060F5009932B1 /* Moya+Extensions.swift in Sources */,
-				C7DB4C27248060F5009932B1 /* StaticService.swift in Sources */,
-				C7DB4C28248060F5009932B1 /* ConnectionService.swift in Sources */,
 				C7DB4C2A248060F5009932B1 /* SearchViewController.swift in Sources */,
-				C7DB4C2B248060F5009932B1 /* MainService.swift in Sources */,
 				C7DB4C2C248060F5009932B1 /* MainViewModel.swift in Sources */,
 				C7DB4C2D248060F5009932B1 /* Coordinator.swift in Sources */,
-				C7DB4C2E248060F5009932B1 /* OrganizationsLoader.swift in Sources */,
 				C7DB4C2F248060F5009932B1 /* OrganizationModel.swift in Sources */,
 				C7DB4C30248060F5009932B1 /* ProviderType.swift in Sources */,
 				C7DB4C31248060F5009932B1 /* SettingsViewModel.swift in Sources */,
 				C7DB4C33248060F5009932B1 /* Environment.swift in Sources */,
 				C7DB4C34248060F5009932B1 /* Config.swift in Sources */,
-				C7DB4C35248060F5009932B1 /* SettingsService.swift in Sources */,
 				C7DB4C36248060F5009932B1 /* FileHelper.swift in Sources */,
 				C7DB4C37248060F5009932B1 /* Multiplatform.swift in Sources */,
 				C7DB4C38248060F5009932B1 /* SearchViewModel.swift in Sources */,
 				C7DB4C39248060F5009932B1 /* SignatureHelper.swift in Sources */,
 				C7DB4C3B248060F5009932B1 /* AppDelegate.swift in Sources */,
 				C7DB4C3C248060F5009932B1 /* MainViewController.swift in Sources */,
-				C7DB4C3D248060F5009932B1 /* SearchService.swift in Sources */,
 				C7DB4C3E248060F5009932B1 /* AddOtherViewController.swift in Sources */,
 				C7DB4C3F248060F5009932B1 /* SettingsViewController.swift in Sources */,
 				C7DB4C40248060F5009932B1 /* Moya+ResponseHandling.swift in Sources */,

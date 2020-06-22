@@ -92,20 +92,4 @@ extension DiscoveryConfig {
         let signaturePublicKeyStrings = try container.decode([String].self, forKey: .signature_public_keys)
         signaturePublicKeys = signaturePublicKeyStrings.compactMap { Data(base64Encoded: $0) }
     }
-
-    public func url(forServiceType type: StaticService.StaticServiceType) -> URL {
-        switch type {
-        case .serverList:
-            return serverList
-            
-        case .serverListSignature:
-            return serverListSignature
-
-        case .organizationList:
-            return organizationList
-            
-        case .organizationListSignature:
-            return organizationListSignature
-        }
-    }
 }
