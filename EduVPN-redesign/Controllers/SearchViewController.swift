@@ -14,12 +14,19 @@ protocol SearchViewControllerDelegate: class {
 }
 
 class SearchViewController: ViewController {
-    
+
+    var environment: Environment! {
+        didSet {
+            viewModel = SearchViewModel(environment: environment)
+        }
+    }
+
     var viewModel: SearchViewModel!
+
     weak var delegate: SearchViewControllerDelegate?
-    
+
     @IBOutlet private var cancelButton: Button!
-    
+
     @IBAction func cancel(_ sender: Any) {
         delegate?.searchViewControllerCancelled(self)
     }

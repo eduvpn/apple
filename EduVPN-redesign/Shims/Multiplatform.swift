@@ -15,9 +15,7 @@ protocol Presenting {
 protocol Navigating {
     func pushViewController(_ viewController: ViewController, animated: Bool)
     func popViewController(animated: Bool) -> ViewController?
-    func popToRootViewController(animated: Bool) -> [ViewController]?
 }
-
 
 #if os(iOS)
 import UIKit
@@ -45,26 +43,21 @@ extension Window {
     func makeKeyAndVisible() {
         makeKey()
     }
-    
+
     var rootViewController: ViewController? {
-        get {
-            return windowController?.contentViewController
-        }
+        return windowController?.contentViewController as? ViewController
     }
 }
 
 extension Storyboard {
-    
+
     func instantiateInitialViewController() -> Any {
         return instantiateInitialController()
     }
-    
+
     func instantiateViewController(withIdentifier identifier: SceneIdentifier) -> Any {
         return instantiateController(withIdentifier: identifier)
     }
 }
 
 #endif
-
-
-
