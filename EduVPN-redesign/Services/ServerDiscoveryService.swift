@@ -51,6 +51,7 @@ class ServerDiscoveryService {
         self.discoveryConfig = discoveryConfig
     }
 
+    @discardableResult
     func addServersChangeHandler(_ handler: @escaping ServersChangeHandler) -> UUID {
         let uuid = UUID()
         serversChangeHandlers[uuid] = handler
@@ -61,6 +62,7 @@ class ServerDiscoveryService {
         serversChangeHandlers.removeValue(forKey: uuid)
     }
 
+    @discardableResult
     func addOrganizationsChangeHandler(_ handler: @escaping OrganizationsChangeHandler) -> UUID {
         let uuid = UUID()
         organizationsChangeHandlers[uuid] = handler
