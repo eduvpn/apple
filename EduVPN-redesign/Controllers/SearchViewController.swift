@@ -21,7 +21,7 @@ final class SearchViewController: ViewController, ParametrizedViewController {
 
     var parameters: Parameters! {
         didSet {
-            viewModel = SearchViewModel(environment: parameters.environment)
+            viewModel = SearchViewModel(serverDiscoveryService: parameters.environment.serverDiscoveryService)
         }
     }
 
