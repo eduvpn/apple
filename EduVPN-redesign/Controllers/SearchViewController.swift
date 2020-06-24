@@ -18,29 +18,20 @@ final class SearchViewController: ViewController, ParametrizedViewController {
         let environment: Environment
     }
 
-    var parameters: Parameters! {
-        didSet {
-            viewModel = SearchViewModel(serverDiscoveryService: parameters.environment.serverDiscoveryService)
-        }
-    }
-
-    var viewModel: SearchViewModel!
-
     weak var delegate: SearchViewControllerDelegate?
+
+    private var parameters: Parameters!
+    private var viewModel: SearchViewModel!
 
     @IBOutlet private var cancelButton: Button!
 
-    init?(coder: NSCoder, parameters: Parameters) {
-        self.parameters = parameters
-        super.init(coder: coder)
-    }
-
-    required init?(coder: NSCoder) {
-        if #available(macOS 10.15, iOS 13, *), Environment.isInstantiatingUsingCreatorBlocks {
-            fatalError("init(coder:) should not be called")
-        } else {
-            super.init(coder: coder)
+    func initializeParameters(_ parameters: Parameters) {
+        guard self.parameters == nil else {
+            fatalError("Can't initialize parameters twice")
         }
+        self.parameters = parameters
+        self.viewModel = SearchViewModel(
+            serverDiscoveryService: parameters.environment.serverDiscoveryService)
     }
 
     @IBAction func cancel(_ sender: Any) {
