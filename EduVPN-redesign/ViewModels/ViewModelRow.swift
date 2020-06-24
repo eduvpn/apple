@@ -10,6 +10,19 @@ enum ViewModelRowKind: Int {
     case instituteAccessServerKind
     case secureInternetOrgSectionHeaderKind
     case secureInternetOrgKind
+
+    var isSectionHeader: Bool {
+        switch self {
+        case .addingServerByURLSectionHeaderKind,
+             .instituteAccessServerSectionHeaderKind,
+             .secureInternetOrgSectionHeaderKind:
+            return true
+        case .addingServerByURLKind,
+             .instituteAccessServerKind,
+             .secureInternetOrgKind:
+            return false
+        }
+    }
 }
 
 struct RowsDifference<T: ViewModelRow> {
@@ -44,7 +57,7 @@ extension Array where Array.Element: ViewModelRow {
         var insertions: [(Int, Array.Element)] = []
         var thisIndex = 0
         var otherIndex = 0
-        while thisIndex < count && otherIndex < other.count {
+        while otherIndex < other.count && thisIndex < count {
             if other[otherIndex] < self[thisIndex] {
                 deletedIndices.append(otherIndex)
                 otherIndex += 1
@@ -56,6 +69,25 @@ extension Array where Array.Element: ViewModelRow {
                 thisIndex += 1
             }
         }
+        while otherIndex < other.count {
+            deletedIndices.append(otherIndex)
+            otherIndex += 1
+        }
+        while thisIndex < count {
+            insertions.append((thisIndex, self[thisIndex]))
+            thisIndex += 1
+        }
         return RowsDifference(deletedIndices: deletedIndices, insertions: insertions)
+    }
+
+    func applying(diff: RowsDifference<Array.Element>) -> Array {
+        var copy = self
+        for index in diff.deletedIndices.sorted().reversed() {
+            copy.remove(at: index)
+        }
+        for insertion in diff.insertions.sorted(by: { $0.0 < $1.0 }) {
+            copy.insert(insertion.1, at: insertion.0)
+        }
+        return copy
     }
 }

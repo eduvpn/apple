@@ -26,9 +26,18 @@ typealias PresentingController = UIViewController
 typealias Window = UIWindow
 typealias Storyboard = UIStoryboard
 typealias Button = UIButton
+typealias TableView = UITableView
+typealias TableViewCell = UITableViewCell
 
 extension PresentingController: Presenting { }
 extension NavigationController: Navigating { }
+
+extension TableView {
+    func dequeue<T: TableViewCell>(identifier: String, indexPath: IndexPath) -> T {
+        //swiftlint:disable:next force_cast
+        return dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! T
+    }
+}
 
 #elseif os(macOS)
 import AppKit
@@ -38,6 +47,8 @@ typealias ViewController = NSViewController
 typealias Window = NSWindow
 typealias Storyboard = NSStoryboard
 typealias Button = NSButton
+typealias TableView = NSTableView
+typealias TableViewCell = NSTableCellView
 
 extension Window {
     func makeKeyAndVisible() {
@@ -65,6 +76,17 @@ extension Storyboard {
             return instantiateController(identifier: identifier, creator: creator)
     }
 
+}
+
+extension TableView {
+    func dequeue<T: TableViewCell>(_ type: T.Type, identifier: String, indexPath: IndexPath) -> T {
+        guard let cellView = makeView(
+            withIdentifier: NSUserInterfaceItemIdentifier(identifier),
+            owner: self) else {
+                fatalError("Can't dequeue \(T.self) with identifier \(identifier)")
+        }
+        return cellView as! T // swiftlint:disable:this force_cast
+    }
 }
 
 #endif
