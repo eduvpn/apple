@@ -39,6 +39,7 @@ class SearchViewModel {
             switch self {
             case .instituteAccessServer(let server): return server.displayName
             case .secureInternetOrg(let organization): return organization.displayName
+            case .addingServerByURL(let urlString): return urlString
             default: return ""
             }
         }
@@ -48,6 +49,14 @@ class SearchViewModel {
         case serverByURLOnly
         case instituteAccessOrServerByURL
         case all
+
+        var includesInstituteAccessServers: Bool {
+            self == .instituteAccessOrServerByURL || self == .all
+        }
+
+        var includesOrganizations: Bool {
+            self == .all
+        }
     }
 
     struct InstituteAccessServer: Comparable {
@@ -94,20 +103,30 @@ class SearchViewModel {
     init(serverDiscoveryService: ServerDiscoveryService) {
         self.serverDiscoveryService = serverDiscoveryService
         serverDiscoveryService.addServersChangeHandler { [weak self] (servers) in
-            self?.setSortedInstituteAccessServers(from: servers)
+            guard let self = self else { return }
+            if self.scope.includesInstituteAccessServers {
+                self.setSortedInstituteAccessServers(from: servers)
+                self.update()
+            }
         }
         serverDiscoveryService.addOrganizationsChangeHandler { [weak self] (organizations) in
-            self?.setSortedOrganizations(from: organizations)
+            guard let self = self else { return }
+            if self.scope.includesOrganizations {
+                self.setSortedOrganizations(from: organizations)
+                self.update()
+            }
         }
     }
 
     func setSearchQuery(_ searchQuery: String) {
-        // Should debounce
         self.searchQuery = searchQuery
+        update()
     }
 
     func setScope(_ scope: Scope) {
-        guard scope != self.scope else { return }
+        if scope == self.scope {
+            return
+        }
         switch scope {
         case .serverByURLOnly:
             setSortedInstituteAccessServers(from: nil)
@@ -137,10 +156,10 @@ class SearchViewModel {
 
     func refreshFromServer() -> Promise<Void> {
         var refreshingPromises: [Promise<Void>] = []
-        if scope == .instituteAccessOrServerByURL || scope == .all {
+        if scope.includesInstituteAccessServers {
             refreshingPromises.append(serverDiscoveryService.refreshServers())
         }
-        if scope == .all {
+        if scope.includesOrganizations {
             refreshingPromises.append(serverDiscoveryService.refreshOrganizations())
         }
         return when(fulfilled: refreshingPromises)
@@ -165,7 +184,7 @@ class SearchViewModel {
     }
 
     private static func serverByAddressRows(searchQuery: String) -> [Row] {
-        let hasTwoOrMoreDots = searchQuery.filter { $0 == "." }.count > 2
+        let hasTwoOrMoreDots = searchQuery.filter { $0 == "." }.count >= 2
         if hasTwoOrMoreDots {
             let url = searchQuery.hasPrefix("https://") ?
                 searchQuery : ("https://" + searchQuery)
@@ -180,7 +199,7 @@ class SearchViewModel {
         let matchingServerRows: [Row] = sortedList
             .filter {
                 searchQuery.isEmpty ||
-                $0.displayName.contains(searchQuery)
+                $0.displayName.localizedCaseInsensitiveContains(searchQuery)
             }.map { .instituteAccessServer($0) }
         return matchingServerRows.isEmpty ?
             [] :
@@ -192,8 +211,8 @@ class SearchViewModel {
         let matchingServerRows: [Row] = sortedList
             .filter {
                 searchQuery.isEmpty ||
-                $0.displayName.contains(searchQuery) ||
-                $0.keywordList.contains(searchQuery)
+                $0.displayName.localizedCaseInsensitiveContains(searchQuery) ||
+                $0.keywordList.localizedCaseInsensitiveContains(searchQuery)
             }.map { .secureInternetOrg($0) }
         return matchingServerRows.isEmpty ?
             [] :
