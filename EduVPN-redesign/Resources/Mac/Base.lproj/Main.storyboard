@@ -848,10 +848,10 @@ Gw
                                 </connections>
                             </button>
                             <stackView distribution="equalSpacing" orientation="vertical" alignment="centerX" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0bk-uR-zfI">
-                                <rect key="frame" x="20" y="444" width="410" height="431"/>
+                                <rect key="frame" x="20" y="489" width="410" height="386"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="APD-qg-Q9T">
-                                        <rect key="frame" x="0.0" y="185" width="410" height="246"/>
+                                        <rect key="frame" x="0.0" y="140" width="410" height="246"/>
                                         <subviews>
                                             <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="11" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kGH-Q2-SaG" userLabel="Stack View 1">
                                                 <rect key="frame" x="167" y="214" width="76" height="32"/>
@@ -949,10 +949,10 @@ Gw
                                         </constraints>
                                     </customView>
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jhp-Sc-Dbg">
-                                        <rect key="frame" x="0.0" y="75" width="410" height="90"/>
+                                        <rect key="frame" x="0.0" y="75" width="410" height="45"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="6dK-qh-6xr">
-                                                <rect key="frame" x="0.0" y="45" width="410" height="45"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="410" height="45"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9pZ-1A-bNE">
                                                         <rect key="frame" x="-2" y="9" width="65" height="16"/>
@@ -976,50 +976,14 @@ Gw
                                                     <constraint firstAttribute="bottom" secondItem="uA2-6s-MCQ" secondAttribute="bottom" id="zep-cl-VBc"/>
                                                 </constraints>
                                             </customView>
-                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="uzW-ku-lIY">
-                                                <rect key="frame" x="0.0" y="0.0" width="410" height="45"/>
-                                                <subviews>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ryT-3v-iRE">
-                                                        <rect key="frame" x="-2" y="9" width="43" height="16"/>
-                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Profile" id="cxQ-V1-XLI">
-                                                            <font key="font" metaFont="system"/>
-                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
-                                                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="f9V-wz-BXv">
-                                                        <rect key="frame" x="0.0" y="-2" width="410" height="5"/>
-                                                    </box>
-                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="464-aD-0q6" customClass="Switch" customModule="EduVPN_redesign_macOS" customModuleProvider="target">
-                                                        <rect key="frame" x="349" y="8" width="63" height="18"/>
-                                                        <buttonCell key="cell" type="check" title="Switch" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Tmz-Sz-nTb">
-                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                            <font key="font" metaFont="system"/>
-                                                        </buttonCell>
-                                                    </button>
-                                                </subviews>
-                                                <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="f9V-wz-BXv" secondAttribute="trailing" id="3ER-C7-9EZ"/>
-                                                    <constraint firstItem="f9V-wz-BXv" firstAttribute="leading" secondItem="uzW-ku-lIY" secondAttribute="leading" id="OGR-ul-6PC"/>
-                                                    <constraint firstItem="f9V-wz-BXv" firstAttribute="top" secondItem="ryT-3v-iRE" secondAttribute="bottom" constant="8" symbolic="YES" id="QTj-Uu-1OS"/>
-                                                    <constraint firstItem="ryT-3v-iRE" firstAttribute="top" secondItem="uzW-ku-lIY" secondAttribute="top" constant="20" symbolic="YES" id="RFV-Pp-uqN"/>
-                                                    <constraint firstAttribute="trailing" secondItem="464-aD-0q6" secondAttribute="trailing" id="V1n-Et-a6r"/>
-                                                    <constraint firstItem="ryT-3v-iRE" firstAttribute="leading" secondItem="uzW-ku-lIY" secondAttribute="leading" id="Zks-oa-gmk"/>
-                                                    <constraint firstAttribute="bottom" secondItem="f9V-wz-BXv" secondAttribute="bottom" id="eRB-03-XJ3"/>
-                                                    <constraint firstItem="464-aD-0q6" firstAttribute="centerY" secondItem="ryT-3v-iRE" secondAttribute="centerY" id="gyL-pq-zzQ"/>
-                                                </constraints>
-                                            </customView>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="uzW-ku-lIY" firstAttribute="width" secondItem="6dK-qh-6xr" secondAttribute="width" id="Glw-ul-VPN"/>
                                             <constraint firstItem="6dK-qh-6xr" firstAttribute="width" secondItem="Jhp-Sc-Dbg" secondAttribute="width" id="hPr-oj-JtR"/>
                                         </constraints>
                                         <visibilityPriorities>
                                             <integer value="1000"/>
-                                            <integer value="1000"/>
                                         </visibilityPriorities>
                                         <customSpacing>
-                                            <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                         </customSpacing>
                                     </stackView>
@@ -1328,6 +1292,7 @@ Gw
                         <outlet property="ipv6AddressValueLabel" destination="fGC-Sh-SIa" id="ohT-zB-kBY"/>
                         <outlet property="mainSwitch" destination="K6B-LR-PWS" id="who-J3-oSD"/>
                         <outlet property="nameLabel" destination="7dc-fJ-NaS" id="Xfl-Bd-YnS"/>
+                        <outlet property="profilesView" destination="Jhp-Sc-Dbg" id="ihO-aH-3P5"/>
                         <outlet property="renewSessionButton" destination="7sd-0c-CZE" id="9A0-JB-HiE"/>
                         <outlet property="supportLabel" destination="D3M-kJ-cdy" id="LWj-0Y-wo6"/>
                         <outlet property="supportValueLabel" destination="tQG-i1-x2c" id="nRT-4H-QW7"/>

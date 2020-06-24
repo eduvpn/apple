@@ -34,6 +34,8 @@ typealias Image = UIImage
 typealias Label = UILabel
 typealias ImageView = UIImageView
 typealias Switch = UISwitch
+typealias StackView = UIStackView
+typealias View = UIView
 
 extension PresentingController: Presenting { }
 extension NavigationController: Navigating { }
@@ -48,6 +50,7 @@ typealias Storyboard = NSStoryboard
 typealias Button = NSButton
 typealias Image = NSImage
 typealias ImageView = NSImageView
+typealias View = NSView
 
 extension Window {
     func makeKeyAndVisible() {
@@ -64,7 +67,7 @@ extension Window {
 extension Storyboard {
     
     func instantiateInitialViewController() -> Any {
-        return instantiateInitialController()
+        return instantiateInitialController()!
     }
     
     func instantiateViewController(withIdentifier identifier: SceneIdentifier) -> Any {
@@ -72,7 +75,25 @@ extension Storyboard {
     }
 }
 
+extension NSButton {
+    
+    enum Event {
+        case touchUpInside
+    }
+    
+    func addTarget(_ target: AnyObject?, action: Selector, for controlEvents: Event) {
+        self.target = target
+        self.action = action
+    }
+    
+}
+
 class Label: NSTextField {
+    
+    convenience init() {
+        self.init(frame: .zero)
+        self.isEditable = false
+    }
     
     var text: String? {
         get {
@@ -86,6 +107,11 @@ class Label: NSTextField {
 
 class Switch: NSButton {
     
+    convenience init() {
+        self.init(frame: .zero)
+        self.setButtonType(.switch)
+    }
+    
     var isOn: Bool {
         get {
             return self.state == .on
@@ -97,5 +123,24 @@ class Switch: NSButton {
    
 }
 
-#endif
+class StackView: NSStackView {
+    
+    convenience init(arrangedSubviews: [View]) {
+        self.init(views: arrangedSubviews)
+    }
+    
+}
 
+extension Button {
+    
+    var isSelected: Bool {
+        get {
+            state == .on
+        }
+        set {
+            state = newValue ? .on  : .off
+        }
+    }
+}
+
+#endif

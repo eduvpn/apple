@@ -14,7 +14,7 @@ class ConnectionViewModel {
     
     init(environment: Environment) {
         self.environment = environment
-        self.connectionState = ConnectionState(name: "Test", icon: nil, support: nil, connectionImage: Image(named: "Test")!, connectionStatus: "Connecting…", canClose: true, hasProfilesSection: false, profiles: [ProfileState(profileIdentifier: "foo", name: "Profile", enabled: false)], showsRenewSessionButton: false, showsConnectionInfo: false)
+        self.connectionState = ConnectionState(name: "Test", icon: nil, support: nil, connectionImage: Image(named: "Test")!, connectionStatus: "Connecting…", canClose: true, hasProfilesSection: true, profiles: [ProfileState(profileIdentifier: "foo", name: "Profile 1", enabled: false), ProfileState(profileIdentifier: "bar", name: "Profile 2", enabled: false), ProfileState(profileIdentifier: "baz", name: "Profile 3", enabled: false)], showsRenewSessionButton: false, showsConnectionInfo: false)
     }
     
     struct ConnectionState {
@@ -43,17 +43,37 @@ class ConnectionViewModel {
         var upload: String
         var ipv4Address: String
         var ipv6Address: String
+        
+        static var empty: ConnectionInfoState {
+            return ConnectionInfoState(duration: "-:--:--", download: "--", upload: "--", ipv4Address: "--", ipv6Address: "--")
+        }
     }
     
-    var updateConnectionHandler: ((ConnectionState) -> Void)?
-    var updateConnectionInfoHandler: ((ConnectionInfoState) -> Void)?
+    var updateConnectionHandler: ((ConnectionState) -> Void)? {
+        didSet {
+            updateConnectionHandler?(connectionState)
+        }
+    }
+    
+    var updateConnectionInfoHandler: ((ConnectionInfoState) -> Void)? {
+        didSet {
+            updateConnectionInfoHandler?(ConnectionInfoState.empty)
+        }
+    }
     
     private var connectionState: ConnectionState
     
     func toggleProfile(_ index: Int, enabled: Bool) {
-        connectionState.profiles[index].enabled = enabled
-        // Disable others…
-        
+        for otherIndex in connectionState.profiles.indices {
+            if otherIndex == index {
+                connectionState.profiles[otherIndex].enabled = enabled
+            } else {
+                connectionState.profiles[otherIndex].enabled = false
+            }
+        }
+        connectionState.canClose = !enabled
+        connectionState.connectionStatus = enabled ? "Connected" : "Disconnected"
+
         updateConnectionHandler?(connectionState)
     }
     
@@ -67,10 +87,12 @@ class ConnectionViewModel {
         
         if visible {
             // Start sending connection info updates
+            let connectionInfoState = ConnectionInfoState(duration: "0:00:12", download: "2 KB", upload: "14 KB", ipv4Address: "127.0.0.1", ipv6Address: "abc.def.ghi.jkl.mno")
+            updateConnectionInfoHandler?(connectionInfoState)
             
         } else {
             // Stop sending connection info updates
-            
+            updateConnectionInfoHandler?(ConnectionInfoState.empty)
         }
     }
     
