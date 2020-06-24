@@ -43,8 +43,6 @@ struct DiscoveryData {
     }
 }
 
-// swiftlint:disable identifier_name
-
 extension DiscoveryData.LanguageMappedString: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
@@ -84,7 +82,7 @@ extension DiscoveryData.Organization: Decodable {
 
 extension DiscoveryData.Servers: Decodable {
     enum ServerListTopLevelKeys: String, CodingKey {
-        case server_list
+        case server_list // swiftlint:disable:this identifier_name
     }
 
     private struct ServerEntry: Decodable {
@@ -135,7 +133,7 @@ extension DiscoveryData.Servers: Decodable {
 
 extension DiscoveryData.Organizations: Decodable {
     enum OrgListTopLevelKeys: String, CodingKey {
-        case organization_list
+        case organization_list // swiftlint:disable:this identifier_name
     }
 
     init(from decoder: Decoder) throws {
