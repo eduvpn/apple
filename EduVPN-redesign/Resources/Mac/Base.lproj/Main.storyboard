@@ -783,22 +783,8 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4aM-So-vfF">
-                                <rect key="frame" x="-1" y="202" width="146" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Add Other Server" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Bog-d9-OOn">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="addOtherServer:" target="NF9-lc-b6F" id="XNl-zl-Ckd"/>
-                                </connections>
-                            </button>
                         </subviews>
                     </view>
-                    <connections>
-                        <outlet property="addOtherServerButton" destination="4aM-So-vfF" id="hdS-XD-q9b"/>
-                    </connections>
                 </viewController>
                 <customObject id="ixW-xi-Qbr" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
