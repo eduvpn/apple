@@ -6,99 +6,58 @@
 import Foundation
 import PromiseKit
 
+protocol ServerDiscoveryServiceServersDelegate: class {
+    func serversChanged(_ servers: DiscoveryData.Servers)
+}
+
 class ServerDiscoveryService {
 
-    // We use handlers instead of delegates because:
-    //  - We can have more than one view model watching for changes
-    //  - The view models watching for changes can be structs, not classes
-
-    typealias ServersChangeHandler = (DiscoveryData.Servers) -> Void
-    typealias OrganizationsChangeHandler = (DiscoveryData.Organizations) -> Void
-
-    var servers: DiscoveryData.Servers? {
-        // Parsed server data is cached in memory because
-        // mutiple view controllers will need access to this data
-        if _servers == nil {
-            if let cachedData = DiscoveryDataFetcher.cachedData(
-                dataURL: discoveryConfig.serverList,
-                signatureURL: discoveryConfig.serverListSignature,
-                publicKeys: discoveryConfig.signaturePublicKeys) {
-                _servers = try? Self.parseServerData(cachedData)
-            }
-        }
-        return _servers
-    }
-
-    var organizations: DiscoveryData.Organizations? {
-        // Parsed organization data is not cached in memory because
-        // only one view controller will need access to this data
-        if let cachedData = DiscoveryDataFetcher.cachedData(
-            dataURL: discoveryConfig.organizationList,
-            signatureURL: discoveryConfig.organizationListSignature,
-            publicKeys: discoveryConfig.signaturePublicKeys) {
-            return try? Self.parseOrganizationData(cachedData)
-        }
-        return nil
-    }
-
-    private var serversChangeHandlers: [UUID: ServersChangeHandler] = [:]
-    private var organizationsChangeHandlers: [UUID: OrganizationsChangeHandler] = [:]
-
     private var discoveryConfig: DiscoveryConfig
+
+    // Cache of parsed server data, because multiple view controllers
+    // might want to access this.
     private var _servers: DiscoveryData.Servers?
+
+    weak var delegate: ServerDiscoveryServiceServersDelegate?
 
     init(discoveryConfig: DiscoveryConfig) {
         self.discoveryConfig = discoveryConfig
     }
 
-    @discardableResult
-    func addServersChangeHandler(_ handler: @escaping ServersChangeHandler) -> UUID {
-        let uuid = UUID()
-        serversChangeHandlers[uuid] = handler
-        return uuid
-    }
-
-    func removeServersChangeHandler(_ uuid: UUID) {
-        serversChangeHandlers.removeValue(forKey: uuid)
-    }
-
-    @discardableResult
-    func addOrganizationsChangeHandler(_ handler: @escaping OrganizationsChangeHandler) -> UUID {
-        let uuid = UUID()
-        organizationsChangeHandlers[uuid] = handler
-        return uuid
-    }
-
-    func removeOrganizationsChangeHandler(_ uuid: UUID) {
-        organizationsChangeHandlers.removeValue(forKey: uuid)
-    }
-
-    /// Contacts the server, refreshes the data, and notifies handlers
-    func refreshServers() -> Promise<Void> {
-        return DiscoveryDataFetcher.fetch(
-            dataURL: discoveryConfig.serverList,
-            signatureURL: discoveryConfig.serverListSignature,
-            publicKeys: discoveryConfig.signaturePublicKeys)
-            .map { data in
-                let servers = try Self.parseServerData(data)
-                self._servers = servers
-                for handler in self.serversChangeHandlers.values {
-                    handler(servers)
-                }
+    func getServers(from origin: DiscoveryDataFetcher.DataOrigin)
+        -> Promise<DiscoveryData.Servers> {
+            if let cachedServers = _servers, origin == .cache {
+                return Promise.value(cachedServers)
+            }
+            return firstly {
+                DiscoveryDataFetcher.get(
+                    from: origin,
+                    dataURL: discoveryConfig.serverList,
+                    signatureURL: discoveryConfig.serverListSignature,
+                    publicKeys: discoveryConfig.signaturePublicKeys)
+            }.map(on: DispatchQueue.global(qos: .userInitiated)) {
+                // Perform parsing in a background queue
+                return try Self.parseServerData($0)
+            }.map(on: DispatchQueue.main) {
+                self._servers = $0
+                self.delegate?.serversChanged($0)
+                return $0
             }
     }
 
-    /// Contacts the server, refreshes the data, and notifies handlers
-    func refreshOrganizations() -> Promise<Void> {
-        return DiscoveryDataFetcher.fetch(
-            dataURL: discoveryConfig.organizationList,
-            signatureURL: discoveryConfig.organizationListSignature,
-            publicKeys: discoveryConfig.signaturePublicKeys)
-            .map { data in
-                let organizations = try Self.parseOrganizationData(data)
-                for handler in self.organizationsChangeHandlers.values {
-                    handler(organizations)
-                }
+    func getOrganizations(from origin: DiscoveryDataFetcher.DataOrigin)
+        -> Promise<DiscoveryData.Organizations> {
+            return firstly {
+                DiscoveryDataFetcher.get(
+                    from: origin,
+                    dataURL: discoveryConfig.organizationList,
+                    signatureURL: discoveryConfig.organizationListSignature,
+                    publicKeys: discoveryConfig.signaturePublicKeys)
+            }.map(on: DispatchQueue.global(qos: .userInitiated)) {
+                // Perform parsing in a background queue
+                return try Self.parseOrganizationData($0)
+            }.map(on: DispatchQueue.main) {
+                return $0
             }
     }
 

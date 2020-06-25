@@ -11,13 +11,7 @@ import PromiseKit
 
 enum DiscoveryDataFetcherError: LocalizedError {
     case dataCouldNotBeVerified
-
-    var errorDescription: String? {
-        switch self {
-        case .dataCouldNotBeVerified:
-            return NSLocalizedString("Discovery data could not be verified", comment: "")
-        }
-    }
+    case dataNotFoundInCache
 }
 
 struct DiscoveryDataFetcher {
@@ -27,6 +21,11 @@ struct DiscoveryDataFetcher {
         init(_ url: URL) {
             baseURL = url
         }
+    }
+
+    enum DataOrigin {
+        case cache
+        case server
     }
 
     static var diskCache: URLCache {
@@ -43,27 +42,33 @@ struct DiscoveryDataFetcher {
         return Session(configuration: configuration, startRequestsImmediately: false)
     }
 
-    static func fetch(dataURL: URL, signatureURL: URL, publicKeys: [Data]) -> Promise<Data> {
-        let dataProvider = MoyaProvider<Target>(session: cachedSession)
-        let dataPromise = dataProvider.request(target: Target(dataURL))
-
-        let signatureProvider = MoyaProvider<Target>(session: cachedSession)
-        let signaturePromise = signatureProvider.request(target: Target(signatureURL))
-
-        return when(fulfilled: dataPromise, signaturePromise)
-            .map { dataResponse, signatureResponse in
-                return try verify(data: dataResponse.data, signature: signatureResponse.data,
-                                  publicKeys: publicKeys)
+    static func get(from origin: DataOrigin, dataURL: URL, signatureURL: URL,
+                    publicKeys: [Data]) -> Promise<Data> {
+        switch origin {
+        case .cache:
+            return Promise { seal in
+                guard let dataResponse = diskCache.cachedResponse(for: URLRequest(url: dataURL)),
+                    let signatureResponse = diskCache.cachedResponse(for: URLRequest(url: signatureURL)) else {
+                        seal.reject(DiscoveryDataFetcherError.dataNotFoundInCache)
+                        return
+                }
+                seal.fulfill(try verify(data: dataResponse.data,
+                                        signature: signatureResponse.data,
+                                        publicKeys: publicKeys))
             }
-    }
+        case .server:
+            let dataProvider = MoyaProvider<Target>(session: cachedSession)
+            let dataPromise = dataProvider.request(target: Target(dataURL))
 
-    static func cachedData(dataURL: URL, signatureURL: URL, publicKeys: [Data]) -> Data? {
-        guard let dataResponse = diskCache.cachedResponse(for: URLRequest(url: dataURL)),
-            let signatureResponse = diskCache.cachedResponse(for: URLRequest(url: signatureURL)) else {
-                return nil
+            let signatureProvider = MoyaProvider<Target>(session: cachedSession)
+            let signaturePromise = signatureProvider.request(target: Target(signatureURL))
+
+            return when(fulfilled: dataPromise, signaturePromise)
+                .map { dataResponse, signatureResponse in
+                    return try verify(data: dataResponse.data, signature: signatureResponse.data,
+                                      publicKeys: publicKeys)
+                }
         }
-        return try? verify(data: dataResponse.data, signature: signatureResponse.data,
-                           publicKeys: publicKeys)
     }
 
     private static func verify(data: Data, signature: Data, publicKeys: [Data]) throws -> Data {
