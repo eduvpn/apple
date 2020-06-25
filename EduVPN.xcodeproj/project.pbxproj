@@ -138,6 +138,7 @@
 		6FEF30F824A2E73B0026C786 /* TableViewShims.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF30F624A2E6C00026C786 /* TableViewShims.swift */; };
 		6FEF30FC24A317C00026C786 /* SectionHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF30FA24A317C00026C786 /* SectionHeaderCell.swift */; };
 		6FEF30FF24A325860026C786 /* RowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF30FD24A324E40026C786 /* RowCell.swift */; };
+		6FEF313524A4908F0026C786 /* Common.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FEF313324A48FB10026C786 /* Common.xcassets */; };
 		8ADB89CC70186A6FD4B3E63E /* Pods_EduVPN_redesign_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F027E93C2B58C1BF364133C3 /* Pods_EduVPN_redesign_iOS.framework */; };
 		8B0680A7F56DFB05A02F36F3 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
 		9BA9A5B21E430F1E45F5B99F /* Pods_EduVPN_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 289E1AA639A97FBDB5D2CE6D /* Pods_EduVPN_macOS.framework */; };
@@ -510,6 +511,7 @@
 		6FEF30F624A2E6C00026C786 /* TableViewShims.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewShims.swift; sourceTree = "<group>"; };
 		6FEF30FA24A317C00026C786 /* SectionHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderCell.swift; sourceTree = "<group>"; };
 		6FEF30FD24A324E40026C786 /* RowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowCell.swift; sourceTree = "<group>"; };
+		6FEF313324A48FB10026C786 /* Common.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Common.xcassets; sourceTree = "<group>"; };
 		7915EC1C4AA3C9A8898A15CD /* Pods-LoginItemHelper-macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoginItemHelper-macOS.debug.xcconfig"; path = "Target Support Files/Pods-LoginItemHelper-macOS/Pods-LoginItemHelper-macOS.debug.xcconfig"; sourceTree = "<group>"; };
 		7A3DB98EF527A814CF83B588 /* Pods_LetsConnect_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LetsConnect_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		811B8DD91EAD9F51D4D99F8B /* Pods-EduVPN.debug appforce1.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPN.debug appforce1.xcconfig"; path = "Target Support Files/Pods-EduVPN/Pods-EduVPN.debug appforce1.xcconfig"; sourceTree = "<group>"; };
@@ -1300,6 +1302,7 @@
 			isa = PBXGroup;
 			children = (
 				C7DB4C6A248064BC009932B1 /* Assets.xcassets */,
+				6FEF313324A48FB10026C786 /* Common.xcassets */,
 				C7DB4C6D248064BC009932B1 /* Info.plist */,
 				C7DB4C6B248064BC009932B1 /* Main.storyboard */,
 			);
@@ -1764,6 +1767,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6FEF313524A4908F0026C786 /* Common.xcassets in Resources */,
 				6F13E3E124977BA800E21614 /* Main.storyboard in Resources */,
 				6F13E3E024977B8500E21614 /* Assets.xcassets in Resources */,
 				6F750C8924975A4300AF2C04 /* config.json in Resources */,
