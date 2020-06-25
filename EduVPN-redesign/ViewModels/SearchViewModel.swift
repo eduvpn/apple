@@ -20,9 +20,9 @@ class SearchViewModel {
         case addingServerByURLSectionHeader
         case addingServerByURL(String)
         case instituteAccessServerSectionHeader
-        case instituteAccessServer(InstituteAccessServer)
+        case instituteAccessServer(LocalizedInstituteAccessServer)
         case secureInternetOrgSectionHeader
-        case secureInternetOrg(Organization)
+        case secureInternetOrg(LocalizedOrganization)
 
         var rowKind: ViewModelRowKind {
             switch self {
@@ -59,7 +59,7 @@ class SearchViewModel {
         }
     }
 
-    struct InstituteAccessServer: Comparable {
+    struct LocalizedInstituteAccessServer {
         let baseURLString: String
         let displayName: String
 
@@ -67,13 +67,9 @@ class SearchViewModel {
             baseURLString = server.baseURLString
             displayName = server.displayName.string(for: Locale.current)
         }
-
-        static func < (lhs: InstituteAccessServer, rhs: InstituteAccessServer) -> Bool {
-            return lhs.displayName < rhs.displayName
-        }
     }
 
-    struct Organization: Comparable {
+    struct LocalizedOrganization {
         let orgId: String
         let displayName: String
         let keywordList: String
@@ -85,37 +81,20 @@ class SearchViewModel {
             keywordList = organization.keywordList?.string(for: Locale.current) ?? ""
             secureInternetHome = organization.secureInternetHome
         }
-
-        static func < (lhs: Organization, rhs: Organization) -> Bool {
-            return lhs.displayName < rhs.displayName
-        }
     }
 
     private let serverDiscoveryService: ServerDiscoveryService
+    private let scope: Scope
 
-    private var scope: Scope = .serverByURLOnly
-    private var sortedInstituteAccessServers: [InstituteAccessServer] = []
-    private var sortedOrganizations: [Organization] = []
+    private var instituteAccessServers: [LocalizedInstituteAccessServer] = []
+    private var organizations: [LocalizedOrganization] = []
     private var searchQuery: String = ""
 
     private var rows: [Row] = []
 
-    init(serverDiscoveryService: ServerDiscoveryService) {
+    init(serverDiscoveryService: ServerDiscoveryService, scope: Scope) {
         self.serverDiscoveryService = serverDiscoveryService
-        serverDiscoveryService.addServersChangeHandler { [weak self] (servers) in
-            guard let self = self else { return }
-            if self.scope.includesInstituteAccessServers {
-                self.setSortedInstituteAccessServers(from: servers)
-                self.update()
-            }
-        }
-        serverDiscoveryService.addOrganizationsChangeHandler { [weak self] (organizations) in
-            guard let self = self else { return }
-            if self.scope.includesOrganizations {
-                self.setSortedOrganizations(from: organizations)
-                self.update()
-            }
-        }
+        self.scope = scope
     }
 
     func setSearchQuery(_ searchQuery: String) {
@@ -123,46 +102,28 @@ class SearchViewModel {
         update()
     }
 
-    func setScope(_ scope: Scope) {
-        if scope == self.scope {
-            return
-        }
+    func load(from origin: DiscoveryDataFetcher.DataOrigin) -> Promise<Void> {
         switch scope {
-        case .serverByURLOnly:
-            setSortedInstituteAccessServers(from: nil)
-            setSortedOrganizations(from: nil)
         case .instituteAccessOrServerByURL:
-            setSortedInstituteAccessServers(from: serverDiscoveryService.servers)
-            setSortedOrganizations(from: nil)
+            return firstly {
+                serverDiscoveryService.getServers(from: origin)
+            }.map { servers in
+                self.instituteAccessServers = servers.localizedInstituteAccessServers().sorted()
+                self.update()
+            }
         case .all:
-            setSortedInstituteAccessServers(from: serverDiscoveryService.servers)
-            setSortedOrganizations(from: serverDiscoveryService.organizations)
+            return firstly {
+                when(fulfilled:
+                    serverDiscoveryService.getServers(from: origin),
+                     serverDiscoveryService.getOrganizations(from: origin))
+            }.map { servers, organizations in
+                self.instituteAccessServers = servers.localizedInstituteAccessServers().sorted()
+                self.organizations = organizations.localizedOrganizations().sorted()
+                self.update()
+            }
+        default:
+            return Promise.value(())
         }
-        self.scope = scope
-        update()
-    }
-
-    private func setSortedInstituteAccessServers(from servers: DiscoveryData.Servers?) {
-        sortedInstituteAccessServers = (servers?.instituteAccessServers ?? [])
-            .map { InstituteAccessServer($0) }
-            .sorted()
-    }
-
-    private func setSortedOrganizations(from organizations: DiscoveryData.Organizations?) {
-        sortedOrganizations = (organizations?.organizations ?? [])
-            .map { Organization($0) }
-            .sorted()
-    }
-
-    func refreshFromServer() -> Promise<Void> {
-        var refreshingPromises: [Promise<Void>] = []
-        if scope.includesInstituteAccessServers {
-            refreshingPromises.append(serverDiscoveryService.refreshServers())
-        }
-        if scope.includesOrganizations {
-            refreshingPromises.append(serverDiscoveryService.refreshOrganizations())
-        }
-        return when(fulfilled: refreshingPromises)
     }
 
     func numberOfRows() -> Int {
@@ -172,18 +133,20 @@ class SearchViewModel {
     func row(at index: Int) -> Row {
         return rows[index]
     }
+}
 
-    private func update() {
+private extension SearchViewModel {
+    func update() {
         let computedRows: [Row] = Self.serverByAddressRows(searchQuery: searchQuery)
-            + Self.instituteAccessRows(searchQuery: searchQuery, from: sortedInstituteAccessServers)
-            + Self.organizationRows(searchQuery: searchQuery, from: sortedOrganizations)
+            + Self.instituteAccessRows(searchQuery: searchQuery, from: instituteAccessServers)
+            + Self.organizationRows(searchQuery: searchQuery, from: organizations)
         assert(computedRows == computedRows.sorted(), "computedRows is not ordered correctly")
         let diff = computedRows.rowsDifference(from: self.rows)
         self.rows = computedRows
         self.delegate?.rowsChanged(changes: diff)
     }
 
-    private static func serverByAddressRows(searchQuery: String) -> [Row] {
+    static func serverByAddressRows(searchQuery: String) -> [Row] {
         let hasTwoOrMoreDots = searchQuery.filter { $0 == "." }.count >= 2
         if hasTwoOrMoreDots {
             let url = searchQuery.hasPrefix("https://") ?
@@ -194,7 +157,8 @@ class SearchViewModel {
         return []
     }
 
-    private static func instituteAccessRows(searchQuery: String, from sortedList: [InstituteAccessServer])
+    static func instituteAccessRows(searchQuery: String,
+                                            from sortedList: [LocalizedInstituteAccessServer])
         -> [Row] {
         let matchingServerRows: [Row] = sortedList
             .filter {
@@ -206,7 +170,8 @@ class SearchViewModel {
             [ .instituteAccessServerSectionHeader ] + matchingServerRows
     }
 
-    private static func organizationRows(searchQuery: String, from sortedList: [Organization])
+    static func organizationRows(searchQuery: String,
+                                         from sortedList: [LocalizedOrganization])
         -> [Row] {
         let matchingServerRows: [Row] = sortedList
             .filter {
@@ -217,5 +182,31 @@ class SearchViewModel {
         return matchingServerRows.isEmpty ?
             [] :
             [ .secureInternetOrgSectionHeader ] + matchingServerRows
+    }
+}
+
+extension SearchViewModel.LocalizedInstituteAccessServer: Comparable {
+    static func < (lhs: SearchViewModel.LocalizedInstituteAccessServer,
+                   rhs: SearchViewModel.LocalizedInstituteAccessServer) -> Bool {
+        return lhs.displayName < rhs.displayName
+    }
+}
+
+extension SearchViewModel.LocalizedOrganization: Comparable {
+    static func < (lhs: SearchViewModel.LocalizedOrganization,
+                   rhs: SearchViewModel.LocalizedOrganization) -> Bool {
+        return lhs.displayName < rhs.displayName
+    }
+}
+
+private extension DiscoveryData.Servers {
+    func localizedInstituteAccessServers() -> [SearchViewModel.LocalizedInstituteAccessServer] {
+        instituteAccessServers.map { SearchViewModel.LocalizedInstituteAccessServer($0) }
+    }
+}
+
+private extension DiscoveryData.Organizations {
+    func localizedOrganizations() -> [SearchViewModel.LocalizedOrganization] {
+        organizations.map { SearchViewModel.LocalizedOrganization($0) }
     }
 }

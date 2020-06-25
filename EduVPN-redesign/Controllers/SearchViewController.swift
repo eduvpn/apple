@@ -34,11 +34,9 @@ final class SearchViewController: ViewController, ParametrizedViewController {
         }
         self.parameters = parameters
         let viewModel = SearchViewModel(
-            serverDiscoveryService: parameters.environment.serverDiscoveryService)
+            serverDiscoveryService: parameters.environment.serverDiscoveryService,
+            scope: .all)
         viewModel.delegate = self
-        viewModel.setScope(.all)
-        viewModel.refreshFromServer()
-            .cauterize()
         self.viewModel = viewModel
     }
 
