@@ -29,6 +29,7 @@ typealias Storyboard = UIStoryboard
 typealias Button = UIButton
 typealias TableView = UITableView
 typealias TableViewCell = UITableViewCell
+typealias Image = UIImage
 
 extension PresentingController: Presenting { }
 extension NavigationController: Navigating { }
@@ -50,6 +51,7 @@ typealias Storyboard = NSStoryboard
 typealias Button = NSButton
 typealias TableView = NSTableView
 typealias TableViewCell = NSTableCellView
+typealias Image = NSImage
 
 extension Window {
     func makeKeyAndVisible() {

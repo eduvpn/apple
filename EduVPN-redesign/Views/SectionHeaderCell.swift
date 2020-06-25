@@ -13,13 +13,28 @@ class SectionHeaderCell: TableViewCell {
             case .addingServerByURLSectionHeaderKind:
                 return NSLocalizedString("Add your own server", comment: "")
             case .instituteAccessServerSectionHeaderKind:
-                return NSLocalizedString("Institute access", comment: "")
+                return NSLocalizedString("Institute Access", comment: "")
             case .secureInternetOrgSectionHeaderKind:
-                return NSLocalizedString("Secure internet", comment: "")
+                return NSLocalizedString("Secure Internet", comment: "")
             default:
                 return ""
             }
         }
+
+        var image: Image? {
+            switch rowKind {
+            case .addingServerByURLSectionHeaderKind:
+                return Image(named: "SectionHeaderOwnServer")
+            case .instituteAccessServerSectionHeaderKind:
+                return Image(named: "SectionHeaderInstituteAccess")
+            case .secureInternetOrgSectionHeaderKind:
+                return Image(named: "SectionHeaderSecureInternet")
+            default:
+                return nil
+            }
+        }
+
+        imageView?.image = image
         textField?.stringValue = title
     }
 }
