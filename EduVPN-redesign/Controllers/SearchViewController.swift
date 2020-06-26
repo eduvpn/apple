@@ -26,8 +26,6 @@ final class SearchViewController: ViewController, ParametrizedViewController {
 
     @IBOutlet weak var tableView: NSTableView!
 
-    @IBOutlet private var cancelButton: Button!
-
     func initializeParameters(_ parameters: Parameters) {
         guard self.parameters == nil else {
             fatalError("Can't initialize parameters twice")
@@ -38,10 +36,6 @@ final class SearchViewController: ViewController, ParametrizedViewController {
             scope: .all)
         viewModel.delegate = self
         self.viewModel = viewModel
-    }
-
-    @IBAction func cancel(_ sender: Any) {
-        delegate?.searchViewControllerCancelled(self)
     }
 }
 
