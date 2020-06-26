@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PromiseKit
 
 protocol SearchViewControllerDelegate: class {
     func searchViewControllerAddOtherServer(_ controller: SearchViewController)
@@ -24,7 +25,14 @@ final class SearchViewController: ViewController, ParametrizedViewController {
     private var parameters: Parameters!
     private var viewModel: SearchViewModel!
 
+    @IBOutlet weak var stackView: NSStackView!
+    @IBOutlet weak var topSpacerView: NSView!
+    @IBOutlet weak var topImageView: NSImageView!
+    @IBOutlet weak var tableContainerView: NSScrollView!
     @IBOutlet weak var tableView: NSTableView!
+    @IBOutlet weak var spinner: NSProgressIndicator!
+
+    private var isTableViewShown: Bool = false
 
     func initializeParameters(_ parameters: Parameters) {
         guard self.parameters == nil else {
@@ -37,6 +45,39 @@ final class SearchViewController: ViewController, ParametrizedViewController {
         viewModel.delegate = self
         self.viewModel = viewModel
     }
+
+    override func viewDidLoad() {
+        spinner.layer?.opacity = 0
+        tableContainerView.layer?.opacity = 0
+    }
+
+    func showTableView() {
+        if isTableViewShown {
+            return
+        }
+        isTableViewShown = true
+        for view in [topSpacerView, topImageView] {
+            view?.removeFromSuperview()
+        }
+        NSAnimationContext.runAnimationGroup({context in
+            context.duration = 0.5
+            context.allowsImplicitAnimation = true
+            spinner.layer?.opacity = 1
+            tableContainerView.layer?.opacity = 1
+            stackView.layoutSubtreeIfNeeded()
+        }, completionHandler: nil)
+        spinner.startAnimation(self)
+        firstly {
+            self.viewModel.load(from: .cache)
+        }.then {
+            self.viewModel.load(from: .server)
+        }.ensure {
+            self.spinner.stopAnimation(self)
+            self.spinner.removeFromSuperview()
+        }.catch { error in
+            NSLog("Error: \(error.localizedDescription)")
+        }
+    }
 }
 
 // MARK: - Search field
@@ -46,6 +87,27 @@ extension SearchViewController {
         if let searchField = sender as? NSSearchField {
             viewModel.setSearchQuery(searchField.stringValue)
         }
+    }
+}
+
+extension SearchViewController {
+    func searchFieldGotFocus() {
+        showTableView()
+    }
+}
+
+class SearchField: NSSearchField {
+    override func becomeFirstResponder() -> Bool {
+        // Walk the responder chain to find SearchViewController
+        var responder: NSResponder? = nextResponder
+        while responder != nil {
+            if let searchVC = responder as? SearchViewController {
+                searchVC.searchFieldGotFocus()
+                break
+            }
+            responder = responder?.nextResponder
+        }
+        return super.becomeFirstResponder()
     }
 }
 
