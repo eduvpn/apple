@@ -12,6 +12,10 @@ protocol SearchViewModelDelegate: class {
     func rowsChanged(changes: RowsDifference<SearchViewModel.Row>)
 }
 
+enum SearchViewModelError: Error {
+    case cannotLoadWhenPreviousLoadIsInProgress
+}
+
 class SearchViewModel {
     weak var delegate: SearchViewModelDelegate?
 
@@ -88,6 +92,7 @@ class SearchViewModel {
     private var instituteAccessServers: [LocalizedInstituteAccessServer] = []
     private var organizations: [LocalizedOrganization] = []
     private var searchQuery: String = ""
+    private var isLoadInProgress: Bool = false
 
     private var rows: [Row] = []
 
@@ -102,15 +107,27 @@ class SearchViewModel {
     }
 
     func load(from origin: DiscoveryDataFetcher.DataOrigin) -> Promise<Void> {
+        guard !isLoadInProgress else {
+            return Promise(error: SearchViewModelError.cannotLoadWhenPreviousLoadIsInProgress)
+        }
         switch scope {
+        case .serverByURLOnly:
+            // Nothing to load
+            return Promise.value(())
         case .instituteAccessOrServerByURL:
+            // Load server list only
+            isLoadInProgress = true
             return firstly {
                 serverDiscoveryService.getServers(from: origin)
             }.map { servers in
                 self.instituteAccessServers = servers.localizedInstituteAccessServers().sorted()
                 self.update()
+            }.ensure {
+                self.isLoadInProgress = false
             }
         case .all:
+            // Load server list and org list in parallel
+            isLoadInProgress = true
             return firstly {
                 when(fulfilled:
                     serverDiscoveryService.getServers(from: origin),
@@ -119,9 +136,9 @@ class SearchViewModel {
                 self.instituteAccessServers = servers.localizedInstituteAccessServers().sorted()
                 self.organizations = organizations.localizedOrganizations().sorted()
                 self.update()
+            }.ensure {
+                self.isLoadInProgress = false
             }
-        default:
-            return Promise.value(())
         }
     }
 
