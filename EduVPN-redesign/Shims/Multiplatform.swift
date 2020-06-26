@@ -58,15 +58,11 @@ extension Window {
     }
 
     var rootViewController: ViewController? {
-        return windowController?.contentViewController as? ViewController
+        return windowController?.contentViewController
     }
 }
 
 extension Storyboard {
-
-    func instantiateInitialViewController() -> Any {
-        return instantiateInitialController()
-    }
 
     func instantiateViewController(withIdentifier identifier: SceneIdentifier) -> Any {
         return instantiateController(withIdentifier: identifier)
