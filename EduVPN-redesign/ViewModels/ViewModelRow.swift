@@ -32,7 +32,7 @@ struct RowsDifference<T: ViewModelRow> {
 
 protocol ViewModelRow: Comparable {
     var rowKind: ViewModelRowKind { get }
-    var displayName: String { get }
+    var displayText: String { get }
 }
 
 func < <T: ViewModelRow>(lhs: T, rhs: T) -> Bool {
@@ -42,11 +42,11 @@ func < <T: ViewModelRow>(lhs: T, rhs: T) -> Bool {
     if lhs.rowKind.rawValue > rhs.rowKind.rawValue {
         return false
     }
-    return lhs.displayName < rhs.displayName
+    return lhs.displayText < rhs.displayText
 }
 
 func == <T: ViewModelRow>(lhs: T, rhs: T) -> Bool {
-    return (lhs.rowKind == rhs.rowKind) && (lhs.displayName == rhs.displayName)
+    return (lhs.rowKind == rhs.rowKind) && (lhs.displayText == rhs.displayText)
 }
 
 extension Array where Array.Element: ViewModelRow {

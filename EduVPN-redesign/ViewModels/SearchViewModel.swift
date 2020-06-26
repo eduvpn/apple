@@ -39,7 +39,7 @@ class SearchViewModel {
             }
         }
 
-        var displayName: String {
+        var displayText: String {
             switch self {
             case .instituteAccessServer(let server): return server.displayName
             case .secureInternetOrg(let organization): return organization.displayName
