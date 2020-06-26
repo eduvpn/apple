@@ -86,7 +86,7 @@ class SearchViewModel {
         }
     }
 
-    private let serverDiscoveryService: ServerDiscoveryService
+    private let serverDiscoveryService: ServerDiscoveryService?
     private let scope: Scope
 
     private var instituteAccessServers: [LocalizedInstituteAccessServer] = []
@@ -96,7 +96,8 @@ class SearchViewModel {
 
     private var rows: [Row] = []
 
-    init(serverDiscoveryService: ServerDiscoveryService, scope: Scope) {
+    init(serverDiscoveryService: ServerDiscoveryService?, scope: Scope) {
+        precondition(scope == .serverByURLOnly || serverDiscoveryService != nil)
         self.serverDiscoveryService = serverDiscoveryService
         self.scope = scope
     }
@@ -116,6 +117,9 @@ class SearchViewModel {
             return Promise.value(())
         case .instituteAccessOrServerByURL:
             // Load server list only
+            guard let serverDiscoveryService = serverDiscoveryService else {
+                fatalError("serverDiscoveryService can't be nil for scope \(scope)")
+            }
             isLoadInProgress = true
             return firstly {
                 serverDiscoveryService.getServers(from: origin)
@@ -129,6 +133,9 @@ class SearchViewModel {
         case .all:
             // Load server list and org list in parallel
             isLoadInProgress = true
+            guard let serverDiscoveryService = serverDiscoveryService else {
+                fatalError("serverDiscoveryService can't be nil for scope \(scope)")
+            }
             return firstly {
                 when(fulfilled:
                     serverDiscoveryService.getServers(from: origin),
