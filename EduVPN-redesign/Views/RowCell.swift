@@ -5,6 +5,6 @@
 
 class RowCell: TableViewCell {
     func configure<T: ViewModelRow>(with row: T) {
-        textField?.stringValue = row.displayName
+        textField?.stringValue = row.displayText
     }
 }
