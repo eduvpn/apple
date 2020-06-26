@@ -120,11 +120,12 @@ class SearchViewModel {
             isLoadInProgress = true
             return firstly {
                 serverDiscoveryService.getServers(from: origin)
-            }.map { servers in
+            }.map { [weak self] servers in
+                guard let self = self else { return }
                 self.instituteAccessServers = servers.localizedInstituteAccessServers().sorted()
                 self.update()
-            }.ensure {
-                self.isLoadInProgress = false
+            }.ensure { [weak self] in
+                self?.isLoadInProgress = false
             }
         case .all:
             // Load server list and org list in parallel
@@ -133,12 +134,13 @@ class SearchViewModel {
                 when(fulfilled:
                     serverDiscoveryService.getServers(from: origin),
                      serverDiscoveryService.getOrganizations(from: origin))
-            }.map { servers, organizations in
+            }.map { [weak self] servers, organizations in
+                guard let self = self else { return }
                 self.instituteAccessServers = servers.localizedInstituteAccessServers().sorted()
                 self.organizations = organizations.localizedOrganizations().sorted()
                 self.update()
-            }.ensure {
-                self.isLoadInProgress = false
+            }.ensure { [weak self] in
+                self?.isLoadInProgress = false
             }
         }
     }
