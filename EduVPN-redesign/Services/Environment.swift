@@ -17,11 +17,15 @@ class Environment {
     private lazy var storyboard = Storyboard(name: "Main", bundle: nil)
     weak var navigationController: NavigationController?
 
-    let serverDiscoveryService: ServerDiscoveryService
+    let serverDiscoveryService: ServerDiscoveryService?
 
     init(navigationController: NavigationController) {
         self.navigationController = navigationController
-        self.serverDiscoveryService = ServerDiscoveryService(discoveryConfig: Config.shared.discovery)
+        if let discoveryConfig = Config.shared.discovery {
+            self.serverDiscoveryService = ServerDiscoveryService(discoveryConfig: discoveryConfig)
+        } else {
+            self.serverDiscoveryService = nil
+        }
     }
 
     func instantiateSearchViewController() -> SearchViewController {
