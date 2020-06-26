@@ -183,7 +183,7 @@ private extension SearchViewModel {
     }
 
     static func instituteAccessRows(searchQuery: String,
-                                            from sortedList: [LocalizedInstituteAccessServer])
+                                    from sortedList: [LocalizedInstituteAccessServer])
         -> [Row] {
         let matchingServerRows: [Row] = sortedList
             .filter {
@@ -196,7 +196,7 @@ private extension SearchViewModel {
     }
 
     static func organizationRows(searchQuery: String,
-                                         from sortedList: [LocalizedOrganization])
+                                 from sortedList: [LocalizedOrganization])
         -> [Row] {
         let matchingServerRows: [Row] = sortedList
             .filter {
