@@ -7,32 +7,24 @@
 
 import Foundation
 
-protocol MainViewControllerDelegate: class {
-    func mainViewControllerAddOtherServer(_ controller: MainViewController)
-    func mainViewController(_ controller: MainViewController, connectToServer: AnyObject)
-    func mainViewControllerChangeLocation(_ controller: MainViewController)
-}
-
 class MainViewController: ViewController {
 
     var environment: Environment! {
         didSet {
             viewModel = MainViewModel(environment: environment)
             environment.navigationController?.delegate = self
+            // We would load addedServers from disk in the future
+            if addedServers.isEmpty {
+                let searchVC = environment.instantiateSearchViewController()
+                environment.navigationController?.pushViewController(searchVC, animated: false)
+                environment.navigationController?.isUserAllowedToGoBack = false
+            }
         }
     }
 
     var viewModel: MainViewModel!
 
-    weak var delegate: MainViewControllerDelegate?
-
     private var addedServers: [URL: String] = [:]
-
-    @IBOutlet private var addOtherServerButton: Button!
-
-    @IBAction func addOtherServer(_ sender: Any) {
-        delegate?.mainViewControllerAddOtherServer(self)
-    }
 }
 
 extension MainViewController: NavigationControllerDelegate {
