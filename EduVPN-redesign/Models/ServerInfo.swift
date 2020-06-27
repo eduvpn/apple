@@ -1,20 +1,20 @@
 //
-//  ServerInfoModel.swift
+//  ServerInfo.swift
 //  eduVPN
 //
 
-import Foundation
+// Models the data extracted from <server_base_url>/info.json
 
-struct ServerInfoModel: Decodable {
+struct ServerInfo: Decodable {
     
     var authorizationEndpoint: URL
     var tokenEndpoint: URL
     var apiBaseUrl: URL
 }
 
-extension ServerInfoModel {
+extension ServerInfo {
     
-    enum ServerInfoModelKeys: String, CodingKey {
+    enum ServerInfoKeys: String, CodingKey {
         case api
         case apiInfo = "http://eduvpn.org/api#2"
         case authorizationEndpoint = "authorization_endpoint"
@@ -23,10 +23,10 @@ extension ServerInfoModel {
     }
     
     init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: ServerInfoModelKeys.self)
+        let container = try decoder.container(keyedBy: ServerInfoKeys.self)
         
-        let apiContainer = try container.nestedContainer(keyedBy: ServerInfoModelKeys.self, forKey: .api)
-        let apiInfoContainer = try apiContainer.nestedContainer(keyedBy: ServerInfoModelKeys.self, forKey: .apiInfo)
+        let apiContainer = try container.nestedContainer(keyedBy: ServerInfoKeys.self, forKey: .api)
+        let apiInfoContainer = try apiContainer.nestedContainer(keyedBy: ServerInfoKeys.self, forKey: .apiInfo)
         
         let authorizationEndpoint = try apiInfoContainer.decode(URL.self, forKey: .authorizationEndpoint)
         let tokenEndpoint = try apiInfoContainer.decode(URL.self, forKey: .tokenEndpoint)
@@ -36,13 +36,13 @@ extension ServerInfoModel {
     }
 }
 
-extension ServerInfoModel: Hashable {
+extension ServerInfo: Hashable {
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(apiBaseUrl)
     }
     
-    static func == (lhs: ServerInfoModel, rhs: ServerInfoModel) -> Bool {
+    static func == (lhs: ServerInfo, rhs: ServerInfo) -> Bool {
         return lhs.apiBaseUrl == rhs.apiBaseUrl
     }
 }
