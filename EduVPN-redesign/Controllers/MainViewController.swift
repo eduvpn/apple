@@ -25,7 +25,9 @@ class MainViewController: ViewController {
     var viewModel: MainViewModel!
 
     weak var delegate: MainViewControllerDelegate?
-    
+
+    private var addedServers: [URL: String] = [:]
+
     @IBOutlet private var addOtherServerButton: Button!
 
     @IBAction func addOtherServer(_ sender: Any) {
@@ -37,5 +39,12 @@ extension MainViewController: NavigationControllerDelegate {
     func addServerButtonClicked() {
         let searchVC = environment.instantiateSearchViewController()
         environment.navigationController?.pushViewController(searchVC, animated: true)
+    }
+}
+
+extension MainViewController: SearchViewControllerDelegate {
+    func searchViewControllerAddedServer(baseURL: URL, authState: AuthState) {
+        let savedPath = "" // encryptAndSaveToDisk(baseURL, authState)
+        addedServers[baseURL] = savedPath
     }
 }

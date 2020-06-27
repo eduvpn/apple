@@ -7,11 +7,10 @@
 
 import Foundation
 import PromiseKit
+import AppAuth
 
 protocol SearchViewControllerDelegate: class {
-    func searchViewControllerAddOtherServer(_ controller: SearchViewController)
-    func searchViewController(_ controller: SearchViewController, selectedInstitute: AnyObject)
-    func searchViewControllerCancelled(_ controller: SearchViewController)
+    func searchViewControllerAddedServer(baseURL: URL, authState: AuthState)
 }
 
 final class SearchViewController: ViewController, ParametrizedViewController {
@@ -137,6 +136,34 @@ extension SearchViewController {
     func canSelectRow(at index: Int) -> Bool {
         return !viewModel.row(at: index).rowKind.isSectionHeader
     }
+
+    func didSelectRow(at index: Int) {
+        let row = viewModel.row(at: index)
+        let serverAuthService = parameters.environment.serverAuthService
+        let navigationController = parameters.environment.navigationController
+        let delegate = self.delegate
+        if let baseURL = row.baseURL {
+            navigationController?.showAuthorizingMessage(cancelAuthorizationHandler: {
+                serverAuthService.cancelAuth()
+                navigationController?.hideAuthorizingMessage()
+            })
+            firstly {
+                serverAuthService.startAuth(baseURL: baseURL, from: self)
+            }.ensure {
+                makeApplicationComeToTheForeground()
+                navigationController?.hideAuthorizingMessage()
+            }.map { authState in
+                delegate?.searchViewControllerAddedServer(baseURL: baseURL, authState: authState)
+                navigationController?.popViewController(animated: true)
+            }.catch { error in
+                print("Error: \(error)")
+            }
+        }
+    }
+}
+
+private func makeApplicationComeToTheForeground() {
+    NSApp.activate(ignoringOtherApps: true)
 }
 
 // MARK: - View model delegate

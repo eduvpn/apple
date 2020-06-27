@@ -20,7 +20,11 @@ class NavigationController: NSViewController {
 
     private var canGoBack: Bool { children.count > 1 }
 
+    private var cancelAuthorizationHandler: (() -> Void)?
+
     @IBOutlet weak var toolbarLeftButton: NSButton!
+
+    @IBOutlet weak var authorizingMessageBox: NSBox!
 
     @IBAction func toolbarLeftButtonClicked(_ sender: Any) {
         if canGoBack {
@@ -30,11 +34,16 @@ class NavigationController: NSViewController {
         }
     }
 
+    @IBAction func cancelAuthorizationButtonClicked(_ sender: Any) {
+        cancelAuthorizationHandler?()
+    }
+
     private func updateToolbarLeftButton() {
         let image = canGoBack ?
             NSImage(named: NSImage.goBackTemplateName)! : // swiftlint:disable:this force_unwrapping
             NSImage(named: NSImage.addTemplateName)! // swiftlint:disable:this force_unwrapping
         toolbarLeftButton.image = image
+        toolbarLeftButton.isHidden = !authorizingMessageBox.isHidden
     }
 }
 
@@ -69,6 +78,20 @@ extension NavigationController: Navigating {
         }
 
         return lastVC
+    }
+}
+
+extension NavigationController {
+    func showAuthorizingMessage(cancelAuthorizationHandler: @escaping () -> Void) {
+        self.authorizingMessageBox.isHidden = false
+        self.cancelAuthorizationHandler = cancelAuthorizationHandler
+        self.updateToolbarLeftButton()
+    }
+
+    func hideAuthorizingMessage() {
+        self.authorizingMessageBox.isHidden = true
+        self.cancelAuthorizationHandler = nil
+        self.updateToolbarLeftButton()
     }
 }
 

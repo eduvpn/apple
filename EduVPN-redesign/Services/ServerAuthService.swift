@@ -50,7 +50,7 @@ class ServerAuthService {
     }
 
     func startAuth(baseURL: URL,
-                   from viewController: ViewController) -> Promise<OIDAuthState> {
+                   from viewController: ViewController) -> Promise<AuthState> {
         let provider = MoyaProvider<ServerInfoTarget>(session: Self.uncachedSession)
         return firstly {
             provider.request(target: ServerInfoTarget(baseURL))
@@ -65,7 +65,7 @@ class ServerAuthService {
     }
 
     func startAuth(authEndpoint: URL, tokenEndpoint: URL,
-                   from viewController: ViewController) -> Promise<OIDAuthState> {
+                   from viewController: ViewController) -> Promise<AuthState> {
         let authConfig = OIDServiceConfiguration(
             authorizationEndpoint: authEndpoint,
             tokenEndpoint: tokenEndpoint)
@@ -80,7 +80,11 @@ class ServerAuthService {
             let authFlow = Self.createAuthState(
                 authRequest: authRequest,
                 presentingViewController: viewController) { (authState, error) in
-                    seal.resolve(authState, error)
+                    if let authState = authState {
+                        seal.resolve(AuthState(oidAuthState: authState), error)
+                    } else {
+                        seal.resolve(nil, error)
+                    }
             }
             #if os(macOS)
             redirectHttpHandler.currentAuthorizationFlow = authFlow

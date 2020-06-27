@@ -46,6 +46,15 @@ class SearchViewModel {
             default: return ""
             }
         }
+
+        var baseURL: URL? {
+            switch self {
+            case .instituteAccessServer(let server): return URL(string: server.baseURLString)
+            case .secureInternetOrg(let organization): return URL(string: organization.secureInternetHome)
+            case .addingServerByURL(let urlString): return URL(string: urlString)
+            default: return nil
+            }
+        }
     }
 
     enum Scope {
@@ -90,6 +99,7 @@ class SearchViewModel {
     private let scope: Scope
 
     private var instituteAccessServers: [LocalizedInstituteAccessServer] = []
+    private var secureInternetServers: [String: DiscoveryData.SecureInternetServer] = [:]
     private var organizations: [LocalizedOrganization] = []
     private var searchQuery: String = ""
     private var isLoadInProgress: Bool = false
