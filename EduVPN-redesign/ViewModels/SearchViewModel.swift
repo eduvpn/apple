@@ -27,6 +27,7 @@ class SearchViewModel {
         case instituteAccessServer(LocalizedInstituteAccessServer)
         case secureInternetOrgSectionHeader
         case secureInternetOrg(LocalizedOrganization)
+        case noResults
 
         var rowKind: ViewModelRowKind {
             switch self {
@@ -36,6 +37,7 @@ class SearchViewModel {
             case .instituteAccessServer: return .instituteAccessServerKind
             case .secureInternetOrgSectionHeader: return .secureInternetOrgSectionHeaderKind
             case .secureInternetOrg: return .secureInternetOrgKind
+            case .noResults: return .noResultsKind
             }
         }
 
@@ -173,9 +175,13 @@ class SearchViewModel {
 
 private extension SearchViewModel {
     func update() {
-        let computedRows: [Row] = Self.serverByAddressRows(searchQuery: searchQuery)
-            + Self.instituteAccessRows(searchQuery: searchQuery, from: instituteAccessServers)
-            + Self.organizationRows(searchQuery: searchQuery, from: organizations)
+        var computedRows: [Row] = []
+        computedRows.append(contentsOf: Self.serverByAddressRows(searchQuery: searchQuery))
+        computedRows.append(contentsOf: Self.instituteAccessRows(searchQuery: searchQuery, from: instituteAccessServers))
+        computedRows.append(contentsOf: Self.organizationRows(searchQuery: searchQuery, from: organizations))
+        if computedRows.isEmpty {
+            computedRows.append(.noResults)
+        }
         assert(computedRows == computedRows.sorted(), "computedRows is not ordered correctly")
         let diff = computedRows.rowsDifference(from: self.rows)
         self.rows = computedRows

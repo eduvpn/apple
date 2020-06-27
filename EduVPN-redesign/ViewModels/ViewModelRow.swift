@@ -10,6 +10,7 @@ enum ViewModelRowKind: Int {
     case instituteAccessServerKind
     case secureInternetOrgSectionHeaderKind
     case secureInternetOrgKind
+    case noResultsKind
 
     var isSectionHeader: Bool {
         switch self {
@@ -17,9 +18,18 @@ enum ViewModelRowKind: Int {
              .instituteAccessServerSectionHeaderKind,
              .secureInternetOrgSectionHeaderKind:
             return true
+        default:
+            return false
+        }
+    }
+
+    var isServerRow: Bool {
+        switch self {
         case .addingServerByURLKind,
              .instituteAccessServerKind,
              .secureInternetOrgKind:
+            return true
+        default:
             return false
         }
     }
