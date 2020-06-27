@@ -18,6 +18,7 @@ class Environment {
     weak var navigationController: NavigationController?
 
     let serverDiscoveryService: ServerDiscoveryService?
+    let serverAuthService: ServerAuthService
 
     init(navigationController: NavigationController) {
         self.navigationController = navigationController
@@ -26,6 +27,9 @@ class Environment {
         } else {
             self.serverDiscoveryService = nil
         }
+        self.serverAuthService = ServerAuthService(
+            configRedirectURL: Config.shared.redirectUrl,
+            configClientId: Config.shared.clientId)
     }
 
     func instantiateSearchViewController() -> SearchViewController {
