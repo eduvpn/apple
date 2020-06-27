@@ -74,7 +74,7 @@ final class SearchViewController: ViewController, ParametrizedViewController {
             self.spinner.stopAnimation(self)
             self.spinner.removeFromSuperview()
         }.catch { error in
-            NSLog("Error: \(error.localizedDescription)")
+            self.parameters.environment.navigationController?.showAlert(for: error)
         }
     }
 }
@@ -162,7 +162,7 @@ extension SearchViewController {
                 delegate?.searchViewControllerAddedServer(baseURL: baseURL, authState: authState)
                 navigationController?.popViewController(animated: true)
             }.catch { error in
-                print("Error: \(error)")
+                navigationController?.showAlert(for: error)
             }
         }
     }
