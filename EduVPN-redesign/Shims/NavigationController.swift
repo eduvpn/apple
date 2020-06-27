@@ -16,6 +16,12 @@ class NavigationController: NSViewController {
 
     var environment: Environment?
 
+    var isUserAllowedToGoBack: Bool = true {
+        didSet {
+            updateToolbarLeftButton()
+        }
+    }
+
     weak var delegate: NavigationControllerDelegate?
 
     private var canGoBack: Bool { children.count > 1 }
@@ -43,7 +49,8 @@ class NavigationController: NSViewController {
             NSImage(named: NSImage.goBackTemplateName)! : // swiftlint:disable:this force_unwrapping
             NSImage(named: NSImage.addTemplateName)! // swiftlint:disable:this force_unwrapping
         toolbarLeftButton.image = image
-        toolbarLeftButton.isHidden = !authorizingMessageBox.isHidden
+        toolbarLeftButton.isHidden = !authorizingMessageBox.isHidden ||
+            (canGoBack && !isUserAllowedToGoBack)
     }
 }
 
@@ -73,6 +80,7 @@ extension NavigationController: Navigating {
                    options: animated ? .slideBackward : []) { [weak self] in
             guard let self = self else { return }
             lastVC.removeFromParent()
+            self.isUserAllowedToGoBack = true
             self.updateToolbarLeftButton()
             self.toolbarLeftButton.isEnabled = true
         }
