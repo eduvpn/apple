@@ -747,18 +747,85 @@
                                     <segue destination="NF9-lc-b6F" kind="embed" id="X3X-kk-4e5"/>
                                 </connections>
                             </containerView>
+                            <box hidden="YES" boxType="custom" borderType="none" cornerRadius="4" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="OB7-BB-ntR" userLabel="Authorizing Message Box">
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="240"/>
+                                <view key="contentView" id="0PN-RY-K8f">
+                                    <rect key="frame" x="0.0" y="0.0" width="450" height="240"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fJh-dV-ob0">
+                                            <rect key="frame" x="75" y="-16" width="300" height="136"/>
+                                            <subviews>
+                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SE2-xh-Knp" userLabel="Title">
+                                                    <rect key="frame" x="40" y="113" width="220" height="23"/>
+                                                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Authorization required" id="fgP-0m-8h7">
+                                                        <font key="font" metaFont="systemBold" size="20"/>
+                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="6jj-8N-M4j" userLabel="Message">
+                                                    <rect key="frame" x="-2" y="29" width="304" height="76"/>
+                                                    <textFieldCell key="cell" selectable="YES" alignment="center" id="rjg-ax-aJ6">
+                                                        <font key="font" metaFont="systemLight" size="15"/>
+                                                        <string key="title">This app needs authorization and will open your web browser. It will proceed when you have completed authorization in the browser.</string>
+                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="g9Q-Cl-IbQ" userLabel="I">
+                                                    <rect key="frame" x="109" y="-7" width="82" height="32"/>
+                                                    <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WkR-8V-71c">
+                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                        <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <action selector="cancelAuthorizationButtonClicked:" target="Vyy-n5-HuZ" id="2mt-Ay-RLb"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="300" id="BFO-W9-ztf"/>
+                                            </constraints>
+                                            <visibilityPriorities>
+                                                <integer value="1000"/>
+                                                <integer value="1000"/>
+                                                <integer value="1000"/>
+                                            </visibilityPriorities>
+                                            <customSpacing>
+                                                <real value="3.4028234663852886e+38"/>
+                                                <real value="3.4028234663852886e+38"/>
+                                                <real value="3.4028234663852886e+38"/>
+                                            </customSpacing>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="fJh-dV-ob0" firstAttribute="centerX" secondItem="0PN-RY-K8f" secondAttribute="centerX" id="LSh-As-9ur"/>
+                                        <constraint firstItem="fJh-dV-ob0" firstAttribute="top" secondItem="0PN-RY-K8f" secondAttribute="top" constant="120" id="n9a-E3-lol"/>
+                                    </constraints>
+                                </view>
+                                <color key="fillColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </box>
                         </subviews>
                         <constraints>
                             <constraint firstItem="iM3-Wx-O14" firstAttribute="top" secondItem="vm5-k6-z0Y" secondAttribute="bottom" id="0YS-xA-XF7"/>
+                            <constraint firstItem="OB7-BB-ntR" firstAttribute="leading" secondItem="Tsh-x1-sF3" secondAttribute="leading" id="5W7-Jh-rJL"/>
                             <constraint firstItem="iM3-Wx-O14" firstAttribute="leading" secondItem="Tsh-x1-sF3" secondAttribute="leading" id="Ne1-pd-C42"/>
+                            <constraint firstAttribute="trailing" secondItem="OB7-BB-ntR" secondAttribute="trailing" id="Pc0-v0-2NS"/>
+                            <constraint firstItem="OB7-BB-ntR" firstAttribute="top" secondItem="vm5-k6-z0Y" secondAttribute="bottom" id="U99-4d-EVJ"/>
                             <constraint firstAttribute="bottom" secondItem="iM3-Wx-O14" secondAttribute="bottom" id="c6z-yp-F6y"/>
                             <constraint firstAttribute="trailing" secondItem="vm5-k6-z0Y" secondAttribute="trailing" constant="10" id="crR-lg-mEs"/>
                             <constraint firstItem="vm5-k6-z0Y" firstAttribute="leading" secondItem="Tsh-x1-sF3" secondAttribute="leading" constant="10" id="g96-m1-pSc"/>
+                            <constraint firstAttribute="bottom" secondItem="OB7-BB-ntR" secondAttribute="bottom" id="pJD-4W-e71"/>
                             <constraint firstAttribute="trailing" secondItem="iM3-Wx-O14" secondAttribute="trailing" id="qgG-Ru-E7E"/>
                             <constraint firstItem="vm5-k6-z0Y" firstAttribute="top" secondItem="Tsh-x1-sF3" secondAttribute="top" id="reZ-8K-Beg"/>
                         </constraints>
                     </customView>
                     <connections>
+                        <outlet property="authorizingMessageBox" destination="OB7-BB-ntR" id="3Kb-L1-mhR"/>
                         <outlet property="toolbarLeftButton" destination="Dkp-Zd-hKw" id="tJX-wP-7q2"/>
                     </connections>
                 </viewController>
