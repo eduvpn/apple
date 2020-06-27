@@ -124,6 +124,11 @@ extension SearchViewController {
                                          indexPath: IndexPath(item: index, section: 0))
             cell.configure(as: row.rowKind)
             return cell
+        } else if row.rowKind == .noResultsKind {
+            let cell = tableView.dequeue(SearchNoResultsCell.self,
+                                         identifier: "SearchNoResultsCell",
+                                         indexPath: IndexPath(item: index, section: 0))
+            return cell
         } else {
             let cell = tableView.dequeue(RowCell.self,
                                          identifier: "SearchRowCell",
@@ -134,7 +139,7 @@ extension SearchViewController {
     }
 
     func canSelectRow(at index: Int) -> Bool {
-        return !viewModel.row(at: index).rowKind.isSectionHeader
+        return viewModel.row(at: index).rowKind.isServerRow
     }
 
     func didSelectRow(at index: Int) {
@@ -178,4 +183,7 @@ extension SearchViewController: SearchViewModelDelegate {
                              withAnimation: [])
         tableView.endUpdates()
     }
+}
+
+class SearchNoResultsCell: TableViewCell {
 }

@@ -985,6 +985,29 @@ Gw
                                                                         <outlet property="textField" destination="yxH-oe-ZI7" id="pPW-gd-w6S"/>
                                                                     </connections>
                                                                 </tableCellView>
+                                                                <tableCellView identifier="SearchNoResultsCell" misplaced="YES" id="GxJ-p0-LQS" userLabel="Search No Results" customClass="SearchNoResultsCell" customModule="EduVPN_redesign_macOS" customModuleProvider="target">
+                                                                    <rect key="frame" x="1" y="177" width="447" height="17"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                    <subviews>
+                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O76-gt-ywi">
+                                                                            <rect key="frame" x="2" y="-33" width="443" height="56"/>
+                                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="No results. Please check your search query." id="naS-hX-V2b">
+                                                                                <font key="font" metaFont="systemLight" size="15"/>
+                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                        </textField>
+                                                                    </subviews>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="trailing" secondItem="O76-gt-ywi" secondAttribute="trailing" constant="4" id="Gqe-0U-XVt"/>
+                                                                        <constraint firstItem="O76-gt-ywi" firstAttribute="leading" secondItem="GxJ-p0-LQS" secondAttribute="leading" constant="4" id="Nj7-v2-7kJ"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="O76-gt-ywi" secondAttribute="bottom" constant="4" id="QiJ-KC-Vr1"/>
+                                                                        <constraint firstItem="O76-gt-ywi" firstAttribute="top" secondItem="GxJ-p0-LQS" secondAttribute="top" constant="4" id="qJ6-KY-ijY"/>
+                                                                    </constraints>
+                                                                    <connections>
+                                                                        <outlet property="textField" destination="O76-gt-ywi" id="Zfl-CM-BOA"/>
+                                                                    </connections>
+                                                                </tableCellView>
                                                             </prototypeCellViews>
                                                         </tableColumn>
                                                     </tableColumns>
