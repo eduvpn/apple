@@ -37,9 +37,12 @@ final class SearchViewController: ViewController, ParametrizedViewController {
             fatalError("Can't initialize parameters twice")
         }
         self.parameters = parameters
+        guard let serverDiscoveryService = parameters.environment.serverDiscoveryService else {
+            fatalError("SearchViewController requires a valid ServerDiscoveryService instance")
+        }
         let viewModel = SearchViewModel(
-            serverDiscoveryService: parameters.environment.serverDiscoveryService,
-            scope: .all)
+            serverDiscoveryService: serverDiscoveryService,
+            shouldIncludeOrganizations: true)
         viewModel.delegate = self
         self.viewModel = viewModel
     }
