@@ -55,22 +55,6 @@ extension DiscoveryData.LanguageMappedString: Decodable {
     }
 }
 
-extension DiscoveryData.InstituteAccessServer: Decodable {
-    enum CodingKeys: String, CodingKey {
-        case baseURLString = "base_url"
-        case displayName = "display_name"
-        case supportContact = "support_contact"
-    }
-}
-
-extension DiscoveryData.SecureInternetServer: Decodable {
-    enum CodingKeys: String, CodingKey {
-        case baseURLString = "base_url"
-        case countryCode = "country_code"
-        case supportContact = "support_contact"
-    }
-}
-
 extension DiscoveryData.Organization: Decodable {
     enum CodingKeys: String, CodingKey {
         case orgId = "org_id"
