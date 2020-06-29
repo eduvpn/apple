@@ -30,12 +30,12 @@ struct DiscoveryData {
         let orgId: OrgId
         let displayName: LanguageMappedString
         let keywordList: LanguageMappedString?
-        let secureInternetHome: String
+        let secureInternetHome: BaseURLString
     }
 
     struct Servers {
         let instituteAccessServers: [InstituteAccessServer]
-        let secureInternetServers: [SecureInternetServer]
+        let secureInternetServersMap: [BaseURLString: SecureInternetServer]
     }
 
     struct Organizations {
@@ -105,7 +105,7 @@ extension DiscoveryData.Servers: Decodable {
         let listContainer = try decoder.container(keyedBy: ServerListTopLevelKeys.self)
         let list = try listContainer.decode([ServerEntry].self, forKey: .server_list)
         var instituteAccessServers: [DiscoveryData.InstituteAccessServer] = []
-        var secureInternetServers: [DiscoveryData.SecureInternetServer] = []
+        var secureInternetServersMap: [DiscoveryData.BaseURLString: DiscoveryData.SecureInternetServer] = [:]
         for serverEntry in list {
             let baseURLString = serverEntry.baseURLString
             let supportContact = serverEntry.supportContact ?? []
@@ -118,16 +118,16 @@ extension DiscoveryData.Servers: Decodable {
                 }
             case "secure_internet":
                 if let countryCode = serverEntry.countryCode {
-                    secureInternetServers.append(DiscoveryData.SecureInternetServer(
+                    secureInternetServersMap[baseURLString] = DiscoveryData.SecureInternetServer(
                         baseURLString: baseURLString, countryCode: countryCode,
-                        supportContact: supportContact))
+                        supportContact: supportContact)
                 }
             default:
                 break
             }
         }
         self.instituteAccessServers = instituteAccessServers
-        self.secureInternetServers = secureInternetServers
+        self.secureInternetServersMap = secureInternetServersMap
     }
 }
 
