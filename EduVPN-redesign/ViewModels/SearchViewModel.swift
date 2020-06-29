@@ -98,8 +98,8 @@ class SearchViewModel {
         }
     }
 
-    private let serverDiscoveryService: ServerDiscoveryService?
-    private let scope: Scope
+    private let serverDiscoveryService: ServerDiscoveryService
+    private let shouldIncludeOrganizations: Bool
 
     private var instituteAccessServers: [LocalizedInstituteAccessServer] = []
     private var secureInternetServers: [String: DiscoveryData.SecureInternetServer] = [:]
@@ -109,10 +109,9 @@ class SearchViewModel {
 
     private var rows: [Row] = []
 
-    init(serverDiscoveryService: ServerDiscoveryService?, scope: Scope) {
-        precondition(scope == .serverByURLOnly || serverDiscoveryService != nil)
+    init(serverDiscoveryService: ServerDiscoveryService, shouldIncludeOrganizations: Bool) {
         self.serverDiscoveryService = serverDiscoveryService
-        self.scope = scope
+        self.shouldIncludeOrganizations = shouldIncludeOrganizations
     }
 
     func setSearchQuery(_ searchQuery: String) {
@@ -124,31 +123,7 @@ class SearchViewModel {
         guard !isLoadInProgress else {
             return Promise(error: SearchViewModelError.cannotLoadWhenPreviousLoadIsInProgress)
         }
-        switch scope {
-        case .serverByURLOnly:
-            // Nothing to load
-            return Promise.value(())
-        case .instituteAccessOrServerByURL:
-            // Load server list only
-            guard let serverDiscoveryService = serverDiscoveryService else {
-                fatalError("serverDiscoveryService can't be nil for scope \(scope)")
-            }
-            isLoadInProgress = true
-            return firstly {
-                serverDiscoveryService.getServers(from: origin)
-            }.map { [weak self] servers in
-                guard let self = self else { return }
-                self.instituteAccessServers = servers.localizedInstituteAccessServers().sorted()
-                self.update()
-            }.ensure { [weak self] in
-                self?.isLoadInProgress = false
-            }
-        case .all:
-            // Load server list and org list in parallel
-            isLoadInProgress = true
-            guard let serverDiscoveryService = serverDiscoveryService else {
-                fatalError("serverDiscoveryService can't be nil for scope \(scope)")
-            }
+        if shouldIncludeOrganizations {
             return firstly {
                 when(fulfilled:
                     serverDiscoveryService.getServers(from: origin),
@@ -157,6 +132,16 @@ class SearchViewModel {
                 guard let self = self else { return }
                 self.instituteAccessServers = servers.localizedInstituteAccessServers().sorted()
                 self.organizations = organizations.localizedOrganizations().sorted()
+                self.update()
+            }.ensure { [weak self] in
+                self?.isLoadInProgress = false
+            }
+        } else {
+            return firstly {
+                serverDiscoveryService.getServers(from: origin)
+            }.map { [weak self] servers in
+                guard let self = self else { return }
+                self.instituteAccessServers = servers.localizedInstituteAccessServers().sorted()
                 self.update()
             }.ensure { [weak self] in
                 self?.isLoadInProgress = false
