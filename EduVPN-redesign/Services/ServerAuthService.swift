@@ -112,6 +112,14 @@ class ServerAuthService {
         }
     }
 
+    func isUserCancelledError(_ error: Error) -> Bool {
+        let domain = (error as NSError).domain
+        let code = (error as NSError).code
+        return domain == OIDGeneralErrorDomain &&
+            (code == OIDErrorCode.programCanceledAuthorizationFlow.rawValue ||
+                code == OIDErrorCode.userCanceledAuthorizationFlow.rawValue)
+    }
+
     private static func parseInfoJson(_ data: Data) throws -> ServerInfo {
         return try JSONDecoder().decode(ServerInfo.self, from: data)
     }
