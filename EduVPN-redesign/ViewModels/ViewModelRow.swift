@@ -4,17 +4,17 @@
 //
 
 enum ViewModelRowKind: Int {
-    case addingServerByURLSectionHeaderKind
-    case addingServerByURLKind
     case instituteAccessServerSectionHeaderKind
     case instituteAccessServerKind
     case secureInternetOrgSectionHeaderKind
     case secureInternetOrgKind
+    case serverByURLSectionHeaderKind
+    case serverByURLKind
     case noResultsKind
 
     var isSectionHeader: Bool {
         switch self {
-        case .addingServerByURLSectionHeaderKind,
+        case .serverByURLSectionHeaderKind,
              .instituteAccessServerSectionHeaderKind,
              .secureInternetOrgSectionHeaderKind:
             return true
@@ -25,7 +25,7 @@ enum ViewModelRowKind: Int {
 
     var isServerRow: Bool {
         switch self {
-        case .addingServerByURLKind,
+        case .serverByURLKind,
              .instituteAccessServerKind,
              .secureInternetOrgKind:
             return true
