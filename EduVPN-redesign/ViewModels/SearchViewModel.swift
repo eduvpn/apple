@@ -60,20 +60,6 @@ class SearchViewModel {
         }
     }
 
-    enum Scope {
-        case serverByURLOnly
-        case instituteAccessOrServerByURL
-        case all
-
-        var includesInstituteAccessServers: Bool {
-            self == .instituteAccessOrServerByURL || self == .all
-        }
-
-        var includesOrganizations: Bool {
-            self == .all
-        }
-    }
-
     struct LocalizedInstituteAccessServer {
         let baseURLString: String
         let displayName: String
