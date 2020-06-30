@@ -10,7 +10,7 @@ class SectionHeaderCell: TableViewCell {
     func configure(as rowKind: ViewModelRowKind) {
         var title: String {
             switch rowKind {
-            case .addingServerByURLSectionHeaderKind:
+            case .serverByURLSectionHeaderKind:
                 return NSLocalizedString("Add your own server", comment: "")
             case .instituteAccessServerSectionHeaderKind:
                 return NSLocalizedString("Institute Access", comment: "")
@@ -23,7 +23,7 @@ class SectionHeaderCell: TableViewCell {
 
         var image: Image? {
             switch rowKind {
-            case .addingServerByURLSectionHeaderKind:
+            case .serverByURLSectionHeaderKind:
                 return Image(named: "SectionHeaderOwnServer")
             case .instituteAccessServerSectionHeaderKind:
                 return Image(named: "SectionHeaderInstituteAccess")

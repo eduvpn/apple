@@ -20,22 +20,22 @@ class SearchViewModel {
     weak var delegate: SearchViewModelDelegate?
 
     enum Row: ViewModelRow {
-        case addingServerByURLSectionHeader
-        case addingServerByURL(String)
         case instituteAccessServerSectionHeader
         case instituteAccessServer(LocalizedInstituteAccessServer)
         case secureInternetOrgSectionHeader
         case secureInternetOrg(LocalizedOrganization)
+        case serverByURLSectionHeader
+        case serverByURL(String)
         case noResults
 
         var rowKind: ViewModelRowKind {
             switch self {
-            case .addingServerByURLSectionHeader: return .addingServerByURLSectionHeaderKind
-            case .addingServerByURL: return .addingServerByURLKind
             case .instituteAccessServerSectionHeader: return .instituteAccessServerSectionHeaderKind
             case .instituteAccessServer: return .instituteAccessServerKind
             case .secureInternetOrgSectionHeader: return .secureInternetOrgSectionHeaderKind
             case .secureInternetOrg: return .secureInternetOrgKind
+            case .serverByURLSectionHeader: return .serverByURLSectionHeaderKind
+            case .serverByURL: return .serverByURLKind
             case .noResults: return .noResultsKind
             }
         }
@@ -44,7 +44,7 @@ class SearchViewModel {
             switch self {
             case .instituteAccessServer(let server): return server.displayName
             case .secureInternetOrg(let organization): return organization.displayName
-            case .addingServerByURL(let urlString): return urlString
+            case .serverByURL(let urlString): return urlString
             default: return ""
             }
         }
@@ -53,7 +53,7 @@ class SearchViewModel {
             switch self {
             case .instituteAccessServer(let server): return URL(string: server.baseURLString)
             case .secureInternetOrg(let organization): return URL(string: organization.secureInternetHome)
-            case .addingServerByURL(let urlString): return URL(string: urlString)
+            case .serverByURL(let urlString): return URL(string: urlString)
             default: return nil
             }
         }
@@ -159,9 +159,9 @@ class SearchViewModel {
 private extension SearchViewModel {
     func update() {
         var computedRows: [Row] = []
-        computedRows.append(contentsOf: Self.serverByAddressRows(searchQuery: searchQuery))
         computedRows.append(contentsOf: Self.instituteAccessRows(searchQuery: searchQuery, from: instituteAccessServers))
         computedRows.append(contentsOf: Self.organizationRows(searchQuery: searchQuery, from: organizations))
+        computedRows.append(contentsOf: Self.serverByAddressRows(searchQuery: searchQuery))
         if computedRows.isEmpty {
             computedRows.append(.noResults)
         }
@@ -181,8 +181,8 @@ private extension SearchViewModel {
             if !url.hasSuffix("/") {
                 url += "/"
             }
-            return [.addingServerByURLSectionHeader,
-                    .addingServerByURL(url)]
+            return [.serverByURLSectionHeader,
+                    .serverByURL(url)]
         }
         return []
     }
