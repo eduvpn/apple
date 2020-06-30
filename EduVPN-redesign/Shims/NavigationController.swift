@@ -105,7 +105,6 @@ extension NavigationController {
 
 extension NavigationController {
     func showAlert(for error: Error) {
-        print("showAlert")
         var errorToShow: Error {
             if let underlyingError = (error as NSError).userInfo[NSUnderlyingErrorKey] as? Error {
                 return underlyingError
