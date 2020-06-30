@@ -101,7 +101,6 @@ class SearchViewModel {
     private let shouldIncludeOrganizations: Bool
 
     private var instituteAccessServers: [LocalizedInstituteAccessServer] = []
-    private var secureInternetServers: [String: DiscoveryData.SecureInternetServer] = [:]
     private var organizations: [LocalizedOrganization] = []
     private var searchQuery: String = ""
     private var isLoadInProgress: Bool = false
