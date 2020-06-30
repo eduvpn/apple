@@ -164,7 +164,9 @@ extension SearchViewController {
                 delegate?.searchViewControllerAddedServer(baseURL: baseURL, authState: authState)
                 navigationController?.popViewController(animated: true)
             }.catch { error in
-                navigationController?.showAlert(for: error)
+                if !serverAuthService.isUserCancelledError(error) {
+                    navigationController?.showAlert(for: error)
+                }
             }
         }
     }
