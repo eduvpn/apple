@@ -2,8 +2,6 @@
 //  NotificationsService.swift
 //  EduVPN
 //
-//  Copyright © 2020 SURFNet. All rights reserved.
-//
 
 import Foundation
 import UserNotifications
