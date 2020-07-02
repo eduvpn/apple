@@ -51,11 +51,8 @@ class ServerAuthService {
 
     func startAuth(baseURL: URL,
                    from viewController: ViewController) -> Promise<AuthState> {
-        let provider = MoyaProvider<ServerInfoTarget>(session: Self.uncachedSession)
-        return firstly {
-            provider.request(target: ServerInfoTarget(baseURL))
-        }.map { response in
-            try Self.parseInfoJson(response.data)
+        firstly {
+            ServerInfoFetcher.fetch(baseURL: baseURL)
         }.then { serverInfo in
             self.startAuth(
                 authEndpoint: serverInfo.authorizationEndpoint,
@@ -118,10 +115,6 @@ class ServerAuthService {
         return domain == OIDGeneralErrorDomain &&
             (code == OIDErrorCode.programCanceledAuthorizationFlow.rawValue ||
                 code == OIDErrorCode.userCanceledAuthorizationFlow.rawValue)
-    }
-
-    private static func parseInfoJson(_ data: Data) throws -> ServerInfo {
-        return try JSONDecoder().decode(ServerInfo.self, from: data)
     }
 
     private static func createAuthState(

@@ -131,6 +131,7 @@
 		6F750C9224975A4300AF2C04 /* LoginItemHelper-macOS.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6F750D1124975B9B00AF2C04 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ABFF78820C71E7200638480 /* NetworkExtension.framework */; };
 		6F750D1C24975B9B00AF2C04 /* EduVPNTunnelExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4A901C1120C87511000C1BF0 /* EduVPNTunnelExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6FADF82724ADF2E600B75E8D /* ServerInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FADF82624ADF2E600B75E8D /* ServerInfoFetcher.swift */; };
 		6FCCC577249E25F100F0F5A3 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCCC576249E25F100F0F5A3 /* NavigationController.swift */; };
 		6FEF30D824A0B8C60026C786 /* ServerDiscoveryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF30D724A0B8C60026C786 /* ServerDiscoveryService.swift */; };
 		6FEF30F124A1F5A90026C786 /* DiscoveryData+Locale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F71FBF6249DEF480010D0FE /* DiscoveryData+Locale.swift */; };
@@ -507,6 +508,7 @@
 		6F71FBF6249DEF480010D0FE /* DiscoveryData+Locale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DiscoveryData+Locale.swift"; sourceTree = "<group>"; };
 		6F750C9624975A4300AF2C04 /* EduVPN-redesign-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EduVPN-redesign-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F750D2124975B9B00AF2C04 /* EduVPN-redesign-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EduVPN-redesign-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FADF82624ADF2E600B75E8D /* ServerInfoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerInfoFetcher.swift; sourceTree = "<group>"; };
 		6FCCC576249E25F100F0F5A3 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		6FEF30D724A0B8C60026C786 /* ServerDiscoveryService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerDiscoveryService.swift; sourceTree = "<group>"; };
 		6FEF30F224A21AFE0026C786 /* ViewModelRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelRow.swift; sourceTree = "<group>"; };
@@ -1271,6 +1273,7 @@
 			isa = PBXGroup;
 			children = (
 				6F71FBBC249CCE980010D0FE /* DiscoveryDataFetcher.swift */,
+				6FADF82624ADF2E600B75E8D /* ServerInfoFetcher.swift */,
 				C7DB4C062480570D009932B1 /* Moya */,
 			);
 			path = Networking;
@@ -2544,6 +2547,7 @@
 				6FEF30FC24A317C00026C786 /* SectionHeaderCell.swift in Sources */,
 				C7DB4BF624803EB8009932B1 /* ProviderType.swift in Sources */,
 				C7DB4BA5247FC243009932B1 /* SettingsViewModel.swift in Sources */,
+				6FADF82724ADF2E600B75E8D /* ServerInfoFetcher.swift in Sources */,
 				6FEF30F424A21BF30026C786 /* ViewModelRow.swift in Sources */,
 				C7DB4BB3247FD941009932B1 /* Environment.swift in Sources */,
 				6F71FBBE249CCE9E0010D0FE /* DiscoveryDataFetcher.swift in Sources */,
