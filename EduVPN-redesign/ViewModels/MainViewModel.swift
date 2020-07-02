@@ -9,10 +9,9 @@ import Foundation
 
 class MainViewModel {
     
-    let environment: Environment
+    let persistenceService: PersistenceService
     
-    init(environment: Environment) {
-        self.environment = environment
+    init(persistenceService: PersistenceService) {
+        self.persistenceService = persistenceService
     }
-    
 }

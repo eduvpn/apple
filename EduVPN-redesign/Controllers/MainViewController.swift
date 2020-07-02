@@ -11,7 +11,7 @@ class MainViewController: ViewController {
 
     var environment: Environment! {
         didSet {
-            viewModel = MainViewModel(environment: environment)
+            viewModel = MainViewModel(persistenceService: environment.persistenceService)
             environment.navigationController?.delegate = self
             // We would load addedServers from disk in the future
             if addedServers.isEmpty {
