@@ -16,6 +16,7 @@ class MainViewController: ViewController {
             // We would load addedServers from disk in the future
             if addedServers.isEmpty {
                 let searchVC = environment.instantiateSearchViewController()
+                searchVC.delegate = self
                 environment.navigationController?.pushViewController(searchVC, animated: false)
                 environment.navigationController?.isUserAllowedToGoBack = false
             }
@@ -30,6 +31,7 @@ class MainViewController: ViewController {
 extension MainViewController: NavigationControllerDelegate {
     func addServerButtonClicked() {
         let searchVC = environment.instantiateSearchViewController()
+        searchVC.delegate = self
         environment.navigationController?.pushViewController(searchVC, animated: true)
     }
 }
@@ -38,5 +40,6 @@ extension MainViewController: SearchViewControllerDelegate {
     func searchViewControllerAddedServer(baseURL: URL, authState: AuthState) {
         let savedPath = "" // encryptAndSaveToDisk(baseURL, authState)
         addedServers[baseURL] = savedPath
+        environment.navigationController?.popViewController(animated: true)
     }
 }
