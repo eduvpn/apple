@@ -129,11 +129,15 @@
 		6F750D1124975B9B00AF2C04 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ABFF78820C71E7200638480 /* NetworkExtension.framework */; };
 		6F750D1C24975B9B00AF2C04 /* EduVPNTunnelExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4A901C1120C87511000C1BF0 /* EduVPNTunnelExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8ADB89CC70186A6FD4B3E63E /* Pods_EduVPN_redesign_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F027E93C2B58C1BF364133C3 /* Pods_EduVPN_redesign_iOS.framework */; };
-		8B0680A7F56DFB05A02F36F3 /* Pods_EduVPN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C537F33C8FB4D4E929A1CB68 /* Pods_EduVPN.framework */; };
+		8B0680A7F56DFB05A02F36F3 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		C7230D892363240A00B9C691 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = C75B2CB42363138200D700EC /* config.json */; };
 		C7230D8C236324C100B9C691 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7230D8B236324C100B9C691 /* Assets.xcassets */; };
 		C7265C0423747A70004496B8 /* ServerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7265C0323747A70004496B8 /* ServerConfiguration.swift */; };
 		C7265C0523747A70004496B8 /* ServerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7265C0323747A70004496B8 /* ServerConfiguration.swift */; };
+		C73DB0AE24A3615A007AD4F3 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEAC32620F13D0C007B67AB /* Log.swift */; };
+		C73DB0AF24A3615B007AD4F3 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEAC32620F13D0C007B67AB /* Log.swift */; };
+		C73DB0B124A36547007AD4F3 /* ServerApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73DB0B024A36547007AD4F3 /* ServerApiService.swift */; };
+		C73DB0B224A36547007AD4F3 /* ServerApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73DB0B024A36547007AD4F3 /* ServerApiService.swift */; };
 		C7517542236340C900058D95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7517541236340C900058D95 /* Assets.xcassets */; };
 		C782BA4E2487ACDB00A50E00 /* PresentingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4C1824805EE9009932B1 /* PresentingController.swift */; };
 		C7D485232372BC22006AC96C /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1163292370539E00577755 /* Crypto.swift */; };
@@ -159,7 +163,7 @@
 		C7DB4BAB247FC763009932B1 /* MainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BAA247FC763009932B1 /* MainService.swift */; };
 		C7DB4BAD247FC76F009932B1 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BAC247FC76F009932B1 /* SearchService.swift */; };
 		C7DB4BAF247FC779009932B1 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BAE247FC779009932B1 /* SettingsService.swift */; };
-		C7DB4BB1247FC787009932B1 /* ConnectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BB0247FC787009932B1 /* ConnectionService.swift */; };
+		C7DB4BB1247FC787009932B1 /* TunnelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BB0247FC787009932B1 /* TunnelService.swift */; };
 		C7DB4BB3247FD941009932B1 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BB2247FD941009932B1 /* Environment.swift */; };
 		C7DB4BCF24803A2A009932B1 /* ServerInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BCD24803A29009932B1 /* ServerInfoModel.swift */; };
 		C7DB4BD424803B99009932B1 /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BD224803B98009932B1 /* FileHelper.swift */; };
@@ -182,7 +186,7 @@
 		C7DB4C25248060F5009932B1 /* Moya+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BFA24804C1A009932B1 /* Moya+Extensions.swift */; };
 		C7DB4C26248060F5009932B1 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B49247FBE32009932B1 /* AppCoordinator.swift */; };
 		C7DB4C27248060F5009932B1 /* StaticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BF8248040F8009932B1 /* StaticService.swift */; };
-		C7DB4C28248060F5009932B1 /* ConnectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BB0247FC787009932B1 /* ConnectionService.swift */; };
+		C7DB4C28248060F5009932B1 /* TunnelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BB0247FC787009932B1 /* TunnelService.swift */; };
 		C7DB4C29248060F5009932B1 /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B4F247FBE5B009932B1 /* SearchCoordinator.swift */; };
 		C7DB4C2A248060F5009932B1 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B3D247FBDD7009932B1 /* SearchViewController.swift */; };
 		C7DB4C2B248060F5009932B1 /* MainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BAA247FC763009932B1 /* MainService.swift */; };
@@ -273,7 +277,7 @@
 		C7FA7ABF23633E68006501E8 /* EduVPN.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7AB723633E68006501E8 /* EduVPN.xcdatamodeld */; };
 		C7FA7AC023633E68006501E8 /* EduVPN.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7AB723633E68006501E8 /* EduVPN.xcdatamodeld */; };
 		DEF358BAF88107A51D8EDC24 /* Pods_EduVPNTunnelExtension_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BCF6B73BE29909C0802E49A /* Pods_EduVPNTunnelExtension_macOS.framework */; };
-		E3C0DC40601408939625CC78 /* Pods_EduVPN_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7013C2FA95F12401E201F285 /* Pods_EduVPN_macOS.framework */; };
+		E3C0DC40601408939625CC78 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -542,6 +546,7 @@
 		C7265C0323747A70004496B8 /* ServerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfiguration.swift; sourceTree = "<group>"; };
 		C730CD6223746B4900C21AF9 /* Development-macOS-LoginItemHelper.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Development-macOS-LoginItemHelper.xcconfig"; sourceTree = "<group>"; };
 		C730CD6323746B4900C21AF9 /* Release-macOS-LoginItemHelper.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-macOS-LoginItemHelper.xcconfig"; sourceTree = "<group>"; };
+		C73DB0B024A36547007AD4F3 /* ServerApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerApiService.swift; sourceTree = "<group>"; };
 		C7517541236340C900058D95 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C75B2CA3236311D100D700EC /* CODE_OF_CONDUCT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CODE_OF_CONDUCT.md; sourceTree = "<group>"; };
 		C75B2CA4236311D100D700EC /* CHANGES.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGES.md; sourceTree = "<group>"; };
@@ -594,7 +599,7 @@
 		C7DB4BAA247FC763009932B1 /* MainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainService.swift; sourceTree = "<group>"; };
 		C7DB4BAC247FC76F009932B1 /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
 		C7DB4BAE247FC779009932B1 /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
-		C7DB4BB0247FC787009932B1 /* ConnectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionService.swift; sourceTree = "<group>"; };
+		C7DB4BB0247FC787009932B1 /* TunnelService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelService.swift; sourceTree = "<group>"; };
 		C7DB4BB2247FD941009932B1 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		C7DB4BCD24803A29009932B1 /* ServerInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerInfoModel.swift; sourceTree = "<group>"; };
 		C7DB4BD224803B98009932B1 /* FileHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileHelper.swift; sourceTree = "<group>"; };
@@ -686,7 +691,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				340F956D22B7118C00835D56 /* NetworkExtension.framework in Frameworks */,
-				E3C0DC40601408939625CC78 /* Pods_EduVPN_macOS.framework in Frameworks */,
+				E3C0DC40601408939625CC78 /* (null) in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -704,7 +709,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4ABFF78920C71E7200638480 /* NetworkExtension.framework in Frameworks */,
-				8B0680A7F56DFB05A02F36F3 /* Pods_EduVPN.framework in Frameworks */,
+				8B0680A7F56DFB05A02F36F3 /* (null) in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1230,7 +1235,8 @@
 				C7DB4BAA247FC763009932B1 /* MainService.swift */,
 				C7DB4BAC247FC76F009932B1 /* SearchService.swift */,
 				C7DB4BAE247FC779009932B1 /* SettingsService.swift */,
-				C7DB4BB0247FC787009932B1 /* ConnectionService.swift */,
+				C73DB0B024A36547007AD4F3 /* ServerApiService.swift */,
+				C7DB4BB0247FC787009932B1 /* TunnelService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1609,10 +1615,12 @@
 				TargetAttributes = {
 					342B9C98228ECFDB00C006D7 = {
 						CreatedOnToolsVersion = 10.2.1;
+						DevelopmentTeam = CRU5YWAZ4Y;
 						ProvisioningStyle = Automatic;
 					};
 					349D85C122B706A4006E9540 = {
 						CreatedOnToolsVersion = 10.2.1;
+						DevelopmentTeam = CRU5YWAZ4Y;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.Mac = {
@@ -1631,6 +1639,7 @@
 					};
 					34D719DD228D75550027DE84 = {
 						CreatedOnToolsVersion = 10.2.1;
+						DevelopmentTeam = CRU5YWAZ4Y;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.Mac = {
@@ -1649,6 +1658,7 @@
 					};
 					4A901C1020C87511000C1BF0 = {
 						CreatedOnToolsVersion = 9.4;
+						DevelopmentTeam = CRU5YWAZ4Y;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -1664,6 +1674,7 @@
 					};
 					4AAC1F751F2D0E3400DD0252 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = CRU5YWAZ4Y;
 						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -1686,25 +1697,17 @@
 					};
 					4AAC1F891F2D0E3400DD0252 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = CRU5YWAZ4Y;
 						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 4AAC1F751F2D0E3400DD0252;
 					};
-					C7DB4B67247FC198009932B1 = {
-						CreatedOnToolsVersion = 11.5;
+					6F750C2C24975A4300AF2C04 = {
+						DevelopmentTeam = CRU5YWAZ4Y;
 						ProvisioningStyle = Automatic;
 					};
-					C7DB4B7B247FC19A009932B1 = {
-						CreatedOnToolsVersion = 11.5;
-						ProvisioningStyle = Automatic;
-						TestTargetID = C7DB4B67247FC198009932B1;
-					};
-					C7DB4B86247FC19A009932B1 = {
-						CreatedOnToolsVersion = 11.5;
-						ProvisioningStyle = Automatic;
-						TestTargetID = C7DB4B67247FC198009932B1;
-					};
-					C7DB4C1C248060F5009932B1 = {
+					6F750CBD24975B9B00AF2C04 = {
+						DevelopmentTeam = CRU5YWAZ4Y;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -2550,6 +2553,7 @@
 			files = (
 				C7DB4BA4247FC243009932B1 /* ConnectionViewModel.swift in Sources */,
 				C7DB4B9A247FC234009932B1 /* ConnectionCoordinator.swift in Sources */,
+				C73DB0AE24A3615A007AD4F3 /* Log.swift in Sources */,
 				C7DB4C04248055D6009932B1 /* Moya+Promise.swift in Sources */,
 				C7DB4BA3247FC243009932B1 /* AddOtherViewModel.swift in Sources */,
 				C7DB4B9F247FC23D009932B1 /* ConnectionViewController.swift in Sources */,
@@ -2557,7 +2561,7 @@
 				C7DB4BFB24804C1A009932B1 /* Moya+Extensions.swift in Sources */,
 				C7DB4B97247FC234009932B1 /* AppCoordinator.swift in Sources */,
 				C7DB4BF9248040F8009932B1 /* StaticService.swift in Sources */,
-				C7DB4BB1247FC787009932B1 /* ConnectionService.swift in Sources */,
+				C7DB4BB1247FC787009932B1 /* TunnelService.swift in Sources */,
 				C7DB4B99247FC234009932B1 /* SearchCoordinator.swift in Sources */,
 				C7DB4B9D247FC23D009932B1 /* SearchViewController.swift in Sources */,
 				C7DB4BAB247FC763009932B1 /* MainService.swift in Sources */,
@@ -2571,6 +2575,7 @@
 				C7DB4B98247FC234009932B1 /* MainCoordinator.swift in Sources */,
 				C7DB4BB3247FD941009932B1 /* Environment.swift in Sources */,
 				C7DB4C7724806512009932B1 /* eduVPN_2.xcdatamodeld in Sources */,
+				C73DB0B124A36547007AD4F3 /* ServerApiService.swift in Sources */,
 				C7DB4BFD24804C85009932B1 /* Config.swift in Sources */,
 				C7DB4BAF247FC779009932B1 /* SettingsService.swift in Sources */,
 				C7DB4BD424803B99009932B1 /* FileHelper.swift in Sources */,
@@ -2598,8 +2603,9 @@
 				C7DB4C24248060F5009932B1 /* ServerInfoModel.swift in Sources */,
 				C7DB4C25248060F5009932B1 /* Moya+Extensions.swift in Sources */,
 				C7DB4C26248060F5009932B1 /* AppCoordinator.swift in Sources */,
+				C73DB0AF24A3615B007AD4F3 /* Log.swift in Sources */,
 				C7DB4C27248060F5009932B1 /* StaticService.swift in Sources */,
-				C7DB4C28248060F5009932B1 /* ConnectionService.swift in Sources */,
+				C7DB4C28248060F5009932B1 /* TunnelService.swift in Sources */,
 				C7DB4C29248060F5009932B1 /* SearchCoordinator.swift in Sources */,
 				C7DB4C2A248060F5009932B1 /* SearchViewController.swift in Sources */,
 				C7DB4C2B248060F5009932B1 /* MainService.swift in Sources */,
@@ -2609,6 +2615,7 @@
 				C7DB4C2F248060F5009932B1 /* OrganizationModel.swift in Sources */,
 				C7DB4C30248060F5009932B1 /* ProviderType.swift in Sources */,
 				C7DB4C31248060F5009932B1 /* SettingsViewModel.swift in Sources */,
+				C73DB0B224A36547007AD4F3 /* ServerApiService.swift in Sources */,
 				C7DB4C32248060F5009932B1 /* MainCoordinator.swift in Sources */,
 				C7DB4C33248060F5009932B1 /* Environment.swift in Sources */,
 				C7DB4C34248060F5009932B1 /* Config.swift in Sources */,

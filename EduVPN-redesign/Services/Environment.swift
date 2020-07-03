@@ -14,5 +14,6 @@ struct Environment {
     let mainService: MainServiceType
     let searchService: SearchServiceType
     let settingsService: SettingsServiceType
-    let connectionService: ConnectionServiceType
+    let serverApiService: ServerApiServiceType
+    let tunnelService: TunnelServiceType
 }

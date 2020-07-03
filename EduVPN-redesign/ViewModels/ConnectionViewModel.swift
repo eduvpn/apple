@@ -11,9 +11,11 @@ import Foundation
 class ConnectionViewModel {
     
     let environment: Environment
+    let server: AnyObject
     
-    init(environment: Environment) {
+    init(environment: Environment, server: AnyObject) {
         self.environment = environment
+        self.server = server
         self.connectionState = ConnectionState(name: "Test", icon: nil, support: nil, connectionImage: Image(named: "Test")!, connectionStatus: "Connecting…", canClose: true, hasProfilesSection: true, profiles: [ProfileState(profileIdentifier: "foo", name: "Profile 1", enabled: false), ProfileState(profileIdentifier: "bar", name: "Profile 2", enabled: false), ProfileState(profileIdentifier: "baz", name: "Profile 3", enabled: false)], showsRenewSessionButton: false, showsConnectionInfo: false)
     }
     
@@ -75,10 +77,12 @@ class ConnectionViewModel {
         connectionState.connectionStatus = enabled ? "Connected" : "Disconnected"
 
         updateConnectionHandler?(connectionState)
+        
+        environment.tunnelService.setConnectionEnabled(enabled, server: server, profile: "TBD" as AnyObject)
     }
     
     func renewSession() {
-        
+        environment.tunnelService.relogin(server: server)
     }
     
     func toggleConnectionInfo(visible: Bool) {
