@@ -3,7 +3,6 @@
 //  eduVPN
 //
 //  Created by Jeroen Leenarts on 09-06-18.
-//  Copyright © 2018 SURFNet. All rights reserved.
 //
 
 import UIKit
