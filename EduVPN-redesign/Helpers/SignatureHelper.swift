@@ -3,7 +3,6 @@
 //  EduVPN
 //
 //  Created by Johan Kool on 10/04/2020.
-//  Copyright © 2020 SURFNet. All rights reserved.
 //
 
 import Foundation
