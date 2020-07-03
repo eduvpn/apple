@@ -4,6 +4,21 @@ These apps depend on [TunnelKit](https://github.com/keeshux/tunnelkit).
 
 The app contains a [Network Tunneling Protocol Client](https://developer.apple.com/documentation/networkextension) and allows its users to create a VPN tunnel if you are able to connect to an eduVPN or Let's Connect enabled server.
 
+## License
+
+Copyright (c) 2020 The Commons Conservancy. All rights reserved.
+
+### Part I
+
+This project is licensed under the [GPLv3][license-content].
+
+### Part II
+
+As seen in [libsignal-protocol-c][license-signal]:
+
+> Additional Permissions For Submission to Apple App Store: Provided that you are otherwise in compliance with the GPLv3 for each covered work you convey (including without limitation making the Corresponding Source available in compliance with Section 6 of the GPLv3), the Author also grants you the additional permission to convey through the Apple App Store non-source executable versions of the Program as incorporated into each applicable covered work as Executable Versions only under the Mozilla Public License version 2.0 (https://www.mozilla.org/en-US/MPL/2.0/).
+
+
 ## Beware
 
 Due to the usage of Network Extensions, you can not fully test this app on a Simulator.
