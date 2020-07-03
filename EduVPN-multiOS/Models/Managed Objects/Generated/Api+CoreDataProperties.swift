@@ -24,29 +24,31 @@ extension Api {
     @NSManaged public var authServer: AuthServer?
     
     var authorizationEndpoint: String? {
-        guard let authorizationType = instance?.group?.authorizationTypeEnum else { return authServer?.authorizationEndpoint }
-        
-        switch authorizationType {
-        case .local:
-            return authServer?.authorizationEndpoint
-        case .federated:
-            return instance?.authServer?.authorizationEndpoint
-        case .distributed:
-            return instance?.authServer?.authorizationEndpoint ?? authServer?.authorizationEndpoint
-        }
+        return "TODO"
+//        guard let authorizationType = instance?.group?.authorizationTypeEnum else { return authServer?.authorizationEndpoint }
+//
+//        switch authorizationType {
+//        case .local:
+//            return authServer?.authorizationEndpoint
+//        case .federated:
+//            return instance?.authServer?.authorizationEndpoint
+//        case .distributed:
+//            return instance?.authServer?.authorizationEndpoint ?? authServer?.authorizationEndpoint
+//        }
     }
     
     var tokenEndpoint: String? {
-        guard let authorizationType = instance?.group?.authorizationTypeEnum else { return authServer?.tokenEndpoint }
-        
-        switch authorizationType {
-        case .local:
-            return authServer?.tokenEndpoint
-        case .federated:
-            return instance?.authServer?.tokenEndpoint
-        case .distributed:
-            return instance?.authServer?.tokenEndpoint ?? authServer?.tokenEndpoint
-        }
+            return "TODO"
+//        guard let authorizationType = instance?.group?.authorizationTypeEnum else { return authServer?.tokenEndpoint }
+//
+//        switch authorizationType {
+//        case .local:
+//            return authServer?.tokenEndpoint
+//        case .federated:
+//            return instance?.authServer?.tokenEndpoint
+//        case .distributed:
+//            return instance?.authServer?.tokenEndpoint ?? authServer?.tokenEndpoint
+//        }
     }
     
     private var authStateUrl: URL? {
@@ -62,12 +64,12 @@ extension Api {
     
     private var apiBaseFileUrl: URL? {
         guard let apiBaseUri = apiBaseUri, let apiBaseUriUrl = URL(string: apiBaseUri) else { return nil }
-        return filePathUrl(from: apiBaseUriUrl)
+        return FileHelper.filePathUrl(from: apiBaseUriUrl)
     }
     
     private var authorizationEndpointFileUrl: URL? {
         guard let authorizationEndpoint = authorizationEndpoint, let authorizationEndpointUrl = URL(string: authorizationEndpoint) else { return nil }
-        return filePathUrl(from: authorizationEndpointUrl)
+        return FileHelper.filePathUrl(from: authorizationEndpointUrl)
     }
     
     var authState: OIDAuthState? {

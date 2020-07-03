@@ -140,6 +140,54 @@
 		C73DB0B224A36547007AD4F3 /* ServerApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73DB0B024A36547007AD4F3 /* ServerApiService.swift */; };
 		C7517542236340C900058D95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7517541236340C900058D95 /* Assets.xcassets */; };
 		C782BA4E2487ACDB00A50E00 /* PresentingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4C1824805EE9009932B1 /* PresentingController.swift */; };
+		C7A5587024AF252100EB2F27 /* UserDefaults+EduVPN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE728151F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift */; };
+		C7A5587124AF252200EB2F27 /* UserDefaults+EduVPN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE728151F4AAAA200A6A2E9 /* UserDefaults+EduVPN.swift */; };
+		C7A5587224AF38D000EB2F27 /* CertificateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A0023633694006501E8 /* CertificateModel.swift */; };
+		C7A5587324AF38D000EB2F27 /* CertificateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A0023633694006501E8 /* CertificateModel.swift */; };
+		C7A5587424AF38FC00EB2F27 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4F36521F31972C0032C96B /* ApiService.swift */; };
+		C7A5587524AF38FD00EB2F27 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4F36521F31972C0032C96B /* ApiService.swift */; };
+		C7A5587624AF41F600EB2F27 /* CredentialStorePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD591F34F887006E1337 /* CredentialStorePlugin.swift */; };
+		C7A5587724AF41F700EB2F27 /* CredentialStorePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0AD591F34F887006E1337 /* CredentialStorePlugin.swift */; };
+		C7A5587824AF425800EB2F27 /* CancellablePromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */; };
+		C7A5587924AF425900EB2F27 /* CancellablePromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */; };
+		C7A5587A24AF428400EB2F27 /* EduVPN.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7AB723633E68006501E8 /* EduVPN.xcdatamodeld */; };
+		C7A5587B24AF428400EB2F27 /* EduVPN.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7AB723633E68006501E8 /* EduVPN.xcdatamodeld */; };
+		C7A5587C24AF428E00EB2F27 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A7023633895006501E8 /* Api.swift */; };
+		C7A5587D24AF428F00EB2F27 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A7023633895006501E8 /* Api.swift */; };
+		C7A5587E24AF429800EB2F27 /* Api+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6023633895006501E8 /* Api+CoreDataClass.swift */; };
+		C7A5587F24AF429800EB2F27 /* Api+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A5F23633895006501E8 /* Api+CoreDataProperties.swift */; };
+		C7A5588024AF429800EB2F27 /* AuthServer+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6423633895006501E8 /* AuthServer+CoreDataClass.swift */; };
+		C7A5588124AF429800EB2F27 /* AuthServer+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6123633895006501E8 /* AuthServer+CoreDataProperties.swift */; };
+		C7A5588224AF429800EB2F27 /* InstanceGroup+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6223633895006501E8 /* InstanceGroup+CoreDataClass.swift */; };
+		C7A5588324AF429800EB2F27 /* InstanceGroup+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6623633895006501E8 /* InstanceGroup+CoreDataProperties.swift */; };
+		C7A5588424AF429800EB2F27 /* DisplayName+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6A23633895006501E8 /* DisplayName+CoreDataClass.swift */; };
+		C7A5588524AF429800EB2F27 /* DisplayName+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6523633895006501E8 /* DisplayName+CoreDataProperties.swift */; };
+		C7A5588624AF429800EB2F27 /* Instance+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6B23633895006501E8 /* Instance+CoreDataClass.swift */; };
+		C7A5588724AF429800EB2F27 /* Instance+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6723633895006501E8 /* Instance+CoreDataProperties.swift */; };
+		C7A5588824AF429800EB2F27 /* Profile+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6923633895006501E8 /* Profile+CoreDataClass.swift */; };
+		C7A5588924AF429800EB2F27 /* Profile+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6823633895006501E8 /* Profile+CoreDataProperties.swift */; };
+		C7A5588A24AF429800EB2F27 /* Logo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6323633895006501E8 /* Logo+CoreDataClass.swift */; };
+		C7A5588B24AF429800EB2F27 /* Logo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6C23633895006501E8 /* Logo+CoreDataProperties.swift */; };
+		C7A5588C24AF429900EB2F27 /* Api+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6023633895006501E8 /* Api+CoreDataClass.swift */; };
+		C7A5588D24AF429900EB2F27 /* Api+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A5F23633895006501E8 /* Api+CoreDataProperties.swift */; };
+		C7A5588E24AF429900EB2F27 /* AuthServer+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6423633895006501E8 /* AuthServer+CoreDataClass.swift */; };
+		C7A5588F24AF429900EB2F27 /* AuthServer+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6123633895006501E8 /* AuthServer+CoreDataProperties.swift */; };
+		C7A5589024AF429900EB2F27 /* InstanceGroup+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6223633895006501E8 /* InstanceGroup+CoreDataClass.swift */; };
+		C7A5589124AF429900EB2F27 /* InstanceGroup+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6623633895006501E8 /* InstanceGroup+CoreDataProperties.swift */; };
+		C7A5589224AF429900EB2F27 /* DisplayName+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6A23633895006501E8 /* DisplayName+CoreDataClass.swift */; };
+		C7A5589324AF429900EB2F27 /* DisplayName+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6523633895006501E8 /* DisplayName+CoreDataProperties.swift */; };
+		C7A5589424AF429900EB2F27 /* Instance+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6B23633895006501E8 /* Instance+CoreDataClass.swift */; };
+		C7A5589524AF429900EB2F27 /* Instance+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6723633895006501E8 /* Instance+CoreDataProperties.swift */; };
+		C7A5589624AF429900EB2F27 /* Profile+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6923633895006501E8 /* Profile+CoreDataClass.swift */; };
+		C7A5589724AF429900EB2F27 /* Profile+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6823633895006501E8 /* Profile+CoreDataProperties.swift */; };
+		C7A5589824AF429900EB2F27 /* Logo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6323633895006501E8 /* Logo+CoreDataClass.swift */; };
+		C7A5589924AF429900EB2F27 /* Logo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7A6C23633895006501E8 /* Logo+CoreDataProperties.swift */; };
+		C7A5589A24AF43C700EB2F27 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1163292370539E00577755 /* Crypto.swift */; };
+		C7A5589B24AF43C700EB2F27 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1163292370539E00577755 /* Crypto.swift */; };
+		C7A5589C24AF455400EB2F27 /* NSManagedObjectContext+SaveHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7AAE23633D61006501E8 /* NSManagedObjectContext+SaveHelpers.swift */; };
+		C7A5589D24AF455500EB2F27 /* NSManagedObjectContext+SaveHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7AAE23633D61006501E8 /* NSManagedObjectContext+SaveHelpers.swift */; };
+		C7A5589E24AF457F00EB2F27 /* NSManagedObjectContext+AsyncHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7AAB23633D61006501E8 /* NSManagedObjectContext+AsyncHelpers.swift */; };
+		C7A5589F24AF458000EB2F27 /* NSManagedObjectContext+AsyncHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FA7AAB23633D61006501E8 /* NSManagedObjectContext+AsyncHelpers.swift */; };
 		C7D485232372BC22006AC96C /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1163292370539E00577755 /* Crypto.swift */; };
 		C7D8E1D523742A4E009536C9 /* CancellablePromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */; };
 		C7D8E1D623742A4E009536C9 /* CancellablePromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D8E1D423742A4E009536C9 /* CancellablePromise.swift */; };
@@ -2552,31 +2600,50 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7DB4BA4247FC243009932B1 /* ConnectionViewModel.swift in Sources */,
+				C7A5587224AF38D000EB2F27 /* CertificateModel.swift in Sources */,
 				C7DB4B9A247FC234009932B1 /* ConnectionCoordinator.swift in Sources */,
 				C73DB0AE24A3615A007AD4F3 /* Log.swift in Sources */,
 				C7DB4C04248055D6009932B1 /* Moya+Promise.swift in Sources */,
+				C7A5588C24AF429900EB2F27 /* Api+CoreDataClass.swift in Sources */,
+				C7A5589424AF429900EB2F27 /* Instance+CoreDataClass.swift in Sources */,
 				C7DB4BA3247FC243009932B1 /* AddOtherViewModel.swift in Sources */,
+				C7A5589924AF429900EB2F27 /* Logo+CoreDataProperties.swift in Sources */,
+				C7A5587424AF38FC00EB2F27 /* ApiService.swift in Sources */,
+				C7A5589824AF429900EB2F27 /* Logo+CoreDataClass.swift in Sources */,
 				C7DB4B9F247FC23D009932B1 /* ConnectionViewController.swift in Sources */,
 				C7DB4BCF24803A2A009932B1 /* ServerInfoModel.swift in Sources */,
 				C7DB4BFB24804C1A009932B1 /* Moya+Extensions.swift in Sources */,
 				C7DB4B97247FC234009932B1 /* AppCoordinator.swift in Sources */,
+				C7A5589024AF429900EB2F27 /* InstanceGroup+CoreDataClass.swift in Sources */,
 				C7DB4BF9248040F8009932B1 /* StaticService.swift in Sources */,
 				C7DB4BB1247FC787009932B1 /* TunnelService.swift in Sources */,
+				C7A5589C24AF455400EB2F27 /* NSManagedObjectContext+SaveHelpers.swift in Sources */,
 				C7DB4B99247FC234009932B1 /* SearchCoordinator.swift in Sources */,
+				C7A5587024AF252100EB2F27 /* UserDefaults+EduVPN.swift in Sources */,
+				C7A5587624AF41F600EB2F27 /* CredentialStorePlugin.swift in Sources */,
 				C7DB4B9D247FC23D009932B1 /* SearchViewController.swift in Sources */,
+				C7A5589E24AF457F00EB2F27 /* NSManagedObjectContext+AsyncHelpers.swift in Sources */,
 				C7DB4BAB247FC763009932B1 /* MainService.swift in Sources */,
+				C7A5589A24AF43C700EB2F27 /* Crypto.swift in Sources */,
+				C7A5588E24AF429900EB2F27 /* AuthServer+CoreDataClass.swift in Sources */,
+				C7A5589224AF429900EB2F27 /* DisplayName+CoreDataClass.swift in Sources */,
 				C7DB4BA1247FC243009932B1 /* MainViewModel.swift in Sources */,
 				C782BA4E2487ACDB00A50E00 /* PresentingController.swift in Sources */,
 				C7DB4BA6247FC4B3009932B1 /* Coordinator.swift in Sources */,
 				C7DB4BF224803E47009932B1 /* OrganizationsLoader.swift in Sources */,
 				C7DB4C00248052F7009932B1 /* OrganizationModel.swift in Sources */,
 				C7DB4BF624803EB8009932B1 /* ProviderType.swift in Sources */,
+				C7A5587824AF425800EB2F27 /* CancellablePromise.swift in Sources */,
 				C7DB4BA5247FC243009932B1 /* SettingsViewModel.swift in Sources */,
 				C7DB4B98247FC234009932B1 /* MainCoordinator.swift in Sources */,
+				C7A5589524AF429900EB2F27 /* Instance+CoreDataProperties.swift in Sources */,
 				C7DB4BB3247FD941009932B1 /* Environment.swift in Sources */,
 				C7DB4C7724806512009932B1 /* eduVPN_2.xcdatamodeld in Sources */,
+				C7A5588D24AF429900EB2F27 /* Api+CoreDataProperties.swift in Sources */,
+				C7A5589624AF429900EB2F27 /* Profile+CoreDataClass.swift in Sources */,
 				C73DB0B124A36547007AD4F3 /* ServerApiService.swift in Sources */,
 				C7DB4BFD24804C85009932B1 /* Config.swift in Sources */,
+				C7A5588F24AF429900EB2F27 /* AuthServer+CoreDataProperties.swift in Sources */,
 				C7DB4BAF247FC779009932B1 /* SettingsService.swift in Sources */,
 				C7DB4BD424803B99009932B1 /* FileHelper.swift in Sources */,
 				C7DB4B9B247FC23D009932B1 /* Multiplatform.swift in Sources */,
@@ -2584,10 +2651,15 @@
 				C7DB4BD524803B99009932B1 /* SignatureHelper.swift in Sources */,
 				C7DB4B6B247FC198009932B1 /* AppDelegate.swift in Sources */,
 				C7DB4B9C247FC23D009932B1 /* MainViewController.swift in Sources */,
+				C7A5587D24AF428F00EB2F27 /* Api.swift in Sources */,
+				C7A5589324AF429900EB2F27 /* DisplayName+CoreDataProperties.swift in Sources */,
 				C7DB4BAD247FC76F009932B1 /* SearchService.swift in Sources */,
 				C7DB4B9E247FC23D009932B1 /* AddOtherViewController.swift in Sources */,
+				C7A5589124AF429900EB2F27 /* InstanceGroup+CoreDataProperties.swift in Sources */,
 				C7DB4BA0247FC23D009932B1 /* SettingsViewController.swift in Sources */,
 				C7DB4C02248053D8009932B1 /* Moya+ResponseHandling.swift in Sources */,
+				C7A5589724AF429900EB2F27 /* Profile+CoreDataProperties.swift in Sources */,
+				C7A5587A24AF428400EB2F27 /* EduVPN.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2595,39 +2667,63 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7A5588A24AF429800EB2F27 /* Logo+CoreDataClass.swift in Sources */,
+				C7A5587924AF425900EB2F27 /* CancellablePromise.swift in Sources */,
 				C7DB4C1F248060F5009932B1 /* ConnectionViewModel.swift in Sources */,
 				C7DB4C20248060F5009932B1 /* ConnectionCoordinator.swift in Sources */,
+				C7A5589F24AF458000EB2F27 /* NSManagedObjectContext+AsyncHelpers.swift in Sources */,
+				C7A5587B24AF428400EB2F27 /* EduVPN.xcdatamodeld in Sources */,
 				C7DB4C21248060F5009932B1 /* Moya+Promise.swift in Sources */,
 				C7DB4C22248060F5009932B1 /* AddOtherViewModel.swift in Sources */,
+				C7A5587124AF252200EB2F27 /* UserDefaults+EduVPN.swift in Sources */,
 				C7DB4C23248060F5009932B1 /* ConnectionViewController.swift in Sources */,
+				C7A5588724AF429800EB2F27 /* Instance+CoreDataProperties.swift in Sources */,
 				C7DB4C24248060F5009932B1 /* ServerInfoModel.swift in Sources */,
 				C7DB4C25248060F5009932B1 /* Moya+Extensions.swift in Sources */,
 				C7DB4C26248060F5009932B1 /* AppCoordinator.swift in Sources */,
 				C73DB0AF24A3615B007AD4F3 /* Log.swift in Sources */,
+				C7A5587C24AF428E00EB2F27 /* Api.swift in Sources */,
+				C7A5588624AF429800EB2F27 /* Instance+CoreDataClass.swift in Sources */,
+				C7A5589D24AF455500EB2F27 /* NSManagedObjectContext+SaveHelpers.swift in Sources */,
 				C7DB4C27248060F5009932B1 /* StaticService.swift in Sources */,
+				C7A5588024AF429800EB2F27 /* AuthServer+CoreDataClass.swift in Sources */,
 				C7DB4C28248060F5009932B1 /* TunnelService.swift in Sources */,
+				C7A5587724AF41F700EB2F27 /* CredentialStorePlugin.swift in Sources */,
 				C7DB4C29248060F5009932B1 /* SearchCoordinator.swift in Sources */,
 				C7DB4C2A248060F5009932B1 /* SearchViewController.swift in Sources */,
+				C7A5587524AF38FD00EB2F27 /* ApiService.swift in Sources */,
 				C7DB4C2B248060F5009932B1 /* MainService.swift in Sources */,
+				C7A5589B24AF43C700EB2F27 /* Crypto.swift in Sources */,
+				C7A5587324AF38D000EB2F27 /* CertificateModel.swift in Sources */,
 				C7DB4C2C248060F5009932B1 /* MainViewModel.swift in Sources */,
 				C7DB4C2D248060F5009932B1 /* Coordinator.swift in Sources */,
 				C7DB4C2E248060F5009932B1 /* OrganizationsLoader.swift in Sources */,
+				C7A5588B24AF429800EB2F27 /* Logo+CoreDataProperties.swift in Sources */,
+				C7A5587E24AF429800EB2F27 /* Api+CoreDataClass.swift in Sources */,
 				C7DB4C2F248060F5009932B1 /* OrganizationModel.swift in Sources */,
 				C7DB4C30248060F5009932B1 /* ProviderType.swift in Sources */,
 				C7DB4C31248060F5009932B1 /* SettingsViewModel.swift in Sources */,
 				C73DB0B224A36547007AD4F3 /* ServerApiService.swift in Sources */,
+				C7A5588824AF429800EB2F27 /* Profile+CoreDataClass.swift in Sources */,
+				C7A5588324AF429800EB2F27 /* InstanceGroup+CoreDataProperties.swift in Sources */,
+				C7A5588924AF429800EB2F27 /* Profile+CoreDataProperties.swift in Sources */,
+				C7A5588124AF429800EB2F27 /* AuthServer+CoreDataProperties.swift in Sources */,
 				C7DB4C32248060F5009932B1 /* MainCoordinator.swift in Sources */,
 				C7DB4C33248060F5009932B1 /* Environment.swift in Sources */,
 				C7DB4C34248060F5009932B1 /* Config.swift in Sources */,
 				C7DB4C35248060F5009932B1 /* SettingsService.swift in Sources */,
 				C7DB4C36248060F5009932B1 /* FileHelper.swift in Sources */,
+				C7A5588524AF429800EB2F27 /* DisplayName+CoreDataProperties.swift in Sources */,
 				C7DB4C37248060F5009932B1 /* Multiplatform.swift in Sources */,
 				C7DB4C38248060F5009932B1 /* SearchViewModel.swift in Sources */,
+				C7A5587F24AF429800EB2F27 /* Api+CoreDataProperties.swift in Sources */,
+				C7A5588424AF429800EB2F27 /* DisplayName+CoreDataClass.swift in Sources */,
 				C7DB4C39248060F5009932B1 /* SignatureHelper.swift in Sources */,
 				C7DB4C3B248060F5009932B1 /* AppDelegate.swift in Sources */,
 				C7DB4C3C248060F5009932B1 /* MainViewController.swift in Sources */,
 				C7DB4C3D248060F5009932B1 /* SearchService.swift in Sources */,
 				C7DB4C3E248060F5009932B1 /* AddOtherViewController.swift in Sources */,
+				C7A5588224AF429800EB2F27 /* InstanceGroup+CoreDataClass.swift in Sources */,
 				C7DB4C3F248060F5009932B1 /* SettingsViewController.swift in Sources */,
 				C7DB4C40248060F5009932B1 /* Moya+ResponseHandling.swift in Sources */,
 			);

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import PromiseKit
 
 class ConnectionViewModel {
     
@@ -76,8 +77,14 @@ class ConnectionViewModel {
         connectionState.connectionStatus = enabled ? "Connected" : "Disconnected"
 
         updateConnectionHandler?(connectionState)
-        
-        environment.tunnelService.setConnectionEnabled(enabled, server: server, profile: "TBD" as AnyObject)
+            
+        environment.tunnelService.setConnectionEnabled(enabled, server: server, profile: Profile())
+            .ensure { [weak self] in
+                guard let self = self else { return }
+                // TODO: Update connectionState
+                self.updateConnectionHandler?(self.connectionState)
+            }
+            .cauterize()
     }
     
     func renewSession() {

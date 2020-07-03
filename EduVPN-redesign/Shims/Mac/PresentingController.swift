@@ -115,6 +115,7 @@ class NavigationController: PresentingController, Navigating {
              completionHandler: nil)
     }
     
+    @discardableResult
     func popViewController(animated: Bool) -> ViewController? {
         guard navigationStack.count > 1 else {
             assertionFailure("Failed to pop (1)")

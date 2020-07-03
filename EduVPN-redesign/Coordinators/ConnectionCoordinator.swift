@@ -17,18 +17,20 @@ class ConnectionCoordinator: Coordinator {
     weak var delegate: ConnectionCoordinatorDelegate?
     var childCoordinators: [Coordinator] = []
     let environment: Environment
+    let server: AnyObject
     
-    init(presentingViewController: NavigationController, delegate: ConnectionCoordinatorDelegate, environment: Environment) {
+    init(presentingViewController: NavigationController, delegate: ConnectionCoordinatorDelegate, environment: Environment, server: AnyObject) {
         self.presentingViewController = presentingViewController
         self.delegate = delegate
         self.environment = environment
+        self.server = server
     }
     
     func start() {
         guard let connectionViewController = environment.storyboard.instantiateViewController(withIdentifier: "Connection") as? ConnectionViewController else {
             return
         }
-        connectionViewController.viewModel = ConnectionViewModel(environment: environment)
+        connectionViewController.viewModel = ConnectionViewModel(environment: environment, server: server)
         connectionViewController.delegate = self
         presentingViewController.pushViewController(connectionViewController, animated: true)
     }
