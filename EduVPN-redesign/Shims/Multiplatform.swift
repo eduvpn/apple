@@ -26,9 +26,12 @@ typealias PresentingController = UIViewController
 typealias Window = UIWindow
 typealias Storyboard = UIStoryboard
 typealias Button = UIButton
-typealias TableView = UITableView
-typealias TableViewCell = UITableViewCell
 typealias Image = UIImage
+typealias Label = UILabel
+typealias ImageView = UIImageView
+typealias Switch = UISwitch
+typealias StackView = UIStackView
+typealias View = UIView
 
 extension PresentingController: Presenting { }
 extension NavigationController: Navigating { }
@@ -51,6 +54,8 @@ typealias Button = NSButton
 typealias TableView = NSTableView
 typealias TableViewCell = NSTableCellView
 typealias Image = NSImage
+typealias ImageView = NSImageView
+typealias View = NSView
 
 extension Window {
     func makeKeyAndVisible() {
@@ -63,7 +68,11 @@ extension Window {
 }
 
 extension Storyboard {
-
+    
+    func instantiateInitialViewController() -> Any {
+        return instantiateInitialController()!
+    }
+    
     func instantiateViewController(withIdentifier identifier: SceneIdentifier) -> Any {
         return instantiateController(withIdentifier: identifier)
     }
@@ -84,6 +93,74 @@ extension TableView {
                 fatalError("Can't dequeue \(T.self) with identifier \(identifier)")
         }
         return cellView as! T // swiftlint:disable:this force_cast
+    }
+}
+
+extension NSButton {
+    
+    enum Event {
+        case touchUpInside
+    }
+    
+    func addTarget(_ target: AnyObject?, action: Selector, for controlEvents: Event) {
+        self.target = target
+        self.action = action
+    }
+    
+}
+
+class Label: NSTextField {
+    
+    convenience init() {
+        self.init(frame: .zero)
+        self.isEditable = false
+    }
+    
+    var text: String? {
+        get {
+            return stringValue
+        }
+        set {
+            stringValue = newValue ?? ""
+        }
+    }
+}
+
+class Switch: NSButton {
+    
+    convenience init() {
+        self.init(frame: .zero)
+        self.setButtonType(.switch)
+    }
+    
+    var isOn: Bool {
+        get {
+            return self.state == .on
+        }
+        set {
+            self.state = newValue ? .on : .off
+        }
+    }
+   
+}
+
+class StackView: NSStackView {
+    
+    convenience init(arrangedSubviews: [View]) {
+        self.init(views: arrangedSubviews)
+    }
+    
+}
+
+extension Button {
+    
+    var isSelected: Bool {
+        get {
+            state == .on
+        }
+        set {
+            state = newValue ? .on  : .off
+        }
     }
 }
 

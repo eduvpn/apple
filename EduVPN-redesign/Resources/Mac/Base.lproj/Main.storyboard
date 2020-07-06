@@ -705,7 +705,7 @@
         <scene sceneID="o2m-ye-sB6">
             <objects>
                 <viewController storyboardIdentifier="Navigation" id="Vyy-n5-HuZ" customClass="NavigationController" customModule="EduVPN_redesign_macOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <customView key="view" id="Tsh-x1-sF3">
+                    <containerView key="view" translatesAutoresizingMaskIntoConstraints="NO" id="Z1x-gh-VfR">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
@@ -851,7 +851,17 @@ Gw
                                 </textFieldCell>
                             </textField>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="5xF-CZ-2HD" firstAttribute="leading" secondItem="Omz-RM-dRy" secondAttribute="leading" constant="20" symbolic="YES" id="BBN-3E-w9d"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="5xF-CZ-2HD" secondAttribute="bottom" constant="20" symbolic="YES" id="fXJ-W8-B1t"/>
+                            <constraint firstAttribute="trailing" secondItem="5xF-CZ-2HD" secondAttribute="trailing" constant="20" symbolic="YES" id="gYU-wz-5Oe"/>
+                            <constraint firstItem="5xF-CZ-2HD" firstAttribute="top" secondItem="Omz-RM-dRy" secondAttribute="top" constant="20" symbolic="YES" id="pVa-fn-CJm"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="addOtherServerButton" destination="4aM-So-vfF" id="hdS-XD-q9b"/>
+                        <outlet property="temporaryConnectButton" destination="KBs-0I-tzN" id="Xin-3o-0DM"/>
+                    </connections>
                 </viewController>
                 <customObject id="ixW-xi-Qbr" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1066,6 +1076,485 @@ Gw
                 <customObject id="XeD-HW-d1L" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="487" y="1636"/>
+        </scene>
+        <!--Connection View Controller-->
+        <scene sceneID="1cC-n1-zrJ">
+            <objects>
+                <viewController storyboardIdentifier="Connection" id="kAX-5L-Pwb" customClass="ConnectionViewController" customModule="EduVPN_redesign_macOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="Gle-qJ-o4l">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="936"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MlT-Xe-c1Y">
+                                <rect key="frame" x="14" y="888" width="70" height="32"/>
+                                <buttonCell key="cell" type="push" title="Back" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="UBN-tq-9hK">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="back:" target="kAX-5L-Pwb" id="fnQ-IL-jgd"/>
+                                </connections>
+                            </button>
+                            <stackView distribution="equalSpacing" orientation="vertical" alignment="centerX" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0bk-uR-zfI">
+                                <rect key="frame" x="20" y="489" width="410" height="386"/>
+                                <subviews>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="APD-qg-Q9T">
+                                        <rect key="frame" x="0.0" y="140" width="410" height="246"/>
+                                        <subviews>
+                                            <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="11" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kGH-Q2-SaG" userLabel="Stack View 1">
+                                                <rect key="frame" x="167" y="214" width="76" height="32"/>
+                                                <subviews>
+                                                    <imageView horizontalHuggingPriority="252" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZcY-Ke-MCP">
+                                                        <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
+                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSMobileMe" id="WA5-tv-r2R"/>
+                                                    </imageView>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7dc-fJ-NaS" customClass="Label" customModule="EduVPN_redesign_macOS" customModuleProvider="target">
+                                                        <rect key="frame" x="41" y="8" width="37" height="16"/>
+                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="8b9-v1-X4n">
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
+                                            <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Uf-1c-y0y">
+                                                <rect key="frame" x="161" y="190" width="89" height="16"/>
+                                                <subviews>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="D3M-kJ-cdy" customClass="Label" customModule="EduVPN_redesign_macOS" customModuleProvider="target">
+                                                        <rect key="frame" x="-2" y="0.0" width="57" height="16"/>
+                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Support:" id="Crg-e1-dgg">
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tQG-i1-x2c" customClass="Label" customModule="EduVPN_redesign_macOS" customModuleProvider="target">
+                                                        <rect key="frame" x="54" y="0.0" width="37" height="16"/>
+                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="K4j-MO-BDO">
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
+                                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LIi-QW-Ah7">
+                                                <rect key="frame" x="130" y="52" width="150" height="130"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="130" id="SAa-AQ-99k"/>
+                                                    <constraint firstAttribute="width" constant="150" id="Vha-X1-3b4"/>
+                                                </constraints>
+                                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="disconnected" id="uHx-Z0-WET"/>
+                                            </imageView>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E0F-GV-thi" customClass="Label" customModule="EduVPN_redesign_macOS" customModuleProvider="target">
+                                                <rect key="frame" x="187" y="28" width="37" height="16"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="MLy-rK-OhR">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9yg-Yz-MSc" customClass="Label" customModule="EduVPN_redesign_macOS" customModuleProvider="target">
+                                                <rect key="frame" x="187" y="4" width="37" height="16"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="1j6-FK-ahK">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="9yg-Yz-MSc" firstAttribute="centerX" secondItem="APD-qg-Q9T" secondAttribute="centerX" id="4ea-IX-Ibl"/>
+                                            <constraint firstItem="1Uf-1c-y0y" firstAttribute="top" secondItem="kGH-Q2-SaG" secondAttribute="bottom" constant="8" symbolic="YES" id="6A5-JZ-awB"/>
+                                            <constraint firstItem="kGH-Q2-SaG" firstAttribute="centerX" secondItem="APD-qg-Q9T" secondAttribute="centerX" id="EVN-6W-6UE"/>
+                                            <constraint firstItem="1Uf-1c-y0y" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="APD-qg-Q9T" secondAttribute="leading" id="EYo-a2-1lR"/>
+                                            <constraint firstItem="LIi-QW-Ah7" firstAttribute="top" secondItem="1Uf-1c-y0y" secondAttribute="bottom" constant="8" symbolic="YES" id="GyI-6p-vDH"/>
+                                            <constraint firstItem="LIi-QW-Ah7" firstAttribute="centerX" secondItem="APD-qg-Q9T" secondAttribute="centerX" id="KfF-V7-HLj"/>
+                                            <constraint firstAttribute="bottom" secondItem="9yg-Yz-MSc" secondAttribute="bottom" constant="4" id="LKx-uk-Jrt"/>
+                                            <constraint firstItem="E0F-GV-thi" firstAttribute="top" secondItem="LIi-QW-Ah7" secondAttribute="bottom" constant="8" symbolic="YES" id="LN6-y3-dHp"/>
+                                            <constraint firstItem="kGH-Q2-SaG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="APD-qg-Q9T" secondAttribute="leading" id="UUP-Bx-0Ww"/>
+                                            <constraint firstItem="9yg-Yz-MSc" firstAttribute="top" secondItem="E0F-GV-thi" secondAttribute="bottom" constant="8" symbolic="YES" id="XdF-cu-4m1"/>
+                                            <constraint firstItem="kGH-Q2-SaG" firstAttribute="top" secondItem="APD-qg-Q9T" secondAttribute="top" id="ZZS-0e-R6t"/>
+                                            <constraint firstItem="E0F-GV-thi" firstAttribute="centerX" secondItem="APD-qg-Q9T" secondAttribute="centerX" id="cB4-Oe-7l6"/>
+                                            <constraint firstItem="1Uf-1c-y0y" firstAttribute="centerX" secondItem="APD-qg-Q9T" secondAttribute="centerX" id="pns-DC-1OJ"/>
+                                        </constraints>
+                                    </customView>
+                                    <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jhp-Sc-Dbg">
+                                        <rect key="frame" x="0.0" y="75" width="410" height="45"/>
+                                        <subviews>
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="6dK-qh-6xr">
+                                                <rect key="frame" x="0.0" y="0.0" width="410" height="45"/>
+                                                <subviews>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9pZ-1A-bNE">
+                                                        <rect key="frame" x="-2" y="9" width="65" height="16"/>
+                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="PROFILES" id="L6X-EQ-ePy">
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="uA2-6s-MCQ">
+                                                        <rect key="frame" x="0.0" y="-2" width="410" height="5"/>
+                                                    </box>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="9pZ-1A-bNE" firstAttribute="leading" secondItem="6dK-qh-6xr" secondAttribute="leading" id="9rI-wY-Rjg"/>
+                                                    <constraint firstItem="9pZ-1A-bNE" firstAttribute="top" secondItem="6dK-qh-6xr" secondAttribute="top" constant="20" symbolic="YES" id="B5M-wm-U0e"/>
+                                                    <constraint firstItem="uA2-6s-MCQ" firstAttribute="top" secondItem="9pZ-1A-bNE" secondAttribute="bottom" constant="8" symbolic="YES" id="Crg-QV-828"/>
+                                                    <constraint firstItem="uA2-6s-MCQ" firstAttribute="leading" secondItem="6dK-qh-6xr" secondAttribute="leading" id="IcB-Og-7KT"/>
+                                                    <constraint firstAttribute="trailing" secondItem="uA2-6s-MCQ" secondAttribute="trailing" id="PMw-ww-XNv"/>
+                                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9pZ-1A-bNE" secondAttribute="trailing" id="gJD-38-AxA"/>
+                                                    <constraint firstAttribute="bottom" secondItem="uA2-6s-MCQ" secondAttribute="bottom" id="zep-cl-VBc"/>
+                                                </constraints>
+                                            </customView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="6dK-qh-6xr" firstAttribute="width" secondItem="Jhp-Sc-Dbg" secondAttribute="width" id="hPr-oj-JtR"/>
+                                        </constraints>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="K6B-LR-PWS" customClass="Switch" customModule="EduVPN_redesign_macOS" customModuleProvider="target">
+                                        <rect key="frame" x="174" y="39" width="63" height="18"/>
+                                        <buttonCell key="cell" type="check" title="Switch" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Jg0-cL-OFP">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="toggleMainSwitch:" target="kAX-5L-Pwb" id="kof-e1-EHJ"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7sd-0c-CZE">
+                                        <rect key="frame" x="139" y="-7" width="132" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Renew Session" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KY1-ax-CQL">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="renewSession:" target="kAX-5L-Pwb" id="lUh-7c-vSg"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="APD-qg-Q9T" firstAttribute="width" secondItem="0bk-uR-zfI" secondAttribute="width" id="A3d-Xv-jak"/>
+                                    <constraint firstItem="Jhp-Sc-Dbg" firstAttribute="width" secondItem="APD-qg-Q9T" secondAttribute="width" id="nJB-Oz-frC"/>
+                                </constraints>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="35" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5NC-xm-lma">
+                                <rect key="frame" x="20" y="20" width="410" height="193"/>
+                                <subviews>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="PlP-jX-IC4">
+                                        <rect key="frame" x="0.0" y="143" width="386" height="50"/>
+                                        <subviews>
+                                            <button translatesAutoresizingMaskIntoConstraints="NO" id="jXQ-ZE-WtB">
+                                                <rect key="frame" x="375" y="8" width="11" height="33"/>
+                                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSStopProgressTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="uim-NN-xJ5">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="toggleConnectionInfo:" target="kAX-5L-Pwb" id="Csf-hO-77e"/>
+                                                </connections>
+                                            </button>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="70x-7U-BIK" customClass="Label" customModule="EduVPN_redesign_macOS" customModuleProvider="target">
+                                                <rect key="frame" x="-2" y="25" width="100" height="16"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Connection info" id="tgK-FD-QwD">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="OsL-ak-EBq">
+                                                <rect key="frame" x="0.0" y="47" width="386" height="5"/>
+                                            </box>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="OsL-ak-EBq" secondAttribute="trailing" id="9J3-44-DdL"/>
+                                            <constraint firstItem="70x-7U-BIK" firstAttribute="top" secondItem="OsL-ak-EBq" secondAttribute="bottom" constant="8" symbolic="YES" id="CxR-MF-lpg"/>
+                                            <constraint firstItem="70x-7U-BIK" firstAttribute="leading" secondItem="PlP-jX-IC4" secondAttribute="leading" id="DXd-vl-3Yh"/>
+                                            <constraint firstAttribute="bottom" secondItem="jXQ-ZE-WtB" secondAttribute="bottom" constant="8" id="KDE-st-1TN"/>
+                                            <constraint firstItem="OsL-ak-EBq" firstAttribute="top" secondItem="PlP-jX-IC4" secondAttribute="top" id="Scq-fG-FL9"/>
+                                            <constraint firstItem="jXQ-ZE-WtB" firstAttribute="top" secondItem="OsL-ak-EBq" secondAttribute="bottom" constant="8" symbolic="YES" id="aip-vl-8EA"/>
+                                            <constraint firstItem="jXQ-ZE-WtB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="70x-7U-BIK" secondAttribute="trailing" constant="8" symbolic="YES" id="fA1-fZ-BIc"/>
+                                            <constraint firstItem="OsL-ak-EBq" firstAttribute="leading" secondItem="PlP-jX-IC4" secondAttribute="leading" id="sf0-98-sTJ"/>
+                                            <constraint firstAttribute="trailing" secondItem="jXQ-ZE-WtB" secondAttribute="trailing" id="yIP-xo-LjA"/>
+                                        </constraints>
+                                    </customView>
+                                    <stackView distribution="fill" orientation="horizontal" alignment="bottom" spacing="60" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mbX-xF-rVH">
+                                        <rect key="frame" x="0.0" y="0.0" width="386" height="108"/>
+                                        <subviews>
+                                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M2r-hu-d2c">
+                                                <rect key="frame" x="0.0" y="0.0" width="163" height="108"/>
+                                                <subviews>
+                                                    <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="42" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6OZ-rr-Rek">
+                                                        <rect key="frame" x="0.0" y="92" width="141" height="16"/>
+                                                        <subviews>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Bmy-lJ-ryw" customClass="Label" customModule="EduVPN_redesign_macOS" customModuleProvider="target">
+                                                                <rect key="frame" x="-2" y="0.0" width="70" height="16"/>
+                                                                <textFieldCell key="cell" lineBreakMode="clipping" title="DURATION" id="8vh-fL-HSH">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fJQ-7w-VjT" customClass="Label" customModule="EduVPN_redesign_macOS" customModuleProvider="target">
+                                                                <rect key="frame" x="106" y="0.0" width="37" height="16"/>
+                                                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Label" id="tmv-Mx-EwH">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                        </subviews>
+                                                        <visibilityPriorities>
+                                                            <integer value="1000"/>
+                                                            <integer value="1000"/>
+                                                        </visibilityPriorities>
+                                                        <customSpacing>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                        </customSpacing>
+                                                    </stackView>
+                                                    <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="37" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cDI-tx-x9N">
+                                                        <rect key="frame" x="0.0" y="56" width="163" height="16"/>
+                                                        <subviews>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hUX-67-lSa" customClass="Label" customModule="EduVPN_redesign_macOS" customModuleProvider="target">
+                                                                <rect key="frame" x="-2" y="0.0" width="97" height="16"/>
+                                                                <textFieldCell key="cell" lineBreakMode="clipping" title="DOWNLOADED" id="mfD-Q8-mEf">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uDk-kN-UCc" customClass="Label" customModule="EduVPN_redesign_macOS" customModuleProvider="target">
+                                                                <rect key="frame" x="128" y="0.0" width="37" height="16"/>
+                                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="SLX-jW-DiW">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                        </subviews>
+                                                        <visibilityPriorities>
+                                                            <integer value="1000"/>
+                                                            <integer value="1000"/>
+                                                        </visibilityPriorities>
+                                                        <customSpacing>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                        </customSpacing>
+                                                    </stackView>
+                                                    <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tvi-2k-OvG">
+                                                        <rect key="frame" x="0.0" y="0.0" width="91" height="36"/>
+                                                        <subviews>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ubz-p3-Ebz" customClass="Label" customModule="EduVPN_redesign_macOS" customModuleProvider="target">
+                                                                <rect key="frame" x="-2" y="20" width="95" height="16"/>
+                                                                <textFieldCell key="cell" lineBreakMode="clipping" title="IPv4 ADDRESS" id="vaf-0Q-mN5">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9RA-yR-CbC" customClass="Label" customModule="EduVPN_redesign_macOS" customModuleProvider="target">
+                                                                <rect key="frame" x="-2" y="0.0" width="37" height="16"/>
+                                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="6vE-X0-qec">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                        </subviews>
+                                                        <visibilityPriorities>
+                                                            <integer value="1000"/>
+                                                            <integer value="1000"/>
+                                                        </visibilityPriorities>
+                                                        <customSpacing>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                        </customSpacing>
+                                                    </stackView>
+                                                </subviews>
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
+                                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EEp-je-eLe">
+                                                <rect key="frame" x="223" y="0.0" width="163" height="72"/>
+                                                <subviews>
+                                                    <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="60" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2cZ-ql-0zQ">
+                                                        <rect key="frame" x="0.0" y="56" width="163" height="16"/>
+                                                        <subviews>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6mp-bm-IZO" customClass="Label" customModule="EduVPN_redesign_macOS" customModuleProvider="target">
+                                                                <rect key="frame" x="-2" y="0.0" width="74" height="16"/>
+                                                                <textFieldCell key="cell" lineBreakMode="clipping" title="UPLOADED" id="gMd-cg-MEs">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1vN-pI-gHU" customClass="Label" customModule="EduVPN_redesign_macOS" customModuleProvider="target">
+                                                                <rect key="frame" x="128" y="0.0" width="37" height="16"/>
+                                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="vmx-Ky-PWz">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                        </subviews>
+                                                        <visibilityPriorities>
+                                                            <integer value="1000"/>
+                                                            <integer value="1000"/>
+                                                        </visibilityPriorities>
+                                                        <customSpacing>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                        </customSpacing>
+                                                    </stackView>
+                                                    <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ygD-VJ-8IP">
+                                                        <rect key="frame" x="0.0" y="0.0" width="91" height="36"/>
+                                                        <subviews>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3fh-9F-54q" customClass="Label" customModule="EduVPN_redesign_macOS" customModuleProvider="target">
+                                                                <rect key="frame" x="-2" y="20" width="95" height="16"/>
+                                                                <textFieldCell key="cell" lineBreakMode="clipping" title="IPv6 ADDRESS" id="s83-kg-TRO">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fGC-Sh-SIa" customClass="Label" customModule="EduVPN_redesign_macOS" customModuleProvider="target">
+                                                                <rect key="frame" x="-2" y="0.0" width="37" height="16"/>
+                                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="NxN-zT-ePz">
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                </textFieldCell>
+                                                            </textField>
+                                                        </subviews>
+                                                        <visibilityPriorities>
+                                                            <integer value="1000"/>
+                                                            <integer value="1000"/>
+                                                        </visibilityPriorities>
+                                                        <customSpacing>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                        </customSpacing>
+                                                    </stackView>
+                                                </subviews>
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
+                                        </subviews>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                </subviews>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="5NC-xm-lma" secondAttribute="trailing" constant="20" symbolic="YES" id="BlY-aT-mW7"/>
+                            <constraint firstAttribute="trailing" secondItem="0bk-uR-zfI" secondAttribute="trailing" constant="20" symbolic="YES" id="Xnl-ra-D8n"/>
+                            <constraint firstItem="MlT-Xe-c1Y" firstAttribute="leading" secondItem="Gle-qJ-o4l" secondAttribute="leading" constant="20" symbolic="YES" id="bfW-PL-Jeb"/>
+                            <constraint firstItem="MlT-Xe-c1Y" firstAttribute="top" secondItem="Gle-qJ-o4l" secondAttribute="top" constant="20" symbolic="YES" id="ccc-9W-YtN"/>
+                            <constraint firstAttribute="bottom" secondItem="5NC-xm-lma" secondAttribute="bottom" constant="20" symbolic="YES" id="qZt-bm-HiP"/>
+                            <constraint firstItem="0bk-uR-zfI" firstAttribute="leading" secondItem="Gle-qJ-o4l" secondAttribute="leading" constant="20" symbolic="YES" id="v89-gu-DFr"/>
+                            <constraint firstItem="5NC-xm-lma" firstAttribute="leading" secondItem="Gle-qJ-o4l" secondAttribute="leading" constant="20" symbolic="YES" id="wzO-3N-GQU"/>
+                            <constraint firstItem="0bk-uR-zfI" firstAttribute="top" secondItem="MlT-Xe-c1Y" secondAttribute="bottom" constant="20" symbolic="YES" id="yG1-yW-BGq"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backButton" destination="MlT-Xe-c1Y" id="bj5-MY-kJo"/>
+                        <outlet property="connectionImageView" destination="LIi-QW-Ah7" id="zla-ls-1AB"/>
+                        <outlet property="connectionInfoContentView" destination="mbX-xF-rVH" id="f4z-oZ-Vtd"/>
+                        <outlet property="connectionInfoLabel" destination="70x-7U-BIK" id="Ak2-o0-2wz"/>
+                        <outlet property="connectionInfoToggleButton" destination="jXQ-ZE-WtB" id="h5c-Pv-rCc"/>
+                        <outlet property="connectionStatusDetailLabel" destination="9yg-Yz-MSc" id="yuw-iH-s1B"/>
+                        <outlet property="connectionStatusLabel" destination="E0F-GV-thi" id="Mrx-Xp-j9W"/>
+                        <outlet property="downloadedLabel" destination="hUX-67-lSa" id="6Pg-ni-6Yy"/>
+                        <outlet property="downloadedValueLabel" destination="uDk-kN-UCc" id="kxD-u8-9Xr"/>
+                        <outlet property="durationLabel" destination="Bmy-lJ-ryw" id="bZx-id-s0H"/>
+                        <outlet property="durationValueLabel" destination="fJQ-7w-VjT" id="bWW-2U-9sr"/>
+                        <outlet property="iconImageView" destination="ZcY-Ke-MCP" id="CvE-lb-QZi"/>
+                        <outlet property="ipv4AddressLabel" destination="ubz-p3-Ebz" id="c2A-3m-WfX"/>
+                        <outlet property="ipv4AddressValueLabel" destination="9RA-yR-CbC" id="3eH-5w-BRl"/>
+                        <outlet property="ipv6AddressLabel" destination="3fh-9F-54q" id="fAh-uz-7Cn"/>
+                        <outlet property="ipv6AddressValueLabel" destination="fGC-Sh-SIa" id="ohT-zB-kBY"/>
+                        <outlet property="mainSwitch" destination="K6B-LR-PWS" id="who-J3-oSD"/>
+                        <outlet property="nameLabel" destination="7dc-fJ-NaS" id="Xfl-Bd-YnS"/>
+                        <outlet property="profilesView" destination="Jhp-Sc-Dbg" id="ihO-aH-3P5"/>
+                        <outlet property="renewSessionButton" destination="7sd-0c-CZE" id="9A0-JB-HiE"/>
+                        <outlet property="supportLabel" destination="D3M-kJ-cdy" id="LWj-0Y-wo6"/>
+                        <outlet property="supportValueLabel" destination="tQG-i1-x2c" id="nRT-4H-QW7"/>
+                        <outlet property="supportView" destination="1Uf-1c-y0y" id="v99-1B-eJn"/>
+                        <outlet property="uploadedLabel" destination="6mp-bm-IZO" id="BzT-91-gkL"/>
+                        <outlet property="uploadedValueLabel" destination="1vN-pI-gHU" id="m0T-5S-ZW2"/>
+                    </connections>
+                </viewController>
+                <customObject id="WMd-p5-MvJ" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="487" y="1956"/>
         </scene>
     </scenes>
     <resources>

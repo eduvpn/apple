@@ -35,7 +35,7 @@ class MainCoordinator: Coordinator {
     }
     
     private func connectToServer(server: AnyObject) {
-        let connectionCoordinator = ConnectionCoordinator(presentingViewController: rootViewController, delegate: self, environment: environment)
+        let connectionCoordinator = ConnectionCoordinator(presentingViewController: rootViewController, delegate: self, environment: environment, server: server)
         addChildCoordinator(connectionCoordinator)
         connectionCoordinator.start()
     }

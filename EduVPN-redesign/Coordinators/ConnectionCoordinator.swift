@@ -13,20 +13,26 @@ protocol ConnectionCoordinatorDelegate: class {
 
 class ConnectionCoordinator: Coordinator {
     
-    var presentingViewController: ViewController
+    var presentingViewController: NavigationController
     weak var delegate: ConnectionCoordinatorDelegate?
     var childCoordinators: [Coordinator] = []
     let environment: Environment
+    let server: AnyObject
     
-    init(presentingViewController: ViewController, delegate: ConnectionCoordinatorDelegate, environment: Environment) {
+    init(presentingViewController: NavigationController, delegate: ConnectionCoordinatorDelegate, environment: Environment, server: AnyObject) {
         self.presentingViewController = presentingViewController
         self.delegate = delegate
         self.environment = environment
+        self.server = server
     }
     
     func start() {
-        let connectionViewController = ConnectionViewController(viewModel: ConnectionViewModel(environment: environment), delegate: self)
-        // presentingViewController.push(connectionViewController) // TODO: Generic way to push
+        guard let connectionViewController = environment.storyboard.instantiateViewController(withIdentifier: "Connection") as? ConnectionViewController else {
+            return
+        }
+        connectionViewController.viewModel = ConnectionViewModel(environment: environment, server: server)
+        connectionViewController.delegate = self
+        presentingViewController.pushViewController(connectionViewController, animated: true)
     }
     
 }
@@ -34,7 +40,8 @@ class ConnectionCoordinator: Coordinator {
 extension ConnectionCoordinator: ConnectionViewControllerDelegate {
     
     func connectionViewControllerClosed(_ controller: ConnectionViewController) {
-        // presentingViewController.pop() // TODO
+        presentingViewController.popViewController(animated: true)
+        delegate?.connectionCoordinatorDidFinish(self)
     }
     
 }
