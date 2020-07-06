@@ -39,9 +39,23 @@ extension MainViewController: NavigationControllerDelegate {
 }
 
 extension MainViewController: SearchViewControllerDelegate {
-    func searchViewControllerAddedServer(baseURL: URL, authState: AuthState) {
-        let savedPath = "" // encryptAndSaveToDisk(baseURL, authState)
-        addedServers[baseURL] = savedPath
+    func searchViewControllerAddedSimpleServer(baseURL: URL, authState: AuthState) {
+        let storagePath = UUID().uuidString
+        let dataStore = PersistenceService.ServerDataStore(path: storagePath)
+        dataStore.authState = authState
+        let server = SimpleServerInstance(baseURL: baseURL, localStoragePath: storagePath)
+        environment.persistenceService.addSimpleServer(server)
+        environment.navigationController?.popViewController(animated: true)
+    }
+
+    func searchViewControllerAddedSecureInternetServer(baseURL: URL, orgId: String, authState: AuthState) {
+        let storagePath = UUID().uuidString
+        let dataStore = PersistenceService.ServerDataStore(path: storagePath)
+        dataStore.authState = authState
+        let server = SecureInternetServerInstance(
+            apiBaseURL: baseURL, authBaseURL: baseURL,
+            orgId: orgId, localStoragePath: storagePath)
+        environment.persistenceService.setSecureInternetServer(server)
         environment.navigationController?.popViewController(animated: true)
     }
 }

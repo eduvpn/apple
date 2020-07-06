@@ -10,7 +10,8 @@ import PromiseKit
 import AppAuth
 
 protocol SearchViewControllerDelegate: class {
-    func searchViewControllerAddedServer(baseURL: URL, authState: AuthState)
+    func searchViewControllerAddedSimpleServer(baseURL: URL, authState: AuthState)
+    func searchViewControllerAddedSecureInternetServer(baseURL: URL, orgId: String, authState: AuthState)
 }
 
 final class SearchViewController: ViewController, ParametrizedViewController {
@@ -161,7 +162,14 @@ extension SearchViewController {
                 makeApplicationComeToTheForeground()
                 navigationController?.hideAuthorizingMessage()
             }.map { authState in
-                delegate?.searchViewControllerAddedServer(baseURL: baseURL, authState: authState)
+                switch row {
+                case .instituteAccessServer, .serverByURL:
+                    delegate?.searchViewControllerAddedSimpleServer(baseURL: baseURL, authState: authState)
+                case .secureInternetOrg(let organization):
+                    delegate?.searchViewControllerAddedSecureInternetServer(baseURL: baseURL, orgId: organization.orgId, authState: authState)
+                default:
+                    break
+                }
             }.catch { error in
                 if !serverAuthService.isUserCancelledError(error) {
                     navigationController?.showAlert(for: error)
