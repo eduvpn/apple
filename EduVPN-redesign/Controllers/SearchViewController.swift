@@ -126,7 +126,7 @@ extension SearchViewController {
             let cell = tableView.dequeue(SectionHeaderCell.self,
                                          identifier: "SearchSectionHeaderCell",
                                          indexPath: IndexPath(item: index, section: 0))
-            cell.configure(as: row.rowKind)
+            cell.configure(as: row.rowKind, isAdding: true)
             return cell
         } else if row.rowKind == .noResultsKind {
             let cell = tableView.dequeue(SearchNoResultsCell.self,

@@ -7,14 +7,16 @@
 //
 
 class SectionHeaderCell: TableViewCell {
-    func configure(as rowKind: ViewModelRowKind) {
+    func configure(as rowKind: ViewModelRowKind, isAdding: Bool) {
         var title: String {
             switch rowKind {
             case .serverByURLSectionHeaderKind:
-                return NSLocalizedString("Add your own server", comment: "")
+                return isAdding ?
+                    NSLocalizedString("Add your own server", comment: "") :
+                    NSLocalizedString("Other servers", comment: "")
             case .instituteAccessServerSectionHeaderKind:
                 return NSLocalizedString("Institute Access", comment: "")
-            case .secureInternetOrgSectionHeaderKind:
+            case .secureInternetOrgSectionHeaderKind, .secureInternetServerSectionHeaderKind:
                 return NSLocalizedString("Secure Internet", comment: "")
             default:
                 return ""
@@ -27,7 +29,7 @@ class SectionHeaderCell: TableViewCell {
                 return Image(named: "SectionHeaderOwnServer")
             case .instituteAccessServerSectionHeaderKind:
                 return Image(named: "SectionHeaderInstituteAccess")
-            case .secureInternetOrgSectionHeaderKind:
+            case .secureInternetOrgSectionHeaderKind, .secureInternetServerSectionHeaderKind:
                 return Image(named: "SectionHeaderSecureInternet")
             default:
                 return nil
