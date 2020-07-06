@@ -7,20 +7,39 @@
 
 import Foundation
 
-protocol MainViewControllerDelegate: class {
-    func mainViewControllerAddOtherServer(_ controller: MainViewController)
-    func mainViewController(_ controller: MainViewController, connectToServer: AnyObject)
-    func mainViewControllerChangeLocation(_ controller: MainViewController)
+class MainViewController: ViewController {
+
+    var environment: Environment! {
+        didSet {
+            viewModel = MainViewModel(environment: environment)
+            environment.navigationController?.delegate = self
+            // We would load addedServers from disk in the future
+            if addedServers.isEmpty {
+                let searchVC = environment.instantiateSearchViewController()
+                searchVC.delegate = self
+                environment.navigationController?.pushViewController(searchVC, animated: false)
+                environment.navigationController?.isUserAllowedToGoBack = false
+            }
+        }
+    }
+
+    var viewModel: MainViewModel!
+
+    private var addedServers: [URL: String] = [:]
 }
 
-class MainViewController: ViewController {
-    
-    var viewModel: MainViewModel!
-    weak var delegate: MainViewControllerDelegate?
-    
-    @IBOutlet private var addOtherServerButton: Button!
-    
-    @IBAction func addOtherServer(_ sender: Any) {
-        delegate?.mainViewControllerAddOtherServer(self)
+extension MainViewController: NavigationControllerDelegate {
+    func addServerButtonClicked() {
+        let searchVC = environment.instantiateSearchViewController()
+        searchVC.delegate = self
+        environment.navigationController?.pushViewController(searchVC, animated: true)
+    }
+}
+
+extension MainViewController: SearchViewControllerDelegate {
+    func searchViewControllerAddedServer(baseURL: URL, authState: AuthState) {
+        let savedPath = "" // encryptAndSaveToDisk(baseURL, authState)
+        addedServers[baseURL] = savedPath
+        environment.navigationController?.popViewController(animated: true)
     }
 }

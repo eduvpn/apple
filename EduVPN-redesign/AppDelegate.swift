@@ -9,10 +9,10 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: NSObject, ApplicationDelegate {
+class AppDelegate: NSObject, UIApplicationDelegate {
 
-    var coordinator: AppCoordinator?
-    
+    var environment: Environment?
+
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -28,28 +28,29 @@ class AppDelegate: NSObject, ApplicationDelegate {
 import Cocoa
 
 @NSApplicationMain
-class AppDelegate: NSObject, ApplicationDelegate {
-    
-    var coordinator: AppCoordinator?
-    
+class AppDelegate: NSObject, NSApplicationDelegate {
+
+    var environment: Environment?
+
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         let window = NSApp.windows[0]
+        if let navigationController = window.rootViewController as? NavigationController {
+            environment = Environment(navigationController: navigationController)
+            if let mainController = navigationController.children.first as? MainViewController {
+                mainController.environment = environment
+            }
+        }
         setup(window: window)
     }
-    
+
 }
 
 #endif
 
 extension AppDelegate {
-    
+
     private func setup(window: Window) {
-        // Setup environment, here you can inject alternative services for testing
-        let config = Config.shared
-        let environment = Environment(config: config, storyboard: Storyboard(name: "Main", bundle: nil), mainService: MainService(), searchService: SearchService(config: config), settingsService: SettingsService(), connectionService: ConnectionService())
-        let appCoordinator = AppCoordinator(window: window, environment: environment)
-        coordinator = appCoordinator
-        appCoordinator.start()
+        // Nothing to do here yet
     }
-    
+
 }

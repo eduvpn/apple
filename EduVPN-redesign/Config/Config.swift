@@ -49,7 +49,7 @@ struct DiscoveryConfig: Decodable {
         case server_list_signature
         case organization_list
         case organization_list_signature
-        case signature_public_key
+        case signature_public_keys
     }
     
     var serverList: URL
@@ -58,7 +58,7 @@ struct DiscoveryConfig: Decodable {
     var organizationList: URL
     var organizationListSignature: URL
     
-    var signaturePublicKey: Data?
+    var signaturePublicKeys: [Data]
 }
 
 extension Config {
@@ -89,23 +89,7 @@ extension DiscoveryConfig {
         organizationList = try container.decode(URL.self, forKey: .organization_list)
         organizationListSignature = try container.decode(URL.self, forKey: .organization_list_signature)
         
-        let signaturePublicKeyString = try container.decode(String.self, forKey: .signature_public_key)
-        signaturePublicKey = Data(base64Encoded: signaturePublicKeyString)
-    }
-    
-    public func url(forServiceType type: StaticService.StaticServiceType) -> URL {
-        switch type {
-        case .serverList:
-            return serverList
-            
-        case .serverListSignature:
-            return serverListSignature
-
-        case .organizationList:
-            return organizationList
-            
-        case .organizationListSignature:
-            return organizationListSignature
-        }
+        let signaturePublicKeyStrings = try container.decode([String].self, forKey: .signature_public_keys)
+        signaturePublicKeys = signaturePublicKeyStrings.compactMap { Data(base64Encoded: $0) }
     }
 }

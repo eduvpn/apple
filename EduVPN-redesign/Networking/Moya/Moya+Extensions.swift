@@ -25,6 +25,15 @@ extension TargetType where Self: EmptySampleData {
     }
 }
 
+protocol SimpleGettable {}
+
+extension TargetType where Self: SimpleGettable {
+    var method: Moya.Method { .get }
+    var task: Task { .requestPlain }
+    var sampleData: Data { "".data(using: String.Encoding.utf8) ?? Data() }
+    var path: String { "" }
+}
+
 extension MoyaProvider {
     final class func ephemeralAlamofireSession() -> Session {
         let configuration = URLSessionConfiguration.ephemeral
