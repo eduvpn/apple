@@ -705,7 +705,7 @@
         <scene sceneID="o2m-ye-sB6">
             <objects>
                 <viewController storyboardIdentifier="Navigation" id="Vyy-n5-HuZ" customClass="NavigationController" customModule="EduVPN_redesign_macOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <containerView key="view" translatesAutoresizingMaskIntoConstraints="NO" id="Z1x-gh-VfR">
+                    <customView key="view" id="Tsh-x1-sF3">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
@@ -851,17 +851,7 @@ Gw
                                 </textFieldCell>
                             </textField>
                         </subviews>
-                        <constraints>
-                            <constraint firstItem="5xF-CZ-2HD" firstAttribute="leading" secondItem="Omz-RM-dRy" secondAttribute="leading" constant="20" symbolic="YES" id="BBN-3E-w9d"/>
-                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="5xF-CZ-2HD" secondAttribute="bottom" constant="20" symbolic="YES" id="fXJ-W8-B1t"/>
-                            <constraint firstAttribute="trailing" secondItem="5xF-CZ-2HD" secondAttribute="trailing" constant="20" symbolic="YES" id="gYU-wz-5Oe"/>
-                            <constraint firstItem="5xF-CZ-2HD" firstAttribute="top" secondItem="Omz-RM-dRy" secondAttribute="top" constant="20" symbolic="YES" id="pVa-fn-CJm"/>
-                        </constraints>
                     </view>
-                    <connections>
-                        <outlet property="addOtherServerButton" destination="4aM-So-vfF" id="hdS-XD-q9b"/>
-                        <outlet property="temporaryConnectButton" destination="KBs-0I-tzN" id="Xin-3o-0DM"/>
-                    </connections>
                 </viewController>
                 <customObject id="ixW-xi-Qbr" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

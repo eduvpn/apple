@@ -20,11 +20,11 @@ final class SearchService: SearchServiceType {
         self.config = config
     }
     
-    lazy var organizationsLoader = OrganizationsLoader(config: config)
+//    lazy var organizationsLoader = OrganizationsLoader(config: config)
     
     func load() {
-        organizationsLoader.load().pipe { (result) in
-            print(result)
-        }
+//        organizationsLoader.load().pipe { (result) in
+//            print(result)
+//        }
     }
 }

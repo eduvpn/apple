@@ -18,6 +18,8 @@ class Environment {
 
     let serverDiscoveryService: ServerDiscoveryService?
     let serverAuthService: ServerAuthService
+    let serverApiService: ServerApiServiceType
+    let tunnelService: TunnelServiceType
 
     init(navigationController: NavigationController) {
         self.navigationController = navigationController
@@ -29,6 +31,10 @@ class Environment {
         self.serverAuthService = ServerAuthService(
             configRedirectURL: Config.shared.redirectUrl,
             configClientId: Config.shared.clientId)
+        
+        let serverApiService = ServerApiService()
+        self.serverApiService = serverApiService
+        self.tunnelService = TunnelService(serverApiService: serverApiService)
     }
 
     func instantiateSearchViewController() -> SearchViewController {
