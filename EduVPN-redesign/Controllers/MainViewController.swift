@@ -17,7 +17,7 @@ class MainViewController: ViewController {
             viewModel.delegate = self
             environment.navigationController?.delegate = self
             if !environment.persistenceService.hasServers {
-                let searchVC = environment.instantiateSearchViewController()
+                let searchVC = environment.instantiateSearchViewController(shouldIncludeOrganizations: true)
                 searchVC.delegate = self
                 environment.navigationController?.pushViewController(searchVC, animated: false)
                 environment.navigationController?.isUserAllowedToGoBack = false
@@ -33,7 +33,8 @@ class MainViewController: ViewController {
 
 extension MainViewController: NavigationControllerDelegate {
     func addServerButtonClicked() {
-        let searchVC = environment.instantiateSearchViewController()
+        let isSecureInternetServerAdded = (environment.persistenceService.secureInternetServer != nil)
+        let searchVC = environment.instantiateSearchViewController(shouldIncludeOrganizations: !isSecureInternetServerAdded)
         searchVC.delegate = self
         environment.navigationController?.pushViewController(searchVC, animated: true)
     }

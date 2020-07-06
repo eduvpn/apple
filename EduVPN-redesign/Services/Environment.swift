@@ -33,8 +33,10 @@ class Environment {
         self.persistenceService = PersistenceService()
     }
 
-    func instantiateSearchViewController() -> SearchViewController {
-        let parameters = SearchViewController.Parameters(environment: self)
+    func instantiateSearchViewController(shouldIncludeOrganizations: Bool) -> SearchViewController {
+        let parameters = SearchViewController.Parameters(
+            environment: self,
+            shouldIncludeOrganizations: shouldIncludeOrganizations)
         return instantiate(SearchViewController.self, identifier: "Search", parameters: parameters)
     }
 

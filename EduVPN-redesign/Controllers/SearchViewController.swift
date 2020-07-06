@@ -17,6 +17,7 @@ protocol SearchViewControllerDelegate: class {
 final class SearchViewController: ViewController, ParametrizedViewController {
     struct Parameters {
         let environment: Environment
+        let shouldIncludeOrganizations: Bool
     }
 
     weak var delegate: SearchViewControllerDelegate?
@@ -43,7 +44,7 @@ final class SearchViewController: ViewController, ParametrizedViewController {
         }
         let viewModel = SearchViewModel(
             serverDiscoveryService: serverDiscoveryService,
-            shouldIncludeOrganizations: true)
+            shouldIncludeOrganizations: parameters.shouldIncludeOrganizations)
         viewModel.delegate = self
         self.viewModel = viewModel
     }
