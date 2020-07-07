@@ -123,6 +123,7 @@
 		6F13E3E124977BA800E21614 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7DB4C6B248064BC009932B1 /* Main.storyboard */; };
 		6F13E3E224977BEB00E21614 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7DB4C9624806832009932B1 /* Main.storyboard */; };
 		6F13E3E424977C1300E21614 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = C7DB4C1A24805F9B009932B1 /* config.json */; };
+		6F36A71D24B454AB00BA8F5E /* CountryFlags.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F36A71C24B454AA00BA8F5E /* CountryFlags.xcassets */; };
 		6F71FBB9249B545B0010D0FE /* DiscoveryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F71FBB7249B54490010D0FE /* DiscoveryData.swift */; };
 		6F71FBBE249CCE9E0010D0FE /* DiscoveryDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F71FBBC249CCE980010D0FE /* DiscoveryDataFetcher.swift */; };
 		6F750C8524975A4300AF2C04 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340F956C22B7118C00835D56 /* NetworkExtension.framework */; };
@@ -507,6 +508,7 @@
 		5853856E75D0EB88AA70492C /* Pods-eduVPN 2 iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eduVPN 2 iOS.debug.xcconfig"; path = "Target Support Files/Pods-eduVPN 2 iOS/Pods-eduVPN 2 iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		5B954E3699D9E9CC26F5C3E7 /* Pods_EduVPNTunnelExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EduVPNTunnelExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B9A8DF8C8CCA27F6D91B0B6 /* Pods-EduVPNTunnelExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension.release.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.release.xcconfig"; sourceTree = "<group>"; };
+		6F36A71C24B454AA00BA8F5E /* CountryFlags.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CountryFlags.xcassets; sourceTree = "<group>"; };
 		6F71FBB7249B54490010D0FE /* DiscoveryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryData.swift; sourceTree = "<group>"; };
 		6F71FBBC249CCE980010D0FE /* DiscoveryDataFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveryDataFetcher.swift; sourceTree = "<group>"; };
 		6F71FBF6249DEF480010D0FE /* DiscoveryData+Locale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DiscoveryData+Locale.swift"; sourceTree = "<group>"; };
@@ -1326,6 +1328,7 @@
 				6FEF313324A48FB10026C786 /* Common.xcassets */,
 				C7DB4C6D248064BC009932B1 /* Info.plist */,
 				C7DB4C6B248064BC009932B1 /* Main.storyboard */,
+				6F36A71C24B454AA00BA8F5E /* CountryFlags.xcassets */,
 			);
 			path = Mac;
 			sourceTree = "<group>";
@@ -1788,6 +1791,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F36A71D24B454AB00BA8F5E /* CountryFlags.xcassets in Resources */,
 				6FEF313524A4908F0026C786 /* Common.xcassets in Resources */,
 				6F13E3E124977BA800E21614 /* Main.storyboard in Resources */,
 				6F13E3E024977B8500E21614 /* Assets.xcassets in Resources */,
