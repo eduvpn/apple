@@ -5,6 +5,12 @@
 
 class RowCell: TableViewCell {
     func configure<T: ViewModelRow>(with row: T) {
-        textField?.stringValue = row.displayText
+        if let mainRow = row as? MainViewModel.Row,
+            case .secureInternetServer(_, let countryCode, let countryName) = mainRow {
+            textField?.stringValue = countryName
+            imageView?.image = Image(named: "CountryFlag_\(countryCode)")
+        } else {
+            textField?.stringValue = row.displayText
+        }
     }
 }

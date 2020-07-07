@@ -19,7 +19,8 @@ class MainViewModel {
         case instituteAccessServerSectionHeader
         case instituteAccessServer(server: SimpleServerInstance, displayName: String)
         case secureInternetServerSectionHeader
-        case secureInternetServer(server: SecureInternetServerInstance, countryName: String)
+        case secureInternetServer(server: SecureInternetServerInstance,
+            countryCode: String, countryName: String)
         case serverByURLSectionHeader
         case serverByURL(server: SimpleServerInstance)
 
@@ -37,7 +38,7 @@ class MainViewModel {
         var displayText: String {
             switch self {
             case .instituteAccessServer(_, let displayName): return displayName
-            case .secureInternetServer(_, let countryName): return countryName
+            case .secureInternetServer(_, _, let countryName): return countryName
             case .serverByURL(let server): return server.baseURL.absoluteString
             default: return ""
             }
@@ -93,7 +94,9 @@ extension MainViewModel {
             if let discoveredServer = secureInternetServersMap[baseURLString] {
                 let countryCode = discoveredServer.countryCode
                 let countryName = Locale.current.localizedString(forRegionCode: countryCode) ?? "Unknown"
-                secureInternetRows.append(.secureInternetServer(server: secureInternetServer, countryName: countryName))
+                secureInternetRows.append(.secureInternetServer(server: secureInternetServer,
+                                                                countryCode: countryCode,
+                                                                countryName: countryName))
             }
         }
 
