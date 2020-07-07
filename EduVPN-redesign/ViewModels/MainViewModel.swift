@@ -71,6 +71,13 @@ class MainViewModel {
     func row(at index: Int) -> Row {
         return rows[index]
     }
+
+    func secureInternetRowIndices() -> [Int] {
+        if let sectionHeaderIndex = rows.firstIndex(of: .secureInternetServerSectionHeader) {
+            return [sectionHeaderIndex, sectionHeaderIndex + 1]
+        }
+        return []
+    }
 }
 
 extension MainViewModel {

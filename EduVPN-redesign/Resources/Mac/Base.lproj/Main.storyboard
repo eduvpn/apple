@@ -842,20 +842,20 @@ Gw
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView wantsLayer="YES" horizontalHuggingPriority="100" borderType="none" autohidesScrollers="YES" horizontalLineScroll="60" horizontalPageScroll="10" verticalLineScroll="60" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ViX-vU-MfI" userLabel="Table Container View">
-                                <rect key="frame" x="20" y="20" width="612" height="383"/>
+                                <rect key="frame" x="20" y="20" width="666" height="344"/>
                                 <clipView key="contentView" drawsBackground="NO" id="Vdj-rZ-nzW">
-                                    <rect key="frame" x="0.0" y="0.0" width="612" height="383"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="666" height="344"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="40" usesAutomaticRowHeights="YES" viewBased="YES" floatsGroupRows="NO" id="0Se-xs-SBR">
-                                            <rect key="frame" x="0.0" y="0.0" width="612" height="383"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="666" height="344"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="20"/>
                                             <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                             <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn editable="NO" width="609" minWidth="40" maxWidth="1000" id="EBT-dj-yhn">
+                                                <tableColumn editable="NO" width="663" minWidth="40" maxWidth="1000" id="EBT-dj-yhn">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -868,11 +868,11 @@ Gw
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView identifier="SimpleServerRowCell" misplaced="YES" id="WqF-pb-kVL" userLabel="Simple Server Row" customClass="RowCell" customModule="EduVPN_redesign_macOS" customModuleProvider="target">
-                                                            <rect key="frame" x="1" y="10" width="609" height="44"/>
+                                                            <rect key="frame" x="1" y="10" width="681" height="44"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="7aT-Lg-nTY">
-                                                                    <rect key="frame" x="2" y="6" width="596" height="19"/>
+                                                                    <rect key="frame" x="2" y="6" width="650" height="19"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="eii-iD-n5q">
                                                                         <font key="font" metaFont="systemLight" size="15"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -897,7 +897,7 @@ Gw
                                                             </connections>
                                                         </tableCellView>
                                                         <tableCellView identifier="SecureInternetServerRowCell" misplaced="YES" id="BK9-3U-MTh" userLabel="Secure Internet Server Row" customClass="RowCell" customModule="EduVPN_redesign_macOS" customModuleProvider="target">
-                                                            <rect key="frame" x="1" y="74" width="609" height="44"/>
+                                                            <rect key="frame" x="1" y="74" width="681" height="44"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OaU-yW-ifC" userLabel="Country Flag Image">
@@ -933,7 +933,7 @@ Gw
                                                             </connections>
                                                         </tableCellView>
                                                         <tableCellView identifier="MainSectionHeaderCell" misplaced="YES" id="1Dn-e8-gNl" userLabel="Main Section Header" customClass="SectionHeaderCell" customModule="EduVPN_redesign_macOS" customModuleProvider="target">
-                                                            <rect key="frame" x="1" y="138" width="609" height="83"/>
+                                                            <rect key="frame" x="1" y="138" width="681" height="83"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Mg-cR-6QE">
@@ -945,7 +945,7 @@ Gw
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="lGf-bw-BgH"/>
                                                                 </imageView>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DX4-xV-Jul">
-                                                                    <rect key="frame" x="48" y="7" width="153" height="24"/>
+                                                                    <rect key="frame" x="48" y="7" width="410" height="24"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="HCo-B3-BdM">
                                                                         <font key="font" metaFont="systemBold" size="21"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -957,12 +957,64 @@ Gw
                                                                 <constraint firstAttribute="bottom" secondItem="0Mg-cR-6QE" secondAttribute="bottom" constant="4" id="773-Vp-Y5k"/>
                                                                 <constraint firstItem="0Mg-cR-6QE" firstAttribute="leading" secondItem="1Dn-e8-gNl" secondAttribute="leading" constant="4" id="FNW-PV-yLY"/>
                                                                 <constraint firstItem="DX4-xV-Jul" firstAttribute="centerY" secondItem="0Mg-cR-6QE" secondAttribute="centerY" id="KpE-VF-Nvs"/>
+                                                                <constraint firstAttribute="trailing" secondItem="DX4-xV-Jul" secondAttribute="trailing" constant="4" id="Yd0-vi-Sor"/>
                                                                 <constraint firstItem="DX4-xV-Jul" firstAttribute="leading" secondItem="0Mg-cR-6QE" secondAttribute="trailing" constant="16" id="psj-50-zSB"/>
                                                                 <constraint firstItem="0Mg-cR-6QE" firstAttribute="top" secondItem="1Dn-e8-gNl" secondAttribute="top" constant="20" id="ubH-Jv-2L5"/>
                                                             </constraints>
                                                             <connections>
                                                                 <outlet property="imageView" destination="0Mg-cR-6QE" id="hZ0-gb-Gg0"/>
                                                                 <outlet property="textField" destination="DX4-xV-Jul" id="4oo-Iw-61I"/>
+                                                            </connections>
+                                                        </tableCellView>
+                                                        <tableCellView identifier="MainSecureInternetSectionHeaderCell" misplaced="YES" id="d6Y-M9-wtH" userLabel="Main Secure Internet Section Header" customClass="MainSecureInternetSectionHeaderCell" customModule="EduVPN_redesign_macOS" customModuleProvider="target">
+                                                            <rect key="frame" x="1" y="241" width="681" height="83"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tHo-YM-pH6">
+                                                                    <rect key="frame" x="4" y="4" width="30" height="30"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="30" id="AjY-IY-6HY"/>
+                                                                        <constraint firstAttribute="width" constant="30" id="tdz-hH-Pm7"/>
+                                                                    </constraints>
+                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="vod-eM-BfC"/>
+                                                                </imageView>
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" ambiguous="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tdd-iW-vog">
+                                                                    <rect key="frame" x="48" y="7" width="153" height="24"/>
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="7d1-Ll-Cuc">
+                                                                        <font key="font" metaFont="systemBold" size="21"/>
+                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                </textField>
+                                                                <popUpButton verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yAR-RF-81c" userLabel="Change Location">
+                                                                    <rect key="frame" x="297" y="6" width="163" height="25"/>
+                                                                    <popUpButtonCell key="cell" type="push" title="Change Location" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="rwZ-Qq-9yl" id="jyi-ru-22m">
+                                                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                        <menu key="menu" id="v5t-Us-S8V">
+                                                                            <items>
+                                                                                <menuItem title="Change Location" state="on" hidden="YES" id="rwZ-Qq-9yl"/>
+                                                                                <menuItem title="Denmark" id="KZe-ga-om4"/>
+                                                                                <menuItem title="UK" id="OcL-d9-XL9"/>
+                                                                            </items>
+                                                                        </menu>
+                                                                    </popUpButtonCell>
+                                                                </popUpButton>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="Tdd-iW-vog" firstAttribute="centerY" secondItem="yAR-RF-81c" secondAttribute="centerY" id="3P1-hf-S4S"/>
+                                                                <constraint firstItem="Tdd-iW-vog" firstAttribute="leading" secondItem="tHo-YM-pH6" secondAttribute="trailing" constant="16" id="HCo-b6-Lfj"/>
+                                                                <constraint firstItem="Tdd-iW-vog" firstAttribute="centerY" secondItem="tHo-YM-pH6" secondAttribute="centerY" id="Nxa-2d-Utd"/>
+                                                                <constraint firstItem="tHo-YM-pH6" firstAttribute="leading" secondItem="d6Y-M9-wtH" secondAttribute="leading" constant="4" id="SK5-BY-ehZ"/>
+                                                                <constraint firstAttribute="bottom" secondItem="tHo-YM-pH6" secondAttribute="bottom" constant="4" id="fCU-mX-b2H"/>
+                                                                <constraint firstItem="tHo-YM-pH6" firstAttribute="top" secondItem="d6Y-M9-wtH" secondAttribute="top" constant="20" id="ua7-5h-X4j"/>
+                                                                <constraint firstAttribute="trailing" secondItem="yAR-RF-81c" secondAttribute="trailing" constant="4" id="vNU-BT-t6H"/>
+                                                                <constraint firstItem="yAR-RF-81c" firstAttribute="leading" secondItem="Tdd-iW-vog" secondAttribute="trailing" constant="4" id="zae-m7-ybR"/>
+                                                            </constraints>
+                                                            <connections>
+                                                                <outlet property="changeLocationPullDown" destination="yAR-RF-81c" id="tKr-SX-hKw"/>
+                                                                <outlet property="imageView" destination="tHo-YM-pH6" id="pa2-fP-JGW"/>
+                                                                <outlet property="textField" destination="Tdd-iW-vog" id="ipy-eP-rpC"/>
                                                             </connections>
                                                         </tableCellView>
                                                     </prototypeCellViews>

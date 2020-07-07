@@ -67,6 +67,22 @@ class PersistenceService {
         Self.saveToFile(addedServers: addedServers)
     }
 
+    func setSecureInternetServerAPIBaseURL(_ url: URL) {
+        guard let existingServer = addedServers.secureInternetServer else {
+            NSLog("No secure internet server exists")
+            return
+        }
+        if url == existingServer.apiBaseURL {
+            return
+        }
+        // Remove client certificate data here
+        let server = SecureInternetServerInstance(
+            apiBaseURL: url, authBaseURL: existingServer.authBaseURL,
+            orgId: existingServer.orgId, localStoragePath: existingServer.localStoragePath)
+        addedServers.secureInternetServer = server
+        Self.saveToFile(addedServers: addedServers)
+    }
+
     func removeSecureInternetServer() {
         if let existingServer = addedServers.secureInternetServer {
             ServerDataStore(path: existingServer.localStoragePath).delete()

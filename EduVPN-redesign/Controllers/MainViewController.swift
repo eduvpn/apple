@@ -72,11 +72,29 @@ extension MainViewController {
     func cellForRow(at index: Int, tableView: TableView) -> NSView? {
         let row = viewModel.row(at: index)
         if row.rowKind.isSectionHeader {
-            let cell = tableView.dequeue(SectionHeaderCell.self,
-                                         identifier: "MainSectionHeaderCell",
-                                         indexPath: IndexPath(item: index, section: 0))
-            cell.configure(as: row.rowKind, isAdding: false)
-            return cell
+            if row.rowKind == .secureInternetServerSectionHeaderKind {
+                let cell = tableView.dequeue(MainSecureInternetSectionHeaderCell.self,
+                                             identifier: "MainSecureInternetSectionHeaderCell",
+                                             indexPath: IndexPath(item: index, section: 0))
+                let selectedBaseURLString = environment.persistenceService.secureInternetServer?.apiBaseURL.absoluteString ?? ""
+                cell.configureMainSecureInternetSectionHeader(
+                    serversMap: viewModel.secureInternetServersMap,
+                    selectedBaseURLString: selectedBaseURLString,
+                    onLocationChanged: { baseURLString in
+                        if let url = URL(string: baseURLString) {
+                            self.environment.persistenceService.setSecureInternetServerAPIBaseURL(url)
+                            self.viewModel.update()
+                            self.reloadSecureInternetRows()
+                        }
+                    })
+                return cell
+            } else {
+                let cell = tableView.dequeue(SectionHeaderCell.self,
+                                             identifier: "MainSectionHeaderCell",
+                                             indexPath: IndexPath(item: index, section: 0))
+                cell.configure(as: row.rowKind, isAdding: false)
+                return cell
+            }
         } else if row.rowKind == .secureInternetServerKind {
             let cell = tableView.dequeue(RowCell.self,
                                          identifier: "SecureInternetServerRowCell",
@@ -116,5 +134,13 @@ extension MainViewController: MainViewModelDelegate {
         tableView.insertRows(at: IndexSet(changes.insertions.map { $0.0 }),
                              withAnimation: [])
         tableView.endUpdates()
+    }
+}
+
+extension MainViewController {
+    func reloadSecureInternetRows() {
+        guard let tableView = tableView else { return }
+        let indices = self.viewModel.secureInternetRowIndices()
+        tableView.reloadData(forRowIndexes: IndexSet(indices), columnIndexes: IndexSet([0]))
     }
 }
