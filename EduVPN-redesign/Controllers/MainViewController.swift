@@ -115,6 +115,35 @@ extension MainViewController {
     func didSelectRow(at index: Int) {
         print("Selected: \(viewModel.row(at: index))")
     }
+
+    func canDeleteRow(at index: Int) -> Bool {
+        return viewModel.row(at: index).rowKind.isServerRow
+    }
+
+    func deleteRow(at index: Int) {
+        guard index < viewModel.numberOfRows() else { return }
+        let persistenceService = environment.persistenceService
+        switch viewModel.row(at: index) {
+        case .secureInternetServer:
+            persistenceService.removeSecureInternetServer()
+        case .instituteAccessServer(server: let server, displayName: _):
+            persistenceService.removeSimpleServer(server)
+        case .serverByURL(server: let server):
+            persistenceService.removeSimpleServer(server)
+        case .instituteAccessServerSectionHeader,
+             .secureInternetServerSectionHeader,
+             .serverByURLSectionHeader:
+            break
+        }
+        viewModel.update()
+        if !environment.persistenceService.hasServers {
+            let searchVC = environment.instantiateSearchViewController(shouldIncludeOrganizations: true)
+            searchVC.delegate = self
+            environment.navigationController?.pushViewController(searchVC, animated: true)
+            environment.navigationController?.isUserAllowedToGoBack = false
+        }
+
+    }
 }
 
 extension MainViewController: MainViewModelDelegate {

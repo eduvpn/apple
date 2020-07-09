@@ -25,4 +25,16 @@ extension MainViewController: NSTableViewDelegate, NSTableViewDataSource {
         }
         tableView.selectRowIndexes(IndexSet(), byExtendingSelection: false)
     }
+
+    func tableView(_ tableView: NSTableView, rowActionsForRow row: Int,
+                   edge: NSTableView.RowActionEdge) -> [NSTableViewRowAction] {
+        guard canDeleteRow(at: row) else { return [] }
+        let action = NSTableViewRowAction(
+            style: .destructive,
+            title: NSLocalizedString("Delete", comment: ""),
+            handler: { _, index in
+                self.deleteRow(at: index)
+            })
+        return [action]
+    }
 }
