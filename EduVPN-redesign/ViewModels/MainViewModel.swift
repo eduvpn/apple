@@ -104,6 +104,10 @@ extension MainViewModel {
                 secureInternetRows.append(.secureInternetServer(server: secureInternetServer,
                                                                 countryCode: countryCode,
                                                                 countryName: countryName))
+            } else {
+                secureInternetRows.append(.secureInternetServer(server: secureInternetServer,
+                                                                countryCode: "",
+                                                                countryName: "Unknown country"))
             }
         }
 
