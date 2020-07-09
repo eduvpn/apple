@@ -100,7 +100,7 @@ extension MainViewModel {
             let baseURLString = secureInternetServer.apiBaseURL.absoluteString
             if let discoveredServer = secureInternetServersMap[baseURLString] {
                 let countryCode = discoveredServer.countryCode
-                let countryName = Locale.current.localizedString(forRegionCode: countryCode) ?? "Unknown"
+                let countryName = Locale.current.localizedString(forRegionCode: countryCode) ?? "Unknown country"
                 secureInternetRows.append(.secureInternetServer(server: secureInternetServer,
                                                                 countryCode: countryCode,
                                                                 countryName: countryName))

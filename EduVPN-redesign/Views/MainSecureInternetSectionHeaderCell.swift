@@ -34,7 +34,7 @@ class MainSecureInternetSectionHeaderCell: SectionHeaderCell {
         for server in serversMap.values {
             let serverEntry = ServerEntry(
                 baseURLString: server.baseURLString,
-                countryName: Locale.current.localizedString(forRegionCode: server.countryCode) ?? "Unknown")
+                countryName: Locale.current.localizedString(forRegionCode: server.countryCode) ?? "Unknown country")
             serverEntries.append(serverEntry)
         }
         serverEntries.sort { $0.countryName < $1.countryName }
