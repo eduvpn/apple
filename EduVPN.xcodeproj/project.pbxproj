@@ -125,6 +125,8 @@
 		6F13E3E424977C1300E21614 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = C7DB4C1A24805F9B009932B1 /* config.json */; };
 		6F36A71D24B454AB00BA8F5E /* CountryFlags.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F36A71C24B454AA00BA8F5E /* CountryFlags.xcassets */; };
 		6F36A71F24B5A36E00BA8F5E /* MainSecureInternetSectionHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F36A71E24B5A36E00BA8F5E /* MainSecureInternetSectionHeaderCell.swift */; };
+		6F36A79B24B6ED5D00BA8F5E /* SearchViewController+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F36A79A24B6ED5D00BA8F5E /* SearchViewController+macOS.swift */; };
+		6F36A79D24B6F5BA00BA8F5E /* MainViewController+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F36A79C24B6F5BA00BA8F5E /* MainViewController+macOS.swift */; };
 		6F71FBB9249B545B0010D0FE /* DiscoveryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F71FBB7249B54490010D0FE /* DiscoveryData.swift */; };
 		6F71FBBE249CCE9E0010D0FE /* DiscoveryDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F71FBBC249CCE980010D0FE /* DiscoveryDataFetcher.swift */; };
 		6F750C8524975A4300AF2C04 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340F956C22B7118C00835D56 /* NetworkExtension.framework */; };
@@ -142,7 +144,6 @@
 		6FEF30D824A0B8C60026C786 /* ServerDiscoveryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF30D724A0B8C60026C786 /* ServerDiscoveryService.swift */; };
 		6FEF30F124A1F5A90026C786 /* DiscoveryData+Locale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F71FBF6249DEF480010D0FE /* DiscoveryData+Locale.swift */; };
 		6FEF30F424A21BF30026C786 /* ViewModelRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF30F224A21AFE0026C786 /* ViewModelRow.swift */; };
-		6FEF30F824A2E73B0026C786 /* TableViewShims.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF30F624A2E6C00026C786 /* TableViewShims.swift */; };
 		6FEF30FC24A317C00026C786 /* SectionHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF30FA24A317C00026C786 /* SectionHeaderCell.swift */; };
 		6FEF30FF24A325860026C786 /* RowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF30FD24A324E40026C786 /* RowCell.swift */; };
 		6FEF313524A4908F0026C786 /* Common.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FEF313324A48FB10026C786 /* Common.xcassets */; };
@@ -511,6 +512,8 @@
 		6B9A8DF8C8CCA27F6D91B0B6 /* Pods-EduVPNTunnelExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension.release.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.release.xcconfig"; sourceTree = "<group>"; };
 		6F36A71C24B454AA00BA8F5E /* CountryFlags.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CountryFlags.xcassets; sourceTree = "<group>"; };
 		6F36A71E24B5A36E00BA8F5E /* MainSecureInternetSectionHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSecureInternetSectionHeaderCell.swift; sourceTree = "<group>"; };
+		6F36A79A24B6ED5D00BA8F5E /* SearchViewController+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController+macOS.swift"; sourceTree = "<group>"; };
+		6F36A79C24B6F5BA00BA8F5E /* MainViewController+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+macOS.swift"; sourceTree = "<group>"; };
 		6F71FBB7249B54490010D0FE /* DiscoveryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryData.swift; sourceTree = "<group>"; };
 		6F71FBBC249CCE980010D0FE /* DiscoveryDataFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveryDataFetcher.swift; sourceTree = "<group>"; };
 		6F71FBF6249DEF480010D0FE /* DiscoveryData+Locale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DiscoveryData+Locale.swift"; sourceTree = "<group>"; };
@@ -524,7 +527,6 @@
 		6FCCC576249E25F100F0F5A3 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		6FEF30D724A0B8C60026C786 /* ServerDiscoveryService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerDiscoveryService.swift; sourceTree = "<group>"; };
 		6FEF30F224A21AFE0026C786 /* ViewModelRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelRow.swift; sourceTree = "<group>"; };
-		6FEF30F624A2E6C00026C786 /* TableViewShims.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewShims.swift; sourceTree = "<group>"; };
 		6FEF30FA24A317C00026C786 /* SectionHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderCell.swift; sourceTree = "<group>"; };
 		6FEF30FD24A324E40026C786 /* RowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowCell.swift; sourceTree = "<group>"; };
 		6FEF313324A48FB10026C786 /* Common.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Common.xcassets; sourceTree = "<group>"; };
@@ -1165,7 +1167,6 @@
 			children = (
 				6FCCC576249E25F100F0F5A3 /* NavigationController.swift */,
 				C7DB4B3A247FBD63009932B1 /* Multiplatform.swift */,
-				6FEF30F624A2E6C00026C786 /* TableViewShims.swift */,
 			);
 			path = Shims;
 			sourceTree = "<group>";
@@ -1212,7 +1213,9 @@
 			isa = PBXGroup;
 			children = (
 				C7DB4B37247FBD52009932B1 /* MainViewController.swift */,
+				6F36A79C24B6F5BA00BA8F5E /* MainViewController+macOS.swift */,
 				C7DB4B3D247FBDD7009932B1 /* SearchViewController.swift */,
+				6F36A79A24B6ED5D00BA8F5E /* SearchViewController+macOS.swift */,
 				C7DB4B40247FBDE4009932B1 /* AddOtherViewController.swift */,
 				C7DB4B43247FBDF5009932B1 /* ConnectionViewController.swift */,
 				C7DB4B46247FBE26009932B1 /* SettingsViewController.swift */,
@@ -2549,7 +2552,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6FEF30FF24A325860026C786 /* RowCell.swift in Sources */,
-				6FEF30F824A2E73B0026C786 /* TableViewShims.swift in Sources */,
 				6FADF83124ADF86700B75E8D /* Log.swift in Sources */,
 				6FEF313B24A717570026C786 /* ServerAuthService.swift in Sources */,
 				6FEF313D24A746AD0026C786 /* AuthState.swift in Sources */,
@@ -2557,6 +2559,7 @@
 				C7DB4C04248055D6009932B1 /* Moya+Promise.swift in Sources */,
 				C7DB4BA3247FC243009932B1 /* AddOtherViewModel.swift in Sources */,
 				C7DB4B9F247FC23D009932B1 /* ConnectionViewController.swift in Sources */,
+				6F36A79B24B6ED5D00BA8F5E /* SearchViewController+macOS.swift in Sources */,
 				6FADF82D24ADF6C600B75E8D /* ServerInstance.swift in Sources */,
 				C7DB4BCF24803A2A009932B1 /* ServerInfo.swift in Sources */,
 				6F71FBB9249B545B0010D0FE /* DiscoveryData.swift in Sources */,
@@ -2578,6 +2581,7 @@
 				C7DB4BFD24804C85009932B1 /* Config.swift in Sources */,
 				6FCCC577249E25F100F0F5A3 /* NavigationController.swift in Sources */,
 				C7DB4BD424803B99009932B1 /* FileHelper.swift in Sources */,
+				6F36A79D24B6F5BA00BA8F5E /* MainViewController+macOS.swift in Sources */,
 				C7DB4B9B247FC23D009932B1 /* Multiplatform.swift in Sources */,
 				C7DB4BA2247FC243009932B1 /* SearchViewModel.swift in Sources */,
 				C7DB4BD524803B99009932B1 /* SignatureHelper.swift in Sources */,

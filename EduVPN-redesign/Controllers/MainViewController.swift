@@ -2,8 +2,6 @@
 //  MainViewController.swift
 //  EduVPN
 //
-//  Created by Johan Kool on 28/05/2020.
-//
 
 import Foundation
 
@@ -28,7 +26,7 @@ class MainViewController: ViewController {
     private var viewModel: MainViewModel!
     private var isTableViewInitialized = false
 
-    @IBOutlet weak var tableView: NSTableView!
+    @IBOutlet weak var tableView: TableView!
 }
 
 extension MainViewController: NavigationControllerDelegate {
@@ -128,12 +126,8 @@ extension MainViewController: MainViewModelDelegate {
             isTableViewInitialized = true
             return
         }
-        tableView.beginUpdates()
-        tableView.removeRows(at: IndexSet(changes.deletedIndices),
-                             withAnimation: [])
-        tableView.insertRows(at: IndexSet(changes.insertions.map { $0.0 }),
-                             withAnimation: [])
-        tableView.endUpdates()
+        tableView.performUpdates(deletedIndices: changes.deletedIndices,
+                                 insertedIndices: changes.insertions.map { $0.0 })
     }
 }
 
