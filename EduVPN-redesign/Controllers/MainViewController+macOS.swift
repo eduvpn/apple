@@ -30,11 +30,12 @@ extension MainViewController: NSTableViewDelegate, NSTableViewDataSource {
                    edge: NSTableView.RowActionEdge) -> [NSTableViewRowAction] {
         guard canDeleteRow(at: row) else { return [] }
         let action = NSTableViewRowAction(
-            style: .destructive,
+            style: .regular,
             title: NSLocalizedString("Delete", comment: ""),
             handler: { _, index in
                 self.deleteRow(at: index)
             })
+        action.backgroundColor = NSColor.systemRed
         return [action]
     }
 }
