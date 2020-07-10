@@ -9,11 +9,6 @@ struct DiscoveryData {
     typealias BaseURLString = String
     typealias OrgId = String
 
-    enum LanguageMappedString {
-        case stringForAnyLanguage(String)
-        case stringByLanguageTag([String: String])
-    }
-
     struct InstituteAccessServer {
         let baseURLString: BaseURLString
         let displayName: LanguageMappedString
@@ -43,18 +38,6 @@ struct DiscoveryData {
     }
 }
 
-extension DiscoveryData.LanguageMappedString: Decodable {
-    init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        if let dictionary = try? container.decode([String: String].self) {
-            self = .stringByLanguageTag(dictionary)
-        } else {
-            let string = try container.decode(String.self)
-            self = .stringForAnyLanguage(string)
-        }
-    }
-}
-
 extension DiscoveryData.Organization: Decodable {
     enum CodingKeys: String, CodingKey {
         case orgId = "org_id"
@@ -72,7 +55,7 @@ extension DiscoveryData.Servers: Decodable {
     private struct ServerEntry: Decodable {
         let serverType: String
         let baseURLString: String
-        let displayName: DiscoveryData.LanguageMappedString?
+        let displayName: LanguageMappedString?
         let countryCode: String?
         let supportContact: [String]?
 
