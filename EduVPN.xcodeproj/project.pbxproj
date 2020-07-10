@@ -141,6 +141,7 @@
 		6FADF82F24ADF85F00B75E8D /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FADF82E24ADF85F00B75E8D /* Crypto.swift */; };
 		6FADF83124ADF86700B75E8D /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FADF83024ADF86600B75E8D /* Log.swift */; };
 		6FCC5EF424B8579D00C6BC80 /* LanguageMappedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCC5EF324B8579D00C6BC80 /* LanguageMappedString.swift */; };
+		6FCC5EF624B85D6700C6BC80 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCC5EF524B85D6700C6BC80 /* ServerResponse.swift */; };
 		6FCCC577249E25F100F0F5A3 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCCC576249E25F100F0F5A3 /* NavigationController.swift */; };
 		6FEF30D824A0B8C60026C786 /* ServerDiscoveryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF30D724A0B8C60026C786 /* ServerDiscoveryService.swift */; };
 		6FEF30F424A21BF30026C786 /* ViewModelRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF30F224A21AFE0026C786 /* ViewModelRow.swift */; };
@@ -522,6 +523,7 @@
 		6FADF82E24ADF85F00B75E8D /* Crypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
 		6FADF83024ADF86600B75E8D /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		6FCC5EF324B8579D00C6BC80 /* LanguageMappedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageMappedString.swift; sourceTree = "<group>"; };
+		6FCC5EF524B85D6700C6BC80 /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResponse.swift; sourceTree = "<group>"; };
 		6FCCC576249E25F100F0F5A3 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		6FEF30D724A0B8C60026C786 /* ServerDiscoveryService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerDiscoveryService.swift; sourceTree = "<group>"; };
 		6FEF30F224A21AFE0026C786 /* ViewModelRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelRow.swift; sourceTree = "<group>"; };
@@ -1272,6 +1274,7 @@
 				6FEF313C24A746AD0026C786 /* AuthState.swift */,
 				6FADF82C24ADF6C600B75E8D /* ServerInstance.swift */,
 				6FCC5EF324B8579D00C6BC80 /* LanguageMappedString.swift */,
+				6FCC5EF524B85D6700C6BC80 /* ServerResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2572,6 +2575,7 @@
 				C7DB4BA5247FC243009932B1 /* SettingsViewModel.swift in Sources */,
 				6FADF82724ADF2E600B75E8D /* ServerInfoFetcher.swift in Sources */,
 				6FEF30F424A21BF30026C786 /* ViewModelRow.swift in Sources */,
+				6FCC5EF624B85D6700C6BC80 /* ServerResponse.swift in Sources */,
 				C7DB4BB3247FD941009932B1 /* Environment.swift in Sources */,
 				6F71FBBE249CCE9E0010D0FE /* DiscoveryDataFetcher.swift in Sources */,
 				6FADF82F24ADF85F00B75E8D /* Crypto.swift in Sources */,
