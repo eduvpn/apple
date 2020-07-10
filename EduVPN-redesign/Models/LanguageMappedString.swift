@@ -23,7 +23,7 @@ enum LanguageMappedString {
     case stringByLanguageTag([String: String])
 }
 
-extension LanguageMappedString: Decodable {
+extension LanguageMappedString: Codable {
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         if let dictionary = try? container.decode([String: String].self) {
@@ -31,6 +31,16 @@ extension LanguageMappedString: Decodable {
         } else {
             let string = try container.decode(String.self)
             self = .stringForAnyLanguage(string)
+        }
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case .stringForAnyLanguage(let string):
+            try container.encode(string)
+        case .stringByLanguageTag(let dictionary):
+            try container.encode(dictionary)
         }
     }
 }
