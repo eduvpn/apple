@@ -120,6 +120,10 @@ extension MainViewController {
         return viewModel.row(at: index).rowKind.isServerRow
     }
 
+    func displayText(at index: Int) -> String {
+        return viewModel.row(at: index).displayText
+    }
+
     func deleteRow(at index: Int) {
         guard index < viewModel.numberOfRows() else { return }
         let persistenceService = environment.persistenceService
