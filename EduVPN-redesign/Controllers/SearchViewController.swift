@@ -6,6 +6,7 @@
 import Foundation
 import PromiseKit
 import AppAuth
+import os.log
 
 protocol SearchViewControllerDelegate: class {
     func searchViewControllerAddedSimpleServer(baseURL: URL, authState: AuthState)
@@ -74,6 +75,9 @@ final class SearchViewController: ViewController, ParametrizedViewController {
             self.spinner.stopAnimation(self)
             self.spinner.removeFromSuperview()
         }.catch { error in
+            os_log("Error loading discovery data: %{public}@",
+                   log: Log.general, type: .error,
+                   error.localizedDescription)
             self.parameters.environment.navigationController?.showAlert(for: error)
         }
     }
@@ -149,6 +153,9 @@ extension SearchViewController {
                     break
                 }
             }.catch { error in
+                os_log("Error during authentication: %{public}@",
+                       log: Log.general, type: .error,
+                       error.localizedDescription)
                 if !serverAuthService.isUserCancelledError(error) {
                     navigationController?.showAlert(for: error)
                 }
