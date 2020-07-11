@@ -6,6 +6,7 @@
 import Foundation
 import AppAuth
 import PromiseKit
+import os.log
 
 class PersistenceService {
 
@@ -69,7 +70,7 @@ class PersistenceService {
 
     func setSecureInternetServerAPIBaseURL(_ url: URL) {
         guard let existingServer = addedServers.secureInternetServer else {
-            NSLog("No secure internet server exists")
+            os_log("No secure internet server exists", log: Log.general, type: .error)
             return
         }
         if url == existingServer.apiBaseURL {
@@ -175,7 +176,9 @@ extension PersistenceService {
                                                 withIntermediateDirectories: true,
                                                 attributes: nil)
         } catch {
-            NSLog("Error creating \(url): \(error)")
+            os_log("Error creating URL '%{public}@': %{public}@",
+                   log: Log.general, type: .error,
+                   url.absoluteString, error.localizedDescription)
         }
     }
 
@@ -183,7 +186,9 @@ extension PersistenceService {
         do {
             try FileManager.default.removeItem(at: url)
         } catch {
-            NSLog("Error removing \(url): \(error)")
+            os_log("Error removing URL '%{public}@': %{public}@",
+                   log: Log.general, type: .error,
+                   url.absoluteString, error.localizedDescription)
         }
     }
 
@@ -191,7 +196,10 @@ extension PersistenceService {
         do {
             try data.write(to: url, options: atomically ? [.atomic] : [])
         } catch {
-            NSLog("Error writing data \(atomically ? "atomically " : "")to \(url): \(error)")
+            os_log("Error writing data %{public}@to URL '%{public}@': %{public}@",
+                   log: Log.general, type: .error,
+                   (atomically ? "atomically " : ""),
+                   url.absoluteString, error.localizedDescription)
         }
     }
 }
