@@ -70,7 +70,7 @@ struct ProfileListResponse: ServerResponse, Decodable {
 
 struct CreateKeyPairResponse: ServerResponse, Decodable {
 
-    struct KeyPair: Decodable {
+    struct KeyPair: Codable {
         let certificate: String
         let privateKey: String
 

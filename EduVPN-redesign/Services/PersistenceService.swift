@@ -123,7 +123,7 @@ extension PersistenceService {
 }
 
 extension PersistenceService {
-    class DataStore {
+    class DataStore: NSObject {
         let rootURL: URL
 
         init(path: String) {
@@ -134,6 +134,10 @@ extension PersistenceService {
 
         private var authStateURL: URL {
             rootURL.appendingPathComponent("authState.bin")
+        }
+
+        private var keyPairURL: URL {
+            rootURL.appendingPathComponent("keyPair.bin")
         }
 
         var authState: AuthState? {
@@ -152,6 +156,22 @@ extension PersistenceService {
                     PersistenceService.write(encryptedData, to: authStateURL, atomically: true)
                 } else {
                     removeAuthState()
+                }
+            }
+        }
+
+        var keyPair: CreateKeyPairResponse.KeyPair? {
+            get {
+                if let data = try? Data(contentsOf: keyPairURL),
+                    let clearTextData = Crypto.shared.decrypt(data: data) {
+                    return try? JSONDecoder().decode(CreateKeyPairResponse.KeyPair.self, from: clearTextData)
+                }
+                return nil
+            }
+            set(value) {
+                if let data = try? JSONEncoder().encode(value),
+                    let encryptedData = try? Crypto.shared.encrypt(data: data) {
+                    PersistenceService.write(encryptedData, to: keyPairURL, atomically: true)
                 }
             }
         }
@@ -206,5 +226,11 @@ extension PersistenceService.AddedServers: Codable {
     enum CodingKeys: String, CodingKey {
         case simpleServers = "simple_servers"
         case secureInternetServer = "secure_internet_server"
+    }
+}
+
+extension PersistenceService.DataStore: OIDAuthStateChangeDelegate {
+    func didChange(_ state: OIDAuthState) {
+        authState = AuthState(oidAuthState: state)
     }
 }
