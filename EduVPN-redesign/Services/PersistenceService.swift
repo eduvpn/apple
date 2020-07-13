@@ -54,7 +54,7 @@ class PersistenceService {
         let pivotIndex = addedServers.simpleServers.partition(
             by: { $0.baseURL.absoluteString == baseURLString })
         for index in pivotIndex ..< addedServers.simpleServers.count {
-            ServerDataStore(path: addedServers.simpleServers[index].localStoragePath).delete()
+            DataStore(path: addedServers.simpleServers[index].localStoragePath).delete()
         }
         addedServers.simpleServers.removeLast(addedServers.simpleServers.count - pivotIndex)
         Self.saveToFile(addedServers: addedServers)
@@ -62,7 +62,7 @@ class PersistenceService {
 
     func setSecureInternetServer(_ server: SecureInternetServerInstance) {
         if let existingServer = addedServers.secureInternetServer {
-            ServerDataStore(path: existingServer.localStoragePath).delete()
+            DataStore(path: existingServer.localStoragePath).delete()
         }
         addedServers.secureInternetServer = server
         Self.saveToFile(addedServers: addedServers)
@@ -86,7 +86,7 @@ class PersistenceService {
 
     func removeSecureInternetServer() {
         if let existingServer = addedServers.secureInternetServer {
-            ServerDataStore(path: existingServer.localStoragePath).delete()
+            DataStore(path: existingServer.localStoragePath).delete()
         }
         addedServers.secureInternetServer = nil
         Self.saveToFile(addedServers: addedServers)
@@ -125,7 +125,7 @@ extension PersistenceService {
 }
 
 extension PersistenceService {
-    class ServerDataStore {
+    class DataStore {
         let rootURL: URL
 
         init(path: String) {

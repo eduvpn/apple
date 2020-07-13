@@ -41,7 +41,7 @@ extension MainViewController: NavigationControllerDelegate {
 extension MainViewController: SearchViewControllerDelegate {
     func searchViewControllerAddedSimpleServer(baseURL: URL, authState: AuthState) {
         let storagePath = UUID().uuidString
-        let dataStore = PersistenceService.ServerDataStore(path: storagePath)
+        let dataStore = PersistenceService.DataStore(path: storagePath)
         dataStore.authState = authState
         let server = SimpleServerInstance(baseURL: baseURL, localStoragePath: storagePath)
         environment.persistenceService.addSimpleServer(server)
@@ -51,7 +51,7 @@ extension MainViewController: SearchViewControllerDelegate {
 
     func searchViewControllerAddedSecureInternetServer(baseURL: URL, orgId: String, authState: AuthState) {
         let storagePath = UUID().uuidString
-        let dataStore = PersistenceService.ServerDataStore(path: storagePath)
+        let dataStore = PersistenceService.DataStore(path: storagePath)
         dataStore.authState = authState
         let server = SecureInternetServerInstance(
             apiBaseURL: baseURL, authBaseURL: baseURL,
