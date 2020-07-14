@@ -61,7 +61,8 @@ class ServerAuthService {
         }
     }
 
-    func startAuth(authEndpoint: URL, tokenEndpoint: URL,
+    func startAuth(authEndpoint: ServerInfo.OAuthEndpoint,
+                   tokenEndpoint: ServerInfo.OAuthEndpoint,
                    from viewController: ViewController) -> Promise<AuthState> {
         let authConfig = OIDServiceConfiguration(
             authorizationEndpoint: authEndpoint,
