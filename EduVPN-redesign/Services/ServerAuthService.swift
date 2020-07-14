@@ -9,20 +9,6 @@ import Moya
 import PromiseKit
 
 class ServerAuthService {
-    struct ServerInfoTarget: TargetType, AcceptJson, SimpleGettable {
-        var baseURL: URL
-        var path: String { "/info.json" }
-
-        init(_ url: URL) {
-            baseURL = url
-        }
-    }
-
-    static var uncachedSession: Moya.Session {
-        let configuration = URLSessionConfiguration.default
-        configuration.urlCache = nil
-        return Session(configuration: configuration, startRequestsImmediately: false)
-    }
 
     private let configRedirectURL: URL // For iOS
     private let configClientId: String // For macOS
