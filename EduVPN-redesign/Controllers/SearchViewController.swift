@@ -9,8 +9,10 @@ import AppAuth
 import os.log
 
 protocol SearchViewControllerDelegate: class {
-    func searchViewControllerAddedSimpleServer(baseURL: URL, authState: AuthState)
-    func searchViewControllerAddedSecureInternetServer(baseURL: URL, orgId: String, authState: AuthState)
+    func searchViewControllerAddedSimpleServer(
+        baseURLString: DiscoveryData.BaseURLString, authState: AuthState)
+    func searchViewControllerAddedSecureInternetServer(
+        baseURLString: DiscoveryData.BaseURLString, orgId: String, authState: AuthState)
 }
 
 final class SearchViewController: ViewController, ParametrizedViewController {
@@ -133,22 +135,22 @@ extension SearchViewController {
         let serverAuthService = parameters.environment.serverAuthService
         let navigationController = parameters.environment.navigationController
         let delegate = self.delegate
-        if let baseURL = row.baseURL {
+        if let baseURLString = row.baseURLString {
             navigationController?.showAuthorizingMessage(cancelAuthorizationHandler: {
                 serverAuthService.cancelAuth()
                 navigationController?.hideAuthorizingMessage()
             })
             firstly {
-                serverAuthService.startAuth(baseURL: baseURL, from: self)
+                serverAuthService.startAuth(baseURLString: baseURLString, from: self)
             }.ensure {
                 Self.makeApplicationComeToTheForeground()
                 navigationController?.hideAuthorizingMessage()
             }.map { authState in
                 switch row {
                 case .instituteAccessServer, .serverByURL:
-                    delegate?.searchViewControllerAddedSimpleServer(baseURL: baseURL, authState: authState)
+                    delegate?.searchViewControllerAddedSimpleServer(baseURLString: baseURLString, authState: authState)
                 case .secureInternetOrg(let organization):
-                    delegate?.searchViewControllerAddedSecureInternetServer(baseURL: baseURL, orgId: organization.orgId, authState: authState)
+                    delegate?.searchViewControllerAddedSecureInternetServer(baseURLString: baseURLString, orgId: organization.orgId, authState: authState)
                 default:
                     break
                 }

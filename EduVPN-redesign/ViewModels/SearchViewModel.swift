@@ -25,7 +25,7 @@ class SearchViewModel {
         case secureInternetOrgSectionHeader
         case secureInternetOrg(LocalizedOrganization)
         case serverByURLSectionHeader
-        case serverByURL(String)
+        case serverByURL(DiscoveryData.BaseURLString)
         case noResults
 
         var rowKind: ViewModelRowKind {
@@ -44,23 +44,23 @@ class SearchViewModel {
             switch self {
             case .instituteAccessServer(let server): return server.displayName
             case .secureInternetOrg(let organization): return organization.displayName
-            case .serverByURL(let urlString): return urlString
+            case .serverByURL(let baseURLString): return baseURLString.toString()
             default: return ""
             }
         }
 
-        var baseURL: URL? {
+        var baseURLString: DiscoveryData.BaseURLString? {
             switch self {
-            case .instituteAccessServer(let server): return URL(string: server.baseURLString)
-            case .secureInternetOrg(let organization): return URL(string: organization.secureInternetHome)
-            case .serverByURL(let urlString): return URL(string: urlString)
+            case .instituteAccessServer(let server): return server.baseURLString
+            case .secureInternetOrg(let organization): return organization.secureInternetHome
+            case .serverByURL(let baseURLString): return baseURLString
             default: return nil
             }
         }
     }
 
     struct LocalizedInstituteAccessServer {
-        let baseURLString: String
+        let baseURLString: DiscoveryData.BaseURLString
         let displayName: String
 
         init(_ server: DiscoveryData.InstituteAccessServer) {
@@ -73,7 +73,7 @@ class SearchViewModel {
         let orgId: String
         let displayName: String
         let keywordList: String
-        let secureInternetHome: String
+        let secureInternetHome: DiscoveryData.BaseURLString
 
         init(_ organization: DiscoveryData.Organization) {
             orgId = organization.orgId
@@ -167,8 +167,10 @@ private extension SearchViewModel {
             if !url.hasSuffix("/") {
                 url += "/"
             }
+            // This URL shall be used as if it was a base URL appearing in a discovery data file
+            let baseURLString = DiscoveryData.BaseURLString(urlString: url)
             return [.serverByURLSectionHeader,
-                    .serverByURL(url)]
+                    .serverByURL(baseURLString)]
         }
         return []
     }

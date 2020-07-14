@@ -26,10 +26,10 @@ struct ServerInfoFetcher {
         return Session(configuration: configuration, startRequestsImmediately: false)
     }
 
-    static func fetch(baseURL: URL) -> Promise<ServerInfo> {
+    static func fetch(baseURLString: DiscoveryData.BaseURLString) -> Promise<ServerInfo> {
         let provider = MoyaProvider<ServerInfoTarget>(session: Self.uncachedSession)
         return firstly {
-            provider.request(target: ServerInfoTarget(baseURL))
+            provider.request(target: ServerInfoTarget(try baseURLString.toURL()))
         }.map { response in
             try Self.parseServerInfo(response.data)
         }

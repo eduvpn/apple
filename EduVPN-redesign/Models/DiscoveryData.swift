@@ -6,8 +6,11 @@
 // Models the data extracted from server_list.json and organization_list.json
 
 struct DiscoveryData {
-    typealias BaseURLString = String
     typealias OrgId = String
+
+    struct BaseURLString {
+        let urlString: String
+    }
 
     struct InstituteAccessServer {
         let baseURLString: BaseURLString
@@ -54,7 +57,7 @@ extension DiscoveryData.Servers: Decodable {
 
     private struct ServerEntry: Decodable {
         let serverType: String
-        let baseURLString: String
+        let baseURLString: DiscoveryData.BaseURLString
         let displayName: LanguageMappedString?
         let countryCode: String?
         let supportContact: [String]?
@@ -107,5 +110,44 @@ extension DiscoveryData.Organizations: Decodable {
         let listContainer = try decoder.container(keyedBy: OrgListTopLevelKeys.self)
         let list = try listContainer.decode([DiscoveryData.Organization].self, forKey: .organization_list)
         self.organizations = list
+    }
+}
+
+extension DiscoveryData.BaseURLString: Hashable {
+    static func == (lhs: DiscoveryData.BaseURLString, rhs: DiscoveryData.BaseURLString) -> Bool {
+        return lhs.urlString == rhs.urlString
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(urlString)
+    }
+}
+
+extension DiscoveryData.BaseURLString: Codable {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        self.urlString = try container.decode(String.self)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(urlString)
+    }
+}
+
+enum DsicoveryDataURLError: Error {
+    case invalidURLStringInDiscoveryData(urlString: String)
+}
+
+extension DiscoveryData.BaseURLString {
+    func toURL() throws -> URL {
+        guard let url = URL(string: urlString) else {
+            throw DsicoveryDataURLError.invalidURLStringInDiscoveryData(urlString: urlString)
+        }
+        return url
+    }
+
+    func toString() -> String {
+        return urlString
     }
 }

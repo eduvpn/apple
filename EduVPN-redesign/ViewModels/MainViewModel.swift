@@ -39,7 +39,7 @@ class MainViewModel {
             switch self {
             case .instituteAccessServer(_, let displayName): return displayName
             case .secureInternetServer(_, _, let countryName): return countryName
-            case .serverByURL(let server): return server.baseURL.absoluteString
+            case .serverByURL(let server): return server.baseURLString.toString()
             default: return ""
             }
         }
@@ -87,7 +87,7 @@ extension MainViewModel {
         var serverByURLRows: [Row] = []
 
         for simpleServer in persistenceService.simpleServers {
-            let baseURLString = simpleServer.baseURL.absoluteString
+            let baseURLString = simpleServer.baseURLString
             if let discoveredServer = instituteAccessServersMap[baseURLString] {
                 let displayName = discoveredServer.displayName.string(for: Locale.current)
                 instituteAccessRows.append(.instituteAccessServer(server: simpleServer, displayName: displayName))
@@ -97,7 +97,7 @@ extension MainViewModel {
         }
 
         if let secureInternetServer = persistenceService.secureInternetServer {
-            let baseURLString = secureInternetServer.apiBaseURL.absoluteString
+            let baseURLString = secureInternetServer.apiBaseURLString
             if let discoveredServer = secureInternetServersMap[baseURLString] {
                 let countryCode = discoveredServer.countryCode
                 let countryName = Locale.current.localizedString(forRegionCode: countryCode) ?? "Unknown country"

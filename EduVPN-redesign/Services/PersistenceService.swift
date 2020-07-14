@@ -10,8 +10,6 @@ import os.log
 
 class PersistenceService {
 
-    typealias BaseURLString = String
-
     fileprivate struct AddedServers {
         var simpleServers: [SimpleServerInstance]
         var secureInternetServer: SecureInternetServerInstance?
@@ -41,18 +39,18 @@ class PersistenceService {
     }
 
     func addSimpleServer(_ server: SimpleServerInstance) {
-        let baseURLString = server.baseURL.absoluteString
+        let baseURLString = server.baseURLString
         addedServers.simpleServers.removeAll {
-            $0.baseURL.absoluteString == baseURLString
+            $0.baseURLString == baseURLString
         }
         addedServers.simpleServers.append(server)
         Self.saveToFile(addedServers: addedServers)
     }
 
     func removeSimpleServer(_ server: SimpleServerInstance) {
-        let baseURLString = server.baseURL.absoluteString
+        let baseURLString = server.baseURLString
         let pivotIndex = addedServers.simpleServers.partition(
-            by: { $0.baseURL.absoluteString == baseURLString })
+            by: { $0.baseURLString == baseURLString })
         for index in pivotIndex ..< addedServers.simpleServers.count {
             DataStore(path: addedServers.simpleServers[index].localStoragePath).delete()
         }
@@ -68,17 +66,17 @@ class PersistenceService {
         Self.saveToFile(addedServers: addedServers)
     }
 
-    func setSecureInternetServerAPIBaseURL(_ url: URL) {
+    func setSecureInternetServerAPIBaseURLString(_ urlString: DiscoveryData.BaseURLString) {
         guard let existingServer = addedServers.secureInternetServer else {
             os_log("No secure internet server exists", log: Log.general, type: .error)
             return
         }
-        if url == existingServer.apiBaseURL {
+        if urlString == existingServer.apiBaseURLString {
             return
         }
         // Remove client certificate data here
         let server = SecureInternetServerInstance(
-            apiBaseURL: url, authBaseURL: existingServer.authBaseURL,
+            apiBaseURLString: urlString, authBaseURLString: existingServer.authBaseURLString,
             orgId: existingServer.orgId, localStoragePath: existingServer.localStoragePath)
         addedServers.secureInternetServer = server
         Self.saveToFile(addedServers: addedServers)

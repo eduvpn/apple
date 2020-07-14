@@ -49,10 +49,10 @@ class ServerAuthService {
         self.configClientId = configClientId
     }
 
-    func startAuth(baseURL: URL,
+    func startAuth(baseURLString: DiscoveryData.BaseURLString,
                    from viewController: ViewController) -> Promise<AuthState> {
-        firstly {
-            ServerInfoFetcher.fetch(baseURL: baseURL)
+        return firstly {
+            ServerInfoFetcher.fetch(baseURLString: baseURLString)
         }.then { serverInfo in
             self.startAuth(
                 authEndpoint: serverInfo.authorizationEndpoint,
