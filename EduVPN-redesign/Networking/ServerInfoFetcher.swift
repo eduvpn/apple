@@ -57,7 +57,7 @@ struct ServerInfoFetcher {
             return ServerInfo(
                 authorizationEndpoint: authServerInfo.authorizationEndpoint,
                 tokenEndpoint: authServerInfo.tokenEndpoint,
-                apiBaseUrl: apiServerInfo.apiBaseUrl)
+                apiBaseURL: apiServerInfo.apiBaseURL)
         }
     }
 }

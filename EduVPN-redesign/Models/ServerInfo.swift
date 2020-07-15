@@ -12,7 +12,7 @@ struct ServerInfo: Decodable {
 
     var authorizationEndpoint: OAuthEndpoint
     var tokenEndpoint: OAuthEndpoint
-    var apiBaseUrl: BaseURL
+    var apiBaseURL: BaseURL
 }
 
 extension ServerInfo {
@@ -22,7 +22,7 @@ extension ServerInfo {
         case apiInfo = "http://eduvpn.org/api#2"
         case authorizationEndpoint = "authorization_endpoint"
         case tokenEndpoint = "token_endpoint"
-        case apiBaseUrl = "api_base_uri"
+        case apiBaseURL = "api_base_uri"
     }
 
     init(from decoder: Decoder) throws {
@@ -33,8 +33,8 @@ extension ServerInfo {
         
         let authorizationEndpoint = try apiInfoContainer.decode(URL.self, forKey: .authorizationEndpoint)
         let tokenEndpoint = try apiInfoContainer.decode(URL.self, forKey: .tokenEndpoint)
-        let apiBaseUrl = try apiInfoContainer.decode(URL.self, forKey: .apiBaseUrl)
+        let apiBaseURL = try apiInfoContainer.decode(URL.self, forKey: .apiBaseURL)
         
-        self.init(authorizationEndpoint: authorizationEndpoint, tokenEndpoint: tokenEndpoint, apiBaseUrl: apiBaseUrl)
+        self.init(authorizationEndpoint: authorizationEndpoint, tokenEndpoint: tokenEndpoint, apiBaseURL: apiBaseURL)
     }
 }
