@@ -13,7 +13,7 @@ import os.log
 enum ServerAPIServiceError: Error {
     case serverProvidedInvalidCertificate
     case HTTPFailure(response: Moya.Response)
-    case errorGettingProfileConfig(profileId: String, serverError: String)
+    case errorGettingProfileConfig(profile: ProfileListResponse.Profile, serverError: String)
 }
 
 class ServerAPIService {
@@ -60,19 +60,21 @@ class ServerAPIService {
         }
     }
 
-    func getTunnelConfigurationData(for server: ServerInstance, profileId: String,
+    func getTunnelConfigurationData(for server: ServerInstance,
+                                    profile: ProfileListResponse.Profile,
                                     from viewController: AuthorizingViewController,
                                     options: Options = []) -> Promise<TunnelConfigurationData> {
         return firstly {
             ServerInfoFetcher.fetch(apiBaseURLString: server.apiBaseURLString,
                                     authBaseURLString: server.authBaseURLString)
         }.then { serverInfo -> Promise<TunnelConfigurationData> in
-            return self.getTunnelConfigurationData(for: server, serverInfo: serverInfo, profileId: profileId,
+            return self.getTunnelConfigurationData(for: server, serverInfo: serverInfo, profile: profile,
                                               from: viewController, options: options)
         }
     }
 
-    func getTunnelConfigurationData(for server: ServerInstance, serverInfo: ServerInfo, profileId: String,
+    func getTunnelConfigurationData(for server: ServerInstance, serverInfo: ServerInfo,
+                                    profile: ProfileListResponse.Profile,
                                     from viewController: AuthorizingViewController,
                                     options: Options = []) -> Promise<TunnelConfigurationData> {
         let dataStore = PersistenceService.DataStore(path: server.localStoragePath)
@@ -82,7 +84,7 @@ class ServerAPIService {
         return firstly {
             getKeyPair(basicTargetInfo: basicTargetInfo, options: options)
         }.then { (keyPair, expiryDate) in
-            self.getProfileConfig(basicTargetInfo: basicTargetInfo, profileId: profileId, options: options)
+            self.getProfileConfig(basicTargetInfo: basicTargetInfo, profile: profile, options: options)
                 .map { profileConfig in
                     let openVPNConfig = Self.createOpenVPNConfig(
                         profileConfig: profileConfig, isUDPAllowed: true, keyPair: keyPair)
@@ -110,7 +112,7 @@ private extension ServerAPIService {
         case profileList(BasicTargetInfo)
         case createKeyPair(BasicTargetInfo, displayName: String)
         case checkCertificate(BasicTargetInfo, commonName: String)
-        case profileConfig(BasicTargetInfo, profileId: String)
+        case profileConfig(BasicTargetInfo, profile: ProfileListResponse.Profile)
 
         var basicTargetInfo: BasicTargetInfo {
             switch self {
@@ -153,9 +155,9 @@ private extension ServerAPIService {
                 return .requestParameters(
                     parameters: ["common_name": commonName],
                     encoding: URLEncoding.queryString)
-            case .profileConfig(_, let profileId):
+            case .profileConfig(_, let profile):
                 return .requestParameters(
-                    parameters: ["profile_id": profileId],
+                    parameters: ["profile_id": profile.profileId],
                     encoding: URLEncoding.queryString)
             }
         }
@@ -231,14 +233,14 @@ private extension ServerAPIService {
         }
     }
 
-    func getProfileConfig(basicTargetInfo: BasicTargetInfo, profileId: String,
+    func getProfileConfig(basicTargetInfo: BasicTargetInfo, profile: ProfileListResponse.Profile,
                           options: Options = []) -> Promise<Data> {
         firstly {
-            makeRequest(target: .profileConfig(basicTargetInfo, profileId: profileId),
+            makeRequest(target: .profileConfig(basicTargetInfo, profile: profile),
                         decodeAs: ProfileConfigResponse.self, options: options)
         }.map { data in
             if let errorResponse = try? JSONDecoder().decode(ProfileConfigErrorResponse.self, from: data) {
-                throw ServerAPIServiceError.errorGettingProfileConfig(profileId: profileId, serverError: errorResponse.errorMessage)
+                throw ServerAPIServiceError.errorGettingProfileConfig(profile: profile, serverError: errorResponse.errorMessage)
             }
             return data
         }
