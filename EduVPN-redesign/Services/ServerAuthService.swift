@@ -36,20 +36,34 @@ class ServerAuthService {
     }
 
     func startAuth(baseURLString: DiscoveryData.BaseURLString,
-                   from viewController: ViewController) -> Promise<AuthState> {
+                   from viewController: AuthorizingViewController) -> Promise<AuthState> {
+        #if os(macOS)
+        viewController.showAuthorizingMessage(onCancelled: { [weak self] in
+            self?.cancelAuth()
+        })
+        #endif
         return firstly {
             ServerInfoFetcher.fetch(baseURLString: baseURLString)
         }.then { serverInfo in
             self.startAuth(
                 authEndpoint: serverInfo.authorizationEndpoint,
                 tokenEndpoint: serverInfo.tokenEndpoint,
-                from: viewController)
+                from: viewController,
+                shouldShowAuthorizingMessage: false)
         }
     }
 
     func startAuth(authEndpoint: ServerInfo.OAuthEndpoint,
                    tokenEndpoint: ServerInfo.OAuthEndpoint,
-                   from viewController: ViewController) -> Promise<AuthState> {
+                   from viewController: AuthorizingViewController,
+                   shouldShowAuthorizingMessage: Bool = true) -> Promise<AuthState> {
+        #if os(macOS)
+        if shouldShowAuthorizingMessage {
+            viewController.showAuthorizingMessage(onCancelled: { [weak self] in
+                self?.cancelAuth()
+            })
+        }
+        #endif
         let authConfig = OIDServiceConfiguration(
             authorizationEndpoint: authEndpoint,
             tokenEndpoint: tokenEndpoint)
@@ -61,9 +75,13 @@ class ServerAuthService {
             responseType: OIDResponseTypeCode,
             additionalParameters: nil)
         return Promise { seal in
-            let authFlow = Self.createAuthState(
+            let authFlow = createAuthState(
                 authRequest: authRequest,
-                presentingViewController: viewController) { (authState, error) in
+                viewController: viewController) { (authState, error) in
+                    #if os(macOS)
+                    NSApp.activate(ignoringOtherApps: true)
+                    viewController.hideAuthorizingMessage()
+                    #endif
                     if let authState = authState {
                         seal.resolve(AuthState(oidAuthState: authState), error)
                     } else {
@@ -104,9 +122,9 @@ class ServerAuthService {
                 code == OIDErrorCode.userCanceledAuthorizationFlow.rawValue)
     }
 
-    private static func createAuthState(
+    private func createAuthState(
         authRequest: OIDAuthorizationRequest,
-        presentingViewController: ViewController,
+        viewController: AuthorizingViewController,
         callback: @escaping OIDAuthStateAuthorizationCallback) -> OIDExternalUserAgentSession? {
 
         #if os(macOS)

@@ -136,15 +136,8 @@ extension SearchViewController {
         let navigationController = parameters.environment.navigationController
         let delegate = self.delegate
         if let baseURLString = row.baseURLString {
-            navigationController?.showAuthorizingMessage(cancelAuthorizationHandler: {
-                serverAuthService.cancelAuth()
-                navigationController?.hideAuthorizingMessage()
-            })
             firstly {
                 serverAuthService.startAuth(baseURLString: baseURLString, from: self)
-            }.ensure {
-                Self.makeApplicationComeToTheForeground()
-                navigationController?.hideAuthorizingMessage()
             }.map { authState in
                 switch row {
                 case .instituteAccessServer, .serverByURL:
@@ -172,6 +165,19 @@ extension SearchViewController: SearchViewModelDelegate {
     func rowsChanged(changes: RowsDifference<SearchViewModel.Row>) {
         tableView?.performUpdates(deletedIndices: changes.deletedIndices,
                                   insertedIndices: changes.insertions.map { $0.0 })
+    }
+}
+
+// MARK: - AuthorizingViewController
+
+extension SearchViewController: AuthorizingViewController {
+    func showAuthorizingMessage(onCancelled: @escaping () -> Void) {
+        parameters.environment.navigationController?
+            .showAuthorizingMessage(onCancelled: onCancelled)
+    }
+    func hideAuthorizingMessage() {
+        parameters.environment.navigationController?
+            .hideAuthorizingMessage()
     }
 }
 

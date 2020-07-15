@@ -26,7 +26,7 @@ class NavigationController: NSViewController {
 
     private var canGoBack: Bool { children.count > 1 }
 
-    private var cancelAuthorizationHandler: (() -> Void)?
+    private var onCancelled: (() -> Void)?
 
     @IBOutlet weak var toolbarLeftButton: NSButton!
 
@@ -41,7 +41,8 @@ class NavigationController: NSViewController {
     }
 
     @IBAction func cancelAuthorizationButtonClicked(_ sender: Any) {
-        cancelAuthorizationHandler?()
+        onCancelled?()
+        hideAuthorizingMessage()
     }
 
     private func updateToolbarLeftButton() {
@@ -90,15 +91,15 @@ extension NavigationController: Navigating {
 }
 
 extension NavigationController {
-    func showAuthorizingMessage(cancelAuthorizationHandler: @escaping () -> Void) {
+    func showAuthorizingMessage(onCancelled: @escaping () -> Void) {
         self.authorizingMessageBox.isHidden = false
-        self.cancelAuthorizationHandler = cancelAuthorizationHandler
+        self.onCancelled = onCancelled
         self.updateToolbarLeftButton()
     }
 
     func hideAuthorizingMessage() {
         self.authorizingMessageBox.isHidden = true
-        self.cancelAuthorizationHandler = nil
+        self.onCancelled = nil
         self.updateToolbarLeftButton()
     }
 }
