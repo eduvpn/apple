@@ -13,6 +13,7 @@ import os.log
 enum ServerAPIServiceError: Error {
     case serverProvidedInvalidCertificate
     case HTTPFailure(response: Moya.Response)
+    case errorGettingProfileConfig(profileId: String, serverError: String)
 }
 
 class ServerAPIService {
@@ -81,8 +82,7 @@ class ServerAPIService {
         return firstly {
             getKeyPair(basicTargetInfo: basicTargetInfo, options: options)
         }.then { (keyPair, expiryDate) in
-            self.makeRequest(target: .profileConfig(basicTargetInfo, profileId: profileId),
-                             decodeAs: ProfileConfigResponse.self, options: options)
+            self.getProfileConfig(basicTargetInfo: basicTargetInfo, profileId: profileId, options: options)
                 .map { profileConfig in
                     let openVPNConfig = Self.createOpenVPNConfig(
                         profileConfig: profileConfig, isUDPAllowed: true, keyPair: keyPair)
@@ -228,6 +228,19 @@ private extension ServerAPIService {
             } else {
                 throw error
             }
+        }
+    }
+
+    func getProfileConfig(basicTargetInfo: BasicTargetInfo, profileId: String,
+                          options: Options = []) -> Promise<Data> {
+        firstly {
+            makeRequest(target: .profileConfig(basicTargetInfo, profileId: profileId),
+                        decodeAs: ProfileConfigResponse.self, options: options)
+        }.map { data in
+            if let errorResponse = try? JSONDecoder().decode(ProfileConfigErrorResponse.self, from: data) {
+                throw ServerAPIServiceError.errorGettingProfileConfig(profileId: profileId, serverError: errorResponse.errorMessage)
+            }
+            return data
         }
     }
 

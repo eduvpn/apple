@@ -108,6 +108,32 @@ struct ProfileConfigResponse: ServerResponse {
     }
 }
 
+// Parse error response to a /profile_config request
+//
+// Example error response:
+// {
+//     "profile_config": {
+//         "error": "profile not available or no permission"
+//         "ok": false,
+//     }
+// }
+
+struct ProfileConfigErrorResponse: Decodable {
+
+    let errorMessage: String
+
+    enum TopLevelKeys: String, CodingKey {
+        case profile_config // swiftlint:disable:this identifier_name
+    }
+
+    init(from decoder: Decoder) throws {
+        let topLevelContainer = try decoder.container(keyedBy: TopLevelKeys.self)
+        let dataContainer = try topLevelContainer.nestedContainer(
+            keyedBy: SecondLevelKeys.self, forKey: .profile_config)
+        self.errorMessage = try dataContainer.decode(String.self, forKey: .error)
+    }
+}
+
 // Parse response to a /check_certificate request
 //
 // Example response:
@@ -150,4 +176,5 @@ struct CheckCertificateResponse: ServerResponse, Decodable {
 
 private enum SecondLevelKeys: String, CodingKey {
     case data
+    case error
 }
