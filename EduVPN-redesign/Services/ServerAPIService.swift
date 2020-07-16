@@ -12,7 +12,7 @@ import os.log
 
 enum ServerAPIServiceError: Error {
     case serverProvidedInvalidCertificate
-    case HTTPFailure(response: Moya.Response)
+    case HTTPFailure(requestURLPath: String, response: Moya.Response)
     case errorGettingProfileConfig(profile: ProfileListResponse.Profile, serverError: String)
 }
 
@@ -184,7 +184,7 @@ private extension ServerAPIService {
             } else {
                 let successStatusCodes = (200...299)
                 guard successStatusCodes.contains(response.statusCode) else {
-                    throw ServerAPIServiceError.HTTPFailure(response: response)
+                    throw ServerAPIServiceError.HTTPFailure(requestURLPath: target.path, response: response)
                 }
                 return Promise.value(try T(data: response.data).data)
             }
