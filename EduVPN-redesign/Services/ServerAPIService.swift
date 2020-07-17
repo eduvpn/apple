@@ -37,6 +37,7 @@ class ServerAPIService {
     }
 
     private let serverAuthService: ServerAuthService
+    private var authStateChangeHandler: AuthStateChangeHandler?
 
     init(serverAuthService: ServerAuthService) {
         self.serverAuthService = serverAuthService
@@ -276,6 +277,11 @@ private extension ServerAPIService {
 }
 
 private extension ServerAPIService {
+
+    enum AuthStateError: Error {
+        case authStateUnauthorized(authorizationError: Error)
+    }
+
     func getFreshAccessToken(basicTargetInfo: BasicTargetInfo,
                              options: Options = []) -> Promise<String> {
         return firstly { () -> Promise<String> in
@@ -285,7 +291,7 @@ private extension ServerAPIService {
             guard let authState = basicTargetInfo.dataStore.authState else {
                 throw StoredDataError.cannotUseStoredAuthState
             }
-            return authState.getFreshAccessToken(storingChangesTo: basicTargetInfo.dataStore)
+            return self.getFreshAccessToken(using: authState, storingChangesTo: basicTargetInfo.dataStore)
         }.recover { error -> Promise<String> in
             os_log("Error getting access token: %{public}@", log: Log.general, type: .error,
                    error.localizedDescription)
@@ -299,12 +305,45 @@ private extension ServerAPIService {
                     from: basicTargetInfo.sourceViewController)
                 .then { authState -> Promise<String> in
                     basicTargetInfo.dataStore.authState = authState
-                    return authState.getFreshAccessToken(storingChangesTo: basicTargetInfo.dataStore)
+                    return self.getFreshAccessToken(using: authState, storingChangesTo: basicTargetInfo.dataStore)
                 }
             default:
                 throw error
             }
         }
+    }
+
+    func getFreshAccessToken(using authState: AuthState,
+                             storingChangesTo dataStore: PersistenceService.DataStore)
+        -> Promise<String> {
+        return Promise { seal in
+            let authStateChangeHandler = AuthStateChangeHandler(dataStore: dataStore)
+            authState.oidAuthState.stateChangeDelegate = authStateChangeHandler
+            self.authStateChangeHandler = authStateChangeHandler
+            authState.oidAuthState.performAction { [weak self] (accessToken, _, error) in
+                authState.oidAuthState.stateChangeDelegate = nil
+                self?.authStateChangeHandler = nil
+                if let authorizationError = authState.oidAuthState.authorizationError {
+                    let error = AuthStateError.authStateUnauthorized(
+                        authorizationError: authorizationError)
+                    seal.reject(error)
+                } else {
+                    seal.resolve(accessToken, error)
+                }
+            }
+        }
+    }
+}
+
+private class AuthStateChangeHandler: NSObject, OIDAuthStateChangeDelegate {
+    let dataStore: PersistenceService.DataStore
+
+    init(dataStore: PersistenceService.DataStore) {
+        self.dataStore = dataStore
+    }
+
+    func didChange(_ state: OIDAuthState) {
+        dataStore.authState = AuthState(oidAuthState: state)
     }
 }
 

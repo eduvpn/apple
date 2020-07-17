@@ -123,7 +123,7 @@ extension PersistenceService {
 }
 
 extension PersistenceService {
-    class DataStore: NSObject {
+    class DataStore {
         let rootURL: URL
 
         init(path: String) {
@@ -226,11 +226,5 @@ extension PersistenceService.AddedServers: Codable {
     enum CodingKeys: String, CodingKey {
         case simpleServers = "simple_servers"
         case secureInternetServer = "secure_internet_server"
-    }
-}
-
-extension PersistenceService.DataStore: OIDAuthStateChangeDelegate {
-    func didChange(_ state: OIDAuthState) {
-        authState = AuthState(oidAuthState: state)
     }
 }
