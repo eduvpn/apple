@@ -124,8 +124,8 @@ extension MainViewModel {
             computedRows.append(.serverByURLSectionHeader)
             computedRows.append(contentsOf: serverByURLRows)
         }
+        computedRows.sort()
 
-        assert(computedRows == computedRows.sorted(), "computedRows is not ordered correctly")
         let diff = computedRows.rowsDifference(from: self.rows)
         self.rows = computedRows
         self.delegate?.rowsChanged(changes: diff)
