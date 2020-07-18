@@ -8,6 +8,8 @@ enum ViewModelRowKind: Int {
     case instituteAccessServerKind
     case secureInternetOrgSectionHeaderKind
     case secureInternetOrgKind
+    case secureInternetServerSectionHeaderKind
+    case secureInternetServerKind
     case serverByURLSectionHeaderKind
     case serverByURLKind
     case noResultsKind
@@ -16,7 +18,8 @@ enum ViewModelRowKind: Int {
         switch self {
         case .serverByURLSectionHeaderKind,
              .instituteAccessServerSectionHeaderKind,
-             .secureInternetOrgSectionHeaderKind:
+             .secureInternetOrgSectionHeaderKind,
+             .secureInternetServerSectionHeaderKind:
             return true
         default:
             return false
@@ -27,7 +30,8 @@ enum ViewModelRowKind: Int {
         switch self {
         case .serverByURLKind,
              .instituteAccessServerKind,
-             .secureInternetOrgKind:
+             .secureInternetOrgKind,
+             .secureInternetServerKind:
             return true
         default:
             return false

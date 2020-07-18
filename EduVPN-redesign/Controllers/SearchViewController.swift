@@ -2,20 +2,21 @@
 //  SearchViewController.swift
 //  EduVPN
 //
-//  Created by Johan Kool on 28/05/2020.
-//
 
 import Foundation
 import PromiseKit
 import AppAuth
+import os.log
 
 protocol SearchViewControllerDelegate: class {
-    func searchViewControllerAddedServer(baseURL: URL, authState: AuthState)
+    func searchViewControllerAddedSimpleServer(baseURL: URL, authState: AuthState)
+    func searchViewControllerAddedSecureInternetServer(baseURL: URL, orgId: String, authState: AuthState)
 }
 
 final class SearchViewController: ViewController, ParametrizedViewController {
     struct Parameters {
         let environment: Environment
+        let shouldIncludeOrganizations: Bool
     }
 
     weak var delegate: SearchViewControllerDelegate?
@@ -23,12 +24,12 @@ final class SearchViewController: ViewController, ParametrizedViewController {
     private var parameters: Parameters!
     private var viewModel: SearchViewModel!
 
-    @IBOutlet weak var stackView: NSStackView!
-    @IBOutlet weak var topSpacerView: NSView!
-    @IBOutlet weak var topImageView: NSImageView!
-    @IBOutlet weak var tableContainerView: NSScrollView!
-    @IBOutlet weak var tableView: NSTableView!
-    @IBOutlet weak var spinner: NSProgressIndicator!
+    @IBOutlet weak var stackView: StackView!
+    @IBOutlet weak var topSpacerView: View!
+    @IBOutlet weak var topImageView: ImageView!
+    @IBOutlet weak var tableContainerView: View!
+    @IBOutlet weak var tableView: TableView!
+    @IBOutlet weak var spinner: ProgressIndicator!
 
     private var isTableViewShown: Bool = false
 
@@ -42,7 +43,7 @@ final class SearchViewController: ViewController, ParametrizedViewController {
         }
         let viewModel = SearchViewModel(
             serverDiscoveryService: serverDiscoveryService,
-            shouldIncludeOrganizations: true)
+            shouldIncludeOrganizations: parameters.shouldIncludeOrganizations)
         viewModel.delegate = self
         self.viewModel = viewModel
     }
@@ -60,13 +61,11 @@ final class SearchViewController: ViewController, ParametrizedViewController {
         for view in [topSpacerView, topImageView] {
             view?.removeFromSuperview()
         }
-        NSAnimationContext.runAnimationGroup({context in
-            context.duration = 0.5
-            context.allowsImplicitAnimation = true
+        performWithAnimation(seconds: 0.5) {
             spinner.layer?.opacity = 1
             tableContainerView.layer?.opacity = 1
             stackView.layoutSubtreeIfNeeded()
-        }, completionHandler: nil)
+        }
         spinner.startAnimation(self)
         firstly {
             self.viewModel.load(from: .cache)
@@ -76,6 +75,9 @@ final class SearchViewController: ViewController, ParametrizedViewController {
             self.spinner.stopAnimation(self)
             self.spinner.removeFromSuperview()
         }.catch { error in
+            os_log("Error loading discovery data: %{public}@",
+                   log: Log.general, type: .error,
+                   error.localizedDescription)
             self.parameters.environment.navigationController?.showAlert(for: error)
         }
     }
@@ -84,31 +86,12 @@ final class SearchViewController: ViewController, ParametrizedViewController {
 // MARK: - Search field
 
 extension SearchViewController {
-    @IBAction func searchFieldTextChanged(_ sender: Any) {
-        if let searchField = sender as? NSSearchField {
-            viewModel.setSearchQuery(searchField.stringValue)
-        }
-    }
-}
-
-extension SearchViewController {
     func searchFieldGotFocus() {
         showTableView()
     }
-}
 
-class SearchField: NSSearchField {
-    override func becomeFirstResponder() -> Bool {
-        // Walk the responder chain to find SearchViewController
-        var responder: NSResponder? = nextResponder
-        while responder != nil {
-            if let searchVC = responder as? SearchViewController {
-                searchVC.searchFieldGotFocus()
-                break
-            }
-            responder = responder?.nextResponder
-        }
-        return super.becomeFirstResponder()
+    func searchFieldTextChanged(text: String) {
+        viewModel.setSearchQuery(text)
     }
 }
 
@@ -125,7 +108,7 @@ extension SearchViewController {
             let cell = tableView.dequeue(SectionHeaderCell.self,
                                          identifier: "SearchSectionHeaderCell",
                                          indexPath: IndexPath(item: index, section: 0))
-            cell.configure(as: row.rowKind)
+            cell.configure(as: row.rowKind, isAdding: true)
             return cell
         } else if row.rowKind == .noResultsKind {
             let cell = tableView.dequeue(SearchNoResultsCell.self,
@@ -158,11 +141,21 @@ extension SearchViewController {
             firstly {
                 serverAuthService.startAuth(baseURL: baseURL, from: self)
             }.ensure {
-                makeApplicationComeToTheForeground()
+                Self.makeApplicationComeToTheForeground()
                 navigationController?.hideAuthorizingMessage()
             }.map { authState in
-                delegate?.searchViewControllerAddedServer(baseURL: baseURL, authState: authState)
+                switch row {
+                case .instituteAccessServer, .serverByURL:
+                    delegate?.searchViewControllerAddedSimpleServer(baseURL: baseURL, authState: authState)
+                case .secureInternetOrg(let organization):
+                    delegate?.searchViewControllerAddedSecureInternetServer(baseURL: baseURL, orgId: organization.orgId, authState: authState)
+                default:
+                    break
+                }
             }.catch { error in
+                os_log("Error during authentication: %{public}@",
+                       log: Log.general, type: .error,
+                       error.localizedDescription)
                 if !serverAuthService.isUserCancelledError(error) {
                     navigationController?.showAlert(for: error)
                 }
@@ -171,21 +164,12 @@ extension SearchViewController {
     }
 }
 
-private func makeApplicationComeToTheForeground() {
-    NSApp.activate(ignoringOtherApps: true)
-}
-
 // MARK: - View model delegate
 
 extension SearchViewController: SearchViewModelDelegate {
     func rowsChanged(changes: RowsDifference<SearchViewModel.Row>) {
-        guard let tableView = tableView else { return }
-        tableView.beginUpdates()
-        tableView.removeRows(at: IndexSet(changes.deletedIndices),
-                             withAnimation: [])
-        tableView.insertRows(at: IndexSet(changes.insertions.map { $0.0 }),
-                             withAnimation: [])
-        tableView.endUpdates()
+        tableView?.performUpdates(deletedIndices: changes.deletedIndices,
+                                  insertedIndices: changes.insertions.map { $0.0 })
     }
 }
 

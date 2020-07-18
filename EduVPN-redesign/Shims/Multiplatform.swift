@@ -29,6 +29,9 @@ typealias Button = UIButton
 typealias TableView = UITableView
 typealias TableViewCell = UITableViewCell
 typealias Image = UIImage
+typealias StackView = UIStackView
+typealias ImageView = UIImageView
+typealias ProgressIndicator = UIActivityIndicatorView
 
 extension PresentingController: Presenting { }
 extension NavigationController: Navigating { }
@@ -46,11 +49,15 @@ import AppKit
 typealias ApplicationDelegate = NSApplicationDelegate
 typealias ViewController = NSViewController
 typealias Window = NSWindow
+typealias View = NSView
 typealias Storyboard = NSStoryboard
 typealias Button = NSButton
 typealias TableView = NSTableView
 typealias TableViewCell = NSTableCellView
 typealias Image = NSImage
+typealias StackView = NSStackView
+typealias ImageView = NSImageView
+typealias ProgressIndicator = NSProgressIndicator
 
 extension Window {
     func makeKeyAndVisible() {
@@ -84,6 +91,13 @@ extension TableView {
                 fatalError("Can't dequeue \(T.self) with identifier \(identifier)")
         }
         return cellView as! T // swiftlint:disable:this force_cast
+    }
+
+    func performUpdates(deletedIndices: [Int], insertedIndices: [Int]) {
+        beginUpdates()
+        removeRows(at: IndexSet(deletedIndices), withAnimation: [])
+        insertRows(at: IndexSet(insertedIndices), withAnimation: [])
+        endUpdates()
     }
 }
 
