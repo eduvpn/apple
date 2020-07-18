@@ -758,27 +758,27 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fJh-dV-ob0">
-                                            <rect key="frame" x="60" y="104" width="300" height="136"/>
+                                            <rect key="frame" x="50" y="119" width="320" height="121"/>
                                             <subviews>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SE2-xh-Knp" userLabel="Title">
-                                                    <rect key="frame" x="40" y="113" width="220" height="23"/>
+                                                    <rect key="frame" x="41" y="94" width="239" height="27"/>
                                                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Authorization required" id="fgP-0m-8h7">
-                                                        <font key="font" metaFont="systemBold" size="20"/>
+                                                        <font key="font" size="20" name="OpenSans-Bold"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="6jj-8N-M4j" userLabel="Message">
-                                                    <rect key="frame" x="-2" y="29" width="304" height="76"/>
+                                                    <rect key="frame" x="-2" y="29" width="324" height="57"/>
                                                     <textFieldCell key="cell" selectable="YES" alignment="center" id="rjg-ax-aJ6">
-                                                        <font key="font" metaFont="systemLight" size="15"/>
+                                                        <font key="font" size="14" name="OpenSans-Regular"/>
                                                         <string key="title">This app needs authorization and will open your web browser. It will proceed when you have completed authorization in the browser.</string>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="g9Q-Cl-IbQ" userLabel="I">
-                                                    <rect key="frame" x="109" y="-7" width="82" height="32"/>
+                                                    <rect key="frame" x="119" y="-7" width="82" height="32"/>
                                                     <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WkR-8V-71c">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
@@ -792,7 +792,7 @@ Gw
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="300" id="BFO-W9-ztf"/>
+                                                <constraint firstAttribute="width" constant="320" id="BFO-W9-ztf" userLabel="width = 360"/>
                                             </constraints>
                                             <visibilityPriorities>
                                                 <integer value="1000"/>
@@ -842,24 +842,24 @@ Gw
             <objects>
                 <viewController storyboardIdentifier="Main" id="NF9-lc-b6F" customClass="MainViewController" customModule="EduVPN_redesign_macOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" misplaced="YES" id="Omz-RM-dRy">
-                        <rect key="frame" x="0.0" y="0.0" width="490" height="566"/>
+                        <rect key="frame" x="0.0" y="0.0" width="490" height="766"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView wantsLayer="YES" horizontalHuggingPriority="100" borderType="none" autohidesScrollers="YES" horizontalLineScroll="60" horizontalPageScroll="10" verticalLineScroll="60" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ViX-vU-MfI" userLabel="Table Container View">
-                                <rect key="frame" x="20" y="20" width="459" height="266"/>
+                                <rect key="frame" x="20" y="20" width="549" height="254"/>
                                 <clipView key="contentView" drawsBackground="NO" id="Vdj-rZ-nzW">
-                                    <rect key="frame" x="0.0" y="0.0" width="459" height="266"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="549" height="254"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="40" usesAutomaticRowHeights="YES" viewBased="YES" floatsGroupRows="NO" id="0Se-xs-SBR">
-                                            <rect key="frame" x="0.0" y="0.0" width="459" height="334"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="549" height="334"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="20"/>
                                             <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                             <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn editable="NO" width="456" minWidth="40" maxWidth="1000" id="EBT-dj-yhn">
+                                                <tableColumn editable="NO" width="546" minWidth="40" maxWidth="1000" id="EBT-dj-yhn">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -872,13 +872,13 @@ Gw
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView identifier="SimpleServerRowCell" misplaced="YES" id="WqF-pb-kVL" userLabel="Simple Server Row" customClass="RowCell" customModule="EduVPN_redesign_macOS" customModuleProvider="target">
-                                                            <rect key="frame" x="1" y="10" width="456" height="44"/>
+                                                            <rect key="frame" x="1" y="10" width="546" height="44"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="7aT-Lg-nTY">
-                                                                    <rect key="frame" x="2" y="6" width="443" height="19"/>
+                                                                    <rect key="frame" x="2" y="6" width="533" height="22"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="eii-iD-n5q">
-                                                                        <font key="font" metaFont="systemLight" size="15"/>
+                                                                        <font key="font" size="16" name="OpenSans-Regular"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
@@ -901,17 +901,17 @@ Gw
                                                             </connections>
                                                         </tableCellView>
                                                         <tableCellView identifier="SecureInternetServerRowCell" misplaced="YES" id="BK9-3U-MTh" userLabel="Secure Internet Server Row" customClass="RowCell" customModule="EduVPN_redesign_macOS" customModuleProvider="target">
-                                                            <rect key="frame" x="1" y="74" width="456" height="44"/>
+                                                            <rect key="frame" x="1" y="74" width="546" height="44"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OaU-yW-ifC" userLabel="Country Flag Image">
-                                                                    <rect key="frame" x="4" y="11" width="14" height="10"/>
+                                                                    <rect key="frame" x="4" y="12" width="14" height="10"/>
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSIconViewTemplate" id="4Iw-ju-apb"/>
                                                                 </imageView>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q2I-3C-SgY">
                                                                     <rect key="frame" x="58" y="6" width="450" height="19"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="Lam-g0-V1d">
-                                                                        <font key="font" metaFont="systemLight" size="15"/>
+                                                                        <font key="font" size="16" name="OpenSans-Regular"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
@@ -937,7 +937,7 @@ Gw
                                                             </connections>
                                                         </tableCellView>
                                                         <tableCellView identifier="MainSectionHeaderCell" misplaced="YES" id="1Dn-e8-gNl" userLabel="Main Section Header" customClass="SectionHeaderCell" customModule="EduVPN_redesign_macOS" customModuleProvider="target">
-                                                            <rect key="frame" x="1" y="138" width="456" height="83"/>
+                                                            <rect key="frame" x="1" y="138" width="546" height="83"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Mg-cR-6QE">
@@ -949,9 +949,9 @@ Gw
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="lGf-bw-BgH"/>
                                                                 </imageView>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DX4-xV-Jul">
-                                                                    <rect key="frame" x="48" y="7" width="406" height="24"/>
+                                                                    <rect key="frame" x="48" y="6" width="496" height="27"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="HCo-B3-BdM">
-                                                                        <font key="font" metaFont="systemBold" size="21"/>
+                                                                        <font key="font" size="20" name="OpenSans-Bold"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
@@ -971,7 +971,7 @@ Gw
                                                             </connections>
                                                         </tableCellView>
                                                         <tableCellView identifier="MainSecureInternetSectionHeaderCell" misplaced="YES" id="d6Y-M9-wtH" userLabel="Main Secure Internet Section Header" customClass="MainSecureInternetSectionHeaderCell" customModule="EduVPN_redesign_macOS" customModuleProvider="target">
-                                                            <rect key="frame" x="1" y="241" width="456" height="83"/>
+                                                            <rect key="frame" x="1" y="241" width="546" height="83"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tHo-YM-pH6">
@@ -983,9 +983,9 @@ Gw
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="vod-eM-BfC"/>
                                                                 </imageView>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" ambiguous="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tdd-iW-vog">
-                                                                    <rect key="frame" x="48" y="7" width="153" height="24"/>
+                                                                    <rect key="frame" x="48" y="5" width="153" height="28"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="7d1-Ll-Cuc">
-                                                                        <font key="font" metaFont="systemBold" size="21"/>
+                                                                        <font key="font" size="21" name="OpenSans-Bold"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
@@ -1061,7 +1061,7 @@ Gw
                     </connections>
                 </menu>
             </objects>
-            <point key="canvasLocation" x="221" y="1350"/>
+            <point key="canvasLocation" x="383" y="1251"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="Hfa-sK-2ss">
@@ -1081,24 +1081,24 @@ Gw
                                         </constraints>
                                     </customView>
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AiJ-eh-cZR" userLabel="Top Image">
-                                        <rect key="frame" x="180" y="570" width="90" height="236"/>
+                                        <rect key="frame" x="180" y="484" width="90" height="322"/>
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="SearchScreenTopImage" id="oWj-11-tRC"/>
                                     </imageView>
                                     <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OYQ-UB-7ZA">
-                                        <rect key="frame" x="-2" y="530" width="454" height="28"/>
+                                        <rect key="frame" x="-2" y="439" width="454" height="33"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Find your institute" id="eUs-aO-u69">
-                                            <font key="font" metaFont="systemBold" size="24"/>
+                                            <font key="font" size="24" name="OpenSans-Bold"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
                                     <searchField wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="100" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gW1-dp-amy" customClass="SearchField" customModule="EduVPN_redesign_macOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="478" width="450" height="40"/>
+                                        <rect key="frame" x="0.0" y="387" width="450" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="YjK-Nc-dHe"/>
                                         </constraints>
                                         <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" focusRingType="none" alignment="left" placeholderString="Search for your institute..." usesSingleLineMode="YES" bezelStyle="round" id="HLM-77-hLD">
-                                            <font key="font" metaFont="system" size="15"/>
+                                            <font key="font" size="14" name="OpenSans-Regular"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </searchFieldCell>
@@ -1107,16 +1107,16 @@ Gw
                                         </connections>
                                     </searchField>
                                     <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="6lv-tg-3Yq" userLabel="Spinner">
-                                        <rect key="frame" x="209" y="434" width="32" height="32"/>
+                                        <rect key="frame" x="209" y="343" width="32" height="32"/>
                                     </progressIndicator>
                                     <scrollView wantsLayer="YES" horizontalHuggingPriority="100" borderType="none" autohidesScrollers="YES" horizontalLineScroll="60" horizontalPageScroll="10" verticalLineScroll="60" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hge-fJ-m1C">
-                                        <rect key="frame" x="0.0" y="0.0" width="450" height="422"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="450" height="331"/>
                                         <clipView key="contentView" drawsBackground="NO" id="73u-Eo-EqN">
-                                            <rect key="frame" x="0.0" y="0.0" width="450" height="422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="450" height="331"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="40" usesAutomaticRowHeights="YES" viewBased="YES" floatsGroupRows="NO" id="s7r-dP-3wP">
-                                                    <rect key="frame" x="0.0" y="0.0" width="450" height="422"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="450" height="331"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="20"/>
                                                     <color key="backgroundColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.92549019607843142" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1140,9 +1140,9 @@ Gw
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="RFi-Xl-MDy">
-                                                                            <rect key="frame" x="2" y="6" width="443" height="19"/>
+                                                                            <rect key="frame" x="2" y="6" width="443" height="22"/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="Z2d-Hh-Edu">
-                                                                                <font key="font" metaFont="systemLight" size="15"/>
+                                                                                <font key="font" size="16" name="OpenSans-Regular"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
@@ -1171,9 +1171,9 @@ Gw
                                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="bBN-Bk-Z4Z"/>
                                                                         </imageView>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yxH-oe-ZI7">
-                                                                            <rect key="frame" x="48" y="7" width="153" height="24"/>
+                                                                            <rect key="frame" x="48" y="6" width="154" height="27"/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="rYc-EE-930">
-                                                                                <font key="font" metaFont="systemBold" size="21"/>
+                                                                                <font key="font" size="20" name="OpenSans-Bold"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
@@ -1198,7 +1198,7 @@ Gw
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O76-gt-ywi">
                                                                             <rect key="frame" x="2" y="-33" width="443" height="56"/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="No results. Please check your search query." id="naS-hX-V2b">
-                                                                                <font key="font" metaFont="systemLight" size="15"/>
+                                                                                <font key="font" size="18" name="OpenSans-Regular"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
