@@ -141,6 +141,8 @@
 		6FADF82F24ADF85F00B75E8D /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FADF82E24ADF85F00B75E8D /* Crypto.swift */; };
 		6FADF83124ADF86700B75E8D /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FADF83024ADF86600B75E8D /* Log.swift */; };
 		6FBFEF0C24C0680800A9D1D4 /* ConnectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBFEF0B24C0680800A9D1D4 /* ConnectionService.swift */; };
+		6FBFEF1524C2DCEE00A9D1D4 /* OpenSans-Bold.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6FBFEF0E24C2DCA900A9D1D4 /* OpenSans-Bold.ttf */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		6FBFEF1624C2DCEE00A9D1D4 /* OpenSans-Regular.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6FBFEF0F24C2DCA900A9D1D4 /* OpenSans-Regular.ttf */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		6FC27AC824B9550D006FA648 /* ServerAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC27AC724B9550C006FA648 /* ServerAPIService.swift */; };
 		6FCC5EF424B8579D00C6BC80 /* LanguageMappedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCC5EF324B8579D00C6BC80 /* LanguageMappedString.swift */; };
 		6FCC5EF624B85D6700C6BC80 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCC5EF524B85D6700C6BC80 /* ServerResponse.swift */; };
@@ -369,6 +371,17 @@
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6FBFEF1424C2DCC200A9D1D4 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Fonts;
+			dstSubfolderSpec = 7;
+			files = (
+				6FBFEF1524C2DCEE00A9D1D4 /* OpenSans-Bold.ttf in CopyFiles */,
+				6FBFEF1624C2DCEE00A9D1D4 /* OpenSans-Regular.ttf in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C7EB81502369B626006C141F /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -525,6 +538,8 @@
 		6FADF82E24ADF85F00B75E8D /* Crypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
 		6FADF83024ADF86600B75E8D /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		6FBFEF0B24C0680800A9D1D4 /* ConnectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionService.swift; sourceTree = "<group>"; };
+		6FBFEF0E24C2DCA900A9D1D4 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		6FBFEF0F24C2DCA900A9D1D4 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		6FC27AC724B9550C006FA648 /* ServerAPIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerAPIService.swift; sourceTree = "<group>"; };
 		6FCC5EF324B8579D00C6BC80 /* LanguageMappedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageMappedString.swift; sourceTree = "<group>"; };
 		6FCC5EF524B85D6700C6BC80 /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResponse.swift; sourceTree = "<group>"; };
@@ -1156,6 +1171,15 @@
 			path = ImageLoading;
 			sourceTree = "<group>";
 		};
+		6FBFEF0D24C2DC8C00A9D1D4 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				6FBFEF0E24C2DCA900A9D1D4 /* OpenSans-Bold.ttf */,
+				6FBFEF0F24C2DCA900A9D1D4 /* OpenSans-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		6FEF30F924A317940026C786 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -1327,6 +1351,7 @@
 		C7DB4C0A24805B56009932B1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6FBFEF0D24C2DC8C00A9D1D4 /* Fonts */,
 				C7DB4C7524806511009932B1 /* eduVPN_2.xcdatamodeld */,
 				C7DB4C72248064C6009932B1 /* iOS */,
 				C7DB4C68248064BC009932B1 /* Mac */,
@@ -1570,6 +1595,7 @@
 				6F750C8E24975A4300AF2C04 /* Embed App Extensions */,
 				6F750C9024975A4300AF2C04 /* [CP] Embed Pods Frameworks */,
 				6F750C9124975A4300AF2C04 /* CopyFiles */,
+				6FBFEF1424C2DCC200A9D1D4 /* CopyFiles */,
 			);
 			buildRules = (
 			);
