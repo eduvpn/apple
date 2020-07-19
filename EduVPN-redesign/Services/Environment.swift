@@ -19,6 +19,8 @@ class Environment {
     let serverDiscoveryService: ServerDiscoveryService?
     let serverAuthService: ServerAuthService
     let persistenceService: PersistenceService
+    let serverAPIService: ServerAPIService
+    let connectionService: ConnectionService
 
     init(navigationController: NavigationController) {
         self.navigationController = navigationController
@@ -31,6 +33,8 @@ class Environment {
             configRedirectURL: Config.shared.redirectUrl,
             configClientId: Config.shared.clientId)
         self.persistenceService = PersistenceService()
+        self.serverAPIService = ServerAPIService(serverAuthService: serverAuthService)
+        self.connectionService = ConnectionService()
     }
 
     func instantiateSearchViewController(shouldIncludeOrganizations: Bool) -> SearchViewController {
@@ -38,6 +42,12 @@ class Environment {
             environment: self,
             shouldIncludeOrganizations: shouldIncludeOrganizations)
         return instantiate(SearchViewController.self, identifier: "Search", parameters: parameters)
+    }
+
+    func instantiateConnectionViewController(server: ServerInstance, serverDisplayInfo: ServerDisplayInfo) -> ConnectionViewController {
+        let parameters = ConnectionViewController.Parameters(
+            environment: self, server: server, serverDisplayInfo: serverDisplayInfo)
+        return instantiate(ConnectionViewController.self, identifier: "Connection", parameters: parameters)
     }
 
     func instantiate<VC: ParametrizedViewController>(_ type: VC.Type, identifier: String,

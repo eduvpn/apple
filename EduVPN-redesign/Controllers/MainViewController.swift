@@ -112,7 +112,13 @@ extension MainViewController {
     }
 
     func didSelectRow(at index: Int) {
-        print("Selected: \(viewModel.row(at: index))")
+        let row = viewModel.row(at: index)
+        if let server = row.server,
+            let serverDisplayInfo = row.serverDisplayInfo {
+            let connectionVC = environment.instantiateConnectionViewController(
+                server: server, serverDisplayInfo: serverDisplayInfo)
+            environment.navigationController?.pushViewController(connectionVC, animated: true)
+        }
     }
 
     func canDeleteRow(at index: Int) -> Bool {

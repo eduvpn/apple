@@ -51,6 +51,24 @@ class MainViewModel {
             default: return ""
             }
         }
+
+        var server: ServerInstance? {
+            switch self {
+            case .instituteAccessServer(let server, _, _): return server
+            case .secureInternetServer(let server, _, _): return server
+            case .serverByURL(let server): return server
+            default: return nil
+            }
+        }
+
+        var serverDisplayInfo: ServerDisplayInfo? {
+            switch self {
+            case .instituteAccessServer(_, let displayInfo, _): return displayInfo
+            case .secureInternetServer(_, let displayInfo, _): return displayInfo
+            case .serverByURL(let server): return .serverByURLServer(server)
+            default: return nil
+            }
+        }
     }
 
     let persistenceService: PersistenceService

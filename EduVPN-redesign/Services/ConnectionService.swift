@@ -85,6 +85,10 @@ class ConnectionService {
             return firstly {
                 tunnelManager.saveToPreferences()
             }.then { _ -> Promise<Void> in
+                // Load back the saved preferences to avoid NEVPNErrorConfigurationInvalid error
+                // See: https://developer.apple.com/forums/thread/25928
+                tunnelManager.loadFromPreferences()
+            }.then { _ -> Promise<Void> in
                 switch tunnelManager.connection.status {
                 case .connected, .connecting, .reasserting:
                     return firstly {
@@ -97,8 +101,12 @@ class ConnectionService {
                 }
             }.recover { error in
                 // If there was an error starting the tunnel, disable on-demand
-                firstly {
-                    self.disableVPN()
+                firstly { () -> Promise<Void> in
+                    if tunnelManager.isOnDemandEnabled {
+                        return self.disableVPN()
+                    } else {
+                        return Promise.value(())
+                    }
                 }.catch { disablingError in
                     os_log("Error disabling VPN \"%{public}@\" while recovering from error enabling VPN \"%{public}@\"",
                            log: Log.general, type: .error, disablingError.localizedDescription, error.localizedDescription)
@@ -113,13 +121,17 @@ class ConnectionService {
             fatalError("ConnectionService not initialized yet")
         }
         return firstly { () -> Promise<Void> in
-            tunnelManager.protocolConfiguration = nil
             tunnelManager.isEnabled = false
             tunnelManager.isOnDemandEnabled = false
             tunnelManager.onDemandRules = []
             return tunnelManager.saveToPreferences()
-        }.then { _ in
-            self.stopTunnel()
+        }.then { _ -> Promise<Void> in
+            switch tunnelManager.connection.status {
+            case .connected, .connecting, .reasserting:
+                return self.stopTunnel()
+            default:
+                return Promise.value(())
+            }
         }
     }
 }
@@ -184,7 +196,11 @@ private extension ConnectionService {
             fatalError("ConnectionService not initialized yet")
         }
         return Promise { resolver in
-            try tunnelManager.session.startTunnel()
+            do {
+                try tunnelManager.session.startTunnel()
+            } catch {
+                throw error
+            }
             self.startTunnelPromiseResolver = resolver
         }
     }
@@ -291,6 +307,14 @@ extension NETunnelProviderManager {
     func saveToPreferences() -> Promise<Void> {
         Promise { seal in
             saveToPreferences { error in
+                seal.resolve((), error)
+            }
+        }
+    }
+
+    func loadFromPreferences() -> Promise<Void> {
+        Promise { seal in
+            loadFromPreferences { error in
                 seal.resolve((), error)
             }
         }
