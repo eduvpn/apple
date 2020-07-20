@@ -147,6 +147,7 @@
 		6FCC5EF424B8579D00C6BC80 /* LanguageMappedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCC5EF324B8579D00C6BC80 /* LanguageMappedString.swift */; };
 		6FCC5EF624B85D6700C6BC80 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCC5EF524B85D6700C6BC80 /* ServerResponse.swift */; };
 		6FCCC577249E25F100F0F5A3 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCCC576249E25F100F0F5A3 /* NavigationController.swift */; };
+		6FD5CDA224C467CB00842A74 /* ServerDisplayInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD5CDA124C467CB00842A74 /* ServerDisplayInfo.swift */; };
 		6FEF30D824A0B8C60026C786 /* ServerDiscoveryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF30D724A0B8C60026C786 /* ServerDiscoveryService.swift */; };
 		6FEF30F424A21BF30026C786 /* ViewModelRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF30F224A21AFE0026C786 /* ViewModelRow.swift */; };
 		6FEF30FC24A317C00026C786 /* SectionHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF30FA24A317C00026C786 /* SectionHeaderCell.swift */; };
@@ -544,6 +545,7 @@
 		6FCC5EF324B8579D00C6BC80 /* LanguageMappedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageMappedString.swift; sourceTree = "<group>"; };
 		6FCC5EF524B85D6700C6BC80 /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResponse.swift; sourceTree = "<group>"; };
 		6FCCC576249E25F100F0F5A3 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		6FD5CDA124C467CB00842A74 /* ServerDisplayInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerDisplayInfo.swift; sourceTree = "<group>"; };
 		6FEF30D724A0B8C60026C786 /* ServerDiscoveryService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerDiscoveryService.swift; sourceTree = "<group>"; };
 		6FEF30F224A21AFE0026C786 /* ViewModelRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelRow.swift; sourceTree = "<group>"; };
 		6FEF30FA24A317C00026C786 /* SectionHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderCell.swift; sourceTree = "<group>"; };
@@ -1305,6 +1307,7 @@
 				6FADF82C24ADF6C600B75E8D /* ServerInstance.swift */,
 				6FCC5EF324B8579D00C6BC80 /* LanguageMappedString.swift */,
 				6FCC5EF524B85D6700C6BC80 /* ServerResponse.swift */,
+				6FD5CDA124C467CB00842A74 /* ServerDisplayInfo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2623,6 +2626,7 @@
 				C7DB4B6B247FC198009932B1 /* AppDelegate.swift in Sources */,
 				C7DB4B9C247FC23D009932B1 /* MainViewController.swift in Sources */,
 				C7DB4B9E247FC23D009932B1 /* AddOtherViewController.swift in Sources */,
+				6FD5CDA224C467CB00842A74 /* ServerDisplayInfo.swift in Sources */,
 				C7DB4BA0247FC23D009932B1 /* SettingsViewController.swift in Sources */,
 				6FC27AC824B9550D006FA648 /* ServerAPIService.swift in Sources */,
 				C7DB4C02248053D8009932B1 /* Moya+ResponseHandling.swift in Sources */,

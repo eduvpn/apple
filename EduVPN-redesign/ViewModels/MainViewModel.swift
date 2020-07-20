@@ -16,11 +16,19 @@ class MainViewModel {
     weak var delegate: MainViewModelDelegate?
 
     enum Row: ViewModelRow {
+        // displayName / countryName can be derived from displayInfo. But
+        // they are pre-computed and stored so that we don't have to compute it
+        // every time the table view cell is dequeued.
         case instituteAccessServerSectionHeader
-        case instituteAccessServer(server: SimpleServerInstance, displayName: String)
+        case instituteAccessServer(
+            server: SimpleServerInstance,
+            displayInfo: ServerDisplayInfo,
+            displayName: String)
         case secureInternetServerSectionHeader
-        case secureInternetServer(server: SecureInternetServerInstance,
-            countryCode: String, countryName: String)
+        case secureInternetServer(
+            server: SecureInternetServerInstance,
+            displayInfo: ServerDisplayInfo,
+            countryName: String)
         case serverByURLSectionHeader
         case serverByURL(server: SimpleServerInstance)
 
@@ -37,7 +45,7 @@ class MainViewModel {
 
         var displayText: String {
             switch self {
-            case .instituteAccessServer(_, let displayName): return displayName
+            case .instituteAccessServer(_, _, let displayName): return displayName
             case .secureInternetServer(_, _, let countryName): return countryName
             case .serverByURL(let server): return server.baseURLString.toString()
             default: return ""
@@ -89,8 +97,9 @@ extension MainViewModel {
         for simpleServer in persistenceService.simpleServers {
             let baseURLString = simpleServer.baseURLString
             if let discoveredServer = instituteAccessServersMap[baseURLString] {
-                let displayName = discoveredServer.displayName.string(for: Locale.current)
-                instituteAccessRows.append(.instituteAccessServer(server: simpleServer, displayName: displayName))
+                let displayInfo = ServerDisplayInfo.instituteAccessServer(discoveredServer)
+                let displayName = displayInfo.serverName(for: Locale.current)
+                instituteAccessRows.append(.instituteAccessServer(server: simpleServer, displayInfo: displayInfo, displayName: displayName))
             } else {
                 serverByURLRows.append(.serverByURL(server: simpleServer))
             }
@@ -98,17 +107,11 @@ extension MainViewModel {
 
         if let secureInternetServer = persistenceService.secureInternetServer {
             let baseURLString = secureInternetServer.apiBaseURLString
-            if let discoveredServer = secureInternetServersMap[baseURLString] {
-                let countryCode = discoveredServer.countryCode
-                let countryName = Locale.current.localizedString(forRegionCode: countryCode) ?? "Unknown country"
-                secureInternetRows.append(.secureInternetServer(server: secureInternetServer,
-                                                                countryCode: countryCode,
-                                                                countryName: countryName))
-            } else {
-                secureInternetRows.append(.secureInternetServer(server: secureInternetServer,
-                                                                countryCode: "",
-                                                                countryName: "Unknown country"))
-            }
+            let displayInfo = ServerDisplayInfo.secureInternetServer(secureInternetServersMap[baseURLString])
+            let countryName = displayInfo.serverName(for: Locale.current)
+            secureInternetRows.append(.secureInternetServer(server: secureInternetServer,
+                                                            displayInfo: displayInfo,
+                                                            countryName: countryName))
         }
 
         var computedRows: [Row] = []

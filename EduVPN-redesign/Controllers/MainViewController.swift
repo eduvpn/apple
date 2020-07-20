@@ -129,7 +129,7 @@ extension MainViewController {
         switch viewModel.row(at: index) {
         case .secureInternetServer:
             persistenceService.removeSecureInternetServer()
-        case .instituteAccessServer(server: let server, displayName: _):
+        case .instituteAccessServer(server: let server, _, _):
             persistenceService.removeSimpleServer(server)
         case .serverByURL(server: let server):
             persistenceService.removeSimpleServer(server)
