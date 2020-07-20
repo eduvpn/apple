@@ -61,36 +61,32 @@ class ServerAPIService {
         }
     }
 
-    func getTunnelConfigurationData(for server: ServerInstance,
-                                    profile: ProfileListResponse.Profile,
-                                    from viewController: AuthorizingViewController,
-                                    options: Options = []) -> Promise<TunnelConfigurationData> {
-        return firstly {
-            ServerInfoFetcher.fetch(apiBaseURLString: server.apiBaseURLString,
-                                    authBaseURLString: server.authBaseURLString)
-        }.then { serverInfo -> Promise<TunnelConfigurationData> in
-            return self.getTunnelConfigurationData(for: server, serverInfo: serverInfo, profile: profile,
-                                              from: viewController, options: options)
-        }
-    }
-
-    func getTunnelConfigurationData(for server: ServerInstance, serverInfo: ServerInfo,
+    func getTunnelConfigurationData(for server: ServerInstance, serverInfo: ServerInfo?,
                                     profile: ProfileListResponse.Profile,
                                     from viewController: AuthorizingViewController,
                                     options: Options = []) -> Promise<TunnelConfigurationData> {
         let dataStore = PersistenceService.DataStore(path: server.localStoragePath)
-        let basicTargetInfo = BasicTargetInfo(serverInfo: serverInfo,
-                                              dataStore: dataStore,
-                                              sourceViewController: viewController)
-        return firstly {
-            getKeyPair(basicTargetInfo: basicTargetInfo, options: options)
-        }.then { (keyPair, expiryDate) in
-            self.getProfileConfig(basicTargetInfo: basicTargetInfo, profile: profile, options: options)
-                .map { profileConfig in
-                    let openVPNConfig = Self.createOpenVPNConfig(
-                        profileConfig: profileConfig, isUDPAllowed: true, keyPair: keyPair)
-                    return TunnelConfigurationData(openVPNConfiguration: openVPNConfig, certificateExpiresAt: expiryDate)
-                }
+        return firstly { () -> Promise<ServerInfo> in
+            if let serverInfo = serverInfo {
+                return Promise.value(serverInfo)
+            }
+            return ServerInfoFetcher.fetch(apiBaseURLString: server.apiBaseURLString,
+                                           authBaseURLString: server.authBaseURLString)
+        }.then { serverInfo -> Promise<(BasicTargetInfo, (CreateKeyPairResponse.KeyPair, Date))> in
+            let basicTargetInfo = BasicTargetInfo(serverInfo: serverInfo,
+                                                  dataStore: dataStore,
+                                                  sourceViewController: viewController)
+            return self.getKeyPair(basicTargetInfo: basicTargetInfo, options: options)
+                .map { (basicTargetInfo, $0) }
+        }.then { (basicTargetInfo, keyPairResult) -> Promise<TunnelConfigurationData> in
+            let (keyPair, expiryDate) = keyPairResult
+            return firstly {
+                self.getProfileConfig(basicTargetInfo: basicTargetInfo, profile: profile, options: options)
+            }.map { profileConfig in
+                let openVPNConfig = Self.createOpenVPNConfig(
+                    profileConfig: profileConfig, isUDPAllowed: true, keyPair: keyPair)
+                return TunnelConfigurationData(openVPNConfiguration: openVPNConfig, certificateExpiresAt: expiryDate)
+            }
         }
     }
 
