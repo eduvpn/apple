@@ -140,6 +140,10 @@ extension PersistenceService {
             rootURL.appendingPathComponent("keyPair.bin")
         }
 
+        private var selectedProfileIdURL: URL {
+            rootURL.appendingPathComponent("selectedProfileId.txt")
+        }
+
         var authState: AuthState? {
             get {
                 if let data = try? Data(contentsOf: authStateURL),
@@ -173,6 +177,21 @@ extension PersistenceService {
                     let encryptedData = try? Crypto.shared.encrypt(data: data) {
                     PersistenceService.write(encryptedData, to: keyPairURL, atomically: true)
                 }
+            }
+        }
+
+        var selectedProfileId: String? {
+            get {
+                if let data = try? Data(contentsOf: selectedProfileIdURL),
+                    let string = String(data: data, encoding: .utf8),
+                    !string.isEmpty {
+                    return string
+                }
+                return nil
+            }
+            set(value) {
+                PersistenceService.write(value?.data(using: .utf8) ?? Data(),
+                                         to: selectedProfileIdURL, atomically: true)
             }
         }
 
