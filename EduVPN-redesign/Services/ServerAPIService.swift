@@ -14,6 +14,10 @@ enum ServerAPIServiceError: Error {
     case serverProvidedInvalidCertificate
     case HTTPFailure(requestURLPath: String, response: Moya.Response)
     case errorGettingProfileConfig(profile: ProfileListResponse.Profile, serverError: String)
+    case openVPNConfigHasInvalidEncoding
+    case openVPNConfigHasNoCertificateAuthority
+    case openVPNConfigHasNoRemotes
+    case openVPNConfigHasOnlyUDPRemotes // and UDP is not allowed
 }
 
 class ServerAPIService {
@@ -83,7 +87,7 @@ class ServerAPIService {
             return firstly {
                 self.getProfileConfig(basicTargetInfo: basicTargetInfo, profile: profile, options: options)
             }.map { profileConfig in
-                let openVPNConfig = Self.createOpenVPNConfig(
+                let openVPNConfig = try Self.createOpenVPNConfig(
                     profileConfig: profileConfig, isUDPAllowed: true, keyPair: keyPair)
                 return TunnelConfigurationData(openVPNConfiguration: openVPNConfig, certificateExpiresAt: expiryDate)
             }
@@ -246,29 +250,58 @@ private extension ServerAPIService {
     static func createOpenVPNConfig(
         profileConfig profileConfigData: Data,
         isUDPAllowed: Bool,
-        keyPair: CreateKeyPairResponse.KeyPair) -> [String] {
+        keyPair: CreateKeyPairResponse.KeyPair) throws -> [String] {
 
-        guard var config = String(data: profileConfigData, encoding: .utf8) else {
-            return []
+        guard let originalConfig = String(data: profileConfigData, encoding: .utf8) else {
+            throw ServerAPIServiceError.openVPNConfigHasInvalidEncoding
         }
 
-        if !isUDPAllowed {
-            // swiftlint:disable:next force_try
-            let remoteUdpRegex = try! NSRegularExpression(pattern: "remote.*udp", options: [])
-            let fullStringRange = NSRange(location: 0, length: config.utf16.count)
-            config = remoteUdpRegex.stringByReplacingMatches(
-                in: config, options: [], range: fullStringRange, withTemplate: "")
+        let originalConfigLines = originalConfig.components(separatedBy: .newlines)
+        let privateKeyLines = keyPair.privateKey.components(separatedBy: .newlines)
+        let certificateLines = keyPair.certificate.components(separatedBy: .newlines)
+
+        var hasCA = false
+        var hasRemote = false
+
+        var processedLines = [String]()
+        for originalLine in originalConfigLines {
+            let line = originalLine.trimmingCharacters(in: .whitespacesAndNewlines)
+            if line.isEmpty { continue }
+            if line.hasSuffix("auth none") { continue }
+
+            if line.hasSuffix("</ca>") {
+                processedLines.append(line)
+                processedLines.append("<cert>")
+                processedLines.append(contentsOf: certificateLines)
+                processedLines.append("</cert>")
+                processedLines.append("<key>")
+                processedLines.append(contentsOf: privateKeyLines)
+                processedLines.append("</key>")
+                hasCA = true
+                continue
+            }
+
+            if line.hasPrefix("remote") {
+                let isUDPOnlyRemote = (line.hasSuffix(" udp") || line.hasSuffix(" udp4") || line.hasSuffix(" udp6"))
+                if !isUDPOnlyRemote || isUDPAllowed {
+                    processedLines.append(line)
+                    hasRemote = true
+                }
+                continue
+            }
+
+            processedLines.append(line)
         }
 
-        guard let endOfCa = config.range(of: "</ca>")?.upperBound else {
-            return []
+        guard hasCA else {
+            throw ServerAPIServiceError.openVPNConfigHasNoCertificateAuthority
         }
 
-        config.insert(contentsOf: "\n<key>\n\(keyPair.privateKey)\n</key>", at: endOfCa)
-        config.insert(contentsOf: "\n<cert>\n\(keyPair.certificate)\n</cert>", at: endOfCa)
-        config = config.replacingOccurrences(of: "auth none\r\n", with: "")
+        guard hasRemote else {
+            throw ServerAPIServiceError.openVPNConfigHasNoRemotes
+        }
 
-        return config.components(separatedBy: .newlines)
+        return processedLines
     }
 }
 
