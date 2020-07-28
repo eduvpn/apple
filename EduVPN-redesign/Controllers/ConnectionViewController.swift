@@ -113,11 +113,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
             if selectedProfileId == nil {
                 selectedProfileId = profiles[0].profileId
             }
-            firstly {
-                continueConnectionFlow(serverAPIOptions: [])
-            }.catch { _ in
-                self.vpnSwitchButton.state = .off
-            }
+            continueConnectionFlow(serverAPIOptions: [])
 
         case .off:
             disableVPN()
@@ -138,7 +134,6 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
 
     @IBAction func renewSessionClicked(_ sender: Any) {
         continueConnectionFlow(serverAPIOptions: [.ignoreStoredAuthState, .ignoreStoredKeyPair])
-            .cauterize()
     }
 
     @IBAction func connectionInfoChevronClicked(_ sender: Any) {
@@ -168,8 +163,8 @@ private extension ConnectionViewController {
         }
     }
 
-    func continueConnectionFlow(serverAPIOptions: ServerAPIService.Options) -> Promise<Void> {
-        return firstly { () -> Promise<Void> in
+    func continueConnectionFlow(serverAPIOptions: ServerAPIService.Options) {
+        firstly { () -> Promise<Void> in
             guard let profiles = profiles, !profiles.isEmpty else {
                 return Promise(error: ConnectionViewControllerError.noProfiles)
             }
@@ -181,12 +176,11 @@ private extension ConnectionViewController {
             }
             return viewModel.continueConnectionFlow(profile: profile, from: self,
                                                     serverAPIOptions: serverAPIOptions)
-        }.recover { error -> Promise<Void> in
+        }.catch { error in
             os_log("Error continuing connection flow: %{public}@",
                    log: Log.general, type: .error,
                    error.localizedDescription)
             self.parameters.environment.navigationController?.showAlert(for: error)
-            throw error
         }
     }
 
