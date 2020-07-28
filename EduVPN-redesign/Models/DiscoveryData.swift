@@ -135,14 +135,14 @@ extension DiscoveryData.BaseURLString: Codable {
     }
 }
 
-enum DsicoveryDataURLError: Error {
+enum DiscoveryDataURLError: Error {
     case invalidURLStringInDiscoveryData(urlString: String)
 }
 
 extension DiscoveryData.BaseURLString {
     func toURL() throws -> URL {
         guard let url = URL(string: urlString) else {
-            throw DsicoveryDataURLError.invalidURLStringInDiscoveryData(urlString: urlString)
+            throw DiscoveryDataURLError.invalidURLStringInDiscoveryData(urlString: urlString)
         }
         return url
     }
