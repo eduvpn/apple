@@ -11,6 +11,7 @@ import NetworkExtension
 
 protocol ConnectionViewModelDelegate: class {
     func profilesFound(profiles: [ProfileListResponse.Profile])
+    func canGoBackChanged(canGoBack: Bool)
 
     func headerChanged(_ header: ConnectionViewModel.Header)
     func supportContactChanged(_ supportContact: ConnectionViewModel.SupportContact)
@@ -122,6 +123,7 @@ class ConnectionViewModel {
             self.updateStatusDetail()
             self.updateVPNSwitchState()
             self.updateAdditionalControl()
+            self.delegate?.canGoBackChanged(canGoBack: internalState == .idle)
         }
     }
 

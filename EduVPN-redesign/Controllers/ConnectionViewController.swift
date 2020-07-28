@@ -204,6 +204,10 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
         }
     }
 
+    func canGoBackChanged(canGoBack: Bool) {
+        parameters.environment.navigationController?.isUserAllowedToGoBack = canGoBack
+    }
+
     static let serverCountryFlagImageWidth: CGFloat = 24
 
     func headerChanged(_ header: ConnectionViewModel.Header) {
