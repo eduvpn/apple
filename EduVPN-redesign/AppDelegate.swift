@@ -5,6 +5,8 @@
 //  Created by Johan Kool on 28/05/2020.
 //
 
+import PromiseKit
+
 #if os(iOS)
 import UIKit
 
@@ -43,6 +45,43 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         setup(window: window)
     }
 
+    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
+        guard let connectionService = environment?.connectionService else {
+            return .terminateNow
+        }
+
+        guard connectionService.isVPNEnabled else {
+            return .terminateNow
+        }
+
+        let alert = NSAlert()
+        alert.alertStyle = .warning
+        alert.messageText = NSLocalizedString("Are you sure you want to quit \(Config.shared.appName)?", comment: "")
+        alert.informativeText = NSLocalizedString("The active VPN connection will be stopped when you quit.", comment: "")
+        alert.addButton(withTitle: NSLocalizedString("Stop VPN & Quit", comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
+
+        func handleQuitConfirmationResult(_ result: NSApplication.ModalResponse) {
+            if case .alertFirstButtonReturn = result {
+                firstly {
+                    connectionService.disableVPN()
+                }.map { _ in
+                    NSApp.terminate(nil)
+                }.cauterize()
+            }
+        }
+
+        if let window = NSApp.windows.first {
+            alert.beginSheetModal(for: window) { result in
+                handleQuitConfirmationResult(result)
+            }
+        } else {
+            let result = alert.runModal()
+            handleQuitConfirmationResult(result)
+        }
+
+        return .terminateCancel
+    }
 }
 
 #endif
