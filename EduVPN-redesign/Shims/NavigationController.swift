@@ -45,6 +45,13 @@ class NavigationController: NSViewController {
         presentPreferences()
     }
 
+    @IBAction func toolbarHelpClicked(_ sender: Any) {
+        guard let url = Config.shared.supportURL else {
+            return
+        }
+        NSWorkspace.shared.open(url)
+    }
+
     @IBAction func cancelAuthorizationButtonClicked(_ sender: Any) {
         onCancelled?()
         hideAuthorizingMessage()
