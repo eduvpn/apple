@@ -29,7 +29,7 @@ extension SearchViewController: NSTableViewDelegate, NSTableViewDataSource {
 
 extension SearchViewController {
     func performWithAnimation(seconds: TimeInterval, animationBlock: () -> Void) {
-        NSAnimationContext.runAnimationGroup( { context in
+        NSAnimationContext.runAnimationGroup({ context in
             context.duration = seconds
             context.allowsImplicitAnimation = true
             animationBlock()

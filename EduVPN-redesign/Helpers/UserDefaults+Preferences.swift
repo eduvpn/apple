@@ -10,7 +10,7 @@ extension UserDefaults {
     private static let forceTCPDefaultsKey = "force_tcp"
 
     var forceTCP: Bool {
-        get {
+        get { // swiftlint:disable:this implicit_getter
             return bool(forKey: Self.forceTCPDefaultsKey)
         }
         set {
