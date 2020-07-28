@@ -14,6 +14,29 @@ protocol ConnectionServiceInitializationDelegate: class {
         isVPNEnabled: Bool, configurationSource: ConnectionService.ConfigurationSource?)
 }
 
+
+enum ConnectionServiceError: Error {
+    case cannotStartTunnel
+    case cannotStopTunnel
+    case cannotSendMessageWhenNotConnected
+    case receivedEmptyMessageResponse
+}
+
+extension ConnectionServiceError: AppError {
+    var summary: String {
+        switch self {
+        case .cannotStartTunnel:
+            return "Cannot start the tunnel"
+        case .cannotStopTunnel:
+            return "Cannot stop the tunnel"
+        case .cannotSendMessageWhenNotConnected:
+            return "Cannot send message when not connected"
+        case .receivedEmptyMessageResponse:
+            return "Received empty message response"
+        }
+    }
+}
+
 protocol ConnectionServiceStatusDelegate: class {
     func connectionStatusChanged(status: NEVPNStatus)
 }
@@ -23,13 +46,6 @@ class ConnectionService {
     enum ConfigurationSource {
         case server(localStoragePath: String)
         // case openVPNConfigFile(fileName: String)
-    }
-
-    enum InternalError: Error {
-        case cannotStartTunnel
-        case cannotStopTunnel
-        case cannotSendMessageWhenNotConnected
-        case receivedEmptyMessageResponse
     }
 
     weak var initializationDelegate: ConnectionServiceInitializationDelegate?
@@ -227,11 +243,11 @@ private extension ConnectionService {
 
                 if status == .connected {
                     self.startTunnelPromiseResolver?.fulfill(())
-                    self.stopTunnelPromiseResolver?.reject(InternalError.cannotStopTunnel)
+                    self.stopTunnelPromiseResolver?.reject(ConnectionServiceError.cannotStopTunnel)
                 }
                 if status == .disconnected {
                     self.stopTunnelPromiseResolver?.fulfill(())
-                    self.startTunnelPromiseResolver?.reject(InternalError.cannotStartTunnel)
+                    self.startTunnelPromiseResolver?.reject(ConnectionServiceError.cannotStartTunnel)
                 }
                 if status == .connected || status == .disconnected {
                     self.startTunnelPromiseResolver = nil
@@ -323,13 +339,13 @@ extension NETunnelProviderManager {
     func sendProviderMessage(_ messageData: Data) -> Promise<Data> {
         guard connection.status == .connected else {
             return Promise(error:
-                ConnectionService.InternalError.cannotSendMessageWhenNotConnected)
+                ConnectionServiceError.cannotSendMessageWhenNotConnected)
         }
         return Promise { seal in
             try session.sendProviderMessage(messageData) { responseData in
                 guard let responseData = responseData else {
                     seal.reject(
-                        ConnectionService.InternalError.receivedEmptyMessageResponse)
+                        ConnectionServiceError.receivedEmptyMessageResponse)
                     return
                 }
                 seal.fulfill(responseData)

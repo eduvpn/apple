@@ -16,6 +16,16 @@ enum ConnectionViewControllerError: Error {
     case noProfileFoundWithSelectedProfileId
 }
 
+extension ConnectionViewControllerError: AppError {
+    var summary: String {
+        switch self {
+        case .noProfiles: return "No profiles found"
+        case .noSelectedProfile: return "No profile selected"
+        case .noProfileFoundWithSelectedProfileId: return "Selected profile doesn't exist"
+        }
+    }
+}
+
 final class ConnectionViewController: ViewController, ParametrizedViewController {
 
     struct Parameters {

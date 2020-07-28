@@ -127,18 +127,17 @@ extension NavigationController {
 
 extension NavigationController {
     func showAlert(for error: Error) {
-        var errorToShow: Error {
-            if let underlyingError = (error as NSError).userInfo[NSUnderlyingErrorKey] as? Error {
-                return underlyingError
-            } else {
-                return error
-            }
-        }
         let alert = NSAlert()
-        alert.messageText = errorToShow.localizedDescription
-        let userInfo = (errorToShow as NSError).userInfo
-        if !userInfo.isEmpty {
-            alert.informativeText = "\(userInfo)"
+        if let appError = error as? AppError {
+            alert.messageText = appError.summary
+            alert.informativeText = appError.detail
+        } else {
+            let underlyingError = (error as NSError).userInfo[NSUnderlyingErrorKey] as? Error
+            alert.messageText = (underlyingError ?? error).localizedDescription
+            let userInfo = (error as NSError).userInfo
+            if !userInfo.isEmpty {
+                alert.informativeText = "\(userInfo)"
+            }
         }
         NSApp.activate(ignoringOtherApps: true)
         if let window = view.window {

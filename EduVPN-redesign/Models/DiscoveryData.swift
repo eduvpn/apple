@@ -139,6 +139,15 @@ enum DiscoveryDataURLError: Error {
     case invalidURLStringInDiscoveryData(urlString: String)
 }
 
+extension DiscoveryDataURLError: AppError {
+    var summary: String {
+        switch self {
+        case .invalidURLStringInDiscoveryData(let urlString):
+            return "Invalid URL string \"\(urlString)\" in discovery data"
+        }
+    }
+}
+
 extension DiscoveryData.BaseURLString {
     func toURL() throws -> URL {
         guard let url = URL(string: urlString) else {

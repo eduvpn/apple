@@ -20,6 +20,47 @@ enum ServerAPIServiceError: Error {
     case openVPNConfigHasOnlyUDPRemotes // and UDP is not allowed
 }
 
+extension ServerAPIServiceError: AppError {
+    var summary: String {
+        switch self {
+        case .serverProvidedInvalidCertificate:
+            return "Server provided invalid certificate"
+        case .HTTPFailure:
+            return "HTTP request failed"
+        case .errorGettingProfileConfig:
+            return "Error getting profile config"
+        case .openVPNConfigHasInvalidEncoding:
+            return "OpenVPN config has unrecognized encoding"
+        case .openVPNConfigHasNoCertificateAuthority:
+            return "OpenVPN config has no certificate authority"
+        case .openVPNConfigHasNoRemotes:
+            return "OpenVPN config has no remotes"
+        case .openVPNConfigHasOnlyUDPRemotes:
+            return "OpenVPN config has no TCP remotes, but only TCP can be used as per preferences"
+        }
+    }
+
+    var detail: String {
+        switch self {
+        case .serverProvidedInvalidCertificate:
+            return "Server provided invalid certificate"
+        case .HTTPFailure(let requestURLPath, let response):
+            return """
+            Request path: \(requestURLPath)
+            Response code: \(response.statusCode)
+            Response: \(String(data: response.data, encoding: .utf8) ?? "")
+            """
+        case .errorGettingProfileConfig(let profile, let serverError):
+            return """
+            Requested profile: \(profile.displayName.string(for: Locale.current))
+            Server error: \(serverError)
+            """
+        default:
+            return ""
+        }
+    }
+}
+
 class ServerAPIService {
 
     struct Options: OptionSet {
