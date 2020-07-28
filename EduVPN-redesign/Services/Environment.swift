@@ -50,6 +50,18 @@ class Environment {
         return instantiate(ConnectionViewController.self, identifier: "Connection", parameters: parameters)
     }
 
+    func instantiatePreferencesViewController() -> PreferencesViewController {
+        return instantiate(PreferencesViewController.self, identifier: "Preferences")
+    }
+
+    func instantiate<VC: ViewController>(_ type: VC.Type, identifier: String) -> VC {
+        guard let viewController =
+            storyboard.instantiateViewController(withIdentifier: identifier) as? VC else {
+                fatalError("Can't instantiate view controller with identifier: \(identifier)")
+        }
+        return viewController
+    }
+
     func instantiate<VC: ParametrizedViewController>(_ type: VC.Type, identifier: String,
                                                      parameters: VC.Parameters) -> VC {
         // In macOS 10.15 / iOS 13 and later, we can pass our own parameters to
@@ -57,10 +69,7 @@ class Environment {
         // Since we have to support earlier OS versions, we inject the parameters
         // by calling 'initializeParameters'.
 
-        guard let viewController =
-            storyboard.instantiateViewController(withIdentifier: identifier) as? VC else {
-                fatalError("Can't instantiate view controller with identifier: \(identifier)")
-        }
+        let viewController = instantiate(type, identifier: identifier)
         viewController.initializeParameters(parameters)
         return viewController
     }

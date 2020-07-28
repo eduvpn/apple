@@ -38,6 +38,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let window = NSApp.windows[0]
         if let navigationController = window.rootViewController as? NavigationController {
             environment = Environment(navigationController: navigationController)
+            navigationController.environment = environment
             if let mainController = navigationController.children.first as? MainViewController {
                 mainController.environment = environment
             }

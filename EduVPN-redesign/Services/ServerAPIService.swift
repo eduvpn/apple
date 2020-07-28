@@ -87,8 +87,9 @@ class ServerAPIService {
             return firstly {
                 self.getProfileConfig(basicTargetInfo: basicTargetInfo, profile: profile, options: options)
             }.map { profileConfig in
+                let isUDPAllowed = !UserDefaults.standard.forceTCP
                 let openVPNConfig = try Self.createOpenVPNConfig(
-                    profileConfig: profileConfig, isUDPAllowed: true, keyPair: keyPair)
+                    profileConfig: profileConfig, isUDPAllowed: isUDPAllowed, keyPair: keyPair)
                 return TunnelConfigurationData(openVPNConfiguration: openVPNConfig, certificateExpiresAt: expiryDate)
             }
         }

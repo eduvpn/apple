@@ -29,8 +29,9 @@ class NavigationController: NSViewController {
     private var onCancelled: (() -> Void)?
 
     @IBOutlet weak var toolbarLeftButton: NSButton!
-
     @IBOutlet weak var authorizingMessageBox: NSBox!
+
+    private var presentedPreferencesVC: PreferencesViewController?
 
     @IBAction func toolbarLeftButtonClicked(_ sender: Any) {
         if canGoBack {
@@ -38,6 +39,10 @@ class NavigationController: NSViewController {
         } else {
             delegate?.addServerButtonClicked()
         }
+    }
+
+    @IBAction func toolbarPreferencesClicked(_ sender: Any) {
+        presentPreferences()
     }
 
     @IBAction func cancelAuthorizationButtonClicked(_ sender: Any) {
@@ -87,6 +92,15 @@ extension NavigationController: Navigating {
         }
 
         return lastVC
+    }
+}
+
+extension NavigationController {
+    func presentPreferences() {
+        guard let environment = environment else { return }
+        let preferencesVC = environment.instantiatePreferencesViewController()
+        presentedPreferencesVC = preferencesVC
+        presentAsSheet(preferencesVC)
     }
 }
 
