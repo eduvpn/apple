@@ -42,6 +42,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 mainController.environment = environment
             }
         }
+        NSApp.activate(ignoringOtherApps: true)
     }
 
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
