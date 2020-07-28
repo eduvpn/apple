@@ -20,7 +20,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let window = UIWindow(frame: UIScreen.main.bounds)
         self.window = window
-        setup(window: window)
         return true
     }
     
@@ -43,7 +42,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 mainController.environment = environment
             }
         }
-        setup(window: window)
     }
 
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
@@ -86,11 +84,3 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 }
 
 #endif
-
-extension AppDelegate {
-
-    private func setup(window: Window) {
-        // Nothing to do here yet
-    }
-
-}
