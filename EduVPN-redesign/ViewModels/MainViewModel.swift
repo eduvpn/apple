@@ -7,6 +7,7 @@
 
 import Foundation
 import PromiseKit
+import os.log
 
 protocol MainViewModelDelegate: class {
     func rowsChanged(changes: RowsDifference<MainViewModel.Row>)
@@ -85,8 +86,16 @@ class MainViewModel {
 
         if let serverDiscoveryService = serverDiscoveryService {
             serverDiscoveryService.delegate = self
-            serverDiscoveryService.getServers(from: .cache)
-                .cauterize()
+            firstly {
+                serverDiscoveryService.getServers(from: .cache)
+            }.recover { _ in
+                serverDiscoveryService.getServers(from: .server)
+            }.catch { error in
+                os_log("Error loading discovery data for main listing: %{public}@",
+                       log: Log.general, type: .error,
+                       error.localizedDescription)
+                self.update()
+            }
         }
     }
 

@@ -71,13 +71,15 @@ final class SearchViewController: ViewController, ParametrizedViewController {
         spinner.startAnimation(self)
         firstly {
             self.viewModel.load(from: .cache)
+        }.recover { _ in
+            // Ignore any errors loading from cache
         }.then {
             self.viewModel.load(from: .server)
         }.ensure {
             self.spinner.stopAnimation(self)
             self.spinner.removeFromSuperview()
         }.catch { error in
-            os_log("Error loading discovery data: %{public}@",
+            os_log("Error loading discovery data for searching: %{public}@",
                    log: Log.general, type: .error,
                    error.localizedDescription)
             self.parameters.environment.navigationController?.showAlert(for: error)
