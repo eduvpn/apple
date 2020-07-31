@@ -159,7 +159,7 @@ private extension ConnectionViewController {
             os_log("Error beginning connection flow: %{public}@",
                    log: Log.general, type: .error,
                    error.localizedDescription)
-            self.parameters.environment.navigationController?.showAlert(for: error)
+            self.showAlert(for: error)
         }
     }
 
@@ -180,7 +180,7 @@ private extension ConnectionViewController {
             os_log("Error continuing connection flow: %{public}@",
                    log: Log.general, type: .error,
                    error.localizedDescription)
-            self.parameters.environment.navigationController?.showAlert(for: error)
+            self.showAlert(for: error)
         }
     }
 
@@ -191,9 +191,32 @@ private extension ConnectionViewController {
             os_log("Error disabling VPN: %{public}@",
                    log: Log.general, type: .error,
                    error.localizedDescription)
-            self.parameters.environment.navigationController?.showAlert(for: error)
+            self.showAlert(for: error)
         }
     }
+
+    private func showAlert(for error: Error) {
+        if let serverAPIError = error as? ServerAPIServiceError,
+            case ServerAPIServiceError.errorGettingProfileConfig = serverAPIError {
+            // If there's an error getting profile config, offer to refresh profiles
+            let alert = NSAlert()
+            alert.alertStyle = .warning
+            alert.messageText = serverAPIError.summary
+            alert.informativeText = serverAPIError.detail
+            alert.addButton(withTitle: NSLocalizedString("Refresh Profiles", comment: ""))
+            alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
+            if let window = self.view.window {
+                alert.beginSheetModal(for: window) { result in
+                    if case .alertFirstButtonReturn = result {
+                        self.beginConnectionFlow(shouldContinueIfSingleProfile: true)
+                    }
+                }
+            }
+            return
+        }
+        self.parameters.environment.navigationController?.showAlert(for: error)
+    }
+
 }
 
 extension ConnectionViewController: ConnectionViewModelDelegate {
