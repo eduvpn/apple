@@ -4,6 +4,7 @@
 //
 
 import AppAuth
+import PromiseKit
 
 // Simple wrapper around OIDAuthState
 

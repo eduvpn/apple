@@ -9,9 +9,18 @@ import Foundation
 import Moya
 import PromiseKit
 
-enum DiscoveryDataFetcherError: LocalizedError {
+enum DiscoveryDataFetcherError: Error {
     case dataCouldNotBeVerified
     case dataNotFoundInCache
+}
+
+extension DiscoveryDataFetcherError: AppError {
+    var summary: String {
+        switch self {
+        case .dataCouldNotBeVerified: return "Discovery data could not be verified"
+        case .dataNotFoundInCache: return "Discovery data not found in cache"
+        }
+    }
 }
 
 struct DiscoveryDataFetcher {

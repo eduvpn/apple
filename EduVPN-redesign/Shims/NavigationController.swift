@@ -26,11 +26,12 @@ class NavigationController: NSViewController {
 
     private var canGoBack: Bool { children.count > 1 }
 
-    private var cancelAuthorizationHandler: (() -> Void)?
+    private var onCancelled: (() -> Void)?
 
     @IBOutlet weak var toolbarLeftButton: NSButton!
-
     @IBOutlet weak var authorizingMessageBox: NSBox!
+
+    private var presentedPreferencesVC: PreferencesViewController?
 
     @IBAction func toolbarLeftButtonClicked(_ sender: Any) {
         if canGoBack {
@@ -40,8 +41,20 @@ class NavigationController: NSViewController {
         }
     }
 
+    @IBAction func toolbarPreferencesClicked(_ sender: Any) {
+        presentPreferences()
+    }
+
+    @IBAction func toolbarHelpClicked(_ sender: Any) {
+        guard let url = Config.shared.supportURL else {
+            return
+        }
+        NSWorkspace.shared.open(url)
+    }
+
     @IBAction func cancelAuthorizationButtonClicked(_ sender: Any) {
-        cancelAuthorizationHandler?()
+        onCancelled?()
+        hideAuthorizingMessage()
     }
 
     private func updateToolbarLeftButton() {
@@ -90,33 +103,41 @@ extension NavigationController: Navigating {
 }
 
 extension NavigationController {
-    func showAuthorizingMessage(cancelAuthorizationHandler: @escaping () -> Void) {
+    func presentPreferences() {
+        guard let environment = environment else { return }
+        let preferencesVC = environment.instantiatePreferencesViewController()
+        presentedPreferencesVC = preferencesVC
+        presentAsSheet(preferencesVC)
+    }
+}
+
+extension NavigationController {
+    func showAuthorizingMessage(onCancelled: @escaping () -> Void) {
         self.authorizingMessageBox.isHidden = false
-        self.cancelAuthorizationHandler = cancelAuthorizationHandler
+        self.onCancelled = onCancelled
         self.updateToolbarLeftButton()
     }
 
     func hideAuthorizingMessage() {
         self.authorizingMessageBox.isHidden = true
-        self.cancelAuthorizationHandler = nil
+        self.onCancelled = nil
         self.updateToolbarLeftButton()
     }
 }
 
 extension NavigationController {
     func showAlert(for error: Error) {
-        var errorToShow: Error {
-            if let underlyingError = (error as NSError).userInfo[NSUnderlyingErrorKey] as? Error {
-                return underlyingError
-            } else {
-                return error
-            }
-        }
         let alert = NSAlert()
-        alert.messageText = errorToShow.localizedDescription
-        let userInfo = (errorToShow as NSError).userInfo
-        if !userInfo.isEmpty {
-            alert.informativeText = "\(userInfo)"
+        if let appError = error as? AppError {
+            alert.messageText = appError.summary
+            alert.informativeText = appError.detail
+        } else {
+            let underlyingError = (error as NSError).userInfo[NSUnderlyingErrorKey] as? Error
+            alert.messageText = (underlyingError ?? error).localizedDescription
+            let userInfo = (error as NSError).userInfo
+            if !userInfo.isEmpty {
+                alert.informativeText = "\(userInfo)"
+            }
         }
         NSApp.activate(ignoringOtherApps: true)
         if let window = view.window {

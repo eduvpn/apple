@@ -19,6 +19,8 @@ class Environment {
     let serverDiscoveryService: ServerDiscoveryService?
     let serverAuthService: ServerAuthService
     let persistenceService: PersistenceService
+    let serverAPIService: ServerAPIService
+    let connectionService: ConnectionService
 
     init(navigationController: NavigationController) {
         self.navigationController = navigationController
@@ -31,6 +33,8 @@ class Environment {
             configRedirectURL: Config.shared.redirectUrl,
             configClientId: Config.shared.clientId)
         self.persistenceService = PersistenceService()
+        self.serverAPIService = ServerAPIService(serverAuthService: serverAuthService)
+        self.connectionService = ConnectionService()
     }
 
     func instantiateSearchViewController(shouldIncludeOrganizations: Bool) -> SearchViewController {
@@ -40,6 +44,24 @@ class Environment {
         return instantiate(SearchViewController.self, identifier: "Search", parameters: parameters)
     }
 
+    func instantiateConnectionViewController(server: ServerInstance, serverDisplayInfo: ServerDisplayInfo) -> ConnectionViewController {
+        let parameters = ConnectionViewController.Parameters(
+            environment: self, server: server, serverDisplayInfo: serverDisplayInfo)
+        return instantiate(ConnectionViewController.self, identifier: "Connection", parameters: parameters)
+    }
+
+    func instantiatePreferencesViewController() -> PreferencesViewController {
+        return instantiate(PreferencesViewController.self, identifier: "Preferences")
+    }
+
+    func instantiate<VC: ViewController>(_ type: VC.Type, identifier: String) -> VC {
+        guard let viewController =
+            storyboard.instantiateViewController(withIdentifier: identifier) as? VC else {
+                fatalError("Can't instantiate view controller with identifier: \(identifier)")
+        }
+        return viewController
+    }
+
     func instantiate<VC: ParametrizedViewController>(_ type: VC.Type, identifier: String,
                                                      parameters: VC.Parameters) -> VC {
         // In macOS 10.15 / iOS 13 and later, we can pass our own parameters to
@@ -47,10 +69,7 @@ class Environment {
         // Since we have to support earlier OS versions, we inject the parameters
         // by calling 'initializeParameters'.
 
-        guard let viewController =
-            storyboard.instantiateViewController(withIdentifier: identifier) as? VC else {
-                fatalError("Can't instantiate view controller with identifier: \(identifier)")
-        }
+        let viewController = instantiate(type, identifier: identifier)
         viewController.initializeParameters(parameters)
         return viewController
     }

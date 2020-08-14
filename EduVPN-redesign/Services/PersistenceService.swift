@@ -10,8 +10,6 @@ import os.log
 
 class PersistenceService {
 
-    typealias BaseURLString = String
-
     fileprivate struct AddedServers {
         var simpleServers: [SimpleServerInstance]
         var secureInternetServer: SecureInternetServerInstance?
@@ -41,20 +39,20 @@ class PersistenceService {
     }
 
     func addSimpleServer(_ server: SimpleServerInstance) {
-        let baseURLString = server.baseURL.absoluteString
+        let baseURLString = server.baseURLString
         addedServers.simpleServers.removeAll {
-            $0.baseURL.absoluteString == baseURLString
+            $0.baseURLString == baseURLString
         }
         addedServers.simpleServers.append(server)
         Self.saveToFile(addedServers: addedServers)
     }
 
     func removeSimpleServer(_ server: SimpleServerInstance) {
-        let baseURLString = server.baseURL.absoluteString
+        let baseURLString = server.baseURLString
         let pivotIndex = addedServers.simpleServers.partition(
-            by: { $0.baseURL.absoluteString == baseURLString })
+            by: { $0.baseURLString == baseURLString })
         for index in pivotIndex ..< addedServers.simpleServers.count {
-            ServerDataStore(path: addedServers.simpleServers[index].localStoragePath).delete()
+            DataStore(path: addedServers.simpleServers[index].localStoragePath).delete()
         }
         addedServers.simpleServers.removeLast(addedServers.simpleServers.count - pivotIndex)
         Self.saveToFile(addedServers: addedServers)
@@ -62,23 +60,23 @@ class PersistenceService {
 
     func setSecureInternetServer(_ server: SecureInternetServerInstance) {
         if let existingServer = addedServers.secureInternetServer {
-            ServerDataStore(path: existingServer.localStoragePath).delete()
+            DataStore(path: existingServer.localStoragePath).delete()
         }
         addedServers.secureInternetServer = server
         Self.saveToFile(addedServers: addedServers)
     }
 
-    func setSecureInternetServerAPIBaseURL(_ url: URL) {
+    func setSecureInternetServerAPIBaseURLString(_ urlString: DiscoveryData.BaseURLString) {
         guard let existingServer = addedServers.secureInternetServer else {
             os_log("No secure internet server exists", log: Log.general, type: .error)
             return
         }
-        if url == existingServer.apiBaseURL {
+        if urlString == existingServer.apiBaseURLString {
             return
         }
         // Remove client certificate data here
         let server = SecureInternetServerInstance(
-            apiBaseURL: url, authBaseURL: existingServer.authBaseURL,
+            apiBaseURLString: urlString, authBaseURLString: existingServer.authBaseURLString,
             orgId: existingServer.orgId, localStoragePath: existingServer.localStoragePath)
         addedServers.secureInternetServer = server
         Self.saveToFile(addedServers: addedServers)
@@ -86,7 +84,7 @@ class PersistenceService {
 
     func removeSecureInternetServer() {
         if let existingServer = addedServers.secureInternetServer {
-            ServerDataStore(path: existingServer.localStoragePath).delete()
+            DataStore(path: existingServer.localStoragePath).delete()
         }
         addedServers.secureInternetServer = nil
         Self.saveToFile(addedServers: addedServers)
@@ -125,7 +123,7 @@ extension PersistenceService {
 }
 
 extension PersistenceService {
-    class ServerDataStore {
+    class DataStore {
         let rootURL: URL
 
         init(path: String) {
@@ -136,6 +134,14 @@ extension PersistenceService {
 
         private var authStateURL: URL {
             rootURL.appendingPathComponent("authState.bin")
+        }
+
+        private var keyPairURL: URL {
+            rootURL.appendingPathComponent("keyPair.bin")
+        }
+
+        private var selectedProfileIdURL: URL {
+            rootURL.appendingPathComponent("selectedProfileId.txt")
         }
 
         var authState: AuthState? {
@@ -155,6 +161,37 @@ extension PersistenceService {
                 } else {
                     removeAuthState()
                 }
+            }
+        }
+
+        var keyPair: CreateKeyPairResponse.KeyPair? {
+            get {
+                if let data = try? Data(contentsOf: keyPairURL),
+                    let clearTextData = Crypto.shared.decrypt(data: data) {
+                    return try? JSONDecoder().decode(CreateKeyPairResponse.KeyPair.self, from: clearTextData)
+                }
+                return nil
+            }
+            set(value) {
+                if let data = try? JSONEncoder().encode(value),
+                    let encryptedData = try? Crypto.shared.encrypt(data: data) {
+                    PersistenceService.write(encryptedData, to: keyPairURL, atomically: true)
+                }
+            }
+        }
+
+        var selectedProfileId: String? {
+            get {
+                if let data = try? Data(contentsOf: selectedProfileIdURL),
+                    let string = String(data: data, encoding: .utf8),
+                    !string.isEmpty {
+                    return string
+                }
+                return nil
+            }
+            set(value) {
+                PersistenceService.write(value?.data(using: .utf8) ?? Data(),
+                                         to: selectedProfileIdURL, atomically: true)
             }
         }
 

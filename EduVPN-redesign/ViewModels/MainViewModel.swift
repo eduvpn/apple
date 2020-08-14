@@ -7,6 +7,7 @@
 
 import Foundation
 import PromiseKit
+import os.log
 
 protocol MainViewModelDelegate: class {
     func rowsChanged(changes: RowsDifference<MainViewModel.Row>)
@@ -16,11 +17,19 @@ class MainViewModel {
     weak var delegate: MainViewModelDelegate?
 
     enum Row: ViewModelRow {
+        // displayName / countryName can be derived from displayInfo. But
+        // they are pre-computed and stored so that we don't have to compute it
+        // every time the table view cell is dequeued.
         case instituteAccessServerSectionHeader
-        case instituteAccessServer(server: SimpleServerInstance, displayName: String)
+        case instituteAccessServer(
+            server: SimpleServerInstance,
+            displayInfo: ServerDisplayInfo,
+            displayName: String)
         case secureInternetServerSectionHeader
-        case secureInternetServer(server: SecureInternetServerInstance,
-            countryCode: String, countryName: String)
+        case secureInternetServer(
+            server: SecureInternetServerInstance,
+            displayInfo: ServerDisplayInfo,
+            countryName: String)
         case serverByURLSectionHeader
         case serverByURL(server: SimpleServerInstance)
 
@@ -37,10 +46,28 @@ class MainViewModel {
 
         var displayText: String {
             switch self {
-            case .instituteAccessServer(_, let displayName): return displayName
+            case .instituteAccessServer(_, _, let displayName): return displayName
             case .secureInternetServer(_, _, let countryName): return countryName
-            case .serverByURL(let server): return server.baseURL.absoluteString
+            case .serverByURL(let server): return server.baseURLString.toString()
             default: return ""
+            }
+        }
+
+        var server: ServerInstance? {
+            switch self {
+            case .instituteAccessServer(let server, _, _): return server
+            case .secureInternetServer(let server, _, _): return server
+            case .serverByURL(let server): return server
+            default: return nil
+            }
+        }
+
+        var serverDisplayInfo: ServerDisplayInfo? {
+            switch self {
+            case .instituteAccessServer(_, let displayInfo, _): return displayInfo
+            case .secureInternetServer(_, let displayInfo, _): return displayInfo
+            case .serverByURL(let server): return .serverByURLServer(server)
+            default: return nil
             }
         }
     }
@@ -59,8 +86,16 @@ class MainViewModel {
 
         if let serverDiscoveryService = serverDiscoveryService {
             serverDiscoveryService.delegate = self
-            serverDiscoveryService.getServers(from: .cache)
-                .cauterize()
+            firstly {
+                serverDiscoveryService.getServers(from: .cache)
+            }.recover { _ in
+                serverDiscoveryService.getServers(from: .server)
+            }.catch { error in
+                os_log("Error loading discovery data for main listing: %{public}@",
+                       log: Log.general, type: .error,
+                       error.localizedDescription)
+                self.update()
+            }
         }
     }
 
@@ -87,28 +122,23 @@ extension MainViewModel {
         var serverByURLRows: [Row] = []
 
         for simpleServer in persistenceService.simpleServers {
-            let baseURLString = simpleServer.baseURL.absoluteString
+            let baseURLString = simpleServer.baseURLString
             if let discoveredServer = instituteAccessServersMap[baseURLString] {
-                let displayName = discoveredServer.displayName.string(for: Locale.current)
-                instituteAccessRows.append(.instituteAccessServer(server: simpleServer, displayName: displayName))
+                let displayInfo = ServerDisplayInfo.instituteAccessServer(discoveredServer)
+                let displayName = displayInfo.serverName(for: Locale.current)
+                instituteAccessRows.append(.instituteAccessServer(server: simpleServer, displayInfo: displayInfo, displayName: displayName))
             } else {
                 serverByURLRows.append(.serverByURL(server: simpleServer))
             }
         }
 
         if let secureInternetServer = persistenceService.secureInternetServer {
-            let baseURLString = secureInternetServer.apiBaseURL.absoluteString
-            if let discoveredServer = secureInternetServersMap[baseURLString] {
-                let countryCode = discoveredServer.countryCode
-                let countryName = Locale.current.localizedString(forRegionCode: countryCode) ?? "Unknown country"
-                secureInternetRows.append(.secureInternetServer(server: secureInternetServer,
-                                                                countryCode: countryCode,
-                                                                countryName: countryName))
-            } else {
-                secureInternetRows.append(.secureInternetServer(server: secureInternetServer,
-                                                                countryCode: "",
-                                                                countryName: "Unknown country"))
-            }
+            let baseURLString = secureInternetServer.apiBaseURLString
+            let displayInfo = ServerDisplayInfo.secureInternetServer(secureInternetServersMap[baseURLString])
+            let countryName = displayInfo.serverName(for: Locale.current)
+            secureInternetRows.append(.secureInternetServer(server: secureInternetServer,
+                                                            displayInfo: displayInfo,
+                                                            countryName: countryName))
         }
 
         var computedRows: [Row] = []

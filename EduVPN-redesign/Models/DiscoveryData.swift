@@ -6,12 +6,10 @@
 // Models the data extracted from server_list.json and organization_list.json
 
 struct DiscoveryData {
-    typealias BaseURLString = String
     typealias OrgId = String
 
-    enum LanguageMappedString {
-        case stringForAnyLanguage(String)
-        case stringByLanguageTag([String: String])
+    struct BaseURLString {
+        let urlString: String
     }
 
     struct InstituteAccessServer {
@@ -43,18 +41,6 @@ struct DiscoveryData {
     }
 }
 
-extension DiscoveryData.LanguageMappedString: Decodable {
-    init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        if let dictionary = try? container.decode([String: String].self) {
-            self = .stringByLanguageTag(dictionary)
-        } else {
-            let string = try container.decode(String.self)
-            self = .stringForAnyLanguage(string)
-        }
-    }
-}
-
 extension DiscoveryData.Organization: Decodable {
     enum CodingKeys: String, CodingKey {
         case orgId = "org_id"
@@ -71,8 +57,8 @@ extension DiscoveryData.Servers: Decodable {
 
     private struct ServerEntry: Decodable {
         let serverType: String
-        let baseURLString: String
-        let displayName: DiscoveryData.LanguageMappedString?
+        let baseURLString: DiscoveryData.BaseURLString
+        let displayName: LanguageMappedString?
         let countryCode: String?
         let supportContact: [String]?
 
@@ -124,5 +110,53 @@ extension DiscoveryData.Organizations: Decodable {
         let listContainer = try decoder.container(keyedBy: OrgListTopLevelKeys.self)
         let list = try listContainer.decode([DiscoveryData.Organization].self, forKey: .organization_list)
         self.organizations = list
+    }
+}
+
+extension DiscoveryData.BaseURLString: Hashable {
+    static func == (lhs: DiscoveryData.BaseURLString, rhs: DiscoveryData.BaseURLString) -> Bool {
+        return lhs.urlString == rhs.urlString
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(urlString)
+    }
+}
+
+extension DiscoveryData.BaseURLString: Codable {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        self.urlString = try container.decode(String.self)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(urlString)
+    }
+}
+
+enum DiscoveryDataURLError: Error {
+    case invalidURLStringInDiscoveryData(urlString: String)
+}
+
+extension DiscoveryDataURLError: AppError {
+    var summary: String {
+        switch self {
+        case .invalidURLStringInDiscoveryData(let urlString):
+            return "Invalid URL string \"\(urlString)\" in discovery data"
+        }
+    }
+}
+
+extension DiscoveryData.BaseURLString {
+    func toURL() throws -> URL {
+        guard let url = URL(string: urlString) else {
+            throw DiscoveryDataURLError.invalidURLStringInDiscoveryData(urlString: urlString)
+        }
+        return url
+    }
+
+    func toString() -> String {
+        return urlString
     }
 }

@@ -43,6 +43,9 @@ extension TableView {
     }
 }
 
+protocol AuthorizingViewController: ViewController {
+}
+
 #elseif os(macOS)
 import AppKit
 
@@ -99,6 +102,11 @@ extension TableView {
         insertRows(at: IndexSet(insertedIndices), withAnimation: [])
         endUpdates()
     }
+}
+
+protocol AuthorizingViewController: ViewController {
+    func showAuthorizingMessage(onCancelled: @escaping () -> Void)
+    func hideAuthorizingMessage()
 }
 
 #endif

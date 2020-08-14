@@ -26,16 +26,38 @@ struct ServerInfoFetcher {
         return Session(configuration: configuration, startRequestsImmediately: false)
     }
 
-    static func fetch(baseURL: URL) -> Promise<ServerInfo> {
+    static func fetch(baseURLString: DiscoveryData.BaseURLString) -> Promise<ServerInfo> {
         let provider = MoyaProvider<ServerInfoTarget>(session: Self.uncachedSession)
         return firstly {
-            provider.request(target: ServerInfoTarget(baseURL))
+            provider.request(target: ServerInfoTarget(try baseURLString.toURL()))
         }.map { response in
-            try Self.parseServerInfo(response.data)
+            try JSONDecoder().decode(ServerInfo.self, from: response.data)
         }
     }
 
-    private static func parseServerInfo(_ data: Data) throws -> ServerInfo {
-        return try JSONDecoder().decode(ServerInfo.self, from: data)
+    static func fetch(apiBaseURLString: DiscoveryData.BaseURLString,
+                      authBaseURLString: DiscoveryData.BaseURLString) -> Promise<ServerInfo> {
+        guard apiBaseURLString != authBaseURLString else {
+            return fetch(baseURLString: authBaseURLString)
+        }
+        return firstly { () -> Promise<[Moya.Response]> in
+            let apiBaseURL = try apiBaseURLString.toURL()
+            let authBaseURL = try authBaseURLString.toURL()
+
+            let provider = MoyaProvider<ServerInfoTarget>(session: Self.uncachedSession)
+            let apiServerInfoPromise = provider.request(target: ServerInfoTarget(apiBaseURL))
+            let authServerInfoPromise = provider.request(target: ServerInfoTarget(authBaseURL))
+
+            return when(fulfilled: [apiServerInfoPromise, authServerInfoPromise])
+        }.map { responses in
+            precondition(responses.count == 2)
+            let serverInfos = try responses.map { try JSONDecoder().decode(ServerInfo.self, from: $0.data) }
+            let apiServerInfo = serverInfos[0]
+            let authServerInfo = serverInfos[1]
+            return ServerInfo(
+                authorizationEndpoint: authServerInfo.authorizationEndpoint,
+                tokenEndpoint: authServerInfo.tokenEndpoint,
+                apiBaseURL: apiServerInfo.apiBaseURL)
+        }
     }
 }

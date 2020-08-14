@@ -1,13 +1,51 @@
 //
-//  DiscoveryData+Locale.swift
+//  LanguageMappedString.swift
 //  EduVPN
 //
 
+// Represents a string that can differ based on the language.
+
+// Some fields in the responses from the server might be either a simple
+// string, or a dictionary mapping language tags to strings.
+//
+// For example, a display name field could be either:
+//     "display_name": "SURFnet bv"
+// or:
+//     "display_name": { "en": "SURFnet", "nl": "SURFnet bv" }
+//
+// The actual string to display should be derived based on the current locale.
+// The LanguageMappedString type represents a string like this.
+
 import Foundation
 
-// Locale-related helpers for the DiscoveryData model
+enum LanguageMappedString {
+    case stringForAnyLanguage(String)
+    case stringByLanguageTag([String: String])
+}
 
-extension DiscoveryData.LanguageMappedString {
+extension LanguageMappedString: Codable {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        if let dictionary = try? container.decode([String: String].self) {
+            self = .stringByLanguageTag(dictionary)
+        } else {
+            let string = try container.decode(String.self)
+            self = .stringForAnyLanguage(string)
+        }
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case .stringForAnyLanguage(let string):
+            try container.encode(string)
+        case .stringByLanguageTag(let dictionary):
+            try container.encode(dictionary)
+        }
+    }
+}
+
+extension LanguageMappedString {
 
     // Implements the language matching rules described at:
     // https://github.com/eduvpn/documentation/blob/v2/SERVER_DISCOVERY.md#language-matching

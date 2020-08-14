@@ -39,22 +39,22 @@ extension MainViewController: NavigationControllerDelegate {
 }
 
 extension MainViewController: SearchViewControllerDelegate {
-    func searchViewControllerAddedSimpleServer(baseURL: URL, authState: AuthState) {
+    func searchViewControllerAddedSimpleServer(baseURLString: DiscoveryData.BaseURLString, authState: AuthState) {
         let storagePath = UUID().uuidString
-        let dataStore = PersistenceService.ServerDataStore(path: storagePath)
+        let dataStore = PersistenceService.DataStore(path: storagePath)
         dataStore.authState = authState
-        let server = SimpleServerInstance(baseURL: baseURL, localStoragePath: storagePath)
+        let server = SimpleServerInstance(baseURLString: baseURLString, localStoragePath: storagePath)
         environment.persistenceService.addSimpleServer(server)
         viewModel.update()
         environment.navigationController?.popViewController(animated: true)
     }
 
-    func searchViewControllerAddedSecureInternetServer(baseURL: URL, orgId: String, authState: AuthState) {
+    func searchViewControllerAddedSecureInternetServer(baseURLString: DiscoveryData.BaseURLString, orgId: String, authState: AuthState) {
         let storagePath = UUID().uuidString
-        let dataStore = PersistenceService.ServerDataStore(path: storagePath)
+        let dataStore = PersistenceService.DataStore(path: storagePath)
         dataStore.authState = authState
         let server = SecureInternetServerInstance(
-            apiBaseURL: baseURL, authBaseURL: baseURL,
+            apiBaseURLString: baseURLString, authBaseURLString: baseURLString,
             orgId: orgId, localStoragePath: storagePath)
         environment.persistenceService.setSecureInternetServer(server)
         viewModel.update()
@@ -74,16 +74,15 @@ extension MainViewController {
                 let cell = tableView.dequeue(MainSecureInternetSectionHeaderCell.self,
                                              identifier: "MainSecureInternetSectionHeaderCell",
                                              indexPath: IndexPath(item: index, section: 0))
-                let selectedBaseURLString = environment.persistenceService.secureInternetServer?.apiBaseURL.absoluteString ?? ""
+                let selectedBaseURLString = environment.persistenceService.secureInternetServer?.apiBaseURLString
+                    ?? DiscoveryData.BaseURLString(urlString: "")
                 cell.configureMainSecureInternetSectionHeader(
                     serversMap: viewModel.secureInternetServersMap,
                     selectedBaseURLString: selectedBaseURLString,
                     onLocationChanged: { baseURLString in
-                        if let url = URL(string: baseURLString) {
-                            self.environment.persistenceService.setSecureInternetServerAPIBaseURL(url)
-                            self.viewModel.update()
-                            self.reloadSecureInternetRows()
-                        }
+                        self.environment.persistenceService.setSecureInternetServerAPIBaseURLString(baseURLString)
+                        self.viewModel.update()
+                        self.reloadSecureInternetRows()
                     })
                 return cell
             } else {
@@ -113,7 +112,13 @@ extension MainViewController {
     }
 
     func didSelectRow(at index: Int) {
-        print("Selected: \(viewModel.row(at: index))")
+        let row = viewModel.row(at: index)
+        if let server = row.server,
+            let serverDisplayInfo = row.serverDisplayInfo {
+            let connectionVC = environment.instantiateConnectionViewController(
+                server: server, serverDisplayInfo: serverDisplayInfo)
+            environment.navigationController?.pushViewController(connectionVC, animated: true)
+        }
     }
 
     func canDeleteRow(at index: Int) -> Bool {
@@ -130,7 +135,7 @@ extension MainViewController {
         switch viewModel.row(at: index) {
         case .secureInternetServer:
             persistenceService.removeSecureInternetServer()
-        case .instituteAccessServer(server: let server, displayName: _):
+        case .instituteAccessServer(server: let server, _, _):
             persistenceService.removeSimpleServer(server)
         case .serverByURL(server: let server):
             persistenceService.removeSimpleServer(server)

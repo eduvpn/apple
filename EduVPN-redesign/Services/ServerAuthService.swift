@@ -9,20 +9,6 @@ import Moya
 import PromiseKit
 
 class ServerAuthService {
-    struct ServerInfoTarget: TargetType, AcceptJson, SimpleGettable {
-        var baseURL: URL
-        var path: String { "/info.json" }
-
-        init(_ url: URL) {
-            baseURL = url
-        }
-    }
-
-    static var uncachedSession: Moya.Session {
-        let configuration = URLSessionConfiguration.default
-        configuration.urlCache = nil
-        return Session(configuration: configuration, startRequestsImmediately: false)
-    }
 
     private let configRedirectURL: URL // For iOS
     private let configClientId: String // For macOS
@@ -49,20 +35,35 @@ class ServerAuthService {
         self.configClientId = configClientId
     }
 
-    func startAuth(baseURL: URL,
-                   from viewController: ViewController) -> Promise<AuthState> {
-        firstly {
-            ServerInfoFetcher.fetch(baseURL: baseURL)
+    func startAuth(baseURLString: DiscoveryData.BaseURLString,
+                   from viewController: AuthorizingViewController) -> Promise<AuthState> {
+        #if os(macOS)
+        viewController.showAuthorizingMessage(onCancelled: { [weak self] in
+            self?.cancelAuth()
+        })
+        #endif
+        return firstly {
+            ServerInfoFetcher.fetch(baseURLString: baseURLString)
         }.then { serverInfo in
             self.startAuth(
                 authEndpoint: serverInfo.authorizationEndpoint,
                 tokenEndpoint: serverInfo.tokenEndpoint,
-                from: viewController)
+                from: viewController,
+                shouldShowAuthorizingMessage: false)
         }
     }
 
-    func startAuth(authEndpoint: URL, tokenEndpoint: URL,
-                   from viewController: ViewController) -> Promise<AuthState> {
+    func startAuth(authEndpoint: ServerInfo.OAuthEndpoint,
+                   tokenEndpoint: ServerInfo.OAuthEndpoint,
+                   from viewController: AuthorizingViewController,
+                   shouldShowAuthorizingMessage: Bool = true) -> Promise<AuthState> {
+        #if os(macOS)
+        if shouldShowAuthorizingMessage {
+            viewController.showAuthorizingMessage(onCancelled: { [weak self] in
+                self?.cancelAuth()
+            })
+        }
+        #endif
         let authConfig = OIDServiceConfiguration(
             authorizationEndpoint: authEndpoint,
             tokenEndpoint: tokenEndpoint)
@@ -74,9 +75,13 @@ class ServerAuthService {
             responseType: OIDResponseTypeCode,
             additionalParameters: nil)
         return Promise { seal in
-            let authFlow = Self.createAuthState(
+            let authFlow = createAuthState(
                 authRequest: authRequest,
-                presentingViewController: viewController) { (authState, error) in
+                viewController: viewController) { (authState, error) in
+                    #if os(macOS)
+                    NSApp.activate(ignoringOtherApps: true)
+                    viewController.hideAuthorizingMessage()
+                    #endif
                     if let authState = authState {
                         seal.resolve(AuthState(oidAuthState: authState), error)
                     } else {
@@ -117,9 +122,9 @@ class ServerAuthService {
                 code == OIDErrorCode.userCanceledAuthorizationFlow.rawValue)
     }
 
-    private static func createAuthState(
+    private func createAuthState(
         authRequest: OIDAuthorizationRequest,
-        presentingViewController: ViewController,
+        viewController: AuthorizingViewController,
         callback: @escaping OIDAuthStateAuthorizationCallback) -> OIDExternalUserAgentSession? {
 
         #if os(macOS)
