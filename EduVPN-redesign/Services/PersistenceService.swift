@@ -13,10 +13,18 @@ class PersistenceService {
     fileprivate struct AddedServers {
         var simpleServers: [SimpleServerInstance]
         var secureInternetServer: SecureInternetServerInstance?
+        var serversMigratedBasedOnFilePathURL: [String]
 
         init() {
             simpleServers = []
             secureInternetServer = nil
+            serversMigratedBasedOnFilePathURL = []
+        }
+
+        init(migrateFromFilePathURL servers: [SimpleServerInstance]) {
+            simpleServers = servers
+            secureInternetServer = nil
+            serversMigratedBasedOnFilePathURL = servers.map { $0.baseURLString.urlString }
         }
     }
 
@@ -35,7 +43,12 @@ class PersistenceService {
     }
 
     init() {
-        addedServers = Self.loadFromFile() ?? AddedServers()
+        if Self.isJSONStoreExists() {
+            addedServers = Self.loadFromFile() ?? AddedServers()
+        } else {
+            addedServers = AddedServers(migrateFromFilePathURL: MigrationHelper.migrateServersFromFilePathURL())
+            Self.saveToFile(addedServers: addedServers)
+        }
     }
 
     func addSimpleServer(_ server: SimpleServerInstance) {
@@ -55,6 +68,7 @@ class PersistenceService {
             DataStore(path: addedServers.simpleServers[index].localStoragePath).delete()
         }
         addedServers.simpleServers.removeLast(addedServers.simpleServers.count - pivotIndex)
+        addedServers.serversMigratedBasedOnFilePathURL.removeAll(where: { $0 == baseURLString.urlString })
         Self.saveToFile(addedServers: addedServers)
     }
 
@@ -88,6 +102,10 @@ class PersistenceService {
         }
         addedServers.secureInternetServer = nil
         Self.saveToFile(addedServers: addedServers)
+    }
+
+    static func isJSONStoreExists() -> Bool {
+        FileManager.default.fileExists(atPath: jsonStoreURL.path)
     }
 
     private static func loadFromFile() -> AddedServers? {
@@ -140,6 +158,10 @@ extension PersistenceService {
             rootURL.appendingPathComponent("keyPair.bin")
         }
 
+        private var migratedClientCertificateURL: URL {
+            rootURL.appendingPathComponent("client.certificate")
+        }
+
         private var selectedProfileIdURL: URL {
             rootURL.appendingPathComponent("selectedProfileId.txt")
         }
@@ -170,12 +192,20 @@ extension PersistenceService {
                     let clearTextData = Crypto.shared.decrypt(data: data) {
                     return try? JSONDecoder().decode(CreateKeyPairResponse.KeyPair.self, from: clearTextData)
                 }
+                if let data = try? Data(contentsOf: migratedClientCertificateURL),
+                    let clearTextData = Crypto.shared.decrypt(data: data) {
+                    let response = try? JSONDecoder().decode(CreateKeyPairResponse.self, from: clearTextData)
+                    return response?.data
+                }
                 return nil
             }
             set(value) {
                 if let data = try? JSONEncoder().encode(value),
                     let encryptedData = try? Crypto.shared.encrypt(data: data) {
                     PersistenceService.write(encryptedData, to: keyPairURL, atomically: true)
+                }
+                if FileManager.default.fileExists(atPath: migratedClientCertificateURL.path) {
+                    try? FileManager.default.removeItem(at: migratedClientCertificateURL)
                 }
             }
         }
@@ -245,5 +275,6 @@ extension PersistenceService.AddedServers: Codable {
     enum CodingKeys: String, CodingKey {
         case simpleServers = "simple_servers"
         case secureInternetServer = "secure_internet_server"
+        case serversMigratedBasedOnFilePathURL = "servers_migrated_based_on_file_path_url"
     }
 }

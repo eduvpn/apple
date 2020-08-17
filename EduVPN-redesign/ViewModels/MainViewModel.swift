@@ -88,13 +88,13 @@ class MainViewModel {
             serverDiscoveryService.delegate = self
             firstly {
                 serverDiscoveryService.getServers(from: .cache)
-            }.recover { _ in
-                serverDiscoveryService.getServers(from: .server)
+            }.recover { _ -> Promise<DiscoveryData.Servers> in
+                self.update()
+                return serverDiscoveryService.getServers(from: .server)
             }.catch { error in
                 os_log("Error loading discovery data for main listing: %{public}@",
                        log: Log.general, type: .error,
                        error.localizedDescription)
-                self.update()
             }
         }
     }
