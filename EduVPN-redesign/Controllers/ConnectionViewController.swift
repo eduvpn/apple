@@ -214,7 +214,9 @@ private extension ConnectionViewController {
             }
             return
         }
-        self.parameters.environment.navigationController?.showAlert(for: error)
+        if !self.parameters.environment.serverAuthService.isUserCancelledError(error) {
+            self.parameters.environment.navigationController?.showAlert(for: error)
+        }
     }
 
 }
