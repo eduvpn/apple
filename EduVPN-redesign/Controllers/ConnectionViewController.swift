@@ -10,6 +10,10 @@ import AppKit
 import PromiseKit
 import os.log
 
+protocol ConnectionViewControllerDelegate: class {
+    func connectionViewControllerAttemptingToConnect(connectionAttempt: ConnectionAttempt?)
+}
+
 enum ConnectionViewControllerError: Error {
     case noProfiles
     case noSelectedProfile
@@ -32,9 +36,13 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         let environment: Environment
         let server: ServerInstance
         let serverDisplayInfo: ServerDisplayInfo
+        let restoredPreConnectionState: ConnectionAttempt.PreConnectionState?
     }
 
+    weak var delegate: ConnectionViewControllerDelegate?
+
     private var parameters: Parameters!
+    private var isRestored: Bool = false
     private var viewModel: ConnectionViewModel!
     private var dataStore: PersistenceService.DataStore!
 
@@ -90,9 +98,18 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
             serverAPIService: parameters.environment.serverAPIService,
             connectionService: parameters.environment.connectionService,
             server: parameters.server,
-            serverDisplayInfo: parameters.serverDisplayInfo)
+            serverDisplayInfo: parameters.serverDisplayInfo,
+            restoredPreConnectionState: parameters.restoredPreConnectionState)
         self.dataStore = PersistenceService.DataStore(path: parameters.server.localStoragePath)
-        self.selectedProfileId = dataStore.selectedProfileId
+
+        if let restoredPreConnectionState = parameters.restoredPreConnectionState {
+            self.profiles = restoredPreConnectionState.profiles
+            self.selectedProfileId = restoredPreConnectionState.selectedProfileId
+            self.isRestored = true
+        } else {
+            self.selectedProfileId = dataStore.selectedProfileId
+            self.isRestored = false
+        }
     }
 
     override func viewDidLoad() {
@@ -100,7 +117,9 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         // to receive updates from the view model
         viewModel.delegate = self
         setupInitialView(viewModel: viewModel)
-        beginConnectionFlow(shouldContinueIfSingleProfile: true)
+        if !isRestored {
+            beginConnectionFlow(shouldContinueIfSingleProfile: true)
+        }
     }
 
     @IBAction func vpnSwitchToggled(_ sender: Any) {
@@ -143,6 +162,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
 
 private extension ConnectionViewController {
     func setupInitialView(viewModel: ConnectionViewModel) {
+        canGoBackChanged(canGoBack: viewModel.canGoBack)
         headerChanged(viewModel.header)
         supportContactChanged(viewModel.supportContact)
         statusChanged(viewModel.status)
@@ -235,6 +255,20 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
 
     func canGoBackChanged(canGoBack: Bool) {
         parameters.environment.navigationController?.isUserAllowedToGoBack = canGoBack
+    }
+
+    func automaticallySelectingProfile(profileId: String) {
+        selectedProfileId = profileId
+    }
+
+    func attemptingToConnect(
+        profileId: String, certificateValidityRange: ServerAPIService.CertificateValidityRange, connectionAttemptId: UUID) {
+        let connectionAttempt = ConnectionAttempt(
+            server: parameters.server, profiles: profiles ?? [],
+            selectedProfileId: profileId,
+            certificateValidityRange: certificateValidityRange,
+            attemptId: connectionAttemptId)
+        delegate?.connectionViewControllerAttemptingToConnect(connectionAttempt: connectionAttempt)
     }
 
     static let serverCountryFlagImageWidth: CGFloat = 24

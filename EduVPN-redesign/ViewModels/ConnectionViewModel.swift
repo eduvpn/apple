@@ -12,6 +12,9 @@ import NetworkExtension
 protocol ConnectionViewModelDelegate: class {
     func profilesFound(profiles: [ProfileListResponse.Profile])
     func canGoBackChanged(canGoBack: Bool)
+    func automaticallySelectingProfile(profileId: String)
+    func attemptingToConnect(
+        profileId: String, certificateValidityRange: ServerAPIService.CertificateValidityRange, connectionAttemptId: UUID)
 
     func headerChanged(_ header: ConnectionViewModel.Header)
     func supportContactChanged(_ supportContact: ConnectionViewModel.SupportContact)
@@ -106,6 +109,8 @@ class ConnectionViewModel {
         didSet { delegate?.connectionInfoStateChanged(connectionInfoState) }
     }
 
+    var canGoBack: Bool { internalState == .idle }
+
     // State of the connection view model
 
     private enum InternalState: Equatable {
@@ -182,7 +187,8 @@ class ConnectionViewModel {
     private var connectingProfile: ProfileListResponse.Profile?
 
     init(serverAPIService: ServerAPIService, connectionService: ConnectionService,
-         server: ServerInstance, serverDisplayInfo: ServerDisplayInfo) {
+         server: ServerInstance, serverDisplayInfo: ServerDisplayInfo,
+         restoredPreConnectionState: ConnectionAttempt.PreConnectionState?) {
         self.serverAPIService = serverAPIService
         self.connectionService = connectionService
         self.server = server
@@ -198,6 +204,18 @@ class ConnectionViewModel {
 
         dataStore = PersistenceService.DataStore(path: server.localStoragePath)
         connectionService.statusDelegate = self
+
+        if let restoredPreConnectionState = restoredPreConnectionState {
+            self.profiles = restoredPreConnectionState.profiles
+            self.connectingProfile = restoredPreConnectionState.profiles.first(where: { $0.profileId == restoredPreConnectionState.selectedProfileId })
+            self.certificateExpiryHelper = CertificateExpiryHelper(
+                validFrom: restoredPreConnectionState.certificateValidFrom,
+                expiresAt: restoredPreConnectionState.certificateExpiresAt,
+                handler: { [weak self] certificateStatus in
+                    self?.certificateStatus = certificateStatus
+                })
+            internalState = .enabledVPN
+        }
     }
 
     func beginConnectionFlow(from viewController: AuthorizingViewController, shouldContinueIfSingleProfile: Bool) -> Promise<Void> {
@@ -209,6 +227,7 @@ class ConnectionViewModel {
         }.then { (profiles, serverInfo) -> Promise<Void> in
             self.profiles = profiles
             if profiles.count == 1 && shouldContinueIfSingleProfile {
+                self.delegate?.automaticallySelectingProfile(profileId: profiles[0].profileId)
                 return self.continueConnectionFlow(
                     profile: profiles[0], from: viewController,
                     serverInfo: serverInfo)
@@ -242,9 +261,14 @@ class ConnectionViewModel {
                 handler: { [weak self] certificateStatus in
                     self?.certificateStatus = certificateStatus
                 })
+            let connectionAttemptId = UUID()
+            self.delegate?.attemptingToConnect(
+                profileId: profile.profileId,
+                certificateValidityRange: tunnelConfigData.certificateValidityRange,
+                connectionAttemptId: connectionAttemptId)
             return self.connectionService.enableVPN(
                 openVPNConfig: tunnelConfigData.openVPNConfiguration,
-                configSource: .server(localStoragePath: self.server.localStoragePath))
+                connectionAttemptId: connectionAttemptId)
         }.ensure {
             self.internalState = self.connectionService.isVPNEnabled ? .enabledVPN : .idle
         }

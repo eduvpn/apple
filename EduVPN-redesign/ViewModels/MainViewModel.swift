@@ -160,6 +160,20 @@ extension MainViewModel {
         self.rows = computedRows
         self.delegate?.rowsChanged(changes: diff)
     }
+
+    func serverDisplayInfo(for secureInternetServer: SecureInternetServerInstance) -> ServerDisplayInfo {
+        let baseURLString = secureInternetServer.apiBaseURLString
+        return .secureInternetServer(secureInternetServersMap[baseURLString])
+    }
+
+    func serverDisplayInfo(for simpleServer: SimpleServerInstance) -> ServerDisplayInfo {
+        let baseURLString = simpleServer.baseURLString
+        if let discoveredServer = instituteAccessServersMap[baseURLString] {
+            return .instituteAccessServer(discoveredServer)
+        } else {
+            return .serverByURLServer(simpleServer)
+        }
+    }
 }
 
 extension MainViewModel: ServerDiscoveryServiceServersDelegate {

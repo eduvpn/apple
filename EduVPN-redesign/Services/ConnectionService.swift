@@ -10,10 +10,8 @@ import TunnelKit
 import os.log
 
 protocol ConnectionServiceInitializationDelegate: class {
-    func connectionServiceInitialized(
-        isVPNEnabled: Bool, configurationSource: ConnectionService.ConfigurationSource?)
+    func connectionServiceInitialized(isVPNEnabled: Bool, connectionAttemptId: UUID?)
 }
-
 
 enum ConnectionServiceError: Error {
     case cannotStartTunnel
@@ -43,11 +41,6 @@ protocol ConnectionServiceStatusDelegate: class {
 
 class ConnectionService {
 
-    enum ConfigurationSource {
-        case server(localStoragePath: String)
-        // case openVPNConfigFile(fileName: String)
-    }
-
     weak var initializationDelegate: ConnectionServiceInitializationDelegate?
     weak var statusDelegate: ConnectionServiceStatusDelegate?
 
@@ -56,7 +49,7 @@ class ConnectionService {
     var isInitialized: Bool { tunnelManager != nil }
     var connectionStatus: NEVPNStatus { tunnelManager?.connection.status ?? .invalid }
     var isVPNEnabled: Bool { tunnelManager?.isOnDemandEnabled ?? false }
-    var configurationSource: ConfigurationSource? { tunnelManager?.configurationSource }
+    var connectionAttemptId: UUID? { tunnelManager?.connectionAttemptId }
     var connectedDate: Date? { tunnelManager?.session.connectedDate }
 
     private var statusObservationToken: AnyObject?
@@ -76,7 +69,7 @@ class ConnectionService {
             self.tunnelManager = tunnelManager
             self.initializationDelegate?.connectionServiceInitialized(
                 isVPNEnabled: tunnelManager.isOnDemandEnabled,
-                configurationSource: tunnelManager.configurationSource)
+                connectionAttemptId: tunnelManager.connectionAttemptId)
             self.statusDelegate?.connectionStatusChanged(
                 status: tunnelManager.connection.status)
         }.recover { error in
@@ -85,13 +78,13 @@ class ConnectionService {
         }
     }
 
-    func enableVPN(openVPNConfig: [String], configSource: ConfigurationSource) -> Promise<Void> {
+    func enableVPN(openVPNConfig: [String], connectionAttemptId: UUID) -> Promise<Void> {
         guard let tunnelManager = tunnelManager else {
             fatalError("ConnectionService not initialized yet")
         }
         return firstly { () -> Promise<NETunnelProviderProtocol> in
             let protocolConfig = try Self.tunnelProtocolConfiguration(
-                openVPNConfig: openVPNConfig, configSource: configSource)
+                openVPNConfig: openVPNConfig, connectionAttemptId: connectionAttemptId)
             return Promise.value(protocolConfig)
         }.then { protocolConfig -> Promise<Void> in
             tunnelManager.protocolConfiguration = protocolConfig
@@ -276,7 +269,7 @@ private extension ConnectionService {
     }
 
     static func tunnelProtocolConfiguration(
-        openVPNConfig lines: [String], configSource: ConfigurationSource) throws
+        openVPNConfig lines: [String], connectionAttemptId: UUID) throws
         -> NETunnelProviderProtocol {
             let parseResult = try OpenVPN.ConfigurationParser.parsed(fromLines: lines)
 
@@ -291,7 +284,7 @@ private extension ConnectionService {
             let tunnelProviderProtocolConfig = try providerConfig.generatedTunnelProtocol(
                 withBundleIdentifier: providerBundleIdentifier,
                 appGroup: appGroup)
-            configSource.store(to: &tunnelProviderProtocolConfig.providerConfiguration)
+            tunnelProviderProtocolConfig.connectionAttemptId = connectionAttemptId
 
             return tunnelProviderProtocolConfig
     }
@@ -305,11 +298,11 @@ extension NETunnelProviderManager {
         return session
     }
 
-    var configurationSource: ConnectionService.ConfigurationSource? {
+    var connectionAttemptId: UUID? {
         guard let protocolConfig = protocolConfiguration as? NETunnelProviderProtocol else {
             return nil
         }
-        return ConnectionService.ConfigurationSource(from: protocolConfig.providerConfiguration)
+        return protocolConfig.connectionAttemptId
     }
 
     class func loadAllFromPreferences() -> Promise<[NETunnelProviderManager]> {
@@ -354,30 +347,23 @@ extension NETunnelProviderManager {
     }
 }
 
-// MARK: - ConfigurationSource + providerConfiguration
+// MARK: - NETunnelProviderProtocol + connectionAttemptId
 
-extension ConnectionService.ConfigurationSource {
+extension NETunnelProviderProtocol {
     struct Keys {
-        static let serverLocalStoragePath = "ServerLocalStoragePath"
-        static let openVPNConfigFileName = "OpenVPNConfigFileName"
+        static let connectionAttemptId = "ConnectionAttemptID"
     }
 
-    func store(to dict: inout [String: Any]?) {
-        switch self {
-
-        case .server(let localStoragePath):
-            dict?[Keys.serverLocalStoragePath] = localStoragePath
-        // case .openVPNConfigFile(let fileName):
-        //    dict?[Keys.openVPNConfigFileName] = fileName
+    var connectionAttemptId: UUID? {
+        get {
+            if let uuidString = providerConfiguration?[Keys.connectionAttemptId] as? String {
+                return UUID(uuidString: uuidString)
+            }
+            return nil
         }
-    }
 
-    init?(from dict: [String: Any]?) {
-        if let localStoragePath = dict?[Keys.serverLocalStoragePath] as? String {
-            self = .server(localStoragePath: localStoragePath)
-        // } else if let fileName = dict?[Keys.openVPNConfigFileName] as? String {
-        //     self = .openVPNConfigFile(fileName: fileName)
+        set(value) {
+            providerConfiguration?[Keys.connectionAttemptId] = value?.uuidString
         }
-        return nil
     }
 }

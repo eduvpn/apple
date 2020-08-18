@@ -125,6 +125,32 @@ class PersistenceService {
 }
 
 extension PersistenceService {
+    func loadLastConnectionAttempt() -> ConnectionAttempt? {
+        if let data = try? Data(contentsOf: Self.lastConnectionAttemptURL) {
+            do {
+                return try JSONDecoder().decode(ConnectionAttempt.self, from: data)
+            } catch {
+                os_log("Error decoding last_connection_attempt.json: %{public}@",
+                       log: Log.general, type: .error, error.localizedDescription)
+            }
+        }
+        return nil
+    }
+
+    func removeLastConnectionAttempt() {
+        PersistenceService.removeItemAt(url: Self.lastConnectionAttemptURL)
+    }
+
+    func saveLastConnectionAttempt(_ connectionAttempt: ConnectionAttempt) {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        if let data = try? encoder.encode(connectionAttempt) {
+            PersistenceService.write(data, to: Self.lastConnectionAttemptURL, atomically: true)
+        }
+    }
+}
+
+extension PersistenceService {
     private static var rootURL: URL {
         guard let applicationSupportDirURL = FileHelper.applicationSupportDirectoryUrl() else {
             fatalError("Can't find application support directory")
@@ -137,6 +163,11 @@ extension PersistenceService {
     private static var jsonStoreURL: URL {
         return rootURL
             .appendingPathComponent("added_servers.json")
+    }
+
+    private static var lastConnectionAttemptURL: URL {
+        return rootURL
+            .appendingPathComponent("last_connection_attempt.json")
     }
 }
 
@@ -250,6 +281,9 @@ extension PersistenceService {
     }
 
     private static func removeItemAt(url: URL) {
+        guard FileManager.default.fileExists(atPath: url.path) else {
+            return
+        }
         do {
             try FileManager.default.removeItem(at: url)
         } catch {

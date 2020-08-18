@@ -102,6 +102,12 @@ extension NavigationController: Navigating {
 
         return lastVC
     }
+
+    func popToRoot() {
+        while children.count > 1 {
+            popViewController(animated: false)
+        }
+    }
 }
 
 extension NavigationController {
