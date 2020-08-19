@@ -70,9 +70,19 @@ class ServerAPIService {
         static let ignoreStoredKeyPair = Options(rawValue: 1 << 1)
     }
 
+    struct CertificateValidityRange {
+        let validFrom: Date
+        let expiresAt: Date
+    }
+
     struct TunnelConfigurationData {
         let openVPNConfiguration: [String]
-        let certificateExpiresAt: Date
+        let certificateValidityRange: CertificateValidityRange
+    }
+
+    struct KeyPairData {
+        let keyPair: CreateKeyPairResponse.KeyPair
+        let certificateValidityRange: CertificateValidityRange
     }
 
     static var uncachedSession: Moya.Session {
@@ -117,21 +127,22 @@ class ServerAPIService {
             }
             return ServerInfoFetcher.fetch(apiBaseURLString: server.apiBaseURLString,
                                            authBaseURLString: server.authBaseURLString)
-        }.then { serverInfo -> Promise<(BasicTargetInfo, (CreateKeyPairResponse.KeyPair, Date))> in
+        }.then { serverInfo -> Promise<(BasicTargetInfo, KeyPairData)> in
             let basicTargetInfo = BasicTargetInfo(serverInfo: serverInfo,
                                                   dataStore: dataStore,
                                                   sourceViewController: viewController)
             return self.getKeyPair(basicTargetInfo: basicTargetInfo, options: options)
                 .map { (basicTargetInfo, $0) }
-        }.then { (basicTargetInfo, keyPairResult) -> Promise<TunnelConfigurationData> in
-            let (keyPair, expiryDate) = keyPairResult
+        }.then { (basicTargetInfo, keyPairData) -> Promise<TunnelConfigurationData> in
             return firstly {
                 self.getProfileConfig(basicTargetInfo: basicTargetInfo, profile: profile, options: options)
             }.map { profileConfig in
                 let isUDPAllowed = !UserDefaults.standard.forceTCP
                 let openVPNConfig = try Self.createOpenVPNConfig(
-                    profileConfig: profileConfig, isUDPAllowed: isUDPAllowed, keyPair: keyPair)
-                return TunnelConfigurationData(openVPNConfiguration: openVPNConfig, certificateExpiresAt: expiryDate)
+                    profileConfig: profileConfig, isUDPAllowed: isUDPAllowed, keyPair: keyPairData.keyPair)
+                return TunnelConfigurationData(
+                    openVPNConfiguration: openVPNConfig,
+                    certificateValidityRange: keyPairData.certificateValidityRange)
             }
         }
     }
@@ -235,15 +246,16 @@ private extension ServerAPIService {
     }
 
     func getKeyPair(basicTargetInfo: BasicTargetInfo,
-                    options: Options = []) -> Promise<(CreateKeyPairResponse.KeyPair, Date)> {
-        firstly { () -> Promise<(CreateKeyPairResponse.KeyPair, Date)> in
+                    options: Options = []) -> Promise<KeyPairData> {
+        firstly { () -> Promise<KeyPairData> in
             guard !options.contains(.ignoreStoredKeyPair),
                 let storedKeyPair = basicTargetInfo.dataStore.keyPair,
                 let certificateData = storedKeyPair.certificate.data(using: .utf8),
                 let x509Certificate = try? X509Certificate(data: certificateData),
                 x509Certificate.isCurrentlyValid,
                 let commonName = x509Certificate.commonName,
-                let expiresAt = x509Certificate.expiresAt else {
+                let expiresAt = x509Certificate.expiresAt,
+                let validFrom = x509Certificate.validFrom else {
                     throw StoredDataError.cannotUseStoredKeyPair
             }
             return makeRequest(
@@ -253,9 +265,10 @@ private extension ServerAPIService {
                     guard certificateValidity.isValid else {
                         throw StoredDataError.cannotUseStoredKeyPair
                     }
-                    return (storedKeyPair, expiresAt)
+                    let validityRange = CertificateValidityRange(validFrom: validFrom, expiresAt: expiresAt)
+                    return KeyPairData(keyPair: storedKeyPair, certificateValidityRange: validityRange)
                 }
-        }.recover { error -> Promise<(CreateKeyPairResponse.KeyPair, Date)> in
+        }.recover { error -> Promise<KeyPairData> in
             if case StoredDataError.cannotUseStoredKeyPair = error {
                 return self.makeRequest(
                     target: .createKeyPair(basicTargetInfo, displayName: Config.shared.appName),
@@ -265,10 +278,12 @@ private extension ServerAPIService {
                         guard let certificateData = keyPair.certificate.data(using: .utf8),
                             let x509Certificate = try? X509Certificate(data: certificateData),
                             x509Certificate.isCurrentlyValid,
-                            let expiresAt = x509Certificate.expiresAt else {
+                            let expiresAt = x509Certificate.expiresAt,
+                            let validFrom = x509Certificate.validFrom else {
                                 throw ServerAPIServiceError.serverProvidedInvalidCertificate
                         }
-                        return (keyPair, expiresAt)
+                        let validityRange = CertificateValidityRange(validFrom: validFrom, expiresAt: expiresAt)
+                        return KeyPairData(keyPair: keyPair, certificateValidityRange: validityRange)
                     }
             } else {
                 throw error
@@ -432,5 +447,6 @@ private extension X509Certificate {
         return nil
     }
 
+    var validFrom: Date? { notBefore }
     var expiresAt: Date? { notAfter }
 }

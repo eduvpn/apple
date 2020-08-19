@@ -237,7 +237,8 @@ class ConnectionViewModel {
         }.then { tunnelConfigData -> Promise<Void> in
             self.internalState = .enableVPNRequested
             self.certificateExpiryHelper = CertificateExpiryHelper(
-                expiryDate: tunnelConfigData.certificateExpiresAt,
+                validFrom: tunnelConfigData.certificateValidityRange.validFrom,
+                expiresAt: tunnelConfigData.certificateValidityRange.expiresAt,
                 handler: { [weak self] certificateStatus in
                     self?.certificateStatus = certificateStatus
                 })
@@ -348,7 +349,7 @@ private extension ConnectionViewModel {
             if internalState == .gettingProfiles || internalState == .configuring {
                 return .spinner
             }
-            if certificateStatus == .expired {
+            if certificateStatus?.shouldShowRenewSessionButton ?? false {
                 return .renewSessionButton
             }
             if internalState == .idle, let profiles = profiles, profiles.count > 1 {

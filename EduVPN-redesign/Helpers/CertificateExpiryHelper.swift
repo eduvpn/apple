@@ -8,11 +8,12 @@ import Foundation
 class CertificateExpiryHelper {
 
     enum CertificateStatus: Equatable {
-        case validFor(timeInterval: TimeInterval)
+        case validFor(timeInterval: TimeInterval, proportionRemaining: Double)
         case expired
     }
 
-    private let expiryDate: Date
+    private let validFrom: Date
+    private let expiresAt: Date
     private let handler: (CertificateStatus) -> Void
 
     fileprivate var refreshTimes: [(refreshAt: Date, state: CertificateStatus)]
@@ -23,10 +24,11 @@ class CertificateExpiryHelper {
         }
     }
 
-    init(expiryDate: Date, handler: @escaping (CertificateStatus) -> Void) {
-        self.expiryDate = expiryDate
+    init(validFrom: Date, expiresAt: Date, handler: @escaping (CertificateStatus) -> Void) {
+        self.validFrom = validFrom
+        self.expiresAt = expiresAt
         self.handler = handler
-        self.refreshTimes = Self.computeRefreshTimes(from: Date(), to: expiryDate)
+        self.refreshTimes = Self.computeRefreshTimes(from: Date(), to: expiresAt, validFrom: validFrom)
         self.scheduleNextRefresh()
     }
 
@@ -48,15 +50,19 @@ private extension CertificateExpiryHelper {
         static let tillWhichToShowMinutesSeconds: Int = 0
     }
 
-    static func computeRefreshTimes(from startDate: Date, to endDate: Date) -> [(refreshAt: Date, state: CertificateStatus)] {
+    static func computeRefreshTimes(from startDate: Date, to endDate: Date, validFrom: Date) -> [(refreshAt: Date, state: CertificateStatus)] {
+        let validityPeriod = endDate.timeIntervalSince(validFrom)
         let endingTimeInterval = endDate.timeIntervalSince(startDate)
 
         var refreshTimes: [(refreshAt: Date, state: CertificateStatus)] = []
         var currentTimeInterval: TimeInterval = 0
 
         while currentTimeInterval < endingTimeInterval {
-            refreshTimes.append((refreshAt: Date(timeInterval: currentTimeInterval, since: startDate),
-                                 state: .validFor(timeInterval: endingTimeInterval - currentTimeInterval)))
+            let timeRemaining = endingTimeInterval - currentTimeInterval
+            let proportionRemaining = (timeRemaining / validityPeriod)
+            refreshTimes.append(
+                (refreshAt: Date(timeInterval: currentTimeInterval, since: startDate),
+                 state: .validFor(timeInterval: timeRemaining, proportionRemaining: proportionRemaining)))
 
             let secondsRemaining = Int(endingTimeInterval - currentTimeInterval)
             if secondsRemaining > NumberOfSeconds.tillWhichToShowDaysHours {
@@ -126,7 +132,7 @@ extension CertificateExpiryHelper.CertificateStatus {
 
     var localizedText: String {
         switch self {
-        case .validFor(let timeInterval):
+        case .validFor(let timeInterval, _):
             let localizedTimeLeftString: String?
             if timeInterval > TimeInterval(CertificateExpiryHelper.NumberOfSeconds.tillWhichToShowDaysHours) {
                 localizedTimeLeftString = Self.daysHoursFormatter.string(from: timeInterval)
@@ -143,15 +149,24 @@ extension CertificateExpiryHelper.CertificateStatus {
             return NSLocalizedString("This session has expired", comment: "")
         }
     }
+
+    var shouldShowRenewSessionButton: Bool {
+        switch self {
+        case .validFor(_, let proportionRemaining):
+            return proportionRemaining < 0.2
+        case .expired:
+            return true
+        }
+    }
 }
 
 /*
 // To test this helper as a script, uncomment and run:
 // $ xcrun swift /path/to/this/file.swift | less
-let certificateExpiryHelper = CertificateExpiryHelper(expiryDate:
+let certificateExpiryHelper = CertificateExpiryHelper(validFrom: Date(timeIntervalSinceNow: -30), expiryDate:
     Date(timeIntervalSinceNow: (60 * 60 * 11.5)), handler: { _ in })
 print("\(certificateExpiryHelper.refreshTimes.count) refresh times from: \(Date())")
 for (refreshAt, state) in certificateExpiryHelper.refreshTimes {
-    print("    At \(refreshAt): [\(state.message)]")
+    print("    At \(refreshAt): [\(state.localizedText)]   [\(state.shouldShowRenewSessionButton)]")
 }
 */
