@@ -375,21 +375,21 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
             isHeaderHidden = true
             bodyAlpha = 0
             bodyHeight = 0
-            connectionInfoChevronButton.image = Image(named: Image.goRightTemplateName)
+            connectionInfoChevronButton.image = Image(named: "ChevronDownButton")
         case .collapsed:
             controlAlpha = 1
             controlHeight = Self.additionalControlContainerHeight
             isHeaderHidden = false
             bodyAlpha = 0
             bodyHeight = 0
-            connectionInfoChevronButton.image = Image(named: Image.goRightTemplateName)
+            connectionInfoChevronButton.image = Image(named: "ChevronDownButton")
         case .expanded(let connectionInfo):
             controlAlpha = 0
             controlHeight = 0
             isHeaderHidden = false
             bodyAlpha = 1
             bodyHeight = Self.connectionInfoBodyHeight
-            connectionInfoChevronButton.image = Image(named: Image.stopProgressTemplateName)
+            connectionInfoChevronButton.image = Image(named: "CloseButton")
             durationLabel.stringValue = connectionInfo.duration
             if let profileName = connectionInfo.profileName {
                 profileTitleLabel.isHidden = false
