@@ -103,6 +103,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @objc func showPreferences(_ sender: Any) {
         environment?.navigationController?.presentPreferences()
     }
+
+    @objc func newDocument(_ sender: Any) {
+        guard let navigationController = environment?.navigationController else {
+            return
+        }
+        if navigationController.isToolbarLeftButtonShowsAddServerUI {
+            navigationController.toolbarLeftButtonClicked(self)
+        }
+    }
+}
+
+extension AppDelegate: NSMenuItemValidation {
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        if menuItem.keyEquivalent == "n" {
+            return environment?.navigationController?.isToolbarLeftButtonShowsAddServerUI ?? false
+        }
+        return true
+    }
 }
 
 #endif
