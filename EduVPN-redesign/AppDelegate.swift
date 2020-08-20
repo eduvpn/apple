@@ -42,7 +42,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 mainController.environment = environment
             }
         }
+
+        Self.replaceAppNameInMenuItems(in: NSApp.mainMenu)
         NSApp.activate(ignoringOtherApps: true)
+    }
+
+    private static func replaceAppNameInMenuItems(in menu: NSMenu?) {
+        for menuItem in menu?.items ?? [] {
+            menuItem.title = menuItem.title.replacingOccurrences(
+                of: "APP_NAME", with: Config.shared.appName)
+            for subMenuItem in menuItem.submenu?.items ?? [] {
+                subMenuItem.title = subMenuItem.title.replacingOccurrences(
+                    of: "APP_NAME", with: Config.shared.appName)
+            }
+        }
     }
 
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
