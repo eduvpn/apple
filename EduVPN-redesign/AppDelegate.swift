@@ -42,7 +42,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 mainController.environment = environment
             }
         }
+
+        Self.replaceAppNameInMenuItems(in: NSApp.mainMenu)
         NSApp.activate(ignoringOtherApps: true)
+    }
+
+    private static func replaceAppNameInMenuItems(in menu: NSMenu?) {
+        for menuItem in menu?.items ?? [] {
+            menuItem.title = menuItem.title.replacingOccurrences(
+                of: "APP_NAME", with: Config.shared.appName)
+            for subMenuItem in menuItem.submenu?.items ?? [] {
+                subMenuItem.title = subMenuItem.title.replacingOccurrences(
+                    of: "APP_NAME", with: Config.shared.appName)
+            }
+        }
     }
 
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
@@ -84,6 +97,28 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        return true
+    }
+
+    @objc func showPreferences(_ sender: Any) {
+        environment?.navigationController?.presentPreferences()
+    }
+
+    @objc func newDocument(_ sender: Any) {
+        guard let navigationController = environment?.navigationController else {
+            return
+        }
+        if navigationController.isToolbarLeftButtonShowsAddServerUI {
+            navigationController.toolbarLeftButtonClicked(self)
+        }
+    }
+}
+
+extension AppDelegate: NSMenuItemValidation {
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        if menuItem.keyEquivalent == "n" {
+            return environment?.navigationController?.isToolbarLeftButtonShowsAddServerUI ?? false
+        }
         return true
     }
 }
