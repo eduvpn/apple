@@ -17,7 +17,6 @@ protocol ConnectionViewModelDelegate: class {
         profileId: String, certificateValidityRange: ServerAPIService.CertificateValidityRange, connectionAttemptId: UUID)
 
     func headerChanged(_ header: ConnectionViewModel.Header)
-    func supportContactChanged(_ supportContact: ConnectionViewModel.SupportContact)
     func statusChanged(_ status: ConnectionViewModel.Status)
     func statusDetailChanged(_ statusDetail: ConnectionViewModel.StatusDetail)
     func vpnSwitchStateChanged(_ vpnSwitchState: ConnectionViewModel.VPNSwitchState)
@@ -85,9 +84,7 @@ class ConnectionViewModel {
         didSet { delegate?.headerChanged(header) }
     }
 
-    private(set) var supportContact: SupportContact {
-        didSet { delegate?.supportContactChanged(supportContact) }
-    }
+    private(set) var supportContact: SupportContact
 
     private(set) var status: Status {
         didSet { delegate?.statusChanged(status) }

@@ -124,6 +124,7 @@
 		6F13E3E124977BA800E21614 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7DB4C6B248064BC009932B1 /* Main.storyboard */; };
 		6F13E3E224977BEB00E21614 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7DB4C9624806832009932B1 /* Main.storyboard */; };
 		6F13E3E424977C1300E21614 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = C7DB4C1A24805F9B009932B1 /* config.json */; };
+		6F1A1C0124EE8EDB0040D6A2 /* SupportContactTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1A1C0024EE8EDB0040D6A2 /* SupportContactTextView.swift */; };
 		6F36A71D24B454AB00BA8F5E /* CountryFlags.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F36A71C24B454AA00BA8F5E /* CountryFlags.xcassets */; };
 		6F36A71F24B5A36E00BA8F5E /* MainSecureInternetSectionHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F36A71E24B5A36E00BA8F5E /* MainSecureInternetSectionHeaderCell.swift */; };
 		6F36A79B24B6ED5D00BA8F5E /* SearchViewController+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F36A79A24B6ED5D00BA8F5E /* SearchViewController+macOS.swift */; };
@@ -526,6 +527,7 @@
 		5B954E3699D9E9CC26F5C3E7 /* Pods_EduVPNTunnelExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EduVPNTunnelExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B9A8DF8C8CCA27F6D91B0B6 /* Pods-EduVPNTunnelExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension.release.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.release.xcconfig"; sourceTree = "<group>"; };
 		6F05E64124D0A6AA008292F6 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
+		6F1A1C0024EE8EDB0040D6A2 /* SupportContactTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportContactTextView.swift; sourceTree = "<group>"; };
 		6F36A71C24B454AA00BA8F5E /* CountryFlags.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CountryFlags.xcassets; sourceTree = "<group>"; };
 		6F36A71E24B5A36E00BA8F5E /* MainSecureInternetSectionHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSecureInternetSectionHeaderCell.swift; sourceTree = "<group>"; };
 		6F36A79A24B6ED5D00BA8F5E /* SearchViewController+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController+macOS.swift"; sourceTree = "<group>"; };
@@ -1191,6 +1193,7 @@
 				6FEF30FA24A317C00026C786 /* SectionHeaderCell.swift */,
 				6F36A71E24B5A36E00BA8F5E /* MainSecureInternetSectionHeaderCell.swift */,
 				6FEF30FD24A324E40026C786 /* RowCell.swift */,
+				6F1A1C0024EE8EDB0040D6A2 /* SupportContactTextView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2611,6 +2614,7 @@
 				C7DB4BFB24804C1A009932B1 /* Moya+Extensions.swift in Sources */,
 				6FADF82B24ADF57000B75E8D /* PersistenceService.swift in Sources */,
 				6FA808AF24EBBD1F00E7D924 /* ConnectionAttempt.swift in Sources */,
+				6F1A1C0124EE8EDB0040D6A2 /* SupportContactTextView.swift in Sources */,
 				C7DB4B9D247FC23D009932B1 /* SearchViewController.swift in Sources */,
 				6FEF30D824A0B8C60026C786 /* ServerDiscoveryService.swift in Sources */,
 				C7DB4BA1247FC243009932B1 /* MainViewModel.swift in Sources */,

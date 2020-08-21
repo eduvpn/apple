@@ -57,7 +57,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     @IBOutlet weak var serverCountryFlagImageView: NSImageView!
 
     @IBOutlet weak var supportContactStackView: NSStackView!
-    @IBOutlet weak var supportContactLabel: NSTextField!
+    var supportContactTextView: NSTextView!
 
     @IBOutlet weak var connectionStatusImageView: NSImageView!
     @IBOutlet weak var statusLabel: NSTextField!
@@ -164,12 +164,19 @@ private extension ConnectionViewController {
     func setupInitialView(viewModel: ConnectionViewModel) {
         canGoBackChanged(canGoBack: viewModel.canGoBack)
         headerChanged(viewModel.header)
-        supportContactChanged(viewModel.supportContact)
+        setupSupportContact(supportContact: viewModel.supportContact)
         statusChanged(viewModel.status)
         statusDetailChanged(viewModel.statusDetail)
         vpnSwitchStateChanged(viewModel.vpnSwitchState)
         additionalControlChanged(viewModel.additionalControl)
         connectionInfoStateChanged(viewModel.connectionInfoState)
+    }
+
+    func setupSupportContact(supportContact: ConnectionViewModel.SupportContact) {
+        let supportContactTextView = SupportContactTextView(supportContact: supportContact)
+        supportContactStackView.addView(supportContactTextView, in: .leading)
+        self.supportContactTextView = supportContactTextView
+        supportContactStackView.isHidden = supportContact.supportContact.isEmpty
     }
 
     func beginConnectionFlow(shouldContinueIfSingleProfile: Bool) {
@@ -281,16 +288,6 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
         } else {
             serverCountryFlagImageView.image = Image(named: "CountryFlag_\(header.flagCountryCode)")
             serverCountryFlagImageWidthConstraint.constant = Self.serverCountryFlagImageWidth
-        }
-    }
-
-    func supportContactChanged(_ supportContact: ConnectionViewModel.SupportContact) {
-        if supportContact.supportContact.isEmpty {
-            supportContactStackView.isHidden = true
-            supportContactLabel.attributedStringValue = NSAttributedString()
-        } else {
-            supportContactStackView.isHidden = false
-            supportContactLabel.attributedStringValue = supportContact.attributedStringValue
         }
     }
 
