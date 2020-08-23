@@ -22,6 +22,7 @@ struct DiscoveryData {
         let baseURLString: BaseURLString
         let countryCode: String
         let supportContact: [String]
+        let authenticationURLTemplate: String?
     }
 
     struct Organization {
@@ -61,6 +62,7 @@ extension DiscoveryData.Servers: Decodable {
         let displayName: LanguageMappedString?
         let countryCode: String?
         let supportContact: [String]?
+        let authenticationURLTemplate: String?
 
         enum CodingKeys: String, CodingKey { // swiftlint:disable:this nesting
             case serverType = "server_type"
@@ -68,6 +70,7 @@ extension DiscoveryData.Servers: Decodable {
             case displayName = "display_name"
             case countryCode = "country_code"
             case supportContact = "support_contact"
+            case authenticationURLTemplate = "authentication_url_template"
         }
     }
 
@@ -79,6 +82,7 @@ extension DiscoveryData.Servers: Decodable {
         for serverEntry in list {
             let baseURLString = serverEntry.baseURLString
             let supportContact = serverEntry.supportContact ?? []
+            let authenticationURLTemplate = serverEntry.authenticationURLTemplate
             switch serverEntry.serverType {
             case "institute_access":
                 if let displayName = serverEntry.displayName {
@@ -90,7 +94,8 @@ extension DiscoveryData.Servers: Decodable {
                 if let countryCode = serverEntry.countryCode {
                     secureInternetServersMap[baseURLString] = DiscoveryData.SecureInternetServer(
                         baseURLString: baseURLString, countryCode: countryCode,
-                        supportContact: supportContact)
+                        supportContact: supportContact,
+                        authenticationURLTemplate: authenticationURLTemplate)
                 }
             default:
                 break
