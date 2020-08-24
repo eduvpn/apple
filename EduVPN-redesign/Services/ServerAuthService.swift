@@ -10,6 +10,14 @@ import PromiseKit
 
 class ServerAuthService {
 
+    struct WAYFSkippingInfo {
+        // Info to help skip the Where-Are-You-From page while authorizing
+        // in the browser for Secure Internet servers.
+        // See https://github.com/eduvpn/documentation/blob/v2/SERVER_DISCOVERY_SKIP_WAYF.md
+        let authURLTemplate: String
+        let orgId: String
+    }
+
     private let configRedirectURL: URL // For iOS
     private let configClientId: String // For macOS
 
@@ -36,7 +44,8 @@ class ServerAuthService {
     }
 
     func startAuth(baseURLString: DiscoveryData.BaseURLString,
-                   from viewController: AuthorizingViewController) -> Promise<AuthState> {
+                   from viewController: AuthorizingViewController,
+                   wayfSkippingInfo: WAYFSkippingInfo?) -> Promise<AuthState> {
         #if os(macOS)
         viewController.showAuthorizingMessage(onCancelled: { [weak self] in
             self?.cancelAuth()
@@ -49,6 +58,7 @@ class ServerAuthService {
                 authEndpoint: serverInfo.authorizationEndpoint,
                 tokenEndpoint: serverInfo.tokenEndpoint,
                 from: viewController,
+                wayfSkippingInfo: wayfSkippingInfo,
                 shouldShowAuthorizingMessage: false)
         }
     }
@@ -56,6 +66,7 @@ class ServerAuthService {
     func startAuth(authEndpoint: ServerInfo.OAuthEndpoint,
                    tokenEndpoint: ServerInfo.OAuthEndpoint,
                    from viewController: AuthorizingViewController,
+                   wayfSkippingInfo: WAYFSkippingInfo?,
                    shouldShowAuthorizingMessage: Bool = true) -> Promise<AuthState> {
         #if os(macOS)
         if shouldShowAuthorizingMessage {
@@ -77,7 +88,8 @@ class ServerAuthService {
         return Promise { seal in
             let authFlow = createAuthState(
                 authRequest: authRequest,
-                viewController: viewController) { (authState, error) in
+                viewController: viewController,
+                wayfSkippingInfo: wayfSkippingInfo) { (authState, error) in
                     #if os(macOS)
                     NSApp.activate(ignoringOtherApps: true)
                     viewController.hideAuthorizingMessage()
@@ -125,9 +137,10 @@ class ServerAuthService {
     private func createAuthState(
         authRequest: OIDAuthorizationRequest,
         viewController: AuthorizingViewController,
+        wayfSkippingInfo: WAYFSkippingInfo?,
         callback: @escaping OIDAuthStateAuthorizationCallback) -> OIDExternalUserAgentSession? {
 
-        let userAgent = OAuthExternalUserAgent(presentingViewController: viewController)
+        let userAgent = OAuthExternalUserAgent(presentingViewController: viewController, wayfSkippingInfo: wayfSkippingInfo)
         return OIDAuthState.authState(byPresenting: authRequest,
                                       externalUserAgent: userAgent,
                                       callback: callback)

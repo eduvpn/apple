@@ -220,7 +220,7 @@ class ConnectionViewModel {
         precondition(self.connectionService.isVPNEnabled == false)
         return firstly { () -> Promise<([ProfileListResponse.Profile], ServerInfo)> in
             self.internalState = .gettingProfiles
-            return self.serverAPIService.getAvailableProfiles(for: server, from: viewController)
+            return self.serverAPIService.getAvailableProfiles(for: server, from: viewController, wayfSkippingInfo: nil)
         }.then { (profiles, serverInfo) -> Promise<Void> in
             self.profiles = profiles
             if profiles.count == 1 && shouldContinueIfSingleProfile {
@@ -249,7 +249,7 @@ class ConnectionViewModel {
             self.internalState = .configuring
             self.connectingProfile = profile
             return self.serverAPIService.getTunnelConfigurationData(
-                for: server, serverInfo: serverInfo, profile: profile, from: viewController)
+                for: server, serverInfo: serverInfo, profile: profile, from: viewController, wayfSkippingInfo: nil)
         }.then { tunnelConfigData -> Promise<Void> in
             self.internalState = .enableVPNRequested
             self.certificateExpiryHelper = CertificateExpiryHelper(
