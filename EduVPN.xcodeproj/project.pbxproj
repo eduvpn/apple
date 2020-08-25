@@ -131,6 +131,8 @@
 		6F36A79D24B6F5BA00BA8F5E /* MainViewController+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F36A79C24B6F5BA00BA8F5E /* MainViewController+macOS.swift */; };
 		6F42B1A624E333A800800FAC /* (null) in Sources */ = {isa = PBXBuildFile; };
 		6F57338724CD1570008912D4 /* CertificateExpiryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F57338624CD1570008912D4 /* CertificateExpiryHelper.swift */; };
+		6F59A58824F51DEB00560155 /* server_list.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F59A58624F51DEB00560155 /* server_list.json */; };
+		6F59A58924F51DEB00560155 /* organization_list.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F59A58724F51DEB00560155 /* organization_list.json */; };
 		6F71FBB9249B545B0010D0FE /* DiscoveryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F71FBB7249B54490010D0FE /* DiscoveryData.swift */; };
 		6F71FBBE249CCE9E0010D0FE /* DiscoveryDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F71FBBC249CCE980010D0FE /* DiscoveryDataFetcher.swift */; };
 		6F750C8524975A4300AF2C04 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340F956C22B7118C00835D56 /* NetworkExtension.framework */; };
@@ -533,6 +535,8 @@
 		6F36A79A24B6ED5D00BA8F5E /* SearchViewController+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController+macOS.swift"; sourceTree = "<group>"; };
 		6F36A79C24B6F5BA00BA8F5E /* MainViewController+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+macOS.swift"; sourceTree = "<group>"; };
 		6F57338624CD1570008912D4 /* CertificateExpiryHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateExpiryHelper.swift; sourceTree = "<group>"; };
+		6F59A58624F51DEB00560155 /* server_list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = server_list.json; sourceTree = "<group>"; };
+		6F59A58724F51DEB00560155 /* organization_list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = organization_list.json; sourceTree = "<group>"; };
 		6F71FBB7249B54490010D0FE /* DiscoveryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryData.swift; sourceTree = "<group>"; };
 		6F71FBBC249CCE980010D0FE /* DiscoveryDataFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveryDataFetcher.swift; sourceTree = "<group>"; };
 		6F750C9624975A4300AF2C04 /* EduVPN-redesign-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "EduVPN-redesign-macOS.app"; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1178,6 +1182,15 @@
 			path = ImageLoading;
 			sourceTree = "<group>";
 		};
+		6F59A58524F51DEB00560155 /* Discovery */ = {
+			isa = PBXGroup;
+			children = (
+				6F59A58624F51DEB00560155 /* server_list.json */,
+				6F59A58724F51DEB00560155 /* organization_list.json */,
+			);
+			path = Discovery;
+			sourceTree = "<group>";
+		};
 		6FBFEF0D24C2DC8C00A9D1D4 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -1363,6 +1376,7 @@
 		C7DB4C0A24805B56009932B1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6F59A58524F51DEB00560155 /* Discovery */,
 				6FBFEF0D24C2DC8C00A9D1D4 /* Fonts */,
 				C7DB4C7524806511009932B1 /* eduVPN_2.xcdatamodeld */,
 				C7DB4C72248064C6009932B1 /* iOS */,
@@ -1844,8 +1858,10 @@
 			files = (
 				6F36A71D24B454AB00BA8F5E /* CountryFlags.xcassets in Resources */,
 				6FEF313524A4908F0026C786 /* Common.xcassets in Resources */,
+				6F59A58824F51DEB00560155 /* server_list.json in Resources */,
 				6F13E3E124977BA800E21614 /* Main.storyboard in Resources */,
 				6F13E3E024977B8500E21614 /* Assets.xcassets in Resources */,
+				6F59A58924F51DEB00560155 /* organization_list.json in Resources */,
 				6F750C8924975A4300AF2C04 /* config.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
