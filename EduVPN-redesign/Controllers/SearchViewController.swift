@@ -72,7 +72,9 @@ final class SearchViewController: ViewController, ParametrizedViewController {
         firstly {
             self.viewModel.load(from: .cache)
         }.recover { _ in
-            // Ignore any errors loading from cache
+            // If there's no data in the cache, load from the files
+            // included in the app bundle
+            self.viewModel.load(from: .appBundle)
         }.then {
             self.viewModel.load(from: .server)
         }.ensure {
