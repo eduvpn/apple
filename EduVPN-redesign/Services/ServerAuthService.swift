@@ -127,13 +127,9 @@ class ServerAuthService {
         viewController: AuthorizingViewController,
         callback: @escaping OIDAuthStateAuthorizationCallback) -> OIDExternalUserAgentSession? {
 
-        #if os(macOS)
+        let userAgent = OAuthExternalUserAgent(presentingViewController: viewController)
         return OIDAuthState.authState(byPresenting: authRequest,
+                                      externalUserAgent: userAgent,
                                       callback: callback)
-        #elseif os(iOS)
-        return OIDAuthState.authState(byPresenting: authRequest,
-                                      presentingViewController: presentingViewController,
-                                      callback: callback)
-        #endif
     }
 }
