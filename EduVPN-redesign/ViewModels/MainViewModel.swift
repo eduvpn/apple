@@ -88,13 +88,19 @@ class MainViewModel {
             serverDiscoveryService.delegate = self
             firstly {
                 serverDiscoveryService.getServers(from: .cache)
-            }.recover { _ -> Promise<DiscoveryData.Servers> in
-                self.update()
-                return serverDiscoveryService.getServers(from: .server)
-            }.catch { error in
-                os_log("Error loading discovery data for main listing: %{public}@",
-                       log: Log.general, type: .error,
-                       error.localizedDescription)
+            }.catch { _ in
+                // If there's no data in the cache, get it from the file
+                // included in the app bundle. Then schedule a download
+                // from the server.
+                firstly {
+                    serverDiscoveryService.getServers(from: .appBundle)
+                }.then { _ in
+                    serverDiscoveryService.getServers(from: .server)
+                }.catch { error in
+                    os_log("Error loading discovery data for main listing: %{public}@",
+                           log: Log.general, type: .error,
+                           error.localizedDescription)
+                }
             }
         }
     }
