@@ -3,10 +3,10 @@
     "redirect_url": "org.eduvpn.app.macos:/api/callback",
 
     "discovery": {
-        "server_list": "https://disco.eduvpn.org/server_list.json",
-        "organization_list": "https://disco.eduvpn.org/organization_list.json",
-        "server_list_signature": "https://disco.eduvpn.org/server_list.json.minisig",
-        "organization_list_signature": "https://disco.eduvpn.org/organization_list.json.minisig",
+        "server_list": "https://disco.eduvpn.org/v2/server_list.json",
+        "organization_list": "https://disco.eduvpn.org/v2/organization_list.json",
+        "server_list_signature": "https://disco.eduvpn.org/v2/server_list.json.minisig",
+        "organization_list_signature": "https://disco.eduvpn.org/v2/organization_list.json.minisig",
         "signature_public_keys": ["RWRtBSX1alxyGX+Xn3LuZnWUT0w//B6EmTJvgaAxBMYzlQeI+jdrO6KF"]
     },
 
