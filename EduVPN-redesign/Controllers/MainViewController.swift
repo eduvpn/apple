@@ -96,10 +96,12 @@ extension MainViewController: ConnectionServiceInitializationDelegate {
                 if let simpleServer = server as? SimpleServerInstance {
                     return environment.instantiateConnectionViewController(
                         server: server, serverDisplayInfo: viewModel.serverDisplayInfo(for: simpleServer),
+                        authURLTemplate: nil,
                         restoredPreConnectionState: lastConnectionAttempt.preConnectionState)
                 } else if let secureInternetServer = server as? SecureInternetServerInstance {
                     return environment.instantiateConnectionViewController(
                         server: server, serverDisplayInfo: viewModel.serverDisplayInfo(for: secureInternetServer),
+                        authURLTemplate: viewModel.authURLTemplate(for: server),
                         restoredPreConnectionState: lastConnectionAttempt.preConnectionState)
                 }
                 return nil
@@ -179,7 +181,8 @@ extension MainViewController {
         if let server = row.server,
             let serverDisplayInfo = row.serverDisplayInfo {
             let connectionVC = environment.instantiateConnectionViewController(
-                server: server, serverDisplayInfo: serverDisplayInfo)
+                server: server, serverDisplayInfo: serverDisplayInfo,
+                authURLTemplate: viewModel.authURLTemplate(for: server))
             connectionVC.delegate = self
             environment.navigationController?.pushViewController(connectionVC, animated: true)
         }

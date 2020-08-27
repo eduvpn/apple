@@ -180,16 +180,18 @@ class ConnectionViewModel {
     private let connectionService: ConnectionService
     private let server: ServerInstance
     private let serverDisplayInfo: ServerDisplayInfo
+    private let authURLTemplate: String?
     private let dataStore: PersistenceService.DataStore
     private var connectingProfile: ProfileListResponse.Profile?
 
     init(serverAPIService: ServerAPIService, connectionService: ConnectionService,
-         server: ServerInstance, serverDisplayInfo: ServerDisplayInfo,
+         server: ServerInstance, serverDisplayInfo: ServerDisplayInfo, authURLTemplate: String?,
          restoredPreConnectionState: ConnectionAttempt.PreConnectionState?) {
         self.serverAPIService = serverAPIService
         self.connectionService = connectionService
         self.server = server
         self.serverDisplayInfo = serverDisplayInfo
+        self.authURLTemplate = authURLTemplate
 
         header = Header(from: serverDisplayInfo)
         supportContact = SupportContact(from: serverDisplayInfo)
@@ -220,7 +222,9 @@ class ConnectionViewModel {
         precondition(self.connectionService.isVPNEnabled == false)
         return firstly { () -> Promise<([ProfileListResponse.Profile], ServerInfo)> in
             self.internalState = .gettingProfiles
-            return self.serverAPIService.getAvailableProfiles(for: server, from: viewController, wayfSkippingInfo: nil)
+            return self.serverAPIService.getAvailableProfiles(
+                for: server, from: viewController,
+                wayfSkippingInfo: wayfSkippingInfo())
         }.then { (profiles, serverInfo) -> Promise<Void> in
             self.profiles = profiles
             if profiles.count == 1 && shouldContinueIfSingleProfile {
@@ -249,7 +253,8 @@ class ConnectionViewModel {
             self.internalState = .configuring
             self.connectingProfile = profile
             return self.serverAPIService.getTunnelConfigurationData(
-                for: server, serverInfo: serverInfo, profile: profile, from: viewController, wayfSkippingInfo: nil)
+                for: server, serverInfo: serverInfo, profile: profile,
+                from: viewController, wayfSkippingInfo: wayfSkippingInfo())
         }.then { tunnelConfigData -> Promise<Void> in
             self.internalState = .enableVPNRequested
             self.certificateExpiryHelper = CertificateExpiryHelper(
@@ -305,6 +310,15 @@ class ConnectionViewModel {
             self.connectionInfoHelper = nil
             self.connectionInfo = nil
         }
+    }
+
+    private func wayfSkippingInfo() -> ServerAuthService.WAYFSkippingInfo? {
+        if let secureInternetServer = server as? SecureInternetServerInstance,
+            let authURLTemplate = self.authURLTemplate {
+            return ServerAuthService.WAYFSkippingInfo(
+                authURLTemplate: authURLTemplate, orgId: secureInternetServer.orgId)
+        }
+        return nil
     }
 }
 

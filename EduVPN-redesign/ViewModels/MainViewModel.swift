@@ -180,6 +180,11 @@ extension MainViewModel {
             return .serverByURLServer(simpleServer)
         }
     }
+
+    func authURLTemplate(for server: ServerInstance) -> String? {
+        guard server is SecureInternetServerInstance else { return nil }
+        return secureInternetServersMap[server.authBaseURLString]?.authenticationURLTemplate
+    }
 }
 
 extension MainViewModel: ServerDiscoveryServiceServersDelegate {

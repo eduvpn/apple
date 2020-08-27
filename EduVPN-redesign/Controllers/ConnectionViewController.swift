@@ -36,6 +36,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         let environment: Environment
         let server: ServerInstance
         let serverDisplayInfo: ServerDisplayInfo
+        let authURLTemplate: String?
         let restoredPreConnectionState: ConnectionAttempt.PreConnectionState?
     }
 
@@ -99,6 +100,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
             connectionService: parameters.environment.connectionService,
             server: parameters.server,
             serverDisplayInfo: parameters.serverDisplayInfo,
+            authURLTemplate: parameters.authURLTemplate,
             restoredPreConnectionState: parameters.restoredPreConnectionState)
         self.dataStore = PersistenceService.DataStore(path: parameters.server.localStoragePath)
 
