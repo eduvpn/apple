@@ -87,6 +87,7 @@ class SearchViewModel {
     private let shouldIncludeOrganizations: Bool
 
     private var instituteAccessServers: [LocalizedInstituteAccessServer] = []
+    private var secureInternetServersMap: [DiscoveryData.BaseURLString: DiscoveryData.SecureInternetServer] = [:]
     private var organizations: [LocalizedOrganization] = []
     private var searchQuery: String = ""
     private var isLoadInProgress: Bool = false
@@ -115,6 +116,7 @@ class SearchViewModel {
             }.map { [weak self] servers, organizations in
                 guard let self = self else { return }
                 self.instituteAccessServers = servers.localizedInstituteAccessServers().sorted()
+                self.secureInternetServersMap = servers.secureInternetServersMap
                 self.organizations = organizations.localizedOrganizations().sorted()
                 self.update()
             }.ensure { [weak self] in
@@ -139,6 +141,16 @@ class SearchViewModel {
 
     func row(at index: Int) -> Row {
         return rows[index]
+    }
+
+    func wayfSkippingInfo(for row: Row) -> ServerAuthService.WAYFSkippingInfo? {
+        if case .secureInternetOrg(let organization) = row {
+            if let authURLTemplate = secureInternetServersMap[organization.secureInternetHome]?.authenticationURLTemplate {
+                return ServerAuthService.WAYFSkippingInfo(
+                    authURLTemplate: authURLTemplate, orgId: organization.orgId)
+            }
+        }
+        return nil
     }
 }
 

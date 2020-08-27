@@ -141,7 +141,8 @@ extension SearchViewController {
         let delegate = self.delegate
         if let baseURLString = row.baseURLString {
             firstly {
-                serverAuthService.startAuth(baseURLString: baseURLString, from: self, wayfSkippingInfo: nil)
+                serverAuthService.startAuth(baseURLString: baseURLString, from: self,
+                                            wayfSkippingInfo: viewModel.wayfSkippingInfo(for: row))
             }.map { authState in
                 switch row {
                 case .instituteAccessServer, .serverByURL:
