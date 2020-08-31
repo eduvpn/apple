@@ -19,6 +19,9 @@ class PreferencesViewController: ViewController {
         UserDefaults.standard.forceTCP = isUseTCPOnlyChecked
     }
 
+    @IBAction func viewLogClicked(_ sender: Any) {
+    }
+
     @IBAction func doneClicked(_ sender: Any) {
         self.presentingViewController?.dismiss(self)
     }
