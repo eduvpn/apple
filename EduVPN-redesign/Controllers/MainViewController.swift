@@ -33,7 +33,7 @@ class MainViewController: ViewController {
 }
 
 extension MainViewController: NavigationControllerDelegate {
-    func addServerButtonClicked() {
+    func addServerButtonClicked(inNavigationController controller: NavigationController) {
         let isSecureInternetServerAdded = (environment.persistenceService.secureInternetServer != nil)
         let searchVC = environment.instantiateSearchViewController(shouldIncludeOrganizations: !isSecureInternetServerAdded)
         searchVC.delegate = self
@@ -42,7 +42,10 @@ extension MainViewController: NavigationControllerDelegate {
 }
 
 extension MainViewController: SearchViewControllerDelegate {
-    func searchViewControllerAddedSimpleServer(baseURLString: DiscoveryData.BaseURLString, authState: AuthState) {
+    func searchViewController(
+        _ controller: SearchViewController,
+        addedSimpleServerWithBaseURL baseURLString: DiscoveryData.BaseURLString,
+        authState: AuthState) {
         let storagePath = UUID().uuidString
         let dataStore = PersistenceService.DataStore(path: storagePath)
         dataStore.authState = authState
@@ -52,7 +55,10 @@ extension MainViewController: SearchViewControllerDelegate {
         environment.navigationController?.popViewController(animated: true)
     }
 
-    func searchViewControllerAddedSecureInternetServer(baseURLString: DiscoveryData.BaseURLString, orgId: String, authState: AuthState) {
+    func searchViewController(
+        _ controller: SearchViewController,
+        addedSecureInternetServerWithBaseURL baseURLString: DiscoveryData.BaseURLString,
+        orgId: String, authState: AuthState) {
         let storagePath = UUID().uuidString
         let dataStore = PersistenceService.DataStore(path: storagePath)
         dataStore.authState = authState
@@ -66,7 +72,9 @@ extension MainViewController: SearchViewControllerDelegate {
 }
 
 extension MainViewController: ConnectionViewControllerDelegate {
-    func connectionViewControllerAttemptingToConnect(connectionAttempt: ConnectionAttempt?) {
+    func connectionViewController(
+        _ controller: ConnectionViewController,
+        willAttemptToConnect connectionAttempt: ConnectionAttempt?) {
         guard let connectionAttempt = connectionAttempt else {
             environment.persistenceService.removeLastConnectionAttempt()
             return

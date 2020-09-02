@@ -9,10 +9,14 @@ import AppAuth
 import os.log
 
 protocol SearchViewControllerDelegate: class {
-    func searchViewControllerAddedSimpleServer(
-        baseURLString: DiscoveryData.BaseURLString, authState: AuthState)
-    func searchViewControllerAddedSecureInternetServer(
-        baseURLString: DiscoveryData.BaseURLString, orgId: String, authState: AuthState)
+    func searchViewController(
+        _ controller: SearchViewController,
+        addedSimpleServerWithBaseURL baseURLString: DiscoveryData.BaseURLString,
+        authState: AuthState)
+    func searchViewController(
+        _ controller: SearchViewController,
+        addedSecureInternetServerWithBaseURL baseURLString: DiscoveryData.BaseURLString,
+        orgId: String, authState: AuthState)
 }
 
 final class SearchViewController: ViewController, ParametrizedViewController {
@@ -146,9 +150,13 @@ extension SearchViewController {
             }.map { authState in
                 switch row {
                 case .instituteAccessServer, .serverByURL:
-                    delegate?.searchViewControllerAddedSimpleServer(baseURLString: baseURLString, authState: authState)
+                    delegate?.searchViewController(
+                        self, addedSimpleServerWithBaseURL: baseURLString,
+                        authState: authState)
                 case .secureInternetOrg(let organization):
-                    delegate?.searchViewControllerAddedSecureInternetServer(baseURLString: baseURLString, orgId: organization.orgId, authState: authState)
+                    delegate?.searchViewController(
+                        self, addedSecureInternetServerWithBaseURL: baseURLString,
+                        orgId: organization.orgId, authState: authState)
                 default:
                     break
                 }

@@ -11,7 +11,9 @@ import PromiseKit
 import os.log
 
 protocol ConnectionViewControllerDelegate: class {
-    func connectionViewControllerAttemptingToConnect(connectionAttempt: ConnectionAttempt?)
+    func connectionViewController(
+        _ controller: ConnectionViewController,
+        willAttemptToConnect connectionAttempt: ConnectionAttempt?)
 }
 
 enum ConnectionViewControllerError: Error {
@@ -277,7 +279,7 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
             selectedProfileId: profileId,
             certificateValidityRange: certificateValidityRange,
             attemptId: connectionAttemptId)
-        delegate?.connectionViewControllerAttemptingToConnect(connectionAttempt: connectionAttempt)
+        delegate?.connectionViewController(self, willAttemptToConnect: connectionAttempt)
     }
 
     static let serverCountryFlagImageWidth: CGFloat = 24
