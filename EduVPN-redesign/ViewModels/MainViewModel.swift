@@ -188,7 +188,8 @@ extension MainViewModel {
 }
 
 extension MainViewModel: ServerDiscoveryServiceServersDelegate {
-    func serversChanged(_ servers: DiscoveryData.Servers) {
+    func serverDiscoveryService(_ service: ServerDiscoveryService,
+                                serversChanged servers: DiscoveryData.Servers) {
         self.instituteAccessServersMap = Dictionary(grouping: servers.instituteAccessServers, by: { $0.baseURLString })
             .mapValues { $0.first! } // swiftlint:disable:this force_unwrapping
         self.secureInternetServersMap = servers.secureInternetServersMap

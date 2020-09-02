@@ -10,7 +10,13 @@ import TunnelKit
 import os.log
 
 protocol ConnectionServiceInitializationDelegate: class {
-    func connectionServiceInitialized(isVPNEnabled: Bool, connectionAttemptId: UUID?)
+    func connectionService(
+        _ service: ConnectionService,
+        initializedWithState: ConnectionService.InitializedState)
+}
+
+protocol ConnectionServiceStatusDelegate: class {
+    func connectionService(_ service: ConnectionService, connectionStatusChanged status: NEVPNStatus)
 }
 
 enum ConnectionServiceError: Error {
@@ -35,11 +41,12 @@ extension ConnectionServiceError: AppError {
     }
 }
 
-protocol ConnectionServiceStatusDelegate: class {
-    func connectionStatusChanged(status: NEVPNStatus)
-}
-
 class ConnectionService {
+
+    enum InitializedState {
+        case vpnEnabled(connectionAttemptId: UUID?)
+        case vpnDisabled
+    }
 
     weak var initializationDelegate: ConnectionServiceInitializationDelegate?
     weak var statusDelegate: ConnectionServiceStatusDelegate?
@@ -67,11 +74,15 @@ class ConnectionService {
         }.map { savedTunnelManagers in
             let tunnelManager = savedTunnelManagers.first ?? NETunnelProviderManager()
             self.tunnelManager = tunnelManager
-            self.initializationDelegate?.connectionServiceInitialized(
-                isVPNEnabled: tunnelManager.isOnDemandEnabled,
-                connectionAttemptId: tunnelManager.connectionAttemptId)
-            self.statusDelegate?.connectionStatusChanged(
-                status: tunnelManager.connection.status)
+            let initializedState: ConnectionService.InitializedState
+            if tunnelManager.isOnDemandEnabled {
+                initializedState = .vpnEnabled(connectionAttemptId: tunnelManager.connectionAttemptId)
+            } else {
+                initializedState = .vpnDisabled
+            }
+            self.initializationDelegate?.connectionService(self, initializedWithState: initializedState)
+            let status = tunnelManager.connection.status
+            self.statusDelegate?.connectionService(self, connectionStatusChanged: status)
         }.recover { error in
             os_log("Error loading tunnels: %{public}@", log: Log.general, type: .error,
                    error.localizedDescription)
@@ -232,7 +243,7 @@ private extension ConnectionService {
                 guard let session = notification.object as? NETunnelProviderSession else { return }
 
                 let status = session.status
-                self.statusDelegate?.connectionStatusChanged(status: status)
+                self.statusDelegate?.connectionService(self, connectionStatusChanged: status)
 
                 if status == .connected {
                     self.startTunnelPromiseResolver?.fulfill(())

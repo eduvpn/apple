@@ -415,7 +415,7 @@ private extension ConnectionViewModel {
 }
 
 extension ConnectionViewModel: ConnectionServiceStatusDelegate {
-    func connectionStatusChanged(status: NEVPNStatus) {
+    func connectionService(_ service: ConnectionService, connectionStatusChanged status: NEVPNStatus) {
         connectionStatus = status
         if status == .connected {
             connectionInfoHelper?.refreshNetworkAddress()

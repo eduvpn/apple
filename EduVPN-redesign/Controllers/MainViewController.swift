@@ -84,9 +84,12 @@ extension MainViewController: ConnectionViewControllerDelegate {
 }
 
 extension MainViewController: ConnectionServiceInitializationDelegate {
-    func connectionServiceInitialized(isVPNEnabled: Bool, connectionAttemptId: UUID?) {
+    func connectionService(
+        _ service: ConnectionService,
+        initializedWithState initializedState: ConnectionService.InitializedState) {
         isConnectionServiceInitialized = true
-        if isVPNEnabled {
+        switch initializedState {
+        case .vpnEnabled(let connectionAttemptId):
             // If some VPN is enabled at launch, we should create the appropriate
             // connectionVC and push that
             guard let connectionAttemptId = connectionAttemptId,
@@ -123,7 +126,7 @@ extension MainViewController: ConnectionServiceInitializationDelegate {
                 environment.connectionService.disableVPN()
                     .cauterize()
             }
-        } else {
+        case .vpnDisabled:
             environment.persistenceService.removeLastConnectionAttempt()
         }
     }
