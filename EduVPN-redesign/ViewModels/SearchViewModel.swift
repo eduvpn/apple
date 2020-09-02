@@ -9,7 +9,7 @@ import Foundation
 import PromiseKit
 
 protocol SearchViewModelDelegate: class {
-    func rowsChanged(changes: RowsDifference<SearchViewModel.Row>)
+    func searchViewModel(_ model: SearchViewModel, rowsChanged changes: RowsDifference<SearchViewModel.Row>)
 }
 
 enum SearchViewModelError: Error {
@@ -166,7 +166,7 @@ private extension SearchViewModel {
         assert(computedRows == computedRows.sorted(), "computedRows is not ordered correctly")
         let diff = computedRows.rowsDifference(from: self.rows)
         self.rows = computedRows
-        self.delegate?.rowsChanged(changes: diff)
+        self.delegate?.searchViewModel(self, rowsChanged: diff)
     }
 
     static func serverByAddressRows(searchQuery: String) -> [Row] {

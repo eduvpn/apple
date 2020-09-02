@@ -10,7 +10,7 @@ import PromiseKit
 import os.log
 
 protocol MainViewModelDelegate: class {
-    func rowsChanged(changes: RowsDifference<MainViewModel.Row>)
+    func mainViewModel(_ model: MainViewModel, rowsChanged changes: RowsDifference<MainViewModel.Row>)
 }
 
 class MainViewModel {
@@ -164,7 +164,7 @@ extension MainViewModel {
 
         let diff = computedRows.rowsDifference(from: self.rows)
         self.rows = computedRows
-        self.delegate?.rowsChanged(changes: diff)
+        self.delegate?.mainViewModel(self, rowsChanged: diff)
     }
 
     func serverDisplayInfo(for secureInternetServer: SecureInternetServerInstance) -> ServerDisplayInfo {

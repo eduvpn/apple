@@ -10,18 +10,39 @@ import PromiseKit
 import NetworkExtension
 
 protocol ConnectionViewModelDelegate: class {
-    func profilesFound(profiles: [ProfileListResponse.Profile])
-    func canGoBackChanged(canGoBack: Bool)
-    func automaticallySelectingProfile(profileId: String)
-    func attemptingToConnect(
-        profileId: String, certificateValidityRange: ServerAPIService.CertificateValidityRange, connectionAttemptId: UUID)
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        foundProfiles profiles: [ProfileListResponse.Profile])
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        canGoBackChanged canGoBack: Bool)
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        willAutomaticallySelectProfileId profileId: String)
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        willAttemptToConnectWithProfileId profileId: String,
+        certificateValidityRange: ServerAPIService.CertificateValidityRange,
+        connectionAttemptId: UUID)
 
-    func headerChanged(_ header: ConnectionViewModel.Header)
-    func statusChanged(_ status: ConnectionViewModel.Status)
-    func statusDetailChanged(_ statusDetail: ConnectionViewModel.StatusDetail)
-    func vpnSwitchStateChanged(_ vpnSwitchState: ConnectionViewModel.VPNSwitchState)
-    func additionalControlChanged(_ additionalControl: ConnectionViewModel.AdditionalControl)
-    func connectionInfoStateChanged(_ connectionInfoState: ConnectionViewModel.ConnectionInfoState)
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        headerChanged header: ConnectionViewModel.Header)
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        statusChanged status: ConnectionViewModel.Status)
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        statusDetailChanged statusDetail: ConnectionViewModel.StatusDetail)
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        vpnSwitchStateChanged vpnSwitchState: ConnectionViewModel.VPNSwitchState)
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        additionalControlChanged additionalControl: ConnectionViewModel.AdditionalControl)
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        connectionInfoStateChanged connectionInfoState: ConnectionViewModel.ConnectionInfoState)
 }
 
 class ConnectionViewModel {
@@ -81,29 +102,29 @@ class ConnectionViewModel {
     }
 
     private(set) var header: Header {
-        didSet { delegate?.headerChanged(header) }
+        didSet { delegate?.connectionViewModel(self, headerChanged: header) }
     }
 
     private(set) var supportContact: SupportContact
 
     private(set) var status: Status {
-        didSet { delegate?.statusChanged(status) }
+        didSet { delegate?.connectionViewModel(self, statusChanged: status) }
     }
 
     private(set) var statusDetail: StatusDetail {
-        didSet { delegate?.statusDetailChanged(statusDetail) }
+        didSet { delegate?.connectionViewModel(self, statusDetailChanged: statusDetail) }
     }
 
     private(set) var vpnSwitchState: VPNSwitchState {
-        didSet { delegate?.vpnSwitchStateChanged(vpnSwitchState) }
+        didSet { delegate?.connectionViewModel(self, vpnSwitchStateChanged: vpnSwitchState) }
     }
 
     private(set) var additionalControl: AdditionalControl {
-        didSet { delegate?.additionalControlChanged(additionalControl) }
+        didSet { delegate?.connectionViewModel(self, additionalControlChanged: additionalControl) }
     }
 
     private(set) var connectionInfoState: ConnectionInfoState {
-        didSet { delegate?.connectionInfoStateChanged(connectionInfoState) }
+        didSet { delegate?.connectionViewModel(self, connectionInfoStateChanged: connectionInfoState) }
     }
 
     var canGoBack: Bool { internalState == .idle }
@@ -125,7 +146,7 @@ class ConnectionViewModel {
             self.updateStatusDetail()
             self.updateVPNSwitchState()
             self.updateAdditionalControl()
-            self.delegate?.canGoBackChanged(canGoBack: internalState == .idle)
+            self.delegate?.connectionViewModel(self, canGoBackChanged: internalState == .idle)
         }
     }
 
@@ -144,7 +165,7 @@ class ConnectionViewModel {
             self.updateStatusDetail()
             self.updateVPNSwitchState()
             self.updateAdditionalControl()
-            self.delegate?.profilesFound(profiles: profiles ?? [])
+            self.delegate?.connectionViewModel(self, foundProfiles: profiles ?? [])
         }
     }
 
@@ -228,7 +249,7 @@ class ConnectionViewModel {
         }.then { (profiles, serverInfo) -> Promise<Void> in
             self.profiles = profiles
             if profiles.count == 1 && shouldContinueIfSingleProfile {
-                self.delegate?.automaticallySelectingProfile(profileId: profiles[0].profileId)
+                self.delegate?.connectionViewModel(self, willAutomaticallySelectProfileId: profiles[0].profileId)
                 return self.continueConnectionFlow(
                     profile: profiles[0], from: viewController,
                     serverInfo: serverInfo)
@@ -264,8 +285,8 @@ class ConnectionViewModel {
                     self?.certificateStatus = certificateStatus
                 })
             let connectionAttemptId = UUID()
-            self.delegate?.attemptingToConnect(
-                profileId: profile.profileId,
+            self.delegate?.connectionViewModel(
+                self, willAttemptToConnectWithProfileId: profile.profileId,
                 certificateValidityRange: tunnelConfigData.certificateValidityRange,
                 connectionAttemptId: connectionAttemptId)
             return self.connectionService.enableVPN(

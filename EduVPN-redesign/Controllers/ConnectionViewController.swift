@@ -166,14 +166,14 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
 
 private extension ConnectionViewController {
     func setupInitialView(viewModel: ConnectionViewModel) {
-        canGoBackChanged(canGoBack: viewModel.canGoBack)
-        headerChanged(viewModel.header)
+        connectionViewModel(viewModel, canGoBackChanged: viewModel.canGoBack)
+        connectionViewModel(viewModel, headerChanged: viewModel.header)
         setupSupportContact(supportContact: viewModel.supportContact)
-        statusChanged(viewModel.status)
-        statusDetailChanged(viewModel.statusDetail)
-        vpnSwitchStateChanged(viewModel.vpnSwitchState)
-        additionalControlChanged(viewModel.additionalControl)
-        connectionInfoStateChanged(viewModel.connectionInfoState)
+        connectionViewModel(viewModel, statusChanged: viewModel.status)
+        connectionViewModel(viewModel, statusDetailChanged: viewModel.statusDetail)
+        connectionViewModel(viewModel, vpnSwitchStateChanged: viewModel.vpnSwitchState)
+        connectionViewModel(viewModel, additionalControlChanged: viewModel.additionalControl)
+        connectionInfoStateChanged(viewModel.connectionInfoState, animated: false)
     }
 
     func setupSupportContact(supportContact: ConnectionViewModel.SupportContact) {
@@ -254,7 +254,8 @@ private extension ConnectionViewController {
 
 extension ConnectionViewController: ConnectionViewModelDelegate {
 
-    func profilesFound(profiles: [ProfileListResponse.Profile]) {
+    func connectionViewModel(
+        _ model: ConnectionViewModel, foundProfiles profiles: [ProfileListResponse.Profile]) {
         self.profiles = profiles
         if let selectedProfileId = selectedProfileId {
             if !profiles.contains(where: { $0.profileId == selectedProfileId }) {
@@ -264,16 +265,21 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
         }
     }
 
-    func canGoBackChanged(canGoBack: Bool) {
+    func connectionViewModel(
+        _ model: ConnectionViewModel, canGoBackChanged canGoBack: Bool) {
         parameters.environment.navigationController?.isUserAllowedToGoBack = canGoBack
     }
 
-    func automaticallySelectingProfile(profileId: String) {
+    func connectionViewModel(
+        _ model: ConnectionViewModel, willAutomaticallySelectProfileId profileId: String) {
         selectedProfileId = profileId
     }
 
-    func attemptingToConnect(
-        profileId: String, certificateValidityRange: ServerAPIService.CertificateValidityRange, connectionAttemptId: UUID) {
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        willAttemptToConnectWithProfileId profileId: String,
+        certificateValidityRange: ServerAPIService.CertificateValidityRange,
+        connectionAttemptId: UUID) {
         let connectionAttempt = ConnectionAttempt(
             server: parameters.server, profiles: profiles ?? [],
             selectedProfileId: profileId,
@@ -284,7 +290,8 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
 
     static let serverCountryFlagImageWidth: CGFloat = 24
 
-    func headerChanged(_ header: ConnectionViewModel.Header) {
+    func connectionViewModel(
+        _ model: ConnectionViewModel, headerChanged header: ConnectionViewModel.Header) {
         serverNameLabel.stringValue = header.serverName
         if header.flagCountryCode.isEmpty {
             serverCountryFlagImageView.image = nil
@@ -295,7 +302,8 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
         }
     }
 
-    func statusChanged(_ status: ConnectionViewModel.Status) {
+    func connectionViewModel(
+        _ model: ConnectionViewModel, statusChanged status: ConnectionViewModel.Status) {
         connectionStatusImageView.image = { () -> Image? in
             switch status {
             case .notConnected, .gettingProfiles, .configuring:
@@ -309,16 +317,22 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
         statusLabel.stringValue = status.localizedText
     }
 
-    func statusDetailChanged(_ statusDetail: ConnectionViewModel.StatusDetail) {
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        statusDetailChanged statusDetail: ConnectionViewModel.StatusDetail) {
         statusDetailLabel.stringValue = statusDetail.localizedText
     }
 
-    func vpnSwitchStateChanged(_ vpnSwitchState: ConnectionViewModel.VPNSwitchState) {
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        vpnSwitchStateChanged vpnSwitchState: ConnectionViewModel.VPNSwitchState) {
         vpnSwitchButton.isEnabled = vpnSwitchState.isEnabled
         vpnSwitchButton.state = vpnSwitchState.isOn ? .on : .off
     }
 
-    func additionalControlChanged(_ additionalControl: ConnectionViewModel.AdditionalControl) {
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        additionalControlChanged additionalControl: ConnectionViewModel.AdditionalControl) {
         switch additionalControl {
         case .none:
             profileSelectorStackView.isHidden = true
@@ -356,7 +370,9 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
     static let connectionInfoBodyHeight: CGFloat = 100
     static let additionalControlContainerHeight = connectionInfoBodyHeight
 
-    func connectionInfoStateChanged(_ connectionInfoState: ConnectionViewModel.ConnectionInfoState) {
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        connectionInfoStateChanged connectionInfoState: ConnectionViewModel.ConnectionInfoState) {
         connectionInfoStateChanged(connectionInfoState, animated: true)
     }
 

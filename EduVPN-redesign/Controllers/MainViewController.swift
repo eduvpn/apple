@@ -234,7 +234,9 @@ extension MainViewController {
 }
 
 extension MainViewController: MainViewModelDelegate {
-    func rowsChanged(changes: RowsDifference<MainViewModel.Row>) {
+    func mainViewModel(
+        _ model: MainViewModel,
+        rowsChanged changes: RowsDifference<MainViewModel.Row>) {
         guard let tableView = tableView else { return }
         guard isTableViewInitialized else {
             // The first time, we reload to avoid drawing errors

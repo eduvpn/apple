@@ -175,7 +175,9 @@ extension SearchViewController {
 // MARK: - View model delegate
 
 extension SearchViewController: SearchViewModelDelegate {
-    func rowsChanged(changes: RowsDifference<SearchViewModel.Row>) {
+    func searchViewModel(
+        _ model: SearchViewModel,
+        rowsChanged changes: RowsDifference<SearchViewModel.Row>) {
         tableView?.performUpdates(deletedIndices: changes.deletedIndices,
                                   insertedIndices: changes.insertions.map { $0.0 })
     }
