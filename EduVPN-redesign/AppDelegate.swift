@@ -105,7 +105,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         return true
     }
+}
 
+extension AppDelegate {
     @objc func showMainWindow(_ sender: Any?) {
     }
 
@@ -120,6 +122,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if navigationController.isToolbarLeftButtonShowsAddServerUI {
             navigationController.toolbarLeftButtonClicked(self)
         }
+    }
+
+    func setShowInStatusBarEnabled(_ isEnabled: Bool) {
+    }
+
+    func setShowInDockEnabled(_ isEnabled: Bool) {
+    }
+
+    func setLaunchAtLoginEnabled(_ isEnabled: Bool) {
     }
 }
 

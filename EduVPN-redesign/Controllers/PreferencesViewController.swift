@@ -29,6 +29,9 @@ class PreferencesViewController: ViewController, ParametrizedViewController {
     private var parameters: Parameters!
 
     @IBOutlet weak var useTCPOnlyCheckbox: NSButton!
+    @IBOutlet weak var showInStatusBarCheckbox: NSButton!
+    @IBOutlet weak var showInDockCheckbox: NSButton!
+    @IBOutlet weak var launchAtLoginCheckbox: NSButton!
 
     func initializeParameters(_ parameters: Parameters) {
         guard self.parameters == nil else {
@@ -38,8 +41,25 @@ class PreferencesViewController: ViewController, ParametrizedViewController {
     }
 
     override func viewDidLoad() {
-        let isForceTCPEnabled = UserDefaults.standard.forceTCP
+        let userDefaults = UserDefaults.standard
+        let isForceTCPEnabled = userDefaults.forceTCP
+        let isShowInStatusBarEnabled = userDefaults.showInStatusBar
+        let isShowInDockEnabled = userDefaults.showInDock
+        let isLaunchAtLoginEnabled = userDefaults.launchAtLogin
+
         useTCPOnlyCheckbox.state = isForceTCPEnabled ? .on : .off
+        showInStatusBarCheckbox.state = isShowInStatusBarEnabled ? .on : .off
+        showInDockCheckbox.state = isShowInDockEnabled ? .on : .off
+        launchAtLoginCheckbox.state = isLaunchAtLoginEnabled ? .on : .off
+
+        // If one of "Show in status bar" or "Show in Dock" is off,
+        // disable editing the other
+        if !isShowInStatusBarEnabled {
+            showInDockCheckbox.isEnabled = false
+        }
+        if !isShowInDockEnabled {
+            showInStatusBarCheckbox.isEnabled = false
+        }
     }
 
     @IBAction func useTCPOnlyCheckboxClicked(_ sender: Any) {
@@ -65,6 +85,38 @@ class PreferencesViewController: ViewController, ParametrizedViewController {
 }
 
 #if os(macOS)
+private extension PreferencesViewController {
+    @IBAction func showInStatusBarCheckboxClicked(_ sender: Any) {
+        guard let appDelegate = NSApp.delegate as? AppDelegate else { return }
+        let isChecked = (showInStatusBarCheckbox.state == .on)
+
+        // If "Show in status bar" is unchecked, disable changing "Show in dock"
+        showInDockCheckbox.isEnabled = isChecked
+
+        appDelegate.setShowInStatusBarEnabled(isChecked)
+        UserDefaults.standard.showInStatusBar = isChecked
+    }
+
+    @IBAction func showInDockCheckboxClicked(_ sender: Any) {
+        guard let appDelegate = NSApp.delegate as? AppDelegate else { return }
+        let isChecked = (showInDockCheckbox.state == .on)
+
+        // If "Show in dock" is unchecked, disable changing "Show in status bar"
+        showInStatusBarCheckbox.isEnabled = isChecked
+
+        appDelegate.setShowInDockEnabled(isChecked)
+        UserDefaults.standard.showInDock = isChecked
+    }
+
+    @IBAction func launchAtLoginCheckboxClicked(_ sender: Any) {
+        guard let appDelegate = NSApp.delegate as? AppDelegate else { return }
+        let isChecked = (launchAtLoginCheckbox.state == .on)
+
+        appDelegate.setLaunchAtLoginEnabled(isChecked)
+        UserDefaults.standard.launchAtLogin = isChecked
+    }
+}
+
 private extension PreferencesViewController {
     private func showLog(_ log: String?) throws {
         let fileManager = FileManager.default
