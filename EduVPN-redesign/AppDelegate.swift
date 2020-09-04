@@ -32,6 +32,7 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     var environment: Environment?
+    var statusItemController: StatusItemController?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         let window = NSApp.windows[0]
@@ -44,6 +45,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         Self.replaceAppNameInMenuItems(in: NSApp.mainMenu)
+
+        let statusItemController = StatusItemController()
+        statusItemController.setShouldShowStatusItem(true)
+        self.statusItemController = statusItemController
+
         NSApp.activate(ignoringOtherApps: true)
     }
 
@@ -98,6 +104,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         return true
+    }
+
+    @objc func showMainWindow(_ sender: Any?) {
     }
 
     @objc func showPreferences(_ sender: Any) {
