@@ -34,6 +34,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var environment: Environment?
     var statusItemController: StatusItemController?
 
+    func applicationWillFinishLaunching(_ notification: Notification) {
+        if UserDefaults.standard.showInDock {
+            NSApp.setActivationPolicy(.regular)
+        } else {
+            NSApp.setActivationPolicy(.accessory)
+        }
+    }
+
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         let window = NSApp.windows[0]
         if let navigationController = window.rootViewController as? NavigationController {
@@ -46,9 +54,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         Self.replaceAppNameInMenuItems(in: NSApp.mainMenu)
 
-        let statusItemController = StatusItemController()
-        statusItemController.setShouldShowStatusItem(true)
-        self.statusItemController = statusItemController
+        self.statusItemController = StatusItemController()
+
+        setShowInStatusBarEnabled(UserDefaults.standard.showInStatusBar)
+        setShowInDockEnabled(UserDefaults.standard.showInDock)
 
         NSApp.activate(ignoringOtherApps: true)
     }
@@ -125,9 +134,23 @@ extension AppDelegate {
     }
 
     func setShowInStatusBarEnabled(_ isEnabled: Bool) {
+        statusItemController?.setShouldShowStatusItem(isEnabled)
     }
 
     func setShowInDockEnabled(_ isEnabled: Bool) {
+        if isEnabled {
+            if NSApp.activationPolicy() != .regular {
+                NSApp.setActivationPolicy(.regular)
+            }
+        } else {
+            if NSApp.activationPolicy() != .accessory {
+                NSApp.setActivationPolicy(.accessory)
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                    NSApp.unhide(nil)
+                    NSApp.activate(ignoringOtherApps: true)
+                }
+            }
+        }
     }
 
     func setLaunchAtLoginEnabled(_ isEnabled: Bool) {
