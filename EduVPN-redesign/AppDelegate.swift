@@ -114,6 +114,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         return true
     }
+
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        setShowInDockEnabled(UserDefaults.standard.showInDock)
+        return true
+    }
 }
 
 extension AppDelegate {
@@ -154,6 +159,7 @@ extension AppDelegate {
     }
 
     func setLaunchAtLoginEnabled(_ isEnabled: Bool) {
+        LaunchAtLoginHelper.setLaunchAtLoginEnabled(isEnabled)
     }
 }
 
