@@ -127,9 +127,12 @@ private extension StatusItemController {
     }
 
     @objc func aboutMenuItemClicked() {
+        NSApp.orderFrontStandardAboutPanel(self)
     }
 
     @objc func quitMenuItemClicked() {
+        NSApp.activate(ignoringOtherApps: true)
+        NSApp.terminate(self)
     }
 }
 
