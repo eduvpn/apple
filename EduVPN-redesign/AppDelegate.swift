@@ -31,6 +31,7 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
+    var mainWindow: NSWindow?
     var environment: Environment?
     var statusItemController: StatusItemController?
 
@@ -60,6 +61,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         setShowInDockEnabled(UserDefaults.standard.showInDock)
 
         NSApp.activate(ignoringOtherApps: true)
+        self.mainWindow = window
     }
 
     private static func replaceAppNameInMenuItems(in menu: NSMenu?) {
@@ -112,7 +114,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-        return true
+        return !UserDefaults.standard.showInStatusBar
     }
 
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
@@ -123,9 +125,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 extension AppDelegate {
     @objc func showMainWindow(_ sender: Any?) {
+        mainWindow?.makeKeyAndOrderFront(nil)
+        NSApp.activate(ignoringOtherApps: true)
     }
 
     @objc func showPreferences(_ sender: Any) {
+        mainWindow?.makeKeyAndOrderFront(nil)
+        NSApp.activate(ignoringOtherApps: true)
         environment?.navigationController?.presentPreferences()
     }
 
