@@ -144,6 +144,7 @@
 		6F750D1C24975B9B00AF2C04 /* EduVPNTunnelExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4A901C1120C87511000C1BF0 /* EduVPNTunnelExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6F7B63F02500FD7300FB154A /* StatusItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7B63EF2500FD7300FB154A /* StatusItemController.swift */; };
 		6F7B63F225022AAE00FB154A /* LaunchAtLoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7B63F125022AAE00FB154A /* LaunchAtLoginHelper.swift */; };
+		6F7B643E2502A18D00FB154A /* ConnectionInfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7B643D2502A18C00FB154A /* ConnectionInfoHeaderView.swift */; };
 		6F8835EC24FCD481008F15FF /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8835EB24FCD481008F15FF /* MainWindowController.swift */; };
 		6FA8089524E6A75D00E7D924 /* MigrationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA8089424E6A75C00E7D924 /* MigrationHelper.swift */; };
 		6FA808AF24EBBD1F00E7D924 /* ConnectionAttempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA808AE24EBBD1F00E7D924 /* ConnectionAttempt.swift */; };
@@ -548,6 +549,7 @@
 		6F750D2124975B9B00AF2C04 /* EduVPN-redesign-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "EduVPN-redesign-iOS.app"; path = "Let's Connect.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F7B63EF2500FD7300FB154A /* StatusItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusItemController.swift; sourceTree = "<group>"; };
 		6F7B63F125022AAE00FB154A /* LaunchAtLoginHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginHelper.swift; sourceTree = "<group>"; };
+		6F7B643D2502A18C00FB154A /* ConnectionInfoHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionInfoHeaderView.swift; sourceTree = "<group>"; };
 		6F8835EB24FCD481008F15FF /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		6FA8089424E6A75C00E7D924 /* MigrationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MigrationHelper.swift; sourceTree = "<group>"; };
 		6FA808AE24EBBD1F00E7D924 /* ConnectionAttempt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionAttempt.swift; sourceTree = "<group>"; };
@@ -1215,6 +1217,7 @@
 				6F36A71E24B5A36E00BA8F5E /* MainSecureInternetSectionHeaderCell.swift */,
 				6FEF30FD24A324E40026C786 /* RowCell.swift */,
 				6F1A1C0024EE8EDB0040D6A2 /* SupportContactTextView.swift */,
+				6F7B643D2502A18C00FB154A /* ConnectionInfoHeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2674,6 +2677,7 @@
 				C7DB4BA0247FC23D009932B1 /* PreferencesViewController.swift in Sources */,
 				6FC27AC824B9550D006FA648 /* ServerAPIService.swift in Sources */,
 				6FD5CDA424C678CF00842A74 /* ConnectionViewModel+Localization.swift in Sources */,
+				6F7B643E2502A18D00FB154A /* ConnectionInfoHeaderView.swift in Sources */,
 				6FE1D12124D02FC3002D3D0C /* UserDefaults+Preferences.swift in Sources */,
 				C7DB4C02248053D8009932B1 /* Moya+ResponseHandling.swift in Sources */,
 				6F36A71F24B5A36E00BA8F5E /* MainSecureInternetSectionHeaderCell.swift in Sources */,

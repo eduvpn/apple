@@ -1176,7 +1176,7 @@ Gw
                                                     <constraint firstItem="MDN-2N-2rz" firstAttribute="centerX" secondItem="LW1-tS-4uK" secondAttribute="centerX" id="i1s-2v-zKk"/>
                                                 </constraints>
                                             </customView>
-                                            <customView wantsLayer="YES" horizontalHuggingPriority="100" translatesAutoresizingMaskIntoConstraints="NO" id="AYX-3E-5P0" userLabel="Connection Info Header">
+                                            <customView wantsLayer="YES" horizontalHuggingPriority="100" translatesAutoresizingMaskIntoConstraints="NO" id="AYX-3E-5P0" userLabel="Connection Info Header" customClass="ConnectionInfoHeaderView" customModule="eduVPN" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="100" width="410" height="46"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VQQ-V5-CIc">

@@ -78,7 +78,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     @IBOutlet weak var renewSessionButton: NSButton!
     @IBOutlet weak var spinner: NSProgressIndicator!
 
-    @IBOutlet weak var connectionInfoHeader: NSView!
+    @IBOutlet weak var connectionInfoHeader: ConnectionInfoHeaderView!
     @IBOutlet weak var connectionInfoChevronButton: NSButton!
 
     @IBOutlet weak var connectionInfoBody: NSView!
@@ -395,6 +395,7 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
             bodyAlpha = 0
             bodyHeight = 0
             connectionInfoChevronButton.image = Image(named: "ChevronDownButton")
+            connectionInfoHeader.isPassthroughToButtonEnabled = false
         case .collapsed:
             controlAlpha = 1
             controlHeight = Self.additionalControlContainerHeight
@@ -402,6 +403,7 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
             bodyAlpha = 0
             bodyHeight = 0
             connectionInfoChevronButton.image = Image(named: "ChevronDownButton")
+            connectionInfoHeader.isPassthroughToButtonEnabled = true // Make whole "row" clickable
         case .expanded(let connectionInfo):
             controlAlpha = 0
             controlHeight = 0
@@ -409,6 +411,7 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
             bodyAlpha = 1
             bodyHeight = Self.connectionInfoBodyHeight
             connectionInfoChevronButton.image = Image(named: "CloseButton")
+            connectionInfoHeader.isPassthroughToButtonEnabled = false
             durationLabel.stringValue = connectionInfo.duration
             if let profileName = connectionInfo.profileName {
                 profileTitleLabel.isHidden = false
