@@ -7,7 +7,8 @@ import Foundation
 import PromiseKit
 
 protocol ServerDiscoveryServiceServersDelegate: class {
-    func serversChanged(_ servers: DiscoveryData.Servers)
+    func serverDiscoveryService(_ service: ServerDiscoveryService,
+                                serversChanged servers: DiscoveryData.Servers)
 }
 
 class ServerDiscoveryService {
@@ -40,7 +41,7 @@ class ServerDiscoveryService {
                 return try Self.parseServerData($0)
             }.map(on: DispatchQueue.main) {
                 self._servers = $0
-                self.delegate?.serversChanged($0)
+                self.delegate?.serverDiscoveryService(self, serversChanged: $0)
                 return $0
             }
     }

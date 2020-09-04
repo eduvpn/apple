@@ -9,10 +9,14 @@ import AppAuth
 import os.log
 
 protocol SearchViewControllerDelegate: class {
-    func searchViewControllerAddedSimpleServer(
-        baseURLString: DiscoveryData.BaseURLString, authState: AuthState)
-    func searchViewControllerAddedSecureInternetServer(
-        baseURLString: DiscoveryData.BaseURLString, orgId: String, authState: AuthState)
+    func searchViewController(
+        _ controller: SearchViewController,
+        addedSimpleServerWithBaseURL baseURLString: DiscoveryData.BaseURLString,
+        authState: AuthState)
+    func searchViewController(
+        _ controller: SearchViewController,
+        addedSecureInternetServerWithBaseURL baseURLString: DiscoveryData.BaseURLString,
+        orgId: String, authState: AuthState)
 }
 
 final class SearchViewController: ViewController, ParametrizedViewController {
@@ -72,7 +76,9 @@ final class SearchViewController: ViewController, ParametrizedViewController {
         firstly {
             self.viewModel.load(from: .cache)
         }.recover { _ in
-            // Ignore any errors loading from cache
+            // If there's no data in the cache, load from the files
+            // included in the app bundle
+            self.viewModel.load(from: .appBundle)
         }.then {
             self.viewModel.load(from: .server)
         }.ensure {
@@ -139,13 +145,18 @@ extension SearchViewController {
         let delegate = self.delegate
         if let baseURLString = row.baseURLString {
             firstly {
-                serverAuthService.startAuth(baseURLString: baseURLString, from: self)
+                serverAuthService.startAuth(baseURLString: baseURLString, from: self,
+                                            wayfSkippingInfo: viewModel.wayfSkippingInfo(for: row))
             }.map { authState in
                 switch row {
                 case .instituteAccessServer, .serverByURL:
-                    delegate?.searchViewControllerAddedSimpleServer(baseURLString: baseURLString, authState: authState)
+                    delegate?.searchViewController(
+                        self, addedSimpleServerWithBaseURL: baseURLString,
+                        authState: authState)
                 case .secureInternetOrg(let organization):
-                    delegate?.searchViewControllerAddedSecureInternetServer(baseURLString: baseURLString, orgId: organization.orgId, authState: authState)
+                    delegate?.searchViewController(
+                        self, addedSecureInternetServerWithBaseURL: baseURLString,
+                        orgId: organization.orgId, authState: authState)
                 default:
                     break
                 }
@@ -164,7 +175,9 @@ extension SearchViewController {
 // MARK: - View model delegate
 
 extension SearchViewController: SearchViewModelDelegate {
-    func rowsChanged(changes: RowsDifference<SearchViewModel.Row>) {
+    func searchViewModel(
+        _ model: SearchViewModel,
+        rowsChanged changes: RowsDifference<SearchViewModel.Row>) {
         tableView?.performUpdates(deletedIndices: changes.deletedIndices,
                                   insertedIndices: changes.insertions.map { $0.0 })
     }

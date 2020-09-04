@@ -4,9 +4,7 @@
 //
 
 protocol NavigationControllerDelegate: class {
-    func addServerButtonClicked()
-    // func preferencesButtonClicked()
-    // func helpButtonClicked()
+    func addServerButtonClicked(inNavigationController controller: NavigationController)
 }
 
 #if os(macOS)
@@ -39,7 +37,7 @@ class NavigationController: NSViewController {
         if canGoBack {
             popViewController(animated: true)
         } else {
-            delegate?.addServerButtonClicked()
+            delegate?.addServerButtonClicked(inNavigationController: self)
         }
     }
 
@@ -101,6 +99,12 @@ extension NavigationController: Navigating {
         }
 
         return lastVC
+    }
+
+    func popToRoot() {
+        while children.count > 1 {
+            popViewController(animated: false)
+        }
     }
 }
 

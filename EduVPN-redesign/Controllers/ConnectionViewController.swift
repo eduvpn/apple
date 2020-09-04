@@ -10,6 +10,12 @@ import AppKit
 import PromiseKit
 import os.log
 
+protocol ConnectionViewControllerDelegate: class {
+    func connectionViewController(
+        _ controller: ConnectionViewController,
+        willAttemptToConnect connectionAttempt: ConnectionAttempt?)
+}
+
 enum ConnectionViewControllerError: Error {
     case noProfiles
     case noSelectedProfile
@@ -32,9 +38,14 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         let environment: Environment
         let server: ServerInstance
         let serverDisplayInfo: ServerDisplayInfo
+        let authURLTemplate: String?
+        let restoredPreConnectionState: ConnectionAttempt.PreConnectionState?
     }
 
+    weak var delegate: ConnectionViewControllerDelegate?
+
     private var parameters: Parameters!
+    private var isRestored: Bool = false
     private var viewModel: ConnectionViewModel!
     private var dataStore: PersistenceService.DataStore!
 
@@ -49,7 +60,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     @IBOutlet weak var serverCountryFlagImageView: NSImageView!
 
     @IBOutlet weak var supportContactStackView: NSStackView!
-    @IBOutlet weak var supportContactLabel: NSTextField!
+    var supportContactTextView: NSTextView!
 
     @IBOutlet weak var connectionStatusImageView: NSImageView!
     @IBOutlet weak var statusLabel: NSTextField!
@@ -90,9 +101,19 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
             serverAPIService: parameters.environment.serverAPIService,
             connectionService: parameters.environment.connectionService,
             server: parameters.server,
-            serverDisplayInfo: parameters.serverDisplayInfo)
+            serverDisplayInfo: parameters.serverDisplayInfo,
+            authURLTemplate: parameters.authURLTemplate,
+            restoredPreConnectionState: parameters.restoredPreConnectionState)
         self.dataStore = PersistenceService.DataStore(path: parameters.server.localStoragePath)
-        self.selectedProfileId = dataStore.selectedProfileId
+
+        if let restoredPreConnectionState = parameters.restoredPreConnectionState {
+            self.profiles = restoredPreConnectionState.profiles
+            self.selectedProfileId = restoredPreConnectionState.selectedProfileId
+            self.isRestored = true
+        } else {
+            self.selectedProfileId = dataStore.selectedProfileId
+            self.isRestored = false
+        }
     }
 
     override func viewDidLoad() {
@@ -100,7 +121,9 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         // to receive updates from the view model
         viewModel.delegate = self
         setupInitialView(viewModel: viewModel)
-        beginConnectionFlow(shouldContinueIfSingleProfile: true)
+        if !isRestored {
+            beginConnectionFlow(shouldContinueIfSingleProfile: true)
+        }
     }
 
     @IBAction func vpnSwitchToggled(_ sender: Any) {
@@ -143,13 +166,21 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
 
 private extension ConnectionViewController {
     func setupInitialView(viewModel: ConnectionViewModel) {
-        headerChanged(viewModel.header)
-        supportContactChanged(viewModel.supportContact)
-        statusChanged(viewModel.status)
-        statusDetailChanged(viewModel.statusDetail)
-        vpnSwitchStateChanged(viewModel.vpnSwitchState)
-        additionalControlChanged(viewModel.additionalControl)
-        connectionInfoStateChanged(viewModel.connectionInfoState)
+        connectionViewModel(viewModel, canGoBackChanged: viewModel.canGoBack)
+        connectionViewModel(viewModel, headerChanged: viewModel.header)
+        setupSupportContact(supportContact: viewModel.supportContact)
+        connectionViewModel(viewModel, statusChanged: viewModel.status)
+        connectionViewModel(viewModel, statusDetailChanged: viewModel.statusDetail)
+        connectionViewModel(viewModel, vpnSwitchStateChanged: viewModel.vpnSwitchState)
+        connectionViewModel(viewModel, additionalControlChanged: viewModel.additionalControl)
+        connectionInfoStateChanged(viewModel.connectionInfoState, animated: false)
+    }
+
+    func setupSupportContact(supportContact: ConnectionViewModel.SupportContact) {
+        let supportContactTextView = SupportContactTextView(supportContact: supportContact)
+        supportContactStackView.addView(supportContactTextView, in: .leading)
+        self.supportContactTextView = supportContactTextView
+        supportContactStackView.isHidden = supportContact.supportContact.isEmpty
     }
 
     func beginConnectionFlow(shouldContinueIfSingleProfile: Bool) {
@@ -223,7 +254,8 @@ private extension ConnectionViewController {
 
 extension ConnectionViewController: ConnectionViewModelDelegate {
 
-    func profilesFound(profiles: [ProfileListResponse.Profile]) {
+    func connectionViewModel(
+        _ model: ConnectionViewModel, foundProfiles profiles: [ProfileListResponse.Profile]) {
         self.profiles = profiles
         if let selectedProfileId = selectedProfileId {
             if !profiles.contains(where: { $0.profileId == selectedProfileId }) {
@@ -233,13 +265,33 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
         }
     }
 
-    func canGoBackChanged(canGoBack: Bool) {
+    func connectionViewModel(
+        _ model: ConnectionViewModel, canGoBackChanged canGoBack: Bool) {
         parameters.environment.navigationController?.isUserAllowedToGoBack = canGoBack
+    }
+
+    func connectionViewModel(
+        _ model: ConnectionViewModel, willAutomaticallySelectProfileId profileId: String) {
+        selectedProfileId = profileId
+    }
+
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        willAttemptToConnectWithProfileId profileId: String,
+        certificateValidityRange: ServerAPIService.CertificateValidityRange,
+        connectionAttemptId: UUID) {
+        let connectionAttempt = ConnectionAttempt(
+            server: parameters.server, profiles: profiles ?? [],
+            selectedProfileId: profileId,
+            certificateValidityRange: certificateValidityRange,
+            attemptId: connectionAttemptId)
+        delegate?.connectionViewController(self, willAttemptToConnect: connectionAttempt)
     }
 
     static let serverCountryFlagImageWidth: CGFloat = 24
 
-    func headerChanged(_ header: ConnectionViewModel.Header) {
+    func connectionViewModel(
+        _ model: ConnectionViewModel, headerChanged header: ConnectionViewModel.Header) {
         serverNameLabel.stringValue = header.serverName
         if header.flagCountryCode.isEmpty {
             serverCountryFlagImageView.image = nil
@@ -250,17 +302,8 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
         }
     }
 
-    func supportContactChanged(_ supportContact: ConnectionViewModel.SupportContact) {
-        if supportContact.supportContact.isEmpty {
-            supportContactStackView.isHidden = true
-            supportContactLabel.attributedStringValue = NSAttributedString()
-        } else {
-            supportContactStackView.isHidden = false
-            supportContactLabel.attributedStringValue = supportContact.attributedStringValue
-        }
-    }
-
-    func statusChanged(_ status: ConnectionViewModel.Status) {
+    func connectionViewModel(
+        _ model: ConnectionViewModel, statusChanged status: ConnectionViewModel.Status) {
         connectionStatusImageView.image = { () -> Image? in
             switch status {
             case .notConnected, .gettingProfiles, .configuring:
@@ -274,16 +317,22 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
         statusLabel.stringValue = status.localizedText
     }
 
-    func statusDetailChanged(_ statusDetail: ConnectionViewModel.StatusDetail) {
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        statusDetailChanged statusDetail: ConnectionViewModel.StatusDetail) {
         statusDetailLabel.stringValue = statusDetail.localizedText
     }
 
-    func vpnSwitchStateChanged(_ vpnSwitchState: ConnectionViewModel.VPNSwitchState) {
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        vpnSwitchStateChanged vpnSwitchState: ConnectionViewModel.VPNSwitchState) {
         vpnSwitchButton.isEnabled = vpnSwitchState.isEnabled
         vpnSwitchButton.state = vpnSwitchState.isOn ? .on : .off
     }
 
-    func additionalControlChanged(_ additionalControl: ConnectionViewModel.AdditionalControl) {
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        additionalControlChanged additionalControl: ConnectionViewModel.AdditionalControl) {
         switch additionalControl {
         case .none:
             profileSelectorStackView.isHidden = true
@@ -321,7 +370,9 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
     static let connectionInfoBodyHeight: CGFloat = 100
     static let additionalControlContainerHeight = connectionInfoBodyHeight
 
-    func connectionInfoStateChanged(_ connectionInfoState: ConnectionViewModel.ConnectionInfoState) {
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        connectionInfoStateChanged connectionInfoState: ConnectionViewModel.ConnectionInfoState) {
         connectionInfoStateChanged(connectionInfoState, animated: true)
     }
 
@@ -341,21 +392,21 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
             isHeaderHidden = true
             bodyAlpha = 0
             bodyHeight = 0
-            connectionInfoChevronButton.image = Image(named: Image.goRightTemplateName)
+            connectionInfoChevronButton.image = Image(named: "ChevronDownButton")
         case .collapsed:
             controlAlpha = 1
             controlHeight = Self.additionalControlContainerHeight
             isHeaderHidden = false
             bodyAlpha = 0
             bodyHeight = 0
-            connectionInfoChevronButton.image = Image(named: Image.goRightTemplateName)
+            connectionInfoChevronButton.image = Image(named: "ChevronDownButton")
         case .expanded(let connectionInfo):
             controlAlpha = 0
             controlHeight = 0
             isHeaderHidden = false
             bodyAlpha = 1
             bodyHeight = Self.connectionInfoBodyHeight
-            connectionInfoChevronButton.image = Image(named: Image.stopProgressTemplateName)
+            connectionInfoChevronButton.image = Image(named: "CloseButton")
             durationLabel.stringValue = connectionInfo.duration
             if let profileName = connectionInfo.profileName {
                 profileTitleLabel.isHidden = false

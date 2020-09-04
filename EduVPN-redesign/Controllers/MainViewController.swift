@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import os.log
 
 class MainViewController: ViewController {
 
@@ -20,17 +21,19 @@ class MainViewController: ViewController {
                 environment.navigationController?.pushViewController(searchVC, animated: false)
                 environment.navigationController?.isUserAllowedToGoBack = false
             }
+            environment.connectionService.initializationDelegate = self
         }
     }
 
     private var viewModel: MainViewModel!
     private var isTableViewInitialized = false
+    private var isConnectionServiceInitialized = false
 
     @IBOutlet weak var tableView: TableView!
 }
 
 extension MainViewController: NavigationControllerDelegate {
-    func addServerButtonClicked() {
+    func addServerButtonClicked(inNavigationController controller: NavigationController) {
         let isSecureInternetServerAdded = (environment.persistenceService.secureInternetServer != nil)
         let searchVC = environment.instantiateSearchViewController(shouldIncludeOrganizations: !isSecureInternetServerAdded)
         searchVC.delegate = self
@@ -39,7 +42,10 @@ extension MainViewController: NavigationControllerDelegate {
 }
 
 extension MainViewController: SearchViewControllerDelegate {
-    func searchViewControllerAddedSimpleServer(baseURLString: DiscoveryData.BaseURLString, authState: AuthState) {
+    func searchViewController(
+        _ controller: SearchViewController,
+        addedSimpleServerWithBaseURL baseURLString: DiscoveryData.BaseURLString,
+        authState: AuthState) {
         let storagePath = UUID().uuidString
         let dataStore = PersistenceService.DataStore(path: storagePath)
         dataStore.authState = authState
@@ -49,7 +55,10 @@ extension MainViewController: SearchViewControllerDelegate {
         environment.navigationController?.popViewController(animated: true)
     }
 
-    func searchViewControllerAddedSecureInternetServer(baseURLString: DiscoveryData.BaseURLString, orgId: String, authState: AuthState) {
+    func searchViewController(
+        _ controller: SearchViewController,
+        addedSecureInternetServerWithBaseURL baseURLString: DiscoveryData.BaseURLString,
+        orgId: String, authState: AuthState) {
         let storagePath = UUID().uuidString
         let dataStore = PersistenceService.DataStore(path: storagePath)
         dataStore.authState = authState
@@ -59,6 +68,67 @@ extension MainViewController: SearchViewControllerDelegate {
         environment.persistenceService.setSecureInternetServer(server)
         viewModel.update()
         environment.navigationController?.popViewController(animated: true)
+    }
+}
+
+extension MainViewController: ConnectionViewControllerDelegate {
+    func connectionViewController(
+        _ controller: ConnectionViewController,
+        willAttemptToConnect connectionAttempt: ConnectionAttempt?) {
+        guard let connectionAttempt = connectionAttempt else {
+            environment.persistenceService.removeLastConnectionAttempt()
+            return
+        }
+        environment.persistenceService.saveLastConnectionAttempt(connectionAttempt)
+    }
+}
+
+extension MainViewController: ConnectionServiceInitializationDelegate {
+    func connectionService(
+        _ service: ConnectionService,
+        initializedWithState initializedState: ConnectionService.InitializedState) {
+        isConnectionServiceInitialized = true
+        switch initializedState {
+        case .vpnEnabled(let connectionAttemptId):
+            // If some VPN is enabled at launch, we should create the appropriate
+            // connectionVC and push that
+            guard let connectionAttemptId = connectionAttemptId,
+                let lastConnectionAttempt = environment.persistenceService.loadLastConnectionAttempt(),
+                connectionAttemptId == lastConnectionAttempt.attemptId else {
+                    os_log("VPN is enabled at launch, but there's no matching entry in last_connection_attempt.json. Disabling VPN.",
+                           log: Log.general, type: .debug)
+                    environment.connectionService.disableVPN()
+                        .cauterize()
+                    return
+            }
+
+            let connectionVC: ConnectionViewController? = {
+                let server = lastConnectionAttempt.server
+                if let simpleServer = server as? SimpleServerInstance {
+                    return environment.instantiateConnectionViewController(
+                        server: server, serverDisplayInfo: viewModel.serverDisplayInfo(for: simpleServer),
+                        authURLTemplate: nil,
+                        restoredPreConnectionState: lastConnectionAttempt.preConnectionState)
+                } else if let secureInternetServer = server as? SecureInternetServerInstance {
+                    return environment.instantiateConnectionViewController(
+                        server: server, serverDisplayInfo: viewModel.serverDisplayInfo(for: secureInternetServer),
+                        authURLTemplate: viewModel.authURLTemplate(for: server),
+                        restoredPreConnectionState: lastConnectionAttempt.preConnectionState)
+                }
+                return nil
+            }()
+            if let connectionVC = connectionVC {
+                environment.navigationController?.popToRoot()
+                environment.navigationController?.pushViewController(connectionVC, animated: true)
+            } else {
+                os_log("VPN is enabled at launch, but unable to identify the server from the info in last_connection_attempt.json. Disabling VPN.",
+                       log: Log.general, type: .debug)
+                environment.connectionService.disableVPN()
+                    .cauterize()
+            }
+        case .vpnDisabled:
+            environment.persistenceService.removeLastConnectionAttempt()
+        }
     }
 }
 
@@ -112,11 +182,19 @@ extension MainViewController {
     }
 
     func didSelectRow(at index: Int) {
+        guard isConnectionServiceInitialized else {
+            // Don't show the connection screen until the connection service
+            // is intialized
+            return
+        }
+
         let row = viewModel.row(at: index)
         if let server = row.server,
             let serverDisplayInfo = row.serverDisplayInfo {
             let connectionVC = environment.instantiateConnectionViewController(
-                server: server, serverDisplayInfo: serverDisplayInfo)
+                server: server, serverDisplayInfo: serverDisplayInfo,
+                authURLTemplate: viewModel.authURLTemplate(for: server))
+            connectionVC.delegate = self
             environment.navigationController?.pushViewController(connectionVC, animated: true)
         }
     }
@@ -156,7 +234,9 @@ extension MainViewController {
 }
 
 extension MainViewController: MainViewModelDelegate {
-    func rowsChanged(changes: RowsDifference<MainViewModel.Row>) {
+    func mainViewModel(
+        _ model: MainViewModel,
+        rowsChanged changes: RowsDifference<MainViewModel.Row>) {
         guard let tableView = tableView else { return }
         guard isTableViewInitialized else {
             // The first time, we reload to avoid drawing errors

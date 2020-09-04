@@ -10,16 +10,39 @@ import PromiseKit
 import NetworkExtension
 
 protocol ConnectionViewModelDelegate: class {
-    func profilesFound(profiles: [ProfileListResponse.Profile])
-    func canGoBackChanged(canGoBack: Bool)
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        foundProfiles profiles: [ProfileListResponse.Profile])
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        canGoBackChanged canGoBack: Bool)
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        willAutomaticallySelectProfileId profileId: String)
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        willAttemptToConnectWithProfileId profileId: String,
+        certificateValidityRange: ServerAPIService.CertificateValidityRange,
+        connectionAttemptId: UUID)
 
-    func headerChanged(_ header: ConnectionViewModel.Header)
-    func supportContactChanged(_ supportContact: ConnectionViewModel.SupportContact)
-    func statusChanged(_ status: ConnectionViewModel.Status)
-    func statusDetailChanged(_ statusDetail: ConnectionViewModel.StatusDetail)
-    func vpnSwitchStateChanged(_ vpnSwitchState: ConnectionViewModel.VPNSwitchState)
-    func additionalControlChanged(_ additionalControl: ConnectionViewModel.AdditionalControl)
-    func connectionInfoStateChanged(_ connectionInfoState: ConnectionViewModel.ConnectionInfoState)
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        headerChanged header: ConnectionViewModel.Header)
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        statusChanged status: ConnectionViewModel.Status)
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        statusDetailChanged statusDetail: ConnectionViewModel.StatusDetail)
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        vpnSwitchStateChanged vpnSwitchState: ConnectionViewModel.VPNSwitchState)
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        additionalControlChanged additionalControl: ConnectionViewModel.AdditionalControl)
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        connectionInfoStateChanged connectionInfoState: ConnectionViewModel.ConnectionInfoState)
 }
 
 class ConnectionViewModel {
@@ -79,32 +102,32 @@ class ConnectionViewModel {
     }
 
     private(set) var header: Header {
-        didSet { delegate?.headerChanged(header) }
+        didSet { delegate?.connectionViewModel(self, headerChanged: header) }
     }
 
-    private(set) var supportContact: SupportContact {
-        didSet { delegate?.supportContactChanged(supportContact) }
-    }
+    private(set) var supportContact: SupportContact
 
     private(set) var status: Status {
-        didSet { delegate?.statusChanged(status) }
+        didSet { delegate?.connectionViewModel(self, statusChanged: status) }
     }
 
     private(set) var statusDetail: StatusDetail {
-        didSet { delegate?.statusDetailChanged(statusDetail) }
+        didSet { delegate?.connectionViewModel(self, statusDetailChanged: statusDetail) }
     }
 
     private(set) var vpnSwitchState: VPNSwitchState {
-        didSet { delegate?.vpnSwitchStateChanged(vpnSwitchState) }
+        didSet { delegate?.connectionViewModel(self, vpnSwitchStateChanged: vpnSwitchState) }
     }
 
     private(set) var additionalControl: AdditionalControl {
-        didSet { delegate?.additionalControlChanged(additionalControl) }
+        didSet { delegate?.connectionViewModel(self, additionalControlChanged: additionalControl) }
     }
 
     private(set) var connectionInfoState: ConnectionInfoState {
-        didSet { delegate?.connectionInfoStateChanged(connectionInfoState) }
+        didSet { delegate?.connectionViewModel(self, connectionInfoStateChanged: connectionInfoState) }
     }
+
+    var canGoBack: Bool { internalState == .idle }
 
     // State of the connection view model
 
@@ -123,7 +146,7 @@ class ConnectionViewModel {
             self.updateStatusDetail()
             self.updateVPNSwitchState()
             self.updateAdditionalControl()
-            self.delegate?.canGoBackChanged(canGoBack: internalState == .idle)
+            self.delegate?.connectionViewModel(self, canGoBackChanged: internalState == .idle)
         }
     }
 
@@ -142,7 +165,7 @@ class ConnectionViewModel {
             self.updateStatusDetail()
             self.updateVPNSwitchState()
             self.updateAdditionalControl()
-            self.delegate?.profilesFound(profiles: profiles ?? [])
+            self.delegate?.connectionViewModel(self, foundProfiles: profiles ?? [])
         }
     }
 
@@ -178,15 +201,18 @@ class ConnectionViewModel {
     private let connectionService: ConnectionService
     private let server: ServerInstance
     private let serverDisplayInfo: ServerDisplayInfo
+    private let authURLTemplate: String?
     private let dataStore: PersistenceService.DataStore
     private var connectingProfile: ProfileListResponse.Profile?
 
     init(serverAPIService: ServerAPIService, connectionService: ConnectionService,
-         server: ServerInstance, serverDisplayInfo: ServerDisplayInfo) {
+         server: ServerInstance, serverDisplayInfo: ServerDisplayInfo, authURLTemplate: String?,
+         restoredPreConnectionState: ConnectionAttempt.PreConnectionState?) {
         self.serverAPIService = serverAPIService
         self.connectionService = connectionService
         self.server = server
         self.serverDisplayInfo = serverDisplayInfo
+        self.authURLTemplate = authURLTemplate
 
         header = Header(from: serverDisplayInfo)
         supportContact = SupportContact(from: serverDisplayInfo)
@@ -198,6 +224,18 @@ class ConnectionViewModel {
 
         dataStore = PersistenceService.DataStore(path: server.localStoragePath)
         connectionService.statusDelegate = self
+
+        if let restoredPreConnectionState = restoredPreConnectionState {
+            self.profiles = restoredPreConnectionState.profiles
+            self.connectingProfile = restoredPreConnectionState.profiles.first(where: { $0.profileId == restoredPreConnectionState.selectedProfileId })
+            self.certificateExpiryHelper = CertificateExpiryHelper(
+                validFrom: restoredPreConnectionState.certificateValidFrom,
+                expiresAt: restoredPreConnectionState.certificateExpiresAt,
+                handler: { [weak self] certificateStatus in
+                    self?.certificateStatus = certificateStatus
+                })
+            internalState = .enabledVPN
+        }
     }
 
     func beginConnectionFlow(from viewController: AuthorizingViewController, shouldContinueIfSingleProfile: Bool) -> Promise<Void> {
@@ -205,10 +243,13 @@ class ConnectionViewModel {
         precondition(self.connectionService.isVPNEnabled == false)
         return firstly { () -> Promise<([ProfileListResponse.Profile], ServerInfo)> in
             self.internalState = .gettingProfiles
-            return self.serverAPIService.getAvailableProfiles(for: server, from: viewController)
+            return self.serverAPIService.getAvailableProfiles(
+                for: server, from: viewController,
+                wayfSkippingInfo: wayfSkippingInfo())
         }.then { (profiles, serverInfo) -> Promise<Void> in
             self.profiles = profiles
             if profiles.count == 1 && shouldContinueIfSingleProfile {
+                self.delegate?.connectionViewModel(self, willAutomaticallySelectProfileId: profiles[0].profileId)
                 return self.continueConnectionFlow(
                     profile: profiles[0], from: viewController,
                     serverInfo: serverInfo)
@@ -233,17 +274,24 @@ class ConnectionViewModel {
             self.internalState = .configuring
             self.connectingProfile = profile
             return self.serverAPIService.getTunnelConfigurationData(
-                for: server, serverInfo: serverInfo, profile: profile, from: viewController)
+                for: server, serverInfo: serverInfo, profile: profile,
+                from: viewController, wayfSkippingInfo: wayfSkippingInfo())
         }.then { tunnelConfigData -> Promise<Void> in
             self.internalState = .enableVPNRequested
             self.certificateExpiryHelper = CertificateExpiryHelper(
-                expiryDate: tunnelConfigData.certificateExpiresAt,
+                validFrom: tunnelConfigData.certificateValidityRange.validFrom,
+                expiresAt: tunnelConfigData.certificateValidityRange.expiresAt,
                 handler: { [weak self] certificateStatus in
                     self?.certificateStatus = certificateStatus
                 })
+            let connectionAttemptId = UUID()
+            self.delegate?.connectionViewModel(
+                self, willAttemptToConnectWithProfileId: profile.profileId,
+                certificateValidityRange: tunnelConfigData.certificateValidityRange,
+                connectionAttemptId: connectionAttemptId)
             return self.connectionService.enableVPN(
                 openVPNConfig: tunnelConfigData.openVPNConfiguration,
-                configSource: .server(localStoragePath: self.server.localStoragePath))
+                connectionAttemptId: connectionAttemptId)
         }.ensure {
             self.internalState = self.connectionService.isVPNEnabled ? .enabledVPN : .idle
         }
@@ -283,6 +331,15 @@ class ConnectionViewModel {
             self.connectionInfoHelper = nil
             self.connectionInfo = nil
         }
+    }
+
+    private func wayfSkippingInfo() -> ServerAuthService.WAYFSkippingInfo? {
+        if let secureInternetServer = server as? SecureInternetServerInstance,
+            let authURLTemplate = self.authURLTemplate {
+            return ServerAuthService.WAYFSkippingInfo(
+                authURLTemplate: authURLTemplate, orgId: secureInternetServer.orgId)
+        }
+        return nil
     }
 }
 
@@ -348,7 +405,7 @@ private extension ConnectionViewModel {
             if internalState == .gettingProfiles || internalState == .configuring {
                 return .spinner
             }
-            if certificateStatus == .expired {
+            if certificateStatus?.shouldShowRenewSessionButton ?? false {
                 return .renewSessionButton
             }
             if internalState == .idle, let profiles = profiles, profiles.count > 1 {
@@ -379,7 +436,7 @@ private extension ConnectionViewModel {
 }
 
 extension ConnectionViewModel: ConnectionServiceStatusDelegate {
-    func connectionStatusChanged(status: NEVPNStatus) {
+    func connectionService(_ service: ConnectionService, connectionStatusChanged status: NEVPNStatus) {
         connectionStatus = status
         if status == .connected {
             connectionInfoHelper?.refreshNetworkAddress()

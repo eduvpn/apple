@@ -26,7 +26,7 @@ protocol ServerResponse {
 // }
 
 struct ProfileListResponse: ServerResponse, Decodable {
-    struct Profile: Decodable {
+    struct Profile: Codable {
         let displayName: LanguageMappedString
         let profileId: String
 

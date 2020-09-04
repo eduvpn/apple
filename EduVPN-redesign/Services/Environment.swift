@@ -44,9 +44,13 @@ class Environment {
         return instantiate(SearchViewController.self, identifier: "Search", parameters: parameters)
     }
 
-    func instantiateConnectionViewController(server: ServerInstance, serverDisplayInfo: ServerDisplayInfo) -> ConnectionViewController {
+    func instantiateConnectionViewController(
+        server: ServerInstance, serverDisplayInfo: ServerDisplayInfo, authURLTemplate: String?,
+        restoredPreConnectionState: ConnectionAttempt.PreConnectionState? = nil) -> ConnectionViewController {
         let parameters = ConnectionViewController.Parameters(
-            environment: self, server: server, serverDisplayInfo: serverDisplayInfo)
+            environment: self, server: server, serverDisplayInfo: serverDisplayInfo,
+            authURLTemplate: authURLTemplate,
+            restoredPreConnectionState: restoredPreConnectionState)
         return instantiate(ConnectionViewController.self, identifier: "Connection", parameters: parameters)
     }
 

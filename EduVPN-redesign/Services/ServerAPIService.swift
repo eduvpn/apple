@@ -70,9 +70,19 @@ class ServerAPIService {
         static let ignoreStoredKeyPair = Options(rawValue: 1 << 1)
     }
 
+    struct CertificateValidityRange {
+        let validFrom: Date
+        let expiresAt: Date
+    }
+
     struct TunnelConfigurationData {
         let openVPNConfiguration: [String]
-        let certificateExpiresAt: Date
+        let certificateValidityRange: CertificateValidityRange
+    }
+
+    struct KeyPairData {
+        let keyPair: CreateKeyPairResponse.KeyPair
+        let certificateValidityRange: CertificateValidityRange
     }
 
     static var uncachedSession: Moya.Session {
@@ -90,6 +100,7 @@ class ServerAPIService {
 
     func getAvailableProfiles(for server: ServerInstance,
                               from viewController: AuthorizingViewController,
+                              wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?,
                               options: Options = []) -> Promise<([ProfileListResponse.Profile], ServerInfo)> {
         return firstly {
             ServerInfoFetcher.fetch(apiBaseURLString: server.apiBaseURLString,
@@ -100,6 +111,7 @@ class ServerAPIService {
                                                   dataStore: dataStore,
                                                   sourceViewController: viewController)
             return self.makeRequest(target: .profileList(basicTargetInfo),
+                                    wayfSkippingInfo: wayfSkippingInfo,
                                     decodeAs: ProfileListResponse.self,
                                     options: options)
                 .map { ($0, serverInfo) }
@@ -109,6 +121,7 @@ class ServerAPIService {
     func getTunnelConfigurationData(for server: ServerInstance, serverInfo: ServerInfo?,
                                     profile: ProfileListResponse.Profile,
                                     from viewController: AuthorizingViewController,
+                                    wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?,
                                     options: Options = []) -> Promise<TunnelConfigurationData> {
         let dataStore = PersistenceService.DataStore(path: server.localStoragePath)
         return firstly { () -> Promise<ServerInfo> in
@@ -117,21 +130,24 @@ class ServerAPIService {
             }
             return ServerInfoFetcher.fetch(apiBaseURLString: server.apiBaseURLString,
                                            authBaseURLString: server.authBaseURLString)
-        }.then { serverInfo -> Promise<(BasicTargetInfo, (CreateKeyPairResponse.KeyPair, Date))> in
+        }.then { serverInfo -> Promise<(BasicTargetInfo, KeyPairData)> in
             let basicTargetInfo = BasicTargetInfo(serverInfo: serverInfo,
                                                   dataStore: dataStore,
                                                   sourceViewController: viewController)
-            return self.getKeyPair(basicTargetInfo: basicTargetInfo, options: options)
+            return self.getKeyPair(basicTargetInfo: basicTargetInfo,
+                                   wayfSkippingInfo: wayfSkippingInfo, options: options)
                 .map { (basicTargetInfo, $0) }
-        }.then { (basicTargetInfo, keyPairResult) -> Promise<TunnelConfigurationData> in
-            let (keyPair, expiryDate) = keyPairResult
+        }.then { (basicTargetInfo, keyPairData) -> Promise<TunnelConfigurationData> in
             return firstly {
-                self.getProfileConfig(basicTargetInfo: basicTargetInfo, profile: profile, options: options)
+                self.getProfileConfig(basicTargetInfo: basicTargetInfo, profile: profile,
+                                      wayfSkippingInfo: wayfSkippingInfo, options: options)
             }.map { profileConfig in
                 let isUDPAllowed = !UserDefaults.standard.forceTCP
                 let openVPNConfig = try Self.createOpenVPNConfig(
-                    profileConfig: profileConfig, isUDPAllowed: isUDPAllowed, keyPair: keyPair)
-                return TunnelConfigurationData(openVPNConfiguration: openVPNConfig, certificateExpiresAt: expiryDate)
+                    profileConfig: profileConfig, isUDPAllowed: isUDPAllowed, keyPair: keyPairData.keyPair)
+                return TunnelConfigurationData(
+                    openVPNConfiguration: openVPNConfig,
+                    certificateValidityRange: keyPairData.certificateValidityRange)
             }
         }
     }
@@ -210,10 +226,12 @@ private extension ServerAPIService {
 
     static let HTTPStatusCodeUnauthorized = 401
 
-    func makeRequest<T: ServerResponse>(target: ServerAPITarget, decodeAs responseType: T.Type,
+    func makeRequest<T: ServerResponse>(target: ServerAPITarget,
+                                        wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?,
+                                        decodeAs responseType: T.Type,
                                         options: Options) -> Promise<T.DataType> {
         firstly { () -> Promise<String> in
-            self.getFreshAccessToken(basicTargetInfo: target.basicTargetInfo)
+            self.getFreshAccessToken(basicTargetInfo: target.basicTargetInfo, wayfSkippingInfo: wayfSkippingInfo)
         }.then { accessToken -> Promise<Moya.Response> in
             let authPlugin = AccessTokenPlugin { _ in accessToken }
             let provider = MoyaProvider<ServerAPITarget>(session: Self.uncachedSession, plugins: [authPlugin])
@@ -222,7 +240,8 @@ private extension ServerAPIService {
             if response.statusCode == Self.HTTPStatusCodeUnauthorized &&
                 !options.contains(.ignoreStoredAuthState) {
                 os_log("Encountered HTTP status code Unauthorized", log: Log.general, type: .info)
-                return self.makeRequest(target: target, decodeAs: responseType,
+                return self.makeRequest(target: target, wayfSkippingInfo: wayfSkippingInfo,
+                                        decodeAs: responseType,
                                         options: options.union([.ignoreStoredAuthState]))
             } else {
                 let successStatusCodes = (200...299)
@@ -235,40 +254,47 @@ private extension ServerAPIService {
     }
 
     func getKeyPair(basicTargetInfo: BasicTargetInfo,
-                    options: Options = []) -> Promise<(CreateKeyPairResponse.KeyPair, Date)> {
-        firstly { () -> Promise<(CreateKeyPairResponse.KeyPair, Date)> in
+                    wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?,
+                    options: Options = []) -> Promise<KeyPairData> {
+        firstly { () -> Promise<KeyPairData> in
             guard !options.contains(.ignoreStoredKeyPair),
                 let storedKeyPair = basicTargetInfo.dataStore.keyPair,
                 let certificateData = storedKeyPair.certificate.data(using: .utf8),
                 let x509Certificate = try? X509Certificate(data: certificateData),
                 x509Certificate.isCurrentlyValid,
                 let commonName = x509Certificate.commonName,
-                let expiresAt = x509Certificate.expiresAt else {
+                let expiresAt = x509Certificate.expiresAt,
+                let validFrom = x509Certificate.validFrom else {
                     throw StoredDataError.cannotUseStoredKeyPair
             }
             return makeRequest(
                 target: .checkCertificate(basicTargetInfo, commonName: commonName),
+                wayfSkippingInfo: wayfSkippingInfo,
                 decodeAs: CheckCertificateResponse.self, options: options)
                 .map { certificateValidity in
                     guard certificateValidity.isValid else {
                         throw StoredDataError.cannotUseStoredKeyPair
                     }
-                    return (storedKeyPair, expiresAt)
+                    let validityRange = CertificateValidityRange(validFrom: validFrom, expiresAt: expiresAt)
+                    return KeyPairData(keyPair: storedKeyPair, certificateValidityRange: validityRange)
                 }
-        }.recover { error -> Promise<(CreateKeyPairResponse.KeyPair, Date)> in
+        }.recover { error -> Promise<KeyPairData> in
             if case StoredDataError.cannotUseStoredKeyPair = error {
                 return self.makeRequest(
                     target: .createKeyPair(basicTargetInfo, displayName: Config.shared.appName),
+                    wayfSkippingInfo: wayfSkippingInfo,
                     decodeAs: CreateKeyPairResponse.self, options: options)
                     .map { keyPair in
                         basicTargetInfo.dataStore.keyPair = keyPair
                         guard let certificateData = keyPair.certificate.data(using: .utf8),
                             let x509Certificate = try? X509Certificate(data: certificateData),
                             x509Certificate.isCurrentlyValid,
-                            let expiresAt = x509Certificate.expiresAt else {
+                            let expiresAt = x509Certificate.expiresAt,
+                            let validFrom = x509Certificate.validFrom else {
                                 throw ServerAPIServiceError.serverProvidedInvalidCertificate
                         }
-                        return (keyPair, expiresAt)
+                        let validityRange = CertificateValidityRange(validFrom: validFrom, expiresAt: expiresAt)
+                        return KeyPairData(keyPair: keyPair, certificateValidityRange: validityRange)
                     }
             } else {
                 throw error
@@ -277,9 +303,11 @@ private extension ServerAPIService {
     }
 
     func getProfileConfig(basicTargetInfo: BasicTargetInfo, profile: ProfileListResponse.Profile,
+                          wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?,
                           options: Options = []) -> Promise<Data> {
         firstly {
             makeRequest(target: .profileConfig(basicTargetInfo, profile: profile),
+                        wayfSkippingInfo: wayfSkippingInfo,
                         decodeAs: ProfileConfigResponse.self, options: options)
         }.map { data in
             if let errorResponse = try? JSONDecoder().decode(ProfileConfigErrorResponse.self, from: data) {
@@ -354,6 +382,7 @@ private extension ServerAPIService {
     }
 
     func getFreshAccessToken(basicTargetInfo: BasicTargetInfo,
+                             wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?,
                              options: Options = []) -> Promise<String> {
         return firstly { () -> Promise<String> in
             if options.contains(.ignoreStoredAuthState) {
@@ -373,7 +402,8 @@ private extension ServerAPIService {
                 return self.serverAuthService.startAuth(
                     authEndpoint: basicTargetInfo.serverInfo.authorizationEndpoint,
                     tokenEndpoint: basicTargetInfo.serverInfo.tokenEndpoint,
-                    from: basicTargetInfo.sourceViewController)
+                    from: basicTargetInfo.sourceViewController,
+                    wayfSkippingInfo: wayfSkippingInfo)
                 .then { authState -> Promise<String> in
                     basicTargetInfo.dataStore.authState = authState
                     return self.getFreshAccessToken(using: authState, storingChangesTo: basicTargetInfo.dataStore)
@@ -432,5 +462,6 @@ private extension X509Certificate {
         return nil
     }
 
+    var validFrom: Date? { notBefore }
     var expiresAt: Date? { notAfter }
 }
