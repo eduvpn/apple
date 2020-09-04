@@ -52,7 +52,9 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     private var profiles: [ProfileListResponse.Profile]?
     private var selectedProfileId: String? {
         didSet {
-            dataStore.selectedProfileId = selectedProfileId ?? ""
+            dataStore.setSelectedProfileId(
+                profileId: selectedProfileId,
+                for: parameters.server.apiBaseURLString)
         }
     }
 
@@ -111,7 +113,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
             self.selectedProfileId = restoredPreConnectionState.selectedProfileId
             self.isRestored = true
         } else {
-            self.selectedProfileId = dataStore.selectedProfileId
+            self.selectedProfileId = dataStore.selectedProfileId(for: parameters.server.apiBaseURLString)
             self.isRestored = false
         }
     }

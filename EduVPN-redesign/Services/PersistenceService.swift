@@ -193,8 +193,8 @@ extension PersistenceService {
             rootURL.appendingPathComponent("client.certificate")
         }
 
-        private var selectedProfileIdURL: URL {
-            rootURL.appendingPathComponent("selectedProfileId.txt")
+        private var selectedProfileURL: URL {
+            rootURL.appendingPathComponent("selected_profile.json")
         }
 
         var authState: AuthState? {
@@ -241,18 +241,31 @@ extension PersistenceService {
             }
         }
 
-        var selectedProfileId: String? {
-            get {
-                if let data = try? Data(contentsOf: selectedProfileIdURL),
-                    let string = String(data: data, encoding: .utf8),
-                    !string.isEmpty {
-                    return string
-                }
-                return nil
+        private func getSelectedProfileIdMap() -> [String: String]? {
+            if let data = try? Data(contentsOf: selectedProfileURL) {
+                return try? JSONDecoder().decode([String: String].self, from: data)
             }
-            set(value) {
-                PersistenceService.write(value?.data(using: .utf8) ?? Data(),
-                                         to: selectedProfileIdURL, atomically: true)
+            return nil
+        }
+
+        func selectedProfileId(for apiBaseURLString: DiscoveryData.BaseURLString) -> String? {
+            let map = getSelectedProfileIdMap()
+            return map?[apiBaseURLString.urlString]
+        }
+
+        func setSelectedProfileId(profileId: String?, for apiBaseURLString: DiscoveryData.BaseURLString) {
+            var map = getSelectedProfileIdMap() ?? [:]
+            if map[apiBaseURLString.urlString] != profileId {
+                if let profileId = profileId {
+                    map[apiBaseURLString.urlString] = profileId
+                } else {
+                    map.removeValue(forKey: apiBaseURLString.urlString)
+                }
+                let encoder = JSONEncoder()
+                encoder.outputFormatting = .prettyPrinted
+                if let data = try? encoder.encode(map) {
+                    PersistenceService.write(data, to: selectedProfileURL, atomically: true)
+                }
             }
         }
 
