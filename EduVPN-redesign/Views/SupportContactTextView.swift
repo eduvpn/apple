@@ -43,7 +43,7 @@ class SupportContactTextView: NSTextView {
         if supportContact.supportContact.isEmpty {
             return NSAttributedString(string: "")
         }
-        let font = NSFont(name: "Open Sans Regular", size: 14) ?? NSFont()
+        let font = NSFont(name: "OpenSans-Regular", size: 14) ?? NSFont.systemFont(ofSize: NSFont.systemFontSize)
         let contactStrings: [NSAttributedString] = supportContact.supportContact.map { urlString in
             guard let url = URL(string: urlString) else {
                 return NSAttributedString(string: urlString, attributes: [.font: font])
