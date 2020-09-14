@@ -55,7 +55,8 @@ class Environment {
     }
 
     func instantiatePreferencesViewController() -> PreferencesViewController {
-        return instantiate(PreferencesViewController.self, identifier: "Preferences")
+        let parameters = PreferencesViewController.Parameters(environment: self)
+        return instantiate(PreferencesViewController.self, identifier: "Preferences", parameters: parameters)
     }
 
     func instantiate<VC: ViewController>(_ type: VC.Type, identifier: String) -> VC {

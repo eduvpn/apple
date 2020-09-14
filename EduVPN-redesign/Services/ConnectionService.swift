@@ -62,6 +62,7 @@ class ConnectionService {
     private var statusObservationToken: AnyObject?
     private var startTunnelPromiseResolver: Resolver<Void>?
     private var stopTunnelPromiseResolver: Resolver<Void>?
+    private var viewLogPromiseResolver: Resolver<Void>?
 
     init() {
         initializeTunnelManager()
@@ -210,6 +211,42 @@ extension ConnectionService {
     }
 }
 
+extension ConnectionService {
+    func getConnectionLog() -> Promise<String?> {
+        guard let tunnelManager = tunnelManager else {
+            fatalError("ConnectionService not initialized yet")
+        }
+        guard (tunnelManager.connection.status != .disconnecting) else {
+            // If the tunnel is disconnecting, it might be writing to the log
+            // file. So let's wait for it to disconnect, and then read the file.
+            return Promise { resolver in
+                self.viewLogPromiseResolver = resolver
+            }.then { _ in
+                return self.getConnectionLog()
+            }
+        }
+        switch tunnelManager.connection.status {
+        case .connected, .reasserting:
+            // Ask the tunnel process for the log
+            return firstly {
+                tunnelManager.sendProviderMessage(
+                    OpenVPNTunnelProvider.Message.requestLog.data)
+            }.map { data in
+                return String(data: data, encoding: .utf8)
+            }
+        default:
+            // Read the log file directly
+            guard let appGroupURL = FileManager.default.containerURL(
+                forSecurityApplicationGroupIdentifier: ConnectionService.appGroup) else {
+                    return Promise.value(nil)
+            }
+            let debugLogURL = appGroupURL.appendingPathComponent("debug.log")
+            let debugLog = try? String(contentsOf: debugLogURL)
+            return Promise.value(debugLog)
+        }
+    }
+}
+
 private extension ConnectionService {
     func startTunnel() -> Promise<Void> {
         guard let tunnelManager = tunnelManager else {
@@ -248,14 +285,17 @@ private extension ConnectionService {
                 if status == .connected {
                     self.startTunnelPromiseResolver?.fulfill(())
                     self.stopTunnelPromiseResolver?.reject(ConnectionServiceError.cannotStopTunnel)
+                    self.viewLogPromiseResolver?.reject(ConnectionServiceError.cannotStopTunnel)
                 }
                 if status == .disconnected {
                     self.stopTunnelPromiseResolver?.fulfill(())
+                    self.viewLogPromiseResolver?.fulfill(())
                     self.startTunnelPromiseResolver?.reject(ConnectionServiceError.cannotStartTunnel)
                 }
                 if status == .connected || status == .disconnected {
                     self.startTunnelPromiseResolver = nil
                     self.stopTunnelPromiseResolver = nil
+                    self.viewLogPromiseResolver = nil
                 }
         }
     }

@@ -31,7 +31,17 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
+    var mainWindow: NSWindow?
     var environment: Environment?
+    var statusItemController: StatusItemController?
+
+    func applicationWillFinishLaunching(_ notification: Notification) {
+        if UserDefaults.standard.showInDock {
+            NSApp.setActivationPolicy(.regular)
+        } else {
+            NSApp.setActivationPolicy(.accessory)
+        }
+    }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         let window = NSApp.windows[0]
@@ -44,7 +54,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         Self.replaceAppNameInMenuItems(in: NSApp.mainMenu)
+
+        self.statusItemController = StatusItemController()
+
+        setShowInStatusBarEnabled(UserDefaults.standard.showInStatusBar)
+        setShowInDockEnabled(UserDefaults.standard.showInDock)
+
         NSApp.activate(ignoringOtherApps: true)
+        self.mainWindow = window
     }
 
     private static func replaceAppNameInMenuItems(in menu: NSMenu?) {
@@ -97,10 +114,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        return !UserDefaults.standard.showInStatusBar
+    }
+
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        setShowInDockEnabled(UserDefaults.standard.showInDock)
         return true
+    }
+}
+
+extension AppDelegate {
+    @objc func showMainWindow(_ sender: Any?) {
+        mainWindow?.makeKeyAndOrderFront(nil)
+        NSApp.activate(ignoringOtherApps: true)
     }
 
     @objc func showPreferences(_ sender: Any) {
+        mainWindow?.makeKeyAndOrderFront(nil)
+        NSApp.activate(ignoringOtherApps: true)
         environment?.navigationController?.presentPreferences()
     }
 
@@ -111,6 +142,30 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if navigationController.isToolbarLeftButtonShowsAddServerUI {
             navigationController.toolbarLeftButtonClicked(self)
         }
+    }
+
+    func setShowInStatusBarEnabled(_ isEnabled: Bool) {
+        statusItemController?.setShouldShowStatusItem(isEnabled)
+    }
+
+    func setShowInDockEnabled(_ isEnabled: Bool) {
+        if isEnabled {
+            if NSApp.activationPolicy() != .regular {
+                NSApp.setActivationPolicy(.regular)
+            }
+        } else {
+            if NSApp.activationPolicy() != .accessory {
+                NSApp.setActivationPolicy(.accessory)
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                    NSApp.unhide(nil)
+                    NSApp.activate(ignoringOtherApps: true)
+                }
+            }
+        }
+    }
+
+    func setLaunchAtLoginEnabled(_ isEnabled: Bool) {
+        LaunchAtLoginHelper.setLaunchAtLoginEnabled(isEnabled)
     }
 }
 

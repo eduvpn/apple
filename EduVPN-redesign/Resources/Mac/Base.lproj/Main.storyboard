@@ -337,7 +337,7 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController storyboardIdentifier="WindowController" id="B8D-0N-5wS" sceneMemberID="viewController">
+                <windowController storyboardIdentifier="WindowController" id="B8D-0N-5wS" customClass="MainWindowController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -360,11 +360,11 @@
             <objects>
                 <viewController storyboardIdentifier="Navigation" id="Vyy-n5-HuZ" customClass="NavigationController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <customView key="view" id="Tsh-x1-sF3">
-                        <rect key="frame" x="0.0" y="0.0" width="420" height="420"/>
+                        <rect key="frame" x="0.0" y="0.0" width="420" height="580"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="vm5-k6-z0Y" userLabel="Toolbar">
-                                <rect key="frame" x="10" y="360" width="400" height="60"/>
+                                <rect key="frame" x="10" y="520" width="400" height="60"/>
                                 <subviews>
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PNs-Y1-pKE" userLabel="Toolbar Logo View">
                                         <rect key="frame" x="-20" y="12" width="440" height="40"/>
@@ -425,23 +425,23 @@
                                 </constraints>
                             </customView>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="iM3-Wx-O14">
-                                <rect key="frame" x="0.0" y="0.0" width="420" height="360"/>
+                                <rect key="frame" x="0.0" y="0.0" width="420" height="520"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="420" id="nUx-Ku-ee1"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="360" id="ouE-cn-bmT"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="520" id="ouE-cn-bmT"/>
                                 </constraints>
                                 <connections>
                                     <segue destination="NF9-lc-b6F" kind="embed" id="X3X-kk-4e5"/>
                                 </connections>
                             </containerView>
                             <box hidden="YES" boxType="custom" borderType="none" cornerRadius="4" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="OB7-BB-ntR" userLabel="Authorizing Message Box">
-                                <rect key="frame" x="0.0" y="0.0" width="420" height="360"/>
+                                <rect key="frame" x="0.0" y="0.0" width="420" height="520"/>
                                 <view key="contentView" id="0PN-RY-K8f">
-                                    <rect key="frame" x="0.0" y="0.0" width="420" height="360"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="420" height="520"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fJh-dV-ob0">
-                                            <rect key="frame" x="50" y="119" width="320" height="121"/>
+                                            <rect key="frame" x="50" y="279" width="320" height="121"/>
                                             <subviews>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SE2-xh-Knp" userLabel="Title">
                                                     <rect key="frame" x="41" y="94" width="239" height="27"/>
@@ -529,13 +529,13 @@ Gw
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView wantsLayer="YES" horizontalHuggingPriority="100" borderType="none" autohidesScrollers="YES" horizontalLineScroll="60" horizontalPageScroll="10" verticalLineScroll="60" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ViX-vU-MfI" userLabel="Table Container View">
-                                <rect key="frame" x="20" y="20" width="1161" height="254"/>
+                                <rect key="frame" x="20" y="20" width="1269" height="194"/>
                                 <clipView key="contentView" drawsBackground="NO" id="Vdj-rZ-nzW">
-                                    <rect key="frame" x="0.0" y="0.0" width="1161" height="254"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1269" height="194"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="40" usesAutomaticRowHeights="YES" viewBased="YES" floatsGroupRows="NO" id="0Se-xs-SBR">
-                                            <rect key="frame" x="0.0" y="0.0" width="1161" height="334"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1269" height="334"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="20"/>
                                             <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -764,11 +764,11 @@ Gw
                                         </constraints>
                                     </customView>
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AiJ-eh-cZR" userLabel="Top Image">
-                                        <rect key="frame" x="180" y="277" width="90" height="529"/>
+                                        <rect key="frame" x="180" y="217" width="90" height="589"/>
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="SearchScreenTopImage" id="oWj-11-tRC"/>
                                     </imageView>
                                     <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OYQ-UB-7ZA">
-                                        <rect key="frame" x="-2" y="232" width="454" height="33"/>
+                                        <rect key="frame" x="-2" y="172" width="454" height="33"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Find your institute" id="eUs-aO-u69">
                                             <font key="font" size="24" name="OpenSans-Bold"/>
                                             <color key="textColor" name="BoldUITextColor"/>
@@ -776,7 +776,7 @@ Gw
                                         </textFieldCell>
                                     </textField>
                                     <searchField wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="100" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gW1-dp-amy" customClass="SearchField" customModule="eduVPN" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="180" width="450" height="40"/>
+                                        <rect key="frame" x="0.0" y="120" width="450" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="YjK-Nc-dHe"/>
                                         </constraints>
@@ -790,12 +790,12 @@ Gw
                                         </connections>
                                     </searchField>
                                     <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="6lv-tg-3Yq" userLabel="Spinner">
-                                        <rect key="frame" x="209" y="136" width="32" height="32"/>
+                                        <rect key="frame" x="209" y="76" width="32" height="32"/>
                                     </progressIndicator>
                                     <scrollView wantsLayer="YES" horizontalHuggingPriority="100" borderType="none" autohidesScrollers="YES" horizontalLineScroll="60" horizontalPageScroll="10" verticalLineScroll="60" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hge-fJ-m1C">
-                                        <rect key="frame" x="0.0" y="0.0" width="450" height="124"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="450" height="64"/>
                                         <clipView key="contentView" drawsBackground="NO" id="73u-Eo-EqN">
-                                            <rect key="frame" x="0.0" y="0.0" width="450" height="124"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="450" height="64"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="40" usesAutomaticRowHeights="YES" viewBased="YES" floatsGroupRows="NO" id="s7r-dP-3wP">
@@ -1176,7 +1176,7 @@ Gw
                                                     <constraint firstItem="MDN-2N-2rz" firstAttribute="centerX" secondItem="LW1-tS-4uK" secondAttribute="centerX" id="i1s-2v-zKk"/>
                                                 </constraints>
                                             </customView>
-                                            <customView wantsLayer="YES" horizontalHuggingPriority="100" translatesAutoresizingMaskIntoConstraints="NO" id="AYX-3E-5P0" userLabel="Connection Info Header">
+                                            <customView wantsLayer="YES" horizontalHuggingPriority="100" translatesAutoresizingMaskIntoConstraints="NO" id="AYX-3E-5P0" userLabel="Connection Info Header" customClass="ConnectionInfoHeaderView" customModule="eduVPN" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="100" width="410" height="46"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VQQ-V5-CIc">
@@ -1471,15 +1471,15 @@ Gw
         <scene sceneID="ckC-DZ-do5">
             <objects>
                 <viewController storyboardIdentifier="Preferences" id="46m-sg-SJs" userLabel="Preferences View Controller" customClass="PreferencesViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="d4H-Ro-nuV">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="322"/>
+                    <view key="view" misplaced="YES" id="d4H-Ro-nuV">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="400"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <stackView distribution="equalSpacing" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yI9-CM-5gZ">
-                                <rect key="frame" x="20" y="20" width="410" height="282"/>
+                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yI9-CM-5gZ">
+                                <rect key="frame" x="20" y="20" width="410" height="410"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Rjv-VU-vqt">
-                                        <rect key="frame" x="-2" y="249" width="414" height="33"/>
+                                        <rect key="frame" x="-2" y="377" width="414" height="33"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Preferences" id="8ia-lI-dqX">
                                             <font key="font" size="24" name="OpenSans-Bold"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1487,10 +1487,10 @@ Gw
                                         </textFieldCell>
                                     </textField>
                                     <box horizontalHuggingPriority="100" verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="GMI-07-EVu">
-                                        <rect key="frame" x="0.0" y="234" width="410" height="5"/>
+                                        <rect key="frame" x="0.0" y="358" width="410" height="5"/>
                                     </box>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bZ6-la-8zq">
-                                        <rect key="frame" x="-2" y="207" width="175" height="19"/>
+                                        <rect key="frame" x="-2" y="327" width="175" height="19"/>
                                         <buttonCell key="cell" type="check" title="Connect using TCP only" bezelStyle="regularSquare" imagePosition="left" inset="2" id="t0F-zx-2Sp">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" size="14" name="OpenSans-Regular"/>
@@ -1500,7 +1500,7 @@ Gw
                                         </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="F1W-bg-sSw">
-                                        <rect key="frame" x="16" y="159" width="396" height="38"/>
+                                        <rect key="frame" x="16" y="275" width="396" height="38"/>
                                         <textFieldCell key="cell" selectable="YES" title="Changes to this option will take effect from the next connection onwards" id="rqy-tm-oLB">
                                             <font key="font" size="14" name="OpenSans-Regular"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1508,14 +1508,78 @@ Gw
                                         </textFieldCell>
                                     </textField>
                                     <box horizontalHuggingPriority="100" verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="Xq3-ya-gMs">
-                                        <rect key="frame" x="0.0" y="143" width="410" height="5"/>
+                                        <rect key="frame" x="0.0" y="256" width="410" height="5"/>
                                     </box>
-                                    <customView horizontalHuggingPriority="100" verticalHuggingPriority="800" translatesAutoresizingMaskIntoConstraints="NO" id="HhY-AU-L8g" userLabel="Spacer">
-                                        <rect key="frame" x="0.0" y="62" width="410" height="71"/>
+                                    <customView horizontalHuggingPriority="100" verticalHuggingPriority="800" translatesAutoresizingMaskIntoConstraints="NO" id="HhY-AU-L8g" userLabel="Connect log container">
+                                        <rect key="frame" x="0.0" y="210" width="410" height="32"/>
+                                        <subviews>
+                                            <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="aEb-MM-aWn">
+                                                <rect key="frame" x="-2" y="7" width="320" height="19"/>
+                                                <textFieldCell key="cell" selectable="YES" title="Connection log" id="s9g-UM-gxg">
+                                                    <font key="font" size="14" name="OpenSans-Regular"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QSX-N3-wdI">
+                                                <rect key="frame" x="320" y="-1" width="96" height="32"/>
+                                                <buttonCell key="cell" type="push" title="View Log" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="p8a-zd-5or">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="viewLogClicked:" target="46m-sg-SJs" id="NjQ-bf-8fo"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="10" id="iI9-MR-8eD"/>
+                                            <constraint firstItem="QSX-N3-wdI" firstAttribute="centerY" secondItem="HhY-AU-L8g" secondAttribute="centerY" id="6dQ-Ap-pXU"/>
+                                            <constraint firstItem="aEb-MM-aWn" firstAttribute="leading" secondItem="HhY-AU-L8g" secondAttribute="leading" id="Wmv-3D-ma3"/>
+                                            <constraint firstAttribute="height" constant="32" id="XMQ-hX-Oh2"/>
+                                            <constraint firstAttribute="trailing" secondItem="QSX-N3-wdI" secondAttribute="trailing" id="jFc-Fl-Jxl"/>
+                                            <constraint firstItem="QSX-N3-wdI" firstAttribute="leading" secondItem="aEb-MM-aWn" secondAttribute="trailing" constant="10" id="tIO-Up-RJb"/>
+                                            <constraint firstItem="aEb-MM-aWn" firstAttribute="centerY" secondItem="HhY-AU-L8g" secondAttribute="centerY" id="w3f-rh-bjI"/>
                                         </constraints>
                                     </customView>
+                                    <box horizontalHuggingPriority="100" verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="NeP-ch-ODB">
+                                        <rect key="frame" x="0.0" y="191" width="410" height="5"/>
+                                    </box>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BB1-ZH-rOd">
+                                        <rect key="frame" x="-2" y="160" width="141" height="19"/>
+                                        <buttonCell key="cell" type="check" title="Show in menu bar" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="vXs-mm-f1r">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" size="14" name="OpenSans-Regular"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="showInStatusBarCheckboxClicked:" target="46m-sg-SJs" id="6xU-cI-RfU"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5mk-S8-qPc">
+                                        <rect key="frame" x="-2" y="129" width="110" height="19"/>
+                                        <buttonCell key="cell" type="check" title="Show in Dock" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="lxj-3d-HUJ">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" size="14" name="OpenSans-Regular"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="showInDockCheckboxClicked:" target="46m-sg-SJs" id="Obx-6S-VEF"/>
+                                        </connections>
+                                    </button>
+                                    <box horizontalHuggingPriority="100" verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="kvx-08-oca">
+                                        <rect key="frame" x="0.0" y="112" width="410" height="5"/>
+                                    </box>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0ht-iC-Bc3">
+                                        <rect key="frame" x="-2" y="81" width="122" height="19"/>
+                                        <buttonCell key="cell" type="check" title="Launch at login" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="gLp-0o-Odu">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" size="14" name="OpenSans-Regular"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="launchAtLoginCheckboxClicked:" target="46m-sg-SJs" id="u6N-yy-FoQ"/>
+                                        </connections>
+                                    </button>
+                                    <box horizontalHuggingPriority="100" verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="STQ-ap-m2r">
+                                        <rect key="frame" x="0.0" y="64" width="410" height="5"/>
+                                    </box>
                                     <customView horizontalHuggingPriority="100" translatesAutoresizingMaskIntoConstraints="NO" id="P7w-qm-Tj1" userLabel="Done container">
                                         <rect key="frame" x="0.0" y="0.0" width="410" height="50"/>
                                         <subviews>
@@ -1548,8 +1612,20 @@ Gw
                                     <integer value="1000"/>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
@@ -1568,12 +1644,15 @@ Gw
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="launchAtLoginCheckbox" destination="0ht-iC-Bc3" id="gDM-sN-S3r"/>
+                        <outlet property="showInDockCheckbox" destination="5mk-S8-qPc" id="myl-zb-Mea"/>
+                        <outlet property="showInStatusBarCheckbox" destination="BB1-ZH-rOd" id="uA4-Rv-NiC"/>
                         <outlet property="useTCPOnlyCheckbox" destination="bZ6-la-8zq" id="39H-tz-8xE"/>
                     </connections>
                 </viewController>
                 <customObject id="RVI-e8-BK3" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="769" y="674"/>
+            <point key="canvasLocation" x="769" y="673.5"/>
         </scene>
     </scenes>
     <resources>

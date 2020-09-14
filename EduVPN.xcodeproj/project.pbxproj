@@ -142,6 +142,10 @@
 		6F750C9224975A4300AF2C04 /* LoginItemHelper-macOS.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6F750D1124975B9B00AF2C04 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ABFF78820C71E7200638480 /* NetworkExtension.framework */; };
 		6F750D1C24975B9B00AF2C04 /* EduVPNTunnelExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4A901C1120C87511000C1BF0 /* EduVPNTunnelExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6F7B63F02500FD7300FB154A /* StatusItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7B63EF2500FD7300FB154A /* StatusItemController.swift */; };
+		6F7B63F225022AAE00FB154A /* LaunchAtLoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7B63F125022AAE00FB154A /* LaunchAtLoginHelper.swift */; };
+		6F7B643E2502A18D00FB154A /* ConnectionInfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7B643D2502A18C00FB154A /* ConnectionInfoHeaderView.swift */; };
+		6F8835EC24FCD481008F15FF /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8835EB24FCD481008F15FF /* MainWindowController.swift */; };
 		6FA8089524E6A75D00E7D924 /* MigrationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA8089424E6A75C00E7D924 /* MigrationHelper.swift */; };
 		6FA808AF24EBBD1F00E7D924 /* ConnectionAttempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA808AE24EBBD1F00E7D924 /* ConnectionAttempt.swift */; };
 		6FADF82724ADF2E600B75E8D /* ServerInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FADF82624ADF2E600B75E8D /* ServerInfoFetcher.swift */; };
@@ -541,8 +545,12 @@
 		6F59A58A24F67CE500560155 /* OAuthExternalUserAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthExternalUserAgent.swift; sourceTree = "<group>"; };
 		6F71FBB7249B54490010D0FE /* DiscoveryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryData.swift; sourceTree = "<group>"; };
 		6F71FBBC249CCE980010D0FE /* DiscoveryDataFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveryDataFetcher.swift; sourceTree = "<group>"; };
-		6F750C9624975A4300AF2C04 /* EduVPN-redesign-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "EduVPN-redesign-macOS.app"; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6F750D2124975B9B00AF2C04 /* EduVPN-redesign-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "EduVPN-redesign-iOS.app"; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F750C9624975A4300AF2C04 /* eduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F750D2124975B9B00AF2C04 /* EduVPN-redesign-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "EduVPN-redesign-iOS.app"; path = "Let's Connect.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F7B63EF2500FD7300FB154A /* StatusItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusItemController.swift; sourceTree = "<group>"; };
+		6F7B63F125022AAE00FB154A /* LaunchAtLoginHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginHelper.swift; sourceTree = "<group>"; };
+		6F7B643D2502A18C00FB154A /* ConnectionInfoHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionInfoHeaderView.swift; sourceTree = "<group>"; };
+		6F8835EB24FCD481008F15FF /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		6FA8089424E6A75C00E7D924 /* MigrationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MigrationHelper.swift; sourceTree = "<group>"; };
 		6FA808AE24EBBD1F00E7D924 /* ConnectionAttempt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionAttempt.swift; sourceTree = "<group>"; };
 		6FADF82624ADF2E600B75E8D /* ServerInfoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerInfoFetcher.swift; sourceTree = "<group>"; };
@@ -1209,6 +1217,7 @@
 				6F36A71E24B5A36E00BA8F5E /* MainSecureInternetSectionHeaderCell.swift */,
 				6FEF30FD24A324E40026C786 /* RowCell.swift */,
 				6F1A1C0024EE8EDB0040D6A2 /* SupportContactTextView.swift */,
+				6F7B643D2502A18C00FB154A /* ConnectionInfoHeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1263,12 +1272,14 @@
 		C7DB4B34247FBB06009932B1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				6F7B63EF2500FD7300FB154A /* StatusItemController.swift */,
 				C7DB4B37247FBD52009932B1 /* MainViewController.swift */,
 				6F36A79C24B6F5BA00BA8F5E /* MainViewController+macOS.swift */,
 				C7DB4B3D247FBDD7009932B1 /* SearchViewController.swift */,
 				6F36A79A24B6ED5D00BA8F5E /* SearchViewController+macOS.swift */,
 				C7DB4B43247FBDF5009932B1 /* ConnectionViewController.swift */,
 				C7DB4B46247FBE26009932B1 /* PreferencesViewController.swift */,
+				6F8835EB24FCD481008F15FF /* MainWindowController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1344,6 +1355,7 @@
 				6FE1D12024D02FC3002D3D0C /* UserDefaults+Preferences.swift */,
 				6F05E64124D0A6AA008292F6 /* AppError.swift */,
 				6F59A58A24F67CE500560155 /* OAuthExternalUserAgent.swift */,
+				6F7B63F125022AAE00FB154A /* LaunchAtLoginHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -2641,6 +2653,7 @@
 				6FBFEF0C24C0680800A9D1D4 /* ConnectionService.swift in Sources */,
 				6FA8089524E6A75D00E7D924 /* MigrationHelper.swift in Sources */,
 				6FEF30FC24A317C00026C786 /* SectionHeaderCell.swift in Sources */,
+				6F8835EC24FCD481008F15FF /* MainWindowController.swift in Sources */,
 				6FADF82724ADF2E600B75E8D /* ServerInfoFetcher.swift in Sources */,
 				6FEF30F424A21BF30026C786 /* ViewModelRow.swift in Sources */,
 				6FCC5EF624B85D6700C6BC80 /* ServerResponse.swift in Sources */,
@@ -2654,6 +2667,8 @@
 				6F36A79D24B6F5BA00BA8F5E /* MainViewController+macOS.swift in Sources */,
 				C7DB4B9B247FC23D009932B1 /* Multiplatform.swift in Sources */,
 				6F57338724CD1570008912D4 /* CertificateExpiryHelper.swift in Sources */,
+				6F7B63F02500FD7300FB154A /* StatusItemController.swift in Sources */,
+				6F7B63F225022AAE00FB154A /* LaunchAtLoginHelper.swift in Sources */,
 				C7DB4BA2247FC243009932B1 /* SearchViewModel.swift in Sources */,
 				C7DB4BD524803B99009932B1 /* SignatureHelper.swift in Sources */,
 				C7DB4B6B247FC198009932B1 /* AppDelegate.swift in Sources */,
@@ -2662,6 +2677,7 @@
 				C7DB4BA0247FC23D009932B1 /* PreferencesViewController.swift in Sources */,
 				6FC27AC824B9550D006FA648 /* ServerAPIService.swift in Sources */,
 				6FD5CDA424C678CF00842A74 /* ConnectionViewModel+Localization.swift in Sources */,
+				6F7B643E2502A18D00FB154A /* ConnectionInfoHeaderView.swift in Sources */,
 				6FE1D12124D02FC3002D3D0C /* UserDefaults+Preferences.swift in Sources */,
 				C7DB4C02248053D8009932B1 /* Moya+ResponseHandling.swift in Sources */,
 				6F36A71F24B5A36E00BA8F5E /* MainSecureInternetSectionHeaderCell.swift in Sources */,
