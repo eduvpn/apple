@@ -32,6 +32,7 @@ class PreferencesViewController: ViewController, ParametrizedViewController {
     @IBOutlet weak var showInStatusBarCheckbox: NSButton!
     @IBOutlet weak var showInDockCheckbox: NSButton!
     @IBOutlet weak var launchAtLoginCheckbox: NSButton!
+    @IBOutlet weak var assistPathUpgradingCheckbox: NSButton!
 
     func initializeParameters(_ parameters: Parameters) {
         guard self.parameters == nil else {
@@ -46,11 +47,13 @@ class PreferencesViewController: ViewController, ParametrizedViewController {
         let isShowInStatusBarEnabled = userDefaults.showInStatusBar
         let isShowInDockEnabled = userDefaults.showInDock
         let isLaunchAtLoginEnabled = userDefaults.launchAtLogin
+        let isAssistPathUpgradingEnabled = userDefaults.assistPathUpgradingWithPathMonitor
 
         useTCPOnlyCheckbox.state = isForceTCPEnabled ? .on : .off
         showInStatusBarCheckbox.state = isShowInStatusBarEnabled ? .on : .off
         showInDockCheckbox.state = isShowInDockEnabled ? .on : .off
         launchAtLoginCheckbox.state = isLaunchAtLoginEnabled ? .on : .off
+        assistPathUpgradingCheckbox.state = isAssistPathUpgradingEnabled ? .on : .off
 
         // If one of "Show in status bar" or "Show in Dock" is off,
         // disable editing the other
@@ -65,6 +68,11 @@ class PreferencesViewController: ViewController, ParametrizedViewController {
     @IBAction func useTCPOnlyCheckboxClicked(_ sender: Any) {
         let isUseTCPOnlyChecked = (useTCPOnlyCheckbox.state == .on)
         UserDefaults.standard.forceTCP = isUseTCPOnlyChecked
+    }
+
+    @IBAction func assistPathUpgradingCheckboxClicked(_ sender: Any) {
+        let isChecked = (assistPathUpgradingCheckbox.state == .on)
+        UserDefaults.standard.assistPathUpgradingWithPathMonitor = isChecked
     }
 
     @IBAction func viewLogClicked(_ sender: Any) {
