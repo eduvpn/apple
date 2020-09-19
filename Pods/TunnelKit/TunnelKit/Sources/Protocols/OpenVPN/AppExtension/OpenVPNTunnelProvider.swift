@@ -130,6 +130,25 @@ open class OpenVPNTunnelProvider: NEPacketTunnelProvider {
     
     private var shouldReconnect = false
 
+    // MARK: NWPathMonitor usage
+
+    private var pathMonitor: AnyObject?
+
+    public enum PathMonitorUsageMode {
+        // Do not use path monitor. The default mode.
+        case none
+
+        // Use path monitor to help in reacting to hasBetterPath becoming true
+        case assistPathUpgrading
+    }
+
+    private(set) var pathMonitorUsageMode: PathMonitorUsageMode = .none
+
+    @available(OSXApplicationExtension 10.14, iOSApplicationExtension 12.0, *)
+    public func setPathMonitorUsageMode(_ mode: PathMonitorUsageMode) {
+        pathMonitorUsageMode = mode
+    }
+
     // MARK: NEPacketTunnelProvider (XPC queue)
     
     open override var reasserting: Bool {
@@ -503,9 +522,31 @@ extension OpenVPNTunnelProvider: GenericSocketDelegate {
     
     /// :nodoc:
     public func socketHasBetterPath(_ socket: GenericSocket) {
+        if #available(OSXApplicationExtension 10.14, iOSApplicationExtension 12.0, *) {
+            if let pathMonitor = self.pathMonitor as? NWPathMonitor {
+                log.debug("Socket has better path. Path status: \(pathMonitor.currentPath.status). Interfaces: \(pathMonitor.currentPath.availableInterfaces)")
+                if self.pathMonitorUsageMode == .assistPathUpgrading && !pathMonitor.currentPath.isValid {
+                    log.debug("Ignoring spurious better path call")
+                    return
+                }
+            }
+        }
         log.debug("Stopping tunnel due to a new better path")
         logCurrentSSID()
         session?.reconnect(error: ProviderError.networkChanged)
+    }
+
+}
+
+@available(OSXApplicationExtension 10.14, iOSApplicationExtension 12.0, *)
+extension Network.NWPath {
+    var isValid: Bool {
+        guard status == .satisfied else { return false }
+        guard let primaryInterface = availableInterfaces.first else { return false }
+        if primaryInterface.type == .other && primaryInterface.name.hasPrefix("u") {
+            return false
+        }
+        return true
     }
 }
 
@@ -569,6 +610,15 @@ extension OpenVPNTunnelProvider: OpenVPNSessionDelegate {
             log.info("Tunnel interface is now UP")
             
             session.setTunnel(tunnel: NETunnelInterface(impl: self.packetFlow))
+
+            if #available(OSXApplicationExtension 10.14, iOSApplicationExtension 12.0, *) {
+                if self.pathMonitorUsageMode != .none {
+                    log.debug("Setting up path monitor")
+                    let pathMonitor = NWPathMonitor()
+                    pathMonitor.start(queue: self.tunnelQueue)
+                    self.pathMonitor = pathMonitor
+                }
+            }
 
             self.pendingStartHandler?(nil)
             self.pendingStartHandler = nil
