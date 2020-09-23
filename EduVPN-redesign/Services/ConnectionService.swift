@@ -216,7 +216,7 @@ extension ConnectionService {
         guard let tunnelManager = tunnelManager else {
             fatalError("ConnectionService not initialized yet")
         }
-        guard (tunnelManager.connection.status != .disconnecting) else {
+        guard tunnelManager.connection.status != .disconnecting else {
             // If the tunnel is disconnecting, it might be writing to the log
             // file. So let's wait for it to disconnect, and then read the file.
             return Promise { resolver in

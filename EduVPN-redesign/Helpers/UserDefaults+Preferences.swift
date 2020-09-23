@@ -13,7 +13,7 @@ extension UserDefaults {
     private static let launchAtLoginKey = "launchAtLogin"
 
     var forceTCP: Bool {
-        get { // swiftlint:disable:this implicit_getter
+        get {
             return bool(forKey: Self.forceTCPDefaultsKey)
         }
         set {
@@ -22,7 +22,7 @@ extension UserDefaults {
     }
 
     var showInStatusBar: Bool {
-        get { // swiftlint:disable:this implicit_getter
+        get {
             if object(forKey: Self.showInStatusBarKey) == nil {
                 return true // Default to true
             }
@@ -34,7 +34,7 @@ extension UserDefaults {
     }
 
     var showInDock: Bool {
-        get { // swiftlint:disable:this implicit_getter
+        get {
             if object(forKey: Self.showInDockKey) == nil {
                 return true // Default to true
             }
@@ -46,7 +46,7 @@ extension UserDefaults {
     }
 
     var launchAtLogin: Bool {
-        get { // swiftlint:disable:this implicit_getter
+        get {
             return bool(forKey: Self.launchAtLoginKey)
         }
         set {
