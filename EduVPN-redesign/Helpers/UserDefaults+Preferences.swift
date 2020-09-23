@@ -12,6 +12,8 @@ extension UserDefaults {
     private static let showInDockKey = "showInDock"
     private static let launchAtLoginKey = "launchAtLogin"
 
+    private static let assistPathUpgradingWithPathMonitorKey = "assistPathUpgradingWithPathMonitor"
+
     var forceTCP: Bool {
         get { // swiftlint:disable:this implicit_getter
             return bool(forKey: Self.forceTCPDefaultsKey)
@@ -51,6 +53,15 @@ extension UserDefaults {
         }
         set {
             set(newValue, forKey: Self.launchAtLoginKey)
+        }
+    }
+
+    var assistPathUpgradingWithPathMonitor: Bool {
+        get { // swiftlint:disable:this implicit_getter
+            return bool(forKey: Self.assistPathUpgradingWithPathMonitorKey)
+        }
+        set {
+            set(newValue, forKey: Self.assistPathUpgradingWithPathMonitorKey)
         }
     }
 }

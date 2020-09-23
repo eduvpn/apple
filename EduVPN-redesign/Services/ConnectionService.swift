@@ -254,7 +254,11 @@ private extension ConnectionService {
         }
         return Promise { resolver in
             do {
-                try tunnelManager.session.startTunnel()
+                let options: [String: Any] = [
+                    "assistPathUpgradingWithPathMonitor":
+                        UserDefaults.standard.assistPathUpgradingWithPathMonitor
+                ]
+                try tunnelManager.session.startTunnel(options: options)
             } catch {
                 throw error
             }
