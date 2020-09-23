@@ -60,7 +60,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         setShowInStatusBarEnabled(UserDefaults.standard.showInStatusBar)
         setShowInDockEnabled(UserDefaults.standard.showInDock)
 
-        NSApp.activate(ignoringOtherApps: true)
+        if LaunchAtLoginHelper.isOpenedOrReopenedByLoginItemHelper() &&
+            UserDefaults.standard.showInStatusBar {
+            // If we're showing a status item and the app was launched because
+            //  the user logged in, don't show the window
+            window.close()
+        } else {
+            NSApp.activate(ignoringOtherApps: true)
+        }
+
         self.mainWindow = window
     }
 
@@ -118,6 +126,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        if LaunchAtLoginHelper.isOpenedOrReopenedByLoginItemHelper() {
+            return false
+        }
+        showMainWindow(self)
         setShowInDockEnabled(UserDefaults.standard.showInDock)
         return true
     }
