@@ -161,7 +161,10 @@ import UIKit
 class NavigationController: UINavigationController {
     // Override push and pop to set navigation items
 
+    var environment: Environment? // Unused in iOS
     weak var addButtonDelegate: NavigationControllerAddButtonDelegate?
+
+    override var preferredStatusBarStyle: UIStatusBarStyle { .default }
 
     var isUserAllowedToGoBack: Bool = true {
         didSet {

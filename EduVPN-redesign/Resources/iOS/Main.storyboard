@@ -11,7 +11,7 @@
         <!--Navigation Controller-->
         <scene sceneID="CXE-Zw-bCd">
             <objects>
-                <navigationController id="ZYg-AK-nsP" sceneMemberID="viewController">
+                <navigationController id="ZYg-AK-nsP" customClass="NavigationController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="TzF-nK-Efm">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -27,7 +27,7 @@
         <!--Main View Controller-->
         <scene sceneID="A2a-ns-EvP">
             <objects>
-                <viewController storyboardIdentifier="Main" id="HrM-W4-hL5" customClass="MainViewController" customModule="eduVPN_2_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Main" id="HrM-W4-hL5" customClass="MainViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fSi-az-Zu6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -39,22 +39,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mdh-Vz-SWj">
-                                <rect key="frame" x="80" y="388" width="119" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Add Other Server"/>
-                                <connections>
-                                    <action selector="addOtherServer:" destination="HrM-W4-hL5" eventType="touchUpInside" id="BIN-td-D8G"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="pp6-4M-xfc"/>
                     </view>
                     <navigationItem key="navigationItem" id="4pj-bR-N40"/>
-                    <connections>
-                        <outlet property="addOtherServerButton" destination="mdh-Vz-SWj" id="0MG-3C-QQT"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wJf-g5-Deg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -63,7 +52,7 @@
         <!--Search View Controller-->
         <scene sceneID="49J-RA-k0m">
             <objects>
-                <viewController storyboardIdentifier="Search" id="GFf-Kn-0Ob" customClass="SearchViewController" customModule="eduVPN_2_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Search" id="GFf-Kn-0Ob" customClass="SearchViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="adv-WH-zdz">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
