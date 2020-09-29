@@ -3,11 +3,14 @@
 ## Unreleased
 
 - iOS: Display Let's Connect! app with proper (full) display name. #301
-- iOS: More padding around Let's Connect icon. #300
-- Update connection screen buttons based on on-demand status #90
 - Notify certificate expiry with a local notification #90
 
-## 2.1.7 Let's Connect! (2020-05-22) / eduVPN (not yet released)
+## 2.1.9 Let's Connect! / eduVPN
+
+- macOS: GUI redesign
+- macOS: New discovery mechanism
+
+## 2.1.7 Let's Connect! (2020-05-22) / eduVPN
 
 - iOS/Mac: Updated dependencies: TunnelKit & AlamoFire.
 - iOS/Mac: Added german translation
