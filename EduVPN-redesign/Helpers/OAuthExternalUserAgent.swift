@@ -43,6 +43,25 @@ class OAuthExternalUserAgent: NSObject, OIDExternalUserAgent {
         completion()
     }
 }
+#elseif os(iOS)
+class OAuthExternalUserAgent: NSObject, OIDExternalUserAgent {
+    private var isExternalUserAgentFlowInProgress = false
+    private var wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?
+
+    init(presentingViewController: AuthorizingViewController,
+         wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?) {
+        self.wayfSkippingInfo = wayfSkippingInfo
+    }
+
+    func present(_ request: OIDExternalUserAgentRequest, session: OIDExternalUserAgentSession) -> Bool {
+        return false
+    }
+
+    func dismiss(animated: Bool, completion: @escaping () -> Void) {
+        isExternalUserAgentFlowInProgress = false
+        completion()
+    }
+}
 #endif
 
 private extension OAuthExternalUserAgent {

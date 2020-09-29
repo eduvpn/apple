@@ -24,6 +24,7 @@ typealias ApplicationDelegate = UIApplicationDelegate
 typealias ViewController = UIViewController
 typealias PresentingController = UIViewController
 typealias Window = UIWindow
+typealias View = UIView
 typealias Storyboard = UIStoryboard
 typealias Button = UIButton
 typealias TableView = UITableView
@@ -36,10 +37,46 @@ typealias ProgressIndicator = UIActivityIndicatorView
 extension PresentingController: Presenting { }
 extension NavigationController: Navigating { }
 
+extension ViewController {
+    func performWithAnimation(seconds: TimeInterval, animationBlock: @escaping () -> Void) {
+        UIView.animate(withDuration: seconds, animations: animationBlock)
+    }
+}
+
+extension View {
+    func setLayerOpacity(_ opacity: Float) {
+        layer.opacity = opacity
+    }
+}
+
+class VPNSwitch: UISwitch {
+}
+
 extension TableView {
-    func dequeue<T: TableViewCell>(identifier: String, indexPath: IndexPath) -> T {
+    func dequeue<T: TableViewCell>(_ type: T.Type, identifier: String, indexPath: IndexPath) -> T {
         //swiftlint:disable:next force_cast
         return dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! T
+    }
+
+    func performUpdates(deletedIndices: [Int], insertedIndices: [Int]) {
+        beginUpdates()
+        deleteRows(at: deletedIndices.map { IndexPath(row: $0, section: 0) }, with: .none)
+        insertRows(at: insertedIndices.map { IndexPath(row: $0, section: 0) }, with: .none)
+        endUpdates()
+    }
+
+    func reloadRows(indices: [Int]) {
+        reloadRows(at: indices.map { IndexPath(row: $0, section: 0) }, with: .none)
+    }
+}
+
+extension ProgressIndicator {
+    func startAnimation(_ sender: Any?) {
+        startAnimating()
+    }
+
+    func stopAnimation(_ sender: Any?) {
+        stopAnimating()
     }
 }
 
@@ -72,6 +109,38 @@ extension Window {
     }
 }
 
+extension ViewController {
+    func performWithAnimation(seconds: TimeInterval, animationBlock: @escaping () -> Void) {
+        NSAnimationContext.runAnimationGroup({ context in
+            context.duration = seconds
+            context.allowsImplicitAnimation = true
+            animationBlock()
+        }, completionHandler: nil)
+    }
+}
+
+extension View {
+    func setLayerOpacity(_ opacity: Float) {
+        layer?.opacity = opacity
+    }
+
+    func layoutIfNeeded() {
+        layoutSubtreeIfNeeded()
+    }
+}
+
+class VPNSwitch: NSButton {
+    var isOn: Bool {
+        get {
+            state == .on
+        }
+        set(value) {
+            state = value ? .on : .off
+        }
+    }
+}
+
+
 extension Storyboard {
 
     func instantiateViewController(withIdentifier identifier: SceneIdentifier) -> Any {
@@ -101,6 +170,10 @@ extension TableView {
         removeRows(at: IndexSet(deletedIndices), withAnimation: [])
         insertRows(at: IndexSet(insertedIndices), withAnimation: [])
         endUpdates()
+    }
+
+    func reloadRows(indices: [Int]) {
+        reloadData(forRowIndexes: IndexSet(indices), columnIndexes: IndexSet([0]))
     }
 }
 

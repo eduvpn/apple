@@ -14,14 +14,16 @@ class MainViewController: ViewController {
                 persistenceService: environment.persistenceService,
                 serverDiscoveryService: environment.serverDiscoveryService)
             viewModel.delegate = self
-            environment.navigationController?.delegate = self
+            environment.navigationController?.addButtonDelegate = self
             if !environment.persistenceService.hasServers {
                 let searchVC = environment.instantiateSearchViewController(shouldIncludeOrganizations: true)
                 searchVC.delegate = self
                 environment.navigationController?.pushViewController(searchVC, animated: false)
                 environment.navigationController?.isUserAllowedToGoBack = false
             }
+            #if os(macOS)
             environment.connectionService.initializationDelegate = self
+            #endif
         }
     }
 
@@ -32,8 +34,8 @@ class MainViewController: ViewController {
     @IBOutlet weak var tableView: TableView!
 }
 
-extension MainViewController: NavigationControllerDelegate {
-    func addServerButtonClicked(inNavigationController controller: NavigationController) {
+extension MainViewController: NavigationControllerAddButtonDelegate {
+    func addButtonClicked(inNavigationController controller: NavigationController) {
         let isSecureInternetServerAdded = (environment.persistenceService.secureInternetServer != nil)
         let searchVC = environment.instantiateSearchViewController(shouldIncludeOrganizations: !isSecureInternetServerAdded)
         searchVC.delegate = self
@@ -71,6 +73,7 @@ extension MainViewController: SearchViewControllerDelegate {
     }
 }
 
+#if os(macOS)
 extension MainViewController: ConnectionViewControllerDelegate {
     func connectionViewController(
         _ controller: ConnectionViewController,
@@ -131,13 +134,14 @@ extension MainViewController: ConnectionServiceInitializationDelegate {
         }
     }
 }
+#endif
 
 extension MainViewController {
     func numberOfRows() -> Int {
         return viewModel?.numberOfRows() ?? 0
     }
 
-    func cellForRow(at index: Int, tableView: TableView) -> NSView? {
+    func cellForRow(at index: Int, tableView: TableView) -> TableViewCell? {
         let row = viewModel.row(at: index)
         if row.rowKind.isSectionHeader {
             if row.rowKind == .secureInternetServerSectionHeaderKind {
@@ -191,11 +195,13 @@ extension MainViewController {
         let row = viewModel.row(at: index)
         if let server = row.server,
             let serverDisplayInfo = row.serverDisplayInfo {
+            #if os(macOS)
             let connectionVC = environment.instantiateConnectionViewController(
                 server: server, serverDisplayInfo: serverDisplayInfo,
                 authURLTemplate: viewModel.authURLTemplate(for: server))
             connectionVC.delegate = self
             environment.navigationController?.pushViewController(connectionVC, animated: true)
+            #endif
         }
     }
 
@@ -253,6 +259,6 @@ extension MainViewController {
     func reloadSecureInternetRows() {
         guard let tableView = tableView else { return }
         let indices = self.viewModel.secureInternetRowIndices()
-        tableView.reloadData(forRowIndexes: IndexSet(indices), columnIndexes: IndexSet([0]))
+        tableView.reloadRows(indices: indices)
     }
 }

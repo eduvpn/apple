@@ -5,6 +5,8 @@
 
 // Models the data extracted from server_list.json and organization_list.json
 
+import Foundation
+
 struct DiscoveryData {
     typealias OrgId = String
 

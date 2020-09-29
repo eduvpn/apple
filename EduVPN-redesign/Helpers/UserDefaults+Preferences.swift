@@ -8,9 +8,11 @@ import Foundation
 extension UserDefaults {
 
     private static let forceTCPDefaultsKey = "force_tcp"
+    #if os(macOS)
     private static let showInStatusBarKey = "showInStatusBar"
     private static let showInDockKey = "showInDock"
     private static let launchAtLoginKey = "launchAtLogin"
+    #endif
 
     var forceTCP: Bool {
         get {
@@ -21,6 +23,7 @@ extension UserDefaults {
         }
     }
 
+    #if os(macOS)
     var showInStatusBar: Bool {
         get {
             if object(forKey: Self.showInStatusBarKey) == nil {
@@ -53,4 +56,5 @@ extension UserDefaults {
             set(newValue, forKey: Self.launchAtLoginKey)
         }
     }
+    #endif
 }

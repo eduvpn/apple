@@ -55,8 +55,8 @@ final class SearchViewController: ViewController, ParametrizedViewController {
     }
 
     override func viewDidLoad() {
-        spinner.layer?.opacity = 0
-        tableContainerView.layer?.opacity = 0
+        spinner.setLayerOpacity(0)
+        tableContainerView.setLayerOpacity(0)
     }
 
     func showTableView() {
@@ -68,9 +68,9 @@ final class SearchViewController: ViewController, ParametrizedViewController {
             view?.removeFromSuperview()
         }
         performWithAnimation(seconds: 0.5) {
-            spinner.layer?.opacity = 1
-            tableContainerView.layer?.opacity = 1
-            stackView.layoutSubtreeIfNeeded()
+            self.spinner.setLayerOpacity(1)
+            self.tableContainerView.setLayerOpacity(1)
+            self.stackView.layoutIfNeeded()
         }
         spinner.startAnimation(self)
         firstly {
@@ -112,7 +112,7 @@ extension SearchViewController {
         return viewModel?.numberOfRows() ?? 0
     }
 
-    func cellForRow(at index: Int, tableView: TableView) -> NSView? {
+    func cellForRow(at index: Int, tableView: TableView) -> TableViewCell? {
         let row = viewModel.row(at: index)
         if row.rowKind.isSectionHeader {
             let cell = tableView.dequeue(SectionHeaderCell.self,
@@ -186,6 +186,7 @@ extension SearchViewController: SearchViewModelDelegate {
 // MARK: - AuthorizingViewController
 
 extension SearchViewController: AuthorizingViewController {
+    #if os(macOS)
     func showAuthorizingMessage(onCancelled: @escaping () -> Void) {
         parameters.environment.navigationController?
             .showAuthorizingMessage(onCancelled: onCancelled)
@@ -194,6 +195,7 @@ extension SearchViewController: AuthorizingViewController {
         parameters.environment.navigationController?
             .hideAuthorizingMessage()
     }
+    #endif
 }
 
 class SearchNoResultsCell: TableViewCell {

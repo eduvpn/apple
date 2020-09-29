@@ -5,6 +5,8 @@
 
 // Models the data extracted from <server_base_url>/info.json
 
+import Foundation
+
 struct ServerInfo: Decodable {
 
     typealias BaseURL = URL

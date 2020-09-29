@@ -2,9 +2,8 @@
 //  SectionHeaderCell.swift
 //  EduVPN
 //
-//  Created by Roopesh Chander on 24/06/20.
-//  Copyright © 2020 SURFNet. All rights reserved.
-//
+
+import Foundation
 
 class SectionHeaderCell: TableViewCell {
     func configure(as rowKind: ViewModelRowKind, isAdding: Bool) {
@@ -36,7 +35,9 @@ class SectionHeaderCell: TableViewCell {
             }
         }
 
+        #if os(macOS)
         imageView?.image = image
         textField?.stringValue = title
+        #endif
     }
 }

@@ -3,8 +3,8 @@
 //  EduVPN
 //
 
-protocol NavigationControllerDelegate: class {
-    func addServerButtonClicked(inNavigationController controller: NavigationController)
+protocol NavigationControllerAddButtonDelegate: class {
+    func addButtonClicked(inNavigationController controller: NavigationController)
 }
 
 #if os(macOS)
@@ -22,7 +22,7 @@ class NavigationController: NSViewController {
 
     var isToolbarLeftButtonShowsAddServerUI: Bool { !canGoBack }
 
-    weak var delegate: NavigationControllerDelegate?
+    weak var addButtonDelegate: NavigationControllerAddButtonDelegate?
 
     private var canGoBack: Bool { children.count > 1 }
 
@@ -37,7 +37,7 @@ class NavigationController: NSViewController {
         if canGoBack {
             popViewController(animated: true)
         } else {
-            delegate?.addServerButtonClicked(inNavigationController: self)
+            addButtonDelegate?.addServerButtonClicked(inNavigationController: self)
         }
     }
 
@@ -160,6 +160,40 @@ import UIKit
 
 class NavigationController: UINavigationController {
     // Override push and pop to set navigation items
+
+    weak var addButtonDelegate: NavigationControllerAddButtonDelegate?
+
+    var isUserAllowedToGoBack: Bool = true {
+        didSet {
+            topViewController?.navigationItem.hidesBackButton = !isUserAllowedToGoBack
+        }
+    }
+
+    func popToRoot() {
+        popToRootViewController(animated: false)
+    }
 }
 
+extension NavigationController {
+    func showAlert(for error: Error) {
+        let title: String
+        var informativeText: String? = nil
+        if let appError = error as? AppError {
+            title = appError.summary
+            informativeText = appError.detail
+        } else {
+            let underlyingError = (error as NSError).userInfo[NSUnderlyingErrorKey] as? Error
+            title = (underlyingError ?? error).localizedDescription
+            let userInfo = (error as NSError).userInfo
+            if !userInfo.isEmpty {
+                informativeText = "\(userInfo)"
+            }
+        }
+
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        let alert = UIAlertController(title: title, message: informativeText, preferredStyle: .alert)
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
+}
 #endif
