@@ -37,7 +37,7 @@ class NavigationController: NSViewController {
         if canGoBack {
             popViewController(animated: true)
         } else {
-            addButtonDelegate?.addServerButtonClicked(inNavigationController: self)
+            addButtonDelegate?.addButtonClicked(inNavigationController: self)
         }
     }
 
@@ -172,8 +172,69 @@ class NavigationController: UINavigationController {
         }
     }
 
+    lazy private var topBarLogoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "TopBarLogo")
+        imageView.contentMode = .center
+        return imageView
+    }()
+
+    override func viewDidLoad() {
+        updateTopNavigationItem()
+    }
+
+    override func pushViewController(_ viewController: ViewController, animated: Bool) {
+        super.pushViewController(viewController, animated: animated)
+        updateTopNavigationItem()
+    }
+
+    @discardableResult
+    override func popViewController(animated: Bool) -> ViewController? {
+        let poppedVC = super.popViewController(animated: animated)
+        updateTopNavigationItem()
+        return poppedVC
+    }
+
     func popToRoot() {
         popToRootViewController(animated: false)
+    }
+
+    private func updateTopNavigationItem() {
+        guard let navigationItem = topViewController?.navigationItem else { return }
+
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(
+                image: UIImage(named: "QuestionButton"),
+                style: .plain, target: self,
+                action: #selector(helpButtonTapped(_:))),
+            UIBarButtonItem(
+                image: UIImage(named: "SettingsButton"),
+                style: .plain, target: self,
+                action: #selector(preferencesButtonTapped(_:)))
+        ]
+
+        if viewControllers.count == 1 {
+            navigationItem.titleView = topBarLogoImageView
+            navigationItem.leftBarButtonItem = UIBarButtonItem(
+                barButtonSystemItem: .add, target: self,
+                action: #selector(addButtonTapped(_:)))
+        } else {
+            navigationItem.titleView = nil
+            navigationItem.leftBarButtonItem = nil
+            navigationItem.hidesBackButton = !isUserAllowedToGoBack
+        }
+    }
+
+    @objc private func addButtonTapped(_ sender: Any) {
+        addButtonDelegate?.addButtonClicked(inNavigationController: self)
+    }
+
+    @objc private func preferencesButtonTapped(_ sender: Any) {
+        print("Preferences")
+    }
+
+    @objc private func helpButtonTapped(_ sender: Any) {
+        print("Help")
     }
 }
 

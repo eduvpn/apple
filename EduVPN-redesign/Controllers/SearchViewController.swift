@@ -55,8 +55,11 @@ final class SearchViewController: ViewController, ParametrizedViewController {
     }
 
     override func viewDidLoad() {
+        title = NSLocalizedString("Add Server", comment: "")
+        #if os(macOS)
         spinner.setLayerOpacity(0)
         tableContainerView.setLayerOpacity(0)
+        #endif
     }
 
     func showTableView() {
