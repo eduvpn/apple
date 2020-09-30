@@ -2,17 +2,19 @@
 	"client_id": "org.eduvpn.app.ios",
 	"redirect_url": "org.eduvpn.app.ios:/api/callback",
 
-	"discovery": {
-		"server": "https://static.eduvpn.nl",
-        "path_organization_list": "https://disco.eduvpn.org/organization_list.json",
-        "path_organization_list_signature": "https://disco.eduvpn.org/organization_list.json.sig",
-        "path_institute_access": "disco/institute_access_dev.json",
-		"path_institute_access_signature": "disco/institute_access_dev.json.sig",
-		"path_secure_internet": "disco/secure_internet_dev.json",
-		"path_secure_internet_signature": "disco/secure_internet_dev.json.sig",
-		"signature_public_key": "zzls4TZTXHEyV3yxaxag1DZw3tSpIdBoaaOjUGH/Rwg="
-	},
-  
-	"appName": "AppForce1",
-    "apiDiscoveryEnabled": true
+    "discovery": {
+        "server_list": "https://disco.eduvpn.org/v2/server_list.json",
+        "organization_list": "https://disco.eduvpn.org/v2/organization_list.json",
+        "server_list_signature": "https://disco.eduvpn.org/v2/server_list.json.minisig",
+        "organization_list_signature": "https://disco.eduvpn.org/v2/organization_list.json.minisig",
+        "signature_public_keys": [
+            "RWRtBSX1alxyGX+Xn3LuZnWUT0w//B6EmTJvgaAxBMYzlQeI+jdrO6KF",
+            "RWQ68Y5/b8DED0TJ41B1LE7yAvkmavZWjDwCBUuC+Z2pP9HaSawzpEDA",
+            "RWQKqtqvd0R7rUDp0rWzbtYPA3towPWcLDCl7eY9pBMMI/ohCmrS0WiM"
+            ]
+    },
+
+    "appName": "eduVPN",
+    "apiDiscoveryEnabled": true,
+    "supportURL": "https://www.eduvpn.org/"
 }
