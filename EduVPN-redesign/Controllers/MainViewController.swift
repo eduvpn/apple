@@ -141,7 +141,7 @@ extension MainViewController {
         return viewModel?.numberOfRows() ?? 0
     }
 
-    func cellForRow(at index: Int, tableView: TableView) -> TableViewCell? {
+    func cellForRow(at index: Int, tableView: TableView) -> TableViewCell {
         let row = viewModel.row(at: index)
         if row.rowKind.isSectionHeader {
             if row.rowKind == .secureInternetServerSectionHeaderKind {
