@@ -162,6 +162,7 @@
 		6F5E6C712524399B000225C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F5E6C702524399B000225C0 /* Assets.xcassets */; };
 		6F5E6C73252494C0000225C0 /* Common.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F5E6C72252494C0000225C0 /* Common.xcassets */; };
 		6F5E6C752525C90F000225C0 /* MainViewController+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E6C742525C90F000225C0 /* MainViewController+iOS.swift */; };
+		6F5E6C7725274548000225C0 /* CountryFlags.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F36A71C24B454AA00BA8F5E /* CountryFlags.xcassets */; };
 		6F71FBB9249B545B0010D0FE /* DiscoveryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F71FBB7249B54490010D0FE /* DiscoveryData.swift */; };
 		6F71FBBE249CCE9E0010D0FE /* DiscoveryDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F71FBBC249CCE980010D0FE /* DiscoveryDataFetcher.swift */; };
 		6F750C8524975A4300AF2C04 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340F956C22B7118C00835D56 /* NetworkExtension.framework */; };
@@ -1420,6 +1421,7 @@
 		C7DB4C0A24805B56009932B1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6F36A71C24B454AA00BA8F5E /* CountryFlags.xcassets */,
 				6F59A58524F51DEB00560155 /* Discovery */,
 				6FBFEF0D24C2DC8C00A9D1D4 /* Fonts */,
 				C7DB4C7524806511009932B1 /* eduVPN_2.xcdatamodeld */,
@@ -1436,7 +1438,6 @@
 				6FEF313324A48FB10026C786 /* Common.xcassets */,
 				C7DB4C6D248064BC009932B1 /* Info.plist */,
 				C7DB4C6B248064BC009932B1 /* Main.storyboard */,
-				6F36A71C24B454AA00BA8F5E /* CountryFlags.xcassets */,
 			);
 			path = Mac;
 			sourceTree = "<group>";
@@ -1919,6 +1920,7 @@
 				6F13E3E424977C1300E21614 /* config.json in Resources */,
 				6F13E3E224977BEB00E21614 /* Main.storyboard in Resources */,
 				6F5E6C73252494C0000225C0 /* Common.xcassets in Resources */,
+				6F5E6C7725274548000225C0 /* CountryFlags.xcassets in Resources */,
 				6F5E6C4A2522EA2C000225C0 /* organization_list.json in Resources */,
 				6F5E6C492522EA13000225C0 /* server_list.json in Resources */,
 				6F5E6C712524399B000225C0 /* Assets.xcassets in Resources */,
