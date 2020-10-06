@@ -56,10 +56,8 @@ final class SearchViewController: ViewController, ParametrizedViewController {
 
     override func viewDidLoad() {
         title = NSLocalizedString("Add Server", comment: "")
-        #if os(macOS)
         spinner.setLayerOpacity(0)
         tableContainerView.setLayerOpacity(0)
-        #endif
     }
 
     func showTableView() {
@@ -115,7 +113,7 @@ extension SearchViewController {
         return viewModel?.numberOfRows() ?? 0
     }
 
-    func cellForRow(at index: Int, tableView: TableView) -> TableViewCell? {
+    func cellForRow(at index: Int, tableView: TableView) -> TableViewCell {
         let row = viewModel.row(at: index)
         if row.rowKind.isSectionHeader {
             let cell = tableView.dequeue(SectionHeaderCell.self,
