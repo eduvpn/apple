@@ -118,7 +118,7 @@ extension NavigationController {
 }
 
 extension NavigationController {
-    func showAuthorizingMessage(onCancelled: @escaping () -> Void) {
+    func showAuthorizingMessage(onCancelled: (() -> Void)?) {
         self.authorizingMessageBox.isHidden = false
         self.onCancelled = onCancelled
         self.updateToolbarLeftButton()

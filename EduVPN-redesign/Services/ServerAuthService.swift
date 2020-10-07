@@ -8,6 +8,10 @@ import AppAuth
 import Moya
 import PromiseKit
 
+enum ServerAuthServiceError: Error {
+    case userCancelledWhenFetchingServerInfo
+}
+
 class ServerAuthService {
 
     struct WAYFSkippingInfo {
@@ -46,35 +50,31 @@ class ServerAuthService {
     func startAuth(baseURLString: DiscoveryData.BaseURLString,
                    from viewController: AuthorizingViewController,
                    wayfSkippingInfo: WAYFSkippingInfo?) -> Promise<AuthState> {
-        #if os(macOS)
-        viewController.showAuthorizingMessage(onCancelled: { [weak self] in
-            self?.cancelAuth()
+        var isUserCancelled = false
+        viewController.didBeginFetchingServerInfoForAuthorization(userCancellationHandler: {
+            isUserCancelled = true
         })
-        #endif
         return firstly {
             ServerInfoFetcher.fetch(baseURLString: baseURLString)
-        }.then { serverInfo in
-            self.startAuth(
+        }.then { serverInfo -> Promise<AuthState> in
+            if isUserCancelled {
+                throw ServerAuthServiceError.userCancelledWhenFetchingServerInfo
+            }
+            return self.startAuth(
                 authEndpoint: serverInfo.authorizationEndpoint,
                 tokenEndpoint: serverInfo.tokenEndpoint,
                 from: viewController,
-                wayfSkippingInfo: wayfSkippingInfo,
-                shouldShowAuthorizingMessage: false)
+                wayfSkippingInfo: wayfSkippingInfo)
         }
     }
 
     func startAuth(authEndpoint: ServerInfo.OAuthEndpoint,
                    tokenEndpoint: ServerInfo.OAuthEndpoint,
                    from viewController: AuthorizingViewController,
-                   wayfSkippingInfo: WAYFSkippingInfo?,
-                   shouldShowAuthorizingMessage: Bool = true) -> Promise<AuthState> {
-        #if os(macOS)
-        if shouldShowAuthorizingMessage {
-            viewController.showAuthorizingMessage(onCancelled: { [weak self] in
-                self?.cancelAuth()
-            })
-        }
-        #endif
+                   wayfSkippingInfo: WAYFSkippingInfo?) -> Promise<AuthState> {
+        viewController.didBeginAuthorization(macUserCancellationHandler: { [weak self] in
+            self?.cancelAuth()
+        })
         let authConfig = OIDServiceConfiguration(
             authorizationEndpoint: authEndpoint,
             tokenEndpoint: tokenEndpoint)
@@ -90,10 +90,7 @@ class ServerAuthService {
                 authRequest: authRequest,
                 viewController: viewController,
                 wayfSkippingInfo: wayfSkippingInfo) { (authState, error) in
-                    #if os(macOS)
-                    NSApp.activate(ignoringOtherApps: true)
-                    viewController.hideAuthorizingMessage()
-                    #endif
+                    viewController.didEndAuthorization()
                     if let authState = authState {
                         seal.resolve(AuthState(oidAuthState: authState), error)
                     } else {
@@ -127,6 +124,9 @@ class ServerAuthService {
     }
 
     func isUserCancelledError(_ error: Error) -> Bool {
+        if case ServerAuthServiceError.userCancelledWhenFetchingServerInfo = error {
+            return true
+        }
         let domain = (error as NSError).domain
         let code = (error as NSError).code
         return domain == OIDGeneralErrorDomain &&

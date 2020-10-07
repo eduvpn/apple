@@ -39,6 +39,10 @@ final class SearchViewController: ViewController, ParametrizedViewController {
 
     private var isTableViewShown: Bool = false
 
+    #if os(macOS)
+    var navigationController: NavigationController? { parameters.environment.navigationController }
+    #endif
+
     func initializeParameters(_ parameters: Parameters) {
         guard self.parameters == nil else {
             fatalError("Can't initialize parameters twice")
@@ -182,21 +186,6 @@ extension SearchViewController: SearchViewModelDelegate {
         tableView?.performUpdates(deletedIndices: changes.deletedIndices,
                                   insertedIndices: changes.insertions.map { $0.0 })
     }
-}
-
-// MARK: - AuthorizingViewController
-
-extension SearchViewController: AuthorizingViewController {
-    #if os(macOS)
-    func showAuthorizingMessage(onCancelled: @escaping () -> Void) {
-        parameters.environment.navigationController?
-            .showAuthorizingMessage(onCancelled: onCancelled)
-    }
-    func hideAuthorizingMessage() {
-        parameters.environment.navigationController?
-            .hideAuthorizingMessage()
-    }
-    #endif
 }
 
 class SearchNoResultsCell: TableViewCell {

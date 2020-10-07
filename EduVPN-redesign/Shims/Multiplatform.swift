@@ -17,6 +17,12 @@ protocol Navigating {
     func popViewController(animated: Bool) -> ViewController?
 }
 
+protocol AuthorizingViewController: ViewController {
+    func didBeginFetchingServerInfoForAuthorization(userCancellationHandler: (() -> Void)?)
+    func didBeginAuthorization(macUserCancellationHandler: (() -> Void)?)
+    func didEndAuthorization()
+}
+
 #if os(iOS)
 import UIKit
 
@@ -78,9 +84,6 @@ extension ProgressIndicator {
     func stopAnimation(_ sender: Any?) {
         stopAnimating()
     }
-}
-
-protocol AuthorizingViewController: ViewController {
 }
 
 #elseif os(macOS)
@@ -175,11 +178,6 @@ extension TableView {
     func reloadRows(indices: [Int]) {
         reloadData(forRowIndexes: IndexSet(indices), columnIndexes: IndexSet([0]))
     }
-}
-
-protocol AuthorizingViewController: ViewController {
-    func showAuthorizingMessage(onCancelled: @escaping () -> Void)
-    func hideAuthorizingMessage()
 }
 
 #endif
