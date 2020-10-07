@@ -26,4 +26,17 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         guard canSelectRow(at: indexPath.row) else { return nil }
         return indexPath
     }
+
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
+        -> UISwipeActionsConfiguration? {
+            let deleteAction = UIContextualAction(
+                style: .destructive,
+                title: NSLocalizedString("Delete", comment: "")) { [weak self] _, _, completionHandler in
+                    self?.deleteRow(at: indexPath.row)
+                    completionHandler(true)
+            }
+            return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
 }
