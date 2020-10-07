@@ -43,6 +43,10 @@ final class SearchViewController: ViewController, ParametrizedViewController {
     var navigationController: NavigationController? { parameters.environment.navigationController }
     #endif
 
+    #if os(iOS)
+    var contactingServerAlert: UIAlertController?
+    #endif
+
     func initializeParameters(_ parameters: Parameters) {
         guard self.parameters == nil else {
             fatalError("Can't initialize parameters twice")
