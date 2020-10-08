@@ -204,7 +204,7 @@
                                     </label>
                                     <searchBar contentMode="redraw" verticalHuggingPriority="500" searchBarStyle="minimal" placeholder="Search for your institute..." translatesAutoresizingMaskIntoConstraints="NO" id="jE7-4D-h8q">
                                         <rect key="frame" x="0.0" y="222" width="414" height="56"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                         <connections>
                                             <outlet property="delegate" destination="GFf-Kn-0Ob" id="EC3-oh-xNy"/>
                                         </connections>
