@@ -65,10 +65,12 @@ extension TableView {
     }
 
     func performUpdates(deletedIndices: [Int], insertedIndices: [Int]) {
+        UIView.setAnimationsEnabled(false)
         beginUpdates()
         deleteRows(at: deletedIndices.map { IndexPath(row: $0, section: 0) }, with: .none)
         insertRows(at: insertedIndices.map { IndexPath(row: $0, section: 0) }, with: .none)
         endUpdates()
+        UIView.setAnimationsEnabled(true)
     }
 
     func reloadRows(indices: [Int]) {
