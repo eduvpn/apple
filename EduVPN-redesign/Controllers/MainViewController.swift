@@ -32,6 +32,24 @@ class MainViewController: ViewController {
     private var isConnectionServiceInitialized = false
 
     @IBOutlet weak var tableView: TableView!
+
+    private var isViewVisibleIniOS = false
+    private var hasPendingUpdatesIniOS = false
+
+    #if os(iOS)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        isViewVisibleIniOS = true
+        if hasPendingUpdatesIniOS {
+            tableView.reloadData()
+        }
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        isViewVisibleIniOS = false
+    }
+    #endif
 }
 
 extension MainViewController: NavigationControllerAddButtonDelegate {
@@ -250,6 +268,15 @@ extension MainViewController: MainViewModelDelegate {
             isTableViewInitialized = true
             return
         }
+        if changes.deletedIndices.isEmpty && changes.insertions.isEmpty {
+            return
+        }
+        #if os(iOS)
+        guard isViewVisibleIniOS else {
+            hasPendingUpdatesIniOS = true
+            return
+        }
+        #endif
         tableView.performUpdates(deletedIndices: changes.deletedIndices,
                                  insertedIndices: changes.insertions.map { $0.0 })
     }
