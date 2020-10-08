@@ -8,6 +8,10 @@ import AppAuth
 import Moya
 import PromiseKit
 
+#if os(iOS)
+import AuthenticationServices
+#endif
+
 enum ServerAuthServiceError: Error {
     case userCancelledWhenFetchingServerInfo
 }
@@ -127,6 +131,12 @@ class ServerAuthService {
         if case ServerAuthServiceError.userCancelledWhenFetchingServerInfo = error {
             return true
         }
+        #if os(iOS)
+        let underlyingError = (error as NSError).userInfo[NSUnderlyingErrorKey] as? Error
+        if case ASWebAuthenticationSessionError.canceledLogin = (underlyingError ?? error) {
+            return true
+        }
+        #endif
         let domain = (error as NSError).domain
         let code = (error as NSError).code
         return domain == OIDGeneralErrorDomain &&
