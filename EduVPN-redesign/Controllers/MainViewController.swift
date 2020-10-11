@@ -33,21 +33,21 @@ class MainViewController: ViewController {
 
     @IBOutlet weak var tableView: TableView!
 
-    private var isViewVisibleIniOS = false
-    private var hasPendingUpdatesIniOS = false
-
     #if os(iOS)
+    private var isViewVisible = false
+    private var hasPendingUpdates = false
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        isViewVisibleIniOS = true
-        if hasPendingUpdatesIniOS {
+        isViewVisible = true
+        if hasPendingUpdates {
             tableView.reloadData()
         }
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        isViewVisibleIniOS = false
+        isViewVisible = false
     }
     #endif
 }
@@ -272,8 +272,8 @@ extension MainViewController: MainViewModelDelegate {
             return
         }
         #if os(iOS)
-        guard isViewVisibleIniOS else {
-            hasPendingUpdatesIniOS = true
+        guard isViewVisible else {
+            hasPendingUpdates = true
             return
         }
         #endif
