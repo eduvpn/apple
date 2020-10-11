@@ -529,13 +529,13 @@ Gw
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView wantsLayer="YES" horizontalHuggingPriority="100" borderType="none" autohidesScrollers="YES" horizontalLineScroll="60" horizontalPageScroll="10" verticalLineScroll="60" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ViX-vU-MfI" userLabel="Table Container View">
-                                <rect key="frame" x="20" y="20" width="1269" height="194"/>
+                                <rect key="frame" x="20" y="20" width="1305" height="174"/>
                                 <clipView key="contentView" drawsBackground="NO" id="Vdj-rZ-nzW">
-                                    <rect key="frame" x="0.0" y="0.0" width="1269" height="194"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1305" height="174"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="40" usesAutomaticRowHeights="YES" viewBased="YES" floatsGroupRows="NO" id="0Se-xs-SBR">
-                                            <rect key="frame" x="0.0" y="0.0" width="1269" height="334"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1305" height="334"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="20"/>
                                             <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -764,11 +764,11 @@ Gw
                                         </constraints>
                                     </customView>
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AiJ-eh-cZR" userLabel="Top Image">
-                                        <rect key="frame" x="180" y="217" width="90" height="589"/>
+                                        <rect key="frame" x="180" y="197" width="90" height="609"/>
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="SearchScreenTopImage" id="oWj-11-tRC"/>
                                     </imageView>
                                     <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OYQ-UB-7ZA">
-                                        <rect key="frame" x="-2" y="172" width="454" height="33"/>
+                                        <rect key="frame" x="-2" y="152" width="454" height="33"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Find your institute" id="eUs-aO-u69">
                                             <font key="font" size="24" name="OpenSans-Bold"/>
                                             <color key="textColor" name="BoldUITextColor"/>
@@ -776,7 +776,7 @@ Gw
                                         </textFieldCell>
                                     </textField>
                                     <searchField wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="100" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gW1-dp-amy" customClass="SearchField" customModule="eduVPN" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="120" width="450" height="40"/>
+                                        <rect key="frame" x="0.0" y="100" width="450" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="YjK-Nc-dHe"/>
                                         </constraints>
@@ -790,12 +790,12 @@ Gw
                                         </connections>
                                     </searchField>
                                     <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="6lv-tg-3Yq" userLabel="Spinner">
-                                        <rect key="frame" x="209" y="76" width="32" height="32"/>
+                                        <rect key="frame" x="209" y="56" width="32" height="32"/>
                                     </progressIndicator>
                                     <scrollView wantsLayer="YES" horizontalHuggingPriority="100" borderType="none" autohidesScrollers="YES" horizontalLineScroll="60" horizontalPageScroll="10" verticalLineScroll="60" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hge-fJ-m1C">
-                                        <rect key="frame" x="0.0" y="0.0" width="450" height="64"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="450" height="44"/>
                                         <clipView key="contentView" drawsBackground="NO" id="73u-Eo-EqN">
-                                            <rect key="frame" x="0.0" y="0.0" width="450" height="64"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="450" height="44"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="40" usesAutomaticRowHeights="YES" viewBased="YES" floatsGroupRows="NO" id="s7r-dP-3wP">
@@ -1449,8 +1449,8 @@ Gw
                         <outlet property="dataTransferredLabel" destination="wLh-1f-toW" id="8qc-2D-mIO"/>
                         <outlet property="durationLabel" destination="i63-Wf-eap" id="ldb-Ip-UlR"/>
                         <outlet property="profileNameLabel" destination="Y0d-hy-1Ki" id="H5T-d2-GaL"/>
+                        <outlet property="profileSelectionView" destination="234-yc-A7i" id="vNV-DA-WJg"/>
                         <outlet property="profileSelectorPopupButton" destination="t3o-NK-ms2" id="zeJ-ph-Gch"/>
-                        <outlet property="profileSelectorStackView" destination="234-yc-A7i" id="lNb-G4-bd3"/>
                         <outlet property="profileTitleLabel" destination="FgF-eO-f2p" id="5go-oU-XFJ"/>
                         <outlet property="renewSessionButton" destination="Tlx-e0-3gR" id="0LZ-Te-WPN"/>
                         <outlet property="serverCountryFlagImageView" destination="tDr-Ag-UL4" id="5QM-e9-vpo"/>

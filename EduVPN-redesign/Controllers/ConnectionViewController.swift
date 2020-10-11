@@ -73,7 +73,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     @IBOutlet weak var bottomStackView: NSStackView!
 
     @IBOutlet weak var additionalControlContainer: NSView!
-    @IBOutlet weak var profileSelectorStackView: NSStackView!
+    @IBOutlet weak var profileSelectionView: NSStackView!
     @IBOutlet weak var profileSelectorPopupButton: NSPopUpButton!
     @IBOutlet weak var renewSessionButton: NSButton!
     @IBOutlet weak var spinner: NSProgressIndicator!
@@ -337,15 +337,15 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
         additionalControlChanged additionalControl: ConnectionViewModel.AdditionalControl) {
         switch additionalControl {
         case .none:
-            profileSelectorStackView.isHidden = true
+            profileSelectionView.isHidden = true
             renewSessionButton.isHidden = true
             spinner.stopAnimation(self)
         case .spinner:
-            profileSelectorStackView.isHidden = true
+            profileSelectionView.isHidden = true
             renewSessionButton.isHidden = true
             spinner.startAnimation(self)
         case .profileSelector(let profiles):
-            profileSelectorStackView.isHidden = false
+            profileSelectionView.isHidden = false
             renewSessionButton.isHidden = true
             spinner.stopAnimation(self)
             profileSelectorPopupButton.removeAllItems()
@@ -363,7 +363,7 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
             profileSelectorPopupButton.isEnabled = true
             self.profiles = profiles
         case .renewSessionButton:
-            profileSelectorStackView.isHidden = true
+            profileSelectionView.isHidden = true
             renewSessionButton.isHidden = false
             spinner.stopAnimation(self)
         }
