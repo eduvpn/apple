@@ -369,6 +369,7 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
         }
     }
 
+    static let connectionInfoHeaderHeight: CGFloat = 46
     static let connectionInfoBodyHeight: CGFloat = 100
     static let additionalControlContainerHeight = connectionInfoBodyHeight
 
@@ -383,7 +384,8 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
         _ connectionInfoState: ConnectionViewModel.ConnectionInfoState, animated: Bool) {
         let controlAlpha: Float
         let controlHeight: CGFloat
-        let isHeaderHidden: Bool
+        let headerAlpha: Float
+        let headerHeight: CGFloat
         let bodyAlpha: Float
         let bodyHeight: CGFloat
 
@@ -391,7 +393,8 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
         case .hidden:
             controlAlpha = 1
             controlHeight = Self.additionalControlContainerHeight
-            isHeaderHidden = true
+            headerAlpha = 0
+            headerHeight = Self.connectionInfoHeaderHeight
             bodyAlpha = 0
             bodyHeight = 0
             connectionInfoChevronButton.image = Image(named: "ChevronDownButton")
@@ -399,7 +402,8 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
         case .collapsed:
             controlAlpha = 1
             controlHeight = Self.additionalControlContainerHeight
-            isHeaderHidden = false
+            headerAlpha = 1
+            headerHeight = Self.connectionInfoHeaderHeight
             bodyAlpha = 0
             bodyHeight = 0
             connectionInfoChevronButton.image = Image(named: "ChevronDownButton")
@@ -407,7 +411,8 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
         case .expanded(let connectionInfo):
             controlAlpha = 0
             controlHeight = 0
-            isHeaderHidden = false
+            headerAlpha = 1
+            headerHeight = Self.connectionInfoHeaderHeight
             bodyAlpha = 1
             bodyHeight = Self.connectionInfoBodyHeight
             connectionInfoChevronButton.image = Image(named: "CloseButton")
@@ -424,11 +429,11 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
             addressLabel.stringValue = connectionInfo.addresses
         }
 
-        self.connectionInfoHeader.isHidden = isHeaderHidden
-
         let animatableChanges = {
             self.additionalControlContainer.layer?.opacity = controlAlpha
             self.additionalControlContainerHeightConstraint.constant = controlHeight
+            self.connectionInfoHeader.layer?.opacity = headerAlpha
+            _ = headerHeight // Avoid warning
             self.connectionInfoBody.layer?.opacity = bodyAlpha
             self.connectionInfoBodyHeightConstraint.constant = bodyHeight
             self.bottomStackView.layoutSubtreeIfNeeded()
