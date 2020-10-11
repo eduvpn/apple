@@ -334,7 +334,7 @@ private extension ConnectionService {
         #if os(macOS)
         return "\((Bundle.main.infoDictionary?["AppIdentifierPrefix"] as? String) ?? "")group.\(appBundleId)"
         #elseif os(iOS)
-        return "group.\(bundleID)"
+        return "group.\(appBundleId)"
         #endif
     }
 

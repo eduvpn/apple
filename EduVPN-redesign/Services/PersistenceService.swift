@@ -124,7 +124,6 @@ class PersistenceService {
     }
 }
 
-#if os(macOS)
 extension PersistenceService {
     func loadLastConnectionAttempt() -> ConnectionAttempt? {
         if let data = try? Data(contentsOf: Self.lastConnectionAttemptURL) {
@@ -150,7 +149,6 @@ extension PersistenceService {
         }
     }
 }
-#endif
 
 extension PersistenceService {
     private static var rootURL: URL {

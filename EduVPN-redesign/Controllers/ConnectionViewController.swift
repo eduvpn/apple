@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import AppKit
 import PromiseKit
 import os.log
 
@@ -58,40 +57,55 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         }
     }
 
-    @IBOutlet weak var serverNameLabel: NSTextField!
-    @IBOutlet weak var serverCountryFlagImageView: NSImageView!
+    @IBOutlet weak var serverNameLabel: Label!
+    @IBOutlet weak var serverCountryFlagImageView: ImageView!
 
-    @IBOutlet weak var supportContactStackView: NSStackView!
-    var supportContactTextView: NSTextView!
+    @IBOutlet weak var supportContactStackView: StackView!
+    var supportContactTextView: TextView!
 
-    @IBOutlet weak var connectionStatusImageView: NSImageView!
-    @IBOutlet weak var statusLabel: NSTextField!
-    @IBOutlet weak var statusDetailLabel: NSTextField!
+    @IBOutlet weak var connectionStatusImageView: ImageView!
+    @IBOutlet weak var statusLabel: Label!
+    @IBOutlet weak var statusDetailLabel: Label!
 
-    @IBOutlet weak var vpnSwitchButton: NSButton!
+    @IBOutlet weak var vpnSwitch: Button!
 
-    @IBOutlet weak var bottomStackView: NSStackView!
+    @IBOutlet weak var bottomStackView: StackView!
 
-    @IBOutlet weak var additionalControlContainer: NSView!
-    @IBOutlet weak var profileSelectionView: NSStackView!
+    @IBOutlet weak var additionalControlContainer: View!
+    @IBOutlet weak var profileSelectionView: View!
+    @IBOutlet weak var renewSessionButton: Button!
+    @IBOutlet weak var spinner: Spinner!
+
+    #if os(macOS)
     @IBOutlet weak var profileSelectorPopupButton: NSPopUpButton!
-    @IBOutlet weak var renewSessionButton: NSButton!
-    @IBOutlet weak var spinner: NSProgressIndicator!
+    #elseif os(iOS)
+    @IBOutlet weak var profileRowNameLabel: UILabel!
+    #endif
 
+    #if os(macOS)
     @IBOutlet weak var connectionInfoHeader: ConnectionInfoHeaderView!
     @IBOutlet weak var connectionInfoChevronButton: NSButton!
+    #elseif os(iOS)
+    @IBOutlet weak var connectionInfoHeader: View!
+    #endif
 
+    #if os(macOS)
     @IBOutlet weak var connectionInfoBody: NSView!
     @IBOutlet weak var durationLabel: NSTextField!
     @IBOutlet weak var profileTitleLabel: NSTextField!
     @IBOutlet weak var profileNameLabel: NSTextField!
     @IBOutlet weak var dataTransferredLabel: NSTextField!
     @IBOutlet weak var addressLabel: NSTextField!
+    #endif
 
     @IBOutlet weak var serverCountryFlagImageWidthConstraint: NSLayoutConstraint!
     // swiftlint:disable:next identifier_name
     @IBOutlet weak var additionalControlContainerHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var connectionInfoBodyHeightConstraint: NSLayoutConstraint!
+
+    #if os(iOS)
+    @IBOutlet weak var connectionInfoHeaderHeightConstraint: NSLayoutConstraint!
+    #endif
 
     func initializeParameters(_ parameters: Parameters) {
         guard self.parameters == nil else {
@@ -119,6 +133,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     }
 
     override func viewDidLoad() {
+        title = NSLocalizedString("Connect to Server", comment: "")
         // The view model delegate is set only after our views are ready
         // to receive updates from the view model
         viewModel.delegate = self
@@ -128,9 +143,19 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         }
     }
 
+    #if os(macOS)
     @IBAction func vpnSwitchToggled(_ sender: Any) {
-        switch vpnSwitchButton.state {
-        case .on:
+        vpnSwitchToggled()
+    }
+    #elseif os(iOS)
+    @IBAction func vpnSwitchTapped(_ sender: Any) {
+        vpnSwitch.isOn = !vpnSwitch.isOn
+        vpnSwitchToggled()
+    }
+    #endif
+
+    func vpnSwitchToggled() {
+        if vpnSwitch.isOn {
             guard let profiles = profiles, !profiles.isEmpty else {
                 beginConnectionFlow(shouldContinueIfSingleProfile: true)
                 return
@@ -139,15 +164,16 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
                 selectedProfileId = profiles[0].profileId
             }
             continueConnectionFlow(serverAPIOptions: [])
-
-        case .off:
+        } else {
             disableVPN()
-
-        default:
-            break
         }
     }
 
+    @IBAction func renewSessionClicked(_ sender: Any) {
+        continueConnectionFlow(serverAPIOptions: [.ignoreStoredAuthState, .ignoreStoredKeyPair])
+    }
+
+    #if os(macOS)
     @IBAction func profileSelected(_ sender: Any) {
         let selectedIndex = profileSelectorPopupButton.indexOfSelectedItem
         if let profiles = profiles,
@@ -157,13 +183,10 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         }
     }
 
-    @IBAction func renewSessionClicked(_ sender: Any) {
-        continueConnectionFlow(serverAPIOptions: [.ignoreStoredAuthState, .ignoreStoredKeyPair])
-    }
-
     @IBAction func connectionInfoChevronClicked(_ sender: Any) {
         viewModel.toggleConnectionInfoExpanded()
     }
+    #endif
 }
 
 private extension ConnectionViewController {
@@ -179,10 +202,12 @@ private extension ConnectionViewController {
     }
 
     func setupSupportContact(supportContact: ConnectionViewModel.SupportContact) {
+        #if os(macOS)
         let supportContactTextView = SupportContactTextView(supportContact: supportContact)
         supportContactStackView.addView(supportContactTextView, in: .leading)
         self.supportContactTextView = supportContactTextView
         supportContactStackView.isHidden = supportContact.supportContact.isEmpty
+        #endif
     }
 
     func beginConnectionFlow(shouldContinueIfSingleProfile: Bool) {
@@ -231,7 +256,11 @@ private extension ConnectionViewController {
     private func showAlert(for error: Error) {
         if let serverAPIError = error as? ServerAPIServiceError,
             case ServerAPIServiceError.errorGettingProfileConfig = serverAPIError {
+
             // If there's an error getting profile config, offer to refresh profiles
+
+            #if os(macOS)
+
             let alert = NSAlert()
             alert.alertStyle = .warning
             alert.messageText = serverAPIError.summary
@@ -245,6 +274,24 @@ private extension ConnectionViewController {
                     }
                 }
             }
+
+            #elseif os(iOS)
+
+            let alert = UIAlertController()
+            let refreshAction = UIAlertAction(
+                title: NSLocalizedString("Refresh Profiles", comment: ""),
+                style: .default,
+                handler: { _ in
+                    self.beginConnectionFlow(shouldContinueIfSingleProfile: true)
+                })
+            let cancelAction = UIAlertAction(
+                title: NSLocalizedString("Cancel", comment: ""),
+                style: .cancel)
+            alert.addAction(refreshAction)
+            alert.addAction(cancelAction)
+            present(alert, animated: true, completion: nil)
+
+            #endif
             return
         }
         if !self.parameters.environment.serverAuthService.isUserCancelledError(error) {
@@ -294,7 +341,7 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
 
     func connectionViewModel(
         _ model: ConnectionViewModel, headerChanged header: ConnectionViewModel.Header) {
-        serverNameLabel.stringValue = header.serverName
+        serverNameLabel.text = header.serverName
         if header.flagCountryCode.isEmpty {
             serverCountryFlagImageView.image = nil
             serverCountryFlagImageWidthConstraint.constant = 0
@@ -316,20 +363,20 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
                 return Image(named: "StatusConnected")
             }
         }()
-        statusLabel.stringValue = status.localizedText
+        statusLabel.text = status.localizedText
     }
 
     func connectionViewModel(
         _ model: ConnectionViewModel,
         statusDetailChanged statusDetail: ConnectionViewModel.StatusDetail) {
-        statusDetailLabel.stringValue = statusDetail.localizedText
+        statusDetailLabel.text = statusDetail.localizedText
     }
 
     func connectionViewModel(
         _ model: ConnectionViewModel,
         vpnSwitchStateChanged vpnSwitchState: ConnectionViewModel.VPNSwitchState) {
-        vpnSwitchButton.isEnabled = vpnSwitchState.isEnabled
-        vpnSwitchButton.state = vpnSwitchState.isOn ? .on : .off
+        vpnSwitch.isEnabled = vpnSwitchState.isEnabled
+        vpnSwitch.isOn = vpnSwitchState.isOn
     }
 
     func connectionViewModel(
@@ -348,6 +395,7 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
             profileSelectionView.isHidden = false
             renewSessionButton.isHidden = true
             spinner.stopAnimation(self)
+            #if os(macOS)
             profileSelectorPopupButton.removeAllItems()
             var selectedIndex: Int?
             for (index, profile) in profiles.enumerated() {
@@ -361,6 +409,15 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
                 profileSelectorPopupButton.selectItem(at: selectedIndex)
             }
             profileSelectorPopupButton.isEnabled = true
+            #elseif os(iOS)
+            if let selectedProfile = profiles.first(where: { $0.profileId == selectedProfileId }) {
+                profileRowNameLabel.text = selectedProfile.displayName.string(for: Locale.current)
+            } else if let firstProfile = profiles.first {
+                profileRowNameLabel.text = firstProfile.displayName.string(for: Locale.current)
+            } else {
+                profileRowNameLabel.text = NSLocalizedString("Unknown", comment: "Unknown profile")
+            }
+            #endif
             self.profiles = profiles
         case .renewSessionButton:
             profileSelectionView.isHidden = true
@@ -371,7 +428,11 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
 
     static let connectionInfoHeaderHeight: CGFloat = 46
     static let connectionInfoBodyHeight: CGFloat = 100
+    #if os(macOS)
     static let additionalControlContainerHeight = connectionInfoBodyHeight
+    #elseif os(iOS)
+    static let additionalControlContainerHeight: CGFloat = 46
+    #endif
 
     func connectionViewModel(
         _ model: ConnectionViewModel,
@@ -397,8 +458,6 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
             headerHeight = Self.connectionInfoHeaderHeight
             bodyAlpha = 0
             bodyHeight = 0
-            connectionInfoChevronButton.image = Image(named: "ChevronDownButton")
-            connectionInfoHeader.isPassthroughToButtonEnabled = false
         case .collapsed:
             controlAlpha = 1
             controlHeight = Self.additionalControlContainerHeight
@@ -406,17 +465,15 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
             headerHeight = Self.connectionInfoHeaderHeight
             bodyAlpha = 0
             bodyHeight = 0
-            connectionInfoChevronButton.image = Image(named: "ChevronDownButton")
-            connectionInfoHeader.isPassthroughToButtonEnabled = true // Make whole "row" clickable
         case .expanded(let connectionInfo):
+            #if os(macOS)
+
             controlAlpha = 0
             controlHeight = 0
             headerAlpha = 1
             headerHeight = Self.connectionInfoHeaderHeight
             bodyAlpha = 1
             bodyHeight = Self.connectionInfoBodyHeight
-            connectionInfoChevronButton.image = Image(named: "CloseButton")
-            connectionInfoHeader.isPassthroughToButtonEnabled = false
             durationLabel.stringValue = connectionInfo.duration
             if let profileName = connectionInfo.profileName {
                 profileTitleLabel.isHidden = false
@@ -427,37 +484,61 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
             }
             dataTransferredLabel.stringValue = connectionInfo.dataTransferred
             addressLabel.stringValue = connectionInfo.addresses
+
+            #elseif os(iOS)
+
+            controlAlpha = 1
+            controlHeight = Self.additionalControlContainerHeight
+            headerAlpha = 1
+            headerHeight = Self.connectionInfoHeaderHeight
+            bodyAlpha = 0
+            bodyHeight = 0
+
+            #endif
         }
 
+        #if os(macOS)
+        switch connectionInfoState {
+        case .hidden:
+            connectionInfoChevronButton.image = Image(named: "ChevronDownButton")
+            connectionInfoHeader.isPassthroughToButtonEnabled = false
+        case .collapsed:
+            connectionInfoChevronButton.image = Image(named: "ChevronDownButton")
+            connectionInfoHeader.isPassthroughToButtonEnabled = true // Make whole "row" clickable
+        case .expanded:
+            connectionInfoChevronButton.image = Image(named: "CloseButton")
+            connectionInfoHeader.isPassthroughToButtonEnabled = false
+        }
+        #endif
+
         let animatableChanges = {
-            self.additionalControlContainer.layer?.opacity = controlAlpha
+            self.additionalControlContainer.setLayerOpacity(controlAlpha)
             self.additionalControlContainerHeightConstraint.constant = controlHeight
-            self.connectionInfoHeader.layer?.opacity = headerAlpha
+            self.connectionInfoHeader.setLayerOpacity(headerAlpha)
             _ = headerHeight // Avoid warning
-            self.connectionInfoBody.layer?.opacity = bodyAlpha
+            #if os(macOS)
+            self.connectionInfoBody.setLayerOpacity(bodyAlpha)
             self.connectionInfoBodyHeightConstraint.constant = bodyHeight
-            self.bottomStackView.layoutSubtreeIfNeeded()
+            #endif
+            self.bottomStackView.layoutIfNeeded()
         }
 
         if animated {
-            NSAnimationContext.runAnimationGroup({ context in
-                context.duration = 0.3 /* seconds */
-                context.allowsImplicitAnimation = true
+            performWithAnimation(seconds: 0.3) {
                 animatableChanges()
-            }, completionHandler: nil)
+            }
         } else {
             animatableChanges()
         }
     }
 }
 
-#if os(macOS)
-
 extension ConnectionViewController: AuthorizingViewController {
     func didBeginFetchingServerInfoForAuthorization(userCancellationHandler: (() -> Void)?) {
         fatalError("Fetching server.json is not necessary during authorization")
     }
 
+    #if os(macOS)
     func didBeginAuthorization(macUserCancellationHandler: (() -> Void)?) {
         parameters.environment.navigationController?
             .showAuthorizingMessage(onCancelled: macUserCancellationHandler)
@@ -468,6 +549,13 @@ extension ConnectionViewController: AuthorizingViewController {
             .hideAuthorizingMessage()
         NSApp.activate(ignoringOtherApps: true)
     }
-}
+    #elseif os(iOS)
+    func didBeginAuthorization(macUserCancellationHandler: (() -> Void)?) {
+        // Nothing to do
+    }
 
-#endif
+    func didEndAuthorization() {
+        // Nothing to do
+    }
+    #endif
+}

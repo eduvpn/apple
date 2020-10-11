@@ -21,9 +21,7 @@ class MainViewController: ViewController {
                 environment.navigationController?.pushViewController(searchVC, animated: false)
                 environment.navigationController?.isUserAllowedToGoBack = false
             }
-            #if os(macOS)
             environment.connectionService.initializationDelegate = self
-            #endif
         }
     }
 
@@ -91,7 +89,6 @@ extension MainViewController: SearchViewControllerDelegate {
     }
 }
 
-#if os(macOS)
 extension MainViewController: ConnectionViewControllerDelegate {
     func connectionViewController(
         _ controller: ConnectionViewController,
@@ -152,7 +149,6 @@ extension MainViewController: ConnectionServiceInitializationDelegate {
         }
     }
 }
-#endif
 
 extension MainViewController {
     func numberOfRows() -> Int {
@@ -213,13 +209,11 @@ extension MainViewController {
         let row = viewModel.row(at: index)
         if let server = row.server,
             let serverDisplayInfo = row.serverDisplayInfo {
-            #if os(macOS)
             let connectionVC = environment.instantiateConnectionViewController(
                 server: server, serverDisplayInfo: serverDisplayInfo,
                 authURLTemplate: viewModel.authURLTemplate(for: server))
             connectionVC.delegate = self
             environment.navigationController?.pushViewController(connectionVC, animated: true)
-            #endif
         }
     }
 

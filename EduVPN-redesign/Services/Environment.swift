@@ -20,9 +20,7 @@ class Environment {
     let serverAuthService: ServerAuthService
     let persistenceService: PersistenceService
     let serverAPIService: ServerAPIService
-    #if os(macOS)
     let connectionService: ConnectionServiceProtocol
-    #endif
 
     init(navigationController: NavigationController) {
         self.navigationController = navigationController
@@ -36,7 +34,9 @@ class Environment {
             configClientId: Config.shared.clientId)
         self.persistenceService = PersistenceService()
         self.serverAPIService = ServerAPIService(serverAuthService: serverAuthService)
-        #if os(macOS)
+        #if targetEnvironment(simulator)
+        self.connectionService = MockConnectionService()
+        #else
         self.connectionService = ConnectionService()
         #endif
     }
@@ -48,7 +48,6 @@ class Environment {
         return instantiate(SearchViewController.self, identifier: "Search", parameters: parameters)
     }
 
-    #if os(macOS)
     func instantiateConnectionViewController(
         server: ServerInstance, serverDisplayInfo: ServerDisplayInfo, authURLTemplate: String?,
         restoredPreConnectionState: ConnectionAttempt.PreConnectionState? = nil) -> ConnectionViewController {
@@ -59,6 +58,7 @@ class Environment {
         return instantiate(ConnectionViewController.self, identifier: "Connection", parameters: parameters)
     }
 
+    #if os(macOS)
     func instantiatePreferencesViewController() -> PreferencesViewController {
         let parameters = PreferencesViewController.Parameters(environment: self)
         return instantiate(PreferencesViewController.self, identifier: "Preferences", parameters: parameters)
