@@ -21,7 +21,7 @@ class Environment {
     let persistenceService: PersistenceService
     let serverAPIService: ServerAPIService
     #if os(macOS)
-    let connectionService: ConnectionService
+    let connectionService: ConnectionServiceProtocol
     #endif
 
     init(navigationController: NavigationController) {

@@ -106,8 +106,8 @@ extension MainViewController: ConnectionViewControllerDelegate {
 
 extension MainViewController: ConnectionServiceInitializationDelegate {
     func connectionService(
-        _ service: ConnectionService,
-        initializedWithState initializedState: ConnectionService.InitializedState) {
+        _ service: ConnectionServiceProtocol,
+        initializedWithState initializedState: ConnectionServiceInitializedState) {
         isConnectionServiceInitialized = true
         switch initializedState {
         case .vpnEnabled(let connectionAttemptId):

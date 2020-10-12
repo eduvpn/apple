@@ -11,12 +11,12 @@ import os.log
 
 protocol ConnectionServiceInitializationDelegate: class {
     func connectionService(
-        _ service: ConnectionService,
-        initializedWithState: ConnectionService.InitializedState)
+        _ service: ConnectionServiceProtocol,
+        initializedWithState: ConnectionServiceInitializedState)
 }
 
 protocol ConnectionServiceStatusDelegate: class {
-    func connectionService(_ service: ConnectionService, connectionStatusChanged status: NEVPNStatus)
+    func connectionService(_ service: ConnectionServiceProtocol, connectionStatusChanged status: NEVPNStatus)
 }
 
 enum ConnectionServiceError: Error {
@@ -41,12 +41,41 @@ extension ConnectionServiceError: AppError {
     }
 }
 
-class ConnectionService {
+enum ConnectionServiceInitializedState {
+    case vpnEnabled(connectionAttemptId: UUID?)
+    case vpnDisabled
+}
 
-    enum InitializedState {
-        case vpnEnabled(connectionAttemptId: UUID?)
-        case vpnDisabled
-    }
+struct NetworkAddress {
+    let ipv4: String?
+    let ipv6: String?
+}
+
+struct TransferredByteCount {
+    let inbound: UInt64
+    let outbound: UInt64
+}
+
+protocol ConnectionServiceProtocol: class {
+
+    var initializationDelegate: ConnectionServiceInitializationDelegate? { get set }
+    var statusDelegate: ConnectionServiceStatusDelegate? { get set }
+
+    var isInitialized: Bool { get }
+    var connectionStatus: NEVPNStatus { get }
+    var isVPNEnabled: Bool { get }
+    var connectionAttemptId: UUID? { get }
+    var connectedDate: Date? { get }
+
+    func enableVPN(openVPNConfig: [String], connectionAttemptId: UUID) -> Promise<Void>
+    func disableVPN() -> Promise<Void>
+
+    func getNetworkAddress() -> Guarantee<NetworkAddress>
+    func getTransferredByteCount() -> Guarantee<TransferredByteCount>
+    func getConnectionLog() -> Promise<String?>
+}
+
+class ConnectionService: ConnectionServiceProtocol {
 
     weak var initializationDelegate: ConnectionServiceInitializationDelegate?
     weak var statusDelegate: ConnectionServiceStatusDelegate?
@@ -75,7 +104,7 @@ class ConnectionService {
         }.map { savedTunnelManagers in
             let tunnelManager = savedTunnelManagers.first ?? NETunnelProviderManager()
             self.tunnelManager = tunnelManager
-            let initializedState: ConnectionService.InitializedState
+            let initializedState: ConnectionServiceInitializedState
             if tunnelManager.isOnDemandEnabled {
                 initializedState = .vpnEnabled(connectionAttemptId: tunnelManager.connectionAttemptId)
             } else {
@@ -158,11 +187,6 @@ class ConnectionService {
 }
 
 extension ConnectionService {
-    struct NetworkAddress {
-        let ipv4: String?
-        let ipv6: String?
-    }
-
     func getNetworkAddress() -> Guarantee<NetworkAddress> {
         guard let tunnelManager = tunnelManager else {
             fatalError("ConnectionService not initialized yet")
@@ -182,11 +206,6 @@ extension ConnectionService {
                    log: Log.general, type: .error, error.localizedDescription)
             return Guarantee.value(NetworkAddress(ipv4: nil, ipv6: nil))
         }
-    }
-
-    struct TransferredByteCount {
-        let inbound: UInt64
-        let outbound: UInt64
     }
 
     func getTransferredByteCount() -> Guarantee<TransferredByteCount> {
