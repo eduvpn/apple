@@ -65,6 +65,15 @@ class Environment {
     }
     #endif
 
+    #if os(iOS)
+    func instantiateItemSelectionViewController(
+        items: [ItemSelectionViewController.Item], selectedIndex: Int) -> ItemSelectionViewController {
+        let parameters = ItemSelectionViewController.Parameters(
+            items: items, selectedIndex: selectedIndex)
+        return instantiate(ItemSelectionViewController.self, identifier: "ItemSelection", parameters: parameters)
+    }
+    #endif
+
     func instantiate<VC: ViewController>(_ type: VC.Type, identifier: String) -> VC {
         guard let viewController =
             storyboard.instantiateViewController(withIdentifier: identifier) as? VC else {

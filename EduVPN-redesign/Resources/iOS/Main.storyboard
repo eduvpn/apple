@@ -459,7 +459,7 @@
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="700" text="Profile name Profile name Profile name Profile name Profile name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FSj-Ul-INY" userLabel="Profile name">
-                                                                                <rect key="frame" x="59" y="13.5" width="279" height="18"/>
+                                                                                <rect key="frame" x="59" y="13.5" width="289" height="18"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
@@ -474,7 +474,7 @@
                                                                         </subviews>
                                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                                         <constraints>
-                                                                            <constraint firstItem="4gy-P5-Hse" firstAttribute="leading" secondItem="FSj-Ul-INY" secondAttribute="trailing" constant="10" id="2mf-HG-emb"/>
+                                                                            <constraint firstItem="4gy-P5-Hse" firstAttribute="leading" secondItem="FSj-Ul-INY" secondAttribute="trailing" id="2mf-HG-emb"/>
                                                                             <constraint firstItem="4gy-P5-Hse" firstAttribute="centerY" secondItem="ulE-Qz-exs" secondAttribute="centerY" id="4L3-Hp-WGW"/>
                                                                             <constraint firstAttribute="trailing" secondItem="4gy-P5-Hse" secondAttribute="trailing" id="Ojq-F1-0H6"/>
                                                                             <constraint firstItem="6zQ-9H-MHL" firstAttribute="centerY" secondItem="ulE-Qz-exs" secondAttribute="centerY" id="ahy-Ti-yHa"/>
@@ -494,6 +494,7 @@
                                                             </stackView>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                        <gestureRecognizers/>
                                                         <constraints>
                                                             <constraint firstAttribute="bottom" secondItem="xm6-bf-V5n" secondAttribute="bottom" id="8ql-Cg-eqS"/>
                                                             <constraint firstItem="xm6-bf-V5n" firstAttribute="leading" secondItem="Nli-Au-iEK" secondAttribute="leading" id="HuV-g9-HCs"/>
@@ -501,6 +502,9 @@
                                                             <constraint firstItem="xm6-bf-V5n" firstAttribute="top" secondItem="Nli-Au-iEK" secondAttribute="top" id="f4d-dP-j3M"/>
                                                             <constraint firstAttribute="height" constant="46" id="f4p-oe-PEV"/>
                                                         </constraints>
+                                                        <connections>
+                                                            <outletCollection property="gestureRecognizers" destination="Kug-qE-IsH" appends="YES" id="6Hs-NF-VqC"/>
+                                                        </connections>
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tqm-gx-WSD" userLabel="Renew Session Button">
                                                         <rect key="frame" x="155" y="8" width="104" height="30"/>
@@ -639,8 +643,50 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hh9-1q-GdG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Kug-qE-IsH" userLabel="Profile Selection Tap Gesture Recognizer">
+                    <connections>
+                        <action selector="profileSelectionRowTapped:" destination="vqW-N3-HUm" id="di6-5U-uv1"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="200.00000000000003" y="790.84821428571422"/>
+        </scene>
+        <!--Item Selection View Controller-->
+        <scene sceneID="6W8-OJ-ujC">
+            <objects>
+                <tableViewController storyboardIdentifier="ItemSelection" id="J7g-TQ-pgE" userLabel="Item Selection View Controller" customClass="ItemSelectionViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="HfZ-PS-tNX">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemSelectionCell" textLabel="jBQ-g6-fH8" style="IBUITableViewCellStyleDefault" id="r3h-Uu-kk8">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="r3h-Uu-kk8" id="ESh-G5-bD1">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jBQ-g6-fH8">
+                                            <rect key="frame" x="20" y="0.0" width="374" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="J7g-TQ-pgE" id="bgw-9v-fiC"/>
+                            <outlet property="delegate" destination="J7g-TQ-pgE" id="Z5v-rg-bEX"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CQD-Bu-Y6H" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-72" y="1436"/>
         </scene>
     </scenes>
     <resources>

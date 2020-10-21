@@ -169,13 +169,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         }
     }
 
-    @IBAction func renewSessionClicked(_ sender: Any) {
-        continueConnectionFlow(serverAPIOptions: [.ignoreStoredAuthState, .ignoreStoredKeyPair])
-    }
-
-    #if os(macOS)
-    @IBAction func profileSelected(_ sender: Any) {
-        let selectedIndex = profileSelectorPopupButton.indexOfSelectedItem
+    func profileSelected(selectedIndex: Int) {
         if let profiles = profiles,
             selectedIndex >= 0,
             selectedIndex < profiles.count {
@@ -183,11 +177,55 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         }
     }
 
+    @IBAction func renewSessionClicked(_ sender: Any) {
+        continueConnectionFlow(serverAPIOptions: [.ignoreStoredAuthState, .ignoreStoredKeyPair])
+    }
+
+    #if os(macOS)
+    @IBAction func profileSelected(_ sender: Any) {
+        profileSelected(selectedIndex: profileSelectorPopupButton.indexOfSelectedItem)
+    }
+
     @IBAction func connectionInfoChevronClicked(_ sender: Any) {
         viewModel.toggleConnectionInfoExpanded()
     }
     #endif
+
+    #if os(iOS)
+    @IBAction func profileSelectionRowTapped(_ sender: Any) {
+        guard let profiles = self.profiles else { return }
+        var items: [ItemSelectionViewController.Item] = []
+        var selectedIndex = -1
+        for (index, profile) in profiles.enumerated() {
+            let item = ItemSelectionViewController.Item(profile.displayName.string(for: Locale.current))
+            items.append(item)
+            if profile.profileId == selectedProfileId {
+                selectedIndex = index
+            }
+        }
+        let selectionVC = parameters.environment.instantiateItemSelectionViewController(
+            items: items, selectedIndex: selectedIndex)
+        selectionVC.title = NSLocalizedString("Select a profile", comment: "")
+        selectionVC.delegate = self
+        let navigationVC = UINavigationController(rootViewController: selectionVC)
+        navigationVC.modalPresentationStyle = .pageSheet
+        present(navigationVC, animated: true, completion: nil)
+    }
+    #endif
 }
+
+#if os(iOS)
+extension ConnectionViewController: ItemSelectionViewControllerDelegate {
+    func itemSelectionViewController(_ viewController: ItemSelectionViewController, didSelectIndex index: Int) {
+        profileSelected(selectedIndex: index)
+        if let selectedProfile = profiles?[index] {
+            profileRowNameLabel.text = selectedProfile.displayName.string(for: Locale.current)
+        } else {
+            profileRowNameLabel.text = NSLocalizedString("Unknown", comment: "Unknown profile")
+        }
+    }
+}
+#endif
 
 private extension ConnectionViewController {
     func setupInitialView(viewModel: ConnectionViewModel) {
