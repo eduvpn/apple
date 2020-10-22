@@ -214,7 +214,9 @@ class NavigationController: UINavigationController {
         ]
 
         if viewControllers.count == 1 {
-            navigationItem.titleView = topBarLogoImageView
+            navigationItem.title = Config.shared.appName
+            navigationItem.titleView =
+                (traitCollection.verticalSizeClass == .regular) ? topBarLogoImageView : nil
             navigationItem.leftBarButtonItem = UIBarButtonItem(
                 barButtonSystemItem: .add, target: self,
                 action: #selector(addButtonTapped(_:)))
@@ -235,6 +237,13 @@ class NavigationController: UINavigationController {
 
     @objc private func helpButtonTapped(_ sender: Any) {
         print("Help")
+    }
+
+    override func traitCollectionDidChange(_ prevTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(prevTraitCollection)
+        if (traitCollection.verticalSizeClass != prevTraitCollection?.verticalSizeClass) {
+            updateTopNavigationItem()
+        }
     }
 }
 
