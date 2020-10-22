@@ -65,3 +65,18 @@ extension SearchViewController {
         NSApp.activate(ignoringOtherApps: true)
     }
 }
+
+extension SearchViewController: AuthorizingViewController {
+    func didBeginFetchingServerInfoForAuthorization(userCancellationHandler: (() -> Void)?) {
+        navigationController?.showAuthorizingMessage(onCancelled: userCancellationHandler)
+    }
+
+    func didBeginAuthorization(macUserCancellationHandler: (() -> Void)?) {
+        navigationController?.showAuthorizingMessage(onCancelled: macUserCancellationHandler)
+    }
+
+    func didEndAuthorization() {
+        navigationController?.hideAuthorizingMessage()
+        NSApp.activate(ignoringOtherApps: true)
+    }
+}

@@ -3,8 +3,8 @@
 //  EduVPN
 //
 
-protocol NavigationControllerDelegate: class {
-    func addServerButtonClicked(inNavigationController controller: NavigationController)
+protocol NavigationControllerAddButtonDelegate: class {
+    func addButtonClicked(inNavigationController controller: NavigationController)
 }
 
 #if os(macOS)
@@ -22,7 +22,7 @@ class NavigationController: NSViewController {
 
     var isToolbarLeftButtonShowsAddServerUI: Bool { !canGoBack }
 
-    weak var delegate: NavigationControllerDelegate?
+    weak var addButtonDelegate: NavigationControllerAddButtonDelegate?
 
     private var canGoBack: Bool { children.count > 1 }
 
@@ -37,7 +37,7 @@ class NavigationController: NSViewController {
         if canGoBack {
             popViewController(animated: true)
         } else {
-            delegate?.addServerButtonClicked(inNavigationController: self)
+            addButtonDelegate?.addButtonClicked(inNavigationController: self)
         }
     }
 
@@ -118,7 +118,7 @@ extension NavigationController {
 }
 
 extension NavigationController {
-    func showAuthorizingMessage(onCancelled: @escaping () -> Void) {
+    func showAuthorizingMessage(onCancelled: (() -> Void)?) {
         self.authorizingMessageBox.isHidden = false
         self.onCancelled = onCancelled
         self.updateToolbarLeftButton()
@@ -160,6 +160,104 @@ import UIKit
 
 class NavigationController: UINavigationController {
     // Override push and pop to set navigation items
+
+    var environment: Environment? // Unused in iOS
+    weak var addButtonDelegate: NavigationControllerAddButtonDelegate?
+
+    override var preferredStatusBarStyle: UIStatusBarStyle { .default }
+
+    var isUserAllowedToGoBack: Bool = true {
+        didSet {
+            topViewController?.navigationItem.hidesBackButton = !isUserAllowedToGoBack
+        }
+    }
+
+    lazy private var topBarLogoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "TopBarLogo")
+        imageView.contentMode = .center
+        return imageView
+    }()
+
+    override func viewDidLoad() {
+        updateTopNavigationItem()
+    }
+
+    override func pushViewController(_ viewController: ViewController, animated: Bool) {
+        super.pushViewController(viewController, animated: animated)
+        updateTopNavigationItem()
+    }
+
+    @discardableResult
+    override func popViewController(animated: Bool) -> ViewController? {
+        let poppedVC = super.popViewController(animated: animated)
+        updateTopNavigationItem()
+        return poppedVC
+    }
+
+    func popToRoot() {
+        popToRootViewController(animated: false)
+    }
+
+    private func updateTopNavigationItem() {
+        guard let navigationItem = topViewController?.navigationItem else { return }
+
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(
+                image: UIImage(named: "QuestionButton"),
+                style: .plain, target: self,
+                action: #selector(helpButtonTapped(_:))),
+            UIBarButtonItem(
+                image: UIImage(named: "SettingsButton"),
+                style: .plain, target: self,
+                action: #selector(preferencesButtonTapped(_:)))
+        ]
+
+        if viewControllers.count == 1 {
+            navigationItem.titleView = topBarLogoImageView
+            navigationItem.leftBarButtonItem = UIBarButtonItem(
+                barButtonSystemItem: .add, target: self,
+                action: #selector(addButtonTapped(_:)))
+        } else {
+            navigationItem.titleView = nil
+            navigationItem.leftBarButtonItem = nil
+            navigationItem.hidesBackButton = !isUserAllowedToGoBack
+        }
+    }
+
+    @objc private func addButtonTapped(_ sender: Any) {
+        addButtonDelegate?.addButtonClicked(inNavigationController: self)
+    }
+
+    @objc private func preferencesButtonTapped(_ sender: Any) {
+        print("Preferences")
+    }
+
+    @objc private func helpButtonTapped(_ sender: Any) {
+        print("Help")
+    }
 }
 
+extension NavigationController {
+    func showAlert(for error: Error) {
+        let title: String
+        var informativeText: String? = nil
+        if let appError = error as? AppError {
+            title = appError.summary
+            informativeText = appError.detail
+        } else {
+            let underlyingError = (error as NSError).userInfo[NSUnderlyingErrorKey] as? Error
+            title = (underlyingError ?? error).localizedDescription
+            let userInfo = (error as NSError).userInfo
+            if !userInfo.isEmpty {
+                informativeText = "\(userInfo)"
+            }
+        }
+
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        let alert = UIAlertController(title: title, message: informativeText, preferredStyle: .alert)
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
+}
 #endif

@@ -20,7 +20,9 @@ class Environment {
     let serverAuthService: ServerAuthService
     let persistenceService: PersistenceService
     let serverAPIService: ServerAPIService
+    #if os(macOS)
     let connectionService: ConnectionService
+    #endif
 
     init(navigationController: NavigationController) {
         self.navigationController = navigationController
@@ -34,7 +36,9 @@ class Environment {
             configClientId: Config.shared.clientId)
         self.persistenceService = PersistenceService()
         self.serverAPIService = ServerAPIService(serverAuthService: serverAuthService)
+        #if os(macOS)
         self.connectionService = ConnectionService()
+        #endif
     }
 
     func instantiateSearchViewController(shouldIncludeOrganizations: Bool) -> SearchViewController {
@@ -44,6 +48,7 @@ class Environment {
         return instantiate(SearchViewController.self, identifier: "Search", parameters: parameters)
     }
 
+    #if os(macOS)
     func instantiateConnectionViewController(
         server: ServerInstance, serverDisplayInfo: ServerDisplayInfo, authURLTemplate: String?,
         restoredPreConnectionState: ConnectionAttempt.PreConnectionState? = nil) -> ConnectionViewController {
@@ -58,6 +63,7 @@ class Environment {
         let parameters = PreferencesViewController.Parameters(environment: self)
         return instantiate(PreferencesViewController.self, identifier: "Preferences", parameters: parameters)
     }
+    #endif
 
     func instantiate<VC: ViewController>(_ type: VC.Type, identifier: String) -> VC {
         guard let viewController =

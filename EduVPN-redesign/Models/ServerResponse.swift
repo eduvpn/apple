@@ -3,6 +3,8 @@
 //  EduVPN
 //
 
+import Foundation
+
 protocol ServerResponse {
     associatedtype DataType
     var data: DataType { get }

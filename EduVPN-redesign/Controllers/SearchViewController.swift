@@ -39,6 +39,14 @@ final class SearchViewController: ViewController, ParametrizedViewController {
 
     private var isTableViewShown: Bool = false
 
+    #if os(macOS)
+    var navigationController: NavigationController? { parameters.environment.navigationController }
+    #endif
+
+    #if os(iOS)
+    var contactingServerAlert: UIAlertController?
+    #endif
+
     func initializeParameters(_ parameters: Parameters) {
         guard self.parameters == nil else {
             fatalError("Can't initialize parameters twice")
@@ -55,8 +63,9 @@ final class SearchViewController: ViewController, ParametrizedViewController {
     }
 
     override func viewDidLoad() {
-        spinner.layer?.opacity = 0
-        tableContainerView.layer?.opacity = 0
+        title = NSLocalizedString("Add Server", comment: "")
+        spinner.setLayerOpacity(0)
+        tableContainerView.setLayerOpacity(0)
     }
 
     func showTableView() {
@@ -68,9 +77,9 @@ final class SearchViewController: ViewController, ParametrizedViewController {
             view?.removeFromSuperview()
         }
         performWithAnimation(seconds: 0.5) {
-            spinner.layer?.opacity = 1
-            tableContainerView.layer?.opacity = 1
-            stackView.layoutSubtreeIfNeeded()
+            self.spinner.setLayerOpacity(1)
+            self.tableContainerView.setLayerOpacity(1)
+            self.stackView.layoutIfNeeded()
         }
         spinner.startAnimation(self)
         firstly {
@@ -112,7 +121,7 @@ extension SearchViewController {
         return viewModel?.numberOfRows() ?? 0
     }
 
-    func cellForRow(at index: Int, tableView: TableView) -> NSView? {
+    func cellForRow(at index: Int, tableView: TableView) -> TableViewCell {
         let row = viewModel.row(at: index)
         if row.rowKind.isSectionHeader {
             let cell = tableView.dequeue(SectionHeaderCell.self,
@@ -180,19 +189,6 @@ extension SearchViewController: SearchViewModelDelegate {
         rowsChanged changes: RowsDifference<SearchViewModel.Row>) {
         tableView?.performUpdates(deletedIndices: changes.deletedIndices,
                                   insertedIndices: changes.insertions.map { $0.0 })
-    }
-}
-
-// MARK: - AuthorizingViewController
-
-extension SearchViewController: AuthorizingViewController {
-    func showAuthorizingMessage(onCancelled: @escaping () -> Void) {
-        parameters.environment.navigationController?
-            .showAuthorizingMessage(onCancelled: onCancelled)
-    }
-    func hideAuthorizingMessage() {
-        parameters.environment.navigationController?
-            .hideAuthorizingMessage()
     }
 }
 

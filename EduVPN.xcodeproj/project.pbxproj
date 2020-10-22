@@ -134,6 +134,35 @@
 		6F59A58824F51DEB00560155 /* server_list.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F59A58624F51DEB00560155 /* server_list.json */; };
 		6F59A58924F51DEB00560155 /* organization_list.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F59A58724F51DEB00560155 /* organization_list.json */; };
 		6F59A58B24F67CE500560155 /* OAuthExternalUserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F59A58A24F67CE500560155 /* OAuthExternalUserAgent.swift */; };
+		6F5E6C322522E72F000225C0 /* SectionHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF30FA24A317C00026C786 /* SectionHeaderCell.swift */; };
+		6F5E6C342522E897000225C0 /* MigrationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA8089424E6A75C00E7D924 /* MigrationHelper.swift */; };
+		6F5E6C352522E8A0000225C0 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FADF83024ADF86600B75E8D /* Log.swift */; };
+		6F5E6C362522E8A4000225C0 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FADF82E24ADF85F00B75E8D /* Crypto.swift */; };
+		6F5E6C382522E8E3000225C0 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F05E64124D0A6AA008292F6 /* AppError.swift */; };
+		6F5E6C392522E8E7000225C0 /* OAuthExternalUserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F59A58A24F67CE500560155 /* OAuthExternalUserAgent.swift */; };
+		6F5E6C3A2522E92E000225C0 /* DiscoveryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F71FBB7249B54490010D0FE /* DiscoveryData.swift */; };
+		6F5E6C3B2522E931000225C0 /* AuthState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF313C24A746AD0026C786 /* AuthState.swift */; };
+		6F5E6C3C2522E935000225C0 /* ServerInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FADF82C24ADF6C600B75E8D /* ServerInstance.swift */; };
+		6F5E6C3D2522E938000225C0 /* LanguageMappedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCC5EF324B8579D00C6BC80 /* LanguageMappedString.swift */; };
+		6F5E6C3E2522E93D000225C0 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCC5EF524B85D6700C6BC80 /* ServerResponse.swift */; };
+		6F5E6C3F2522E940000225C0 /* ServerDisplayInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD5CDA124C467CB00842A74 /* ServerDisplayInfo.swift */; };
+		6F5E6C402522E94F000225C0 /* DiscoveryDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F71FBBC249CCE980010D0FE /* DiscoveryDataFetcher.swift */; };
+		6F5E6C412522E953000225C0 /* ServerInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FADF82624ADF2E600B75E8D /* ServerInfoFetcher.swift */; };
+		6F5E6C422522E9B9000225C0 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FADF82924ADF56F00B75E8D /* PersistenceService.swift */; };
+		6F5E6C432522E9BF000225C0 /* ServerDiscoveryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF30D724A0B8C60026C786 /* ServerDiscoveryService.swift */; };
+		6F5E6C442522E9C8000225C0 /* ServerAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF313A24A717570026C786 /* ServerAuthService.swift */; };
+		6F5E6C462522E9EF000225C0 /* ServerAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC27AC724B9550C006FA648 /* ServerAPIService.swift */; };
+		6F5E6C472522E9FA000225C0 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCCC576249E25F100F0F5A3 /* NavigationController.swift */; };
+		6F5E6C482522EA0B000225C0 /* ViewModelRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF30F224A21AFE0026C786 /* ViewModelRow.swift */; };
+		6F5E6C492522EA13000225C0 /* server_list.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F59A58624F51DEB00560155 /* server_list.json */; };
+		6F5E6C4A2522EA2C000225C0 /* organization_list.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F59A58724F51DEB00560155 /* organization_list.json */; };
+		6F5E6C4B2522EF83000225C0 /* RowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF30FD24A324E40026C786 /* RowCell.swift */; };
+		6F5E6C4C2522F0CA000225C0 /* MainSecureInternetSectionHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F36A71E24B5A36E00BA8F5E /* MainSecureInternetSectionHeaderCell.swift */; };
+		6F5E6C4D2522F43F000225C0 /* UserDefaults+Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE1D12024D02FC3002D3D0C /* UserDefaults+Preferences.swift */; };
+		6F5E6C712524399B000225C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F5E6C702524399B000225C0 /* Assets.xcassets */; };
+		6F5E6C73252494C0000225C0 /* Common.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F5E6C72252494C0000225C0 /* Common.xcassets */; };
+		6F5E6C752525C90F000225C0 /* MainViewController+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E6C742525C90F000225C0 /* MainViewController+iOS.swift */; };
+		6F5E6C7725274548000225C0 /* CountryFlags.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F36A71C24B454AA00BA8F5E /* CountryFlags.xcassets */; };
 		6F71FBB9249B545B0010D0FE /* DiscoveryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F71FBB7249B54490010D0FE /* DiscoveryData.swift */; };
 		6F71FBBE249CCE9E0010D0FE /* DiscoveryDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F71FBBC249CCE980010D0FE /* DiscoveryDataFetcher.swift */; };
 		6F750C8524975A4300AF2C04 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340F956C22B7118C00835D56 /* NetworkExtension.framework */; };
@@ -146,6 +175,7 @@
 		6F7B63F225022AAE00FB154A /* LaunchAtLoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7B63F125022AAE00FB154A /* LaunchAtLoginHelper.swift */; };
 		6F7B643E2502A18D00FB154A /* ConnectionInfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7B643D2502A18C00FB154A /* ConnectionInfoHeaderView.swift */; };
 		6F8835EC24FCD481008F15FF /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8835EB24FCD481008F15FF /* MainWindowController.swift */; };
+		6F96BB53252C51090023EB1D /* SearchViewController+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F96BB52252C51080023EB1D /* SearchViewController+iOS.swift */; };
 		6FA8089524E6A75D00E7D924 /* MigrationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA8089424E6A75C00E7D924 /* MigrationHelper.swift */; };
 		6FA808AF24EBBD1F00E7D924 /* ConnectionAttempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA808AE24EBBD1F00E7D924 /* ConnectionAttempt.swift */; };
 		6FADF82724ADF2E600B75E8D /* ServerInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FADF82624ADF2E600B75E8D /* ServerInfoFetcher.swift */; };
@@ -163,7 +193,6 @@
 		6FD5CDA224C467CB00842A74 /* ServerDisplayInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD5CDA124C467CB00842A74 /* ServerDisplayInfo.swift */; };
 		6FD5CDA424C678CF00842A74 /* ConnectionViewModel+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD5CDA324C678CF00842A74 /* ConnectionViewModel+Localization.swift */; };
 		6FE1D11B24CD952C002D3D0C /* ConnectionInfoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE1D11A24CD952C002D3D0C /* ConnectionInfoHelper.swift */; };
-		6FE1D11C24CEA9C1002D3D0C /* ConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B43247FBDF5009932B1 /* ConnectionViewController.swift */; };
 		6FE1D12124D02FC3002D3D0C /* UserDefaults+Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE1D12024D02FC3002D3D0C /* UserDefaults+Preferences.swift */; };
 		6FEF30D824A0B8C60026C786 /* ServerDiscoveryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF30D724A0B8C60026C786 /* ServerDiscoveryService.swift */; };
 		6FEF30F424A21BF30026C786 /* ViewModelRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF30F224A21AFE0026C786 /* ViewModelRow.swift */; };
@@ -201,7 +230,6 @@
 		C7DB4C02248053D8009932B1 /* Moya+ResponseHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4C01248053D8009932B1 /* Moya+ResponseHandling.swift */; };
 		C7DB4C04248055D6009932B1 /* Moya+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4C03248055D6009932B1 /* Moya+Promise.swift */; };
 		C7DB4C1624805DB9009932B1 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4C1524805DB9009932B1 /* MainWindowController.swift */; };
-		C7DB4C1F248060F5009932B1 /* ConnectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B5E247FBEE3009932B1 /* ConnectionViewModel.swift */; };
 		C7DB4C21248060F5009932B1 /* Moya+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4C03248055D6009932B1 /* Moya+Promise.swift */; };
 		C7DB4C24248060F5009932B1 /* ServerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BCD24803A29009932B1 /* ServerInfo.swift */; };
 		C7DB4C25248060F5009932B1 /* Moya+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BFA24804C1A009932B1 /* Moya+Extensions.swift */; };
@@ -215,7 +243,6 @@
 		C7DB4C39248060F5009932B1 /* SignatureHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BD324803B99009932B1 /* SignatureHelper.swift */; };
 		C7DB4C3B248060F5009932B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B6A247FC198009932B1 /* AppDelegate.swift */; };
 		C7DB4C3C248060F5009932B1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B37247FBD52009932B1 /* MainViewController.swift */; };
-		C7DB4C3F248060F5009932B1 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B46247FBE26009932B1 /* PreferencesViewController.swift */; };
 		C7DB4C40248060F5009932B1 /* Moya+ResponseHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4C01248053D8009932B1 /* Moya+ResponseHandling.swift */; };
 		C7DB4C7724806512009932B1 /* eduVPN_2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4C7524806511009932B1 /* eduVPN_2.xcdatamodeld */; };
 		C7EB81512369B63A006C141F /* LoginItemHelper-macOS.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -543,14 +570,18 @@
 		6F59A58624F51DEB00560155 /* server_list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = server_list.json; sourceTree = "<group>"; };
 		6F59A58724F51DEB00560155 /* organization_list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = organization_list.json; sourceTree = "<group>"; };
 		6F59A58A24F67CE500560155 /* OAuthExternalUserAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthExternalUserAgent.swift; sourceTree = "<group>"; };
+		6F5E6C702524399B000225C0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6F5E6C72252494C0000225C0 /* Common.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Common.xcassets; sourceTree = "<group>"; };
+		6F5E6C742525C90F000225C0 /* MainViewController+iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+iOS.swift"; sourceTree = "<group>"; };
 		6F71FBB7249B54490010D0FE /* DiscoveryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryData.swift; sourceTree = "<group>"; };
 		6F71FBBC249CCE980010D0FE /* DiscoveryDataFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveryDataFetcher.swift; sourceTree = "<group>"; };
 		6F750C9624975A4300AF2C04 /* eduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6F750D2124975B9B00AF2C04 /* EduVPN-redesign-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "EduVPN-redesign-iOS.app"; path = "Let's Connect.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F750D2124975B9B00AF2C04 /* EduVPN-redesign-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "EduVPN-redesign-iOS.app"; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F7B63EF2500FD7300FB154A /* StatusItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusItemController.swift; sourceTree = "<group>"; };
 		6F7B63F125022AAE00FB154A /* LaunchAtLoginHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginHelper.swift; sourceTree = "<group>"; };
 		6F7B643D2502A18C00FB154A /* ConnectionInfoHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionInfoHeaderView.swift; sourceTree = "<group>"; };
 		6F8835EB24FCD481008F15FF /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
+		6F96BB52252C51080023EB1D /* SearchViewController+iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController+iOS.swift"; sourceTree = "<group>"; };
 		6FA8089424E6A75C00E7D924 /* MigrationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MigrationHelper.swift; sourceTree = "<group>"; };
 		6FA808AE24EBBD1F00E7D924 /* ConnectionAttempt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionAttempt.swift; sourceTree = "<group>"; };
 		6FADF82624ADF2E600B75E8D /* ServerInfoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerInfoFetcher.swift; sourceTree = "<group>"; };
@@ -1068,7 +1099,7 @@
 				34D719DE228D75550027DE84 /* eduVPN.app */,
 				342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */,
 				349D85C222B706A4006E9540 /* EduVPNTunnelExtension-macOS.appex */,
-				6F750C9624975A4300AF2C04 /* EduVPN-redesign-macOS.app */,
+				6F750C9624975A4300AF2C04 /* eduVPN.app */,
 				6F750D2124975B9B00AF2C04 /* EduVPN-redesign-iOS.app */,
 			);
 			name = Products;
@@ -1280,6 +1311,8 @@
 				C7DB4B43247FBDF5009932B1 /* ConnectionViewController.swift */,
 				C7DB4B46247FBE26009932B1 /* PreferencesViewController.swift */,
 				6F8835EB24FCD481008F15FF /* MainWindowController.swift */,
+				6F5E6C742525C90F000225C0 /* MainViewController+iOS.swift */,
+				6F96BB52252C51080023EB1D /* SearchViewController+iOS.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1391,6 +1424,7 @@
 		C7DB4C0A24805B56009932B1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6F36A71C24B454AA00BA8F5E /* CountryFlags.xcassets */,
 				6F59A58524F51DEB00560155 /* Discovery */,
 				6FBFEF0D24C2DC8C00A9D1D4 /* Fonts */,
 				C7DB4C7524806511009932B1 /* eduVPN_2.xcdatamodeld */,
@@ -1407,7 +1441,6 @@
 				6FEF313324A48FB10026C786 /* Common.xcassets */,
 				C7DB4C6D248064BC009932B1 /* Info.plist */,
 				C7DB4C6B248064BC009932B1 /* Main.storyboard */,
-				6F36A71C24B454AA00BA8F5E /* CountryFlags.xcassets */,
 			);
 			path = Mac;
 			sourceTree = "<group>";
@@ -1418,6 +1451,8 @@
 				C7DB4C73248064C6009932B1 /* Info.plist */,
 				C7DB4C90248067EE009932B1 /* LaunchScreen.storyboard */,
 				C7DB4C9624806832009932B1 /* Main.storyboard */,
+				6F5E6C702524399B000225C0 /* Assets.xcassets */,
+				6F5E6C72252494C0000225C0 /* Common.xcassets */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -1645,7 +1680,7 @@
 			);
 			name = "EduVPN-redesign-macOS";
 			productName = "EduVPN-macOS";
-			productReference = 6F750C9624975A4300AF2C04 /* EduVPN-redesign-macOS.app */;
+			productReference = 6F750C9624975A4300AF2C04 /* eduVPN.app */;
 			productType = "com.apple.product-type.application";
 		};
 		6F750CBD24975B9B00AF2C04 /* EduVPN-redesign-iOS */ = {
@@ -1887,6 +1922,11 @@
 			files = (
 				6F13E3E424977C1300E21614 /* config.json in Resources */,
 				6F13E3E224977BEB00E21614 /* Main.storyboard in Resources */,
+				6F5E6C73252494C0000225C0 /* Common.xcassets in Resources */,
+				6F5E6C7725274548000225C0 /* CountryFlags.xcassets in Resources */,
+				6F5E6C4A2522EA2C000225C0 /* organization_list.json in Resources */,
+				6F5E6C492522EA13000225C0 /* server_list.json in Resources */,
+				6F5E6C712524399B000225C0 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2688,23 +2728,45 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7DB4C1F248060F5009932B1 /* ConnectionViewModel.swift in Sources */,
 				C7DB4C21248060F5009932B1 /* Moya+Promise.swift in Sources */,
 				C7DB4C24248060F5009932B1 /* ServerInfo.swift in Sources */,
+				6F5E6C382522E8E3000225C0 /* AppError.swift in Sources */,
+				6F5E6C4D2522F43F000225C0 /* UserDefaults+Preferences.swift in Sources */,
+				6F5E6C3A2522E92E000225C0 /* DiscoveryData.swift in Sources */,
 				C7DB4C25248060F5009932B1 /* Moya+Extensions.swift in Sources */,
+				6F96BB53252C51090023EB1D /* SearchViewController+iOS.swift in Sources */,
 				C7DB4C2A248060F5009932B1 /* SearchViewController.swift in Sources */,
-				6FE1D11C24CEA9C1002D3D0C /* ConnectionViewController.swift in Sources */,
 				C7DB4C2C248060F5009932B1 /* MainViewModel.swift in Sources */,
+				6F5E6C482522EA0B000225C0 /* ViewModelRow.swift in Sources */,
+				6F5E6C3D2522E938000225C0 /* LanguageMappedString.swift in Sources */,
 				C7DB4C33248060F5009932B1 /* Environment.swift in Sources */,
+				6F5E6C3E2522E93D000225C0 /* ServerResponse.swift in Sources */,
+				6F5E6C322522E72F000225C0 /* SectionHeaderCell.swift in Sources */,
 				C7DB4C34248060F5009932B1 /* Config.swift in Sources */,
+				6F5E6C352522E8A0000225C0 /* Log.swift in Sources */,
+				6F5E6C432522E9BF000225C0 /* ServerDiscoveryService.swift in Sources */,
 				C7DB4C36248060F5009932B1 /* FileHelper.swift in Sources */,
+				6F5E6C3C2522E935000225C0 /* ServerInstance.swift in Sources */,
 				C7DB4C37248060F5009932B1 /* Multiplatform.swift in Sources */,
+				6F5E6C342522E897000225C0 /* MigrationHelper.swift in Sources */,
+				6F5E6C4C2522F0CA000225C0 /* MainSecureInternetSectionHeaderCell.swift in Sources */,
+				6F5E6C402522E94F000225C0 /* DiscoveryDataFetcher.swift in Sources */,
+				6F5E6C462522E9EF000225C0 /* ServerAPIService.swift in Sources */,
+				6F5E6C412522E953000225C0 /* ServerInfoFetcher.swift in Sources */,
+				6F5E6C392522E8E7000225C0 /* OAuthExternalUserAgent.swift in Sources */,
+				6F5E6C472522E9FA000225C0 /* NavigationController.swift in Sources */,
+				6F5E6C3B2522E931000225C0 /* AuthState.swift in Sources */,
+				6F5E6C362522E8A4000225C0 /* Crypto.swift in Sources */,
 				C7DB4C38248060F5009932B1 /* SearchViewModel.swift in Sources */,
 				C7DB4C39248060F5009932B1 /* SignatureHelper.swift in Sources */,
+				6F5E6C4B2522EF83000225C0 /* RowCell.swift in Sources */,
 				C7DB4C3B248060F5009932B1 /* AppDelegate.swift in Sources */,
+				6F5E6C3F2522E940000225C0 /* ServerDisplayInfo.swift in Sources */,
 				C7DB4C3C248060F5009932B1 /* MainViewController.swift in Sources */,
-				C7DB4C3F248060F5009932B1 /* PreferencesViewController.swift in Sources */,
 				C7DB4C40248060F5009932B1 /* Moya+ResponseHandling.swift in Sources */,
+				6F5E6C752525C90F000225C0 /* MainViewController+iOS.swift in Sources */,
+				6F5E6C442522E9C8000225C0 /* ServerAuthService.swift in Sources */,
+				6F5E6C422522E9B9000225C0 /* PersistenceService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

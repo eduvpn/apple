@@ -446,14 +446,23 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
     }
 }
 
+#if os(macOS)
+
 extension ConnectionViewController: AuthorizingViewController {
-    func showAuthorizingMessage(onCancelled: @escaping () -> Void) {
-        parameters.environment.navigationController?
-            .showAuthorizingMessage(onCancelled: onCancelled)
+    func didBeginFetchingServerInfoForAuthorization(userCancellationHandler: (() -> Void)?) {
+        fatalError("Fetching server.json is not necessary during authorization")
     }
 
-    func hideAuthorizingMessage() {
+    func didBeginAuthorization(macUserCancellationHandler: (() -> Void)?) {
+        parameters.environment.navigationController?
+            .showAuthorizingMessage(onCancelled: macUserCancellationHandler)
+    }
+
+    func didEndAuthorization() {
         parameters.environment.navigationController?
             .hideAuthorizingMessage()
+        NSApp.activate(ignoringOtherApps: true)
     }
 }
+
+#endif

@@ -29,7 +29,9 @@ class Crypto {
         var attributes = [String: Any]()
         attributes[kSecAttrKeyType as String] = kSecAttrKeyTypeEC
         attributes[kSecAttrKeySizeInBits as String] = 256
+        #if !targetEnvironment(simulator)
         attributes[kSecAttrTokenID as String] = kSecAttrTokenIDSecureEnclave
+        #endif
         
         var error: Unmanaged<CFError>?
         let randomKey = SecKeyCreateRandomKey(attributes as CFDictionary, &error)

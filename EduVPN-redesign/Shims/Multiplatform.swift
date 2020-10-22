@@ -17,6 +17,12 @@ protocol Navigating {
     func popViewController(animated: Bool) -> ViewController?
 }
 
+protocol AuthorizingViewController: ViewController {
+    func didBeginFetchingServerInfoForAuthorization(userCancellationHandler: (() -> Void)?)
+    func didBeginAuthorization(macUserCancellationHandler: (() -> Void)?)
+    func didEndAuthorization()
+}
+
 #if os(iOS)
 import UIKit
 
@@ -24,6 +30,7 @@ typealias ApplicationDelegate = UIApplicationDelegate
 typealias ViewController = UIViewController
 typealias PresentingController = UIViewController
 typealias Window = UIWindow
+typealias View = UIView
 typealias Storyboard = UIStoryboard
 typealias Button = UIButton
 typealias TableView = UITableView
@@ -36,14 +43,49 @@ typealias ProgressIndicator = UIActivityIndicatorView
 extension PresentingController: Presenting { }
 extension NavigationController: Navigating { }
 
-extension TableView {
-    func dequeue<T: TableViewCell>(identifier: String, indexPath: IndexPath) -> T {
-        //swiftlint:disable:next force_cast
-        return dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! T
+extension ViewController {
+    func performWithAnimation(seconds: TimeInterval, animationBlock: @escaping () -> Void) {
+        UIView.animate(withDuration: seconds, animations: animationBlock)
     }
 }
 
-protocol AuthorizingViewController: ViewController {
+extension View {
+    func setLayerOpacity(_ opacity: Float) {
+        layer.opacity = opacity
+    }
+}
+
+class VPNSwitch: UISwitch {
+}
+
+extension TableView {
+    func dequeue<T: TableViewCell>(_ type: T.Type, identifier: String, indexPath: IndexPath) -> T {
+        //swiftlint:disable:next force_cast
+        return dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! T
+    }
+
+    func performUpdates(deletedIndices: [Int], insertedIndices: [Int]) {
+        UIView.setAnimationsEnabled(false)
+        beginUpdates()
+        deleteRows(at: deletedIndices.map { IndexPath(row: $0, section: 0) }, with: .none)
+        insertRows(at: insertedIndices.map { IndexPath(row: $0, section: 0) }, with: .none)
+        endUpdates()
+        UIView.setAnimationsEnabled(true)
+    }
+
+    func reloadRows(indices: [Int]) {
+        reloadRows(at: indices.map { IndexPath(row: $0, section: 0) }, with: .none)
+    }
+}
+
+extension ProgressIndicator {
+    func startAnimation(_ sender: Any?) {
+        startAnimating()
+    }
+
+    func stopAnimation(_ sender: Any?) {
+        stopAnimating()
+    }
 }
 
 #elseif os(macOS)
@@ -71,6 +113,38 @@ extension Window {
         return windowController?.contentViewController
     }
 }
+
+extension ViewController {
+    func performWithAnimation(seconds: TimeInterval, animationBlock: @escaping () -> Void) {
+        NSAnimationContext.runAnimationGroup({ context in
+            context.duration = seconds
+            context.allowsImplicitAnimation = true
+            animationBlock()
+        }, completionHandler: nil)
+    }
+}
+
+extension View {
+    func setLayerOpacity(_ opacity: Float) {
+        layer?.opacity = opacity
+    }
+
+    func layoutIfNeeded() {
+        layoutSubtreeIfNeeded()
+    }
+}
+
+class VPNSwitch: NSButton {
+    var isOn: Bool {
+        get {
+            state == .on
+        }
+        set(value) {
+            state = value ? .on : .off
+        }
+    }
+}
+
 
 extension Storyboard {
 
@@ -102,11 +176,10 @@ extension TableView {
         insertRows(at: IndexSet(insertedIndices), withAnimation: [])
         endUpdates()
     }
-}
 
-protocol AuthorizingViewController: ViewController {
-    func showAuthorizingMessage(onCancelled: @escaping () -> Void)
-    func hideAuthorizingMessage()
+    func reloadRows(indices: [Int]) {
+        reloadData(forRowIndexes: IndexSet(indices), columnIndexes: IndexSet([0]))
+    }
 }
 
 #endif

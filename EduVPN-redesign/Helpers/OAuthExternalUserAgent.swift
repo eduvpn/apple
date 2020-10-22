@@ -43,6 +43,83 @@ class OAuthExternalUserAgent: NSObject, OIDExternalUserAgent {
         completion()
     }
 }
+#elseif os(iOS)
+
+import AuthenticationServices
+
+class OAuthExternalUserAgent: NSObject, OIDExternalUserAgent {
+    private var presentingViewController: ViewController
+    private var isExternalUserAgentFlowInProgress = false
+    private var wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?
+
+    private var webAuthSession: ASWebAuthenticationSession?
+
+    init(presentingViewController: AuthorizingViewController,
+         wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?) {
+        self.presentingViewController = presentingViewController
+        self.wayfSkippingInfo = wayfSkippingInfo
+    }
+
+    func present(_ request: OIDExternalUserAgentRequest, session: OIDExternalUserAgentSession) -> Bool {
+        if isExternalUserAgentFlowInProgress {
+            return false
+        }
+        guard let requestURL = request.externalUserAgentRequestURL() else {
+            return false
+        }
+
+        isExternalUserAgentFlowInProgress = true
+        let urlToOpen = wayfSkippedRequestURL(from: requestURL) ?? requestURL
+        let webAuthSession = ASWebAuthenticationSession(
+            url: urlToOpen,
+            callbackURLScheme: request.redirectScheme()) { [session, weak self] (url, error) in
+                guard let self = self else { return }
+                if let error = error {
+                    session.failExternalUserAgentFlowWithError(
+                        OIDErrorUtilities.error(
+                            with: .browserOpenError,
+                            underlyingError: error,
+                            description: "ASWebAuthenticationSession failed"))
+                    return
+                }
+                if let url = url {
+                    session.resumeExternalUserAgentFlow(with: url)
+                } else {
+                    self.isExternalUserAgentFlowInProgress = false
+                    session.failExternalUserAgentFlowWithError(
+                        OIDErrorUtilities.error(
+                            with: .userCanceledAuthorizationFlow,
+                            underlyingError: nil,
+                            description: nil))
+                }
+                self.webAuthSession = nil
+        }
+
+        if #available(iOS 13, *) {
+            webAuthSession.presentationContextProvider = self
+        }
+
+        self.webAuthSession = webAuthSession
+        return webAuthSession.start()
+    }
+
+    func dismiss(animated: Bool, completion: @escaping () -> Void) {
+        guard isExternalUserAgentFlowInProgress else {
+            completion()
+            return
+        }
+        self.webAuthSession?.cancel()
+        isExternalUserAgentFlowInProgress = false
+        completion()
+    }
+}
+
+@available(iOS 13, *)
+extension OAuthExternalUserAgent: ASWebAuthenticationPresentationContextProviding {
+    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+        presentingViewController.view.window!
+    }
+}
 #endif
 
 private extension OAuthExternalUserAgent {

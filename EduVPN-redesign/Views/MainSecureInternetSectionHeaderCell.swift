@@ -5,6 +5,9 @@
 
 #if os(macOS)
 import AppKit
+#elseif os(iOS)
+import UIKit
+#endif
 
 class MainSecureInternetSectionHeaderCell: SectionHeaderCell {
 
@@ -18,7 +21,9 @@ class MainSecureInternetSectionHeaderCell: SectionHeaderCell {
 
     private var pullDownServerEntries: [ServerEntry] = []
 
+    #if os(macOS)
     @IBOutlet weak var changeLocationPullDown: NSPopUpButton!
+    #endif
 
     func configureMainSecureInternetSectionHeader(
         serversMap: [DiscoveryData.BaseURLString: DiscoveryData.SecureInternetServer],
@@ -41,6 +46,7 @@ class MainSecureInternetSectionHeaderCell: SectionHeaderCell {
         serverEntries.sort { $0.countryName < $1.countryName }
         self.pullDownServerEntries = serverEntries
 
+        #if os(macOS)
         changeLocationPullDown.removeAllItems()
         if let menu = changeLocationPullDown.menu {
             let buttonTitle = NSLocalizedString("Change Location", comment: "")
@@ -56,8 +62,10 @@ class MainSecureInternetSectionHeaderCell: SectionHeaderCell {
                 menu.addItem(menuItem)
             }
         }
+        #endif
     }
 
+    #if os(macOS)
     @objc func locationSelected(sender: Any) {
         guard let menuItem = sender as? NSMenuItem else { return }
         guard menuItem.tag < pullDownServerEntries.count else { return }
@@ -66,5 +74,5 @@ class MainSecureInternetSectionHeaderCell: SectionHeaderCell {
             onLocationChanged?(serverEntry.baseURLString)
         }
     }
+    #endif
 }
-#endif
