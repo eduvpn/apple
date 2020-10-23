@@ -128,18 +128,27 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rfe-gF-Wx9">
-                                                    <rect key="frame" x="60" y="35" width="334" height="28.5"/>
+                                                    <rect key="frame" x="60" y="35" width="198" height="28.5"/>
                                                     <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eUM-71-kHR">
+                                                    <rect key="frame" x="268" y="37" width="116" height="30"/>
+                                                    <state key="normal" title="Change Location"/>
+                                                    <connections>
+                                                        <action selector="changeLocationTapped:" destination="qaR-jP-1W0" eventType="touchUpInside" id="7T7-A2-aug"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Rfe-gF-Wx9" firstAttribute="leading" secondItem="cGD-Wn-if5" secondAttribute="trailing" constant="10" id="06Y-Ch-Z4f"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="Rfe-gF-Wx9" secondAttribute="bottom" constant="4" id="1ym-56-Ofy"/>
                                                 <constraint firstItem="Rfe-gF-Wx9" firstAttribute="top" secondItem="J6y-9a-9Oo" secondAttribute="topMargin" constant="24" id="F1s-KV-dnW"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="Rfe-gF-Wx9" secondAttribute="trailing" id="diP-tV-Dzd"/>
+                                                <constraint firstItem="eUM-71-kHR" firstAttribute="leading" secondItem="Rfe-gF-Wx9" secondAttribute="trailing" constant="10" id="d8X-QQ-lXE"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="eUM-71-kHR" secondAttribute="trailing" constant="10" id="kve-1f-6A5"/>
                                                 <constraint firstItem="cGD-Wn-if5" firstAttribute="centerY" secondItem="Rfe-gF-Wx9" secondAttribute="centerY" constant="-2" id="mCv-be-8kB"/>
+                                                <constraint firstItem="eUM-71-kHR" firstAttribute="baseline" secondItem="Rfe-gF-Wx9" secondAttribute="baseline" id="nFB-zf-dUc"/>
                                                 <constraint firstItem="cGD-Wn-if5" firstAttribute="leading" secondItem="J6y-9a-9Oo" secondAttribute="leading" constant="20" id="nM1-12-get"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -205,26 +214,26 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find your institute" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4I8-Zx-Jlu">
-                                        <rect key="frame" x="0.0" y="181" width="414" height="28"/>
+                                        <rect key="frame" x="0.0" y="181" width="414" height="33"/>
                                         <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="24"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <searchBar contentMode="redraw" verticalHuggingPriority="500" searchBarStyle="minimal" placeholder="Search for your institute..." translatesAutoresizingMaskIntoConstraints="NO" id="jE7-4D-h8q">
-                                        <rect key="frame" x="0.0" y="221" width="414" height="56"/>
+                                        <rect key="frame" x="0.0" y="226" width="414" height="56"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                         <connections>
                                             <outlet property="delegate" destination="GFf-Kn-0Ob" id="EC3-oh-xNy"/>
                                         </connections>
                                     </searchBar>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="eXL-Ez-0M0" userLabel="Spinner">
-                                        <rect key="frame" x="0.0" y="289" width="414" height="20"/>
+                                        <rect key="frame" x="0.0" y="294" width="414" height="20"/>
                                     </activityIndicatorView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="grl-2e-g9Z" userLabel="Table Container View">
-                                        <rect key="frame" x="0.0" y="321" width="414" height="497"/>
+                                        <rect key="frame" x="0.0" y="326" width="414" height="492"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XC9-sv-Z66">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="497"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="492"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchRowCell" textLabel="G3K-Yo-Vb7" style="IBUITableViewCellStyleDefault" id="jg4-Se-j3E" userLabel="Search Row" customClass="RowCell" customModule="eduVPN" customModuleProvider="target">
@@ -245,21 +254,21 @@
                                                         </tableViewCellContentView>
                                                     </tableViewCell>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="MainSectionHeaderCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchSectionHeaderCell" id="51I-6k-mhR" userLabel="Search Section Header" customClass="SectionHeaderCell" customModule="eduVPN" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="71.5" width="414" height="74"/>
+                                                        <rect key="frame" x="0.0" y="71.5" width="414" height="78"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="51I-6k-mhR" id="cia-KD-gGj">
-                                                            <rect key="frame" x="0.0" y="0.0" width="414" height="74"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="414" height="78"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IcM-3F-aG1">
-                                                                    <rect key="frame" x="20" y="30" width="30" height="30"/>
+                                                                    <rect key="frame" x="20" y="32" width="30" height="30"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="30" id="OBV-OS-LVp"/>
                                                                         <constraint firstAttribute="height" constant="30" id="UX2-z3-Yrc"/>
                                                                     </constraints>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tWc-Vs-nt9">
-                                                                    <rect key="frame" x="60" y="35" width="334" height="24"/>
+                                                                    <rect key="frame" x="60" y="35" width="334" height="28"/>
                                                                     <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="20"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -280,7 +289,7 @@
                                                         </connections>
                                                     </tableViewCell>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchNoResultsCell" textLabel="p7f-Cm-ntA" style="IBUITableViewCellStyleDefault" id="UGc-9h-dOK" userLabel="Search No Results" customClass="SearchNoResultsCell" customModule="eduVPN" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="145.5" width="414" height="43.5"/>
+                                                        <rect key="frame" x="0.0" y="149.5" width="414" height="43.5"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UGc-9h-dOK" id="zj5-6d-z9M">
                                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>

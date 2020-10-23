@@ -165,6 +165,8 @@ extension MainViewController {
                 let selectedBaseURLString = environment.persistenceService.secureInternetServer?.apiBaseURLString
                     ?? DiscoveryData.BaseURLString(urlString: "")
                 cell.configureMainSecureInternetSectionHeader(
+                    environment: environment,
+                    containingViewController: self,
                     serversMap: viewModel.secureInternetServersMap,
                     selectedBaseURLString: selectedBaseURLString,
                     onLocationChanged: { baseURLString in
