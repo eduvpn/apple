@@ -79,21 +79,21 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="MainSectionHeaderCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MainSectionHeaderCell" id="yMb-As-UNX" userLabel="Main Section Header" customClass="SectionHeaderCell" customModule="eduVPN" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="115" width="414" height="78"/>
+                                        <rect key="frame" x="0.0" y="115" width="414" height="78.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yMb-As-UNX" id="8ZY-UX-jMB">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="78"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="78.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xfu-EH-waX">
-                                                    <rect key="frame" x="20" y="32" width="30" height="30"/>
+                                                    <rect key="frame" x="20" y="32.5" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="Ixp-iu-5x5"/>
                                                         <constraint firstAttribute="width" constant="30" id="nD7-IE-tTs"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ayi-Q2-5Y0">
-                                                    <rect key="frame" x="60" y="35" width="334" height="28"/>
+                                                    <rect key="frame" x="60" y="35" width="334" height="28.5"/>
                                                     <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -114,27 +114,27 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="MainSecureInternetSectionHeaderCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MainSecureInternetSectionHeaderCell" id="qaR-jP-1W0" userLabel="Main Secure Internet Section Header" customClass="MainSecureInternetSectionHeaderCell" customModule="eduVPN" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="193" width="414" height="78.5"/>
+                                        <rect key="frame" x="0.0" y="193.5" width="414" height="78"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qaR-jP-1W0" id="J6y-9a-9Oo">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="78.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="78"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cGD-Wn-if5">
-                                                    <rect key="frame" x="20" y="32.5" width="30" height="30"/>
+                                                    <rect key="frame" x="20" y="32" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="30" id="Cxl-ns-Wpr"/>
                                                         <constraint firstAttribute="height" constant="30" id="ddT-D0-vqc"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rfe-gF-Wx9">
-                                                    <rect key="frame" x="60" y="35" width="198" height="28.5"/>
+                                                    <rect key="frame" x="60" y="35" width="198" height="28"/>
                                                     <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eUM-71-kHR">
-                                                    <rect key="frame" x="268" y="37" width="116" height="30"/>
+                                                    <rect key="frame" x="268" y="36.5" width="116" height="30"/>
                                                     <state key="normal" title="Change Location"/>
                                                     <connections>
                                                         <action selector="changeLocationTapped:" destination="qaR-jP-1W0" eventType="touchUpInside" id="7T7-A2-aug"/>
@@ -610,6 +610,7 @@
                                                     </stackView>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <gestureRecognizers/>
                                                 <constraints>
                                                     <constraint firstItem="XEb-Hj-i11" firstAttribute="leading" secondItem="k8w-to-l21" secondAttribute="leading" constant="20" id="ICc-r9-6Ej"/>
                                                     <constraint firstAttribute="height" constant="46" id="ag7-Ey-cxU"/>
@@ -617,6 +618,9 @@
                                                     <constraint firstAttribute="bottom" secondItem="XEb-Hj-i11" secondAttribute="bottom" id="iN1-Eo-6GO"/>
                                                     <constraint firstAttribute="trailing" secondItem="XEb-Hj-i11" secondAttribute="trailing" id="p3t-Zp-Nog"/>
                                                 </constraints>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="QN9-zl-M4z" appends="YES" id="HVZ-hd-Zqd"/>
+                                                </connections>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j2K-d5-CP1">
                                                 <rect key="frame" x="206" y="92" width="2" height="28"/>
@@ -658,7 +662,6 @@
                         <outlet property="additionalControlContainerHeightConstraint" destination="1MO-lj-OfQ" id="49f-zv-3af"/>
                         <outlet property="bottomStackView" destination="F83-a3-CjH" id="zbD-mq-uRe"/>
                         <outlet property="connectionInfoHeader" destination="k8w-to-l21" id="VJQ-yF-ftA"/>
-                        <outlet property="connectionInfoHeaderHeightConstraint" destination="ag7-Ey-cxU" id="JfA-2E-lih"/>
                         <outlet property="connectionStatusImageView" destination="SMW-WO-xIh" id="kmM-N1-P3y"/>
                         <outlet property="profileRowNameLabel" destination="FSj-Ul-INY" id="I9G-ci-cdQ"/>
                         <outlet property="profileSelectionView" destination="Nli-Au-iEK" id="EYO-Jy-IIu"/>
@@ -678,6 +681,11 @@
                 <tapGestureRecognizer id="Kug-qE-IsH" userLabel="Profile Selection Tap Gesture Recognizer">
                     <connections>
                         <action selector="profileSelectionRowTapped:" destination="vqW-N3-HUm" id="di6-5U-uv1"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="QN9-zl-M4z" userLabel="Connection Info Tap Gesture Recognizer">
+                    <connections>
+                        <action selector="connectionInfoRowTapped:" destination="vqW-N3-HUm" id="Mfw-h9-xED"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -718,7 +726,62 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CQD-Bu-Y6H" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-72" y="1436"/>
+            <point key="canvasLocation" x="-884" y="1523"/>
+        </scene>
+        <!--Connection Info View Controller-->
+        <scene sceneID="0Yj-bC-OBx">
+            <objects>
+                <tableViewController storyboardIdentifier="ConnectionInfo" title="Connection Info" id="pPW-Bx-DVf" userLabel="Connection Info View Controller" customClass="ConnectionInfoViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="k1q-sl-0xG">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ConnectionInfoCell" rowHeight="78" id="cUW-x0-2CU" userLabel="Connection Info Cell" customClass="ConnectionInfoCell" customModule="eduVPN" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="78"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cUW-x0-2CU" id="LHB-xm-ZMQ">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="78"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="TITLE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Jq-bB-2yj">
+                                            <rect key="frame" x="20" y="5" width="389" height="31"/>
+                                            <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="14"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ye3-jM-K8f" userLabel="Value Label">
+                                            <rect key="frame" x="20" y="44" width="389" height="21"/>
+                                            <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="16"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="ye3-jM-K8f" secondAttribute="bottom" constant="5" id="0F7-EW-Zdv"/>
+                                        <constraint firstItem="ye3-jM-K8f" firstAttribute="top" secondItem="5Jq-bB-2yj" secondAttribute="bottom" constant="5" id="49X-CU-Pin"/>
+                                        <constraint firstAttribute="trailing" secondItem="5Jq-bB-2yj" secondAttribute="trailing" constant="5" id="9ub-eS-i61"/>
+                                        <constraint firstItem="5Jq-bB-2yj" firstAttribute="leading" secondItem="LHB-xm-ZMQ" secondAttribute="leading" constant="20" id="IlA-h4-iV7"/>
+                                        <constraint firstItem="ye3-jM-K8f" firstAttribute="leading" secondItem="LHB-xm-ZMQ" secondAttribute="leading" constant="20" id="cK5-RA-QhZ"/>
+                                        <constraint firstItem="5Jq-bB-2yj" firstAttribute="top" secondItem="LHB-xm-ZMQ" secondAttribute="top" constant="5" id="ezd-IB-HWF"/>
+                                        <constraint firstAttribute="trailing" secondItem="ye3-jM-K8f" secondAttribute="trailing" constant="5" id="pM5-YV-QU3"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="titleLabel" destination="5Jq-bB-2yj" id="EzK-Ut-FUo"/>
+                                    <outlet property="valueLabel" destination="ye3-jM-K8f" id="Tx7-ZM-oCc"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="pPW-Bx-DVf" id="foh-aE-WH6"/>
+                            <outlet property="delegate" destination="pPW-Bx-DVf" id="V3x-hM-Vcs"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6T8-eS-Op9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="200.00000000000003" y="1522.7678571428571"/>
         </scene>
     </scenes>
     <resources>

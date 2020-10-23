@@ -109,7 +109,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     @IBOutlet weak var connectionInfoBodyHeightConstraint: NSLayoutConstraint!
 
     #if os(iOS)
-    @IBOutlet weak var connectionInfoHeaderHeightConstraint: NSLayoutConstraint!
+    weak var presentedConnectionInfoVC: ConnectionInfoViewController?
     #endif
 
     func initializeParameters(_ parameters: Parameters) {
@@ -215,6 +215,10 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         let navigationVC = UINavigationController(rootViewController: selectionVC)
         navigationVC.modalPresentationStyle = .pageSheet
         present(navigationVC, animated: true, completion: nil)
+    }
+
+    @IBAction func connectionInfoRowTapped(_ sender: Any) {
+        viewModel.toggleConnectionInfoExpanded()
     }
     #endif
 }
@@ -540,6 +544,22 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
             bodyAlpha = 0
             bodyHeight = 0
 
+            if let connectionInfoVC = self.presentedConnectionInfoVC {
+                connectionInfoVC.connectionInfo = connectionInfo
+            } else {
+                let vc = parameters.environment.instantiateConnectionInfoViewController(
+                    connectionInfo: connectionInfo)
+                vc.navigationItem.rightBarButtonItem = UIBarButtonItem(
+                    barButtonSystemItem: .done, target: self,
+                    action: #selector(connectionInfoViewControllerDoneTapped(_:)))
+                let navigationVC = UINavigationController(rootViewController: vc)
+                navigationVC.modalPresentationStyle = .pageSheet
+                present(navigationVC, animated: true) { [weak self] in
+                    navigationVC.presentationController?.delegate = self
+                }
+                self.presentedConnectionInfoVC = vc
+            }
+
             #endif
         }
 
@@ -578,6 +598,28 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
         }
     }
 }
+
+#if os(iOS)
+extension ConnectionViewController {
+    @objc func connectionInfoViewControllerDoneTapped(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+        connectionInfoViewControllerDidGetDismissed()
+    }
+
+    func connectionInfoViewControllerDidGetDismissed() {
+        if self.presentedConnectionInfoVC != nil {
+            viewModel.toggleConnectionInfoExpanded()
+            self.presentedConnectionInfoVC = nil
+        }
+    }
+}
+
+extension ConnectionViewController: UIAdaptivePresentationControllerDelegate {
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        connectionInfoViewControllerDidGetDismissed()
+    }
+}
+#endif
 
 extension ConnectionViewController: AuthorizingViewController {
     func didBeginFetchingServerInfoForAuthorization(userCancellationHandler: (() -> Void)?) {

@@ -72,6 +72,13 @@ class Environment {
             items: items, selectedIndex: selectedIndex)
         return instantiate(ItemSelectionViewController.self, identifier: "ItemSelection", parameters: parameters)
     }
+
+    func instantiateConnectionInfoViewController(
+        connectionInfo: ConnectionInfoHelper.ConnectionInfo) -> ConnectionInfoViewController {
+        let parameters = ConnectionInfoViewController.Parameters(
+            connectionInfo: connectionInfo)
+        return instantiate(ConnectionInfoViewController.self, identifier: "ConnectionInfo", parameters: parameters)
+    }
     #endif
 
     func instantiate<VC: ViewController>(_ type: VC.Type, identifier: String) -> VC {
