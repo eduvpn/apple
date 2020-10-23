@@ -8,7 +8,7 @@ import AppKit
 
 class SupportContactTextView: NSTextView {
     init(supportContact: ConnectionViewModel.SupportContact) {
-        let textStorage = NSTextStorage(attributedString: Self.attributedString(from: supportContact))
+        let textStorage = NSTextStorage(attributedString: supportContact.attributedString)
         let textContainer = NSTextContainer()
         let layoutManager = NSLayoutManager()
         layoutManager.addTextContainer(textContainer)
@@ -37,39 +37,6 @@ class SupportContactTextView: NSTextView {
         }
         layoutManager.ensureLayout(for: textContainer)
         return layoutManager.usedRect(for: textContainer).size
-    }
-
-    private static func attributedString(from supportContact: ConnectionViewModel.SupportContact) -> NSAttributedString {
-        if supportContact.supportContact.isEmpty {
-            return NSAttributedString(string: "")
-        }
-        let font = NSFont(name: "OpenSans-Regular", size: 14) ?? NSFont.systemFont(ofSize: NSFont.systemFontSize)
-        let contactStrings: [NSAttributedString] = supportContact.supportContact.map { urlString in
-            guard let url = URL(string: urlString) else {
-                return NSAttributedString(string: urlString, attributes: [.font: font])
-            }
-            if urlString.hasPrefix("mailto:") {
-                return NSAttributedString(
-                    string: String(urlString.suffix(urlString.count - "mailto:".count)),
-                    attributes: [.link: url, .font: font])
-            } else if urlString.hasPrefix("tel:") {
-                return NSAttributedString(
-                    string: String(urlString.suffix(urlString.count - "tel:".count)),
-                    attributes: [.link: url, .font: font])
-            } else {
-                return NSAttributedString(
-                    string: urlString,
-                    attributes: [.link: url, .font: font])
-            }
-        }
-        let resultString = NSMutableAttributedString(string: "")
-        for (index, contactString) in contactStrings.enumerated() {
-            if index > 0 {
-                resultString.append(NSAttributedString(string: ", ", attributes: [.font: font]))
-            }
-            resultString.append(contactString)
-        }
-        return resultString
     }
 }
 

@@ -447,3 +447,46 @@ extension ConnectionViewModel: ConnectionServiceStatusDelegate {
         }
     }
 }
+
+extension ConnectionViewModel.SupportContact {
+    var isEmpty: Bool {
+        supportContact.isEmpty
+    }
+
+    var attributedString: NSAttributedString {
+        if supportContact.isEmpty {
+            return NSAttributedString(string: "")
+        }
+        #if os(macOS)
+        let font = NSFont(name: "OpenSans-Regular", size: 14) ?? NSFont.systemFont(ofSize: NSFont.systemFontSize)
+        #elseif os(iOS)
+        let font = UIFont(name: "OpenSans-Regular", size: 14) ?? UIFont.systemFont(ofSize: 14)
+        #endif
+        let contactStrings: [NSAttributedString] = supportContact.map { urlString in
+            guard let url = URL(string: urlString) else {
+                return NSAttributedString(string: urlString, attributes: [.font: font])
+            }
+            if urlString.hasPrefix("mailto:") {
+                return NSAttributedString(
+                    string: String(urlString.suffix(urlString.count - "mailto:".count)),
+                    attributes: [.link: url, .font: font])
+            } else if urlString.hasPrefix("tel:") {
+                return NSAttributedString(
+                    string: String(urlString.suffix(urlString.count - "tel:".count)),
+                    attributes: [.link: url, .font: font])
+            } else {
+                return NSAttributedString(
+                    string: urlString,
+                    attributes: [.link: url, .font: font])
+            }
+        }
+        let resultString = NSMutableAttributedString(string: "")
+        for (index, contactString) in contactStrings.enumerated() {
+            if index > 0 {
+                resultString.append(NSAttributedString(string: ", ", attributes: [.font: font]))
+            }
+            resultString.append(contactString)
+        }
+        return resultString
+    }
+}
