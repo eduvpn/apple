@@ -38,7 +38,13 @@ class ConnectionInfoViewController: UITableViewController, ParametrizedViewContr
     var connectionInfo: ConnectionInfoHelper.ConnectionInfo? {
         didSet(oldValue) {
             // The profile name doesn't change, so we don't reload that.
-            tableView.reloadRows(indices: [0, 1, 2])
+            // If the address has changed, reload it, else leave it as it is,
+            // so that the copy context menu doesn't get dismissed.
+            if oldValue?.addresses == connectionInfo?.addresses {
+                tableView.reloadRows(indices: [0, 1])
+            } else {
+                tableView.reloadRows(indices: [0, 1, 2])
+            }
         }
     }
 
@@ -80,6 +86,38 @@ extension ConnectionInfoViewController {
 
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         return nil
+    }
+}
+
+extension ConnectionInfoViewController {
+    // Enable copying of the address and profile.
+    // Consider replacing with tableView(_:contextMenuConfigurationForRowAt:point:)
+    // when we move to min deployment target of iOS 13.
+    override func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
+        guard let row = ConnectionInfoRow(rawValue: indexPath.row) else { return false }
+        return (row == .address) || (row == .profileName)
+    }
+
+    override func tableView(_ tableView: UITableView, canPerformAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+        guard let row = ConnectionInfoRow(rawValue: indexPath.row) else { return false }
+        guard (row == .address) || (row == .profileName) else { return false }
+        return action == #selector(copy(_:))
+    }
+
+    override func tableView(_ tableView: UITableView, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {
+        guard let row = ConnectionInfoRow(rawValue: indexPath.row) else { return }
+        if action == #selector(copy(_:)) {
+            switch row {
+            case .address:
+                let address = (self.connectionInfo?.addresses ?? "")
+                    .replacingOccurrences(of: "\n", with: " ")
+                UIPasteboard.general.string = address
+            case .profileName:
+                UIPasteboard.general.string = self.connectionInfo?.profileName ?? ""
+            default:
+                break
+            }
+        }
     }
 }
 
