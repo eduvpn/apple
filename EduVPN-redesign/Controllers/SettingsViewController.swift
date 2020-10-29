@@ -28,6 +28,8 @@ class SettingsViewController: UITableViewController, ParametrizedViewController 
     private var parameters: Parameters!
 
     @IBOutlet weak var useTCPOnlySwitch: UISwitch!
+    @IBOutlet weak var appNameLabel: UILabel!
+    @IBOutlet weak var appVersionLabel: UILabel!
 
     func initializeParameters(_ parameters: Parameters) {
         guard self.parameters == nil else {
@@ -44,6 +46,9 @@ class SettingsViewController: UITableViewController, ParametrizedViewController 
         let isForceTCPEnabled = userDefaults.forceTCP
 
         useTCPOnlySwitch.isOn = isForceTCPEnabled
+
+        appNameLabel.text = Config.shared.appName
+        appVersionLabel.text = appVersionString()
     }
 
     @IBAction func useTCPOnlySwitchToggled(_ sender: Any) {
@@ -53,6 +58,12 @@ class SettingsViewController: UITableViewController, ParametrizedViewController 
 
     @objc func doneTapped(_ sender: Any) {
         presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+
+    private func appVersionString() -> String {
+        let shortVersion = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? ""
+        let bundleVersion = (Bundle.main.infoDictionary?["CFBundleVersion"] as? String) ?? ""
+        return "\(shortVersion) (\(bundleVersion))"
     }
 }
 
