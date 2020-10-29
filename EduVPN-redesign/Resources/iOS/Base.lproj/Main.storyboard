@@ -888,7 +888,40 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6vD-7b-aVw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1268" y="88"/>
+            <point key="canvasLocation" x="-884" y="2322"/>
+        </scene>
+        <!--Log View Controller-->
+        <scene sceneID="EOK-jM-elR">
+            <objects>
+                <viewController storyboardIdentifier="Log" title="Connection Log" id="6VC-nm-qd4" userLabel="Log View Controller" customClass="LogViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="arD-F2-4f4">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ynk-On-Ku2">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="ynk-On-Ku2" firstAttribute="leading" secondItem="lQT-Qj-foQ" secondAttribute="leading" id="1FC-ci-2zj"/>
+                            <constraint firstItem="lQT-Qj-foQ" firstAttribute="bottom" secondItem="ynk-On-Ku2" secondAttribute="bottom" id="1Up-xq-YEl"/>
+                            <constraint firstItem="lQT-Qj-foQ" firstAttribute="trailing" secondItem="ynk-On-Ku2" secondAttribute="trailing" id="ZTW-pJ-Opy"/>
+                            <constraint firstItem="ynk-On-Ku2" firstAttribute="top" secondItem="lQT-Qj-foQ" secondAttribute="top" id="oza-Rk-kmh"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="lQT-Qj-foQ"/>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="ynk-On-Ku2" id="xjH-Gk-AHQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MTn-Qd-Tek" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="200" y="2322"/>
         </scene>
     </scenes>
     <resources>

@@ -79,7 +79,8 @@ extension SettingsViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 && indexPath.row == 0 {
             // This is a 'Connection Log' row
-            print("Show log")
+            let logVC = parameters.environment.instantiateLogViewController()
+            navigationController?.pushViewController(logVC, animated: true)
         }
     }
 }

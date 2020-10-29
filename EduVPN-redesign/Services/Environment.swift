@@ -84,6 +84,11 @@ class Environment {
         let parameters = SettingsViewController.Parameters(environment: self)
         return instantiate(SettingsViewController.self, identifier: "Settings", parameters: parameters)
     }
+
+    func instantiateLogViewController() -> LogViewController {
+        let parameters = LogViewController.Parameters(environment: self)
+        return instantiate(LogViewController.self, identifier: "Log", parameters: parameters)
+    }
     #endif
 
     func instantiate<VC: ViewController>(_ type: VC.Type, identifier: String) -> VC {
