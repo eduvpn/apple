@@ -157,6 +157,7 @@ extension NavigationController {
 #elseif os(iOS)
 
 import UIKit
+import SafariServices
 
 class NavigationController: UINavigationController {
     // Override push and pop to set navigation items
@@ -240,7 +241,10 @@ class NavigationController: UINavigationController {
     }
 
     @objc private func helpButtonTapped(_ sender: Any) {
-        print("Help")
+        if let supportURL = Config.shared.supportURL {
+            let vc = SFSafariViewController(url: supportURL)
+            present(vc, animated: true, completion: nil)
+        }
     }
 
     override func traitCollectionDidChange(_ prevTraitCollection: UITraitCollection?) {
