@@ -1243,6 +1243,31 @@
 			path = ImageLoading;
 			sourceTree = "<group>";
 		};
+		6F305A5A254B65770067E744 /* Mac */ = {
+			isa = PBXGroup;
+			children = (
+				6F36A79C24B6F5BA00BA8F5E /* MainViewController+macOS.swift */,
+				6F36A79A24B6ED5D00BA8F5E /* SearchViewController+macOS.swift */,
+				C7DB4B46247FBE26009932B1 /* PreferencesViewController.swift */,
+				6F7B63EF2500FD7300FB154A /* StatusItemController.swift */,
+				6F8835EB24FCD481008F15FF /* MainWindowController.swift */,
+			);
+			path = Mac;
+			sourceTree = "<group>";
+		};
+		6F305A5B254B658E0067E744 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				6F5E6C742525C90F000225C0 /* MainViewController+iOS.swift */,
+				6F96BB52252C51080023EB1D /* SearchViewController+iOS.swift */,
+				6FD20F56253EEEFF002F206D /* ItemSelectionViewController.swift */,
+				6FE1D2902543546900BD7E3E /* ConnectionInfoViewController.swift */,
+				6FFD421C254977240093533C /* SettingsViewController.swift */,
+				6F305A58254AA6C50067E744 /* LogViewController.swift */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
 		6F59A58524F51DEB00560155 /* Discovery */ = {
 			isa = PBXGroup;
 			children = (
@@ -1323,20 +1348,11 @@
 		C7DB4B34247FBB06009932B1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				6F7B63EF2500FD7300FB154A /* StatusItemController.swift */,
+				6F305A5B254B658E0067E744 /* iOS */,
+				6F305A5A254B65770067E744 /* Mac */,
 				C7DB4B37247FBD52009932B1 /* MainViewController.swift */,
-				6F36A79C24B6F5BA00BA8F5E /* MainViewController+macOS.swift */,
 				C7DB4B3D247FBDD7009932B1 /* SearchViewController.swift */,
-				6F36A79A24B6ED5D00BA8F5E /* SearchViewController+macOS.swift */,
 				C7DB4B43247FBDF5009932B1 /* ConnectionViewController.swift */,
-				C7DB4B46247FBE26009932B1 /* PreferencesViewController.swift */,
-				6F8835EB24FCD481008F15FF /* MainWindowController.swift */,
-				6F5E6C742525C90F000225C0 /* MainViewController+iOS.swift */,
-				6F96BB52252C51080023EB1D /* SearchViewController+iOS.swift */,
-				6FD20F56253EEEFF002F206D /* ItemSelectionViewController.swift */,
-				6FE1D2902543546900BD7E3E /* ConnectionInfoViewController.swift */,
-				6FFD421C254977240093533C /* SettingsViewController.swift */,
-				6F305A58254AA6C50067E744 /* LogViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
