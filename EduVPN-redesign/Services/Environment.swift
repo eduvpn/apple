@@ -79,6 +79,11 @@ class Environment {
             connectionInfo: connectionInfo)
         return instantiate(ConnectionInfoViewController.self, identifier: "ConnectionInfo", parameters: parameters)
     }
+
+    func instantiateSettingsViewController() -> SettingsViewController {
+        let parameters = SettingsViewController.Parameters(environment: self)
+        return instantiate(SettingsViewController.self, identifier: "Settings", parameters: parameters)
+    }
     #endif
 
     func instantiate<VC: ViewController>(_ type: VC.Type, identifier: String) -> VC {

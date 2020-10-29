@@ -161,7 +161,7 @@ import UIKit
 class NavigationController: UINavigationController {
     // Override push and pop to set navigation items
 
-    var environment: Environment? // Unused in iOS
+    var environment: Environment?
     weak var addButtonDelegate: NavigationControllerAddButtonDelegate?
 
     override var preferredStatusBarStyle: UIStatusBarStyle { .default }
@@ -210,7 +210,7 @@ class NavigationController: UINavigationController {
             UIBarButtonItem(
                 image: UIImage(named: "SettingsButton"),
                 style: .plain, target: self,
-                action: #selector(preferencesButtonTapped(_:)))
+                action: #selector(settingsButtonTapped(_:)))
         ]
 
         if viewControllers.count == 1 {
@@ -231,8 +231,12 @@ class NavigationController: UINavigationController {
         addButtonDelegate?.addButtonClicked(inNavigationController: self)
     }
 
-    @objc private func preferencesButtonTapped(_ sender: Any) {
-        print("Preferences")
+    @objc private func settingsButtonTapped(_ sender: Any) {
+        guard let environment = environment else { return }
+        let settingsVC = environment.instantiateSettingsViewController()
+        let navigationVC = UINavigationController(rootViewController: settingsVC)
+        navigationVC.modalPresentationStyle = .fullScreen
+        present(navigationVC, animated: true, completion: nil)
     }
 
     @objc private func helpButtonTapped(_ sender: Any) {
