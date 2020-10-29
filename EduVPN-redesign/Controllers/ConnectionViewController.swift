@@ -60,9 +60,8 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     @IBOutlet weak var serverNameLabel: Label!
     @IBOutlet weak var serverCountryFlagImageView: ImageView!
 
-    @IBOutlet weak var supportContactStackView: StackView!
-
     #if os(macOS)
+    @IBOutlet weak var supportContactStackView: StackView!
     var supportContactTextView: NSTextView!
     #elseif os(iOS)
     @IBOutlet weak var supportContactTextView: UITextView!
@@ -249,12 +248,11 @@ private extension ConnectionViewController {
     }
 
     func setupSupportContact(supportContact: ConnectionViewModel.SupportContact) {
-        self.supportContactStackView.isHidden = supportContact.isEmpty
-
         #if os(macOS)
         let supportContactTextView = SupportContactTextView(supportContact: supportContact)
         supportContactStackView.addView(supportContactTextView, in: .leading)
         self.supportContactTextView = supportContactTextView
+        self.supportContactStackView.isHidden = supportContact.isEmpty
         #elseif os(iOS)
         self.supportContactTextView.attributedText = supportContact.attributedString
         #endif

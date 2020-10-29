@@ -80,21 +80,21 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="MainSectionHeaderCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MainSectionHeaderCell" id="yMb-As-UNX" userLabel="Main Section Header" customClass="SectionHeaderCell" customModule="eduVPN" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="115" width="414" height="78"/>
+                                        <rect key="frame" x="0.0" y="115" width="414" height="78.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yMb-As-UNX" id="8ZY-UX-jMB">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="78"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="78.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xfu-EH-waX">
-                                                    <rect key="frame" x="20" y="32" width="30" height="30"/>
+                                                    <rect key="frame" x="20" y="32.5" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="Ixp-iu-5x5"/>
                                                         <constraint firstAttribute="width" constant="30" id="nD7-IE-tTs"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ayi-Q2-5Y0">
-                                                    <rect key="frame" x="60" y="35" width="334" height="28"/>
+                                                    <rect key="frame" x="60" y="35" width="334" height="28.5"/>
                                                     <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="20"/>
                                                     <color key="textColor" name="BoldUITextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -115,27 +115,27 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="MainSecureInternetSectionHeaderCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MainSecureInternetSectionHeaderCell" id="qaR-jP-1W0" userLabel="Main Secure Internet Section Header" customClass="MainSecureInternetSectionHeaderCell" customModule="eduVPN" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="193" width="414" height="78"/>
+                                        <rect key="frame" x="0.0" y="193.5" width="414" height="78.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qaR-jP-1W0" id="J6y-9a-9Oo">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="78"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="78.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cGD-Wn-if5">
-                                                    <rect key="frame" x="20" y="32" width="30" height="30"/>
+                                                    <rect key="frame" x="20" y="32.5" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="30" id="Cxl-ns-Wpr"/>
                                                         <constraint firstAttribute="height" constant="30" id="ddT-D0-vqc"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rfe-gF-Wx9">
-                                                    <rect key="frame" x="60" y="35" width="198" height="28"/>
+                                                    <rect key="frame" x="60" y="35" width="198" height="28.5"/>
                                                     <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="20"/>
                                                     <color key="textColor" name="BoldUITextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eUM-71-kHR">
-                                                    <rect key="frame" x="268" y="36.5" width="116" height="30"/>
+                                                    <rect key="frame" x="268" y="37" width="116" height="30"/>
                                                     <state key="normal" title="Change Location"/>
                                                     <connections>
                                                         <action selector="changeLocationTapped:" destination="qaR-jP-1W0" eventType="touchUpInside" id="7T7-A2-aug"/>
@@ -358,17 +358,17 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="a94-f2-5Xp" userLabel="Top Stack View">
-                                        <rect key="frame" x="85" y="0.0" width="244" height="123.5"/>
+                                        <rect key="frame" x="87" y="0.0" width="240" height="123.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9MY-sd-8O8" userLabel="Spacer">
-                                                <rect key="frame" x="2" y="0.0" width="240" height="20"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="240" height="20"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="u7z-qO-ZhM"/>
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Pj1-J0-oRP" userLabel="Header Stack View">
-                                                <rect key="frame" x="27.5" y="25" width="189.5" height="33"/>
+                                                <rect key="frame" x="25.5" y="25" width="189.5" height="33"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YqT-lQ-JKE" userLabel="Country Flag">
                                                         <rect key="frame" x="0.0" y="7.5" width="24" height="18"/>
@@ -385,33 +385,22 @@
                                                     </label>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="L0N-tI-3uT" userLabel="Support Contact Stack View">
-                                                <rect key="frame" x="0.0" y="63" width="244" height="35.5"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="800" verticalHuggingPriority="251" text="Support:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZG-FQ-f2a">
-                                                        <rect key="frame" x="0.0" y="0.0" width="121" height="35.5"/>
-                                                        <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="14"/>
-                                                        <color key="textColor" name="RegularUITextColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="100" horizontalCompressionResistancePriority="850" scrollEnabled="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R4m-ja-RFL">
-                                                        <rect key="frame" x="123" y="0.0" width="121" height="35.5"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                        <attributedString key="attributedText">
-                                                            <fragment content="Support contacts">
-                                                                <attributes>
-                                                                    <color key="NSColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                                    <font key="NSFont" size="14" name="OpenSans-Regular"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                        </attributedString>
-                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                    </textView>
-                                                </subviews>
-                                            </stackView>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="100" horizontalCompressionResistancePriority="850" scrollEnabled="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R4m-ja-RFL">
+                                                <rect key="frame" x="56.5" y="63" width="127" height="35.5"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="Support: Contacts">
+                                                        <attributes>
+                                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                            <font key="NSFont" size="14" name="OpenSans-Regular"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aL6-Ly-9Ye" userLabel="Spacer">
-                                                <rect key="frame" x="2" y="103.5" width="240" height="20"/>
+                                                <rect key="frame" x="0.0" y="103.5" width="240" height="20"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="bAn-nx-8cC"/>
@@ -672,7 +661,6 @@
                         <outlet property="spinner" destination="MK5-QR-ZCG" id="Nx6-g9-Br3"/>
                         <outlet property="statusDetailLabel" destination="37x-Tc-jAN" id="VSu-RI-l0B"/>
                         <outlet property="statusLabel" destination="rYc-lk-och" id="caT-Fo-56Q"/>
-                        <outlet property="supportContactStackView" destination="L0N-tI-3uT" id="qYA-xd-75D"/>
                         <outlet property="supportContactTextView" destination="R4m-ja-RFL" id="5Ac-it-37L"/>
                         <outlet property="vpnSwitch" destination="WdD-o8-uaO" id="SQD-dl-rEh"/>
                     </connections>
