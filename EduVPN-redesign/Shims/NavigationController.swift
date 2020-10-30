@@ -173,7 +173,7 @@ class NavigationController: UINavigationController {
         }
     }
 
-    lazy private var topBarLogoImageView: UIImageView = {
+    private lazy var topBarLogoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "TopBarLogo")
         imageView.contentMode = .center
@@ -242,14 +242,14 @@ class NavigationController: UINavigationController {
 
     @objc private func helpButtonTapped(_ sender: Any) {
         if let supportURL = Config.shared.supportURL {
-            let vc = SFSafariViewController(url: supportURL)
-            present(vc, animated: true, completion: nil)
+            let safariVC = SFSafariViewController(url: supportURL)
+            present(safariVC, animated: true, completion: nil)
         }
     }
 
     override func traitCollectionDidChange(_ prevTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(prevTraitCollection)
-        if (traitCollection.verticalSizeClass != prevTraitCollection?.verticalSizeClass) {
+        if traitCollection.verticalSizeClass != prevTraitCollection?.verticalSizeClass {
             updateTopNavigationItem()
         }
     }
@@ -258,7 +258,7 @@ class NavigationController: UINavigationController {
 extension NavigationController {
     func showAlert(for error: Error) {
         let title: String
-        var informativeText: String? = nil
+        var informativeText: String?
         if let appError = error as? AppError {
             title = appError.summary
             informativeText = appError.detail

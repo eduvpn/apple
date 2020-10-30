@@ -117,7 +117,7 @@ class OAuthExternalUserAgent: NSObject, OIDExternalUserAgent {
 @available(iOS 13, *)
 extension OAuthExternalUserAgent: ASWebAuthenticationPresentationContextProviding {
     func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
-        presentingViewController.view.window!
+        presentingViewController.view.window! // swiftlint:disable:this force_unwrapping
     }
 }
 #endif

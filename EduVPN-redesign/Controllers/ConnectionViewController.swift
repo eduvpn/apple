@@ -545,17 +545,17 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
             if let connectionInfoVC = self.presentedConnectionInfoVC {
                 connectionInfoVC.connectionInfo = connectionInfo
             } else {
-                let vc = parameters.environment.instantiateConnectionInfoViewController(
+                let connectionInfoVC = parameters.environment.instantiateConnectionInfoViewController(
                     connectionInfo: connectionInfo)
-                vc.navigationItem.rightBarButtonItem = UIBarButtonItem(
+                connectionInfoVC.navigationItem.rightBarButtonItem = UIBarButtonItem(
                     barButtonSystemItem: .done, target: self,
                     action: #selector(connectionInfoViewControllerDoneTapped(_:)))
-                let navigationVC = UINavigationController(rootViewController: vc)
+                let navigationVC = UINavigationController(rootViewController: connectionInfoVC)
                 navigationVC.modalPresentationStyle = .pageSheet
                 present(navigationVC, animated: true) { [weak self] in
                     navigationVC.presentationController?.delegate = self
                 }
-                self.presentedConnectionInfoVC = vc
+                self.presentedConnectionInfoVC = connectionInfoVC
             }
 
             #endif

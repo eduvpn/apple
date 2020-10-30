@@ -59,7 +59,7 @@ extension SearchViewController: AuthorizingViewController {
                 userCancellationHandler?()
                 tableView?.isUserInteractionEnabled = true
                 navigationController?.isUserAllowedToGoBack = true
-        })
+            })
         let alert = UIAlertController(title: NSLocalizedString("Contacting the server", comment: ""), message: nil, preferredStyle: .alert)
         alert.addAction(cancelAction)
         self.contactingServerAlert = alert
