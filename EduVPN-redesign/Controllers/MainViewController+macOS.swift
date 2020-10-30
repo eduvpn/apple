@@ -44,6 +44,7 @@ extension MainViewController: NSMenuDelegate {
     func menuNeedsUpdate(_ menu: NSMenu) {
         menu.removeAllItems()
         let index = tableView.clickedRow
+        guard index >= 0 && index < numberOfRows() else { return }
         if canDeleteRow(at: index) {
             let serverNameItem = NSMenuItem(title: displayText(at: index), action: nil, keyEquivalent: "")
             serverNameItem.isEnabled = false
