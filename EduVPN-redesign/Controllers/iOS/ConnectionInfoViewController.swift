@@ -41,9 +41,14 @@ class ConnectionInfoViewController: UITableViewController, ParametrizedViewContr
             // If the address has changed, reload it, else leave it as it is,
             // so that the copy context menu doesn't get dismissed.
             if oldValue?.addresses == connectionInfo?.addresses {
-                tableView.reloadRows(indices: [0, 1])
+                tableView.reloadRows(indices: [
+                    ConnectionInfoRow.duration.rawValue,
+                    ConnectionInfoRow.dataTransferred.rawValue])
             } else {
-                tableView.reloadRows(indices: [0, 1, 2])
+                tableView.reloadRows(indices: [
+                    ConnectionInfoRow.duration.rawValue,
+                    ConnectionInfoRow.dataTransferred.rawValue,
+                    ConnectionInfoRow.address.rawValue])
             }
         }
     }
