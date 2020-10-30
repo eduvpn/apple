@@ -52,7 +52,6 @@ class SettingsViewController: UITableViewController, ParametrizedViewController 
     }
 
     @IBAction func useTCPOnlySwitchToggled(_ sender: Any) {
-        print("toggled")
         UserDefaults.standard.forceTCP = useTCPOnlySwitch.isOn
     }
 
