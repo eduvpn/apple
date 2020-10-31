@@ -93,21 +93,37 @@ and build the 'EduVPN-macOS' target in Xcode.
 
 ### Building the eduVPN iOS app
 
-Run:
+To build the redesigned app, run:
+```
+$ cp EduVPN/Config/config-eduvpn_new_discovery.json EduVPN/Config/config.json
+$ cp EduVPN/Config/Developer.xcconfig.eduvpn-template EduVPN/Config/Developer.xcconfig
+$ vim EduVPN/Config/Developer.xcconfig # Edit as reqd.
+```
+and build the 'EduVPN-redesign-iOS' target in Xcode.
+
+To build the original app, run:
 ```
 $ cp EduVPN/Config/config-eduvpn.json EduVPN/Config/config.json
 $ cp EduVPN/Config/Developer.xcconfig.eduvpn-template EduVPN/Config/Developer.xcconfig
-$ cp -r EduVPN/Config/Assets-EduVPN.xcassets EduVPN/Resources/Assets.xcassets
+$ vim EduVPN/Config/Developer.xcconfig # Edit as reqd.
 ```
 and build the 'EduVPN' target in Xcode.
 
 ### Building the Let’s Connect! iOS app
 
-Run:
+To build the redesigned app, run:
+```
+$ cp EduVPN/Config/config-letsconnect_new_discovery.json EduVPN/Config/config.json
+$ cp EduVPN/Config/Developer.xcconfig.letsconnect-template EduVPN/Config/Developer.xcconfig
+$ vim EduVPN/Config/Developer.xcconfig # Edit as reqd.
+```
+and build the 'EduVPN-redesign-iOS' target in Xcode.
+
+To build the original app, run:
 ```
 $ cp EduVPN/Config/config-letsconnect.json EduVPN/Config/config.json
 $ cp EduVPN/Config/Developer.xcconfig.letsconnect-template EduVPN/Config/Developer.xcconfig
-$ cp -r EduVPN/Config/Assets-LetsConnect.xcassets EduVPN/Resources/Assets.xcassets
+$ vim EduVPN/Config/Developer.xcconfig # Edit as reqd.
 ```
 and build the 'EduVPN' target in Xcode.
 
