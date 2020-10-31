@@ -1,0 +1,20 @@
+{
+	"client_id": "org.letsconnect-vpn.app.ios",
+	"redirect_url": "org.letsconnect-vpn.app.ios:/api/callback",
+
+    "discovery": {
+        "server_list": "https://disco.eduvpn.org/v2/server_list.json",
+        "organization_list": "https://disco.eduvpn.org/v2/organization_list.json",
+        "server_list_signature": "https://disco.eduvpn.org/v2/server_list.json.minisig",
+        "organization_list_signature": "https://disco.eduvpn.org/v2/organization_list.json.minisig",
+        "signature_public_keys": [
+            "RWRtBSX1alxyGX+Xn3LuZnWUT0w//B6EmTJvgaAxBMYzlQeI+jdrO6KF",
+            "RWQ68Y5/b8DED0TJ41B1LE7yAvkmavZWjDwCBUuC+Z2pP9HaSawzpEDA",
+            "RWQKqtqvd0R7rUDp0rWzbtYPA3towPWcLDCl7eY9pBMMI/ohCmrS0WiM"
+            ]
+    },
+
+    "appName": "Let's Connect",
+    "apiDiscoveryEnabled": true,
+    "supportURL": "https://letsconnect-vpn.org"
+}
