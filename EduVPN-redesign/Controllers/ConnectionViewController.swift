@@ -644,4 +644,4 @@ extension ConnectionViewController: AuthorizingViewController {
         // Nothing to do
     }
     #endif
-}
+} // swiftlint:disable:this file_length

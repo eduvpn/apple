@@ -79,6 +79,8 @@ class MainSecureInternetSectionHeaderCell: SectionHeaderCell {
         }
         #elseif os(iOS)
         for (index, serverEntry) in serverEntries.enumerated() {
+            // Using an 'if' is clearer than a 'where' here.
+            // swiftlint:disable:next for_where
             if serverEntry.baseURLString == selectedBaseURLString {
                 selectedIndex = index
             }
