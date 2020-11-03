@@ -231,7 +231,9 @@ private extension ServerAPIService {
                                         decodeAs responseType: T.Type,
                                         options: Options) -> Promise<T.DataType> {
         firstly { () -> Promise<String> in
-            self.getFreshAccessToken(basicTargetInfo: target.basicTargetInfo, wayfSkippingInfo: wayfSkippingInfo)
+            self.getFreshAccessToken(
+                basicTargetInfo: target.basicTargetInfo,
+                wayfSkippingInfo: wayfSkippingInfo, options: options)
         }.then { accessToken -> Promise<Moya.Response> in
             let authPlugin = AccessTokenPlugin { _ in accessToken }
             let provider = MoyaProvider<ServerAPITarget>(session: Self.uncachedSession, plugins: [authPlugin])
