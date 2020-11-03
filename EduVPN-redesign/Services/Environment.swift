@@ -20,9 +20,7 @@ class Environment {
     let serverAuthService: ServerAuthService
     let persistenceService: PersistenceService
     let serverAPIService: ServerAPIService
-    #if os(macOS)
-    let connectionService: ConnectionService
-    #endif
+    let connectionService: ConnectionServiceProtocol
 
     init(navigationController: NavigationController) {
         self.navigationController = navigationController
@@ -36,7 +34,9 @@ class Environment {
             configClientId: Config.shared.clientId)
         self.persistenceService = PersistenceService()
         self.serverAPIService = ServerAPIService(serverAuthService: serverAuthService)
-        #if os(macOS)
+        #if targetEnvironment(simulator)
+        self.connectionService = MockConnectionService()
+        #else
         self.connectionService = ConnectionService()
         #endif
     }
@@ -48,7 +48,6 @@ class Environment {
         return instantiate(SearchViewController.self, identifier: "Search", parameters: parameters)
     }
 
-    #if os(macOS)
     func instantiateConnectionViewController(
         server: ServerInstance, serverDisplayInfo: ServerDisplayInfo, authURLTemplate: String?,
         restoredPreConnectionState: ConnectionAttempt.PreConnectionState? = nil) -> ConnectionViewController {
@@ -59,9 +58,36 @@ class Environment {
         return instantiate(ConnectionViewController.self, identifier: "Connection", parameters: parameters)
     }
 
+    #if os(macOS)
     func instantiatePreferencesViewController() -> PreferencesViewController {
         let parameters = PreferencesViewController.Parameters(environment: self)
         return instantiate(PreferencesViewController.self, identifier: "Preferences", parameters: parameters)
+    }
+    #endif
+
+    #if os(iOS)
+    func instantiateItemSelectionViewController(
+        items: [ItemSelectionViewController.Item], selectedIndex: Int) -> ItemSelectionViewController {
+        let parameters = ItemSelectionViewController.Parameters(
+            items: items, selectedIndex: selectedIndex)
+        return instantiate(ItemSelectionViewController.self, identifier: "ItemSelection", parameters: parameters)
+    }
+
+    func instantiateConnectionInfoViewController(
+        connectionInfo: ConnectionInfoHelper.ConnectionInfo) -> ConnectionInfoViewController {
+        let parameters = ConnectionInfoViewController.Parameters(
+            connectionInfo: connectionInfo)
+        return instantiate(ConnectionInfoViewController.self, identifier: "ConnectionInfo", parameters: parameters)
+    }
+
+    func instantiateSettingsViewController() -> SettingsViewController {
+        let parameters = SettingsViewController.Parameters(environment: self)
+        return instantiate(SettingsViewController.self, identifier: "Settings", parameters: parameters)
+    }
+
+    func instantiateLogViewController() -> LogViewController {
+        let parameters = LogViewController.Parameters(environment: self)
+        return instantiate(LogViewController.self, identifier: "Log", parameters: parameters)
     }
     #endif
 

@@ -198,14 +198,14 @@ class ConnectionViewModel {
     weak var delegate: ConnectionViewModelDelegate?
 
     private let serverAPIService: ServerAPIService
-    private let connectionService: ConnectionService
+    private let connectionService: ConnectionServiceProtocol
     private let server: ServerInstance
     private let serverDisplayInfo: ServerDisplayInfo
     private let authURLTemplate: String?
     private let dataStore: PersistenceService.DataStore
     private var connectingProfile: ProfileListResponse.Profile?
 
-    init(serverAPIService: ServerAPIService, connectionService: ConnectionService,
+    init(serverAPIService: ServerAPIService, connectionService: ConnectionServiceProtocol,
          server: ServerInstance, serverDisplayInfo: ServerDisplayInfo, authURLTemplate: String?,
          restoredPreConnectionState: ConnectionAttempt.PreConnectionState?) {
         self.serverAPIService = serverAPIService
@@ -332,7 +332,9 @@ class ConnectionViewModel {
             self.connectionInfo = nil
         }
     }
+}
 
+private extension ConnectionViewModel {
     private func wayfSkippingInfo() -> ServerAuthService.WAYFSkippingInfo? {
         if let secureInternetServer = server as? SecureInternetServerInstance,
             let authURLTemplate = self.authURLTemplate {
@@ -436,7 +438,7 @@ private extension ConnectionViewModel {
 }
 
 extension ConnectionViewModel: ConnectionServiceStatusDelegate {
-    func connectionService(_ service: ConnectionService, connectionStatusChanged status: NEVPNStatus) {
+    func connectionService(_ service: ConnectionServiceProtocol, connectionStatusChanged status: NEVPNStatus) {
         connectionStatus = status
         if status == .connected {
             connectionInfoHelper?.refreshNetworkAddress()

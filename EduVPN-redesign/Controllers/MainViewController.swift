@@ -21,9 +21,7 @@ class MainViewController: ViewController {
                 environment.navigationController?.pushViewController(searchVC, animated: false)
                 environment.navigationController?.isUserAllowedToGoBack = false
             }
-            #if os(macOS)
             environment.connectionService.initializationDelegate = self
-            #endif
         }
     }
 
@@ -91,7 +89,6 @@ extension MainViewController: SearchViewControllerDelegate {
     }
 }
 
-#if os(macOS)
 extension MainViewController: ConnectionViewControllerDelegate {
     func connectionViewController(
         _ controller: ConnectionViewController,
@@ -106,8 +103,8 @@ extension MainViewController: ConnectionViewControllerDelegate {
 
 extension MainViewController: ConnectionServiceInitializationDelegate {
     func connectionService(
-        _ service: ConnectionService,
-        initializedWithState initializedState: ConnectionService.InitializedState) {
+        _ service: ConnectionServiceProtocol,
+        initializedWithState initializedState: ConnectionServiceInitializedState) {
         isConnectionServiceInitialized = true
         switch initializedState {
         case .vpnEnabled(let connectionAttemptId):
@@ -152,7 +149,6 @@ extension MainViewController: ConnectionServiceInitializationDelegate {
         }
     }
 }
-#endif
 
 extension MainViewController {
     func numberOfRows() -> Int {
@@ -169,6 +165,8 @@ extension MainViewController {
                 let selectedBaseURLString = environment.persistenceService.secureInternetServer?.apiBaseURLString
                     ?? DiscoveryData.BaseURLString(urlString: "")
                 cell.configureMainSecureInternetSectionHeader(
+                    environment: environment,
+                    containingViewController: self,
                     serversMap: viewModel.secureInternetServersMap,
                     selectedBaseURLString: selectedBaseURLString,
                     onLocationChanged: { baseURLString in
@@ -213,13 +211,11 @@ extension MainViewController {
         let row = viewModel.row(at: index)
         if let server = row.server,
             let serverDisplayInfo = row.serverDisplayInfo {
-            #if os(macOS)
             let connectionVC = environment.instantiateConnectionViewController(
                 server: server, serverDisplayInfo: serverDisplayInfo,
                 authURLTemplate: viewModel.authURLTemplate(for: server))
             connectionVC.delegate = self
             environment.navigationController?.pushViewController(connectionVC, animated: true)
-            #endif
         }
     }
 

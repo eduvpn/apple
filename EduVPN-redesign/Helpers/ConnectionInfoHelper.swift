@@ -15,19 +15,19 @@ class ConnectionInfoHelper {
         let addresses: String
     }
 
-    private var networkAddress: ConnectionService.NetworkAddress? {
+    private var networkAddress: NetworkAddress? {
         didSet {
             self.update()
         }
     }
 
-    private var transferredByteCount: ConnectionService.TransferredByteCount? {
+    private var transferredByteCount: TransferredByteCount? {
         didSet {
             self.update()
         }
     }
 
-    private let connectionService: ConnectionService
+    private let connectionService: ConnectionServiceProtocol
     private let handler: (ConnectionInfo) -> Void
     private var localizedProfileName: String?
 
@@ -37,7 +37,7 @@ class ConnectionInfoHelper {
         }
     }
 
-    init(connectionService: ConnectionService, profileName: LanguageMappedString?, handler: @escaping (ConnectionInfo) -> Void) {
+    init(connectionService: ConnectionServiceProtocol, profileName: LanguageMappedString?, handler: @escaping (ConnectionInfo) -> Void) {
         self.connectionService = connectionService
         self.handler = handler
         self.localizedProfileName = profileName?.string(for: Locale.current)

@@ -28,6 +28,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        stackView.endEditing(true)
         didSelectRow(at: indexPath.row)
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -59,7 +60,7 @@ extension SearchViewController: AuthorizingViewController {
                 userCancellationHandler?()
                 tableView?.isUserInteractionEnabled = true
                 navigationController?.isUserAllowedToGoBack = true
-        })
+            })
         let alert = UIAlertController(title: NSLocalizedString("Contacting the server", comment: ""), message: nil, preferredStyle: .alert)
         alert.addAction(cancelAction)
         self.contactingServerAlert = alert

@@ -157,11 +157,12 @@ extension NavigationController {
 #elseif os(iOS)
 
 import UIKit
+import SafariServices
 
 class NavigationController: UINavigationController {
     // Override push and pop to set navigation items
 
-    var environment: Environment? // Unused in iOS
+    var environment: Environment?
     weak var addButtonDelegate: NavigationControllerAddButtonDelegate?
 
     override var preferredStatusBarStyle: UIStatusBarStyle { .default }
@@ -172,7 +173,7 @@ class NavigationController: UINavigationController {
         }
     }
 
-    lazy private var topBarLogoImageView: UIImageView = {
+    private lazy var topBarLogoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "TopBarLogo")
         imageView.contentMode = .center
@@ -210,11 +211,13 @@ class NavigationController: UINavigationController {
             UIBarButtonItem(
                 image: UIImage(named: "SettingsButton"),
                 style: .plain, target: self,
-                action: #selector(preferencesButtonTapped(_:)))
+                action: #selector(settingsButtonTapped(_:)))
         ]
 
         if viewControllers.count == 1 {
-            navigationItem.titleView = topBarLogoImageView
+            navigationItem.title = Config.shared.appName
+            navigationItem.titleView =
+                (traitCollection.verticalSizeClass == .regular) ? topBarLogoImageView : nil
             navigationItem.leftBarButtonItem = UIBarButtonItem(
                 barButtonSystemItem: .add, target: self,
                 action: #selector(addButtonTapped(_:)))
@@ -229,19 +232,33 @@ class NavigationController: UINavigationController {
         addButtonDelegate?.addButtonClicked(inNavigationController: self)
     }
 
-    @objc private func preferencesButtonTapped(_ sender: Any) {
-        print("Preferences")
+    @objc private func settingsButtonTapped(_ sender: Any) {
+        guard let environment = environment else { return }
+        let settingsVC = environment.instantiateSettingsViewController()
+        let navigationVC = UINavigationController(rootViewController: settingsVC)
+        navigationVC.modalPresentationStyle = .fullScreen
+        present(navigationVC, animated: true, completion: nil)
     }
 
     @objc private func helpButtonTapped(_ sender: Any) {
-        print("Help")
+        if let supportURL = Config.shared.supportURL {
+            let safariVC = SFSafariViewController(url: supportURL)
+            present(safariVC, animated: true, completion: nil)
+        }
+    }
+
+    override func traitCollectionDidChange(_ prevTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(prevTraitCollection)
+        if traitCollection.verticalSizeClass != prevTraitCollection?.verticalSizeClass {
+            updateTopNavigationItem()
+        }
     }
 }
 
 extension NavigationController {
     func showAlert(for error: Error) {
         let title: String
-        var informativeText: String? = nil
+        var informativeText: String?
         if let appError = error as? AppError {
             title = appError.summary
             informativeText = appError.detail

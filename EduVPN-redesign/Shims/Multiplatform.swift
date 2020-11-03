@@ -39,6 +39,9 @@ typealias Image = UIImage
 typealias StackView = UIStackView
 typealias ImageView = UIImageView
 typealias ProgressIndicator = UIActivityIndicatorView
+typealias Label = UILabel
+typealias TextView = UITextView
+typealias Spinner = UIActivityIndicatorView
 
 extension PresentingController: Presenting { }
 extension NavigationController: Navigating { }
@@ -55,7 +58,15 @@ extension View {
     }
 }
 
-class VPNSwitch: UISwitch {
+extension UIButton {
+    var isOn: Bool {
+        get {
+            isSelected
+        }
+        set(value) {
+            isSelected = value
+        }
+    }
 }
 
 extension TableView {
@@ -103,6 +114,9 @@ typealias Image = NSImage
 typealias StackView = NSStackView
 typealias ImageView = NSImageView
 typealias ProgressIndicator = NSProgressIndicator
+typealias Label = NSTextField
+typealias TextView = NSTextView
+typealias Spinner = NSProgressIndicator
 
 extension Window {
     func makeKeyAndVisible() {
@@ -134,7 +148,14 @@ extension View {
     }
 }
 
-class VPNSwitch: NSButton {
+extension Label {
+    var text: String? {
+        get { stringValue }
+        set(value) { stringValue = value ?? "" }
+    }
+}
+
+extension NSButton {
     var isOn: Bool {
         get {
             state == .on
@@ -144,7 +165,6 @@ class VPNSwitch: NSButton {
         }
     }
 }
-
 
 extension Storyboard {
 
