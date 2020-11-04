@@ -101,7 +101,7 @@ class ServerAPIService {
     func getAvailableProfiles(for server: ServerInstance,
                               from viewController: AuthorizingViewController,
                               wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?,
-                              options: Options = []) -> Promise<([ProfileListResponse.Profile], ServerInfo)> {
+                              options: Options) -> Promise<([ProfileListResponse.Profile], ServerInfo)> {
         return firstly {
             ServerInfoFetcher.fetch(apiBaseURLString: server.apiBaseURLString,
                                     authBaseURLString: server.authBaseURLString)
@@ -122,7 +122,7 @@ class ServerAPIService {
                                     profile: ProfileListResponse.Profile,
                                     from viewController: AuthorizingViewController,
                                     wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?,
-                                    options: Options = []) -> Promise<TunnelConfigurationData> {
+                                    options: Options) -> Promise<TunnelConfigurationData> {
         let dataStore = PersistenceService.DataStore(path: server.localStoragePath)
         return firstly { () -> Promise<ServerInfo> in
             if let serverInfo = serverInfo {
@@ -257,7 +257,7 @@ private extension ServerAPIService {
 
     func getKeyPair(basicTargetInfo: BasicTargetInfo,
                     wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?,
-                    options: Options = []) -> Promise<KeyPairData> {
+                    options: Options) -> Promise<KeyPairData> {
         firstly { () -> Promise<KeyPairData> in
             guard !options.contains(.ignoreStoredKeyPair),
                 let storedKeyPair = basicTargetInfo.dataStore.keyPair,
@@ -306,7 +306,7 @@ private extension ServerAPIService {
 
     func getProfileConfig(basicTargetInfo: BasicTargetInfo, profile: ProfileListResponse.Profile,
                           wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?,
-                          options: Options = []) -> Promise<Data> {
+                          options: Options) -> Promise<Data> {
         firstly {
             makeRequest(target: .profileConfig(basicTargetInfo, profile: profile),
                         wayfSkippingInfo: wayfSkippingInfo,
@@ -385,7 +385,7 @@ private extension ServerAPIService {
 
     func getFreshAccessToken(basicTargetInfo: BasicTargetInfo,
                              wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?,
-                             options: Options = []) -> Promise<String> {
+                             options: Options) -> Promise<String> {
         return firstly { () -> Promise<String> in
             if options.contains(.ignoreStoredAuthState) {
                 throw StoredDataError.cannotUseStoredAuthState

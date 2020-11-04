@@ -245,7 +245,7 @@ class ConnectionViewModel {
             self.internalState = .gettingProfiles
             return self.serverAPIService.getAvailableProfiles(
                 for: server, from: viewController,
-                wayfSkippingInfo: wayfSkippingInfo())
+                wayfSkippingInfo: wayfSkippingInfo(), options: [])
         }.then { (profiles, serverInfo) -> Promise<Void> in
             self.profiles = profiles
             if profiles.count == 1 && shouldContinueIfSingleProfile {
