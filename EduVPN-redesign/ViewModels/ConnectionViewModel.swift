@@ -275,7 +275,8 @@ class ConnectionViewModel {
             self.connectingProfile = profile
             return self.serverAPIService.getTunnelConfigurationData(
                 for: server, serverInfo: serverInfo, profile: profile,
-                from: viewController, wayfSkippingInfo: wayfSkippingInfo())
+                from: viewController, wayfSkippingInfo: wayfSkippingInfo(),
+                options: serverAPIOptions)
         }.then { tunnelConfigData -> Promise<Void> in
             self.internalState = .enableVPNRequested
             self.certificateExpiryHelper = CertificateExpiryHelper(
