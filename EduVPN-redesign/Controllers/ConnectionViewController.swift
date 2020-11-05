@@ -182,7 +182,16 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     }
 
     @IBAction func renewSessionClicked(_ sender: Any) {
-        continueConnectionFlow(serverAPIOptions: [.ignoreStoredAuthState, .ignoreStoredKeyPair])
+        firstly {
+            viewModel.disableVPN()
+        }.map {
+            self.continueConnectionFlow(serverAPIOptions: [.ignoreStoredAuthState, .ignoreStoredKeyPair])
+        }.catch { error in
+            os_log("Error renewing session: %{public}@",
+                   log: Log.general, type: .error,
+                   error.localizedDescription)
+            self.showAlert(for: error)
+        }
     }
 
     #if os(macOS)
