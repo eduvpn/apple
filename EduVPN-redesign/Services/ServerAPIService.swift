@@ -138,9 +138,11 @@ class ServerAPIService {
                                    wayfSkippingInfo: wayfSkippingInfo, options: options)
                 .map { (basicTargetInfo, $0) }
         }.then { (basicTargetInfo, keyPairData) -> Promise<TunnelConfigurationData> in
+            // Can reuse the auth state we just got from getKeyPair
+            let updatedOptions = options.subtracting([.ignoreStoredAuthState])
             return firstly {
                 self.getProfileConfig(basicTargetInfo: basicTargetInfo, profile: profile,
-                                      wayfSkippingInfo: wayfSkippingInfo, options: options)
+                                      wayfSkippingInfo: wayfSkippingInfo, options: updatedOptions)
             }.map { profileConfig in
                 let isUDPAllowed = !UserDefaults.standard.forceTCP
                 let openVPNConfig = try Self.createOpenVPNConfig(
