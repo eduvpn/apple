@@ -62,10 +62,12 @@ class SearchViewModel {
     struct LocalizedInstituteAccessServer {
         let baseURLString: DiscoveryData.BaseURLString
         let displayName: String
+        let keywordList: String
 
         init(_ server: DiscoveryData.InstituteAccessServer) {
             baseURLString = server.baseURLString
             displayName = server.displayName.string(for: Locale.current)
+            keywordList = server.keywordList?.string(for: Locale.current) ?? ""
         }
     }
 
@@ -193,7 +195,8 @@ private extension SearchViewModel {
         let matchingServerRows: [Row] = sortedList
             .filter {
                 searchQuery.isEmpty ||
-                $0.displayName.localizedCaseInsensitiveContains(searchQuery)
+                $0.displayName.localizedCaseInsensitiveContains(searchQuery) ||
+                $0.keywordList.localizedCaseInsensitiveContains(searchQuery)
             }.map { .instituteAccessServer($0) }
         return matchingServerRows.isEmpty ?
             [] :
