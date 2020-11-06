@@ -245,7 +245,7 @@ class ConnectionViewModel {
             self.internalState = .gettingProfiles
             return self.serverAPIService.getAvailableProfiles(
                 for: server, from: viewController,
-                wayfSkippingInfo: wayfSkippingInfo())
+                wayfSkippingInfo: wayfSkippingInfo(), options: [])
         }.then { (profiles, serverInfo) -> Promise<Void> in
             self.profiles = profiles
             if profiles.count == 1 && shouldContinueIfSingleProfile {
@@ -275,7 +275,8 @@ class ConnectionViewModel {
             self.connectingProfile = profile
             return self.serverAPIService.getTunnelConfigurationData(
                 for: server, serverInfo: serverInfo, profile: profile,
-                from: viewController, wayfSkippingInfo: wayfSkippingInfo())
+                from: viewController, wayfSkippingInfo: wayfSkippingInfo(),
+                options: serverAPIOptions)
         }.then { tunnelConfigData -> Promise<Void> in
             self.internalState = .enableVPNRequested
             self.certificateExpiryHelper = CertificateExpiryHelper(
@@ -374,8 +375,8 @@ private extension ConnectionViewModel {
             if internalState == .idle && (profiles?.count ?? 0) == 0 {
                 return .noProfilesAvailable
             }
-            if let certificateStatus = certificateStatus {
-                if certificateStatus == .expired || connectionStatus == .connected {
+            if internalState == .enabledVPN {
+                if let certificateStatus = certificateStatus {
                     return .sessionStatus(certificateStatus)
                 }
             }
@@ -407,7 +408,7 @@ private extension ConnectionViewModel {
             if internalState == .gettingProfiles || internalState == .configuring {
                 return .spinner
             }
-            if certificateStatus?.shouldShowRenewSessionButton ?? false {
+            if (certificateStatus?.shouldShowRenewSessionButton ?? false) && internalState == .enabledVPN {
                 return .renewSessionButton
             }
             if internalState == .idle, let profiles = profiles, profiles.count > 1 {
