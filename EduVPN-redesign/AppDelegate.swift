@@ -152,6 +152,12 @@ extension AppDelegate {
         environment?.navigationController?.presentPreferences()
     }
 
+    @IBAction func showAboutPanel(_ sender: Any?) {
+        NSApp.orderFrontStandardAboutPanel(options: [
+            .credits: sourceRepositoryLinkMessage
+        ])
+    }
+
     @objc func newDocument(_ sender: Any) {
         guard let navigationController = environment?.navigationController else {
             return
@@ -192,6 +198,22 @@ extension AppDelegate: NSMenuItemValidation {
             return environment?.navigationController?.isToolbarLeftButtonShowsAddServerUI ?? false
         }
         return true
+    }
+}
+
+extension AppDelegate {
+    var sourceRepositoryLink: String { "https://github.com/eduvpn/apple" }
+    var sourceRepositoryLinkMessage: NSAttributedString {
+        let url = URL(string: sourceRepositoryLink)! // swiftlint:disable:this force_unwrapping
+        let font = NSFont.systemFont(ofSize: 10, weight: .light)
+        let string = NSMutableAttributedString(
+            string: NSLocalizedString("For source code and licenses, please see: ", comment: ""),
+            attributes: [.font: font])
+        let linkedString = NSAttributedString(
+            string: sourceRepositoryLink,
+            attributes: [.link: url, .font: font])
+        string.append(linkedString)
+        return string
     }
 }
 
