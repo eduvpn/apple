@@ -134,17 +134,8 @@ extension NavigationController {
 extension NavigationController {
     func showAlert(for error: Error) {
         let alert = NSAlert()
-        if let appError = error as? AppError {
-            alert.messageText = appError.summary
-            alert.informativeText = appError.detail
-        } else {
-            let underlyingError = (error as NSError).userInfo[NSUnderlyingErrorKey] as? Error
-            alert.messageText = (underlyingError ?? error).localizedDescription
-            let userInfo = (error as NSError).userInfo
-            if !userInfo.isEmpty {
-                alert.informativeText = "\(userInfo)"
-            }
-        }
+        alert.messageText = error.alertSummary
+        alert.informativeText = error.alertDetail ?? ""
         NSApp.activate(ignoringOtherApps: true)
         if let window = view.window {
             alert.beginSheetModal(for: window)
@@ -257,22 +248,10 @@ class NavigationController: UINavigationController {
 
 extension NavigationController {
     func showAlert(for error: Error) {
-        let title: String
-        var informativeText: String?
-        if let appError = error as? AppError {
-            title = appError.summary
-            informativeText = appError.detail
-        } else {
-            let underlyingError = (error as NSError).userInfo[NSUnderlyingErrorKey] as? Error
-            title = (underlyingError ?? error).localizedDescription
-            let userInfo = (error as NSError).userInfo
-            if !userInfo.isEmpty {
-                informativeText = "\(userInfo)"
-            }
-        }
-
+        let title = error.alertSummary
+        var message = error.alertDetail
         let okAction = UIAlertAction(title: "OK", style: .default)
-        let alert = UIAlertController(title: title, message: informativeText, preferredStyle: .alert)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
     }
