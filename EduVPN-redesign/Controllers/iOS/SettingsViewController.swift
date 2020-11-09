@@ -4,6 +4,7 @@
 //
 
 import UIKit
+import SafariServices
 
 enum SettingsViewControllerError: Error {
     case noLogAvailable
@@ -72,6 +73,10 @@ extension SettingsViewController {
             // This is a 'Connection Log' row
             return indexPath
         }
+        if indexPath.section == 2 && indexPath.row == 1 {
+            // This is a 'Source code' row
+            return indexPath
+        }
         return nil
     }
 
@@ -80,6 +85,13 @@ extension SettingsViewController {
             // This is a 'Connection Log' row
             let logVC = parameters.environment.instantiateLogViewController()
             navigationController?.pushViewController(logVC, animated: true)
+        }
+        if indexPath.section == 2 && indexPath.row == 1 {
+            // This is a 'Source code' row
+            if let sourceCodeURL = URL(string: "https://github.com/eduvpn/apple") {
+                let safariVC = SFSafariViewController(url: sourceCodeURL)
+                present(safariVC, animated: true, completion: nil)
+            }
         }
     }
 }
