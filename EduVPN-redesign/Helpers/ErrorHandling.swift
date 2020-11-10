@@ -50,7 +50,7 @@ extension Error {
     }
 
     var innermostFailingURLString: String? {
-        var urlString: String? = nil
+        var urlString: String?
         var current: Error = self
         while true {
             if let next = current.innerError {

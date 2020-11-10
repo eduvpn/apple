@@ -31,10 +31,6 @@ class MainWindowController: NSWindowController, NSWindowDelegate {
         navigationStack.append(mainViewController.currentViewController)
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
     var mainViewController: MainViewController {
         return contentViewController as! MainViewController  //swiftlint:disable:this force_cast
     }
