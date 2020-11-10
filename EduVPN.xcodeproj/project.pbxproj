@@ -77,6 +77,7 @@
 		34FD2AD722A93530002AABB3 /* VPNConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FD2AD622A9352F002AABB3 /* VPNConnectionViewController.swift */; };
 		34FD2AD922A946E4002AABB3 /* VPNConnectionViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34345287229FF33000C0476E /* VPNConnectionViewControllerDelegate.swift */; };
 		35CDB0F4CC2960104C564487 /* Pods_EduVPN_redesign_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 851CA267036A8B02FEBCB269 /* Pods_EduVPN_redesign_macOS.framework */; };
+		4A10EEA1255B3B37007339C4 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = C7DB4C1A24805F9B009932B1 /* config.json */; };
 		4A1140841F78490C00D61100 /* VPNConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1140831F78490C00D61100 /* VPNConnectionViewController.swift */; };
 		4A11632A2370539F00577755 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1163292370539E00577755 /* Crypto.swift */; };
 		4A2803D91FA6867D00FA895C /* CustomProviderInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2803D81FA6867D00FA895C /* CustomProviderInputViewController.swift */; };
@@ -1932,6 +1933,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A10EEA1255B3B37007339C4 /* config.json in Resources */,
 				4A9704C51FBA379D00B4D6C2 /* Localizable.strings in Resources */,
 				4A6C03E5233FD46D00146B2A /* General Assets.xcassets in Resources */,
 				4AAC1F9E1F2D134200DD0252 /* Settings.bundle in Resources */,
