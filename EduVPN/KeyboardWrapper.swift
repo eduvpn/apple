@@ -35,10 +35,6 @@ open class KeyboardWrapper {
         self.delegate = delegate
     }
 
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-
     @objc
     fileprivate dynamic func keyboardWillShowNotification(_ notification: Notification) {
         let info = KeyboardInfo.fromNotificationUserInfo((notification as NSNotification).userInfo, state: .willShow)

@@ -316,6 +316,14 @@ class ConnectionViewModel {
 
     func toggleConnectionInfoExpanded() {
         if self.connectionInfoHelper == nil {
+            expandConnectionInfo()
+        } else {
+            collapseConnectionInfo()
+        }
+    }
+
+    func expandConnectionInfo() {
+        if self.connectionInfoHelper == nil {
             let connectionStatus = self.connectionService.connectionStatus
             guard connectionStatus == .connected || connectionStatus == .reasserting else {
                 return
@@ -328,10 +336,12 @@ class ConnectionViewModel {
                 })
             connectionInfoHelper.startUpdating()
             self.connectionInfoHelper = connectionInfoHelper
-        } else {
-            self.connectionInfoHelper = nil
-            self.connectionInfo = nil
         }
+    }
+
+    func collapseConnectionInfo() {
+        self.connectionInfoHelper = nil
+        self.connectionInfo = nil
     }
 }
 

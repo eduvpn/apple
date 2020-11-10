@@ -112,6 +112,7 @@ class ConnectionService: ConnectionServiceProtocol {
             }
             self.initializationDelegate?.connectionService(self, initializedWithState: initializedState)
             let status = tunnelManager.connection.status
+            logConnectionStatus(status)
             self.statusDelegate?.connectionService(self, connectionStatusChanged: status)
         }.recover { error in
             os_log("Error loading tunnels: %{public}@", log: Log.general, type: .error,
@@ -299,6 +300,7 @@ private extension ConnectionService {
                 guard let session = notification.object as? NETunnelProviderSession else { return }
 
                 let status = session.status
+                logConnectionStatus(status)
                 self.statusDelegate?.connectionService(self, connectionStatusChanged: status)
 
                 if status == .connected {
@@ -436,4 +438,19 @@ extension NETunnelProviderProtocol {
             providerConfiguration?[Keys.connectionAttemptId] = value?.uuidString
         }
     }
+}
+
+private func logConnectionStatus(_ status: NEVPNStatus) {
+    let statusString: String = {
+        switch status {
+        case .invalid: return "Invalid"
+        case .disconnected: return "Disconnected"
+        case .connecting: return "Connecting"
+        case .connected: return "Connected"
+        case .reasserting: return "Reasserting"
+        case .disconnecting: return "Disconnecting"
+        @unknown default: return "Unknown"
+        }
+    }()
+    os_log("Connection status: %{public}@", log: Log.general, type: .info, statusString)
 }

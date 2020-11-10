@@ -582,6 +582,16 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
             connectionInfoChevronButton.image = Image(named: "CloseButton")
             connectionInfoHeader.isPassthroughToButtonEnabled = false
         }
+        #elseif os(iOS)
+        switch connectionInfoState {
+        case .hidden, .collapsed:
+            if self.presentedConnectionInfoVC != nil {
+                dismiss(animated: true, completion: nil)
+                self.presentedConnectionInfoVC = nil
+            }
+        default:
+            break
+        }
         #endif
 
         let animatableChanges = {
@@ -609,13 +619,15 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
 #if os(iOS)
 extension ConnectionViewController {
     @objc func connectionInfoViewControllerDoneTapped(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-        connectionInfoViewControllerDidGetDismissed()
+        if self.presentedConnectionInfoVC != nil {
+            dismiss(animated: true, completion: nil)
+            connectionInfoViewControllerDidGetDismissedByUser()
+        }
     }
 
-    func connectionInfoViewControllerDidGetDismissed() {
+    func connectionInfoViewControllerDidGetDismissedByUser() {
         if self.presentedConnectionInfoVC != nil {
-            viewModel.toggleConnectionInfoExpanded()
+            viewModel.collapseConnectionInfo()
             self.presentedConnectionInfoVC = nil
         }
     }
@@ -623,7 +635,7 @@ extension ConnectionViewController {
 
 extension ConnectionViewController: UIAdaptivePresentationControllerDelegate {
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
-        connectionInfoViewControllerDidGetDismissed()
+        connectionInfoViewControllerDidGetDismissedByUser()
     }
 }
 #endif

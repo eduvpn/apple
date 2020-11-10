@@ -60,6 +60,10 @@ class ConnectionInfoHelper {
 
         let timer = Timer(timeInterval: 1 /*second*/, repeats: true) { [weak self] _ in
             guard let self = self else { return }
+            guard self.connectionService.connectionStatus == .connected else {
+                self.update()
+                return
+            }
             firstly {
                 self.connectionService.getTransferredByteCount()
             }.done { transferredByteCount in

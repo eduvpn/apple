@@ -86,7 +86,9 @@ extension ItemSelectionViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let previousIndexPath = IndexPath(row: selectedIndex, section: 0)
         selectedIndex = indexPath.row
-        tableView.reloadRows(at: [previousIndexPath, indexPath], with: .none)
+        let rowsToReload = (previousIndexPath.row >= 0) ?
+            [previousIndexPath, indexPath] : [indexPath]
+        tableView.reloadRows(at: rowsToReload, with: .none)
         delegate?.itemSelectionViewController(self, didSelectIndex: indexPath.row)
     }
 }

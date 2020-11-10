@@ -11,5 +11,6 @@ class MainWindowController: NSWindowController {
     override func windowDidLoad() {
         super.windowDidLoad()
         self.windowFrameAutosaveName = "Main"
+        self.window?.title = Config.shared.appName
     }
 }
