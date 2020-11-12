@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.2.0 (2020-11-12)
 
 - iOS: Display Let's Connect! app with proper (full) display name. #301
 - Notify certificate expiry with a local notification #90
