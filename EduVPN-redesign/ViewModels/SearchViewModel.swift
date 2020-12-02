@@ -174,7 +174,7 @@ private extension SearchViewModel {
     static func serverByAddressRows(searchQuery: String) -> [Row] {
         let hasTwoOrMoreDots = searchQuery.filter { $0 == "." }.count >= 2
         if hasTwoOrMoreDots {
-            var url = searchQuery.lowercased()
+            var url = searchQuery.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
             if !url.hasPrefix("https://") {
                 url = "https://" + url
             }
