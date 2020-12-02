@@ -56,6 +56,8 @@ class CoreConfiguration {
 
     // configurable
     static var masksPrivateData = true
+
+    static var versionIdentifier: String?
     
     static let logsSensitiveData = false
 }

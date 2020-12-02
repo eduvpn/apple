@@ -8,14 +8,14 @@ project 'EduVPN', 'Debug' => :debug, 'Release' => :release
 # iOS Pods
 
 def pods_ios
-  platform :ios, '11.0'
+  platform :ios, '12.0'
   pod 'TunnelKit', :git => 'https://github.com/passepartoutvpn/tunnelkit.git'
 end
 
 # macOS Pods
 
 def pods_macos
-  platform :osx, '10.12'
+  platform :osx, '10.15'
   pod 'TunnelKit', :git => 'https://github.com/passepartoutvpn/tunnelkit.git'
 end
 

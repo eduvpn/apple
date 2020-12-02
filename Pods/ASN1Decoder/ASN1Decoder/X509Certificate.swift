@@ -30,12 +30,7 @@ public class X509Certificate: CustomStringConvertible {
     private static let beginPemBlock = "-----BEGIN CERTIFICATE-----"
     private static let endPemBlock   = "-----END CERTIFICATE-----"
 
-    private let OID_KeyUsage = "2.5.29.15"
-    private let OID_ExtendedKeyUsage = "2.5.29.37"
-    private let OID_SubjectAltName = "2.5.29.17"
-    private let OID_IssuerAltName = "2.5.29.18"
-
-    enum X509BlockPosition : Int {
+    enum X509BlockPosition: Int {
         case version = 0
         case serialNumber = 1
         case signatureAlg = 2
@@ -93,8 +88,8 @@ public class X509Certificate: CustomStringConvertible {
 
     /// Gets the version (version number) value from the certificate.
     public var version: Int? {
-        if let v = firstLeafValue(block: block1) as? Data, let i = v.toIntValue() {
-            return Int(i) + 1
+        if let v = firstLeafValue(block: block1) as? Data, let index = v.toIntValue() {
+            return Int(index) + 1
         }
         return nil
     }
@@ -104,11 +99,10 @@ public class X509Certificate: CustomStringConvertible {
         return block1[X509BlockPosition.serialNumber]?.value as? Data
     }
 
-
     /// Returns the issuer (issuer distinguished name) value from the certificate as a String.
     public var issuerDistinguishedName: String? {
         if let issuerBlock = block1[X509BlockPosition.issuer] {
-            return blockDistinguishedName(block: issuerBlock)
+            return ASN1DistinguishedNames.string(from: issuerBlock)
         }
         return nil
     }
@@ -134,10 +128,14 @@ public class X509Certificate: CustomStringConvertible {
         return nil
     }
 
+    public func issuer(dn: ASN1DistinguishedNames) -> String? {
+        return issuer(oid: dn.oid)
+    }
+
     /// Returns the subject (subject distinguished name) value from the certificate as a String.
     public var subjectDistinguishedName: String? {
         if let subjectBlock = block1[X509BlockPosition.subject] {
-            return blockDistinguishedName(block: subjectBlock)
+            return ASN1DistinguishedNames.string(from: subjectBlock)
         }
         return nil
     }
@@ -163,6 +161,10 @@ public class X509Certificate: CustomStringConvertible {
         return nil
     }
 
+    public func subject(dn: ASN1DistinguishedNames) -> String? {
+        return subject(oid: dn.oid)
+    }
+
     /// Gets the notBefore date from the validity period of the certificate.
     public var notBefore: Date? {
         return block1[X509BlockPosition.dateValidity]?.sub(0)?.value as? Date
@@ -180,7 +182,7 @@ public class X509Certificate: CustomStringConvertible {
 
     /// Gets the signature algorithm name for the certificate signature algorithm.
     public var sigAlgName: String? {
-        return ASN1Object.oidDecodeMap[sigAlgOID ?? ""]
+        return OID.description(of: sigAlgOID ?? "")
     }
 
     /// Gets the signature algorithm OID string from the certificate.
@@ -211,35 +213,36 @@ public class X509Certificate: CustomStringConvertible {
      */
     public var keyUsage: [Bool] {
         var result: [Bool] = []
-        if let oidBlock = block1.findOid(OID_KeyUsage) {
+        if let oidBlock = block1.findOid(OID.keyUsage) {
             let data = oidBlock.parent?.sub?.last?.sub(0)?.value as? Data
             let bits: UInt8 = data?.first ?? 0
-            for i in 0...7 {
-                let value = bits & UInt8(1 << i) != 0
+            for index in 0...7 {
+                let value = bits & UInt8(1 << index) != 0
                 result.insert(value, at: 0)
             }
         }
         return result
     }
 
-    /// Gets a list of Strings representing the OBJECT IDENTIFIERs of the ExtKeyUsageSyntax field of the extended key usage extension, (OID = 2.5.29.37).
+    /// Gets a list of Strings representing the OBJECT IDENTIFIERs of the ExtKeyUsageSyntax field of
+    /// the extended key usage extension, (OID = 2.5.29.37).
     public var extendedKeyUsage: [String] {
-        return extensionObject(oid: OID_ExtendedKeyUsage)?.valueAsStrings ?? []
+        return extensionObject(oid: OID.extKeyUsage)?.valueAsStrings ?? []
     }
 
     /// Gets a collection of subject alternative names from the SubjectAltName extension, (OID = 2.5.29.17).
     public var subjectAlternativeNames: [String] {
-        return extensionObject(oid: OID_SubjectAltName)?.valueAsStrings ?? []
+        return extensionObject(oid: OID.subjectAltName)?.alternativeNameAsStrings ?? []
     }
 
     /// Gets a collection of issuer alternative names from the IssuerAltName extension, (OID = 2.5.29.18).
     public var issuerAlternativeNames: [String] {
-        return extensionObject(oid: OID_IssuerAltName)?.valueAsStrings ?? []
+        return extensionObject(oid: OID.issuerAltName)?.alternativeNameAsStrings ?? []
     }
 
     /// Gets the informations of the public key from this certificate.
-    public var publicKey: PublicKey? {
-        return block1[X509BlockPosition.publicKey].map(PublicKey.init)
+    public var publicKey: X509PublicKey? {
+        return block1[X509BlockPosition.publicKey].map(X509PublicKey.init)
     }
 
     /// Get a list of critical extension OID codes
@@ -264,50 +267,29 @@ public class X509Certificate: CustomStringConvertible {
         return block1[X509BlockPosition.extensions]?.sub(0)?.sub
     }
 
+    /// Gets the extension information of the given OID enum.
+    public func extensionObject(oid: OID) -> X509Extension? {
+        return extensionObject(oid: oid.rawValue)
+    }
+    
     /// Gets the extension information of the given OID code.
     public func extensionObject(oid: String) -> X509Extension? {
         return block1[X509BlockPosition.extensions]?
             .findOid(oid)?
             .parent
-            .map(X509Extension.init)
+            .map { oidExtensionMap[oid]?.init(block: $0) ?? X509Extension(block: $0) }
     }
 
-    // Format subject/issuer information in RFC1779
-    private func blockDistinguishedName(block: ASN1Object) -> String {
-        var result = ""
-        let oidNames = [
-            ["2.5.4.3",  "CN"],           // commonName
-            ["2.5.4.46", "DNQ"],          // dnQualifier
-            ["2.5.4.5",  "SERIALNUMBER"], // serialNumber
-            ["2.5.4.42", "GIVENNAME"],    // givenName
-            ["2.5.4.4",  "SURNAME"],      // surname
-            ["2.5.4.11", "OU"],           // organizationalUnitName
-            ["2.5.4.10", "O"],            // organizationName
-            ["2.5.4.9",  "STREET"],       // streetAddress
-            ["2.5.4.7",  "L"],            // localityName
-            ["2.5.4.8",  "ST"],           // stateOrProvinceName
-            ["2.5.4.6",  "C"],            // countryName
-            ["1.2.840.113549.1.9.1", "E"] // e-mail
-        ]
-        for oidName in oidNames {
-            if let oidBlock = block.findOid(oidName[0]) {
-                if !result.isEmpty {
-                    result.append(", ")
-                }
-                result.append(oidName[1])
-                result.append("=")
-                if let value = oidBlock.parent?.sub?.last?.value as? String {
-                    let specialChar = ",+=\n<>#;\\"
-                    let quote = value.contains(where: { specialChar.contains($0) }) ? "\"" : ""
-                    result.append(quote)
-                    result.append(value)
-                    result.append(quote)
-                }
-            }
-        }
-        return result
-    }
-
+    // Association of Class decoding helper and OID
+    private let oidExtensionMap: [String: X509Extension.Type] = [
+        OID.basicConstraints.rawValue: BasicConstraintExtension.self,
+        OID.subjectKeyIdentifier.rawValue: SubjectKeyIdentifierExtension.self,
+        OID.authorityInfoAccess.rawValue: AuthorityInfoAccessExtension.self,
+        OID.authorityKeyIdentifier.rawValue: AuthorityKeyIdentifierExtension.self,
+        OID.certificatePolicies.rawValue: CertificatePoliciesExtension.self,
+        OID.cRLDistributionPoints.rawValue: CRLDistributionPointsExtension.self
+    ]
+    
     // read possibile PEM encoding
     private static func decodeToDER(pem pemData: Data) -> Data? {
         if
@@ -337,99 +319,7 @@ public class X509Certificate: CustomStringConvertible {
     }
 }
 
-public class PublicKey {
-    private let OID_ECPublicKey = "1.2.840.10045.2.1"
-    private let OID_RSAEncryption = "1.2.840.113549.1.1.1"
-
-    var pkBlock: ASN1Object!
-
-    init(pkBlock: ASN1Object) {
-        self.pkBlock = pkBlock
-    }
-
-    public var algOid: String? {
-        return pkBlock.sub(0)?.sub(0)?.value as? String
-    }
-
-    public var algName: String? {
-        return ASN1Object.oidDecodeMap[algOid ?? ""]
-    }
-
-    public var algParams: String? {
-        return pkBlock.sub(0)?.sub(1)?.value as? String
-    }
-
-    public var key: Data? {
-        guard
-            let algOid = algOid,
-            let keyData = pkBlock.sub(1)?.value as? Data else {
-                return nil
-        }
-
-        switch algOid {
-        case OID_ECPublicKey:
-            return keyData
-
-        case OID_RSAEncryption:
-            guard let publicKeyAsn1Objects = (try? ASN1DERDecoder.decode(data: keyData)) else {
-                return nil
-            }
-            guard let publicKeyModulus = publicKeyAsn1Objects.first?.sub(0)?.value as? Data else {
-                return nil
-            }
-            return publicKeyModulus
-
-        default:
-            return nil
-        }
-    }
-}
-
-public class X509Extension {
-    let block: ASN1Object
-
-    init(block: ASN1Object) {
-        self.block = block
-    }
-
-    public var oid: String? {
-        return block.sub(0)?.value as? String
-    }
-
-    public var name: String? {
-        return ASN1Object.oidDecodeMap[oid ?? ""]
-    }
-
-    public var isCritical: Bool {
-        if block.sub?.count ?? 0 > 2 {
-            return block.sub(1)?.value as? Bool ?? false
-        }
-        return false
-    }
-
-    public var value: Any? {
-        if let valueBlock = block.sub?.last {
-            return firstLeafValue(block: valueBlock)
-        }
-        return nil
-    }
-
-    var valueAsBlock: ASN1Object? {
-        return block.sub?.last
-    }
-
-    var valueAsStrings: [String] {
-        var result: [String] = []
-        for item in block.sub?.last?.sub?.last?.sub ?? [] {
-            if let name = item.value as? String {
-                result.append(name)
-            }
-        }
-        return result
-    }
-}
-
-private func firstLeafValue(block: ASN1Object) -> Any? {
+func firstLeafValue(block: ASN1Object) -> Any? {
     if let sub = block.sub?.first {
         return firstLeafValue(block: sub)
     }

@@ -64,10 +64,17 @@ extension CoreConfiguration {
         // MARK: Authentication
         
         static let peerInfo: String = {
+            let platform: String
+            #if os(iOS)
+            platform = "ios"
+            #else
+            platform = "mac"
+            #endif
+            let uiVersion = versionIdentifier ?? "\(identifier) \(version)"
             var info = [
                 "IV_VER=2.4",
-                "IV_PLAT=mac",
-                "IV_UI_VER=\(identifier) \(version)",
+                "IV_PLAT=\(platform)",
+                "IV_UI_VER=\(uiVersion)",
                 "IV_PROTO=2",
                 "IV_NCP=2",
                 "IV_SSL=\(CryptoBox.version())",

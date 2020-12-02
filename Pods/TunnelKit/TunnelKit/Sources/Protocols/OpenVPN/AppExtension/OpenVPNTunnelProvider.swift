@@ -36,6 +36,11 @@
 
 import NetworkExtension
 import SwiftyBeaver
+#if os(iOS)
+import SystemConfiguration.CaptiveNetwork
+#else
+import CoreWLAN
+#endif
 import __TunnelKitCore
 
 private let log = SwiftyBeaver.self
@@ -90,8 +95,6 @@ open class OpenVPNTunnelProvider: NEPacketTunnelProvider {
     
     private let memoryLog = MemoryDestination()
 
-    private let observer = InterfaceObserver()
-    
     private let tunnelQueue = DispatchQueue(label: OpenVPNTunnelProvider.description(), qos: .utility)
     
     private let prngSeedLength = 64
@@ -132,6 +135,7 @@ open class OpenVPNTunnelProvider: NEPacketTunnelProvider {
 
     // MARK: NEPacketTunnelProvider (XPC queue)
     
+    /// :nodoc:
     open override var reasserting: Bool {
         didSet {
             log.debug("Reasserting flag \(reasserting ? "set" : "cleared")")
@@ -179,18 +183,7 @@ open class OpenVPNTunnelProvider: NEPacketTunnelProvider {
             return
         }
 
-        // optional credentials
-        let credentials: OpenVPN.Credentials?
-        if let username = protocolConfiguration.username, let passwordReference = protocolConfiguration.passwordReference,
-            let password = try? Keychain.password(for: username, reference: passwordReference) {
-
-            credentials = OpenVPN.Credentials(username, password)
-        } else {
-            credentials = nil
-        }
-
-        strategy = ConnectionStrategy(configuration: cfg)
-
+        // prepare for logging (append)
         if let content = cfg.existingLog(in: appGroup) {
             var existingLog = content.components(separatedBy: "\n")
             if let i = existingLog.firstIndex(of: logSeparator) {
@@ -202,15 +195,29 @@ open class OpenVPNTunnelProvider: NEPacketTunnelProvider {
             existingLog.append("")
             memoryLog.start(with: existingLog)
         }
-
         configureLogging(
             debug: cfg.shouldDebug,
             customFormat: cfg.debugLogFormat
         )
         
+        // logging only ACTIVE from now on
+        
         // override library configuration
         if let masksPrivateData = cfg.masksPrivateData {
             CoreConfiguration.masksPrivateData = masksPrivateData
+        }
+        if let versionIdentifier = cfg.versionIdentifier {
+            CoreConfiguration.versionIdentifier = versionIdentifier
+        }
+
+        // optional credentials
+        let credentials: OpenVPN.Credentials?
+        if let username = protocolConfiguration.username, let passwordReference = protocolConfiguration.passwordReference,
+            let password = try? Keychain.password(for: username, reference: passwordReference) {
+
+            credentials = OpenVPN.Credentials(username, password)
+        } else {
+            credentials = nil
         }
 
         log.info("Starting tunnel...")
@@ -222,7 +229,10 @@ open class OpenVPNTunnelProvider: NEPacketTunnelProvider {
         }
 
         cfg.print(appVersion: appVersion)
-        
+
+        // prepare to pick endpoints
+        strategy = ConnectionStrategy(configuration: cfg)
+
         let session: OpenVPNSession
         do {
             session = try OpenVPNSession(queue: tunnelQueue, configuration: cfg.sessionConfiguration, cachesURL: cachesURL)
@@ -289,7 +299,7 @@ open class OpenVPNTunnelProvider: NEPacketTunnelProvider {
             }
             
         case .serverConfiguration:
-            if let cfg = session?.serverConfiguration() {
+            if let cfg = session?.serverConfiguration() as? OpenVPN.Configuration {
                 let encoder = JSONEncoder()
                 response = try? encoder.encode(cfg)
             }
@@ -302,10 +312,12 @@ open class OpenVPNTunnelProvider: NEPacketTunnelProvider {
 
     // MARK: Wake/Sleep (debugging placeholders)
 
+    /// :nodoc:
     open override func wake() {
         log.verbose("Wake signal received")
     }
     
+    /// :nodoc:
     open override func sleep(completionHandler: @escaping () -> Void) {
         log.verbose("Sleep signal received")
         completionHandler()
@@ -741,7 +753,7 @@ extension OpenVPNTunnelProvider: OpenVPNSessionDelegate {
                 let gateway = table.defaultGateway4()?.gateway(),
                 let route = table.broadestRoute4(matchingDestination: gateway) {
 
-                route.partitioned().forEach {
+                route.partitioned()?.forEach {
                     let destination = $0.network()
                     guard let netmask = $0.networkMask() else {
                         return
@@ -758,7 +770,7 @@ extension OpenVPNTunnelProvider: OpenVPNSessionDelegate {
                 let gateway = table.defaultGateway6()?.gateway(),
                 let route = table.broadestRoute6(matchingDestination: gateway) {
 
-                route.partitioned().forEach {
+                route.partitioned()?.forEach {
                     let destination = $0.network()
                     let prefix = $0.prefix()
                     
@@ -818,15 +830,17 @@ extension OpenVPNTunnelProvider {
             memoryLog.flush(to: url)
         }
     }
-    
+
     private func logCurrentSSID() {
-        if let ssid = observer.currentWifiNetworkName() {
-            log.debug("Current SSID: '\(ssid.maskedDescription)'")
-        } else {
-            log.debug("Current SSID: none (disconnected from WiFi)")
+        InterfaceObserver.fetchCurrentSSID {
+            if let ssid = $0 {
+                log.debug("Current SSID: '\(ssid.maskedDescription)'")
+            } else {
+                log.debug("Current SSID: none (disconnected from WiFi)")
+            }
         }
     }
-    
+
 //    private func anyPointer(_ object: Any?) -> UnsafeMutableRawPointer {
 //        let anyObject = object as AnyObject
 //        return Unmanaged<AnyObject>.passUnretained(anyObject).toOpaque()

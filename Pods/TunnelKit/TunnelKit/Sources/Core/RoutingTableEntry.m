@@ -249,7 +249,7 @@ static NSString *RoutingTableEntryName(struct sockaddr *sa, struct sockaddr *mas
     }
 }
 
-- (NSArray<RoutingTableEntry *> *)partitioned
+- (nullable NSArray<RoutingTableEntry *> *)partitioned
 {
     NSMutableArray<RoutingTableEntry *> *segments = [[NSMutableArray alloc] init];
     const int halfPrefix = (int)(self.prefix + 1);

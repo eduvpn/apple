@@ -309,7 +309,7 @@ public class OpenVPNSession: Session {
         return controlChannel.currentDataCount()
     }
     
-    public func serverConfiguration() -> OpenVPN.Configuration? {
+    public func serverConfiguration() -> Any? {
         return pushReply?.options
     }
     
