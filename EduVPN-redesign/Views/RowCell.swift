@@ -22,5 +22,6 @@ class RowCell: TableViewCell {
         textLabel?.text = title
         imageView?.image = image
         #endif
+        accessibilityLabel = title
     }
 }

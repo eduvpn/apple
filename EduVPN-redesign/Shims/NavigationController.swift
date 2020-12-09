@@ -194,24 +194,31 @@ class NavigationController: UINavigationController {
     private func updateTopNavigationItem() {
         guard let navigationItem = topViewController?.navigationItem else { return }
 
-        navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(
-                image: UIImage(named: "QuestionButton"),
-                style: .plain, target: self,
-                action: #selector(helpButtonTapped(_:))),
-            UIBarButtonItem(
-                image: UIImage(named: "SettingsButton"),
-                style: .plain, target: self,
-                action: #selector(settingsButtonTapped(_:)))
-        ]
+        let helpButton = UIBarButtonItem(
+            image: UIImage(named: "QuestionButton"),
+            style: .plain, target: self,
+            action: #selector(helpButtonTapped(_:)))
+        helpButton.accessibilityLabel = NSLocalizedString("Help", comment: "Help accessibility label")
+        
+        let settingsButton = UIBarButtonItem(
+            image: UIImage(named: "SettingsButton"),
+            style: .plain, target: self,
+            action: #selector(settingsButtonTapped(_:)))
+        settingsButton.accessibilityLabel = NSLocalizedString("Settings", comment: "Settings accessibility label")
+        
+        navigationItem.rightBarButtonItems = [helpButton, settingsButton]
 
         if viewControllers.count == 1 {
             navigationItem.title = Config.shared.appName
             navigationItem.titleView =
                 (traitCollection.verticalSizeClass == .regular) ? topBarLogoImageView : nil
-            navigationItem.leftBarButtonItem = UIBarButtonItem(
+            
+            let addButton = UIBarButtonItem(
                 barButtonSystemItem: .add, target: self,
                 action: #selector(addButtonTapped(_:)))
+            addButton.accessibilityLabel = NSLocalizedString("Add", comment: "Add accessibility label")
+            
+            navigationItem.leftBarButtonItem = addButton
         } else {
             navigationItem.titleView = nil
             navigationItem.leftBarButtonItem = nil
