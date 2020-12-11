@@ -8,6 +8,16 @@
 
 import XCTest
 
+struct Credentials {
+    let host: String
+    let username: String
+    let password: String
+}
+
+// Fill these before running the tests
+let demoCredentials = Credentials(host: <#T##String#>, username: <#T##String#>, password: <#T##String#>)
+let customCredentials = Credentials(host: <#T##String#>, username: <#T##String#>, password: <#T##String#>)
+
 class EduVPN_UITests_iOS: XCTestCase {
 
     var interruptionMonitor: NSObjectProtocol!
@@ -55,21 +65,15 @@ class EduVPN_UITests_iOS: XCTestCase {
     func testSearching() {
         // Scenario: A fresh launch should open with the "Find your institute" search page
         
-//        // Given I launched the app
-//        let app = givenILaunchedTheApp()
-//
-//        // Given I have a demo provider configured
-//        givenIHaveADemoProviderConfigured(app)
-//
-//        // Then I should see "Add" button
-//        thenIShouldSeeButton(app, label: "Add")
-//
-//        // When I tap "Add" button
-//        whenITapButton(app, label: "Add")
-
-        // Given I launched a freshly installed app
-        let app = givenILaunchedAFreshlyInstalledApp()
+        // Given I launched a configured app
+        let app = givenILaunchedAConfiguredApp()
         
+        // Then I should see "Add" button
+        thenIShouldSeeButton(app, label: "Add")
+
+        // When I tap "Add" button
+        whenITapButton(app, label: "Add")
+
         // Then I should see screen with title "Add Server"
         thenIShouldSeeScreenWithTitle(app, title: "Add Server")
         
@@ -125,17 +129,11 @@ class EduVPN_UITests_iOS: XCTestCase {
     func testAddInstituteAccess() {
         // Scenario: Adding a provider for institute access
         
-//        // Given I launched the app
-//        let app = givenILaunchedTheApp()
-//
-//        // Given I have a demo provider configured
-//        givenIHaveADemoProviderConfigured(app)
-//
-//        // When I tap "Add" button
-//        whenITapButton(app, label: "Add")
+        // Given I launched a configured app
+        let app = givenILaunchedAConfiguredApp()
         
-        // Given I launched a freshly installed app
-        let app = givenILaunchedAFreshlyInstalledApp()
+        // When I tap "Add" button
+        whenITapButton(app, label: "Add")
         
         // Then I should see search field with "Search for your institute" placeholder
         thenIShouldSeeSearchFieldWithPlaceholder(app, placeholder: "Search for your institute...")
@@ -152,72 +150,18 @@ class EduVPN_UITests_iOS: XCTestCase {
         // When I tap "Demo" cell
         whenITapCell(app, label: "Demo")
         
-        // When I tap "Continue" button in system alert
-        whenITapButtonInSystemAlert(app, label: "Continue")
-        
-        // When I wait 3 seconds
-        whenIWait(time: 3)
-        
-        // Then I should see webpage with host "engine.surfconext.nl"
-        thenIShouldSeeWebpageWithHost(app, host: "engine.surfconext.nl")
-        
-        // When I tap "eduID (NL)" link
-        whenITapLink(app, label: "eduID (NL)")
-        
-        // When I wait 3 seconds
-        whenIWait(time: 3)
-        
-        // Then I should see webpage with host "login.eduid.nl"
-        thenIShouldSeeWebpageWithHost(app, host: "login.eduid.nl")
-        
-        // When I tap "Type a password" link
-        whenITapLink(app, label: "Type a password")
-        
-        // When I start typing in the "e.g. user@gmail.com" textfield
-        whenIStartTypingInTheTextfield(app, label: "e.g. user@gmail.com")
-        
-        // When I type "johan@egeniq.com"
-        whenIType(app, text: "johan@egeniq.com") // TODO: Safe way to have credentials in repo?
-        
-        // When I start typing in the secure "Password" textfield
-        whenIStartTypingInTheSecureTextfield(app, label: "Password")
-        
-        // When I type "********"
-        whenIType(app, text: "********") // TODO: Safe way to have credentials in repo?
-        
-        // When I tap "Login" button
-        whenITapButton(app, label: "Login")
-        
-        // Then I should see webpage with host "demo.eduvpn.nl"
-        thenIShouldSeeWebpageWithHost(app, host: "demo.eduvpn.nl")
-        
-        // Then I should see "Approve Application" label
-        thenIShouldSeeLabel(app, label: "Approve Application")
-        
-        // When I tap "Approve" button
-        whenITapButton(app, label: "Approve")
-        
-        // Then I should see "Institute Access" label
-        thenIShouldSeeLabel(app, label: "Institute Access")
-        
-        // Then I should see "Demo" cell
-        thenIShouldSeeCell(app, label: "Demo")
+        // When I authenticate with Demo
+        whenIAuthenticateWithDemo(app)
     }
     
     func testAddSecureInternet() {
         // Scenarion: Adding a provider for secure internet
         
-//        // Given I launched the app
-//        let app = givenILaunchedTheApp()
-//
-//        // Given I have a demo provider configured
-//        givenIHaveADemoProviderConfigured(app)
-//
-//        // When I tap "Add" button
-//        whenITapButton(app, label: "Add")
+        // Given I launched a configured app
+        let app = givenILaunchedAConfiguredApp()
         
-        // Given I launched a freshly installed app
-        let app = givenILaunchedAFreshlyInstalledApp()
+        // When I tap "Add" button
+        whenITapButton(app, label: "Add")
         
         // Then I should see search field with "Search for your institute" placeholder
         thenIShouldSeeSearchFieldWithPlaceholder(app, placeholder: "Search for your institute...")
@@ -237,6 +181,9 @@ class EduVPN_UITests_iOS: XCTestCase {
         // When I tap "Continue" button in system alert
         whenITapButtonInSystemAlert(app, label: "Continue")
         
+        // When I wait 3 seconds
+        whenIWait(time: 3)
+        
         // Then I should see webpage with host "idp.surfnet.nl"
         thenIShouldSeeWebpageWithHost(app, host: "idp.surfnet.nl")
         
@@ -250,104 +197,92 @@ class EduVPN_UITests_iOS: XCTestCase {
     func testAddCustomServer() {
         // Scenario: A custom server can be added and connected to
         
-//        // Given I launched the app
-//        let app = givenILaunchedTheApp()
-//
-//        // Given I have a demo provider configured
-//        givenIHaveADemoProviderConfigured(app)
-//
-//        // When I tap "Add" button
-//        whenITapButton(app, label: "Add")
-        
         // Given I launched a freshly installed app
         let app = givenILaunchedAFreshlyInstalledApp()
         
         // Then I should see search field with "Search for your institute" placeholder
         thenIShouldSeeSearchFieldWithPlaceholder(app, placeholder: "Search for your institute...")
         
-        // When I search for "vpn.spoor.nu"
-        whenISearchFor(app, query: "vpn.spoor.nu")
+        // When I search for host
+        whenISearchFor(app, query: customCredentials.host)
         
         // Then I should see "Add your own server" label
         thenIShouldSeeLabel(app, label: "Add your own server")
         
-        // Then I should see "https://vpn.spoor.nu/" cell
-        thenIShouldSeeCell(app, label: "https://vpn.spoor.nu/")
+        // Then I should see "https:// + host" cell
+        thenIShouldSeeCell(app, label: "https://" + customCredentials.host + "/")
         
-        // When I tap "https://vpn.spoor.nu/" cell
-        whenITapCell(app, label:"https://vpn.spoor.nu/")
-        
-        // Then I should see "Contacting the server" label
-        thenIShouldSeeLabel(app, label: "Contacting the server")
-        
-        // Then I should see "Cancel" button
-        thenIShouldSeeButton(app, label: "Cancel")
-        
-        // Then I should see "“eduVPN” Wants to Use “eduvpn.nl” to Sign In" alert
-        thenIShouldSeeAlert(app, title: "“eduVPN” Wants to Use “eduvpn.nl” to Sign In")
+        // When I tap "https:// + host" cell
+        whenITapCell(app, label:"https://" + customCredentials.host + "/")
         
         // When I tap "Continue" button in system alert
         whenITapButtonInSystemAlert(app, label: "Continue")
         
-        // Then I should see webpage with host "vpn.spoor.nu"
-        thenIShouldSeeWebpageWithHost(app, host: "vpn.spoor.nu")
+        // Then I should see webpage with host "host"
+        thenIShouldSeeWebpageWithHost(app, host: customCredentials.host)
         
         // When I start typing in the "Username" textfield
         whenIStartTypingInTheTextfield(app, label: "Username")
         
         // When I type "********"
-        whenIType(app, text: "********") // TODO: Safe way to have credentials in repo?
+        whenIType(app, text: customCredentials.username)
         
         // When I start typing in the secure "Password" textfield
         whenIStartTypingInTheSecureTextfield(app, label: "Password")
         
         // When I type "********"
-        whenIType(app, text: "********") // TODO: Safe way to have credentials in repo?
+        whenIType(app, text: customCredentials.password)
         
         // When I tap "Sign In" button
         whenITapButton(app, label: "Sign In")
         
-        // Then I should see webpage with host "vpn.spoor.nu"
-        thenIShouldSeeWebpageWithHost(app, host: "vpn.spoor.nu")
+        // When I wait 10 seconds
+        whenIWait(time: 10)
         
-        // Then I should see "Approve Application" label
-        thenIShouldSeeLabel(app, label: "Approve Application")
+        // Then I might see "Approve Application" label
+        let needApproval = thenIMightSeeLabel(app, label: "Approve Application")
         
-        // When I tap "Approve" button
-        whenITapButton(app, label: "Approve")
+        if needApproval {
         
-        // Then I should see screen with title "eduVPN"
-        thenIShouldSeeScreenWithTitle(app, title: "eduVPN")
+            // Then I should see webpage with host "host"
+            thenIShouldSeeWebpageWithHost(app, host: customCredentials.host)
+            
+            // Then I should see "Approve Application" label
+            thenIShouldSeeLabel(app, label: "Approve Application")
+            
+            // When I tap "Approve" button
+            whenITapButton(app, label: "Approve")
+        
+            // When I wait 10 seconds
+            whenIWait(time: 10)
+        }
         
         // Then I should see "Other servers" label
         thenIShouldSeeLabel(app, label: "Other servers")
         
-        // Then I should see "https://vpn.spoor.nu/" cell
-        thenIShouldSeeCell(app, label: "https://vpn.spoor.nu/")
+        // Then I should see "https:// + host" cell
+        thenIShouldSeeCell(app, label: "https://" + customCredentials.host + "/")
         
-        // When I tap "https://vpn.spoor.nu/" cell
-        whenITapCell(app, label: "https://vpn.spoor.nu/")
+        // When I tap "https:// + host" cell
+        whenITapCell(app, label: "https://" + customCredentials.host + "/")
         
         // Then I should see screen with title "Connect to Server"
         thenIShouldSeeScreenWithTitle(app, title: "Connect to Server")
         
-        // Then I should see "Connecting..." label
-        thenIShouldSeeLabel(app, label: "Connecting...")
-        
-        // Then I should see "vpn.spoor.nu" label
-        thenIShouldSeeLabel(app, label: "vpn.spoor.nu")
+        // Then I should see "host" label
+        thenIShouldSeeLabel(app, label: customCredentials.host)
         
         // Then I should see "Connected" label
-        thenIShouldSeeLabel(app, label: "Connected")
+        thenIShouldSeeLabel(app, label: "Connected", timeout: 10)
         
         // Then I should see connection switch on
         thenIShouldSeeConnectionSwitch(app, isOn: true)
         
-        // Then I should see "Connection Info" cell
-        thenIShouldSeeCell(app, label: "Connection Info")
+        // Then I should see "Connection Info" label
+        thenIShouldSeeLabel(app, label: "Connection Info")
         
-        // When I tap "Connection Info" cell
-        whenITapCell(app, label: "Connection Info")
+        // When I tap "Connection Info" label
+        whenITapLabel(app, label: "Connection Info")
         
         // Then I should see screen with title "Connection Info"
         thenIShouldSeeScreenWithTitle(app, title: "Connection Info")
@@ -383,18 +318,14 @@ class EduVPN_UITests_iOS: XCTestCase {
         thenIShouldSeeConnectionSwitch(app, isOn: false)
         
         // Then I should see "Not connected" label
-        thenIShouldSeeLabel(app, label: "Not connected")
-     
+        thenIShouldSeeLabel(app, label: "Not connected", timeout: 10)
     }
     
     func testRemovingProvider() {
         // Scenario: A provider can be removed
         
-        // Given I launched the app
-        let app = givenILaunchedTheApp()
-        
-        // Given I have a demo provider configured
-        givenIHaveADemoProviderConfigured(app)
+        // Given I launched a configured app
+        let app = givenILaunchedAConfiguredApp()
         
         // Then I should see "Demo" cell
         thenIShouldSeeCell(app, label: "Demo")
@@ -415,11 +346,8 @@ class EduVPN_UITests_iOS: XCTestCase {
     func testConnectVPN() {
         // Scenario: Should be able to setup connection
         
-        // Given I launched the app
-        let app = givenILaunchedTheApp()
-        
-        // Given I have a demo provider configured
-        givenIHaveADemoProviderConfigured(app)
+        // Given I launched a configured app
+        let app = givenILaunchedAConfiguredApp()
         
         // When I tap "Demo" cell
         whenITapCell(app, label: "Demo")
@@ -430,8 +358,18 @@ class EduVPN_UITests_iOS: XCTestCase {
         // Then I should see "Demo" label
         thenIShouldSeeLabel(app, label: "Demo")
         
+        // Then I might see "Not connected" label
+        let needAuthentication = !thenIMightSeeLabel(app, label: "Not connected")
+      
+        if needAuthentication {
+       
+            // When I authenticate with Demo
+            whenIAuthenticateWithDemo(app)
+            
+        }
+        
         // Then I should see "Not connected" label
-        thenIShouldSeeLabel(app, label: "Not connected")
+        thenIShouldSeeLabel(app, label: "Not connected", timeout: 30)
         
         // Then I should see connection switch off
         thenIShouldSeeConnectionSwitch(app, isOn: false)
@@ -441,9 +379,9 @@ class EduVPN_UITests_iOS: XCTestCase {
         
         // Then I should see "Demo" label
         thenIShouldSeeLabel(app, label: "Demo")
-        
+
         // Then I should see "Connected" label
-        thenIShouldSeeLabel(app, label: "Connected")
+        thenIShouldSeeLabel(app, label: "Connected", timeout: 30)
         
         // Then I should see connection switch on
         thenIShouldSeeConnectionSwitch(app, isOn: true)
@@ -451,11 +389,8 @@ class EduVPN_UITests_iOS: XCTestCase {
         // When I toggle the connection switch
         whenIToggleConnectionSwitch(app)
         
-        // Then I should see "Demo" label
-        thenIShouldSeeLabel(app, label: "Demo")
-        
         // Then I should see "Not connected" label
-        thenIShouldSeeLabel(app, label: "Not connected")
+        thenIShouldSeeLabel(app, label: "Not connected", timeout: 30)
         
         // Then I should see connection switch off
         thenIShouldSeeConnectionSwitch(app, isOn: false)
@@ -464,8 +399,8 @@ class EduVPN_UITests_iOS: XCTestCase {
     func testConnectionLog() {
         // Scenario: Should be able to see connection log
         
-        // Given I launched the app
-        let app = givenILaunchedTheApp()
+        // Given I launched a configured app
+        let app = givenILaunchedAConfiguredApp()
         
         // When I tap "Settings" button
         whenITapButton(app, label: "Settings")
@@ -473,14 +408,14 @@ class EduVPN_UITests_iOS: XCTestCase {
         // Then I should see screen with title "Settings"
         thenIShouldSeeScreenWithTitle(app, title: "Settings")
         
-        // Then I should see "LOGGING" label
-        thenIShouldSeeLabel(app, label: "LOGGING")
+        // Then I should see "LOGGING" header
+        thenIShouldSeeHeader(app, label: "LOGGING")
         
-        // Then I should see "Connection Log" cell
-        thenIShouldSeeCell(app, label: "Connection Log")
+        // Then I should see "Connection Log" label
+        thenIShouldSeeLabel(app, label: "Connection Log")
         
-        // When I tap "Connection Log" cell
-        whenITapCell(app, label: "Connection Log")
+        // When I tap "Connection Log" label
+        whenITapLabel(app, label: "Connection Log")
         
         // Then I should see screen with title "Connection Log"
         thenIShouldSeeScreenWithTitle(app, title: "Connection Log")
@@ -489,8 +424,8 @@ class EduVPN_UITests_iOS: XCTestCase {
     func testSettings() {
         // Scenario: Settings should be available
         
-        // Given I launched the app
-        let app = givenILaunchedTheApp()
+        // Given I launched a configured app
+        let app = givenILaunchedAConfiguredApp()
         
         // When I tap "Settings" button
         whenITapButton(app, label: "Settings")
@@ -498,23 +433,23 @@ class EduVPN_UITests_iOS: XCTestCase {
         // Then I should see screen with title "Settings"
         thenIShouldSeeScreenWithTitle(app, title: "Settings")
         
-        // Then I should see "OPTIONS" label
-        thenIShouldSeeLabel(app, label: "OPTIONS")
+        // Then I should see "OPTIONS" header
+        thenIShouldSeeHeader(app, label: "OPTIONS")
         
-        // Then I should see "Connect using TCP only" cell
-        thenIShouldSeeCell(app, label: "Connect using TCP only")
+        // Then I should see "Connect using TCP only" label
+        thenIShouldSeeLabel(app, label: "Connect using TCP only")
         
-        // Then I should see "LOGGING" label
-        thenIShouldSeeLabel(app, label: "LOGGING")
+        // Then I should see "LOGGING" header
+        thenIShouldSeeHeader(app, label: "LOGGING")
         
-        // Then I should see "Connection Log" cell
-        thenIShouldSeeCell(app, label: "Connection Log")
+        // Then I should see "Connection Log" label
+        thenIShouldSeeLabel(app, label: "Connection Log")
         
-        // Then I should see "ABOUT" label
-        thenIShouldSeeLabel(app, label: "ABOUT")
+        // Then I should see "ABOUT" header
+        thenIShouldSeeHeader(app, label: "ABOUT")
         
-        // Then I should see "Source code" cell
-        thenIShouldSeeCell(app, label: "Source code")
+        // Then I should see "Source code" label
+        thenIShouldSeeLabel(app, label: "Source code")
         
         // When I tap "Done" button
         whenITapButton(app, label: "Done")
@@ -526,8 +461,8 @@ class EduVPN_UITests_iOS: XCTestCase {
     func testHelp() {
         // Scenario: Help should be available
         
-        // Given I launched the app
-        let app = givenILaunchedTheApp()
+        // Given I launched a configured app
+        let app = givenILaunchedAConfiguredApp()
         
         // Then I should see "Help" button
         thenIShouldSeeButton(app, label: "Help")
@@ -560,21 +495,27 @@ private extension EduVPN_UITests_iOS {
     
     // MARK: - Given
     
-    private func givenILaunchedAFreshlyInstalledApp() -> XCUIApplication {
-        let app = XCUIApplication()
-        app.launchArguments = []
-        app.launch()
-        return app
-    }
-    
     private func givenILaunchedTheApp() -> XCUIApplication {
         let app = XCUIApplication()
+        app.launchArguments.append("isUITesting")
         app.launch()
         return app
     }
     
-    private func givenIHaveADemoProviderConfigured(_ app: XCUIApplication) {
-        XCTFail()
+    private func givenILaunchedAFreshlyInstalledApp() -> XCUIApplication {
+        let app = XCUIApplication()
+        app.launchArguments.append("isUITesting")
+        app.launchArguments.append("isUITestingFreshInstall")
+        app.launch()
+        return app
+    }
+    
+    private func givenILaunchedAConfiguredApp() -> XCUIApplication {
+        let app = XCUIApplication()
+        app.launchArguments.append("isUITesting")
+        app.launchArguments.append("isUITestingConfigured")
+        app.launch()
+        return app
     }
     
     // MARK: - Then
@@ -584,9 +525,16 @@ private extension EduVPN_UITests_iOS {
         XCTAssert(titleElement.exists)
     }
     
-    private func thenIShouldSeeLabel(_ app: XCUIApplication, label: String) {
+    private func thenIShouldSeeLabel(_ app: XCUIApplication, label: String, timeout: TimeInterval = 3) {
         let labelElement = app.staticTexts[label]
+        _ = labelElement.waitForExistence(timeout: timeout)
         XCTAssert(labelElement.exists)
+    }
+    
+    private func thenIMightSeeLabel(_ app: XCUIApplication, label: String) -> Bool {
+        let labelElement = app.staticTexts[label]
+        _ = labelElement.waitForExistence(timeout: 3)
+        return labelElement.exists
     }
     
     private func thenIShouldSeeSearchFieldWithPlaceholder(_ app: XCUIApplication, placeholder: String) {
@@ -605,6 +553,11 @@ private extension EduVPN_UITests_iOS {
         XCTAssert(cellElement.exists)
     }
     
+    private func thenIShouldSeeHeader(_ app: XCUIApplication, label: String) {
+        let otherElement = app.otherElements[label]
+        XCTAssert(otherElement.exists)
+    }
+    
     private func thenIShouldNotSeeCell(_ app: XCUIApplication, label: String) {
         let cellElement = app.cells[label]
         XCTAssert(cellElement.exists == false)
@@ -617,15 +570,15 @@ private extension EduVPN_UITests_iOS {
     
     private func thenIShouldSeeWebpageWithHost(_ app: XCUIApplication, host: String) {
         let webViewElement = app.webViews.firstMatch
-        _ = webViewElement.waitForExistence(timeout: 10)
+        _ = webViewElement.waitForExistence(timeout: 3)
         XCTAssert(webViewElement.exists)
         XCTAssert((app.buttons["URL"].value as? String)?.contains(host) ?? false)
     }
     
     private func thenIShouldSeeConnectionSwitch(_ app: XCUIApplication, isOn: Bool) {
-        let switchElement = app.switches["Connection"]
+        let switchElement = app.buttons["Connection"]
         XCTAssert(switchElement.exists)
-        XCTAssert(switchElement.isSelected)
+        XCTAssert(switchElement.isSelected == isOn)
     }
     
     // MARK: - When
@@ -635,11 +588,15 @@ private extension EduVPN_UITests_iOS {
     }
     
     private func whenIStartTypingInTheTextfield(_ app: XCUIApplication, label: String) {
-        app.textFields[label].tap()
+        let textFieldElement = app.textFields[label]
+        _ = textFieldElement.waitForExistence(timeout: 3)
+        textFieldElement.tap()
     }
     
     private func whenIStartTypingInTheSecureTextfield(_ app: XCUIApplication, label: String) {
-        app.textFields[label].tap()
+        let textFieldElement = app.secureTextFields[label]
+        _ = textFieldElement.waitForExistence(timeout: 3)
+        textFieldElement.tap()
     }
     
     private func whenISearchFor(_ app: XCUIApplication, query: String) {
@@ -661,10 +618,17 @@ private extension EduVPN_UITests_iOS {
         buttonElement.tap()
     }
 
+    private func whenITapLabel(_ app: XCUIApplication, label: String) {
+        let labelElement = app.staticTexts[label].firstMatch
+        labelElement.tap()
+    }
+    
     private func whenITapLink(_ app: XCUIApplication, label: String) {
         let linkElement = app.links[label].firstMatch
-        _ = linkElement.waitForExistence(timeout: 10)
-        linkElement.tap()
+        _ = linkElement.waitForExistence(timeout: 3)
+        if linkElement.exists {
+            linkElement.tap()
+        }
     }
     
     private func whenIType(_ app: XCUIApplication, text: String) {
@@ -672,7 +636,7 @@ private extension EduVPN_UITests_iOS {
     }
     
     private func whenIToggleConnectionSwitch(_ app: XCUIApplication) {
-        let switchElement = app.switches["Connection"]
+        let switchElement = app.buttons["Connection"]
         switchElement.tap()
     }
     
@@ -687,10 +651,66 @@ private extension EduVPN_UITests_iOS {
     
     private func whenITapButtonInSystemAlert(_ app: XCUIApplication, label: String) {
         alertButtonToTap = label
-        Thread.sleep(forTimeInterval: 5)
+        Thread.sleep(forTimeInterval: 3)
         app.swipeUp() // Interaction with app needed for some reasone
     }
 
+    private func whenIAuthenticateWithDemo(_ app: XCUIApplication) {
+        // When I tap "Continue" button in system alert
+        whenITapButtonInSystemAlert(app, label: "Continue")
+        
+        // When I wait 3 seconds
+        whenIWait(time: 3)
+        
+        // Then I should see webpage with host "engine.surfconext.nl"
+        thenIShouldSeeWebpageWithHost(app, host: "engine.surfconext.nl")
+        
+        // When I tap "eduID (NL)" link
+        whenITapLink(app, label: "eduID (NL)")
+        
+        // When I wait 3 seconds
+        whenIWait(time: 3)
+        
+        // Then I should see webpage with host "login.eduid.nl"
+        thenIShouldSeeWebpageWithHost(app, host: "login.eduid.nl")
+        
+        // When I tap "Type a password." link
+        whenITapLink(app, label: "Type a password.")
+        
+        // When I start typing in the "e.g. user@gmail.com" textfield
+        whenIStartTypingInTheTextfield(app, label: "e.g. user@gmail.com")
+        
+        // When I type "********"
+        whenIType(app, text: demoCredentials.username)
+        
+        // When I start typing in the secure "Password" textfield
+        whenIStartTypingInTheSecureTextfield(app, label: "Password")
+        
+        // When I type "********"
+        whenIType(app, text: demoCredentials.password)
+        
+        // When I tap "Done" button
+        whenITapButton(app, label: "Done")
+        
+        // When I tap "Login" link
+        whenITapLink(app, label: "Login")
+        
+        // When I wait 10 seconds
+        whenIWait(time: 10)
+        
+        // Then I might see "Approve Application" label
+        let needApproval = thenIMightSeeLabel(app, label: "Approve Application")
+        
+        if needApproval {
+            
+            // Then I should see webpage with host "host"
+            thenIShouldSeeWebpageWithHost(app, host: demoCredentials.host)
+            
+            // When I tap "Approve" button
+            whenITapButton(app, label: "Approve")
+        }
+    }
+    
 }
 
 

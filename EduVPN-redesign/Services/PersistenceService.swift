@@ -43,6 +43,17 @@ class PersistenceService {
     }
 
     init() {
+        if ProcessInfo.processInfo.isUITestingFreshInstall {
+            addedServers = AddedServers()
+            return
+        }
+        
+        if ProcessInfo.processInfo.isUITestingConfigured {
+            addedServers = AddedServers()
+            addSimpleServer(SimpleServerInstance(baseURLString: DiscoveryData.BaseURLString(urlString: "https://demo.eduvpn.nl/"), localStoragePath:  UUID().uuidString))
+            return
+        }
+        
         if Self.isJSONStoreExists() {
             addedServers = Self.loadFromFile() ?? AddedServers()
         } else {
