@@ -18,7 +18,7 @@ struct Credentials {
 let demoCredentials = Credentials(host: <#T##String#>, username: <#T##String#>, password: <#T##String#>)
 let customCredentials = Credentials(host: <#T##String#>, username: <#T##String#>, password: <#T##String#>)
 
-class EduVPN_UITests_iOS: XCTestCase {
+class EduVPNUITestsiOS: XCTestCase {
 
     var interruptionMonitor: NSObjectProtocol!
     var alertButtonToTap: String?
