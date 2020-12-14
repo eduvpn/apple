@@ -167,6 +167,10 @@ extension AppDelegate {
         }
     }
 
+    @IBAction func importOpenVPNConfig(_ sender: Any) {
+        print("Import OpenVPN config...")
+    }
+
     func setShowInStatusBarEnabled(_ isEnabled: Bool) {
         statusItemController?.setShouldShowStatusItem(isEnabled)
     }

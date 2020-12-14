@@ -70,6 +70,11 @@
                                                 <action selector="newDocument:" target="Ady-hI-5gd" id="4Si-XN-c54"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Import OpenVPN Configuration..." keyEquivalent="i" id="9SY-An-WWD">
+                                            <connections>
+                                                <action selector="importOpenVPNConfig:" target="Voe-Tx-rLC" id="1xl-gf-AGh"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
                                         <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
                                             <connections>
