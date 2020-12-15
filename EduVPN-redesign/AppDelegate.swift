@@ -168,7 +168,43 @@ extension AppDelegate {
     }
 
     @IBAction func importOpenVPNConfig(_ sender: Any) {
-        print("Import OpenVPN config...")
+        guard let mainWindow = mainWindow else { return }
+        guard let persistenceService = environment?.persistenceService else { return }
+
+        mainWindow.makeKeyAndOrderFront(nil)
+        NSApp.activate(ignoringOtherApps: true)
+
+        let openPanel = NSOpenPanel()
+        openPanel.prompt = NSLocalizedString("Import", comment: "")
+        openPanel.allowedFileTypes = ["ovpn"]
+        openPanel.allowsMultipleSelection = true
+        openPanel.beginSheetModal(for: mainWindow) { response in
+            guard response == .OK else { return }
+            guard !openPanel.urls.isEmpty else { return }
+            var importedCount = 0
+            for url in openPanel.urls {
+                let instance = try? OpenVPNConfigImportHelper.copyConfig(from: url)
+                if let instance = instance {
+                    persistenceService.addOpenVPNConfiguration(instance)
+                    importedCount += 1
+                }
+            }
+
+            let alert = NSAlert()
+            if openPanel.urls.count == 1 && importedCount == 1 {
+                alert.messageText = NSLocalizedString("OpenVPN config imported", comment: "")
+                alert.informativeText = ""
+            } else if importedCount == 0 {
+                alert.messageText = NSLocalizedString("Error importing OpenVPN configs", comment: "")
+                alert.informativeText = ""
+            } else {
+                alert.messageText = NSLocalizedString("OpenVPN configs imported", comment: "")
+                alert.informativeText = String(
+                    format: NSLocalizedString("%d of %d configs imported", comment: ""),
+                    importedCount, openPanel.urls.count)
+            }
+            alert.beginSheetModal(for: mainWindow)
+        }
     }
 
     func setShowInStatusBarEnabled(_ isEnabled: Bool) {
