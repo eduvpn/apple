@@ -29,6 +29,8 @@ class NavigationController: NSViewController {
     private var onCancelled: (() -> Void)?
 
     @IBOutlet weak var toolbarLeftButton: NSButton!
+    @IBOutlet weak var toolbarHelpButton: NSButton!
+    @IBOutlet weak var toolbarPreferencesButton: NSButton!
     @IBOutlet weak var authorizingMessageBox: NSBox!
 
     private var presentedPreferencesVC: PreferencesViewController?
@@ -39,6 +41,13 @@ class NavigationController: NSViewController {
         } else {
             addButtonDelegate?.addButtonClicked(inNavigationController: self)
         }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        updateToolbarLeftButton()
+        toolbarHelpButton.setAccessibilityLabel(NSLocalizedString("Help", comment: "Help accessibility label"))
+        toolbarPreferencesButton.setAccessibilityLabel(NSLocalizedString("Preferences", comment: "Preferences accessibility label"))
     }
 
     @IBAction func toolbarPreferencesClicked(_ sender: Any) {
@@ -64,6 +73,7 @@ class NavigationController: NSViewController {
         toolbarLeftButton.image = image
         toolbarLeftButton.isHidden = !authorizingMessageBox.isHidden ||
             (canGoBack && !isUserAllowedToGoBack)
+        toolbarLeftButton.setAccessibilityLabel(canGoBack ? NSLocalizedString("Back", comment: "Back accessibility label") : NSLocalizedString("Add", comment: "Add accessibility label"))
     }
 }
 

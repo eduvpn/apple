@@ -17,8 +17,9 @@ struct Credentials {
 // Fill these before running the tests
 //let demoCredentials = Credentials(host: <#T##String#>, username: <#T##String#>, password: <#T##String#>)
 //let customCredentials = Credentials(host: <#T##String#>, username: <#T##String#>, password: <#T##String#>)
-let demoCredentials = Credentials(host: "demo.eduvpn.nl", username: "johan@egeniq.com", password: "genKi9-vujbes-vyszew")
-let customCredentials = Credentials(host: "vpn.spoor.nu", username: "johan", password: "koolen")
+// These need to be here so the tests at least compile on GitHub Actions
+let demoCredentials = Credentials(host: "", username: "", password: "")
+let customCredentials = Credentials(host: "", username: "", password: '')
 
 class EduVPNUITestsmacOS: XCTestCase {
 
@@ -72,9 +73,6 @@ class EduVPNUITestsmacOS: XCTestCase {
 
         // When I tap "Add" button
         whenITapButton(app, label: "Add")
-
-        // Then I should see screen with title "Add Server"
-        thenIShouldSeeScreenWithTitle(app, title: "Add Server")
         
         // Then I should see "Find your institute" label
         thenIShouldSeeLabel(app, label: "Find your institute")
@@ -177,20 +175,20 @@ class EduVPNUITestsmacOS: XCTestCase {
         // When I tap "SURFnet bv" cell
         whenITapCell(app, label: "SURFnet bv")
         
-        // When I tap "Continue" button in system alert
-        whenITapButtonInSystemAlert(app, label: "Continue")
-        
         // When I wait 3 seconds
         whenIWait(time: 3)
         
         // Then I should see webpage with host "idp.surfnet.nl"
-        thenIShouldSeeWebpageWithHost(app, host: "idp.surfnet.nl")
+        thenIShouldSeeWebpageWithHost(host: "idp.surfnet.nl")
         
         // When I tap "Cancel" button
         whenITapButton(app, label: "Cancel")
         
-        // Then I should see screen with title "Add Server"
-        thenIShouldSeeScreenWithTitle(app, title: "Add Server")
+        // Then I should see "Secure Internet" label
+        thenIShouldSeeLabel(app, label: "Secure Internet")
+        
+        // Then I should see "SURFnet bv" cell
+        thenIShouldSeeCell(app, label: "SURFnet bv")
     }
     
     func testAddCustomServer() {
@@ -214,11 +212,8 @@ class EduVPNUITestsmacOS: XCTestCase {
         // When I tap "https:// + host" cell
         whenITapCell(app, label: "https://" + customCredentials.host + "/")
         
-        // When I tap "Continue" button in system alert
-        whenITapButtonInSystemAlert(app, label: "Continue")
-        
         // Then I should see webpage with host "host"
-        thenIShouldSeeWebpageWithHost(app, host: customCredentials.host)
+        thenIShouldSeeWebpageWithHost(host: customCredentials.host)
         
         // When I start typing in the "Username" textfield
         whenIStartTypingInTheTextfield(app, label: "Username")
@@ -244,7 +239,7 @@ class EduVPNUITestsmacOS: XCTestCase {
         if needApproval {
         
             // Then I should see webpage with host "host"
-            thenIShouldSeeWebpageWithHost(app, host: customCredentials.host)
+            thenIShouldSeeWebpageWithHost(host: customCredentials.host)
             
             // Then I should see "Approve Application" label
             thenIShouldSeeLabel(app, label: "Approve Application")
@@ -420,41 +415,38 @@ class EduVPNUITestsmacOS: XCTestCase {
         thenIShouldSeeScreenWithTitle(app, title: "Connection Log")
     }
     
-    func testSettings() {
-        // Scenario: Settings should be available
+    func testPreferences() {
+        // Scenario: Preferences should be available
         
         // Given I launched a configured app
         let app = givenILaunchedAConfiguredApp()
         
-        // When I tap "Settings" button
-        whenITapButton(app, label: "Settings")
+        // When I tap "Preferences" button
+        whenITapButton(app, label: "Preferences")
         
-        // Then I should see screen with title "Settings"
-        thenIShouldSeeScreenWithTitle(app, title: "Settings")
+        // Then I should see "Preferences" label
+        thenIShouldSeeLabel(app, label: "Preferences")
         
-        // Then I should see "OPTIONS" header
-        thenIShouldSeeHeader(app, label: "OPTIONS")
+        // Then I should see "Connect using TCP only" checkbox
+        thenIShouldSeeCheckbox(app, label: "Connect using TCP only")
         
-        // Then I should see "Connect using TCP only" label
-        thenIShouldSeeLabel(app, label: "Connect using TCP only")
+        // Then I should see "Connection log" label
+        thenIShouldSeeLabel(app, label: "Connection log") // FIXME: iOS capitalizes Log, should this be the same?
         
-        // Then I should see "LOGGING" header
-        thenIShouldSeeHeader(app, label: "LOGGING")
+        // Then I should see "View Log" button
+        thenIShouldSeeButton(app, label: "View Log")
         
-        // Then I should see "Connection Log" label
-        thenIShouldSeeLabel(app, label: "Connection Log")
-        
-        // Then I should see "ABOUT" header
-        thenIShouldSeeHeader(app, label: "ABOUT")
-        
-        // Then I should see "Source code" label
-        thenIShouldSeeLabel(app, label: "Source code")
+        // Then I should see "Show in menu bar" checkbox
+        thenIShouldSeeCheckbox(app, label: "Show in menu bar")
+                  
+        // Then I should see "Show in Dock" checkbox
+        thenIShouldSeeCheckbox(app, label: "Show in Dock")
         
         // When I tap "Done" button
         whenITapButton(app, label: "Done")
 
-        // Then I should see "Settings" button
-        thenIShouldSeeButton(app, label: "Settings")
+        // Then I should see "Preferences" button
+        thenIShouldSeeButton(app, label: "Preferences")
     }
 
     func testHelp() {
@@ -470,7 +462,7 @@ class EduVPNUITestsmacOS: XCTestCase {
         whenITapButton(app, label: "Help")
         
         // Then I should see webpage with host "eduvpn.org"
-        thenIShouldSeeWebpageWithHost(app, host: "eduvpn.org")
+        thenIShouldSeeWebpageWithHost(host: "eduvpn.org")
         
         // When I tap "Done" button
         whenITapButton(app, label: "Done")
@@ -567,17 +559,25 @@ private extension EduVPNUITestsmacOS {
         XCTAssert(alertElement.exists)
     }
     
-    private func thenIShouldSeeWebpageWithHost(_ app: XCUIApplication, host: String) {
-        let webViewElement = app.webViews.firstMatch
-        _ = webViewElement.waitForExistence(timeout: 3)
-        XCTAssert(webViewElement.exists)
-        XCTAssert((app.buttons["URL"].value as? String)?.contains(host) ?? false)
+    private func thenIShouldSeeWebpageWithHost(host: String) {
+        let safari = XCUIApplication(bundleIdentifier: "com.apple.Safari")
+        let textFieldElement = safari.textFields["WEB_BROWSER_ADDRESS_AND_SEARCH_FIELD"]
+        _ = textFieldElement.waitForExistence(timeout: 3)
+        XCTAssert((textFieldElement.value as? String)?.contains(host) ?? false)
     }
     
     private func thenIShouldSeeConnectionSwitch(_ app: XCUIApplication, isOn: Bool) {
         let switchElement = app.buttons["Connection"]
         XCTAssert(switchElement.exists)
         XCTAssert(switchElement.isSelected == isOn)
+    }
+    
+    private func thenIShouldSeeCheckbox(_ app: XCUIApplication, label: String, isOn: Bool? = nil) {
+        let checkboxElement = app.checkBoxes[label]
+        XCTAssert(checkboxElement.exists)
+        if let isOn = isOn {
+            XCTAssert(checkboxElement.isSelected == isOn)
+        }
     }
     
     // MARK: - When
@@ -604,7 +604,7 @@ private extension EduVPNUITestsmacOS {
     }
     
     private func whenIClearTheSearchField(_ app: XCUIApplication) {
-        app.searchFields.firstMatch.buttons["Clear text"].tap()
+        app.searchFields.firstMatch.buttons["cancel"].tap()
     }
     
     private func whenITapCell(_ app: XCUIApplication, label: String) {
@@ -642,22 +642,13 @@ private extension EduVPNUITestsmacOS {
     private func whenIWait(time: TimeInterval) {
         Thread.sleep(forTimeInterval: time)
     }
-    
-    private func whenITapButtonInSystemAlert(_ app: XCUIApplication, label: String) {
-        alertButtonToTap = label
-        Thread.sleep(forTimeInterval: 3)
-       // TODO: app.swipeUp() // Interaction with app needed for some reasone
-    }
 
     private func whenIAuthenticateWithDemo(_ app: XCUIApplication) {
-        // When I tap "Continue" button in system alert
-        whenITapButtonInSystemAlert(app, label: "Continue")
-        
         // When I wait 3 seconds
         whenIWait(time: 3)
         
         // Then I should see webpage with host "engine.surfconext.nl"
-        thenIShouldSeeWebpageWithHost(app, host: "engine.surfconext.nl")
+        thenIShouldSeeWebpageWithHost(host: "engine.surfconext.nl")
         
         // When I tap "eduID (NL)" link
         whenITapLink(app, label: "eduID (NL)")
@@ -666,7 +657,7 @@ private extension EduVPNUITestsmacOS {
         whenIWait(time: 3)
         
         // Then I should see webpage with host "login.eduid.nl"
-        thenIShouldSeeWebpageWithHost(app, host: "login.eduid.nl")
+        thenIShouldSeeWebpageWithHost(host: "login.eduid.nl")
         
         // When I tap "Type a password." link
         whenITapLink(app, label: "Type a password.")
@@ -698,7 +689,7 @@ private extension EduVPNUITestsmacOS {
         if needApproval {
             
             // Then I should see webpage with host "host"
-            thenIShouldSeeWebpageWithHost(app, host: demoCredentials.host)
+            thenIShouldSeeWebpageWithHost(host: demoCredentials.host)
             
             // When I tap "Approve" button
             whenITapButton(app, label: "Approve")
