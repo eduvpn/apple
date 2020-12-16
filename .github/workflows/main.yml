@@ -47,7 +47,7 @@ jobs:
     - name: Prepare assets
       run: cp -r EduVPN/Config/Assets-EduVPN.xcassets EduVPN/Resources/Assets.xcassets
     - name: Run tests on iOS 13
-      run: xcodebuild test -scheme EduVPN -workspace EduVPN.xcworkspace -destination 'platform=iOS Simulator,name=iPhone 11,OS=13.3' | xcpretty && exit ${PIPESTATUS[0]}
+      run: xcodebuild test -scheme EduVPN -workspace EduVPN.xcworkspace -destination 'platform=iOS Simulator,name=iPhone 11,OS=13.3' -skip-testing EduVPN-UITests-iOS | xcpretty && exit ${PIPESTATUS[0]}
 #    - name: Run tests on iOS 12
 #      run: xcodebuild test -scheme EduVPN -workspace EduVPN.xcworkspace -destination 'platform=iOS Simulator,name=iPhone X,OS=12.4' | xcpretty && exit ${PIPESTATUS[0]}
 
