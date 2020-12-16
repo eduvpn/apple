@@ -1,8 +1,8 @@
 //
-//  EduVPN_UITests_iOS.swift
-//  EduVPN-UITests-iOS
+//  EduVPN_UITests_macOS.swift
+//  EduVPN-UITests-macOS
 //
-//  Created by Johan Kool on 09/12/2020.
+//  Created by Johan Kool on 16/12/2020.
 //  Copyright © 2020 SURFNet. All rights reserved.
 //
 
@@ -17,11 +17,10 @@ struct Credentials {
 // Fill these before running the tests
 //let demoCredentials = Credentials(host: <#T##String#>, username: <#T##String#>, password: <#T##String#>)
 //let customCredentials = Credentials(host: <#T##String#>, username: <#T##String#>, password: <#T##String#>)
-// These need to be here so the tests at least compile on GitHub Actions
-let demoCredentials = Credentials(host: "", username: "", password: "")
-let customCredentials = Credentials(host: "", username: "", password: "")
+let demoCredentials = Credentials(host: "demo.eduvpn.nl", username: "johan@egeniq.com", password: "genKi9-vujbes-vyszew")
+let customCredentials = Credentials(host: "vpn.spoor.nu", username: "johan", password: "koolen")
 
-class EduVPNUITestsiOS: XCTestCase {
+class EduVPNUITestsmacOS: XCTestCase {
 
     var interruptionMonitor: NSObjectProtocol!
     var alertButtonToTap: String?
@@ -55,9 +54,6 @@ class EduVPNUITestsiOS: XCTestCase {
         // Given I launched a freshly installed app
         let app = givenILaunchedAFreshlyInstalledApp()
 
-        // Then I should see screen with title "Add Server"
-        thenIShouldSeeScreenWithTitle(app, title: "Add Server")
-        
         // Then I should see "Find your institute" label
         thenIShouldSeeLabel(app, label: "Find your institute")
         
@@ -334,7 +330,7 @@ class EduVPNUITestsiOS: XCTestCase {
         thenIShouldSeeCell(app, label: "Demo")
         
         // When I swipe left on "Demo" cell
-        whenISwipeLeftOnCell(app, label: "Demo")
+//        whenISwipeLeftOnCell(app, label: "Demo")
         
         // Then I should see "Delete" button
         thenIShouldSeeButton(app, label: "Delete")
@@ -494,7 +490,7 @@ class EduVPNUITestsiOS: XCTestCase {
     
 }
 
-private extension EduVPNUITestsiOS {
+private extension EduVPNUITestsmacOS {
     
     // MARK: - Given
     
@@ -643,11 +639,6 @@ private extension EduVPNUITestsiOS {
         switchElement.tap()
     }
     
-    private func whenISwipeLeftOnCell(_ app: XCUIApplication, label: String) {
-        let cellElement = app.cells[label]
-        cellElement.swipeLeft()
-    }
-    
     private func whenIWait(time: TimeInterval) {
         Thread.sleep(forTimeInterval: time)
     }
@@ -655,7 +646,7 @@ private extension EduVPNUITestsiOS {
     private func whenITapButtonInSystemAlert(_ app: XCUIApplication, label: String) {
         alertButtonToTap = label
         Thread.sleep(forTimeInterval: 3)
-        app.swipeUp() // Interaction with app needed for some reasone
+       // TODO: app.swipeUp() // Interaction with app needed for some reasone
     }
 
     private func whenIAuthenticateWithDemo(_ app: XCUIApplication) {

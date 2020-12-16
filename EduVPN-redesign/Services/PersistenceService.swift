@@ -50,7 +50,7 @@ class PersistenceService {
         
         if ProcessInfo.processInfo.isUITestingConfigured {
             addedServers = AddedServers()
-            addSimpleServer(SimpleServerInstance(baseURLString: DiscoveryData.BaseURLString(urlString: "https://demo.eduvpn.nl/"), localStoragePath:  UUID().uuidString))
+            addSimpleServer(SimpleServerInstance(baseURLString: DiscoveryData.BaseURLString(urlString: "https://demo.eduvpn.nl/"), localStoragePath: UUID().uuidString))
             return
         }
         

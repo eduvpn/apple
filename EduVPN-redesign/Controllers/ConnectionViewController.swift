@@ -145,7 +145,11 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         if !isRestored {
             beginConnectionFlow(shouldContinueIfSingleProfile: true)
         }
+        #if os(macOS)
+        vpnSwitch.setAccessibilityIdentifier("Connection")
+        #elseif os(iOS)
         vpnSwitch.accessibilityIdentifier = "Connection"
+        #endif
     }
 
     #if os(macOS)
