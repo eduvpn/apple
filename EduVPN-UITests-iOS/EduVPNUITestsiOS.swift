@@ -491,7 +491,7 @@ class EduVPNUITestsiOS: XCTestCase {
     
 }
 
-private extension EduVPN_UITests_iOS {
+private extension EduVPNUITestsiOS {
     
     // MARK: - Given
     
