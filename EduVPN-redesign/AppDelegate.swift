@@ -39,6 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var mainWindow: NSWindow?
     var environment: Environment?
     var statusItemController: StatusItemController?
+    var mainViewController: MainViewController?
 
     func applicationWillFinishLaunching(_ notification: Notification) {
         if UserDefaults.standard.showInDock {
@@ -55,6 +56,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             navigationController.environment = environment
             if let mainController = navigationController.children.first as? MainViewController {
                 mainController.environment = environment
+                self.mainViewController = mainController
             }
         }
 
@@ -189,6 +191,8 @@ extension AppDelegate {
                     importedCount += 1
                 }
             }
+
+            self.mainViewController?.refresh()
 
             let alert = NSAlert()
             if openPanel.urls.count == 1 && importedCount == 1 {

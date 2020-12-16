@@ -48,6 +48,10 @@ class MainViewController: ViewController {
         isViewVisible = false
     }
     #endif
+
+    func refresh() {
+        viewModel.update()
+    }
 }
 
 extension MainViewController: NavigationControllerAddButtonDelegate {
@@ -237,6 +241,8 @@ extension MainViewController {
             persistenceService.removeSimpleServer(server)
         case .serverByURL(server: let server):
             persistenceService.removeSimpleServer(server)
+        case .openVPNConfig(instance: let instance):
+            persistenceService.removeOpenVPNConfiguration(instance)
         case .instituteAccessServerSectionHeader,
              .secureInternetServerSectionHeader,
              .otherServerSectionHeader:

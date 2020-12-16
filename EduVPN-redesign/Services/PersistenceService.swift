@@ -41,6 +41,10 @@ class PersistenceService {
         addedServers.secureInternetServer
     }
 
+    var openVPNConfigs: [OpenVPNConfigInstance]? {
+        addedServers.openVPNConfigs
+    }
+
     var hasServers: Bool {
         addedServers.secureInternetServer != nil ||
             !addedServers.simpleServers.isEmpty ||
@@ -136,6 +140,9 @@ class PersistenceService {
         if let existingIndex = existingIndex {
             DataStore(path: instance.localStoragePath).delete()
             addedServers.openVPNConfigs?.remove(at: existingIndex)
+            if let openVPNConfigs = addedServers.openVPNConfigs, openVPNConfigs.isEmpty {
+                addedServers.openVPNConfigs = nil
+            }
             Self.saveToFile(addedServers: addedServers)
         }
     }

@@ -12,6 +12,7 @@ enum ViewModelRowKind: Int {
     case secureInternetServerKind
     case otherServerSectionHeaderKind
     case serverByURLKind
+    case openVPNConfigKind
     case noResultsKind
 
     var isSectionHeader: Bool {
@@ -28,10 +29,11 @@ enum ViewModelRowKind: Int {
 
     var isServerRow: Bool {
         switch self {
-        case .serverByURLKind,
-             .instituteAccessServerKind,
+        case .instituteAccessServerKind,
              .secureInternetOrgKind,
-             .secureInternetServerKind:
+             .secureInternetServerKind,
+             .serverByURLKind,
+             .openVPNConfigKind:
             return true
         default:
             return false
