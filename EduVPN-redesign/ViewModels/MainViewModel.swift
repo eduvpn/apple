@@ -30,7 +30,7 @@ class MainViewModel {
             server: SecureInternetServerInstance,
             displayInfo: ServerDisplayInfo,
             countryName: String)
-        case serverByURLSectionHeader
+        case otherServerSectionHeader
         case serverByURL(server: SimpleServerInstance)
 
         var rowKind: ViewModelRowKind {
@@ -39,7 +39,7 @@ class MainViewModel {
             case .instituteAccessServer: return .instituteAccessServerKind
             case .secureInternetServerSectionHeader: return .secureInternetServerSectionHeaderKind
             case .secureInternetServer: return .secureInternetServerKind
-            case .serverByURLSectionHeader: return .serverByURLSectionHeaderKind
+            case .otherServerSectionHeader: return .otherServerSectionHeaderKind
             case .serverByURL: return .serverByURLKind
             }
         }
@@ -157,7 +157,7 @@ extension MainViewModel {
             computedRows.append(contentsOf: secureInternetRows)
         }
         if !serverByURLRows.isEmpty {
-            computedRows.append(.serverByURLSectionHeader)
+            computedRows.append(.otherServerSectionHeader)
             computedRows.append(contentsOf: serverByURLRows)
         }
         computedRows.sort()

@@ -10,13 +10,13 @@ enum ViewModelRowKind: Int {
     case secureInternetOrgKind
     case secureInternetServerSectionHeaderKind
     case secureInternetServerKind
-    case serverByURLSectionHeaderKind
+    case otherServerSectionHeaderKind
     case serverByURLKind
     case noResultsKind
 
     var isSectionHeader: Bool {
         switch self {
-        case .serverByURLSectionHeaderKind,
+        case .otherServerSectionHeaderKind,
              .instituteAccessServerSectionHeaderKind,
              .secureInternetOrgSectionHeaderKind,
              .secureInternetServerSectionHeaderKind:

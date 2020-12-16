@@ -239,7 +239,7 @@ extension MainViewController {
             persistenceService.removeSimpleServer(server)
         case .instituteAccessServerSectionHeader,
              .secureInternetServerSectionHeader,
-             .serverByURLSectionHeader:
+             .otherServerSectionHeader:
             break
         }
         viewModel.update()
