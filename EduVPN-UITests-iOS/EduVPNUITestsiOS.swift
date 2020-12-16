@@ -15,8 +15,11 @@ struct Credentials {
 }
 
 // Fill these before running the tests
-let demoCredentials = Credentials(host: <#T##String#>, username: <#T##String#>, password: <#T##String#>)
-let customCredentials = Credentials(host: <#T##String#>, username: <#T##String#>, password: <#T##String#>)
+//let demoCredentials = Credentials(host: <#T##String#>, username: <#T##String#>, password: <#T##String#>)
+//let customCredentials = Credentials(host: <#T##String#>, username: <#T##String#>, password: <#T##String#>)
+// These need to be here so the tests at least compile on GitHub Actions
+let demoCredentials = Credentials(host: "", username: "", password: "")
+let customCredentials = Credentials(host: "", username: "", password: "")
 
 class EduVPNUITestsiOS: XCTestCase {
 
