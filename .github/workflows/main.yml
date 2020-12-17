@@ -45,7 +45,7 @@ jobs:
     - name: Prepare config.json
       run: cp EduVPN/Config/config-eduvpn_new_discovery.json EduVPN/Config/config.json
     - name: Run tests on iOS 14
-      run: xcodebuild test -scheme EduVPN-redesign-iOS -workspace EduVPN.xcworkspace -destination 'platform=iOS Simulator,name=iPhone 12,OS=14.2' -skip-testing EduVPN-UITests-iOS | xcpretty && exit ${PIPESTATUS[0]}
+      run: xcodebuild test -scheme EduVPN-redesign-iOS -workspace EduVPN.xcworkspace -destination 'platform=iOS Simulator,name=iPhone 12,OS=14.3' -skip-testing EduVPN-UITests-iOS | xcpretty && exit ${PIPESTATUS[0]}
 
   build-macos:
     name: Build macOS target
