@@ -583,9 +583,11 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
         case .collapsed:
             connectionInfoChevronButton.image = Image(named: "ChevronDownButton")
             connectionInfoHeader.isPassthroughToButtonEnabled = true // Make whole "row" clickable
+            connectionInfoChevronButton.setAccessibilityLabel(NSLocalizedString("Show connection info", comment: ""))
         case .expanded:
             connectionInfoChevronButton.image = Image(named: "CloseButton")
             connectionInfoHeader.isPassthroughToButtonEnabled = false
+            connectionInfoChevronButton.setAccessibilityLabel(NSLocalizedString("Hide connection info", comment: ""))
         }
         #elseif os(iOS)
         switch connectionInfoState {

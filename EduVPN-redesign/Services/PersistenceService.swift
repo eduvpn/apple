@@ -45,11 +45,13 @@ class PersistenceService {
     init() {
         if ProcessInfo.processInfo.isUITestingFreshInstall {
             addedServers = AddedServers()
+            removeLastConnectionAttempt()
             return
         }
         
         if ProcessInfo.processInfo.isUITestingConfigured {
             addedServers = AddedServers()
+            removeLastConnectionAttempt()
             addSimpleServer(SimpleServerInstance(baseURLString: DiscoveryData.BaseURLString(urlString: "https://demo.eduvpn.nl/"), localStoragePath: UUID().uuidString))
             return
         }
