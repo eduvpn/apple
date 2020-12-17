@@ -22,6 +22,9 @@ class RowCell: TableViewCell {
         textLabel?.text = title
         imageView?.image = image
         #endif
+
+        #if os(iOS)
         accessibilityLabel = title
+        #endif
     }
 }
