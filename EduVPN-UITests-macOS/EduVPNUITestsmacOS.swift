@@ -370,6 +370,9 @@ class EduVPNUITestsmacOS: XCTestCase {
         // Then I should see connection switch off
         thenIShouldSeeConnectionSwitch(app, isOn: false)
         
+        // When I wait 3 seconds
+        whenIWait(time: 3)
+        
         // When I toggle the connection switch
         whenIToggleConnectionSwitch(app)
         
@@ -398,17 +401,20 @@ class EduVPNUITestsmacOS: XCTestCase {
         // Given I launched a configured app
         let app = givenILaunchedAConfiguredApp()
         
-        // When I click "Settings" button
-        whenIClickButton(app, label: "Settings")
-                
-        // Then I should see "LOGGING" header
-        thenIShouldSeeHeader(app, label: "LOGGING")
+        // When I click "Preferences" button
+        whenIClickButton(app, label: "Preferences")
+                        
+        // Then I should see "Connection log" label
+        thenIShouldSeeLabel(app, label: "Connection log") // FIXME: iOS capitalizes Log, should this be the same?
         
-        // Then I should see "Connection Log" label
-        thenIShouldSeeLabel(app, label: "Connection Log")
+        // Then I should see "View Log" button
+        thenIShouldSeeButton(app, label: "View Log")
         
-        // When I click "Connection Log" label
-        whenIClickLabel(app, label: "Connection Log")
+        // When I click "View Log" button
+        whenIClickButton(app, label: "View Log")
+        
+        // Then I should see "com.apple.Console" app active
+        thenIShouldSeeAppActive(bundleIdentifier: "com.apple.Console")
     }
     
     func testPreferences() {
@@ -509,7 +515,7 @@ private extension EduVPNUITestsmacOS {
     
     private func thenIShouldNotSeeLabel(_ app: XCUIApplication, label: String) {
         let labelElement = app.staticTexts[label]
-        XCTAssert(labelElement.isHittable == false)
+        XCTAssert(labelElement.exists == false || labelElement.isHittable == false)
     }
     
     private func thenIMightSeeLabel(_ app: XCUIApplication, label: String) -> Bool {
@@ -588,6 +594,10 @@ private extension EduVPNUITestsmacOS {
         XCTAssert(menuItemElement.exists)
     }
 
+    private func thenIShouldSeeAppActive(bundleIdentifier: String) {
+        let app = XCUIApplication(bundleIdentifier: bundleIdentifier)
+        XCTAssert(app.state == .runningForeground)
+    }
     
     // MARK: - When
     
@@ -644,7 +654,7 @@ private extension EduVPNUITestsmacOS {
     }
     
     private func whenIToggleConnectionSwitch(_ app: XCUIApplication) {
-        let switchElement = app.buttons["Connection"]
+        let switchElement = app.checkBoxes["Connection"]
         switchElement.click()
     }
     
