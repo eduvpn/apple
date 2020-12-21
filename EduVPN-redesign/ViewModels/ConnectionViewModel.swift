@@ -207,7 +207,7 @@ class ConnectionViewModel {
 
     init(serverAPIService: ServerAPIService, connectionService: ConnectionServiceProtocol,
          server: ServerInstance, serverDisplayInfo: ServerDisplayInfo, authURLTemplate: String?,
-         restoredPreConnectionState: ConnectionAttempt.PreConnectionState?) {
+         restoredPreConnectionState: ConnectionAttempt.ServerPreConnectionState?) {
         self.serverAPIService = serverAPIService
         self.connectionService = connectionService
         self.server = server

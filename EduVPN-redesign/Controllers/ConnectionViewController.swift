@@ -38,7 +38,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         let server: ServerInstance
         let serverDisplayInfo: ServerDisplayInfo
         let authURLTemplate: String?
-        let restoredPreConnectionState: ConnectionAttempt.PreConnectionState?
+        let restoredPreConnectionState: ConnectionAttempt.ServerPreConnectionState?
     }
 
     weak var delegate: ConnectionViewControllerDelegate?

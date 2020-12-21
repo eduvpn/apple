@@ -125,16 +125,16 @@ extension MainViewController: ConnectionServiceInitializationDelegate {
             }
 
             let connectionVC: ConnectionViewController? = {
-                let server = lastConnectionAttempt.server
-                if let simpleServer = server as? SimpleServerInstance {
+                let connectableInstance = lastConnectionAttempt.connectableInstance
+                if let simpleServer = connectableInstance as? SimpleServerInstance {
                     return environment.instantiateConnectionViewController(
-                        server: server, serverDisplayInfo: viewModel.serverDisplayInfo(for: simpleServer),
+                        server: simpleServer, serverDisplayInfo: viewModel.serverDisplayInfo(for: simpleServer),
                         authURLTemplate: nil,
                         restoredPreConnectionState: lastConnectionAttempt.preConnectionState)
-                } else if let secureInternetServer = server as? SecureInternetServerInstance {
+                } else if let secureInternetServer = connectableInstance as? SecureInternetServerInstance {
                     return environment.instantiateConnectionViewController(
-                        server: server, serverDisplayInfo: viewModel.serverDisplayInfo(for: secureInternetServer),
-                        authURLTemplate: viewModel.authURLTemplate(for: server),
+                        server: secureInternetServer, serverDisplayInfo: viewModel.serverDisplayInfo(for: secureInternetServer),
+                        authURLTemplate: viewModel.authURLTemplate(for: secureInternetServer),
                         restoredPreConnectionState: lastConnectionAttempt.preConnectionState)
                 }
                 return nil

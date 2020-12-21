@@ -50,7 +50,7 @@ class Environment {
 
     func instantiateConnectionViewController(
         server: ServerInstance, serverDisplayInfo: ServerDisplayInfo, authURLTemplate: String?,
-        restoredPreConnectionState: ConnectionAttempt.PreConnectionState? = nil) -> ConnectionViewController {
+        restoredPreConnectionState: ConnectionAttempt.ServerPreConnectionState? = nil) -> ConnectionViewController {
         let parameters = ConnectionViewController.Parameters(
             environment: self, server: server, serverDisplayInfo: serverDisplayInfo,
             authURLTemplate: authURLTemplate,
