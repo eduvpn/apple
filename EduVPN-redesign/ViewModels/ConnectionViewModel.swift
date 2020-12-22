@@ -458,7 +458,8 @@ private extension ConnectionViewModel {
             if internalState == .gettingProfiles || internalState == .configuring {
                 return .none
             }
-            if internalState == .idle && (profiles?.count ?? 0) == 0 {
+            if (connectableInstance is ServerInstance) &&
+                    (internalState == .idle) && (profiles?.count ?? 0) == 0 {
                 return .noProfilesAvailable
             }
             if internalState == .enabledVPN {
