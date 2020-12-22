@@ -128,13 +128,20 @@ extension MainViewController: ConnectionServiceInitializationDelegate {
                 let connectableInstance = lastConnectionAttempt.connectableInstance
                 if let simpleServer = connectableInstance as? SimpleServerInstance {
                     return environment.instantiateConnectionViewController(
-                        connectableInstance: simpleServer, serverDisplayInfo: viewModel.serverDisplayInfo(for: simpleServer),
+                        connectableInstance: simpleServer,
+                        serverDisplayInfo: viewModel.serverDisplayInfo(for: simpleServer),
                         authURLTemplate: nil,
                         restoringConnectionAttempt: lastConnectionAttempt)
                 } else if let secureInternetServer = connectableInstance as? SecureInternetServerInstance {
                     return environment.instantiateConnectionViewController(
-                        connectableInstance: secureInternetServer, serverDisplayInfo: viewModel.serverDisplayInfo(for: secureInternetServer),
+                        connectableInstance: secureInternetServer,
+                        serverDisplayInfo: viewModel.serverDisplayInfo(for: secureInternetServer),
                         authURLTemplate: viewModel.authURLTemplate(for: secureInternetServer),
+                        restoringConnectionAttempt: lastConnectionAttempt)
+                } else if let openVPNConfigInstance = connectableInstance as? OpenVPNConfigInstance {
+                    return environment.instantiateConnectionViewController(
+                        connectableInstance: openVPNConfigInstance,
+                        serverDisplayInfo: .vpnConfigInstance(openVPNConfigInstance),
                         restoringConnectionAttempt: lastConnectionAttempt)
                 }
                 return nil
