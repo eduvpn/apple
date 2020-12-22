@@ -57,7 +57,10 @@ class SettingsViewController: UITableViewController, ParametrizedViewController 
     }
 
     @IBAction func importOpenVPNConfigTapped(_ sender: Any) {
-        print("Import clicked")
+        let types = ["public.data", "public.content"]
+        let pickerVC = UIDocumentPickerViewController(documentTypes: types, in: .import)
+        pickerVC.delegate = self
+        present(pickerVC, animated: true, completion: nil)
     }
 
     @objc func doneTapped(_ sender: Any) {
@@ -97,5 +100,47 @@ extension SettingsViewController {
                 present(safariVC, animated: true, completion: nil)
             }
         }
+    }
+}
+
+extension SettingsViewController: UIDocumentPickerDelegate {
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        let ovpnURLs = urls.filter { $0.pathExtension.lowercased() == "ovpn" }
+        guard !ovpnURLs.isEmpty else { return }
+        let persistenceService = parameters.environment.persistenceService
+        var importedCount = 0
+        for url in ovpnURLs {
+            let instance = try? OpenVPNConfigImportHelper.copyConfig(from: url)
+            if let instance = instance {
+                persistenceService.addOpenVPNConfiguration(instance)
+                importedCount += 1
+            }
+        }
+
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+           let mainWindow = appDelegate.window,
+           let navigationController = mainWindow.rootViewController as? NavigationController,
+           let mainVC = navigationController.children.first as? MainViewController {
+            mainVC.refresh()
+        }
+
+        let alertTitle: String
+        let alertMessage: String
+        if urls.count == 1 && importedCount == 1 {
+            alertTitle = NSLocalizedString("OpenVPN config imported", comment: "")
+            alertMessage = ""
+        } else if importedCount == 0 {
+            alertTitle = NSLocalizedString("Error importing OpenVPN configs", comment: "")
+            alertMessage = ""
+        } else {
+            alertTitle = NSLocalizedString("OpenVPN configs imported", comment: "")
+            alertMessage = String(
+                format: NSLocalizedString("%d of %d configs imported", comment: ""),
+                importedCount, urls.count)
+        }
+        let alert = UIAlertController(title: alertTitle, message: alertMessage,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true, completion: nil)
     }
 }
