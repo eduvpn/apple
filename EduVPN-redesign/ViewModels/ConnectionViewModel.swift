@@ -348,6 +348,32 @@ class ConnectionViewModel {
         }
     }
 
+    func beginVPNConfigConnectionFlow() -> Promise<Void> {
+        precondition(self.connectionService.isInitialized)
+        precondition(self.connectionService.isVPNEnabled == false)
+        guard let vpnConfigInstance = connectableInstance as? VPNConfigInstance else {
+            return Promise.value(())
+        }
+        let connectionAttemptId = UUID()
+        let connectionAttempt = ConnectionAttempt(
+            vpnConfigInstance: vpnConfigInstance,
+            attemptId: connectionAttemptId)
+        let dataStore = PersistenceService.DataStore(path: vpnConfigInstance.localStoragePath)
+        guard let vpnConfigString = dataStore.vpnConfig else {
+            return Promise.value(())
+        }
+        let vpnConfigLines = vpnConfigString.components(separatedBy: .newlines)
+        self.internalState = .enableVPNRequested
+        return firstly { () -> Promise<Void> in
+            self.delegate?.connectionViewModel(self, willAttemptToConnect: connectionAttempt)
+            return self.connectionService.enableVPN(
+                openVPNConfig: vpnConfigLines,
+                connectionAttemptId: connectionAttemptId)
+        }.ensure {
+            self.internalState = self.connectionService.isVPNEnabled ? .enabledVPN : .idle
+        }
+    }
+
     func disableVPN() -> Promise<Void> {
         precondition(self.connectionService.isInitialized)
         guard self.connectionService.isVPNEnabled == true else {

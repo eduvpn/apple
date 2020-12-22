@@ -159,7 +159,11 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         viewModel.delegate = self
         setupInitialView(viewModel: viewModel)
         if !isRestored {
-            beginServerConnectionFlow(shouldContinueIfSingleProfile: true)
+            if parameters.connectableInstance is ServerInstance {
+                beginServerConnectionFlow(shouldContinueIfSingleProfile: true)
+            } else if parameters.connectableInstance is VPNConfigInstance {
+                beginVPNConfigConnectionFlow()
+            }
         }
         #if os(macOS)
         vpnSwitch.setAccessibilityIdentifier("Connection")
@@ -181,14 +185,18 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
 
     func vpnSwitchToggled() {
         if vpnSwitch.isOn {
-            guard let profiles = profiles, !profiles.isEmpty else {
-                beginServerConnectionFlow(shouldContinueIfSingleProfile: true)
-                return
+            if parameters.connectableInstance is ServerInstance {
+                guard let profiles = profiles, !profiles.isEmpty else {
+                    beginServerConnectionFlow(shouldContinueIfSingleProfile: true)
+                    return
+                }
+                if selectedProfileId == nil {
+                    selectedProfileId = profiles[0].profileId
+                }
+                continueServerConnectionFlow(serverAPIOptions: [])
+            } else if parameters.connectableInstance is VPNConfigInstance {
+                beginVPNConfigConnectionFlow()
             }
-            if selectedProfileId == nil {
-                selectedProfileId = profiles[0].profileId
-            }
-            continueServerConnectionFlow(serverAPIOptions: [])
         } else {
             disableVPN()
         }
@@ -293,7 +301,7 @@ private extension ConnectionViewController {
             viewModel.beginServerConnectionFlow(
                 from: self, shouldContinueIfSingleProfile: shouldContinueIfSingleProfile)
         }.catch { error in
-            os_log("Error beginning connection flow: %{public}@",
+            os_log("Error beginning server connection flow: %{public}@",
                    log: Log.general, type: .error,
                    error.localizedDescription)
             self.showAlert(for: error)
@@ -314,7 +322,18 @@ private extension ConnectionViewController {
             return viewModel.continueServerConnectionFlow(
                 profile: profile, from: self, serverAPIOptions: serverAPIOptions)
         }.catch { error in
-            os_log("Error continuing connection flow: %{public}@",
+            os_log("Error continuing server connection flow: %{public}@",
+                   log: Log.general, type: .error,
+                   error.localizedDescription)
+            self.showAlert(for: error)
+        }
+    }
+
+    func beginVPNConfigConnectionFlow() {
+        firstly { () -> Promise<Void> in
+            return viewModel.beginVPNConfigConnectionFlow()
+        }.catch { error in
+            os_log("Error continuing VPN config connection flow: %{public}@",
                    log: Log.general, type: .error,
                    error.localizedDescription)
             self.showAlert(for: error)
