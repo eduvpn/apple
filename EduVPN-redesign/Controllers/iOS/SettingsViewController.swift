@@ -24,6 +24,7 @@ class SettingsViewController: UITableViewController, ParametrizedViewController 
 
     struct Parameters {
         let environment: Environment
+        let mainVC: MainViewController
     }
 
     private var parameters: Parameters!
@@ -117,12 +118,7 @@ extension SettingsViewController: UIDocumentPickerDelegate {
             }
         }
 
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-           let mainWindow = appDelegate.window,
-           let navigationController = mainWindow.rootViewController as? NavigationController,
-           let mainVC = navigationController.children.first as? MainViewController {
-            mainVC.refresh()
-        }
+        parameters.mainVC.refresh()
 
         let alertTitle: String
         let alertMessage: String

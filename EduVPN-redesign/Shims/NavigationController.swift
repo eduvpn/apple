@@ -242,7 +242,8 @@ class NavigationController: UINavigationController {
 
     @objc private func settingsButtonTapped(_ sender: Any) {
         guard let environment = environment else { return }
-        let settingsVC = environment.instantiateSettingsViewController()
+        guard let mainVC = self.children.first as? MainViewController else { return }
+        let settingsVC = environment.instantiateSettingsViewController(mainVC: mainVC)
         let navigationVC = UINavigationController(rootViewController: settingsVC)
         navigationVC.modalPresentationStyle = .fullScreen
         present(navigationVC, animated: true, completion: nil)

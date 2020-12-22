@@ -80,8 +80,8 @@ class Environment {
         return instantiate(ConnectionInfoViewController.self, identifier: "ConnectionInfo", parameters: parameters)
     }
 
-    func instantiateSettingsViewController() -> SettingsViewController {
-        let parameters = SettingsViewController.Parameters(environment: self)
+    func instantiateSettingsViewController(mainVC: MainViewController) -> SettingsViewController {
+        let parameters = SettingsViewController.Parameters(environment: self, mainVC: mainVC)
         return instantiate(SettingsViewController.self, identifier: "Settings", parameters: parameters)
     }
 
