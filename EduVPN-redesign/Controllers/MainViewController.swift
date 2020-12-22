@@ -213,13 +213,19 @@ extension MainViewController {
         }
 
         let row = viewModel.row(at: index)
-        if let server = row.server,
-            let serverDisplayInfo = row.serverDisplayInfo {
-            let connectionVC = environment.instantiateConnectionViewController(
-                connectableInstance: server, serverDisplayInfo: serverDisplayInfo,
-                authURLTemplate: viewModel.authURLTemplate(for: server))
-            connectionVC.delegate = self
-            environment.navigationController?.pushViewController(connectionVC, animated: true)
+        if let serverDisplayInfo = row.serverDisplayInfo {
+            if let server = row.server {
+                let connectionVC = environment.instantiateConnectionViewController(
+                    connectableInstance: server, serverDisplayInfo: serverDisplayInfo,
+                    authURLTemplate: viewModel.authURLTemplate(for: server))
+                connectionVC.delegate = self
+                environment.navigationController?.pushViewController(connectionVC, animated: true)
+            } else if let vpnConfig = row.vpnConfig {
+                let connectionVC = environment.instantiateConnectionViewController(
+                    connectableInstance: vpnConfig, serverDisplayInfo: serverDisplayInfo)
+                connectionVC.delegate = self
+                environment.navigationController?.pushViewController(connectionVC, animated: true)
+            }
         }
     }
 
