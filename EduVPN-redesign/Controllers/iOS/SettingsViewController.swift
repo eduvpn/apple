@@ -56,6 +56,10 @@ class SettingsViewController: UITableViewController, ParametrizedViewController 
         UserDefaults.standard.forceTCP = useTCPOnlySwitch.isOn
     }
 
+    @IBAction func importOpenVPNConfigTapped(_ sender: Any) {
+        print("Import clicked")
+    }
+
     @objc func doneTapped(_ sender: Any) {
         presentingViewController?.dismiss(animated: true, completion: nil)
     }
