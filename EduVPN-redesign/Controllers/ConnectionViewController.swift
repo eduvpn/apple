@@ -159,7 +159,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         viewModel.delegate = self
         setupInitialView(viewModel: viewModel)
         if !isRestored {
-            beginConnectionFlow(shouldContinueIfSingleProfile: true)
+            beginServerConnectionFlow(shouldContinueIfSingleProfile: true)
         }
         #if os(macOS)
         vpnSwitch.setAccessibilityIdentifier("Connection")
@@ -182,13 +182,13 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     func vpnSwitchToggled() {
         if vpnSwitch.isOn {
             guard let profiles = profiles, !profiles.isEmpty else {
-                beginConnectionFlow(shouldContinueIfSingleProfile: true)
+                beginServerConnectionFlow(shouldContinueIfSingleProfile: true)
                 return
             }
             if selectedProfileId == nil {
                 selectedProfileId = profiles[0].profileId
             }
-            continueConnectionFlow(serverAPIOptions: [])
+            continueServerConnectionFlow(serverAPIOptions: [])
         } else {
             disableVPN()
         }
@@ -206,7 +206,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         firstly {
             viewModel.disableVPN()
         }.map {
-            self.continueConnectionFlow(serverAPIOptions: [.ignoreStoredAuthState, .ignoreStoredKeyPair])
+            self.continueServerConnectionFlow(serverAPIOptions: [.ignoreStoredAuthState, .ignoreStoredKeyPair])
         }.catch { error in
             os_log("Error renewing session: %{public}@",
                    log: Log.general, type: .error,
@@ -288,7 +288,7 @@ private extension ConnectionViewController {
         #endif
     }
 
-    func beginConnectionFlow(shouldContinueIfSingleProfile: Bool) {
+    func beginServerConnectionFlow(shouldContinueIfSingleProfile: Bool) {
         firstly {
             viewModel.beginServerConnectionFlow(
                 from: self, shouldContinueIfSingleProfile: shouldContinueIfSingleProfile)
@@ -300,7 +300,7 @@ private extension ConnectionViewController {
         }
     }
 
-    func continueConnectionFlow(serverAPIOptions: ServerAPIService.Options) {
+    func continueServerConnectionFlow(serverAPIOptions: ServerAPIService.Options) {
         firstly { () -> Promise<Void> in
             guard let profiles = profiles, !profiles.isEmpty else {
                 return Promise(error: ConnectionViewControllerError.noProfiles)
@@ -349,7 +349,7 @@ private extension ConnectionViewController {
             if let window = self.view.window {
                 alert.beginSheetModal(for: window) { result in
                     if case .alertFirstButtonReturn = result {
-                        self.beginConnectionFlow(shouldContinueIfSingleProfile: true)
+                        self.beginServerConnectionFlow(shouldContinueIfSingleProfile: true)
                     }
                 }
             }
