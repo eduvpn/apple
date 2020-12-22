@@ -380,7 +380,7 @@ private extension ConnectionViewController {
                 title: NSLocalizedString("Refresh Profiles", comment: ""),
                 style: .default,
                 handler: { _ in
-                    self.beginConnectionFlow(shouldContinueIfSingleProfile: true)
+                    self.beginServerConnectionFlow(shouldContinueIfSingleProfile: true)
                 })
             let cancelAction = UIAlertAction(
                 title: NSLocalizedString("Cancel", comment: ""),
