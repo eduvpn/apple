@@ -275,7 +275,8 @@ class ConnectionViewModel {
         }
     }
 
-    func beginConnectionFlow(from viewController: AuthorizingViewController, shouldContinueIfSingleProfile: Bool) -> Promise<Void> {
+    func beginServerConnectionFlow(from viewController: AuthorizingViewController,
+                                   shouldContinueIfSingleProfile: Bool) -> Promise<Void> {
         precondition(self.connectionService.isInitialized)
         precondition(self.connectionService.isVPNEnabled == false)
         guard let server = connectableInstance as? ServerInstance,
@@ -291,7 +292,7 @@ class ConnectionViewModel {
             self.profiles = profiles
             if profiles.count == 1 && shouldContinueIfSingleProfile {
                 self.delegate?.connectionViewModel(self, willAutomaticallySelectProfileId: profiles[0].profileId)
-                return self.continueConnectionFlow(
+                return self.continueServerConnectionFlow(
                     profile: profiles[0], from: viewController,
                     serverInfo: serverInfo)
             } else {
@@ -304,7 +305,7 @@ class ConnectionViewModel {
         }
     }
 
-    func continueConnectionFlow(
+    func continueServerConnectionFlow(
         profile: ProfileListResponse.Profile,
         from viewController: AuthorizingViewController,
         serverInfo: ServerInfo? = nil,

@@ -290,7 +290,8 @@ private extension ConnectionViewController {
 
     func beginConnectionFlow(shouldContinueIfSingleProfile: Bool) {
         firstly {
-            viewModel.beginConnectionFlow(from: self, shouldContinueIfSingleProfile: shouldContinueIfSingleProfile)
+            viewModel.beginServerConnectionFlow(
+                from: self, shouldContinueIfSingleProfile: shouldContinueIfSingleProfile)
         }.catch { error in
             os_log("Error beginning connection flow: %{public}@",
                    log: Log.general, type: .error,
@@ -310,8 +311,8 @@ private extension ConnectionViewController {
             guard let profile = profiles.first(where: { $0.profileId == selectedProfileId }) else {
                 return Promise(error: ConnectionViewControllerError.noProfileFoundWithSelectedProfileId)
             }
-            return viewModel.continueConnectionFlow(profile: profile, from: self,
-                                                    serverAPIOptions: serverAPIOptions)
+            return viewModel.continueServerConnectionFlow(
+                profile: profile, from: self, serverAPIOptions: serverAPIOptions)
         }.catch { error in
             os_log("Error continuing connection flow: %{public}@",
                    log: Log.general, type: .error,
