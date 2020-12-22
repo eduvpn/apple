@@ -128,14 +128,14 @@ extension MainViewController: ConnectionServiceInitializationDelegate {
                 let connectableInstance = lastConnectionAttempt.connectableInstance
                 if let simpleServer = connectableInstance as? SimpleServerInstance {
                     return environment.instantiateConnectionViewController(
-                        server: simpleServer, serverDisplayInfo: viewModel.serverDisplayInfo(for: simpleServer),
+                        connectableInstance: simpleServer, serverDisplayInfo: viewModel.serverDisplayInfo(for: simpleServer),
                         authURLTemplate: nil,
-                        restoredPreConnectionState: lastConnectionAttempt.preConnectionState)
+                        restoringConnectionAttempt: lastConnectionAttempt)
                 } else if let secureInternetServer = connectableInstance as? SecureInternetServerInstance {
                     return environment.instantiateConnectionViewController(
-                        server: secureInternetServer, serverDisplayInfo: viewModel.serverDisplayInfo(for: secureInternetServer),
+                        connectableInstance: secureInternetServer, serverDisplayInfo: viewModel.serverDisplayInfo(for: secureInternetServer),
                         authURLTemplate: viewModel.authURLTemplate(for: secureInternetServer),
-                        restoredPreConnectionState: lastConnectionAttempt.preConnectionState)
+                        restoringConnectionAttempt: lastConnectionAttempt)
                 }
                 return nil
             }()
@@ -216,7 +216,7 @@ extension MainViewController {
         if let server = row.server,
             let serverDisplayInfo = row.serverDisplayInfo {
             let connectionVC = environment.instantiateConnectionViewController(
-                server: server, serverDisplayInfo: serverDisplayInfo,
+                connectableInstance: server, serverDisplayInfo: serverDisplayInfo,
                 authURLTemplate: viewModel.authURLTemplate(for: server))
             connectionVC.delegate = self
             environment.navigationController?.pushViewController(connectionVC, animated: true)

@@ -35,10 +35,10 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
 
     struct Parameters {
         let environment: Environment
-        let server: ServerInstance
+        let connectableInstance: ConnectableInstance
         let serverDisplayInfo: ServerDisplayInfo
         let authURLTemplate: String?
-        let restoredPreConnectionState: ConnectionAttempt.ServerPreConnectionState?
+        let restoringConnectionAttempt: ConnectionAttempt?
     }
 
     weak var delegate: ConnectionViewControllerDelegate?
@@ -51,9 +51,11 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     private var profiles: [ProfileListResponse.Profile]?
     private var selectedProfileId: String? {
         didSet {
-            dataStore.setSelectedProfileId(
-                profileId: selectedProfileId,
-                for: parameters.server.apiBaseURLString)
+            if let server = parameters.connectableInstance as? ServerInstance {
+                dataStore.setSelectedProfileId(
+                    profileId: selectedProfileId,
+                    for: server.apiBaseURLString)
+            }
         }
     }
 
@@ -117,22 +119,36 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         }
         self.parameters = parameters
 
-        self.viewModel = ConnectionViewModel(
-            serverAPIService: parameters.environment.serverAPIService,
-            connectionService: parameters.environment.connectionService,
-            server: parameters.server,
-            serverDisplayInfo: parameters.serverDisplayInfo,
-            authURLTemplate: parameters.authURLTemplate,
-            restoredPreConnectionState: parameters.restoredPreConnectionState)
-        self.dataStore = PersistenceService.DataStore(path: parameters.server.localStoragePath)
-
-        if let restoredPreConnectionState = parameters.restoredPreConnectionState {
-            self.profiles = restoredPreConnectionState.profiles
-            self.selectedProfileId = restoredPreConnectionState.selectedProfileId
-            self.isRestored = true
+        if let server = parameters.connectableInstance as? ServerInstance {
+            self.viewModel = ConnectionViewModel(
+                server: server,
+                connectionService: parameters.environment.connectionService,
+                serverDisplayInfo: parameters.serverDisplayInfo,
+                serverAPIService: parameters.environment.serverAPIService,
+                authURLTemplate: parameters.authURLTemplate,
+                restoringConnectionAttempt: parameters.restoringConnectionAttempt)
+        } else if let vpnConfigInstance = parameters.connectableInstance as? VPNConfigInstance {
+            self.viewModel = ConnectionViewModel(
+                vpnConfigInstance: vpnConfigInstance,
+                connectionService: parameters.environment.connectionService,
+                serverDisplayInfo: parameters.serverDisplayInfo,
+                restoringConnectionAttempt: parameters.restoringConnectionAttempt)
         } else {
-            self.selectedProfileId = dataStore.selectedProfileId(for: parameters.server.apiBaseURLString)
-            self.isRestored = false
+            fatalError("Unknown connectable instance: \(parameters.connectableInstance)")
+        }
+
+        self.dataStore = PersistenceService.DataStore(path: parameters.connectableInstance.localStoragePath)
+
+        if let restoringConnectionAttempt = parameters.restoringConnectionAttempt {
+            if let server = parameters.connectableInstance as? ServerInstance {
+                if let preConnectionState = restoringConnectionAttempt.preConnectionState {
+                    self.profiles = preConnectionState.profiles
+                    self.selectedProfileId = preConnectionState.selectedProfileId
+                } else {
+                    self.selectedProfileId = dataStore.selectedProfileId(for: server.apiBaseURLString)
+                }
+            }
+            self.isRestored = true
         }
     }
 
@@ -388,14 +404,7 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
 
     func connectionViewModel(
         _ model: ConnectionViewModel,
-        willAttemptToConnectWithProfileId profileId: String,
-        certificateValidityRange: ServerAPIService.CertificateValidityRange,
-        connectionAttemptId: UUID) {
-        let connectionAttempt = ConnectionAttempt(
-            server: parameters.server, profiles: profiles ?? [],
-            selectedProfileId: profileId,
-            certificateValidityRange: certificateValidityRange,
-            attemptId: connectionAttemptId)
+        willAttemptToConnect connectionAttempt: ConnectionAttempt) {
         delegate?.connectionViewController(self, willAttemptToConnect: connectionAttempt)
     }
 

@@ -21,9 +21,7 @@ protocol ConnectionViewModelDelegate: class {
         willAutomaticallySelectProfileId profileId: String)
     func connectionViewModel(
         _ model: ConnectionViewModel,
-        willAttemptToConnectWithProfileId profileId: String,
-        certificateValidityRange: ServerAPIService.CertificateValidityRange,
-        connectionAttemptId: UUID)
+        willAttemptToConnect: ConnectionAttempt)
 
     func connectionViewModel(
         _ model: ConnectionViewModel,
@@ -197,21 +195,27 @@ class ConnectionViewModel {
 
     weak var delegate: ConnectionViewModelDelegate?
 
-    private let serverAPIService: ServerAPIService
+    private let connectableInstance: ConnectableInstance
     private let connectionService: ConnectionServiceProtocol
-    private let server: ServerInstance
     private let serverDisplayInfo: ServerDisplayInfo
+
+    private let serverAPIService: ServerAPIService?
     private let authURLTemplate: String?
+
     private let dataStore: PersistenceService.DataStore
     private var connectingProfile: ProfileListResponse.Profile?
 
-    init(serverAPIService: ServerAPIService, connectionService: ConnectionServiceProtocol,
-         server: ServerInstance, serverDisplayInfo: ServerDisplayInfo, authURLTemplate: String?,
-         restoredPreConnectionState: ConnectionAttempt.ServerPreConnectionState?) {
-        self.serverAPIService = serverAPIService
+    init(server: ServerInstance,
+         connectionService: ConnectionServiceProtocol,
+         serverDisplayInfo: ServerDisplayInfo,
+         serverAPIService: ServerAPIService,
+         authURLTemplate: String?,
+         restoringConnectionAttempt: ConnectionAttempt?) {
+
+        self.connectableInstance = server
         self.connectionService = connectionService
-        self.server = server
         self.serverDisplayInfo = serverDisplayInfo
+        self.serverAPIService = serverAPIService
         self.authURLTemplate = authURLTemplate
 
         header = Header(from: serverDisplayInfo)
@@ -225,15 +229,48 @@ class ConnectionViewModel {
         dataStore = PersistenceService.DataStore(path: server.localStoragePath)
         connectionService.statusDelegate = self
 
-        if let restoredPreConnectionState = restoredPreConnectionState {
-            self.profiles = restoredPreConnectionState.profiles
-            self.connectingProfile = restoredPreConnectionState.profiles.first(where: { $0.profileId == restoredPreConnectionState.selectedProfileId })
-            self.certificateExpiryHelper = CertificateExpiryHelper(
-                validFrom: restoredPreConnectionState.certificateValidFrom,
-                expiresAt: restoredPreConnectionState.certificateExpiresAt,
-                handler: { [weak self] certificateStatus in
-                    self?.certificateStatus = certificateStatus
-                })
+        if let connectionAttempt = restoringConnectionAttempt {
+            precondition(connectionAttempt.connectableInstance is ServerInstance)
+            precondition(connectionAttempt.preConnectionState != nil)
+            if let preConnectionState = connectionAttempt.preConnectionState {
+                self.profiles = preConnectionState.profiles
+                self.connectingProfile = preConnectionState.profiles.first(
+                    where: { $0.profileId == preConnectionState.selectedProfileId })
+                self.certificateExpiryHelper = CertificateExpiryHelper(
+                    validFrom: preConnectionState.certificateValidFrom,
+                    expiresAt: preConnectionState.certificateExpiresAt,
+                    handler: { [weak self] certificateStatus in
+                        self?.certificateStatus = certificateStatus
+                    })
+            }
+            internalState = .enabledVPN
+        }
+    }
+
+    init(vpnConfigInstance: VPNConfigInstance,
+         connectionService: ConnectionServiceProtocol,
+         serverDisplayInfo: ServerDisplayInfo,
+         restoringConnectionAttempt: ConnectionAttempt?) {
+
+        self.connectableInstance = vpnConfigInstance
+        self.connectionService = connectionService
+        self.serverDisplayInfo = serverDisplayInfo
+        self.serverAPIService = nil
+        self.authURLTemplate = nil
+
+        header = Header(from: serverDisplayInfo)
+        supportContact = SupportContact(from: serverDisplayInfo)
+        status = .notConnected
+        statusDetail = .none
+        vpnSwitchState = VPNSwitchState(isEnabled: true, isOn: false)
+        additionalControl = .none
+        connectionInfoState = .hidden
+
+        dataStore = PersistenceService.DataStore(path: vpnConfigInstance.localStoragePath)
+        connectionService.statusDelegate = self
+
+        if let connectionAttempt = restoringConnectionAttempt {
+            precondition(connectionAttempt.connectableInstance is VPNConfigInstance)
             internalState = .enabledVPN
         }
     }
@@ -241,9 +278,13 @@ class ConnectionViewModel {
     func beginConnectionFlow(from viewController: AuthorizingViewController, shouldContinueIfSingleProfile: Bool) -> Promise<Void> {
         precondition(self.connectionService.isInitialized)
         precondition(self.connectionService.isVPNEnabled == false)
+        guard let server = connectableInstance as? ServerInstance,
+              let serverAPIService = serverAPIService else {
+            return Promise.value(())
+        }
         return firstly { () -> Promise<([ProfileListResponse.Profile], ServerInfo)> in
             self.internalState = .gettingProfiles
-            return self.serverAPIService.getAvailableProfiles(
+            return serverAPIService.getAvailableProfiles(
                 for: server, from: viewController,
                 wayfSkippingInfo: wayfSkippingInfo(), options: [])
         }.then { (profiles, serverInfo) -> Promise<Void> in
@@ -270,10 +311,15 @@ class ConnectionViewModel {
         serverAPIOptions: ServerAPIService.Options = []) -> Promise<Void> {
         precondition(self.connectionService.isInitialized)
 
+        guard let server = connectableInstance as? ServerInstance,
+              let serverAPIService = serverAPIService else {
+            return Promise.value(())
+        }
+
         return firstly { () -> Promise<ServerAPIService.TunnelConfigurationData> in
             self.internalState = .configuring
             self.connectingProfile = profile
-            return self.serverAPIService.getTunnelConfigurationData(
+            return serverAPIService.getTunnelConfigurationData(
                 for: server, serverInfo: serverInfo, profile: profile,
                 from: viewController, wayfSkippingInfo: wayfSkippingInfo(),
                 options: serverAPIOptions)
@@ -286,10 +332,13 @@ class ConnectionViewModel {
                     self?.certificateStatus = certificateStatus
                 })
             let connectionAttemptId = UUID()
-            self.delegate?.connectionViewModel(
-                self, willAttemptToConnectWithProfileId: profile.profileId,
+            let connectionAttempt = ConnectionAttempt(
+                server: server,
+                profiles: self.profiles ?? [],
+                selectedProfileId: profile.profileId,
                 certificateValidityRange: tunnelConfigData.certificateValidityRange,
-                connectionAttemptId: connectionAttemptId)
+                attemptId: connectionAttemptId)
+            self.delegate?.connectionViewModel(self, willAttemptToConnect: connectionAttempt)
             return self.connectionService.enableVPN(
                 openVPNConfig: tunnelConfigData.openVPNConfiguration,
                 connectionAttemptId: connectionAttemptId)
@@ -347,7 +396,7 @@ class ConnectionViewModel {
 
 private extension ConnectionViewModel {
     private func wayfSkippingInfo() -> ServerAuthService.WAYFSkippingInfo? {
-        if let secureInternetServer = server as? SecureInternetServerInstance,
+        if let secureInternetServer = connectableInstance as? SecureInternetServerInstance,
             let authURLTemplate = self.authURLTemplate {
             return ServerAuthService.WAYFSkippingInfo(
                 authURLTemplate: authURLTemplate, orgId: secureInternetServer.orgId)
