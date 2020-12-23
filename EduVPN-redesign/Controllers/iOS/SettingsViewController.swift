@@ -58,7 +58,7 @@ class SettingsViewController: UITableViewController, ParametrizedViewController 
     }
 
     @IBAction func importOpenVPNConfigTapped(_ sender: Any) {
-        let types = ["public.data", "public.content"]
+        let types = ["net.openvpn.formats.ovpn"]
         let pickerVC = UIDocumentPickerViewController(documentTypes: types, in: .import)
         pickerVC.delegate = self
         present(pickerVC, animated: true, completion: nil)
