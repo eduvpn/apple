@@ -8,6 +8,11 @@ import AppAuth
 import PromiseKit
 import os.log
 
+protocol PersistenceServiceHasServersDelegate: class {
+    func persistenceService(_ persistenceService: PersistenceService,
+                            hasServersChangedTo hasServers: Bool)
+}
+
 class PersistenceService {
 
     fileprivate struct AddedServers {
@@ -45,11 +50,9 @@ class PersistenceService {
         addedServers.openVPNConfigs
     }
 
-    var hasServers: Bool {
-        addedServers.secureInternetServer != nil ||
-            !addedServers.simpleServers.isEmpty ||
-            !(addedServers.openVPNConfigs ?? []).isEmpty
-    }
+    var hasServers: Bool = false
+
+    weak var hasServersDelegate: PersistenceServiceHasServersDelegate?
 
     init() {
         if ProcessInfo.processInfo.isUITestingFreshInstall {
@@ -71,6 +74,7 @@ class PersistenceService {
             addedServers = AddedServers(migrateFromFilePathURL: MigrationHelper.migrateServersFromFilePathURL())
             Self.saveToFile(addedServers: addedServers)
         }
+        updateHasServers()
     }
 
     func addSimpleServer(_ server: SimpleServerInstance) {
@@ -80,6 +84,7 @@ class PersistenceService {
         }
         addedServers.simpleServers.append(server)
         Self.saveToFile(addedServers: addedServers)
+        updateHasServers()
     }
 
     func removeSimpleServer(_ server: SimpleServerInstance) {
@@ -92,6 +97,7 @@ class PersistenceService {
         addedServers.simpleServers.removeLast(addedServers.simpleServers.count - pivotIndex)
         addedServers.serversMigratedBasedOnFilePathURL.removeAll(where: { $0 == baseURLString.urlString })
         Self.saveToFile(addedServers: addedServers)
+        updateHasServers()
     }
 
     func setSecureInternetServer(_ server: SecureInternetServerInstance) {
@@ -100,6 +106,7 @@ class PersistenceService {
         }
         addedServers.secureInternetServer = server
         Self.saveToFile(addedServers: addedServers)
+        updateHasServers()
     }
 
     func setSecureInternetServerAPIBaseURLString(_ urlString: DiscoveryData.BaseURLString) {
@@ -116,6 +123,7 @@ class PersistenceService {
             orgId: existingServer.orgId, localStoragePath: existingServer.localStoragePath)
         addedServers.secureInternetServer = server
         Self.saveToFile(addedServers: addedServers)
+        updateHasServers()
     }
 
     func removeSecureInternetServer() {
@@ -132,6 +140,7 @@ class PersistenceService {
         }
         addedServers.openVPNConfigs?.append(instance)
         Self.saveToFile(addedServers: addedServers)
+        updateHasServers()
     }
 
     func removeOpenVPNConfiguration(_ instance: OpenVPNConfigInstance) {
@@ -144,6 +153,7 @@ class PersistenceService {
                 addedServers.openVPNConfigs = nil
             }
             Self.saveToFile(addedServers: addedServers)
+            updateHasServers()
         }
     }
 
@@ -170,6 +180,18 @@ class PersistenceService {
             PersistenceService.write(data, to: Self.jsonStoreURL, atomically: true)
         }
     }
+
+    private func updateHasServers() {
+        let value = addedServers.secureInternetServer != nil ||
+            !addedServers.simpleServers.isEmpty ||
+            !(addedServers.openVPNConfigs ?? []).isEmpty
+        if hasServers != value {
+            hasServers = value
+            hasServersDelegate?.persistenceService(self, hasServersChangedTo: value)
+        }
+    }
+
+
 }
 
 extension PersistenceService {
