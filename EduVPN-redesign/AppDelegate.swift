@@ -184,30 +184,39 @@ extension AppDelegate {
             guard response == .OK else { return }
             guard !openPanel.urls.isEmpty else { return }
             var importedCount = 0
+            var lastImportError: Error?
             for url in openPanel.urls {
-                let instance = try? OpenVPNConfigImportHelper.copyConfig(from: url)
-                if let instance = instance {
+                do {
+                    let instance = try OpenVPNConfigImportHelper.copyConfig(from: url)
                     persistenceService.addOpenVPNConfiguration(instance)
                     importedCount += 1
+                } catch {
+                    lastImportError = error
                 }
             }
 
             self.mainViewController?.refresh()
 
-            let alert = NSAlert()
-            if openPanel.urls.count == 1 && importedCount == 1 {
-                alert.messageText = NSLocalizedString("OpenVPN config imported", comment: "")
-                alert.informativeText = ""
-            } else if importedCount == 0 {
-                alert.messageText = NSLocalizedString("Error importing OpenVPN configs", comment: "")
-                alert.informativeText = ""
+            if let lastImportError = lastImportError,
+               (openPanel.urls.count == 1 && importedCount == 0),
+               let navigationController = self.environment?.navigationController {
+                navigationController.showAlert(for: lastImportError)
             } else {
-                alert.messageText = NSLocalizedString("OpenVPN configs imported", comment: "")
-                alert.informativeText = String(
-                    format: NSLocalizedString("%d of %d configs imported", comment: ""),
-                    importedCount, openPanel.urls.count)
+                let alert = NSAlert()
+                if openPanel.urls.count == 1 && importedCount == 1 {
+                    alert.messageText = NSLocalizedString("OpenVPN config imported", comment: "")
+                    alert.informativeText = ""
+                } else if importedCount == 0 {
+                    alert.messageText = NSLocalizedString("Error importing OpenVPN configs", comment: "")
+                    alert.informativeText = ""
+                } else {
+                    alert.messageText = NSLocalizedString("OpenVPN configs imported", comment: "")
+                    alert.informativeText = String(
+                        format: NSLocalizedString("%d of %d configs imported", comment: ""),
+                        importedCount, openPanel.urls.count)
+                }
+                alert.beginSheetModal(for: mainWindow)
             }
-            alert.beginSheetModal(for: mainWindow)
         }
     }
 
