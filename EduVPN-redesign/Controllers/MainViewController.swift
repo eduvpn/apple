@@ -19,7 +19,6 @@ class MainViewController: ViewController {
                 let searchVC = environment.instantiateSearchViewController(shouldIncludeOrganizations: true)
                 searchVC.delegate = self
                 environment.navigationController?.pushViewController(searchVC, animated: false)
-                environment.navigationController?.isUserAllowedToGoBack = false
             }
             environment.connectionService.initializationDelegate = self
         }
@@ -266,7 +265,6 @@ extension MainViewController {
             let searchVC = environment.instantiateSearchViewController(shouldIncludeOrganizations: true)
             searchVC.delegate = self
             environment.navigationController?.pushViewController(searchVC, animated: true)
-            environment.navigationController?.isUserAllowedToGoBack = false
         }
 
     }

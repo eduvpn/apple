@@ -52,21 +52,20 @@ extension SearchViewController: UISearchBarDelegate {
 extension SearchViewController: AuthorizingViewController {
     func didBeginFetchingServerInfoForAuthorization(userCancellationHandler: (() -> Void)?) {
         let tableView = self.tableView
-        let navigationController = self.navigationController as? NavigationController
         let cancelAction = UIAlertAction(
             title: NSLocalizedString("Cancel", comment: ""),
             style: .cancel,
             handler: { _ in
                 userCancellationHandler?()
                 tableView?.isUserInteractionEnabled = true
-                navigationController?.isUserAllowedToGoBack = true
+                self.isBusy = false
             })
         let alert = UIAlertController(title: NSLocalizedString("Contacting the server", comment: ""), message: nil, preferredStyle: .alert)
         alert.addAction(cancelAction)
         self.contactingServerAlert = alert
 
         tableView?.isUserInteractionEnabled = false
-        navigationController?.isUserAllowedToGoBack = false
+        self.isBusy = true
 
         present(alert, animated: true, completion: { })
     }
@@ -76,13 +75,13 @@ extension SearchViewController: AuthorizingViewController {
         self.contactingServerAlert = nil
 
         self.tableView?.isUserInteractionEnabled = false
-        (navigationController as? NavigationController)?.isUserAllowedToGoBack = false
+        isBusy = true
     }
 
     func didEndAuthorization() {
         self.contactingServerAlert = nil
 
         self.tableView?.isUserInteractionEnabled = true
-        (navigationController as? NavigationController)?.isUserAllowedToGoBack = true
+        isBusy = false
     }
 }
