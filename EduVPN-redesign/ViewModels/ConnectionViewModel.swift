@@ -43,7 +43,7 @@ protocol ConnectionViewModelDelegate: class {
         connectionInfoStateChanged connectionInfoState: ConnectionViewModel.ConnectionInfoState)
 }
 
-class ConnectionViewModel {
+class ConnectionViewModel { // swiftlint:disable:this type_body_length
 
     // Desired state of the connection screen
 
@@ -536,4 +536,4 @@ extension ConnectionViewModel: ConnectionServiceStatusDelegate {
             connectionInfo = nil
         }
     }
-}
+} // swiftlint:disable:this file_length

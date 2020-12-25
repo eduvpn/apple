@@ -105,7 +105,7 @@ extension MainViewController: ConnectionViewControllerDelegate {
 }
 
 extension MainViewController: ConnectionServiceInitializationDelegate {
-    func connectionService(
+    func connectionService( // swiftlint:disable:this function_body_length
         _ service: ConnectionServiceProtocol,
         initializedWithState initializedState: ConnectionServiceInitializedState) {
         isConnectionServiceInitialized = true

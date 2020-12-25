@@ -532,7 +532,7 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
     }
 
     // swiftlint:disable:next function_body_length
-    func connectionInfoStateChanged(
+    func connectionInfoStateChanged( // swiftlint:disable:this cyclomatic_complexity
         _ connectionInfoState: ConnectionViewModel.ConnectionInfoState, animated: Bool) {
         let controlAlpha: Float
         let controlHeight: CGFloat
