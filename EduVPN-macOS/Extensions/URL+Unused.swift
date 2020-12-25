@@ -22,7 +22,7 @@ extension URL {
             
             let parts = lastPathComponent.split(separator: " ")
             if  let last = parts.last, let counter = Int(last), counter > 0 {
-                lastPathComponent = parts.dropLast().joined(separator: " ")  + " \(counter + 1)"
+                lastPathComponent = parts.dropLast().joined(separator: " ") + " \(counter + 1)"
             } else {
                 lastPathComponent += " 2"
             }

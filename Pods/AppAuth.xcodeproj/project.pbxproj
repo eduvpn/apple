@@ -38,6 +38,7 @@
 		272DF4CB4C395A83111B237B3ABD0CDB /* OIDRegistrationResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = D02FF1FD9A7AB6014C8BE163AF9304CA /* OIDRegistrationResponse.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		2AB341AC818EDB1214A29182695FD9D2 /* OIDAuthorizationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C316ED04942AA776C3129BFE23A199F1 /* OIDAuthorizationRequest.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		2BD113BD0D92D9FA7366D9343956DAFF /* OIDScopeUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 285E43903A7B280EF74030E41DE633E8 /* OIDScopeUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2D383CA8569D0D00073482A82550FD6C /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB46ADB2ED41060881BBCF492725D6E7 /* SafariServices.framework */; };
 		2D66EAC437C5A3E8E3FF3113A2687403 /* OIDRegistrationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D4D1C0B9E9D27959D3575C8EE4B7372F /* OIDRegistrationRequest.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		2EA798BD7B7F3EECAAA43AB451373C67 /* OIDError.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A709474B4B3C7EF7765BB23BC605503 /* OIDError.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		2FF7F19CE6979C07B46F464F35496965 /* OIDURLQueryComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DFEAD7D1D9E2BA7047F46C0A693965 /* OIDURLQueryComponent.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks -w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -49,10 +50,8 @@
 		3785D92212B463600F6CCC659628E9A0 /* OIDTokenResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A012FE0DCDB32C3492C41DF75794AD /* OIDTokenResponse.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		37E93CC43185ECE260247F32A83A6526 /* OIDTokenUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DCCC08487A4548E587901E859358C8D /* OIDTokenUtilities.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		3FD2F757F656F42BB349D921D17CFA99 /* OIDGrantTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 625B6E13144AABF5FEEF28CBF7DF6BD8 /* OIDGrantTypes.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		46E47207F04C17825359EBCDEC763452 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AAE5D818EFC0E2E4711E7BF9DBB98DE /* Cocoa.framework */; };
 		49C5A1435C7FD9784A0E3DDD3C1F6ED1 /* OIDError.h in Headers */ = {isa = PBXBuildFile; fileRef = CCAFAE5FDFAA240BE30FF492729C7D30 /* OIDError.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4FCC02718109709C39ED02144CD70F94 /* OIDAuthState+IOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 3CE54184AEC02212057DEBEEC7CA9568 /* OIDAuthState+IOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		512CF8F0F1F442180C79D561E60878FD /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4695335635716C759BDCDCCA9F50B286 /* SafariServices.framework */; };
 		51FBEA667F34C5CB861E0F615EABEEF8 /* OIDAuthorizationService+IOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 89F669141628947DF7AEAD483557F0C2 /* OIDAuthorizationService+IOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		528559B91BEB1654C9B026316F49C03D /* OIDAuthState+Mac.h in Headers */ = {isa = PBXBuildFile; fileRef = 02170B1F648ED8B68C4AC1D8609C3F38 /* OIDAuthState+Mac.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		53201D14983BF8726C14217C5D52BE16 /* OIDServiceDiscovery.h in Headers */ = {isa = PBXBuildFile; fileRef = 6817658996467B51A6540B44BA360326 /* OIDServiceDiscovery.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -92,7 +91,6 @@
 		84EA0751E1D973DB742A366102604CC7 /* OIDExternalUserAgentSession.h in Headers */ = {isa = PBXBuildFile; fileRef = A1071467296601AE67581214A11E0B9B /* OIDExternalUserAgentSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		86C1F30D339614AA3AA5AE887324A2CD /* OIDRegistrationRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 415835F2D3692CE27556541BAA810B88 /* OIDRegistrationRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87A025280DE4D3470376DD49958674E7 /* OIDExternalUserAgentCatalyst.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BB49E5701063D542655F49EDB818AB5 /* OIDExternalUserAgentCatalyst.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8BA26D43917BF957FBF6B0F2753C1699 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89D0286D495ED3E96AE2B234E510F5F9 /* Foundation.framework */; };
 		8CAF6D59D86557720A381F502B3BEBE9 /* OIDAuthStateChangeDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = DAE609B901549EEE686BB68F2FE7F90C /* OIDAuthStateChangeDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8D378F4D8C3BCB4D57BB83DF7339FAC4 /* OIDAuthState.m in Sources */ = {isa = PBXBuildFile; fileRef = A4237DFCB2E2CE60C6CBF738D32D7016 /* OIDAuthState.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		8DE83AD004BC5ADDEF82790EBEB461AF /* OIDTokenUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = C87DD3789C980EC8C4D8026B2B9AE29C /* OIDTokenUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -104,7 +102,9 @@
 		9828E959B81A9E48A83206629E8845AB /* OIDErrorUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B4047E2E7F35FCD72717BBB41750E1FA /* OIDErrorUtilities.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		998F33D3EC6C465E554C9340C3FB9F2E /* OIDEndSessionResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 211D374A18A6C0D9EA8802696DCB84F4 /* OIDEndSessionResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9B5BBB339C2C08EA3F628A6B144E5DD1 /* OIDURLQueryComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = DE2CEED5492676B137B04919774D6D5B /* OIDURLQueryComponent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9D59D8A917FB70E57A61B1B125D8CA18 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38A9DAC3276F75870A6CFDEC960FDD4C /* Cocoa.framework */; };
 		A229E0E72B2FDD4F11EF0E016404A7F3 /* OIDAuthState.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C6BFC283CF440DC3334B8B977FC4B5F /* OIDAuthState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A4FA30E1F14137A76CDB5A8550157F8C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FB947C47D5838B4B4C35D251F17C227 /* Foundation.framework */; };
 		A52FD5372AD4EE411874C57E094088F4 /* OIDError.h in Headers */ = {isa = PBXBuildFile; fileRef = CCAFAE5FDFAA240BE30FF492729C7D30 /* OIDError.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A700D30B97BA2E5132BB665A21AE0BAD /* AppAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CAEB3121C2B12571AEE44C615900D95 /* AppAuth.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A73526ADDAA9B0659A44C7D988BF4253 /* AppAuth-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DD156906283D048AE6EA3AA3569C2DAA /* AppAuth-iOS-dummy.m */; };
@@ -163,6 +163,7 @@
 		2501675C7122F139CEE767EB619CC751 /* OIDExternalUserAgentIOSCustomBrowser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDExternalUserAgentIOSCustomBrowser.m; path = Source/iOS/OIDExternalUserAgentIOSCustomBrowser.m; sourceTree = "<group>"; };
 		285E43903A7B280EF74030E41DE633E8 /* OIDScopeUtilities.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDScopeUtilities.h; path = Source/OIDScopeUtilities.h; sourceTree = "<group>"; };
 		330305B43436A87AC5EA9680B3162608 /* OIDFieldMapping.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDFieldMapping.h; path = Source/OIDFieldMapping.h; sourceTree = "<group>"; };
+		38A9DAC3276F75870A6CFDEC960FDD4C /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		395AB546EC01910332BA85D0400787DC /* OIDGrantTypes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDGrantTypes.h; path = Source/OIDGrantTypes.h; sourceTree = "<group>"; };
 		3A1689C97CBBAC5D796A595C06F7C01E /* AppAuth-iOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "AppAuth-iOS-Info.plist"; sourceTree = "<group>"; };
 		3A5E83BD78AB18CA5CD3F40516DE816E /* AppAuth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = AppAuth.framework; path = "AppAuth-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -170,13 +171,13 @@
 		3E6E37E0B9764EF4B8366EA53BD789CA /* OIDRedirectHTTPHandler.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDRedirectHTTPHandler.m; path = Source/macOS/OIDRedirectHTTPHandler.m; sourceTree = "<group>"; };
 		3F757A19E99615E75BDDB765C6ECA7CD /* OIDRegistrationResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDRegistrationResponse.h; path = Source/OIDRegistrationResponse.h; sourceTree = "<group>"; };
 		415835F2D3692CE27556541BAA810B88 /* OIDRegistrationRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDRegistrationRequest.h; path = Source/OIDRegistrationRequest.h; sourceTree = "<group>"; };
-		4695335635716C759BDCDCCA9F50B286 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/SafariServices.framework; sourceTree = DEVELOPER_DIR; };
 		46A012FE0DCDB32C3492C41DF75794AD /* OIDTokenResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDTokenResponse.m; path = Source/OIDTokenResponse.m; sourceTree = "<group>"; };
 		48412976A1556E8EF16C17FA2FAA9B1B /* AppAuth-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AppAuth-iOS-umbrella.h"; sourceTree = "<group>"; };
 		4C6BFC283CF440DC3334B8B977FC4B5F /* OIDAuthState.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDAuthState.h; path = Source/OIDAuthState.h; sourceTree = "<group>"; };
 		4CFA17F680EC1568463547A8AB02B002 /* OIDEndSessionRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDEndSessionRequest.m; path = Source/OIDEndSessionRequest.m; sourceTree = "<group>"; };
 		508A3DC3C12778DB0631D48174194269 /* OIDFieldMapping.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDFieldMapping.m; path = Source/OIDFieldMapping.m; sourceTree = "<group>"; };
 		564CEE04EB33C8C4D7626C4CDC467195 /* OIDClientMetadataParameters.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDClientMetadataParameters.m; path = Source/OIDClientMetadataParameters.m; sourceTree = "<group>"; };
+		5FB947C47D5838B4B4C35D251F17C227 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		6229EB39446C6727A14197A127A0E68E /* OIDExternalUserAgentCatalyst.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDExternalUserAgentCatalyst.m; path = Source/iOS/OIDExternalUserAgentCatalyst.m; sourceTree = "<group>"; };
 		625B6E13144AABF5FEEF28CBF7DF6BD8 /* OIDGrantTypes.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDGrantTypes.m; path = Source/OIDGrantTypes.m; sourceTree = "<group>"; };
 		62E761A513E2ECAB011C4D08DDC03F91 /* AppAuth-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "AppAuth-iOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -191,10 +192,8 @@
 		87E21EF624FB73B680F3CC870B8D1748 /* AppAuth-macOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "AppAuth-macOS-umbrella.h"; path = "../AppAuth-macOS/AppAuth-macOS-umbrella.h"; sourceTree = "<group>"; };
 		8851201A21BC0D1FD346A79CFA5AA182 /* OIDExternalUserAgent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDExternalUserAgent.h; path = Source/OIDExternalUserAgent.h; sourceTree = "<group>"; };
 		893F541D585374CBBED3BBD7CC534AEB /* OIDExternalUserAgentRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDExternalUserAgentRequest.h; path = Source/OIDExternalUserAgentRequest.h; sourceTree = "<group>"; };
-		89D0286D495ED3E96AE2B234E510F5F9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		89F669141628947DF7AEAD483557F0C2 /* OIDAuthorizationService+IOS.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "OIDAuthorizationService+IOS.h"; path = "Source/iOS/OIDAuthorizationService+IOS.h"; sourceTree = "<group>"; };
 		8A4D714C1AB24A7B49B7AE929E655A88 /* AppAuth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = AppAuth.framework; path = "AppAuth-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8AAE5D818EFC0E2E4711E7BF9DBB98DE /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		8C963CA2AA559F552253E51D1097138E /* AppAuth-macOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "AppAuth-macOS-Info.plist"; path = "../AppAuth-macOS/AppAuth-macOS-Info.plist"; sourceTree = "<group>"; };
 		8E8C23D0B6D654D39AD48379CFED2F17 /* OIDExternalUserAgentMac.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDExternalUserAgentMac.m; path = Source/macOS/OIDExternalUserAgentMac.m; sourceTree = "<group>"; };
 		940284F37909658DEEA2F9E05052ABBF /* OIDIDToken.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDIDToken.m; path = Source/OIDIDToken.m; sourceTree = "<group>"; };
@@ -236,6 +235,7 @@
 		E01E3CCC2FECCAC7D89DEB335382D24E /* AppAuth-macOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; name = "AppAuth-macOS.modulemap"; path = "../AppAuth-macOS/AppAuth-macOS.modulemap"; sourceTree = "<group>"; };
 		E12208899A1F55422F87625F056CE64B /* AppAuth-macOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "AppAuth-macOS-dummy.m"; path = "../AppAuth-macOS/AppAuth-macOS-dummy.m"; sourceTree = "<group>"; };
 		E7CAC1B9B44D11E08297A349EFAE419B /* OIDErrorUtilities.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDErrorUtilities.h; path = Source/OIDErrorUtilities.h; sourceTree = "<group>"; };
+		EB46ADB2ED41060881BBCF492725D6E7 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/SafariServices.framework; sourceTree = DEVELOPER_DIR; };
 		EB778C7B7796059EC3C00C74D969EFFA /* OIDExternalUserAgentIOSCustomBrowser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDExternalUserAgentIOSCustomBrowser.h; path = Source/iOS/OIDExternalUserAgentIOSCustomBrowser.h; sourceTree = "<group>"; };
 		ED13FB157701BC6013786228A5593A52 /* OIDTokenResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDTokenResponse.h; path = Source/OIDTokenResponse.h; sourceTree = "<group>"; };
 		F19F41560FB7C42E11DEB5A2846C2B20 /* OIDResponseTypes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDResponseTypes.h; path = Source/OIDResponseTypes.h; sourceTree = "<group>"; };
@@ -251,8 +251,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BA26D43917BF957FBF6B0F2753C1699 /* Foundation.framework in Frameworks */,
-				512CF8F0F1F442180C79D561E60878FD /* SafariServices.framework in Frameworks */,
+				A4FA30E1F14137A76CDB5A8550157F8C /* Foundation.framework in Frameworks */,
+				2D383CA8569D0D00073482A82550FD6C /* SafariServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,7 +260,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46E47207F04C17825359EBCDEC763452 /* Cocoa.framework in Frameworks */,
+				9D59D8A917FB70E57A61B1B125D8CA18 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,17 +340,25 @@
 		5C333DC7EF1F8027A97816BD024CF2FE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6C9936C5B5E186B862956574ECABEE1D /* iOS */,
-				E2DDE0B90A008D1726B47625B777121E /* OS X */,
+				750278D279716732C53527ED3E151B33 /* iOS */,
+				7361083E497105E963E2B3D1FB5B2A88 /* OS X */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		6C9936C5B5E186B862956574ECABEE1D /* iOS */ = {
+		7361083E497105E963E2B3D1FB5B2A88 /* OS X */ = {
 			isa = PBXGroup;
 			children = (
-				89D0286D495ED3E96AE2B234E510F5F9 /* Foundation.framework */,
-				4695335635716C759BDCDCCA9F50B286 /* SafariServices.framework */,
+				38A9DAC3276F75870A6CFDEC960FDD4C /* Cocoa.framework */,
+			);
+			name = "OS X";
+			sourceTree = "<group>";
+		};
+		750278D279716732C53527ED3E151B33 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				5FB947C47D5838B4B4C35D251F17C227 /* Foundation.framework */,
+				EB46ADB2ED41060881BBCF492725D6E7 /* SafariServices.framework */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
@@ -424,14 +432,6 @@
 				8A4D714C1AB24A7B49B7AE929E655A88 /* AppAuth.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		E2DDE0B90A008D1726B47625B777121E /* OS X */ = {
-			isa = PBXGroup;
-			children = (
-				8AAE5D818EFC0E2E4711E7BF9DBB98DE /* Cocoa.framework */,
-			);
-			name = "OS X";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -689,75 +689,73 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		0E85B71DF520083AE38EB9CDB16E1C57 /* Debug */ = {
+		049775A701F1443190274B7ACEDF27F8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6A491A2AB6ADE1B5BF0A6CC1F966CEE9 /* AppAuth-iOS.debug.xcconfig */;
+			baseConfigurationReference = A1D907A6F64FD5128CA5199E5BBE95F6 /* AppAuth-macOS.debug.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/AppAuth-iOS/AppAuth-iOS-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/AppAuth-iOS/AppAuth-iOS-Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/AppAuth-macOS/AppAuth-macOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/AppAuth-macOS/AppAuth-macOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/AppAuth-iOS/AppAuth-iOS.modulemap";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MODULEMAP_FILE = "Target Support Files/AppAuth-macOS/AppAuth-macOS.modulemap";
 				PRODUCT_MODULE_NAME = AppAuth;
 				PRODUCT_NAME = AppAuth;
-				SDKROOT = iphoneos;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		54185E9400850FE1729AAF31CAE779CA /* Release */ = {
+		05EFE3A79116591F15C91EA9603A4573 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 62E761A513E2ECAB011C4D08DDC03F91 /* AppAuth-iOS.release.xcconfig */;
+			baseConfigurationReference = DE525683A9CF9B1360B6AED7C1A2D37A /* AppAuth-macOS.release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/AppAuth-iOS/AppAuth-iOS-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/AppAuth-iOS/AppAuth-iOS-Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/AppAuth-macOS/AppAuth-macOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/AppAuth-macOS/AppAuth-macOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/AppAuth-iOS/AppAuth-iOS.modulemap";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MODULEMAP_FILE = "Target Support Files/AppAuth-macOS/AppAuth-macOS.modulemap";
 				PRODUCT_MODULE_NAME = AppAuth;
 				PRODUCT_NAME = AppAuth;
-				SDKROOT = iphoneos;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
-		6C3078B6FD0A5A6001987B5A078FB92A /* Release */ = {
+		2CAD19B526FBBF40328E0DA7F6978B66 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -780,6 +778,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -815,76 +814,43 @@
 			};
 			name = Release;
 		};
-		ABBB26763073CA9D2200E509232EE947 /* Debug */ = {
+		74C4916E13B97AA1D8DF440EA1A3663A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A1D907A6F64FD5128CA5199E5BBE95F6 /* AppAuth-macOS.debug.xcconfig */;
+			baseConfigurationReference = 62E761A513E2ECAB011C4D08DDC03F91 /* AppAuth-iOS.release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_VERSION = A;
-				GCC_PREFIX_HEADER = "Target Support Files/AppAuth-macOS/AppAuth-macOS-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/AppAuth-macOS/AppAuth-macOS-Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/AppAuth-iOS/AppAuth-iOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/AppAuth-iOS/AppAuth-iOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				MODULEMAP_FILE = "Target Support Files/AppAuth-macOS/AppAuth-macOS.modulemap";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/AppAuth-iOS/AppAuth-iOS.modulemap";
 				PRODUCT_MODULE_NAME = AppAuth;
 				PRODUCT_NAME = AppAuth;
-				SDKROOT = macosx;
+				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_VERSION = 5.0;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		D29371E57D332A69492F5D40AB167B98 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DE525683A9CF9B1360B6AED7C1A2D37A /* AppAuth-macOS.release.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_VERSION = A;
-				GCC_PREFIX_HEADER = "Target Support Files/AppAuth-macOS/AppAuth-macOS-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/AppAuth-macOS/AppAuth-macOS-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				MODULEMAP_FILE = "Target Support Files/AppAuth-macOS/AppAuth-macOS.modulemap";
-				PRODUCT_MODULE_NAME = AppAuth;
-				PRODUCT_NAME = AppAuth;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
-		D777F9CC501C6C23E18B27F6DF3A4BBB /* Debug */ = {
+		D495D7AD63D8BC10BDD5723E36EE523E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -907,6 +873,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -946,14 +913,45 @@
 			};
 			name = Debug;
 		};
+		F6A75DE31ED6CB125AC29D5415BFAC08 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6A491A2AB6ADE1B5BF0A6CC1F966CEE9 /* AppAuth-iOS.debug.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/AppAuth-iOS/AppAuth-iOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/AppAuth-iOS/AppAuth-iOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/AppAuth-iOS/AppAuth-iOS.modulemap";
+				PRODUCT_MODULE_NAME = AppAuth;
+				PRODUCT_NAME = AppAuth;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
 		0ED7D51E541B39882DA852A7BD132D6C /* Build configuration list for PBXNativeTarget "AppAuth-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				ABBB26763073CA9D2200E509232EE947 /* Debug */,
-				D29371E57D332A69492F5D40AB167B98 /* Release */,
+				049775A701F1443190274B7ACEDF27F8 /* Debug */,
+				05EFE3A79116591F15C91EA9603A4573 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -961,8 +959,8 @@
 		85F15D3820FFAF22B58520F0C13C7E0C /* Build configuration list for PBXNativeTarget "AppAuth-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0E85B71DF520083AE38EB9CDB16E1C57 /* Debug */,
-				54185E9400850FE1729AAF31CAE779CA /* Release */,
+				F6A75DE31ED6CB125AC29D5415BFAC08 /* Debug */,
+				74C4916E13B97AA1D8DF440EA1A3663A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -970,8 +968,8 @@
 		CF9EC65B070BA085EAC0E2A967DE3DE9 /* Build configuration list for PBXProject "AppAuth" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D777F9CC501C6C23E18B27F6DF3A4BBB /* Debug */,
-				6C3078B6FD0A5A6001987B5A078FB92A /* Release */,
+				D495D7AD63D8BC10BDD5723E36EE523E /* Debug */,
+				2CAD19B526FBBF40328E0DA7F6978B66 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

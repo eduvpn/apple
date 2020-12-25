@@ -228,6 +228,7 @@
 		C7265C0423747A70004496B8 /* ServerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7265C0323747A70004496B8 /* ServerConfiguration.swift */; };
 		C7265C0523747A70004496B8 /* ServerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7265C0323747A70004496B8 /* ServerConfiguration.swift */; };
 		C7517542236340C900058D95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7517541236340C900058D95 /* Assets.xcassets */; };
+		C79B63CA258A08C200C054CC /* EduVPNUITestsmacOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79B63C9258A08C200C054CC /* EduVPNUITestsmacOS.swift */; };
 		C7B4392D2580CE4D00FEB2B1 /* EduVPNTestsiOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B4392C2580CE4D00FEB2B1 /* EduVPNTestsiOS.swift */; };
 		C7B4394D2580D0F000FEB2B1 /* EduVPNUITestsiOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B4394C2580D0F000FEB2B1 /* EduVPNUITestsiOS.swift */; };
 		C7D3BB3F258368F900A37244 /* Testing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D3BB3E258368F900A37244 /* Testing.swift */; };
@@ -372,6 +373,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 4A901C1020C87511000C1BF0;
 			remoteInfo = EduVPNTunnelExtension;
+		};
+		C79B63DC258A08FB00C054CC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4AAC1F6E1F2D0E3400DD0252 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6F750C2C24975A4300AF2C04;
+			remoteInfo = "EduVPN-redesign-macOS";
 		};
 		C7B4392F2580CE4D00FEB2B1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -616,7 +624,7 @@
 		6F71FBB7249B54490010D0FE /* DiscoveryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryData.swift; sourceTree = "<group>"; };
 		6F71FBBC249CCE980010D0FE /* DiscoveryDataFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveryDataFetcher.swift; sourceTree = "<group>"; };
 		6F750C9624975A4300AF2C04 /* eduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6F750D2124975B9B00AF2C04 /* EduVPN-redesign-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "EduVPN-redesign-iOS.app"; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F750D2124975B9B00AF2C04 /* eduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F7B63EF2500FD7300FB154A /* StatusItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusItemController.swift; sourceTree = "<group>"; };
 		6F7B63F125022AAE00FB154A /* LaunchAtLoginHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginHelper.swift; sourceTree = "<group>"; };
 		6F7B643D2502A18C00FB154A /* ConnectionInfoHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionInfoHeaderView.swift; sourceTree = "<group>"; };
@@ -711,6 +719,9 @@
 		C75B2CC62363141200D700EC /* Developer.xcconfig.eduvpn-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer.xcconfig.eduvpn-template"; sourceTree = "<group>"; };
 		C75B2CC72363141200D700EC /* config-template.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-template.json"; sourceTree = "<group>"; };
 		C78D202A2372DF34007067B1 /* Assets-Let’s Connect!.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets-Let’s Connect!.xcassets"; sourceTree = "<group>"; };
+		C79B63C7258A08C200C054CC /* EduVPN-UITests-macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EduVPN-UITests-macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C79B63C9258A08C200C054CC /* EduVPNUITestsmacOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EduVPNUITestsmacOS.swift; sourceTree = "<group>"; };
+		C79B63CB258A08C200C054CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C7A8C9192580C4F30072AD0D /* config-eduvpn_new_discovery.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-eduvpn_new_discovery.json"; sourceTree = "<group>"; };
 		C7A8C91A2580C4F30072AD0D /* config-letsconnect_new_discovery.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-letsconnect_new_discovery.json"; sourceTree = "<group>"; };
 		C7B4391C2580CB2A00FEB2B1 /* config-letsconnect_new_discovery.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-letsconnect_new_discovery.json"; sourceTree = "<group>"; };
@@ -864,6 +875,13 @@
 			files = (
 				6F750D1124975B9B00AF2C04 /* NetworkExtension.framework in Frameworks */,
 				8ADB89CC70186A6FD4B3E63E /* Pods_EduVPN_redesign_iOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C79B63C4258A08C200C054CC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1153,6 +1171,7 @@
 				34D719DF228D75550027DE84 /* EduVPN-macOS */,
 				342B9C9A228ECFDB00C006D7 /* LoginItemHelper-macOS */,
 				349D85C322B706A4006E9540 /* EduVPNTunnelExtension-macOS */,
+				C79B63C8258A08C200C054CC /* EduVPN-UITests-macOS */,
 				C75B2CA62363122900D700EC /* Scripts */,
 				4AAC1F771F2D0E3400DD0252 /* Products */,
 				26B4255A0C7DB00763783EF6 /* Frameworks */,
@@ -1170,9 +1189,10 @@
 				342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */,
 				349D85C222B706A4006E9540 /* EduVPNTunnelExtension-macOS.appex */,
 				6F750C9624975A4300AF2C04 /* eduVPN.app */,
-				6F750D2124975B9B00AF2C04 /* EduVPN-redesign-iOS.app */,
+				6F750D2124975B9B00AF2C04 /* eduVPN.app */,
 				C7B4392A2580CE4D00FEB2B1 /* EduVPN-Tests-iOS.xctest */,
 				C7B4394A2580D0F000FEB2B1 /* EduVPN-UITests-iOS.xctest */,
+				C79B63C7258A08C200C054CC /* EduVPN-UITests-macOS.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1399,6 +1419,15 @@
 				C78D202A2372DF34007067B1 /* Assets-Let’s Connect!.xcassets */,
 			);
 			path = Config;
+			sourceTree = "<group>";
+		};
+		C79B63C8258A08C200C054CC /* EduVPN-UITests-macOS */ = {
+			isa = PBXGroup;
+			children = (
+				C79B63C9258A08C200C054CC /* EduVPNUITestsmacOS.swift */,
+				C79B63CB258A08C200C054CC /* Info.plist */,
+			);
+			path = "EduVPN-UITests-macOS";
 			sourceTree = "<group>";
 		};
 		C7B4392B2580CE4D00FEB2B1 /* EduVPN-Tests-iOS */ = {
@@ -1821,8 +1850,26 @@
 			);
 			name = "EduVPN-redesign-iOS";
 			productName = EduVPN;
-			productReference = 6F750D2124975B9B00AF2C04 /* EduVPN-redesign-iOS.app */;
+			productReference = 6F750D2124975B9B00AF2C04 /* eduVPN.app */;
 			productType = "com.apple.product-type.application";
+		};
+		C79B63C6258A08C200C054CC /* EduVPN-UITests-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C79B63D0258A08C200C054CC /* Build configuration list for PBXNativeTarget "EduVPN-UITests-macOS" */;
+			buildPhases = (
+				C79B63C3258A08C200C054CC /* Sources */,
+				C79B63C4258A08C200C054CC /* Frameworks */,
+				C79B63C5258A08C200C054CC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C79B63DD258A08FB00C054CC /* PBXTargetDependency */,
+			);
+			name = "EduVPN-UITests-macOS";
+			productName = "EduVPN-UITests-macOS";
+			productReference = C79B63C7258A08C200C054CC /* EduVPN-UITests-macOS.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 		C7B439292580CE4D00FEB2B1 /* EduVPN-Tests-iOS */ = {
 			isa = PBXNativeTarget;
@@ -1967,6 +2014,12 @@
 						DevelopmentTeam = CRU5YWAZ4Y;
 						ProvisioningStyle = Automatic;
 					};
+					C79B63C6258A08C200C054CC = {
+						CreatedOnToolsVersion = 12.2;
+						DevelopmentTeam = CRU5YWAZ4Y;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 6F750C2C24975A4300AF2C04;
+					};
 					C7B439292580CE4D00FEB2B1 = {
 						CreatedOnToolsVersion = 12.2;
 						DevelopmentTeam = CRU5YWAZ4Y;
@@ -2003,6 +2056,7 @@
 				342B9C98228ECFDB00C006D7 /* LoginItemHelper-macOS */,
 				349D85C122B706A4006E9540 /* EduVPNTunnelExtension-macOS */,
 				6F750C2C24975A4300AF2C04 /* EduVPN-redesign-macOS */,
+				C79B63C6258A08C200C054CC /* EduVPN-UITests-macOS */,
 				6F750CBD24975B9B00AF2C04 /* EduVPN-redesign-iOS */,
 				C7B439292580CE4D00FEB2B1 /* EduVPN-Tests-iOS */,
 				C7B439492580D0F000FEB2B1 /* EduVPN-UITests-iOS */,
@@ -2095,6 +2149,13 @@
 				6F5E6C492522EA13000225C0 /* server_list.json in Resources */,
 				6FE41C4F25418BF6003DCF74 /* OpenSans-Regular.ttf in Resources */,
 				6F5E6C712524399B000225C0 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C79B63C5258A08C200C054CC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2257,7 +2318,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		6F750C8D24975A4300AF2C04 /* Set Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2353,7 +2414,7 @@
 		};
 		6F750CC224975B9B00AF2C04 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -2361,9 +2422,9 @@
 			name = Swiftlint;
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		6F750D1A24975B9B00AF2C04 /* Set build number */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2845,6 +2906,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C79B63C3258A08C200C054CC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C79B63CA258A08C200C054CC /* EduVPNUITestsmacOS.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C7B439262580CE4D00FEB2B1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3012,6 +3081,11 @@
 			isa = PBXTargetDependency;
 			target = 4A901C1020C87511000C1BF0 /* EduVPNTunnelExtension */;
 			targetProxy = 6F750CBF24975B9B00AF2C04 /* PBXContainerItemProxy */;
+		};
+		C79B63DD258A08FB00C054CC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6F750C2C24975A4300AF2C04 /* EduVPN-redesign-macOS */;
+			targetProxy = C79B63DC258A08FB00C054CC /* PBXContainerItemProxy */;
 		};
 		C7B439302580CE4D00FEB2B1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3865,6 +3939,55 @@
 			};
 			name = Release;
 		};
+		C79B63CE258A08C200C054CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "$(DEVELOPMENT_TEAM)";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "EduVPN-UITests-macOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID).EduVPN-UITests-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "EduVPN-redesign-macOS";
+			};
+			name = Debug;
+		};
+		C79B63CF258A08C200C054CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "$(DEVELOPMENT_TEAM)";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "EduVPN-UITests-macOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID).EduVPN-UITests-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "EduVPN-redesign-macOS";
+			};
+			name = Release;
+		};
 		C7B439322580CE4D00FEB2B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4045,6 +4168,15 @@
 			buildConfigurations = (
 				6F750D1F24975B9B00AF2C04 /* Debug */,
 				6F750D2024975B9B00AF2C04 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C79B63D0258A08C200C054CC /* Build configuration list for PBXNativeTarget "EduVPN-UITests-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C79B63CE258A08C200C054CC /* Debug */,
+				C79B63CF258A08C200C054CC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

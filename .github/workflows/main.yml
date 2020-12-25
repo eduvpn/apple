@@ -39,17 +39,13 @@ jobs:
     - name: List available Xcode versions
       run: ls /Applications | grep Xcode
     - name: Select Xcode
-      run: sudo xcode-select -switch /Applications/Xcode_11.3.1.app && /usr/bin/xcodebuild -version
+      run: sudo xcode-select -switch /Applications/Xcode_12.3.app && /usr/bin/xcodebuild -version
     - name: Prepare Developer.xcconfig
       run: cp EduVPN/Config/Developer.xcconfig.eduvpn-template EduVPN/Config/Developer.xcconfig
     - name: Prepare config.json
-      run: cp EduVPN/Config/config-eduvpn_dev.json EduVPN/Config/config.json
-    - name: Prepare assets
-      run: cp -r EduVPN/Config/Assets-EduVPN.xcassets EduVPN/Resources/Assets.xcassets
-    - name: Run tests on iOS 13
-      run: xcodebuild test -scheme EduVPN -workspace EduVPN.xcworkspace -destination 'platform=iOS Simulator,name=iPhone 11,OS=13.3' -skip-testing EduVPN-UITests-iOS | xcpretty && exit ${PIPESTATUS[0]}
-#    - name: Run tests on iOS 12
-#      run: xcodebuild test -scheme EduVPN -workspace EduVPN.xcworkspace -destination 'platform=iOS Simulator,name=iPhone X,OS=12.4' | xcpretty && exit ${PIPESTATUS[0]}
+      run: cp EduVPN/Config/config-eduvpn_new_discovery.json EduVPN/Config/config.json
+    - name: Run tests on iOS 14
+      run: xcodebuild test -scheme EduVPN-redesign-iOS -workspace EduVPN.xcworkspace -destination 'platform=iOS Simulator,name=iPhone 12,OS=14.3' -skip-testing EduVPN-UITests-iOS | xcpretty && exit ${PIPESTATUS[0]}
 
   build-macos:
     name: Build macOS target
@@ -58,12 +54,10 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Select Xcode
-      run: sudo xcode-select -switch /Applications/Xcode_11.3.1.app
+      run: sudo xcode-select -switch /Applications/Xcode_12.3.app
     - name: Prepare Developer-macos.xcconfig
       run: cp EduVPN-macOS/Config/Developer-macos.xcconfig.eduvpn-template EduVPN-macOS/Config/Developer-macos.xcconfig
     - name: Prepare config.json
-      run: cp EduVPN-macOS/Config/config-eduvpn_dev.json EduVPN-macOS/Config/config.json
-    - name: Prepare assets
-      run: cp -r EduVPN-macOS/Config/Assets-eduVPN.xcassets EduVPN/Resources/Assets-macOS.xcassets
+      run: cp EduVPN-macOS/Config/config-eduvpn_new_discovery.json EduVPN-macOS/Config/config.json
     - name: Run MacOS build
-      run: xcodebuild build -scheme EduVPN-macOS -workspace EduVPN.xcworkspace -destination 'platform=macOS' CODE_SIGNING_ALLOWED=NO | xcpretty && exit ${PIPESTATUS[0]}
+      run: xcodebuild build -scheme EduVPN-redesign-macOS -workspace EduVPN.xcworkspace -destination 'platform=macOS' CODE_SIGNING_ALLOWED=NO | xcpretty && exit ${PIPESTATUS[0]}

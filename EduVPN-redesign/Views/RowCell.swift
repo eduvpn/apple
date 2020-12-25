@@ -18,10 +18,11 @@ class RowCell: TableViewCell {
         #if os(macOS)
         textField?.stringValue = title
         imageView?.image = image
+        setAccessibilityLabel(title)
         #elseif os(iOS)
         textLabel?.text = title
         imageView?.image = image
-        #endif
         accessibilityLabel = title
+        #endif
     }
 }
