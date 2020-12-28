@@ -3,7 +3,7 @@
 //  TunnelKit
 //
 //  Created by Davide De Rosa on 5/19/19.
-//  Copyright (c) 2020 Davide De Rosa. All rights reserved.
+//  Copyright (c) 2021 Davide De Rosa. All rights reserved.
 //
 //  https://github.com/passepartoutvpn
 //
@@ -50,7 +50,7 @@ public protocol Session {
      - Precondition: `link` is an active network interface.
      - Postcondition: The VPN session is active.
      - Parameter link: The `LinkInterface` on which to establish the VPN session.
-     - Seealso: `canRebindLink()`.
+     - Seealso: `canRebindLink()`
      */
     func rebindLink(_ link: LinkInterface)
     
@@ -70,6 +70,13 @@ public protocol Session {
      */
     func dataCount() -> (Int, Int)?
     
+    /**
+     Returns the current server configuration.
+
+     - Returns: The current server configuration, represented as a generic object.
+     */
+    func serverConfiguration() -> Any?
+
     /**
      Shuts down the session with an optional `Error` reason. Does nothing if the session is already stopped or about to stop.
      

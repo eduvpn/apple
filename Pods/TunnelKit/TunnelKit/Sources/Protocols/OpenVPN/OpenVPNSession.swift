@@ -3,7 +3,7 @@
 //  TunnelKit
 //
 //  Created by Davide De Rosa on 2/3/17.
-//  Copyright (c) 2020 Davide De Rosa. All rights reserved.
+//  Copyright (c) 2021 Davide De Rosa. All rights reserved.
 //
 //  https://github.com/passepartoutvpn
 //
@@ -309,7 +309,7 @@ public class OpenVPNSession: Session {
         return controlChannel.currentDataCount()
     }
     
-    public func serverConfiguration() -> OpenVPN.Configuration? {
+    public func serverConfiguration() -> Any? {
         return pushReply?.options
     }
     

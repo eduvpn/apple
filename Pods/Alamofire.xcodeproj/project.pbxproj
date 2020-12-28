@@ -471,6 +471,38 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		03A443E12D79B83D281F74A627B3D8A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6E516968B6C2397215AA3574BEF95A6A /* Alamofire-iOS.debug.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Alamofire-iOS/Alamofire-iOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Alamofire-iOS/Alamofire-iOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Alamofire-iOS/Alamofire-iOS.modulemap";
+				PRODUCT_MODULE_NAME = Alamofire;
+				PRODUCT_NAME = Alamofire;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.3;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		1D602A3D2678511121E2C14C98EDE46A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -538,39 +570,7 @@
 			};
 			name = Debug;
 		};
-		473728D9C06138CAAA5FA604D436D564 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 74DD164BA218A25891E62126A4D42E94 /* Alamofire-macOS.release.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/Alamofire-macOS/Alamofire-macOS-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Alamofire-macOS/Alamofire-macOS-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MODULEMAP_FILE = "Target Support Files/Alamofire-macOS/Alamofire-macOS.modulemap";
-				PRODUCT_MODULE_NAME = Alamofire;
-				PRODUCT_NAME = Alamofire;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.2;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		59A55A0D0A9309A9BB3D821E1D77FA0C /* Debug */ = {
+		67F5638F05777606069372E954FFB58A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F05C55A3BB356C783ED8FA86513288D8 /* Alamofire-macOS.debug.xcconfig */;
 			buildSettings = {
@@ -596,45 +596,13 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.2;
+				SWIFT_VERSION = 5.3;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		D3BCBBB3037786A8D3B7555502524788 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6E516968B6C2397215AA3574BEF95A6A /* Alamofire-iOS.debug.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/Alamofire-iOS/Alamofire-iOS-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Alamofire-iOS/Alamofire-iOS-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Alamofire-iOS/Alamofire-iOS.modulemap";
-				PRODUCT_MODULE_NAME = Alamofire;
-				PRODUCT_NAME = Alamofire;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		DBFE379C29F124F4D835308DBCBEB27C /* Release */ = {
+		6963E7C13F4FE26A0D5614954D5FD6E7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C957623B951E53C01269B91C5DCAF60A /* Alamofire-iOS.release.xcconfig */;
 			buildSettings = {
@@ -659,9 +627,41 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.2;
+				SWIFT_VERSION = 5.3;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		DABAC2537934CEF6500AF8AD5381688D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 74DD164BA218A25891E62126A4D42E94 /* Alamofire-macOS.release.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Alamofire-macOS/Alamofire-macOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Alamofire-macOS/Alamofire-macOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MODULEMAP_FILE = "Target Support Files/Alamofire-macOS/Alamofire-macOS.modulemap";
+				PRODUCT_MODULE_NAME = Alamofire;
+				PRODUCT_NAME = Alamofire;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.3;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -736,8 +736,8 @@
 		19C35E9922A6B8402A8E118FDCCDADB9 /* Build configuration list for PBXNativeTarget "Alamofire-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				59A55A0D0A9309A9BB3D821E1D77FA0C /* Debug */,
-				473728D9C06138CAAA5FA604D436D564 /* Release */,
+				67F5638F05777606069372E954FFB58A /* Debug */,
+				DABAC2537934CEF6500AF8AD5381688D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -754,8 +754,8 @@
 		C0F719AEB671048B047977A16960506B /* Build configuration list for PBXNativeTarget "Alamofire-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D3BCBBB3037786A8D3B7555502524788 /* Debug */,
-				DBFE379C29F124F4D835308DBCBEB27C /* Release */,
+				03A443E12D79B83D281F74A627B3D8A2 /* Debug */,
+				6963E7C13F4FE26A0D5614954D5FD6E7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

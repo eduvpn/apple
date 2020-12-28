@@ -3,7 +3,7 @@
 //  TunnelKit
 //
 //  Created by Davide De Rosa on 8/27/17.
-//  Copyright (c) 2020 Davide De Rosa. All rights reserved.
+//  Copyright (c) 2021 Davide De Rosa. All rights reserved.
 //
 //  https://github.com/passepartoutvpn
 //

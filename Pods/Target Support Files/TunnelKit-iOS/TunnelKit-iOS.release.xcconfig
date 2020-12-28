@@ -1,7 +1,7 @@
 APPLICATION_EXTENSION_API_ONLY = YES
 CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO
 CONFIGURATION_BUILD_DIR = ${PODS_CONFIGURATION_BUILD_DIR}/TunnelKit-iOS
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/SwiftyBeaver-iOS" "${PODS_ROOT}/OpenSSL-Apple/frameworks/iPhone"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/SwiftyBeaver-iOS" "${PODS_ROOT}/OpenSSL-Apple/frameworks" "${PODS_XCFRAMEWORKS_BUILD_DIR}/openssl"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 OTHER_LDFLAGS = $(inherited) -l"resolv" -framework "NetworkExtension" -framework "openssl"
 OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS -suppress-warnings
