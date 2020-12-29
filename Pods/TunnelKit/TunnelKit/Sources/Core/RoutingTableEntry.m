@@ -3,7 +3,7 @@
 //  TunnelKit
 //
 //  Created by Davide De Rosa on 4/30/19.
-//  Copyright (c) 2020 Davide De Rosa. All rights reserved.
+//  Copyright (c) 2021 Davide De Rosa. All rights reserved.
 //
 //  https://github.com/passepartoutvpn
 //
@@ -249,7 +249,7 @@ static NSString *RoutingTableEntryName(struct sockaddr *sa, struct sockaddr *mas
     }
 }
 
-- (NSArray<RoutingTableEntry *> *)partitioned
+- (nullable NSArray<RoutingTableEntry *> *)partitioned
 {
     NSMutableArray<RoutingTableEntry *> *segments = [[NSMutableArray alloc] init];
     const int halfPrefix = (int)(self.prefix + 1);

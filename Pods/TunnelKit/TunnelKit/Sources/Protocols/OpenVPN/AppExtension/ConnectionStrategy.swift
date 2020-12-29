@@ -3,7 +3,7 @@
 //  TunnelKit
 //
 //  Created by Davide De Rosa on 6/18/18.
-//  Copyright (c) 2020 Davide De Rosa. All rights reserved.
+//  Copyright (c) 2021 Davide De Rosa. All rights reserved.
 //
 //  https://github.com/passepartoutvpn
 //
@@ -84,17 +84,20 @@ class ConnectionStrategy {
         currentEndpointIndex = 0
         if let resolvedAddresses = configuration.resolvedAddresses {
             if configuration.prefersResolvedAddresses {
+                log.debug("Will use pre-resolved addresses only")
                 endpoints = ConnectionStrategy.unrolledEndpoints(
                     records: resolvedAddresses.map { DNSRecord(address: $0, isIPv6: false) },
                     protos: endpointProtocols
                 )
             } else {
+                log.debug("Will use DNS resolution with fallback to pre-resolved addresses")
                 endpoints = []
             }
             self.resolvedAddresses = resolvedAddresses
         } else {
+            log.debug("Will use DNS resolution")
             guard hostname != nil else {
-                fatalError("Either configuration.hostname or resolvedRecords required")
+                fatalError("Either configuration.sessionConfiguration.hostname or configuration.resolvedAddresses required")
             }
             endpoints = []
             resolvedAddresses = []

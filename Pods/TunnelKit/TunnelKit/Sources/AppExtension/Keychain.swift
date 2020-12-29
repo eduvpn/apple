@@ -3,7 +3,7 @@
 //  TunnelKit
 //
 //  Created by Davide De Rosa on 2/12/17.
-//  Copyright (c) 2020 Davide De Rosa. All rights reserved.
+//  Copyright (c) 2021 Davide De Rosa. All rights reserved.
 //
 //  https://github.com/passepartoutvpn
 //
@@ -45,43 +45,25 @@ public enum KeychainError: Error {
     /// Item not found.
     case notFound
     
+    /// Operation cancelled or unauthorized.
+    case userCancelled
+    
 //    /// Unexpected item type returned.
 //    case typeMismatch
 }
 
 /// Wrapper for easy keychain access and modification.
 public class Keychain {
-    private let service: String?
-
     private let accessGroup: String?
 
-    /// :nodoc:
-    public init() {
-        service = Bundle.main.bundleIdentifier
-        accessGroup = nil
-    }
-
     /**
-     Creates a keychain in an App Group.
+     Creates a keychain.
 
-     - Parameter group: The App Group.
-     - Precondition: Proper App Group entitlements.
+     - Parameter group: An optional App Group.
+     - Precondition: Proper App Group entitlements (if group is non-nil).
      **/
-    public init(group: String) {
-        service = nil
+    public init(group: String?) {
         accessGroup = group
-    }
-    
-    /**
-     Creates a keychain in an App Group and a Team ID prefix.
-     
-     - Parameter team: The Team ID prefix.
-     - Parameter group: The App Group.
-     - Precondition: Proper App Group entitlements.
-     **/
-    public init(team: String, group: String) {
-        service = nil
-        accessGroup = "\(team).\(group)"
     }
     
     // MARK: Password
@@ -91,33 +73,35 @@ public class Keychain {
 
      - Parameter password: The password to set.
      - Parameter username: The username to set the password for.
-     - Parameter label: An optional label.
+     - Parameter context: An optional context.
      - Throws: `KeychainError.add` if unable to add the password to the keychain.
      **/
-    public func set(password: String, for username: String, label: String? = nil) throws {
+    public func set(password: String, for username: String, context: String? = nil) throws {
         do {
-            let currentPassword = try self.password(for: username)
+            let currentPassword = try self.password(for: username, context: context)
             guard password != currentPassword else {
                 return
             }
-        } catch {
-            // no pre-existing password
+            removePassword(for: username, context: context)
+        } catch let e as KeychainError {
+
+            // rethrow cancelation
+            if e == .userCancelled {
+                throw e
+            }
+
+            // otherwise, no pre-existing password
         }
 
-        removePassword(for: username)
-        
         var query = [String: Any]()
-        setScope(query: &query)
+        setScope(query: &query, context: context)
         query[kSecClass as String] = kSecClassGenericPassword
-        if let label = label {
-            query[kSecAttrLabel as String] = label
-        }
         query[kSecAttrAccount as String] = username
         query[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlock
         query[kSecValueData as String] = password.data(using: .utf8)
-    
+
         let status = SecItemAdd(query as CFDictionary, nil)
-        guard (status == errSecSuccess) else {
+        guard status == errSecSuccess else {
             throw KeychainError.add
         }
     }
@@ -126,36 +110,44 @@ public class Keychain {
      Removes a password.
 
      - Parameter username: The username to remove the password for.
+     - Parameter context: An optional context.
      - Returns: `true` if the password was successfully removed.
      **/
-    @discardableResult public func removePassword(for username: String) -> Bool {
+    @discardableResult public func removePassword(for username: String, context: String? = nil) -> Bool {
         var query = [String: Any]()
-        setScope(query: &query)
+        setScope(query: &query, context: context)
         query[kSecClass as String] = kSecClassGenericPassword
         query[kSecAttrAccount as String] = username
-        
+
         let status = SecItemDelete(query as CFDictionary)
-        return (status == errSecSuccess)
+        return status == errSecSuccess
     }
 
     /**
      Gets a password.
 
      - Parameter username: The username to get the password for.
+     - Parameter context: An optional context.
      - Returns: The password for the input username.
      - Throws: `KeychainError.notFound` if unable to find the password in the keychain.
      **/
-    public func password(for username: String) throws -> String {
+    public func password(for username: String, context: String? = nil) throws -> String {
         var query = [String: Any]()
-        setScope(query: &query)
+        setScope(query: &query, context: context)
         query[kSecClass as String] = kSecClassGenericPassword
         query[kSecAttrAccount as String] = username
         query[kSecMatchLimit as String] = kSecMatchLimitOne
         query[kSecReturnData as String] = true
         
         var result: AnyObject?
-        let status = SecItemCopyMatching(query as CFDictionary, &result)
-        guard (status == errSecSuccess) else {
+        switch SecItemCopyMatching(query as CFDictionary, &result) {
+        case errSecSuccess:
+            break
+            
+        case errSecUserCanceled:
+            throw KeychainError.userCancelled
+
+        default:
             throw KeychainError.notFound
         }
         guard let data = result as? Data else {
@@ -171,20 +163,27 @@ public class Keychain {
      Gets a password reference.
 
      - Parameter username: The username to get the password for.
+     - Parameter context: An optional context.
      - Returns: The password reference for the input username.
      - Throws: `KeychainError.notFound` if unable to find the password in the keychain.
      **/
-    public func passwordReference(for username: String) throws -> Data {
+    public func passwordReference(for username: String, context: String? = nil) throws -> Data {
         var query = [String: Any]()
-        setScope(query: &query)
+        setScope(query: &query, context: context)
         query[kSecClass as String] = kSecClassGenericPassword
         query[kSecAttrAccount as String] = username
         query[kSecMatchLimit as String] = kSecMatchLimitOne
         query[kSecReturnPersistentRef as String] = true
         
         var result: AnyObject?
-        let status = SecItemCopyMatching(query as CFDictionary, &result)
-        guard (status == errSecSuccess) else {
+        switch SecItemCopyMatching(query as CFDictionary, &result) {
+        case errSecSuccess:
+            break
+            
+        case errSecUserCanceled:
+            throw KeychainError.userCancelled
+
+        default:
             throw KeychainError.notFound
         }
         guard let data = result as? Data else {
@@ -198,19 +197,29 @@ public class Keychain {
 
      - Parameter username: The username to get the password for.
      - Parameter reference: The password reference.
+     - Parameter context: An optional context.
      - Returns: The password for the input username and reference.
      - Throws: `KeychainError.notFound` if unable to find the password in the keychain.
      **/
-    public static func password(for username: String, reference: Data) throws -> String {
+    public static func password(for username: String, reference: Data, context: String? = nil) throws -> String {
         var query = [String: Any]()
         query[kSecClass as String] = kSecClassGenericPassword
+        if let context = context {
+            query[kSecAttrService as String] = context
+        }
         query[kSecAttrAccount as String] = username
         query[kSecMatchItemList as String] = [reference]
         query[kSecReturnData as String] = true
         
         var result: AnyObject?
-        let status = SecItemCopyMatching(query as CFDictionary, &result)
-        guard (status == errSecSuccess) else {
+        switch SecItemCopyMatching(query as CFDictionary, &result) {
+        case errSecSuccess:
+            break
+            
+        case errSecUserCanceled:
+            throw KeychainError.userCancelled
+
+        default:
             throw KeychainError.notFound
         }
         guard let data = result as? Data else {
@@ -246,7 +255,7 @@ public class Keychain {
         query.removeValue(forKey: kSecAttrService as String)
 
         let status = SecItemAdd(query as CFDictionary, nil)
-        guard (status == errSecSuccess) else {
+        guard status == errSecSuccess else {
             throw KeychainError.add
         }
         return try publicKey(withIdentifier: identifier)
@@ -271,8 +280,14 @@ public class Keychain {
         query.removeValue(forKey: kSecAttrService as String)
 
         var result: AnyObject?
-        let status = SecItemCopyMatching(query as CFDictionary, &result)
-        guard (status == errSecSuccess) else {
+        switch SecItemCopyMatching(query as CFDictionary, &result) {
+        case errSecSuccess:
+            break
+            
+        case errSecUserCanceled:
+            throw KeychainError.userCancelled
+
+        default:
             throw KeychainError.notFound
         }
 //        guard let key = result as? SecKey else {
@@ -299,18 +314,17 @@ public class Keychain {
         query.removeValue(forKey: kSecAttrService as String)
 
         let status = SecItemDelete(query as CFDictionary)
-        return (status == errSecSuccess)
+        return status == errSecSuccess
     }
     
     // MARK: Helpers
     
-    private func setScope(query: inout [String: Any]) {
-        if let service = service {
-            query[kSecAttrService as String] = service
-        } else if let accessGroup = accessGroup {
+    private func setScope(query: inout [String: Any], context: String?) {
+        if let accessGroup = accessGroup {
             query[kSecAttrAccessGroup as String] = accessGroup
-        } else {
-            fatalError("No service nor accessGroup set")
+        }
+        if let context = context {
+            query[kSecAttrService as String] = context
         }
     }
 }

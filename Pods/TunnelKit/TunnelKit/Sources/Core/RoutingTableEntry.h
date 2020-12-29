@@ -3,7 +3,7 @@
 //  TunnelKit
 //
 //  Created by Davide De Rosa on 4/30/19.
-//  Copyright (c) 2020 Davide De Rosa. All rights reserved.
+//  Copyright (c) 2021 Davide De Rosa. All rights reserved.
 //
 //  https://github.com/passepartoutvpn
 //
@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)isDefault;
 - (BOOL)matchesDestination:(NSString *)destination;
-- (NSArray<RoutingTableEntry *> *)partitioned;
+- (nullable NSArray<RoutingTableEntry *> *)partitioned;
 
 @end
 

@@ -3,7 +3,7 @@
 //  TunnelKit
 //
 //  Created by Davide De Rosa on 9/1/17.
-//  Copyright (c) 2020 Davide De Rosa. All rights reserved.
+//  Copyright (c) 2021 Davide De Rosa. All rights reserved.
 //
 //  https://github.com/passepartoutvpn
 //
@@ -56,8 +56,12 @@ class CoreConfiguration {
 
     // configurable
     static var masksPrivateData = true
+
+    static var versionIdentifier: String?
     
     static let logsSensitiveData = false
+
+    static var reconnectionDelay = 2.0
 }
 
 extension CustomStringConvertible {
