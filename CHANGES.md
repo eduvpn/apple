@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Update TunnelKit and other dependencies
+- App requires macOS 10.15 or later
+
 ## 2.2.0 (2020-11-12)
 
 - iOS: Display Let's Connect! app with proper (full) display name. #301
