@@ -67,7 +67,12 @@ struct OpenVPNConfigImportHelper {
         }
 
         let configLines = configString.components(separatedBy: .newlines)
-        _ = try OpenVPN.ConfigurationParser.parsed(fromLines: configLines)
+        let filteredLines = configLines.map {
+            $0.trimmingCharacters(in: .whitespacesAndNewlines)
+        }.filter {
+            !$0.isEmpty
+        }
+        _ = try OpenVPN.ConfigurationParser.parsed(fromLines: filteredLines)
 
         let hasRemote = configLines.contains(where: { $0.lowercased().hasPrefix("remote ") })
         guard hasRemote else {
