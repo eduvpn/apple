@@ -1164,6 +1164,7 @@
 				C75B2CA5236311D100D700EC /* README.md */,
 				C75B2CA4236311D100D700EC /* CHANGES.md */,
 				C75B2CA3236311D100D700EC /* CODE_OF_CONDUCT.md */,
+				6F56BD7625A32797003FC282 /* Config */,
 				C7DB4B69247FC198009932B1 /* EduVPN-redesign */,
 				34186C9B2296B318009B4121 /* EduVPN-multiOS */,
 				4AAC1F781F2D0E3400DD0252 /* EduVPN-iOS */,
@@ -1241,24 +1242,6 @@
 		4ABCCBDA21E5269B0020CB6D /* Config */ = {
 			isa = PBXGroup;
 			children = (
-				C7DB4C1A24805F9B009932B1 /* config.json */,
-				4A3E78DB236B692A009CE595 /* config-appforce1.json */,
-				C75B2CC32363141200D700EC /* config-eduvpn_dev.json */,
-				C7A8C9192580C4F30072AD0D /* config-eduvpn_new_discovery.json */,
-				C75B2CC22363141200D700EC /* config-eduvpn.json */,
-				C7A8C91A2580C4F30072AD0D /* config-letsconnect_new_discovery.json */,
-				C75B2CC52363141200D700EC /* config-letsconnect.json */,
-				C75B2CC72363141200D700EC /* config-template.json */,
-				4ABCCBDB21E5269B0020CB6D /* Developer.xcconfig */,
-				4A3E78DC236B694A009CE595 /* Developer.xcconfig.appforce1-template */,
-				C75B2CC62363141200D700EC /* Developer.xcconfig.eduvpn-template */,
-				C75B2CC42363141200D700EC /* Developer.xcconfig.letsconnect-template */,
-				C75B2CC12363141200D700EC /* Developer.xcconfig.template */,
-				4ABCCBE621E528260020CB6D /* Development-TunnelExtension.xcconfig */,
-				4ABCCBE421E527B50020CB6D /* Development.xcconfig */,
-				4ABCCBE521E528140020CB6D /* Release-TunnelExtension.xcconfig */,
-				4ABCCBE321E527A40020CB6D /* Release.xcconfig */,
-				4A79CE5D2281DDD800ABAA8E /* AppVersion.xcconfig */,
 				4A900CDF2225C5E200A2D180 /* Assets-AppForce1 VPN.xcassets */,
 				4A900CDD2225C5E200A2D180 /* Assets-eduVPN.xcassets */,
 				4ACB8EBB23DF7E7B00FDF64A /* Assets-LetsConnect.xcassets */,
@@ -1345,6 +1328,67 @@
 			path = iOS;
 			sourceTree = "<group>";
 		};
+		6F56BD7625A32797003FC282 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				6F56BD7825A327A9003FC282 /* Mac */,
+				6F56BD7725A3279F003FC282 /* iOS */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		6F56BD7725A3279F003FC282 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				C7DB4C1A24805F9B009932B1 /* config.json */,
+				4A3E78DB236B692A009CE595 /* config-appforce1.json */,
+				C75B2CC32363141200D700EC /* config-eduvpn_dev.json */,
+				C7A8C9192580C4F30072AD0D /* config-eduvpn_new_discovery.json */,
+				C75B2CC22363141200D700EC /* config-eduvpn.json */,
+				C7A8C91A2580C4F30072AD0D /* config-letsconnect_new_discovery.json */,
+				C75B2CC52363141200D700EC /* config-letsconnect.json */,
+				C75B2CC72363141200D700EC /* config-template.json */,
+				4ABCCBDB21E5269B0020CB6D /* Developer.xcconfig */,
+				4A3E78DC236B694A009CE595 /* Developer.xcconfig.appforce1-template */,
+				C75B2CC62363141200D700EC /* Developer.xcconfig.eduvpn-template */,
+				C75B2CC42363141200D700EC /* Developer.xcconfig.letsconnect-template */,
+				C75B2CC12363141200D700EC /* Developer.xcconfig.template */,
+				4ABCCBE621E528260020CB6D /* Development-TunnelExtension.xcconfig */,
+				4ABCCBE421E527B50020CB6D /* Development.xcconfig */,
+				4ABCCBE521E528140020CB6D /* Release-TunnelExtension.xcconfig */,
+				4ABCCBE321E527A40020CB6D /* Release.xcconfig */,
+				4A79CE5D2281DDD800ABAA8E /* AppVersion.xcconfig */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		6F56BD7825A327A9003FC282 /* Mac */ = {
+			isa = PBXGroup;
+			children = (
+				C75B2CB42363138200D700EC /* config.json */,
+				C7B4391D2580CB2A00FEB2B1 /* config-eduvpn_new_discovery.json */,
+				C7B4391C2580CB2A00FEB2B1 /* config-letsconnect_new_discovery.json */,
+				C75B2CAD2363138200D700EC /* config-eduvpn_dev.json */,
+				C75B2CBE2363138200D700EC /* config-eduvpn.json */,
+				C75B2CC02363138200D700EC /* config-template.json */,
+				C75B2CB62363138200D700EC /* config-letsconnect.json */,
+				C75B2CB02363138200D700EC /* Developer-macOS.xcconfig */,
+				C7C69A5E236B328200F9B8B3 /* Developer-macOS.xcconfig.eduvpn-template */,
+				C75B2CB82363138200D700EC /* Developer-macOS.xcconfig.template */,
+				C75B2CBC2363138200D700EC /* Developer-macOS.xcconfig.letsconnect-template */,
+				C75B2CB22363138200D700EC /* Developer-macOS.xcconfig.johan-template */,
+				4AC84CAD236B6E2000932B89 /* Developer-macOS.xcconfig.appforce1-template */,
+				C75B2CB72363138200D700EC /* Development-macOS.xcconfig */,
+				C75B2CBB2363138200D700EC /* Development-macOS-TunnelExtension.xcconfig */,
+				C730CD6223746B4900C21AF9 /* Development-macOS-LoginItemHelper.xcconfig */,
+				C75B2CB92363138200D700EC /* Release-macOS.xcconfig */,
+				C75B2CAE2363138200D700EC /* Release-macOS-TunnelExtension.xcconfig */,
+				C730CD6323746B4900C21AF9 /* Release-macOS-LoginItemHelper.xcconfig */,
+				C75B2CBF2363138200D700EC /* AppVersion-macOS.xcconfig */,
+			);
+			path = Mac;
+			sourceTree = "<group>";
+		};
 		6F59A58524F51DEB00560155 /* Discovery */ = {
 			isa = PBXGroup;
 			children = (
@@ -1398,26 +1442,6 @@
 		C75B2CAC2363138200D700EC /* Config */ = {
 			isa = PBXGroup;
 			children = (
-				C75B2CB42363138200D700EC /* config.json */,
-				C7B4391D2580CB2A00FEB2B1 /* config-eduvpn_new_discovery.json */,
-				C7B4391C2580CB2A00FEB2B1 /* config-letsconnect_new_discovery.json */,
-				C75B2CAD2363138200D700EC /* config-eduvpn_dev.json */,
-				C75B2CBE2363138200D700EC /* config-eduvpn.json */,
-				C75B2CC02363138200D700EC /* config-template.json */,
-				C75B2CB62363138200D700EC /* config-letsconnect.json */,
-				C75B2CB02363138200D700EC /* Developer-macOS.xcconfig */,
-				C7C69A5E236B328200F9B8B3 /* Developer-macOS.xcconfig.eduvpn-template */,
-				C75B2CB22363138200D700EC /* Developer-macOS.xcconfig.johan-template */,
-				4AC84CAD236B6E2000932B89 /* Developer-macOS.xcconfig.appforce1-template */,
-				C75B2CB82363138200D700EC /* Developer-macOS.xcconfig.template */,
-				C75B2CBC2363138200D700EC /* Developer-macOS.xcconfig.letsconnect-template */,
-				C75B2CB72363138200D700EC /* Development-macOS.xcconfig */,
-				C75B2CBB2363138200D700EC /* Development-macOS-TunnelExtension.xcconfig */,
-				C730CD6223746B4900C21AF9 /* Development-macOS-LoginItemHelper.xcconfig */,
-				C75B2CB92363138200D700EC /* Release-macOS.xcconfig */,
-				C75B2CAE2363138200D700EC /* Release-macOS-TunnelExtension.xcconfig */,
-				C730CD6323746B4900C21AF9 /* Release-macOS-LoginItemHelper.xcconfig */,
-				C75B2CBF2363138200D700EC /* AppVersion-macOS.xcconfig */,
 				C75B2CB32363138200D700EC /* Assets-eduVPN.xcassets */,
 				C78D202A2372DF34007067B1 /* Assets-Let’s Connect!.xcassets */,
 			);
