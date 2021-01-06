@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_EduVPN_redesign_iOSVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_EduVPN_redesign_iOSVersionString[];
+FOUNDATION_EXPORT double Pods_EduVPNTunnelExtension_iOSVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_EduVPNTunnelExtension_iOSVersionString[];
 
