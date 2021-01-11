@@ -19,7 +19,6 @@ class MainViewController: ViewController {
                 let searchVC = environment.instantiateSearchViewController(shouldIncludeOrganizations: true)
                 searchVC.delegate = self
                 environment.navigationController?.pushViewController(searchVC, animated: false)
-                environment.navigationController?.isUserAllowedToGoBack = false
             }
             environment.connectionService.initializationDelegate = self
         }
@@ -48,6 +47,10 @@ class MainViewController: ViewController {
         isViewVisible = false
     }
     #endif
+
+    func refresh() {
+        viewModel.update()
+    }
 }
 
 extension MainViewController: NavigationControllerAddButtonDelegate {
@@ -102,7 +105,7 @@ extension MainViewController: ConnectionViewControllerDelegate {
 }
 
 extension MainViewController: ConnectionServiceInitializationDelegate {
-    func connectionService(
+    func connectionService( // swiftlint:disable:this function_body_length
         _ service: ConnectionServiceProtocol,
         initializedWithState initializedState: ConnectionServiceInitializedState) {
         isConnectionServiceInitialized = true
@@ -121,17 +124,24 @@ extension MainViewController: ConnectionServiceInitializationDelegate {
             }
 
             let connectionVC: ConnectionViewController? = {
-                let server = lastConnectionAttempt.server
-                if let simpleServer = server as? SimpleServerInstance {
+                let connectableInstance = lastConnectionAttempt.connectableInstance
+                if let simpleServer = connectableInstance as? SimpleServerInstance {
                     return environment.instantiateConnectionViewController(
-                        server: server, serverDisplayInfo: viewModel.serverDisplayInfo(for: simpleServer),
+                        connectableInstance: simpleServer,
+                        serverDisplayInfo: viewModel.serverDisplayInfo(for: simpleServer),
                         authURLTemplate: nil,
-                        restoredPreConnectionState: lastConnectionAttempt.preConnectionState)
-                } else if let secureInternetServer = server as? SecureInternetServerInstance {
+                        restoringConnectionAttempt: lastConnectionAttempt)
+                } else if let secureInternetServer = connectableInstance as? SecureInternetServerInstance {
                     return environment.instantiateConnectionViewController(
-                        server: server, serverDisplayInfo: viewModel.serverDisplayInfo(for: secureInternetServer),
-                        authURLTemplate: viewModel.authURLTemplate(for: server),
-                        restoredPreConnectionState: lastConnectionAttempt.preConnectionState)
+                        connectableInstance: secureInternetServer,
+                        serverDisplayInfo: viewModel.serverDisplayInfo(for: secureInternetServer),
+                        authURLTemplate: viewModel.authURLTemplate(for: secureInternetServer),
+                        restoringConnectionAttempt: lastConnectionAttempt)
+                } else if let openVPNConfigInstance = connectableInstance as? OpenVPNConfigInstance {
+                    return environment.instantiateConnectionViewController(
+                        connectableInstance: openVPNConfigInstance,
+                        serverDisplayInfo: .vpnConfigInstance(openVPNConfigInstance),
+                        restoringConnectionAttempt: lastConnectionAttempt)
                 }
                 return nil
             }()
@@ -209,13 +219,19 @@ extension MainViewController {
         }
 
         let row = viewModel.row(at: index)
-        if let server = row.server,
-            let serverDisplayInfo = row.serverDisplayInfo {
-            let connectionVC = environment.instantiateConnectionViewController(
-                server: server, serverDisplayInfo: serverDisplayInfo,
-                authURLTemplate: viewModel.authURLTemplate(for: server))
-            connectionVC.delegate = self
-            environment.navigationController?.pushViewController(connectionVC, animated: true)
+        if let serverDisplayInfo = row.serverDisplayInfo {
+            if let server = row.server {
+                let connectionVC = environment.instantiateConnectionViewController(
+                    connectableInstance: server, serverDisplayInfo: serverDisplayInfo,
+                    authURLTemplate: viewModel.authURLTemplate(for: server))
+                connectionVC.delegate = self
+                environment.navigationController?.pushViewController(connectionVC, animated: true)
+            } else if let vpnConfig = row.vpnConfig {
+                let connectionVC = environment.instantiateConnectionViewController(
+                    connectableInstance: vpnConfig, serverDisplayInfo: serverDisplayInfo)
+                connectionVC.delegate = self
+                environment.navigationController?.pushViewController(connectionVC, animated: true)
+            }
         }
     }
 
@@ -237,9 +253,11 @@ extension MainViewController {
             persistenceService.removeSimpleServer(server)
         case .serverByURL(server: let server):
             persistenceService.removeSimpleServer(server)
+        case .openVPNConfig(instance: let instance):
+            persistenceService.removeOpenVPNConfiguration(instance)
         case .instituteAccessServerSectionHeader,
              .secureInternetServerSectionHeader,
-             .serverByURLSectionHeader:
+             .otherServerSectionHeader:
             break
         }
         viewModel.update()
@@ -247,7 +265,6 @@ extension MainViewController {
             let searchVC = environment.instantiateSearchViewController(shouldIncludeOrganizations: true)
             searchVC.delegate = self
             environment.navigationController?.pushViewController(searchVC, animated: true)
-            environment.navigationController?.isUserAllowedToGoBack = false
         }
 
     }

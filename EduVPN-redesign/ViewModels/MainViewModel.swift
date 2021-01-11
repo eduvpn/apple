@@ -30,8 +30,9 @@ class MainViewModel {
             server: SecureInternetServerInstance,
             displayInfo: ServerDisplayInfo,
             countryName: String)
-        case serverByURLSectionHeader
+        case otherServerSectionHeader
         case serverByURL(server: SimpleServerInstance)
+        case openVPNConfig(instance: OpenVPNConfigInstance)
 
         var rowKind: ViewModelRowKind {
             switch self {
@@ -39,8 +40,9 @@ class MainViewModel {
             case .instituteAccessServer: return .instituteAccessServerKind
             case .secureInternetServerSectionHeader: return .secureInternetServerSectionHeaderKind
             case .secureInternetServer: return .secureInternetServerKind
-            case .serverByURLSectionHeader: return .serverByURLSectionHeaderKind
+            case .otherServerSectionHeader: return .otherServerSectionHeaderKind
             case .serverByURL: return .serverByURLKind
+            case .openVPNConfig: return .openVPNConfigKind
             }
         }
 
@@ -49,6 +51,7 @@ class MainViewModel {
             case .instituteAccessServer(_, _, let displayName): return displayName
             case .secureInternetServer(_, _, let countryName): return countryName
             case .serverByURL(let server): return server.baseURLString.toString()
+            case .openVPNConfig(let instance): return instance.name
             default: return ""
             }
         }
@@ -62,11 +65,19 @@ class MainViewModel {
             }
         }
 
+        var vpnConfig: VPNConfigInstance? {
+            switch self {
+            case .openVPNConfig(let instance): return instance
+            default: return nil
+            }
+        }
+
         var serverDisplayInfo: ServerDisplayInfo? {
             switch self {
             case .instituteAccessServer(_, let displayInfo, _): return displayInfo
             case .secureInternetServer(_, let displayInfo, _): return displayInfo
             case .serverByURL(let server): return .serverByURLServer(server)
+            case .openVPNConfig(let instance): return .vpnConfigInstance(instance)
             default: return nil
             }
         }
@@ -126,6 +137,7 @@ extension MainViewModel {
         var instituteAccessRows: [Row] = []
         var secureInternetRows: [Row] = []
         var serverByURLRows: [Row] = []
+        var openVPNConfigRows: [Row] = []
 
         for simpleServer in persistenceService.simpleServers {
             let baseURLString = simpleServer.baseURLString
@@ -147,6 +159,12 @@ extension MainViewModel {
                                                             countryName: countryName))
         }
 
+        if let openVPNConfigs = persistenceService.openVPNConfigs {
+            for openVPNConfig in openVPNConfigs {
+                openVPNConfigRows.append(.openVPNConfig(instance: openVPNConfig))
+            }
+        }
+
         var computedRows: [Row] = []
         if !instituteAccessRows.isEmpty {
             computedRows.append(.instituteAccessServerSectionHeader)
@@ -156,9 +174,10 @@ extension MainViewModel {
             computedRows.append(.secureInternetServerSectionHeader)
             computedRows.append(contentsOf: secureInternetRows)
         }
-        if !serverByURLRows.isEmpty {
-            computedRows.append(.serverByURLSectionHeader)
+        if !serverByURLRows.isEmpty || !openVPNConfigRows.isEmpty {
+            computedRows.append(.otherServerSectionHeader)
             computedRows.append(contentsOf: serverByURLRows)
+            computedRows.append(contentsOf: openVPNConfigRows)
         }
         computedRows.sort()
 

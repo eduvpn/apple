@@ -9,6 +9,7 @@ enum ServerDisplayInfo {
     case instituteAccessServer(DiscoveryData.InstituteAccessServer)
     case secureInternetServer(DiscoveryData.SecureInternetServer?)
     case serverByURLServer(SimpleServerInstance)
+    case vpnConfigInstance(VPNConfigInstance)
 }
 
 extension ServerDisplayInfo {
@@ -25,6 +26,8 @@ extension ServerDisplayInfo {
                 return host
             }
             return server.baseURLString.urlString
+        case .vpnConfigInstance(let instance):
+            return instance.name
         }
     }
 
@@ -32,7 +35,7 @@ extension ServerDisplayInfo {
         switch self {
         case .secureInternetServer(let server):
             return server?.countryCode ?? ""
-        case .instituteAccessServer, .serverByURLServer:
+        case .instituteAccessServer, .serverByURLServer, .vpnConfigInstance:
             return ""
         }
     }
@@ -43,7 +46,7 @@ extension ServerDisplayInfo {
             return server.supportContact
         case .secureInternetServer(let server):
             return server?.supportContact ?? []
-        case .serverByURLServer:
+        case .serverByURLServer, .vpnConfigInstance:
             return []
         }
     }

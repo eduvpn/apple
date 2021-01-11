@@ -118,6 +118,7 @@ class ServerAPIService {
         }
     }
 
+    // swiftlint:disable:next function_parameter_count
     func getTunnelConfigurationData(for server: ServerInstance, serverInfo: ServerInfo?,
                                     profile: ProfileListResponse.Profile,
                                     from viewController: AuthorizingViewController,

@@ -39,6 +39,13 @@ final class SearchViewController: ViewController, ParametrizedViewController {
 
     private var isTableViewShown: Bool = false
 
+    var isBusy: Bool = false {
+        didSet { updateIsUserAllowedToGoBack() }
+    }
+    private var hasAddedServers: Bool = false {
+        didSet { updateIsUserAllowedToGoBack() }
+    }
+
     #if os(macOS)
     var navigationController: NavigationController? { parameters.environment.navigationController }
     #endif
@@ -66,6 +73,10 @@ final class SearchViewController: ViewController, ParametrizedViewController {
         title = NSLocalizedString("Add Server", comment: "")
         spinner.setLayerOpacity(0)
         tableContainerView.setLayerOpacity(0)
+
+        let persistenceService = parameters.environment.persistenceService
+        persistenceService.hasServersDelegate = self
+        hasAddedServers = persistenceService.hasServers
     }
 
     func showTableView() {
@@ -99,6 +110,10 @@ final class SearchViewController: ViewController, ParametrizedViewController {
                    error.localizedDescription)
             self.parameters.environment.navigationController?.showAlert(for: error)
         }
+    }
+
+    func updateIsUserAllowedToGoBack() {
+        parameters.environment.navigationController?.isUserAllowedToGoBack = hasAddedServers && !isBusy
     }
 }
 
@@ -189,6 +204,14 @@ extension SearchViewController: SearchViewModelDelegate {
         rowsChanged changes: RowsDifference<SearchViewModel.Row>) {
         tableView?.performUpdates(deletedIndices: changes.deletedIndices,
                                   insertedIndices: changes.insertions.map { $0.0 })
+    }
+}
+
+// MARK: - PersistenceService hasServers delegate
+
+extension SearchViewController: PersistenceServiceHasServersDelegate {
+    func persistenceService(_ persistenceService: PersistenceService, hasServersChangedTo hasServers: Bool) {
+        hasAddedServers = hasServers
     }
 }
 

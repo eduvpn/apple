@@ -2,8 +2,10 @@
 
 ## Unreleased
 
+- Importing OpenVPN configs #125
 - Update TunnelKit and other dependencies
-- App requires macOS 10.15 or later
+- macOS: App requires macOS 10.15 or later
+- macOS: Native support for Apple Silicon macs
 
 ## 2.2.0 (2020-11-12)
 

@@ -49,12 +49,12 @@ class Environment {
     }
 
     func instantiateConnectionViewController(
-        server: ServerInstance, serverDisplayInfo: ServerDisplayInfo, authURLTemplate: String?,
-        restoredPreConnectionState: ConnectionAttempt.PreConnectionState? = nil) -> ConnectionViewController {
+        connectableInstance: ConnectableInstance, serverDisplayInfo: ServerDisplayInfo, authURLTemplate: String? = nil,
+        restoringConnectionAttempt: ConnectionAttempt? = nil) -> ConnectionViewController {
         let parameters = ConnectionViewController.Parameters(
-            environment: self, server: server, serverDisplayInfo: serverDisplayInfo,
+            environment: self, connectableInstance: connectableInstance, serverDisplayInfo: serverDisplayInfo,
             authURLTemplate: authURLTemplate,
-            restoredPreConnectionState: restoredPreConnectionState)
+            restoringConnectionAttempt: restoringConnectionAttempt)
         return instantiate(ConnectionViewController.self, identifier: "Connection", parameters: parameters)
     }
 
@@ -80,8 +80,8 @@ class Environment {
         return instantiate(ConnectionInfoViewController.self, identifier: "ConnectionInfo", parameters: parameters)
     }
 
-    func instantiateSettingsViewController() -> SettingsViewController {
-        let parameters = SettingsViewController.Parameters(environment: self)
+    func instantiateSettingsViewController(mainVC: MainViewController) -> SettingsViewController {
+        let parameters = SettingsViewController.Parameters(environment: self, mainVC: mainVC)
         return instantiate(SettingsViewController.self, identifier: "Settings", parameters: parameters)
     }
 

@@ -343,7 +343,12 @@ private extension ConnectionService {
     static func tunnelProtocolConfiguration(
         openVPNConfig lines: [String], connectionAttemptId: UUID) throws
         -> NETunnelProviderProtocol {
-            let parseResult = try OpenVPN.ConfigurationParser.parsed(fromLines: lines)
+            let filteredLines = lines.map {
+                $0.trimmingCharacters(in: .whitespacesAndNewlines)
+            }.filter {
+                !$0.isEmpty
+            }
+            let parseResult = try OpenVPN.ConfigurationParser.parsed(fromLines: filteredLines)
 
             var configBuilder = parseResult.configuration.builder()
             configBuilder.tlsSecurityLevel = 3 // See https://github.com/eduvpn/apple/issues/89

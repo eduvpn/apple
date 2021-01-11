@@ -34,7 +34,7 @@ class SearchViewModel {
             case .instituteAccessServer: return .instituteAccessServerKind
             case .secureInternetOrgSectionHeader: return .secureInternetOrgSectionHeaderKind
             case .secureInternetOrg: return .secureInternetOrgKind
-            case .serverByURLSectionHeader: return .serverByURLSectionHeaderKind
+            case .serverByURLSectionHeader: return .otherServerSectionHeaderKind
             case .serverByURL: return .serverByURLKind
             case .noResults: return .noResultsKind
             }

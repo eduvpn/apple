@@ -35,10 +35,10 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
 
     struct Parameters {
         let environment: Environment
-        let server: ServerInstance
+        let connectableInstance: ConnectableInstance
         let serverDisplayInfo: ServerDisplayInfo
         let authURLTemplate: String?
-        let restoredPreConnectionState: ConnectionAttempt.PreConnectionState?
+        let restoringConnectionAttempt: ConnectionAttempt?
     }
 
     weak var delegate: ConnectionViewControllerDelegate?
@@ -51,9 +51,11 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     private var profiles: [ProfileListResponse.Profile]?
     private var selectedProfileId: String? {
         didSet {
-            dataStore.setSelectedProfileId(
-                profileId: selectedProfileId,
-                for: parameters.server.apiBaseURLString)
+            if let server = parameters.connectableInstance as? ServerInstance {
+                dataStore.setSelectedProfileId(
+                    profileId: selectedProfileId,
+                    for: server.apiBaseURLString)
+            }
         }
     }
 
@@ -117,22 +119,36 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         }
         self.parameters = parameters
 
-        self.viewModel = ConnectionViewModel(
-            serverAPIService: parameters.environment.serverAPIService,
-            connectionService: parameters.environment.connectionService,
-            server: parameters.server,
-            serverDisplayInfo: parameters.serverDisplayInfo,
-            authURLTemplate: parameters.authURLTemplate,
-            restoredPreConnectionState: parameters.restoredPreConnectionState)
-        self.dataStore = PersistenceService.DataStore(path: parameters.server.localStoragePath)
-
-        if let restoredPreConnectionState = parameters.restoredPreConnectionState {
-            self.profiles = restoredPreConnectionState.profiles
-            self.selectedProfileId = restoredPreConnectionState.selectedProfileId
-            self.isRestored = true
+        if let server = parameters.connectableInstance as? ServerInstance {
+            self.viewModel = ConnectionViewModel(
+                server: server,
+                connectionService: parameters.environment.connectionService,
+                serverDisplayInfo: parameters.serverDisplayInfo,
+                serverAPIService: parameters.environment.serverAPIService,
+                authURLTemplate: parameters.authURLTemplate,
+                restoringConnectionAttempt: parameters.restoringConnectionAttempt)
+        } else if let vpnConfigInstance = parameters.connectableInstance as? VPNConfigInstance {
+            self.viewModel = ConnectionViewModel(
+                vpnConfigInstance: vpnConfigInstance,
+                connectionService: parameters.environment.connectionService,
+                serverDisplayInfo: parameters.serverDisplayInfo,
+                restoringConnectionAttempt: parameters.restoringConnectionAttempt)
         } else {
-            self.selectedProfileId = dataStore.selectedProfileId(for: parameters.server.apiBaseURLString)
-            self.isRestored = false
+            fatalError("Unknown connectable instance: \(parameters.connectableInstance)")
+        }
+
+        self.dataStore = PersistenceService.DataStore(path: parameters.connectableInstance.localStoragePath)
+
+        if let restoringConnectionAttempt = parameters.restoringConnectionAttempt {
+            if let server = parameters.connectableInstance as? ServerInstance {
+                if let preConnectionState = restoringConnectionAttempt.preConnectionState {
+                    self.profiles = preConnectionState.profiles
+                    self.selectedProfileId = preConnectionState.selectedProfileId
+                } else {
+                    self.selectedProfileId = dataStore.selectedProfileId(for: server.apiBaseURLString)
+                }
+            }
+            self.isRestored = true
         }
     }
 
@@ -143,7 +159,11 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         viewModel.delegate = self
         setupInitialView(viewModel: viewModel)
         if !isRestored {
-            beginConnectionFlow(shouldContinueIfSingleProfile: true)
+            if parameters.connectableInstance is ServerInstance {
+                beginServerConnectionFlow(shouldContinueIfSingleProfile: true)
+            } else if parameters.connectableInstance is VPNConfigInstance {
+                beginVPNConfigConnectionFlow()
+            }
         }
         #if os(macOS)
         vpnSwitch.setAccessibilityIdentifier("Connection")
@@ -165,14 +185,18 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
 
     func vpnSwitchToggled() {
         if vpnSwitch.isOn {
-            guard let profiles = profiles, !profiles.isEmpty else {
-                beginConnectionFlow(shouldContinueIfSingleProfile: true)
-                return
+            if parameters.connectableInstance is ServerInstance {
+                guard let profiles = profiles, !profiles.isEmpty else {
+                    beginServerConnectionFlow(shouldContinueIfSingleProfile: true)
+                    return
+                }
+                if selectedProfileId == nil {
+                    selectedProfileId = profiles[0].profileId
+                }
+                continueServerConnectionFlow(serverAPIOptions: [])
+            } else if parameters.connectableInstance is VPNConfigInstance {
+                beginVPNConfigConnectionFlow()
             }
-            if selectedProfileId == nil {
-                selectedProfileId = profiles[0].profileId
-            }
-            continueConnectionFlow(serverAPIOptions: [])
         } else {
             disableVPN()
         }
@@ -190,7 +214,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         firstly {
             viewModel.disableVPN()
         }.map {
-            self.continueConnectionFlow(serverAPIOptions: [.ignoreStoredAuthState, .ignoreStoredKeyPair])
+            self.continueServerConnectionFlow(serverAPIOptions: [.ignoreStoredAuthState, .ignoreStoredKeyPair])
         }.catch { error in
             os_log("Error renewing session: %{public}@",
                    log: Log.general, type: .error,
@@ -272,18 +296,19 @@ private extension ConnectionViewController {
         #endif
     }
 
-    func beginConnectionFlow(shouldContinueIfSingleProfile: Bool) {
+    func beginServerConnectionFlow(shouldContinueIfSingleProfile: Bool) {
         firstly {
-            viewModel.beginConnectionFlow(from: self, shouldContinueIfSingleProfile: shouldContinueIfSingleProfile)
+            viewModel.beginServerConnectionFlow(
+                from: self, shouldContinueIfSingleProfile: shouldContinueIfSingleProfile)
         }.catch { error in
-            os_log("Error beginning connection flow: %{public}@",
+            os_log("Error beginning server connection flow: %{public}@",
                    log: Log.general, type: .error,
                    error.localizedDescription)
             self.showAlert(for: error)
         }
     }
 
-    func continueConnectionFlow(serverAPIOptions: ServerAPIService.Options) {
+    func continueServerConnectionFlow(serverAPIOptions: ServerAPIService.Options) {
         firstly { () -> Promise<Void> in
             guard let profiles = profiles, !profiles.isEmpty else {
                 return Promise(error: ConnectionViewControllerError.noProfiles)
@@ -294,10 +319,21 @@ private extension ConnectionViewController {
             guard let profile = profiles.first(where: { $0.profileId == selectedProfileId }) else {
                 return Promise(error: ConnectionViewControllerError.noProfileFoundWithSelectedProfileId)
             }
-            return viewModel.continueConnectionFlow(profile: profile, from: self,
-                                                    serverAPIOptions: serverAPIOptions)
+            return viewModel.continueServerConnectionFlow(
+                profile: profile, from: self, serverAPIOptions: serverAPIOptions)
         }.catch { error in
-            os_log("Error continuing connection flow: %{public}@",
+            os_log("Error continuing server connection flow: %{public}@",
+                   log: Log.general, type: .error,
+                   error.localizedDescription)
+            self.showAlert(for: error)
+        }
+    }
+
+    func beginVPNConfigConnectionFlow() {
+        firstly { () -> Promise<Void> in
+            return viewModel.beginVPNConfigConnectionFlow()
+        }.catch { error in
+            os_log("Error continuing VPN config connection flow: %{public}@",
                    log: Log.general, type: .error,
                    error.localizedDescription)
             self.showAlert(for: error)
@@ -332,7 +368,7 @@ private extension ConnectionViewController {
             if let window = self.view.window {
                 alert.beginSheetModal(for: window) { result in
                     if case .alertFirstButtonReturn = result {
-                        self.beginConnectionFlow(shouldContinueIfSingleProfile: true)
+                        self.beginServerConnectionFlow(shouldContinueIfSingleProfile: true)
                     }
                 }
             }
@@ -344,7 +380,7 @@ private extension ConnectionViewController {
                 title: NSLocalizedString("Refresh Profiles", comment: ""),
                 style: .default,
                 handler: { _ in
-                    self.beginConnectionFlow(shouldContinueIfSingleProfile: true)
+                    self.beginServerConnectionFlow(shouldContinueIfSingleProfile: true)
                 })
             let cancelAction = UIAlertAction(
                 title: NSLocalizedString("Cancel", comment: ""),
@@ -388,14 +424,7 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
 
     func connectionViewModel(
         _ model: ConnectionViewModel,
-        willAttemptToConnectWithProfileId profileId: String,
-        certificateValidityRange: ServerAPIService.CertificateValidityRange,
-        connectionAttemptId: UUID) {
-        let connectionAttempt = ConnectionAttempt(
-            server: parameters.server, profiles: profiles ?? [],
-            selectedProfileId: profileId,
-            certificateValidityRange: certificateValidityRange,
-            attemptId: connectionAttemptId)
+        willAttemptToConnect connectionAttempt: ConnectionAttempt) {
         delegate?.connectionViewController(self, willAttemptToConnect: connectionAttempt)
     }
 
@@ -503,7 +532,7 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
     }
 
     // swiftlint:disable:next function_body_length
-    func connectionInfoStateChanged(
+    func connectionInfoStateChanged( // swiftlint:disable:this cyclomatic_complexity
         _ connectionInfoState: ConnectionViewModel.ConnectionInfoState, animated: Bool) {
         let controlAlpha: Float
         let controlHeight: CGFloat

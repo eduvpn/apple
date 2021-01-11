@@ -39,6 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var mainWindow: NSWindow?
     var environment: Environment?
     var statusItemController: StatusItemController?
+    var mainViewController: MainViewController?
 
     func applicationWillFinishLaunching(_ notification: Notification) {
         if UserDefaults.standard.showInDock {
@@ -55,6 +56,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             navigationController.environment = environment
             if let mainController = navigationController.children.first as? MainViewController {
                 mainController.environment = environment
+                self.mainViewController = mainController
             }
         }
 
@@ -164,6 +166,38 @@ extension AppDelegate {
         }
         if navigationController.isToolbarLeftButtonShowsAddServerUI {
             navigationController.toolbarLeftButtonClicked(self)
+        }
+    }
+
+    @IBAction func importOpenVPNConfig(_ sender: Any) {
+        guard let mainWindow = mainWindow else { return }
+        guard let persistenceService = environment?.persistenceService else { return }
+
+        mainWindow.makeKeyAndOrderFront(nil)
+        NSApp.activate(ignoringOtherApps: true)
+
+        let openPanel = NSOpenPanel()
+        openPanel.prompt = NSLocalizedString("Import", comment: "")
+        openPanel.allowedFileTypes = ["ovpn"]
+        openPanel.allowsMultipleSelection = false
+        openPanel.beginSheetModal(for: mainWindow) { response in
+            guard response == .OK else { return }
+            guard let url = openPanel.urls.first else { return }
+            var importError: Error?
+            do {
+                let instance = try OpenVPNConfigImportHelper.copyConfig(from: url)
+                persistenceService.addOpenVPNConfiguration(instance)
+            } catch {
+                importError = error
+            }
+
+            self.mainViewController?.refresh()
+
+            if let importError = importError {
+                if let navigationController = self.environment?.navigationController {
+                    navigationController.showAlert(for: importError)
+                }
+            }
         }
     }
 

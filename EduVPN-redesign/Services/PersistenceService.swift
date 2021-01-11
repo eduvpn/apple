@@ -8,23 +8,31 @@ import AppAuth
 import PromiseKit
 import os.log
 
+protocol PersistenceServiceHasServersDelegate: class {
+    func persistenceService(_ persistenceService: PersistenceService,
+                            hasServersChangedTo hasServers: Bool)
+}
+
 class PersistenceService {
 
     fileprivate struct AddedServers {
         var simpleServers: [SimpleServerInstance]
         var secureInternetServer: SecureInternetServerInstance?
         var serversMigratedBasedOnFilePathURL: [String]
+        var openVPNConfigs: [OpenVPNConfigInstance]?
 
         init() {
             simpleServers = []
             secureInternetServer = nil
             serversMigratedBasedOnFilePathURL = []
+            openVPNConfigs = []
         }
 
         init(migrateFromFilePathURL servers: [SimpleServerInstance]) {
             simpleServers = servers
             secureInternetServer = nil
             serversMigratedBasedOnFilePathURL = servers.map { $0.baseURLString.urlString }
+            openVPNConfigs = []
         }
     }
 
@@ -38,9 +46,13 @@ class PersistenceService {
         addedServers.secureInternetServer
     }
 
-    var hasServers: Bool {
-        addedServers.secureInternetServer != nil || !addedServers.simpleServers.isEmpty
+    var openVPNConfigs: [OpenVPNConfigInstance]? {
+        addedServers.openVPNConfigs
     }
+
+    var hasServers: Bool = false
+
+    weak var hasServersDelegate: PersistenceServiceHasServersDelegate?
 
     init() {
         if ProcessInfo.processInfo.isUITestingFreshInstall {
@@ -62,6 +74,7 @@ class PersistenceService {
             addedServers = AddedServers(migrateFromFilePathURL: MigrationHelper.migrateServersFromFilePathURL())
             Self.saveToFile(addedServers: addedServers)
         }
+        updateHasServers()
     }
 
     func addSimpleServer(_ server: SimpleServerInstance) {
@@ -71,6 +84,7 @@ class PersistenceService {
         }
         addedServers.simpleServers.append(server)
         Self.saveToFile(addedServers: addedServers)
+        updateHasServers()
     }
 
     func removeSimpleServer(_ server: SimpleServerInstance) {
@@ -83,6 +97,7 @@ class PersistenceService {
         addedServers.simpleServers.removeLast(addedServers.simpleServers.count - pivotIndex)
         addedServers.serversMigratedBasedOnFilePathURL.removeAll(where: { $0 == baseURLString.urlString })
         Self.saveToFile(addedServers: addedServers)
+        updateHasServers()
     }
 
     func setSecureInternetServer(_ server: SecureInternetServerInstance) {
@@ -91,6 +106,7 @@ class PersistenceService {
         }
         addedServers.secureInternetServer = server
         Self.saveToFile(addedServers: addedServers)
+        updateHasServers()
     }
 
     func setSecureInternetServerAPIBaseURLString(_ urlString: DiscoveryData.BaseURLString) {
@@ -107,6 +123,7 @@ class PersistenceService {
             orgId: existingServer.orgId, localStoragePath: existingServer.localStoragePath)
         addedServers.secureInternetServer = server
         Self.saveToFile(addedServers: addedServers)
+        updateHasServers()
     }
 
     func removeSecureInternetServer() {
@@ -117,13 +134,41 @@ class PersistenceService {
         Self.saveToFile(addedServers: addedServers)
     }
 
+    func addOpenVPNConfiguration(_ instance: OpenVPNConfigInstance) {
+        if addedServers.openVPNConfigs == nil {
+            addedServers.openVPNConfigs = []
+        }
+        addedServers.openVPNConfigs?.append(instance)
+        Self.saveToFile(addedServers: addedServers)
+        updateHasServers()
+    }
+
+    func removeOpenVPNConfiguration(_ instance: OpenVPNConfigInstance) {
+        let existingIndex = addedServers.openVPNConfigs?.firstIndex(
+            where: { $0.localStoragePath == instance.localStoragePath })
+        if let existingIndex = existingIndex {
+            DataStore(path: instance.localStoragePath).delete()
+            addedServers.openVPNConfigs?.remove(at: existingIndex)
+            if let openVPNConfigs = addedServers.openVPNConfigs, openVPNConfigs.isEmpty {
+                addedServers.openVPNConfigs = nil
+            }
+            Self.saveToFile(addedServers: addedServers)
+            updateHasServers()
+        }
+    }
+
     static func isJSONStoreExists() -> Bool {
         FileManager.default.fileExists(atPath: jsonStoreURL.path)
     }
 
     private static func loadFromFile() -> AddedServers? {
         if let data = try? Data(contentsOf: Self.jsonStoreURL) {
-            return try? JSONDecoder().decode(AddedServers.self, from: data)
+            do {
+                return try JSONDecoder().decode(AddedServers.self, from: data)
+            } catch {
+                print("Error: \(error)")
+                return nil
+            }
         }
         return nil
     }
@@ -135,6 +180,17 @@ class PersistenceService {
             PersistenceService.write(data, to: Self.jsonStoreURL, atomically: true)
         }
     }
+
+    private func updateHasServers() {
+        let value = addedServers.secureInternetServer != nil ||
+            !addedServers.simpleServers.isEmpty ||
+            !(addedServers.openVPNConfigs ?? []).isEmpty
+        if hasServers != value {
+            hasServers = value
+            hasServersDelegate?.persistenceService(self, hasServersChangedTo: value)
+        }
+    }
+
 }
 
 extension PersistenceService {
@@ -210,6 +266,10 @@ extension PersistenceService {
             rootURL.appendingPathComponent("selected_profile.json")
         }
 
+        private var vpnConfigURL: URL {
+            rootURL.appendingPathComponent("vpn_config")
+        }
+
         var authState: AuthState? {
             get {
                 if let data = try? Data(contentsOf: authStateURL),
@@ -251,6 +311,19 @@ extension PersistenceService {
                 if FileManager.default.fileExists(atPath: migratedClientCertificateURL.path) {
                     try? FileManager.default.removeItem(at: migratedClientCertificateURL)
                 }
+            }
+        }
+
+        var vpnConfig: String? {
+            get {
+                if let data = try? Data(contentsOf: vpnConfigURL) {
+                    return String(data: data, encoding: .utf8)
+                }
+                return nil
+            }
+            set(value) {
+                let data = value?.data(using: .utf8) ?? Data()
+                PersistenceService.write(data, to: vpnConfigURL, atomically: true)
             }
         }
 
@@ -336,5 +409,6 @@ extension PersistenceService.AddedServers: Codable {
         case simpleServers = "simple_servers"
         case secureInternetServer = "secure_internet_server"
         case serversMigratedBasedOnFilePathURL = "servers_migrated_based_on_file_path_url"
+        case openVPNConfigs = "ovpn_configs"
     }
 }

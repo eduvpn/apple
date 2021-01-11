@@ -12,39 +12,42 @@ import Foundation
 import os.log
 
 enum ConnectionAttemptDecodingError: Error {
-    case unknownServerInstance
+    case unknownConnectableInstance
 }
 
 struct ConnectionAttempt {
-    struct PreConnectionState {
-        // The state before connection was attempted
+    struct ServerPreConnectionState {
+        // The state before connection was attempted to a ServerInstance
         let profiles: [ProfileListResponse.Profile]
         let selectedProfileId: String
         let certificateValidFrom: Date
         let certificateExpiresAt: Date
     }
 
-    let server: ServerInstance
-    let preConnectionState: PreConnectionState
+    let connectableInstance: ConnectableInstance
+    let preConnectionState: ServerPreConnectionState?
     let attemptId: UUID
 
-    init?(server: ServerInstance, profiles: [ProfileListResponse.Profile],
-          selectedProfileId: String,
-          certificateValidityRange: ServerAPIService.CertificateValidityRange,
-          attemptId: UUID) {
-        self.server = server
-        self.preConnectionState = PreConnectionState(
+    init(server: ServerInstance, profiles: [ProfileListResponse.Profile],
+         selectedProfileId: String,
+         certificateValidityRange: ServerAPIService.CertificateValidityRange,
+         attemptId: UUID) {
+        self.connectableInstance = server
+        self.preConnectionState = ServerPreConnectionState(
             profiles: profiles, selectedProfileId: selectedProfileId,
             certificateValidFrom: certificateValidityRange.validFrom,
             certificateExpiresAt: certificateValidityRange.expiresAt)
         self.attemptId = attemptId
-        if !profiles.contains(where: { $0.profileId == selectedProfileId }) {
-            return nil
-        }
+    }
+
+    init(vpnConfigInstance: VPNConfigInstance, attemptId: UUID) {
+        self.connectableInstance = vpnConfigInstance
+        self.preConnectionState = nil
+        self.attemptId = attemptId
     }
 }
 
-extension ConnectionAttempt.PreConnectionState: Codable {
+extension ConnectionAttempt.ServerPreConnectionState: Codable {
     enum CodingKeys: String, CodingKey {
         case profiles
         case selectedProfileId = "selected_profile_id"
@@ -57,6 +60,7 @@ extension ConnectionAttempt: Codable {
     enum CodingKeys: String, CodingKey {
         case simpleServer = "simple_server"
         case secureInternetServer = "secure_internet_server"
+        case openVPNConfig = "ovpn_config"
         case preConnectionState = "pre_connection_state"
         case attemptId = "attempt_id"
     }
@@ -65,26 +69,33 @@ extension ConnectionAttempt: Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         if let simpleServer = try container.decodeIfPresent(
             SimpleServerInstance.self, forKey: .simpleServer) {
-            server = simpleServer
+            connectableInstance = simpleServer
         } else if let secureInternetServer = try container.decodeIfPresent(
             SecureInternetServerInstance.self, forKey: .secureInternetServer) {
-            server = secureInternetServer
+            connectableInstance = secureInternetServer
+        } else if let openVPNConfigInstance = try container.decodeIfPresent(
+            OpenVPNConfigInstance.self, forKey: .openVPNConfig) {
+            connectableInstance = openVPNConfigInstance
         } else {
-            throw ConnectionAttemptDecodingError.unknownServerInstance
+            throw ConnectionAttemptDecodingError.unknownConnectableInstance
         }
-        preConnectionState = try container.decode(
-            PreConnectionState.self, forKey: .preConnectionState)
+        preConnectionState = try container.decodeIfPresent(
+            ServerPreConnectionState.self, forKey: .preConnectionState)
         attemptId = try container.decode(UUID.self, forKey: .attemptId)
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        if let simpleServer = server as? SimpleServerInstance {
+        if let simpleServer = connectableInstance as? SimpleServerInstance {
             try container.encode(simpleServer, forKey: .simpleServer)
-        } else if let secureInternetServer = server as? SecureInternetServerInstance {
+        } else if let secureInternetServer = connectableInstance as? SecureInternetServerInstance {
             try container.encode(secureInternetServer, forKey: .secureInternetServer)
+        } else if let openVPNConfigInstance = connectableInstance as? OpenVPNConfigInstance {
+            try container.encode(openVPNConfigInstance, forKey: .openVPNConfig)
         }
-        try container.encode(preConnectionState, forKey: .preConnectionState)
+        if let preConnectionState = preConnectionState {
+            try container.encode(preConnectionState, forKey: .preConnectionState)
+        }
         try container.encode(attemptId, forKey: .attemptId)
     }
 }

@@ -24,6 +24,7 @@ class SettingsViewController: UITableViewController, ParametrizedViewController 
 
     struct Parameters {
         let environment: Environment
+        let mainVC: MainViewController
     }
 
     private var parameters: Parameters!
@@ -54,6 +55,14 @@ class SettingsViewController: UITableViewController, ParametrizedViewController 
 
     @IBAction func useTCPOnlySwitchToggled(_ sender: Any) {
         UserDefaults.standard.forceTCP = useTCPOnlySwitch.isOn
+    }
+
+    @IBAction func importOpenVPNConfigTapped(_ sender: Any) {
+        let types = ["net.openvpn.formats.ovpn"]
+        let pickerVC = UIDocumentPickerViewController(documentTypes: types, in: .import)
+        pickerVC.allowsMultipleSelection = false
+        pickerVC.delegate = self
+        present(pickerVC, animated: true, completion: nil)
     }
 
     @objc func doneTapped(_ sender: Any) {
@@ -91,6 +100,30 @@ extension SettingsViewController {
             if let sourceCodeURL = URL(string: "https://github.com/eduvpn/apple") {
                 let safariVC = SFSafariViewController(url: sourceCodeURL)
                 present(safariVC, animated: true, completion: nil)
+            }
+        }
+    }
+}
+
+extension SettingsViewController: UIDocumentPickerDelegate {
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        let ovpnURLs = urls.filter { $0.pathExtension.lowercased() == "ovpn" }
+        guard let url = ovpnURLs.first else { return }
+
+        let persistenceService = parameters.environment.persistenceService
+        var importError: Error?
+        do {
+            let instance = try OpenVPNConfigImportHelper.copyConfig(from: url)
+            persistenceService.addOpenVPNConfiguration(instance)
+        } catch {
+            importError = error
+        }
+
+        parameters.mainVC.refresh()
+
+        if let importError = importError {
+            if let navigationController = parameters.environment.navigationController {
+                navigationController.showAlert(for: importError)
             }
         }
     }
