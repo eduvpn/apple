@@ -125,12 +125,6 @@ extension SettingsViewController: UIDocumentPickerDelegate {
             if let navigationController = parameters.environment.navigationController {
                 navigationController.showAlert(for: importError)
             }
-        } else {
-            let alert = UIAlertController(
-                title: NSLocalizedString("OpenVPN config imported", comment: ""),
-                message: "", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            present(alert, animated: true, completion: nil)
         }
     }
 }

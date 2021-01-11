@@ -197,11 +197,6 @@ extension AppDelegate {
                 if let navigationController = self.environment?.navigationController {
                     navigationController.showAlert(for: importError)
                 }
-            } else {
-                let alert = NSAlert()
-                alert.messageText = NSLocalizedString("OpenVPN config imported", comment: "")
-                alert.informativeText = ""
-                alert.beginSheetModal(for: mainWindow)
             }
         }
     }
