@@ -63,7 +63,8 @@ $ cp Config/Mac/config-eduvpn_new_discovery.json Config/Mac/config.json
 $ cp Config/Mac/Developer-macOS.xcconfig.eduvpn-template Config/Mac/Developer-macOS.xcconfig
 $ vim Config/Mac/Developer-macOS.xcconfig # Edit as reqd.
 ```
-and build the 'EduVPN-macOS' target in Xcode.
+
+Then, open `EduVPN.xcworkspace` in Xcode and build the 'EduVPN-macOS' target.
 
 ### Building the Let’s Connect! macOS app
 
@@ -73,7 +74,8 @@ $ cp Config/Mac/config-letsconnect_new_discovery.json Config/Mac/config.json
 $ cp Config/Mac/Developer-macOS.xcconfig.letsconnect-template Config/Mac/Developer-macOS.xcconfig
 $ vim Config/Mac/Developer-macOS.xcconfig # Edit as reqd.
 ```
-and build the 'EduVPN-macOS' target in Xcode.
+
+Then, open `EduVPN.xcworkspace` in Xcode and build the 'EduVPN-macOS' target.
 
 ### Building the eduVPN iOS app
 
@@ -83,7 +85,8 @@ $ cp Config/iOS/config-eduvpn_new_discovery.json Config/iOS/config.json
 $ cp Config/iOS/Developer.xcconfig.eduvpn-template Config/iOS/Developer.xcconfig
 $ vim Config/iOS/Developer.xcconfig # Edit as reqd.
 ```
-and build the 'EduVPN-iOS' target in Xcode.
+
+Then, open `EduVPN.xcworkspace` in Xcode and build the 'EduVPN-iOS' target.
 
 ### Building the Let’s Connect! iOS app
 
@@ -93,5 +96,6 @@ $ cp Config/iOS/config-letsconnect_new_discovery.json Config/iOS/config.json
 $ cp Config/iOS/Developer.xcconfig.letsconnect-template Config/iOS/Developer.xcconfig
 $ vim Config/iOS/Developer.xcconfig # Edit as reqd.
 ```
-and build the 'EduVPN-iOS' target in Xcode.
+
+Then, open `EduVPN.xcworkspace` in Xcode and build the 'EduVPN-iOS' target.
 
