@@ -41,11 +41,11 @@ jobs:
     - name: Select Xcode
       run: sudo xcode-select -switch /Applications/Xcode_12.3.app && /usr/bin/xcodebuild -version
     - name: Prepare Developer.xcconfig
-      run: cp EduVPN/Config/Developer.xcconfig.eduvpn-template EduVPN/Config/Developer.xcconfig
+      run: cp Config/iOS/Developer.xcconfig.eduvpn-template Config/iOS/Developer.xcconfig
     - name: Prepare config.json
-      run: cp EduVPN/Config/config-eduvpn_new_discovery.json EduVPN/Config/config.json
+      run: cp Config/iOS/config-eduvpn_new_discovery.json Config/iOS/config.json
     - name: Run tests on iOS 14
-      run: xcodebuild test -scheme EduVPN-redesign-iOS -workspace EduVPN.xcworkspace -destination 'platform=iOS Simulator,name=iPhone 12,OS=14.3' -skip-testing EduVPN-UITests-iOS | xcpretty && exit ${PIPESTATUS[0]}
+      run: xcodebuild test -scheme EduVPN-iOS -workspace EduVPN.xcworkspace -destination 'platform=iOS Simulator,name=iPhone 12,OS=14.3' -skip-testing EduVPN-UITests-iOS | xcpretty && exit ${PIPESTATUS[0]}
 
   build-macos:
     name: Build macOS target
@@ -56,8 +56,8 @@ jobs:
     - name: Select Xcode
       run: sudo xcode-select -switch /Applications/Xcode_12.3.app
     - name: Prepare Developer-macos.xcconfig
-      run: cp EduVPN-macOS/Config/Developer-macos.xcconfig.eduvpn-template EduVPN-macOS/Config/Developer-macos.xcconfig
+      run: cp Config/Mac/Developer-macos.xcconfig.eduvpn-template Config/Mac/Developer-macos.xcconfig
     - name: Prepare config.json
-      run: cp EduVPN-macOS/Config/config-eduvpn_new_discovery.json EduVPN-macOS/Config/config.json
+      run: cp Config/Mac/config-eduvpn_new_discovery.json Config/Mac/config.json
     - name: Run MacOS build
-      run: xcodebuild build -scheme EduVPN-redesign-macOS -workspace EduVPN.xcworkspace -destination 'platform=macOS' CODE_SIGNING_ALLOWED=NO | xcpretty && exit ${PIPESTATUS[0]}
+      run: xcodebuild build -scheme EduVPN-macOS -workspace EduVPN.xcworkspace -destination 'platform=macOS' CODE_SIGNING_ALLOWED=NO | xcpretty && exit ${PIPESTATUS[0]}

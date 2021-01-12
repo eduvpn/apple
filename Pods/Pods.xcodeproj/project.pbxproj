@@ -7,23 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		127659BAB0092EE38013EA244A7795EA /* Pods-EduVPNTunnelExtension-macOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5CA2455A47DABD2781D60F6B60FC0D /* Pods-EduVPNTunnelExtension-macOS-dummy.m */; };
-		1F926EDC3ECCD01B1F18F2DF8151B9BA /* Pods-EduVPN-redesign-macOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E68681A18F9344B7CC4D031EDE2FD6C /* Pods-EduVPN-redesign-macOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2E035EED79A50869291A12AF87042309 /* Pods-EduVPN-redesign-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 217FDB01978B91D2CD995C2B78959448 /* Pods-EduVPN-redesign-iOS-dummy.m */; };
-		31095C702D8275F4E3A11455C84B64A9 /* Pods-EduVPNTunnelExtension-macOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F98E49982FD4BE6CE0592CC5540990EE /* Pods-EduVPNTunnelExtension-macOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		127659BAB0092EE38013EA244A7795EA /* Pods-EduVPNTunnelExtension-macOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A1C54B6DC44B6F810CEEA4B102E629 /* Pods-EduVPNTunnelExtension-macOS-dummy.m */; };
+		1A5F6C980BE0BD6DB6AFC04A0E329FD4 /* Pods-EduVPN-iOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AEFD597C47F5FF73A3C72DF6EC4C608 /* Pods-EduVPN-iOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1AB8D6688CA9F8F922BAD98BB9071718 /* Pods-EduVPNTunnelExtension-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2885436CC476C41E36312424EB425EEA /* Pods-EduVPNTunnelExtension-iOS-dummy.m */; };
+		31095C702D8275F4E3A11455C84B64A9 /* Pods-EduVPNTunnelExtension-macOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A1B2DC76B745A5D4B1E7BE901DB08E63 /* Pods-EduVPNTunnelExtension-macOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3994A82582E4EF6C9C2086BC04A8C911 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A54C97DEB1A3977AC3A62AFF00971BF /* Cocoa.framework */; };
-		64EB9B71DE794EB963AB46977C7200F4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A54C97DEB1A3977AC3A62AFF00971BF /* Cocoa.framework */; };
-		6C4C38D4AC4A99AFBAA4AA8F7728CA75 /* Pods-EduVPN-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B352764406F7981D64F61AEC1423E496 /* Pods-EduVPN-dummy.m */; };
-		6FDA255F4C4E3F4260AB61649255744B /* Pods-EduVPN-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 7D8CAC112DD9C556DEAFF9058436561F /* Pods-EduVPN-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		781449A69C9C180084FE0427D1F0D0CD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3261E5A5395F45780622405F504B2804 /* Foundation.framework */; };
-		7FF7A55C8F43F9A8E5F06CB12785E947 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3261E5A5395F45780622405F504B2804 /* Foundation.framework */; };
-		91949D597F0AE37E6D9A7D311E885237 /* Pods-EduVPNTunnelExtension-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F051A3E5E81E5A65B3BE34CA5C16BE8 /* Pods-EduVPNTunnelExtension-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AB40A7B3FC866FB6FF00531F82E008C3 /* Pods-EduVPN-macOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DDCA5914365E4B7718AA1B5EBADA7191 /* Pods-EduVPN-macOS-dummy.m */; };
-		C3D3DD399D4527FE1F7A8F0177C7FFD1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3261E5A5395F45780622405F504B2804 /* Foundation.framework */; };
-		E0BFB785E7411227ADF2ACAB813F4721 /* Pods-EduVPN-redesign-iOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D223FF4D9310E76CD2B011B5ED7BC6EE /* Pods-EduVPN-redesign-iOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E16275F7F0071AFE1E5C1075E434B643 /* Pods-EduVPN-macOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 87A881E36E155EEF99FB31FC3A3BCC5E /* Pods-EduVPN-macOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E8130817EB088564EEC03428B064B237 /* Pods-EduVPNTunnelExtension-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3EDCA609DC6CC6E49D6A595B962335 /* Pods-EduVPNTunnelExtension-dummy.m */; };
-		E8A0E584E612622840B2E0C4FC7C8FC1 /* Pods-EduVPN-redesign-macOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 84411EA487FD375C1C5ACC595E255D9E /* Pods-EduVPN-redesign-macOS-dummy.m */; };
+		6FAB8D7E33B22E0E309EE52CB4AF83F7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3261E5A5395F45780622405F504B2804 /* Foundation.framework */; };
+		9254F0780D714B207C497C91083C743E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3261E5A5395F45780622405F504B2804 /* Foundation.framework */; };
+		9B993058ABBBAFF1FAC060A37EE12247 /* Pods-EduVPN-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 12BEFB993ED2662FD574C39F676CFEE8 /* Pods-EduVPN-iOS-dummy.m */; };
+		AB40A7B3FC866FB6FF00531F82E008C3 /* Pods-EduVPN-macOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F4D8DD185094CB2EDC6666C984FA435 /* Pods-EduVPN-macOS-dummy.m */; };
+		D05C97AB2ACC80F3F62F72298C157234 /* Pods-EduVPNTunnelExtension-iOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EAE2C7FAF7C956E7BF4450B428BCE52 /* Pods-EduVPNTunnelExtension-iOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E16275F7F0071AFE1E5C1075E434B643 /* Pods-EduVPN-macOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E0F2C230E6056C32CF1E8F8FD9695EA /* Pods-EduVPN-macOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EF3D56DD5A4F0FABA47D4089F38AFFA4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A54C97DEB1A3977AC3A62AFF00971BF /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
@@ -42,12 +36,12 @@
 			remoteGlobalIDString = 14B31A14FD8DECFC1528982FC9D28F83;
 			remoteInfo = "PromiseKit-macOS";
 		};
-		184D07E3A79CCE28E717C41C9678A3FB /* PBXContainerItemProxy */ = {
+		191EB80DEF66E29C0F58E457B551098E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = B1068D5031B15B8C8880E6B11AA568FC /* Moya.xcodeproj */;
+			containerPortal = 4AAD5E17C8FCCA8431526BC20EFCAF20 /* libsodium.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 8F562CDF6F2BD62295D09A805636BE43;
-			remoteInfo = "Moya-macOS";
+			remoteGlobalIDString = 60712283B2990B7986429140FECF4815;
+			remoteInfo = "libsodium-iOS";
 		};
 		1A5A6A3E315051982C6F59C44CB6AE1A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -63,20 +57,6 @@
 			remoteGlobalIDString = A60B43590BED7FF3F956204D397EC036;
 			remoteInfo = "AppAuth-macOS";
 		};
-		25C1E6CC457CD5019EEA49A827459814 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 777093C5312551C8B25439F0663FBD70 /* OpenSSL-Apple.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = A3C2E5EFCC4D13E10511CE8D6F554C9F;
-			remoteInfo = "OpenSSL-Apple-iOS";
-		};
-		2E9D8B3F7AA84A90B15335D0331AC779 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7008FDAE5C30E7BDDFCC48D1D781EDFF /* Alamofire.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 1EEDC8C1C8946965C1F07D7593794F4B;
-			remoteInfo = "Alamofire-macOS";
-		};
 		4156B283BE5B54668D9120493B1921C4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7008FDAE5C30E7BDDFCC48D1D781EDFF /* Alamofire.xcodeproj */;
@@ -91,61 +71,33 @@
 			remoteGlobalIDString = 40683090B8D8AB8FA1A78F00E455ED4B;
 			remoteInfo = "OpenSSL-Apple-macOS";
 		};
-		41F6852336AA978FC8613159A11C0625 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 84D657C632C9A1750CA859808F9D1ADF /* PromiseKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 4C23F4CE2324D55886F6F6141926F400;
-			remoteInfo = "PromiseKit-iOS";
-		};
-		455F0BC566C8F0C0877A91AB91F8EE20 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BC89541DF32E7D6EE75840CD0854CD1 /* ASN1Decoder.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 69C2AEDF2F0E7FA25E0BBFF47BEDD045;
-			remoteInfo = "ASN1Decoder-iOS";
-		};
-		49784E2E182F29B6CDB9368D682BF4E1 /* PBXContainerItemProxy */ = {
+		50AD4668FD3B6769D8281D94F8E426D2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F8F50044CE5B1A83EB77C81CD094FE22 /* TunnelKit.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = C432B6733D6465A4D20563C51B896079;
 			remoteInfo = "TunnelKit-iOS";
 		};
-		53851E51C4060352068CBAD3A9E5E8B4 /* PBXContainerItemProxy */ = {
+		51F1F838ED4A51A3331C5A5F23ADF799 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B1068D5031B15B8C8880E6B11AA568FC /* Moya.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 48D48715B38BEC4D441321B95EFE04DB;
 			remoteInfo = "Moya-iOS";
 		};
-		64DBBEC8DCFB288FAFB8007421862323 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BC89541DF32E7D6EE75840CD0854CD1 /* ASN1Decoder.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 69C2AEDF2F0E7FA25E0BBFF47BEDD045;
-			remoteInfo = "ASN1Decoder-iOS";
-		};
-		67C3C63BAEC479E96F3D7CFDED29F2B7 /* PBXContainerItemProxy */ = {
+		5E8598CC797145C11187895505646C95 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 84D657C632C9A1750CA859808F9D1ADF /* PromiseKit.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 4C23F4CE2324D55886F6F6141926F400;
 			remoteInfo = "PromiseKit-iOS";
 		};
-		6FAFDA3CC8B893826984E072D20E5BFB /* PBXContainerItemProxy */ = {
+		6A6FB587B4EB45F1B6C937B0A9F8B1D7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 7008FDAE5C30E7BDDFCC48D1D781EDFF /* Alamofire.xcodeproj */;
+			containerPortal = 7BC89541DF32E7D6EE75840CD0854CD1 /* ASN1Decoder.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 34282BB86E09821EFA7A877F38495A95;
-			remoteInfo = "Alamofire-iOS";
-		};
-		72184EC81C87760520483002858E55E7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F8F50044CE5B1A83EB77C81CD094FE22 /* TunnelKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 720F366CF43F1685D124AA69942CF9F5;
-			remoteInfo = "TunnelKit-macOS";
+			remoteGlobalIDString = 69C2AEDF2F0E7FA25E0BBFF47BEDD045;
+			remoteInfo = "ASN1Decoder-iOS";
 		};
 		74EEED615EC40FE240194F10FA7016A6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -161,40 +113,12 @@
 			remoteGlobalIDString = F5A736D5DA142684ADD33DB2557F6ADF;
 			remoteInfo = "libsodium-macOS";
 		};
-		816D3102FDA07F97630ED08AD11FFDA5 /* PBXContainerItemProxy */ = {
+		8EF0A9BEEEB3D813BC1023985B5426F9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 1DB94085D0C7E1EA45FCB2BDC6AC05A8 /* AppAuth.xcodeproj */;
+			containerPortal = 7008FDAE5C30E7BDDFCC48D1D781EDFF /* Alamofire.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = A60B43590BED7FF3F956204D397EC036;
-			remoteInfo = "AppAuth-macOS";
-		};
-		826DB35AE44FAA929540012D631C3915 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4AAD5E17C8FCCA8431526BC20EFCAF20 /* libsodium.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = F5A736D5DA142684ADD33DB2557F6ADF;
-			remoteInfo = "libsodium-macOS";
-		};
-		84E42E10BDEF08FB1E263B8AA709B6AA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 90F97FDA9CD4DEE9BD2B7EEC5A2C7D3E /* SwiftyBeaver.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 0560915E6205753C7CA9BEF89C663EDE;
-			remoteInfo = "SwiftyBeaver-iOS";
-		};
-		873F036DE4C45AA231DE2EA7F0114D81 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4AAD5E17C8FCCA8431526BC20EFCAF20 /* libsodium.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 60712283B2990B7986429140FECF4815;
-			remoteInfo = "libsodium-iOS";
-		};
-		8EBF6937F455F8C5110E1EA665F714A3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B1068D5031B15B8C8880E6B11AA568FC /* Moya.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 48D48715B38BEC4D441321B95EFE04DB;
-			remoteInfo = "Moya-iOS";
+			remoteGlobalIDString = 34282BB86E09821EFA7A877F38495A95;
+			remoteInfo = "Alamofire-iOS";
 		};
 		98D5025FF516509E1FC251A0D2999E33 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -203,33 +127,12 @@
 			remoteGlobalIDString = 720F366CF43F1685D124AA69942CF9F5;
 			remoteInfo = "TunnelKit-macOS";
 		};
-		9CA9DACB8692C4586EF97BE524843B95 /* PBXContainerItemProxy */ = {
+		A70CC2F830AA3D0430E3B760B9693F5C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 777093C5312551C8B25439F0663FBD70 /* OpenSSL-Apple.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 40683090B8D8AB8FA1A78F00E455ED4B;
-			remoteInfo = "OpenSSL-Apple-macOS";
-		};
-		A7573A83B759850F5A00C94529199AAD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F8F50044CE5B1A83EB77C81CD094FE22 /* TunnelKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = C432B6733D6465A4D20563C51B896079;
-			remoteInfo = "TunnelKit-iOS";
-		};
-		A7D724572E6E1FCFD60C0B497458BF38 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1DB94085D0C7E1EA45FCB2BDC6AC05A8 /* AppAuth.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 1B4F5DE203CAD81F44A594B4E8446713;
-			remoteInfo = "AppAuth-iOS";
-		};
-		AF3AA5D360EF8BE9877762B3B4A16557 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 90F97FDA9CD4DEE9BD2B7EEC5A2C7D3E /* SwiftyBeaver.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 0560915E6205753C7CA9BEF89C663EDE;
-			remoteInfo = "SwiftyBeaver-iOS";
+			remoteGlobalIDString = A3C2E5EFCC4D13E10511CE8D6F554C9F;
+			remoteInfo = "OpenSSL-Apple-iOS";
 		};
 		B8B5228867F5332BE77A8CFE9A6CF5EA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -245,40 +148,40 @@
 			remoteGlobalIDString = ADAF532753EB5CC97E9208DF06BCB783;
 			remoteInfo = "SwiftyBeaver-macOS";
 		};
-		C6433119181918FF6702BA41D623898B /* PBXContainerItemProxy */ = {
+		C13F0A2CEC1C160B4A6D2DF33E86B614 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 90F97FDA9CD4DEE9BD2B7EEC5A2C7D3E /* SwiftyBeaver.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 0560915E6205753C7CA9BEF89C663EDE;
 			remoteInfo = "SwiftyBeaver-iOS";
 		};
-		CC36276A9FD533E590903B3D81959EB7 /* PBXContainerItemProxy */ = {
+		CDBA734474B8913714A3065B25F8E0E4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 4AAD5E17C8FCCA8431526BC20EFCAF20 /* libsodium.xcodeproj */;
+			containerPortal = 1DB94085D0C7E1EA45FCB2BDC6AC05A8 /* AppAuth.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 60712283B2990B7986429140FECF4815;
-			remoteInfo = "libsodium-iOS";
+			remoteGlobalIDString = 1B4F5DE203CAD81F44A594B4E8446713;
+			remoteInfo = "AppAuth-iOS";
 		};
-		D0311FB7C96DBF2CD9DAFF64893F3EDC /* PBXContainerItemProxy */ = {
+		D425763AF76954CDCD74CA751FE7D635 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 90F97FDA9CD4DEE9BD2B7EEC5A2C7D3E /* SwiftyBeaver.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = ADAF532753EB5CC97E9208DF06BCB783;
-			remoteInfo = "SwiftyBeaver-macOS";
+			remoteGlobalIDString = 0560915E6205753C7CA9BEF89C663EDE;
+			remoteInfo = "SwiftyBeaver-iOS";
 		};
-		D2222A0C97899BC2269AF207E44882F6 /* PBXContainerItemProxy */ = {
+		DA17CFCAA56A9090F1E7CA9D7BEB6BDC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8F50044CE5B1A83EB77C81CD094FE22 /* TunnelKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C432B6733D6465A4D20563C51B896079;
+			remoteInfo = "TunnelKit-iOS";
+		};
+		DD63F52B409C61FAA067088B18B9B02E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 777093C5312551C8B25439F0663FBD70 /* OpenSSL-Apple.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = A3C2E5EFCC4D13E10511CE8D6F554C9F;
 			remoteInfo = "OpenSSL-Apple-iOS";
-		};
-		DB487C93DCAF719D8CDEAB2D641A71FF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BC89541DF32E7D6EE75840CD0854CD1 /* ASN1Decoder.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 0FB6682B51C7E1B6DBBA20D730BFBF8E;
-			remoteInfo = "ASN1Decoder-macOS";
 		};
 		E54FF1A6F8FF29CBAA94ED24787C23A9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -287,138 +190,67 @@
 			remoteGlobalIDString = 0FB6682B51C7E1B6DBBA20D730BFBF8E;
 			remoteInfo = "ASN1Decoder-macOS";
 		};
-		E59BA0AFF87351C705D0D2F156DDEED9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 84D657C632C9A1750CA859808F9D1ADF /* PromiseKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 14B31A14FD8DECFC1528982FC9D28F83;
-			remoteInfo = "PromiseKit-macOS";
-		};
-		E95F57F3A215FEF10DB8004322F57F84 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7008FDAE5C30E7BDDFCC48D1D781EDFF /* Alamofire.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 34282BB86E09821EFA7A877F38495A95;
-			remoteInfo = "Alamofire-iOS";
-		};
-		EE3BCD90B1A5ACDAF85CF0EDF8AE3232 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1DB94085D0C7E1EA45FCB2BDC6AC05A8 /* AppAuth.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 1B4F5DE203CAD81F44A594B4E8446713;
-			remoteInfo = "AppAuth-iOS";
-		};
-		EFC5240DC01805EC4A12D64A47985A6B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 777093C5312551C8B25439F0663FBD70 /* OpenSSL-Apple.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = A3C2E5EFCC4D13E10511CE8D6F554C9F;
-			remoteInfo = "OpenSSL-Apple-iOS";
-		};
-		F6DCC8FCAAB3D252952BD5233A16950C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F8F50044CE5B1A83EB77C81CD094FE22 /* TunnelKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = C432B6733D6465A4D20563C51B896079;
-			remoteInfo = "TunnelKit-iOS";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00CB92FD07383B22A9BDD5AE94216C02 /* Pods-EduVPN-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-EduVPN-acknowledgements.markdown"; sourceTree = "<group>"; };
-		011418DA6B1714C5BD98940221291777 /* Pods-EduVPN-macOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-EduVPN-macOS.modulemap"; sourceTree = "<group>"; };
-		0669EA5C9B836E2BA5CFBE144357731D /* Pods-EduVPN.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-EduVPN.modulemap"; sourceTree = "<group>"; };
-		0E68681A18F9344B7CC4D031EDE2FD6C /* Pods-EduVPN-redesign-macOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-EduVPN-redesign-macOS-umbrella.h"; sourceTree = "<group>"; };
-		19D4F7D0CDC09E76F108A98DB13C1FA0 /* Pods-EduVPN-redesign-macOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-EduVPN-redesign-macOS-acknowledgements.markdown"; sourceTree = "<group>"; };
+		03A1C54B6DC44B6F810CEEA4B102E629 /* Pods-EduVPNTunnelExtension-macOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-EduVPNTunnelExtension-macOS-dummy.m"; sourceTree = "<group>"; };
+		06A445F08B670D9D0A0B6D99F09FB387 /* Pods-EduVPN-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EduVPN-macOS.release.xcconfig"; sourceTree = "<group>"; };
+		0DD12E930C350ED3D59902037FA07F8F /* Pods-EduVPNTunnelExtension-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-EduVPNTunnelExtension-iOS.modulemap"; sourceTree = "<group>"; };
+		0F4D8DD185094CB2EDC6666C984FA435 /* Pods-EduVPN-macOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-EduVPN-macOS-dummy.m"; sourceTree = "<group>"; };
+		12BEFB993ED2662FD574C39F676CFEE8 /* Pods-EduVPN-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-EduVPN-iOS-dummy.m"; sourceTree = "<group>"; };
+		1CFC567F9678B9848EFA43A8148D8C8B /* Pods-EduVPN-macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EduVPN-macOS.debug.xcconfig"; sourceTree = "<group>"; };
 		1DB94085D0C7E1EA45FCB2BDC6AC05A8 /* AppAuth */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AppAuth; path = AppAuth.xcodeproj; sourceTree = "<group>"; };
+		1DF409C64B5BD4E3FAF732C9E0E33A7C /* Pods-EduVPN-macOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-EduVPN-macOS-acknowledgements.markdown"; sourceTree = "<group>"; };
+		1F36148580E370D8C3D62B1E8E6E747C /* Pods-EduVPN-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EduVPN-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		2022A65554D1690FED32FDE39328FD9A /* Pods_EduVPNTunnelExtension_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_EduVPNTunnelExtension_macOS.framework; path = "Pods-EduVPNTunnelExtension-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		217FDB01978B91D2CD995C2B78959448 /* Pods-EduVPN-redesign-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-EduVPN-redesign-iOS-dummy.m"; sourceTree = "<group>"; };
-		2183848DA2D0DC6ED3A28C90CB550EB4 /* Pods-EduVPN-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EduVPN-acknowledgements.plist"; sourceTree = "<group>"; };
-		23BDF7380593D3048B5B7B9BCF256565 /* Pods_EduVPN.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_EduVPN.framework; path = "Pods-EduVPN.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		294C79362496D9C6E1B8AC46260D2493 /* Pods-EduVPNTunnelExtension-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-EduVPNTunnelExtension-acknowledgements.markdown"; sourceTree = "<group>"; };
+		2885436CC476C41E36312424EB425EEA /* Pods-EduVPNTunnelExtension-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-EduVPNTunnelExtension-iOS-dummy.m"; sourceTree = "<group>"; };
+		2AEFD597C47F5FF73A3C72DF6EC4C608 /* Pods-EduVPN-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-EduVPN-iOS-umbrella.h"; sourceTree = "<group>"; };
+		2F09B18D15995B6488A9B5799DBBA5CE /* Pods-EduVPN-macOS-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-EduVPN-macOS-frameworks.sh"; sourceTree = "<group>"; };
 		3261E5A5395F45780622405F504B2804 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		350011DEBA9BB3AF9F5CE0BFE18D4BAA /* Pods-EduVPNTunnelExtension-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EduVPNTunnelExtension-macOS.release.xcconfig"; sourceTree = "<group>"; };
-		39970422C6EE9726F9A4A8C6BEF00F22 /* Pods-EduVPNTunnelExtension-macOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-EduVPNTunnelExtension-macOS.modulemap"; sourceTree = "<group>"; };
-		3F051A3E5E81E5A65B3BE34CA5C16BE8 /* Pods-EduVPNTunnelExtension-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-EduVPNTunnelExtension-umbrella.h"; sourceTree = "<group>"; };
+		32FDA7FB5AEC96DFA242DE2128C8791E /* Pods-EduVPNTunnelExtension-iOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EduVPNTunnelExtension-iOS-Info.plist"; sourceTree = "<group>"; };
+		3AF2105EE27765CC6F45CDCC5662C885 /* Pods-EduVPN-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-EduVPN-iOS.modulemap"; sourceTree = "<group>"; };
+		3EAE2C7FAF7C956E7BF4450B428BCE52 /* Pods-EduVPNTunnelExtension-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-EduVPNTunnelExtension-iOS-umbrella.h"; sourceTree = "<group>"; };
+		4457B1CD7A99CB2D306F2658EF94CB66 /* Pods-EduVPNTunnelExtension-iOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EduVPNTunnelExtension-iOS-acknowledgements.plist"; sourceTree = "<group>"; };
+		45E07B4EAA2A2CA2A97874757C616090 /* Pods-EduVPNTunnelExtension-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EduVPNTunnelExtension-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		4AAD5E17C8FCCA8431526BC20EFCAF20 /* libsodium */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libsodium; path = libsodium.xcodeproj; sourceTree = "<group>"; };
-		4C5CA2455A47DABD2781D60F6B60FC0D /* Pods-EduVPNTunnelExtension-macOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-EduVPNTunnelExtension-macOS-dummy.m"; sourceTree = "<group>"; };
-		4D12BA2EC29129CC1096995442BBE253 /* Pods-EduVPN-macOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EduVPN-macOS-Info.plist"; sourceTree = "<group>"; };
-		56BD9246A9904759F97E39CF0AD1577E /* Pods-EduVPN.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EduVPN.release.xcconfig"; sourceTree = "<group>"; };
-		591A625AE49B4947F70610E78F72F7BB /* Pods-EduVPN-macOS-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-EduVPN-macOS-frameworks.sh"; sourceTree = "<group>"; };
 		5A54C97DEB1A3977AC3A62AFF00971BF /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
-		5F0C52C27C0E1993FD4699863CA47006 /* Pods-EduVPNTunnelExtension-macOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EduVPNTunnelExtension-macOS-Info.plist"; sourceTree = "<group>"; };
-		5F2C1CD2209FC92451849BB9479694BF /* Pods-EduVPN-redesign-macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EduVPN-redesign-macOS.debug.xcconfig"; sourceTree = "<group>"; };
-		61E4E015AB47AD40B2270B03B5B14634 /* Pods-EduVPN-redesign-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EduVPN-redesign-iOS.release.xcconfig"; sourceTree = "<group>"; };
-		62EAF78012CFE63BD30C9AED5CCAE19C /* Pods_EduVPN_redesign_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_EduVPN_redesign_iOS.framework; path = "Pods-EduVPN-redesign-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		67FCD4C0CF69F0D8D7AA27A457AE1CEC /* Pods-EduVPN-redesign-macOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EduVPN-redesign-macOS-Info.plist"; sourceTree = "<group>"; };
-		6CB9AEAA5E274BA2BA4731365BDCD16C /* Pods-EduVPNTunnelExtension-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EduVPNTunnelExtension-acknowledgements.plist"; sourceTree = "<group>"; };
-		6EFE56654A903DC8C62A7787A1633536 /* Pods-EduVPN-macOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-EduVPN-macOS-acknowledgements.markdown"; sourceTree = "<group>"; };
+		6D7DDE5A40A7AB85FD00558F7F3D2264 /* Pods-EduVPNTunnelExtension-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EduVPNTunnelExtension-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		6E6008446B7BAA0B0AD1E62B369B33F9 /* Pods-EduVPN-iOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EduVPN-iOS-Info.plist"; sourceTree = "<group>"; };
 		7008FDAE5C30E7BDDFCC48D1D781EDFF /* Alamofire */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire; path = Alamofire.xcodeproj; sourceTree = "<group>"; };
-		70700DE15A3D5CB1E88B291D3D550B4C /* Pods-EduVPNTunnelExtension-macOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-EduVPNTunnelExtension-macOS-acknowledgements.markdown"; sourceTree = "<group>"; };
-		71891D6680F13DAE43E12A80B27F6394 /* Pods-EduVPNTunnelExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EduVPNTunnelExtension.debug.xcconfig"; sourceTree = "<group>"; };
-		720D692E02DE6F9B7DAB1AED7027024D /* Pods-EduVPN-redesign-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EduVPN-redesign-macOS.release.xcconfig"; sourceTree = "<group>"; };
 		777093C5312551C8B25439F0663FBD70 /* OpenSSL-Apple */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "OpenSSL-Apple"; path = "OpenSSL-Apple.xcodeproj"; sourceTree = "<group>"; };
-		78FC95853C917E5CEFF302B41F0E02E2 /* Pods-EduVPN-redesign-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-EduVPN-redesign-iOS.modulemap"; sourceTree = "<group>"; };
-		7B0A6868E87AAC787CDFA2FF0C496111 /* Pods-EduVPN-redesign-iOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EduVPN-redesign-iOS-Info.plist"; sourceTree = "<group>"; };
+		7A54BC418C1BDD039BD959D0AE8766A9 /* Pods-EduVPN-macOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EduVPN-macOS-Info.plist"; sourceTree = "<group>"; };
 		7BC89541DF32E7D6EE75840CD0854CD1 /* ASN1Decoder */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ASN1Decoder; path = ASN1Decoder.xcodeproj; sourceTree = "<group>"; };
-		7D8CAC112DD9C556DEAFF9058436561F /* Pods-EduVPN-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-EduVPN-umbrella.h"; sourceTree = "<group>"; };
-		84411EA487FD375C1C5ACC595E255D9E /* Pods-EduVPN-redesign-macOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-EduVPN-redesign-macOS-dummy.m"; sourceTree = "<group>"; };
+		84435F1923F7AB1E5CCCEABF108C2815 /* Pods-EduVPN-iOS-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-EduVPN-iOS-frameworks.sh"; sourceTree = "<group>"; };
+		8470F506D264A22E5BFF1B31ED5A25C0 /* Pods-EduVPNTunnelExtension-iOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-EduVPNTunnelExtension-iOS-acknowledgements.markdown"; sourceTree = "<group>"; };
 		84D657C632C9A1750CA859808F9D1ADF /* PromiseKit */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PromiseKit; path = PromiseKit.xcodeproj; sourceTree = "<group>"; };
-		87A881E36E155EEF99FB31FC3A3BCC5E /* Pods-EduVPN-macOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-EduVPN-macOS-umbrella.h"; sourceTree = "<group>"; };
-		8F3EDCA609DC6CC6E49D6A595B962335 /* Pods-EduVPNTunnelExtension-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-EduVPNTunnelExtension-dummy.m"; sourceTree = "<group>"; };
+		8827F9A489DEE22167C9206C9DFAA7C4 /* Pods-EduVPNTunnelExtension-macOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-EduVPNTunnelExtension-macOS.modulemap"; sourceTree = "<group>"; };
 		90F97FDA9CD4DEE9BD2B7EEC5A2C7D3E /* SwiftyBeaver */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftyBeaver; path = SwiftyBeaver.xcodeproj; sourceTree = "<group>"; };
-		9139A78888D49B90F1467788FC7D4B93 /* Pods-EduVPNTunnelExtension.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-EduVPNTunnelExtension.modulemap"; sourceTree = "<group>"; };
-		91DF5F782431C0FFC774657DF53F09DB /* Pods_EduVPNTunnelExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_EduVPNTunnelExtension.framework; path = "Pods-EduVPNTunnelExtension.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		92B2181AB36B4CFA007394FCDC129393 /* Pods-EduVPN-redesign-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EduVPN-redesign-iOS.debug.xcconfig"; sourceTree = "<group>"; };
-		95BDE712DF421729D3997B8D748C3BDE /* Pods-EduVPN-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EduVPN-Info.plist"; sourceTree = "<group>"; };
+		92BCE29ABEE928869ECA3CF12654F4AD /* Pods-EduVPNTunnelExtension-macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EduVPNTunnelExtension-macOS.debug.xcconfig"; sourceTree = "<group>"; };
+		9352F9E3D7A73B1D3EF921909205E558 /* Pods_EduVPNTunnelExtension_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_EduVPNTunnelExtension_iOS.framework; path = "Pods-EduVPNTunnelExtension-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		A81C4CCBF0ADB38EC4E62FE099947F34 /* Pods-EduVPNTunnelExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EduVPNTunnelExtension.release.xcconfig"; sourceTree = "<group>"; };
+		9E0F2C230E6056C32CF1E8F8FD9695EA /* Pods-EduVPN-macOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-EduVPN-macOS-umbrella.h"; sourceTree = "<group>"; };
+		9F3574BEE32A00131852D75D1BD8AE50 /* Pods-EduVPN-iOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EduVPN-iOS-acknowledgements.plist"; sourceTree = "<group>"; };
+		A1B2DC76B745A5D4B1E7BE901DB08E63 /* Pods-EduVPNTunnelExtension-macOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-EduVPNTunnelExtension-macOS-umbrella.h"; sourceTree = "<group>"; };
 		B1068D5031B15B8C8880E6B11AA568FC /* Moya */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Moya; path = Moya.xcodeproj; sourceTree = "<group>"; };
-		B352764406F7981D64F61AEC1423E496 /* Pods-EduVPN-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-EduVPN-dummy.m"; sourceTree = "<group>"; };
-		B61745E85D63DCF91709376F9582E288 /* Pods-EduVPNTunnelExtension-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EduVPNTunnelExtension-Info.plist"; sourceTree = "<group>"; };
-		B6525F4B1256EA953A6992BFCB2E852D /* Pods-EduVPN-redesign-iOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EduVPN-redesign-iOS-acknowledgements.plist"; sourceTree = "<group>"; };
-		BA55960A5F4D1483E7250A6B35D8FC93 /* Pods-EduVPN-macOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EduVPN-macOS-acknowledgements.plist"; sourceTree = "<group>"; };
-		BD944F16599227089CED0242C5541A99 /* Pods-EduVPN-redesign-iOS-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-EduVPN-redesign-iOS-frameworks.sh"; sourceTree = "<group>"; };
-		C57C1028004C9198D2C5005DAC8EBF91 /* Pods-EduVPN-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EduVPN-macOS.release.xcconfig"; sourceTree = "<group>"; };
-		CA36F7F0FE24B8D8D3E1298EF6F9CDD5 /* Pods-EduVPNTunnelExtension-macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EduVPNTunnelExtension-macOS.debug.xcconfig"; sourceTree = "<group>"; };
-		CAD2E27709A3578ED46B89233EFD40DC /* Pods-EduVPNTunnelExtension-macOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EduVPNTunnelExtension-macOS-acknowledgements.plist"; sourceTree = "<group>"; };
-		D223FF4D9310E76CD2B011B5ED7BC6EE /* Pods-EduVPN-redesign-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-EduVPN-redesign-iOS-umbrella.h"; sourceTree = "<group>"; };
-		D86ABFB361A4FE28CC4081D17DFC9FE8 /* Pods-EduVPN-redesign-macOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-EduVPN-redesign-macOS.modulemap"; sourceTree = "<group>"; };
-		DB27CC7CEF98EAF6B0E3ECA4249292A0 /* Pods_EduVPN_redesign_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_EduVPN_redesign_macOS.framework; path = "Pods-EduVPN-redesign-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DD0A4143817DE9FFEE55F6D96348CB7D /* Pods-EduVPN-redesign-iOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-EduVPN-redesign-iOS-acknowledgements.markdown"; sourceTree = "<group>"; };
-		DDCA5914365E4B7718AA1B5EBADA7191 /* Pods-EduVPN-macOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-EduVPN-macOS-dummy.m"; sourceTree = "<group>"; };
-		DE0A4035ECACEFAB0912F2CAF0D8DA98 /* Pods-EduVPN.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EduVPN.debug.xcconfig"; sourceTree = "<group>"; };
-		E5190D5A6A4762AE47FD4BA3EF1537E9 /* Pods-EduVPN-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-EduVPN-frameworks.sh"; sourceTree = "<group>"; };
-		EBB20783DD470FE6866E679E52F5B018 /* Pods-EduVPN-redesign-macOS-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-EduVPN-redesign-macOS-frameworks.sh"; sourceTree = "<group>"; };
-		F38AB4AE6E49205DB72B38C3290AF2BA /* Pods-EduVPN-redesign-macOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EduVPN-redesign-macOS-acknowledgements.plist"; sourceTree = "<group>"; };
+		B41BABD0E7F57414FCA65C1044A250BF /* Pods-EduVPN-macOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-EduVPN-macOS.modulemap"; sourceTree = "<group>"; };
+		BE34C7F26EF28841ADEAFCE3D3392576 /* Pods-EduVPN-macOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EduVPN-macOS-acknowledgements.plist"; sourceTree = "<group>"; };
+		BFB4817C4AA08BB35245B5359136E691 /* Pods-EduVPNTunnelExtension-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EduVPNTunnelExtension-macOS.release.xcconfig"; sourceTree = "<group>"; };
+		BFBE88F3B24489E19B2FED0E86006304 /* Pods-EduVPN-iOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-EduVPN-iOS-acknowledgements.markdown"; sourceTree = "<group>"; };
+		C167A8722B94E4AD6E2871D3F169CEF4 /* Pods-EduVPN-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EduVPN-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		C18D6E9C46480E7A2F51C96B20FB23E4 /* Pods-EduVPNTunnelExtension-macOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EduVPNTunnelExtension-macOS-Info.plist"; sourceTree = "<group>"; };
+		EF13EAED920B9AA606E22D1533A64738 /* Pods-EduVPNTunnelExtension-macOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-EduVPNTunnelExtension-macOS-acknowledgements.markdown"; sourceTree = "<group>"; };
 		F8F50044CE5B1A83EB77C81CD094FE22 /* TunnelKit */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TunnelKit; path = TunnelKit.xcodeproj; sourceTree = "<group>"; };
-		F98E49982FD4BE6CE0592CC5540990EE /* Pods-EduVPNTunnelExtension-macOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-EduVPNTunnelExtension-macOS-umbrella.h"; sourceTree = "<group>"; };
-		FD68BF93CD61776EDF930C312BB8CD68 /* Pods-EduVPN-macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-EduVPN-macOS.debug.xcconfig"; sourceTree = "<group>"; };
+		FB51237EBDFEA26B116BEB3F86A453AE /* Pods-EduVPNTunnelExtension-macOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-EduVPNTunnelExtension-macOS-acknowledgements.plist"; sourceTree = "<group>"; };
+		FC06D8CC790E44D1698EECE33394AFF2 /* Pods_EduVPN_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_EduVPN_iOS.framework; path = "Pods-EduVPN-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEDB81574EC132B9C8A4CDB6387D63F6 /* Pods_EduVPN_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_EduVPN_macOS.framework; path = "Pods-EduVPN-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		04DBF744C4C3A5CC0D3BD2934A04B106 /* Frameworks */ = {
+		4081E23C951C918C894D8DD496455EA2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7FF7A55C8F43F9A8E5F06CB12785E947 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3F5C02A1EE140ECC02DD0EA07B7175E9 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				781449A69C9C180084FE0427D1F0D0CD /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4AF46AD3F16695F9882D5CDC20B7A9D2 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				64EB9B71DE794EB963AB46977C7200F4 /* Cocoa.framework in Frameworks */,
+				9254F0780D714B207C497C91083C743E /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,11 +262,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6807733D029956F04F30638E140F9BD4 /* Frameworks */ = {
+		78A6474817140E1A3D12E72835B3D5E6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3D3DD399D4527FE1F7A8F0177C7FFD1 /* Foundation.framework in Frameworks */,
+				6FAB8D7E33B22E0E309EE52CB4AF83F7 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,56 +297,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		1EBC9A4D5C73D73F3F6EADEB850265E8 /* Pods-EduVPNTunnelExtension */ = {
-			isa = PBXGroup;
-			children = (
-				9139A78888D49B90F1467788FC7D4B93 /* Pods-EduVPNTunnelExtension.modulemap */,
-				294C79362496D9C6E1B8AC46260D2493 /* Pods-EduVPNTunnelExtension-acknowledgements.markdown */,
-				6CB9AEAA5E274BA2BA4731365BDCD16C /* Pods-EduVPNTunnelExtension-acknowledgements.plist */,
-				8F3EDCA609DC6CC6E49D6A595B962335 /* Pods-EduVPNTunnelExtension-dummy.m */,
-				B61745E85D63DCF91709376F9582E288 /* Pods-EduVPNTunnelExtension-Info.plist */,
-				3F051A3E5E81E5A65B3BE34CA5C16BE8 /* Pods-EduVPNTunnelExtension-umbrella.h */,
-				71891D6680F13DAE43E12A80B27F6394 /* Pods-EduVPNTunnelExtension.debug.xcconfig */,
-				A81C4CCBF0ADB38EC4E62FE099947F34 /* Pods-EduVPNTunnelExtension.release.xcconfig */,
-			);
-			name = "Pods-EduVPNTunnelExtension";
-			path = "Target Support Files/Pods-EduVPNTunnelExtension";
-			sourceTree = "<group>";
-		};
-		2F4A5EAD35AEA18E1C6AE6B7A5C97246 /* Pods-EduVPN */ = {
-			isa = PBXGroup;
-			children = (
-				0669EA5C9B836E2BA5CFBE144357731D /* Pods-EduVPN.modulemap */,
-				00CB92FD07383B22A9BDD5AE94216C02 /* Pods-EduVPN-acknowledgements.markdown */,
-				2183848DA2D0DC6ED3A28C90CB550EB4 /* Pods-EduVPN-acknowledgements.plist */,
-				B352764406F7981D64F61AEC1423E496 /* Pods-EduVPN-dummy.m */,
-				E5190D5A6A4762AE47FD4BA3EF1537E9 /* Pods-EduVPN-frameworks.sh */,
-				95BDE712DF421729D3997B8D748C3BDE /* Pods-EduVPN-Info.plist */,
-				7D8CAC112DD9C556DEAFF9058436561F /* Pods-EduVPN-umbrella.h */,
-				DE0A4035ECACEFAB0912F2CAF0D8DA98 /* Pods-EduVPN.debug.xcconfig */,
-				56BD9246A9904759F97E39CF0AD1577E /* Pods-EduVPN.release.xcconfig */,
-			);
-			name = "Pods-EduVPN";
-			path = "Target Support Files/Pods-EduVPN";
-			sourceTree = "<group>";
-		};
-		30E62B34ACBA687D4957EDAB20F2C3CB /* Pods-EduVPN-macOS */ = {
-			isa = PBXGroup;
-			children = (
-				011418DA6B1714C5BD98940221291777 /* Pods-EduVPN-macOS.modulemap */,
-				6EFE56654A903DC8C62A7787A1633536 /* Pods-EduVPN-macOS-acknowledgements.markdown */,
-				BA55960A5F4D1483E7250A6B35D8FC93 /* Pods-EduVPN-macOS-acknowledgements.plist */,
-				DDCA5914365E4B7718AA1B5EBADA7191 /* Pods-EduVPN-macOS-dummy.m */,
-				591A625AE49B4947F70610E78F72F7BB /* Pods-EduVPN-macOS-frameworks.sh */,
-				4D12BA2EC29129CC1096995442BBE253 /* Pods-EduVPN-macOS-Info.plist */,
-				87A881E36E155EEF99FB31FC3A3BCC5E /* Pods-EduVPN-macOS-umbrella.h */,
-				FD68BF93CD61776EDF930C312BB8CD68 /* Pods-EduVPN-macOS.debug.xcconfig */,
-				C57C1028004C9198D2C5005DAC8EBF91 /* Pods-EduVPN-macOS.release.xcconfig */,
-			);
-			name = "Pods-EduVPN-macOS";
-			path = "Target Support Files/Pods-EduVPN-macOS";
-			sourceTree = "<group>";
-		};
 		41C052635D3E21350AC08C5F316759F6 /* OS X */ = {
 			isa = PBXGroup;
 			children = (
@@ -523,20 +305,15 @@
 			name = "OS X";
 			sourceTree = "<group>";
 		};
-		478FF9B9E98718D6373390C8E02AEE59 /* Pods-EduVPNTunnelExtension-macOS */ = {
+		44EE530896E34928252694856813AC9C /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				39970422C6EE9726F9A4A8C6BEF00F22 /* Pods-EduVPNTunnelExtension-macOS.modulemap */,
-				70700DE15A3D5CB1E88B291D3D550B4C /* Pods-EduVPNTunnelExtension-macOS-acknowledgements.markdown */,
-				CAD2E27709A3578ED46B89233EFD40DC /* Pods-EduVPNTunnelExtension-macOS-acknowledgements.plist */,
-				4C5CA2455A47DABD2781D60F6B60FC0D /* Pods-EduVPNTunnelExtension-macOS-dummy.m */,
-				5F0C52C27C0E1993FD4699863CA47006 /* Pods-EduVPNTunnelExtension-macOS-Info.plist */,
-				F98E49982FD4BE6CE0592CC5540990EE /* Pods-EduVPNTunnelExtension-macOS-umbrella.h */,
-				CA36F7F0FE24B8D8D3E1298EF6F9CDD5 /* Pods-EduVPNTunnelExtension-macOS.debug.xcconfig */,
-				350011DEBA9BB3AF9F5CE0BFE18D4BAA /* Pods-EduVPNTunnelExtension-macOS.release.xcconfig */,
+				536661E98122B85F1F90BD9C664A59C0 /* Pods-EduVPN-iOS */,
+				9A15774A84064031DC55883D57598250 /* Pods-EduVPN-macOS */,
+				A0DF024405208B970AC385EBDD6F6949 /* Pods-EduVPNTunnelExtension-iOS */,
+				64D21CD7EB9FE0CB149B80965D6835B0 /* Pods-EduVPNTunnelExtension-macOS */,
 			);
-			name = "Pods-EduVPNTunnelExtension-macOS";
-			path = "Target Support Files/Pods-EduVPNTunnelExtension-macOS";
+			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
 		4EDC20B56A0B9A8564E1FCEA191C83C4 /* Frameworks */ = {
@@ -548,51 +325,81 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		682AF931AC22FAF840311525209164F7 /* Targets Support Files */ = {
+		536661E98122B85F1F90BD9C664A59C0 /* Pods-EduVPN-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				2F4A5EAD35AEA18E1C6AE6B7A5C97246 /* Pods-EduVPN */,
-				30E62B34ACBA687D4957EDAB20F2C3CB /* Pods-EduVPN-macOS */,
-				C9FCCCA54C71B73DF5E7E67451512553 /* Pods-EduVPN-redesign-iOS */,
-				BD52B916F80A3F357B62DBF3D9CCEC95 /* Pods-EduVPN-redesign-macOS */,
-				1EBC9A4D5C73D73F3F6EADEB850265E8 /* Pods-EduVPNTunnelExtension */,
-				478FF9B9E98718D6373390C8E02AEE59 /* Pods-EduVPNTunnelExtension-macOS */,
+				3AF2105EE27765CC6F45CDCC5662C885 /* Pods-EduVPN-iOS.modulemap */,
+				BFBE88F3B24489E19B2FED0E86006304 /* Pods-EduVPN-iOS-acknowledgements.markdown */,
+				9F3574BEE32A00131852D75D1BD8AE50 /* Pods-EduVPN-iOS-acknowledgements.plist */,
+				12BEFB993ED2662FD574C39F676CFEE8 /* Pods-EduVPN-iOS-dummy.m */,
+				84435F1923F7AB1E5CCCEABF108C2815 /* Pods-EduVPN-iOS-frameworks.sh */,
+				6E6008446B7BAA0B0AD1E62B369B33F9 /* Pods-EduVPN-iOS-Info.plist */,
+				2AEFD597C47F5FF73A3C72DF6EC4C608 /* Pods-EduVPN-iOS-umbrella.h */,
+				C167A8722B94E4AD6E2871D3F169CEF4 /* Pods-EduVPN-iOS.debug.xcconfig */,
+				1F36148580E370D8C3D62B1E8E6E747C /* Pods-EduVPN-iOS.release.xcconfig */,
 			);
-			name = "Targets Support Files";
+			name = "Pods-EduVPN-iOS";
+			path = "Target Support Files/Pods-EduVPN-iOS";
 			sourceTree = "<group>";
 		};
-		BD52B916F80A3F357B62DBF3D9CCEC95 /* Pods-EduVPN-redesign-macOS */ = {
+		63898BD3C2917327AEBF225A939E2CAF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D86ABFB361A4FE28CC4081D17DFC9FE8 /* Pods-EduVPN-redesign-macOS.modulemap */,
-				19D4F7D0CDC09E76F108A98DB13C1FA0 /* Pods-EduVPN-redesign-macOS-acknowledgements.markdown */,
-				F38AB4AE6E49205DB72B38C3290AF2BA /* Pods-EduVPN-redesign-macOS-acknowledgements.plist */,
-				84411EA487FD375C1C5ACC595E255D9E /* Pods-EduVPN-redesign-macOS-dummy.m */,
-				EBB20783DD470FE6866E679E52F5B018 /* Pods-EduVPN-redesign-macOS-frameworks.sh */,
-				67FCD4C0CF69F0D8D7AA27A457AE1CEC /* Pods-EduVPN-redesign-macOS-Info.plist */,
-				0E68681A18F9344B7CC4D031EDE2FD6C /* Pods-EduVPN-redesign-macOS-umbrella.h */,
-				5F2C1CD2209FC92451849BB9479694BF /* Pods-EduVPN-redesign-macOS.debug.xcconfig */,
-				720D692E02DE6F9B7DAB1AED7027024D /* Pods-EduVPN-redesign-macOS.release.xcconfig */,
+				FC06D8CC790E44D1698EECE33394AFF2 /* Pods_EduVPN_iOS.framework */,
+				FEDB81574EC132B9C8A4CDB6387D63F6 /* Pods_EduVPN_macOS.framework */,
+				9352F9E3D7A73B1D3EF921909205E558 /* Pods_EduVPNTunnelExtension_iOS.framework */,
+				2022A65554D1690FED32FDE39328FD9A /* Pods_EduVPNTunnelExtension_macOS.framework */,
 			);
-			name = "Pods-EduVPN-redesign-macOS";
-			path = "Target Support Files/Pods-EduVPN-redesign-macOS";
+			name = Products;
 			sourceTree = "<group>";
 		};
-		C9FCCCA54C71B73DF5E7E67451512553 /* Pods-EduVPN-redesign-iOS */ = {
+		64D21CD7EB9FE0CB149B80965D6835B0 /* Pods-EduVPNTunnelExtension-macOS */ = {
 			isa = PBXGroup;
 			children = (
-				78FC95853C917E5CEFF302B41F0E02E2 /* Pods-EduVPN-redesign-iOS.modulemap */,
-				DD0A4143817DE9FFEE55F6D96348CB7D /* Pods-EduVPN-redesign-iOS-acknowledgements.markdown */,
-				B6525F4B1256EA953A6992BFCB2E852D /* Pods-EduVPN-redesign-iOS-acknowledgements.plist */,
-				217FDB01978B91D2CD995C2B78959448 /* Pods-EduVPN-redesign-iOS-dummy.m */,
-				BD944F16599227089CED0242C5541A99 /* Pods-EduVPN-redesign-iOS-frameworks.sh */,
-				7B0A6868E87AAC787CDFA2FF0C496111 /* Pods-EduVPN-redesign-iOS-Info.plist */,
-				D223FF4D9310E76CD2B011B5ED7BC6EE /* Pods-EduVPN-redesign-iOS-umbrella.h */,
-				92B2181AB36B4CFA007394FCDC129393 /* Pods-EduVPN-redesign-iOS.debug.xcconfig */,
-				61E4E015AB47AD40B2270B03B5B14634 /* Pods-EduVPN-redesign-iOS.release.xcconfig */,
+				8827F9A489DEE22167C9206C9DFAA7C4 /* Pods-EduVPNTunnelExtension-macOS.modulemap */,
+				EF13EAED920B9AA606E22D1533A64738 /* Pods-EduVPNTunnelExtension-macOS-acknowledgements.markdown */,
+				FB51237EBDFEA26B116BEB3F86A453AE /* Pods-EduVPNTunnelExtension-macOS-acknowledgements.plist */,
+				03A1C54B6DC44B6F810CEEA4B102E629 /* Pods-EduVPNTunnelExtension-macOS-dummy.m */,
+				C18D6E9C46480E7A2F51C96B20FB23E4 /* Pods-EduVPNTunnelExtension-macOS-Info.plist */,
+				A1B2DC76B745A5D4B1E7BE901DB08E63 /* Pods-EduVPNTunnelExtension-macOS-umbrella.h */,
+				92BCE29ABEE928869ECA3CF12654F4AD /* Pods-EduVPNTunnelExtension-macOS.debug.xcconfig */,
+				BFB4817C4AA08BB35245B5359136E691 /* Pods-EduVPNTunnelExtension-macOS.release.xcconfig */,
 			);
-			name = "Pods-EduVPN-redesign-iOS";
-			path = "Target Support Files/Pods-EduVPN-redesign-iOS";
+			name = "Pods-EduVPNTunnelExtension-macOS";
+			path = "Target Support Files/Pods-EduVPNTunnelExtension-macOS";
+			sourceTree = "<group>";
+		};
+		9A15774A84064031DC55883D57598250 /* Pods-EduVPN-macOS */ = {
+			isa = PBXGroup;
+			children = (
+				B41BABD0E7F57414FCA65C1044A250BF /* Pods-EduVPN-macOS.modulemap */,
+				1DF409C64B5BD4E3FAF732C9E0E33A7C /* Pods-EduVPN-macOS-acknowledgements.markdown */,
+				BE34C7F26EF28841ADEAFCE3D3392576 /* Pods-EduVPN-macOS-acknowledgements.plist */,
+				0F4D8DD185094CB2EDC6666C984FA435 /* Pods-EduVPN-macOS-dummy.m */,
+				2F09B18D15995B6488A9B5799DBBA5CE /* Pods-EduVPN-macOS-frameworks.sh */,
+				7A54BC418C1BDD039BD959D0AE8766A9 /* Pods-EduVPN-macOS-Info.plist */,
+				9E0F2C230E6056C32CF1E8F8FD9695EA /* Pods-EduVPN-macOS-umbrella.h */,
+				1CFC567F9678B9848EFA43A8148D8C8B /* Pods-EduVPN-macOS.debug.xcconfig */,
+				06A445F08B670D9D0A0B6D99F09FB387 /* Pods-EduVPN-macOS.release.xcconfig */,
+			);
+			name = "Pods-EduVPN-macOS";
+			path = "Target Support Files/Pods-EduVPN-macOS";
+			sourceTree = "<group>";
+		};
+		A0DF024405208B970AC385EBDD6F6949 /* Pods-EduVPNTunnelExtension-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				0DD12E930C350ED3D59902037FA07F8F /* Pods-EduVPNTunnelExtension-iOS.modulemap */,
+				8470F506D264A22E5BFF1B31ED5A25C0 /* Pods-EduVPNTunnelExtension-iOS-acknowledgements.markdown */,
+				4457B1CD7A99CB2D306F2658EF94CB66 /* Pods-EduVPNTunnelExtension-iOS-acknowledgements.plist */,
+				2885436CC476C41E36312424EB425EEA /* Pods-EduVPNTunnelExtension-iOS-dummy.m */,
+				32FDA7FB5AEC96DFA242DE2128C8791E /* Pods-EduVPNTunnelExtension-iOS-Info.plist */,
+				3EAE2C7FAF7C956E7BF4450B428BCE52 /* Pods-EduVPNTunnelExtension-iOS-umbrella.h */,
+				6D7DDE5A40A7AB85FD00558F7F3D2264 /* Pods-EduVPNTunnelExtension-iOS.debug.xcconfig */,
+				45E07B4EAA2A2CA2A97874757C616090 /* Pods-EduVPNTunnelExtension-iOS.release.xcconfig */,
+			);
+			name = "Pods-EduVPNTunnelExtension-iOS";
+			path = "Target Support Files/Pods-EduVPNTunnelExtension-iOS";
 			sourceTree = "<group>";
 		};
 		CF1408CF629C7361332E53B88F7BD30C = {
@@ -601,8 +408,8 @@
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				4EDC20B56A0B9A8564E1FCEA191C83C4 /* Frameworks */,
 				07EC1A35044B1A35A27A8C1A41D10D4F /* Pods */,
-				DE70FD90B58ABB6B5CEFC2264374FADF /* Products */,
-				682AF931AC22FAF840311525209164F7 /* Targets Support Files */,
+				63898BD3C2917327AEBF225A939E2CAF /* Products */,
+				44EE530896E34928252694856813AC9C /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
@@ -614,35 +421,14 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		DE70FD90B58ABB6B5CEFC2264374FADF /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				23BDF7380593D3048B5B7B9BCF256565 /* Pods_EduVPN.framework */,
-				FEDB81574EC132B9C8A4CDB6387D63F6 /* Pods_EduVPN_macOS.framework */,
-				62EAF78012CFE63BD30C9AED5CCAE19C /* Pods_EduVPN_redesign_iOS.framework */,
-				DB27CC7CEF98EAF6B0E3ECA4249292A0 /* Pods_EduVPN_redesign_macOS.framework */,
-				91DF5F782431C0FFC774657DF53F09DB /* Pods_EduVPNTunnelExtension.framework */,
-				2022A65554D1690FED32FDE39328FD9A /* Pods_EduVPNTunnelExtension_macOS.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		01F66FDDF613410C4BB6DA0F7D5F4281 /* Headers */ = {
+		18E62640889C7E08012099D365EFB90A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E0BFB785E7411227ADF2ACAB813F4721 /* Pods-EduVPN-redesign-iOS-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		11712FF21966AC546F6D8ED91F2350DB /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6FDA255F4C4E3F4260AB61649255744B /* Pods-EduVPN-umbrella.h in Headers */,
+				1A5F6C980BE0BD6DB6AFC04A0E329FD4 /* Pods-EduVPN-iOS-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -654,19 +440,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		572BC68F39F61793FBA2BBCA4A8C0DF6 /* Headers */ = {
+		B3CCBC339E82B1425C86D73D2D21ABB5 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F926EDC3ECCD01B1F18F2DF8151B9BA /* Pods-EduVPN-redesign-macOS-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B6FF31014E382FF4A7EC2174CBC33280 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				91949D597F0AE37E6D9A7D311E885237 /* Pods-EduVPNTunnelExtension-umbrella.h in Headers */,
+				D05C97AB2ACC80F3F62F72298C157234 /* Pods-EduVPNTunnelExtension-iOS-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -681,79 +459,52 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		21AF5BD8146C16606C964C1612338993 /* Pods-EduVPNTunnelExtension */ = {
+		03C4B3B8E66E53FFA8A61BB2150B87CA /* Pods-EduVPNTunnelExtension-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5238F976862E34F0835DA55A1AE2E1F4 /* Build configuration list for PBXNativeTarget "Pods-EduVPNTunnelExtension" */;
+			buildConfigurationList = E9354FC38A990A9B0BFBF656AF69B0E6 /* Build configuration list for PBXNativeTarget "Pods-EduVPNTunnelExtension-iOS" */;
 			buildPhases = (
-				B6FF31014E382FF4A7EC2174CBC33280 /* Headers */,
-				7490B36DBEFBD3ECB15E8F399F46243E /* Sources */,
-				3F5C02A1EE140ECC02DD0EA07B7175E9 /* Frameworks */,
-				7AA448C814753613F0D89B9AF7CC2C17 /* Resources */,
+				B3CCBC339E82B1425C86D73D2D21ABB5 /* Headers */,
+				3007410E4B44491807085496BD352FB1 /* Sources */,
+				4081E23C951C918C894D8DD496455EA2 /* Frameworks */,
+				77B631874786FDFC0461BF0B1ED323CB /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				CB6B3E222B7E2F65FF458B32B40CBEF9 /* PBXTargetDependency */,
-				7EA6C4DCC16C0056131A18FA3A5D368E /* PBXTargetDependency */,
-				C28CAA826CCC853C25565E9C8D3BBD50 /* PBXTargetDependency */,
+				7A89EF6D71CFC0643B406D80A01812FA /* PBXTargetDependency */,
+				A4546A84CF338799AC5A0FA906880DBC /* PBXTargetDependency */,
+				964FF50FF2BB58A9C19E9C7B0FC89F32 /* PBXTargetDependency */,
 			);
-			name = "Pods-EduVPNTunnelExtension";
-			productName = "Pods-EduVPNTunnelExtension";
-			productReference = 91DF5F782431C0FFC774657DF53F09DB /* Pods_EduVPNTunnelExtension.framework */;
+			name = "Pods-EduVPNTunnelExtension-iOS";
+			productName = "Pods-EduVPNTunnelExtension-iOS";
+			productReference = 9352F9E3D7A73B1D3EF921909205E558 /* Pods_EduVPNTunnelExtension_iOS.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		26620E5C381F3018D75328D10B639545 /* Pods-EduVPN-redesign-iOS */ = {
+		1C947DCE4394F7E69406F2F21B2F8E0D /* Pods-EduVPN-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CB8641FF845CFEC407493D2212010A87 /* Build configuration list for PBXNativeTarget "Pods-EduVPN-redesign-iOS" */;
+			buildConfigurationList = E22C02C4FD9A839F523FDAA77504C34B /* Build configuration list for PBXNativeTarget "Pods-EduVPN-iOS" */;
 			buildPhases = (
-				01F66FDDF613410C4BB6DA0F7D5F4281 /* Headers */,
-				C79A88338BE4E11682A30253B8BB0EA0 /* Sources */,
-				04DBF744C4C3A5CC0D3BD2934A04B106 /* Frameworks */,
-				FBCA36EA253F57500D631FA77F083D60 /* Resources */,
+				18E62640889C7E08012099D365EFB90A /* Headers */,
+				AFAE6AB735BE8D107AE55E1C7CD2FB67 /* Sources */,
+				78A6474817140E1A3D12E72835B3D5E6 /* Frameworks */,
+				B3AAE9F0F70A0E9E41794D283E95B128 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				E04F4DD9BBE8167898319892FD8953F3 /* PBXTargetDependency */,
-				29AE3C880C74DDA2119352D6669A9DBA /* PBXTargetDependency */,
-				E23FECE81E3F00B6AF9803DFAF704E17 /* PBXTargetDependency */,
-				45A6748EEB46B805A04CBEDC8794719F /* PBXTargetDependency */,
-				6E5DDD46670C7DCB3D1397D8130C7292 /* PBXTargetDependency */,
-				A82544D4FD6E188FD2EFFD51B7C83DAD /* PBXTargetDependency */,
-				564A972A45724D05410C32F1C0E2E2F6 /* PBXTargetDependency */,
-				962FF773F5D1C1657E348B662C367F8C /* PBXTargetDependency */,
-				9805BEB8306C6A1866096E15181141D9 /* PBXTargetDependency */,
+				B7A7AA567927DC0B1E527A8EF8FE1214 /* PBXTargetDependency */,
+				BC0916929B5FC59F6F3DFB7C0FCD3C5C /* PBXTargetDependency */,
+				7D5521938D2849F5F179CDB557559D68 /* PBXTargetDependency */,
+				87064A9CAF966354140F9792944B61F1 /* PBXTargetDependency */,
+				FE4586582620864AD0C1F23CA9640A23 /* PBXTargetDependency */,
+				24EBF2E92E9993E463FC56D9AF169FCF /* PBXTargetDependency */,
+				D00A99D53AF1F1FAA879EA501D23CA2C /* PBXTargetDependency */,
+				14F9D7F7ABA1D7E6B5919E70E1CC6F83 /* PBXTargetDependency */,
+				A4E8197379B5BD8C322AA9AA29CF9DEC /* PBXTargetDependency */,
 			);
-			name = "Pods-EduVPN-redesign-iOS";
-			productName = "Pods-EduVPN-redesign-iOS";
-			productReference = 62EAF78012CFE63BD30C9AED5CCAE19C /* Pods_EduVPN_redesign_iOS.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		6166844BF811EEF27807C86C66C84581 /* Pods-EduVPN-redesign-macOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AA0C66CF7529139669626DD977F5A469 /* Build configuration list for PBXNativeTarget "Pods-EduVPN-redesign-macOS" */;
-			buildPhases = (
-				572BC68F39F61793FBA2BBCA4A8C0DF6 /* Headers */,
-				49B797E4AB771BFC88AAEE87D55F69D7 /* Sources */,
-				4AF46AD3F16695F9882D5CDC20B7A9D2 /* Frameworks */,
-				A9D7382A78620A6554A5CCEE363B9379 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				FA3BC4B8366CB9D964FCF44FC96399AE /* PBXTargetDependency */,
-				CC0FE4502743A22BD09D06BA357C6092 /* PBXTargetDependency */,
-				7FEAE56C1A752E315391B7BD8AB051C0 /* PBXTargetDependency */,
-				2F36729CD2F6B8E50D7DB69D73E54040 /* PBXTargetDependency */,
-				688FA61E73DB8962FB07DCFCA0C84996 /* PBXTargetDependency */,
-				230576CFD18D7CD1B0969BA69EF8A9BD /* PBXTargetDependency */,
-				066EC42E1BC6514A626877A67955C976 /* PBXTargetDependency */,
-				9B2DA78CBA092E6D41AFC407C3FF99FA /* PBXTargetDependency */,
-				3A16C5A4C59E2A25A66CD63BE700EA03 /* PBXTargetDependency */,
-			);
-			name = "Pods-EduVPN-redesign-macOS";
-			productName = "Pods-EduVPN-redesign-macOS";
-			productReference = DB27CC7CEF98EAF6B0E3ECA4249292A0 /* Pods_EduVPN_redesign_macOS.framework */;
+			name = "Pods-EduVPN-iOS";
+			productName = "Pods-EduVPN-iOS";
+			productReference = FC06D8CC790E44D1698EECE33394AFF2 /* Pods_EduVPN_iOS.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		7A3DCF92DAF31E0C9C96021E1B2609C8 /* Pods-EduVPN-macOS */ = {
@@ -781,33 +532,6 @@
 			name = "Pods-EduVPN-macOS";
 			productName = "Pods-EduVPN-macOS";
 			productReference = FEDB81574EC132B9C8A4CDB6387D63F6 /* Pods_EduVPN_macOS.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		9B322B9EF6D61CF6EBBD321A5C8DBC33 /* Pods-EduVPN */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = FF0DF2CFE2955E5F95205A51D7933AEC /* Build configuration list for PBXNativeTarget "Pods-EduVPN" */;
-			buildPhases = (
-				11712FF21966AC546F6D8ED91F2350DB /* Headers */,
-				B52846153630E832908A366965203078 /* Sources */,
-				6807733D029956F04F30638E140F9BD4 /* Frameworks */,
-				6A535904B97705C49D9B4A5D45C8838C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8AE65B759B9C66C8867860193E166275 /* PBXTargetDependency */,
-				029AEE722EBDDB117A9F0B2B3E0D39F8 /* PBXTargetDependency */,
-				971432D59894B9DE6089B1CA419C5DFC /* PBXTargetDependency */,
-				71ABCA7B93302717DBF8F081BCCB7E89 /* PBXTargetDependency */,
-				D758BA87D689E041E1725EFEB4F87E72 /* PBXTargetDependency */,
-				5140BC1F56285C768FEFAB9AF89AE539 /* PBXTargetDependency */,
-				226265656DEFBDBA1030EBCAAF966A7A /* PBXTargetDependency */,
-				8D51231D9DF54722891B1AC36B43EE85 /* PBXTargetDependency */,
-				98B5DB297DC714AD6B293CBC0C7DB67B /* PBXTargetDependency */,
-			);
-			name = "Pods-EduVPN";
-			productName = "Pods-EduVPN";
-			productReference = 23BDF7380593D3048B5B7B9BCF256565 /* Pods_EduVPN.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		FDB0CB8D2AE01CD30F670AF74A021B16 /* Pods-EduVPNTunnelExtension-macOS */ = {
@@ -849,7 +573,7 @@
 				Base,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = DE70FD90B58ABB6B5CEFC2264374FADF /* Products */;
+			productRefGroup = 63898BD3C2917327AEBF225A939E2CAF /* Products */;
 			projectDirPath = "";
 			projectReferences = (
 				{
@@ -882,11 +606,9 @@
 			);
 			projectRoot = "";
 			targets = (
-				9B322B9EF6D61CF6EBBD321A5C8DBC33 /* Pods-EduVPN */,
+				1C947DCE4394F7E69406F2F21B2F8E0D /* Pods-EduVPN-iOS */,
 				7A3DCF92DAF31E0C9C96021E1B2609C8 /* Pods-EduVPN-macOS */,
-				26620E5C381F3018D75328D10B639545 /* Pods-EduVPN-redesign-iOS */,
-				6166844BF811EEF27807C86C66C84581 /* Pods-EduVPN-redesign-macOS */,
-				21AF5BD8146C16606C964C1612338993 /* Pods-EduVPNTunnelExtension */,
+				03C4B3B8E66E53FFA8A61BB2150B87CA /* Pods-EduVPNTunnelExtension-iOS */,
 				FDB0CB8D2AE01CD30F670AF74A021B16 /* Pods-EduVPNTunnelExtension-macOS */,
 			);
 		};
@@ -907,28 +629,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6A535904B97705C49D9B4A5D45C8838C /* Resources */ = {
+		77B631874786FDFC0461BF0B1ED323CB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AA448C814753613F0D89B9AF7CC2C17 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A9D7382A78620A6554A5CCEE363B9379 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FBCA36EA253F57500D631FA77F083D60 /* Resources */ = {
+		B3AAE9F0F70A0E9E41794D283E95B128 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -946,19 +654,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		49B797E4AB771BFC88AAEE87D55F69D7 /* Sources */ = {
+		3007410E4B44491807085496BD352FB1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E8A0E584E612622840B2E0C4FC7C8FC1 /* Pods-EduVPN-redesign-macOS-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7490B36DBEFBD3ECB15E8F399F46243E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E8130817EB088564EEC03428B064B237 /* Pods-EduVPNTunnelExtension-dummy.m in Sources */,
+				1AB8D6688CA9F8F922BAD98BB9071718 /* Pods-EduVPNTunnelExtension-iOS-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -970,119 +670,56 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B52846153630E832908A366965203078 /* Sources */ = {
+		AFAE6AB735BE8D107AE55E1C7CD2FB67 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C4C38D4AC4A99AFBAA4AA8F7728CA75 /* Pods-EduVPN-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C79A88338BE4E11682A30253B8BB0EA0 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2E035EED79A50869291A12AF87042309 /* Pods-EduVPN-redesign-iOS-dummy.m in Sources */,
+				9B993058ABBBAFF1FAC060A37EE12247 /* Pods-EduVPN-iOS-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		029AEE722EBDDB117A9F0B2B3E0D39F8 /* PBXTargetDependency */ = {
+		14F9D7F7ABA1D7E6B5919E70E1CC6F83 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "Alamofire-iOS";
-			targetProxy = E95F57F3A215FEF10DB8004322F57F84 /* PBXContainerItemProxy */;
+			name = "TunnelKit-iOS";
+			targetProxy = DA17CFCAA56A9090F1E7CA9D7BEB6BDC /* PBXContainerItemProxy */;
 		};
-		066EC42E1BC6514A626877A67955C976 /* PBXTargetDependency */ = {
+		24EBF2E92E9993E463FC56D9AF169FCF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "SwiftyBeaver-macOS";
-			targetProxy = D0311FB7C96DBF2CD9DAFF64893F3EDC /* PBXContainerItemProxy */;
-		};
-		226265656DEFBDBA1030EBCAAF966A7A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "SwiftyBeaver-iOS";
-			targetProxy = 84E42E10BDEF08FB1E263B8AA709B6AA /* PBXContainerItemProxy */;
-		};
-		230576CFD18D7CD1B0969BA69EF8A9BD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "PromiseKit-macOS";
-			targetProxy = E59BA0AFF87351C705D0D2F156DDEED9 /* PBXContainerItemProxy */;
-		};
-		29AE3C880C74DDA2119352D6669A9DBA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Alamofire-iOS";
-			targetProxy = 6FAFDA3CC8B893826984E072D20E5BFB /* PBXContainerItemProxy */;
-		};
-		2F36729CD2F6B8E50D7DB69D73E54040 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Moya-macOS";
-			targetProxy = 184D07E3A79CCE28E717C41C9678A3FB /* PBXContainerItemProxy */;
+			name = "PromiseKit-iOS";
+			targetProxy = 5E8598CC797145C11187895505646C95 /* PBXContainerItemProxy */;
 		};
 		39D698E855312262BF2563FF40B8089D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "SwiftyBeaver-macOS";
 			targetProxy = 1A5A6A3E315051982C6F59C44CB6AE1A /* PBXContainerItemProxy */;
 		};
-		3A16C5A4C59E2A25A66CD63BE700EA03 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "libsodium-macOS";
-			targetProxy = 826DB35AE44FAA929540012D631C3915 /* PBXContainerItemProxy */;
-		};
 		43E5E2787293CA609DF84E36FB1DDDEA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "SwiftyBeaver-macOS";
 			targetProxy = BF4B196C0BF287BD3541870066BC2439 /* PBXContainerItemProxy */;
-		};
-		45A6748EEB46B805A04CBEDC8794719F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Moya-iOS";
-			targetProxy = 8EBF6937F455F8C5110E1EA665F714A3 /* PBXContainerItemProxy */;
 		};
 		4C292C83DA7F6B0ADE09B64E926F2AEA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "AppAuth-macOS";
 			targetProxy = 1F29B20AD9FC23B4DD0D56042BAA0FE6 /* PBXContainerItemProxy */;
 		};
-		5140BC1F56285C768FEFAB9AF89AE539 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "PromiseKit-iOS";
-			targetProxy = 67C3C63BAEC479E96F3D7CFDED29F2B7 /* PBXContainerItemProxy */;
-		};
 		54396FAFFC543824FDD8887F05A1D451 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Moya-macOS";
 			targetProxy = 06A54A529147881C6F3A06C7A1DB5D95 /* PBXContainerItemProxy */;
 		};
-		564A972A45724D05410C32F1C0E2E2F6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "SwiftyBeaver-iOS";
-			targetProxy = C6433119181918FF6702BA41D623898B /* PBXContainerItemProxy */;
-		};
-		688FA61E73DB8962FB07DCFCA0C84996 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "OpenSSL-Apple-macOS";
-			targetProxy = 9CA9DACB8692C4586EF97BE524843B95 /* PBXContainerItemProxy */;
-		};
-		6E5DDD46670C7DCB3D1397D8130C7292 /* PBXTargetDependency */ = {
+		7A89EF6D71CFC0643B406D80A01812FA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "OpenSSL-Apple-iOS";
-			targetProxy = D2222A0C97899BC2269AF207E44882F6 /* PBXContainerItemProxy */;
+			targetProxy = DD63F52B409C61FAA067088B18B9B02E /* PBXContainerItemProxy */;
 		};
-		71ABCA7B93302717DBF8F081BCCB7E89 /* PBXTargetDependency */ = {
+		7D5521938D2849F5F179CDB557559D68 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "Moya-iOS";
-			targetProxy = 53851E51C4060352068CBAD3A9E5E8B4 /* PBXContainerItemProxy */;
-		};
-		7EA6C4DCC16C0056131A18FA3A5D368E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "SwiftyBeaver-iOS";
-			targetProxy = AF3AA5D360EF8BE9877762B3B4A16557 /* PBXContainerItemProxy */;
-		};
-		7FEAE56C1A752E315391B7BD8AB051C0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "AppAuth-macOS";
-			targetProxy = 816D3102FDA07F97630ED08AD11FFDA5 /* PBXContainerItemProxy */;
+			name = "AppAuth-iOS";
+			targetProxy = CDBA734474B8913714A3065B25F8E0E4 /* PBXContainerItemProxy */;
 		};
 		80AB1AC379CE0F0CC1C8E2064E7E3BE3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1099,112 +736,77 @@
 			name = "Alamofire-macOS";
 			targetProxy = 4156B283BE5B54668D9120493B1921C4 /* PBXContainerItemProxy */;
 		};
-		8AE65B759B9C66C8867860193E166275 /* PBXTargetDependency */ = {
+		87064A9CAF966354140F9792944B61F1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "ASN1Decoder-iOS";
-			targetProxy = 455F0BC566C8F0C0877A91AB91F8EE20 /* PBXContainerItemProxy */;
+			name = "Moya-iOS";
+			targetProxy = 51F1F838ED4A51A3331C5A5F23ADF799 /* PBXContainerItemProxy */;
 		};
-		8D51231D9DF54722891B1AC36B43EE85 /* PBXTargetDependency */ = {
+		964FF50FF2BB58A9C19E9C7B0FC89F32 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "TunnelKit-iOS";
-			targetProxy = A7573A83B759850F5A00C94529199AAD /* PBXContainerItemProxy */;
-		};
-		962FF773F5D1C1657E348B662C367F8C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "TunnelKit-iOS";
-			targetProxy = F6DCC8FCAAB3D252952BD5233A16950C /* PBXContainerItemProxy */;
-		};
-		971432D59894B9DE6089B1CA419C5DFC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "AppAuth-iOS";
-			targetProxy = A7D724572E6E1FCFD60C0B497458BF38 /* PBXContainerItemProxy */;
-		};
-		9805BEB8306C6A1866096E15181141D9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "libsodium-iOS";
-			targetProxy = CC36276A9FD533E590903B3D81959EB7 /* PBXContainerItemProxy */;
-		};
-		98B5DB297DC714AD6B293CBC0C7DB67B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "libsodium-iOS";
-			targetProxy = 873F036DE4C45AA231DE2EA7F0114D81 /* PBXContainerItemProxy */;
-		};
-		9B2DA78CBA092E6D41AFC407C3FF99FA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "TunnelKit-macOS";
-			targetProxy = 72184EC81C87760520483002858E55E7 /* PBXContainerItemProxy */;
+			targetProxy = 50AD4668FD3B6769D8281D94F8E426D2 /* PBXContainerItemProxy */;
 		};
 		9C9ECCB3B42038606867F55528F233E8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "TunnelKit-macOS";
 			targetProxy = 98D5025FF516509E1FC251A0D2999E33 /* PBXContainerItemProxy */;
 		};
-		A82544D4FD6E188FD2EFFD51B7C83DAD /* PBXTargetDependency */ = {
+		A4546A84CF338799AC5A0FA906880DBC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "PromiseKit-iOS";
-			targetProxy = 41F6852336AA978FC8613159A11C0625 /* PBXContainerItemProxy */;
+			name = "SwiftyBeaver-iOS";
+			targetProxy = C13F0A2CEC1C160B4A6D2DF33E86B614 /* PBXContainerItemProxy */;
+		};
+		A4E8197379B5BD8C322AA9AA29CF9DEC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "libsodium-iOS";
+			targetProxy = 191EB80DEF66E29C0F58E457B551098E /* PBXContainerItemProxy */;
+		};
+		B7A7AA567927DC0B1E527A8EF8FE1214 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "ASN1Decoder-iOS";
+			targetProxy = 6A6FB587B4EB45F1B6C937B0A9F8B1D7 /* PBXContainerItemProxy */;
 		};
 		BAE603DF6E510D1A9A6F4D41BE879C08 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "libsodium-macOS";
 			targetProxy = 79D4265A2219CE6F2F6360AD20835F95 /* PBXContainerItemProxy */;
 		};
-		C28CAA826CCC853C25565E9C8D3BBD50 /* PBXTargetDependency */ = {
+		BC0916929B5FC59F6F3DFB7C0FCD3C5C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "TunnelKit-iOS";
-			targetProxy = 49784E2E182F29B6CDB9368D682BF4E1 /* PBXContainerItemProxy */;
+			name = "Alamofire-iOS";
+			targetProxy = 8EF0A9BEEEB3D813BC1023985B5426F9 /* PBXContainerItemProxy */;
 		};
 		C8D9ACC6EB2E01D2A0526A4FAF1E4930 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "OpenSSL-Apple-macOS";
 			targetProxy = 41AB19EDEAE5C01F66E4E63C1DC279F3 /* PBXContainerItemProxy */;
 		};
-		CB6B3E222B7E2F65FF458B32B40CBEF9 /* PBXTargetDependency */ = {
+		D00A99D53AF1F1FAA879EA501D23CA2C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "OpenSSL-Apple-iOS";
-			targetProxy = 25C1E6CC457CD5019EEA49A827459814 /* PBXContainerItemProxy */;
-		};
-		CC0FE4502743A22BD09D06BA357C6092 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Alamofire-macOS";
-			targetProxy = 2E9D8B3F7AA84A90B15335D0331AC779 /* PBXContainerItemProxy */;
-		};
-		D758BA87D689E041E1725EFEB4F87E72 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "OpenSSL-Apple-iOS";
-			targetProxy = EFC5240DC01805EC4A12D64A47985A6B /* PBXContainerItemProxy */;
+			name = "SwiftyBeaver-iOS";
+			targetProxy = D425763AF76954CDCD74CA751FE7D635 /* PBXContainerItemProxy */;
 		};
 		D97CD85C63D06CEB1AC63D82319BC6D7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "PromiseKit-macOS";
 			targetProxy = 1183D6DE32F866A5D8D726128481795B /* PBXContainerItemProxy */;
 		};
-		E04F4DD9BBE8167898319892FD8953F3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "ASN1Decoder-iOS";
-			targetProxy = 64DBBEC8DCFB288FAFB8007421862323 /* PBXContainerItemProxy */;
-		};
-		E23FECE81E3F00B6AF9803DFAF704E17 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "AppAuth-iOS";
-			targetProxy = EE3BCD90B1A5ACDAF85CF0EDF8AE3232 /* PBXContainerItemProxy */;
-		};
-		FA3BC4B8366CB9D964FCF44FC96399AE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "ASN1Decoder-macOS";
-			targetProxy = DB487C93DCAF719D8CDEAB2D641A71FF /* PBXContainerItemProxy */;
-		};
 		FB1D899BD8C0CF4D4BA776B38939DC53 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "OpenSSL-Apple-macOS";
 			targetProxy = 74EEED615EC40FE240194F10FA7016A6 /* PBXContainerItemProxy */;
 		};
+		FE4586582620864AD0C1F23CA9640A23 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "OpenSSL-Apple-iOS";
+			targetProxy = A70CC2F830AA3D0430E3B760B9693F5C /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		01B1B1600F037BD0AB600E7EDF2AB234 /* Release */ = {
+		109DF24E0B81A27AADE87584CA9A2822 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 56BD9246A9904759F97E39CF0AD1577E /* Pods-EduVPN.release.xcconfig */;
+			baseConfigurationReference = 1F36148580E370D8C3D62B1E8E6E747C /* Pods-EduVPN-iOS.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -1217,12 +819,12 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-EduVPN/Pods-EduVPN-Info.plist";
+				INFOPLIST_FILE = "Target Support Files/Pods-EduVPN-iOS/Pods-EduVPN-iOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-EduVPN/Pods-EduVPN.modulemap";
+				MODULEMAP_FILE = "Target Support Files/Pods-EduVPN-iOS/Pods-EduVPN-iOS.modulemap";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -1237,9 +839,9 @@
 			};
 			name = Release;
 		};
-		24F62459EC982C4167658E3D6A9E5392 /* Release */ = {
+		274941663FB6139A85B6D4E84694D91F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 720D692E02DE6F9B7DAB1AED7027024D /* Pods-EduVPN-redesign-macOS.release.xcconfig */;
+			baseConfigurationReference = C167A8722B94E4AD6E2871D3F169CEF4 /* Pods-EduVPN-iOS.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -1247,29 +849,98 @@
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-EduVPN-redesign-macOS/Pods-EduVPN-redesign-macOS-Info.plist";
+				INFOPLIST_FILE = "Target Support Files/Pods-EduVPN-iOS/Pods-EduVPN-iOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MODULEMAP_FILE = "Target Support Files/Pods-EduVPN-redesign-macOS/Pods-EduVPN-redesign-macOS.modulemap";
+				MODULEMAP_FILE = "Target Support Files/Pods-EduVPN-iOS/Pods-EduVPN-iOS.modulemap";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = macosx;
+				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		282DC911DD4984CBA013A0E16E7CCC01 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 45E07B4EAA2A2CA2A97874757C616090 /* Pods-EduVPNTunnelExtension-iOS.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-EduVPNTunnelExtension-iOS/Pods-EduVPNTunnelExtension-iOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-EduVPNTunnelExtension-iOS/Pods-EduVPNTunnelExtension-iOS.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
+		};
+		6FE5796D447AC649DC99B73A1A6FE2FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6D7DDE5A40A7AB85FD00558F7F3D2264 /* Pods-EduVPNTunnelExtension-iOS.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-EduVPNTunnelExtension-iOS/Pods-EduVPNTunnelExtension-iOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-EduVPNTunnelExtension-iOS/Pods-EduVPNTunnelExtension-iOS.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
 		};
 		756CA43D9C7023516D735AB6E9C6811C /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1340,7 +1011,7 @@
 		};
 		835BFD47A22305CEA888E544A8226A06 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CA36F7F0FE24B8D8D3E1298EF6F9CDD5 /* Pods-EduVPNTunnelExtension-macOS.debug.xcconfig */;
+			baseConfigurationReference = 92BCE29ABEE928869ECA3CF12654F4AD /* Pods-EduVPNTunnelExtension-macOS.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -1371,110 +1042,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
-		};
-		863E9AA1DA3218D66EAFD1B407A5867C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DE0A4035ECACEFAB0912F2CAF0D8DA98 /* Pods-EduVPN.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-EduVPN/Pods-EduVPN-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-EduVPN/Pods-EduVPN.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		998BDFF6902898BF53D15DB7867911FA /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A81C4CCBF0ADB38EC4E62FE099947F34 /* Pods-EduVPNTunnelExtension.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		9C5747D4B8763BDD24385EB47CA472D5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 61E4E015AB47AD40B2270B03B5B14634 /* Pods-EduVPN-redesign-iOS.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-EduVPN-redesign-iOS/Pods-EduVPN-redesign-iOS-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-EduVPN-redesign-iOS/Pods-EduVPN-redesign-iOS.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
 		};
 		B64A5712108B86728CAFDD12D5E8EF99 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1539,77 +1106,9 @@
 			};
 			name = Release;
 		};
-		B7306AA4D4E2E01A5FEF8DC29B2CB9DA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5F2C1CD2209FC92451849BB9479694BF /* Pods-EduVPN-redesign-macOS.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-EduVPN-redesign-macOS/Pods-EduVPN-redesign-macOS-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MODULEMAP_FILE = "Target Support Files/Pods-EduVPN-redesign-macOS/Pods-EduVPN-redesign-macOS.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		E03991E5502F74923D4B7A4924C43A32 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 71891D6680F13DAE43E12A80B27F6394 /* Pods-EduVPNTunnelExtension.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 		E3F9B320F9106CEA0F521DD210C94271 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FD68BF93CD61776EDF930C312BB8CD68 /* Pods-EduVPN-macOS.debug.xcconfig */;
+			baseConfigurationReference = 1CFC567F9678B9848EFA43A8148D8C8B /* Pods-EduVPN-macOS.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -1641,43 +1140,9 @@
 			};
 			name = Debug;
 		};
-		E633D228135B8F75494DEC9317422BEF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 92B2181AB36B4CFA007394FCDC129393 /* Pods-EduVPN-redesign-iOS.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-EduVPN-redesign-iOS/Pods-EduVPN-redesign-iOS-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-EduVPN-redesign-iOS/Pods-EduVPN-redesign-iOS.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 		EC8C7B649CC8DD38CD23CA27CFCC0982 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 350011DEBA9BB3AF9F5CE0BFE18D4BAA /* Pods-EduVPNTunnelExtension-macOS.release.xcconfig */;
+			baseConfigurationReference = BFB4817C4AA08BB35245B5359136E691 /* Pods-EduVPNTunnelExtension-macOS.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -1711,7 +1176,7 @@
 		};
 		F13C7B4527659670E906C9F5163CBEF6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C57C1028004C9198D2C5005DAC8EBF91 /* Pods-EduVPN-macOS.release.xcconfig */;
+			baseConfigurationReference = 06A445F08B670D9D0A0B6D99F09FB387 /* Pods-EduVPN-macOS.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -1764,24 +1229,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5238F976862E34F0835DA55A1AE2E1F4 /* Build configuration list for PBXNativeTarget "Pods-EduVPNTunnelExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E03991E5502F74923D4B7A4924C43A32 /* Debug */,
-				998BDFF6902898BF53D15DB7867911FA /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		AA0C66CF7529139669626DD977F5A469 /* Build configuration list for PBXNativeTarget "Pods-EduVPN-redesign-macOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B7306AA4D4E2E01A5FEF8DC29B2CB9DA /* Debug */,
-				24F62459EC982C4167658E3D6A9E5392 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		CB35233913943CF945CF7CDF08ED38EB /* Build configuration list for PBXNativeTarget "Pods-EduVPNTunnelExtension-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1791,20 +1238,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CB8641FF845CFEC407493D2212010A87 /* Build configuration list for PBXNativeTarget "Pods-EduVPN-redesign-iOS" */ = {
+		E22C02C4FD9A839F523FDAA77504C34B /* Build configuration list for PBXNativeTarget "Pods-EduVPN-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E633D228135B8F75494DEC9317422BEF /* Debug */,
-				9C5747D4B8763BDD24385EB47CA472D5 /* Release */,
+				274941663FB6139A85B6D4E84694D91F /* Debug */,
+				109DF24E0B81A27AADE87584CA9A2822 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FF0DF2CFE2955E5F95205A51D7933AEC /* Build configuration list for PBXNativeTarget "Pods-EduVPN" */ = {
+		E9354FC38A990A9B0BFBF656AF69B0E6 /* Build configuration list for PBXNativeTarget "Pods-EduVPNTunnelExtension-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				863E9AA1DA3218D66EAFD1B407A5867C /* Debug */,
-				01B1B1600F037BD0AB600E7EDF2AB234 /* Release */,
+				6FE5796D447AC649DC99B73A1A6FE2FC /* Debug */,
+				282DC911DD4984CBA013A0E16E7CCC01 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

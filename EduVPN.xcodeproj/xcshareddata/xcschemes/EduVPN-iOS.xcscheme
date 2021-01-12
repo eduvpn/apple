@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6F750C2C24975A4300AF2C04"
+               BlueprintIdentifier = "6F750CBD24975B9B00AF2C04"
                BuildableName = "eduVPN.app"
-               BlueprintName = "EduVPN-macOS"
+               BlueprintName = "EduVPN-iOS"
                ReferencedContainer = "container:EduVPN.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,19 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C79B63C6258A08C200C054CC"
-               BuildableName = "EduVPN-UITests-macOS.xctest"
-               BlueprintName = "EduVPN-UITests-macOS"
+               BlueprintIdentifier = "C7B439292580CE4D00FEB2B1"
+               BuildableName = "EduVPN-Tests-iOS.xctest"
+               BlueprintName = "EduVPN-Tests-iOS"
+               ReferencedContainer = "container:EduVPN.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C7B439492580D0F000FEB2B1"
+               BuildableName = "EduVPN-UITests-iOS.xctest"
+               BlueprintName = "EduVPN-UITests-iOS"
                ReferencedContainer = "container:EduVPN.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -54,9 +64,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6F750C2C24975A4300AF2C04"
+            BlueprintIdentifier = "6F750CBD24975B9B00AF2C04"
             BuildableName = "eduVPN.app"
-            BlueprintName = "EduVPN-macOS"
+            BlueprintName = "EduVPN-iOS"
             ReferencedContainer = "container:EduVPN.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -71,9 +81,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6F750C2C24975A4300AF2C04"
+            BlueprintIdentifier = "6F750CBD24975B9B00AF2C04"
             BuildableName = "eduVPN.app"
-            BlueprintName = "EduVPN-macOS"
+            BlueprintName = "EduVPN-iOS"
             ReferencedContainer = "container:EduVPN.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
