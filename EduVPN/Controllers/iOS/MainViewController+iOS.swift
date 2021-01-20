@@ -32,16 +32,15 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
-    func tableView(
-        _ tableView: UITableView,
-        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
-        -> UISwipeActionsConfiguration? {
-            let deleteAction = UIContextualAction(
-                style: .destructive,
-                title: NSLocalizedString("Delete", comment: "")) { [weak self] _, _, completionHandler in
-                    self?.deleteRow(at: indexPath.row)
-                    completionHandler(true)
-            }
-            return UISwipeActionsConfiguration(actions: [deleteAction])
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let row = viewModel.row(at: index)
+        if row.rowKind.isSectionHeader {
+            return nil
+        }
+        let deleteAction = UIContextualAction(style: .destructive, title: NSLocalizedString("Delete", comment: "")) { [weak self] _, _, completionHandler in
+            self?.deleteRow(at: indexPath.row)
+            completionHandler(true)
+        }
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
