@@ -58,7 +58,12 @@ struct OpenVPNConfigImportHelper {
     // Read the OpenVPN config from the external file URL, make sure it parses
     // correctly, then copy it into the app's storage area.
 
-    static func copyConfig(from url: URL) throws -> OpenVPNConfigInstance {
+    struct ImportResult {
+        var configInstance: OpenVPNConfigInstance
+        var hasAuthUserPass: Bool
+    }
+
+    static func copyConfig(from url: URL) throws -> ImportResult {
         guard let data = try? Data(contentsOf: url) else {
             throw OpenVPNConfigImportHelperError.openVPNConfigUnreadable
         }
@@ -67,23 +72,26 @@ struct OpenVPNConfigImportHelper {
         }
 
         let configLines = configString.components(separatedBy: .newlines)
-        let filteredLines = configLines.map {
-            $0.trimmingCharacters(in: .whitespacesAndNewlines)
-        }.filter {
-            !$0.isEmpty
-        }
-        _ = try OpenVPN.ConfigurationParser.parsed(fromLines: filteredLines)
+        let filteredLowercaseLines = configLines
+            .map { $0.lowercased().trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
 
-        let hasRemote = configLines.contains(where: { $0.lowercased().hasPrefix("remote ") })
+        let hasRemote = filteredLowercaseLines.contains(where: { $0.hasPrefix("remote ") })
+        let hasAuthUserPass = filteredLowercaseLines
+            .contains { $0 == "auth-user-pass" || $0.hasPrefix("auth-user-pass ") }
+
         guard hasRemote else {
             throw OpenVPNConfigImportHelperError.openVPNConfigHasNoRemotes
         }
+
+        _ = try OpenVPN.ConfigurationParser.parsed(fromLines: filteredLowercaseLines)
 
         let name = url.lastPathComponent
         let storagePath = UUID().uuidString
         let dataStore = PersistenceService.DataStore(path: storagePath)
         dataStore.vpnConfig = configString
 
-        return OpenVPNConfigInstance(name: name, localStoragePath: storagePath)
+        let configInstance = OpenVPNConfigInstance(name: name, localStoragePath: storagePath)
+        return ImportResult(configInstance: configInstance, hasAuthUserPass: hasAuthUserPass)
     }
 }
