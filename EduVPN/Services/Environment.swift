@@ -58,6 +58,13 @@ class Environment {
         return instantiate(ConnectionViewController.self, identifier: "Connection", parameters: parameters)
     }
 
+    func instantiateCredentialsViewController(
+        initialCredentials: OpenVPNConfigCredentials?) -> CredentialsViewController {
+        let parameters = CredentialsViewController.Parameters(
+            initialCredentials: initialCredentials)
+        return instantiate(CredentialsViewController.self, identifier: "Credentials", parameters: parameters)
+    }
+
     #if os(macOS)
     func instantiatePreferencesViewController() -> PreferencesViewController {
         let parameters = PreferencesViewController.Parameters(environment: self)
