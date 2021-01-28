@@ -172,6 +172,7 @@ extension AppDelegate {
     @IBAction func importOpenVPNConfig(_ sender: Any) {
         guard let mainWindow = mainWindow else { return }
         guard let persistenceService = environment?.persistenceService else { return }
+        guard let environment = self.environment else { return }
 
         mainWindow.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)
@@ -186,7 +187,20 @@ extension AppDelegate {
             var importError: Error?
             do {
                 let result = try OpenVPNConfigImportHelper.copyConfig(from: url)
-                persistenceService.addOpenVPNConfiguration(result.configInstance)
+                if result.hasAuthUserPass {
+                    let credentialsVC = environment.instantiateCredentialsViewController(
+                        initialCredentials: OpenVPNConfigCredentials.emptyCredentials)
+                    credentialsVC.onCredentialsSaved = { credentials in
+                        let dataStore = PersistenceService.DataStore(
+                            path: result.configInstance.localStoragePath)
+                        dataStore.openVPNConfigCredentials = credentials
+                        persistenceService.addOpenVPNConfiguration(result.configInstance)
+                        self.mainViewController?.refresh()
+                    }
+                    mainWindow.rootViewController?.presentAsSheet(credentialsVC)
+                } else {
+                    persistenceService.addOpenVPNConfiguration(result.configInstance)
+                }
             } catch {
                 importError = error
             }

@@ -19,6 +19,14 @@ struct OpenVPNConfigCredentials {
     let passwordStrategy: PasswordStrategy
 
     static let emptyCredentials: Self = Self(userName: "", passwordStrategy: .useSavedPassword(""))
+
+    var isValid: Bool {
+        if userName.isEmpty { return false }
+        if case .useSavedPassword(let password) = passwordStrategy {
+            if password.isEmpty { return false }
+        }
+        return true
+    }
 }
 
 extension OpenVPNConfigCredentials: Codable {
