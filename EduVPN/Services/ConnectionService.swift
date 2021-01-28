@@ -56,6 +56,11 @@ struct TransferredByteCount {
     let outbound: UInt64
 }
 
+struct Credentials {
+    let userName: String
+    let password: String
+}
+
 protocol ConnectionServiceProtocol: class {
 
     var initializationDelegate: ConnectionServiceInitializationDelegate? { get set }
@@ -67,7 +72,7 @@ protocol ConnectionServiceProtocol: class {
     var connectionAttemptId: UUID? { get }
     var connectedDate: Date? { get }
 
-    func enableVPN(openVPNConfig: [String], connectionAttemptId: UUID) -> Promise<Void>
+    func enableVPN(openVPNConfig: [String], connectionAttemptId: UUID, credentials: Credentials?) -> Promise<Void>
     func disableVPN() -> Promise<Void>
 
     func getNetworkAddress() -> Guarantee<NetworkAddress>
@@ -120,13 +125,15 @@ class ConnectionService: ConnectionServiceProtocol {
         }
     }
 
-    func enableVPN(openVPNConfig: [String], connectionAttemptId: UUID) -> Promise<Void> {
+    func enableVPN(openVPNConfig: [String], connectionAttemptId: UUID, credentials: Credentials?) -> Promise<Void> {
         guard let tunnelManager = tunnelManager else {
             fatalError("ConnectionService not initialized yet")
         }
         return firstly { () -> Promise<NETunnelProviderProtocol> in
             let protocolConfig = try Self.tunnelProtocolConfiguration(
-                openVPNConfig: openVPNConfig, connectionAttemptId: connectionAttemptId)
+                openVPNConfig: openVPNConfig,
+                connectionAttemptId: connectionAttemptId,
+                credentials: credentials)
             return Promise.value(protocolConfig)
         }.then { protocolConfig -> Promise<Void> in
             tunnelManager.protocolConfiguration = protocolConfig
@@ -341,7 +348,7 @@ private extension ConnectionService {
     }
 
     static func tunnelProtocolConfiguration(
-        openVPNConfig lines: [String], connectionAttemptId: UUID) throws
+        openVPNConfig lines: [String], connectionAttemptId: UUID, credentials: Credentials?) throws
         -> NETunnelProviderProtocol {
             let filteredLines = lines.map {
                 $0.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -358,9 +365,12 @@ private extension ConnectionService {
             providerConfigBuilder.shouldDebug = true
 
             let providerConfig = providerConfigBuilder.build()
+            let openVPNCredentials = credentials.map { OpenVPN.Credentials($0.userName, $0.password) }
+
             let tunnelProviderProtocolConfig = try providerConfig.generatedTunnelProtocol(
                 withBundleIdentifier: providerBundleIdentifier,
-                appGroup: appGroup)
+                appGroup: appGroup,
+                credentials: openVPNCredentials)
             tunnelProviderProtocolConfig.connectionAttemptId = connectionAttemptId
 
             return tunnelProviderProtocolConfig

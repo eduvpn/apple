@@ -342,7 +342,8 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
             self.delegate?.connectionViewModel(self, willAttemptToConnect: connectionAttempt)
             return self.connectionService.enableVPN(
                 openVPNConfig: tunnelConfigData.openVPNConfiguration,
-                connectionAttemptId: connectionAttemptId)
+                connectionAttemptId: connectionAttemptId,
+                credentials: nil)
         }.ensure {
             self.internalState = self.connectionService.isVPNEnabled ? .enabledVPN : .idle
         }
@@ -362,13 +363,21 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         guard let vpnConfigString = dataStore.vpnConfig else {
             return Promise.value(())
         }
+        let credentials: Credentials? = {
+            if let openVPNConfigCredentials = dataStore.openVPNConfigCredentials,
+               case .useSavedPassword(let password) = openVPNConfigCredentials.passwordStrategy {
+                return Credentials(userName: openVPNConfigCredentials.userName, password: password)
+            }
+            return nil
+        }()
         let vpnConfigLines = vpnConfigString.components(separatedBy: .newlines)
         self.internalState = .enableVPNRequested
         return firstly { () -> Promise<Void> in
             self.delegate?.connectionViewModel(self, willAttemptToConnect: connectionAttempt)
             return self.connectionService.enableVPN(
                 openVPNConfig: vpnConfigLines,
-                connectionAttemptId: connectionAttemptId)
+                connectionAttemptId: connectionAttemptId,
+                credentials: credentials)
         }.ensure {
             self.internalState = self.connectionService.isVPNEnabled ? .enabledVPN : .idle
         }
