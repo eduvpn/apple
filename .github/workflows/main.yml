@@ -31,7 +31,7 @@ jobs:
       uses: norio-nomura/action-swiftlint@3.0.1
 
   build-ios:
-    name: Build and test iOS target
+    name: Build iOS target
     runs-on: macOS-latest
 
     steps:
@@ -44,8 +44,8 @@ jobs:
       run: cp Config/iOS/Developer.xcconfig.eduvpn-template Config/iOS/Developer.xcconfig
     - name: Prepare config.json
       run: cp Config/iOS/config-eduvpn_new_discovery.json Config/iOS/config.json
-    - name: Run tests on iOS 14
-      run: xcodebuild test -scheme EduVPN-iOS -workspace EduVPN.xcworkspace -destination 'platform=iOS Simulator,name=iPhone 12,OS=14.3' -skip-testing EduVPN-UITests-iOS | xcpretty && exit ${PIPESTATUS[0]}
+    - name: Build for Generic iOS device
+      run: xcodebuild build -scheme EduVPN-iOS -workspace EduVPN.xcworkspace -destination 'platform=iOS Simulator,name=iPhone 12,OS=14.3' -skip-testing EduVPN-UITests-iOS | xcpretty && exit ${PIPESTATUS[0]}
 
   build-macos:
     name: Build macOS target

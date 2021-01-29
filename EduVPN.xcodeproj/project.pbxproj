@@ -28,6 +28,8 @@
 		6F116CB325345D4E00C73797 /* ConnectionInfoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE1D11A24CD952C002D3D0C /* ConnectionInfoHelper.swift */; };
 		6F116CB425345D5200C73797 /* CertificateExpiryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F57338624CD1570008912D4 /* CertificateExpiryHelper.swift */; };
 		6F116CB525345D8100C73797 /* ConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B43247FBDF5009932B1 /* ConnectionViewController.swift */; };
+		6F12815225C3E6060078E734 /* TestServerCredentialsiOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F12815125C3E6050078E734 /* TestServerCredentialsiOS.swift */; };
+		6F12816F25C3F6900078E734 /* TestServerCredentialsmacOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F12816E25C3F6900078E734 /* TestServerCredentialsmacOS.swift */; };
 		6F13E3E024977B8500E21614 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7DB4C6A248064BC009932B1 /* Assets.xcassets */; };
 		6F13E3E124977BA800E21614 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7DB4C6B248064BC009932B1 /* Main.storyboard */; };
 		6F13E3E424977C1300E21614 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = C7DB4C1A24805F9B009932B1 /* config.json */; };
@@ -300,6 +302,8 @@
 		6B9A8DF8C8CCA27F6D91B0B6 /* Pods-EduVPNTunnelExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension.release.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.release.xcconfig"; sourceTree = "<group>"; };
 		6F05E64124D0A6AA008292F6 /* ErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
 		6F116CAC2534585700C73797 /* MockConnectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockConnectionService.swift; sourceTree = "<group>"; };
+		6F12815125C3E6050078E734 /* TestServerCredentialsiOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestServerCredentialsiOS.swift; sourceTree = "<group>"; };
+		6F12816E25C3F6900078E734 /* TestServerCredentialsmacOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestServerCredentialsmacOS.swift; sourceTree = "<group>"; };
 		6F1A1C0024EE8EDB0040D6A2 /* SupportContactTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportContactTextView.swift; sourceTree = "<group>"; };
 		6F305A58254AA6C50067E744 /* LogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
 		6F36A71C24B454AA00BA8F5E /* CountryFlags.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CountryFlags.xcassets; sourceTree = "<group>"; };
@@ -835,6 +839,7 @@
 			isa = PBXGroup;
 			children = (
 				C79B63C9258A08C200C054CC /* EduVPNUITestsmacOS.swift */,
+				6F12816E25C3F6900078E734 /* TestServerCredentialsmacOS.swift */,
 				C79B63CB258A08C200C054CC /* Info.plist */,
 			);
 			path = "EduVPN-UITests-macOS";
@@ -853,6 +858,7 @@
 			isa = PBXGroup;
 			children = (
 				C7B4394C2580D0F000FEB2B1 /* EduVPNUITestsiOS.swift */,
+				6F12815125C3E6050078E734 /* TestServerCredentialsiOS.swift */,
 				C7B4394E2580D0F000FEB2B1 /* Info.plist */,
 			);
 			path = "EduVPN-UITests-iOS";
@@ -1255,19 +1261,16 @@
 					};
 					C79B63C6258A08C200C054CC = {
 						CreatedOnToolsVersion = 12.2;
-						DevelopmentTeam = CRU5YWAZ4Y;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 6F750C2C24975A4300AF2C04;
 					};
 					C7B439292580CE4D00FEB2B1 = {
 						CreatedOnToolsVersion = 12.2;
-						DevelopmentTeam = CRU5YWAZ4Y;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 6F750CBD24975B9B00AF2C04;
 					};
 					C7B439492580D0F000FEB2B1 = {
 						CreatedOnToolsVersion = 12.2;
-						DevelopmentTeam = CRU5YWAZ4Y;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 6F750CBD24975B9B00AF2C04;
 					};
@@ -1738,6 +1741,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F12816F25C3F6900078E734 /* TestServerCredentialsmacOS.swift in Sources */,
 				C79B63CA258A08C200C054CC /* EduVPNUITestsmacOS.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1755,6 +1759,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7B4394D2580D0F000FEB2B1 /* EduVPNUITestsiOS.swift in Sources */,
+				6F12815225C3E6060078E734 /* TestServerCredentialsiOS.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2500,7 +2505,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "EduVPN-UITests-macOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID).EduVPN-UITests-macOS";
@@ -2525,7 +2529,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "EduVPN-UITests-macOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID).EduVPN-UITests-macOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -99,3 +99,49 @@ $ vim Config/iOS/Developer.xcconfig # Edit as reqd.
 
 Then, open `EduVPN.xcworkspace` in Xcode and build the 'EduVPN-iOS' target.
 
+## Testing
+
+The app can be tested using UI tests written using XCUITest.
+
+The tests can modify the app data, so to avoid losing your added
+servers, it's recommended that you use a separate app bundle identifier
+for running the UI tests. The app bundle identifier is configurable in
+Developer.xcconfig or Developer-macOS.xcconfig as specified above.
+
+### Testing the eduVPN iOS app
+
+The iOS UI tests are intended to be run on a physical device (not on the
+iOS Simulator).
+
+Before running the tests, specify the server credentials:
+
+```
+$ cp EduVPN-UITests-iOS/TestServerCredentialsiOS.swift-template EduVPN-UITests-iOS/TestServerCredentialsiOS.swift
+$ vim EduVPN-UITests-iOS/TestServerCredentialsiOS.swift # Enter credentials
+```
+
+Then:
+ 1. Open `EduVPN.xcworkspace` in Xcode
+ 2. In the scheme selector breadcrumb panel, select the 'EduVPN-iOS'
+    scheme and your connected iDevice
+ 3. Click on Product > Test
+
+Do not use the iDevice when the test is running.
+
+### Testing the eduVPN macOS app
+
+Before running the tests, specify the server credentials:
+
+```
+$ cp EduVPN-UITests-macOS/TestServerCredentialsmacOS.swift-template EduVPN-UITests-iOS/TestServerCredentialsmacOS.swift
+$ vim EduVPN-UITests-macOS/TestServerCredentialsmacOS.swift # Enter credentials
+```
+
+Then:
+ 1. Open a new window in Safari.app
+ 2. Open `EduVPN.xcworkspace` in Xcode
+ 3. In the scheme selector breadcrumb panel, select the 'EduVPN-iOS'
+    scheme and the macOS machine
+ 4. Click on Product > Test
+
+Do not use the macOS machine when the test is running.
