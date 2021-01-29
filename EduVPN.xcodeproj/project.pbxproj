@@ -29,6 +29,7 @@
 		6F116CB425345D5200C73797 /* CertificateExpiryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F57338624CD1570008912D4 /* CertificateExpiryHelper.swift */; };
 		6F116CB525345D8100C73797 /* ConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B43247FBDF5009932B1 /* ConnectionViewController.swift */; };
 		6F12815225C3E6060078E734 /* TestServerCredentialsiOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F12815125C3E6050078E734 /* TestServerCredentialsiOS.swift */; };
+		6F12816F25C3F6900078E734 /* TestServerCredentialsmacOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F12816E25C3F6900078E734 /* TestServerCredentialsmacOS.swift */; };
 		6F13E3E024977B8500E21614 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7DB4C6A248064BC009932B1 /* Assets.xcassets */; };
 		6F13E3E124977BA800E21614 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7DB4C6B248064BC009932B1 /* Main.storyboard */; };
 		6F13E3E424977C1300E21614 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = C7DB4C1A24805F9B009932B1 /* config.json */; };
@@ -302,6 +303,7 @@
 		6F05E64124D0A6AA008292F6 /* ErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
 		6F116CAC2534585700C73797 /* MockConnectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockConnectionService.swift; sourceTree = "<group>"; };
 		6F12815125C3E6050078E734 /* TestServerCredentialsiOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestServerCredentialsiOS.swift; sourceTree = "<group>"; };
+		6F12816E25C3F6900078E734 /* TestServerCredentialsmacOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestServerCredentialsmacOS.swift; sourceTree = "<group>"; };
 		6F1A1C0024EE8EDB0040D6A2 /* SupportContactTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportContactTextView.swift; sourceTree = "<group>"; };
 		6F305A58254AA6C50067E744 /* LogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
 		6F36A71C24B454AA00BA8F5E /* CountryFlags.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CountryFlags.xcassets; sourceTree = "<group>"; };
@@ -837,6 +839,7 @@
 			isa = PBXGroup;
 			children = (
 				C79B63C9258A08C200C054CC /* EduVPNUITestsmacOS.swift */,
+				6F12816E25C3F6900078E734 /* TestServerCredentialsmacOS.swift */,
 				C79B63CB258A08C200C054CC /* Info.plist */,
 			);
 			path = "EduVPN-UITests-macOS";
@@ -1738,6 +1741,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F12816F25C3F6900078E734 /* TestServerCredentialsmacOS.swift in Sources */,
 				C79B63CA258A08C200C054CC /* EduVPNUITestsmacOS.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
