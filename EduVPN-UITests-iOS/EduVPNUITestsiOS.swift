@@ -8,18 +8,21 @@
 
 import XCTest
 
-struct Credentials {
+struct DemoInstituteAccessServerCredentials {
+    let username: String
+    let password: String
+}
+
+struct CustomServerCredentials {
     let host: String
     let username: String
     let password: String
 }
 
-// Fill these before running the tests
-//let demoCredentials = Credentials(host: <#T##String#>, username: <#T##String#>, password: <#T##String#>)
-//let customCredentials = Credentials(host: <#T##String#>, username: <#T##String#>, password: <#T##String#>)
-// These need to be here so the tests at least compile on GitHub Actions
-let demoCredentials = Credentials(host: "", username: "", password: "")
-let customCredentials = Credentials(host: "", username: "", password: "")
+struct TestServerCredentials {
+    let demoInstituteAccessServerCredentials: DemoInstituteAccessServerCredentials?
+    let customServerCredentials: CustomServerCredentials?
+}
 
 class EduVPNUITestsiOS: XCTestCase {
 
@@ -129,9 +132,13 @@ class EduVPNUITestsiOS: XCTestCase {
         thenIShouldSeeCell(app, label: "Demo")
     }
     
-    func testAddInstituteAccess() {
+    func testAddInstituteAccess() throws {
         // Scenario: Adding a provider for institute access
-        
+
+        guard let demoCredentials = testServerCredentialsiOS.demoInstituteAccessServerCredentials else {
+            throw XCTSkip("No credentials provided for Demo Institute Access server")
+        }
+
         // Given I launched a configured app
         let app = givenILaunchedAConfiguredApp()
         
@@ -154,7 +161,7 @@ class EduVPNUITestsiOS: XCTestCase {
         whenITapCell(app, label: "Demo")
         
         // When I authenticate with Demo
-        whenIAuthenticateWithDemo(app)
+        whenIAuthenticateWithDemo(app, credentials: demoCredentials)
     }
     
     func testAddSecureInternet() {
@@ -197,9 +204,13 @@ class EduVPNUITestsiOS: XCTestCase {
         thenIShouldSeeScreenWithTitle(app, title: "Add Server")
     }
     
-    func testAddCustomServer() {
+    func testAddCustomServer() throws {
         // Scenario: A custom server can be added and connected to
-        
+
+        guard let customCredentials = testServerCredentialsiOS.customServerCredentials else {
+            throw XCTSkip("No credentials provided for custom server")
+        }
+
         // Given I launched a freshly installed app
         let app = givenILaunchedAFreshlyInstalledApp()
         
@@ -346,9 +357,13 @@ class EduVPNUITestsiOS: XCTestCase {
         thenIShouldNotSeeCell(app, label: "Demo")
     }
     
-    func testConnectVPN() {
+    func testConnectVPN() throws {
         // Scenario: Should be able to setup connection
-        
+
+        guard let demoCredentials = testServerCredentialsiOS.demoInstituteAccessServerCredentials else {
+            throw XCTSkip("No credentials provided for Demo Institute Access server")
+        }
+
         // Given I launched a configured app
         let app = givenILaunchedAConfiguredApp()
         
@@ -367,7 +382,7 @@ class EduVPNUITestsiOS: XCTestCase {
         if needAuthentication {
        
             // When I authenticate with Demo
-            whenIAuthenticateWithDemo(app)
+            whenIAuthenticateWithDemo(app, credentials: demoCredentials)
             
         }
         
@@ -658,7 +673,10 @@ private extension EduVPNUITestsiOS {
         app.swipeUp() // Interaction with app needed for some reasone
     }
 
-    private func whenIAuthenticateWithDemo(_ app: XCUIApplication) {
+    private func whenIAuthenticateWithDemo(
+        _ app: XCUIApplication,
+        credentials: DemoInstituteAccessServerCredentials) {
+
         // When I tap "Continue" button in system alert
         whenITapButtonInSystemAlert(app, label: "Continue")
         
@@ -684,13 +702,13 @@ private extension EduVPNUITestsiOS {
         whenIStartTypingInTheTextfield(app, label: "e.g. user@gmail.com")
         
         // When I type "********"
-        whenIType(app, text: demoCredentials.username)
+        whenIType(app, text: credentials.username)
         
         // When I start typing in the secure "Password" textfield
         whenIStartTypingInTheSecureTextfield(app, label: "Password")
         
         // When I type "********"
-        whenIType(app, text: demoCredentials.password)
+        whenIType(app, text: credentials.password)
         
         // When I tap "Done" button
         whenITapButton(app, label: "Done")
@@ -707,7 +725,7 @@ private extension EduVPNUITestsiOS {
         if needApproval {
             
             // Then I should see webpage with host "host"
-            thenIShouldSeeWebpageWithHost(app, host: demoCredentials.host)
+            thenIShouldSeeWebpageWithHost(app, host: "demo.eduvpn.nl")
             
             // When I tap "Approve" button
             whenITapButton(app, label: "Approve")
