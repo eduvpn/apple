@@ -70,6 +70,13 @@ class Environment {
         let parameters = PreferencesViewController.Parameters(environment: self)
         return instantiate(PreferencesViewController.self, identifier: "Preferences", parameters: parameters)
     }
+
+    func instantiatePasswordEntryViewController(
+        configName: String, userName: String, initialPassword: String) -> PasswordEntryViewController {
+        let parameters = PasswordEntryViewController.Parameters(
+            configName: configName, userName: userName, initialPassword: initialPassword)
+        return instantiate(PasswordEntryViewController.self, identifier: "PasswordEntry", parameters: parameters)
+    }
     #endif
 
     #if os(iOS)
