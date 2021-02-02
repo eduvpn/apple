@@ -357,12 +357,12 @@ private extension ConnectionViewController {
         #endif
         }
 
-        beginVPNConfigConnectionFlow(with: credentials)
+        beginVPNConfigConnectionFlow(with: credentials, shouldDisableVPNOnError: true)
     }
 
-    private func beginVPNConfigConnectionFlow(with credentials: Credentials?) {
+    private func beginVPNConfigConnectionFlow(with credentials: Credentials?, shouldDisableVPNOnError: Bool) {
         firstly { () -> Promise<Void> in
-            return viewModel.beginVPNConfigConnectionFlow(credentials: credentials)
+            return viewModel.beginVPNConfigConnectionFlow(credentials: credentials, shouldDisableVPNOnError: shouldDisableVPNOnError)
         }.catch { error in
             os_log("Error starting VPN config connection flow: %{public}@",
                    log: Log.general, type: .error,
@@ -761,7 +761,7 @@ extension ConnectionViewController: AuthorizingViewController {
 extension ConnectionViewController: PasswordEntryViewControllerDelegate {
     func passwordEntryViewController(
         _ controller: PasswordEntryViewController, didSetCredentials credentials: Credentials) {
-        beginVPNConfigConnectionFlow(with: credentials)
+        beginVPNConfigConnectionFlow(with: credentials, shouldDisableVPNOnError: false)
     }
 
     func passwordEntryViewControllerDidDisableVPN(

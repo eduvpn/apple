@@ -72,7 +72,9 @@ protocol ConnectionServiceProtocol: class {
     var connectionAttemptId: UUID? { get }
     var connectedDate: Date? { get }
 
-    func enableVPN(openVPNConfig: [String], connectionAttemptId: UUID, credentials: Credentials?) -> Promise<Void>
+    func enableVPN(openVPNConfig: [String], connectionAttemptId: UUID,
+                   credentials: Credentials?,
+                   shouldDisableVPNOnError: Bool) -> Promise<Void>
     func disableVPN() -> Promise<Void>
 
     func getNetworkAddress() -> Guarantee<NetworkAddress>
@@ -125,7 +127,8 @@ class ConnectionService: ConnectionServiceProtocol {
         }
     }
 
-    func enableVPN(openVPNConfig: [String], connectionAttemptId: UUID, credentials: Credentials?) -> Promise<Void> {
+    func enableVPN(openVPNConfig: [String], connectionAttemptId: UUID,
+                   credentials: Credentials?, shouldDisableVPNOnError: Bool) -> Promise<Void> {
         guard let tunnelManager = tunnelManager else {
             fatalError("ConnectionService not initialized yet")
         }
@@ -158,16 +161,18 @@ class ConnectionService: ConnectionServiceProtocol {
                     return self.startTunnel()
                 }
             }.recover { error in
-                // If there was an error starting the tunnel, disable on-demand
-                firstly { () -> Promise<Void> in
-                    if tunnelManager.isOnDemandEnabled {
-                        return self.disableVPN()
-                    } else {
-                        return Promise.value(())
+                if shouldDisableVPNOnError {
+                    // If there was an error starting the tunnel, disable on-demand
+                    firstly { () -> Promise<Void> in
+                        if tunnelManager.isOnDemandEnabled {
+                            return self.disableVPN()
+                        } else {
+                            return Promise.value(())
+                        }
+                    }.catch { disablingError in
+                        os_log("Error disabling VPN \"%{public}@\" while recovering from error enabling VPN \"%{public}@\"",
+                               log: Log.general, type: .error, disablingError.localizedDescription, error.localizedDescription)
                     }
-                }.catch { disablingError in
-                    os_log("Error disabling VPN \"%{public}@\" while recovering from error enabling VPN \"%{public}@\"",
-                           log: Log.general, type: .error, disablingError.localizedDescription, error.localizedDescription)
                 }
                 throw error
             }

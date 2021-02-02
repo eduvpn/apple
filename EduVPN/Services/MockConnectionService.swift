@@ -32,7 +32,8 @@ class MockConnectionService: ConnectionServiceProtocol {
             }.cauterize()
     }
 
-    func enableVPN(openVPNConfig: [String], connectionAttemptId: UUID, credentials: Credentials?) -> Promise<Void> {
+    func enableVPN(openVPNConfig: [String], connectionAttemptId: UUID,
+                   credentials: Credentials?, shouldDisableVPNOnError: Bool) -> Promise<Void> {
         guard isInitialized else {
             fatalError("ConnectionService not initialized yet")
         }
