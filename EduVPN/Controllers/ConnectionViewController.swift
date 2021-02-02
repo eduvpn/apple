@@ -113,6 +113,8 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     weak var presentedConnectionInfoVC: ConnectionInfoViewController?
     #endif
 
+    var shouldPromptForPasswordOnReconnect: Bool = false
+
     func initializeParameters(_ parameters: Parameters) {
         guard self.parameters == nil else {
             fatalError("Can't initialize parameters twice")
@@ -330,17 +332,62 @@ private extension ConnectionViewController {
     }
 
     func beginVPNConfigConnectionFlow() {
+        guard let vpnConfigInstance = parameters.connectableInstance as? VPNConfigInstance else {
+            return
+        }
+
+        let dataStore = PersistenceService.DataStore(path: vpnConfigInstance.localStoragePath)
+        let openVPNConfigCredentials = dataStore.openVPNConfigCredentials
+        let credentials: Credentials?
+        switch openVPNConfigCredentials?.passwordStrategy {
+        case nil:
+            credentials = nil
+        case .useSavedPassword(let password):
+            // swiftlint:disable:next force_unwrapping
+            let userName = openVPNConfigCredentials!.userName
+            credentials = Credentials(userName: userName, password: password)
+        #if os(macOS)
+        case .askForPasswordWhenConnecting:
+            let promptCredentials = Credentials(
+                userName: openVPNConfigCredentials?.userName ?? "",
+                password: "")
+            promptForConnectionTimeVPNConfigPassword(credentials: promptCredentials)
+            shouldPromptForPasswordOnReconnect = true
+            return
+        #endif
+        }
+
+        beginVPNConfigConnectionFlow(with: credentials)
+    }
+
+    private func beginVPNConfigConnectionFlow(with credentials: Credentials?) {
         firstly { () -> Promise<Void> in
-            return viewModel.beginVPNConfigConnectionFlow()
+            return viewModel.beginVPNConfigConnectionFlow(credentials: credentials)
         }.catch { error in
-            os_log("Error continuing VPN config connection flow: %{public}@",
+            os_log("Error starting VPN config connection flow: %{public}@",
                    log: Log.general, type: .error,
                    error.localizedDescription)
             self.showAlert(for: error)
         }
     }
 
+    #if os(macOS)
+    func promptForConnectionTimeVPNConfigPassword(credentials: Credentials) {
+        guard let vpnConfigInstance = parameters.connectableInstance as? VPNConfigInstance else {
+            return
+        }
+        let environment = parameters.environment
+        let passwordEntryVC = environment.instantiatePasswordEntryViewController(
+            configName: vpnConfigInstance.name,
+            userName: credentials.userName,
+            initialPassword: credentials.password)
+        passwordEntryVC.delegate = self
+        environment.navigationController?.presentAsSheet(passwordEntryVC)
+    }
+    #endif
+
     func disableVPN() {
+        shouldPromptForPasswordOnReconnect = false
         firstly {
             viewModel.disableVPN()
         }.catch { error in
@@ -650,6 +697,14 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
             animatableChanges()
         }
     }
+
+    func connectionViewModel(
+        _ model: ConnectionViewModel, reconnectingWithCredentials credentials: Credentials?) {
+        if let credentials = credentials,
+           self.shouldPromptForPasswordOnReconnect {
+            self.promptForConnectionTimeVPNConfigPassword(credentials: credentials)
+        }
+    }
 }
 
 #if os(iOS)
@@ -701,4 +756,16 @@ extension ConnectionViewController: AuthorizingViewController {
         // Nothing to do
     }
     #endif
+}
+
+extension ConnectionViewController: PasswordEntryViewControllerDelegate {
+    func passwordEntryViewController(
+        _ controller: PasswordEntryViewController, didSetCredentials credentials: Credentials) {
+        beginVPNConfigConnectionFlow(with: credentials)
+    }
+
+    func passwordEntryViewControllerDidDisableVPN(
+        _ controller: PasswordEntryViewController) {
+        disableVPN()
+    }
 } // swiftlint:disable:this file_length
