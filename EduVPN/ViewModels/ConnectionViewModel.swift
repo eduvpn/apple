@@ -217,7 +217,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
          serverDisplayInfo: ServerDisplayInfo,
          serverAPIService: ServerAPIService,
          authURLTemplate: String?,
-         restoringConnectionAttempt: ConnectionAttempt?) {
+         restoringPreConnectionState: ConnectionAttempt.ServerPreConnectionState?) {
 
         self.connectableInstance = server
         self.connectionService = connectionService
@@ -236,20 +236,16 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         dataStore = PersistenceService.DataStore(path: server.localStoragePath)
         connectionService.statusDelegate = self
 
-        if let connectionAttempt = restoringConnectionAttempt {
-            precondition(connectionAttempt.connectableInstance is ServerInstance)
-            precondition(connectionAttempt.preConnectionState != nil)
-            if let preConnectionState = connectionAttempt.preConnectionState {
-                self.profiles = preConnectionState.profiles
-                self.connectingProfile = preConnectionState.profiles.first(
-                    where: { $0.profileId == preConnectionState.selectedProfileId })
-                self.certificateExpiryHelper = CertificateExpiryHelper(
-                    validFrom: preConnectionState.certificateValidFrom,
-                    expiresAt: preConnectionState.certificateExpiresAt,
-                    handler: { [weak self] certificateStatus in
-                        self?.certificateStatus = certificateStatus
-                    })
-            }
+        if let preConnectionState = restoringPreConnectionState {
+            profiles = preConnectionState.profiles
+            connectingProfile = preConnectionState.profiles
+                .first(where: { $0.profileId == preConnectionState.selectedProfileId })
+            certificateExpiryHelper = CertificateExpiryHelper(
+                validFrom: preConnectionState.certificateValidFrom,
+                expiresAt: preConnectionState.certificateExpiresAt,
+                handler: { [weak self] certificateStatus in
+                    self?.certificateStatus = certificateStatus
+                })
             internalState = .enabledVPN
         }
     }
@@ -257,7 +253,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
     init(vpnConfigInstance: VPNConfigInstance,
          connectionService: ConnectionServiceProtocol,
          serverDisplayInfo: ServerDisplayInfo,
-         restoringConnectionAttempt: ConnectionAttempt?) {
+         restoringPreConnectionState: ConnectionAttempt.VPNConfigPreConnectionState?) {
 
         self.connectableInstance = vpnConfigInstance
         self.connectionService = connectionService
@@ -276,8 +272,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         dataStore = PersistenceService.DataStore(path: vpnConfigInstance.localStoragePath)
         connectionService.statusDelegate = self
 
-        if let connectionAttempt = restoringConnectionAttempt {
-            precondition(connectionAttempt.connectableInstance is VPNConfigInstance)
+        if restoringPreConnectionState != nil {
             internalState = .enabledVPN
         }
     }
@@ -364,6 +359,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         let connectionAttemptId = UUID()
         let connectionAttempt = ConnectionAttempt(
             vpnConfigInstance: vpnConfigInstance,
+            shouldAskForPasswordOnReconnect: false,
             attemptId: connectionAttemptId)
         let dataStore = PersistenceService.DataStore(path: vpnConfigInstance.localStoragePath)
         guard let vpnConfigString = dataStore.vpnConfig else {

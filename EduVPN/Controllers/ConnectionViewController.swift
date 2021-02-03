@@ -38,7 +38,10 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         let connectableInstance: ConnectableInstance
         let serverDisplayInfo: ServerDisplayInfo
         let authURLTemplate: String?
-        let restoringConnectionAttempt: ConnectionAttempt?
+
+        // If restoringPreConnectionState is non-nil, then we're restoring
+        // the UI at app launch for an already-on VPN
+        let restoringPreConnectionState: ConnectionAttempt.PreConnectionState?
     }
 
     weak var delegate: ConnectionViewControllerDelegate?
@@ -52,7 +55,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     private var selectedProfileId: String? {
         didSet {
             if let server = parameters.connectableInstance as? ServerInstance {
-                dataStore.setSelectedProfileId(
+                dataStore?.setSelectedProfileId(
                     profileId: selectedProfileId,
                     for: server.apiBaseURLString)
             }
@@ -122,36 +125,34 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         self.parameters = parameters
 
         if let server = parameters.connectableInstance as? ServerInstance {
+            let serverPreConnectionState = parameters.restoringPreConnectionState?.serverState
             self.viewModel = ConnectionViewModel(
                 server: server,
                 connectionService: parameters.environment.connectionService,
                 serverDisplayInfo: parameters.serverDisplayInfo,
                 serverAPIService: parameters.environment.serverAPIService,
                 authURLTemplate: parameters.authURLTemplate,
-                restoringConnectionAttempt: parameters.restoringConnectionAttempt)
+                restoringPreConnectionState: serverPreConnectionState)
+            if let serverPreConnectionState = serverPreConnectionState {
+                self.profiles = serverPreConnectionState.profiles
+                self.selectedProfileId = serverPreConnectionState.selectedProfileId
+            } else {
+                self.profiles = []
+                self.selectedProfileId = dataStore.selectedProfileId(for: server.apiBaseURLString)
+            }
         } else if let vpnConfigInstance = parameters.connectableInstance as? VPNConfigInstance {
+            let vpnConfigPreConnectionState = parameters.restoringPreConnectionState?.vpnConfigState
             self.viewModel = ConnectionViewModel(
                 vpnConfigInstance: vpnConfigInstance,
                 connectionService: parameters.environment.connectionService,
                 serverDisplayInfo: parameters.serverDisplayInfo,
-                restoringConnectionAttempt: parameters.restoringConnectionAttempt)
+                restoringPreConnectionState: vpnConfigPreConnectionState)
         } else {
             fatalError("Unknown connectable instance: \(parameters.connectableInstance)")
         }
 
+        self.isRestored = (parameters.restoringPreConnectionState != nil)
         self.dataStore = PersistenceService.DataStore(path: parameters.connectableInstance.localStoragePath)
-
-        if let restoringConnectionAttempt = parameters.restoringConnectionAttempt {
-            if let server = parameters.connectableInstance as? ServerInstance {
-                if let preConnectionState = restoringConnectionAttempt.preConnectionState {
-                    self.profiles = preConnectionState.profiles
-                    self.selectedProfileId = preConnectionState.selectedProfileId
-                } else {
-                    self.selectedProfileId = dataStore.selectedProfileId(for: server.apiBaseURLString)
-                }
-            }
-            self.isRestored = true
-        }
     }
 
     override func viewDidLoad() {
