@@ -40,6 +40,8 @@
 		6F36A79B24B6ED5D00BA8F5E /* SearchViewController+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F36A79A24B6ED5D00BA8F5E /* SearchViewController+macOS.swift */; };
 		6F36A79D24B6F5BA00BA8F5E /* MainViewController+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F36A79C24B6F5BA00BA8F5E /* MainViewController+macOS.swift */; };
 		6F42B1A624E333A800800FAC /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		6F4C1ED525D12D710042AD95 /* SharedTunnelOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4C1ED425D12D710042AD95 /* SharedTunnelOptions.swift */; };
+		6F4C1ED625D12D710042AD95 /* SharedTunnelOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4C1ED425D12D710042AD95 /* SharedTunnelOptions.swift */; };
 		6F50408D254C33C50071AA66 /* ConnectionViewModel+SupportContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F50408C254C33C50071AA66 /* ConnectionViewModel+SupportContact.swift */; };
 		6F50408E254C33C50071AA66 /* ConnectionViewModel+SupportContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F50408C254C33C50071AA66 /* ConnectionViewModel+SupportContact.swift */; };
 		6F57338724CD1570008912D4 /* CertificateExpiryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F57338624CD1570008912D4 /* CertificateExpiryHelper.swift */; };
@@ -315,6 +317,7 @@
 		6F36A71E24B5A36E00BA8F5E /* MainSecureInternetSectionHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSecureInternetSectionHeaderCell.swift; sourceTree = "<group>"; };
 		6F36A79A24B6ED5D00BA8F5E /* SearchViewController+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController+macOS.swift"; sourceTree = "<group>"; };
 		6F36A79C24B6F5BA00BA8F5E /* MainViewController+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+macOS.swift"; sourceTree = "<group>"; };
+		6F4C1ED425D12D710042AD95 /* SharedTunnelOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTunnelOptions.swift; sourceTree = "<group>"; };
 		6F50408C254C33C50071AA66 /* ConnectionViewModel+SupportContact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConnectionViewModel+SupportContact.swift"; sourceTree = "<group>"; };
 		6F57338624CD1570008912D4 /* CertificateExpiryHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateExpiryHelper.swift; sourceTree = "<group>"; };
 		6F59A58624F51DEB00560155 /* server_list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = server_list.json; sourceTree = "<group>"; };
@@ -586,6 +589,7 @@
 			isa = PBXGroup;
 			children = (
 				349D85C422B706A4006E9540 /* PacketTunnelProvider.swift */,
+				6F4C1ED425D12D710042AD95 /* SharedTunnelOptions.swift */,
 				349D85C622B706A4006E9540 /* Info.plist */,
 				349D85C722B706A4006E9540 /* EduVPNTunnelExtension_macOS.entitlements */,
 			);
@@ -1728,6 +1732,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				349D85C522B706A4006E9540 /* PacketTunnelProvider.swift in Sources */,
+				6F4C1ED525D12D710042AD95 /* SharedTunnelOptions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1785,6 +1790,7 @@
 				6FEF30FF24A325860026C786 /* RowCell.swift in Sources */,
 				6FADF83124ADF86700B75E8D /* Log.swift in Sources */,
 				6FEF313B24A717570026C786 /* ServerAuthService.swift in Sources */,
+				6F4C1ED625D12D710042AD95 /* SharedTunnelOptions.swift in Sources */,
 				6F50408D254C33C50071AA66 /* ConnectionViewModel+SupportContact.swift in Sources */,
 				6F42B1A624E333A800800FAC /* BuildFile in Sources */,
 				6FEF313D24A746AD0026C786 /* AuthState.swift in Sources */,
