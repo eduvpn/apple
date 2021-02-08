@@ -345,7 +345,9 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
             return self.connectionService.enableVPN(
                 openVPNConfig: tunnelConfigData.openVPNConfiguration,
                 connectionAttemptId: connectionAttemptId,
-                credentials: nil, shouldDisableVPNOnError: true)
+                credentials: nil,
+                shouldDisableVPNOnError: true,
+                shouldPreventAutomaticConnections: false)
         }.ensure {
             self.internalState = self.connectionService.isVPNEnabled ? .enabledVPN : .idle
         }
@@ -374,7 +376,8 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                 openVPNConfig: vpnConfigLines,
                 connectionAttemptId: connectionAttemptId,
                 credentials: credentials,
-                shouldDisableVPNOnError: shouldDisableVPNOnError)
+                shouldDisableVPNOnError: shouldDisableVPNOnError,
+                shouldPreventAutomaticConnections: false)
         }.ensure {
             self.internalState = self.connectionService.isVPNEnabled ? .enabledVPN : .idle
             self.isBeginningVPNConfigConnectionFlow = false
