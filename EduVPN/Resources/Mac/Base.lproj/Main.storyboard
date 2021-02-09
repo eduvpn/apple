@@ -536,13 +536,13 @@ Gw
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView wantsLayer="YES" horizontalHuggingPriority="100" borderType="none" autohidesScrollers="YES" horizontalLineScroll="60" horizontalPageScroll="10" verticalLineScroll="60" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ViX-vU-MfI" userLabel="Table Container View">
-                                <rect key="frame" x="20" y="20" width="1663" height="14"/>
+                                <rect key="frame" x="20" y="20" width="1699" height="14"/>
                                 <clipView key="contentView" drawsBackground="NO" id="Vdj-rZ-nzW">
-                                    <rect key="frame" x="0.0" y="0.0" width="1663" height="14"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1699" height="14"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="40" usesAutomaticRowHeights="YES" viewBased="YES" floatsGroupRows="NO" id="0Se-xs-SBR">
-                                            <rect key="frame" x="0.0" y="0.0" width="1663" height="334"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1699" height="334"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="20"/>
                                             <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -771,11 +771,11 @@ Gw
                                         </constraints>
                                     </customView>
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AiJ-eh-cZR" userLabel="Top Image">
-                                        <rect key="frame" x="195" y="556" width="90" height="250"/>
+                                        <rect key="frame" x="195" y="536" width="90" height="270"/>
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="SearchScreenTopImage" id="oWj-11-tRC"/>
                                     </imageView>
                                     <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OYQ-UB-7ZA">
-                                        <rect key="frame" x="-2" y="511" width="483" height="33"/>
+                                        <rect key="frame" x="-2" y="491" width="483" height="33"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Find your institute" id="eUs-aO-u69">
                                             <font key="font" size="24" name="OpenSans-Bold"/>
                                             <color key="textColor" name="BoldUITextColor"/>
@@ -783,7 +783,7 @@ Gw
                                         </textFieldCell>
                                     </textField>
                                     <searchField wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="100" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gW1-dp-amy" customClass="SearchField" customModule="eduVPN" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="459" width="479" height="40"/>
+                                        <rect key="frame" x="0.0" y="439" width="479" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="YjK-Nc-dHe"/>
                                         </constraints>
@@ -797,16 +797,16 @@ Gw
                                         </connections>
                                     </searchField>
                                     <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="6lv-tg-3Yq" userLabel="Spinner">
-                                        <rect key="frame" x="224" y="415" width="32" height="32"/>
+                                        <rect key="frame" x="224" y="395" width="32" height="32"/>
                                     </progressIndicator>
                                     <scrollView wantsLayer="YES" horizontalHuggingPriority="100" borderType="none" autohidesScrollers="YES" horizontalLineScroll="60" horizontalPageScroll="10" verticalLineScroll="60" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hge-fJ-m1C">
-                                        <rect key="frame" x="0.0" y="0.0" width="479" height="403"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="479" height="383"/>
                                         <clipView key="contentView" drawsBackground="NO" id="73u-Eo-EqN">
-                                            <rect key="frame" x="0.0" y="0.0" width="479" height="403"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="479" height="383"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="40" usesAutomaticRowHeights="YES" viewBased="YES" floatsGroupRows="NO" id="s7r-dP-3wP">
-                                                    <rect key="frame" x="0.0" y="0.0" width="479" height="403"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="479" height="383"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="20"/>
                                                     <color key="backgroundColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.92549019607843142" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1940,14 +1940,14 @@ Gw
             <objects>
                 <viewController storyboardIdentifier="PasswordEntry" id="47s-WU-LYa" userLabel="Password Entry View Controller" customClass="PasswordEntryViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="3TT-vr-bat">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="213"/>
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="260"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tuK-WV-8Re">
-                                <rect key="frame" x="20" y="20" width="410" height="153"/>
+                                <rect key="frame" x="46" y="20" width="358" height="200"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="horizontal" alignment="firstBaseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GV1-e2-WBK" userLabel="Configuration Stack View">
-                                        <rect key="frame" x="0.0" y="129" width="278" height="24"/>
+                                        <rect key="frame" x="0.0" y="176" width="278" height="24"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Nbd-gN-9kM">
                                                 <rect key="frame" x="-2" y="5" width="154" height="19"/>
@@ -1982,7 +1982,7 @@ Gw
                                         </customSpacing>
                                     </stackView>
                                     <stackView distribution="fill" orientation="horizontal" alignment="firstBaseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="boo-8P-imQ" userLabel="Username Stack View">
-                                        <rect key="frame" x="0.0" y="97" width="225" height="24"/>
+                                        <rect key="frame" x="0.0" y="144" width="225" height="24"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DIO-63-F6L">
                                                 <rect key="frame" x="-2" y="5" width="154" height="19"/>
@@ -2017,7 +2017,7 @@ Gw
                                         </customSpacing>
                                     </stackView>
                                     <stackView distribution="fill" orientation="horizontal" alignment="firstBaseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tcl-qU-V4f" userLabel="Password Stack View">
-                                        <rect key="frame" x="0.0" y="65" width="358" height="24"/>
+                                        <rect key="frame" x="0.0" y="112" width="358" height="24"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h2i-Fx-jfV" userLabel="Password:">
                                                 <rect key="frame" x="-2" y="5" width="154" height="19"/>
@@ -2061,17 +2061,17 @@ Gw
                                         </customSpacing>
                                     </stackView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="4uy-g7-QpN" userLabel="Spacer">
-                                        <rect key="frame" x="0.0" y="37" width="60" height="20"/>
+                                        <rect key="frame" x="0.0" y="84" width="60" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="Voh-3o-gbz"/>
                                             <constraint firstAttribute="height" constant="20" id="c3f-sw-IfP"/>
                                         </constraints>
                                     </customView>
                                     <stackView distribution="fill" orientation="horizontal" alignment="firstBaseline" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="59G-ZM-Jc1" userLabel="Button Row Stack View">
-                                        <rect key="frame" x="158" y="0.0" width="252" height="29"/>
+                                        <rect key="frame" x="106" y="0.0" width="252" height="76"/>
                                         <subviews>
                                             <button horizontalHuggingPriority="850" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4MC-qa-HGo" userLabel="Disable VPN">
-                                                <rect key="frame" x="-6" y="1" width="132" height="32"/>
+                                                <rect key="frame" x="-6" y="48" width="132" height="32"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="6ka-yF-V3p"/>
                                                 </constraints>
@@ -2087,7 +2087,7 @@ Gw
                                                 </connections>
                                             </button>
                                             <button horizontalHuggingPriority="850" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="B2r-f0-9xY" userLabel="Connect">
-                                                <rect key="frame" x="126" y="1" width="132" height="32"/>
+                                                <rect key="frame" x="126" y="48" width="132" height="32"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="vuH-SG-nhv"/>
                                                 </constraints>
@@ -2130,10 +2130,11 @@ Gw
                             </stackView>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="tuK-WV-8Re" secondAttribute="trailing" constant="20" id="4H0-YS-PvA"/>
+                            <constraint firstItem="tuK-WV-8Re" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3TT-vr-bat" secondAttribute="leading" constant="20" id="4CW-3x-GX2"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tuK-WV-8Re" secondAttribute="trailing" constant="20" id="H7W-5c-uTi"/>
+                            <constraint firstItem="tuK-WV-8Re" firstAttribute="centerX" secondItem="3TT-vr-bat" secondAttribute="centerX" id="IUf-zt-Ia1"/>
                             <constraint firstAttribute="bottom" secondItem="tuK-WV-8Re" secondAttribute="bottom" constant="20" id="Wm3-pb-c04"/>
                             <constraint firstItem="tuK-WV-8Re" firstAttribute="top" secondItem="3TT-vr-bat" secondAttribute="top" constant="40" id="Yf4-rB-hmS"/>
-                            <constraint firstItem="tuK-WV-8Re" firstAttribute="leading" secondItem="3TT-vr-bat" secondAttribute="leading" constant="20" id="Zc2-jI-wJ6"/>
                         </constraints>
                     </view>
                     <connections>
@@ -2158,7 +2159,7 @@ Gw
         <image name="SearchScreenTopImage" width="90" height="80"/>
         <image name="SettingsButton" width="20" height="20"/>
         <image name="SettingsButtonSelected" width="20" height="20"/>
-        <image name="TopBarLogo" width="440" height="130"/>
+        <image name="TopBarLogo" width="135" height="40"/>
         <image name="buttonCell:any-W4-2O1:alternateImage" width="70" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMSAAGGoF8QD05T
@@ -25083,7 +25084,7 @@ AAAAAAAAAAAAAAAQ5ZY
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="RegularUITextColor">
-            <color red="0.31400001049041748" green="0.31400001049041748" blue="0.31400001049041748" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.31372549019607843" green="0.31372549019607843" blue="0.31372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
