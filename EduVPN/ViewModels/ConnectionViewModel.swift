@@ -94,6 +94,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         case none
         case profileSelector([ProfileListResponse.Profile])
         case renewSessionButton
+        case setCredentialsButton
         case spinner
     }
 
@@ -530,6 +531,9 @@ private extension ConnectionViewModel {
                 connectionStatus == .disconnecting ||
                 connectionStatus == .reasserting {
                 return .spinner
+            }
+            if connectionStatus == .disconnected && connectableInstance is VPNConfigInstance {
+                return .setCredentialsButton
             }
             return .none
         }()
