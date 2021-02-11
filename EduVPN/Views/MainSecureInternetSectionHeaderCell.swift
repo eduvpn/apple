@@ -126,7 +126,7 @@ class MainSecureInternetSectionHeaderCell: SectionHeaderCell {
 #if os(iOS)
 extension MainSecureInternetSectionHeaderCell: ItemSelectionViewControllerDelegate {
     func itemSelectionViewController(_ viewController: ItemSelectionViewController, didSelectIndex index: Int) {
-        guard index > 0 && index < serverEntries.count else { return }
+        guard index >= 0 && index < serverEntries.count else { return }
         let serverEntry = serverEntries[index]
         if serverEntry.baseURLString != selectedBaseURLString {
             onLocationChanged?(serverEntry.baseURLString)
