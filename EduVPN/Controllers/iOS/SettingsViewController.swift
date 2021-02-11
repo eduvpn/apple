@@ -113,8 +113,8 @@ extension SettingsViewController: UIDocumentPickerDelegate {
         let persistenceService = parameters.environment.persistenceService
         var importError: Error?
         do {
-            let instance = try OpenVPNConfigImportHelper.copyConfig(from: url)
-            persistenceService.addOpenVPNConfiguration(instance)
+            let result = try OpenVPNConfigImportHelper.copyConfig(from: url)
+            persistenceService.addOpenVPNConfiguration(result.configInstance)
         } catch {
             importError = error
         }

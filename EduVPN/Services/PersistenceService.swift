@@ -270,6 +270,10 @@ extension PersistenceService {
             rootURL.appendingPathComponent("vpn_config")
         }
 
+        private var openVPNConfigCredentialsURL: URL {
+            rootURL.appendingPathComponent("openvpn_config_credentials.bin")
+        }
+
         var authState: AuthState? {
             get {
                 if let data = try? Data(contentsOf: authStateURL),
@@ -324,6 +328,28 @@ extension PersistenceService {
             set(value) {
                 let data = value?.data(using: .utf8) ?? Data()
                 PersistenceService.write(data, to: vpnConfigURL, atomically: true)
+            }
+        }
+
+        var openVPNConfigCredentials: OpenVPNConfigCredentials? {
+            get {
+                if let data = try? Data(contentsOf: openVPNConfigCredentialsURL),
+                    let clearTextData = Crypto.shared.decrypt(data: data) {
+                    return try? JSONDecoder().decode(OpenVPNConfigCredentials.self, from: clearTextData)
+                }
+                return nil
+            }
+            set(value) {
+                if let value = value {
+                    if let data = try? JSONEncoder().encode(value),
+                       let encryptedData = try? Crypto.shared.encrypt(data: data) {
+                        PersistenceService.write(encryptedData, to: openVPNConfigCredentialsURL, atomically: true)
+                    }
+                } else {
+                    if FileManager.default.fileExists(atPath: openVPNConfigCredentialsURL.path) {
+                        try? FileManager.default.removeItem(at: openVPNConfigCredentialsURL)
+                    }
+                }
             }
         }
 

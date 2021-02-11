@@ -50,18 +50,34 @@ class Environment {
 
     func instantiateConnectionViewController(
         connectableInstance: ConnectableInstance, serverDisplayInfo: ServerDisplayInfo, authURLTemplate: String? = nil,
-        restoringConnectionAttempt: ConnectionAttempt? = nil) -> ConnectionViewController {
+        restoringPreConnectionState: ConnectionAttempt.PreConnectionState? = nil) -> ConnectionViewController {
         let parameters = ConnectionViewController.Parameters(
             environment: self, connectableInstance: connectableInstance, serverDisplayInfo: serverDisplayInfo,
             authURLTemplate: authURLTemplate,
-            restoringConnectionAttempt: restoringConnectionAttempt)
+            restoringPreConnectionState: restoringPreConnectionState)
         return instantiate(ConnectionViewController.self, identifier: "Connection", parameters: parameters)
     }
+
+    #if os(macOS)
+    func instantiateCredentialsViewController(
+        initialCredentials: OpenVPNConfigCredentials?) -> CredentialsViewController {
+        let parameters = CredentialsViewController.Parameters(
+            initialCredentials: initialCredentials)
+        return instantiate(CredentialsViewController.self, identifier: "Credentials", parameters: parameters)
+    }
+    #endif
 
     #if os(macOS)
     func instantiatePreferencesViewController() -> PreferencesViewController {
         let parameters = PreferencesViewController.Parameters(environment: self)
         return instantiate(PreferencesViewController.self, identifier: "Preferences", parameters: parameters)
+    }
+
+    func instantiatePasswordEntryViewController(
+        configName: String, userName: String, initialPassword: String) -> PasswordEntryViewController {
+        let parameters = PasswordEntryViewController.Parameters(
+            configName: configName, userName: userName, initialPassword: initialPassword)
+        return instantiate(PasswordEntryViewController.self, identifier: "PasswordEntry", parameters: parameters)
     }
     #endif
 

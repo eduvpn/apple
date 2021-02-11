@@ -56,6 +56,11 @@ struct TransferredByteCount {
     let outbound: UInt64
 }
 
+struct Credentials {
+    let userName: String
+    let password: String
+}
+
 protocol ConnectionServiceProtocol: class {
 
     var initializationDelegate: ConnectionServiceInitializationDelegate? { get set }
@@ -67,7 +72,10 @@ protocol ConnectionServiceProtocol: class {
     var connectionAttemptId: UUID? { get }
     var connectedDate: Date? { get }
 
-    func enableVPN(openVPNConfig: [String], connectionAttemptId: UUID) -> Promise<Void>
+    func enableVPN(openVPNConfig: [String], connectionAttemptId: UUID,
+                   credentials: Credentials?,
+                   shouldDisableVPNOnError: Bool,
+                   shouldPreventAutomaticConnections: Bool) -> Promise<Void>
     func disableVPN() -> Promise<Void>
 
     func getNetworkAddress() -> Guarantee<NetworkAddress>
@@ -120,13 +128,22 @@ class ConnectionService: ConnectionServiceProtocol {
         }
     }
 
-    func enableVPN(openVPNConfig: [String], connectionAttemptId: UUID) -> Promise<Void> {
+    func enableVPN(openVPNConfig: [String], connectionAttemptId: UUID,
+                   credentials: Credentials?,
+                   shouldDisableVPNOnError: Bool,
+                   shouldPreventAutomaticConnections: Bool) -> Promise<Void> {
+        #if os(iOS)
+        precondition(shouldPreventAutomaticConnections == false)
+        #endif
         guard let tunnelManager = tunnelManager else {
             fatalError("ConnectionService not initialized yet")
         }
         return firstly { () -> Promise<NETunnelProviderProtocol> in
             let protocolConfig = try Self.tunnelProtocolConfiguration(
-                openVPNConfig: openVPNConfig, connectionAttemptId: connectionAttemptId)
+                openVPNConfig: openVPNConfig,
+                connectionAttemptId: connectionAttemptId,
+                credentials: credentials,
+                shouldPreventAutomaticConnections: shouldPreventAutomaticConnections)
             return Promise.value(protocolConfig)
         }.then { protocolConfig -> Promise<Void> in
             tunnelManager.protocolConfiguration = protocolConfig
@@ -151,16 +168,18 @@ class ConnectionService: ConnectionServiceProtocol {
                     return self.startTunnel()
                 }
             }.recover { error in
-                // If there was an error starting the tunnel, disable on-demand
-                firstly { () -> Promise<Void> in
-                    if tunnelManager.isOnDemandEnabled {
-                        return self.disableVPN()
-                    } else {
-                        return Promise.value(())
+                if shouldDisableVPNOnError {
+                    // If there was an error starting the tunnel, disable on-demand
+                    firstly { () -> Promise<Void> in
+                        if tunnelManager.isOnDemandEnabled {
+                            return self.disableVPN()
+                        } else {
+                            return Promise.value(())
+                        }
+                    }.catch { disablingError in
+                        os_log("Error disabling VPN \"%{public}@\" while recovering from error enabling VPN \"%{public}@\"",
+                               log: Log.general, type: .error, disablingError.localizedDescription, error.localizedDescription)
                     }
-                }.catch { disablingError in
-                    os_log("Error disabling VPN \"%{public}@\" while recovering from error enabling VPN \"%{public}@\"",
-                           log: Log.general, type: .error, disablingError.localizedDescription, error.localizedDescription)
                 }
                 throw error
             }
@@ -274,7 +293,12 @@ private extension ConnectionService {
         }
         return Promise { resolver in
             do {
+                #if os(macOS)
+                let startTunnelOptions = StartTunnelOptions(isStartedByApp: true)
+                try tunnelManager.session.startTunnel(options: startTunnelOptions.options)
+                #else
                 try tunnelManager.session.startTunnel()
+                #endif
             } catch {
                 throw error
             }
@@ -341,7 +365,8 @@ private extension ConnectionService {
     }
 
     static func tunnelProtocolConfiguration(
-        openVPNConfig lines: [String], connectionAttemptId: UUID) throws
+        openVPNConfig lines: [String], connectionAttemptId: UUID,
+        credentials: Credentials?, shouldPreventAutomaticConnections: Bool) throws
         -> NETunnelProviderProtocol {
             let filteredLines = lines.map {
                 $0.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -358,10 +383,18 @@ private extension ConnectionService {
             providerConfigBuilder.shouldDebug = true
 
             let providerConfig = providerConfigBuilder.build()
+            let openVPNCredentials = credentials.map { OpenVPN.Credentials($0.userName, $0.password) }
+
             let tunnelProviderProtocolConfig = try providerConfig.generatedTunnelProtocol(
                 withBundleIdentifier: providerBundleIdentifier,
-                appGroup: appGroup)
+                appGroup: appGroup,
+                credentials: openVPNCredentials)
             tunnelProviderProtocolConfig.connectionAttemptId = connectionAttemptId
+            #if os(macOS)
+            tunnelProviderProtocolConfig.shouldPreventAutomaticConnections = shouldPreventAutomaticConnections
+            #elseif os(iOS)
+            precondition(shouldPreventAutomaticConnections == false)
+            #endif
 
             return tunnelProviderProtocolConfig
     }

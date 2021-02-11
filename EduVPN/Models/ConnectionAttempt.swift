@@ -24,8 +24,31 @@ struct ConnectionAttempt {
         let certificateExpiresAt: Date
     }
 
+    struct VPNConfigPreConnectionState {
+        let shouldAskForPasswordOnReconnect: Bool
+    }
+
+    enum PreConnectionState {
+        case serverState(ServerPreConnectionState)
+        case vpnConfigState(VPNConfigPreConnectionState)
+
+        var serverState: ServerPreConnectionState? {
+            switch self {
+            case .serverState(let serverState): return serverState
+            case .vpnConfigState: return nil
+            }
+        }
+
+        var vpnConfigState: VPNConfigPreConnectionState? {
+            switch self {
+            case .serverState: return nil
+            case .vpnConfigState(let vpnConfigState): return vpnConfigState
+            }
+        }
+    }
+
     let connectableInstance: ConnectableInstance
-    let preConnectionState: ServerPreConnectionState?
+    let preConnectionState: PreConnectionState
     let attemptId: UUID
 
     init(server: ServerInstance, profiles: [ProfileListResponse.Profile],
@@ -33,16 +56,19 @@ struct ConnectionAttempt {
          certificateValidityRange: ServerAPIService.CertificateValidityRange,
          attemptId: UUID) {
         self.connectableInstance = server
-        self.preConnectionState = ServerPreConnectionState(
-            profiles: profiles, selectedProfileId: selectedProfileId,
-            certificateValidFrom: certificateValidityRange.validFrom,
-            certificateExpiresAt: certificateValidityRange.expiresAt)
+        self.preConnectionState = .serverState(
+            ServerPreConnectionState(
+                profiles: profiles, selectedProfileId: selectedProfileId,
+                certificateValidFrom: certificateValidityRange.validFrom,
+                certificateExpiresAt: certificateValidityRange.expiresAt))
         self.attemptId = attemptId
     }
 
-    init(vpnConfigInstance: VPNConfigInstance, attemptId: UUID) {
+    init(vpnConfigInstance: VPNConfigInstance, shouldAskForPasswordOnReconnect: Bool, attemptId: UUID) {
         self.connectableInstance = vpnConfigInstance
-        self.preConnectionState = nil
+        self.preConnectionState = .vpnConfigState(
+            VPNConfigPreConnectionState(
+                shouldAskForPasswordOnReconnect: shouldAskForPasswordOnReconnect))
         self.attemptId = attemptId
     }
 }
@@ -53,6 +79,12 @@ extension ConnectionAttempt.ServerPreConnectionState: Codable {
         case selectedProfileId = "selected_profile_id"
         case certificateValidFrom = "certificate_valid_from"
         case certificateExpiresAt = "certificate_expires_at"
+    }
+}
+
+extension ConnectionAttempt.VPNConfigPreConnectionState: Codable {
+    enum CodingKeys: String, CodingKey {
+        case shouldAskForPasswordOnReconnect = "should_ask_for_password_on_reconnect"
     }
 }
 
@@ -79,8 +111,18 @@ extension ConnectionAttempt: Codable {
         } else {
             throw ConnectionAttemptDecodingError.unknownConnectableInstance
         }
-        preConnectionState = try container.decodeIfPresent(
-            ServerPreConnectionState.self, forKey: .preConnectionState)
+        if connectableInstance is OpenVPNConfigInstance {
+            let vpnConfigState = try container.decodeIfPresent(
+                VPNConfigPreConnectionState.self, forKey: .preConnectionState) ??
+                VPNConfigPreConnectionState(shouldAskForPasswordOnReconnect: false)
+            preConnectionState = .vpnConfigState(vpnConfigState)
+        } else if connectableInstance is ServerInstance {
+            let serverState = try container.decode(
+                ServerPreConnectionState.self, forKey: .preConnectionState)
+            preConnectionState = .serverState(serverState)
+        } else {
+            throw ConnectionAttemptDecodingError.unknownConnectableInstance
+        }
         attemptId = try container.decode(UUID.self, forKey: .attemptId)
     }
 
@@ -93,8 +135,11 @@ extension ConnectionAttempt: Codable {
         } else if let openVPNConfigInstance = connectableInstance as? OpenVPNConfigInstance {
             try container.encode(openVPNConfigInstance, forKey: .openVPNConfig)
         }
-        if let preConnectionState = preConnectionState {
-            try container.encode(preConnectionState, forKey: .preConnectionState)
+        switch preConnectionState {
+        case .serverState(let serverState):
+            try container.encode(serverState, forKey: .preConnectionState)
+        case .vpnConfigState(let vpnConfigState):
+            try container.encode(vpnConfigState, forKey: .preConnectionState)
         }
         try container.encode(attemptId, forKey: .attemptId)
     }

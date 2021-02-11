@@ -41,6 +41,10 @@ protocol ConnectionViewModelDelegate: class {
     func connectionViewModel(
         _ model: ConnectionViewModel,
         connectionInfoStateChanged connectionInfoState: ConnectionViewModel.ConnectionInfoState)
+
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        didBeginConnectingWithCredentials credentials: Credentials?, shouldAskForPassword: Bool)
 }
 
 class ConnectionViewModel { // swiftlint:disable:this type_body_length
@@ -90,6 +94,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         case none
         case profileSelector([ProfileListResponse.Profile])
         case renewSessionButton
+        case setCredentialsButton
         case spinner
     }
 
@@ -205,12 +210,16 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
     private let dataStore: PersistenceService.DataStore
     private var connectingProfile: ProfileListResponse.Profile?
 
+    private var vpnConfigCredentials: Credentials?
+    private var shouldAskForPasswordOnReconnect: Bool = false
+    private var isBeginningVPNConfigConnectionFlow: Bool = false
+
     init(server: ServerInstance,
          connectionService: ConnectionServiceProtocol,
          serverDisplayInfo: ServerDisplayInfo,
          serverAPIService: ServerAPIService,
          authURLTemplate: String?,
-         restoringConnectionAttempt: ConnectionAttempt?) {
+         restoringPreConnectionState: ConnectionAttempt.ServerPreConnectionState?) {
 
         self.connectableInstance = server
         self.connectionService = connectionService
@@ -229,20 +238,16 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         dataStore = PersistenceService.DataStore(path: server.localStoragePath)
         connectionService.statusDelegate = self
 
-        if let connectionAttempt = restoringConnectionAttempt {
-            precondition(connectionAttempt.connectableInstance is ServerInstance)
-            precondition(connectionAttempt.preConnectionState != nil)
-            if let preConnectionState = connectionAttempt.preConnectionState {
-                self.profiles = preConnectionState.profiles
-                self.connectingProfile = preConnectionState.profiles.first(
-                    where: { $0.profileId == preConnectionState.selectedProfileId })
-                self.certificateExpiryHelper = CertificateExpiryHelper(
-                    validFrom: preConnectionState.certificateValidFrom,
-                    expiresAt: preConnectionState.certificateExpiresAt,
-                    handler: { [weak self] certificateStatus in
-                        self?.certificateStatus = certificateStatus
-                    })
-            }
+        if let preConnectionState = restoringPreConnectionState {
+            profiles = preConnectionState.profiles
+            connectingProfile = preConnectionState.profiles
+                .first(where: { $0.profileId == preConnectionState.selectedProfileId })
+            certificateExpiryHelper = CertificateExpiryHelper(
+                validFrom: preConnectionState.certificateValidFrom,
+                expiresAt: preConnectionState.certificateExpiresAt,
+                handler: { [weak self] certificateStatus in
+                    self?.certificateStatus = certificateStatus
+                })
             internalState = .enabledVPN
         }
     }
@@ -250,7 +255,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
     init(vpnConfigInstance: VPNConfigInstance,
          connectionService: ConnectionServiceProtocol,
          serverDisplayInfo: ServerDisplayInfo,
-         restoringConnectionAttempt: ConnectionAttempt?) {
+         restoringPreConnectionState: ConnectionAttempt.VPNConfigPreConnectionState?) {
 
         self.connectableInstance = vpnConfigInstance
         self.connectionService = connectionService
@@ -269,9 +274,12 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         dataStore = PersistenceService.DataStore(path: vpnConfigInstance.localStoragePath)
         connectionService.statusDelegate = self
 
-        if let connectionAttempt = restoringConnectionAttempt {
-            precondition(connectionAttempt.connectableInstance is VPNConfigInstance)
+        if let preConnectionState = restoringPreConnectionState {
+            shouldAskForPasswordOnReconnect = preConnectionState.shouldAskForPasswordOnReconnect
             internalState = .enabledVPN
+            let dataStore = PersistenceService.DataStore(path: vpnConfigInstance.localStoragePath)
+            let openVPNConfigCredentials = dataStore.openVPNConfigCredentials
+            vpnConfigCredentials = Credentials(userName: openVPNConfigCredentials?.userName ?? "", password: "")
         }
     }
 
@@ -342,21 +350,31 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
             self.delegate?.connectionViewModel(self, willAttemptToConnect: connectionAttempt)
             return self.connectionService.enableVPN(
                 openVPNConfig: tunnelConfigData.openVPNConfiguration,
-                connectionAttemptId: connectionAttemptId)
+                connectionAttemptId: connectionAttemptId,
+                credentials: nil,
+                shouldDisableVPNOnError: true,
+                shouldPreventAutomaticConnections: false)
         }.ensure {
             self.internalState = self.connectionService.isVPNEnabled ? .enabledVPN : .idle
         }
     }
 
-    func beginVPNConfigConnectionFlow() -> Promise<Void> {
+    func beginVPNConfigConnectionFlow(
+        credentials: Credentials?,
+        shouldDisableVPNOnError: Bool,
+        shouldAskForPasswordOnReconnect: Bool) -> Promise<Void> {
+
         precondition(self.connectionService.isInitialized)
-        precondition(self.connectionService.isVPNEnabled == false)
+        #if os(iOS)
+        precondition(shouldAskForPasswordOnReconnect == false)
+        #endif
         guard let vpnConfigInstance = connectableInstance as? VPNConfigInstance else {
             return Promise.value(())
         }
         let connectionAttemptId = UUID()
         let connectionAttempt = ConnectionAttempt(
             vpnConfigInstance: vpnConfigInstance,
+            shouldAskForPasswordOnReconnect: shouldAskForPasswordOnReconnect,
             attemptId: connectionAttemptId)
         let dataStore = PersistenceService.DataStore(path: vpnConfigInstance.localStoragePath)
         guard let vpnConfigString = dataStore.vpnConfig else {
@@ -364,13 +382,21 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         }
         let vpnConfigLines = vpnConfigString.components(separatedBy: .newlines)
         self.internalState = .enableVPNRequested
+        self.shouldAskForPasswordOnReconnect = true
+        self.isBeginningVPNConfigConnectionFlow = true
+
         return firstly { () -> Promise<Void> in
             self.delegate?.connectionViewModel(self, willAttemptToConnect: connectionAttempt)
             return self.connectionService.enableVPN(
                 openVPNConfig: vpnConfigLines,
-                connectionAttemptId: connectionAttemptId)
+                connectionAttemptId: connectionAttemptId,
+                credentials: credentials,
+                shouldDisableVPNOnError: shouldDisableVPNOnError,
+                shouldPreventAutomaticConnections: shouldAskForPasswordOnReconnect)
         }.ensure {
             self.internalState = self.connectionService.isVPNEnabled ? .enabledVPN : .idle
+            self.vpnConfigCredentials = credentials
+            self.isBeginningVPNConfigConnectionFlow = false
         }
     }
 
@@ -506,6 +532,9 @@ private extension ConnectionViewModel {
                 connectionStatus == .reasserting {
                 return .spinner
             }
+            if connectionStatus == .disconnected && connectableInstance is VPNConfigInstance {
+                return .setCredentialsButton
+            }
             return .none
         }()
     }
@@ -534,6 +563,13 @@ extension ConnectionViewModel: ConnectionServiceStatusDelegate {
         if status == .disconnected {
             connectionInfoHelper = nil
             connectionInfo = nil
+        }
+        if status == .connecting {
+            let shouldAskForPassword = shouldAskForPasswordOnReconnect && !isBeginningVPNConfigConnectionFlow
+            self.delegate?.connectionViewModel(
+                self,
+                didBeginConnectingWithCredentials: vpnConfigCredentials,
+                shouldAskForPassword: shouldAskForPassword)
         }
     }
 } // swiftlint:disable:this file_length

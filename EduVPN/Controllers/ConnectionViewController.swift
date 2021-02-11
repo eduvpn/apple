@@ -38,7 +38,10 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         let connectableInstance: ConnectableInstance
         let serverDisplayInfo: ServerDisplayInfo
         let authURLTemplate: String?
-        let restoringConnectionAttempt: ConnectionAttempt?
+
+        // If restoringPreConnectionState is non-nil, then we're restoring
+        // the UI at app launch for an already-on VPN
+        let restoringPreConnectionState: ConnectionAttempt.PreConnectionState?
     }
 
     weak var delegate: ConnectionViewControllerDelegate?
@@ -52,7 +55,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     private var selectedProfileId: String? {
         didSet {
             if let server = parameters.connectableInstance as? ServerInstance {
-                dataStore.setSelectedProfileId(
+                dataStore?.setSelectedProfileId(
                     profileId: selectedProfileId,
                     for: server.apiBaseURLString)
             }
@@ -80,6 +83,9 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     @IBOutlet weak var additionalControlContainer: View!
     @IBOutlet weak var profileSelectionView: View!
     @IBOutlet weak var renewSessionButton: Button!
+    #if os(macOS)
+    @IBOutlet weak var setCredentialsButton: Button!
+    #endif
     @IBOutlet weak var spinner: Spinner!
 
     #if os(macOS)
@@ -113,6 +119,10 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     weak var presentedConnectionInfoVC: ConnectionInfoViewController?
     #endif
 
+    #if os(macOS)
+    var presentedPasswordEntryVC: PasswordEntryViewController?
+    #endif
+
     func initializeParameters(_ parameters: Parameters) {
         guard self.parameters == nil else {
             fatalError("Can't initialize parameters twice")
@@ -120,36 +130,34 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         self.parameters = parameters
 
         if let server = parameters.connectableInstance as? ServerInstance {
+            let serverPreConnectionState = parameters.restoringPreConnectionState?.serverState
             self.viewModel = ConnectionViewModel(
                 server: server,
                 connectionService: parameters.environment.connectionService,
                 serverDisplayInfo: parameters.serverDisplayInfo,
                 serverAPIService: parameters.environment.serverAPIService,
                 authURLTemplate: parameters.authURLTemplate,
-                restoringConnectionAttempt: parameters.restoringConnectionAttempt)
+                restoringPreConnectionState: serverPreConnectionState)
+            if let serverPreConnectionState = serverPreConnectionState {
+                self.profiles = serverPreConnectionState.profiles
+                self.selectedProfileId = serverPreConnectionState.selectedProfileId
+            } else {
+                self.profiles = []
+                self.selectedProfileId = dataStore.selectedProfileId(for: server.apiBaseURLString)
+            }
         } else if let vpnConfigInstance = parameters.connectableInstance as? VPNConfigInstance {
+            let vpnConfigPreConnectionState = parameters.restoringPreConnectionState?.vpnConfigState
             self.viewModel = ConnectionViewModel(
                 vpnConfigInstance: vpnConfigInstance,
                 connectionService: parameters.environment.connectionService,
                 serverDisplayInfo: parameters.serverDisplayInfo,
-                restoringConnectionAttempt: parameters.restoringConnectionAttempt)
+                restoringPreConnectionState: vpnConfigPreConnectionState)
         } else {
             fatalError("Unknown connectable instance: \(parameters.connectableInstance)")
         }
 
+        self.isRestored = (parameters.restoringPreConnectionState != nil)
         self.dataStore = PersistenceService.DataStore(path: parameters.connectableInstance.localStoragePath)
-
-        if let restoringConnectionAttempt = parameters.restoringConnectionAttempt {
-            if let server = parameters.connectableInstance as? ServerInstance {
-                if let preConnectionState = restoringConnectionAttempt.preConnectionState {
-                    self.profiles = preConnectionState.profiles
-                    self.selectedProfileId = preConnectionState.selectedProfileId
-                } else {
-                    self.selectedProfileId = dataStore.selectedProfileId(for: server.apiBaseURLString)
-                }
-            }
-            self.isRestored = true
-        }
     }
 
     override func viewDidLoad() {
@@ -224,6 +232,21 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     }
 
     #if os(macOS)
+    @IBAction func setCredentialsClicked(_ sender: Any) {
+        guard let vpnConfigInstance = parameters.connectableInstance as? VPNConfigInstance else {
+            return
+        }
+        let credentialsVC = parameters.environment.instantiateCredentialsViewController(
+            initialCredentials: dataStore.openVPNConfigCredentials)
+        credentialsVC.onCredentialsSaved = { credentials in
+            let dataStore = PersistenceService.DataStore(path: vpnConfigInstance.localStoragePath)
+            dataStore.openVPNConfigCredentials = credentials
+        }
+        parameters.environment.navigationController?.presentAsSheet(credentialsVC)
+    }
+    #endif
+
+    #if os(macOS)
     @IBAction func profileSelected(_ sender: Any) {
         profileSelected(selectedIndex: profileSelectorPopupButton.indexOfSelectedItem)
     }
@@ -283,6 +306,9 @@ private extension ConnectionViewController {
         connectionViewModel(viewModel, vpnSwitchStateChanged: viewModel.vpnSwitchState)
         connectionViewModel(viewModel, additionalControlChanged: viewModel.additionalControl)
         connectionInfoStateChanged(viewModel.connectionInfoState, animated: false)
+        #if os(macOS)
+        setCredentialsButton.isHidden = !(parameters.connectableInstance is VPNConfigInstance)
+        #endif
     }
 
     func setupSupportContact(supportContact: ConnectionViewModel.SupportContact) {
@@ -330,19 +356,78 @@ private extension ConnectionViewController {
     }
 
     func beginVPNConfigConnectionFlow() {
+        guard let vpnConfigInstance = parameters.connectableInstance as? VPNConfigInstance else {
+            return
+        }
+
+        let dataStore = PersistenceService.DataStore(path: vpnConfigInstance.localStoragePath)
+        let openVPNConfigCredentials = dataStore.openVPNConfigCredentials
+        switch openVPNConfigCredentials?.passwordStrategy {
+        case nil:
+            beginVPNConfigConnectionFlow(
+                with: nil,
+                shouldDisableVPNOnError: true,
+                shouldAskForPasswordOnReconnect: false)
+        case .useSavedPassword(let password):
+            // swiftlint:disable:next force_unwrapping
+            let userName = openVPNConfigCredentials!.userName
+            beginVPNConfigConnectionFlow(
+                with: Credentials(userName: userName, password: password),
+                shouldDisableVPNOnError: true,
+                shouldAskForPasswordOnReconnect: false)
+        #if os(macOS)
+        case .askForPasswordWhenConnecting:
+            let promptCredentials = Credentials(
+                userName: openVPNConfigCredentials?.userName ?? "",
+                password: "")
+            promptForConnectionTimeVPNConfigPassword(credentials: promptCredentials)
+            return
+        #endif
+        }
+    }
+
+    private func beginVPNConfigConnectionFlow(
+        with credentials: Credentials?,
+        shouldDisableVPNOnError: Bool,
+        shouldAskForPasswordOnReconnect: Bool) {
+
         firstly { () -> Promise<Void> in
-            return viewModel.beginVPNConfigConnectionFlow()
+            return viewModel.beginVPNConfigConnectionFlow(
+                credentials: credentials,
+                shouldDisableVPNOnError: shouldDisableVPNOnError,
+                shouldAskForPasswordOnReconnect: shouldAskForPasswordOnReconnect)
         }.catch { error in
-            os_log("Error continuing VPN config connection flow: %{public}@",
+            os_log("Error starting VPN config connection flow: %{public}@",
                    log: Log.general, type: .error,
                    error.localizedDescription)
             self.showAlert(for: error)
         }
     }
 
+    #if os(macOS)
+    func promptForConnectionTimeVPNConfigPassword(credentials: Credentials) {
+        guard let vpnConfigInstance = parameters.connectableInstance as? VPNConfigInstance else {
+            return
+        }
+        guard self.presentedPasswordEntryVC == nil else {
+            return
+        }
+        let environment = parameters.environment
+        let passwordEntryVC = environment.instantiatePasswordEntryViewController(
+            configName: vpnConfigInstance.name,
+            userName: credentials.userName,
+            initialPassword: credentials.password)
+        passwordEntryVC.delegate = self
+        environment.navigationController?.presentAsSheet(passwordEntryVC)
+        self.presentedPasswordEntryVC = passwordEntryVC
+    }
+    #endif
+
     func disableVPN() {
         firstly {
             viewModel.disableVPN()
+        }.map {
+            self.vpnSwitch.isOn = false
         }.catch { error in
             os_log("Error disabling VPN: %{public}@",
                    log: Log.general, type: .error,
@@ -477,14 +562,23 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
         case .none:
             profileSelectionView.isHidden = true
             renewSessionButton.isHidden = true
+            #if os(macOS)
+            setCredentialsButton.isHidden = true
+            #endif
             spinner.stopAnimation(self)
         case .spinner:
             profileSelectionView.isHidden = true
             renewSessionButton.isHidden = true
+            #if os(macOS)
+            setCredentialsButton.isHidden = true
+            #endif
             spinner.startAnimation(self)
         case .profileSelector(let profiles):
             profileSelectionView.isHidden = false
             renewSessionButton.isHidden = true
+            #if os(macOS)
+            setCredentialsButton.isHidden = true
+            #endif
             spinner.stopAnimation(self)
             #if os(macOS)
             profileSelectorPopupButton.removeAllItems()
@@ -513,6 +607,16 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
         case .renewSessionButton:
             profileSelectionView.isHidden = true
             renewSessionButton.isHidden = false
+            #if os(macOS)
+            setCredentialsButton.isHidden = true
+            #endif
+            spinner.stopAnimation(self)
+        case .setCredentialsButton:
+            profileSelectionView.isHidden = true
+            renewSessionButton.isHidden = true
+            #if os(macOS)
+            setCredentialsButton.isHidden = false
+            #endif
             spinner.stopAnimation(self)
         }
     }
@@ -650,6 +754,17 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
             animatableChanges()
         }
     }
+
+    func connectionViewModel(
+        _ model: ConnectionViewModel,
+        didBeginConnectingWithCredentials credentials: Credentials?,
+        shouldAskForPassword: Bool) {
+        #if os(macOS)
+        if let credentials = credentials, shouldAskForPassword {
+            self.promptForConnectionTimeVPNConfigPassword(credentials: credentials)
+        }
+        #endif
+    }
 }
 
 #if os(iOS)
@@ -701,4 +816,21 @@ extension ConnectionViewController: AuthorizingViewController {
         // Nothing to do
     }
     #endif
-} // swiftlint:disable:this file_length
+}
+
+#if os(macOS)
+extension ConnectionViewController: PasswordEntryViewControllerDelegate {
+    func passwordEntryViewController(
+        _ controller: PasswordEntryViewController, didSetCredentials credentials: Credentials) {
+        presentedPasswordEntryVC = nil
+        beginVPNConfigConnectionFlow(
+            with: credentials, shouldDisableVPNOnError: false, shouldAskForPasswordOnReconnect: true)
+    }
+
+    func passwordEntryViewControllerDidDisableVPN(
+        _ controller: PasswordEntryViewController) {
+        presentedPasswordEntryVC = nil
+        disableVPN()
+    }
+}
+#endif // swiftlint:disable:this file_length

@@ -126,22 +126,25 @@ extension MainViewController: ConnectionServiceInitializationDelegate {
             let connectionVC: ConnectionViewController? = {
                 let connectableInstance = lastConnectionAttempt.connectableInstance
                 if let simpleServer = connectableInstance as? SimpleServerInstance {
+                    precondition(lastConnectionAttempt.preConnectionState.serverState != nil)
                     return environment.instantiateConnectionViewController(
                         connectableInstance: simpleServer,
                         serverDisplayInfo: viewModel.serverDisplayInfo(for: simpleServer),
                         authURLTemplate: nil,
-                        restoringConnectionAttempt: lastConnectionAttempt)
+                        restoringPreConnectionState: lastConnectionAttempt.preConnectionState)
                 } else if let secureInternetServer = connectableInstance as? SecureInternetServerInstance {
+                    precondition(lastConnectionAttempt.preConnectionState.serverState != nil)
                     return environment.instantiateConnectionViewController(
                         connectableInstance: secureInternetServer,
                         serverDisplayInfo: viewModel.serverDisplayInfo(for: secureInternetServer),
                         authURLTemplate: viewModel.authURLTemplate(for: secureInternetServer),
-                        restoringConnectionAttempt: lastConnectionAttempt)
+                        restoringPreConnectionState: lastConnectionAttempt.preConnectionState)
                 } else if let openVPNConfigInstance = connectableInstance as? OpenVPNConfigInstance {
+                    precondition(lastConnectionAttempt.preConnectionState.vpnConfigState != nil)
                     return environment.instantiateConnectionViewController(
                         connectableInstance: openVPNConfigInstance,
                         serverDisplayInfo: .vpnConfigInstance(openVPNConfigInstance),
-                        restoringConnectionAttempt: lastConnectionAttempt)
+                        restoringPreConnectionState: lastConnectionAttempt.preConnectionState)
                 }
                 return nil
             }()
