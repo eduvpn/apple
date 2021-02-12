@@ -23,6 +23,7 @@ final class SearchViewController: ViewController, ParametrizedViewController {
     struct Parameters {
         let environment: Environment
         let shouldIncludeOrganizations: Bool
+        let shouldAutoFocusSearchField: Bool
     }
 
     weak var delegate: SearchViewControllerDelegate?
@@ -36,6 +37,11 @@ final class SearchViewController: ViewController, ParametrizedViewController {
     @IBOutlet weak var tableContainerView: View!
     @IBOutlet weak var tableView: TableView!
     @IBOutlet weak var spinner: ProgressIndicator!
+    #if os(macOS)
+    @IBOutlet weak var searchField: SearchField!
+    #elseif os(iOS)
+    @IBOutlet weak var searchField: UISearchBar!
+    #endif
 
     private var isTableViewShown: Bool = false
 
@@ -77,9 +83,31 @@ final class SearchViewController: ViewController, ParametrizedViewController {
         let persistenceService = parameters.environment.persistenceService
         persistenceService.hasServersDelegate = self
         hasAddedServers = persistenceService.hasServers
+
+        if parameters.shouldAutoFocusSearchField {
+            showTableView(animated: false)
+        }
     }
 
-    func showTableView() {
+    #if os(macOS)
+    override func viewDidAppear() {
+        if parameters.shouldAutoFocusSearchField {
+            self.view.window?.makeFirstResponder(searchField)
+        }
+        super.viewDidAppear()
+    }
+    #endif
+
+    #if os(iOS)
+    override func viewDidAppear(_ animated: Bool) {
+        if parameters.shouldAutoFocusSearchField {
+            searchField.becomeFirstResponder()
+        }
+        super.viewDidAppear(animated)
+    }
+    #endif
+
+    func showTableView(animated: Bool) {
         if isTableViewShown {
             return
         }
@@ -87,7 +115,13 @@ final class SearchViewController: ViewController, ParametrizedViewController {
         for view in [topSpacerView, topImageView] {
             view?.removeFromSuperview()
         }
-        performWithAnimation(seconds: 0.5) {
+        if animated {
+            performWithAnimation(seconds: 0.5) {
+                self.spinner.setLayerOpacity(1)
+                self.tableContainerView.setLayerOpacity(1)
+                self.stackView.layoutIfNeeded()
+            }
+        } else {
             self.spinner.setLayerOpacity(1)
             self.tableContainerView.setLayerOpacity(1)
             self.stackView.layoutIfNeeded()
@@ -121,7 +155,7 @@ final class SearchViewController: ViewController, ParametrizedViewController {
 
 extension SearchViewController {
     func searchFieldGotFocus() {
-        showTableView()
+        showTableView(animated: true)
     }
 
     func searchFieldTextChanged(text: String) {

@@ -16,7 +16,8 @@ class MainViewController: ViewController {
             viewModel.delegate = self
             environment.navigationController?.addButtonDelegate = self
             if !environment.persistenceService.hasServers {
-                let searchVC = environment.instantiateSearchViewController(shouldIncludeOrganizations: true)
+                let searchVC = environment.instantiateSearchViewController(
+                    shouldIncludeOrganizations: true, shouldAutoFocusSearchField: false)
                 searchVC.delegate = self
                 environment.navigationController?.pushViewController(searchVC, animated: false)
             }
@@ -56,7 +57,9 @@ class MainViewController: ViewController {
 extension MainViewController: NavigationControllerAddButtonDelegate {
     func addButtonClicked(inNavigationController controller: NavigationController) {
         let isSecureInternetServerAdded = (environment.persistenceService.secureInternetServer != nil)
-        let searchVC = environment.instantiateSearchViewController(shouldIncludeOrganizations: !isSecureInternetServerAdded)
+        let searchVC = environment.instantiateSearchViewController(
+            shouldIncludeOrganizations: !isSecureInternetServerAdded,
+            shouldAutoFocusSearchField: true)
         searchVC.delegate = self
         environment.navigationController?.pushViewController(searchVC, animated: true)
     }
@@ -265,7 +268,9 @@ extension MainViewController {
         }
         viewModel.update()
         if !environment.persistenceService.hasServers {
-            let searchVC = environment.instantiateSearchViewController(shouldIncludeOrganizations: true)
+            let searchVC = environment.instantiateSearchViewController(
+                shouldIncludeOrganizations: true,
+                shouldAutoFocusSearchField: false)
             searchVC.delegate = self
             environment.navigationController?.pushViewController(searchVC, animated: true)
         }
