@@ -66,8 +66,8 @@ class SearchViewModel {
 
         init(_ server: DiscoveryData.InstituteAccessServer) {
             baseURLString = server.baseURLString
-            displayName = server.displayName.string(for: Locale.current)
-            keywordList = server.keywordList?.string(for: Locale.current) ?? ""
+            displayName = server.displayName.stringForCurrentLanguage()
+            keywordList = server.keywordList?.stringForCurrentLanguage() ?? ""
         }
     }
 
@@ -79,8 +79,8 @@ class SearchViewModel {
 
         init(_ organization: DiscoveryData.Organization) {
             orgId = organization.orgId
-            displayName = organization.displayName.string(for: Locale.current)
-            keywordList = organization.keywordList?.string(for: Locale.current) ?? ""
+            displayName = organization.displayName.stringForCurrentLanguage()
+            keywordList = organization.keywordList?.stringForCurrentLanguage() ?? ""
             secureInternetHome = organization.secureInternetHome
         }
     }

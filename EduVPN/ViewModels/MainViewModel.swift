@@ -143,7 +143,7 @@ extension MainViewModel {
             let baseURLString = simpleServer.baseURLString
             if let discoveredServer = instituteAccessServersMap[baseURLString] {
                 let displayInfo = ServerDisplayInfo.instituteAccessServer(discoveredServer)
-                let displayName = displayInfo.serverName(for: Locale.current)
+                let displayName = displayInfo.serverName()
                 instituteAccessRows.append(.instituteAccessServer(server: simpleServer, displayInfo: displayInfo, displayName: displayName))
             } else {
                 serverByURLRows.append(.serverByURL(server: simpleServer))
@@ -153,7 +153,7 @@ extension MainViewModel {
         if let secureInternetServer = persistenceService.secureInternetServer {
             let baseURLString = secureInternetServer.apiBaseURLString
             let displayInfo = ServerDisplayInfo.secureInternetServer(secureInternetServersMap[baseURLString])
-            let countryName = displayInfo.serverName(for: Locale.current)
+            let countryName = displayInfo.serverName()
             secureInternetRows.append(.secureInternetServer(server: secureInternetServer,
                                                             displayInfo: displayInfo,
                                                             countryName: countryName))

@@ -13,10 +13,10 @@ enum ServerDisplayInfo {
 }
 
 extension ServerDisplayInfo {
-    func serverName(for locale: Locale, isTitle: Bool = false) -> String {
+    func serverName(isTitle: Bool = false) -> String {
         switch self {
         case .instituteAccessServer(let server):
-            return server.displayName.string(for: locale)
+            return server.displayName.stringForCurrentLanguage()
         case .secureInternetServer(let server):
             guard let server = server else { return NSLocalizedString("Unknown country", comment: "") }
             return Locale.current.localizedString(forRegionCode: server.countryCode) ??

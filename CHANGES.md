@@ -7,6 +7,7 @@
 - macOS: App requires macOS 10.15 or later
 - macOS: Native support for Apple Silicon macs
 - iOS: Fix 'Change Location' to make first location choosable #375
+- Use strings in discovery data correctly based on system language #374
 
 ## 2.2.0 (2020-11-12)
 

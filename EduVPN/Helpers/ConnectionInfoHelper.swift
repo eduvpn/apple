@@ -40,7 +40,7 @@ class ConnectionInfoHelper {
     init(connectionService: ConnectionServiceProtocol, profileName: LanguageMappedString?, handler: @escaping (ConnectionInfo) -> Void) {
         self.connectionService = connectionService
         self.handler = handler
-        self.localizedProfileName = profileName?.string(for: Locale.current)
+        self.localizedProfileName = profileName?.stringForCurrentLanguage()
     }
 
     deinit {

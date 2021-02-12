@@ -47,27 +47,37 @@ extension LanguageMappedString: Codable {
 
 extension LanguageMappedString {
 
+    func stringForCurrentLanguage() -> String {
+        if let preferredLanguage = Locale.preferredLanguages.first {
+            return string(for: preferredLanguage)
+        }
+        let locale = Locale.current
+        var tag = locale.languageCode ?? "en"
+        if !tag.contains("-") {
+            // Append the region / script / variant designator, so
+            // "de" can become "de-DE", "zh" can become "zh-Hant", etc.
+            if let scriptCode = locale.scriptCode {
+                tag.append("-\(scriptCode)")
+            }
+            if let regionCode = locale.regionCode {
+                tag.append("-\(regionCode)")
+            }
+            if let variantCode = locale.variantCode {
+                tag.append("-\(variantCode)")
+            }
+        }
+        return string(for: tag)
+    }
+
     // Implements the language matching rules described at:
     // https://github.com/eduvpn/documentation/blob/v2/SERVER_DISCOVERY.md#language-matching
 
-    func string(for locale: Locale) -> String {
+    func string(for languageTag: String) -> String {
+        // languageTag should be a BCP47 tag
         switch self {
         case .stringForAnyLanguage(let string):
             return string
         case .stringByLanguageTag(let map):
-            // We're only looking for the language part of the locale
-            let localeLanguageCode = locale.languageCode ?? "en"
-            let languageTag: String = {
-                if !localeLanguageCode.contains("-") {
-                    // Append the region or script designator, so
-                    // "de" can become "de-DE", and "zh" can become "zh-Hant".
-                    if let designator = locale.regionCode ?? locale.scriptCode {
-                        return "\(localeLanguageCode)-\(designator)"
-                    }
-                }
-                return localeLanguageCode
-            }()
-
             // Let's say the locale's language code is "de-DE".
             // First, look for a key equal to "de-DE"
             if let value = map[languageTag] {
@@ -80,8 +90,14 @@ extension LanguageMappedString {
             }
 
             // Then, look for a key that starts with "de-"
-            if let prefixMatch = map.keys.first(where: { $0.hasPrefix("\(localeLanguageCode)-") }) {
-                return map[prefixMatch]! // swiftlint:disable:this force_unwrapping
+            let dashIndex = languageTag.firstIndex(of: "-") ?? languageTag.endIndex
+            let languageCode = languageTag[languageTag.startIndex ..< dashIndex]
+            if !languageCode.isEmpty {
+                if let prefixMatch = map.keys.first(where: { $0.hasPrefix("\(languageCode)-") }) {
+                    return map[prefixMatch]! // swiftlint:disable:this force_unwrapping
+                } else if let languageCodeValue = map[String(languageCode)] {
+                    return languageCodeValue
+                }
             }
 
             // Then, look for a key equal to "en-US"
