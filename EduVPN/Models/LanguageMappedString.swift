@@ -90,9 +90,12 @@ extension LanguageMappedString {
             // Then, look for a key that starts with "de-"
             let dashIndex = languageTag.firstIndex(of: "-") ?? languageTag.endIndex
             let languageCode = languageTag[languageTag.startIndex ..< dashIndex]
-            if !languageCode.isEmpty,
-               let prefixMatch = map.keys.first(where: { $0.hasPrefix("\(languageCode)-") }) {
-                return map[prefixMatch]! // swiftlint:disable:this force_unwrapping
+            if !languageCode.isEmpty {
+                if let prefixMatch = map.keys.first(where: { $0.hasPrefix("\(languageCode)-") }) {
+                    return map[prefixMatch]! // swiftlint:disable:this force_unwrapping
+                } else if let languageCodeValue = map[String(languageCode)] {
+                    return languageCodeValue
+                }
             }
 
             // Then, look for a key equal to "en-US"
