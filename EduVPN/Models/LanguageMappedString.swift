@@ -47,31 +47,33 @@ extension LanguageMappedString: Codable {
 
 extension LanguageMappedString {
 
+    func stringForCurrentLanguage() -> String {
+        if let preferredLanguage = Locale.preferredLanguages.first {
+            return string(for: preferredLanguage)
+        }
+        let locale = Locale.current
+        var tag = locale.languageCode ?? "en"
+        if !tag.contains("-") {
+            // Append the region / script / variant designator, so
+            // "de" can become "de-DE", "zh" can become "zh-Hant", etc.
+            if let scriptCode = locale.scriptCode {
+                tag.append("-\(scriptCode)")
+            }
+            if let regionCode = locale.regionCode {
+                tag.append("-\(regionCode)")
+            }
+            if let variantCode = locale.variantCode {
+                tag.append("-\(variantCode)")
+            }
+        }
+        return string(for: tag)
+    }
+
     // Implements the language matching rules described at:
     // https://github.com/eduvpn/documentation/blob/v2/SERVER_DISCOVERY.md#language-matching
 
-    func string(for locale: Locale) -> String {
-        let languageTag: String = {
-            // Find out the BCP47 tag of the current system language
-            if let preferredLanguage = Locale.preferredLanguages.first {
-                return preferredLanguage
-            }
-            var tag = locale.languageCode ?? "en"
-            if !tag.contains("-") {
-                // Append the region / script / variant designator, so
-                // "de" can become "de-DE", "zh" can become "zh-Hant", etc.
-                if let scriptCode = locale.scriptCode {
-                    tag.append("-\(scriptCode)")
-                }
-                if let regionCode = locale.regionCode {
-                    tag.append("-\(regionCode)")
-                }
-                if let variantCode = locale.variantCode {
-                    tag.append("-\(variantCode)")
-                }
-            }
-            return tag
-        }()
+    func string(for languageTag: String) -> String {
+        // languageTag should be a BCP47 tag
         switch self {
         case .stringForAnyLanguage(let string):
             return string

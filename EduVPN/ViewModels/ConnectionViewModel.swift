@@ -56,7 +56,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         let flagCountryCode: String
 
         init(from displayInfo: ServerDisplayInfo) {
-            serverName = displayInfo.serverName(for: Locale.current, isTitle: true)
+            serverName = displayInfo.serverName(isTitle: true)
             flagCountryCode = displayInfo.flagCountryCode
         }
     }

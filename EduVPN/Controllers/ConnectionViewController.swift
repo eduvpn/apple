@@ -262,7 +262,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         var items: [ItemSelectionViewController.Item] = []
         var selectedIndex = -1
         for (index, profile) in profiles.enumerated() {
-            let item = ItemSelectionViewController.Item(profile.displayName.string(for: Locale.current))
+            let item = ItemSelectionViewController.Item(profile.displayName.stringForCurrentLanguage())
             items.append(item)
             if profile.profileId == selectedProfileId {
                 selectedIndex = index
@@ -288,7 +288,7 @@ extension ConnectionViewController: ItemSelectionViewControllerDelegate {
     func itemSelectionViewController(_ viewController: ItemSelectionViewController, didSelectIndex index: Int) {
         profileSelected(selectedIndex: index)
         if let selectedProfile = profiles?[index] {
-            profileRowNameLabel.text = selectedProfile.displayName.string(for: Locale.current)
+            profileRowNameLabel.text = selectedProfile.displayName.stringForCurrentLanguage()
         } else {
             profileRowNameLabel.text = NSLocalizedString("Unknown", comment: "Unknown profile")
         }
@@ -584,7 +584,7 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
             profileSelectorPopupButton.removeAllItems()
             var selectedIndex: Int?
             for (index, profile) in profiles.enumerated() {
-                let profileName = profile.displayName.string(for: Locale.current)
+                let profileName = profile.displayName.stringForCurrentLanguage()
                 profileSelectorPopupButton.addItem(withTitle: profileName)
                 if profile.profileId == selectedProfileId {
                     selectedIndex = index
@@ -596,9 +596,9 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
             profileSelectorPopupButton.isEnabled = true
             #elseif os(iOS)
             if let selectedProfile = profiles.first(where: { $0.profileId == selectedProfileId }) {
-                profileRowNameLabel.text = selectedProfile.displayName.string(for: Locale.current)
+                profileRowNameLabel.text = selectedProfile.displayName.stringForCurrentLanguage()
             } else if let firstProfile = profiles.first {
-                profileRowNameLabel.text = firstProfile.displayName.string(for: Locale.current)
+                profileRowNameLabel.text = firstProfile.displayName.stringForCurrentLanguage()
             } else {
                 profileRowNameLabel.text = NSLocalizedString("Unknown", comment: "Unknown profile")
             }
