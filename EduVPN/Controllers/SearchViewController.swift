@@ -44,6 +44,7 @@ final class SearchViewController: ViewController, ParametrizedViewController {
     #endif
 
     private var isTableViewShown: Bool = false
+    private var shouldAutoFocusSearchField: Bool = false
 
     var isBusy: Bool = false {
         didSet { updateIsUserAllowedToGoBack() }
@@ -73,6 +74,7 @@ final class SearchViewController: ViewController, ParametrizedViewController {
             shouldIncludeOrganizations: parameters.shouldIncludeOrganizations)
         viewModel.delegate = self
         self.viewModel = viewModel
+        self.shouldAutoFocusSearchField = parameters.shouldAutoFocusSearchField
     }
 
     override func viewDidLoad() {
@@ -84,25 +86,27 @@ final class SearchViewController: ViewController, ParametrizedViewController {
         persistenceService.hasServersDelegate = self
         hasAddedServers = persistenceService.hasServers
 
-        if parameters.shouldAutoFocusSearchField {
+        if shouldAutoFocusSearchField {
             showTableView(animated: false)
         }
     }
 
     #if os(macOS)
     override func viewDidAppear() {
-        if parameters.shouldAutoFocusSearchField {
+        if shouldAutoFocusSearchField {
             self.view.window?.makeFirstResponder(searchField)
         }
+        shouldAutoFocusSearchField = false
         super.viewDidAppear()
     }
     #endif
 
     #if os(iOS)
     override func viewDidAppear(_ animated: Bool) {
-        if parameters.shouldAutoFocusSearchField {
+        if shouldAutoFocusSearchField {
             searchField.becomeFirstResponder()
         }
+        shouldAutoFocusSearchField = false
         super.viewDidAppear(animated)
     }
     #endif
