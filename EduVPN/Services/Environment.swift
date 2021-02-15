@@ -41,10 +41,12 @@ class Environment {
         #endif
     }
 
-    func instantiateSearchViewController(shouldIncludeOrganizations: Bool) -> SearchViewController {
+    func instantiateSearchViewController(
+        shouldIncludeOrganizations: Bool, shouldAutoFocusSearchField: Bool) -> SearchViewController {
         let parameters = SearchViewController.Parameters(
             environment: self,
-            shouldIncludeOrganizations: shouldIncludeOrganizations)
+            shouldIncludeOrganizations: shouldIncludeOrganizations,
+            shouldAutoFocusSearchField: shouldAutoFocusSearchField)
         return instantiate(SearchViewController.self, identifier: "Search", parameters: parameters)
     }
 

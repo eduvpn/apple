@@ -23,6 +23,7 @@ final class SearchViewController: ViewController, ParametrizedViewController {
     struct Parameters {
         let environment: Environment
         let shouldIncludeOrganizations: Bool
+        let shouldAutoFocusSearchField: Bool
     }
 
     weak var delegate: SearchViewControllerDelegate?
@@ -36,8 +37,14 @@ final class SearchViewController: ViewController, ParametrizedViewController {
     @IBOutlet weak var tableContainerView: View!
     @IBOutlet weak var tableView: TableView!
     @IBOutlet weak var spinner: ProgressIndicator!
+    #if os(macOS)
+    @IBOutlet weak var searchField: SearchField!
+    #elseif os(iOS)
+    @IBOutlet weak var searchField: UISearchBar!
+    #endif
 
     private var isTableViewShown: Bool = false
+    private var shouldAutoFocusSearchField: Bool = false
 
     var isBusy: Bool = false {
         didSet { updateIsUserAllowedToGoBack() }
@@ -67,6 +74,7 @@ final class SearchViewController: ViewController, ParametrizedViewController {
             shouldIncludeOrganizations: parameters.shouldIncludeOrganizations)
         viewModel.delegate = self
         self.viewModel = viewModel
+        self.shouldAutoFocusSearchField = parameters.shouldAutoFocusSearchField
     }
 
     override func viewDidLoad() {
@@ -77,9 +85,33 @@ final class SearchViewController: ViewController, ParametrizedViewController {
         let persistenceService = parameters.environment.persistenceService
         persistenceService.hasServersDelegate = self
         hasAddedServers = persistenceService.hasServers
+
+        if shouldAutoFocusSearchField {
+            showTableView(animated: false)
+        }
     }
 
-    func showTableView() {
+    #if os(macOS)
+    override func viewDidAppear() {
+        if shouldAutoFocusSearchField {
+            self.view.window?.makeFirstResponder(searchField)
+        }
+        shouldAutoFocusSearchField = false
+        super.viewDidAppear()
+    }
+    #endif
+
+    #if os(iOS)
+    override func viewDidAppear(_ animated: Bool) {
+        if shouldAutoFocusSearchField {
+            searchField.becomeFirstResponder()
+        }
+        shouldAutoFocusSearchField = false
+        super.viewDidAppear(animated)
+    }
+    #endif
+
+    func showTableView(animated: Bool) {
         if isTableViewShown {
             return
         }
@@ -87,7 +119,13 @@ final class SearchViewController: ViewController, ParametrizedViewController {
         for view in [topSpacerView, topImageView] {
             view?.removeFromSuperview()
         }
-        performWithAnimation(seconds: 0.5) {
+        if animated {
+            performWithAnimation(seconds: 0.5) {
+                self.spinner.setLayerOpacity(1)
+                self.tableContainerView.setLayerOpacity(1)
+                self.stackView.layoutIfNeeded()
+            }
+        } else {
             self.spinner.setLayerOpacity(1)
             self.tableContainerView.setLayerOpacity(1)
             self.stackView.layoutIfNeeded()
@@ -121,7 +159,7 @@ final class SearchViewController: ViewController, ParametrizedViewController {
 
 extension SearchViewController {
     func searchFieldGotFocus() {
-        showTableView()
+        showTableView(animated: true)
     }
 
     func searchFieldTextChanged(text: String) {
