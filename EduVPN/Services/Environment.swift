@@ -50,10 +50,10 @@ class Environment {
         return instantiate(SearchViewController.self, identifier: "Search", parameters: parameters)
     }
 
-    func instantiateAddServerViewController(preDefinedBaseURLString: DiscoveryData.BaseURLString?) -> AddServerViewController {
+    func instantiateAddServerViewController(preDefinedProvider: PreDefinedProvider?) -> AddServerViewController {
         let parameters = AddServerViewController.Parameters(
             environment: self,
-            preDefinedBaseURLString: preDefinedBaseURLString)
+            preDefinedProvider: preDefinedProvider)
         return instantiate(AddServerViewController.self, identifier: "AddServer", parameters: parameters)
     }
 

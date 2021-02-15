@@ -17,7 +17,7 @@ protocol AddServerViewControllerDelegate: class {
 final class AddServerViewController: ViewController, ParametrizedViewController {
     struct Parameters {
         let environment: Environment
-        let preDefinedBaseURLString: DiscoveryData.BaseURLString?
+        let preDefinedProvider: PreDefinedProvider?
     }
 
     weak var delegate: AddServerViewControllerDelegate?
