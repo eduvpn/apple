@@ -2169,8 +2169,93 @@ Gw
             </objects>
             <point key="canvasLocation" x="754" y="2308.5"/>
         </scene>
+        <!--Add Server View Controller-->
+        <scene sceneID="7wa-wx-tLZ">
+            <objects>
+                <viewController storyboardIdentifier="AddServer" id="JPH-6C-W4a" userLabel="Add Server View Controller" customClass="AddServerViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="SQ7-yo-5Ma">
+                        <rect key="frame" x="0.0" y="0.0" width="519" height="415"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" horizontalHuggingPriority="100" translatesAutoresizingMaskIntoConstraints="NO" id="8AC-4v-vf5">
+                                <rect key="frame" x="20" y="20" width="479" height="375"/>
+                                <subviews>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="78n-B6-mgN" userLabel="Top Spacer">
+                                        <rect key="frame" x="158" y="315" width="163" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="gDE-IC-EC0"/>
+                                        </constraints>
+                                    </customView>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="azv-Eh-iMz" userLabel="Top Image">
+                                        <rect key="frame" x="197" y="238" width="85" height="65"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AddServerTopImage" id="hFI-Wd-Gcd"/>
+                                    </imageView>
+                                    <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vZ1-q1-vKh">
+                                        <rect key="frame" x="-2" y="193" width="483" height="33"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Your Server" id="kin-eX-w7W">
+                                            <font key="font" size="24" name="OpenSans-Bold"/>
+                                            <color key="textColor" name="BoldUITextColor"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yTQ-UW-ZnH">
+                                        <rect key="frame" x="0.0" y="141" width="479" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="7t0-Yl-v1L"/>
+                                        </constraints>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" placeholderString="Server URL" bezelStyle="round" id="LrF-dk-jyW">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AUJ-fv-Zcp">
+                                        <rect key="frame" x="186" y="101" width="108" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Add Server" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="YaE-Iu-To7">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="khs-Bt-9sp" userLabel="Spacer">
+                                        <rect key="frame" x="158" y="0.0" width="163" height="96"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="JbR-ec-LSu"/>
+                                        </constraints>
+                                    </customView>
+                                </subviews>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="8AC-4v-vf5" secondAttribute="bottom" constant="20" id="Gly-4v-00h"/>
+                            <constraint firstAttribute="trailing" secondItem="8AC-4v-vf5" secondAttribute="trailing" constant="20" id="SU3-Pz-ztv"/>
+                            <constraint firstItem="8AC-4v-vf5" firstAttribute="top" secondItem="SQ7-yo-5Ma" secondAttribute="top" constant="20" id="fxS-aq-Jmd"/>
+                            <constraint firstItem="8AC-4v-vf5" firstAttribute="leading" secondItem="SQ7-yo-5Ma" secondAttribute="leading" constant="20" id="qPD-uR-hiS"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="5TU-k3-Gdr" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="241" y="2899"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="AddServerTopImage" width="85" height="65"/>
         <image name="ChevronDownButton" width="14" height="8"/>
         <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSAddTemplate" width="11" height="11"/>
@@ -25105,7 +25190,7 @@ AAAAAAAAAAAAAAAQ5ZY
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="RegularUITextColor">
-            <color red="0.31372549019607843" green="0.31372549019607843" blue="0.31372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.31400001049041748" green="0.31400001049041748" blue="0.31400001049041748" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
