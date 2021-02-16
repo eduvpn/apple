@@ -56,12 +56,18 @@ class MainViewController: ViewController {
 
 extension MainViewController: NavigationControllerAddButtonDelegate {
     func addButtonClicked(inNavigationController controller: NavigationController) {
-        let isSecureInternetServerAdded = (environment.persistenceService.secureInternetServer != nil)
-        let searchVC = environment.instantiateSearchViewController(
-            shouldIncludeOrganizations: !isSecureInternetServerAdded,
-            shouldAutoFocusSearchField: true)
-        searchVC.delegate = self
-        environment.navigationController?.pushViewController(searchVC, animated: true)
+        if Config.shared.apiDiscoveryEnabled ?? false {
+            let isSecureInternetServerAdded = (environment.persistenceService.secureInternetServer != nil)
+            let searchVC = environment.instantiateSearchViewController(
+                shouldIncludeOrganizations: !isSecureInternetServerAdded,
+                shouldAutoFocusSearchField: true)
+            searchVC.delegate = self
+            environment.navigationController?.pushViewController(searchVC, animated: true)
+        } else {
+            let addServerVC = environment.instantiateAddServerViewController(preDefinedProvider: nil)
+            addServerVC.delegate = self
+            environment.navigationController?.pushViewController(addServerVC, animated: true)
+        }
     }
 }
 
@@ -90,6 +96,21 @@ extension MainViewController: SearchViewControllerDelegate {
             apiBaseURLString: baseURLString, authBaseURLString: baseURLString,
             orgId: orgId, localStoragePath: storagePath)
         environment.persistenceService.setSecureInternetServer(server)
+        viewModel.update()
+        environment.navigationController?.popViewController(animated: true)
+    }
+}
+
+extension MainViewController: AddServerViewControllerDelegate {
+    func addServerViewController(
+        _ controller: AddServerViewController,
+        addedSimpleServerWithBaseURL baseURLString: DiscoveryData.BaseURLString,
+        authState: AuthState) {
+        let storagePath = UUID().uuidString
+        let dataStore = PersistenceService.DataStore(path: storagePath)
+        dataStore.authState = authState
+        let server = SimpleServerInstance(baseURLString: baseURLString, localStoragePath: storagePath)
+        environment.persistenceService.addSimpleServer(server)
         viewModel.update()
         environment.navigationController?.popViewController(animated: true)
     }
