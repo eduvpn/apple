@@ -84,6 +84,7 @@ class MainViewModel {
     }
 
     let persistenceService: PersistenceService
+    let isDiscoveryEnabled: Bool
     var instituteAccessServersMap: [DiscoveryData.BaseURLString: DiscoveryData.InstituteAccessServer] = [:]
     var secureInternetServersMap: [DiscoveryData.BaseURLString: DiscoveryData.SecureInternetServer] = [:]
 
@@ -96,6 +97,7 @@ class MainViewModel {
         self.persistenceService = persistenceService
 
         if let serverDiscoveryService = serverDiscoveryService {
+            isDiscoveryEnabled = true
             serverDiscoveryService.delegate = self
             firstly {
                 serverDiscoveryService.getServers(from: .cache)
@@ -112,6 +114,11 @@ class MainViewModel {
                            log: Log.general, type: .error,
                            error.localizedDescription)
                 }
+            }
+        } else {
+            isDiscoveryEnabled = false
+            DispatchQueue.main.async { // Ensure delegate is set
+                self.update()
             }
         }
     }
@@ -141,7 +148,8 @@ extension MainViewModel {
 
         for simpleServer in persistenceService.simpleServers {
             let baseURLString = simpleServer.baseURLString
-            if let discoveredServer = instituteAccessServersMap[baseURLString] {
+            if isDiscoveryEnabled,
+               let discoveredServer = instituteAccessServersMap[baseURLString] {
                 let displayInfo = ServerDisplayInfo.instituteAccessServer(discoveredServer)
                 let displayName = displayInfo.serverName()
                 instituteAccessRows.append(.instituteAccessServer(server: simpleServer, displayInfo: displayInfo, displayName: displayName))
