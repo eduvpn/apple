@@ -138,13 +138,6 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
                 serverAPIService: parameters.environment.serverAPIService,
                 authURLTemplate: parameters.authURLTemplate,
                 restoringPreConnectionState: serverPreConnectionState)
-            if let serverPreConnectionState = serverPreConnectionState {
-                self.profiles = serverPreConnectionState.profiles
-                self.selectedProfileId = serverPreConnectionState.selectedProfileId
-            } else {
-                self.profiles = []
-                self.selectedProfileId = dataStore.selectedProfileId(for: server.apiBaseURLString)
-            }
         } else if let vpnConfigInstance = parameters.connectableInstance as? VPNConfigInstance {
             let vpnConfigPreConnectionState = parameters.restoringPreConnectionState?.vpnConfigState
             self.viewModel = ConnectionViewModel(
@@ -158,6 +151,17 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
 
         self.isRestored = (parameters.restoringPreConnectionState != nil)
         self.dataStore = PersistenceService.DataStore(path: parameters.connectableInstance.localStoragePath)
+
+        if let server = parameters.connectableInstance as? ServerInstance {
+            let serverPreConnectionState = parameters.restoringPreConnectionState?.serverState
+            if let serverPreConnectionState = serverPreConnectionState {
+                self.profiles = serverPreConnectionState.profiles
+                self.selectedProfileId = serverPreConnectionState.selectedProfileId
+            } else {
+                self.profiles = []
+                self.selectedProfileId = dataStore.selectedProfileId(for: server.apiBaseURLString)
+            }
+        }
     }
 
     override func viewDidLoad() {
