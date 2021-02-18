@@ -24,7 +24,9 @@ class Environment {
 
     init(navigationController: NavigationController) {
         self.navigationController = navigationController
-        if let discoveryConfig = Config.shared.discovery {
+        let isDiscoveryEnabled = Config.shared.apiDiscoveryEnabled ?? false
+        if isDiscoveryEnabled,
+           let discoveryConfig = Config.shared.discovery {
             self.serverDiscoveryService = ServerDiscoveryService(discoveryConfig: discoveryConfig)
         } else {
             self.serverDiscoveryService = nil
