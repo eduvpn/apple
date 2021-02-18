@@ -183,7 +183,9 @@ extension MainViewModel {
             computedRows.append(contentsOf: secureInternetRows)
         }
         if !serverByURLRows.isEmpty || !openVPNConfigRows.isEmpty {
-            computedRows.append(.otherServerSectionHeader)
+            if !instituteAccessRows.isEmpty || !secureInternetRows.isEmpty {
+                computedRows.append(.otherServerSectionHeader)
+            }
             computedRows.append(contentsOf: serverByURLRows)
             computedRows.append(contentsOf: openVPNConfigRows)
         }
