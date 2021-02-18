@@ -41,6 +41,15 @@ final class AddServerViewController: ViewController, ParametrizedViewController 
         self.parameters = parameters
     }
 
+    override func viewDidLoad() {
+        if let preDefinedProvider = parameters.preDefinedProvider {
+            topImageView.image = NSImage(named: "PreDefinedProviderTopImage")
+            topLabel.text = preDefinedProvider.displayName.stringForCurrentLanguage()
+            serverURLTextField.isHidden = true
+            addServerButton.isEnabled = true
+        }
+    }
+
     #if os(macOS)
     override func viewDidAppear() {
         if shouldAutoFocusURLField {
@@ -59,16 +68,23 @@ final class AddServerViewController: ViewController, ParametrizedViewController 
         startAuth()
     }
 
-    private func startAuth() {
+    private func serverBaseURLString() -> DiscoveryData.BaseURLString? {
+        if let preDefinedProvider = parameters.preDefinedProvider {
+            return preDefinedProvider.baseURLString
+        }
         var urlString = serverURLTextField.text ?? ""
-        guard !urlString.isEmpty else { return }
+        guard !urlString.isEmpty else { return nil }
         if !urlString.hasPrefix("https://") {
             urlString = "https://" + urlString
         }
         if !urlString.hasSuffix("/") {
             urlString += "/"
         }
-        let baseURLString = DiscoveryData.BaseURLString(urlString: urlString)
+        return DiscoveryData.BaseURLString(urlString: urlString)
+    }
+
+    private func startAuth() {
+        guard let baseURLString = serverBaseURLString() else { return }
         let serverAuthService = parameters.environment.serverAuthService
         let navigationController = parameters.environment.navigationController
         let delegate = self.delegate
