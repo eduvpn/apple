@@ -32,12 +32,24 @@ final class AddServerViewController: ViewController, ParametrizedViewController 
     @IBOutlet weak var serverURLTextField: NSTextField!
     @IBOutlet weak var addServerButton: NSButton!
 
+    private var shouldAutoFocusURLField: Bool = true
+
     func initializeParameters(_ parameters: Parameters) {
         guard self.parameters == nil else {
             fatalError("Can't initialize parameters twice")
         }
         self.parameters = parameters
     }
+
+    #if os(macOS)
+    override func viewDidAppear() {
+        if shouldAutoFocusURLField {
+            self.view.window?.makeFirstResponder(serverURLTextField)
+        }
+        shouldAutoFocusURLField = false
+        super.viewDidAppear()
+    }
+    #endif
 
     @IBAction func addServerClicked(_ sender: Any) {
         startAuth()
