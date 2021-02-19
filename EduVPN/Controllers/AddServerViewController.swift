@@ -34,6 +34,10 @@ final class AddServerViewController: ViewController, ParametrizedViewController 
 
     private var shouldAutoFocusURLField: Bool = true
 
+    private var hasAddedServers: Bool = false {
+        didSet { updateIsUserAllowedToGoBack() }
+    }
+
     func initializeParameters(_ parameters: Parameters) {
         guard self.parameters == nil else {
             fatalError("Can't initialize parameters twice")
@@ -42,6 +46,12 @@ final class AddServerViewController: ViewController, ParametrizedViewController 
     }
 
     override func viewDidLoad() {
+        title = NSLocalizedString("Add Server", comment: "")
+
+        let persistenceService = parameters.environment.persistenceService
+        persistenceService.hasServersDelegate = self
+        hasAddedServers = persistenceService.hasServers
+
         if let preDefinedProvider = parameters.preDefinedProvider {
             topImageView.image = NSImage(named: "PreDefinedProviderTopImage")
             topLabel.text = preDefinedProvider.displayName.stringForCurrentLanguage()
@@ -106,6 +116,10 @@ final class AddServerViewController: ViewController, ParametrizedViewController 
             }
         }
     }
+
+    func updateIsUserAllowedToGoBack() {
+        parameters.environment.navigationController?.isUserAllowedToGoBack = hasAddedServers
+    }
 }
 
 extension AddServerViewController: NSTextFieldDelegate {
@@ -134,3 +148,9 @@ extension AddServerViewController: AuthorizingViewController {
     }
 }
 #endif
+
+extension AddServerViewController: PersistenceServiceHasServersDelegate {
+    func persistenceService(_ persistenceService: PersistenceService, hasServersChangedTo hasServers: Bool) {
+        hasAddedServers = hasServers
+    }
+}
