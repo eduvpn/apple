@@ -40,6 +40,7 @@ typealias StackView = UIStackView
 typealias ImageView = UIImageView
 typealias ProgressIndicator = UIActivityIndicatorView
 typealias Label = UILabel
+typealias TextField = UITextField
 typealias TextView = UITextView
 typealias Spinner = UIActivityIndicatorView
 
@@ -115,6 +116,7 @@ typealias StackView = NSStackView
 typealias ImageView = NSImageView
 typealias ProgressIndicator = NSProgressIndicator
 typealias Label = NSTextField
+typealias TextField = NSTextField
 typealias TextView = NSTextView
 typealias Spinner = NSProgressIndicator
 

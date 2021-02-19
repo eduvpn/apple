@@ -1004,7 +1004,6 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL" returnKeyType="go" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="url"/>
                                         <connections>
-                                            <action selector="serverURLTextFieldValueChanged:" destination="QgS-AY-8Gr" eventType="valueChanged" id="EuH-Xo-LQt"/>
                                             <outlet property="delegate" destination="QgS-AY-8Gr" id="wSW-Kf-VJ9"/>
                                         </connections>
                                     </textField>

@@ -21,19 +21,31 @@ final class AddServerViewController: ViewController, ParametrizedViewController 
     struct Parameters {
         let environment: Environment
         let preDefinedProvider: PreDefinedProvider?
+        let shouldAutoFocusURLField: Bool
     }
 
     weak var delegate: AddServerViewControllerDelegate?
 
     private var parameters: Parameters!
 
-    @IBOutlet weak var topImageView: NSImageView!
-    @IBOutlet weak var topLabel: NSTextField!
-    @IBOutlet weak var serverURLTextField: NSTextField!
-    @IBOutlet weak var addServerButton: NSButton!
+    #if os(macOS)
+    var navigationController: NavigationController? { parameters.environment.navigationController }
+    #endif
 
-    private var shouldAutoFocusURLField: Bool = true
+    #if os(iOS)
+    var contactingServerAlert: UIAlertController?
+    #endif
 
+    @IBOutlet weak var topImageView: ImageView!
+    @IBOutlet weak var topLabel: Label!
+    @IBOutlet weak var serverURLTextField: TextField!
+    @IBOutlet weak var addServerButton: Button!
+
+    private var shouldAutoFocusURLField: Bool = false
+
+    var isBusy: Bool = false {
+        didSet { updateIsUserAllowedToGoBack() }
+    }
     private var hasAddedServers: Bool = false {
         didSet { updateIsUserAllowedToGoBack() }
     }
@@ -43,6 +55,7 @@ final class AddServerViewController: ViewController, ParametrizedViewController 
             fatalError("Can't initialize parameters twice")
         }
         self.parameters = parameters
+        self.shouldAutoFocusURLField = parameters.shouldAutoFocusURLField
     }
 
     override func viewDidLoad() {
@@ -53,10 +66,11 @@ final class AddServerViewController: ViewController, ParametrizedViewController 
         hasAddedServers = persistenceService.hasServers
 
         if let preDefinedProvider = parameters.preDefinedProvider {
-            topImageView.image = NSImage(named: "PreDefinedProviderTopImage")
+            topImageView.image = Image(named: "PreDefinedProviderTopImage")
             topLabel.text = preDefinedProvider.displayName.stringForCurrentLanguage()
             serverURLTextField.isHidden = true
             addServerButton.isEnabled = true
+            shouldAutoFocusURLField = false
         }
     }
 
@@ -68,15 +82,15 @@ final class AddServerViewController: ViewController, ParametrizedViewController 
         shouldAutoFocusURLField = false
         super.viewDidAppear()
     }
+    #elseif os(iOS)
+    override func viewDidAppear(_ animated: Bool) {
+        if shouldAutoFocusURLField {
+            serverURLTextField.becomeFirstResponder()
+        }
+        shouldAutoFocusURLField = false
+        super.viewDidAppear(animated)
+    }
     #endif
-
-    @IBAction func addServerClicked(_ sender: Any) {
-        startAuth()
-    }
-
-    @IBAction func serverURLTextFieldReturnPressed(_ sender: Any) {
-        startAuth()
-    }
 
     private func serverBaseURLString() -> DiscoveryData.BaseURLString? {
         if let preDefinedProvider = parameters.preDefinedProvider {
@@ -90,10 +104,12 @@ final class AddServerViewController: ViewController, ParametrizedViewController 
         if !urlString.hasSuffix("/") {
             urlString += "/"
         }
+        let hasTwoOrMoreDots = urlString.filter { $0 == "." }.count >= 2
+        guard hasTwoOrMoreDots else { return nil }
         return DiscoveryData.BaseURLString(urlString: urlString)
     }
 
-    private func startAuth() {
+    func startAuth() {
         guard let baseURLString = serverBaseURLString() else { return }
         let serverAuthService = parameters.environment.serverAuthService
         let navigationController = parameters.environment.navigationController
@@ -117,37 +133,16 @@ final class AddServerViewController: ViewController, ParametrizedViewController 
         }
     }
 
-    func updateIsUserAllowedToGoBack() {
-        parameters.environment.navigationController?.isUserAllowedToGoBack = hasAddedServers
-    }
-}
-
-extension AddServerViewController: NSTextFieldDelegate {
-    func controlTextDidChange(_ obj: Notification) {
+    func onServerURLTextFieldTextChanged() {
         let urlString = serverURLTextField.text ?? ""
         let hasTwoOrMoreDots = urlString.filter { $0 == "." }.count >= 2
         addServerButton.isEnabled = hasTwoOrMoreDots
     }
-}
 
-#if os(macOS)
-extension AddServerViewController: AuthorizingViewController {
-    var navigationController: NavigationController? { parameters.environment.navigationController }
-
-    func didBeginFetchingServerInfoForAuthorization(userCancellationHandler: (() -> Void)?) {
-        navigationController?.showAuthorizingMessage(onCancelled: userCancellationHandler)
-    }
-
-    func didBeginAuthorization(macUserCancellationHandler: (() -> Void)?) {
-        navigationController?.showAuthorizingMessage(onCancelled: macUserCancellationHandler)
-    }
-
-    func didEndAuthorization() {
-        navigationController?.hideAuthorizingMessage()
-        NSApp.activate(ignoringOtherApps: true)
+    func updateIsUserAllowedToGoBack() {
+        parameters.environment.navigationController?.isUserAllowedToGoBack = hasAddedServers && !isBusy
     }
 }
-#endif
 
 extension AddServerViewController: PersistenceServiceHasServersDelegate {
     func persistenceService(_ persistenceService: PersistenceService, hasServersChangedTo hasServers: Bool) {

@@ -52,10 +52,12 @@ class Environment {
         return instantiate(SearchViewController.self, identifier: "Search", parameters: parameters)
     }
 
-    func instantiateAddServerViewController(preDefinedProvider: PreDefinedProvider?) -> AddServerViewController {
+    func instantiateAddServerViewController(
+        preDefinedProvider: PreDefinedProvider?, shouldAutoFocusURLField: Bool) -> AddServerViewController {
         let parameters = AddServerViewController.Parameters(
             environment: self,
-            preDefinedProvider: preDefinedProvider)
+            preDefinedProvider: preDefinedProvider,
+            shouldAutoFocusURLField: shouldAutoFocusURLField)
         return instantiate(AddServerViewController.self, identifier: "AddServer", parameters: parameters)
     }
 
