@@ -12,7 +12,7 @@ struct PreDefinedProvider {
 
 extension PreDefinedProvider: Decodable {
     enum CodingKeys: String, CodingKey {
-        case baseURLString = "url"
+        case baseURLString = "base_url"
         case displayName = "display_name"
     }
 }
