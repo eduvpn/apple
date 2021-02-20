@@ -9,6 +9,8 @@
 - iOS: Fix 'Change Location' to make first location choosable #375
 - Use strings in discovery data correctly based on system language #374
 - Auto-focus the search field when applicable #330
+- Let's Connect: Remove discovery-related features #294
+- Let's Connect: Support for pre-defined provider
 
 ## 2.2.0 (2020-11-12)
 
