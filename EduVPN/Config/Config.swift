@@ -22,7 +22,7 @@ struct Config: Decodable {
     enum ConfigKeys: String, CodingKey {
         case client_id
         case redirect_url
-        case predefined_provider
+        case preDefinedProvider
         case discovery
         case appName
         case apiDiscoveryEnabled
@@ -69,7 +69,7 @@ extension Config {
         clientId = try container.decode(String.self, forKey: .client_id)
         redirectUrl = try container.decode(URL.self, forKey: .redirect_url)
         
-        predefinedProvider = try container.decodeIfPresent(PreDefinedProvider.self, forKey: .predefined_provider)
+        predefinedProvider = try container.decodeIfPresent(PreDefinedProvider.self, forKey: .preDefinedProvider)
         discovery = try container.decodeIfPresent(DiscoveryConfig.self, forKey: .discovery)
         
         appName = try container.decode(String.self, forKey: .appName)
