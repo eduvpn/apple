@@ -287,7 +287,7 @@ extension MainViewController {
             persistenceService.removeSecureInternetServer()
         case .instituteAccessServer(server: let server, _, _):
             persistenceService.removeSimpleServer(server)
-        case .serverByURL(server: let server):
+        case .serverByURL(server: let server, _):
             persistenceService.removeSimpleServer(server)
         case .openVPNConfig(instance: let instance):
             persistenceService.removeOpenVPNConfiguration(instance)
