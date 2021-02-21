@@ -12,6 +12,9 @@ import os.log
 protocol ConnectionViewControllerDelegate: class {
     func connectionViewController(
         _ controller: ConnectionViewController,
+        flowStatusChanged status: ConnectionViewModel.ConnectionFlowStatus)
+    func connectionViewController(
+        _ controller: ConnectionViewController,
         willAttemptToConnect connectionAttempt: ConnectionAttempt?)
 }
 
@@ -45,6 +48,18 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     }
 
     weak var delegate: ConnectionViewControllerDelegate?
+
+    var connectableInstance: ConnectableInstance {
+        parameters.connectableInstance
+    }
+
+    var serverDisplayInfo: ServerDisplayInfo {
+        parameters.serverDisplayInfo
+    }
+
+    var status: ConnectionViewModel.Status {
+        viewModel.status
+    }
 
     private var parameters: Parameters!
     private var isRestored: Bool = false
@@ -544,6 +559,7 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
             }
         }()
         statusLabel.text = status.localizedText
+        delegate?.connectionViewController(self, flowStatusChanged: status)
     }
 
     func connectionViewModel(

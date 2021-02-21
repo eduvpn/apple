@@ -6,6 +6,15 @@
 import Foundation
 import os.log
 
+protocol MainViewControllerDelegate: class {
+    func mainViewControllerAddedServersListChanged(
+        _ viewController: MainViewController)
+    func mainViewController(
+        _ viewController: MainViewController,
+        didObserveConnectionFlowStatusChange status: ConnectionViewModel.ConnectionFlowStatus,
+        in connectionViewController: ConnectionViewController)
+}
+
 class MainViewController: ViewController {
 
     var environment: Environment! {
@@ -33,7 +42,17 @@ class MainViewController: ViewController {
         }
     }
 
-    private var viewModel: MainViewModel!
+    weak var delegate: MainViewControllerDelegate?
+
+    var currentConnectionVC: ConnectionViewController? {
+        if let topVC = environment.navigationController?.topViewController,
+           let connectionVC = topVC as? ConnectionViewController {
+            return connectionVC
+        }
+        return nil
+    }
+
+    private(set) var viewModel: MainViewModel!
     private var isTableViewInitialized = false
     private var isConnectionServiceInitialized = false
 
@@ -59,6 +78,20 @@ class MainViewController: ViewController {
 
     func refresh() {
         viewModel.update()
+    }
+
+    func pushConnectionVC(connectableInstance: ConnectableInstance,
+                          preConnectionState: ConnectionAttempt.PreConnectionState?) {
+        let serverDisplayInfo = viewModel.serverDisplayInfo(for: connectableInstance)
+        let authURLTemplate = viewModel.authURLTemplate(for: connectableInstance)
+        let connectionVC = environment.instantiateConnectionViewController(
+            connectableInstance: connectableInstance,
+            serverDisplayInfo: serverDisplayInfo,
+            authURLTemplate: authURLTemplate,
+            restoringPreConnectionState: preConnectionState)
+        connectionVC.delegate = self
+        environment.navigationController?.popToRoot()
+        environment.navigationController?.pushViewController(connectionVC, animated: true)
     }
 }
 
@@ -128,6 +161,13 @@ extension MainViewController: AddServerViewControllerDelegate {
 extension MainViewController: ConnectionViewControllerDelegate {
     func connectionViewController(
         _ controller: ConnectionViewController,
+        flowStatusChanged status: ConnectionViewModel.ConnectionFlowStatus) {
+        delegate?.mainViewController(
+            self, didObserveConnectionFlowStatusChange: status, in: controller)
+    }
+
+    func connectionViewController(
+        _ controller: ConnectionViewController,
         willAttemptToConnect connectionAttempt: ConnectionAttempt?) {
         guard let connectionAttempt = connectionAttempt else {
             environment.persistenceService.removeLastConnectionAttempt()
@@ -138,7 +178,7 @@ extension MainViewController: ConnectionViewControllerDelegate {
 }
 
 extension MainViewController: ConnectionServiceInitializationDelegate {
-    func connectionService( // swiftlint:disable:this function_body_length
+    func connectionService(
         _ service: ConnectionServiceProtocol,
         initializedWithState initializedState: ConnectionServiceInitializedState) {
         isConnectionServiceInitialized = true
@@ -156,40 +196,22 @@ extension MainViewController: ConnectionServiceInitializationDelegate {
                     return
             }
 
-            let connectionVC: ConnectionViewController? = {
-                let connectableInstance = lastConnectionAttempt.connectableInstance
-                if let simpleServer = connectableInstance as? SimpleServerInstance {
-                    precondition(lastConnectionAttempt.preConnectionState.serverState != nil)
-                    return environment.instantiateConnectionViewController(
-                        connectableInstance: simpleServer,
-                        serverDisplayInfo: viewModel.serverDisplayInfo(for: simpleServer),
-                        authURLTemplate: nil,
-                        restoringPreConnectionState: lastConnectionAttempt.preConnectionState)
-                } else if let secureInternetServer = connectableInstance as? SecureInternetServerInstance {
-                    precondition(lastConnectionAttempt.preConnectionState.serverState != nil)
-                    return environment.instantiateConnectionViewController(
-                        connectableInstance: secureInternetServer,
-                        serverDisplayInfo: viewModel.serverDisplayInfo(for: secureInternetServer),
-                        authURLTemplate: viewModel.authURLTemplate(for: secureInternetServer),
-                        restoringPreConnectionState: lastConnectionAttempt.preConnectionState)
-                } else if let openVPNConfigInstance = connectableInstance as? OpenVPNConfigInstance {
-                    precondition(lastConnectionAttempt.preConnectionState.vpnConfigState != nil)
-                    return environment.instantiateConnectionViewController(
-                        connectableInstance: openVPNConfigInstance,
-                        serverDisplayInfo: .vpnConfigInstance(openVPNConfigInstance),
-                        restoringPreConnectionState: lastConnectionAttempt.preConnectionState)
-                }
-                return nil
-            }()
-            if let connectionVC = connectionVC {
-                environment.navigationController?.popToRoot()
-                environment.navigationController?.pushViewController(connectionVC, animated: true)
+            let connectableInstance = lastConnectionAttempt.connectableInstance
+            let preConnectionState = lastConnectionAttempt.preConnectionState
+            if connectableInstance is ServerInstance {
+                precondition(lastConnectionAttempt.preConnectionState.serverState != nil)
+            } else if connectableInstance is VPNConfigInstance {
+                precondition(lastConnectionAttempt.preConnectionState.vpnConfigState != nil)
             } else {
                 os_log("VPN is enabled at launch, but unable to identify the server from the info in last_connection_attempt.json. Disabling VPN.",
                        log: Log.general, type: .debug)
                 environment.connectionService.disableVPN()
                     .cauterize()
             }
+            pushConnectionVC(
+                connectableInstance: connectableInstance,
+                preConnectionState: preConnectionState)
+
         case .vpnDisabled:
             environment.persistenceService.removeLastConnectionAttempt()
         }
@@ -255,19 +277,8 @@ extension MainViewController {
         }
 
         let row = viewModel.row(at: index)
-        if let serverDisplayInfo = row.serverDisplayInfo {
-            if let server = row.server {
-                let connectionVC = environment.instantiateConnectionViewController(
-                    connectableInstance: server, serverDisplayInfo: serverDisplayInfo,
-                    authURLTemplate: viewModel.authURLTemplate(for: server))
-                connectionVC.delegate = self
-                environment.navigationController?.pushViewController(connectionVC, animated: true)
-            } else if let vpnConfig = row.vpnConfig {
-                let connectionVC = environment.instantiateConnectionViewController(
-                    connectableInstance: vpnConfig, serverDisplayInfo: serverDisplayInfo)
-                connectionVC.delegate = self
-                environment.navigationController?.pushViewController(connectionVC, animated: true)
-            }
+        if let connectableInstance = row.connectableInstance {
+            pushConnectionVC(connectableInstance: connectableInstance, preConnectionState: nil)
         }
     }
 
@@ -324,12 +335,14 @@ extension MainViewController: MainViewModelDelegate {
         guard isTableViewInitialized else {
             // The first time, we reload to avoid drawing errors
             tableView.reloadData()
+            delegate?.mainViewControllerAddedServersListChanged(self)
             isTableViewInitialized = true
             return
         }
         if changes.deletedIndices.isEmpty && changes.insertions.isEmpty {
             return
         }
+        delegate?.mainViewControllerAddedServersListChanged(self)
         #if os(iOS)
         guard isViewVisible else {
             hasPendingUpdates = true
