@@ -28,7 +28,7 @@ protocol ConnectionViewModelDelegate: class {
         headerChanged header: ConnectionViewModel.Header)
     func connectionViewModel(
         _ model: ConnectionViewModel,
-        statusChanged status: ConnectionViewModel.Status)
+        statusChanged status: ConnectionViewModel.ConnectionFlowStatus)
     func connectionViewModel(
         _ model: ConnectionViewModel,
         statusDetailChanged statusDetail: ConnectionViewModel.StatusDetail)
@@ -69,7 +69,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         }
     }
 
-    enum Status {
+    enum ConnectionFlowStatus {
         case notConnected
         case gettingProfiles
         case configuring
@@ -110,7 +110,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
 
     private(set) var supportContact: SupportContact
 
-    private(set) var status: Status {
+    private(set) var status: ConnectionFlowStatus {
         didSet { delegate?.connectionViewModel(self, statusChanged: status) }
     }
 
@@ -460,7 +460,7 @@ private extension ConnectionViewModel {
 
 private extension ConnectionViewModel {
     func updateStatus() {
-        status = { () -> Status in
+        status = { () -> ConnectionFlowStatus in
             switch (internalState, connectionStatus) {
             case (.gettingProfiles, _): return .gettingProfiles
             case (.configuring, _): return .configuring
