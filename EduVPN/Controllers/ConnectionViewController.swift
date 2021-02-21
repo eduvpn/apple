@@ -57,7 +57,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         parameters.serverDisplayInfo
     }
 
-    var status: ConnectionViewModel.Status {
+    var status: ConnectionViewModel.ConnectionFlowStatus {
         viewModel.status
     }
 
@@ -226,6 +226,20 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
             }
         } else {
             disableVPN()
+        }
+    }
+
+    @discardableResult
+    func disableVPN() -> Promise<Void> {
+        firstly {
+            viewModel.disableVPN()
+        }.map {
+            self.vpnSwitch.isOn = false
+        }.recover { error in
+            os_log("Error disabling VPN: %{public}@",
+                   log: Log.general, type: .error,
+                   error.localizedDescription)
+            self.showAlert(for: error)
         }
     }
 
@@ -441,19 +455,6 @@ private extension ConnectionViewController {
         self.presentedPasswordEntryVC = passwordEntryVC
     }
     #endif
-
-    func disableVPN() {
-        firstly {
-            viewModel.disableVPN()
-        }.map {
-            self.vpnSwitch.isOn = false
-        }.catch { error in
-            os_log("Error disabling VPN: %{public}@",
-                   log: Log.general, type: .error,
-                   error.localizedDescription)
-            self.showAlert(for: error)
-        }
-    }
 
     private func showAlert(for error: Error) {
         if let serverAPIError = error as? ServerAPIServiceError,

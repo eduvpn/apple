@@ -48,12 +48,17 @@ class MainViewModel {
 
         var displayText: String {
             switch self {
+            case .instituteAccessServerSectionHeader:
+                return NSLocalizedString("Institute Access", comment: "")
+            case .secureInternetServerSectionHeader:
+                return NSLocalizedString("Secure Internet", comment: "")
+            case .otherServerSectionHeader:
+                return NSLocalizedString("Other servers", comment: "")
             case .instituteAccessServer(_, _, let displayName): return displayName
             case .secureInternetServer(_, _, let countryName): return countryName
             case .serverByURL(let server, let displayName):
                 return displayName ?? server.baseURLString.toString()
             case .openVPNConfig(let instance): return instance.name
-            default: return ""
             }
         }
 
