@@ -44,6 +44,9 @@
 		6F4C1ED625D12D710042AD95 /* SharedTunnelOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4C1ED425D12D710042AD95 /* SharedTunnelOptions.swift */; };
 		6F50408D254C33C50071AA66 /* ConnectionViewModel+SupportContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F50408C254C33C50071AA66 /* ConnectionViewModel+SupportContact.swift */; };
 		6F50408E254C33C50071AA66 /* ConnectionViewModel+SupportContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F50408C254C33C50071AA66 /* ConnectionViewModel+SupportContact.swift */; };
+		6F54C92225DFE1B100A42C8F /* AddServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F65629725D9AEB100ED3ECC /* AddServerViewController.swift */; };
+		6F54C92D25E033EE00A42C8F /* AddServerViewController+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F54C92C25E033EE00A42C8F /* AddServerViewController+macOS.swift */; };
+		6F54C93825E0359200A42C8F /* AddServerViewController+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F54C93725E0359200A42C8F /* AddServerViewController+iOS.swift */; };
 		6F57338724CD1570008912D4 /* CertificateExpiryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F57338624CD1570008912D4 /* CertificateExpiryHelper.swift */; };
 		6F59A58824F51DEB00560155 /* server_list.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F59A58624F51DEB00560155 /* server_list.json */; };
 		6F59A58924F51DEB00560155 /* organization_list.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F59A58724F51DEB00560155 /* organization_list.json */; };
@@ -77,6 +80,9 @@
 		6F5E6C73252494C0000225C0 /* Common.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F5E6C72252494C0000225C0 /* Common.xcassets */; };
 		6F5E6C752525C90F000225C0 /* MainViewController+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E6C742525C90F000225C0 /* MainViewController+iOS.swift */; };
 		6F5E6C7725274548000225C0 /* CountryFlags.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F36A71C24B454AA00BA8F5E /* CountryFlags.xcassets */; };
+		6F65629825D9AEB100ED3ECC /* AddServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F65629725D9AEB100ED3ECC /* AddServerViewController.swift */; };
+		6F6562A325DA64D100ED3ECC /* PredefinedProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6562A225DA64D100ED3ECC /* PredefinedProvider.swift */; };
+		6F6562A425DA64D100ED3ECC /* PredefinedProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6562A225DA64D100ED3ECC /* PredefinedProvider.swift */; };
 		6F71FBB9249B545B0010D0FE /* DiscoveryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F71FBB7249B54490010D0FE /* DiscoveryData.swift */; };
 		6F71FBBE249CCE9E0010D0FE /* DiscoveryDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F71FBBC249CCE980010D0FE /* DiscoveryDataFetcher.swift */; };
 		6F750C8524975A4300AF2C04 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340F956C22B7118C00835D56 /* NetworkExtension.framework */; };
@@ -318,6 +324,8 @@
 		6F36A79C24B6F5BA00BA8F5E /* MainViewController+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+macOS.swift"; sourceTree = "<group>"; };
 		6F4C1ED425D12D710042AD95 /* SharedTunnelOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTunnelOptions.swift; sourceTree = "<group>"; };
 		6F50408C254C33C50071AA66 /* ConnectionViewModel+SupportContact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConnectionViewModel+SupportContact.swift"; sourceTree = "<group>"; };
+		6F54C92C25E033EE00A42C8F /* AddServerViewController+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddServerViewController+macOS.swift"; sourceTree = "<group>"; };
+		6F54C93725E0359200A42C8F /* AddServerViewController+iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddServerViewController+iOS.swift"; sourceTree = "<group>"; };
 		6F57338624CD1570008912D4 /* CertificateExpiryHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateExpiryHelper.swift; sourceTree = "<group>"; };
 		6F59A58624F51DEB00560155 /* server_list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = server_list.json; sourceTree = "<group>"; };
 		6F59A58724F51DEB00560155 /* organization_list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = organization_list.json; sourceTree = "<group>"; };
@@ -325,6 +333,8 @@
 		6F5E6C702524399B000225C0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6F5E6C72252494C0000225C0 /* Common.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Common.xcassets; sourceTree = "<group>"; };
 		6F5E6C742525C90F000225C0 /* MainViewController+iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+iOS.swift"; sourceTree = "<group>"; };
+		6F65629725D9AEB100ED3ECC /* AddServerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddServerViewController.swift; sourceTree = "<group>"; };
+		6F6562A225DA64D100ED3ECC /* PredefinedProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredefinedProvider.swift; sourceTree = "<group>"; };
 		6F71FBB7249B54490010D0FE /* DiscoveryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryData.swift; sourceTree = "<group>"; };
 		6F71FBBC249CCE980010D0FE /* DiscoveryDataFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveryDataFetcher.swift; sourceTree = "<group>"; };
 		6F750C9624975A4300AF2C04 /* eduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -715,6 +725,7 @@
 			children = (
 				6F36A79C24B6F5BA00BA8F5E /* MainViewController+macOS.swift */,
 				6F36A79A24B6ED5D00BA8F5E /* SearchViewController+macOS.swift */,
+				6F54C92C25E033EE00A42C8F /* AddServerViewController+macOS.swift */,
 				C7DB4B46247FBE26009932B1 /* PreferencesViewController.swift */,
 				6F7B63EF2500FD7300FB154A /* StatusItemController.swift */,
 				6F8835EB24FCD481008F15FF /* MainWindowController.swift */,
@@ -732,6 +743,7 @@
 				6FE1D2902543546900BD7E3E /* ConnectionInfoViewController.swift */,
 				6FFD421C254977240093533C /* SettingsViewController.swift */,
 				6F305A58254AA6C50067E744 /* LogViewController.swift */,
+				6F54C93725E0359200A42C8F /* AddServerViewController+iOS.swift */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -883,6 +895,7 @@
 				6F305A5A254B65770067E744 /* Mac */,
 				C7DB4B37247FBD52009932B1 /* MainViewController.swift */,
 				C7DB4B3D247FBDD7009932B1 /* SearchViewController.swift */,
+				6F65629725D9AEB100ED3ECC /* AddServerViewController.swift */,
 				C7DB4B43247FBDF5009932B1 /* ConnectionViewController.swift */,
 				6F885F7B25C1740D00CABF4E /* CredentialsViewController.swift */,
 			);
@@ -946,6 +959,7 @@
 				6FD5CDA124C467CB00842A74 /* ServerDisplayInfo.swift */,
 				6FA808AE24EBBD1F00E7D924 /* ConnectionAttempt.swift */,
 				6F885F6F25C14FA500CABF4E /* OpenVPNConfigCredentials.swift */,
+				6F6562A225DA64D100ED3ECC /* PredefinedProvider.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1802,6 +1816,7 @@
 				C7DB4BCF24803A2A009932B1 /* ServerInfo.swift in Sources */,
 				6F885F7C25C1740D00CABF4E /* CredentialsViewController.swift in Sources */,
 				6F71FBB9249B545B0010D0FE /* DiscoveryData.swift in Sources */,
+				6F6562A325DA64D100ED3ECC /* PredefinedProvider.swift in Sources */,
 				C7DB4BFB24804C1A009932B1 /* Moya+Extensions.swift in Sources */,
 				6FADF82B24ADF57000B75E8D /* PersistenceService.swift in Sources */,
 				6FA808AF24EBBD1F00E7D924 /* ConnectionAttempt.swift in Sources */,
@@ -1812,6 +1827,7 @@
 				6FBFEF0C24C0680800A9D1D4 /* ConnectionService.swift in Sources */,
 				6F116CAD2534585800C73797 /* MockConnectionService.swift in Sources */,
 				6FA8089524E6A75D00E7D924 /* MigrationHelper.swift in Sources */,
+				6F54C92D25E033EE00A42C8F /* AddServerViewController+macOS.swift in Sources */,
 				6FEF30FC24A317C00026C786 /* SectionHeaderCell.swift in Sources */,
 				6F8835EC24FCD481008F15FF /* MainWindowController.swift in Sources */,
 				6FADF82724ADF2E600B75E8D /* ServerInfoFetcher.swift in Sources */,
@@ -1833,6 +1849,7 @@
 				C7DB4BA2247FC243009932B1 /* SearchViewModel.swift in Sources */,
 				C7DB4BD524803B99009932B1 /* SignatureHelper.swift in Sources */,
 				C7DB4B6B247FC198009932B1 /* AppDelegate.swift in Sources */,
+				6F65629825D9AEB100ED3ECC /* AddServerViewController.swift in Sources */,
 				C7DB4B9C247FC23D009932B1 /* MainViewController.swift in Sources */,
 				C7D3BB3F258368F900A37244 /* Testing.swift in Sources */,
 				6FD5CDA224C467CB00842A74 /* ServerDisplayInfo.swift in Sources */,
@@ -1852,6 +1869,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7DB4C21248060F5009932B1 /* Moya+Promise.swift in Sources */,
+				6F54C93825E0359200A42C8F /* AddServerViewController+iOS.swift in Sources */,
 				C7DB4C24248060F5009932B1 /* ServerInfo.swift in Sources */,
 				6F5E6C382522E8E3000225C0 /* ErrorHandling.swift in Sources */,
 				6F5E6C4D2522F43F000225C0 /* UserDefaults+Preferences.swift in Sources */,
@@ -1887,6 +1905,7 @@
 				6F5E6C412522E953000225C0 /* ServerInfoFetcher.swift in Sources */,
 				6F5E6C392522E8E7000225C0 /* OAuthExternalUserAgent.swift in Sources */,
 				6F5E6C472522E9FA000225C0 /* NavigationController.swift in Sources */,
+				6F6562A425DA64D100ED3ECC /* PredefinedProvider.swift in Sources */,
 				6FFD421D254977240093533C /* SettingsViewController.swift in Sources */,
 				6FD20F57253EEEFF002F206D /* ItemSelectionViewController.swift in Sources */,
 				6F5E6C3B2522E931000225C0 /* AuthState.swift in Sources */,
@@ -1901,6 +1920,7 @@
 				6F5E6C3F2522E940000225C0 /* ServerDisplayInfo.swift in Sources */,
 				6F116CB325345D4E00C73797 /* ConnectionInfoHelper.swift in Sources */,
 				C7DB4C3C248060F5009932B1 /* MainViewController.swift in Sources */,
+				6F54C92225DFE1B100A42C8F /* AddServerViewController.swift in Sources */,
 				C7DB4C40248060F5009932B1 /* Moya+ResponseHandling.swift in Sources */,
 				6F5E6C752525C90F000225C0 /* MainViewController+iOS.swift in Sources */,
 				6F5E6C442522E9C8000225C0 /* ServerAuthService.swift in Sources */,

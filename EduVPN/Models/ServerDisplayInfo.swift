@@ -22,6 +22,10 @@ extension ServerDisplayInfo {
             return Locale.current.localizedString(forRegionCode: server.countryCode) ??
                 NSLocalizedString("Unknown country", comment: "")
         case .serverByURLServer(let server):
+            if let predefinedProvider = Config.shared.predefinedProvider,
+               predefinedProvider.baseURLString == server.baseURLString {
+                return predefinedProvider.displayName.stringForCurrentLanguage()
+            }
             if isTitle, let url = URL(string: server.baseURLString.urlString), let host = url.host, url.path == "/" {
                 return host
             }

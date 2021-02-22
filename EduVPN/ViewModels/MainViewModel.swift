@@ -31,7 +31,7 @@ class MainViewModel {
             displayInfo: ServerDisplayInfo,
             countryName: String)
         case otherServerSectionHeader
-        case serverByURL(server: SimpleServerInstance)
+        case serverByURL(server: SimpleServerInstance, displayName: String?)
         case openVPNConfig(instance: OpenVPNConfigInstance)
 
         var rowKind: ViewModelRowKind {
@@ -50,7 +50,8 @@ class MainViewModel {
             switch self {
             case .instituteAccessServer(_, _, let displayName): return displayName
             case .secureInternetServer(_, _, let countryName): return countryName
-            case .serverByURL(let server): return server.baseURLString.toString()
+            case .serverByURL(let server, let displayName):
+                return displayName ?? server.baseURLString.toString()
             case .openVPNConfig(let instance): return instance.name
             default: return ""
             }
@@ -60,7 +61,7 @@ class MainViewModel {
             switch self {
             case .instituteAccessServer(let server, _, _): return server
             case .secureInternetServer(let server, _, _): return server
-            case .serverByURL(let server): return server
+            case .serverByURL(let server, _): return server
             default: return nil
             }
         }
@@ -76,7 +77,7 @@ class MainViewModel {
             switch self {
             case .instituteAccessServer(_, let displayInfo, _): return displayInfo
             case .secureInternetServer(_, let displayInfo, _): return displayInfo
-            case .serverByURL(let server): return .serverByURLServer(server)
+            case .serverByURL(let server, _): return .serverByURLServer(server)
             case .openVPNConfig(let instance): return .vpnConfigInstance(instance)
             default: return nil
             }
@@ -84,6 +85,7 @@ class MainViewModel {
     }
 
     let persistenceService: PersistenceService
+    let isDiscoveryEnabled: Bool
     var instituteAccessServersMap: [DiscoveryData.BaseURLString: DiscoveryData.InstituteAccessServer] = [:]
     var secureInternetServersMap: [DiscoveryData.BaseURLString: DiscoveryData.SecureInternetServer] = [:]
 
@@ -96,6 +98,7 @@ class MainViewModel {
         self.persistenceService = persistenceService
 
         if let serverDiscoveryService = serverDiscoveryService {
+            isDiscoveryEnabled = true
             serverDiscoveryService.delegate = self
             firstly {
                 serverDiscoveryService.getServers(from: .cache)
@@ -112,6 +115,11 @@ class MainViewModel {
                            log: Log.general, type: .error,
                            error.localizedDescription)
                 }
+            }
+        } else {
+            isDiscoveryEnabled = false
+            DispatchQueue.main.async { // Ensure delegate is set
+                self.update()
             }
         }
     }
@@ -136,17 +144,23 @@ extension MainViewModel {
     func update() {
         var instituteAccessRows: [Row] = []
         var secureInternetRows: [Row] = []
-        var serverByURLRows: [Row] = []
+        var namedServerByURLRows: [Row] = []
+        var unnamedServerByURLRows: [Row] = []
         var openVPNConfigRows: [Row] = []
 
         for simpleServer in persistenceService.simpleServers {
             let baseURLString = simpleServer.baseURLString
-            if let discoveredServer = instituteAccessServersMap[baseURLString] {
+            if isDiscoveryEnabled,
+               let discoveredServer = instituteAccessServersMap[baseURLString] {
                 let displayInfo = ServerDisplayInfo.instituteAccessServer(discoveredServer)
                 let displayName = displayInfo.serverName()
                 instituteAccessRows.append(.instituteAccessServer(server: simpleServer, displayInfo: displayInfo, displayName: displayName))
+            } else if let predefinedProvider = Config.shared.predefinedProvider,
+                      predefinedProvider.baseURLString == baseURLString {
+                let name = predefinedProvider.displayName.stringForCurrentLanguage()
+                namedServerByURLRows.append(.serverByURL(server: simpleServer, displayName: name))
             } else {
-                serverByURLRows.append(.serverByURL(server: simpleServer))
+                unnamedServerByURLRows.append(.serverByURL(server: simpleServer, displayName: nil))
             }
         }
 
@@ -174,9 +188,12 @@ extension MainViewModel {
             computedRows.append(.secureInternetServerSectionHeader)
             computedRows.append(contentsOf: secureInternetRows)
         }
-        if !serverByURLRows.isEmpty || !openVPNConfigRows.isEmpty {
-            computedRows.append(.otherServerSectionHeader)
-            computedRows.append(contentsOf: serverByURLRows)
+        if !namedServerByURLRows.isEmpty || !unnamedServerByURLRows.isEmpty || !openVPNConfigRows.isEmpty {
+            if !instituteAccessRows.isEmpty || !secureInternetRows.isEmpty {
+                computedRows.append(.otherServerSectionHeader)
+            }
+            computedRows.append(contentsOf: namedServerByURLRows)
+            computedRows.append(contentsOf: unnamedServerByURLRows)
             computedRows.append(contentsOf: openVPNConfigRows)
         }
         computedRows.sort()

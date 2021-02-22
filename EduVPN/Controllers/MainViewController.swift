@@ -16,10 +16,18 @@ class MainViewController: ViewController {
             viewModel.delegate = self
             environment.navigationController?.addButtonDelegate = self
             if !environment.persistenceService.hasServers {
-                let searchVC = environment.instantiateSearchViewController(
-                    shouldIncludeOrganizations: true, shouldAutoFocusSearchField: false)
-                searchVC.delegate = self
-                environment.navigationController?.pushViewController(searchVC, animated: false)
+                if Config.shared.apiDiscoveryEnabled ?? false {
+                    let searchVC = environment.instantiateSearchViewController(
+                        shouldIncludeOrganizations: true, shouldAutoFocusSearchField: false)
+                    searchVC.delegate = self
+                    environment.navigationController?.pushViewController(searchVC, animated: false)
+                } else {
+                    let addServerVC = environment.instantiateAddServerViewController(
+                        predefinedProvider: Config.shared.predefinedProvider,
+                        shouldAutoFocusURLField: true)
+                    addServerVC.delegate = self
+                    environment.navigationController?.pushViewController(addServerVC, animated: true)
+                }
             }
             environment.connectionService.initializationDelegate = self
         }
@@ -56,12 +64,19 @@ class MainViewController: ViewController {
 
 extension MainViewController: NavigationControllerAddButtonDelegate {
     func addButtonClicked(inNavigationController controller: NavigationController) {
-        let isSecureInternetServerAdded = (environment.persistenceService.secureInternetServer != nil)
-        let searchVC = environment.instantiateSearchViewController(
-            shouldIncludeOrganizations: !isSecureInternetServerAdded,
-            shouldAutoFocusSearchField: true)
-        searchVC.delegate = self
-        environment.navigationController?.pushViewController(searchVC, animated: true)
+        if Config.shared.apiDiscoveryEnabled ?? false {
+            let isSecureInternetServerAdded = (environment.persistenceService.secureInternetServer != nil)
+            let searchVC = environment.instantiateSearchViewController(
+                shouldIncludeOrganizations: !isSecureInternetServerAdded,
+                shouldAutoFocusSearchField: true)
+            searchVC.delegate = self
+            environment.navigationController?.pushViewController(searchVC, animated: true)
+        } else {
+            let addServerVC = environment.instantiateAddServerViewController(
+                predefinedProvider: nil, shouldAutoFocusURLField: true)
+            addServerVC.delegate = self
+            environment.navigationController?.pushViewController(addServerVC, animated: true)
+        }
     }
 }
 
@@ -90,6 +105,21 @@ extension MainViewController: SearchViewControllerDelegate {
             apiBaseURLString: baseURLString, authBaseURLString: baseURLString,
             orgId: orgId, localStoragePath: storagePath)
         environment.persistenceService.setSecureInternetServer(server)
+        viewModel.update()
+        environment.navigationController?.popViewController(animated: true)
+    }
+}
+
+extension MainViewController: AddServerViewControllerDelegate {
+    func addServerViewController(
+        _ controller: AddServerViewController,
+        addedSimpleServerWithBaseURL baseURLString: DiscoveryData.BaseURLString,
+        authState: AuthState) {
+        let storagePath = UUID().uuidString
+        let dataStore = PersistenceService.DataStore(path: storagePath)
+        dataStore.authState = authState
+        let server = SimpleServerInstance(baseURLString: baseURLString, localStoragePath: storagePath)
+        environment.persistenceService.addSimpleServer(server)
         viewModel.update()
         environment.navigationController?.popViewController(animated: true)
     }
@@ -257,7 +287,7 @@ extension MainViewController {
             persistenceService.removeSecureInternetServer()
         case .instituteAccessServer(server: let server, _, _):
             persistenceService.removeSimpleServer(server)
-        case .serverByURL(server: let server):
+        case .serverByURL(server: let server, _):
             persistenceService.removeSimpleServer(server)
         case .openVPNConfig(instance: let instance):
             persistenceService.removeOpenVPNConfiguration(instance)
@@ -268,11 +298,19 @@ extension MainViewController {
         }
         viewModel.update()
         if !environment.persistenceService.hasServers {
-            let searchVC = environment.instantiateSearchViewController(
-                shouldIncludeOrganizations: true,
-                shouldAutoFocusSearchField: false)
-            searchVC.delegate = self
-            environment.navigationController?.pushViewController(searchVC, animated: true)
+            if Config.shared.apiDiscoveryEnabled ?? false {
+                let searchVC = environment.instantiateSearchViewController(
+                    shouldIncludeOrganizations: true,
+                    shouldAutoFocusSearchField: false)
+                searchVC.delegate = self
+                environment.navigationController?.pushViewController(searchVC, animated: false)
+            } else {
+                let addServerVC = environment.instantiateAddServerViewController(
+                    predefinedProvider: Config.shared.predefinedProvider,
+                    shouldAutoFocusURLField: false)
+                addServerVC.delegate = self
+                environment.navigationController?.pushViewController(addServerVC, animated: true)
+            }
         }
 
     }

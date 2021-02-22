@@ -24,7 +24,9 @@ class Environment {
 
     init(navigationController: NavigationController) {
         self.navigationController = navigationController
-        if let discoveryConfig = Config.shared.discovery {
+        let isDiscoveryEnabled = Config.shared.apiDiscoveryEnabled ?? false
+        if isDiscoveryEnabled,
+           let discoveryConfig = Config.shared.discovery {
             self.serverDiscoveryService = ServerDiscoveryService(discoveryConfig: discoveryConfig)
         } else {
             self.serverDiscoveryService = nil
@@ -48,6 +50,15 @@ class Environment {
             shouldIncludeOrganizations: shouldIncludeOrganizations,
             shouldAutoFocusSearchField: shouldAutoFocusSearchField)
         return instantiate(SearchViewController.self, identifier: "Search", parameters: parameters)
+    }
+
+    func instantiateAddServerViewController(
+        predefinedProvider: PredefinedProvider?, shouldAutoFocusURLField: Bool) -> AddServerViewController {
+        let parameters = AddServerViewController.Parameters(
+            environment: self,
+            predefinedProvider: predefinedProvider,
+            shouldAutoFocusURLField: shouldAutoFocusURLField)
+        return instantiate(AddServerViewController.self, identifier: "AddServer", parameters: parameters)
     }
 
     func instantiateConnectionViewController(
