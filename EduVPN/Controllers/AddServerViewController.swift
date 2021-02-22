@@ -68,6 +68,12 @@ final class AddServerViewController: ViewController, ParametrizedViewController 
         if let predefinedProvider = parameters.predefinedProvider {
             topImageView.image = Image(named: "PredefinedProviderTopImage")
             topLabel.text = predefinedProvider.displayName.stringForCurrentLanguage()
+            let buttonTitle = NSLocalizedString("Login", comment: "Login to predefined provider")
+            #if os(macOS)
+            addServerButton.title = buttonTitle
+            #elseif os(iOS)
+            addServerButton.setTitle(buttonTitle, for: .normal)
+            #endif
             serverURLTextField.isHidden = true
             addServerButton.isEnabled = true
             shouldAutoFocusURLField = false
