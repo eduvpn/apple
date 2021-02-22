@@ -20,7 +20,7 @@ protocol AddServerViewControllerDelegate: class {
 final class AddServerViewController: ViewController, ParametrizedViewController {
     struct Parameters {
         let environment: Environment
-        let preDefinedProvider: PreDefinedProvider?
+        let predefinedProvider: PredefinedProvider?
         let shouldAutoFocusURLField: Bool
     }
 
@@ -65,9 +65,9 @@ final class AddServerViewController: ViewController, ParametrizedViewController 
         persistenceService.hasServersDelegate = self
         hasAddedServers = persistenceService.hasServers
 
-        if let preDefinedProvider = parameters.preDefinedProvider {
-            topImageView.image = Image(named: "PreDefinedProviderTopImage")
-            topLabel.text = preDefinedProvider.displayName.stringForCurrentLanguage()
+        if let predefinedProvider = parameters.predefinedProvider {
+            topImageView.image = Image(named: "PredefinedProviderTopImage")
+            topLabel.text = predefinedProvider.displayName.stringForCurrentLanguage()
             serverURLTextField.isHidden = true
             addServerButton.isEnabled = true
             shouldAutoFocusURLField = false
@@ -93,8 +93,8 @@ final class AddServerViewController: ViewController, ParametrizedViewController 
     #endif
 
     private func serverBaseURLString() -> DiscoveryData.BaseURLString? {
-        if let preDefinedProvider = parameters.preDefinedProvider {
-            return preDefinedProvider.baseURLString
+        if let predefinedProvider = parameters.predefinedProvider {
+            return predefinedProvider.baseURLString
         }
         var urlString = serverURLTextField.text ?? ""
         guard !urlString.isEmpty else { return nil }

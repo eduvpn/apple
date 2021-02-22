@@ -23,7 +23,7 @@ class MainViewController: ViewController {
                     environment.navigationController?.pushViewController(searchVC, animated: false)
                 } else {
                     let addServerVC = environment.instantiateAddServerViewController(
-                        preDefinedProvider: Config.shared.predefinedProvider,
+                        predefinedProvider: Config.shared.predefinedProvider,
                         shouldAutoFocusURLField: true)
                     addServerVC.delegate = self
                     environment.navigationController?.pushViewController(addServerVC, animated: true)
@@ -73,7 +73,7 @@ extension MainViewController: NavigationControllerAddButtonDelegate {
             environment.navigationController?.pushViewController(searchVC, animated: true)
         } else {
             let addServerVC = environment.instantiateAddServerViewController(
-                preDefinedProvider: nil, shouldAutoFocusURLField: true)
+                predefinedProvider: nil, shouldAutoFocusURLField: true)
             addServerVC.delegate = self
             environment.navigationController?.pushViewController(addServerVC, animated: true)
         }
@@ -306,7 +306,7 @@ extension MainViewController {
                 environment.navigationController?.pushViewController(searchVC, animated: false)
             } else {
                 let addServerVC = environment.instantiateAddServerViewController(
-                    preDefinedProvider: Config.shared.predefinedProvider,
+                    predefinedProvider: Config.shared.predefinedProvider,
                     shouldAutoFocusURLField: false)
                 addServerVC.delegate = self
                 environment.navigationController?.pushViewController(addServerVC, animated: true)
