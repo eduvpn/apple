@@ -1,7 +1,7 @@
 The Let's Connect flavour of the app can be branded to work with a
-pre-defined eduVPN server. In such an app, on first launch, the app will
-present an _Add Pre-defined Server Screen_ that will enable the user to
-add that pre-defined server. Other eduVPN servers can be added by URL
+predefined eduVPN server. In such an app, on first launch, the app will
+present an _Add Predefined Server Screen_ that will enable the user to
+add that predefined server. Other eduVPN servers can be added by URL
 after that.
 
 ## Configuring
@@ -28,7 +28,7 @@ after that.
 
       - Edit `supportURL` if applicable
 
-      - Add the `preDefinedProvider` key, whose value is a dictionary
+      - Add the `predefinedProvider` key, whose value is a dictionary
         with the following keys: 
 
           - `base_url`: The value should be the base URL for the eduVPN server
@@ -42,14 +42,14 @@ after that.
         For example, the config.json could contain:
 
         ~~~
-        "preDefinedProvider": {
+        "predefinedProvider": {
             "base_url": "https://nl.eduvpn.org/",
             "display_name": { "en": "ACME Corp.", "nl": "ACME" }
         }
         ~~~
 
       - Ensure that the value for `apiDiscoveryEnabled` is `false`. The
-        _Add Pre-defined Server Screen_ is shown only when API discovery
+        _Add Predefined Server Screen_ is shown only when API discovery
         is not enabled.
 
 ### Developer xcconfig
@@ -115,8 +115,8 @@ The following imagesets can be useful for branding:
   - **TopBarLogo.imageset**: The image shown in the top navigation bar of
     the app. It's used in all screens in macOS, and in the main screen
     only in iOS.
-  - **PreDefinedProviderTopImage.imageset**: The image shown in the _Add
-    Pre-defined Server Screen_ just above the pre-defined server's
+  - **PredefinedProviderTopImage.imageset**: The image shown in the _Add
+    Predefined Server Screen_ just above the predefined server's
     display name.
 
 ## Building
