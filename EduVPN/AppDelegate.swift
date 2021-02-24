@@ -65,6 +65,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let statusItemController = StatusItemController()
         statusItemController.dataSource = self.mainViewController
         statusItemController.delegate = self.mainViewController
+        statusItemController.environment = environment
         self.mainViewController?.delegate = statusItemController
         self.statusItemController = statusItemController
 

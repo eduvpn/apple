@@ -17,11 +17,12 @@ protocol StatusItemControllerDelegate: class {
     func disableVPN()
 }
 
-class StatusItemController {
+class StatusItemController: NSObject {
 
     struct ConnectionFlowStatusEntries {
         private var flowStatusItem: NSMenuItem
         private var activeInstanceItem: NSMenuItem
+        private var connectionInfoItem: NSMenuItem
         private var disableVPNItem: NSMenuItem
         private(set) var separatorItem: NSMenuItem
 
@@ -43,8 +44,16 @@ class StatusItemController {
         }
     }
     weak var delegate: StatusItemControllerDelegate?
+    var environment: Environment?
 
     private var statusItem: NSStatusItem?
+
+    private var isMenuVisible: Bool = false {
+        didSet { updateConnectionInfoState() }
+    }
+    private var flowStatus: ConnectionViewModel.ConnectionFlowStatus = .notConnected {
+        didSet { updateConnectionInfoState() }
+    }
 
     private var connectionFlowStatusEntries: ConnectionFlowStatusEntries
     private var connectableInstanceEntries: ConnectableInstanceEntries
@@ -65,10 +74,12 @@ class StatusItemController {
     private let statusBarImageWhenConnected = NSImage(named: "StatusItemConnected")!
 
     private var statusObservationToken: AnyObject?
+    private var connectionInfoHelper: StatusItemConnectionInfoHelper?
 
-    init() {
+    override init() {
         connectionFlowStatusEntries = ConnectionFlowStatusEntries()
         connectableInstanceEntries = ConnectableInstanceEntries()
+        super.init()
         startObservingTunnelStatus()
     }
 
@@ -95,6 +106,7 @@ private extension StatusItemController {
     func createStatusMenu() -> NSMenu {
         let appName = Config.shared.appName
         let menu = NSMenu()
+        menu.delegate = self
 
         for item in connectionFlowStatusEntries.menuItems {
             menu.addItem(item)
@@ -214,6 +226,13 @@ extension StatusItemController.ConnectionFlowStatusEntries {
         activeInstanceItem.target = NSApp.delegate
         activeInstanceItem.isHidden = true
 
+        connectionInfoItem = NSMenuItem(
+            title: "",
+            action: nil,
+            keyEquivalent: "")
+        connectionInfoItem.isHidden = true
+        connectionInfoItem.isEnabled = false
+
         disableVPNItem = NSMenuItem(
             title: NSLocalizedString("Disable VPN", comment: ""),
             action: #selector(StatusItemController.disableVPNMenuItemClicked),
@@ -239,7 +258,19 @@ extension StatusItemController.ConnectionFlowStatusEntries {
     }
 
     var menuItems: [NSMenuItem] {
-        [flowStatusItem, activeInstanceItem, disableVPNItem, separatorItem]
+        [flowStatusItem, connectionInfoItem, activeInstanceItem, disableVPNItem, separatorItem]
+    }
+
+    func setConnectionInfo(_ string: String?) {
+        if let string = string {
+            connectionInfoItem.title = string
+            connectionInfoItem.isHidden = false
+            connectionInfoItem.isEnabled = false
+        } else {
+            connectionInfoItem.title = ""
+            connectionInfoItem.isHidden = true
+            connectionInfoItem.isEnabled = false
+        }
     }
 }
 
@@ -370,6 +401,48 @@ extension StatusItemController: MainViewControllerDelegate {
         self.connectionFlowStatusEntries.updateStatus(
             flowStatus: flowStatus, activeRow: activeRow,
             controller: self)
+
+        self.flowStatus = flowStatus
+    }
+}
+
+extension StatusItemController: NSMenuDelegate {
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        isMenuVisible = true
+    }
+    func menuDidClose(_ menu: NSMenu) {
+        isMenuVisible = false
+    }
+}
+
+extension StatusItemController {
+    func updateConnectionInfoState() {
+        if flowStatus == .connected && isMenuVisible {
+            startShowingConnectionInfo()
+        } else {
+            stopShowingConnectionInfo()
+        }
+    }
+
+    func startShowingConnectionInfo() {
+        if self.connectionInfoHelper != nil {
+            return
+        }
+        if let connectionService = environment?.connectionService {
+            let connectionInfoHelper = StatusItemConnectionInfoHelper(
+                connectionService: connectionService,
+                handler: { string in
+                    self.connectionFlowStatusEntries.setConnectionInfo(string)
+                }
+            )
+            connectionInfoHelper.startUpdating()
+            self.connectionInfoHelper = connectionInfoHelper
+        }
+    }
+
+    func stopShowingConnectionInfo() {
+        self.connectionInfoHelper = nil
+        self.connectionFlowStatusEntries.setConnectionInfo(nil)
     }
 }
 #endif
