@@ -161,7 +161,7 @@ private extension StatusItemController {
                 guard let activeInstance = activeInstance else { return nil }
                 return rows.first(
                     where: {
-                        $0.connectableInstance?.localStoragePath == activeInstance.localStoragePath
+                        $0.connectableInstance?.isEqual(to: activeInstance) ?? false
                     })
             }()
             self.connectableInstanceEntries.updateEntries(
@@ -311,7 +311,7 @@ extension StatusItemController.ConnectableInstanceEntries {
             if let activeInstance = activeInstance,
                let instance = entry.row.connectableInstance,
                flowStatus != .notConnected,
-               instance.localStoragePath == activeInstance.localStoragePath {
+               instance.isEqual(to: activeInstance) {
                 entry.menuItem.state = .on
             } else {
                 entry.menuItem.state = .off
@@ -336,7 +336,7 @@ extension StatusItemController.ConnectableInstanceEntries {
             guard let entryConnectableInstance = entry.row.connectableInstance else {
                 return false
             }
-            return entryConnectableInstance.localStoragePath == connectableInstance.localStoragePath
+            return entryConnectableInstance.isEqual(to: connectableInstance)
         })?.row
     }
 }

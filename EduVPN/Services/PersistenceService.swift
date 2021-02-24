@@ -145,7 +145,7 @@ class PersistenceService {
 
     func removeOpenVPNConfiguration(_ instance: OpenVPNConfigInstance) {
         let existingIndex = addedServers.openVPNConfigs?.firstIndex(
-            where: { $0.localStoragePath == instance.localStoragePath })
+            where: { $0.isEqual(to: instance) })
         if let existingIndex = existingIndex {
             DataStore(path: instance.localStoragePath).delete()
             addedServers.openVPNConfigs?.remove(at: existingIndex)
