@@ -23,7 +23,6 @@ class StatusItemController: NSObject {
         private var flowStatusItem: NSMenuItem
         private var activeInstanceItem: NSMenuItem
         private var connectionInfoItem: NSMenuItem
-        private var disableVPNItem: NSMenuItem
         private(set) var separatorItem: NSMenuItem
 
         var activeInstance: ConnectableInstance?
@@ -233,13 +232,6 @@ extension StatusItemController.ConnectionFlowStatusEntries {
         connectionInfoItem.isHidden = true
         connectionInfoItem.isEnabled = false
 
-        disableVPNItem = NSMenuItem(
-            title: NSLocalizedString("Disable VPN", comment: ""),
-            action: #selector(StatusItemController.disableVPNMenuItemClicked),
-            keyEquivalent: "")
-        disableVPNItem.isHidden = true
-        disableVPNItem.isEnabled = false
-
         separatorItem = NSMenuItem.separator()
     }
 
@@ -251,14 +243,10 @@ extension StatusItemController.ConnectionFlowStatusEntries {
 
         activeInstanceItem.title = activeRow?.displayText ?? ""
         activeInstanceItem.isHidden = (activeRow == nil || flowStatus == .notConnected)
-
-        disableVPNItem.target = controller
-        disableVPNItem.isHidden = (activeRow == nil || flowStatus == .notConnected)
-        disableVPNItem.isEnabled = (flowStatus == .connected || flowStatus == .connecting || flowStatus == .reconnecting)
     }
 
     var menuItems: [NSMenuItem] {
-        [flowStatusItem, connectionInfoItem, activeInstanceItem, disableVPNItem, separatorItem]
+        [flowStatusItem, connectionInfoItem, activeInstanceItem, separatorItem]
     }
 
     func setConnectionInfo(_ string: String?) {
@@ -370,15 +358,15 @@ private extension StatusItemController {
         NSApp.terminate(self)
     }
 
-    @objc func disableVPNMenuItemClicked() {
-        delegate?.disableVPN()
-    }
-
     @objc func connectableInstanceClicked(sender: AnyObject) {
         if let item = sender as? NSMenuItem,
            let row = connectableInstanceEntries.row(for: item),
            let connectableInstance = row.connectableInstance {
-            delegate?.startConnectionFlow(with: connectableInstance)
+            if item.state == .on {
+                delegate?.disableVPN()
+            } else {
+                delegate?.startConnectionFlow(with: connectableInstance)
+            }
         }
     }
 }
