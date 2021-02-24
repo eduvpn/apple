@@ -85,17 +85,19 @@ class MainViewController: ViewController {
     }
 
     func pushConnectionVC(connectableInstance: ConnectableInstance,
-                          preConnectionState: ConnectionAttempt.PreConnectionState?) {
+                          preConnectionState: ConnectionAttempt.PreConnectionState?,
+                          continuationPolicy: ServerConnectionFlowContinuationPolicy) {
         if let currentConnectionVC = currentConnectionVC,
            currentConnectionVC.connectableInstance.isEqual(to: connectableInstance),
            preConnectionState == nil {
-            currentConnectionVC.beginConnectionFlow()
+            currentConnectionVC.beginConnectionFlow(continuationPolicy: continuationPolicy)
         } else {
             let serverDisplayInfo = viewModel.serverDisplayInfo(for: connectableInstance)
             let authURLTemplate = viewModel.authURLTemplate(for: connectableInstance)
             let connectionVC = environment.instantiateConnectionViewController(
                 connectableInstance: connectableInstance,
                 serverDisplayInfo: serverDisplayInfo,
+                initialConnectionFlowContinuationPolicy: continuationPolicy,
                 authURLTemplate: authURLTemplate,
                 restoringPreConnectionState: preConnectionState)
             connectionVC.delegate = self
@@ -226,7 +228,8 @@ extension MainViewController: ConnectionServiceInitializationDelegate {
             }
             pushConnectionVC(
                 connectableInstance: connectableInstance,
-                preConnectionState: preConnectionState)
+                preConnectionState: preConnectionState,
+                continuationPolicy: .doNotContinue)
 
         case .vpnDisabled:
             environment.persistenceService.removeLastConnectionAttempt()
@@ -294,7 +297,9 @@ extension MainViewController {
 
         let row = viewModel.row(at: index)
         if let connectableInstance = row.connectableInstance {
-            pushConnectionVC(connectableInstance: connectableInstance, preConnectionState: nil)
+            pushConnectionVC(connectableInstance: connectableInstance,
+                             preConnectionState: nil,
+                             continuationPolicy: .continueIfOnlyOneProfileFound)
         }
     }
 

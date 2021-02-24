@@ -34,7 +34,10 @@ extension MainViewController: StatusItemControllerDelegate {
                 return Promise.value(())
             }
         }.map {
-            self.pushConnectionVC(connectableInstance: connectableInstance, preConnectionState: nil)
+            self.pushConnectionVC(
+                connectableInstance: connectableInstance,
+                preConnectionState: nil,
+                continuationPolicy: .continueIfAnyProfileFound)
         }.cauterize()
     }
 }

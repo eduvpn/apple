@@ -37,6 +37,13 @@ extension ConnectionViewControllerError: AppError {
     }
 }
 
+enum ServerConnectionFlowContinuationPolicy {
+    case continueIfOnlyOneProfileFound
+    case continueIfAnyProfileFound
+    case doNotContinue
+    case notApplicable
+}
+
 final class ConnectionViewController: ViewController, ParametrizedViewController {
 
     struct Parameters {
@@ -44,6 +51,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         let connectableInstance: ConnectableInstance
         let serverDisplayInfo: ServerDisplayInfo
         let authURLTemplate: String?
+        let initialConnectionFlowContinuationPolicy: ServerConnectionFlowContinuationPolicy
 
         // If restoringPreConnectionState is non-nil, then we're restoring
         // the UI at app launch for an already-on VPN
@@ -189,7 +197,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         viewModel.delegate = self
         setupInitialView(viewModel: viewModel)
         if !isRestored {
-            beginConnectionFlow()
+            beginConnectionFlow(continuationPolicy: parameters.initialConnectionFlowContinuationPolicy)
         }
         #if os(macOS)
         vpnSwitch.setAccessibilityIdentifier("Connection")
@@ -209,9 +217,9 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     }
     #endif
 
-    func beginConnectionFlow() {
+    func beginConnectionFlow(continuationPolicy: ServerConnectionFlowContinuationPolicy) {
         if parameters.connectableInstance is ServerInstance {
-            beginServerConnectionFlow(shouldContinueIfSingleProfile: true)
+            beginServerConnectionFlow(continuationPolicy: continuationPolicy)
         } else if parameters.connectableInstance is VPNConfigInstance {
             beginVPNConfigConnectionFlow()
         }
@@ -221,7 +229,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         if vpnSwitch.isOn {
             if parameters.connectableInstance is ServerInstance {
                 guard let profiles = profiles, !profiles.isEmpty else {
-                    beginServerConnectionFlow(shouldContinueIfSingleProfile: true)
+                    beginServerConnectionFlow(continuationPolicy: .continueIfOnlyOneProfileFound)
                     return
                 }
                 if selectedProfileId == nil {
@@ -362,10 +370,10 @@ private extension ConnectionViewController {
         #endif
     }
 
-    func beginServerConnectionFlow(shouldContinueIfSingleProfile: Bool) {
+    func beginServerConnectionFlow(continuationPolicy: ServerConnectionFlowContinuationPolicy) {
         firstly {
             viewModel.beginServerConnectionFlow(
-                from: self, shouldContinueIfSingleProfile: shouldContinueIfSingleProfile)
+                from: self, continuationPolicy: continuationPolicy, preferredProfileId: self.selectedProfileId)
         }.catch { error in
             os_log("Error beginning server connection flow: %{public}@",
                    log: Log.general, type: .error,
@@ -481,7 +489,7 @@ private extension ConnectionViewController {
             if let window = self.view.window {
                 alert.beginSheetModal(for: window) { result in
                     if case .alertFirstButtonReturn = result {
-                        self.beginServerConnectionFlow(shouldContinueIfSingleProfile: true)
+                        self.beginServerConnectionFlow(continuationPolicy: .continueIfOnlyOneProfileFound)
                     }
                 }
             }
@@ -493,7 +501,7 @@ private extension ConnectionViewController {
                 title: NSLocalizedString("Refresh Profiles", comment: ""),
                 style: .default,
                 handler: { _ in
-                    self.beginServerConnectionFlow(shouldContinueIfSingleProfile: true)
+                    self.beginServerConnectionFlow(continuationPolicy: .continueIfOnlyOneProfileFound)
                 })
             let cancelAction = UIAlertAction(
                 title: NSLocalizedString("Cancel", comment: ""),
