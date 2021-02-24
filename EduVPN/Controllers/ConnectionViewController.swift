@@ -458,6 +458,7 @@ private extension ConnectionViewController {
             userName: credentials.userName,
             initialPassword: credentials.password)
         passwordEntryVC.delegate = self
+        NSApp.activate(ignoringOtherApps: true)
         environment.navigationController?.presentAsSheet(passwordEntryVC)
         self.presentedPasswordEntryVC = passwordEntryVC
     }
