@@ -186,11 +186,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         viewModel.delegate = self
         setupInitialView(viewModel: viewModel)
         if !isRestored {
-            if parameters.connectableInstance is ServerInstance {
-                beginServerConnectionFlow(shouldContinueIfSingleProfile: true)
-            } else if parameters.connectableInstance is VPNConfigInstance {
-                beginVPNConfigConnectionFlow()
-            }
+            beginConnectionFlow()
         }
         #if os(macOS)
         vpnSwitch.setAccessibilityIdentifier("Connection")
@@ -209,6 +205,14 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         vpnSwitchToggled()
     }
     #endif
+
+    func beginConnectionFlow() {
+        if parameters.connectableInstance is ServerInstance {
+            beginServerConnectionFlow(shouldContinueIfSingleProfile: true)
+        } else if parameters.connectableInstance is VPNConfigInstance {
+            beginVPNConfigConnectionFlow()
+        }
+    }
 
     func vpnSwitchToggled() {
         if vpnSwitch.isOn {

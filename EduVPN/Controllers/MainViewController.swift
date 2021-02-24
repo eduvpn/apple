@@ -82,16 +82,22 @@ class MainViewController: ViewController {
 
     func pushConnectionVC(connectableInstance: ConnectableInstance,
                           preConnectionState: ConnectionAttempt.PreConnectionState?) {
-        let serverDisplayInfo = viewModel.serverDisplayInfo(for: connectableInstance)
-        let authURLTemplate = viewModel.authURLTemplate(for: connectableInstance)
-        let connectionVC = environment.instantiateConnectionViewController(
-            connectableInstance: connectableInstance,
-            serverDisplayInfo: serverDisplayInfo,
-            authURLTemplate: authURLTemplate,
-            restoringPreConnectionState: preConnectionState)
-        connectionVC.delegate = self
-        environment.navigationController?.popToRoot()
-        environment.navigationController?.pushViewController(connectionVC, animated: true)
+        if let currentConnectionVC = currentConnectionVC,
+           currentConnectionVC.connectableInstance.isEqual(to: connectableInstance),
+           preConnectionState == nil {
+            currentConnectionVC.beginConnectionFlow()
+        } else {
+            let serverDisplayInfo = viewModel.serverDisplayInfo(for: connectableInstance)
+            let authURLTemplate = viewModel.authURLTemplate(for: connectableInstance)
+            let connectionVC = environment.instantiateConnectionViewController(
+                connectableInstance: connectableInstance,
+                serverDisplayInfo: serverDisplayInfo,
+                authURLTemplate: authURLTemplate,
+                restoringPreConnectionState: preConnectionState)
+            connectionVC.delegate = self
+            environment.navigationController?.popToRoot()
+            environment.navigationController?.pushViewController(connectionVC, animated: true)
+        }
     }
 }
 
