@@ -319,6 +319,13 @@ extension StatusItemController.ConnectableInstanceEntries {
         }
     }
 
+    func updateIsTogglable(isTogglable: Bool, controller: StatusItemController) {
+        for entry in entries where entry.row.rowKind.isServerRow {
+            entry.menuItem.isEnabled = isTogglable
+            entry.menuItem.target = isTogglable ? controller : nil
+        }
+    }
+
     var menuItems: [NSMenuItem] {
         entries.map { $0.menuItem }
     }
@@ -391,6 +398,13 @@ extension StatusItemController: MainViewControllerDelegate {
             controller: self)
 
         self.flowStatus = flowStatus
+    }
+
+    func mainViewController(
+        _ viewController: MainViewController,
+        didObserveIsVPNTogglableBecame isTogglable: Bool,
+        in connectionViewController: ConnectionViewController) {
+        self.connectableInstanceEntries.updateIsTogglable(isTogglable: isTogglable, controller: self)
     }
 }
 

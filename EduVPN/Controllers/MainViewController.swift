@@ -13,6 +13,10 @@ protocol MainViewControllerDelegate: class {
         _ viewController: MainViewController,
         didObserveConnectionFlowStatusChange status: ConnectionViewModel.ConnectionFlowStatus,
         in connectionViewController: ConnectionViewController)
+    func mainViewController(
+        _ viewController: MainViewController,
+        didObserveIsVPNTogglableBecame isTogglable: Bool,
+        in connectionViewController: ConnectionViewController)
 }
 
 class MainViewController: ViewController {
@@ -180,6 +184,12 @@ extension MainViewController: ConnectionViewControllerDelegate {
             return
         }
         environment.persistenceService.saveLastConnectionAttempt(connectionAttempt)
+    }
+
+    func connectionViewController(
+        _ controller: ConnectionViewController, isVPNTogglableBecame isTogglable: Bool) {
+        delegate?.mainViewController(
+            self, didObserveIsVPNTogglableBecame: isTogglable, in: controller)
     }
 }
 

@@ -16,6 +16,9 @@ protocol ConnectionViewControllerDelegate: class {
     func connectionViewController(
         _ controller: ConnectionViewController,
         willAttemptToConnect connectionAttempt: ConnectionAttempt?)
+    func connectionViewController(
+        _ controller: ConnectionViewController,
+        isVPNTogglableBecame isTogglable: Bool)
 }
 
 enum ConnectionViewControllerError: Error {
@@ -578,6 +581,7 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
         vpnSwitchStateChanged vpnSwitchState: ConnectionViewModel.VPNSwitchState) {
         vpnSwitch.isEnabled = vpnSwitchState.isEnabled
         vpnSwitch.isOn = vpnSwitchState.isOn
+        delegate?.connectionViewController(self, isVPNTogglableBecame: vpnSwitchState.isEnabled)
     }
 
     func connectionViewModel(
