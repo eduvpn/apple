@@ -62,7 +62,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         Self.replaceAppNameInMenuItems(in: NSApp.mainMenu)
 
-        self.statusItemController = StatusItemController()
+        let statusItemController = StatusItemController()
+        statusItemController.dataSource = self.mainViewController
+        statusItemController.delegate = self.mainViewController
+        statusItemController.environment = environment
+        self.mainViewController?.delegate = statusItemController
+        self.statusItemController = statusItemController
 
         setShowInStatusBarEnabled(UserDefaults.standard.showInStatusBar)
         setShowInDockEnabled(UserDefaults.standard.showInDock)

@@ -21,6 +21,7 @@ class NavigationController: NSViewController {
     }
 
     var isToolbarLeftButtonShowsAddServerUI: Bool { !canGoBack }
+    var topViewController: ViewController? { children.last }
 
     weak var addButtonDelegate: NavigationControllerAddButtonDelegate?
 

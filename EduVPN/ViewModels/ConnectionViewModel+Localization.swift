@@ -5,7 +5,7 @@
 
 import Foundation
 
-extension ConnectionViewModel.Status {
+extension ConnectionViewModel.ConnectionFlowStatus {
     var localizedText: String {
         switch self {
         case .gettingProfiles: return NSLocalizedString("Getting profiles...", comment: "")

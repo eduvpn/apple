@@ -12,6 +12,12 @@ protocol ConnectableInstance {
     var localStoragePath: String { get }
 }
 
+extension ConnectableInstance {
+    func isEqual(to other: ConnectableInstance) -> Bool {
+        return localStoragePath == other.localStoragePath
+    }
+}
+
 // A ServerInstance represents an EduVPN / Let's Connect server
 
 protocol ServerInstance: ConnectableInstance {

@@ -12,7 +12,13 @@ import os.log
 protocol ConnectionViewControllerDelegate: class {
     func connectionViewController(
         _ controller: ConnectionViewController,
+        flowStatusChanged status: ConnectionViewModel.ConnectionFlowStatus)
+    func connectionViewController(
+        _ controller: ConnectionViewController,
         willAttemptToConnect connectionAttempt: ConnectionAttempt?)
+    func connectionViewController(
+        _ controller: ConnectionViewController,
+        isVPNTogglableBecame isTogglable: Bool)
 }
 
 enum ConnectionViewControllerError: Error {
@@ -31,6 +37,13 @@ extension ConnectionViewControllerError: AppError {
     }
 }
 
+enum ServerConnectionFlowContinuationPolicy {
+    case continueIfOnlyOneProfileFound
+    case continueIfAnyProfileFound
+    case doNotContinue
+    case notApplicable
+}
+
 final class ConnectionViewController: ViewController, ParametrizedViewController {
 
     struct Parameters {
@@ -38,6 +51,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         let connectableInstance: ConnectableInstance
         let serverDisplayInfo: ServerDisplayInfo
         let authURLTemplate: String?
+        let initialConnectionFlowContinuationPolicy: ServerConnectionFlowContinuationPolicy
 
         // If restoringPreConnectionState is non-nil, then we're restoring
         // the UI at app launch for an already-on VPN
@@ -45,6 +59,18 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     }
 
     weak var delegate: ConnectionViewControllerDelegate?
+
+    var connectableInstance: ConnectableInstance {
+        parameters.connectableInstance
+    }
+
+    var serverDisplayInfo: ServerDisplayInfo {
+        parameters.serverDisplayInfo
+    }
+
+    var status: ConnectionViewModel.ConnectionFlowStatus {
+        viewModel.status
+    }
 
     private var parameters: Parameters!
     private var isRestored: Bool = false
@@ -171,11 +197,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         viewModel.delegate = self
         setupInitialView(viewModel: viewModel)
         if !isRestored {
-            if parameters.connectableInstance is ServerInstance {
-                beginServerConnectionFlow(shouldContinueIfSingleProfile: true)
-            } else if parameters.connectableInstance is VPNConfigInstance {
-                beginVPNConfigConnectionFlow()
-            }
+            beginConnectionFlow(continuationPolicy: parameters.initialConnectionFlowContinuationPolicy)
         }
         #if os(macOS)
         vpnSwitch.setAccessibilityIdentifier("Connection")
@@ -195,11 +217,19 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     }
     #endif
 
+    func beginConnectionFlow(continuationPolicy: ServerConnectionFlowContinuationPolicy) {
+        if parameters.connectableInstance is ServerInstance {
+            beginServerConnectionFlow(continuationPolicy: continuationPolicy)
+        } else if parameters.connectableInstance is VPNConfigInstance {
+            beginVPNConfigConnectionFlow()
+        }
+    }
+
     func vpnSwitchToggled() {
         if vpnSwitch.isOn {
             if parameters.connectableInstance is ServerInstance {
                 guard let profiles = profiles, !profiles.isEmpty else {
-                    beginServerConnectionFlow(shouldContinueIfSingleProfile: true)
+                    beginServerConnectionFlow(continuationPolicy: .continueIfOnlyOneProfileFound)
                     return
                 }
                 if selectedProfileId == nil {
@@ -211,6 +241,20 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
             }
         } else {
             disableVPN()
+        }
+    }
+
+    @discardableResult
+    func disableVPN() -> Promise<Void> {
+        firstly {
+            viewModel.disableVPN()
+        }.map {
+            self.vpnSwitch.isOn = false
+        }.recover { error in
+            os_log("Error disabling VPN: %{public}@",
+                   log: Log.general, type: .error,
+                   error.localizedDescription)
+            self.showAlert(for: error)
         }
     }
 
@@ -326,10 +370,10 @@ private extension ConnectionViewController {
         #endif
     }
 
-    func beginServerConnectionFlow(shouldContinueIfSingleProfile: Bool) {
+    func beginServerConnectionFlow(continuationPolicy: ServerConnectionFlowContinuationPolicy) {
         firstly {
             viewModel.beginServerConnectionFlow(
-                from: self, shouldContinueIfSingleProfile: shouldContinueIfSingleProfile)
+                from: self, continuationPolicy: continuationPolicy, preferredProfileId: self.selectedProfileId)
         }.catch { error in
             os_log("Error beginning server connection flow: %{public}@",
                    log: Log.general, type: .error,
@@ -422,23 +466,11 @@ private extension ConnectionViewController {
             userName: credentials.userName,
             initialPassword: credentials.password)
         passwordEntryVC.delegate = self
+        NSApp.activate(ignoringOtherApps: true)
         environment.navigationController?.presentAsSheet(passwordEntryVC)
         self.presentedPasswordEntryVC = passwordEntryVC
     }
     #endif
-
-    func disableVPN() {
-        firstly {
-            viewModel.disableVPN()
-        }.map {
-            self.vpnSwitch.isOn = false
-        }.catch { error in
-            os_log("Error disabling VPN: %{public}@",
-                   log: Log.general, type: .error,
-                   error.localizedDescription)
-            self.showAlert(for: error)
-        }
-    }
 
     private func showAlert(for error: Error) {
         if let serverAPIError = error as? ServerAPIServiceError,
@@ -457,7 +489,7 @@ private extension ConnectionViewController {
             if let window = self.view.window {
                 alert.beginSheetModal(for: window) { result in
                     if case .alertFirstButtonReturn = result {
-                        self.beginServerConnectionFlow(shouldContinueIfSingleProfile: true)
+                        self.beginServerConnectionFlow(continuationPolicy: .continueIfOnlyOneProfileFound)
                     }
                 }
             }
@@ -469,7 +501,7 @@ private extension ConnectionViewController {
                 title: NSLocalizedString("Refresh Profiles", comment: ""),
                 style: .default,
                 handler: { _ in
-                    self.beginServerConnectionFlow(shouldContinueIfSingleProfile: true)
+                    self.beginServerConnectionFlow(continuationPolicy: .continueIfOnlyOneProfileFound)
                 })
             let cancelAction = UIAlertAction(
                 title: NSLocalizedString("Cancel", comment: ""),
@@ -532,7 +564,7 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
     }
 
     func connectionViewModel(
-        _ model: ConnectionViewModel, statusChanged status: ConnectionViewModel.Status) {
+        _ model: ConnectionViewModel, statusChanged status: ConnectionViewModel.ConnectionFlowStatus) {
         connectionStatusImageView.image = { () -> Image? in
             switch status {
             case .notConnected, .gettingProfiles, .configuring:
@@ -544,6 +576,7 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
             }
         }()
         statusLabel.text = status.localizedText
+        delegate?.connectionViewController(self, flowStatusChanged: status)
     }
 
     func connectionViewModel(
@@ -557,6 +590,7 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
         vpnSwitchStateChanged vpnSwitchState: ConnectionViewModel.VPNSwitchState) {
         vpnSwitch.isEnabled = vpnSwitchState.isEnabled
         vpnSwitch.isOn = vpnSwitchState.isOn
+        delegate?.connectionViewController(self, isVPNTogglableBecame: vpnSwitchState.isEnabled)
     }
 
     func connectionViewModel(

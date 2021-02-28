@@ -48,12 +48,27 @@ class MainViewModel {
 
         var displayText: String {
             switch self {
+            case .instituteAccessServerSectionHeader:
+                return NSLocalizedString("Institute Access", comment: "")
+            case .secureInternetServerSectionHeader:
+                return NSLocalizedString("Secure Internet", comment: "")
+            case .otherServerSectionHeader:
+                return NSLocalizedString("Other servers", comment: "")
             case .instituteAccessServer(_, _, let displayName): return displayName
             case .secureInternetServer(_, _, let countryName): return countryName
             case .serverByURL(let server, let displayName):
                 return displayName ?? server.baseURLString.toString()
             case .openVPNConfig(let instance): return instance.name
-            default: return ""
+            }
+        }
+
+        var connectableInstance: ConnectableInstance? {
+            switch self {
+            case .instituteAccessServer(let server, _, _): return server
+            case .secureInternetServer(let server, _, _): return server
+            case .serverByURL(let server, _): return server
+            case .openVPNConfig(let instance): return instance
+            default: return nil
             }
         }
 
@@ -89,7 +104,7 @@ class MainViewModel {
     var instituteAccessServersMap: [DiscoveryData.BaseURLString: DiscoveryData.InstituteAccessServer] = [:]
     var secureInternetServersMap: [DiscoveryData.BaseURLString: DiscoveryData.SecureInternetServer] = [:]
 
-    private var rows: [Row] = []
+    private(set) var rows: [Row] = []
 
     var isEmpty: Bool { rows.isEmpty }
 
@@ -203,23 +218,29 @@ extension MainViewModel {
         self.delegate?.mainViewModel(self, rowsChanged: diff)
     }
 
-    func serverDisplayInfo(for secureInternetServer: SecureInternetServerInstance) -> ServerDisplayInfo {
-        let baseURLString = secureInternetServer.apiBaseURLString
-        return .secureInternetServer(secureInternetServersMap[baseURLString])
-    }
-
-    func serverDisplayInfo(for simpleServer: SimpleServerInstance) -> ServerDisplayInfo {
-        let baseURLString = simpleServer.baseURLString
-        if let discoveredServer = instituteAccessServersMap[baseURLString] {
-            return .instituteAccessServer(discoveredServer)
+    func serverDisplayInfo(for connectableInstance: ConnectableInstance) -> ServerDisplayInfo {
+        if let secureInternetServer = connectableInstance as? SecureInternetServerInstance {
+            let baseURLString = secureInternetServer.apiBaseURLString
+            return .secureInternetServer(secureInternetServersMap[baseURLString])
+        } else if let simpleServer = connectableInstance as? SimpleServerInstance {
+            let baseURLString = simpleServer.baseURLString
+            if let discoveredServer = instituteAccessServersMap[baseURLString] {
+                return .instituteAccessServer(discoveredServer)
+            } else {
+                return .serverByURLServer(simpleServer)
+            }
+        } else if let vpnConfigInstance = connectableInstance as? VPNConfigInstance {
+            return .vpnConfigInstance(vpnConfigInstance)
         } else {
-            return .serverByURLServer(simpleServer)
+            fatalError("Unknown connectable instance type")
         }
     }
 
-    func authURLTemplate(for server: ServerInstance) -> String? {
-        guard server is SecureInternetServerInstance else { return nil }
-        return secureInternetServersMap[server.authBaseURLString]?.authenticationURLTemplate
+    func authURLTemplate(for server: ConnectableInstance) -> String? {
+        guard let secureInternetServer = server as? SecureInternetServerInstance else {
+            return nil
+        }
+        return secureInternetServersMap[secureInternetServer.authBaseURLString]?.authenticationURLTemplate
     }
 }
 

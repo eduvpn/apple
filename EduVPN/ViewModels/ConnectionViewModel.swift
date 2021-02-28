@@ -28,7 +28,7 @@ protocol ConnectionViewModelDelegate: class {
         headerChanged header: ConnectionViewModel.Header)
     func connectionViewModel(
         _ model: ConnectionViewModel,
-        statusChanged status: ConnectionViewModel.Status)
+        statusChanged status: ConnectionViewModel.ConnectionFlowStatus)
     func connectionViewModel(
         _ model: ConnectionViewModel,
         statusDetailChanged statusDetail: ConnectionViewModel.StatusDetail)
@@ -69,7 +69,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         }
     }
 
-    enum Status {
+    enum ConnectionFlowStatus {
         case notConnected
         case gettingProfiles
         case configuring
@@ -110,7 +110,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
 
     private(set) var supportContact: SupportContact
 
-    private(set) var status: Status {
+    private(set) var status: ConnectionFlowStatus {
         didSet { delegate?.connectionViewModel(self, statusChanged: status) }
     }
 
@@ -283,8 +283,10 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         }
     }
 
-    func beginServerConnectionFlow(from viewController: AuthorizingViewController,
-                                   shouldContinueIfSingleProfile: Bool) -> Promise<Void> {
+    func beginServerConnectionFlow(
+        from viewController: AuthorizingViewController,
+        continuationPolicy: ServerConnectionFlowContinuationPolicy,
+        preferredProfileId: String?) -> Promise<Void> {
         precondition(self.connectionService.isInitialized)
         precondition(self.connectionService.isVPNEnabled == false)
         guard let server = connectableInstance as? ServerInstance,
@@ -298,12 +300,33 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                 wayfSkippingInfo: wayfSkippingInfo(), options: [])
         }.then { (profiles, serverInfo) -> Promise<Void> in
             self.profiles = profiles
-            if profiles.count == 1 && shouldContinueIfSingleProfile {
+            switch continuationPolicy {
+            case .continueIfOnlyOneProfileFound:
+                guard profiles.count == 1 else {
+                    self.internalState = .idle
+                    return Promise.value(())
+                }
                 self.delegate?.connectionViewModel(self, willAutomaticallySelectProfileId: profiles[0].profileId)
                 return self.continueServerConnectionFlow(
                     profile: profiles[0], from: viewController,
                     serverInfo: serverInfo)
-            } else {
+            case .continueIfAnyProfileFound:
+                guard let firstProfile = profiles.first else {
+                    self.internalState = .idle
+                    return Promise.value(())
+                }
+                let profile: ProfileListResponse.Profile = {
+                    if let preferredProfileId = preferredProfileId {
+                        return profiles.first(where: { $0.profileId == preferredProfileId }) ?? firstProfile
+                    } else {
+                        return firstProfile
+                    }
+                }()
+                self.delegate?.connectionViewModel(self, willAutomaticallySelectProfileId: profile.profileId)
+                return self.continueServerConnectionFlow(
+                    profile: profile, from: viewController,
+                    serverInfo: serverInfo)
+            case .doNotContinue, .notApplicable:
                 self.internalState = .idle
                 return Promise.value(())
             }
@@ -460,7 +483,7 @@ private extension ConnectionViewModel {
 
 private extension ConnectionViewModel {
     func updateStatus() {
-        status = { () -> Status in
+        status = { () -> ConnectionFlowStatus in
             switch (internalState, connectionStatus) {
             case (.gettingProfiles, _): return .gettingProfiles
             case (.configuring, _): return .configuring

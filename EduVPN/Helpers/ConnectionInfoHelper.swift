@@ -48,6 +48,8 @@ class ConnectionInfoHelper {
     }
 
     func startUpdating() {
+        self.update()
+
         firstly {
             self.connectionService.getNetworkAddress()
         }.map { networkAddress in
