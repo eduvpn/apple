@@ -1,11 +1,12 @@
 # Changelog
 
-## Unreleased
+## 2.2.1
 
-- Importing OpenVPN configs #125
-- Update TunnelKit and other dependencies
 - macOS: App requires macOS 10.15 or later
+- Importing OpenVPN configs #125
+- macOS: Support for password-based OpenVPN configs
 - macOS: Native support for Apple Silicon macs
+- macOS: Toggle VPN from system menu
 - iOS: Fix 'Change Location' to make first location choosable #375
 - Use strings in discovery data correctly based on system language #374
 - Auto-focus the search field when applicable #330
