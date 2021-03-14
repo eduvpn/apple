@@ -21,6 +21,7 @@ class Environment {
     let persistenceService: PersistenceService
     let serverAPIService: ServerAPIService
     let connectionService: ConnectionServiceProtocol
+    let notificationService: NotificationService
 
     init(navigationController: NavigationController) {
         self.navigationController = navigationController
@@ -36,6 +37,8 @@ class Environment {
             configClientId: Config.shared.clientId)
         self.persistenceService = PersistenceService()
         self.serverAPIService = ServerAPIService(serverAuthService: serverAuthService)
+        self.notificationService = NotificationService()
+
         #if targetEnvironment(simulator)
         self.connectionService = MockConnectionService()
         #else
