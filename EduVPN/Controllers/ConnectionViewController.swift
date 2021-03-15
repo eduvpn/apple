@@ -160,6 +160,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
             self.viewModel = ConnectionViewModel(
                 server: server,
                 connectionService: parameters.environment.connectionService,
+                notificationService: parameters.environment.notificationService,
                 serverDisplayInfo: parameters.serverDisplayInfo,
                 serverAPIService: parameters.environment.serverAPIService,
                 authURLTemplate: parameters.authURLTemplate,
