@@ -156,6 +156,9 @@ class EduVPNUITestsmacOS: XCTestCase {
         
         // When I authenticate with Demo
         whenIAuthenticateWithDemo(app, credentials: demoCredentials)
+
+        // Then I should see "Demo" cell
+        thenIShouldSeeCell(app, label: "Demo")
     }
     
     func testAddSecureInternet() {
@@ -713,10 +716,16 @@ private extension EduVPNUITestsmacOS {
         
         // Then I might see webpage with host "login.eduid.nl"
         let (needLogin, _) = thenIMightSeeWebpageWithHost(safari, host: "login.eduid.nl")
-        
+
         if needLogin {
+            // When I click "Login!" link (if it exists)
+            whenIClickLink(safari, label: "Login!")
+
+            // When I wait 3 seconds
+            whenIWait(time: 3)
+
             // When I click "Type a password." link
-            whenIClickLink(safari, label: "Type a password.")
+            whenIClickLink(safari, label: "type a password.")
             
             // When I start typing in the "e.g. user@gmail.com" textfield
             whenIStartTypingInTheTextfield(safari, label: "e.g. user@gmail.com")
@@ -747,6 +756,9 @@ private extension EduVPNUITestsmacOS {
             
             // When I click "Approve" button
             whenIClickButton(safari, label: "Approve")
+
+            // When I wait 10 seconds
+            whenIWait(time: 10)
         }
     }
     
