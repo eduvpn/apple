@@ -271,9 +271,6 @@ class EduVPNUITestsiOS: XCTestCase {
             whenIWait(time: 10)
         }
         
-        // Then I should see "Other servers" label
-        thenIShouldSeeLabel(app, label: "Other servers")
-        
         // Then I should see "https:// + host" cell
         thenIShouldSeeCell(app, label: "https://" + customCredentials.host + "/")
         
