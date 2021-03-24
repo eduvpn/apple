@@ -9,8 +9,12 @@ import UserNotifications
 import PromiseKit
 import os.log
 
+protocol NotificationServiceDelegate: class {
+    func notificationServiceDidReceiveRenewSessionRequest(_ notificationService: NotificationService)
+}
+
 // swiftlint:disable:next type_body_length
-class NotificationService {
+class NotificationService: NSObject {
     enum NotificationCategory: String {
         case certificateExpiry
     }
@@ -19,13 +23,18 @@ class NotificationService {
         case renewSession
     }
 
+    weak var delegate: NotificationServiceDelegate?
+
     private static var notificationCenter: UNUserNotificationCenter {
         UNUserNotificationCenter.current()
     }
 
     private static var authorizationOptions: UNAuthorizationOptions = [.alert, .sound]
 
-    init() {
+    override init() {
+        super.init()
+        Self.notificationCenter.delegate = self
+
         self.setNotificiationCategories()
         if UserDefaults.standard.hasAskedUserOnNotifyBeforeSessionExpiry &&
                UserDefaults.standard.shouldNotifyBeforeSessionExpiry {
@@ -305,5 +314,25 @@ class NotificationService {
                 callback(error == nil)
             }
         }
+    }
+}
+
+extension NotificationService: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        let actionId = response.actionIdentifier
+        let categoryId = response.notification.request.content.categoryIdentifier
+        if categoryId == NotificationCategory.certificateExpiry.rawValue {
+            // User clicked on 'Renew Session' in the notification
+            if actionId == SessionExpiryNotificationAction.renewSession.rawValue ||
+                // User clicked on the notification itself
+                actionId == UNNotificationDefaultActionIdentifier {
+                self.delegate?.notificationServiceDidReceiveRenewSessionRequest(self)
+            }
+        }
+        completionHandler()
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .sound])
     }
 }

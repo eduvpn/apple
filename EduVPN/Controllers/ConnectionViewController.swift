@@ -267,7 +267,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         }
     }
 
-    @IBAction func renewSessionClicked(_ sender: Any) {
+    func renewSession() {
         firstly {
             viewModel.disableVPN()
         }.map {
@@ -278,6 +278,10 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
                    error.localizedDescription)
             self.showAlert(for: error)
         }
+    }
+
+    @IBAction func renewSessionClicked(_ sender: Any) {
+        renewSession()
     }
 
     #if os(macOS)
