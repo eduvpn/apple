@@ -75,14 +75,14 @@ class PreferencesViewController: ViewController, ParametrizedViewController {
         let notificationService = parameters.environment.notificationService
         if isSessionExpiryNotificationChecked {
             firstly {
-                notificationService.enableCertificateExpiryNotification(from: self)
+                notificationService.enableSessionExpiryNotification(from: self)
             }.done { isEnabled in
                 if !isEnabled {
                     self.sessionExpiryNotificationCheckbox.state = .off
                 }
             }
         } else {
-            notificationService.disableCertificateExpiryNotification()
+            notificationService.disableSessionExpiryNotification()
         }
     }
 

@@ -50,7 +50,7 @@ class NotificationService: NSObject {
         }
     }
 
-    func attemptSchedulingCertificateExpiryNotification(
+    func attemptSchedulingSessionExpiryNotification(
         expiryDate: Date, connectionAttemptId: UUID, from viewController: ViewController) -> Guarantee<Bool> {
 
         let userDefaults = UserDefaults.standard
@@ -68,7 +68,7 @@ class NotificationService: NSObject {
                             .then { isAuthorized in
                                 if isAuthorized {
                                     UserDefaults.standard.shouldNotifyBeforeSessionExpiry = true
-                                    return Self.scheduleCertificateExpiryNotification(
+                                    return Self.scheduleSessionExpiryNotification(
                                         expiryDate: expiryDate, connectionAttemptId: connectionAttemptId)
                                 } else {
                                     UserDefaults.standard.shouldNotifyBeforeSessionExpiry = false
@@ -86,7 +86,7 @@ class NotificationService: NSObject {
             return Self.requestAuthorization()
                 .then { isAuthorized in
                     if isAuthorized {
-                        return Self.scheduleCertificateExpiryNotification(
+                        return Self.scheduleSessionExpiryNotification(
                             expiryDate: expiryDate, connectionAttemptId: connectionAttemptId)
                     } else {
                         UserDefaults.standard.shouldNotifyBeforeSessionExpiry = false
@@ -100,12 +100,12 @@ class NotificationService: NSObject {
         }
     }
 
-    func descheduleCertificateExpiryNotifications() {
+    func descheduleSessionExpiryNotification() {
         Self.notificationCenter.removeAllPendingNotificationRequests()
         os_log("Certificate expiry notifications descheduled", log: Log.general, type: .debug)
     }
 
-    func enableCertificateExpiryNotification(from viewController: ViewController) -> Guarantee<Bool> {
+    func enableSessionExpiryNotification(from viewController: ViewController) -> Guarantee<Bool> {
         firstly {
             Self.requestAuthorization()
         }.map { isAuthorized in
@@ -119,7 +119,7 @@ class NotificationService: NSObject {
         }
     }
 
-    func disableCertificateExpiryNotification() {
+    func disableSessionExpiryNotification() {
         UserDefaults.standard.shouldNotifyBeforeSessionExpiry = false
     }
 
@@ -254,7 +254,7 @@ class NotificationService: NSObject {
         #endif
     }
 
-    private static func scheduleCertificateExpiryNotification(
+    private static func scheduleSessionExpiryNotification(
         expiryDate: Date, connectionAttemptId: UUID) -> Guarantee<Bool> {
 
         os_log("Certificate expires at %{public}@", log: Log.general, type: .debug, expiryDate as NSDate)
@@ -269,13 +269,13 @@ class NotificationService: NSObject {
             ((minutesToExpiry - maxMinutesFromNotificationToExpiry) * 60) : minSecondsToNotification
         precondition(secondsToNotification > 0)
 
-        return addCertificateExpiryNotificationRequest(
+        return addSessionExpiryNotificationRequest(
             notificationId: connectionAttemptId.uuidString,
             expiryDate: expiryDate,
             secondsToNotification: secondsToNotification)
     }
 
-    private static func addCertificateExpiryNotificationRequest(
+    private static func addSessionExpiryNotificationRequest(
         notificationId: String,
         expiryDate: Date,
         secondsToNotification: Int) -> Guarantee<Bool> {
@@ -307,9 +307,9 @@ class NotificationService: NSObject {
         return Guarantee<Bool> { callback in
             notificationCenter.add(request) { error in
                 if let error = error {
-                    os_log("Error scheduling certificate expiry notification: %{public}@", log: Log.general, type: .error, error.localizedDescription)
+                    os_log("Error scheduling session expiry notification: %{public}@", log: Log.general, type: .error, error.localizedDescription)
                 } else {
-                    os_log("Certificate expiry notification scheduled to fire in %{public}d seconds", log: Log.general, type: .debug, secondsToNotification)
+                    os_log("Session expiry notification scheduled to fire in %{public}d seconds", log: Log.general, type: .debug, secondsToNotification)
                 }
                 callback(error == nil)
             }

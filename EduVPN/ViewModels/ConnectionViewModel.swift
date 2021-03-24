@@ -388,7 +388,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
             guard let notificationService = self.notificationService else {
                 return Promise.value(())
             }
-            return notificationService.attemptSchedulingCertificateExpiryNotification(
+            return notificationService.attemptSchedulingSessionExpiryNotification(
                 expiryDate: expiresAt, connectionAttemptId: connectionAttemptId, from: viewController)
                 .map { _ in }
         }.ensure {
@@ -446,7 +446,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
             self.internalState = .disableVPNRequested
             return self.connectionService.disableVPN()
         }.map {
-            self.notificationService?.descheduleCertificateExpiryNotifications()
+            self.notificationService?.descheduleSessionExpiryNotification()
         }.ensure {
             self.internalState = self.connectionService.isVPNEnabled ? .enabledVPN : .idle
             if self.internalState == .idle {
