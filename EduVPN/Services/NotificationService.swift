@@ -264,9 +264,9 @@ class NotificationService: NSObject {
         let minutesToExpiry = Calendar.current.dateComponents([.minute], from: Date(), to: expiryDate).minute ?? 0
 
         // Normally, fire the notification 30 mins before expiry. If we're already past
-        // that time, fire it 2 seconds from now.
+        // that time, fire it 5 seconds from now.
         let maxMinutesFromNotificationToExpiry = 30
-        let minSecondsToNotification = 2
+        let minSecondsToNotification = 5
         let secondsToNotification = (minutesToExpiry > maxMinutesFromNotificationToExpiry) ?
             ((minutesToExpiry - maxMinutesFromNotificationToExpiry) * 60) : minSecondsToNotification
         precondition(secondsToNotification > 0)
