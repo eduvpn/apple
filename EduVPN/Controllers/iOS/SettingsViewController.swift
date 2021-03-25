@@ -5,6 +5,11 @@
 
 import UIKit
 import SafariServices
+import PromiseKit
+
+protocol PreferencesViewControllerDelegate: class {
+    func scheduleSessionExpiryNotificationOnActiveVPN() -> Guarantee<Bool>
+}
 
 enum SettingsViewControllerError: Error {
     case noLogAvailable
@@ -28,6 +33,8 @@ class SettingsViewController: UITableViewController, ParametrizedViewController 
     }
 
     private var parameters: Parameters!
+
+    weak var delegate: PreferencesViewControllerDelegate?
 
     @IBOutlet weak var useTCPOnlySwitch: UISwitch!
     @IBOutlet weak var appNameLabel: UILabel!

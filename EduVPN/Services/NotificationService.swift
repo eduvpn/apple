@@ -199,7 +199,7 @@ class NotificationService: NSObject {
                 "You can change this option later in Settings",
                 comment: ""),
             preferredStyle: .alert)
-        return Guarentee<Bool> { callback in
+        return Guarantee<Bool> { callback in
             let refreshAction = UIAlertAction(title: NSLocalizedString("Notify", comment: ""),
                                               style: .default,
                                               handler: { _ in callback(true) })
@@ -243,7 +243,7 @@ class NotificationService: NSObject {
             format: NSLocalizedString(
                 "Notifications are disabled for %@", comment: ""),
             appName)
-        var message = String(
+        let message = String(
             format: NSLocalizedString(
                 "Please enable notifications for ‘%@’ in Settings > %@ > Notifications",
                 comment: ""),
