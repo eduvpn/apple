@@ -112,6 +112,13 @@ class MainViewController: ViewController {
             }
         }
     }
+
+    func scheduleSessionExpiryNotificationOnActiveVPN() -> Guarantee<Bool> {
+        guard let currentConnectionVC = currentConnectionVC else {
+            return Guarantee<Bool>.value(false)
+        }
+        return currentConnectionVC.scheduleSessionExpiryNotificationOnActiveVPN()
+    }
 }
 
 extension MainViewController: NavigationControllerAddButtonDelegate {
@@ -257,14 +264,10 @@ extension MainViewController: NotificationServiceDelegate {
     }
 }
 
+#if os(macOS)
 extension MainViewController: PreferencesViewControllerDelegate {
-    func scheduleSessionExpiryNotificationOnActiveVPN() -> Guarantee<Bool> {
-        guard let currentConnectionVC = currentConnectionVC else {
-            return Guarantee<Bool>.value(false)
-        }
-        return currentConnectionVC.scheduleSessionExpiryNotificationOnActiveVPN()
-    }
 }
+#endif
 
 extension MainViewController {
     func numberOfRows() -> Int {

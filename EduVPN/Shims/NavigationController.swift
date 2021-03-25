@@ -271,7 +271,7 @@ class NavigationController: UINavigationController {
 extension NavigationController {
     func showAlert(for error: Error) {
         let title = error.alertSummary
-        var message = error.alertDetail
+        let message = error.alertDetail
         let okAction = UIAlertAction(title: "OK", style: .default)
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(okAction)

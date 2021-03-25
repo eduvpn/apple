@@ -7,10 +7,6 @@ import UIKit
 import SafariServices
 import PromiseKit
 
-protocol PreferencesViewControllerDelegate: class {
-    func scheduleSessionExpiryNotificationOnActiveVPN() -> Guarantee<Bool>
-}
-
 enum SettingsViewControllerError: Error {
     case noLogAvailable
     case cannotShowLog
@@ -34,9 +30,8 @@ class SettingsViewController: UITableViewController, ParametrizedViewController 
 
     private var parameters: Parameters!
 
-    weak var delegate: PreferencesViewControllerDelegate?
-
     @IBOutlet weak var useTCPOnlySwitch: UISwitch!
+    @IBOutlet weak var sessionExpiryNotificationSwitch: UISwitch!
     @IBOutlet weak var appNameLabel: UILabel!
     @IBOutlet weak var appVersionLabel: UILabel!
 
@@ -53,8 +48,10 @@ class SettingsViewController: UITableViewController, ParametrizedViewController 
 
         let userDefaults = UserDefaults.standard
         let isForceTCPEnabled = userDefaults.forceTCP
+        let shouldNotifyBeforeSessionExpiry = userDefaults.shouldNotifyBeforeSessionExpiry
 
         useTCPOnlySwitch.isOn = isForceTCPEnabled
+        sessionExpiryNotificationSwitch.isOn = shouldNotifyBeforeSessionExpiry
 
         appNameLabel.text = Config.shared.appName
         appVersionLabel.text = appVersionString()
@@ -62,6 +59,27 @@ class SettingsViewController: UITableViewController, ParametrizedViewController 
 
     @IBAction func useTCPOnlySwitchToggled(_ sender: Any) {
         UserDefaults.standard.forceTCP = useTCPOnlySwitch.isOn
+    }
+
+    @IBAction func sessionExpiryNotificationSwitchToggled(_ sender: Any) {
+        let isSessionExpiryNotificationChecked = sessionExpiryNotificationSwitch.isOn
+        let notificationService = parameters.environment.notificationService
+        let mainVC = parameters.mainVC
+        if isSessionExpiryNotificationChecked {
+            firstly {
+                notificationService.enableSessionExpiryNotification(from: self)
+            }.done { isEnabled in
+                if isEnabled {
+                    mainVC.scheduleSessionExpiryNotificationOnActiveVPN()
+                        .done { _ in }
+                } else {
+                    self.sessionExpiryNotificationSwitch.isOn = false
+                }
+            }
+        } else {
+            notificationService.disableSessionExpiryNotification()
+            notificationService.descheduleSessionExpiryNotification()
+        }
     }
 
     @IBAction func importOpenVPNConfigTapped(_ sender: Any) {
