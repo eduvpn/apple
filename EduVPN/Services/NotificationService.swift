@@ -64,17 +64,14 @@ class NotificationService: NSObject {
                 .then { isUserWantsToBeNotified in
                     UserDefaults.standard.hasAskedUserOnNotifyBeforeSessionExpiry = true
                     if isUserWantsToBeNotified {
-                        return Self.requestAuthorization()
-                            .then { isAuthorized in
-                                if isAuthorized {
-                                    UserDefaults.standard.shouldNotifyBeforeSessionExpiry = true
-                                    return Self.scheduleSessionExpiryNotification(
-                                        expiryDate: expiryDate, connectionAttemptId: connectionAttemptId)
-                                } else {
-                                    UserDefaults.standard.shouldNotifyBeforeSessionExpiry = false
+                        return self.scheduleSessionExpiryNotification(
+                            expiryDate: expiryDate, connectionAttemptId: connectionAttemptId)
+                            .map { isAuthorized in
+                                UserDefaults.standard.shouldNotifyBeforeSessionExpiry = isAuthorized
+                                if !isAuthorized {
                                     Self.showNotificationsDisabledAlert(from: viewController)
-                                    return Guarantee<Bool>.value(false)
                                 }
+                                return isAuthorized
                             }
                     } else {
                         return Guarantee<Bool>.value(false)
@@ -83,21 +80,26 @@ class NotificationService: NSObject {
         } else if userDefaults.shouldNotifyBeforeSessionExpiry {
             // User has chosen to be notified.
             // Attempt to schedule notification.
-            return Self.requestAuthorization()
-                .then { isAuthorized in
-                    if isAuthorized {
-                        return Self.scheduleSessionExpiryNotification(
-                            expiryDate: expiryDate, connectionAttemptId: connectionAttemptId)
-                    } else {
-                        UserDefaults.standard.shouldNotifyBeforeSessionExpiry = false
-                        return Guarantee<Bool>.value(false)
-                    }
-                }
+            return scheduleSessionExpiryNotification(
+                expiryDate: expiryDate, connectionAttemptId: connectionAttemptId)
         } else {
             // User has chosen to be not notified.
             // Do nothing.
             return Guarantee<Bool>.value(false)
         }
+    }
+
+    func scheduleSessionExpiryNotification(expiryDate: Date, connectionAttemptId: UUID) -> Guarantee<Bool> {
+        return Self.requestAuthorization()
+            .then { isAuthorized in
+                if isAuthorized {
+                    return Self.scheduleSessionExpiryNotification(
+                        expiryDate: expiryDate, connectionAttemptId: connectionAttemptId)
+                } else {
+                    UserDefaults.standard.shouldNotifyBeforeSessionExpiry = false
+                    return Guarantee<Bool>.value(false)
+                }
+            }
     }
 
     func descheduleSessionExpiryNotification() {

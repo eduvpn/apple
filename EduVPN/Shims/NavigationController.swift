@@ -123,6 +123,9 @@ extension NavigationController {
     func presentPreferences() {
         guard let environment = environment else { return }
         let preferencesVC = environment.instantiatePreferencesViewController()
+        if let mainVC = children.first as? MainViewController {
+            preferencesVC.delegate = mainVC
+        }
         presentedPreferencesVC = preferencesVC
         presentAsSheet(preferencesVC)
     }

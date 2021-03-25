@@ -484,6 +484,19 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         self.connectionInfoHelper = nil
         self.connectionInfo = nil
     }
+
+    func scheduleSessionExpiryNotificationOnActiveVPN() -> Guarantee<Bool> {
+        guard connectionService.isInitialized else { return Guarantee<Bool>.value(false) }
+        guard connectionService.isVPNEnabled else { return Guarantee<Bool>.value(false) }
+        guard connectableInstance is ServerInstance else { return Guarantee<Bool>.value(false) }
+        if let connectionAttemptId = connectionService.connectionAttemptId,
+           let expiryDate = certificateExpiryHelper?.expiresAt,
+           let notificationService = notificationService {
+            return notificationService.scheduleSessionExpiryNotification(
+                expiryDate: expiryDate, connectionAttemptId: connectionAttemptId)
+        }
+        return Guarantee<Bool>.value(false)
+    }
 }
 
 private extension ConnectionViewModel {

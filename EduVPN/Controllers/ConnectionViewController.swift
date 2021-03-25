@@ -280,6 +280,10 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         }
     }
 
+    func scheduleSessionExpiryNotificationOnActiveVPN() -> Guarantee<Bool> {
+        viewModel.scheduleSessionExpiryNotificationOnActiveVPN()
+    }
+
     @IBAction func renewSessionClicked(_ sender: Any) {
         renewSession()
     }

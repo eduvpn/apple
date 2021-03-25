@@ -5,6 +5,7 @@
 
 import Foundation
 import os.log
+import PromiseKit
 
 protocol MainViewControllerDelegate: class {
     func mainViewControllerAddedServersListChanged(
@@ -253,6 +254,15 @@ extension MainViewController: NotificationServiceDelegate {
         } else {
             shouldRenewSessionWhenConnectionServiceInitialized = true
         }
+    }
+}
+
+extension MainViewController: PreferencesViewControllerDelegate {
+    func scheduleSessionExpiryNotificationOnActiveVPN() -> Guarantee<Bool> {
+        guard let currentConnectionVC = currentConnectionVC else {
+            return Guarantee<Bool>.value(false)
+        }
+        return currentConnectionVC.scheduleSessionExpiryNotificationOnActiveVPN()
     }
 }
 
