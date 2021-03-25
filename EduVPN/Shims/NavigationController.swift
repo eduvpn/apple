@@ -122,10 +122,8 @@ extension NavigationController: Navigating {
 extension NavigationController {
     func presentPreferences() {
         guard let environment = environment else { return }
-        let preferencesVC = environment.instantiatePreferencesViewController()
-        if let mainVC = children.first as? MainViewController {
-            preferencesVC.delegate = mainVC
-        }
+        guard let mainVC = self.children.first as? MainViewController else { return }
+        let preferencesVC = environment.instantiatePreferencesViewController(mainVC: mainVC)
         presentedPreferencesVC = preferencesVC
         presentAsSheet(preferencesVC)
     }

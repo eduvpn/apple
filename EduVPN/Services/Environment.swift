@@ -87,8 +87,8 @@ class Environment {
     #endif
 
     #if os(macOS)
-    func instantiatePreferencesViewController() -> PreferencesViewController {
-        let parameters = PreferencesViewController.Parameters(environment: self)
+    func instantiatePreferencesViewController(mainVC: MainViewController) -> PreferencesViewController {
+        let parameters = PreferencesViewController.Parameters(environment: self, mainVC: mainVC)
         return instantiate(PreferencesViewController.self, identifier: "Preferences", parameters: parameters)
     }
 

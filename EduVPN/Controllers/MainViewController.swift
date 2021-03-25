@@ -264,11 +264,6 @@ extension MainViewController: NotificationServiceDelegate {
     }
 }
 
-#if os(macOS)
-extension MainViewController: PreferencesViewControllerDelegate {
-}
-#endif
-
 extension MainViewController {
     func numberOfRows() -> Int {
         return viewModel?.numberOfRows() ?? 0

@@ -6,10 +6,6 @@
 import Foundation
 import PromiseKit
 
-protocol PreferencesViewControllerDelegate: class {
-    func scheduleSessionExpiryNotificationOnActiveVPN() -> Guarantee<Bool>
-}
-
 enum PreferencesViewControllerError: Error {
     case noLogAvailable
     case cannotShowLog
@@ -28,11 +24,10 @@ class PreferencesViewController: ViewController, ParametrizedViewController {
 
     struct Parameters {
         let environment: Environment
+        let mainVC: MainViewController
     }
 
     private var parameters: Parameters!
-
-    weak var delegate: PreferencesViewControllerDelegate?
 
     @IBOutlet weak var useTCPOnlyCheckbox: NSButton!
     @IBOutlet weak var sessionExpiryNotificationCheckbox: NSButton!
@@ -79,12 +74,13 @@ class PreferencesViewController: ViewController, ParametrizedViewController {
     @IBAction func sessionExpiryNotificationCheckboxClicked(_ sender: Any) {
         let isSessionExpiryNotificationChecked = (sessionExpiryNotificationCheckbox.state == .on)
         let notificationService = parameters.environment.notificationService
+        let mainVC = parameters.mainVC
         if isSessionExpiryNotificationChecked {
             firstly {
                 notificationService.enableSessionExpiryNotification(from: self)
             }.done { isEnabled in
                 if isEnabled {
-                    self.delegate?.scheduleSessionExpiryNotificationOnActiveVPN()
+                    mainVC.scheduleSessionExpiryNotificationOnActiveVPN()
                         .done { _ in }
                 } else {
                     self.sessionExpiryNotificationCheckbox.state = .off
