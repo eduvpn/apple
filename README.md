@@ -122,9 +122,11 @@ $ vim EduVPN-UITests-iOS/TestServerCredentialsiOS.swift # Enter credentials
 
 Then:
  1. Open `EduVPN.xcworkspace` in Xcode
- 2. In the scheme selector breadcrumb panel, select the 'EduVPN-iOS'
+ 2. Ensure the test targets (EduVPN-Tests-iOS, EduVPN-UITests-iOS) have
+    correct 'Team' set under 'Signing & Capabilities'
+ 3. In the scheme selector breadcrumb panel, select the 'EduVPN-iOS'
     scheme and your connected iDevice
- 3. Click on Product > Test
+ 4. Click on Product > Test
 
 Do not use the iDevice when the test is running.
 
@@ -138,10 +140,12 @@ $ vim EduVPN-UITests-macOS/TestServerCredentialsmacOS.swift # Enter credentials
 ```
 
 Then:
- 1. Open a new window in Safari.app
+ 1. Open Safari.app, open a new private window, close all other windows
  2. Open `EduVPN.xcworkspace` in Xcode
- 3. In the scheme selector breadcrumb panel, select the 'EduVPN-iOS'
+ 3. Ensure the test targets (EduVPN-Tests-macOS, EduVPN-UITests-macOS) have
+    correct 'Team' set under 'Signing & Capabilities'
+ 4. In the scheme selector breadcrumb panel, select the 'EduVPN-iOS'
     scheme and the macOS machine
- 4. Click on Product > Test
+ 5. Click on Product > Test
 
 Do not use the macOS machine when the test is running.
