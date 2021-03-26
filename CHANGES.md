@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.2.2
+
+- Notify before session expiry
+- macOS: Let's Connect: Update status item image
+
 ## 2.2.1
 
 - macOS: App requires macOS 10.15 or later
