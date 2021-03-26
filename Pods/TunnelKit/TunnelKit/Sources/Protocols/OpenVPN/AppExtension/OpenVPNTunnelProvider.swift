@@ -752,9 +752,17 @@ extension OpenVPNTunnelProvider: OpenVPNSessionDelegate {
         // block LAN if desired
         if routingPolicies?.contains(.blockLocal) ?? false {
             let table = RoutingTable()
+            log.info("Routing table before VPN is up (IPv4):")
+            for route in table.ipv4() {
+                log.info("  \(route)")
+            }
             if isIPv4Gateway,
                 let gateway = table.defaultGateway4()?.gateway(),
                 let route = table.broadestRoute4(matchingDestination: gateway) {
+
+                log.info("Default route (IPv4): \(table.defaultGateway4())")
+                log.info("Gateway (IPv4): \(gateway)")
+                log.info("Routing rule to override (IPv4): \(route)")
 
                 route.partitioned()?.forEach {
                     let destination = $0.network()
@@ -769,9 +777,17 @@ extension OpenVPNTunnelProvider: OpenVPNSessionDelegate {
                     ipv4Settings?.includedRoutes?.append(included)
                 }
             }
+            log.info("Routing table before VPN is up (IPv6):")
+            for route in table.ipv6() {
+                log.info("  \(route)")
+            }
             if isIPv6Gateway,
                 let gateway = table.defaultGateway6()?.gateway(),
                 let route = table.broadestRoute6(matchingDestination: gateway) {
+
+                log.info("Default route (IPv6): \(table.defaultGateway6())")
+                log.info("Gateway (IPv6): \(gateway)")
+                log.info("Routing rule to override (IPv6): \(route)")
 
                 route.partitioned()?.forEach {
                     let destination = $0.network()
