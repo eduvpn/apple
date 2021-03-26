@@ -202,6 +202,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
 
     private let connectableInstance: ConnectableInstance
     private let connectionService: ConnectionServiceProtocol
+    private let notificationService: NotificationService?
     private let serverDisplayInfo: ServerDisplayInfo
 
     private let serverAPIService: ServerAPIService?
@@ -216,6 +217,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
 
     init(server: ServerInstance,
          connectionService: ConnectionServiceProtocol,
+         notificationService: NotificationService,
          serverDisplayInfo: ServerDisplayInfo,
          serverAPIService: ServerAPIService,
          authURLTemplate: String?,
@@ -223,6 +225,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
 
         self.connectableInstance = server
         self.connectionService = connectionService
+        self.notificationService = notificationService
         self.serverDisplayInfo = serverDisplayInfo
         self.serverAPIService = serverAPIService
         self.authURLTemplate = authURLTemplate
@@ -259,6 +262,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
 
         self.connectableInstance = vpnConfigInstance
         self.connectionService = connectionService
+        self.notificationService = nil
         self.serverDisplayInfo = serverDisplayInfo
         self.serverAPIService = nil
         self.authURLTemplate = nil
@@ -355,11 +359,13 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                 for: server, serverInfo: serverInfo, profile: profile,
                 from: viewController, wayfSkippingInfo: wayfSkippingInfo(),
                 options: serverAPIOptions)
-        }.then { tunnelConfigData -> Promise<Void> in
+        }.then { tunnelConfigData -> Promise<(Date, UUID)> in
             self.internalState = .enableVPNRequested
+            let validFrom = tunnelConfigData.certificateValidityRange.validFrom
+            let expiresAt = tunnelConfigData.certificateValidityRange.expiresAt
             self.certificateExpiryHelper = CertificateExpiryHelper(
-                validFrom: tunnelConfigData.certificateValidityRange.validFrom,
-                expiresAt: tunnelConfigData.certificateValidityRange.expiresAt,
+                validFrom: validFrom,
+                expiresAt: expiresAt,
                 handler: { [weak self] certificateStatus in
                     self?.certificateStatus = certificateStatus
                 })
@@ -377,6 +383,14 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                 credentials: nil,
                 shouldDisableVPNOnError: true,
                 shouldPreventAutomaticConnections: false)
+                .map { (expiresAt, connectionAttemptId) }
+        }.then { (expiresAt, connectionAttemptId) -> Promise<Void> in
+            guard let notificationService = self.notificationService else {
+                return Promise.value(())
+            }
+            return notificationService.attemptSchedulingSessionExpiryNotification(
+                expiryDate: expiresAt, connectionAttemptId: connectionAttemptId, from: viewController)
+                .map { _ in }
         }.ensure {
             self.internalState = self.connectionService.isVPNEnabled ? .enabledVPN : .idle
         }
@@ -431,6 +445,8 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         return firstly { () -> Promise<Void> in
             self.internalState = .disableVPNRequested
             return self.connectionService.disableVPN()
+        }.map {
+            self.notificationService?.descheduleSessionExpiryNotification()
         }.ensure {
             self.internalState = self.connectionService.isVPNEnabled ? .enabledVPN : .idle
             if self.internalState == .idle {
@@ -467,6 +483,19 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
     func collapseConnectionInfo() {
         self.connectionInfoHelper = nil
         self.connectionInfo = nil
+    }
+
+    func scheduleSessionExpiryNotificationOnActiveVPN() -> Guarantee<Bool> {
+        guard connectionService.isInitialized else { return Guarantee<Bool>.value(false) }
+        guard connectionService.isVPNEnabled else { return Guarantee<Bool>.value(false) }
+        guard connectableInstance is ServerInstance else { return Guarantee<Bool>.value(false) }
+        if let connectionAttemptId = connectionService.connectionAttemptId,
+           let expiryDate = certificateExpiryHelper?.expiresAt,
+           let notificationService = notificationService {
+            return notificationService.scheduleSessionExpiryNotification(
+                expiryDate: expiryDate, connectionAttemptId: connectionAttemptId)
+        }
+        return Guarantee<Bool>.value(false)
     }
 }
 

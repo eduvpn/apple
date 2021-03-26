@@ -12,8 +12,9 @@ class CertificateExpiryHelper {
         case expired
     }
 
-    private let validFrom: Date
-    private let expiresAt: Date
+    let validFrom: Date
+    let expiresAt: Date
+
     private let handler: (CertificateStatus) -> Void
 
     fileprivate var refreshTimes: [(refreshAt: Date, state: CertificateStatus)]

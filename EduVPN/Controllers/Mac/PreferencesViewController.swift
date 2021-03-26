@@ -24,11 +24,13 @@ class PreferencesViewController: ViewController, ParametrizedViewController {
 
     struct Parameters {
         let environment: Environment
+        let mainVC: MainViewController
     }
 
     private var parameters: Parameters!
 
     @IBOutlet weak var useTCPOnlyCheckbox: NSButton!
+    @IBOutlet weak var sessionExpiryNotificationCheckbox: NSButton!
     @IBOutlet weak var showInStatusBarCheckbox: NSButton!
     @IBOutlet weak var showInDockCheckbox: NSButton!
     @IBOutlet weak var launchAtLoginCheckbox: NSButton!
@@ -43,11 +45,13 @@ class PreferencesViewController: ViewController, ParametrizedViewController {
     override func viewDidLoad() {
         let userDefaults = UserDefaults.standard
         let isForceTCPEnabled = userDefaults.forceTCP
+        let shouldNotifyBeforeSessionExpiry = userDefaults.shouldNotifyBeforeSessionExpiry
         let isShowInStatusBarEnabled = userDefaults.showInStatusBar
         let isShowInDockEnabled = userDefaults.showInDock
         let isLaunchAtLoginEnabled = userDefaults.launchAtLogin
 
         useTCPOnlyCheckbox.state = isForceTCPEnabled ? .on : .off
+        sessionExpiryNotificationCheckbox.state = shouldNotifyBeforeSessionExpiry ? .on : .off
         showInStatusBarCheckbox.state = isShowInStatusBarEnabled ? .on : .off
         showInDockCheckbox.state = isShowInDockEnabled ? .on : .off
         launchAtLoginCheckbox.state = isLaunchAtLoginEnabled ? .on : .off
@@ -65,6 +69,27 @@ class PreferencesViewController: ViewController, ParametrizedViewController {
     @IBAction func useTCPOnlyCheckboxClicked(_ sender: Any) {
         let isUseTCPOnlyChecked = (useTCPOnlyCheckbox.state == .on)
         UserDefaults.standard.forceTCP = isUseTCPOnlyChecked
+    }
+
+    @IBAction func sessionExpiryNotificationCheckboxClicked(_ sender: Any) {
+        let isSessionExpiryNotificationChecked = (sessionExpiryNotificationCheckbox.state == .on)
+        let notificationService = parameters.environment.notificationService
+        let mainVC = parameters.mainVC
+        if isSessionExpiryNotificationChecked {
+            firstly {
+                notificationService.enableSessionExpiryNotification(from: self)
+            }.done { isEnabled in
+                if isEnabled {
+                    mainVC.scheduleSessionExpiryNotificationOnActiveVPN()
+                        .done { _ in }
+                } else {
+                    self.sessionExpiryNotificationCheckbox.state = .off
+                }
+            }
+        } else {
+            notificationService.disableSessionExpiryNotification()
+            notificationService.descheduleSessionExpiryNotification()
+        }
     }
 
     @IBAction func viewLogClicked(_ sender: Any) {

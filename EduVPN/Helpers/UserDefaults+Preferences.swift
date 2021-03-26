@@ -8,6 +8,9 @@ import Foundation
 extension UserDefaults {
 
     private static let forceTCPDefaultsKey = "force_tcp"
+    private static let shouldNotifyBeforeSessionExpiryKey = "shouldNotifyBeforeSessionExpiry"
+    // swiftlint:disable:next identifier_name
+    private static let hasAskedUserOnNotifyBeforeSessionExpiryKey = "hasAskedUserOnNotifyBeforeSessionExpiry"
     #if os(macOS)
     private static let showInStatusBarKey = "showInStatusBar"
     private static let showInDockKey = "showInDock"
@@ -20,6 +23,24 @@ extension UserDefaults {
         }
         set {
             set(newValue, forKey: Self.forceTCPDefaultsKey)
+        }
+    }
+
+    var shouldNotifyBeforeSessionExpiry: Bool {
+        get {
+            return bool(forKey: Self.shouldNotifyBeforeSessionExpiryKey)
+        }
+        set {
+            set(newValue, forKey: Self.shouldNotifyBeforeSessionExpiryKey)
+        }
+    }
+
+    var hasAskedUserOnNotifyBeforeSessionExpiry: Bool {
+        get {
+            return bool(forKey: Self.hasAskedUserOnNotifyBeforeSessionExpiryKey)
+        }
+        set {
+            set(newValue, forKey: Self.hasAskedUserOnNotifyBeforeSessionExpiryKey)
         }
     }
 

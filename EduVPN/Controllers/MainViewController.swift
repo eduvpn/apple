@@ -5,6 +5,7 @@
 
 import Foundation
 import os.log
+import PromiseKit
 
 protocol MainViewControllerDelegate: class {
     func mainViewControllerAddedServersListChanged(
@@ -43,6 +44,7 @@ class MainViewController: ViewController {
                 }
             }
             environment.connectionService.initializationDelegate = self
+            environment.notificationService.delegate = self
         }
     }
 
@@ -59,6 +61,7 @@ class MainViewController: ViewController {
     private(set) var viewModel: MainViewModel!
     private var isTableViewInitialized = false
     private var isConnectionServiceInitialized = false
+    private var shouldRenewSessionWhenConnectionServiceInitialized = false
 
     @IBOutlet weak var tableView: TableView!
 
@@ -86,7 +89,8 @@ class MainViewController: ViewController {
 
     func pushConnectionVC(connectableInstance: ConnectableInstance,
                           preConnectionState: ConnectionAttempt.PreConnectionState?,
-                          continuationPolicy: ServerConnectionFlowContinuationPolicy) {
+                          continuationPolicy: ServerConnectionFlowContinuationPolicy,
+                          shouldRenewSessionOnRestoration: Bool = false) {
         if let currentConnectionVC = currentConnectionVC,
            currentConnectionVC.connectableInstance.isEqual(to: connectableInstance),
            preConnectionState == nil {
@@ -103,7 +107,17 @@ class MainViewController: ViewController {
             connectionVC.delegate = self
             environment.navigationController?.popToRoot()
             environment.navigationController?.pushViewController(connectionVC, animated: true)
+            if preConnectionState != nil && shouldRenewSessionOnRestoration {
+                connectionVC.renewSession()
+            }
         }
+    }
+
+    func scheduleSessionExpiryNotificationOnActiveVPN() -> Guarantee<Bool> {
+        guard let currentConnectionVC = currentConnectionVC else {
+            return Guarantee<Bool>.value(false)
+        }
+        return currentConnectionVC.scheduleSessionExpiryNotificationOnActiveVPN()
     }
 }
 
@@ -199,6 +213,7 @@ extension MainViewController: ConnectionServiceInitializationDelegate {
     func connectionService(
         _ service: ConnectionServiceProtocol,
         initializedWithState initializedState: ConnectionServiceInitializedState) {
+        guard !isConnectionServiceInitialized else { return }
         isConnectionServiceInitialized = true
         switch initializedState {
         case .vpnEnabled(let connectionAttemptId):
@@ -229,10 +244,22 @@ extension MainViewController: ConnectionServiceInitializationDelegate {
             pushConnectionVC(
                 connectableInstance: connectableInstance,
                 preConnectionState: preConnectionState,
-                continuationPolicy: .doNotContinue)
+                continuationPolicy: .doNotContinue,
+                shouldRenewSessionOnRestoration: shouldRenewSessionWhenConnectionServiceInitialized)
 
         case .vpnDisabled:
             environment.persistenceService.removeLastConnectionAttempt()
+            environment.notificationService.descheduleSessionExpiryNotification()
+        }
+    }
+}
+
+extension MainViewController: NotificationServiceDelegate {
+    func notificationServiceDidReceiveRenewSessionRequest(_ notificationService: NotificationService) {
+        if isConnectionServiceInitialized {
+            currentConnectionVC?.renewSession()
+        } else {
+            shouldRenewSessionWhenConnectionServiceInitialized = true
         }
     }
 }

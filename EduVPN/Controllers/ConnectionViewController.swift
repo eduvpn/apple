@@ -160,6 +160,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
             self.viewModel = ConnectionViewModel(
                 server: server,
                 connectionService: parameters.environment.connectionService,
+                notificationService: parameters.environment.notificationService,
                 serverDisplayInfo: parameters.serverDisplayInfo,
                 serverAPIService: parameters.environment.serverAPIService,
                 authURLTemplate: parameters.authURLTemplate,
@@ -266,7 +267,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         }
     }
 
-    @IBAction func renewSessionClicked(_ sender: Any) {
+    func renewSession() {
         firstly {
             viewModel.disableVPN()
         }.map {
@@ -277,6 +278,14 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
                    error.localizedDescription)
             self.showAlert(for: error)
         }
+    }
+
+    func scheduleSessionExpiryNotificationOnActiveVPN() -> Guarantee<Bool> {
+        viewModel.scheduleSessionExpiryNotificationOnActiveVPN()
+    }
+
+    @IBAction func renewSessionClicked(_ sender: Any) {
+        renewSession()
     }
 
     #if os(macOS)

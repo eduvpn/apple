@@ -122,7 +122,8 @@ extension NavigationController: Navigating {
 extension NavigationController {
     func presentPreferences() {
         guard let environment = environment else { return }
-        let preferencesVC = environment.instantiatePreferencesViewController()
+        guard let mainVC = self.children.first as? MainViewController else { return }
+        let preferencesVC = environment.instantiatePreferencesViewController(mainVC: mainVC)
         presentedPreferencesVC = preferencesVC
         presentAsSheet(preferencesVC)
     }
@@ -268,7 +269,7 @@ class NavigationController: UINavigationController {
 extension NavigationController {
     func showAlert(for error: Error) {
         let title = error.alertSummary
-        var message = error.alertDetail
+        let message = error.alertDetail
         let okAction = UIAlertAction(title: "OK", style: .default)
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(okAction)
