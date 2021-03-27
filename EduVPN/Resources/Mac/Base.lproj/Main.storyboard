@@ -1158,9 +1158,8 @@ Gw
                                                             <action selector="renewSessionClicked:" target="bAd-Xg-UXl" id="Y8I-oj-6xO"/>
                                                         </connections>
                                                     </button>
-                                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OVy-b7-0Cg" userLabel="Set Credentials Button">
-                                                        <rect key="frame" x="138" y="44" width="133" height="32"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <button verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OVy-b7-0Cg" userLabel="Set Credentials Button">
+                                                        <rect key="frame" x="139" y="44" width="133" height="32"/>
                                                         <buttonCell key="cell" type="push" title="Set Credentials" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5zM-oQ-fn2">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="system"/>
@@ -1183,6 +1182,7 @@ Gw
                                                     <constraint firstAttribute="height" constant="120" id="ZyE-Yt-2kw"/>
                                                     <constraint firstItem="Tlx-e0-3gR" firstAttribute="centerY" secondItem="LW1-tS-4uK" secondAttribute="centerY" id="gku-bk-09A"/>
                                                     <constraint firstItem="MDN-2N-2rz" firstAttribute="centerX" secondItem="LW1-tS-4uK" secondAttribute="centerX" id="i1s-2v-zKk"/>
+                                                    <constraint firstItem="OVy-b7-0Cg" firstAttribute="centerX" secondItem="LW1-tS-4uK" secondAttribute="centerX" id="yOx-ka-aUI"/>
                                                 </constraints>
                                             </customView>
                                             <customView wantsLayer="YES" horizontalHuggingPriority="100" translatesAutoresizingMaskIntoConstraints="NO" id="AYX-3E-5P0" userLabel="Connection Info Header" customClass="ConnectionInfoHeaderView" customModule="eduVPN" customModuleProvider="target">
