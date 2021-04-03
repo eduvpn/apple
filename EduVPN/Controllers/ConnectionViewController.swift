@@ -109,9 +109,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     @IBOutlet weak var additionalControlContainer: View!
     @IBOutlet weak var profileSelectionView: View!
     @IBOutlet weak var renewSessionButton: Button!
-    #if os(macOS)
     @IBOutlet weak var setCredentialsButton: Button!
-    #endif
     @IBOutlet weak var spinner: Spinner!
 
     #if os(macOS)
@@ -288,7 +286,6 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         renewSession()
     }
 
-    #if os(macOS)
     @IBAction func setCredentialsClicked(_ sender: Any) {
         guard let vpnConfigInstance = parameters.connectableInstance as? VPNConfigInstance else {
             return
@@ -299,9 +296,14 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
             let dataStore = PersistenceService.DataStore(path: vpnConfigInstance.localStoragePath)
             dataStore.openVPNConfigCredentials = credentials
         }
+        #if os(macOS)
         parameters.environment.navigationController?.presentAsSheet(credentialsVC)
+        #elseif os(iOS)
+        let navigationVC = UINavigationController(rootViewController: credentialsVC)
+        navigationVC.modalPresentationStyle = .pageSheet
+        present(navigationVC, animated: true, completion: nil)
+        #endif
     }
-    #endif
 
     #if os(macOS)
     @IBAction func profileSelected(_ sender: Any) {
@@ -363,9 +365,7 @@ private extension ConnectionViewController {
         connectionViewModel(viewModel, vpnSwitchStateChanged: viewModel.vpnSwitchState)
         connectionViewModel(viewModel, additionalControlChanged: viewModel.additionalControl)
         connectionInfoStateChanged(viewModel.connectionInfoState, animated: false)
-        #if os(macOS)
         setCredentialsButton.isHidden = !(parameters.connectableInstance is VPNConfigInstance)
-        #endif
     }
 
     func setupSupportContact(supportContact: ConnectionViewModel.SupportContact) {
@@ -609,23 +609,17 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
         case .none:
             profileSelectionView.isHidden = true
             renewSessionButton.isHidden = true
-            #if os(macOS)
             setCredentialsButton.isHidden = true
-            #endif
             spinner.stopAnimation(self)
         case .spinner:
             profileSelectionView.isHidden = true
             renewSessionButton.isHidden = true
-            #if os(macOS)
             setCredentialsButton.isHidden = true
-            #endif
             spinner.startAnimation(self)
         case .profileSelector(let profiles):
             profileSelectionView.isHidden = false
             renewSessionButton.isHidden = true
-            #if os(macOS)
             setCredentialsButton.isHidden = true
-            #endif
             spinner.stopAnimation(self)
             #if os(macOS)
             profileSelectorPopupButton.removeAllItems()
@@ -654,16 +648,12 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
         case .renewSessionButton:
             profileSelectionView.isHidden = true
             renewSessionButton.isHidden = false
-            #if os(macOS)
             setCredentialsButton.isHidden = true
-            #endif
             spinner.stopAnimation(self)
         case .setCredentialsButton:
             profileSelectionView.isHidden = true
             renewSessionButton.isHidden = true
-            #if os(macOS)
             setCredentialsButton.isHidden = false
-            #endif
             spinner.stopAnimation(self)
         }
     }
