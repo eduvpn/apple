@@ -11,8 +11,13 @@ import AppKit
 import UIKit
 #endif
 
-final class CredentialsViewController: ViewController, ParametrizedViewController {
+#if os(macOS)
+typealias CredentialsViewControllerBase = NSViewController
+#elseif os(iOS)
+typealias CredentialsViewControllerBase = UITableViewController
+#endif
 
+final class CredentialsViewController: CredentialsViewControllerBase, ParametrizedViewController {
     struct Parameters {
         let initialCredentials: OpenVPNConfigCredentials?
     }
@@ -29,6 +34,13 @@ final class CredentialsViewController: ViewController, ParametrizedViewControlle
     @IBOutlet weak var passwordTextField: NSSecureTextField!
     @IBOutlet weak var cancelButton: NSButton!
     @IBOutlet weak var saveButton: NSButton!
+    #elseif os(iOS)
+    @IBOutlet weak var isCredentialsEnabledSwitch: UISwitch!
+    @IBOutlet weak var userNameTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    var cancelButtonItem: UIBarButtonItem?
+    var saveButtonItem: UIBarButtonItem?
+    var textFieldObservationToken: AnyObject?
     #endif
 
     func initializeParameters(_ parameters: Parameters) {
