@@ -7,6 +7,8 @@
 
 #if os(macOS)
 import AppKit
+#elseif os(iOS)
+import UIKit
 #endif
 
 final class CredentialsViewController: ViewController, ParametrizedViewController {
