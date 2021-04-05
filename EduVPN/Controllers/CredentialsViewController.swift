@@ -36,6 +36,8 @@ final class CredentialsViewController: CredentialsViewControllerBase, Parametriz
     @IBOutlet weak var saveButton: NSButton!
     #elseif os(iOS)
     @IBOutlet weak var isCredentialsEnabledSwitch: UISwitch!
+    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var passwordLabel: UILabel!
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     var cancelButtonItem: UIBarButtonItem?

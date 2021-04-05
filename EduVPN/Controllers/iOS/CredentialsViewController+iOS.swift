@@ -37,11 +37,15 @@ extension CredentialsViewController {
     private func updateControlsState(with credentials: OpenVPNConfigCredentials?) {
         if let credentials = credentials {
             isCredentialsEnabledSwitch.isOn = true
+            userNameLabel.isEnabled = true
+            passwordLabel.isEnabled = true
             userNameTextField.isEnabled = true
             passwordTextField.isEnabled = true
             saveButtonItem?.isEnabled = credentials.isValid
         } else {
             isCredentialsEnabledSwitch.isOn = false
+            userNameLabel.isEnabled = false
+            passwordLabel.isEnabled = false
             userNameTextField.isEnabled = false
             passwordTextField.isEnabled = false
             saveButtonItem?.isEnabled = true
