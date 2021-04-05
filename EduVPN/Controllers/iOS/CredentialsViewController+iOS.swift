@@ -55,11 +55,13 @@ extension CredentialsViewController {
             passwordStrategy: .useSavedPassword(passwordTextField.text ?? ""))
     }
 
-    private func saveCurrentCredentials() {
+    private func saveCurrentCredentials() -> Bool {
         let credentials = currentCredentials()
         if credentials?.isValid ?? true {
             self.onCredentialsSaved?(credentials)
+            return true
         }
+        return false
     }
 
     @IBAction func isCredentialsEnabledSwitchToggled(_ sender: Any) {
@@ -71,8 +73,10 @@ extension CredentialsViewController {
     }
 
     @objc func saveTapped(_ sender: Any) {
-        presentingViewController?.dismiss(animated: true, completion: nil)
-        saveCurrentCredentials()
+        let isSaved = saveCurrentCredentials()
+        if isSaved {
+            presentingViewController?.dismiss(animated: true, completion: nil)
+        }
     }
 
     @objc func cancelTapped(_ sender: Any) {
@@ -84,10 +88,14 @@ extension CredentialsViewController {
 extension CredentialsViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == userNameTextField {
-            passwordTextField.becomeFirstResponder()
+            if !(userNameTextField.text ?? "").isEmpty {
+                passwordTextField.becomeFirstResponder()
+            }
         } else if textField == passwordTextField {
-            presentingViewController?.dismiss(animated: true, completion: nil)
-            saveCurrentCredentials()
+            let isSaved = saveCurrentCredentials()
+            if isSaved {
+                presentingViewController?.dismiss(animated: true, completion: nil)
+            }
         }
         return false
     }
