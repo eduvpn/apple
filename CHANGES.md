@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- iOS: Support for password-based OpenVPN configs
+- macOS: Can press return to connect when prompted for password
+
 ## 2.2.2
 
 - Notify before session expiry
