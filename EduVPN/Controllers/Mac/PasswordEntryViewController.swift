@@ -51,17 +51,27 @@ final class PasswordEntryViewController: ViewController, ParametrizedViewControl
         connectButton.isEnabled = !parameters.initialPassword.isEmpty
     }
 
-    @IBAction func connectClicked(_ sender: Any) {
+    private func connectWithEnteredPassword() {
+        guard let password = passwordTextField.text, !password.isEmpty else {
+            return
+        }
         self.presentingViewController?.dismiss(self)
-        let password = passwordTextField.text! // swiftlint:disable:this force_unwrapping
         let credentials = Credentials(
             userName: parameters.userName, password: password)
         delegate?.passwordEntryViewController(self, didSetCredentials: credentials)
     }
 
-    @IBAction func disableVPNClicked(_ sender: Any) {
+    private func disableVPN() {
         self.presentingViewController?.dismiss(self)
         delegate?.passwordEntryViewControllerDidDisableVPN(self)
+    }
+
+    @IBAction func connectClicked(_ sender: Any) {
+        connectWithEnteredPassword()
+    }
+
+    @IBAction func disableVPNClicked(_ sender: Any) {
+        disableVPN()
     }
 }
 
@@ -69,5 +79,16 @@ extension PasswordEntryViewController: NSTextFieldDelegate {
     func controlTextDidChange(_ obj: Notification) {
         isPasswordChanged = true
         connectButton.isEnabled = !(passwordTextField.text ?? "").isEmpty
+    }
+
+    func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
+        if (commandSelector == #selector(NSResponder.insertNewline(_:))) { // Return
+            connectWithEnteredPassword()
+            return true
+        } else if (commandSelector == #selector(NSResponder.cancelOperation(_:))) { // Esc
+            disableVPN()
+            return true
+        }
+        return false
     }
 }

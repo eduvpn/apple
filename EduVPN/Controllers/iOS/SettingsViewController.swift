@@ -136,10 +136,27 @@ extension SettingsViewController: UIDocumentPickerDelegate {
         guard let url = ovpnURLs.first else { return }
 
         let persistenceService = parameters.environment.persistenceService
+        let mainVC = parameters.mainVC
+
         var importError: Error?
         do {
             let result = try OpenVPNConfigImportHelper.copyConfig(from: url)
-            persistenceService.addOpenVPNConfiguration(result.configInstance)
+            if result.hasAuthUserPass {
+                let credentialsVC = parameters.environment.instantiateCredentialsViewController(
+                    initialCredentials: OpenVPNConfigCredentials.emptyCredentials)
+                credentialsVC.onCredentialsSaved = { credentials in
+                    let dataStore = PersistenceService.DataStore(
+                        path: result.configInstance.localStoragePath)
+                    dataStore.openVPNConfigCredentials = credentials
+                    persistenceService.addOpenVPNConfiguration(result.configInstance)
+                    mainVC.refresh()
+                }
+                let navigationVC = UINavigationController(rootViewController: credentialsVC)
+                navigationVC.modalPresentationStyle = .pageSheet
+                present(navigationVC, animated: true, completion: nil)
+            } else {
+                persistenceService.addOpenVPNConfiguration(result.configInstance)
+            }
         } catch {
             importError = error
         }
