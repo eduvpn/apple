@@ -59,44 +59,58 @@ struct DiscoveryDataFetcher {
         switch origin {
         case .appBundle:
             return Promise { seal in
-                let splitLastPathComponent = dataURL.lastPathComponent.split(separator: ".")
-                guard splitLastPathComponent.count == 2 else {
-                    seal.reject(DiscoveryDataFetcherError.dataNotFoundInAppBundle)
-                    return
-                }
-                let fileName = String(splitLastPathComponent[0])
-                let fileExtension = String(splitLastPathComponent[1])
-                guard let includedServerListURL = Bundle.main.url(forResource: fileName, withExtension: fileExtension) else {
-                    seal.reject(DiscoveryDataFetcherError.dataNotFoundInAppBundle)
-                    return
-                }
-                let data = try Data(contentsOf: includedServerListURL)
+                let data = try getFromAppBundle(dataURL: dataURL)
                 seal.fulfill(data)
             }
         case .cache:
             return Promise { seal in
-                guard let dataResponse = diskCache.cachedResponse(for: URLRequest(url: dataURL)),
-                    let signatureResponse = diskCache.cachedResponse(for: URLRequest(url: signatureURL)) else {
-                        seal.reject(DiscoveryDataFetcherError.dataNotFoundInCache)
-                        return
-                }
-                seal.fulfill(try verify(data: dataResponse.data,
-                                        signature: signatureResponse.data,
-                                        publicKeys: publicKeys))
+                let data = try getFromDiskCache(
+                    dataURL: dataURL, signatureURL: signatureURL,
+                    publicKeys: publicKeys)
+                seal.fulfill(data)
             }
         case .server:
-            let dataProvider = MoyaProvider<Target>(session: cachedSession)
-            let dataPromise = dataProvider.request(target: Target(dataURL))
-
-            let signatureProvider = MoyaProvider<Target>(session: cachedSession)
-            let signaturePromise = signatureProvider.request(target: Target(signatureURL))
-
-            return when(fulfilled: dataPromise, signaturePromise)
-                .map { dataResponse, signatureResponse in
-                    return try verify(data: dataResponse.data, signature: signatureResponse.data,
-                                      publicKeys: publicKeys)
-                }
+            return getFromRemoteServer(
+                dataURL: dataURL, signatureURL: signatureURL,
+                publicKeys: publicKeys)
         }
+    }
+
+    private static func getFromAppBundle(dataURL: URL) throws -> Data {
+        let splitLastPathComponent = dataURL.lastPathComponent.split(separator: ".")
+        guard splitLastPathComponent.count == 2 else {
+            throw DiscoveryDataFetcherError.dataNotFoundInAppBundle
+        }
+        let fileName = String(splitLastPathComponent[0])
+        let fileExtension = String(splitLastPathComponent[1])
+        guard let includedServerListURL = Bundle.main.url(forResource: fileName, withExtension: fileExtension) else {
+            throw DiscoveryDataFetcherError.dataNotFoundInAppBundle
+        }
+        return try Data(contentsOf: includedServerListURL)
+    }
+
+    private static func getFromDiskCache(dataURL: URL, signatureURL: URL, publicKeys: [Data]) throws -> Data {
+        guard let dataResponse = diskCache.cachedResponse(for: URLRequest(url: dataURL)),
+              let signatureResponse = diskCache.cachedResponse(for: URLRequest(url: signatureURL)) else {
+            throw DiscoveryDataFetcherError.dataNotFoundInCache
+        }
+        return try verify(data: dataResponse.data,
+                          signature: signatureResponse.data,
+                          publicKeys: publicKeys)
+    }
+
+    private static func getFromRemoteServer(dataURL: URL, signatureURL: URL, publicKeys: [Data]) -> Promise<Data> {
+        let dataProvider = MoyaProvider<Target>(session: cachedSession)
+        let dataPromise = dataProvider.request(target: Target(dataURL))
+
+        let signatureProvider = MoyaProvider<Target>(session: cachedSession)
+        let signaturePromise = signatureProvider.request(target: Target(signatureURL))
+
+        return when(fulfilled: dataPromise, signaturePromise)
+            .map { dataResponse, signatureResponse in
+                return try verify(data: dataResponse.data, signature: signatureResponse.data,
+                                  publicKeys: publicKeys)
+            }
     }
 
     private static func verify(data: Data, signature: Data, publicKeys: [Data]) throws -> Data {
