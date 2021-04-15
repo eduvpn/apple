@@ -113,6 +113,13 @@ struct DiscoveryDataFetcher {
             }
     }
 
+    private static func versionValue(from data: Data) -> Int? {
+        guard let versionable = try? JSONDecoder().decode(VersionableDiscoveryData.self, from: data) else {
+            return nil
+        }
+        return versionable.version
+    }
+
     private static func verify(data: Data, signature: Data, publicKeys: [Data]) throws -> Data {
         let signature = try SignatureHelper.minisignSignatureFromFile(data: signature)
         for publicKey in publicKeys {
@@ -124,5 +131,13 @@ struct DiscoveryDataFetcher {
             }
         }
         throw DiscoveryDataFetcherError.dataCouldNotBeVerified
+    }
+}
+
+fileprivate struct VersionableDiscoveryData: Decodable {
+    let version: Int
+
+    enum CodingKeys: String, CodingKey {
+        case version = "v"
     }
 }
