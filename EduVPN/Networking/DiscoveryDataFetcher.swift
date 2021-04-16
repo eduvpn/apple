@@ -13,6 +13,9 @@ enum DiscoveryDataFetcherError: Error {
     case dataCouldNotBeVerified
     case dataNotFoundInCache
     case dataNotFoundInAppBundle
+    case versionNumberNotFound
+    case versionNumberDecreased
+    case versionNumberUnchangedWithContentChange
 }
 
 extension DiscoveryDataFetcherError: AppError {
@@ -21,6 +24,9 @@ extension DiscoveryDataFetcherError: AppError {
         case .dataCouldNotBeVerified: return "Discovery data could not be verified"
         case .dataNotFoundInCache: return "Discovery data not found in cache"
         case .dataNotFoundInAppBundle: return "Discovery data not found in app bundle"
+        case .versionNumberNotFound: return "Discovery data doen't contain version number"
+        case .versionNumberDecreased: return "Discovery data was not updated because the version number decreased"
+        case .versionNumberUnchangedWithContentChange: return "Discovery data was not updated because the version number was unchanged even when content changed"
         }
     }
 }
@@ -38,6 +44,20 @@ struct DiscoveryDataFetcher {
         case appBundle // Get the data from the JSON file contained in the app bundle
         case cache // Get the data from the web cache
         case server // Download the data afresh from the discovery server
+    }
+
+    struct CacheContents {
+        let dataURL: URL
+        let dataResponse: CachedURLResponse
+        let signatureURL: URL
+        let signatureResponse: CachedURLResponse
+
+        func store(to cache: URLCache) throws {
+            for (url, response) in [(dataURL, dataResponse), (signatureURL, signatureResponse)] {
+                let request = try URLRequest(url: url, method: .get)
+                cache.storeCachedResponse(response, for: request)
+            }
+        }
     }
 
     static var diskCache: URLCache {
@@ -64,14 +84,15 @@ struct DiscoveryDataFetcher {
             }
         case .cache:
             return Promise { seal in
-                let data = try getFromDiskCache(
+                let (data, _) = try getFromDiskCache(
                     dataURL: dataURL, signatureURL: signatureURL,
                     publicKeys: publicKeys)
                 seal.fulfill(data)
             }
         case .server:
-            return getFromRemoteServer(
-                dataURL: dataURL, signatureURL: signatureURL,
+            return getFromRemoteServerWithRollbackPrevention(
+                dataURL: dataURL,
+                signatureURL: signatureURL,
                 publicKeys: publicKeys)
         }
     }
@@ -89,14 +110,20 @@ struct DiscoveryDataFetcher {
         return try Data(contentsOf: includedServerListURL)
     }
 
-    private static func getFromDiskCache(dataURL: URL, signatureURL: URL, publicKeys: [Data]) throws -> Data {
+    private static func getFromDiskCache(dataURL: URL, signatureURL: URL, publicKeys: [Data]) throws -> (Data, CacheContents) {
         guard let dataResponse = diskCache.cachedResponse(for: URLRequest(url: dataURL)),
               let signatureResponse = diskCache.cachedResponse(for: URLRequest(url: signatureURL)) else {
             throw DiscoveryDataFetcherError.dataNotFoundInCache
         }
-        return try verify(data: dataResponse.data,
+        let data = try verify(data: dataResponse.data,
                           signature: signatureResponse.data,
                           publicKeys: publicKeys)
+        let cacheContents = CacheContents(
+            dataURL: dataURL,
+            dataResponse: dataResponse,
+            signatureURL: signatureURL,
+            signatureResponse: signatureResponse)
+        return (data, cacheContents)
     }
 
     private static func getFromRemoteServer(dataURL: URL, signatureURL: URL, publicKeys: [Data]) -> Promise<Data> {
@@ -111,6 +138,52 @@ struct DiscoveryDataFetcher {
                 return try verify(data: dataResponse.data, signature: signatureResponse.data,
                                   publicKeys: publicKeys)
             }
+    }
+
+    private static func getFromRemoteServerWithRollbackPrevention(
+        dataURL: URL, signatureURL: URL, publicKeys: [Data]) -> Promise<Data> {
+        let (previousData, previousVersion, cacheContents): (Data?, Int?, CacheContents?) = {
+            if let (data, cacheContents) = try? getFromDiskCache(
+                dataURL: dataURL, signatureURL: signatureURL,
+                publicKeys: publicKeys) {
+                let version = versionValue(from: data)
+                return (data, version, cacheContents)
+            } else if let data = try? getFromAppBundle(dataURL: dataURL) {
+                let version = versionValue(from: data)
+                return (data, version, nil)
+            } else {
+                return (nil, nil, nil)
+            }
+        }()
+        return firstly {
+            getFromRemoteServer(
+                dataURL: dataURL, signatureURL: signatureURL,
+                publicKeys: publicKeys)
+        }.map { data in
+            if previousData == data {
+                // Data hasn't changed
+                return data
+            }
+            if let newVersion = versionValue(from: data) {
+                if let previousVersion = previousVersion {
+                    if newVersion > previousVersion {
+                        // Data has changed and version number has gone up
+                        return data
+                    } else if newVersion < previousVersion {
+                        try? cacheContents?.store(to: diskCache)
+                        throw DiscoveryDataFetcherError.versionNumberDecreased
+                    } else {
+                        try? cacheContents?.store(to: diskCache)
+                        throw DiscoveryDataFetcherError.versionNumberUnchangedWithContentChange
+                    }
+                } else {
+                    // No previous version. Can't really happen.
+                    return data
+                }
+            } else {
+                throw DiscoveryDataFetcherError.versionNumberNotFound
+            }
+        }
     }
 
     private static func versionValue(from data: Data) -> Int? {
@@ -134,7 +207,7 @@ struct DiscoveryDataFetcher {
     }
 }
 
-fileprivate struct VersionableDiscoveryData: Decodable {
+private struct VersionableDiscoveryData: Decodable {
     let version: Int
 
     enum CodingKeys: String, CodingKey {
