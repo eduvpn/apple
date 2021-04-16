@@ -10,23 +10,50 @@ import Moya
 import PromiseKit
 
 enum DiscoveryDataFetcherError: Error {
-    case dataCouldNotBeVerified
+    case dataCouldNotBeVerified(url: URL)
     case dataNotFoundInCache
     case dataNotFoundInAppBundle
-    case versionNumberNotFound
-    case versionNumberDecreased
-    case versionNumberUnchangedWithContentChange
+    case versionNumberNotFound(url: URL)
+    case versionNumberDecreased(url: URL, previousVersion: Int, newVersion: Int)
+    case versionNumberUnchangedWithContentChange(url: URL, version: Int)
 }
 
 extension DiscoveryDataFetcherError: AppError {
     var summary: String {
         switch self {
-        case .dataCouldNotBeVerified: return "Discovery data could not be verified"
-        case .dataNotFoundInCache: return "Discovery data not found in cache"
-        case .dataNotFoundInAppBundle: return "Discovery data not found in app bundle"
-        case .versionNumberNotFound: return "Discovery data doen't contain version number"
-        case .versionNumberDecreased: return "Discovery data was not updated because the version number decreased"
-        case .versionNumberUnchangedWithContentChange: return "Discovery data was not updated because the version number was unchanged even when content changed"
+        case .dataCouldNotBeVerified:
+            return "Discovery data could not be verified"
+        case .dataNotFoundInCache:
+            return "Discovery data not found in cache"
+        case .dataNotFoundInAppBundle:
+            return "Discovery data not found in app bundle"
+        case .versionNumberNotFound:
+            return "Discovery data doesn't contain version number"
+        case .versionNumberDecreased:
+            return "Discovery data was not updated because the version number has decreased"
+        case .versionNumberUnchangedWithContentChange:
+            return "Discovery data was not updated because the version number remains unchanged even when content has changed"
+        }
+    }
+    var detail: String {
+        switch self {
+        case .dataCouldNotBeVerified(let url):
+            return "URL: \(url)"
+        case .dataNotFoundInCache, .dataNotFoundInAppBundle:
+            return ""
+        case .versionNumberNotFound(let url):
+            return "URL: \(url)"
+        case .versionNumberDecreased(let url, let previousVersion, let newVersion):
+            return """
+            URL: \(url)
+            Previous version: \(previousVersion)
+            New version: \(newVersion)
+            """
+        case .versionNumberUnchangedWithContentChange(let url, let version):
+            return """
+            URL: \(url)
+            Version: \(version)
+            """
         }
     }
 }
@@ -117,7 +144,8 @@ struct DiscoveryDataFetcher {
         }
         let data = try verify(data: dataResponse.data,
                           signature: signatureResponse.data,
-                          publicKeys: publicKeys)
+                          publicKeys: publicKeys,
+                          dataURL: dataURL)
         let cacheContents = CacheContents(
             dataURL: dataURL,
             dataResponse: dataResponse,
@@ -136,7 +164,7 @@ struct DiscoveryDataFetcher {
         return when(fulfilled: dataPromise, signaturePromise)
             .map { dataResponse, signatureResponse in
                 return try verify(data: dataResponse.data, signature: signatureResponse.data,
-                                  publicKeys: publicKeys)
+                                  publicKeys: publicKeys, dataURL: dataURL)
             }
     }
 
@@ -171,17 +199,22 @@ struct DiscoveryDataFetcher {
                         return data
                     } else if newVersion < previousVersion {
                         try? cacheContents?.store(to: diskCache)
-                        throw DiscoveryDataFetcherError.versionNumberDecreased
+                        throw DiscoveryDataFetcherError.versionNumberDecreased(
+                            url: dataURL,
+                            previousVersion: previousVersion,
+                            newVersion: newVersion)
                     } else {
                         try? cacheContents?.store(to: diskCache)
-                        throw DiscoveryDataFetcherError.versionNumberUnchangedWithContentChange
+                        throw DiscoveryDataFetcherError.versionNumberUnchangedWithContentChange(
+                            url: dataURL,
+                            version: previousVersion)
                     }
                 } else {
                     // No previous version. Can't really happen.
                     return data
                 }
             } else {
-                throw DiscoveryDataFetcherError.versionNumberNotFound
+                throw DiscoveryDataFetcherError.versionNumberNotFound(url: dataURL)
             }
         }
     }
@@ -193,7 +226,7 @@ struct DiscoveryDataFetcher {
         return versionable.version
     }
 
-    private static func verify(data: Data, signature: Data, publicKeys: [Data]) throws -> Data {
+    private static func verify(data: Data, signature: Data, publicKeys: [Data], dataURL: URL) throws -> Data {
         let signature = try SignatureHelper.minisignSignatureFromFile(data: signature)
         for publicKey in publicKeys {
             let isValid = SignatureHelper.isSignatureValid(
@@ -203,7 +236,7 @@ struct DiscoveryDataFetcher {
                 return data
             }
         }
-        throw DiscoveryDataFetcherError.dataCouldNotBeVerified
+        throw DiscoveryDataFetcherError.dataCouldNotBeVerified(url: dataURL)
     }
 }
 
