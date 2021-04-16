@@ -15,7 +15,6 @@ enum DiscoveryDataFetcherError: Error {
     case dataNotFoundInAppBundle
     case versionNumberNotFound(url: URL)
     case versionNumberDecreased(url: URL, previousVersion: Int, newVersion: Int)
-    case versionNumberUnchangedWithContentChange(url: URL, version: Int)
 }
 
 extension DiscoveryDataFetcherError: AppError {
@@ -31,8 +30,6 @@ extension DiscoveryDataFetcherError: AppError {
             return "Discovery data doesn't contain version number"
         case .versionNumberDecreased:
             return "Discovery data was not updated because the version number has decreased"
-        case .versionNumberUnchangedWithContentChange:
-            return "Discovery data was not updated because the version number remains unchanged even when content has changed"
         }
     }
     var detail: String {
@@ -48,11 +45,6 @@ extension DiscoveryDataFetcherError: AppError {
             URL: \(url)
             Previous version: \(previousVersion)
             New version: \(newVersion)
-            """
-        case .versionNumberUnchangedWithContentChange(let url, let version):
-            return """
-            URL: \(url)
-            Version: \(version)
             """
         }
     }
@@ -198,16 +190,17 @@ struct DiscoveryDataFetcher {
                         // Data has changed and version number has gone up
                         return data
                     } else if newVersion < previousVersion {
+                        // Version number has gone down. We show an error.
                         try? cacheContents?.store(to: diskCache)
                         throw DiscoveryDataFetcherError.versionNumberDecreased(
                             url: dataURL,
                             previousVersion: previousVersion,
                             newVersion: newVersion)
                     } else {
+                        // Version number has not changed, so we use the old version.
+                        // No error to be shown.
                         try? cacheContents?.store(to: diskCache)
-                        throw DiscoveryDataFetcherError.versionNumberUnchangedWithContentChange(
-                            url: dataURL,
-                            version: previousVersion)
+                        return data
                     }
                 } else {
                     // No previous version. Can't really happen.
