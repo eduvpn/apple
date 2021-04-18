@@ -213,6 +213,32 @@ struct DiscoveryDataFetcher {
     }
 
     private static func versionValue(from data: Data) -> Int? {
+        versionValueUsingRegex(from: data) ?? versionValueUsingParser(from: data)
+    }
+
+    private static func versionValueUsingRegex(from data: Data) -> Int? {
+        let upperBound = min(100, data.count)
+        // swiftlint:disable:next force_unwrapping
+        guard let commaIndex = data[0 ..< upperBound].firstIndex(of: Character(",").asciiValue!) else {
+            return nil
+        }
+        guard let string = String(data: data[0 ..< commaIndex], encoding: .utf8) else {
+            return nil
+        }
+        guard let regex = try? NSRegularExpression(pattern: "^\\s*\\{\\s*\"v\"\\s*:\\s*(\\d+)", options: []) else {
+            return nil
+        }
+        guard let result = regex.firstMatch(in: string, options: [], range: NSRange(location: 0, length: string.count)) else {
+            return nil
+        }
+        let versionRange = result.range(at: 1)
+        let versionStart = string.utf16.index(string.utf16.startIndex, offsetBy: versionRange.lowerBound)
+        let versionEnd = string.utf16.index(string.utf16.startIndex, offsetBy: versionRange.upperBound)
+        let versionString = string[versionStart ..< versionEnd]
+        return Int(versionString)
+    }
+
+    private static func versionValueUsingParser(from data: Data) -> Int? {
         guard let versionable = try? JSONDecoder().decode(VersionableDiscoveryData.self, from: data) else {
             return nil
         }
