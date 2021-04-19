@@ -42,8 +42,8 @@ class SearchViewModel {
 
         var displayText: String {
             switch self {
-            case .instituteAccessServer(let server): return server.displayName
-            case .secureInternetOrg(let organization): return organization.displayName
+            case .instituteAccessServer(let server): return server.localizedDisplayName
+            case .secureInternetOrg(let organization): return organization.localizedDisplayName
             case .serverByURL(let baseURLString): return baseURLString.toString()
             default: return ""
             }
@@ -61,26 +61,30 @@ class SearchViewModel {
 
     struct LocalizedInstituteAccessServer {
         let baseURLString: DiscoveryData.BaseURLString
-        let displayName: String
-        let keywordList: String
+        let displayName: LanguageMappedString
+        let keywordList: LanguageMappedString?
+        let localizedDisplayName: String
 
         init(_ server: DiscoveryData.InstituteAccessServer) {
             baseURLString = server.baseURLString
-            displayName = server.displayName.stringForCurrentLanguage()
-            keywordList = server.keywordList?.stringForCurrentLanguage() ?? ""
+            displayName = server.displayName
+            keywordList = server.keywordList
+            localizedDisplayName = server.displayName.stringForCurrentLanguage()
         }
     }
 
     struct LocalizedOrganization {
         let orgId: String
-        let displayName: String
-        let keywordList: String
+        let displayName: LanguageMappedString
+        let keywordList: LanguageMappedString?
+        let localizedDisplayName: String
         let secureInternetHome: DiscoveryData.BaseURLString
 
         init(_ organization: DiscoveryData.Organization) {
             orgId = organization.orgId
-            displayName = organization.displayName.stringForCurrentLanguage()
-            keywordList = organization.keywordList?.stringForCurrentLanguage() ?? ""
+            displayName = organization.displayName
+            keywordList = organization.keywordList
+            localizedDisplayName = organization.displayName.stringForCurrentLanguage()
             secureInternetHome = organization.secureInternetHome
         }
     }
@@ -195,8 +199,8 @@ private extension SearchViewModel {
         let matchingServerRows: [Row] = sortedList
             .filter {
                 searchQuery.isEmpty ||
-                $0.displayName.localizedCaseInsensitiveContains(searchQuery) ||
-                $0.keywordList.localizedCaseInsensitiveContains(searchQuery)
+                    $0.displayName.matches(searchQuery: searchQuery) ||
+                    ($0.keywordList?.matches(searchQuery: searchQuery) ?? false)
             }.map { .instituteAccessServer($0) }
         return matchingServerRows.isEmpty ?
             [] :
@@ -209,8 +213,8 @@ private extension SearchViewModel {
         let matchingServerRows: [Row] = sortedList
             .filter {
                 searchQuery.isEmpty ||
-                $0.displayName.localizedCaseInsensitiveContains(searchQuery) ||
-                $0.keywordList.localizedCaseInsensitiveContains(searchQuery)
+                $0.displayName.matches(searchQuery: searchQuery) ||
+                ($0.keywordList?.matches(searchQuery: searchQuery) ?? false)
             }.map { .secureInternetOrg($0) }
         return matchingServerRows.isEmpty ?
             [] :
@@ -218,17 +222,29 @@ private extension SearchViewModel {
     }
 }
 
+extension SearchViewModel.LocalizedInstituteAccessServer: Equatable {
+    static func == (lhs: SearchViewModel.LocalizedInstituteAccessServer, rhs: SearchViewModel.LocalizedInstituteAccessServer) -> Bool {
+        return lhs.baseURLString == rhs.baseURLString
+    }
+}
+
 extension SearchViewModel.LocalizedInstituteAccessServer: Comparable {
     static func < (lhs: SearchViewModel.LocalizedInstituteAccessServer,
                    rhs: SearchViewModel.LocalizedInstituteAccessServer) -> Bool {
-        return lhs.displayName < rhs.displayName
+        return lhs.localizedDisplayName < rhs.localizedDisplayName
+    }
+}
+
+extension SearchViewModel.LocalizedOrganization: Equatable {
+    static func == (lhs: SearchViewModel.LocalizedOrganization, rhs: SearchViewModel.LocalizedOrganization) -> Bool {
+        return lhs.orgId == rhs.orgId
     }
 }
 
 extension SearchViewModel.LocalizedOrganization: Comparable {
     static func < (lhs: SearchViewModel.LocalizedOrganization,
                    rhs: SearchViewModel.LocalizedOrganization) -> Bool {
-        return lhs.displayName < rhs.displayName
+        return lhs.localizedDisplayName < rhs.localizedDisplayName
     }
 }
 
