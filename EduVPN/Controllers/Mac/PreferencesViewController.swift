@@ -32,6 +32,7 @@ class PreferencesViewController: ViewController, ParametrizedViewController {
     @IBOutlet weak var useTCPOnlyCheckbox: NSButton!
     @IBOutlet weak var sessionExpiryNotificationCheckbox: NSButton!
     @IBOutlet weak var showInStatusBarCheckbox: NSButton!
+    @IBOutlet weak var statusBarColorModePopup: NSPopUpButton!
     @IBOutlet weak var showInDockCheckbox: NSButton!
     @IBOutlet weak var launchAtLoginCheckbox: NSButton!
 
@@ -47,6 +48,7 @@ class PreferencesViewController: ViewController, ParametrizedViewController {
         let isForceTCPEnabled = userDefaults.forceTCP
         let shouldNotifyBeforeSessionExpiry = userDefaults.shouldNotifyBeforeSessionExpiry
         let isShowInStatusBarEnabled = userDefaults.showInStatusBar
+        let isStatusItemInColor = userDefaults.isStatusItemInColor
         let isShowInDockEnabled = userDefaults.showInDock
         let isLaunchAtLoginEnabled = userDefaults.launchAtLogin
 
@@ -55,6 +57,8 @@ class PreferencesViewController: ViewController, ParametrizedViewController {
         showInStatusBarCheckbox.state = isShowInStatusBarEnabled ? .on : .off
         showInDockCheckbox.state = isShowInDockEnabled ? .on : .off
         launchAtLoginCheckbox.state = isLaunchAtLoginEnabled ? .on : .off
+        statusBarColorModePopup.isEnabled = isShowInStatusBarEnabled
+        statusBarColorModePopup.selectItem(at: isStatusItemInColor ? 1 : 0)
 
         // If one of "Show in status bar" or "Show in Dock" is off,
         // disable editing the other
@@ -118,8 +122,15 @@ private extension PreferencesViewController {
         // If "Show in status bar" is unchecked, disable changing "Show in dock"
         showInDockCheckbox.isEnabled = isChecked
 
+        // If "Show in status bar" is unchecked, disable popup
+        statusBarColorModePopup.isEnabled = isChecked
+
         appDelegate.setShowInStatusBarEnabled(isChecked)
         UserDefaults.standard.showInStatusBar = isChecked
+    }
+
+    @IBAction func statusBarColorModeChanged(_ sender: Any) {
+        UserDefaults.standard.isStatusItemInColor = (statusBarColorModePopup.indexOfSelectedItem > 0)
     }
 
     @IBAction func showInDockCheckboxClicked(_ sender: Any) {
@@ -128,6 +139,7 @@ private extension PreferencesViewController {
 
         // If "Show in dock" is unchecked, disable changing "Show in status bar"
         showInStatusBarCheckbox.isEnabled = isChecked
+        statusBarColorModePopup.isEnabled = UserDefaults.standard.showInStatusBar
 
         appDelegate.setShowInDockEnabled(isChecked)
         UserDefaults.standard.showInDock = isChecked

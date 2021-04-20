@@ -13,6 +13,7 @@ extension UserDefaults {
     private static let hasAskedUserOnNotifyBeforeSessionExpiryKey = "hasAskedUserOnNotifyBeforeSessionExpiry"
     #if os(macOS)
     private static let showInStatusBarKey = "showInStatusBar"
+    private static let isStatusItemInColorKey = "isStatusItemInColor"
     private static let showInDockKey = "showInDock"
     private static let launchAtLoginKey = "launchAtLogin"
     #endif
@@ -54,6 +55,18 @@ extension UserDefaults {
         }
         set {
             set(newValue, forKey: Self.showInStatusBarKey)
+        }
+    }
+
+    var isStatusItemInColor: Bool {
+        get {
+            if object(forKey: Self.isStatusItemInColorKey) == nil {
+                return true // Default to true
+            }
+            return bool(forKey: Self.isStatusItemInColorKey)
+        }
+        set {
+            set(newValue, forKey: Self.isStatusItemInColorKey)
         }
     }
 
