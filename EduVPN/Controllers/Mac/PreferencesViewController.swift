@@ -125,12 +125,20 @@ private extension PreferencesViewController {
         // If "Show in status bar" is unchecked, disable popup
         statusBarColorModePopup.isEnabled = isChecked
 
-        appDelegate.setShowInStatusBarEnabled(isChecked)
         UserDefaults.standard.showInStatusBar = isChecked
+
+        appDelegate.setShowInStatusBarEnabled(
+            UserDefaults.standard.showInStatusBar,
+            shouldUseColorIcons: UserDefaults.standard.isStatusItemInColor)
     }
 
     @IBAction func statusBarColorModeChanged(_ sender: Any) {
+        guard let appDelegate = NSApp.delegate as? AppDelegate else { return }
+
         UserDefaults.standard.isStatusItemInColor = (statusBarColorModePopup.indexOfSelectedItem > 0)
+        appDelegate.setShowInStatusBarEnabled(
+            UserDefaults.standard.showInStatusBar,
+            shouldUseColorIcons: UserDefaults.standard.isStatusItemInColor)
     }
 
     @IBAction func showInDockCheckboxClicked(_ sender: Any) {

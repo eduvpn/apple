@@ -63,12 +63,9 @@ class StatusItemController: NSObject {
         didSet { updateStatusItem() }
     }
 
-    // swiftlint:disable:next force_unwrapping
-    private let statusBarImageWhenNotConnected = NSImage(named: "StatusItemNotConnected")!
-    // swiftlint:disable:next force_unwrapping
-    private let statusBarImageWhenConnecting = NSImage(named: "StatusItemConnecting")!
-    // swiftlint:disable:next force_unwrapping
-    private let statusBarImageWhenConnected = NSImage(named: "StatusItemConnected")!
+    private var shouldUseColorIcons = false {
+        didSet { updateStatusItem() }
+    }
 
     private var statusObservationToken: AnyObject?
     private var connectionInfoHelper: StatusItemConnectionInfoHelper?
@@ -79,8 +76,9 @@ class StatusItemController: NSObject {
         super.init()
     }
 
-    func setShouldShowStatusItem(_ shouldShow: Bool) {
-        shouldShowStatusItem = shouldShow
+    func setShouldShowStatusItem(_ shouldShow: Bool, shouldUseColorIcons: Bool) {
+        self.shouldShowStatusItem = shouldShow
+        self.shouldUseColorIcons = shouldUseColorIcons
     }
 }
 
@@ -188,11 +186,17 @@ private extension StatusItemController {
         statusItem.button?.image = {
             switch flowStatus {
             case .notConnected, .gettingProfiles, .configuring:
-                return statusBarImageWhenNotConnected
+                return shouldUseColorIcons ?
+                    NSImage(named: "StatusItemColorNotConnected") :
+                    NSImage(named: "StatusItemGrayscaleNotConnected")
             case .connecting, .disconnecting, .reconnecting:
-                return statusBarImageWhenConnecting
+                return shouldUseColorIcons ?
+                    NSImage(named: "StatusItemColorConnecting") :
+                    NSImage(named: "StatusItemGrayscaleConnecting")
             case .connected:
-                return statusBarImageWhenConnected
+                return shouldUseColorIcons ?
+                    NSImage(named: "StatusItemColorConnected") :
+                    NSImage(named: "StatusItemGrayscaleConnected")
             }
         }()
     }
