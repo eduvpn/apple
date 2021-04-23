@@ -60,9 +60,6 @@ extension UserDefaults {
 
     var isStatusItemInColor: Bool {
         get {
-            if object(forKey: Self.isStatusItemInColorKey) == nil {
-                return true // Default to true
-            }
             return bool(forKey: Self.isStatusItemInColorKey)
         }
         set {
