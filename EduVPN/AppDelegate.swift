@@ -69,6 +69,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.mainViewController?.delegate = statusItemController
         self.statusItemController = statusItemController
 
+        UserDefaults.standard.registerAppDefaults()
+
         setShowInStatusBarEnabled(
             UserDefaults.standard.showInStatusBar,
             shouldUseColorIcons: UserDefaults.standard.isStatusItemInColor)
