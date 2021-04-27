@@ -13,6 +13,7 @@ extension UserDefaults {
     private static let hasAskedUserOnNotifyBeforeSessionExpiryKey = "hasAskedUserOnNotifyBeforeSessionExpiry"
     #if os(macOS)
     private static let showInStatusBarKey = "showInStatusBar"
+    private static let isStatusItemInColorKey = "isStatusItemInColor"
     private static let showInDockKey = "showInDock"
     private static let launchAtLoginKey = "launchAtLogin"
     #endif
@@ -47,9 +48,6 @@ extension UserDefaults {
     #if os(macOS)
     var showInStatusBar: Bool {
         get {
-            if object(forKey: Self.showInStatusBarKey) == nil {
-                return true // Default to true
-            }
             return bool(forKey: Self.showInStatusBarKey)
         }
         set {
@@ -57,11 +55,17 @@ extension UserDefaults {
         }
     }
 
+    var isStatusItemInColor: Bool {
+        get {
+            return bool(forKey: Self.isStatusItemInColorKey)
+        }
+        set {
+            set(newValue, forKey: Self.isStatusItemInColorKey)
+        }
+    }
+
     var showInDock: Bool {
         get {
-            if object(forKey: Self.showInDockKey) == nil {
-                return true // Default to true
-            }
             return bool(forKey: Self.showInDockKey)
         }
         set {
@@ -76,6 +80,13 @@ extension UserDefaults {
         set {
             set(newValue, forKey: Self.launchAtLoginKey)
         }
+    }
+
+    func registerAppDefaults() {
+        register(defaults: [
+                    Self.showInStatusBarKey: true,
+                    Self.showInDockKey: true
+        ])
     }
     #endif
 }

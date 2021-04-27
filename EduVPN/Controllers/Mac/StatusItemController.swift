@@ -5,7 +5,6 @@
 
 #if os(macOS)
 import AppKit
-import NetworkExtension
 
 protocol StatusItemControllerDataSource: class {
     func currentServer() -> (ConnectionViewModel.ConnectionFlowStatus, ConnectableInstance?)
@@ -51,7 +50,10 @@ class StatusItemController: NSObject {
         didSet { updateConnectionInfoState() }
     }
     private var flowStatus: ConnectionViewModel.ConnectionFlowStatus = .notConnected {
-        didSet { updateConnectionInfoState() }
+        didSet {
+            updateConnectionInfoState()
+            updateStatusItem()
+        }
     }
 
     private var connectionFlowStatusEntries: ConnectionFlowStatusEntries
@@ -61,16 +63,9 @@ class StatusItemController: NSObject {
         didSet { updateStatusItem() }
     }
 
-    private var connectionStatus: NEVPNStatus? {
+    private var shouldUseColorIcons = false {
         didSet { updateStatusItem() }
     }
-
-    // swiftlint:disable:next force_unwrapping
-    private let statusBarImageWhenNotConnected = NSImage(named: "StatusItemNotConnected")!
-    // swiftlint:disable:next force_unwrapping
-    private let statusBarImageWhenConnecting = NSImage(named: "StatusItemConnecting")!
-    // swiftlint:disable:next force_unwrapping
-    private let statusBarImageWhenConnected = NSImage(named: "StatusItemConnected")!
 
     private var statusObservationToken: AnyObject?
     private var connectionInfoHelper: StatusItemConnectionInfoHelper?
@@ -79,27 +74,27 @@ class StatusItemController: NSObject {
         connectionFlowStatusEntries = ConnectionFlowStatusEntries()
         connectableInstanceEntries = ConnectableInstanceEntries()
         super.init()
-        startObservingTunnelStatus()
     }
 
-    func setShouldShowStatusItem(_ shouldShow: Bool) {
-        shouldShowStatusItem = shouldShow
+    func setShouldShowStatusItem(_ shouldShow: Bool, shouldUseColorIcons: Bool) {
+        self.shouldShowStatusItem = shouldShow
+        self.shouldUseColorIcons = shouldUseColorIcons
     }
 }
 
 private extension StatusItemController {
     func updateStatusItem() {
-        if (shouldShowStatusItem && self.statusItem == nil), let connectionStatus = connectionStatus {
+        if shouldShowStatusItem && self.statusItem == nil {
             let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
             statusItem.menu = createStatusMenu()
             self.statusItem = statusItem
-            self.updateStatusItemImage(with: connectionStatus)
         } else if !shouldShowStatusItem {
             if let statusItem = self.statusItem {
                 NSStatusBar.system.removeStatusItem(statusItem)
             }
             self.statusItem = nil
         }
+        self.updateStatusItemImage()
     }
 
     func createStatusMenu() -> NSMenu {
@@ -186,29 +181,24 @@ private extension StatusItemController {
         }
     }
 
-    func updateStatusItemImage(with status: NEVPNStatus) {
+    func updateStatusItemImage() {
         guard let statusItem = statusItem else { return }
-        switch status {
-        case .invalid, .disconnected:
-            statusItem.button?.image = statusBarImageWhenNotConnected
-        case .connecting, .disconnecting, .reasserting:
-            statusItem.button?.image = statusBarImageWhenConnecting
-        case .connected:
-            statusItem.button?.image = statusBarImageWhenConnected
-        @unknown default:
-            statusItem.button?.image = statusBarImageWhenNotConnected
-        }
-    }
-
-    func startObservingTunnelStatus() {
-        statusObservationToken = NotificationCenter.default.addObserver(
-            forName: .NEVPNStatusDidChange, object: nil,
-            queue: OperationQueue.main) { [weak self] notification in
-                guard let self = self else { return }
-                guard let session = notification.object as? NETunnelProviderSession else { return }
-                self.connectionStatus = session.status
-                self.updateStatusItemImage(with: session.status)
-        }
+        statusItem.button?.image = {
+            switch flowStatus {
+            case .notConnected, .gettingProfiles, .configuring:
+                return shouldUseColorIcons ?
+                    NSImage(named: "StatusItemColorNotConnected") :
+                    NSImage(named: "StatusItemGrayscaleNotConnected")
+            case .connecting, .disconnecting, .reconnecting:
+                return shouldUseColorIcons ?
+                    NSImage(named: "StatusItemColorConnecting") :
+                    NSImage(named: "StatusItemGrayscaleConnecting")
+            case .connected:
+                return shouldUseColorIcons ?
+                    NSImage(named: "StatusItemColorConnected") :
+                    NSImage(named: "StatusItemGrayscaleConnected")
+            }
+        }()
     }
 }
 

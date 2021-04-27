@@ -69,7 +69,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.mainViewController?.delegate = statusItemController
         self.statusItemController = statusItemController
 
-        setShowInStatusBarEnabled(UserDefaults.standard.showInStatusBar)
+        UserDefaults.standard.registerAppDefaults()
+
+        setShowInStatusBarEnabled(
+            UserDefaults.standard.showInStatusBar,
+            shouldUseColorIcons: UserDefaults.standard.isStatusItemInColor)
         setShowInDockEnabled(UserDefaults.standard.showInDock)
 
         if LaunchAtLoginHelper.isOpenedOrReopenedByLoginItemHelper() &&
@@ -220,8 +224,8 @@ extension AppDelegate {
         }
     }
 
-    func setShowInStatusBarEnabled(_ isEnabled: Bool) {
-        statusItemController?.setShouldShowStatusItem(isEnabled)
+    func setShowInStatusBarEnabled(_ isEnabled: Bool, shouldUseColorIcons: Bool) {
+        statusItemController?.setShouldShowStatusItem(isEnabled, shouldUseColorIcons: shouldUseColorIcons)
     }
 
     func setShowInDockEnabled(_ isEnabled: Bool) {
