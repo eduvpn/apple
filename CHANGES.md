@@ -6,6 +6,7 @@
 - iOS: Support for password-based OpenVPN configs
 - macOS: Can press return to connect when prompted for password
 - Rollback prevention for discovery data
+- macOS: Improve HTML page shown after OAuth authentication completes #182
 
 ## 2.2.2
 
