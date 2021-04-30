@@ -32,7 +32,7 @@ class ServerAuthService {
     private var currentAuthFlow: OIDExternalUserAgentSession?
 
     #if os(macOS)
-    private lazy var redirectHttpHandler = OIDRedirectHTTPHandler(successURL: nil)
+    private lazy var redirectHttpHandler = OAuthRedirectHTTPHandler(successURL: nil)
     #endif
 
     var redirectURL: URL {
