@@ -120,3 +120,16 @@ extension LanguageMappedString {
         }
     }
 }
+
+extension LanguageMappedString {
+    func matches(searchQuery: String) -> Bool {
+        switch self {
+        case .stringForAnyLanguage(let string):
+            return string.localizedCaseInsensitiveContains(searchQuery)
+        case .stringByLanguageTag(let map):
+            return map.values.contains(where: {
+                $0.localizedCaseInsensitiveContains(searchQuery)
+            })
+        }
+    }
+}
