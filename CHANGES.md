@@ -5,6 +5,7 @@
 - macOS: Status item icons changed
 - iOS: Support for password-based OpenVPN configs
 - macOS: Can press return to connect when prompted for password
+- Rollback prevention for discovery data
 
 ## 2.2.2
 

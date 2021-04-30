@@ -110,6 +110,7 @@ class SearchViewModel {
         guard !isLoadInProgress else {
             return Promise(error: SearchViewModelError.cannotLoadWhenPreviousLoadIsInProgress)
         }
+        isLoadInProgress = true
         if shouldIncludeOrganizations {
             return firstly {
                 when(fulfilled:
