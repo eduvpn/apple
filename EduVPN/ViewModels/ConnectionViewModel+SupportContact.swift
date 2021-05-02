@@ -46,7 +46,7 @@ extension ConnectionViewModel.SupportContact {
             }
         }
         let resultString = NSMutableAttributedString(
-            string: "Support: ",
+            string: NSLocalizedString("Support: ", comment: ""),
             attributes: [.font: font, .foregroundColor: color])
         for (index, contactString) in contactStrings.enumerated() {
             if index > 0 {
