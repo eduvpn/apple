@@ -18,9 +18,15 @@ extension ServerDisplayInfo {
         case .instituteAccessServer(let server):
             return server.displayName.stringForCurrentLanguage()
         case .secureInternetServer(let server):
-            guard let server = server else { return NSLocalizedString("Unknown country", comment: "") }
+            guard let server = server else {
+                return NSLocalizedString(
+                    "Unknown country",
+                    comment: "unknown country code")
+            }
             return Locale.current.localizedString(forRegionCode: server.countryCode) ??
-                NSLocalizedString("Unknown country", comment: "")
+                NSLocalizedString(
+                    "Unknown country",
+                    comment: "unknown country code")
         case .serverByURLServer(let server):
             if let predefinedProvider = Config.shared.predefinedProvider,
                predefinedProvider.baseURLString == server.baseURLString {

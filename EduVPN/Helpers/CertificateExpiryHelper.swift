@@ -144,10 +144,17 @@ extension CertificateExpiryHelper.CertificateStatus {
             } else {
                 localizedTimeLeftString = Self.minutesSecondsFormatter.string(from: timeInterval)
             }
-            return String(format: NSLocalizedString("Valid for %@", comment: ""),
-                          localizedTimeLeftString ?? "an unknown amount of time")
+            return String(format: NSLocalizedString(
+                              "Valid for %@",
+                              comment: "Connection screen session validity"),
+                          localizedTimeLeftString ??
+                              NSLocalizedString(
+                                "an unknown amount of time",
+                                comment: "Connection screen session validity suffix"))
         case .expired:
-            return NSLocalizedString("This session has expired", comment: "")
+            return NSLocalizedString(
+                "This session has expired",
+                comment: "Connection screen session expired")
         }
     }
 

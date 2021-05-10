@@ -77,7 +77,7 @@ extension Error {
             return appError.detail
         }
         if let urlString = innermostFailingURLString {
-            return String(format: NSLocalizedString("Failing URL: %@", comment: ""), urlString)
+            return String(format: NSLocalizedString("Failing URL: %@", comment: "error message detail"), urlString)
         }
         let userInfo = (self as NSError).userInfo
         if !userInfo.isEmpty {

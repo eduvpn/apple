@@ -23,13 +23,18 @@ extension AddServerViewController: UITextFieldDelegate {
 extension AddServerViewController: AuthorizingViewController {
     func didBeginFetchingServerInfoForAuthorization(userCancellationHandler: (() -> Void)?) {
         let cancelAction = UIAlertAction(
-            title: NSLocalizedString("Cancel", comment: ""),
+            title: NSLocalizedString("Cancel", comment: "button title"),
             style: .cancel,
             handler: { _ in
                 userCancellationHandler?()
                 self.isBusy = false
             })
-        let alert = UIAlertController(title: NSLocalizedString("Contacting the server", comment: ""), message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(
+            title: NSLocalizedString(
+                "Contacting the server",
+                comment: "iOS: Alert text shown when initiating contact for adding a server"),
+            message: nil,
+            preferredStyle: .alert)
         alert.addAction(cancelAction)
         self.contactingServerAlert = alert
         self.isBusy = true

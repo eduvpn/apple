@@ -21,12 +21,12 @@ class SectionHeaderCell: TableViewCell {
             switch rowKind {
             case .otherServerSectionHeaderKind:
                 return isAdding ?
-                    NSLocalizedString("Add your own server", comment: "") :
-                    NSLocalizedString("Other servers", comment: "")
+                    NSLocalizedString("Add your own server", comment: "list section header") :
+                    NSLocalizedString("Other servers", comment: "list section header")
             case .instituteAccessServerSectionHeaderKind:
-                return NSLocalizedString("Institute Access", comment: "")
+                return NSLocalizedString("Institute Access", comment: "list section header")
             case .secureInternetOrgSectionHeaderKind, .secureInternetServerSectionHeaderKind:
-                return NSLocalizedString("Secure Internet", comment: "")
+                return NSLocalizedString("Secure Internet", comment: "list section header")
             default:
                 return ""
             }

@@ -16,15 +16,23 @@ extension OpenVPNConfigImportHelperError: AppError {
     var summary: String {
         switch self {
         case .openVPNConfigUnreadable:
-            return NSLocalizedString("OpenVPN config file is unreadable", comment: "")
+            return NSLocalizedString(
+                "OpenVPN config file is unreadable",
+                comment: "error message")
         case .openVPNConfigHasInvalidEncoding:
-            return NSLocalizedString("OpenVPN config file is not in UTF-8 encoding", comment: "")
+            return NSLocalizedString(
+                "OpenVPN config file is not in UTF-8 encoding",
+                comment: "error message")
         case .openVPNConfigHasNoRemotes:
-            return NSLocalizedString("OpenVPN config file has no remotes", comment: "")
+            return NSLocalizedString(
+                "OpenVPN config file has no remotes",
+                comment: "error message")
         }
     }
     var detail: String {
-        NSLocalizedString("OpenVPN config was not imported", comment: "")
+        NSLocalizedString(
+            "OpenVPN config was not imported",
+            comment: "error message detail")
     }
 }
 
@@ -33,21 +41,31 @@ extension TunnelKit.ConfigurationError: AppError {
         switch self {
         case .malformed(let option):
             return String(
-                format: NSLocalizedString("OpenVPN config file is malformed: %@", comment: ""),
+                format: NSLocalizedString(
+                    "OpenVPN config file is malformed: %@",
+                    comment: "error message"),
                 option)
         case .missingConfiguration(let option):
             return String(
-                format: NSLocalizedString("OpenVPN config file is missing configuration: %@", comment: ""),
+                format: NSLocalizedString(
+                    "OpenVPN config file is missing configuration: %@",
+                    comment: "error message"),
                 option)
         case .unsupportedConfiguration(let option):
             return String(
-                format: NSLocalizedString("OpenVPN config file has unsupported configuration: %@", comment: ""),
+                format: NSLocalizedString(
+                    "OpenVPN config file has unsupported configuration: %@",
+                    comment: "error message"),
                 option)
         case .encryptionPassphrase:
-            return NSLocalizedString("OpenVPN config file with encrypted client key is not supported", comment: "")
+            return NSLocalizedString(
+                "OpenVPN config file with encrypted client key is not supported",
+                comment: "error message")
         case .unableToDecrypt(let error):
             return String(
-                format: NSLocalizedString("OpenVPN config file cannot be decrypted: %@", comment: ""),
+                format: NSLocalizedString(
+                    "OpenVPN config file cannot be decrypted: %@",
+                    comment: "error message"),
                 error.localizedDescription)
         }
     }

@@ -78,7 +78,7 @@ final class SearchViewController: ViewController, ParametrizedViewController {
     }
 
     override func viewDidLoad() {
-        title = NSLocalizedString("Add Server", comment: "")
+        title = NSLocalizedString("Add Server", comment: "Search / Add server screen title")
         spinner.setLayerOpacity(0)
         tableContainerView.setLayerOpacity(0)
 

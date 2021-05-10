@@ -110,10 +110,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         let alert = NSAlert()
         alert.alertStyle = .warning
-        alert.messageText = NSLocalizedString("Are you sure you want to quit \(Config.shared.appName)?", comment: "")
-        alert.informativeText = NSLocalizedString("The active VPN connection will be stopped when you quit.", comment: "")
-        alert.addButton(withTitle: NSLocalizedString("Stop VPN & Quit", comment: ""))
-        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
+        alert.messageText = NSLocalizedString(
+            "Are you sure you want to quit \(Config.shared.appName)?",
+            comment: "macOS alert title on attempt to quit app")
+        alert.informativeText = NSLocalizedString(
+            "The active VPN connection will be stopped when you quit.",
+            comment: "macOS alert text on attempt to quit app")
+        alert.addButton(withTitle: NSLocalizedString(
+                         "Stop VPN & Quit",
+                         comment: "macOS alert button on attempt to quit app"))
+        alert.addButton(withTitle: NSLocalizedString(
+                         "Cancel", comment: "button title"))
 
         func handleQuitConfirmationResult(_ result: NSApplication.ModalResponse) {
             if case .alertFirstButtonReturn = result {
@@ -187,7 +194,9 @@ extension AppDelegate {
         NSApp.activate(ignoringOtherApps: true)
 
         let openPanel = NSOpenPanel()
-        openPanel.prompt = NSLocalizedString("Import", comment: "")
+        openPanel.prompt = NSLocalizedString(
+            "Import",
+            comment: "macOS import ovpn file open panel button title")
         openPanel.allowedFileTypes = ["ovpn"]
         openPanel.allowsMultipleSelection = false
         openPanel.beginSheetModal(for: mainWindow) { response in
@@ -264,7 +273,9 @@ extension AppDelegate {
         let url = URL(string: sourceRepositoryLink)! // swiftlint:disable:this force_unwrapping
         let font = NSFont.systemFont(ofSize: 10, weight: .light)
         let string = NSMutableAttributedString(
-            string: NSLocalizedString("For source code and licenses, please see: ", comment: ""),
+            string: NSLocalizedString(
+                "For source code and licenses, please see: ",
+                comment: "macOS about panel message"),
             attributes: [.font: font])
         let linkedString = NSAttributedString(
             string: sourceRepositoryLink,

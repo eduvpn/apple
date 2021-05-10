@@ -14,10 +14,18 @@ class ConnectionInfoViewController: UITableViewController, ParametrizedViewContr
 
         var title: String {
             switch self {
-            case .duration: return NSLocalizedString("DURATION", comment: "")
-            case .dataTransferred: return NSLocalizedString("DATA TRANSFERRED", comment: "")
-            case .address: return NSLocalizedString("ADDRESS", comment: "")
-            case .profileName: return NSLocalizedString("PROFILE", comment: "")
+            case .duration: return NSLocalizedString(
+                "DURATION",
+                comment: "Connection Info field name")
+            case .dataTransferred: return NSLocalizedString(
+                "DATA TRANSFERRED",
+                comment: "Connection Info field name")
+            case .address: return NSLocalizedString(
+                "ADDRESS",
+                comment: "Connection Info field name")
+            case .profileName: return NSLocalizedString(
+                "PROFILE",
+                comment: "Connection Info field name")
             }
         }
 

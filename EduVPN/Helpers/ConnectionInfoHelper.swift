@@ -117,17 +117,26 @@ private extension ConnectionInfoHelper {
     private func update() {
         guard let networkAddress = networkAddress else { return }
         let dataTransferredString = String(
-            format: NSLocalizedString("Downloaded: %@\nUploaded: %@", comment: ""),
-            downloaded ?? "Unknown", uploaded ?? "Unknown")
+            format: NSLocalizedString(
+                "Downloaded: %@\nUploaded: %@", comment: "Connection Info bytes transferred"),
+            downloaded ??
+                NSLocalizedString("Unknown", comment: "Connection Info bytes transferred"),
+            uploaded ??
+                NSLocalizedString("Unknown", comment: "Connection Info bytes transferred"))
         let networkAddressString: String = {
             switch (networkAddress.ipv4, networkAddress.ipv6) {
-            case (nil, nil): return NSLocalizedString("No addresses", comment: "")
+            case (nil, nil): return NSLocalizedString(
+                "No addresses",
+                comment: "Connection Info network address")
             case (let ipv4, nil): return ipv4! // swiftlint:this:disable force_unwrapping
             case (nil, let ipv6): return ipv6! // swiftlint:this:disable force_unwrapping
             case (let ipv4, let ipv6): return "\(ipv4!)\n\(ipv6!)" // swiftlint:this:disable force_unwrapping
             }
         }()
-        self.handler(ConnectionInfo(duration: connectedDuration ?? "Unknown",
+        self.handler(ConnectionInfo(duration: connectedDuration ??
+                                        NSLocalizedString(
+                                            "Unknown",
+                                            comment: "Connection Info duration"),
                                     profileName: localizedProfileName,
                                     dataTransferred: dataTransferredString,
                                     addresses: networkAddressString))

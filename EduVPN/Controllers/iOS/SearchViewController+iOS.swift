@@ -60,7 +60,12 @@ extension SearchViewController: AuthorizingViewController {
                 tableView?.isUserInteractionEnabled = true
                 self.isBusy = false
             })
-        let alert = UIAlertController(title: NSLocalizedString("Contacting the server", comment: ""), message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(
+            title: NSLocalizedString(
+                "Contacting the server",
+                comment: "iOS: Alert text shown when initiating contact for adding a server"),
+            message: nil,
+            preferredStyle: .alert)
         alert.addAction(cancelAction)
         self.contactingServerAlert = alert
 
