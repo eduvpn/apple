@@ -1,9 +1,10 @@
-# TunnelKit
-
 ![iOS 12+](https://img.shields.io/badge/ios-12+-green.svg)
+![macOS 10.15+](https://img.shields.io/badge/macos-10.15+-green.svg)
 [![OpenSSL 1.1.1h](https://img.shields.io/badge/openssl-1.1.1h-d69c68.svg)](https://www.openssl.org/news/openssl-1.1.1-notes.html)
 [![License GPLv3](https://img.shields.io/badge/license-GPLv3-lightgray.svg)](LICENSE)
 [![Travis-CI](https://api.travis-ci.org/passepartoutvpn/tunnelkit.svg?branch=master)](https://travis-ci.org/passepartoutvpn/tunnelkit)
+
+# TunnelKit
 
 This library provides a simplified Swift/Obj-C implementation of the OpenVPN® protocol for the Apple platforms. The crypto layer is built on top of [OpenSSL 1.1.1][dep-openssl], which in turn enables support for a certain range of encryption and digest algorithms.
 
@@ -52,8 +53,8 @@ Unsupported:
 
 Ignored:
 
-- MTU overrides
-    - `--*-mtu` and variants
+- Some MTU overrides
+    - `--link-mtu` and variants
     - `--mssfix`
 - Multiple `--remote` with different `host` values (first wins)
 - Static client-side routes
@@ -92,15 +93,11 @@ Assuming you have a [working CocoaPods environment][dep-cocoapods], setting up t
 
     $ pod install
 
-After that, open `TunnelKit.xcworkspace` in Xcode and run the unit tests found in the `TunnelKitTests` folder. A simple CMD+U while on `TunnelKit-iOS` should do that as well.
+After that, open `TunnelKit.xcworkspace` in Xcode and run the unit tests found in the `TunnelKitTests` folder. A simple CMD+U while on `TunnelKit-(iOS|macOS)` should do that as well.
 
 #### Demo
 
-There is a `Demo` directory containing a simple app for testing the tunnel, called `BasicTunnel`. As usual, prepare for CocoaPods:
-
-    $ pod install
-
-then open `Demo.xcworkspace` and run the `BasicTunnel-iOS` target.
+There are demo targets containing a simple app for testing the tunnel, called `BasicTunnel`.
 
 For the VPN to work properly, the `BasicTunnel` demo requires:
 
@@ -109,7 +106,7 @@ For the VPN to work properly, the `BasicTunnel` demo requires:
 
 both in the main app and the tunnel extension target.
 
-In order to test connection to your own server, modify the file `Demo/BasicTunnel-[iOS|macOS]/ViewController.swift` and make sure to set `ca` to the PEM encoded certificate of your VPN server's CA.
+In order to test connectivity in your own environment, modify the file `TunnelKit/Demo/Configuration.swift` to match your VPN server parameters.
 
 Example:
 

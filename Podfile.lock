@@ -1,31 +1,31 @@
 PODS:
-  - Alamofire (5.4.1)
+  - Alamofire (5.4.3)
   - AppAuth (1.4.0):
     - AppAuth/Core (= 1.4.0)
     - AppAuth/ExternalUserAgent (= 1.4.0)
   - AppAuth/Core (1.4.0)
   - AppAuth/ExternalUserAgent (1.4.0):
     - AppAuth/Core
-  - ASN1Decoder (1.7.0)
+  - ASN1Decoder (1.7.1)
   - libsodium (1.0.12)
   - Moya (14.0.0):
     - Moya/Core (= 14.0.0)
   - Moya/Core (14.0.0):
     - Alamofire (~> 5.0)
-  - OpenSSL-Apple (1.1.1h.9)
+  - OpenSSL-Apple (1.1.1j.11)
   - PromiseKit/CorePromise (6.13.1)
-  - SwiftyBeaver (1.9.3)
-  - TunnelKit (3.1.0):
-    - TunnelKit/Protocols/OpenVPN (= 3.1.0)
-  - TunnelKit/AppExtension (3.1.0):
+  - SwiftyBeaver (1.9.4)
+  - TunnelKit (3.3.2):
+    - TunnelKit/Protocols/OpenVPN (= 3.3.2)
+  - TunnelKit/AppExtension (3.3.2):
     - SwiftyBeaver
     - TunnelKit/Core
-  - TunnelKit/Core (3.1.0):
+  - TunnelKit/Core (3.3.2):
     - SwiftyBeaver
-  - TunnelKit/Manager (3.1.0):
+  - TunnelKit/Manager (3.3.2):
     - SwiftyBeaver
-  - TunnelKit/Protocols/OpenVPN (3.1.0):
-    - OpenSSL-Apple (~> 1.1.1h.8)
+  - TunnelKit/Protocols/OpenVPN (3.3.2):
+    - OpenSSL-Apple (~> 1.1.1h.10)
     - TunnelKit/AppExtension
     - TunnelKit/Core
     - TunnelKit/Manager
@@ -59,19 +59,19 @@ CHECKOUT OPTIONS:
     :commit: e191b1beadf3041259652e6e464eaceff16e5fbb
     :git: https://github.com/openid/AppAuth-iOS.git
   TunnelKit:
-    :commit: ba3ead13a3b36707f3dd2469eb768cfad4c628d3
+    :commit: f4b2cb12276526cba1a7270cf5875085e099fc6d
     :git: https://github.com/passepartoutvpn/tunnelkit.git
 
 SPEC CHECKSUMS:
-  Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
+  Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
   AppAuth: aadc4cc25bef2435551896b5bfa9316b42fde656
-  ASN1Decoder: 6525ab84c9a6f899d13690b1d73183bed2d5fa5a
+  ASN1Decoder: 6e08dce02e8e54da30524376e3b5f691d9b94764
   libsodium: 9a8faa5ef2fa0d2d57bd7f7d79bf8fb7c1a9f0ea
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
-  OpenSSL-Apple: cf679d18ec7d719c6a7d38c9a2977a21c2369d38
+  OpenSSL-Apple: bb7c9715a259404de040f5359ed3b3170cedf8d6
   PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
-  SwiftyBeaver: 2e8acd6fc90c6d0a27055867a290794926d57c02
-  TunnelKit: 4db9180956f8aaf4ab152fd0d38c6c9c63a46cf8
+  SwiftyBeaver: 576177b2c5c94b3aedd5993914e91271a0524e88
+  TunnelKit: efebe7db85bdb4ea89fb3af569d4bb7321e7b65d
 
 PODFILE CHECKSUM: f606ea4e167d8739375269c100bd58f98b074ce4
 

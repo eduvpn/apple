@@ -243,11 +243,7 @@ public class OpenVPNSession: Session {
     /// :nodoc:
     deinit {
         cleanup()
-
-        let fm = FileManager.default
-        for url in [caURL, clientCertificateURL, clientKeyURL] {
-            try? fm.removeItem(at: url)
-        }
+        cleanupCache()
     }
     
     // MARK: Session
@@ -356,6 +352,13 @@ public class OpenVPNSession: Session {
         
         isStopping = false
         stopError = nil
+    }
+
+    func cleanupCache() {
+        let fm = FileManager.default
+        for url in [caURL, clientCertificateURL, clientKeyURL] {
+            try? fm.removeItem(at: url)
+        }
     }
 
     // MARK: Loop
@@ -573,10 +576,10 @@ public class OpenVPNSession: Session {
         let interval: TimeInterval
         if let keepAliveInterval = keepAliveInterval {
             interval = keepAliveInterval
-            log.verbose("Schedule ping after \(interval) seconds")
+            log.verbose("Schedule ping after \(interval.asTimeString)")
         } else {
             interval = CoreConfiguration.OpenVPN.pingTimeoutCheckInterval
-            log.verbose("Schedule ping timeout check after \(interval) seconds")
+            log.verbose("Schedule ping timeout check after \(interval.asTimeString)")
         }
         queue.asyncAfter(deadline: .now() + interval) { [weak self] in
             log.verbose("Running ping block")
@@ -739,7 +742,7 @@ public class OpenVPNSession: Session {
         
         let elapsed = -negotiationKey.startTime.timeIntervalSinceNow
         if (elapsed > renegotiatesAfter) {
-            log.debug("Renegotiating after \(elapsed) seconds")
+            log.debug("Renegotiating after \(elapsed.asTimeString)")
             softReset(isServerInitiated: false)
         }
     }
@@ -1015,12 +1018,12 @@ public class OpenVPNSession: Session {
     
     // Ruby: q_ctrl
     private func enqueueControlPackets(code: PacketCode, key: UInt8, payload: Data) {
-        guard let link = link else {
+        guard let _ = link else {
             log.warning("Not writing to LINK, interface is down")
             return
         }
 
-        controlChannel.enqueueOutboundPackets(withCode: code, key: key, payload: payload, maxPacketSize: link.mtu)
+        controlChannel.enqueueOutboundPackets(withCode: code, key: key, payload: payload, maxPacketSize: 1000)
         flushControlQueue()
     }
     
@@ -1099,10 +1102,10 @@ public class OpenVPNSession: Session {
             log.info("\tNegotiated compression algorithm: \(negCompression)")
         }
         if let negPing = pushReply.options.keepAliveInterval {
-            log.info("\tNegotiated keep-alive interval: \(negPing) seconds")
+            log.info("\tNegotiated keep-alive interval: \(negPing.asTimeString)")
         }
         if let negPingRestart = pushReply.options.keepAliveTimeout {
-            log.info("\tNegotiated keep-alive timeout: \(negPingRestart) seconds")
+            log.info("\tNegotiated keep-alive timeout: \(negPingRestart.asTimeString)")
         }
 
         let bridge: OpenVPN.EncryptionBridge
@@ -1249,6 +1252,7 @@ public class OpenVPNSession: Session {
             switch method {
             case .shutdown:
                 self?.doShutdown(error: error)
+                self?.cleanupCache()
                 
             case .reconnect:
                 self?.doReconnect(error: error)

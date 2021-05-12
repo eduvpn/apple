@@ -31,9 +31,8 @@ class NEUDPLink: LinkInterface {
     
     private let maxDatagrams: Int
     
-    init(impl: NWUDPSession, mtu: Int, maxDatagrams: Int? = nil) {
+    init(impl: NWUDPSession, maxDatagrams: Int? = nil) {
         self.impl = impl
-        self.mtu = mtu
         self.maxDatagrams = maxDatagrams ?? 200
     }
     
@@ -44,8 +43,6 @@ class NEUDPLink: LinkInterface {
     var remoteAddress: String? {
         return (impl.resolvedEndpoint as? NWHostEndpoint)?.hostname
     }
-    
-    let mtu: Int
     
     var packetBufferSize: Int {
         return maxDatagrams
@@ -79,7 +76,7 @@ class NEUDPLink: LinkInterface {
 
 /// :nodoc:
 extension NEUDPSocket: LinkProducer {
-    public func link(withMTU mtu: Int) -> LinkInterface {
-        return NEUDPLink(impl: impl, mtu: mtu)
+    public func link() -> LinkInterface {
+        return NEUDPLink(impl: impl)
     }
 }

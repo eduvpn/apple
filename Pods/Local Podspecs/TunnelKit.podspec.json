@@ -1,6 +1,6 @@
 {
   "name": "TunnelKit",
-  "version": "3.1.0",
+  "version": "3.3.2",
   "summary": "Non-official OpenVPN client for Apple platforms.",
   "homepage": "https://github.com/passepartoutvpn/tunnelkit",
   "license": {
@@ -12,7 +12,7 @@
   },
   "source": {
     "git": "https://github.com/passepartoutvpn/tunnelkit.git",
-    "tag": "v3.1.0"
+    "tag": "v3.3.2"
   },
   "swift_versions": "5.1",
   "platforms": {
@@ -78,7 +78,7 @@
           },
           "dependencies": {
             "OpenSSL-Apple": [
-              "~> 1.1.1h.8"
+              "~> 1.1.1h.10"
             ],
             "TunnelKit/Core": [
 

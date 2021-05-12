@@ -30,8 +30,6 @@ public protocol LinkProducer {
 
     /**
      Returns a `LinkInterface`.
- 
-     - Parameter mtu: The MTU value.
      **/
-    func link(withMTU mtu: Int) -> LinkInterface
+    func link() -> LinkInterface
 }
