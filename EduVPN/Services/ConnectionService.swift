@@ -367,42 +367,42 @@ private extension ConnectionService {
     static func tunnelProtocolConfiguration(
         openVPNConfig lines: [String], connectionAttemptId: UUID,
         credentials: Credentials?, shouldPreventAutomaticConnections: Bool) throws
-        -> NETunnelProviderProtocol {
-            let filteredLines = lines.map {
-                $0.trimmingCharacters(in: .whitespacesAndNewlines)
-            }.filter {
-                !$0.isEmpty
-            }
-            let parseResult = try OpenVPN.ConfigurationParser.parsed(fromLines: filteredLines)
+    -> NETunnelProviderProtocol {
+        let filteredLines = lines.map {
+            $0.trimmingCharacters(in: .whitespacesAndNewlines)
+        }.filter {
+            !$0.isEmpty
+        }
+        let parseResult = try OpenVPN.ConfigurationParser.parsed(fromLines: filteredLines)
 
-            var configBuilder = parseResult.configuration.builder()
-            configBuilder.tlsSecurityLevel = 3 // See https://github.com/eduvpn/apple/issues/89
+        var configBuilder = parseResult.configuration.builder()
+        configBuilder.tlsSecurityLevel = 3 // See https://github.com/eduvpn/apple/issues/89
 
-            var providerConfigBuilder = OpenVPNTunnelProvider.ConfigurationBuilder(sessionConfiguration: configBuilder.build())
-            providerConfigBuilder.masksPrivateData = false
-            providerConfigBuilder.shouldDebug = true
+        var providerConfigBuilder = OpenVPNTunnelProvider.ConfigurationBuilder(sessionConfiguration: configBuilder.build())
+        providerConfigBuilder.masksPrivateData = false
+        providerConfigBuilder.shouldDebug = true
 
-            let providerConfig = providerConfigBuilder.build()
+        let providerConfig = providerConfigBuilder.build()
 
-            if let credentials = credentials {
-                let keychain = Keychain(group: appGroup)
-                try keychain.set(
-                    password: credentials.password, for: credentials.userName,
-                    context: providerBundleIdentifier)
-            }
-            let tunnelProviderProtocolConfig = try providerConfig.generatedTunnelProtocol(
-                withBundleIdentifier: providerBundleIdentifier,
-                appGroup: appGroup,
-                context: providerBundleIdentifier,
-                username: credentials?.userName)
-            tunnelProviderProtocolConfig.connectionAttemptId = connectionAttemptId
-            #if os(macOS)
-            tunnelProviderProtocolConfig.shouldPreventAutomaticConnections = shouldPreventAutomaticConnections
-            #elseif os(iOS)
-            precondition(shouldPreventAutomaticConnections == false)
-            #endif
+        if let credentials = credentials {
+            let keychain = Keychain(group: appGroup)
+            try keychain.set(
+                password: credentials.password, for: credentials.userName,
+                context: providerBundleIdentifier)
+        }
+        let tunnelProviderProtocolConfig = try providerConfig.generatedTunnelProtocol(
+            withBundleIdentifier: providerBundleIdentifier,
+            appGroup: appGroup,
+            context: providerBundleIdentifier,
+            username: credentials?.userName)
+        tunnelProviderProtocolConfig.connectionAttemptId = connectionAttemptId
+        #if os(macOS)
+        tunnelProviderProtocolConfig.shouldPreventAutomaticConnections = shouldPreventAutomaticConnections
+        #elseif os(iOS)
+        precondition(shouldPreventAutomaticConnections == false)
+        #endif
 
-            return tunnelProviderProtocolConfig
+        return tunnelProviderProtocolConfig
     }
 }
 
