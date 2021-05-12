@@ -383,12 +383,18 @@ private extension ConnectionService {
             providerConfigBuilder.shouldDebug = true
 
             let providerConfig = providerConfigBuilder.build()
-            let openVPNCredentials = credentials.map { OpenVPN.Credentials($0.userName, $0.password) }
 
+            if let credentials = credentials {
+                let keychain = Keychain(group: appGroup)
+                try keychain.set(
+                    password: credentials.password, for: credentials.userName,
+                    context: providerBundleIdentifier)
+            }
             let tunnelProviderProtocolConfig = try providerConfig.generatedTunnelProtocol(
                 withBundleIdentifier: providerBundleIdentifier,
                 appGroup: appGroup,
-                credentials: openVPNCredentials)
+                context: providerBundleIdentifier,
+                username: credentials?.userName)
             tunnelProviderProtocolConfig.connectionAttemptId = connectionAttemptId
             #if os(macOS)
             tunnelProviderProtocolConfig.shouldPreventAutomaticConnections = shouldPreventAutomaticConnections
