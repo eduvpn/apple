@@ -59,7 +59,7 @@ final class AddServerViewController: ViewController, ParametrizedViewController 
     }
 
     override func viewDidLoad() {
-        title = NSLocalizedString("Add Server", comment: "")
+        title = NSLocalizedString("Add Server", comment: "Search / Add server screen title")
 
         let persistenceService = parameters.environment.persistenceService
         persistenceService.hasServersDelegate = self
@@ -68,7 +68,7 @@ final class AddServerViewController: ViewController, ParametrizedViewController 
         if let predefinedProvider = parameters.predefinedProvider {
             topImageView.image = Image(named: "PredefinedProviderTopImage")
             topLabel.text = predefinedProvider.displayName.stringForCurrentLanguage()
-            let buttonTitle = NSLocalizedString("Login", comment: "Login to predefined provider")
+            let buttonTitle = NSLocalizedString("Login", comment: "button title")
             #if os(macOS)
             addServerButton.title = buttonTitle
             #elseif os(iOS)

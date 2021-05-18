@@ -404,7 +404,6 @@
 		9C5814DFFC4AFAA265AFACDF /* Pods-EduVPNTunnelExtension.debug appforce1.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension.debug appforce1.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.debug appforce1.xcconfig"; sourceTree = "<group>"; };
 		A17B0E4E7C8E497895ADB990 /* Pods-LetsConnect-macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsConnect-macOS.debug.xcconfig"; path = "Target Support Files/Pods-LetsConnect-macOS/Pods-LetsConnect-macOS.debug.xcconfig"; sourceTree = "<group>"; };
 		A73263FAA11A0300A42EF1CB /* Pods-EduVPNTunnelExtension-macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension-macOS.debug.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension-macOS/Pods-EduVPNTunnelExtension-macOS.debug.xcconfig"; sourceTree = "<group>"; };
-		AAFC2E99246BECA000FEB0F3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		AB1753C899C30F94585E4DCC /* Pods-EduVPN-redesign-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPN-redesign-iOS.release.xcconfig"; path = "Target Support Files/Pods-EduVPN-redesign-iOS/Pods-EduVPN-redesign-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		AE1BF4D6021DD3609DCEDE95 /* Pods-EduVPN.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPN.release.xcconfig"; path = "Target Support Files/Pods-EduVPN/Pods-EduVPN.release.xcconfig"; sourceTree = "<group>"; };
 		B0A376C8FFDBB5D48E014D90 /* Pods-EduVPNTunnelExtension.release letsconnect.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPNTunnelExtension.release letsconnect.xcconfig"; path = "Target Support Files/Pods-EduVPNTunnelExtension/Pods-EduVPNTunnelExtension.release letsconnect.xcconfig"; sourceTree = "<group>"; };
@@ -482,8 +481,6 @@
 		C7DB4C73248064C6009932B1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C7DB4C7624806511009932B1 /* eduVPN_2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = eduVPN_2.xcdatamodel; sourceTree = "<group>"; };
 		C7DB4C91248067EE009932B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		C7DB4C92248067EE009932B1 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		C7DB4C93248067EE009932B1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		DAD9835E38DF6A6E0B23037B /* Pods-EduVPN-macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPN-macOS.debug.xcconfig"; path = "Target Support Files/Pods-EduVPN-macOS/Pods-EduVPN-macOS.debug.xcconfig"; sourceTree = "<group>"; };
 		E63E0B0D81746D18F0BFC889 /* Pods_EduVPNTunnelExtension_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EduVPNTunnelExtension_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E946E503AF53BD30A3B58E5D /* Pods-EduVPN.debug letsconnect.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EduVPN.debug letsconnect.xcconfig"; path = "Target Support Files/Pods-EduVPN/Pods-EduVPN.debug letsconnect.xcconfig"; sourceTree = "<group>"; };
@@ -1272,10 +1269,12 @@
 				TargetAttributes = {
 					342B9C98228ECFDB00C006D7 = {
 						CreatedOnToolsVersion = 10.2.1;
+						DevelopmentTeam = R2NV2FHE22;
 						ProvisioningStyle = Automatic;
 					};
 					349D85C122B706A4006E9540 = {
 						CreatedOnToolsVersion = 10.2.1;
+						DevelopmentTeam = R2NV2FHE22;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.Mac = {
@@ -1294,6 +1293,7 @@
 					};
 					4A901C1020C87511000C1BF0 = {
 						CreatedOnToolsVersion = 9.4;
+						DevelopmentTeam = R2NV2FHE22;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -1309,14 +1309,17 @@
 					};
 					4AAC1F891F2D0E3400DD0252 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = R2NV2FHE22;
 						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 4AAC1F751F2D0E3400DD0252;
 					};
 					6F750C2C24975A4300AF2C04 = {
+						DevelopmentTeam = R2NV2FHE22;
 						ProvisioningStyle = Automatic;
 					};
 					6F750CBD24975B9B00AF2C04 = {
+						DevelopmentTeam = R2NV2FHE22;
 						ProvisioningStyle = Automatic;
 					};
 					C79B63C6258A08C200C054CC = {
@@ -1343,8 +1346,6 @@
 			knownRegions = (
 				en,
 				Base,
-				nl,
-				de,
 			);
 			mainGroup = 4AAC1F6D1F2D0E3400DD0252;
 			productRefGroup = 4AAC1F771F2D0E3400DD0252 /* Products */;
@@ -1839,7 +1840,7 @@
 				6F4C1ED625D12D710042AD95 /* SharedTunnelOptions.swift in Sources */,
 				6F8AEE7925E6D508001A603B /* StatusItemConnectionInfoHelper.swift in Sources */,
 				6F50408D254C33C50071AA66 /* ConnectionViewModel+SupportContact.swift in Sources */,
-				6F42B1A624E333A800800FAC /* BuildFile in Sources */,
+				6F42B1A624E333A800800FAC /* (null) in Sources */,
 				6FEF313D24A746AD0026C786 /* AuthState.swift in Sources */,
 				C7DB4BA4247FC243009932B1 /* ConnectionViewModel.swift in Sources */,
 				C7DB4C04248055D6009932B1 /* Moya+Promise.swift in Sources */,
@@ -2004,7 +2005,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				342B9CBA228ED02E00C006D7 /* Base */,
-				AAFC2E99246BECA000FEB0F3 /* de */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -2029,8 +2029,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C7DB4C91248067EE009932B1 /* Base */,
-				C7DB4C92248067EE009932B1 /* nl */,
-				C7DB4C93248067EE009932B1 /* de */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";

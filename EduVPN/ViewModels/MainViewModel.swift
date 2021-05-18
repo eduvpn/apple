@@ -49,11 +49,11 @@ class MainViewModel {
         var displayText: String {
             switch self {
             case .instituteAccessServerSectionHeader:
-                return NSLocalizedString("Institute Access", comment: "")
+                return NSLocalizedString("Institute Access", comment: "list section header")
             case .secureInternetServerSectionHeader:
-                return NSLocalizedString("Secure Internet", comment: "")
+                return NSLocalizedString("Secure Internet", comment: "list section header")
             case .otherServerSectionHeader:
-                return NSLocalizedString("Other servers", comment: "")
+                return NSLocalizedString("Other servers", comment: "list section header")
             case .instituteAccessServer(_, _, let displayName): return displayName
             case .secureInternetServer(_, _, let countryName): return countryName
             case .serverByURL(let server, let displayName):

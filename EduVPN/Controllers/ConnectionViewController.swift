@@ -190,7 +190,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     }
 
     override func viewDidLoad() {
-        title = NSLocalizedString("Connect to Server", comment: "")
+        title = NSLocalizedString("Connect to Server", comment: "Connection screen title")
         // The view model delegate is set only after our views are ready
         // to receive updates from the view model
         viewModel.delegate = self
@@ -329,7 +329,9 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         }
         let selectionVC = parameters.environment.instantiateItemSelectionViewController(
             items: items, selectedIndex: selectedIndex)
-        selectionVC.title = NSLocalizedString("Select a profile", comment: "")
+        selectionVC.title = NSLocalizedString(
+            "Select a profile",
+            comment: "iOS profile selection view title")
         selectionVC.delegate = self
         let navigationVC = UINavigationController(rootViewController: selectionVC)
         navigationVC.modalPresentationStyle = .pageSheet
@@ -493,8 +495,8 @@ private extension ConnectionViewController {
             alert.alertStyle = .warning
             alert.messageText = serverAPIError.summary
             alert.informativeText = serverAPIError.detail
-            alert.addButton(withTitle: NSLocalizedString("Refresh Profiles", comment: ""))
-            alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
+            alert.addButton(withTitle: NSLocalizedString("Refresh Profiles", comment: "button title"))
+            alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "button title"))
             if let window = self.view.window {
                 alert.beginSheetModal(for: window) { result in
                     if case .alertFirstButtonReturn = result {
@@ -507,13 +509,13 @@ private extension ConnectionViewController {
 
             let alert = UIAlertController()
             let refreshAction = UIAlertAction(
-                title: NSLocalizedString("Refresh Profiles", comment: ""),
+                title: NSLocalizedString("Refresh Profiles", comment: "button title"),
                 style: .default,
                 handler: { _ in
                     self.beginServerConnectionFlow(continuationPolicy: .continueIfOnlyOneProfileFound)
                 })
             let cancelAction = UIAlertAction(
-                title: NSLocalizedString("Cancel", comment: ""),
+                title: NSLocalizedString("Cancel", comment: "button title"),
                 style: .cancel)
             alert.addAction(refreshAction)
             alert.addAction(cancelAction)
@@ -753,11 +755,17 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
         case .collapsed:
             connectionInfoChevronButton.image = Image(named: "ChevronDownButton")
             connectionInfoHeader.isPassthroughToButtonEnabled = true // Make whole "row" clickable
-            connectionInfoChevronButton.setAccessibilityLabel(NSLocalizedString("Show connection info", comment: ""))
+            connectionInfoChevronButton.setAccessibilityLabel(
+                NSLocalizedString(
+                    "Show connection info",
+                    comment: "accessibility label"))
         case .expanded:
             connectionInfoChevronButton.image = Image(named: "CloseButton")
             connectionInfoHeader.isPassthroughToButtonEnabled = false
-            connectionInfoChevronButton.setAccessibilityLabel(NSLocalizedString("Hide connection info", comment: ""))
+            connectionInfoChevronButton.setAccessibilityLabel(
+                NSLocalizedString(
+                    "Hide connection info",
+                    comment: "accessibility label"))
         }
         #elseif os(iOS)
         switch connectionInfoState {

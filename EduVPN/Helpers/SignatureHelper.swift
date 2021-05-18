@@ -20,15 +20,25 @@ enum SignatureHelperError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .signatureFetchFailed:
-            return NSLocalizedString("Fetching signature failed.", comment: "")
+            return NSLocalizedString(
+                "Fetching signature failed.",
+                comment: "error message")
         case .invalidPublicKey:
-            return NSLocalizedString("Invalid public key", comment: "")
+            return NSLocalizedString(
+                "Invalid public key",
+                comment: "error message")
         case .invalidSignature:
-            return NSLocalizedString("Invalid signature", comment: "")
+            return NSLocalizedString(
+                "Invalid signature",
+                comment: "error message")
         case .publicKeySignatureMismatch:
-            return NSLocalizedString("Public key and signature mismatch", comment: "")
+            return NSLocalizedString(
+                "Public key and signature mismatch",
+                comment: "error message")
         case .unsupportedAlgorithm:
-            return NSLocalizedString("Unsupported algorithm.", comment: "")
+            return NSLocalizedString(
+                "Unsupported algorithm.",
+                comment: "error message")
         case .invalid:
             return NSLocalizedString("Signature was invalid.", comment: "")
         }

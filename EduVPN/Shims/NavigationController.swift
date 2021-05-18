@@ -47,8 +47,10 @@ class NavigationController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateToolbarLeftButton()
-        toolbarHelpButton.setAccessibilityLabel(NSLocalizedString("Help", comment: "Help accessibility label"))
-        toolbarPreferencesButton.setAccessibilityLabel(NSLocalizedString("Preferences", comment: "Preferences accessibility label"))
+        toolbarHelpButton.setAccessibilityLabel(
+            NSLocalizedString("Help", comment: "Help accessibility label"))
+        toolbarPreferencesButton.setAccessibilityLabel(
+            NSLocalizedString("Preferences", comment: "Preferences accessibility label"))
     }
 
     @IBAction func toolbarPreferencesClicked(_ sender: Any) {
@@ -74,7 +76,10 @@ class NavigationController: NSViewController {
         toolbarLeftButton.image = image
         toolbarLeftButton.isHidden = !authorizingMessageBox.isHidden ||
             (canGoBack && !isUserAllowedToGoBack)
-        toolbarLeftButton.setAccessibilityLabel(canGoBack ? NSLocalizedString("Back", comment: "Back accessibility label") : NSLocalizedString("Add", comment: "Add accessibility label"))
+        toolbarLeftButton.setAccessibilityLabel(
+            canGoBack ?
+                NSLocalizedString("Back", comment: "Back accessibility label") :
+                NSLocalizedString("Add", comment: "Add accessibility label"))
     }
 }
 

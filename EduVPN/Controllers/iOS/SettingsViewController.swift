@@ -15,8 +15,8 @@ enum SettingsViewControllerError: Error {
 extension SettingsViewControllerError: AppError {
     var summary: String {
         switch self {
-        case .noLogAvailable: return NSLocalizedString("No log available", comment: "")
-        case .cannotShowLog: return NSLocalizedString("Unable to show log", comment: "")
+        case .noLogAvailable: return NSLocalizedString("No log available", comment: "Error message")
+        case .cannotShowLog: return NSLocalizedString("Unable to show log", comment: "Error message")
         }
     }
 }

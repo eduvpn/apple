@@ -31,7 +31,7 @@ extension MainViewController: NSTableViewDelegate, NSTableViewDataSource {
         guard canDeleteRow(at: row) else { return [] }
         let action = NSTableViewRowAction(
             style: .regular,
-            title: NSLocalizedString("Delete", comment: ""),
+            title: NSLocalizedString("Delete", comment: "Main screen: Delete server"),
             handler: { _, index in
                 self.deleteRow(at: index)
             })

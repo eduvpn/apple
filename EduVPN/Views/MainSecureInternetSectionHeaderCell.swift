@@ -55,7 +55,9 @@ class MainSecureInternetSectionHeaderCell: SectionHeaderCell {
                 baseURLString: server.baseURLString,
                 countryCode: server.countryCode,
                 countryName: Locale.current.localizedString(forRegionCode: server.countryCode) ??
-                    NSLocalizedString("Unknown country", comment: ""))
+                    NSLocalizedString(
+                        "Unknown country",
+                        comment: "unknown country code"))
             serverEntries.append(serverEntry)
         }
         serverEntries.sort { $0.countryName < $1.countryName }
@@ -64,7 +66,9 @@ class MainSecureInternetSectionHeaderCell: SectionHeaderCell {
         #if os(macOS)
         changeLocationPullDown.removeAllItems()
         if let menu = changeLocationPullDown.menu {
-            let buttonTitle = NSLocalizedString("Change Location", comment: "")
+            let buttonTitle = NSLocalizedString(
+                "Change Location",
+                comment: "macOS main list change location pull-down menu title")
             menu.addItem(NSMenuItem(title: buttonTitle, action: nil, keyEquivalent: ""))
             for (index, serverEntry) in serverEntries.enumerated() {
                 let menuItem = NSMenuItem(
@@ -114,7 +118,9 @@ class MainSecureInternetSectionHeaderCell: SectionHeaderCell {
         }
         let selectionVC = environment.instantiateItemSelectionViewController(
             items: items, selectedIndex: selectedIndex)
-        selectionVC.title = NSLocalizedString("Select a location", comment: "")
+        selectionVC.title = NSLocalizedString(
+            "Select a location",
+            comment: "iOS location selection view title")
         selectionVC.delegate = self
         let navigationVC = UINavigationController(rootViewController: selectionVC)
         navigationVC.modalPresentationStyle = .pageSheet

@@ -167,12 +167,14 @@ class NotificationService: NSObject {
         alert.alertStyle = .warning
         alert.messageText = NSLocalizedString(
             "Would you like to be notified when the current session is about to expire?",
-            comment: "")
+            comment: "alert title")
         alert.informativeText = NSLocalizedString(
             "You can change this option later in Preferences",
-            comment: "")
-        alert.addButton(withTitle: NSLocalizedString("Notify", comment: ""))
-        alert.addButton(withTitle: NSLocalizedString("Don’t Notify", comment: ""))
+            comment: "alert detail")
+        alert.addButton(withTitle: NSLocalizedString(
+                         "Notify", comment: "alert button title"))
+        alert.addButton(withTitle: NSLocalizedString(
+                         "Don’t Notify", comment: "alert button title"))
         if let window = viewController.view.window {
             return Guarantee<Bool> { callback in
                 alert.beginSheetModal(for: window) { result in
@@ -194,18 +196,20 @@ class NotificationService: NSObject {
         let alert = UIAlertController(
             title: NSLocalizedString(
                 "Would you like to be notified when the current session is about to expire?",
-                comment: ""),
+                comment: "alert title"),
             message: NSLocalizedString(
                 "You can change this option later in Settings",
-                comment: ""),
+                comment: "alert detail"),
             preferredStyle: .alert)
         return Guarantee<Bool> { callback in
-            let refreshAction = UIAlertAction(title: NSLocalizedString("Notify", comment: ""),
-                                              style: .default,
-                                              handler: { _ in callback(true) })
-            let cancelAction = UIAlertAction(title: NSLocalizedString("Don’t Notify", comment: ""),
-                                             style: .cancel,
-                                             handler: { _ in callback(false) })
+            let refreshAction = UIAlertAction(
+                title: NSLocalizedString("Notify", comment: "alert button title"),
+                style: .default,
+                handler: { _ in callback(true) })
+            let cancelAction = UIAlertAction(
+                title: NSLocalizedString("Don’t Notify", comment: "alert button title"),
+                style: .cancel,
+                handler: { _ in callback(false) })
             alert.addAction(refreshAction)
             alert.addAction(cancelAction)
             viewController.present(alert, animated: true, completion: nil)
@@ -223,12 +227,13 @@ class NotificationService: NSObject {
         let alert = NSAlert()
         alert.messageText = String(
             format: NSLocalizedString(
-                "Notifications are disabled for %@", comment: ""),
+                "Notifications are disabled for %@",
+                comment: "alert title"),
             appName)
         alert.informativeText = String(
             format: NSLocalizedString(
                 "Please enable notifications for ‘%@’ in System Preferences > Notifications > %@",
-                comment: ""),
+                comment: "alert detail"),
             appName, appName)
         NSApp.activate(ignoringOtherApps: true)
         if let window = viewController.view.window {
@@ -241,12 +246,13 @@ class NotificationService: NSObject {
 
         let title = String(
             format: NSLocalizedString(
-                "Notifications are disabled for %@", comment: ""),
+                "Notifications are disabled for %@",
+                comment: "alert title"),
             appName)
         let message = String(
             format: NSLocalizedString(
                 "Please enable notifications for ‘%@’ in Settings > %@ > Notifications",
-                comment: ""),
+                comment: "alert detail"),
             appName, appName)
         let okAction = UIAlertAction(title: "OK", style: .default)
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -296,7 +302,9 @@ class NotificationService: NSObject {
         formatter.dateStyle = .none
         formatter.timeStyle = .short
         content.body = String(
-            format: NSLocalizedString("Session expires at %@", comment: ""),
+            format: NSLocalizedString(
+                "Session expires at %@",
+                comment: "macOS user notification detail"),
             formatter.string(from: expiryDate))
 
         content.sound = UNNotificationSound.default

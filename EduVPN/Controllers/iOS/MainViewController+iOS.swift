@@ -34,7 +34,11 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard canDeleteRow(at: indexPath.row) else { return nil }
-        let deleteAction = UIContextualAction(style: .destructive, title: NSLocalizedString("Delete", comment: "")) { [weak self] _, _, completionHandler in
+        let deleteAction = UIContextualAction(
+            style: .destructive,
+            title: NSLocalizedString(
+                "Delete",
+                comment: "Main screen: Delete server")) { [weak self] _, _, completionHandler in
             self?.deleteRow(at: indexPath.row)
             completionHandler(true)
         }

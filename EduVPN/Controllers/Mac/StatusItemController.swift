@@ -111,37 +111,48 @@ private extension StatusItemController {
 
         menu.addItem(NSMenuItem.separator())
 
-        let showWindowMenuItem = NSMenuItem(title: NSLocalizedString("Show \(appName) window", comment: ""),
-                                  action: #selector(AppDelegate.showMainWindow(_:)),
-                                  keyEquivalent: "")
+        let showWindowMenuItem = NSMenuItem(
+            title: String(format: NSLocalizedString(
+                              "Show %@ window",
+                              comment: "macOS App menu item"),
+                          appName),
+            action: #selector(AppDelegate.showMainWindow(_:)),
+            keyEquivalent: "")
         showWindowMenuItem.target = NSApp.delegate
         menu.addItem(showWindowMenuItem)
 
         menu.addItem(NSMenuItem.separator())
 
-        let preferencesMenuItem = NSMenuItem(title: NSLocalizedString("Preferences...", comment: ""),
-                                             action: #selector(AppDelegate.showPreferences(_:)),
-                                             keyEquivalent: "")
+        let preferencesMenuItem = NSMenuItem(
+            title: NSLocalizedString("Preferences...", comment: "macOS App menu item"),
+            action: #selector(AppDelegate.showPreferences(_:)),
+            keyEquivalent: "")
         preferencesMenuItem.target = NSApp.delegate
         menu.addItem(preferencesMenuItem)
 
-        let helpMenuItem = NSMenuItem(title: NSLocalizedString("Help", comment: ""),
-                                             action: #selector(StatusItemController.helpMenuItemClicked),
-                                             keyEquivalent: "")
+        let helpMenuItem = NSMenuItem(
+            title: NSLocalizedString("Help", comment: "macOS App menu item"),
+            action: #selector(StatusItemController.helpMenuItemClicked),
+            keyEquivalent: "")
         helpMenuItem.target = self
         menu.addItem(helpMenuItem)
 
-        let aboutMenuItem = NSMenuItem(title: NSLocalizedString("About", comment: ""),
-                                             action: #selector(StatusItemController.aboutMenuItemClicked),
-                                             keyEquivalent: "")
+        let aboutMenuItem = NSMenuItem(
+            title: NSLocalizedString("About", comment: "macOS App menu item"),
+            action: #selector(StatusItemController.aboutMenuItemClicked),
+            keyEquivalent: "")
         aboutMenuItem.target = self
         menu.addItem(aboutMenuItem)
 
         menu.addItem(NSMenuItem.separator())
 
-        let quitMenuItem = NSMenuItem(title: NSLocalizedString("Quit \(appName)", comment: ""),
-                                             action: #selector(StatusItemController.quitMenuItemClicked),
-                                             keyEquivalent: "")
+        let quitMenuItem = NSMenuItem(
+            title: String(format: NSLocalizedString(
+                              "Quit %@",
+                              comment: "macOS App menu item"),
+                          appName),
+            action: #selector(StatusItemController.quitMenuItemClicked),
+            keyEquivalent: "")
         quitMenuItem.target = self
         menu.addItem(quitMenuItem)
 

@@ -8,13 +8,13 @@ import Foundation
 extension ConnectionViewModel.ConnectionFlowStatus {
     var localizedText: String {
         switch self {
-        case .gettingProfiles: return NSLocalizedString("Getting profiles...", comment: "")
-        case .configuring: return NSLocalizedString("Configuring...", comment: "")
-        case .notConnected: return NSLocalizedString("Not connected", comment: "")
-        case .connecting: return NSLocalizedString("Connecting...", comment: "")
-        case .connected: return NSLocalizedString("Connected", comment: "")
-        case .reconnecting: return NSLocalizedString("Reconnecting...", comment: "")
-        case .disconnecting: return NSLocalizedString("Disconnecting...", comment: "")
+        case .gettingProfiles: return NSLocalizedString("Getting profiles...", comment: "connection flow status")
+        case .configuring: return NSLocalizedString("Configuring...", comment: "connection flow status")
+        case .notConnected: return NSLocalizedString("Not connected", comment: "connection flow status")
+        case .connecting: return NSLocalizedString("Connecting...", comment: "connection flow status")
+        case .connected: return NSLocalizedString("Connected", comment: "connection flow status")
+        case .reconnecting: return NSLocalizedString("Reconnecting...", comment: "connection flow status")
+        case .disconnecting: return NSLocalizedString("Disconnecting...", comment: "connection flow status")
         }
     }
 }
@@ -27,7 +27,7 @@ extension ConnectionViewModel.StatusDetail {
         case .sessionStatus(let certificateStatus):
             return certificateStatus.localizedText
         case .noProfilesAvailable:
-            return NSLocalizedString("No profiles available", comment: "")
+            return NSLocalizedString("No profiles available", comment: "connection status detail")
         }
     }
 }
