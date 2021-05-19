@@ -135,7 +135,7 @@ Do not use the iDevice when the test is running.
 Before running the tests, specify the server credentials:
 
 ```
-$ cp EduVPN-UITests-macOS/TestServerCredentialsmacOS.swift-template EduVPN-UITests-iOS/TestServerCredentialsmacOS.swift
+$ cp EduVPN-UITests-macOS/TestServerCredentialsmacOS.swift-template EduVPN-UITests-macOS/TestServerCredentialsmacOS.swift
 $ vim EduVPN-UITests-macOS/TestServerCredentialsmacOS.swift # Enter credentials
 ```
 

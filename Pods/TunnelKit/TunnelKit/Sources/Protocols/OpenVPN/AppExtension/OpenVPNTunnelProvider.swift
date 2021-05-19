@@ -454,10 +454,10 @@ extension OpenVPNTunnelProvider: GenericSocketDelegate {
             return
         }
         if session.canRebindLink() {
-            session.rebindLink(producer.link(withMTU: cfg.mtu))
+            session.rebindLink(producer.link())
             reasserting = false
         } else {
-            session.setLink(producer.link(withMTU: cfg.mtu))
+            session.setLink(producer.link())
         }
     }
     
@@ -685,26 +685,70 @@ extension OpenVPNTunnelProvider: OpenVPNSessionDelegate {
             return
         }
         
-        var dnsServers = cfg.sessionConfiguration.dnsServers ?? options.dnsServers ?? []
+        var dnsServers: [String] = []
+        var dnsSettings: NEDNSSettings?
+        if #available(iOS 14, macOS 11, *) {
+            switch cfg.sessionConfiguration.dnsProtocol {
+            case .https:
+                dnsServers = cfg.sessionConfiguration.dnsServers ?? []
+                guard let serverURL = cfg.sessionConfiguration.dnsHTTPSURL else {
+                    break
+                }
+                let specific = NEDNSOverHTTPSSettings(servers: dnsServers)
+                specific.serverURL = serverURL
+                dnsSettings = specific
+                log.info("DNS over HTTPS: Using servers \(dnsServers.maskedDescription)")
+                log.info("\tHTTPS URL: \(serverURL.maskedDescription)")
+
+            case .tls:
+                guard let dnsServers = cfg.sessionConfiguration.dnsServers else {
+                    session?.shutdown(error: ProviderError.dnsFailure)
+                    return
+                }
+                guard let serverName = cfg.sessionConfiguration.dnsTLSServerName else {
+                    break
+                }
+                let specific = NEDNSOverTLSSettings(servers: dnsServers)
+                specific.serverName = serverName
+                dnsSettings = specific
+                log.info("DNS over TLS: Using servers \(dnsServers.maskedDescription)")
+                log.info("\tTLS server name: \(serverName.maskedDescription)")
+
+            default:
+                break
+            }
+        }
 
         // fall back
-        if !dnsServers.isEmpty {
-            log.info("DNS: Using servers \(dnsServers.maskedDescription)")
-        } else {
-            log.warning("DNS: No servers provided, using fall-back servers: \(fallbackDNSServers.maskedDescription)")
-            dnsServers = fallbackDNSServers
+        if dnsSettings == nil {
+            dnsServers = []
+            if let servers = cfg.sessionConfiguration.dnsServers,
+               !servers.isEmpty {
+                dnsServers = servers
+            } else if let servers = options.dnsServers {
+                dnsServers = servers
+            }
+            if !dnsServers.isEmpty {
+                log.info("DNS: Using servers \(dnsServers.maskedDescription)")
+                dnsSettings = NEDNSSettings(servers: dnsServers)
+            } else {
+//                log.warning("DNS: No servers provided, using fall-back servers: \(fallbackDNSServers.maskedDescription)")
+//                dnsSettings = NEDNSSettings(servers: fallbackDNSServers)
+                log.warning("DNS: No settings provided, using current network settings")
+            }
         }
 
-        let dnsSettings = NEDNSSettings(servers: dnsServers)
+        // "hack" for split DNS (i.e. use VPN only for DNS)
         if !isGateway {
-            dnsSettings.matchDomains = [""]
+            dnsSettings?.matchDomains = [""]
         }
+        
         if let searchDomains = cfg.sessionConfiguration.searchDomains ?? options.searchDomains {
             log.info("DNS: Using search domains \(searchDomains.maskedDescription)")
-            dnsSettings.domainName = searchDomains.first
-            dnsSettings.searchDomains = searchDomains
+            dnsSettings?.domainName = searchDomains.first
+            dnsSettings?.searchDomains = searchDomains
             if !isGateway {
-                dnsSettings.matchDomains = dnsSettings.searchDomains
+                dnsSettings?.matchDomains = dnsSettings?.searchDomains
             }
         }
         
@@ -791,7 +835,9 @@ extension OpenVPNTunnelProvider: OpenVPNSessionDelegate {
         newSettings.ipv6Settings = ipv6Settings
         newSettings.dnsSettings = dnsSettings
         newSettings.proxySettings = proxySettings
-        newSettings.mtu = NSNumber(value: cfg.mtu)
+        if let mtu = cfg.sessionConfiguration.mtu {
+            newSettings.mtu = NSNumber(value: mtu)
+        }
 
         setTunnelNetworkSettings(newSettings, completionHandler: completionHandler)
     }

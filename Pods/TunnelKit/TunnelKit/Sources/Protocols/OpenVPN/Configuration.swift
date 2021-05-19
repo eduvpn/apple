@@ -35,6 +35,9 @@
 //
 
 import Foundation
+import SwiftyBeaver
+
+private let log = SwiftyBeaver.self
 
 extension OpenVPN {
     
@@ -165,6 +168,8 @@ extension OpenVPN {
         static let digest: Digest = .sha1
         
         static let compressionFraming: CompressionFraming = .disabled
+        
+        static let compressionAlgorithm: CompressionAlgorithm = .disabled
     }
     
     /// The way to create a `Configuration` object for a `OpenVPNSession`.
@@ -174,6 +179,9 @@ extension OpenVPN {
         
         /// The cipher algorithm for data encryption.
         public var cipher: Cipher?
+        
+        /// The set of supported cipher algorithms for data encryption (2.5.).
+        public var dataCiphers: [Cipher]?
         
         /// The digest algorithm for HMAC.
         public var digest: Digest?
@@ -231,6 +239,9 @@ extension OpenVPN {
         /// Server is patched for the PIA VPN provider.
         public var usesPIAPatches: Bool?
         
+        /// The tunnel MTU.
+        public var mtu: Int?
+        
         // MARK: Server
         
         /// The auth-token returned by the server.
@@ -247,9 +258,18 @@ extension OpenVPN {
         /// The settings for IPv6. `OpenVPNSession` only evaluates this server-side.
         public var ipv6: IPv6Settings?
         
-        /// The DNS servers.
+        /// The DNS protocol, defaults to `.plain` (iOS 14+ / macOS 11+).
+        public var dnsProtocol: DNSProtocol?
+
+        /// The DNS servers if `dnsProtocol = .plain` or nil.
         public var dnsServers: [String]?
         
+        /// The server URL if `dnsProtocol = .https`.
+        public var dnsHTTPSURL: URL?
+
+        /// The server name if `dnsProtocol = .tls`.
+        public var dnsTLSServerName: String?
+
         /// The search domain.
         @available(*, deprecated, message: "Use searchDomains instead")
         public var searchDomain: String? {
@@ -292,6 +312,7 @@ extension OpenVPN {
         public func build() -> Configuration {
             return Configuration(
                 cipher: cipher,
+                dataCiphers: dataCiphers,
                 digest: digest,
                 compressionFraming: compressionFraming,
                 compressionAlgorithm: compressionAlgorithm,
@@ -310,11 +331,15 @@ extension OpenVPN {
                 sanHost: sanHost,
                 randomizeEndpoint: randomizeEndpoint,
                 usesPIAPatches: usesPIAPatches,
+                mtu: mtu,
                 authToken: authToken,
                 peerId: peerId,
                 ipv4: ipv4,
                 ipv6: ipv6,
+                dnsProtocol: dnsProtocol,
                 dnsServers: dnsServers,
+                dnsHTTPSURL: dnsHTTPSURL,
+                dnsTLSServerName: dnsTLSServerName,
                 searchDomains: searchDomains,
                 httpProxy: httpProxy,
                 httpsProxy: httpsProxy,
@@ -340,6 +365,11 @@ extension OpenVPN {
         public var fallbackCompressionFraming: CompressionFraming {
             return compressionFraming ?? Fallback.compressionFraming
         }
+        
+        /// :nodoc:
+        public var fallbackCompressionAlgorithm: CompressionAlgorithm {
+            return compressionAlgorithm ?? Fallback.compressionAlgorithm
+        }
     }
     
     /// The immutable configuration for `OpenVPNSession`.
@@ -347,6 +377,9 @@ extension OpenVPN {
 
         /// - Seealso: `ConfigurationBuilder.cipher`
         public let cipher: Cipher?
+        
+        /// - Seealso: `ConfigurationBuilder.dataCiphers`
+        public let dataCiphers: [Cipher]?
         
         /// - Seealso: `ConfigurationBuilder.digest`
         public let digest: Digest?
@@ -402,6 +435,9 @@ extension OpenVPN {
         /// - Seealso: `ConfigurationBuilder.usesPIAPatches`
         public let usesPIAPatches: Bool?
         
+        /// - Seealso: `ConfigurationBuilder.mtu`
+        public let mtu: Int?
+
         /// - Seealso: `ConfigurationBuilder.authToken`
         public let authToken: String?
         
@@ -414,8 +450,17 @@ extension OpenVPN {
         /// - Seealso: `ConfigurationBuilder.ipv6`
         public let ipv6: IPv6Settings?
 
+        /// - Seealso: `ConfigurationBuilder.dnsProtocol`
+        public let dnsProtocol: DNSProtocol?
+        
         /// - Seealso: `ConfigurationBuilder.dnsServers`
         public let dnsServers: [String]?
+        
+        /// - Seealso: `ConfigurationBuilder.dnsHTTPSURL`
+        public let dnsHTTPSURL: URL?
+        
+        /// - Seealso: `ConfigurationBuilder.dnsTLSServerName`
+        public let dnsTLSServerName: String?
         
         /// - Seealso: `ConfigurationBuilder.searchDomains`
         public let searchDomains: [String]?
@@ -466,6 +511,7 @@ extension OpenVPN.Configuration {
     public func builder() -> OpenVPN.ConfigurationBuilder {
         var builder = OpenVPN.ConfigurationBuilder()
         builder.cipher = cipher
+        builder.dataCiphers = dataCiphers
         builder.digest = digest
         builder.compressionFraming = compressionFraming
         builder.compressionAlgorithm = compressionAlgorithm
@@ -484,11 +530,15 @@ extension OpenVPN.Configuration {
         builder.sanHost = sanHost
         builder.randomizeEndpoint = randomizeEndpoint
         builder.usesPIAPatches = usesPIAPatches
+        builder.mtu = mtu
         builder.authToken = authToken
         builder.peerId = peerId
         builder.ipv4 = ipv4
         builder.ipv6 = ipv6
+        builder.dnsProtocol = dnsProtocol
         builder.dnsServers = dnsServers
+        builder.dnsHTTPSURL = dnsHTTPSURL
+        builder.dnsTLSServerName = dnsTLSServerName
         builder.searchDomains = searchDomains
         builder.httpProxy = httpProxy
         builder.httpsProxy = httpsProxy
@@ -496,5 +546,114 @@ extension OpenVPN.Configuration {
         builder.proxyBypassDomains = proxyBypassDomains
         builder.routingPolicies = routingPolicies
         return builder
+    }
+}
+
+// MARK: Encoding
+
+extension OpenVPN.Configuration {
+    func print() {
+        guard let endpointProtocols = endpointProtocols else {
+            fatalError("No sessionConfiguration.endpointProtocols set")
+        }
+        log.info("\tProtocols: \(endpointProtocols)")
+        log.info("\tCipher: \(fallbackCipher)")
+        log.info("\tDigest: \(fallbackDigest)")
+        log.info("\tCompression framing: \(fallbackCompressionFraming)")
+        if let compressionAlgorithm = compressionAlgorithm, compressionAlgorithm != .disabled {
+            log.info("\tCompression algorithm: \(compressionAlgorithm)")
+        } else {
+            log.info("\tCompression algorithm: disabled")
+        }
+        if let _ = clientCertificate {
+            log.info("\tClient verification: enabled")
+        } else {
+            log.info("\tClient verification: disabled")
+        }
+        if let tlsWrap = tlsWrap {
+            log.info("\tTLS wrapping: \(tlsWrap.strategy)")
+        } else {
+            log.info("\tTLS wrapping: disabled")
+        }
+        if let tlsSecurityLevel = tlsSecurityLevel {
+            log.info("\tTLS security level: \(tlsSecurityLevel)")
+        } else {
+            log.info("\tTLS security level: default")
+        }
+        if let keepAliveSeconds = keepAliveInterval, keepAliveSeconds > 0 {
+            log.info("\tKeep-alive interval: \(keepAliveSeconds.asTimeString)")
+        } else {
+            log.info("\tKeep-alive interval: never")
+        }
+        if let keepAliveTimeoutSeconds = keepAliveTimeout, keepAliveTimeoutSeconds > 0 {
+            log.info("\tKeep-alive timeout: \(keepAliveTimeoutSeconds.asTimeString)")
+        } else {
+            log.info("\tKeep-alive timeout: never")
+        }
+        if let renegotiatesAfterSeconds = renegotiatesAfter, renegotiatesAfterSeconds > 0 {
+            log.info("\tRenegotiation: \(renegotiatesAfterSeconds.asTimeString)")
+        } else {
+            log.info("\tRenegotiation: never")
+        }
+        if checksEKU ?? false {
+            log.info("\tServer EKU verification: enabled")
+        } else {
+            log.info("\tServer EKU verification: disabled")
+        }
+        if checksSANHost ?? false {
+            log.info("\tHost SAN verification: enabled (\(sanHost ?? "-"))")
+        } else {
+            log.info("\tHost SAN verification: disabled")
+        }
+        if randomizeEndpoint ?? false {
+            log.info("\tRandomize endpoint: true")
+        }
+        if let routingPolicies = routingPolicies {
+            log.info("\tGateway: \(routingPolicies.map { $0.rawValue })")
+        } else {
+            log.info("\tGateway: not configured")
+        }
+        switch dnsProtocol {
+        case .https:
+            if let dnsHTTPSURL = dnsHTTPSURL {
+                log.info("\tDNS over HTTPS: \(dnsHTTPSURL.maskedDescription)")
+            } else {
+                log.info("\tDNS: not configured")
+            }
+
+        case .tls:
+            if let dnsTLSServerName = dnsTLSServerName {
+                log.info("\tDNS over TLS: \(dnsTLSServerName.maskedDescription)")
+            } else {
+                log.info("\tDNS: not configured")
+            }
+
+        default:
+            if let dnsServers = dnsServers, !dnsServers.isEmpty {
+                log.info("\tDNS: \(dnsServers.maskedDescription)")
+            } else {
+                log.info("\tDNS: not configured")
+            }
+        }
+        if let searchDomains = searchDomains, !searchDomains.isEmpty {
+            log.info("\tSearch domains: \(searchDomains.maskedDescription)")
+        }
+        if let httpProxy = httpProxy {
+            log.info("\tHTTP proxy: \(httpProxy.maskedDescription)")
+        }
+        if let httpsProxy = httpsProxy {
+            log.info("\tHTTPS proxy: \(httpsProxy.maskedDescription)")
+        }
+        if let proxyAutoConfigurationURL = proxyAutoConfigurationURL {
+            log.info("\tPAC: \(proxyAutoConfigurationURL)")
+        }
+        if let proxyBypassDomains = proxyBypassDomains {
+            log.info("\tProxy bypass domains: \(proxyBypassDomains.maskedDescription)")
+        }
+        if let mtu = mtu {
+            log.info("\tMTU: \(mtu)")
+        } else {
+            log.info("\tMTU: default")
+        }
     }
 }

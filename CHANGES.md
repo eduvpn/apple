@@ -7,6 +7,7 @@
 - macOS: Can press return to connect when prompted for password
 - Rollback prevention for discovery data
 - macOS: Improve HTML page shown after OAuth authentication completes #182
+- Updated dependencies
 
 ## 2.2.2
 

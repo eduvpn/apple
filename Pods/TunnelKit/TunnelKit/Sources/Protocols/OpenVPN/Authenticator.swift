@@ -156,7 +156,11 @@ extension OpenVPN {
             }
 
             // peer info
-            raw.appendSized(Z(CoreConfiguration.OpenVPN.peerInfo, nullTerminated: true))
+            var extra: [String: String] = [:]
+            if let dataCiphers = options.dataCiphers {
+                extra["IV_CIPHERS"] = dataCiphers.map { $0.rawValue }.joined(separator: ":")
+            }
+            raw.appendSized(Z(CoreConfiguration.OpenVPN.peerInfo(extra: extra), nullTerminated: true))
 
             if CoreConfiguration.logsSensitiveData {
                 log.debug("TLS.auth: Put plaintext (\(raw.count) bytes): \(raw.toHex())")

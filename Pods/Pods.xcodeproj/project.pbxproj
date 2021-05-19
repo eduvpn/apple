@@ -57,6 +57,13 @@
 			remoteGlobalIDString = A60B43590BED7FF3F956204D397EC036;
 			remoteInfo = "AppAuth-macOS";
 		};
+		3F59B3421CA269E75212B2AE66ED5DE2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8F50044CE5B1A83EB77C81CD094FE22 /* TunnelKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C432B6733D6465A4D20563C51B896079;
+			remoteInfo = "TunnelKit-iOS";
+		};
 		4156B283BE5B54668D9120493B1921C4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7008FDAE5C30E7BDDFCC48D1D781EDFF /* Alamofire.xcodeproj */;
@@ -71,7 +78,7 @@
 			remoteGlobalIDString = 40683090B8D8AB8FA1A78F00E455ED4B;
 			remoteInfo = "OpenSSL-Apple-macOS";
 		};
-		50AD4668FD3B6769D8281D94F8E426D2 /* PBXContainerItemProxy */ = {
+		44FA2C978DEDAB6C029B987FCE45A82D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F8F50044CE5B1A83EB77C81CD094FE22 /* TunnelKit.xcodeproj */;
 			proxyType = 1;
@@ -120,13 +127,6 @@
 			remoteGlobalIDString = 34282BB86E09821EFA7A877F38495A95;
 			remoteInfo = "Alamofire-iOS";
 		};
-		98D5025FF516509E1FC251A0D2999E33 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F8F50044CE5B1A83EB77C81CD094FE22 /* TunnelKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 720F366CF43F1685D124AA69942CF9F5;
-			remoteInfo = "TunnelKit-macOS";
-		};
 		A70CC2F830AA3D0430E3B760B9693F5C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 777093C5312551C8B25439F0663FBD70 /* OpenSSL-Apple.xcodeproj */;
@@ -134,7 +134,7 @@
 			remoteGlobalIDString = A3C2E5EFCC4D13E10511CE8D6F554C9F;
 			remoteInfo = "OpenSSL-Apple-iOS";
 		};
-		B8B5228867F5332BE77A8CFE9A6CF5EA /* PBXContainerItemProxy */ = {
+		B0D5B355D6C499F05E7281DCE490E1D0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F8F50044CE5B1A83EB77C81CD094FE22 /* TunnelKit.xcodeproj */;
 			proxyType = 1;
@@ -155,6 +155,13 @@
 			remoteGlobalIDString = 0560915E6205753C7CA9BEF89C663EDE;
 			remoteInfo = "SwiftyBeaver-iOS";
 		};
+		CCDA0B862525C6CE0DA486AC6C8E9C29 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8F50044CE5B1A83EB77C81CD094FE22 /* TunnelKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 720F366CF43F1685D124AA69942CF9F5;
+			remoteInfo = "TunnelKit-macOS";
+		};
 		CDBA734474B8913714A3065B25F8E0E4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1DB94085D0C7E1EA45FCB2BDC6AC05A8 /* AppAuth.xcodeproj */;
@@ -168,13 +175,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 0560915E6205753C7CA9BEF89C663EDE;
 			remoteInfo = "SwiftyBeaver-iOS";
-		};
-		DA17CFCAA56A9090F1E7CA9D7BEB6BDC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F8F50044CE5B1A83EB77C81CD094FE22 /* TunnelKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = C432B6733D6465A4D20563C51B896079;
-			remoteInfo = "TunnelKit-iOS";
 		};
 		DD63F52B409C61FAA067088B18B9B02E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -473,7 +473,7 @@
 			dependencies = (
 				7A89EF6D71CFC0643B406D80A01812FA /* PBXTargetDependency */,
 				A4546A84CF338799AC5A0FA906880DBC /* PBXTargetDependency */,
-				964FF50FF2BB58A9C19E9C7B0FC89F32 /* PBXTargetDependency */,
+				9C9133DEC4D3779B10B9420E55D7B847 /* PBXTargetDependency */,
 			);
 			name = "Pods-EduVPNTunnelExtension-iOS";
 			productName = "Pods-EduVPNTunnelExtension-iOS";
@@ -499,7 +499,7 @@
 				FE4586582620864AD0C1F23CA9640A23 /* PBXTargetDependency */,
 				24EBF2E92E9993E463FC56D9AF169FCF /* PBXTargetDependency */,
 				D00A99D53AF1F1FAA879EA501D23CA2C /* PBXTargetDependency */,
-				14F9D7F7ABA1D7E6B5919E70E1CC6F83 /* PBXTargetDependency */,
+				118010618A7AA44F8BE9E9D622759ACB /* PBXTargetDependency */,
 				A4E8197379B5BD8C322AA9AA29CF9DEC /* PBXTargetDependency */,
 			);
 			name = "Pods-EduVPN-iOS";
@@ -526,7 +526,7 @@
 				C8D9ACC6EB2E01D2A0526A4FAF1E4930 /* PBXTargetDependency */,
 				D97CD85C63D06CEB1AC63D82319BC6D7 /* PBXTargetDependency */,
 				43E5E2787293CA609DF84E36FB1DDDEA /* PBXTargetDependency */,
-				8296361492C69B16AEFF1B6A0DD98A91 /* PBXTargetDependency */,
+				FBF7D5000A7CFFC3FB97A5EFDC150A84 /* PBXTargetDependency */,
 				BAE603DF6E510D1A9A6F4D41BE879C08 /* PBXTargetDependency */,
 			);
 			name = "Pods-EduVPN-macOS";
@@ -548,7 +548,7 @@
 			dependencies = (
 				FB1D899BD8C0CF4D4BA776B38939DC53 /* PBXTargetDependency */,
 				39D698E855312262BF2563FF40B8089D /* PBXTargetDependency */,
-				9C9ECCB3B42038606867F55528F233E8 /* PBXTargetDependency */,
+				6F25EAA84F11C00ED31184CA1620A79E /* PBXTargetDependency */,
 			);
 			name = "Pods-EduVPNTunnelExtension-macOS";
 			productName = "Pods-EduVPNTunnelExtension-macOS";
@@ -681,10 +681,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		14F9D7F7ABA1D7E6B5919E70E1CC6F83 /* PBXTargetDependency */ = {
+		118010618A7AA44F8BE9E9D622759ACB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "TunnelKit-iOS";
-			targetProxy = DA17CFCAA56A9090F1E7CA9D7BEB6BDC /* PBXContainerItemProxy */;
+			targetProxy = 3F59B3421CA269E75212B2AE66ED5DE2 /* PBXContainerItemProxy */;
 		};
 		24EBF2E92E9993E463FC56D9AF169FCF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -711,6 +711,11 @@
 			name = "Moya-macOS";
 			targetProxy = 06A54A529147881C6F3A06C7A1DB5D95 /* PBXContainerItemProxy */;
 		};
+		6F25EAA84F11C00ED31184CA1620A79E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "TunnelKit-macOS";
+			targetProxy = B0D5B355D6C499F05E7281DCE490E1D0 /* PBXContainerItemProxy */;
+		};
 		7A89EF6D71CFC0643B406D80A01812FA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "OpenSSL-Apple-iOS";
@@ -726,11 +731,6 @@
 			name = "ASN1Decoder-macOS";
 			targetProxy = E54FF1A6F8FF29CBAA94ED24787C23A9 /* PBXContainerItemProxy */;
 		};
-		8296361492C69B16AEFF1B6A0DD98A91 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "TunnelKit-macOS";
-			targetProxy = B8B5228867F5332BE77A8CFE9A6CF5EA /* PBXContainerItemProxy */;
-		};
 		829AE4FAB69956C5AB17CBFFBAEE10AE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Alamofire-macOS";
@@ -741,15 +741,10 @@
 			name = "Moya-iOS";
 			targetProxy = 51F1F838ED4A51A3331C5A5F23ADF799 /* PBXContainerItemProxy */;
 		};
-		964FF50FF2BB58A9C19E9C7B0FC89F32 /* PBXTargetDependency */ = {
+		9C9133DEC4D3779B10B9420E55D7B847 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "TunnelKit-iOS";
-			targetProxy = 50AD4668FD3B6769D8281D94F8E426D2 /* PBXContainerItemProxy */;
-		};
-		9C9ECCB3B42038606867F55528F233E8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "TunnelKit-macOS";
-			targetProxy = 98D5025FF516509E1FC251A0D2999E33 /* PBXContainerItemProxy */;
+			targetProxy = 44FA2C978DEDAB6C029B987FCE45A82D /* PBXContainerItemProxy */;
 		};
 		A4546A84CF338799AC5A0FA906880DBC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -795,6 +790,11 @@
 			isa = PBXTargetDependency;
 			name = "OpenSSL-Apple-macOS";
 			targetProxy = 74EEED615EC40FE240194F10FA7016A6 /* PBXContainerItemProxy */;
+		};
+		FBF7D5000A7CFFC3FB97A5EFDC150A84 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "TunnelKit-macOS";
+			targetProxy = CCDA0B862525C6CE0DA486AC6C8E9C29 /* PBXContainerItemProxy */;
 		};
 		FE4586582620864AD0C1F23CA9640A23 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
