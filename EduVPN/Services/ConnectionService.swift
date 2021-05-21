@@ -352,8 +352,8 @@ private extension ConnectionService {
         return appId
     }
 
-    static var providerBundleIdentifier: String {
-        return "\(appBundleId).TunnelExtension"
+    static var openVPNTunnelBundleId: String {
+        return "\(appBundleId).OpenVPNTunnelExtension"
     }
 
     static var appGroup: String {
@@ -388,12 +388,12 @@ private extension ConnectionService {
             let keychain = Keychain(group: appGroup)
             try keychain.set(
                 password: credentials.password, for: credentials.userName,
-                context: providerBundleIdentifier)
+                context: openVPNTunnelBundleId)
         }
         let tunnelProviderProtocolConfig = try providerConfig.generatedTunnelProtocol(
-            withBundleIdentifier: providerBundleIdentifier,
+            withBundleIdentifier: openVPNTunnelBundleId,
             appGroup: appGroup,
-            context: providerBundleIdentifier,
+            context: openVPNTunnelBundleId,
             username: credentials?.userName)
         tunnelProviderProtocolConfig.connectionAttemptId = connectionAttemptId
         #if os(macOS)
