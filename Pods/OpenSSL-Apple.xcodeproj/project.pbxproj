@@ -3,15 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
 		40683090B8D8AB8FA1A78F00E455ED4B /* OpenSSL-Apple-macOS */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = DA2743C1F7CC90E694F23DC2B91564B0 /* Build configuration list for PBXAggregateTarget "OpenSSL-Apple-macOS" */;
+			buildConfigurationList = B2BB980E7E75B36BE9958D72D1CD8DBA /* Build configuration list for PBXAggregateTarget "OpenSSL-Apple-macOS" */;
 			buildPhases = (
-				38BE82210F1CAA294A11ED94A5FB1A77 /* [CP] Copy XCFrameworks */,
+				1CAEF1BFA7425D7A2E0F420DA495A56E /* [CP] Copy XCFrameworks */,
 			);
 			dependencies = (
 			);
@@ -19,9 +19,9 @@
 		};
 		A3C2E5EFCC4D13E10511CE8D6F554C9F /* OpenSSL-Apple-iOS */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 7D2F533EEE382FE705846AE1F610B4AA /* Build configuration list for PBXAggregateTarget "OpenSSL-Apple-iOS" */;
+			buildConfigurationList = E2CEFB3AC2AFA73C8653F831C94E52B2 /* Build configuration list for PBXAggregateTarget "OpenSSL-Apple-iOS" */;
 			buildPhases = (
-				D70BE2985208008877832AC34076796E /* [CP] Copy XCFrameworks */,
+				EF9CD10DE8F80145037FD8396EF4835B /* [CP] Copy XCFrameworks */,
 			);
 			dependencies = (
 			);
@@ -105,7 +105,7 @@
 				LastUpgradeCheck = 1100;
 			};
 			buildConfigurationList = 1F0745755EA98903FC27BD16FE1FC525 /* Build configuration list for PBXProject "OpenSSL-Apple" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -124,36 +124,34 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		38BE82210F1CAA294A11ED94A5FB1A77 /* [CP] Copy XCFrameworks */ = {
+		1CAEF1BFA7425D7A2E0F420DA495A56E /* [CP] Copy XCFrameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/OpenSSL-Apple-macOS/OpenSSL-Apple-macOS-xcframeworks.sh",
-				"${PODS_ROOT}/OpenSSL-Apple/frameworks/openssl.xcframework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/OpenSSL-Apple-macOS/OpenSSL-Apple-macOS-xcframeworks-input-files.xcfilelist",
 			);
 			name = "[CP] Copy XCFrameworks";
-			outputPaths = (
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/openssl",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/OpenSSL-Apple-macOS/OpenSSL-Apple-macOS-xcframeworks-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/OpenSSL-Apple-macOS/OpenSSL-Apple-macOS-xcframeworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D70BE2985208008877832AC34076796E /* [CP] Copy XCFrameworks */ = {
+		EF9CD10DE8F80145037FD8396EF4835B /* [CP] Copy XCFrameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/OpenSSL-Apple-iOS/OpenSSL-Apple-iOS-xcframeworks.sh",
-				"${PODS_ROOT}/OpenSSL-Apple/frameworks/openssl.xcframework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/OpenSSL-Apple-iOS/OpenSSL-Apple-iOS-xcframeworks-input-files.xcfilelist",
 			);
 			name = "[CP] Copy XCFrameworks";
-			outputPaths = (
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/openssl",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/OpenSSL-Apple-iOS/OpenSSL-Apple-iOS-xcframeworks-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -230,7 +228,25 @@
 			};
 			name = Debug;
 		};
-		1B98B6844FCDA204361073D6361A7C35 /* Debug */ = {
+		20F47289475E926064FEF1F471D12346 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B6B78789FB1945DFF19FAAA39A3D0558 /* OpenSSL-Apple-iOS.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4924995FDAF06CBEF2F0595996601E11 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4EF3C8E15D1E27F708205291B08F237B /* OpenSSL-Apple-macOS.debug.xcconfig */;
 			buildSettings = {
@@ -239,26 +255,32 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				COMBINE_HIDPI_IMAGES = YES;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
-		698CEEFC448E2F95E4FD0FCBEC1DC1BC /* Debug */ = {
+		61C65C17023C380C1E1869396E0D3A40 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4E810D19E8EDECE9F1CC5BF9E066CB8B /* OpenSSL-Apple-iOS.debug.xcconfig */;
+			baseConfigurationReference = 3E3E46C3FC71CBB31F3CCAF9F4DA9B4B /* OpenSSL-Apple-macOS.release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_OBJC_WEAK = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				SDKROOT = macosx;
 			};
-			name = Debug;
+			name = Release;
 		};
 		B7436F27A5318BD97F8F2B88B1D0421D /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -323,36 +345,22 @@
 			};
 			name = Release;
 		};
-		C04DB1F5FA0C4B6E58F99479A4DB0EE5 /* Release */ = {
+		D7A506DFB43EFE9EDAE77FE3D50006E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B6B78789FB1945DFF19FAAA39A3D0558 /* OpenSSL-Apple-iOS.release.xcconfig */;
+			baseConfigurationReference = 4E810D19E8EDECE9F1CC5BF9E066CB8B /* OpenSSL-Apple-iOS.debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 			};
-			name = Release;
-		};
-		EA3E5209D5EED778069E9136452315BD /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3E3E46C3FC71CBB31F3CCAF9F4DA9B4B /* OpenSSL-Apple-macOS.release.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				COMBINE_HIDPI_IMAGES = YES;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				SDKROOT = macosx;
-			};
-			name = Release;
+			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
@@ -366,20 +374,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7D2F533EEE382FE705846AE1F610B4AA /* Build configuration list for PBXAggregateTarget "OpenSSL-Apple-iOS" */ = {
+		B2BB980E7E75B36BE9958D72D1CD8DBA /* Build configuration list for PBXAggregateTarget "OpenSSL-Apple-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				698CEEFC448E2F95E4FD0FCBEC1DC1BC /* Debug */,
-				C04DB1F5FA0C4B6E58F99479A4DB0EE5 /* Release */,
+				4924995FDAF06CBEF2F0595996601E11 /* Debug */,
+				61C65C17023C380C1E1869396E0D3A40 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DA2743C1F7CC90E694F23DC2B91564B0 /* Build configuration list for PBXAggregateTarget "OpenSSL-Apple-macOS" */ = {
+		E2CEFB3AC2AFA73C8653F831C94E52B2 /* Build configuration list for PBXAggregateTarget "OpenSSL-Apple-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1B98B6844FCDA204361073D6361A7C35 /* Debug */,
-				EA3E5209D5EED778069E9136452315BD /* Release */,
+				D7A506DFB43EFE9EDAE77FE3D50006E2 /* Debug */,
+				20F47289475E926064FEF1F471D12346 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

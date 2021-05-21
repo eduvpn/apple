@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -1332,7 +1332,7 @@
 				LastUpgradeCheck = 1100;
 			};
 			buildConfigurationList = 89A91FB348F42AA5CB279040680DBDE5 /* Build configuration list for PBXProject "libsodium" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -1597,11 +1597,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		10AC8CF31268130BE10A93B93FE129E9 /* Debug */ = {
+		2B5563CC4FD3A2CA4D0110B910CD9092 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0D74FFE4EEF512907CD49B2EEBDDBDE9 /* libsodium-iOS.debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -1614,7 +1613,11 @@
 				INFOPLIST_FILE = "Target Support Files/libsodium-iOS/libsodium-iOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MODULEMAP_FILE = "Target Support Files/libsodium-iOS/libsodium-iOS.modulemap";
 				PRODUCT_MODULE_NAME = libsodium;
 				PRODUCT_NAME = libsodium;
@@ -1627,6 +1630,41 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
+		};
+		4B4622611BAE6DA0ACC7F9CA72ED927C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D79653CA9509F494B3FDF6482157AD2B /* libsodium-iOS.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/libsodium-iOS/libsodium-iOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/libsodium-iOS/libsodium-iOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/libsodium-iOS/libsodium-iOS.modulemap";
+				PRODUCT_MODULE_NAME = libsodium;
+				PRODUCT_NAME = libsodium;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
 		};
 		6C509B00F19314D788AF5F95EE8D9932 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1646,7 +1684,11 @@
 				GCC_PREFIX_HEADER = "Target Support Files/libsodium-macOS/libsodium-macOS-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/libsodium-macOS/libsodium-macOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULEMAP_FILE = "Target Support Files/libsodium-macOS/libsodium-macOS.modulemap";
 				PRODUCT_MODULE_NAME = libsodium;
@@ -1790,38 +1832,6 @@
 			};
 			name = Release;
 		};
-		D939441D6E4A3587A6F542616B380044 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D79653CA9509F494B3FDF6482157AD2B /* libsodium-iOS.release.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/libsodium-iOS/libsodium-iOS-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/libsodium-iOS/libsodium-iOS-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/libsodium-iOS/libsodium-iOS.modulemap";
-				PRODUCT_MODULE_NAME = libsodium;
-				PRODUCT_NAME = libsodium;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		DA702C3F449672707A89C1E46E9DC82B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4D5C014D07A3BD9B8882E9E66C4D57BC /* libsodium-macOS.debug.xcconfig */;
@@ -1840,7 +1850,11 @@
 				GCC_PREFIX_HEADER = "Target Support Files/libsodium-macOS/libsodium-macOS-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/libsodium-macOS/libsodium-macOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULEMAP_FILE = "Target Support Files/libsodium-macOS/libsodium-macOS.modulemap";
 				PRODUCT_MODULE_NAME = libsodium;
@@ -1869,8 +1883,8 @@
 		5E29AEDE5B8B8C13666A669EF20B166A /* Build configuration list for PBXNativeTarget "libsodium-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				10AC8CF31268130BE10A93B93FE129E9 /* Debug */,
-				D939441D6E4A3587A6F542616B380044 /* Release */,
+				2B5563CC4FD3A2CA4D0110B910CD9092 /* Debug */,
+				4B4622611BAE6DA0ACC7F9CA72ED927C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

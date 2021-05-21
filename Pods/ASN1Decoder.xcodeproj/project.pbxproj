@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -258,7 +258,7 @@
 				LastUpgradeCheck = 1100;
 			};
 			buildConfigurationList = 4981505873B1CF24D721189588ED59B1 /* Build configuration list for PBXProject "ASN1Decoder" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -341,11 +341,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		3F3271D4BD1769245802F5AC449E8700 /* Debug */ = {
+		81CF6C48F950CD60FB2FBAAE87525ADA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C05368D9B080A81C9E0DB8C8E484B62F /* ASN1Decoder-iOS.debug.xcconfig */;
+			baseConfigurationReference = 2B79961CEB112637CCD98A256DFAEC1C /* ASN1Decoder-iOS.release.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -358,7 +357,11 @@
 				INFOPLIST_FILE = "Target Support Files/ASN1Decoder-iOS/ASN1Decoder-iOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MODULEMAP_FILE = "Target Support Files/ASN1Decoder-iOS/ASN1Decoder-iOS.modulemap";
 				PRODUCT_MODULE_NAME = ASN1Decoder;
 				PRODUCT_NAME = ASN1Decoder;
@@ -367,10 +370,11 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
 		85677E8BBF873D1087FC383F6A4963BC /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -457,7 +461,11 @@
 				GCC_PREFIX_HEADER = "Target Support Files/ASN1Decoder-macOS/ASN1Decoder-macOS-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/ASN1Decoder-macOS/ASN1Decoder-macOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MODULEMAP_FILE = "Target Support Files/ASN1Decoder-macOS/ASN1Decoder-macOS.modulemap";
 				PRODUCT_MODULE_NAME = ASN1Decoder;
@@ -470,38 +478,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
-		};
-		AEBE9D70CCE328AABCAD975160EBE8D3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2B79961CEB112637CCD98A256DFAEC1C /* ASN1Decoder-iOS.release.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/ASN1Decoder-iOS/ASN1Decoder-iOS-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/ASN1Decoder-iOS/ASN1Decoder-iOS-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/ASN1Decoder-iOS/ASN1Decoder-iOS.modulemap";
-				PRODUCT_MODULE_NAME = ASN1Decoder;
-				PRODUCT_NAME = ASN1Decoder;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
 		};
 		CDE19B96EBEE4A2BC06F373D3D9274AC /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -566,6 +542,40 @@
 			};
 			name = Release;
 		};
+		D30A01E905C705CA60CE868F8C1D303C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C05368D9B080A81C9E0DB8C8E484B62F /* ASN1Decoder-iOS.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/ASN1Decoder-iOS/ASN1Decoder-iOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/ASN1Decoder-iOS/ASN1Decoder-iOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/ASN1Decoder-iOS/ASN1Decoder-iOS.modulemap";
+				PRODUCT_MODULE_NAME = ASN1Decoder;
+				PRODUCT_NAME = ASN1Decoder;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		F78F226EFB8BF5DEE77F156ED929D4F6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FC6CF38C002B548F8B5D9413B68A4C00 /* ASN1Decoder-macOS.release.xcconfig */;
@@ -584,7 +594,11 @@
 				GCC_PREFIX_HEADER = "Target Support Files/ASN1Decoder-macOS/ASN1Decoder-macOS-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/ASN1Decoder-macOS/ASN1Decoder-macOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MODULEMAP_FILE = "Target Support Files/ASN1Decoder-macOS/ASN1Decoder-macOS.modulemap";
 				PRODUCT_MODULE_NAME = ASN1Decoder;
@@ -613,8 +627,8 @@
 		799A1C772AEC6D203968CC459E8C9F35 /* Build configuration list for PBXNativeTarget "ASN1Decoder-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3F3271D4BD1769245802F5AC449E8700 /* Debug */,
-				AEBE9D70CCE328AABCAD975160EBE8D3 /* Release */,
+				D30A01E905C705CA60CE868F8C1D303C /* Debug */,
+				81CF6C48F950CD60FB2FBAAE87525ADA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_EduVPNTunnelExtension_macOSVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_EduVPNTunnelExtension_macOSVersionString[];
+FOUNDATION_EXPORT double Pods_OpenVPNTunnelExtension_macOSVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_OpenVPNTunnelExtension_macOSVersionString[];
 

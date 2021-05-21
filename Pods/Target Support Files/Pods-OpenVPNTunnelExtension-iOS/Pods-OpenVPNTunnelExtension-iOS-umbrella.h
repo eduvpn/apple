@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_EduVPNTunnelExtension_iOSVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_EduVPNTunnelExtension_iOSVersionString[];
+FOUNDATION_EXPORT double Pods_OpenVPNTunnelExtension_iOSVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_OpenVPNTunnelExtension_iOSVersionString[];
 
