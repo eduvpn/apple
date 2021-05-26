@@ -88,6 +88,11 @@
 		6F65629825D9AEB100ED3ECC /* AddServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F65629725D9AEB100ED3ECC /* AddServerViewController.swift */; };
 		6F6562A325DA64D100ED3ECC /* PredefinedProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6562A225DA64D100ED3ECC /* PredefinedProvider.swift */; };
 		6F6562A425DA64D100ED3ECC /* PredefinedProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6562A225DA64D100ED3ECC /* PredefinedProvider.swift */; };
+		6F66DACF265E1E4C006974CF /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340F956C22B7118C00835D56 /* NetworkExtension.framework */; };
+		6F66DAD2265E1E4C006974CF /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F66DAD1265E1E4C006974CF /* PacketTunnelProvider.swift */; };
+		6F66DAD7265E1E4D006974CF /* WireGuardTunnelExtension-macOS.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6F66DACE265E1E4C006974CF /* WireGuardTunnelExtension-macOS.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6F66DB14265E1F5C006974CF /* WireGuardKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6F66DB13265E1F5C006974CF /* WireGuardKit */; };
+		6F66DB16265E1F8E006974CF /* WireGuardKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6F66DB15265E1F8E006974CF /* WireGuardKit */; };
 		6F71FBB9249B545B0010D0FE /* DiscoveryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F71FBB7249B54490010D0FE /* DiscoveryData.swift */; };
 		6F71FBBE249CCE9E0010D0FE /* DiscoveryDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F71FBBC249CCE980010D0FE /* DiscoveryDataFetcher.swift */; };
 		6F750C8524975A4300AF2C04 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340F956C22B7118C00835D56 /* NetworkExtension.framework */; };
@@ -186,6 +191,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		6F66DAD5265E1E4D006974CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4AAC1F6E1F2D0E3400DD0252 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6F66DACD265E1E4C006974CF;
+			remoteInfo = "WireGuardTunnelExtension-macOS";
+		};
+		6F66DB11265E1F11006974CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4AAC1F6E1F2D0E3400DD0252 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6F66DAEF265E1E9D006974CF;
+			remoteInfo = "WireGuardGoBridge-macOS";
+		};
 		6F750C2E24975A4300AF2C04 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4AAC1F6E1F2D0E3400DD0252 /* Project object */;
@@ -231,6 +250,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				6F750C8F24975A4300AF2C04 /* OpenVPNTunnelExtension-macOS.appex in Embed App Extensions */,
+				6F66DAD7265E1E4D006974CF /* WireGuardTunnelExtension-macOS.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -348,6 +368,10 @@
 		6F5E6C742525C90F000225C0 /* MainViewController+iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+iOS.swift"; sourceTree = "<group>"; };
 		6F65629725D9AEB100ED3ECC /* AddServerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddServerViewController.swift; sourceTree = "<group>"; };
 		6F6562A225DA64D100ED3ECC /* PredefinedProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredefinedProvider.swift; sourceTree = "<group>"; };
+		6F66DACE265E1E4C006974CF /* WireGuardTunnelExtension-macOS.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "WireGuardTunnelExtension-macOS.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F66DAD1265E1E4C006974CF /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
+		6F66DAD3265E1E4D006974CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6F66DAD4265E1E4D006974CF /* WireGuardTunnelExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WireGuardTunnelExtension.entitlements; sourceTree = "<group>"; };
 		6F71FBB7249B54490010D0FE /* DiscoveryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryData.swift; sourceTree = "<group>"; };
 		6F71FBBC249CCE980010D0FE /* DiscoveryDataFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveryDataFetcher.swift; sourceTree = "<group>"; };
 		6F750C9624975A4300AF2C04 /* eduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -528,12 +552,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6F66DACB265E1E4C006974CF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6F66DB14265E1F5C006974CF /* WireGuardKit in Frameworks */,
+				6F66DACF265E1E4C006974CF /* NetworkExtension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6F750C8424975A4300AF2C04 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				6F750C8524975A4300AF2C04 /* NetworkExtension.framework in Frameworks */,
 				60F43EFF1E3D73A73DE4BE86 /* Pods_EduVPN_macOS.framework in Frameworks */,
+				6F66DB16265E1F8E006974CF /* WireGuardKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -694,6 +728,7 @@
 				349D85C322B706A4006E9540 /* OpenVPNTunnelExtension-macOS */,
 				C79B63C8258A08C200C054CC /* EduVPN-UITests-macOS */,
 				C75B2CA62363122900D700EC /* Scripts */,
+				6F66DAD0265E1E4C006974CF /* WireGuardTunnelExtension-macOS */,
 				4AAC1F771F2D0E3400DD0252 /* Products */,
 				26B4255A0C7DB00763783EF6 /* Frameworks */,
 				3FD80EE8F0EFC339DAE2DAEB /* Pods */,
@@ -712,6 +747,7 @@
 				C7B4392A2580CE4D00FEB2B1 /* EduVPN-Tests-iOS.xctest */,
 				C7B4394A2580D0F000FEB2B1 /* EduVPN-UITests-iOS.xctest */,
 				C79B63C7258A08C200C054CC /* EduVPN-UITests-macOS.xctest */,
+				6F66DACE265E1E4C006974CF /* WireGuardTunnelExtension-macOS.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -851,6 +887,16 @@
 				6F59A58724F51DEB00560155 /* organization_list.json */,
 			);
 			path = Discovery;
+			sourceTree = "<group>";
+		};
+		6F66DAD0265E1E4C006974CF /* WireGuardTunnelExtension-macOS */ = {
+			isa = PBXGroup;
+			children = (
+				6F66DAD1265E1E4C006974CF /* PacketTunnelProvider.swift */,
+				6F66DAD3265E1E4D006974CF /* Info.plist */,
+				6F66DAD4265E1E4D006974CF /* WireGuardTunnelExtension.entitlements */,
+			);
+			path = "WireGuardTunnelExtension-macOS";
 			sourceTree = "<group>";
 		};
 		6FBFEF0D24C2DC8C00A9D1D4 /* Fonts */ = {
@@ -1088,6 +1134,23 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXLegacyTarget section */
+		6F66DAEF265E1E9D006974CF /* WireGuardGoBridge-macOS */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = 6F66DAF0265E1E9D006974CF /* Build configuration list for PBXLegacyTarget "WireGuardGoBridge-macOS" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "${BUILD_DIR%Build/*}SourcePackages/checkouts/wireguard-apple/Sources/WireGuardKitGo";
+			dependencies = (
+			);
+			name = "WireGuardGoBridge-macOS";
+			passBuildSettingsInEnvironment = 1;
+			productName = "WireGuardGoBridge-macOS";
+		};
+/* End PBXLegacyTarget section */
+
 /* Begin PBXNativeTarget section */
 		342B9C98228ECFDB00C006D7 /* LoginItemHelper-macOS */ = {
 			isa = PBXNativeTarget;
@@ -1165,6 +1228,27 @@
 			productReference = 4AAC1F8A1F2D0E3400DD0252 /* EduVPNTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		6F66DACD265E1E4C006974CF /* WireGuardTunnelExtension-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6F66DADA265E1E4D006974CF /* Build configuration list for PBXNativeTarget "WireGuardTunnelExtension-macOS" */;
+			buildPhases = (
+				6F66DACA265E1E4C006974CF /* Sources */,
+				6F66DACB265E1E4C006974CF /* Frameworks */,
+				6F66DACC265E1E4C006974CF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6F66DB12265E1F11006974CF /* PBXTargetDependency */,
+			);
+			name = "WireGuardTunnelExtension-macOS";
+			packageProductDependencies = (
+				6F66DB13265E1F5C006974CF /* WireGuardKit */,
+			);
+			productName = "WireGuardTunnelExtension-macOS";
+			productReference = 6F66DACE265E1E4C006974CF /* WireGuardTunnelExtension-macOS.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		6F750C2C24975A4300AF2C04 /* EduVPN-macOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6F750C9324975A4300AF2C04 /* Build configuration list for PBXNativeTarget "EduVPN-macOS" */;
@@ -1185,8 +1269,12 @@
 			);
 			dependencies = (
 				6F750C2D24975A4300AF2C04 /* PBXTargetDependency */,
+				6F66DAD6265E1E4D006974CF /* PBXTargetDependency */,
 			);
 			name = "EduVPN-macOS";
+			packageProductDependencies = (
+				6F66DB15265E1F8E006974CF /* WireGuardKit */,
+			);
 			productName = "EduVPN-macOS";
 			productReference = 6F750C9624975A4300AF2C04 /* eduVPN.app */;
 			productType = "com.apple.product-type.application";
@@ -1281,12 +1369,10 @@
 				TargetAttributes = {
 					342B9C98228ECFDB00C006D7 = {
 						CreatedOnToolsVersion = 10.2.1;
-						DevelopmentTeam = R2NV2FHE22;
 						ProvisioningStyle = Automatic;
 					};
 					349D85C122B706A4006E9540 = {
 						CreatedOnToolsVersion = 10.2.1;
-						DevelopmentTeam = R2NV2FHE22;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.Mac = {
@@ -1305,7 +1391,6 @@
 					};
 					4A901C1020C87511000C1BF0 = {
 						CreatedOnToolsVersion = 9.4;
-						DevelopmentTeam = R2NV2FHE22;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -1321,17 +1406,20 @@
 					};
 					4AAC1F891F2D0E3400DD0252 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = R2NV2FHE22;
 						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 4AAC1F751F2D0E3400DD0252;
 					};
+					6F66DACD265E1E4C006974CF = {
+						CreatedOnToolsVersion = 12.2;
+					};
+					6F66DAEF265E1E9D006974CF = {
+						CreatedOnToolsVersion = 12.2;
+					};
 					6F750C2C24975A4300AF2C04 = {
-						DevelopmentTeam = R2NV2FHE22;
 						ProvisioningStyle = Automatic;
 					};
 					6F750CBD24975B9B00AF2C04 = {
-						DevelopmentTeam = R2NV2FHE22;
 						ProvisioningStyle = Automatic;
 					};
 					C79B63C6258A08C200C054CC = {
@@ -1369,6 +1457,8 @@
 			targets = (
 				6F750C2C24975A4300AF2C04 /* EduVPN-macOS */,
 				349D85C122B706A4006E9540 /* OpenVPNTunnelExtension-macOS */,
+				6F66DACD265E1E4C006974CF /* WireGuardTunnelExtension-macOS */,
+				6F66DAEF265E1E9D006974CF /* WireGuardGoBridge-macOS */,
 				C79B63C6258A08C200C054CC /* EduVPN-UITests-macOS */,
 				342B9C98228ECFDB00C006D7 /* LoginItemHelper-macOS */,
 				6F750CBD24975B9B00AF2C04 /* EduVPN-iOS */,
@@ -1405,6 +1495,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		4AAC1F881F2D0E3400DD0252 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6F66DACC265E1E4C006974CF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1814,6 +1911,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6F66DACA265E1E4C006974CF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6F66DAD2265E1E4C006974CF /* PacketTunnelProvider.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C79B63C3258A08C200C054CC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1988,6 +2093,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		6F66DAD6265E1E4D006974CF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6F66DACD265E1E4C006974CF /* WireGuardTunnelExtension-macOS */;
+			targetProxy = 6F66DAD5265E1E4D006974CF /* PBXContainerItemProxy */;
+		};
+		6F66DB12265E1F11006974CF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6F66DAEF265E1E9D006974CF /* WireGuardGoBridge-macOS */;
+			targetProxy = 6F66DB11265E1F11006974CF /* PBXContainerItemProxy */;
+		};
 		6F750C2D24975A4300AF2C04 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 349D85C122B706A4006E9540 /* OpenVPNTunnelExtension-macOS */;
@@ -2175,7 +2290,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = "$(DEVELOPMENT_TEAM)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = OpenVPNTunnelExtension-iOS/Info.plist;
+				INFOPLIST_FILE = "OpenVPNTunnelExtension-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2205,7 +2320,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "$(DEVELOPMENT_TEAM)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = OpenVPNTunnelExtension-iOS/Info.plist;
+				INFOPLIST_FILE = "OpenVPNTunnelExtension-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2385,10 +2500,110 @@
 			};
 			name = Release;
 		};
+		6F66DAD8265E1E4D006974CF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "WireGuardTunnelExtension-macOS/WireGuardTunnelExtension.entitlements";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "WireGuardTunnelExtension-macOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID).WireGuardTunnelExtension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		6F66DAD9265E1E4D006974CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "WireGuardTunnelExtension-macOS/WireGuardTunnelExtension.entitlements";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "WireGuardTunnelExtension-macOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID).WireGuardTunnelExtension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		6F66DAF1265E1E9D006974CF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUGGING_SYMBOLS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		6F66DAF2265E1E9D006974CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				MTL_FAST_MATH = YES;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 		6F750C9424975A4300AF2C04 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C75B2CB72363138200D700EC /* Development-macOS.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_MODULES = YES;
@@ -2454,6 +2669,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C75B2CB92363138200D700EC /* Release-macOS.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_MODULES = YES;
@@ -2845,6 +3061,24 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		6F66DADA265E1E4D006974CF /* Build configuration list for PBXNativeTarget "WireGuardTunnelExtension-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6F66DAD8265E1E4D006974CF /* Debug */,
+				6F66DAD9265E1E4D006974CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6F66DAF0265E1E9D006974CF /* Build configuration list for PBXLegacyTarget "WireGuardGoBridge-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6F66DAF1265E1E9D006974CF /* Debug */,
+				6F66DAF2265E1E9D006974CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		6F750C9324975A4300AF2C04 /* Build configuration list for PBXNativeTarget "EduVPN-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -2905,6 +3139,16 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		6F0CF435264E8AAF00E90529 /* WireGuardKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6F0CF434264E8AAF00E90529 /* XCRemoteSwiftPackageReference "wireguard-apple" */;
+			productName = WireGuardKit;
+		};
+		6F66DB13265E1F5C006974CF /* WireGuardKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6F0CF434264E8AAF00E90529 /* XCRemoteSwiftPackageReference "wireguard-apple" */;
+			productName = WireGuardKit;
+		};
+		6F66DB15265E1F8E006974CF /* WireGuardKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6F0CF434264E8AAF00E90529 /* XCRemoteSwiftPackageReference "wireguard-apple" */;
 			productName = WireGuardKit;
