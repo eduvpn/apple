@@ -331,8 +331,8 @@
 		4ABCCBDB21E5269B0020CB6D /* Developer.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Developer.xcconfig; sourceTree = "<group>"; };
 		4ABCCBE321E527A40020CB6D /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		4ABCCBE421E527B50020CB6D /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
-		4ABCCBE521E528140020CB6D /* Release-TunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-TunnelExtension.xcconfig"; sourceTree = "<group>"; };
-		4ABCCBE621E528260020CB6D /* Development-TunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Development-TunnelExtension.xcconfig"; sourceTree = "<group>"; };
+		4ABCCBE521E528140020CB6D /* Release-OpenVPNTunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-OpenVPNTunnelExtension.xcconfig"; sourceTree = "<group>"; };
+		4ABCCBE621E528260020CB6D /* Development-OpenVPNTunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Development-OpenVPNTunnelExtension.xcconfig"; sourceTree = "<group>"; };
 		4ABFF78820C71E7200638480 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		4AC84CAD236B6E2000932B89 /* Developer-macOS.xcconfig.appforce1-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer-macOS.xcconfig.appforce1-template"; sourceTree = "<group>"; };
 		4AD5688C238491FA00EC0ABD /* FileServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileServiceTests.swift; sourceTree = "<group>"; };
@@ -450,7 +450,7 @@
 		C75B2CA82363122900D700EC /* set_build_number.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = set_build_number.sh; sourceTree = "<group>"; };
 		C75B2CAB2363123700D700EC /* build.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = build.sh; sourceTree = SOURCE_ROOT; };
 		C75B2CAD2363138200D700EC /* config-eduvpn_dev.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-eduvpn_dev.json"; sourceTree = "<group>"; };
-		C75B2CAE2363138200D700EC /* Release-macOS-TunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-macOS-TunnelExtension.xcconfig"; sourceTree = "<group>"; };
+		C75B2CAE2363138200D700EC /* Release-macOS-OpenVPNTunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-macOS-OpenVPNTunnelExtension.xcconfig"; sourceTree = "<group>"; };
 		C75B2CB02363138200D700EC /* Developer-macOS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Developer-macOS.xcconfig"; sourceTree = "<group>"; };
 		C75B2CB22363138200D700EC /* Developer-macOS.xcconfig.johan-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer-macOS.xcconfig.johan-template"; sourceTree = "<group>"; };
 		C75B2CB42363138200D700EC /* config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
@@ -458,7 +458,7 @@
 		C75B2CB72363138200D700EC /* Development-macOS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Development-macOS.xcconfig"; sourceTree = "<group>"; };
 		C75B2CB82363138200D700EC /* Developer-macOS.xcconfig.template */ = {isa = PBXFileReference; explicitFileType = text.xcconfig; path = "Developer-macOS.xcconfig.template"; sourceTree = "<group>"; };
 		C75B2CB92363138200D700EC /* Release-macOS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-macOS.xcconfig"; sourceTree = "<group>"; };
-		C75B2CBB2363138200D700EC /* Development-macOS-TunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Development-macOS-TunnelExtension.xcconfig"; sourceTree = "<group>"; };
+		C75B2CBB2363138200D700EC /* Development-macOS-OpenVPNTunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Development-macOS-OpenVPNTunnelExtension.xcconfig"; sourceTree = "<group>"; };
 		C75B2CBC2363138200D700EC /* Developer-macOS.xcconfig.letsconnect-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer-macOS.xcconfig.letsconnect-template"; sourceTree = "<group>"; };
 		C75B2CBE2363138200D700EC /* config-eduvpn.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-eduvpn.json"; sourceTree = "<group>"; };
 		C75B2CBF2363138200D700EC /* AppVersion-macOS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "AppVersion-macOS.xcconfig"; sourceTree = "<group>"; };
@@ -844,9 +844,9 @@
 				C75B2CC62363141200D700EC /* Developer.xcconfig.eduvpn-template */,
 				C75B2CC42363141200D700EC /* Developer.xcconfig.letsconnect-template */,
 				C75B2CC12363141200D700EC /* Developer.xcconfig.template */,
-				4ABCCBE621E528260020CB6D /* Development-TunnelExtension.xcconfig */,
+				4ABCCBE621E528260020CB6D /* Development-OpenVPNTunnelExtension.xcconfig */,
 				4ABCCBE421E527B50020CB6D /* Development.xcconfig */,
-				4ABCCBE521E528140020CB6D /* Release-TunnelExtension.xcconfig */,
+				4ABCCBE521E528140020CB6D /* Release-OpenVPNTunnelExtension.xcconfig */,
 				4ABCCBE321E527A40020CB6D /* Release.xcconfig */,
 				4A79CE5D2281DDD800ABAA8E /* AppVersion.xcconfig */,
 			);
@@ -870,10 +870,10 @@
 				C75B2CB22363138200D700EC /* Developer-macOS.xcconfig.johan-template */,
 				4AC84CAD236B6E2000932B89 /* Developer-macOS.xcconfig.appforce1-template */,
 				C75B2CB72363138200D700EC /* Development-macOS.xcconfig */,
-				C75B2CBB2363138200D700EC /* Development-macOS-TunnelExtension.xcconfig */,
+				C75B2CBB2363138200D700EC /* Development-macOS-OpenVPNTunnelExtension.xcconfig */,
 				C730CD6223746B4900C21AF9 /* Development-macOS-LoginItemHelper.xcconfig */,
 				C75B2CB92363138200D700EC /* Release-macOS.xcconfig */,
-				C75B2CAE2363138200D700EC /* Release-macOS-TunnelExtension.xcconfig */,
+				C75B2CAE2363138200D700EC /* Release-macOS-OpenVPNTunnelExtension.xcconfig */,
 				C730CD6323746B4900C21AF9 /* Release-macOS-LoginItemHelper.xcconfig */,
 				C75B2CBF2363138200D700EC /* AppVersion-macOS.xcconfig */,
 			);
@@ -2219,7 +2219,7 @@
 		};
 		349D85CB22B706A4006E9540 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C75B2CBB2363138200D700EC /* Development-macOS-TunnelExtension.xcconfig */;
+			baseConfigurationReference = C75B2CBB2363138200D700EC /* Development-macOS-OpenVPNTunnelExtension.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -2249,7 +2249,7 @@
 		};
 		349D85CC22B706A4006E9540 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C75B2CAE2363138200D700EC /* Release-macOS-TunnelExtension.xcconfig */;
+			baseConfigurationReference = C75B2CAE2363138200D700EC /* Release-macOS-OpenVPNTunnelExtension.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -2278,7 +2278,7 @@
 		};
 		4A901C1A20C87512000C1BF0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4ABCCBE621E528260020CB6D /* Development-TunnelExtension.xcconfig */;
+			baseConfigurationReference = 4ABCCBE621E528260020CB6D /* Development-OpenVPNTunnelExtension.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -2308,7 +2308,7 @@
 		};
 		4A901C1B20C87512000C1BF0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4ABCCBE521E528140020CB6D /* Release-TunnelExtension.xcconfig */;
+			baseConfigurationReference = 4ABCCBE521E528140020CB6D /* Release-OpenVPNTunnelExtension.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
