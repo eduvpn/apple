@@ -372,6 +372,10 @@
 		6F66DAD1265E1E4C006974CF /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
 		6F66DAD3265E1E4D006974CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6F66DAD4265E1E4D006974CF /* WireGuardTunnelExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WireGuardTunnelExtension.entitlements; sourceTree = "<group>"; };
+		6F66DB7B265E5096006974CF /* Development-macOS-WireGuardTunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Development-macOS-WireGuardTunnelExtension.xcconfig"; sourceTree = "<group>"; };
+		6F66DB7C265E5096006974CF /* Release-macOS-WireGuardTunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-macOS-WireGuardTunnelExtension.xcconfig"; sourceTree = "<group>"; };
+		6F66DB7D265E50BB006974CF /* Release-WireGuardTunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-WireGuardTunnelExtension.xcconfig"; sourceTree = "<group>"; };
+		6F66DB7E265E50BB006974CF /* Development-WireGuardTunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Development-WireGuardTunnelExtension.xcconfig"; sourceTree = "<group>"; };
 		6F71FBB7249B54490010D0FE /* DiscoveryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryData.swift; sourceTree = "<group>"; };
 		6F71FBBC249CCE980010D0FE /* DiscoveryDataFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveryDataFetcher.swift; sourceTree = "<group>"; };
 		6F750C9624975A4300AF2C04 /* eduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -845,8 +849,10 @@
 				C75B2CC42363141200D700EC /* Developer.xcconfig.letsconnect-template */,
 				C75B2CC12363141200D700EC /* Developer.xcconfig.template */,
 				4ABCCBE621E528260020CB6D /* Development-OpenVPNTunnelExtension.xcconfig */,
+				6F66DB7E265E50BB006974CF /* Development-WireGuardTunnelExtension.xcconfig */,
 				4ABCCBE421E527B50020CB6D /* Development.xcconfig */,
 				4ABCCBE521E528140020CB6D /* Release-OpenVPNTunnelExtension.xcconfig */,
+				6F66DB7D265E50BB006974CF /* Release-WireGuardTunnelExtension.xcconfig */,
 				4ABCCBE321E527A40020CB6D /* Release.xcconfig */,
 				4A79CE5D2281DDD800ABAA8E /* AppVersion.xcconfig */,
 			);
@@ -871,9 +877,11 @@
 				4AC84CAD236B6E2000932B89 /* Developer-macOS.xcconfig.appforce1-template */,
 				C75B2CB72363138200D700EC /* Development-macOS.xcconfig */,
 				C75B2CBB2363138200D700EC /* Development-macOS-OpenVPNTunnelExtension.xcconfig */,
+				6F66DB7B265E5096006974CF /* Development-macOS-WireGuardTunnelExtension.xcconfig */,
 				C730CD6223746B4900C21AF9 /* Development-macOS-LoginItemHelper.xcconfig */,
 				C75B2CB92363138200D700EC /* Release-macOS.xcconfig */,
 				C75B2CAE2363138200D700EC /* Release-macOS-OpenVPNTunnelExtension.xcconfig */,
+				6F66DB7C265E5096006974CF /* Release-macOS-WireGuardTunnelExtension.xcconfig */,
 				C730CD6323746B4900C21AF9 /* Release-macOS-LoginItemHelper.xcconfig */,
 				C75B2CBF2363138200D700EC /* AppVersion-macOS.xcconfig */,
 			);
