@@ -2628,6 +2628,7 @@
 		};
 		6F66DAD8265E1E4D006974CF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6F66DB7B265E5096006974CF /* Development-macOS-WireGuardTunnelExtension.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -2658,6 +2659,7 @@
 		};
 		6F66DAD9265E1E4D006974CF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6F66DB7C265E5096006974CF /* Release-macOS-WireGuardTunnelExtension.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -2727,6 +2729,7 @@
 		};
 		6F6BB62A265E58BF0093D4CC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6F66DB7E265E50BB006974CF /* Development-WireGuardTunnelExtension.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -2758,6 +2761,7 @@
 		};
 		6F6BB62B265E58BF0093D4CC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6F66DB7D265E50BB006974CF /* Release-WireGuardTunnelExtension.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
