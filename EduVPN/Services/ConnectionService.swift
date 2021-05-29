@@ -135,9 +135,7 @@ class ConnectionService: ConnectionServiceProtocol {
         #if os(iOS)
         precondition(shouldPreventAutomaticConnections == false)
         #endif
-        guard let tunnelManager = tunnelManager else {
-            fatalError("ConnectionService not initialized yet")
-        }
+
         return firstly { () -> Promise<NETunnelProviderProtocol> in
             let protocolConfig = try Self.tunnelProtocolConfiguration(
                 openVPNConfig: openVPNConfig,
@@ -146,43 +144,52 @@ class ConnectionService: ConnectionServiceProtocol {
                 shouldPreventAutomaticConnections: shouldPreventAutomaticConnections)
             return Promise.value(protocolConfig)
         }.then { protocolConfig -> Promise<Void> in
-            tunnelManager.protocolConfiguration = protocolConfig
-            tunnelManager.isEnabled = true
-            tunnelManager.isOnDemandEnabled = true
-            tunnelManager.onDemandRules = [NEOnDemandRuleConnect()]
-            return firstly {
-                tunnelManager.saveToPreferences()
-            }.then { _ -> Promise<Void> in
-                // Load back the saved preferences to avoid NEVPNErrorConfigurationInvalid error
-                // See: https://developer.apple.com/forums/thread/25928
-                tunnelManager.loadFromPreferences()
-            }.then { _ -> Promise<Void> in
-                switch tunnelManager.connection.status {
-                case .connected, .connecting, .reasserting:
-                    return firstly {
-                        self.stopTunnel()
-                    }.then { _ in
-                        self.startTunnel()
-                    }
-                default:
-                    return self.startTunnel()
+            self.enableVPN(
+                protocolConfig: protocolConfig,
+                shouldDisableVPNOnError: shouldDisableVPNOnError)
+        }
+    }
+
+    private func enableVPN(protocolConfig: NETunnelProviderProtocol, shouldDisableVPNOnError: Bool) -> Promise<Void> {
+        guard let tunnelManager = tunnelManager else {
+            fatalError("ConnectionService not initialized yet")
+        }
+        tunnelManager.protocolConfiguration = protocolConfig
+        tunnelManager.isEnabled = true
+        tunnelManager.isOnDemandEnabled = true
+        tunnelManager.onDemandRules = [NEOnDemandRuleConnect()]
+        return firstly {
+            tunnelManager.saveToPreferences()
+        }.then { _ -> Promise<Void> in
+            // Load back the saved preferences to avoid NEVPNErrorConfigurationInvalid error
+            // See: https://developer.apple.com/forums/thread/25928
+            tunnelManager.loadFromPreferences()
+        }.then { _ -> Promise<Void> in
+            switch tunnelManager.connection.status {
+            case .connected, .connecting, .reasserting:
+                return firstly {
+                    self.stopTunnel()
+                }.then { _ in
+                    self.startTunnel()
                 }
-            }.recover { error in
-                if shouldDisableVPNOnError {
-                    // If there was an error starting the tunnel, disable on-demand
-                    firstly { () -> Promise<Void> in
-                        if tunnelManager.isOnDemandEnabled {
-                            return self.disableVPN()
-                        } else {
-                            return Promise.value(())
-                        }
-                    }.catch { disablingError in
-                        os_log("Error disabling VPN \"%{public}@\" while recovering from error enabling VPN \"%{public}@\"",
-                               log: Log.general, type: .error, disablingError.localizedDescription, error.localizedDescription)
-                    }
-                }
-                throw error
+            default:
+                return self.startTunnel()
             }
+        }.recover { error in
+            if shouldDisableVPNOnError {
+                // If there was an error starting the tunnel, disable on-demand
+                firstly { () -> Promise<Void> in
+                    if tunnelManager.isOnDemandEnabled {
+                        return self.disableVPN()
+                    } else {
+                        return Promise.value(())
+                    }
+                }.catch { disablingError in
+                    os_log("Error disabling VPN \"%{public}@\" while recovering from error enabling VPN \"%{public}@\"",
+                           log: Log.general, type: .error, disablingError.localizedDescription, error.localizedDescription)
+                }
+            }
+            throw error
         }
     }
 
