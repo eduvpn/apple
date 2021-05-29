@@ -1191,12 +1191,12 @@
 /* Begin PBXLegacyTarget section */
 		6F66DAEF265E1E9D006974CF /* WireGuardGoBridge-macOS */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(ACTION)";
+			buildArgumentsString = "";
 			buildConfigurationList = 6F66DAF0265E1E9D006974CF /* Build configuration list for PBXLegacyTarget "WireGuardGoBridge-macOS" */;
 			buildPhases = (
 			);
-			buildToolPath = /usr/bin/make;
-			buildWorkingDirectory = "${BUILD_DIR%Build/*}SourcePackages/checkouts/wireguard-apple/Sources/WireGuardKitGo";
+			buildToolPath = $PROJECT_DIR/Scripts/build_wireguard_go_bridge.sh;
+			buildWorkingDirectory = "";
 			dependencies = (
 			);
 			name = "WireGuardGoBridge-macOS";
@@ -1205,12 +1205,12 @@
 		};
 		6F6BB638265E58FD0093D4CC /* WireGuardGoBridge-iOS */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(ACTION)";
+			buildArgumentsString = "";
 			buildConfigurationList = 6F6BB639265E58FD0093D4CC /* Build configuration list for PBXLegacyTarget "WireGuardGoBridge-iOS" */;
 			buildPhases = (
 			);
-			buildToolPath = /usr/bin/make;
-			buildWorkingDirectory = "${BUILD_DIR%Build/*}SourcePackages/checkouts/wireguard-apple/Sources/WireGuardKitGo";
+			buildToolPath = $PROJECT_DIR/Scripts/build_wireguard_go_bridge.sh;
+			buildWorkingDirectory = "";
 			dependencies = (
 			);
 			name = "WireGuardGoBridge-iOS";
