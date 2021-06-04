@@ -49,6 +49,21 @@ class MockConnectionService: ConnectionServiceProtocol {
             }
     }
 
+    func enableVPN(wireGuardConfig: String, serverName: String, connectionAttemptId: UUID,
+                   shouldDisableVPNOnError: Bool) -> Promise<Void> {
+        guard isInitialized else {
+            fatalError("ConnectionService not initialized yet")
+        }
+        self.connectionStatus = .connecting
+        return after(seconds: 5)
+            .map {
+                self.isVPNEnabled = true
+                self.connectionAttemptId = connectionAttemptId
+                self.connectedDate = Date()
+                self.connectionStatus = .connected
+            }
+    }
+
     func disableVPN() -> Promise<Void> {
         guard isInitialized else {
             fatalError("ConnectionService not initialized yet")

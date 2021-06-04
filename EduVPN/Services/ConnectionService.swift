@@ -76,6 +76,8 @@ protocol ConnectionServiceProtocol: class {
                    credentials: Credentials?,
                    shouldDisableVPNOnError: Bool,
                    shouldPreventAutomaticConnections: Bool) -> Promise<Void>
+    func enableVPN(wireGuardConfig: String, serverName: String, connectionAttemptId: UUID,
+                   shouldDisableVPNOnError: Bool) -> Promise<Void>
     func disableVPN() -> Promise<Void>
 
     func getNetworkAddress() -> Guarantee<NetworkAddress>
@@ -148,6 +150,17 @@ class ConnectionService: ConnectionServiceProtocol {
                 protocolConfig: protocolConfig,
                 shouldDisableVPNOnError: shouldDisableVPNOnError)
         }
+    }
+
+    func enableVPN(wireGuardConfig: String, serverName: String, connectionAttemptId: UUID,
+                   shouldDisableVPNOnError: Bool) -> Promise<Void> {
+        let protocolConfig = Self.tunnelProtocolConfiguration(
+            wireGuardConfig: wireGuardConfig,
+            serverName: serverName,
+            connectionAttemptId: connectionAttemptId)
+        return self.enableVPN(
+            protocolConfig: protocolConfig,
+            shouldDisableVPNOnError: shouldDisableVPNOnError)
     }
 
     private func enableVPN(protocolConfig: NETunnelProviderProtocol, shouldDisableVPNOnError: Bool) -> Promise<Void> {
@@ -363,6 +376,10 @@ private extension ConnectionService {
         return "\(appBundleId).OpenVPNTunnelExtension"
     }
 
+    static var wireGuardTunnelBundleId: String {
+        return "\(appBundleId).WireGuardTunnelExtension"
+    }
+
     static var appGroup: String {
         #if os(macOS)
         return "\((Bundle.main.infoDictionary?["AppIdentifierPrefix"] as? String) ?? "")group.\(appBundleId)"
@@ -410,6 +427,16 @@ private extension ConnectionService {
         #endif
 
         return tunnelProviderProtocolConfig
+    }
+
+    static func tunnelProtocolConfiguration(
+        wireGuardConfig: String, serverName: String, connectionAttemptId: UUID) -> NETunnelProviderProtocol {
+        let protocolConfiguration = NETunnelProviderProtocol()
+        protocolConfiguration.providerBundleIdentifier = wireGuardTunnelBundleId
+        protocolConfiguration.serverAddress = serverName
+        protocolConfiguration.providerConfiguration = ["WireGuardConfig": wireGuardConfig]
+        protocolConfiguration.connectionAttemptId = connectionAttemptId
+        return protocolConfiguration
     }
 }
 
