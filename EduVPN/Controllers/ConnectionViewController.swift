@@ -77,7 +77,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     private var viewModel: ConnectionViewModel!
     private var dataStore: PersistenceService.DataStore!
 
-    private var profiles: [ProfileListResponse.Profile]?
+    private var profiles: [Profile]?
     private var selectedProfileId: String? {
         didSet {
             if let server = parameters.connectableInstance as? ServerInstance {
@@ -534,7 +534,7 @@ private extension ConnectionViewController {
 extension ConnectionViewController: ConnectionViewModelDelegate {
 
     func connectionViewModel(
-        _ model: ConnectionViewModel, foundProfiles profiles: [ProfileListResponse.Profile]) {
+        _ model: ConnectionViewModel, foundProfiles profiles: [Profile]) {
         self.profiles = profiles
         if let selectedProfileId = selectedProfileId {
             if !profiles.contains(where: { $0.profileId == selectedProfileId }) {

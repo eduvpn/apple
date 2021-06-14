@@ -12,7 +12,7 @@ import NetworkExtension
 protocol ConnectionViewModelDelegate: class {
     func connectionViewModel(
         _ model: ConnectionViewModel,
-        foundProfiles profiles: [ProfileListResponse.Profile])
+        foundProfiles profiles: [Profile])
     func connectionViewModel(
         _ model: ConnectionViewModel,
         canGoBackChanged canGoBack: Bool)
@@ -92,7 +92,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
 
     enum AdditionalControl {
         case none
-        case profileSelector([ProfileListResponse.Profile])
+        case profileSelector([Profile])
         case renewSessionButton
         case setCredentialsButton
         case spinner
@@ -163,7 +163,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         }
     }
 
-    private var profiles: [ProfileListResponse.Profile]? {
+    private var profiles: [Profile]? {
         didSet {
             self.updateStatusDetail()
             self.updateVPNSwitchState()
@@ -209,7 +209,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
     private let authURLTemplate: String?
 
     private let dataStore: PersistenceService.DataStore
-    private var connectingProfile: ProfileListResponse.Profile?
+    private var connectingProfile: Profile?
 
     private var vpnConfigCredentials: Credentials?
     private var shouldAskForPasswordOnReconnect: Bool = false
@@ -297,7 +297,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
               let serverAPIService = serverAPIService else {
             return Promise.value(())
         }
-        return firstly { () -> Promise<([ProfileListResponse.Profile], ServerInfo)> in
+        return firstly { () -> Promise<([Profile], ServerInfo)> in
             self.internalState = .gettingProfiles
             return serverAPIService.getAvailableProfiles(
                 for: server, from: viewController,
@@ -319,7 +319,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                     self.internalState = .idle
                     return Promise.value(())
                 }
-                let profile: ProfileListResponse.Profile = {
+                let profile: Profile = {
                     if let preferredProfileId = preferredProfileId {
                         return profiles.first(where: { $0.profileId == preferredProfileId }) ?? firstProfile
                     } else {
@@ -341,7 +341,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
     }
 
     func continueServerConnectionFlow(
-        profile: ProfileListResponse.Profile,
+        profile: Profile,
         from viewController: AuthorizingViewController,
         serverInfo: ServerInfo? = nil,
         serverAPIOptions: ServerAPIService.Options = []) -> Promise<Void> {

@@ -13,7 +13,7 @@ import os.log
 enum ServerAPIServiceError: Error {
     case serverProvidedInvalidCertificate
     case HTTPFailure(requestURLPath: String, response: Moya.Response)
-    case errorGettingProfileConfig(profile: ProfileListResponse.Profile, serverError: String)
+    case errorGettingProfileConfig(profile: Profile, serverError: String)
     case openVPNConfigHasInvalidEncoding
     case openVPNConfigHasNoCertificateAuthority
     case openVPNConfigHasNoRemotes
@@ -101,11 +101,11 @@ class ServerAPIService {
     func getAvailableProfiles(for server: ServerInstance,
                               from viewController: AuthorizingViewController,
                               wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?,
-                              options: Options) -> Promise<([ProfileListResponse.Profile], ServerInfo)> {
+                              options: Options) -> Promise<([Profile], ServerInfo)> {
         return firstly {
             ServerInfoFetcher.fetch(apiBaseURLString: server.apiBaseURLString,
                                     authBaseURLString: server.authBaseURLString)
-        }.then { serverInfo -> Promise<([ProfileListResponse.Profile], ServerInfo)> in
+        }.then { serverInfo -> Promise<([Profile], ServerInfo)> in
             let dataStore = PersistenceService.DataStore(path: server.localStoragePath)
             let basicTargetInfo = BasicTargetInfo(serverInfo: serverInfo,
                                                   dataStore: dataStore,
@@ -120,7 +120,7 @@ class ServerAPIService {
 
     // swiftlint:disable:next function_parameter_count
     func getTunnelConfigurationData(for server: ServerInstance, serverInfo: ServerInfo?,
-                                    profile: ProfileListResponse.Profile,
+                                    profile: Profile,
                                     from viewController: AuthorizingViewController,
                                     wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?,
                                     options: Options) -> Promise<TunnelConfigurationData> {
@@ -174,7 +174,7 @@ private extension ServerAPIService {
         case profileList(BasicTargetInfo)
         case createKeyPair(BasicTargetInfo, displayName: String)
         case checkCertificate(BasicTargetInfo, commonName: String)
-        case profileConfig(BasicTargetInfo, profile: ProfileListResponse.Profile)
+        case profileConfig(BasicTargetInfo, profile: Profile)
 
         var basicTargetInfo: BasicTargetInfo {
             switch self {
@@ -307,7 +307,7 @@ private extension ServerAPIService {
         }
     }
 
-    func getProfileConfig(basicTargetInfo: BasicTargetInfo, profile: ProfileListResponse.Profile,
+    func getProfileConfig(basicTargetInfo: BasicTargetInfo, profile: Profile,
                           wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?,
                           options: Options) -> Promise<Data> {
         firstly {

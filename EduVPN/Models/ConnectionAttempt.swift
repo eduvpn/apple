@@ -18,7 +18,7 @@ enum ConnectionAttemptDecodingError: Error {
 struct ConnectionAttempt {
     struct ServerPreConnectionState {
         // The state before connection was attempted to a ServerInstance
-        let profiles: [ProfileListResponse.Profile]
+        let profiles: [Profile]
         let selectedProfileId: String
         let certificateValidFrom: Date
         let certificateExpiresAt: Date
@@ -51,7 +51,7 @@ struct ConnectionAttempt {
     let preConnectionState: PreConnectionState
     let attemptId: UUID
 
-    init(server: ServerInstance, profiles: [ProfileListResponse.Profile],
+    init(server: ServerInstance, profiles: [Profile],
          selectedProfileId: String,
          certificateValidityRange: ServerAPIService.CertificateValidityRange,
          attemptId: UUID) {

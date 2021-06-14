@@ -11,6 +11,16 @@ protocol ServerResponse {
     init(data: Data) throws
 }
 
+struct Profile: Codable {
+    let displayName: LanguageMappedString
+    let profileId: String
+
+    enum CodingKeys: String, CodingKey {
+        case displayName = "display_name"
+        case profileId = "profile_id"
+    }
+}
+
 // Parse response to a /profile_list request
 //
 // Example response:
@@ -28,17 +38,6 @@ protocol ServerResponse {
 // }
 
 struct ProfileListResponse: ServerResponse, Decodable {
-    struct Profile: Codable {
-        let displayName: LanguageMappedString
-        let profileId: String
-
-        // swiftlint:disable:next nesting
-        enum CodingKeys: String, CodingKey {
-            case displayName = "display_name"
-            case profileId = "profile_id"
-        }
-    }
-
     let data: [Profile]
 
     enum TopLevelKeys: String, CodingKey {
