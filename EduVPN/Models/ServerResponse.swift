@@ -42,7 +42,7 @@ protocol ServerResponseAPIv2: ServerResponse {
 //     }
 // }
 
-struct ProfileListResponse: ServerResponseAPIv2, Decodable {
+struct ProfileListResponsev2: ServerResponseAPIv2, Decodable {
     let data: [Profile]
 
     enum TopLevelKeys: String, CodingKey {
@@ -57,7 +57,7 @@ struct ProfileListResponse: ServerResponseAPIv2, Decodable {
     }
 
     init(data: Data) throws {
-        self = try JSONDecoder().decode(ProfileListResponse.self, from: data)
+        self = try JSONDecoder().decode(ProfileListResponsev2.self, from: data)
     }
 }
 

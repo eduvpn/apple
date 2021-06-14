@@ -112,7 +112,7 @@ class ServerAPIService {
                                                   sourceViewController: viewController)
             return self.makeRequest(target: .profileList(basicTargetInfo),
                                     wayfSkippingInfo: wayfSkippingInfo,
-                                    decodeAs: ProfileListResponse.self,
+                                    decodeAs: ProfileListResponsev2.self,
                                     options: options)
                 .map { ($0, serverInfo) }
         }
