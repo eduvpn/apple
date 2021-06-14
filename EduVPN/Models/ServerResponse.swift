@@ -184,3 +184,61 @@ private enum SecondLevelKeys: String, CodingKey {
     case data
     case error
 }
+
+// Responses for APIv3
+
+protocol ServerResponseAPIv3: ServerResponse {
+}
+
+// Parse response to a /info request
+//
+// Example response:
+// {
+//     "info": {
+//         "profile_list": [
+//             {
+//                 "display_name": {
+//                     "en": "Employees",
+//                     "nl": "Medewerkers"
+//                 },
+//                 "profile_id": "employees"
+//             },
+//             {
+//                 "display_name": "Administrators",
+//                 "profile_id": "admins"
+//             }
+//         ]
+//     }
+// }
+
+struct InfoResponse: ServerResponseAPIv3, Decodable {
+    let data: [Profile]
+
+    enum TopLevelKeys: String, CodingKey {
+        case info
+    }
+
+    enum SecondLevelKeys: String, CodingKey {
+        case profile_list // swiftlint:disable:this identifier_name
+    }
+
+    init(from decoder: Decoder) throws {
+        let topLevelContainer = try decoder.container(keyedBy: TopLevelKeys.self)
+        let profileListContainer = try topLevelContainer.nestedContainer(
+            keyedBy: SecondLevelKeys.self, forKey: .info)
+        self.data = try profileListContainer.decode([Profile].self, forKey: .profile_list)
+    }
+
+    init(data: Data) throws {
+        self = try JSONDecoder().decode(InfoResponse.self, from: data)
+    }
+}
+
+// The response to a /connect request is raw data
+
+struct ConnectResponse: ServerResponseAPIv3 {
+    let data: Data
+    init(data: Data) {
+        self.data = data
+    }
+}
