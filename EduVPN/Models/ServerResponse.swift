@@ -21,6 +21,11 @@ struct Profile: Codable {
     }
 }
 
+// Responses for APIv2
+
+protocol ServerResponseAPIv2: ServerResponse {
+}
+
 // Parse response to a /profile_list request
 //
 // Example response:
@@ -37,7 +42,7 @@ struct Profile: Codable {
 //     }
 // }
 
-struct ProfileListResponse: ServerResponse, Decodable {
+struct ProfileListResponse: ServerResponseAPIv2, Decodable {
     let data: [Profile]
 
     enum TopLevelKeys: String, CodingKey {
@@ -69,7 +74,7 @@ struct ProfileListResponse: ServerResponse, Decodable {
 //     }
 // }
 
-struct CreateKeyPairResponse: ServerResponse, Decodable {
+struct CreateKeyPairResponse: ServerResponseAPIv2, Decodable {
 
     struct KeyPair: Codable {
         let certificate: String
@@ -102,7 +107,7 @@ struct CreateKeyPairResponse: ServerResponse, Decodable {
 
 // The response to a /profile_config request is raw data
 
-struct ProfileConfigResponse: ServerResponse {
+struct ProfileConfigResponse: ServerResponseAPIv2 {
     let data: Data
     init(data: Data) {
         self.data = data
@@ -147,7 +152,7 @@ struct ProfileConfigErrorResponse: Decodable {
 //     }
 // }
 
-struct CheckCertificateResponse: ServerResponse, Decodable {
+struct CheckCertificateResponse: ServerResponseAPIv2, Decodable {
     struct CertificateValidity: Decodable {
         let isValid: Bool
 
