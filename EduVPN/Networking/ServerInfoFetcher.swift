@@ -9,6 +9,34 @@ import Foundation
 import Moya
 import PromiseKit
 
+enum ServerInfoFetcherError: Error {
+    case apiVersionMismatch(
+          authServer: (urlString: DiscoveryData.BaseURLString, apiVersion: ServerInfo.APIVersion),
+          apiServer: (urlString: DiscoveryData.BaseURLString, apiVersion: ServerInfo.APIVersion))
+}
+
+extension ServerInfoFetcherError: AppError {
+    var summary: String {
+        switch self {
+        case .apiVersionMismatch:
+            return "Authentication server and API server have different API versions"
+        }
+    }
+    var detail: String {
+        switch self {
+        case .apiVersionMismatch(let authServer, let apiServer):
+            return """
+                Authentication server:
+                    URL: \(authServer.urlString.urlString)
+                    API version: \(authServer.apiVersion)
+                API server:
+                    URL: \(apiServer.urlString.urlString)
+                    API version: \(apiServer.apiVersion)
+                """
+        }
+    }
+}
+
 struct ServerInfoFetcher {
 
     struct ServerInfoTarget: TargetType, AcceptJson, SimpleGettable {
@@ -54,6 +82,11 @@ struct ServerInfoFetcher {
             let serverInfos = try responses.map { try JSONDecoder().decode(ServerInfo.self, from: $0.data) }
             let apiServerInfo = serverInfos[0]
             let authServerInfo = serverInfos[1]
+            guard authServerInfo.apiVersion == apiServerInfo.apiVersion else {
+                throw ServerInfoFetcherError.apiVersionMismatch(
+                    authServer: (authBaseURLString, authServerInfo.apiVersion),
+                    apiServer: (apiBaseURLString, apiServerInfo.apiVersion))
+            }
             return ServerInfo(
                 apiVersion: apiServerInfo.apiVersion,
                 authorizationEndpoint: authServerInfo.authorizationEndpoint,

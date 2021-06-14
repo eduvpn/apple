@@ -12,7 +12,7 @@ struct ServerInfo: Decodable {
     typealias BaseURL = URL
     typealias OAuthEndpoint = URL
 
-    enum APIVersion {
+    enum APIVersion: String {
         case apiv2
         case apiv3
     }
