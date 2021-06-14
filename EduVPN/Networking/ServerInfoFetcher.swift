@@ -55,6 +55,7 @@ struct ServerInfoFetcher {
             let apiServerInfo = serverInfos[0]
             let authServerInfo = serverInfos[1]
             return ServerInfo(
+                apiVersion: apiServerInfo.apiVersion,
                 authorizationEndpoint: authServerInfo.authorizationEndpoint,
                 tokenEndpoint: authServerInfo.tokenEndpoint,
                 apiBaseURL: apiServerInfo.apiBaseURL)
