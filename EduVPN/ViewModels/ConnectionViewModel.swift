@@ -340,6 +340,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         }
     }
 
+    // swiftlint:disable:next function_body_length
     func continueServerConnectionFlow(
         profile: Profile,
         from viewController: AuthorizingViewController,
@@ -377,13 +378,18 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                 certificateValidityRange: tunnelConfigData.certificateValidityRange,
                 attemptId: connectionAttemptId)
             self.delegate?.connectionViewModel(self, willAttemptToConnect: connectionAttempt)
-            return self.connectionService.enableVPN(
-                openVPNConfig: tunnelConfigData.openVPNConfiguration,
-                connectionAttemptId: connectionAttemptId,
-                credentials: nil,
-                shouldDisableVPNOnError: true,
-                shouldPreventAutomaticConnections: false)
-                .map { (expiresAt, connectionAttemptId) }
+            switch tunnelConfigData.vpnConfig {
+            case .openVPNConfig(let configLines):
+                return self.connectionService.enableVPN(
+                    openVPNConfig: configLines,
+                    connectionAttemptId: connectionAttemptId,
+                    credentials: nil,
+                    shouldDisableVPNOnError: true,
+                    shouldPreventAutomaticConnections: false)
+                    .map { (expiresAt, connectionAttemptId) }
+            default:
+                fatalError("WireGuard profiles not supported yet")
+            }
         }.then { (expiresAt, connectionAttemptId) -> Promise<Void> in
             self.internalState = self.connectionService.isVPNEnabled ? .enabledVPN : .idle
             guard let notificationService = self.notificationService else {

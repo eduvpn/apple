@@ -484,8 +484,8 @@ private extension ConnectionViewController {
     #endif
 
     private func showAlert(for error: Error) {
-        if let serverAPIError = error as? ServerAPIServiceError,
-            case ServerAPIServiceError.errorGettingProfileConfig = serverAPIError {
+        if let serverAPIError = error as? ServerAPIv2Error,
+            case ServerAPIv2Error.errorGettingProfileConfig = serverAPIError {
 
             // If there's an error getting profile config, offer to refresh profiles
 
