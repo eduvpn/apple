@@ -20,8 +20,7 @@ struct ConnectionAttempt {
         // The state before connection was attempted to a ServerInstance
         let profiles: [Profile]
         let selectedProfileId: String
-        let certificateValidFrom: Date
-        let certificateExpiresAt: Date
+        let sessionExpiresAt: Date
     }
 
     struct VPNConfigPreConnectionState {
@@ -53,14 +52,13 @@ struct ConnectionAttempt {
 
     init(server: ServerInstance, profiles: [Profile],
          selectedProfileId: String,
-         certificateValidityRange: ServerAPIService.CertificateValidityRange,
+         sessionExpiresAt: Date,
          attemptId: UUID) {
         self.connectableInstance = server
         self.preConnectionState = .serverState(
             ServerPreConnectionState(
                 profiles: profiles, selectedProfileId: selectedProfileId,
-                certificateValidFrom: certificateValidityRange.validFrom,
-                certificateExpiresAt: certificateValidityRange.expiresAt))
+                sessionExpiresAt: sessionExpiresAt))
         self.attemptId = attemptId
     }
 
@@ -77,8 +75,7 @@ extension ConnectionAttempt.ServerPreConnectionState: Codable {
     enum CodingKeys: String, CodingKey {
         case profiles
         case selectedProfileId = "selected_profile_id"
-        case certificateValidFrom = "certificate_valid_from"
-        case certificateExpiresAt = "certificate_expires_at"
+        case sessionExpiresAt = "session_expires_at"
     }
 }
 

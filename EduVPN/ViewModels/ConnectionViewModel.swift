@@ -246,7 +246,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
             connectingProfile = preConnectionState.profiles
                 .first(where: { $0.profileId == preConnectionState.selectedProfileId })
             certificateExpiryHelper = CertificateExpiryHelper(
-                expiresAt: preConnectionState.certificateExpiresAt,
+                expiresAt: preConnectionState.sessionExpiresAt,
                 handler: { [weak self] certificateStatus in
                     self?.certificateStatus = certificateStatus
                 })
@@ -372,7 +372,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                 server: server,
                 profiles: self.profiles ?? [],
                 selectedProfileId: profile.profileId,
-                certificateValidityRange: tunnelConfigData.certificateValidityRange,
+                sessionExpiresAt: tunnelConfigData.expiresAt,
                 attemptId: connectionAttemptId)
             self.delegate?.connectionViewModel(self, willAttemptToConnect: connectionAttempt)
             switch tunnelConfigData.vpnConfig {
