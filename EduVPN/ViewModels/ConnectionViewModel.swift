@@ -361,7 +361,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                 options: serverAPIOptions)
         }.then { tunnelConfigData -> Promise<(Date, UUID)> in
             self.internalState = .enableVPNRequested
-            let expiresAt = tunnelConfigData.certificateValidityRange.expiresAt
+            let expiresAt = tunnelConfigData.expiresAt
             self.certificateExpiryHelper = CertificateExpiryHelper(
                 expiresAt: expiresAt,
                 handler: { [weak self] certificateStatus in

@@ -32,10 +32,6 @@ class ServerAPIService {
     struct TunnelConfigurationData {
         let vpnConfig: VPNConfiguration
         let expiresAt: Date
-
-        var certificateValidityRange: CertificateValidityRange { // Temporary
-            CertificateValidityRange(validFrom: expiresAt, expiresAt: expiresAt)
-        }
     }
 
     struct CommonAPIRequestInfo {
@@ -45,11 +41,6 @@ class ServerAPIService {
         let serverAuthService: ServerAuthService
         let wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?
         let sourceViewController: AuthorizingViewController
-    }
-
-    struct CertificateValidityRange { // Temporary
-        let validFrom: Date
-        let expiresAt: Date
     }
 
     static var uncachedSession: Moya.Session {
