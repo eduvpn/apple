@@ -246,7 +246,6 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
             connectingProfile = preConnectionState.profiles
                 .first(where: { $0.profileId == preConnectionState.selectedProfileId })
             certificateExpiryHelper = CertificateExpiryHelper(
-                validFrom: preConnectionState.certificateValidFrom,
                 expiresAt: preConnectionState.certificateExpiresAt,
                 handler: { [weak self] certificateStatus in
                     self?.certificateStatus = certificateStatus
@@ -362,10 +361,8 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                 options: serverAPIOptions)
         }.then { tunnelConfigData -> Promise<(Date, UUID)> in
             self.internalState = .enableVPNRequested
-            let validFrom = tunnelConfigData.certificateValidityRange.validFrom
             let expiresAt = tunnelConfigData.certificateValidityRange.expiresAt
             self.certificateExpiryHelper = CertificateExpiryHelper(
-                validFrom: validFrom,
                 expiresAt: expiresAt,
                 handler: { [weak self] certificateStatus in
                     self?.certificateStatus = certificateStatus
