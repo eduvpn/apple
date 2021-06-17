@@ -384,8 +384,13 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                     shouldDisableVPNOnError: true,
                     shouldPreventAutomaticConnections: false)
                     .map { (expiresAt, connectionAttemptId) }
-            default:
-                fatalError("WireGuard profiles not supported yet")
+            case .wireGuardConfig(let configString):
+                return self.connectionService.enableVPN(
+                    wireGuardConfig: configString,
+                    serverName: serverInfo?.apiBaseURL.host ?? "",
+                    connectionAttemptId: connectionAttemptId,
+                    shouldDisableVPNOnError: true)
+                    .map { (expiresAt, connectionAttemptId) }
             }
         }.then { (expiresAt, connectionAttemptId) -> Promise<Void> in
             self.internalState = self.connectionService.isVPNEnabled ? .enabledVPN : .idle

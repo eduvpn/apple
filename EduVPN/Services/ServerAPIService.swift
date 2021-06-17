@@ -56,6 +56,15 @@ class ServerAPIService {
         self.serverAuthService = serverAuthService
     }
 
+    private static func serverAPIHandlerType(for apiVersion: ServerInfo.APIVersion) -> ServerAPIHandler.Type {
+        switch apiVersion {
+        case .apiv2:
+            return ServerAPIv2Handler.self
+        case .apiv3:
+            return ServerAPIv3Handler.self
+        }
+    }
+
     func getAvailableProfiles(for server: ServerInstance,
                               from viewController: AuthorizingViewController,
                               wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?,
@@ -64,7 +73,6 @@ class ServerAPIService {
             ServerInfoFetcher.fetch(apiBaseURLString: server.apiBaseURLString,
                                     authBaseURLString: server.authBaseURLString)
         }.then { serverInfo -> Promise<([Profile], ServerInfo)> in
-            precondition(serverInfo.apiVersion == .apiv2) // APIv3 is not handled yet
             let dataStore = PersistenceService.DataStore(path: server.localStoragePath)
             let commonInfo = ServerAPIService.CommonAPIRequestInfo(
                 serverInfo: serverInfo,
@@ -73,7 +81,8 @@ class ServerAPIService {
                 serverAuthService: self.serverAuthService,
                 wayfSkippingInfo: wayfSkippingInfo,
                 sourceViewController: viewController)
-            return ServerAPIv2Handler.getAvailableProfiles(
+            let serverAPIHandler = Self.serverAPIHandlerType(for: serverInfo.apiVersion)
+            return serverAPIHandler.getAvailableProfiles(
                 commonInfo: commonInfo,
                 options: options)
                 .map { ($0, serverInfo) }
@@ -93,7 +102,6 @@ class ServerAPIService {
             return ServerInfoFetcher.fetch(apiBaseURLString: server.apiBaseURLString,
                                            authBaseURLString: server.authBaseURLString)
         }.then { serverInfo -> Promise<TunnelConfigurationData> in
-            precondition(serverInfo.apiVersion == .apiv2) // APIv3 is not handled yet
             let dataStore = PersistenceService.DataStore(path: server.localStoragePath)
             let commonInfo = ServerAPIService.CommonAPIRequestInfo(
                 serverInfo: serverInfo,
@@ -102,7 +110,8 @@ class ServerAPIService {
                 serverAuthService: self.serverAuthService,
                 wayfSkippingInfo: wayfSkippingInfo,
                 sourceViewController: viewController)
-            return ServerAPIv2Handler.getTunnelConfigurationData(
+            let serverAPIHandler = Self.serverAPIHandlerType(for: serverInfo.apiVersion)
+            return serverAPIHandler.getTunnelConfigurationData(
                 commonInfo: commonInfo, profile: profile, options: options)
         }
     }
