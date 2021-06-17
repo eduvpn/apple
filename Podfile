@@ -31,7 +31,7 @@ target 'EduVPN-iOS' do
   pod 'PromiseKit/CorePromise'
 end
 
-target 'EduVPNTunnelExtension-iOS' do
+target 'OpenVPNTunnelExtension-iOS' do
   pods_ios
 end
 
@@ -45,7 +45,7 @@ target 'EduVPN-macOS' do
   pod 'PromiseKit/CorePromise'
 end
 
-target 'EduVPNTunnelExtension-macOS' do
+target 'OpenVPNTunnelExtension-macOS' do
   pods_macos
 end
 
