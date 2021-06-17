@@ -94,7 +94,9 @@ struct ServerAPIv2Handler: ServerAPIHandler {
                     profileConfig: profileConfig, isUDPAllowed: isUDPAllowed, keyPair: keyPairData.keyPair)
                 return ServerAPIService.TunnelConfigurationData(
                     vpnConfig: .openVPNConfig(openVPNConfig),
-                    expiresAt: keyPairData.certificateExpiryDate)
+                    expiresAt: keyPairData.certificateExpiryDate,
+                    serverAPIBaseURL: commonInfo.serverInfo.apiBaseURL,
+                    serverAPIVersion: commonInfo.serverInfo.apiVersion)
             }
         }
     }

@@ -32,6 +32,8 @@ class ServerAPIService {
     struct TunnelConfigurationData {
         let vpnConfig: VPNConfiguration
         let expiresAt: Date
+        let serverAPIBaseURL: URL
+        let serverAPIVersion: ServerInfo.APIVersion
     }
 
     struct CommonAPIRequestInfo {

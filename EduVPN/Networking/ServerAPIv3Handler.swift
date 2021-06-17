@@ -119,14 +119,18 @@ struct ServerAPIv3Handler: ServerAPIHandler {
                 let configLines = configString.split(separator: "\n").map { String($0) }
                 return ServerAPIService.TunnelConfigurationData(
                     vpnConfig: .openVPNConfig(configLines),
-                    expiresAt: expiresDate)
+                    expiresAt: expiresDate,
+                    serverAPIBaseURL: commonInfo.serverInfo.apiBaseURL,
+                    serverAPIVersion: commonInfo.serverInfo.apiVersion)
             case "application/x-wireguard-profile":
                 let updatedConfigString = try insertPrivateKey(privateKey, in: configString)
                 print("configString = \(configString)")
                 print("updatedConfigString = \(updatedConfigString)")
                 return ServerAPIService.TunnelConfigurationData(
                     vpnConfig: .wireGuardConfig(updatedConfigString),
-                    expiresAt: expiresDate)
+                    expiresAt: expiresDate,
+                    serverAPIBaseURL: commonInfo.serverInfo.apiBaseURL,
+                    serverAPIVersion: commonInfo.serverInfo.apiVersion)
             default:
                 throw ServerAPIv3Error.unexpectedContentTypeOnConnect(responseData.contentTypeResponseHeader)
             }

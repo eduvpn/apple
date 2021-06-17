@@ -21,6 +21,8 @@ struct ConnectionAttempt {
         let profiles: [Profile]
         let selectedProfileId: String
         let sessionExpiresAt: Date
+        let serverAPIBaseURL: URL
+        let serverAPIVersion: ServerInfo.APIVersion
     }
 
     struct VPNConfigPreConnectionState {
@@ -53,12 +55,17 @@ struct ConnectionAttempt {
     init(server: ServerInstance, profiles: [Profile],
          selectedProfileId: String,
          sessionExpiresAt: Date,
+         serverAPIBaseURL: URL,
+         serverAPIVersion: ServerInfo.APIVersion,
          attemptId: UUID) {
         self.connectableInstance = server
         self.preConnectionState = .serverState(
             ServerPreConnectionState(
-                profiles: profiles, selectedProfileId: selectedProfileId,
-                sessionExpiresAt: sessionExpiresAt))
+                profiles: profiles,
+                selectedProfileId: selectedProfileId,
+                sessionExpiresAt: sessionExpiresAt,
+                serverAPIBaseURL: serverAPIBaseURL,
+                serverAPIVersion: serverAPIVersion))
         self.attemptId = attemptId
     }
 
@@ -76,6 +83,8 @@ extension ConnectionAttempt.ServerPreConnectionState: Codable {
         case profiles
         case selectedProfileId = "selected_profile_id"
         case sessionExpiresAt = "session_expires_at"
+        case serverAPIBaseURL = "api_base_url"
+        case serverAPIVersion = "api_version"
     }
 }
 

@@ -104,6 +104,11 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         case expanded(ConnectionInfoHelper.ConnectionInfo)
     }
 
+    struct ServerInfoForDisconnectReport {
+        let serverAPIBaseURL: URL
+        let serverAPIVersion: ServerInfo.APIVersion
+    }
+
     private(set) var header: Header {
         didSet { delegate?.connectionViewModel(self, headerChanged: header) }
     }
@@ -215,6 +220,9 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
     private var shouldAskForPasswordOnReconnect: Bool = false
     private var isBeginningVPNConfigConnectionFlow: Bool = false
 
+    // Required for telling the server about disconnections
+    private var serverInfoForDisconnectReport: ServerInfoForDisconnectReport?
+
     init(server: ServerInstance,
          connectionService: ConnectionServiceProtocol,
          notificationService: NotificationService,
@@ -250,6 +258,9 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                 handler: { [weak self] certificateStatus in
                     self?.certificateStatus = certificateStatus
                 })
+            serverInfoForDisconnectReport = ServerInfoForDisconnectReport(
+                serverAPIBaseURL: preConnectionState.serverAPIBaseURL,
+                serverAPIVersion: preConnectionState.serverAPIVersion)
             internalState = .enabledVPN
         }
     }
@@ -367,12 +378,17 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                 handler: { [weak self] certificateStatus in
                     self?.certificateStatus = certificateStatus
                 })
+            self.serverInfoForDisconnectReport = ServerInfoForDisconnectReport(
+                serverAPIBaseURL: tunnelConfigData.serverAPIBaseURL,
+                serverAPIVersion: tunnelConfigData.serverAPIVersion)
             let connectionAttemptId = UUID()
             let connectionAttempt = ConnectionAttempt(
                 server: server,
                 profiles: self.profiles ?? [],
                 selectedProfileId: profile.profileId,
                 sessionExpiresAt: tunnelConfigData.expiresAt,
+                serverAPIBaseURL: tunnelConfigData.serverAPIBaseURL,
+                serverAPIVersion: tunnelConfigData.serverAPIVersion,
                 attemptId: connectionAttemptId)
             self.delegate?.connectionViewModel(self, willAttemptToConnect: connectionAttempt)
             switch tunnelConfigData.vpnConfig {
