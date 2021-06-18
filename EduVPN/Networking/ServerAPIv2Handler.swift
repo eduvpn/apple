@@ -100,6 +100,12 @@ struct ServerAPIv2Handler: ServerAPIHandler {
             }
         }
     }
+
+    static func attemptToRelinquishTunnelConfiguration(
+        baseURL: URL, dataStore: PersistenceService.DataStore, session: Moya.Session,
+        profile: Profile) {
+        // Nothing to do
+    }
 }
 
 private extension ServerAPIv2Handler {
