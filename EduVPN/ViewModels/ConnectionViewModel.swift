@@ -472,6 +472,13 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
             return self.connectionService.disableVPN()
         }.map {
             self.notificationService?.descheduleSessionExpiryNotification()
+            if let serverInfoForDisconnectReport = self.serverInfoForDisconnectReport,
+               let profile = self.connectingProfile {
+                self.serverAPIService?.attemptToRelinquishTunnelConfiguration(
+                    apiVersion: serverInfoForDisconnectReport.serverAPIVersion,
+                    baseURL: serverInfoForDisconnectReport.serverAPIBaseURL,
+                    dataStore: self.dataStore, profile: profile)
+            }
         }.ensure {
             self.internalState = self.connectionService.isVPNEnabled ? .enabledVPN : .idle
             if self.internalState == .idle {
