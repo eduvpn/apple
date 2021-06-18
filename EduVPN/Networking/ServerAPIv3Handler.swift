@@ -239,10 +239,20 @@ private extension ServerAPIv3Handler {
                 }
                 let data = try T(data: response.data).data
                 let httpResponse = response.response
+                let contentType: String?
+                let expires: String?
+                if #available(iOS 13.0, macOS 10.15, *) {
+                    contentType = httpResponse?.value(forHTTPHeaderField: "Content-Type")
+                    expires = httpResponse?.value(forHTTPHeaderField: "Expires")
+                } else {
+                    let allHeaders = httpResponse?.allHeaderFields
+                    contentType = allHeaders?["Content-Type"] as? String
+                    expires = allHeaders?["Expires"] as? String
+                }
                 let responseData = ResponseData<T>(
                     data: data,
-                    contentTypeResponseHeader: httpResponse?.value(forHTTPHeaderField: "Content-Type"),
-                    expiresResponseHeader: httpResponse?.value(forHTTPHeaderField: "Expires"))
+                    contentTypeResponseHeader: contentType,
+                    expiresResponseHeader: expires)
                 return Promise.value(responseData)
             }
         }
