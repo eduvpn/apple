@@ -136,10 +136,18 @@ struct ServerAPIv3Handler: ServerAPIHandler {
             }
         }
     }
+
+    static func attemptToRelinquishTunnelConfiguration(
+        baseURL: URL, dataStore: PersistenceService.DataStore, session: Moya.Session,
+        profile: Profile) {
+        Self.fireAndForget(
+            target: .disconnect(
+                baseURL: baseURL, dataStore: dataStore, session: session,
+                profile: profile))
+    }
 }
 
 private extension ServerAPIv3Handler {
-
     enum ServerAPITarget: TargetType, AcceptJson, AccessTokenAuthorizable {
         case info(ServerAPIService.CommonAPIRequestInfo)
         case connect(ServerAPIService.CommonAPIRequestInfo, profile: Profile, publicKey: String)
@@ -239,6 +247,86 @@ private extension ServerAPIv3Handler {
             }
         }
     }
+}
+
+private extension ServerAPIv3Handler {
+    enum FireAndForgetAPITarget: TargetType, AcceptJson, AccessTokenAuthorizable {
+        case disconnect(baseURL: URL, dataStore: PersistenceService.DataStore,
+                        session: Moya.Session, profile: Profile)
+
+        var dataStore: PersistenceService.DataStore {
+            switch self {
+            case .disconnect(_, let dataStore, _, _): return dataStore
+            }
+        }
+
+        var session: Moya.Session {
+            switch self {
+            case .disconnect(_, _, let session, _): return session
+            }
+        }
+
+        var baseURL: URL {
+            switch self {
+            case .disconnect(let baseURL, _, _, _): return baseURL
+            }
+        }
+
+        var path: String {
+            switch self {
+            case .disconnect: return "/disconnect"
+            }
+        }
+
+        var method: Moya.Method {
+            switch self {
+            case .disconnect: return .post
+            }
+        }
+
+        var sampleData: Data { Data() }
+
+        var task: Task {
+            switch self {
+            case .disconnect(_, _, _, let profile):
+                return .requestParameters(
+                    parameters: [
+                        "profile_id": profile.profileId,
+                    ],
+                    encoding: URLEncoding.httpBody)
+            }
+        }
+
+        var authorizationType: AuthorizationType? { .bearer }
+    }
+
+    static func fireAndForget(target: FireAndForgetAPITarget) {
+        firstly { () -> Promise<String> in
+            if let authState = target.dataStore.authState {
+                return Self.getFreshAccessToken(using: authState, storingChangesTo: target.dataStore)
+            } else {
+                os_log("Not firing call to '%@' because there's no stored auth state", target.path)
+                throw ServerAPIServiceError.cannotUseStoredAuthState
+            }
+        }.then { accessToken -> Promise<Moya.Response> in
+            let authPlugin = AccessTokenPlugin { _ in accessToken }
+            let provider = MoyaProvider<FireAndForgetAPITarget>(session: target.session, plugins: [authPlugin])
+            return provider.request(target: target)
+        }.map { response in
+            if response.statusCode == Self.HTTPStatusCodeUnauthorized {
+                os_log("Encountered HTTP status code Unauthorized on firing call to '%@'", log: Log.general, type: .debug,
+                       target.path)
+            } else {
+                let successStatusCodes = (200...299)
+                guard successStatusCodes.contains(response.statusCode) else {
+                    os_log("Encountered HTTP failure on firing call to '%@': %@", log: Log.general, type: .debug,
+                           target.path, response.debugDescription)
+                    return
+                }
+            }
+        }.cauterize()
+    }
+
 }
 
 private extension ServerAPIv3Handler {
