@@ -12,6 +12,7 @@ import os.log
 
 enum ServerAPIv3Error: Error {
     case HTTPFailure(requestURLPath: String, response: Moya.Response)
+    case errorGettingProfileConfig(profile: Profile, serverError: String)
     case VPNConfigHasInvalidEncoding
     case wgVPNConfigMissingInterfaceSection
     case expiresResponseHeaderIsInvalid(String?)
@@ -23,6 +24,8 @@ extension ServerAPIv3Error: AppError {
         switch self {
         case .HTTPFailure:
             return "HTTP request failed"
+        case .errorGettingProfileConfig:
+            return "Error getting profile config"
         case .VPNConfigHasInvalidEncoding:
             return "VPN config has unrecognized encoding"
         case .wgVPNConfigMissingInterfaceSection:
@@ -41,6 +44,11 @@ extension ServerAPIv3Error: AppError {
             Request path: \(requestURLPath)
             Response code: \(response.statusCode)
             Response: \(String(data: response.data, encoding: .utf8) ?? "")
+            """
+        case .errorGettingProfileConfig(let profile, let serverError):
+            return """
+            Requested profile: \(profile.displayName.stringForCurrentLanguage())
+            Server error: \(serverError)
             """
         case .expiresResponseHeaderIsInvalid(let value):
             if let value = value {
@@ -235,6 +243,11 @@ private extension ServerAPIv3Handler {
             } else {
                 let successStatusCodes = (200...299)
                 guard successStatusCodes.contains(response.statusCode) else {
+                    if case .connect(_, let profile, _) = target,
+                       let errorResponse = try? JSONDecoder().decode(ProfileConfigErrorResponse.self, from: response.data) {
+                        throw ServerAPIv3Error.errorGettingProfileConfig(
+                            profile: profile, serverError: errorResponse.errorMessage)
+                    }
                     throw ServerAPIv3Error.HTTPFailure(requestURLPath: target.path, response: response)
                 }
                 let data = try T(data: response.data).data

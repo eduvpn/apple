@@ -124,7 +124,7 @@ struct ProfileConfigResponse: ServerResponseAPIv2 {
 //     }
 // }
 
-struct ProfileConfigErrorResponse: Decodable {
+struct ProfileConfigErrorResponsev2: Decodable {
 
     let errorMessage: String
 
@@ -240,5 +240,26 @@ struct ConnectResponse: ServerResponseAPIv3 {
     let data: Data
     init(data: Data) {
         self.data = data
+    }
+}
+
+// Parse error response to a /connect request
+//
+// Example error response:
+// {
+//     "error": "invalid \"profile_id\""
+// }
+
+struct ProfileConfigErrorResponse: Decodable {
+
+    let errorMessage: String
+
+    enum TopLevelKeys: String, CodingKey {
+        case error
+    }
+
+    init(from decoder: Decoder) throws {
+        let topLevelContainer = try decoder.container(keyedBy: TopLevelKeys.self)
+        self.errorMessage = try topLevelContainer.decode(String.self, forKey: .error)
     }
 }

@@ -484,45 +484,55 @@ private extension ConnectionViewController {
     #endif
 
     private func showAlert(for error: Error) {
-        if let serverAPIError = error as? ServerAPIv2Error,
-            case ServerAPIv2Error.errorGettingProfileConfig = serverAPIError {
-
+        if let appError = error as? AppError {
             // If there's an error getting profile config, offer to refresh profiles
 
-            #if os(macOS)
-
-            let alert = NSAlert()
-            alert.alertStyle = .warning
-            alert.messageText = serverAPIError.summary
-            alert.informativeText = serverAPIError.detail
-            alert.addButton(withTitle: NSLocalizedString("Refresh Profiles", comment: "button title"))
-            alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "button title"))
-            if let window = self.view.window {
-                alert.beginSheetModal(for: window) { result in
-                    if case .alertFirstButtonReturn = result {
-                        self.beginServerConnectionFlow(continuationPolicy: .continueIfOnlyOneProfileFound)
-                    }
-                }
+            var isProfileConfigError = false
+            if let serverAPIError = appError as? ServerAPIv2Error,
+               case ServerAPIv2Error.errorGettingProfileConfig = serverAPIError {
+                isProfileConfigError = true
+            }
+            if let serverAPIError = appError as? ServerAPIv3Error,
+               case ServerAPIv3Error.errorGettingProfileConfig = serverAPIError {
+                isProfileConfigError = true
             }
 
-            #elseif os(iOS)
+            if isProfileConfigError {
+                #if os(macOS)
 
-            let alert = UIAlertController()
-            let refreshAction = UIAlertAction(
-                title: NSLocalizedString("Refresh Profiles", comment: "button title"),
-                style: .default,
-                handler: { _ in
-                    self.beginServerConnectionFlow(continuationPolicy: .continueIfOnlyOneProfileFound)
-                })
-            let cancelAction = UIAlertAction(
-                title: NSLocalizedString("Cancel", comment: "button title"),
-                style: .cancel)
-            alert.addAction(refreshAction)
-            alert.addAction(cancelAction)
-            present(alert, animated: true, completion: nil)
+                let alert = NSAlert()
+                alert.alertStyle = .warning
+                alert.messageText = appError.summary
+                alert.informativeText = appError.detail
+                alert.addButton(withTitle: NSLocalizedString("Refresh Profiles", comment: "button title"))
+                alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "button title"))
+                if let window = self.view.window {
+                    alert.beginSheetModal(for: window) { result in
+                        if case .alertFirstButtonReturn = result {
+                            self.beginServerConnectionFlow(continuationPolicy: .continueIfOnlyOneProfileFound)
+                        }
+                    }
+                }
 
-            #endif
-            return
+                #elseif os(iOS)
+
+                let alert = UIAlertController()
+                let refreshAction = UIAlertAction(
+                    title: NSLocalizedString("Refresh Profiles", comment: "button title"),
+                    style: .default,
+                    handler: { _ in
+                        self.beginServerConnectionFlow(continuationPolicy: .continueIfOnlyOneProfileFound)
+                    })
+                let cancelAction = UIAlertAction(
+                    title: NSLocalizedString("Cancel", comment: "button title"),
+                    style: .cancel)
+                alert.addAction(refreshAction)
+                alert.addAction(cancelAction)
+                present(alert, animated: true, completion: nil)
+
+                #endif
+                return
+            }
         }
         if !self.parameters.environment.serverAuthService.isUserCancelledError(error) {
             self.parameters.environment.navigationController?.showAlert(for: error)

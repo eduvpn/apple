@@ -258,7 +258,7 @@ private extension ServerAPIv2Handler {
             makeRequest(target: .profileConfig(commonInfo, profile: profile),
                         decodeAs: ProfileConfigResponse.self, options: options)
         }.map { data in
-            if let errorResponse = try? JSONDecoder().decode(ProfileConfigErrorResponse.self, from: data) {
+            if let errorResponse = try? JSONDecoder().decode(ProfileConfigErrorResponsev2.self, from: data) {
                 throw ServerAPIv2Error.errorGettingProfileConfig(profile: profile, serverError: errorResponse.errorMessage)
             }
             return data
