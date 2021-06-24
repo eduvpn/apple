@@ -385,6 +385,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                 shouldPreventAutomaticConnections: false)
                 .map { (expiresAt, connectionAttemptId) }
         }.then { (expiresAt, connectionAttemptId) -> Promise<Void> in
+            self.internalState = self.connectionService.isVPNEnabled ? .enabledVPN : .idle
             guard let notificationService = self.notificationService else {
                 return Promise.value(())
             }
