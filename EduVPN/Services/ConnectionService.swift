@@ -434,7 +434,10 @@ private extension ConnectionService {
         let protocolConfiguration = NETunnelProviderProtocol()
         protocolConfiguration.providerBundleIdentifier = wireGuardTunnelBundleId
         protocolConfiguration.serverAddress = serverName
-        protocolConfiguration.providerConfiguration = ["WireGuardConfig": wireGuardConfig]
+        protocolConfiguration.providerConfiguration = [
+            "WireGuardConfig": wireGuardConfig,
+            "AppGroup": appGroup
+        ]
         protocolConfiguration.connectionAttemptId = connectionAttemptId
         return protocolConfiguration
     }
