@@ -2436,7 +2436,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4ABCCBE621E528260020CB6D /* Development-OpenVPNTunnelExtension.xcconfig */;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
@@ -2466,7 +2466,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4ABCCBE521E528140020CB6D /* Release-OpenVPNTunnelExtension.xcconfig */;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
@@ -2761,6 +2761,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6F66DB7E265E50BB006974CF /* Development-WireGuardTunnelExtension.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
@@ -2793,6 +2794,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6F66DB7D265E50BB006974CF /* Release-WireGuardTunnelExtension.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
