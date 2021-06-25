@@ -2,7 +2,7 @@
 //  ServerAPIv3Handler.swift
 //  EduVPN
 //
-//  Copyright © 2021 SURFNet. All rights reserved.
+//  Copyright © 2020-2021 The Commons Conservancy. All rights reserved.
 
 import Foundation
 import Moya

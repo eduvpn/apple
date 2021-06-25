@@ -2,8 +2,7 @@
 //  EduVPN_UITests_iOS.swift
 //  EduVPN-UITests-iOS
 //
-//  Created by Johan Kool on 09/12/2020.
-//  Copyright © 2020 SURFNet. All rights reserved.
+//  Copyright © 2020-2021 The Commons Conservancy. All rights reserved.
 //
 
 import XCTest

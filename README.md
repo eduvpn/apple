@@ -6,7 +6,7 @@ The app contains a [Network Tunneling Protocol Client](https://developer.apple.c
 
 ## License
 
-Copyright (c) 2020 The Commons Conservancy. All rights reserved.
+Copyright (c) 2020-2021 The Commons Conservancy. All rights reserved.
 
 ### Part I
 
