@@ -132,8 +132,6 @@ struct ServerAPIv3Handler: ServerAPIHandler {
                     serverAPIVersion: commonInfo.serverInfo.apiVersion)
             case "application/x-wireguard-profile":
                 let updatedConfigString = try insertPrivateKey(privateKey, in: configString)
-                print("configString = \(configString)")
-                print("updatedConfigString = \(updatedConfigString)")
                 return ServerAPIService.TunnelConfigurationData(
                     vpnConfig: .wireGuardConfig(updatedConfigString),
                     expiresAt: expiresDate,
