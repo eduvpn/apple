@@ -35,8 +35,14 @@ The exact behavior is defined in the script [set_build_number.sh](Scripts/set_bu
 
 ## Dependencies
 
-Dependencies are managed with CocoaPods. But this repository is set up in such a way that you do not need CocoaPods to build this project, only when updating dependencies.
+### CocoaPods
+
+Most dependencies are managed with CocoaPods. But this repository is set up in such a way that you do not need CocoaPods to build this project, only when updating dependencies.
 Dependencies are defined in a [Podfile](https://github.com/eduvpn/ios/blob/master/Podfile), exact versions are 'locked' in [Podfile.lock](https://github.com/eduvpn/ios/blob/master/Podfile.lock). All dependencies defined in the Podfile are committed to this repository.
+
+### Swift Package Manager
+
+WireGuardKit alone is managed with Swift Package Manager, tied to either a specific version or commit.
 
 ## Building
 
@@ -54,6 +60,28 @@ and iOS:
   - For iOS:
       - `Config/iOS/config.json`
       - `Config/iOS/Developer.xcconfig`
+
+### Pre-requisites
+
+ 1. SwiftLint and Go need to be installed. The build setup looks for these in the paths that HomeBrew installs into.
+
+    To install, run:
+    ~~~
+    brew install swiftlint go
+    ~~~
+
+    Go version 1.16 is required.
+
+ 2. An explicit App ID needs to be created at the Apple Developer website for each platform
+
+    To do this, you can:
+
+     1. Go to your [Apple Developer account page](https://developer.apple.com/account/)
+     2. Go to Certificates, IDs and Profiles > Identifiers
+     3. Create an _App ID_ with an _Explicit_ _Bundle ID_, with the following _Capabilities_:
+          - App Groups
+          - Network Extensions
+     4. Specify the _Bundle ID_ in the appropriate `Developer*.xcconfig` file as described below
 
 ### Building the eduVPN macOS app
 
