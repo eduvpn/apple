@@ -14,7 +14,6 @@
 		342B9CB7228ED01400C006D7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CB2228ED01400C006D7 /* AppDelegate.m */; };
 		342B9CBB228ED02E00C006D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 342B9CB9228ED02E00C006D7 /* Main.storyboard */; };
 		349D85C522B706A4006E9540 /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349D85C422B706A4006E9540 /* PacketTunnelProvider.swift */; };
-		4A901C1420C87512000C1BF0 /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A901C1320C87512000C1BF0 /* PacketTunnelProvider.swift */; };
 		4A901C1E20C882FB000C1BF0 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ABFF78820C71E7200638480 /* NetworkExtension.framework */; };
 		4AAC1F8F1F2D0E3400DD0252 /* EduVPNTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC1F8E1F2D0E3400DD0252 /* EduVPNTests.swift */; };
 		4AD5688D238491FA00EC0ABD /* FileServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD5688C238491FA00EC0ABD /* FileServiceTests.swift */; };
@@ -39,6 +38,7 @@
 		6F1A1C0124EE8EDB0040D6A2 /* SupportContactTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1A1C0024EE8EDB0040D6A2 /* SupportContactTextView.swift */; };
 		6F21F40A26899B7A00C157E1 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F21F40926899B7A00C157E1 /* Logger.swift */; };
 		6F21F40B26899B7A00C157E1 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F21F40926899B7A00C157E1 /* Logger.swift */; };
+		6F21F4172689B3B700C157E1 /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349D85C422B706A4006E9540 /* PacketTunnelProvider.swift */; };
 		6F305A59254AA6C60067E744 /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F305A58254AA6C50067E744 /* LogViewController.swift */; };
 		6F36A71D24B454AB00BA8F5E /* CountryFlags.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F36A71C24B454AA00BA8F5E /* CountryFlags.xcassets */; };
 		6F36A71F24B5A36E00BA8F5E /* MainSecureInternetSectionHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F36A71E24B5A36E00BA8F5E /* MainSecureInternetSectionHeaderCell.swift */; };
@@ -348,12 +348,10 @@
 		417DD34C1C9EFF60C64C80CB /* Pods-LetsConnect-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsConnect-macOS.release.xcconfig"; path = "Target Support Files/Pods-LetsConnect-macOS/Pods-LetsConnect-macOS.release.xcconfig"; sourceTree = "<group>"; };
 		42AACF0AF7EEF11AF60D3848 /* Pods_eduVPN_2_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_eduVPN_2_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		49C0BE5C3A383FD0FDAB53DB /* Pods_EduVPN.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EduVPN.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4A2DA16D21C5ACF90026BCF5 /* EduVPN.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EduVPN.entitlements; sourceTree = "<group>"; };
 		4A3E78DB236B692A009CE595 /* config-appforce1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-appforce1.json"; sourceTree = "<group>"; };
 		4A3E78DC236B694A009CE595 /* Developer.xcconfig.appforce1-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer.xcconfig.appforce1-template"; sourceTree = "<group>"; };
 		4A79CE5D2281DDD800ABAA8E /* AppVersion.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = AppVersion.xcconfig; sourceTree = "<group>"; };
 		4A901C1120C87511000C1BF0 /* OpenVPNTunnelExtension-iOS.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "OpenVPNTunnelExtension-iOS.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4A901C1320C87512000C1BF0 /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
 		4A901C1520C87512000C1BF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4AAC1F8A1F2D0E3400DD0252 /* EduVPNTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EduVPNTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AAC1F8E1F2D0E3400DD0252 /* EduVPNTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EduVPNTests.swift; sourceTree = "<group>"; };
@@ -377,6 +375,7 @@
 		6F12816E25C3F6900078E734 /* TestServerCredentialsmacOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestServerCredentialsmacOS.swift; sourceTree = "<group>"; };
 		6F1A1C0024EE8EDB0040D6A2 /* SupportContactTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportContactTextView.swift; sourceTree = "<group>"; };
 		6F21F40926899B7A00C157E1 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		6F21F4162689B2E900C157E1 /* OpenVPNTunnelExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OpenVPNTunnelExtension.entitlements; sourceTree = "<group>"; };
 		6F305A58254AA6C50067E744 /* LogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
 		6F36A71C24B454AA00BA8F5E /* CountryFlags.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CountryFlags.xcassets; sourceTree = "<group>"; };
 		6F36A71E24B5A36E00BA8F5E /* MainSecureInternetSectionHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSecureInternetSectionHeaderCell.swift; sourceTree = "<group>"; };
@@ -699,15 +698,15 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		349D85C322B706A4006E9540 /* OpenVPNTunnelExtension-macOS */ = {
+		349D85C322B706A4006E9540 /* OpenVPNTunnelExtension */ = {
 			isa = PBXGroup;
 			children = (
+				6F21F4142689B27B00C157E1 /* Mac */,
+				6F21F4152689B28000C157E1 /* iOS */,
 				349D85C422B706A4006E9540 /* PacketTunnelProvider.swift */,
 				6F4C1ED425D12D710042AD95 /* SharedTunnelOptions.swift */,
-				349D85C622B706A4006E9540 /* Info.plist */,
-				349D85C722B706A4006E9540 /* OpenVPNTunnelExtension.entitlements */,
 			);
-			path = "OpenVPNTunnelExtension-macOS";
+			path = OpenVPNTunnelExtension;
 			sourceTree = "<group>";
 		};
 		3FD80EE8F0EFC339DAE2DAEB /* Pods */ = {
@@ -753,16 +752,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		4A901C1220C87512000C1BF0 /* OpenVPNTunnelExtension-iOS */ = {
-			isa = PBXGroup;
-			children = (
-				4A901C1320C87512000C1BF0 /* PacketTunnelProvider.swift */,
-				4A901C1520C87512000C1BF0 /* Info.plist */,
-				4A2DA16D21C5ACF90026BCF5 /* EduVPN.entitlements */,
-			);
-			path = "OpenVPNTunnelExtension-iOS";
-			sourceTree = "<group>";
-		};
 		4AAC1F6D1F2D0E3400DD0252 = {
 			isa = PBXGroup;
 			children = (
@@ -775,11 +764,10 @@
 				C7B4392B2580CE4D00FEB2B1 /* EduVPN-Tests-iOS */,
 				C7B4394B2580D0F000FEB2B1 /* EduVPN-UITests-iOS */,
 				4AAC1F8D1F2D0E3400DD0252 /* EduVPNTests */,
-				4A901C1220C87512000C1BF0 /* OpenVPNTunnelExtension-iOS */,
 				342B9C9A228ECFDB00C006D7 /* LoginItemHelper-macOS */,
-				349D85C322B706A4006E9540 /* OpenVPNTunnelExtension-macOS */,
 				C79B63C8258A08C200C054CC /* EduVPN-UITests-macOS */,
 				C75B2CA62363122900D700EC /* Scripts */,
+				349D85C322B706A4006E9540 /* OpenVPNTunnelExtension */,
 				6F66DAD0265E1E4C006974CF /* WireGuardTunnelExtension */,
 				4AAC1F771F2D0E3400DD0252 /* Products */,
 				26B4255A0C7DB00763783EF6 /* Frameworks */,
@@ -829,6 +817,24 @@
 				4AE763AB23DA4D1F00A98BCC /* main.yml */,
 			);
 			path = workflows;
+			sourceTree = "<group>";
+		};
+		6F21F4142689B27B00C157E1 /* Mac */ = {
+			isa = PBXGroup;
+			children = (
+				349D85C622B706A4006E9540 /* Info.plist */,
+				349D85C722B706A4006E9540 /* OpenVPNTunnelExtension.entitlements */,
+			);
+			path = Mac;
+			sourceTree = "<group>";
+		};
+		6F21F4152689B28000C157E1 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				6F21F4162689B2E900C157E1 /* OpenVPNTunnelExtension.entitlements */,
+				4A901C1520C87512000C1BF0 /* Info.plist */,
+			);
+			path = iOS;
 			sourceTree = "<group>";
 		};
 		6F305A5A254B65770067E744 /* Mac */ = {
@@ -2032,7 +2038,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A901C1420C87512000C1BF0 /* PacketTunnelProvider.swift in Sources */,
+				6F21F4172689B3B700C157E1 /* PacketTunnelProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2386,13 +2392,13 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "OpenVPNTunnelExtension-macOS/OpenVPNTunnelExtension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = OpenVPNTunnelExtension/Mac/OpenVPNTunnelExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = "OpenVPNTunnelExtension-macOS/Info.plist";
+				INFOPLIST_FILE = OpenVPNTunnelExtension/Mac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -2416,13 +2422,13 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "OpenVPNTunnelExtension-macOS/OpenVPNTunnelExtension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = OpenVPNTunnelExtension/Mac/OpenVPNTunnelExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = "OpenVPNTunnelExtension-macOS/Info.plist";
+				INFOPLIST_FILE = OpenVPNTunnelExtension/Mac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -2446,13 +2452,13 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "OpenVPNTunnelExtension-iOS/OpenVPNTunnelExtension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = OpenVPNTunnelExtension/iOS/OpenVPNTunnelExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = "$(DEVELOPMENT_TEAM)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = "OpenVPNTunnelExtension-iOS/Info.plist";
+				INFOPLIST_FILE = OpenVPNTunnelExtension/iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2476,13 +2482,13 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "OpenVPNTunnelExtension-iOS/OpenVPNTunnelExtension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = OpenVPNTunnelExtension/iOS/OpenVPNTunnelExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "$(DEVELOPMENT_TEAM)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = "OpenVPNTunnelExtension-iOS/Info.plist";
+				INFOPLIST_FILE = OpenVPNTunnelExtension/iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

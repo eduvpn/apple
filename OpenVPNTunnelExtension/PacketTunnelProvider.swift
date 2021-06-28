@@ -6,11 +6,15 @@
 import TunnelKit
 import NetworkExtension
 
+#if os(macOS)
 enum PacketTunnelProviderError: Error {
     case connectionAttemptFromOSNotAllowed
 }
+#endif
 
 class PacketTunnelProvider: OpenVPNTunnelProvider {
+
+    #if os(macOS)
     override var reasserting: Bool {
         didSet {
             if reasserting {
@@ -37,4 +41,6 @@ class PacketTunnelProvider: OpenVPNTunnelProvider {
 
         super.startTunnel(options: options, completionHandler: completionHandler)
     }
+    #endif
+
 }
