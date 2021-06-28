@@ -15,7 +15,7 @@ class ConnectionInfoHelper {
         let addresses: String
     }
 
-    private var networkAddress: NetworkAddress? {
+    private var networkAddresses: [String] = [] {
         didSet {
             self.update()
         }
@@ -51,9 +51,9 @@ class ConnectionInfoHelper {
         self.update()
 
         firstly {
-            self.connectionService.getNetworkAddress()
-        }.map { networkAddress in
-            self.networkAddress = networkAddress
+            self.connectionService.getNetworkAddresses()
+        }.map { networkAddresses in
+            self.networkAddresses = networkAddresses
         }.then {
             self.connectionService.getTransferredByteCount()
         }.done { transferredByteCount in
@@ -78,9 +78,9 @@ class ConnectionInfoHelper {
 
     func refreshNetworkAddress() {
         firstly {
-            self.connectionService.getNetworkAddress()
-        }.done { networkAddress in
-            self.networkAddress = networkAddress
+            self.connectionService.getNetworkAddresses()
+        }.done { networkAddresses in
+            self.networkAddresses = networkAddresses
         }
     }
 }
@@ -115,7 +115,6 @@ private extension ConnectionInfoHelper {
     }
 
     private func update() {
-        guard let networkAddress = networkAddress else { return }
         let dataTransferredString = String(
             format: NSLocalizedString(
                 "Downloaded: %@\nUploaded: %@", comment: "Connection Info bytes transferred"),
@@ -123,16 +122,7 @@ private extension ConnectionInfoHelper {
                 NSLocalizedString("Unknown", comment: "Connection Info bytes transferred"),
             uploaded ??
                 NSLocalizedString("Unknown", comment: "Connection Info bytes transferred"))
-        let networkAddressString: String = {
-            switch (networkAddress.ipv4, networkAddress.ipv6) {
-            case (nil, nil): return NSLocalizedString(
-                "No addresses",
-                comment: "Connection Info network address")
-            case (let ipv4, nil): return ipv4! // swiftlint:this:disable force_unwrapping
-            case (nil, let ipv6): return ipv6! // swiftlint:this:disable force_unwrapping
-            case (let ipv4, let ipv6): return "\(ipv4!)\n\(ipv6!)" // swiftlint:this:disable force_unwrapping
-            }
-        }()
+        let networkAddressString: String = networkAddresses.joined(separator: "\n")
         self.handler(ConnectionInfo(duration: connectedDuration ??
                                         NSLocalizedString(
                                             "Unknown",

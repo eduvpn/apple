@@ -78,11 +78,11 @@ class MockConnectionService: ConnectionServiceProtocol {
             }
     }
 
-    func getNetworkAddress() -> Guarantee<NetworkAddress> {
+    func getNetworkAddresses() -> Guarantee<[String]> {
         guard isInitialized else {
             fatalError("ConnectionService not initialized yet")
         }
-        return .value(NetworkAddress(ipv4: nil, ipv6: nil))
+        return .value([])
     }
 
     func getTransferredByteCount() -> Guarantee<TransferredByteCount> {
