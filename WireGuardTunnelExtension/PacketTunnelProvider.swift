@@ -17,6 +17,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
 
     // Logging
     var logger: Logger?
+    var tunnelConfiguration: TunnelConfiguration?
 
     private lazy var adapter: WireGuardAdapter = {
         return WireGuardAdapter(with: self) { _, message in
@@ -44,6 +45,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             completionHandler(PacketTunnelProviderError.savedProtocolConfigurationIsInvalid)
             return
         }
+        self.tunnelConfiguration = tunnelConfiguration
 
         adapter.start(tunnelConfiguration: tunnelConfiguration) { adapterError in
             if let adapterError = adapterError {
@@ -72,5 +74,41 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             #endif
         }
     }
-}
 
+    override func handleAppMessage(_ messageData: Data, completionHandler: ((Data?) -> Void)? = nil) {
+        guard messageData.count == 1, let code = TunnelMessageCode(rawValue: messageData[0]) else {
+            completionHandler?(nil)
+            return
+        }
+
+        switch code {
+        case .getTransferredByteCount:
+            adapter.getRuntimeConfiguration { settings in
+                guard let settings = settings,
+                      let runtimeConfig = try? TunnelConfiguration(fromUapiConfig: settings, basedOn: self.tunnelConfiguration) else {
+                    completionHandler?(nil)
+                    return
+                }
+                let rxBytesTotal = runtimeConfig.peers.reduce(0) { $0 + ($1.rxBytes ?? 0) }
+                let txBytesTotal = runtimeConfig.peers.reduce(0) { $0 + ($1.txBytes ?? 0) }
+                let transferred = TransferredByteCount(inbound: rxBytesTotal, outbound: txBytesTotal)
+                completionHandler?(transferred.data)
+            }
+        case .getNetworkAddresses:
+            guard let tunnelConfiguration = self.tunnelConfiguration else {
+                completionHandler?(nil)
+                return
+            }
+            let addresses: [String] = tunnelConfiguration.interface.addresses.map { $0.stringRepresentation }
+            let encoder = JSONEncoder()
+            completionHandler?(try? encoder.encode(addresses))
+        case .getLog:
+            var data = Data()
+            for line in (logger?.lines ?? []) {
+                data.append(line.data(using: .utf8) ?? Data())
+                data.append("\n".data(using: .utf8) ?? Data())
+            }
+            completionHandler?(data)
+        }
+    }
+}
