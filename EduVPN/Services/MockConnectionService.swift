@@ -22,6 +22,7 @@ class MockConnectionService: ConnectionServiceProtocol {
     private(set) var isVPNEnabled: Bool = false
     private(set) var connectionAttemptId: UUID?
     private(set) var connectedDate: Date?
+    private(set) var vpnProtocol: VPNProtocol?
 
     init() {
         after(seconds: 1)

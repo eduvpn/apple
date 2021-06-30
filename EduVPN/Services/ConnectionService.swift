@@ -56,6 +56,11 @@ struct Credentials {
     let password: String
 }
 
+enum VPNProtocol: String {
+    case openVPN = "OpenVPN"
+    case wireGuard = "WireGuard"
+}
+
 protocol ConnectionServiceProtocol: class {
 
     var initializationDelegate: ConnectionServiceInitializationDelegate? { get set }
@@ -66,6 +71,7 @@ protocol ConnectionServiceProtocol: class {
     var isVPNEnabled: Bool { get }
     var connectionAttemptId: UUID? { get }
     var connectedDate: Date? { get }
+    var vpnProtocol: VPNProtocol? { get }
 
     func enableVPN(openVPNConfig: [String], connectionAttemptId: UUID,
                    credentials: Credentials?,
@@ -92,6 +98,18 @@ class ConnectionService: ConnectionServiceProtocol {
     var isVPNEnabled: Bool { tunnelManager?.isOnDemandEnabled ?? false }
     var connectionAttemptId: UUID? { tunnelManager?.connectionAttemptId }
     var connectedDate: Date? { tunnelManager?.session.connectedDate }
+
+    var vpnProtocol: VPNProtocol? {
+        let providerProtocol = tunnelManager?.protocolConfiguration as? NETunnelProviderProtocol
+        switch providerProtocol?.providerBundleIdentifier {
+        case Self.openVPNTunnelBundleId:
+            return .openVPN
+        case Self.wireGuardTunnelBundleId:
+            return .wireGuard
+        default:
+            return nil
+        }
+    }
 
     private var statusObservationToken: AnyObject?
     private var startTunnelPromiseResolver: Resolver<Void>?
