@@ -130,6 +130,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     @IBOutlet weak var durationLabel: NSTextField!
     @IBOutlet weak var profileTitleLabel: NSTextField!
     @IBOutlet weak var profileNameLabel: NSTextField!
+    @IBOutlet weak var vpnProtocolLabel: NSTextField!
     @IBOutlet weak var dataTransferredLabel: NSTextField!
     @IBOutlet weak var addressLabel: NSTextField!
     #endif
@@ -671,7 +672,7 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
     }
 
     static let connectionInfoHeaderHeight: CGFloat = 46
-    static let connectionInfoBodyHeight: CGFloat = 100
+    static let connectionInfoBodyHeight: CGFloat = 120
     #if os(macOS)
     static let additionalControlContainerHeight = connectionInfoBodyHeight
     #elseif os(iOS)
@@ -722,9 +723,16 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
             if let profileName = connectionInfo.profileName {
                 profileTitleLabel.isHidden = false
                 profileNameLabel.stringValue = profileName
+                vpnProtocolLabel.stringValue = {
+                    guard let vpnProtocol = connectionInfo.vpnProtocol else {
+                        return ""
+                    }
+                    return "(\(vpnProtocol))"
+                }()
             } else {
                 profileTitleLabel.isHidden = true
                 profileNameLabel.stringValue = ""
+                vpnProtocolLabel.stringValue = ""
             }
             dataTransferredLabel.stringValue = connectionInfo.dataTransferred
             addressLabel.stringValue = connectionInfo.addresses

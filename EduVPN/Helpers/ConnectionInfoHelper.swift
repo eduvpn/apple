@@ -11,6 +11,7 @@ class ConnectionInfoHelper {
     struct ConnectionInfo {
         let duration: String
         let profileName: String?
+        let vpnProtocol: String?
         let dataTransferred: String
         let addresses: String
     }
@@ -30,6 +31,7 @@ class ConnectionInfoHelper {
     private let connectionService: ConnectionServiceProtocol
     private let handler: (ConnectionInfo) -> Void
     private var localizedProfileName: String?
+    private var vpnProtocol: String?
 
     private var timer: Timer? {
         didSet(oldValue) {
@@ -37,10 +39,13 @@ class ConnectionInfoHelper {
         }
     }
 
-    init(connectionService: ConnectionServiceProtocol, profileName: LanguageMappedString?, handler: @escaping (ConnectionInfo) -> Void) {
+    init(connectionService: ConnectionServiceProtocol,
+         profileName: LanguageMappedString?,
+         handler: @escaping (ConnectionInfo) -> Void) {
         self.connectionService = connectionService
         self.handler = handler
         self.localizedProfileName = profileName?.stringForCurrentLanguage()
+        self.vpnProtocol = connectionService.vpnProtocol?.rawValue
     }
 
     deinit {
@@ -128,6 +133,7 @@ private extension ConnectionInfoHelper {
                                             "Unknown",
                                             comment: "Connection Info duration"),
                                     profileName: localizedProfileName,
+                                    vpnProtocol: vpnProtocol,
                                     dataTransferred: dataTransferredString,
                                     addresses: networkAddressString))
     }
