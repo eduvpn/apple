@@ -441,8 +441,8 @@ private extension ConnectionService {
         protocolConfiguration.providerBundleIdentifier = wireGuardTunnelBundleId
         protocolConfiguration.serverAddress = serverName
         protocolConfiguration.providerConfiguration = [
-            "WireGuardConfig": wireGuardConfig,
-            "AppGroup": appGroup
+            WireGuardProviderConfigurationKeys.wireGuardConfig.rawValue: wireGuardConfig,
+            WireGuardProviderConfigurationKeys.appGroup.rawValue: appGroup
         ]
         protocolConfiguration.connectionAttemptId = connectionAttemptId
         return protocolConfiguration

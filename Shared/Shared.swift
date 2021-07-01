@@ -45,3 +45,8 @@ struct TransferredByteCount: Codable {
         self.outbound = outbound
     }
 }
+
+enum WireGuardProviderConfigurationKeys: String {
+    case wireGuardConfig
+    case appGroup
+}
