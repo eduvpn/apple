@@ -89,7 +89,7 @@ class MainViewController: ViewController {
 
     func pushConnectionVC(connectableInstance: ConnectableInstance,
                           preConnectionState: ConnectionAttempt.PreConnectionState?,
-                          continuationPolicy: ServerConnectionFlowContinuationPolicy,
+                          continuationPolicy: ConnectionViewModel.FlowContinuationPolicy,
                           shouldRenewSessionOnRestoration: Bool = false) {
         if let currentConnectionVC = currentConnectionVC,
            currentConnectionVC.connectableInstance.isEqual(to: connectableInstance),

@@ -109,6 +109,14 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         let serverAPIVersion: ServerInfo.APIVersion
     }
 
+    enum FlowContinuationPolicy {
+        // After getting the profile list, deciding whether to continue to connect or not
+        case continueWithSingleOrLastUsedProfile
+        case continueWithAnyProfile
+        case doNotContinue
+        case notApplicable
+    }
+
     private(set) var header: Header {
         didSet { delegate?.connectionViewModel(self, headerChanged: header) }
     }
@@ -299,7 +307,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
 
     func beginServerConnectionFlow(
         from viewController: AuthorizingViewController,
-        continuationPolicy: ServerConnectionFlowContinuationPolicy,
+        continuationPolicy: ConnectionViewModel.FlowContinuationPolicy,
         lastUsedProfileId: String?) -> Promise<Void> {
         precondition(self.connectionService.isInitialized)
         precondition(self.connectionService.isVPNEnabled == false)

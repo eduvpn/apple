@@ -37,13 +37,6 @@ extension ConnectionViewControllerError: AppError {
     }
 }
 
-enum ServerConnectionFlowContinuationPolicy {
-    case continueWithSingleOrLastUsedProfile
-    case continueWithAnyProfile
-    case doNotContinue
-    case notApplicable
-}
-
 final class ConnectionViewController: ViewController, ParametrizedViewController {
 
     struct Parameters {
@@ -51,7 +44,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         let connectableInstance: ConnectableInstance
         let serverDisplayInfo: ServerDisplayInfo
         let authURLTemplate: String?
-        let initialConnectionFlowContinuationPolicy: ServerConnectionFlowContinuationPolicy
+        let initialConnectionFlowContinuationPolicy: ConnectionViewModel.FlowContinuationPolicy
 
         // If restoringPreConnectionState is non-nil, then we're restoring
         // the UI at app launch for an already-on VPN
@@ -217,7 +210,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     }
     #endif
 
-    func beginConnectionFlow(continuationPolicy: ServerConnectionFlowContinuationPolicy) {
+    func beginConnectionFlow(continuationPolicy: ConnectionViewModel.FlowContinuationPolicy) {
         if parameters.connectableInstance is ServerInstance {
             beginServerConnectionFlow(continuationPolicy: continuationPolicy)
         } else if parameters.connectableInstance is VPNConfigInstance {
@@ -382,7 +375,7 @@ private extension ConnectionViewController {
         #endif
     }
 
-    func beginServerConnectionFlow(continuationPolicy: ServerConnectionFlowContinuationPolicy) {
+    func beginServerConnectionFlow(continuationPolicy: ConnectionViewModel.FlowContinuationPolicy) {
         firstly {
             viewModel.beginServerConnectionFlow(
                 from: self, continuationPolicy: continuationPolicy, lastUsedProfileId: self.selectedProfileId)
