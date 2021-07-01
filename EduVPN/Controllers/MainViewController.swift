@@ -326,7 +326,7 @@ extension MainViewController {
         if let connectableInstance = row.connectableInstance {
             pushConnectionVC(connectableInstance: connectableInstance,
                              preConnectionState: nil,
-                             continuationPolicy: .continueIfOnlyOneProfileFound)
+                             continuationPolicy: .continueWithSingleOrLastUsedProfile)
         }
     }
 

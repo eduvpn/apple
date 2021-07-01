@@ -37,7 +37,7 @@ extension MainViewController: StatusItemControllerDelegate {
             self.pushConnectionVC(
                 connectableInstance: connectableInstance,
                 preConnectionState: nil,
-                continuationPolicy: .continueIfAnyProfileFound)
+                continuationPolicy: .continueWithAnyProfile)
         }.cauterize()
     }
 }

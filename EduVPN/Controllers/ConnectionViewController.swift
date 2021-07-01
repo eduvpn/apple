@@ -38,8 +38,8 @@ extension ConnectionViewControllerError: AppError {
 }
 
 enum ServerConnectionFlowContinuationPolicy {
-    case continueIfOnlyOneProfileFound
-    case continueIfAnyProfileFound
+    case continueWithSingleOrLastUsedProfile
+    case continueWithAnyProfile
     case doNotContinue
     case notApplicable
 }
@@ -229,7 +229,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         if vpnSwitch.isOn {
             if parameters.connectableInstance is ServerInstance {
                 guard let profiles = profiles, !profiles.isEmpty else {
-                    beginServerConnectionFlow(continuationPolicy: .continueIfOnlyOneProfileFound)
+                    beginServerConnectionFlow(continuationPolicy: .continueWithSingleOrLastUsedProfile)
                     return
                 }
                 if selectedProfileId == nil {
@@ -385,7 +385,7 @@ private extension ConnectionViewController {
     func beginServerConnectionFlow(continuationPolicy: ServerConnectionFlowContinuationPolicy) {
         firstly {
             viewModel.beginServerConnectionFlow(
-                from: self, continuationPolicy: continuationPolicy, preferredProfileId: self.selectedProfileId)
+                from: self, continuationPolicy: continuationPolicy, lastUsedProfileId: self.selectedProfileId)
         }.catch { error in
             os_log("Error beginning server connection flow: %{public}@",
                    log: Log.general, type: .error,
@@ -510,7 +510,7 @@ private extension ConnectionViewController {
                 if let window = self.view.window {
                     alert.beginSheetModal(for: window) { result in
                         if case .alertFirstButtonReturn = result {
-                            self.beginServerConnectionFlow(continuationPolicy: .continueIfOnlyOneProfileFound)
+                            self.beginServerConnectionFlow(continuationPolicy: .continueWithSingleOrLastUsedProfile)
                         }
                     }
                 }
@@ -522,7 +522,7 @@ private extension ConnectionViewController {
                     title: NSLocalizedString("Refresh Profiles", comment: "button title"),
                     style: .default,
                     handler: { _ in
-                        self.beginServerConnectionFlow(continuationPolicy: .continueIfOnlyOneProfileFound)
+                        self.beginServerConnectionFlow(continuationPolicy: .continueWithSingleOrLastUsedProfile)
                     })
                 let cancelAction = UIAlertAction(
                     title: NSLocalizedString("Cancel", comment: "button title"),
