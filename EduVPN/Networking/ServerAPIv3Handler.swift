@@ -82,7 +82,6 @@ struct ServerAPIv3Handler: ServerAPIHandler {
             .map { $0.data }
     }
 
-    // swiftlint:disable:next function_body_length
     static func getTunnelConfigurationData(
         commonInfo: ServerAPIService.CommonAPIRequestInfo,
         profile: Profile,

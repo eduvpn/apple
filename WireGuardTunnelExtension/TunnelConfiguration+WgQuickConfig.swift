@@ -22,6 +22,8 @@
 import Foundation
 import WireGuardKit
 
+// swiftlint:disable cyclomatic_complexity function_body_length
+
 public extension TunnelConfiguration {
 
     enum ParserState {

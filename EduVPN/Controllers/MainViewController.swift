@@ -61,6 +61,7 @@ class MainViewController: ViewController {
     private(set) var viewModel: MainViewModel!
     private var isTableViewInitialized = false
     private var isConnectionServiceInitialized = false
+    // swiftlint:disable:next identifier_name
     private var shouldRenewSessionWhenConnectionServiceInitialized = false
 
     @IBOutlet weak var tableView: TableView!

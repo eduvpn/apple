@@ -727,5 +727,4 @@ private extension EduVPNUITestsiOS {
             whenITapButton(app, label: "Approve")
         }
     }
-    
-}
+} // swiftlint:disable:this file_length

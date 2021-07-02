@@ -22,6 +22,8 @@
 import Foundation
 import WireGuardKit
 
+// swiftlint:disable cyclomatic_complexity function_body_length todo
+
 extension TunnelConfiguration {
     convenience init(fromUapiConfig uapiConfig: String, basedOn base: TunnelConfiguration? = nil) throws {
         var interfaceConfiguration: InterfaceConfiguration?
@@ -122,7 +124,6 @@ extension TunnelConfiguration {
         return interface
     }
 
-    // swiftlint:disable:next cyclomatic_complexity
     private static func collate(peerAttributes attributes: [String: String]) throws -> PeerConfiguration {
         guard let publicKeyString = attributes["public_key"] else {
             throw ParseError.peerHasNoPublicKey

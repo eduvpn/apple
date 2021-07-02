@@ -37,6 +37,7 @@ extension ConnectionViewControllerError: AppError {
     }
 }
 
+// swiftlint:disable:next type_body_length
 final class ConnectionViewController: ViewController, ParametrizedViewController {
 
     struct Parameters {

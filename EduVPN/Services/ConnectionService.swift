@@ -540,4 +540,4 @@ private func logConnectionStatus(_ status: NEVPNStatus) {
         }
     }()
     os_log("Connection status: %{public}@", log: Log.general, type: .info, statusString)
-}
+} // swiftlint:disable:this file_length

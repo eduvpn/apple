@@ -158,7 +158,6 @@ class NotificationService: NSObject {
         }
     }
 
-    // swiftlint:disable:next function_body_length
     private static func showPrePrompt(from viewController: ViewController) -> Guarantee<Bool> {
 
         #if os(macOS)
