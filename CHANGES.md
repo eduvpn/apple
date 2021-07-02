@@ -8,6 +8,7 @@
 - Rollback prevention for discovery data
 - macOS: Improve HTML page shown after OAuth authentication completes #182
 - Updated dependencies
+- Support for APIv3 and WireGuard
 
 ## 2.2.2
 
