@@ -41,7 +41,7 @@ struct ServerInfoFetcher {
 
     struct ServerInfoTarget: TargetType, AcceptJson, SimpleGettable {
         var baseURL: URL
-        var path: String { "/info.json" }
+        var path: String { ".well-known/vpn-user-portal" } // Previously info.json
 
         init(_ url: URL) {
             baseURL = url
