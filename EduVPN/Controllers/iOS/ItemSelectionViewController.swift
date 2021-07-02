@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ItemSelectionViewControllerDelegate: class {
+protocol ItemSelectionViewControllerDelegate: AnyObject {
     func itemSelectionViewController(_ viewController: ItemSelectionViewController, didSelectIndex index: Int)
 }
 

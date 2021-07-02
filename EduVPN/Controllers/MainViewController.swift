@@ -7,7 +7,7 @@ import Foundation
 import os.log
 import PromiseKit
 
-protocol MainViewControllerDelegate: class {
+protocol MainViewControllerDelegate: AnyObject {
     func mainViewControllerAddedServersListChanged(
         _ viewController: MainViewController)
     func mainViewController(

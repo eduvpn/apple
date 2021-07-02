@@ -6,12 +6,12 @@
 #if os(macOS)
 import AppKit
 
-protocol StatusItemControllerDataSource: class {
+protocol StatusItemControllerDataSource: AnyObject {
     func currentServer() -> (ConnectionViewModel.ConnectionFlowStatus, ConnectableInstance?)
     func addedServersListRows() -> [MainViewModel.Row]
 }
 
-protocol StatusItemControllerDelegate: class {
+protocol StatusItemControllerDelegate: AnyObject {
     func startConnectionFlow(with instance: ConnectableInstance)
     func disableVPN()
 }

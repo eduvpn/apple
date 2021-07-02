@@ -3,7 +3,7 @@
 //  EduVPN
 //
 
-protocol NavigationControllerAddButtonDelegate: class {
+protocol NavigationControllerAddButtonDelegate: AnyObject {
     func addButtonClicked(inNavigationController controller: NavigationController)
 }
 

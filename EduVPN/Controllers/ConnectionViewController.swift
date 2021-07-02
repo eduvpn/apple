@@ -9,7 +9,7 @@ import Foundation
 import PromiseKit
 import os.log
 
-protocol ConnectionViewControllerDelegate: class {
+protocol ConnectionViewControllerDelegate: AnyObject {
     func connectionViewController(
         _ controller: ConnectionViewController,
         flowStatusChanged status: ConnectionViewModel.ConnectionFlowStatus)

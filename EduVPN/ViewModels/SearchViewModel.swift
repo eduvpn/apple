@@ -8,7 +8,7 @@
 import Foundation
 import PromiseKit
 
-protocol SearchViewModelDelegate: class {
+protocol SearchViewModelDelegate: AnyObject {
     func searchViewModel(_ model: SearchViewModel, rowsChanged changes: RowsDifference<SearchViewModel.Row>)
 }
 

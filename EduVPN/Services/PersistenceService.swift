@@ -8,7 +8,7 @@ import AppAuth
 import PromiseKit
 import os.log
 
-protocol PersistenceServiceHasServersDelegate: class {
+protocol PersistenceServiceHasServersDelegate: AnyObject {
     func persistenceService(_ persistenceService: PersistenceService,
                             hasServersChangedTo hasServers: Bool)
 }

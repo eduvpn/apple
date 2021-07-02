@@ -10,7 +10,7 @@ import AppKit
 import PromiseKit
 import os.log
 
-protocol AddServerViewControllerDelegate: class {
+protocol AddServerViewControllerDelegate: AnyObject {
     func addServerViewController(
         _ controller: AddServerViewController,
         addedSimpleServerWithBaseURL baseURLString: DiscoveryData.BaseURLString,

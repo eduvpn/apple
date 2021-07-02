@@ -9,13 +9,13 @@ import PromiseKit
 import TunnelKit
 import os.log
 
-protocol ConnectionServiceInitializationDelegate: class {
+protocol ConnectionServiceInitializationDelegate: AnyObject {
     func connectionService(
         _ service: ConnectionServiceProtocol,
         initializedWithState: ConnectionServiceInitializedState)
 }
 
-protocol ConnectionServiceStatusDelegate: class {
+protocol ConnectionServiceStatusDelegate: AnyObject {
     func connectionService(_ service: ConnectionServiceProtocol, connectionStatusChanged status: NEVPNStatus)
 }
 
@@ -61,7 +61,7 @@ enum VPNProtocol: String {
     case wireGuard = "WireGuard"
 }
 
-protocol ConnectionServiceProtocol: class {
+protocol ConnectionServiceProtocol: AnyObject {
 
     var initializationDelegate: ConnectionServiceInitializationDelegate? { get set }
     var statusDelegate: ConnectionServiceStatusDelegate? { get set }

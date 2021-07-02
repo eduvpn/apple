@@ -9,7 +9,7 @@ import Foundation
 import PromiseKit
 import os.log
 
-protocol MainViewModelDelegate: class {
+protocol MainViewModelDelegate: AnyObject {
     func mainViewModel(_ model: MainViewModel, rowsChanged changes: RowsDifference<MainViewModel.Row>)
 }
 

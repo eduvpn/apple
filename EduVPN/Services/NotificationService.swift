@@ -9,7 +9,7 @@ import UserNotifications
 import PromiseKit
 import os.log
 
-protocol NotificationServiceDelegate: class {
+protocol NotificationServiceDelegate: AnyObject {
     func notificationServiceDidReceiveRenewSessionRequest(_ notificationService: NotificationService)
 }
 

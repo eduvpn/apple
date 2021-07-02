@@ -9,7 +9,7 @@ import Foundation
 import PromiseKit
 import NetworkExtension
 
-protocol ConnectionViewModelDelegate: class {
+protocol ConnectionViewModelDelegate: AnyObject {
     func connectionViewModel(
         _ model: ConnectionViewModel,
         foundProfiles profiles: [Profile])

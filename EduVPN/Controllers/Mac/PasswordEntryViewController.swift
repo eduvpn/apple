@@ -7,7 +7,7 @@
 
 import AppKit
 
-protocol PasswordEntryViewControllerDelegate: class {
+protocol PasswordEntryViewControllerDelegate: AnyObject {
     func passwordEntryViewController(
         _ controller: PasswordEntryViewController,
         didSetCredentials credentials: Credentials)
