@@ -1355,6 +1355,7 @@
 				6F66DACA265E1E4C006974CF /* Sources */,
 				6F66DACB265E1E4C006974CF /* Frameworks */,
 				6F66DACC265E1E4C006974CF /* Resources */,
+				6FE09C1E268F1EC90049203C /* Set Build Number */,
 			);
 			buildRules = (
 			);
@@ -1376,6 +1377,7 @@
 				6F6BB61C265E58BF0093D4CC /* Sources */,
 				6F6BB61D265E58BF0093D4CC /* Frameworks */,
 				6F6BB61E265E58BF0093D4CC /* Resources */,
+				6FE09C1F268F1F3A0049203C /* Set Build Number */,
 			);
 			buildRules = (
 			);
@@ -1952,6 +1954,42 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EduVPN-iOS/Pods-EduVPN-iOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		6FE09C1E268F1EC90049203C /* Set Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Set Build Number";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$SRCROOT/Scripts/set_build_number.sh\n";
+		};
+		6FE09C1F268F1F3A0049203C /* Set Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Set Build Number";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$SRCROOT/Scripts/set_build_number.sh\n";
 		};
 		A555307E60571F7A9566C142 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
