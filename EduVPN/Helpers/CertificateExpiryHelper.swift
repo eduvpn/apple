@@ -159,7 +159,7 @@ extension CertificateExpiryHelper.CertificateStatus {
         case .validFor(let timeRemaining):
             // Show renewal button if session expires in
             // less than a week.
-            return timeRemaining < (60 * 24 * 7)
+            return timeRemaining < (60 * 60 * 24 * 7)
         case .expired:
             return true
         }
