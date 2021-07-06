@@ -70,7 +70,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
 
             #if os(macOS)
             // HACK: We have to kill the tunnel process ourselves because of a macOS bug
-            // exit(0)
+            exit(0)
             #endif
         }
     }
