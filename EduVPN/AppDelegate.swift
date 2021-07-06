@@ -209,6 +209,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             return .terminateNow
         }
 
+        if connectionService.isUnrecognizedVPN {
+            return .terminateNow
+        }
+
         if isQuittingForLogoutShutdownOrRestart() {
             return showAlertConfirmingLogoutWithVPNOn(connectionService: connectionService)
         } else {
