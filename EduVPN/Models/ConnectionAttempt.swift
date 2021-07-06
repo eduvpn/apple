@@ -18,10 +18,11 @@ enum ConnectionAttemptDecodingError: Error {
 struct ConnectionAttempt {
     struct ServerPreConnectionState {
         // The state before connection was attempted to a ServerInstance
-        let profiles: [ProfileListResponse.Profile]
+        let profiles: [Profile]
         let selectedProfileId: String
-        let certificateValidFrom: Date
-        let certificateExpiresAt: Date
+        let sessionExpiresAt: Date
+        let serverAPIBaseURL: URL
+        let serverAPIVersion: ServerInfo.APIVersion
     }
 
     struct VPNConfigPreConnectionState {
@@ -51,16 +52,20 @@ struct ConnectionAttempt {
     let preConnectionState: PreConnectionState
     let attemptId: UUID
 
-    init(server: ServerInstance, profiles: [ProfileListResponse.Profile],
+    init(server: ServerInstance, profiles: [Profile],
          selectedProfileId: String,
-         certificateValidityRange: ServerAPIService.CertificateValidityRange,
+         sessionExpiresAt: Date,
+         serverAPIBaseURL: URL,
+         serverAPIVersion: ServerInfo.APIVersion,
          attemptId: UUID) {
         self.connectableInstance = server
         self.preConnectionState = .serverState(
             ServerPreConnectionState(
-                profiles: profiles, selectedProfileId: selectedProfileId,
-                certificateValidFrom: certificateValidityRange.validFrom,
-                certificateExpiresAt: certificateValidityRange.expiresAt))
+                profiles: profiles,
+                selectedProfileId: selectedProfileId,
+                sessionExpiresAt: sessionExpiresAt,
+                serverAPIBaseURL: serverAPIBaseURL,
+                serverAPIVersion: serverAPIVersion))
         self.attemptId = attemptId
     }
 
@@ -77,8 +82,9 @@ extension ConnectionAttempt.ServerPreConnectionState: Codable {
     enum CodingKeys: String, CodingKey {
         case profiles
         case selectedProfileId = "selected_profile_id"
-        case certificateValidFrom = "certificate_valid_from"
-        case certificateExpiresAt = "certificate_expires_at"
+        case sessionExpiresAt = "session_expires_at"
+        case serverAPIBaseURL = "api_base_url"
+        case serverAPIVersion = "api_version"
     }
 }
 

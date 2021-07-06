@@ -11,78 +11,38 @@ import ASN1Decoder
 import os.log
 
 enum ServerAPIServiceError: Error {
-    case serverProvidedInvalidCertificate
-    case HTTPFailure(requestURLPath: String, response: Moya.Response)
-    case errorGettingProfileConfig(profile: ProfileListResponse.Profile, serverError: String)
-    case openVPNConfigHasInvalidEncoding
-    case openVPNConfigHasNoCertificateAuthority
-    case openVPNConfigHasNoRemotes
-    case openVPNConfigHasOnlyUDPRemotes // and UDP is not allowed
-}
-
-extension ServerAPIServiceError: AppError {
-    var summary: String {
-        switch self {
-        case .serverProvidedInvalidCertificate:
-            return "Server provided invalid certificate"
-        case .HTTPFailure:
-            return "HTTP request failed"
-        case .errorGettingProfileConfig:
-            return "Error getting profile config"
-        case .openVPNConfigHasInvalidEncoding:
-            return "OpenVPN config has unrecognized encoding"
-        case .openVPNConfigHasNoCertificateAuthority:
-            return "OpenVPN config has no certificate authority"
-        case .openVPNConfigHasNoRemotes:
-            return "OpenVPN config has no remotes"
-        case .openVPNConfigHasOnlyUDPRemotes:
-            return "OpenVPN config has no TCP remotes, but only TCP can be used as per preferences"
-        }
-    }
-
-    var detail: String {
-        switch self {
-        case .serverProvidedInvalidCertificate:
-            return "Server provided invalid certificate"
-        case .HTTPFailure(let requestURLPath, let response):
-            return """
-            Request path: \(requestURLPath)
-            Response code: \(response.statusCode)
-            Response: \(String(data: response.data, encoding: .utf8) ?? "")
-            """
-        case .errorGettingProfileConfig(let profile, let serverError):
-            return """
-            Requested profile: \(profile.displayName.stringForCurrentLanguage())
-            Server error: \(serverError)
-            """
-        default:
-            return ""
-        }
-    }
+    case cannotUseStoredAuthState
+    case cannotUseStoredKeyPair // Applies to APIv2 only
+    case unauthorized(authorizationError: Error)
 }
 
 class ServerAPIService {
-
     struct Options: OptionSet {
         let rawValue: Int
 
         static let ignoreStoredAuthState = Options(rawValue: 1 << 0)
-        static let ignoreStoredKeyPair = Options(rawValue: 1 << 1)
+        static let ignoreStoredKeyPair = Options(rawValue: 1 << 1) // APIv2 only
     }
 
-    struct CertificateValidityRange {
-        let validFrom: Date
-        let expiresAt: Date
+    enum VPNConfiguration {
+        case openVPNConfig([String])
+        case wireGuardConfig(String)
     }
 
     struct TunnelConfigurationData {
-        let openVPNConfiguration: [String]
-        let certificateValidityRange: CertificateValidityRange
+        let vpnConfig: VPNConfiguration
+        let expiresAt: Date
+        let serverAPIBaseURL: URL
+        let serverAPIVersion: ServerInfo.APIVersion
     }
 
-    struct KeyPairData {
-        let keyPair: CreateKeyPairResponse.KeyPair
-        let certificateValidityRange: CertificateValidityRange
+    struct CommonAPIRequestInfo {
+        let serverInfo: ServerInfo
+        let dataStore: PersistenceService.DataStore
+        let session: Moya.Session
+        let serverAuthService: ServerAuthService
+        let wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?
+        let sourceViewController: AuthorizingViewController
     }
 
     static var uncachedSession: Moya.Session {
@@ -98,320 +58,120 @@ class ServerAPIService {
         self.serverAuthService = serverAuthService
     }
 
+    private static func serverAPIHandlerType(for apiVersion: ServerInfo.APIVersion) -> ServerAPIHandler.Type {
+        switch apiVersion {
+        case .apiv2:
+            return ServerAPIv2Handler.self
+        case .apiv3:
+            return ServerAPIv3Handler.self
+        }
+    }
+
     func getAvailableProfiles(for server: ServerInstance,
                               from viewController: AuthorizingViewController,
                               wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?,
-                              options: Options) -> Promise<([ProfileListResponse.Profile], ServerInfo)> {
+                              options: Options) -> Promise<([Profile], ServerInfo)> {
         return firstly {
             ServerInfoFetcher.fetch(apiBaseURLString: server.apiBaseURLString,
                                     authBaseURLString: server.authBaseURLString)
-        }.then { serverInfo -> Promise<([ProfileListResponse.Profile], ServerInfo)> in
+        }.then { serverInfo -> Promise<([Profile], ServerInfo)> in
             let dataStore = PersistenceService.DataStore(path: server.localStoragePath)
-            let basicTargetInfo = BasicTargetInfo(serverInfo: serverInfo,
-                                                  dataStore: dataStore,
-                                                  sourceViewController: viewController)
-            return self.makeRequest(target: .profileList(basicTargetInfo),
-                                    wayfSkippingInfo: wayfSkippingInfo,
-                                    decodeAs: ProfileListResponse.self,
-                                    options: options)
+            let commonInfo = ServerAPIService.CommonAPIRequestInfo(
+                serverInfo: serverInfo,
+                dataStore: dataStore,
+                session: Self.uncachedSession,
+                serverAuthService: self.serverAuthService,
+                wayfSkippingInfo: wayfSkippingInfo,
+                sourceViewController: viewController)
+            let serverAPIHandler = Self.serverAPIHandlerType(for: serverInfo.apiVersion)
+            return serverAPIHandler.getAvailableProfiles(
+                commonInfo: commonInfo,
+                options: options)
                 .map { ($0, serverInfo) }
         }
     }
 
     // swiftlint:disable:next function_parameter_count
     func getTunnelConfigurationData(for server: ServerInstance, serverInfo: ServerInfo?,
-                                    profile: ProfileListResponse.Profile,
+                                    profile: Profile,
                                     from viewController: AuthorizingViewController,
                                     wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?,
                                     options: Options) -> Promise<TunnelConfigurationData> {
-        let dataStore = PersistenceService.DataStore(path: server.localStoragePath)
         return firstly { () -> Promise<ServerInfo> in
             if let serverInfo = serverInfo {
                 return Promise.value(serverInfo)
             }
             return ServerInfoFetcher.fetch(apiBaseURLString: server.apiBaseURLString,
                                            authBaseURLString: server.authBaseURLString)
-        }.then { serverInfo -> Promise<(BasicTargetInfo, KeyPairData)> in
-            let basicTargetInfo = BasicTargetInfo(serverInfo: serverInfo,
-                                                  dataStore: dataStore,
-                                                  sourceViewController: viewController)
-            return self.getKeyPair(basicTargetInfo: basicTargetInfo,
-                                   wayfSkippingInfo: wayfSkippingInfo, options: options)
-                .map { (basicTargetInfo, $0) }
-        }.then { (basicTargetInfo, keyPairData) -> Promise<TunnelConfigurationData> in
-            // Can reuse the auth state we just got from getKeyPair
-            let updatedOptions = options.subtracting([.ignoreStoredAuthState])
-            return firstly {
-                self.getProfileConfig(basicTargetInfo: basicTargetInfo, profile: profile,
-                                      wayfSkippingInfo: wayfSkippingInfo, options: updatedOptions)
-            }.map { profileConfig in
-                let isUDPAllowed = !UserDefaults.standard.forceTCP
-                let openVPNConfig = try Self.createOpenVPNConfig(
-                    profileConfig: profileConfig, isUDPAllowed: isUDPAllowed, keyPair: keyPairData.keyPair)
-                return TunnelConfigurationData(
-                    openVPNConfiguration: openVPNConfig,
-                    certificateValidityRange: keyPairData.certificateValidityRange)
-            }
-        }
-    }
-
-}
-
-private extension ServerAPIService {
-
-    enum StoredDataError: Error {
-        case cannotUseStoredAuthState
-        case cannotUseStoredKeyPair
-    }
-
-    struct BasicTargetInfo {
-        let serverInfo: ServerInfo
-        let dataStore: PersistenceService.DataStore
-        let sourceViewController: AuthorizingViewController
-    }
-
-    enum ServerAPITarget: TargetType, AcceptJson, AccessTokenAuthorizable {
-        case profileList(BasicTargetInfo)
-        case createKeyPair(BasicTargetInfo, displayName: String)
-        case checkCertificate(BasicTargetInfo, commonName: String)
-        case profileConfig(BasicTargetInfo, profile: ProfileListResponse.Profile)
-
-        var basicTargetInfo: BasicTargetInfo {
-            switch self {
-            case .profileList(let basicTargetInfo): return basicTargetInfo
-            case .createKeyPair(let basicTargetInfo, _): return basicTargetInfo
-            case .checkCertificate(let basicTargetInfo, _): return basicTargetInfo
-            case .profileConfig(let basicTargetInfo, _): return basicTargetInfo
-            }
-        }
-
-        var baseURL: URL { basicTargetInfo.serverInfo.apiBaseURL }
-
-        var path: String {
-            switch self {
-            case .profileList: return "/profile_list"
-            case .createKeyPair: return "/create_keypair"
-            case .checkCertificate: return "/check_certificate"
-            case .profileConfig: return "/profile_config"
-            }
-        }
-
-        var method: Moya.Method {
-            switch self {
-            case .profileList, .checkCertificate, .profileConfig: return .get
-            case .createKeyPair: return .post
-            }
-        }
-
-        var sampleData: Data { Data() }
-
-        var task: Task {
-            switch self {
-            case .profileList:
-                return .requestPlain
-            case .createKeyPair(_, let displayName):
-                return .requestParameters(
-                    parameters: ["display_name": displayName],
-                    encoding: URLEncoding.httpBody)
-            case .checkCertificate(_, let commonName):
-                return .requestParameters(
-                    parameters: ["common_name": commonName],
-                    encoding: URLEncoding.queryString)
-            case .profileConfig(_, let profile):
-                return .requestParameters(
-                    parameters: ["profile_id": profile.profileId],
-                    encoding: URLEncoding.queryString)
-            }
-        }
-
-        var authorizationType: AuthorizationType? { .bearer }
-    }
-
-    static let HTTPStatusCodeUnauthorized = 401
-
-    func makeRequest<T: ServerResponse>(target: ServerAPITarget,
-                                        wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?,
-                                        decodeAs responseType: T.Type,
-                                        options: Options) -> Promise<T.DataType> {
-        firstly { () -> Promise<String> in
-            self.getFreshAccessToken(
-                basicTargetInfo: target.basicTargetInfo,
-                wayfSkippingInfo: wayfSkippingInfo, options: options)
-        }.then { accessToken -> Promise<Moya.Response> in
-            let authPlugin = AccessTokenPlugin { _ in accessToken }
-            let provider = MoyaProvider<ServerAPITarget>(session: Self.uncachedSession, plugins: [authPlugin])
-            return provider.request(target: target)
-        }.then { response -> Promise<T.DataType> in
-            if response.statusCode == Self.HTTPStatusCodeUnauthorized &&
-                !options.contains(.ignoreStoredAuthState) {
-                os_log("Encountered HTTP status code Unauthorized", log: Log.general, type: .info)
-                return self.makeRequest(target: target, wayfSkippingInfo: wayfSkippingInfo,
-                                        decodeAs: responseType,
-                                        options: options.union([.ignoreStoredAuthState]))
-            } else {
-                let successStatusCodes = (200...299)
-                guard successStatusCodes.contains(response.statusCode) else {
-                    throw ServerAPIServiceError.HTTPFailure(requestURLPath: target.path, response: response)
-                }
-                return Promise.value(try T(data: response.data).data)
-            }
-        }
-    }
-
-    func getKeyPair(basicTargetInfo: BasicTargetInfo,
-                    wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?,
-                    options: Options) -> Promise<KeyPairData> {
-        firstly { () -> Promise<KeyPairData> in
-            guard !options.contains(.ignoreStoredKeyPair),
-                let storedKeyPair = basicTargetInfo.dataStore.keyPair,
-                let certificateData = storedKeyPair.certificate.data(using: .utf8),
-                let x509Certificate = try? X509Certificate(data: certificateData),
-                x509Certificate.isCurrentlyValid,
-                let commonName = x509Certificate.commonName,
-                let expiresAt = x509Certificate.expiresAt,
-                let validFrom = x509Certificate.validFrom else {
-                    throw StoredDataError.cannotUseStoredKeyPair
-            }
-            return makeRequest(
-                target: .checkCertificate(basicTargetInfo, commonName: commonName),
+        }.then { serverInfo -> Promise<TunnelConfigurationData> in
+            let dataStore = PersistenceService.DataStore(path: server.localStoragePath)
+            let commonInfo = ServerAPIService.CommonAPIRequestInfo(
+                serverInfo: serverInfo,
+                dataStore: dataStore,
+                session: Self.uncachedSession,
+                serverAuthService: self.serverAuthService,
                 wayfSkippingInfo: wayfSkippingInfo,
-                decodeAs: CheckCertificateResponse.self, options: options)
-                .map { certificateValidity in
-                    guard certificateValidity.isValid else {
-                        throw StoredDataError.cannotUseStoredKeyPair
-                    }
-                    let validityRange = CertificateValidityRange(validFrom: validFrom, expiresAt: expiresAt)
-                    return KeyPairData(keyPair: storedKeyPair, certificateValidityRange: validityRange)
-                }
-        }.recover { error -> Promise<KeyPairData> in
-            if case StoredDataError.cannotUseStoredKeyPair = error {
-                return self.makeRequest(
-                    target: .createKeyPair(basicTargetInfo, displayName: Config.shared.appName),
-                    wayfSkippingInfo: wayfSkippingInfo,
-                    decodeAs: CreateKeyPairResponse.self, options: options)
-                    .map { keyPair in
-                        basicTargetInfo.dataStore.keyPair = keyPair
-                        guard let certificateData = keyPair.certificate.data(using: .utf8),
-                            let x509Certificate = try? X509Certificate(data: certificateData),
-                            x509Certificate.isCurrentlyValid,
-                            let expiresAt = x509Certificate.expiresAt,
-                            let validFrom = x509Certificate.validFrom else {
-                                throw ServerAPIServiceError.serverProvidedInvalidCertificate
-                        }
-                        let validityRange = CertificateValidityRange(validFrom: validFrom, expiresAt: expiresAt)
-                        return KeyPairData(keyPair: keyPair, certificateValidityRange: validityRange)
-                    }
-            } else {
-                throw error
-            }
+                sourceViewController: viewController)
+            let serverAPIHandler = Self.serverAPIHandlerType(for: serverInfo.apiVersion)
+            return serverAPIHandler.getTunnelConfigurationData(
+                commonInfo: commonInfo, profile: profile, options: options)
         }
     }
 
-    func getProfileConfig(basicTargetInfo: BasicTargetInfo, profile: ProfileListResponse.Profile,
-                          wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?,
-                          options: Options) -> Promise<Data> {
-        firstly {
-            makeRequest(target: .profileConfig(basicTargetInfo, profile: profile),
-                        wayfSkippingInfo: wayfSkippingInfo,
-                        decodeAs: ProfileConfigResponse.self, options: options)
-        }.map { data in
-            if let errorResponse = try? JSONDecoder().decode(ProfileConfigErrorResponse.self, from: data) {
-                throw ServerAPIServiceError.errorGettingProfileConfig(profile: profile, serverError: errorResponse.errorMessage)
-            }
-            return data
-        }
-    }
+    func attemptToRelinquishTunnelConfiguration(
+        apiVersion: ServerInfo.APIVersion,
+        baseURL: URL, dataStore: PersistenceService.DataStore,
+        profile: Profile) {
 
-    static func createOpenVPNConfig(
-        profileConfig profileConfigData: Data,
-        isUDPAllowed: Bool,
-        keyPair: CreateKeyPairResponse.KeyPair) throws -> [String] {
-
-        guard let originalConfig = String(data: profileConfigData, encoding: .utf8) else {
-            throw ServerAPIServiceError.openVPNConfigHasInvalidEncoding
-        }
-
-        let originalConfigLines = originalConfig.components(separatedBy: .newlines)
-        let privateKeyLines = keyPair.privateKey.components(separatedBy: .newlines)
-        let certificateLines = keyPair.certificate.components(separatedBy: .newlines)
-
-        var hasCA = false
-        var hasRemote = false
-
-        var processedLines = [String]()
-        for originalLine in originalConfigLines {
-            let line = originalLine.trimmingCharacters(in: .whitespacesAndNewlines)
-            if line.isEmpty { continue }
-            if line.hasSuffix("auth none") { continue }
-
-            if line.hasSuffix("</ca>") {
-                processedLines.append(line)
-                processedLines.append("<cert>")
-                processedLines.append(contentsOf: certificateLines)
-                processedLines.append("</cert>")
-                processedLines.append("<key>")
-                processedLines.append(contentsOf: privateKeyLines)
-                processedLines.append("</key>")
-                hasCA = true
-                continue
-            }
-
-            if line.hasPrefix("remote") {
-                let isUDPOnlyRemote = (line.hasSuffix(" udp") || line.hasSuffix(" udp4") || line.hasSuffix(" udp6"))
-                if !isUDPOnlyRemote || isUDPAllowed {
-                    processedLines.append(line)
-                    hasRemote = true
-                }
-                continue
-            }
-
-            processedLines.append(line)
-        }
-
-        guard hasCA else {
-            throw ServerAPIServiceError.openVPNConfigHasNoCertificateAuthority
-        }
-
-        guard hasRemote else {
-            throw ServerAPIServiceError.openVPNConfigHasNoRemotes
-        }
-
-        return processedLines
+        let serverAPIHandler = Self.serverAPIHandlerType(for: apiVersion)
+        serverAPIHandler.attemptToRelinquishTunnelConfiguration(
+            baseURL: baseURL, dataStore: dataStore,
+            session: Self.uncachedSession, profile: profile)
     }
 }
 
-private extension ServerAPIService {
+protocol ServerAPIHandler {
+    static var authStateChangeHandler: AuthStateChangeHandler? { get set }
+    static func getAvailableProfiles(
+        commonInfo: ServerAPIService.CommonAPIRequestInfo,
+        options: ServerAPIService.Options) -> Promise<[Profile]>
+    static func getTunnelConfigurationData(
+        commonInfo: ServerAPIService.CommonAPIRequestInfo,
+        profile: Profile,
+        options: ServerAPIService.Options) -> Promise<ServerAPIService.TunnelConfigurationData>
+    static func attemptToRelinquishTunnelConfiguration(
+        baseURL: URL, dataStore: PersistenceService.DataStore, session: Moya.Session,
+        profile: Profile)
+}
 
-    enum AuthStateError: Error {
-        case authStateUnauthorized(authorizationError: Error)
-    }
+extension ServerAPIHandler {
+    static func getFreshAccessToken(
+        commonInfo: ServerAPIService.CommonAPIRequestInfo,
+        options: ServerAPIService.Options) -> Promise<String> {
 
-    func getFreshAccessToken(basicTargetInfo: BasicTargetInfo,
-                             wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?,
-                             options: Options) -> Promise<String> {
         return firstly { () -> Promise<String> in
             if options.contains(.ignoreStoredAuthState) {
-                throw StoredDataError.cannotUseStoredAuthState
+                throw ServerAPIServiceError.cannotUseStoredAuthState
             }
-            guard let authState = basicTargetInfo.dataStore.authState else {
-                throw StoredDataError.cannotUseStoredAuthState
+            guard let authState = commonInfo.dataStore.authState else {
+                throw ServerAPIServiceError.cannotUseStoredAuthState
             }
-            return self.getFreshAccessToken(using: authState, storingChangesTo: basicTargetInfo.dataStore)
+            return self.getFreshAccessToken(using: authState, storingChangesTo: commonInfo.dataStore)
         }.recover { error -> Promise<String> in
             os_log("Error getting access token: %{public}@", log: Log.general, type: .error,
                    error.localizedDescription)
             switch error {
-            case StoredDataError.cannotUseStoredAuthState,
-                 AuthStateError.authStateUnauthorized:
+            case ServerAPIServiceError.cannotUseStoredAuthState,
+                 ServerAPIServiceError.unauthorized:
                 os_log("Starting fresh authentication", log: Log.general, type: .info)
-                return self.serverAuthService.startAuth(
-                    authEndpoint: basicTargetInfo.serverInfo.authorizationEndpoint,
-                    tokenEndpoint: basicTargetInfo.serverInfo.tokenEndpoint,
-                    from: basicTargetInfo.sourceViewController,
-                    wayfSkippingInfo: wayfSkippingInfo)
+                return commonInfo.serverAuthService.startAuth(
+                    authEndpoint: commonInfo.serverInfo.authorizationEndpoint,
+                    tokenEndpoint: commonInfo.serverInfo.tokenEndpoint,
+                    from: commonInfo.sourceViewController,
+                    wayfSkippingInfo: commonInfo.wayfSkippingInfo)
                 .then { authState -> Promise<String> in
-                    basicTargetInfo.dataStore.authState = authState
-                    return self.getFreshAccessToken(using: authState, storingChangesTo: basicTargetInfo.dataStore)
+                    commonInfo.dataStore.authState = authState
+                    return self.getFreshAccessToken(using: authState, storingChangesTo: commonInfo.dataStore)
                 }
             default:
                 throw error
@@ -419,18 +179,19 @@ private extension ServerAPIService {
         }
     }
 
-    func getFreshAccessToken(using authState: AuthState,
-                             storingChangesTo dataStore: PersistenceService.DataStore)
-        -> Promise<String> {
+    static func getFreshAccessToken(
+        using authState: AuthState,
+        storingChangesTo dataStore: PersistenceService.DataStore) -> Promise<String> {
+
         return Promise { seal in
             let authStateChangeHandler = AuthStateChangeHandler(dataStore: dataStore)
             authState.oidAuthState.stateChangeDelegate = authStateChangeHandler
-            self.authStateChangeHandler = authStateChangeHandler
-            authState.oidAuthState.performAction { [weak self] (accessToken, _, error) in
+            Self.authStateChangeHandler = authStateChangeHandler
+            authState.oidAuthState.performAction { (accessToken, _, error) in
                 authState.oidAuthState.stateChangeDelegate = nil
-                self?.authStateChangeHandler = nil
+                Self.authStateChangeHandler = nil
                 if let authorizationError = authState.oidAuthState.authorizationError {
-                    let error = AuthStateError.authStateUnauthorized(
+                    let error = ServerAPIServiceError.unauthorized(
                         authorizationError: authorizationError)
                     seal.reject(error)
                 } else {
@@ -441,7 +202,7 @@ private extension ServerAPIService {
     }
 }
 
-private class AuthStateChangeHandler: NSObject, OIDAuthStateChangeDelegate {
+class AuthStateChangeHandler: NSObject, OIDAuthStateChangeDelegate {
     let dataStore: PersistenceService.DataStore
 
     init(dataStore: PersistenceService.DataStore) {
@@ -451,22 +212,4 @@ private class AuthStateChangeHandler: NSObject, OIDAuthStateChangeDelegate {
     func didChange(_ state: OIDAuthState) {
         dataStore.authState = AuthState(oidAuthState: state)
     }
-}
-
-private extension X509Certificate {
-    var isCurrentlyValid: Bool {
-        return checkValidity()
-    }
-
-    var commonName: String? {
-        if let commonNameElements = subjectDistinguishedName?.split(separator: "=") {
-            if commonNameElements.count == 2 && commonNameElements[0] == "CN" {
-                return String(commonNameElements[1])
-            }
-        }
-        return nil
-    }
-
-    var validFrom: Date? { notBefore }
-    var expiresAt: Date? { notAfter }
 }

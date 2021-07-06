@@ -2,8 +2,7 @@
 //  Testing.swift
 //  EduVPN
 //
-//  Created by Johan Kool on 11/12/2020.
-//  Copyright © 2020 SURFNet. All rights reserved.
+//  Copyright © 2020-2021 The Commons Conservancy. All rights reserved.
 //
 
 import Foundation

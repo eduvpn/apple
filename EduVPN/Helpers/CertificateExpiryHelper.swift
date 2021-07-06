@@ -8,11 +8,10 @@ import Foundation
 class CertificateExpiryHelper {
 
     enum CertificateStatus: Equatable {
-        case validFor(timeInterval: TimeInterval, proportionRemaining: Double)
+        case validFor(timeInterval: TimeInterval)
         case expired
     }
 
-    let validFrom: Date
     let expiresAt: Date
 
     private let handler: (CertificateStatus) -> Void
@@ -25,11 +24,10 @@ class CertificateExpiryHelper {
         }
     }
 
-    init(validFrom: Date, expiresAt: Date, handler: @escaping (CertificateStatus) -> Void) {
-        self.validFrom = validFrom
+    init(expiresAt: Date, handler: @escaping (CertificateStatus) -> Void) {
         self.expiresAt = expiresAt
         self.handler = handler
-        self.refreshTimes = Self.computeRefreshTimes(from: Date(), to: expiresAt, validFrom: validFrom)
+        self.refreshTimes = Self.computeRefreshTimes(from: Date(), to: expiresAt)
         self.scheduleNextRefresh()
     }
 
@@ -51,8 +49,7 @@ private extension CertificateExpiryHelper {
         static let tillWhichToShowMinutesSeconds: Int = 0
     }
 
-    static func computeRefreshTimes(from startDate: Date, to endDate: Date, validFrom: Date) -> [(refreshAt: Date, state: CertificateStatus)] {
-        let validityPeriod = endDate.timeIntervalSince(validFrom)
+    static func computeRefreshTimes(from startDate: Date, to endDate: Date) -> [(refreshAt: Date, state: CertificateStatus)] {
         let endingTimeInterval = endDate.timeIntervalSince(startDate)
 
         var refreshTimes: [(refreshAt: Date, state: CertificateStatus)] = []
@@ -60,10 +57,9 @@ private extension CertificateExpiryHelper {
 
         while currentTimeInterval < endingTimeInterval {
             let timeRemaining = endingTimeInterval - currentTimeInterval
-            let proportionRemaining = (timeRemaining / validityPeriod)
             refreshTimes.append(
                 (refreshAt: Date(timeInterval: currentTimeInterval, since: startDate),
-                 state: .validFor(timeInterval: timeRemaining, proportionRemaining: proportionRemaining)))
+                 state: .validFor(timeInterval: timeRemaining)))
 
             let secondsRemaining = Int(endingTimeInterval - currentTimeInterval)
             if secondsRemaining > NumberOfSeconds.tillWhichToShowDaysHours {
@@ -133,7 +129,7 @@ extension CertificateExpiryHelper.CertificateStatus {
 
     var localizedText: String {
         switch self {
-        case .validFor(let timeInterval, _):
+        case .validFor(let timeInterval):
             let localizedTimeLeftString: String?
             if timeInterval > TimeInterval(CertificateExpiryHelper.NumberOfSeconds.tillWhichToShowDaysHours) {
                 localizedTimeLeftString = Self.daysHoursFormatter.string(from: timeInterval)
@@ -160,8 +156,10 @@ extension CertificateExpiryHelper.CertificateStatus {
 
     var shouldShowRenewSessionButton: Bool {
         switch self {
-        case .validFor(_, let proportionRemaining):
-            return proportionRemaining < 0.2
+        case .validFor(let timeRemaining):
+            // Show renewal button if session expires in
+            // less than a week.
+            return timeRemaining < (60 * 60 * 24 * 7)
         case .expired:
             return true
         }

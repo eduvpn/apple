@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # build_wireguard_go_bridge.sh - Builds WireGuardKitGo
 #
@@ -32,5 +32,9 @@ if [ -e "$checkouts_dir"/wireguard-apple ]; then
 fi
 
 wireguard_go_dir="$checkouts_dir"/Sources/WireGuardKitGo
+
+# To ensure we have Go in our path, we add where
+# Homebrew generally installs executables
+export PATH=${PATH}:/usr/local/bin:/opt/homebrew/bin
 
 cd "$wireguard_go_dir" && /usr/bin/make

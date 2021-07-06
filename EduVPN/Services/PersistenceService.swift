@@ -258,6 +258,10 @@ extension PersistenceService {
             rootURL.appendingPathComponent("keyPair.bin")
         }
 
+        private var wireGuardPrivateKeyURL: URL {
+            rootURL.appendingPathComponent("wgPrivateKey.bin")
+        }
+
         private var migratedClientCertificateURL: URL {
             rootURL.appendingPathComponent("client.certificate")
         }
@@ -314,6 +318,22 @@ extension PersistenceService {
                 }
                 if FileManager.default.fileExists(atPath: migratedClientCertificateURL.path) {
                     try? FileManager.default.removeItem(at: migratedClientCertificateURL)
+                }
+            }
+        }
+
+        var wireGuardPrivateKey: Data? {
+            get {
+                if let data = try? Data(contentsOf: wireGuardPrivateKeyURL),
+                    let clearTextData = Crypto.shared.decrypt(data: data) {
+                    return clearTextData
+                }
+                return nil
+            }
+            set(value) {
+                let data = value ?? Data()
+                if let encryptedData = try? Crypto.shared.encrypt(data: data) {
+                    PersistenceService.write(encryptedData, to: wireGuardPrivateKeyURL, atomically: true)
                 }
             }
         }

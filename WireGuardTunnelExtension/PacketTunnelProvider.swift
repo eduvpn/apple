@@ -2,8 +2,7 @@
 //  PacketTunnelProvider.swift
 //  WireGuardTunnelExtension-macOS
 //
-//  Created by Roopesh Chander on 26/05/21.
-//  Copyright © 2021 SURFNet. All rights reserved.
+//  Copyright © 2020-2021 The Commons Conservancy. All rights reserved.
 //
 
 import NetworkExtension

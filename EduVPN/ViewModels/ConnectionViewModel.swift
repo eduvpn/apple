@@ -12,7 +12,7 @@ import NetworkExtension
 protocol ConnectionViewModelDelegate: class {
     func connectionViewModel(
         _ model: ConnectionViewModel,
-        foundProfiles profiles: [ProfileListResponse.Profile])
+        foundProfiles profiles: [Profile])
     func connectionViewModel(
         _ model: ConnectionViewModel,
         canGoBackChanged canGoBack: Bool)
@@ -92,7 +92,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
 
     enum AdditionalControl {
         case none
-        case profileSelector([ProfileListResponse.Profile])
+        case profileSelector([Profile])
         case renewSessionButton
         case setCredentialsButton
         case spinner
@@ -102,6 +102,11 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         case hidden
         case collapsed
         case expanded(ConnectionInfoHelper.ConnectionInfo)
+    }
+
+    struct ServerInfoForDisconnectReport {
+        let serverAPIBaseURL: URL
+        let serverAPIVersion: ServerInfo.APIVersion
     }
 
     private(set) var header: Header {
@@ -163,7 +168,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         }
     }
 
-    private var profiles: [ProfileListResponse.Profile]? {
+    private var profiles: [Profile]? {
         didSet {
             self.updateStatusDetail()
             self.updateVPNSwitchState()
@@ -209,11 +214,14 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
     private let authURLTemplate: String?
 
     private let dataStore: PersistenceService.DataStore
-    private var connectingProfile: ProfileListResponse.Profile?
+    private var connectingProfile: Profile?
 
     private var vpnConfigCredentials: Credentials?
     private var shouldAskForPasswordOnReconnect: Bool = false
     private var isBeginningVPNConfigConnectionFlow: Bool = false
+
+    // Required for telling the server about disconnections
+    private var serverInfoForDisconnectReport: ServerInfoForDisconnectReport?
 
     init(server: ServerInstance,
          connectionService: ConnectionServiceProtocol,
@@ -246,11 +254,13 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
             connectingProfile = preConnectionState.profiles
                 .first(where: { $0.profileId == preConnectionState.selectedProfileId })
             certificateExpiryHelper = CertificateExpiryHelper(
-                validFrom: preConnectionState.certificateValidFrom,
-                expiresAt: preConnectionState.certificateExpiresAt,
+                expiresAt: preConnectionState.sessionExpiresAt,
                 handler: { [weak self] certificateStatus in
                     self?.certificateStatus = certificateStatus
                 })
+            serverInfoForDisconnectReport = ServerInfoForDisconnectReport(
+                serverAPIBaseURL: preConnectionState.serverAPIBaseURL,
+                serverAPIVersion: preConnectionState.serverAPIVersion)
             internalState = .enabledVPN
         }
     }
@@ -297,7 +307,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
               let serverAPIService = serverAPIService else {
             return Promise.value(())
         }
-        return firstly { () -> Promise<([ProfileListResponse.Profile], ServerInfo)> in
+        return firstly { () -> Promise<([Profile], ServerInfo)> in
             self.internalState = .gettingProfiles
             return serverAPIService.getAvailableProfiles(
                 for: server, from: viewController,
@@ -319,7 +329,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                     self.internalState = .idle
                     return Promise.value(())
                 }
-                let profile: ProfileListResponse.Profile = {
+                let profile: Profile = {
                     if let preferredProfileId = preferredProfileId {
                         return profiles.first(where: { $0.profileId == preferredProfileId }) ?? firstProfile
                     } else {
@@ -340,8 +350,9 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         }
     }
 
+    // swiftlint:disable:next function_body_length
     func continueServerConnectionFlow(
-        profile: ProfileListResponse.Profile,
+        profile: Profile,
         from viewController: AuthorizingViewController,
         serverInfo: ServerInfo? = nil,
         serverAPIOptions: ServerAPIService.Options = []) -> Promise<Void> {
@@ -361,29 +372,42 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                 options: serverAPIOptions)
         }.then { tunnelConfigData -> Promise<(Date, UUID)> in
             self.internalState = .enableVPNRequested
-            let validFrom = tunnelConfigData.certificateValidityRange.validFrom
-            let expiresAt = tunnelConfigData.certificateValidityRange.expiresAt
+            let expiresAt = tunnelConfigData.expiresAt
             self.certificateExpiryHelper = CertificateExpiryHelper(
-                validFrom: validFrom,
                 expiresAt: expiresAt,
                 handler: { [weak self] certificateStatus in
                     self?.certificateStatus = certificateStatus
                 })
+            self.serverInfoForDisconnectReport = ServerInfoForDisconnectReport(
+                serverAPIBaseURL: tunnelConfigData.serverAPIBaseURL,
+                serverAPIVersion: tunnelConfigData.serverAPIVersion)
             let connectionAttemptId = UUID()
             let connectionAttempt = ConnectionAttempt(
                 server: server,
                 profiles: self.profiles ?? [],
                 selectedProfileId: profile.profileId,
-                certificateValidityRange: tunnelConfigData.certificateValidityRange,
+                sessionExpiresAt: tunnelConfigData.expiresAt,
+                serverAPIBaseURL: tunnelConfigData.serverAPIBaseURL,
+                serverAPIVersion: tunnelConfigData.serverAPIVersion,
                 attemptId: connectionAttemptId)
             self.delegate?.connectionViewModel(self, willAttemptToConnect: connectionAttempt)
-            return self.connectionService.enableVPN(
-                openVPNConfig: tunnelConfigData.openVPNConfiguration,
-                connectionAttemptId: connectionAttemptId,
-                credentials: nil,
-                shouldDisableVPNOnError: true,
-                shouldPreventAutomaticConnections: false)
-                .map { (expiresAt, connectionAttemptId) }
+            switch tunnelConfigData.vpnConfig {
+            case .openVPNConfig(let configLines):
+                return self.connectionService.enableVPN(
+                    openVPNConfig: configLines,
+                    connectionAttemptId: connectionAttemptId,
+                    credentials: nil,
+                    shouldDisableVPNOnError: true,
+                    shouldPreventAutomaticConnections: false)
+                    .map { (expiresAt, connectionAttemptId) }
+            case .wireGuardConfig(let configString):
+                return self.connectionService.enableVPN(
+                    wireGuardConfig: configString,
+                    serverName: serverInfo?.apiBaseURL.host ?? "",
+                    connectionAttemptId: connectionAttemptId,
+                    shouldDisableVPNOnError: true)
+                    .map { (expiresAt, connectionAttemptId) }
+            }
         }.then { (expiresAt, connectionAttemptId) -> Promise<Void> in
             self.internalState = self.connectionService.isVPNEnabled ? .enabledVPN : .idle
             guard let notificationService = self.notificationService else {
@@ -448,6 +472,13 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
             return self.connectionService.disableVPN()
         }.map {
             self.notificationService?.descheduleSessionExpiryNotification()
+            if let serverInfoForDisconnectReport = self.serverInfoForDisconnectReport,
+               let profile = self.connectingProfile {
+                self.serverAPIService?.attemptToRelinquishTunnelConfiguration(
+                    apiVersion: serverInfoForDisconnectReport.serverAPIVersion,
+                    baseURL: serverInfoForDisconnectReport.serverAPIBaseURL,
+                    dataStore: self.dataStore, profile: profile)
+            }
         }.ensure {
             self.internalState = self.connectionService.isVPNEnabled ? .enabledVPN : .idle
             if self.internalState == .idle {

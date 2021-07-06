@@ -11,6 +11,21 @@ protocol ServerResponse {
     init(data: Data) throws
 }
 
+struct Profile: Codable {
+    let displayName: LanguageMappedString
+    let profileId: String
+
+    enum CodingKeys: String, CodingKey {
+        case displayName = "display_name"
+        case profileId = "profile_id"
+    }
+}
+
+// Responses for APIv2
+
+protocol ServerResponseAPIv2: ServerResponse {
+}
+
 // Parse response to a /profile_list request
 //
 // Example response:
@@ -27,18 +42,7 @@ protocol ServerResponse {
 //     }
 // }
 
-struct ProfileListResponse: ServerResponse, Decodable {
-    struct Profile: Codable {
-        let displayName: LanguageMappedString
-        let profileId: String
-
-        // swiftlint:disable:next nesting
-        enum CodingKeys: String, CodingKey {
-            case displayName = "display_name"
-            case profileId = "profile_id"
-        }
-    }
-
+struct ProfileListResponsev2: ServerResponseAPIv2, Decodable {
     let data: [Profile]
 
     enum TopLevelKeys: String, CodingKey {
@@ -53,7 +57,7 @@ struct ProfileListResponse: ServerResponse, Decodable {
     }
 
     init(data: Data) throws {
-        self = try JSONDecoder().decode(ProfileListResponse.self, from: data)
+        self = try JSONDecoder().decode(ProfileListResponsev2.self, from: data)
     }
 }
 
@@ -70,7 +74,7 @@ struct ProfileListResponse: ServerResponse, Decodable {
 //     }
 // }
 
-struct CreateKeyPairResponse: ServerResponse, Decodable {
+struct CreateKeyPairResponse: ServerResponseAPIv2, Decodable {
 
     struct KeyPair: Codable {
         let certificate: String
@@ -103,7 +107,7 @@ struct CreateKeyPairResponse: ServerResponse, Decodable {
 
 // The response to a /profile_config request is raw data
 
-struct ProfileConfigResponse: ServerResponse {
+struct ProfileConfigResponse: ServerResponseAPIv2 {
     let data: Data
     init(data: Data) {
         self.data = data
@@ -120,7 +124,7 @@ struct ProfileConfigResponse: ServerResponse {
 //     }
 // }
 
-struct ProfileConfigErrorResponse: Decodable {
+struct ProfileConfigErrorResponsev2: Decodable {
 
     let errorMessage: String
 
@@ -148,7 +152,7 @@ struct ProfileConfigErrorResponse: Decodable {
 //     }
 // }
 
-struct CheckCertificateResponse: ServerResponse, Decodable {
+struct CheckCertificateResponse: ServerResponseAPIv2, Decodable {
     struct CertificateValidity: Decodable {
         let isValid: Bool
 
@@ -179,4 +183,83 @@ struct CheckCertificateResponse: ServerResponse, Decodable {
 private enum SecondLevelKeys: String, CodingKey {
     case data
     case error
+}
+
+// Responses for APIv3
+
+protocol ServerResponseAPIv3: ServerResponse {
+}
+
+// Parse response to a /info request
+//
+// Example response:
+// {
+//     "info": {
+//         "profile_list": [
+//             {
+//                 "display_name": {
+//                     "en": "Employees",
+//                     "nl": "Medewerkers"
+//                 },
+//                 "profile_id": "employees"
+//             },
+//             {
+//                 "display_name": "Administrators",
+//                 "profile_id": "admins"
+//             }
+//         ]
+//     }
+// }
+
+struct InfoResponse: ServerResponseAPIv3, Decodable {
+    let data: [Profile]
+
+    enum TopLevelKeys: String, CodingKey {
+        case info
+    }
+
+    enum SecondLevelKeys: String, CodingKey {
+        case profile_list // swiftlint:disable:this identifier_name
+    }
+
+    init(from decoder: Decoder) throws {
+        let topLevelContainer = try decoder.container(keyedBy: TopLevelKeys.self)
+        let profileListContainer = try topLevelContainer.nestedContainer(
+            keyedBy: SecondLevelKeys.self, forKey: .info)
+        self.data = try profileListContainer.decode([Profile].self, forKey: .profile_list)
+    }
+
+    init(data: Data) throws {
+        self = try JSONDecoder().decode(InfoResponse.self, from: data)
+    }
+}
+
+// The response to a /connect request is raw data
+
+struct ConnectResponse: ServerResponseAPIv3 {
+    let data: Data
+    init(data: Data) {
+        self.data = data
+    }
+}
+
+// Parse error response to a /connect request
+//
+// Example error response:
+// {
+//     "error": "invalid \"profile_id\""
+// }
+
+struct ProfileConfigErrorResponse: Decodable {
+
+    let errorMessage: String
+
+    enum TopLevelKeys: String, CodingKey {
+        case error
+    }
+
+    init(from decoder: Decoder) throws {
+        let topLevelContainer = try decoder.container(keyedBy: TopLevelKeys.self)
+        self.errorMessage = try topLevelContainer.decode(String.self, forKey: .error)
+    }
 }
