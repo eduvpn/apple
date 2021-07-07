@@ -12,8 +12,8 @@ class Logger {
     let logFileURL: URL?
     let separator: String
 
-    var lines: [String] = []
-    let dateFormatter: DateFormatter
+    private(set) var lines: [String] = []
+    private let dateFormatter: DateFormatter
 
     init(appGroup: String, separator: String, logFileName: String) {
         let parentURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroup)
