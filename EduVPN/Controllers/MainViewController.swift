@@ -263,7 +263,7 @@ extension MainViewController: ConnectionServiceInitializationDelegate {
             "The currently turned-on VPN configuration is unrecognized",
             comment: "macOS alert title confirming turning off of an unrecognized turned-on VPN")
         alert.informativeText = NSLocalizedString(
-            "It's possible that it was added and turned-on by a different user.",
+            "It's possible that it was added and turned on by a different user.",
             comment: "macOS alert text confirming turning off of an unrecognized turned-on VPN")
         alert.addButton(withTitle: NSLocalizedString(
                             "Stop VPN & Continue",
