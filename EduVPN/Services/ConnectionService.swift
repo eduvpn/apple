@@ -72,7 +72,6 @@ protocol ConnectionServiceProtocol: AnyObject {
     var connectionAttemptId: UUID? { get }
     var connectedDate: Date? { get }
     var vpnProtocol: VPNProtocol? { get }
-    var isUnrecognizedVPN: Bool { get set }
 
     func enableVPN(openVPNConfig: [String], connectionAttemptId: UUID,
                    credentials: Credentials?,
@@ -111,8 +110,6 @@ class ConnectionService: ConnectionServiceProtocol {
             return nil
         }
     }
-
-    var isUnrecognizedVPN: Bool = false
 
     private var statusObservationToken: AnyObject?
     private var startTunnelPromiseResolver: Resolver<Void>?

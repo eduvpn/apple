@@ -150,10 +150,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             return .terminateNow
         }
 
-        if connectionService.isUnrecognizedVPN {
-            return .terminateNow
-        }
-
         return showAlertConfirmingStopVPNAndQuit(connectionService: connectionService)
     }
 

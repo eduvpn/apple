@@ -224,8 +224,10 @@ extension MainViewController: ConnectionServiceInitializationDelegate {
                 let lastConnectionAttempt = environment.persistenceService.loadLastConnectionAttempt(),
                 connectionAttemptId == lastConnectionAttempt.attemptId else {
 
-                service.isUnrecognizedVPN = true
-                confirmDisablingOfUnrecognizedVPN()
+                os_log("VPN is enabled at launch, but there's no matching entry in last_connection_attempt.json. Disabling VPN.",
+                    log: Log.general, type: .debug)
+                environment.connectionService.disableVPN()
+                    .cauterize()
                 return
             }
 
@@ -250,38 +252,6 @@ extension MainViewController: ConnectionServiceInitializationDelegate {
         case .vpnDisabled:
             environment.persistenceService.removeLastConnectionAttempt()
             environment.notificationService.descheduleSessionExpiryNotification()
-        }
-    }
-
-    private func confirmDisablingOfUnrecognizedVPN() {
-        // When a VPN from our app is on, but it's a server that this instance of the app doesn't know about,
-        // the app should either turn off the VPN or quit.
-        let alert = NSAlert()
-        alert.alertStyle = .warning
-
-        alert.messageText = NSLocalizedString(
-            "The currently turned-on VPN configuration is unrecognized",
-            comment: "macOS alert title confirming turning off of an unrecognized turned-on VPN")
-        alert.informativeText = NSLocalizedString(
-            "It's possible that it was added and turned on by a different user.",
-            comment: "macOS alert text confirming turning off of an unrecognized turned-on VPN")
-        alert.addButton(withTitle: NSLocalizedString(
-                            "Stop VPN & Continue",
-                            comment: "macOS alert button on confirming turning off of an unrecognized turned-on VPN"))
-        alert.addButton(withTitle: NSLocalizedString(
-                            "Quit",
-                            comment: "macOS alert button on confirming turning off of an unrecognized turned-on VPN"))
-
-        guard let window = self.view.window else {
-            return
-        }
-        alert.beginSheetModal(for: window) { result in
-            if case .alertFirstButtonReturn = result {
-                self.environment.connectionService.disableVPN()
-                    .cauterize()
-            } else {
-                NSApp.terminate(self)
-            }
         }
     }
 }
