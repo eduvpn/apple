@@ -99,7 +99,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                 completionHandler?(nil)
                 return
             }
-            let addresses: [String] = tunnelConfiguration.interface.addresses.map { $0.stringRepresentation }
+            let addresses: [String] = tunnelConfiguration.interface.addresses.map { "\($0.address)" }
             let encoder = JSONEncoder()
             completionHandler?(try? encoder.encode(addresses))
         case .getLog:
