@@ -99,23 +99,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
-    private func isQuittingForLogoutShutdownOrRestart() -> Bool {
-        guard let event = NSAppleEventManager.shared().currentAppleEvent else {
-            return false
-        }
-        guard let reasonCode = event.attributeDescriptor(forKeyword: kAEQuitReason) else {
-            return false
-        }
-        switch reasonCode.enumCodeValue {
-        case kAELogOut, kAEReallyLogOut,
-             kAEShowShutdownDialog, kAEShutDown,
-             kAEShowRestartDialog, kAERestart:
-            return true
-        default:
-            return false
-        }
-    }
-
     private func showAlertConfirmingStopVPNAndQuit(
         connectionService: ConnectionServiceProtocol) -> NSApplication.TerminateReply {
 
@@ -158,48 +141,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return .terminateLater
     }
 
-    private func showAlertConfirmingLogoutWithVPNOn(
-        connectionService: ConnectionServiceProtocol) -> NSApplication.TerminateReply {
-
-        let alert = NSAlert()
-        alert.alertStyle = .warning
-
-        alert.messageText = NSLocalizedString(
-            "You are logging out while the VPN is on",
-            comment: "macOS alert title on attempt to quit app by logout")
-        alert.informativeText = NSLocalizedString(
-            "The VPN will be on when a user logs in next. You can turn off the VPN then by opening the \(Config.shared.appName) app.",
-            comment: "macOS alert text on attempt to quit app by logout")
-        alert.addButton(withTitle: NSLocalizedString(
-                            "Quit",
-                            comment: "macOS alert button on attempt to quit app by logout"))
-        alert.addButton(withTitle: NSLocalizedString(
-                            "Stop VPN & Quit",
-                            comment: "macOS alert button on attempt to quit app by logout"))
-
-        func handleQuitConfirmationResult(_ result: NSApplication.ModalResponse) {
-            if case .alertFirstButtonReturn = result {
-                NSApp.reply(toApplicationShouldTerminate: true)
-            } else {
-                firstly {
-                    connectionService.disableVPN()
-                }.map { _ in
-                    NSApp.reply(toApplicationShouldTerminate: true)
-                }.cauterize()
-            }
-        }
-
-        if let window = NSApp.windows.first {
-            alert.beginSheetModal(for: window) { result in
-                handleQuitConfirmationResult(result)
-            }
-        } else {
-            let result = alert.runModal()
-            handleQuitConfirmationResult(result)
-        }
-        return .terminateLater
-    }
-
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
         guard let connectionService = environment?.connectionService else {
             return .terminateNow
@@ -213,11 +154,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             return .terminateNow
         }
 
-        if isQuittingForLogoutShutdownOrRestart() {
-            return showAlertConfirmingLogoutWithVPNOn(connectionService: connectionService)
-        } else {
-            return showAlertConfirmingStopVPNAndQuit(connectionService: connectionService)
-        }
+        return showAlertConfirmingStopVPNAndQuit(connectionService: connectionService)
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
