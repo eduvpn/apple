@@ -99,17 +99,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
-    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
-        guard let connectionService = environment?.connectionService else {
-            return .terminateNow
-        }
-
-        guard connectionService.isVPNEnabled else {
-            return .terminateNow
-        }
+    private func showAlertConfirmingStopVPNAndQuit(
+        connectionService: ConnectionServiceProtocol) -> NSApplication.TerminateReply {
 
         let alert = NSAlert()
         alert.alertStyle = .warning
+
         alert.messageText = NSLocalizedString(
             "Are you sure you want to quit \(Config.shared.appName)?",
             comment: "macOS alert title on attempt to quit app")
@@ -117,18 +112,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             "The active VPN connection will be stopped when you quit.",
             comment: "macOS alert text on attempt to quit app")
         alert.addButton(withTitle: NSLocalizedString(
-                         "Stop VPN & Quit",
-                         comment: "macOS alert button on attempt to quit app"))
+                            "Stop VPN & Quit",
+                            comment: "macOS alert button on attempt to quit app"))
         alert.addButton(withTitle: NSLocalizedString(
-                         "Cancel", comment: "button title"))
+                            "Cancel", comment: "button title"))
 
         func handleQuitConfirmationResult(_ result: NSApplication.ModalResponse) {
             if case .alertFirstButtonReturn = result {
                 firstly {
                     connectionService.disableVPN()
                 }.map { _ in
-                    NSApp.terminate(nil)
+                    NSApp.reply(toApplicationShouldTerminate: true)
                 }.cauterize()
+            } else {
+                NSApp.reply(toApplicationShouldTerminate: false)
             }
         }
 
@@ -141,7 +138,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             handleQuitConfirmationResult(result)
         }
 
-        return .terminateCancel
+        return .terminateLater
+    }
+
+    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
+        guard let connectionService = environment?.connectionService else {
+            return .terminateNow
+        }
+
+        guard connectionService.isVPNEnabled else {
+            return .terminateNow
+        }
+
+        return showAlertConfirmingStopVPNAndQuit(connectionService: connectionService)
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {

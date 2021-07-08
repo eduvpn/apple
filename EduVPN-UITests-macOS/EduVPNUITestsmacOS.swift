@@ -757,5 +757,4 @@ private extension EduVPNUITestsmacOS {
             whenIWait(time: 10)
         }
     }
-    
-}
+} // swiftlint:disable:this file_length

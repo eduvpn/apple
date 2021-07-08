@@ -72,7 +72,7 @@ extension UIButton {
 
 extension TableView {
     func dequeue<T: TableViewCell>(_ type: T.Type, identifier: String, indexPath: IndexPath) -> T {
-        //swiftlint:disable:next force_cast
+        // swiftlint:disable:next force_cast
         return dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! T
     }
 

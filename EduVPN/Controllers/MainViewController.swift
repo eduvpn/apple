@@ -7,7 +7,7 @@ import Foundation
 import os.log
 import PromiseKit
 
-protocol MainViewControllerDelegate: class {
+protocol MainViewControllerDelegate: AnyObject {
     func mainViewControllerAddedServersListChanged(
         _ viewController: MainViewController)
     func mainViewController(
@@ -61,6 +61,7 @@ class MainViewController: ViewController {
     private(set) var viewModel: MainViewModel!
     private var isTableViewInitialized = false
     private var isConnectionServiceInitialized = false
+    // swiftlint:disable:next identifier_name
     private var shouldRenewSessionWhenConnectionServiceInitialized = false
 
     @IBOutlet weak var tableView: TableView!
@@ -89,7 +90,7 @@ class MainViewController: ViewController {
 
     func pushConnectionVC(connectableInstance: ConnectableInstance,
                           preConnectionState: ConnectionAttempt.PreConnectionState?,
-                          continuationPolicy: ServerConnectionFlowContinuationPolicy,
+                          continuationPolicy: ConnectionViewModel.FlowContinuationPolicy,
                           shouldRenewSessionOnRestoration: Bool = false) {
         if let currentConnectionVC = currentConnectionVC,
            currentConnectionVC.connectableInstance.isEqual(to: connectableInstance),
@@ -222,11 +223,12 @@ extension MainViewController: ConnectionServiceInitializationDelegate {
             guard let connectionAttemptId = connectionAttemptId,
                 let lastConnectionAttempt = environment.persistenceService.loadLastConnectionAttempt(),
                 connectionAttemptId == lastConnectionAttempt.attemptId else {
-                    os_log("VPN is enabled at launch, but there's no matching entry in last_connection_attempt.json. Disabling VPN.",
-                           log: Log.general, type: .debug)
-                    environment.connectionService.disableVPN()
-                        .cauterize()
-                    return
+
+                os_log("VPN is enabled at launch, but there's no matching entry in last_connection_attempt.json. Disabling VPN.",
+                    log: Log.general, type: .debug)
+                environment.connectionService.disableVPN()
+                    .cauterize()
+                return
             }
 
             let connectableInstance = lastConnectionAttempt.connectableInstance
@@ -326,7 +328,7 @@ extension MainViewController {
         if let connectableInstance = row.connectableInstance {
             pushConnectionVC(connectableInstance: connectableInstance,
                              preConnectionState: nil,
-                             continuationPolicy: .continueIfOnlyOneProfileFound)
+                             continuationPolicy: .continueWithSingleOrLastUsedProfile)
         }
     }
 

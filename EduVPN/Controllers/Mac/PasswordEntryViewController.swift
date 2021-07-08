@@ -7,7 +7,7 @@
 
 import AppKit
 
-protocol PasswordEntryViewControllerDelegate: class {
+protocol PasswordEntryViewControllerDelegate: AnyObject {
     func passwordEntryViewController(
         _ controller: PasswordEntryViewController,
         didSetCredentials credentials: Credentials)
@@ -82,10 +82,10 @@ extension PasswordEntryViewController: NSTextFieldDelegate {
     }
 
     func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
-        if (commandSelector == #selector(NSResponder.insertNewline(_:))) { // Return
+        if commandSelector == #selector(NSResponder.insertNewline(_:)) { // Return
             connectWithEnteredPassword()
             return true
-        } else if (commandSelector == #selector(NSResponder.cancelOperation(_:))) { // Esc
+        } else if commandSelector == #selector(NSResponder.cancelOperation(_:)) { // Esc
             disableVPN()
             return true
         }

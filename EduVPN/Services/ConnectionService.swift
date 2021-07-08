@@ -9,13 +9,13 @@ import PromiseKit
 import TunnelKit
 import os.log
 
-protocol ConnectionServiceInitializationDelegate: class {
+protocol ConnectionServiceInitializationDelegate: AnyObject {
     func connectionService(
         _ service: ConnectionServiceProtocol,
         initializedWithState: ConnectionServiceInitializedState)
 }
 
-protocol ConnectionServiceStatusDelegate: class {
+protocol ConnectionServiceStatusDelegate: AnyObject {
     func connectionService(_ service: ConnectionServiceProtocol, connectionStatusChanged status: NEVPNStatus)
 }
 
@@ -51,17 +51,17 @@ struct NetworkAddress {
     let ipv6: String?
 }
 
-struct TransferredByteCount {
-    let inbound: UInt64
-    let outbound: UInt64
-}
-
 struct Credentials {
     let userName: String
     let password: String
 }
 
-protocol ConnectionServiceProtocol: class {
+enum VPNProtocol: String {
+    case openVPN = "OpenVPN"
+    case wireGuard = "WireGuard"
+}
+
+protocol ConnectionServiceProtocol: AnyObject {
 
     var initializationDelegate: ConnectionServiceInitializationDelegate? { get set }
     var statusDelegate: ConnectionServiceStatusDelegate? { get set }
@@ -71,6 +71,7 @@ protocol ConnectionServiceProtocol: class {
     var isVPNEnabled: Bool { get }
     var connectionAttemptId: UUID? { get }
     var connectedDate: Date? { get }
+    var vpnProtocol: VPNProtocol? { get }
 
     func enableVPN(openVPNConfig: [String], connectionAttemptId: UUID,
                    credentials: Credentials?,
@@ -80,7 +81,7 @@ protocol ConnectionServiceProtocol: class {
                    shouldDisableVPNOnError: Bool) -> Promise<Void>
     func disableVPN() -> Promise<Void>
 
-    func getNetworkAddress() -> Guarantee<NetworkAddress>
+    func getNetworkAddresses() -> Guarantee<[String]>
     func getTransferredByteCount() -> Guarantee<TransferredByteCount>
     func getConnectionLog() -> Promise<String?>
 }
@@ -97,6 +98,18 @@ class ConnectionService: ConnectionServiceProtocol {
     var isVPNEnabled: Bool { tunnelManager?.isOnDemandEnabled ?? false }
     var connectionAttemptId: UUID? { tunnelManager?.connectionAttemptId }
     var connectedDate: Date? { tunnelManager?.session.connectedDate }
+
+    var vpnProtocol: VPNProtocol? {
+        let providerProtocol = tunnelManager?.protocolConfiguration as? NETunnelProviderProtocol
+        switch providerProtocol?.providerBundleIdentifier {
+        case Self.openVPNTunnelBundleId:
+            return .openVPN
+        case Self.wireGuardTunnelBundleId:
+            return .wireGuard
+        default:
+            return nil
+        }
+    }
 
     private var statusObservationToken: AnyObject?
     private var startTunnelPromiseResolver: Resolver<Void>?
@@ -227,24 +240,22 @@ class ConnectionService: ConnectionServiceProtocol {
 }
 
 extension ConnectionService {
-    func getNetworkAddress() -> Guarantee<NetworkAddress> {
+    func getNetworkAddresses() -> Guarantee<[String]> {
         guard let tunnelManager = tunnelManager else {
             fatalError("ConnectionService not initialized yet")
         }
         return firstly {
             tunnelManager.sendProviderMessage(
-                OpenVPNTunnelProvider.Message.serverConfiguration.data)
+                TunnelMessageCode.getNetworkAddresses.data)
         }.map { data in
-            guard let config = try? JSONDecoder().decode(OpenVPN.Configuration.self, from: data) else {
-                return NetworkAddress(ipv4: nil, ipv6: nil)
+            guard let addresses = try? JSONDecoder().decode([String].self, from: data) else {
+                return []
             }
-            return NetworkAddress(
-                ipv4: config.ipv4?.address,
-                ipv6: config.ipv6?.address)
+            return addresses
         }.recover { error in
             os_log("Error getting server configuration from tunnel: %{public}@",
                    log: Log.general, type: .error, error.localizedDescription)
-            return Guarantee.value(NetworkAddress(ipv4: nil, ipv6: nil))
+            return Guarantee.value([])
         }
     }
 
@@ -254,14 +265,9 @@ extension ConnectionService {
         }
         return firstly {
             tunnelManager.sendProviderMessage(
-                OpenVPNTunnelProvider.Message.dataCount.data)
+                TunnelMessageCode.getTransferredByteCount.data)
         }.map { data in
-            return data.withUnsafeBytes { pointer -> TransferredByteCount in
-                // Data is 16 bytes: low 8 = received, high 8 = sent.
-                let inbound = pointer.load(fromByteOffset: 0, as: UInt64.self)
-                let outbound = pointer.load(fromByteOffset: 8, as: UInt64.self)
-                return TransferredByteCount(inbound: inbound, outbound: outbound)
-            }
+            TransferredByteCount(from: data)
         }.recover { error in
             os_log("Error getting data count from tunnel: %{public}@",
                    log: Log.general, type: .error, error.localizedDescription)
@@ -289,7 +295,7 @@ extension ConnectionService {
             // Ask the tunnel process for the log
             return firstly {
                 tunnelManager.sendProviderMessage(
-                    OpenVPNTunnelProvider.Message.requestLog.data)
+                    TunnelMessageCode.getLog.data)
             }.map { data in
                 return String(data: data, encoding: .utf8)
             }
@@ -434,7 +440,10 @@ private extension ConnectionService {
         let protocolConfiguration = NETunnelProviderProtocol()
         protocolConfiguration.providerBundleIdentifier = wireGuardTunnelBundleId
         protocolConfiguration.serverAddress = serverName
-        protocolConfiguration.providerConfiguration = ["WireGuardConfig": wireGuardConfig]
+        protocolConfiguration.providerConfiguration = [
+            WireGuardProviderConfigurationKeys.wireGuardConfig.rawValue: wireGuardConfig,
+            WireGuardProviderConfigurationKeys.appGroup.rawValue: appGroup
+        ]
         protocolConfiguration.connectionAttemptId = connectionAttemptId
         return protocolConfiguration
     }
@@ -531,4 +540,4 @@ private func logConnectionStatus(_ status: NEVPNStatus) {
         }
     }()
     os_log("Connection status: %{public}@", log: Log.general, type: .info, statusString)
-}
+} // swiftlint:disable:this file_length

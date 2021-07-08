@@ -9,7 +9,7 @@ import Foundation
 import PromiseKit
 import NetworkExtension
 
-protocol ConnectionViewModelDelegate: class {
+protocol ConnectionViewModelDelegate: AnyObject {
     func connectionViewModel(
         _ model: ConnectionViewModel,
         foundProfiles profiles: [Profile])
@@ -107,6 +107,14 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
     struct ServerInfoForDisconnectReport {
         let serverAPIBaseURL: URL
         let serverAPIVersion: ServerInfo.APIVersion
+    }
+
+    enum FlowContinuationPolicy {
+        // After getting the profile list, deciding whether to continue to connect or not
+        case continueWithSingleOrLastUsedProfile
+        case continueWithAnyProfile
+        case doNotContinue
+        case notApplicable
     }
 
     private(set) var header: Header {
@@ -299,8 +307,8 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
 
     func beginServerConnectionFlow(
         from viewController: AuthorizingViewController,
-        continuationPolicy: ServerConnectionFlowContinuationPolicy,
-        preferredProfileId: String?) -> Promise<Void> {
+        continuationPolicy: ConnectionViewModel.FlowContinuationPolicy,
+        lastUsedProfileId: String?) -> Promise<Void> {
         precondition(self.connectionService.isInitialized)
         precondition(self.connectionService.isVPNEnabled == false)
         guard let server = connectableInstance as? ServerInstance,
@@ -315,27 +323,23 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         }.then { (profiles, serverInfo) -> Promise<Void> in
             self.profiles = profiles
             switch continuationPolicy {
-            case .continueIfOnlyOneProfileFound:
-                guard profiles.count == 1 else {
+            case .continueWithSingleOrLastUsedProfile:
+                let singleProfile = (profiles.count == 1 ? profiles[0] : nil)
+                let lastUsedProfile = profiles.first(where: { $0.profileId == lastUsedProfileId })
+                guard let profile = (lastUsedProfile ?? singleProfile) else {
                     self.internalState = .idle
                     return Promise.value(())
                 }
-                self.delegate?.connectionViewModel(self, willAutomaticallySelectProfileId: profiles[0].profileId)
+                self.delegate?.connectionViewModel(self, willAutomaticallySelectProfileId: profile.profileId)
                 return self.continueServerConnectionFlow(
-                    profile: profiles[0], from: viewController,
+                    profile: profile, from: viewController,
                     serverInfo: serverInfo)
-            case .continueIfAnyProfileFound:
-                guard let firstProfile = profiles.first else {
+            case .continueWithAnyProfile:
+                let anyProfile = profiles.first(where: { $0.profileId == lastUsedProfileId }) ?? profiles.first
+                guard let profile = anyProfile else {
                     self.internalState = .idle
                     return Promise.value(())
                 }
-                let profile: Profile = {
-                    if let preferredProfileId = preferredProfileId {
-                        return profiles.first(where: { $0.profileId == preferredProfileId }) ?? firstProfile
-                    } else {
-                        return firstProfile
-                    }
-                }()
                 self.delegate?.connectionViewModel(self, willAutomaticallySelectProfileId: profile.profileId)
                 return self.continueServerConnectionFlow(
                     profile: profile, from: viewController,

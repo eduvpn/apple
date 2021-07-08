@@ -10,7 +10,8 @@ class ConnectionInfoViewController: UITableViewController, ParametrizedViewContr
         case duration = 0
         case dataTransferred = 1
         case address = 2
-        case profileName = 3
+        case vpnProtocol = 3
+        case profileName = 4
 
         var title: String {
             switch self {
@@ -23,6 +24,9 @@ class ConnectionInfoViewController: UITableViewController, ParametrizedViewContr
             case .address: return NSLocalizedString(
                 "ADDRESS",
                 comment: "Connection Info field name")
+            case .vpnProtocol: return NSLocalizedString(
+                "VPN PROTOCOL",
+                comment: "Connection Info field name")
             case .profileName: return NSLocalizedString(
                 "PROFILE",
                 comment: "Connection Info field name")
@@ -34,6 +38,9 @@ class ConnectionInfoViewController: UITableViewController, ParametrizedViewContr
             case .duration: return connectionInfo.duration
             case .dataTransferred: return connectionInfo.dataTransferred
             case .address: return connectionInfo.addresses
+            case .vpnProtocol:
+                return connectionInfo.vpnProtocol ??
+                    NSLocalizedString("Unknown", comment: "iOS Connection Info: Unknown VPN Protocol")
             case .profileName: return connectionInfo.profileName ?? ""
             }
         }
@@ -76,9 +83,9 @@ extension ConnectionInfoViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if connectionInfo?.profileName == nil {
-            return 3
+            return 4
         }
-        return 4
+        return 5
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

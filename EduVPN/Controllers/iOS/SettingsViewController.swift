@@ -103,11 +103,11 @@ class SettingsViewController: UITableViewController, ParametrizedViewController 
 
 extension SettingsViewController {
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        if indexPath.section == 1 && indexPath.row == 0 {
+        if indexPath.section == 2 && indexPath.row == 0 {
             // This is a 'Connection Log' row
             return indexPath
         }
-        if indexPath.section == 2 && indexPath.row == 1 {
+        if indexPath.section == 4 && indexPath.row == 1 {
             // This is a 'Source code' row
             return indexPath
         }
@@ -115,12 +115,12 @@ extension SettingsViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 1 && indexPath.row == 0 {
+        if indexPath.section == 2 && indexPath.row == 0 {
             // This is a 'Connection Log' row
             let logVC = parameters.environment.instantiateLogViewController()
             navigationController?.pushViewController(logVC, animated: true)
         }
-        if indexPath.section == 2 && indexPath.row == 1 {
+        if indexPath.section == 4 && indexPath.row == 1 {
             // This is a 'Source code' row
             if let sourceCodeURL = URL(string: "https://github.com/eduvpn/apple") {
                 let safariVC = SFSafariViewController(url: sourceCodeURL)

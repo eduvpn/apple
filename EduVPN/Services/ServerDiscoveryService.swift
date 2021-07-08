@@ -6,7 +6,7 @@
 import Foundation
 import PromiseKit
 
-protocol ServerDiscoveryServiceServersDelegate: class {
+protocol ServerDiscoveryServiceServersDelegate: AnyObject {
     func serverDiscoveryService(_ service: ServerDiscoveryService,
                                 serversChanged servers: DiscoveryData.Servers)
 }

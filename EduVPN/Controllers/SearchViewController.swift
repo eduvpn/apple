@@ -8,7 +8,7 @@ import PromiseKit
 import AppAuth
 import os.log
 
-protocol SearchViewControllerDelegate: class {
+protocol SearchViewControllerDelegate: AnyObject {
     func searchViewController(
         _ controller: SearchViewController,
         addedSimpleServerWithBaseURL baseURLString: DiscoveryData.BaseURLString,

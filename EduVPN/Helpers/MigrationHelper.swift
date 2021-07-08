@@ -7,7 +7,6 @@ import Foundation
 import os.log
 
 class MigrationHelper {
-    // swiftlint:disable:next function_body_length
     static func migrateServersFromFilePathURL() -> [SimpleServerInstance] {
         let fileManager = FileManager.default
         guard let applicationSupportDirURL = FileHelper.applicationSupportDirectoryUrl() else {

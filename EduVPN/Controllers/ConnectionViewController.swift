@@ -9,7 +9,7 @@ import Foundation
 import PromiseKit
 import os.log
 
-protocol ConnectionViewControllerDelegate: class {
+protocol ConnectionViewControllerDelegate: AnyObject {
     func connectionViewController(
         _ controller: ConnectionViewController,
         flowStatusChanged status: ConnectionViewModel.ConnectionFlowStatus)
@@ -37,13 +37,7 @@ extension ConnectionViewControllerError: AppError {
     }
 }
 
-enum ServerConnectionFlowContinuationPolicy {
-    case continueIfOnlyOneProfileFound
-    case continueIfAnyProfileFound
-    case doNotContinue
-    case notApplicable
-}
-
+// swiftlint:disable:next type_body_length
 final class ConnectionViewController: ViewController, ParametrizedViewController {
 
     struct Parameters {
@@ -51,7 +45,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         let connectableInstance: ConnectableInstance
         let serverDisplayInfo: ServerDisplayInfo
         let authURLTemplate: String?
-        let initialConnectionFlowContinuationPolicy: ServerConnectionFlowContinuationPolicy
+        let initialConnectionFlowContinuationPolicy: ConnectionViewModel.FlowContinuationPolicy
 
         // If restoringPreConnectionState is non-nil, then we're restoring
         // the UI at app launch for an already-on VPN
@@ -130,6 +124,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     @IBOutlet weak var durationLabel: NSTextField!
     @IBOutlet weak var profileTitleLabel: NSTextField!
     @IBOutlet weak var profileNameLabel: NSTextField!
+    @IBOutlet weak var vpnProtocolLabel: NSTextField!
     @IBOutlet weak var dataTransferredLabel: NSTextField!
     @IBOutlet weak var addressLabel: NSTextField!
     #endif
@@ -216,7 +211,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     }
     #endif
 
-    func beginConnectionFlow(continuationPolicy: ServerConnectionFlowContinuationPolicy) {
+    func beginConnectionFlow(continuationPolicy: ConnectionViewModel.FlowContinuationPolicy) {
         if parameters.connectableInstance is ServerInstance {
             beginServerConnectionFlow(continuationPolicy: continuationPolicy)
         } else if parameters.connectableInstance is VPNConfigInstance {
@@ -228,7 +223,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         if vpnSwitch.isOn {
             if parameters.connectableInstance is ServerInstance {
                 guard let profiles = profiles, !profiles.isEmpty else {
-                    beginServerConnectionFlow(continuationPolicy: .continueIfOnlyOneProfileFound)
+                    beginServerConnectionFlow(continuationPolicy: .continueWithSingleOrLastUsedProfile)
                     return
                 }
                 if selectedProfileId == nil {
@@ -381,10 +376,10 @@ private extension ConnectionViewController {
         #endif
     }
 
-    func beginServerConnectionFlow(continuationPolicy: ServerConnectionFlowContinuationPolicy) {
+    func beginServerConnectionFlow(continuationPolicy: ConnectionViewModel.FlowContinuationPolicy) {
         firstly {
             viewModel.beginServerConnectionFlow(
-                from: self, continuationPolicy: continuationPolicy, preferredProfileId: self.selectedProfileId)
+                from: self, continuationPolicy: continuationPolicy, lastUsedProfileId: self.selectedProfileId)
         }.catch { error in
             os_log("Error beginning server connection flow: %{public}@",
                    log: Log.general, type: .error,
@@ -509,7 +504,7 @@ private extension ConnectionViewController {
                 if let window = self.view.window {
                     alert.beginSheetModal(for: window) { result in
                         if case .alertFirstButtonReturn = result {
-                            self.beginServerConnectionFlow(continuationPolicy: .continueIfOnlyOneProfileFound)
+                            self.beginServerConnectionFlow(continuationPolicy: .continueWithSingleOrLastUsedProfile)
                         }
                     }
                 }
@@ -521,7 +516,7 @@ private extension ConnectionViewController {
                     title: NSLocalizedString("Refresh Profiles", comment: "button title"),
                     style: .default,
                     handler: { _ in
-                        self.beginServerConnectionFlow(continuationPolicy: .continueIfOnlyOneProfileFound)
+                        self.beginServerConnectionFlow(continuationPolicy: .continueWithSingleOrLastUsedProfile)
                     })
                 let cancelAction = UIAlertAction(
                     title: NSLocalizedString("Cancel", comment: "button title"),
@@ -671,7 +666,7 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
     }
 
     static let connectionInfoHeaderHeight: CGFloat = 46
-    static let connectionInfoBodyHeight: CGFloat = 100
+    static let connectionInfoBodyHeight: CGFloat = 120
     #if os(macOS)
     static let additionalControlContainerHeight = connectionInfoBodyHeight
     #elseif os(iOS)
@@ -722,9 +717,16 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
             if let profileName = connectionInfo.profileName {
                 profileTitleLabel.isHidden = false
                 profileNameLabel.stringValue = profileName
+                vpnProtocolLabel.stringValue = {
+                    guard let vpnProtocol = connectionInfo.vpnProtocol else {
+                        return ""
+                    }
+                    return "(\(vpnProtocol))"
+                }()
             } else {
                 profileTitleLabel.isHidden = true
                 profileNameLabel.stringValue = ""
+                vpnProtocolLabel.stringValue = ""
             }
             dataTransferredLabel.stringValue = connectionInfo.dataTransferred
             addressLabel.stringValue = connectionInfo.addresses

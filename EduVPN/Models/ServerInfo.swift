@@ -3,7 +3,7 @@
 //  eduVPN
 //
 
-// Models the data extracted from <server_base_url>/info.json
+// Models the data extracted from <server_base_url>/.well-known/vpn-user-portal
 
 import Foundation
 
