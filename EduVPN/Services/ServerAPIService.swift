@@ -6,6 +6,7 @@
 import Foundation
 import AppAuth
 import Moya
+import Alamofire
 import PromiseKit
 import ASN1Decoder
 import os.log
@@ -45,10 +46,22 @@ class ServerAPIService {
         let sourceViewController: AuthorizingViewController
     }
 
+    class OCSPStaplingEnforcedTrustManager: ServerTrustManager {
+        init() {
+            super.init(allHostsMustBeEvaluated: true, evaluators: [:])
+        }
+        override func serverTrustEvaluator(forHost host: String) throws -> ServerTrustEvaluating? {
+            return RevocationTrustEvaluator(options: [.ocsp, .requirePositiveResponse])
+        }
+    }
+
     static var uncachedSession: Moya.Session {
         let configuration = URLSessionConfiguration.default
         configuration.urlCache = nil
-        return Session(configuration: configuration, startRequestsImmediately: false)
+        return Session(
+            configuration: configuration,
+            startRequestsImmediately: false,
+            serverTrustManager: OCSPStaplingEnforcedTrustManager())
     }
 
     private let serverAuthService: ServerAuthService
