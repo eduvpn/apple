@@ -89,6 +89,10 @@ final class SearchViewController: ViewController, ParametrizedViewController {
         if shouldAutoFocusSearchField {
             showTableView(animated: false)
         }
+
+        #if os(macOS)
+        tableView.refusesFirstResponder = true
+        #endif
     }
 
     #if os(macOS)

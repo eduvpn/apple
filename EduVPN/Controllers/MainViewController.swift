@@ -84,6 +84,12 @@ class MainViewController: ViewController {
     }
     #endif
 
+    #if os(macOS)
+    override func viewDidLoad() {
+        tableView.refusesFirstResponder = true
+    }
+    #endif
+
     func refresh() {
         viewModel.update()
     }
