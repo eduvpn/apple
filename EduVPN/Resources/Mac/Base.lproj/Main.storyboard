@@ -306,24 +306,24 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Server" id="NGK-kD-c0a">
                                     <items>
-                                        <menuItem title="Next" keyEquivalent="" id="fEQ-K3-WAW">
+                                        <menuItem title="Next" keyEquivalent="" identifier="goNextServer" id="fEQ-K3-WAW">
                                             <connections>
-                                                <action selector="newDocument:" target="Ady-hI-5gd" id="pGU-me-Z2a"/>
+                                                <action selector="goNextServer:" target="Voe-Tx-rLC" id="F79-zG-dkb"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Previous" keyEquivalent="" id="jRF-Ty-dfT">
+                                        <menuItem title="Previous" keyEquivalent="" identifier="goPreviousServer" id="jRF-Ty-dfT">
                                             <connections>
-                                                <action selector="newDocument:" target="Ady-hI-5gd" id="ife-BU-hLa"/>
+                                                <action selector="goPreviousServer:" target="Voe-Tx-rLC" id="GsQ-l3-WAN"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="if5-e0-2yS"/>
-                                        <menuItem title="Select..." id="FkG-3m-e4e">
+                                        <menuItem title="Select..." identifier="performActionOnServer" id="FkG-3m-e4e">
                                             <string key="keyEquivalent" base64-UTF8="YES">
 DQ
 </string>
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="importOpenVPNConfig:" target="Voe-Tx-rLC" id="qrW-xe-Evr"/>
+                                                <action selector="performActionOnServer:" target="Voe-Tx-rLC" id="M2k-Ps-xgD"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Delete" id="e2B-cp-wUS">
@@ -588,13 +588,13 @@ Gw
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView wantsLayer="YES" horizontalHuggingPriority="100" borderType="none" autohidesScrollers="YES" horizontalLineScroll="60" horizontalPageScroll="10" verticalLineScroll="60" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ViX-vU-MfI" userLabel="Table Container View">
-                                <rect key="frame" x="20" y="20" width="2186" height="14"/>
+                                <rect key="frame" x="20" y="20" width="2254" height="12"/>
                                 <clipView key="contentView" drawsBackground="NO" id="Vdj-rZ-nzW">
-                                    <rect key="frame" x="0.0" y="0.0" width="2186" height="14"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="2254" height="12"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="40" usesAutomaticRowHeights="YES" viewBased="YES" floatsGroupRows="NO" id="0Se-xs-SBR">
-                                            <rect key="frame" x="0.0" y="0.0" width="2186" height="334"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="2254" height="334"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="20"/>
                                             <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -823,11 +823,11 @@ Gw
                                         </constraints>
                                     </customView>
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AiJ-eh-cZR" userLabel="Top Image">
-                                        <rect key="frame" x="195" y="246" width="90" height="560"/>
+                                        <rect key="frame" x="195" y="274" width="90" height="532"/>
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="SearchScreenTopImage" id="oWj-11-tRC"/>
                                     </imageView>
                                     <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OYQ-UB-7ZA">
-                                        <rect key="frame" x="-2" y="201" width="483" height="33"/>
+                                        <rect key="frame" x="-2" y="229" width="483" height="33"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Find your institute" id="eUs-aO-u69">
                                             <font key="font" size="24" name="OpenSans-Bold"/>
                                             <color key="textColor" name="BoldUITextColor"/>
@@ -835,7 +835,7 @@ Gw
                                         </textFieldCell>
                                     </textField>
                                     <searchField wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="100" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gW1-dp-amy" customClass="SearchField" customModule="eduVPN" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="149" width="479" height="40"/>
+                                        <rect key="frame" x="0.0" y="177" width="479" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="YjK-Nc-dHe"/>
                                         </constraints>
@@ -849,12 +849,12 @@ Gw
                                         </connections>
                                     </searchField>
                                     <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="6lv-tg-3Yq" userLabel="Spinner">
-                                        <rect key="frame" x="224" y="105" width="32" height="32"/>
+                                        <rect key="frame" x="224" y="133" width="32" height="32"/>
                                     </progressIndicator>
                                     <scrollView wantsLayer="YES" horizontalHuggingPriority="100" borderType="none" autohidesScrollers="YES" horizontalLineScroll="60" horizontalPageScroll="10" verticalLineScroll="60" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hge-fJ-m1C">
-                                        <rect key="frame" x="5" y="0.0" width="470" height="93"/>
+                                        <rect key="frame" x="5" y="0.0" width="470" height="121"/>
                                         <clipView key="contentView" drawsBackground="NO" id="73u-Eo-EqN">
-                                            <rect key="frame" x="0.0" y="0.0" width="470" height="93"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="470" height="121"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="40" usesAutomaticRowHeights="YES" viewBased="YES" floatsGroupRows="NO" id="s7r-dP-3wP">
@@ -968,7 +968,7 @@ Gw
                                             <nil key="backgroundColor"/>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="Qqv-vd-gvO">
-                                            <rect key="frame" x="1" y="119" width="223" height="15"/>
+                                            <rect key="frame" x="0.0" y="71" width="470" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="kUF-MN-H8o">
@@ -2410,7 +2410,7 @@ Gw
         <image name="SearchScreenTopImage" width="90" height="79.5"/>
         <image name="SettingsButton" width="20" height="20"/>
         <image name="SettingsButtonSelected" width="20" height="20"/>
-        <image name="TopBarLogo" width="440" height="130"/>
+        <image name="TopBarLogo" width="135.5" height="40"/>
         <image name="buttonCell:any-W4-2O1:alternateImage" width="70" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMSAAGGoF8QD05T

@@ -270,10 +270,47 @@ extension AppDelegate {
     }
 }
 
+protocol MenuCommandRespondingViewController {
+    func canGoNextServer() -> Bool
+    func goNextServer()
+
+    func canGoPreviousServer() -> Bool
+    func goPreviousServer()
+
+    func actionMenuItemTitle() -> String
+    func canPerformActionOnServer() -> Bool
+    func performActionOnServer()
+}
+
+extension AppDelegate {
+    private var topVC: MenuCommandRespondingViewController? {
+        environment?.navigationController?.topViewController as? MenuCommandRespondingViewController
+    }
+
+    @IBAction func goNextServer(_ sender: Any?) {
+        topVC?.goNextServer()
+    }
+
+    @IBAction func goPreviousServer(_ sender: Any?) {
+        topVC?.goPreviousServer()
+    }
+
+    @IBAction func performActionOnServer(_ sender: Any?) {
+        topVC?.performActionOnServer()
+    }
+}
+
 extension AppDelegate: NSMenuItemValidation {
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         if menuItem.keyEquivalent == "n" {
             return environment?.navigationController?.isToolbarLeftButtonShowsAddServerUI ?? false
+        } else if menuItem.identifier == NSUserInterfaceItemIdentifier("goNextServer") {
+            return topVC?.canGoNextServer() ?? false
+        } else if menuItem.identifier == NSUserInterfaceItemIdentifier("goPreviousServer") {
+            return topVC?.canGoPreviousServer() ?? false
+        } else if menuItem.identifier == NSUserInterfaceItemIdentifier("performActionOnServer") {
+            menuItem.title = topVC?.actionMenuItemTitle() ?? "Select"
+            return topVC?.canPerformActionOnServer() ?? false
         }
         return true
     }
