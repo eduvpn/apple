@@ -1,9 +1,24 @@
 //
 //  ConnectionViewController+macOS.swift
-//  EduVPN-macOS
-//
-//  Created by Roopesh Chander S on 13/07/21.
-//  Copyright © 2021 SURFNet. All rights reserved.
-//
+//  EduVPN
 
-import Foundation
+import Cocoa
+
+extension ConnectionViewController: MenuCommandRespondingViewController {
+    func canToggleVPN() -> Bool {
+        return vpnSwitch.isEnabled
+    }
+
+    func toggleVPN() {
+        vpnSwitch.isOn = !vpnSwitch.isOn
+        vpnSwitchToggled()
+    }
+
+    func canGoBackToServerList() -> Bool {
+        return canGoBack()
+    }
+
+    func goBackToServerList() {
+        goBack()
+    }
+}
