@@ -159,6 +159,10 @@ class SearchViewModel {
         }
         return nil
     }
+
+    func hasResults() -> Bool {
+        return !rows.isEmpty && row(at: 0) != .noResults
+    }
 }
 
 private extension SearchViewModel {

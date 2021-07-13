@@ -49,12 +49,13 @@ final class SearchViewController: ViewController, ParametrizedViewController {
     var isBusy: Bool = false {
         didSet { updateIsUserAllowedToGoBack() }
     }
-    private var hasAddedServers: Bool = false {
+    private(set) var hasAddedServers: Bool = false {
         didSet { updateIsUserAllowedToGoBack() }
     }
 
     #if os(macOS)
     var navigationController: NavigationController? { parameters.environment.navigationController }
+    var shouldPerformActionOnSelection = true
     #endif
 
     #if os(iOS)
@@ -89,6 +90,12 @@ final class SearchViewController: ViewController, ParametrizedViewController {
         if shouldAutoFocusSearchField {
             showTableView(animated: false)
         }
+
+        #if os(macOS)
+        tableView.refusesFirstResponder = true
+        tableView.action = #selector(onTableClicked)
+        tableView.target = self
+        #endif
     }
 
     #if os(macOS)
@@ -170,6 +177,10 @@ extension SearchViewController {
 // MARK: - Table view delegate and data source
 
 extension SearchViewController {
+    func hasResults() -> Bool {
+        return viewModel?.hasResults() ?? false
+    }
+
     func numberOfRows() -> Int {
         return viewModel?.numberOfRows() ?? 0
     }

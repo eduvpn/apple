@@ -337,6 +337,14 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         viewModel.toggleConnectionInfoExpanded()
     }
     #endif
+
+    func canGoBack() -> Bool {
+        return parameters.environment.navigationController?.isUserAllowedToGoBack ?? false
+    }
+
+    func goBack() {
+        parameters.environment.navigationController?.popViewController(animated: true)
+    }
 }
 
 #if os(iOS)

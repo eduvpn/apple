@@ -46,7 +46,7 @@ final class AddServerViewController: ViewController, ParametrizedViewController 
     var isBusy: Bool = false {
         didSet { updateIsUserAllowedToGoBack() }
     }
-    private var hasAddedServers: Bool = false {
+    private(set) var hasAddedServers: Bool = false {
         didSet { updateIsUserAllowedToGoBack() }
     }
 
