@@ -84,8 +84,13 @@ extension SearchViewController: AuthorizingViewController {
 
 extension SearchViewController: MenuCommandRespondingViewController {
     func canGoNextServer() -> Bool {
-        let rowCount = numberOfRows()
-        return hasResults() && rowCount > 0 && tableView.selectedRow < (rowCount - 1)
+        guard hasResults() else {
+            return false
+        }
+        guard tableView.selectedRow >= 0 else {
+            return numberOfRows() > 0
+        }
+        return tableView.selectedRow < (numberOfRows() - 1)
     }
 
     func goNextServer() {
@@ -101,7 +106,10 @@ extension SearchViewController: MenuCommandRespondingViewController {
     }
 
     func canGoPreviousServer() -> Bool {
-        tableView.selectedRow > 1 || canSelectRow(at: 0)
+        guard hasResults() && tableView.selectedRow > 0 else {
+            return false
+        }
+        return tableView.selectedRow > 1 || canSelectRow(at: tableView.selectedRow - 1)
     }
 
     func goPreviousServer() {

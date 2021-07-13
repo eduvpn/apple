@@ -65,12 +65,15 @@ extension MainViewController {
 
 extension MainViewController: MenuCommandRespondingViewController {
     func canGoNextServer() -> Bool {
-        tableView.selectedRow < (numberOfRows() - 1)
+        guard tableView.selectedRow >= 0 else {
+            return numberOfRows() > 0
+        }
+        return tableView.selectedRow < (numberOfRows() - 1)
     }
 
     func goNextServer() {
         var currentRow = tableView.selectedRow + 1
-        while !canSelectRow(at: currentRow) && currentRow < numberOfRows() {
+        while currentRow < numberOfRows() && !canSelectRow(at: currentRow) {
             currentRow += 1
         }
         if canSelectRow(at: currentRow) {
@@ -81,7 +84,10 @@ extension MainViewController: MenuCommandRespondingViewController {
     }
 
     func canGoPreviousServer() -> Bool {
-        tableView.selectedRow > 1 || canSelectRow(at: 0)
+        guard tableView.selectedRow > 0 else {
+            return false
+        }
+        return tableView.selectedRow > 1 || canSelectRow(at: tableView.selectedRow - 1)
     }
 
     func goPreviousServer() {
