@@ -79,6 +79,7 @@ extension MainViewController: MenuCommandRespondingViewController {
         if canSelectRow(at: currentRow) {
             shouldPerformActionOnSelection = false
             tableView.selectRowIndexes([currentRow], byExtendingSelection: false)
+            tableView.scrollRowToVisible(currentRow)
             shouldPerformActionOnSelection = true
         }
     }
@@ -98,6 +99,7 @@ extension MainViewController: MenuCommandRespondingViewController {
         if canSelectRow(at: currentRow) {
             shouldPerformActionOnSelection = false
             tableView.selectRowIndexes([currentRow], byExtendingSelection: false)
+            tableView.scrollRowToVisible(currentRow)
             shouldPerformActionOnSelection = true
         }
     }

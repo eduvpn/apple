@@ -101,6 +101,7 @@ extension SearchViewController: MenuCommandRespondingViewController {
         if canSelectRow(at: currentRow) {
             shouldPerformActionOnSelection = false
             tableView.selectRowIndexes([currentRow], byExtendingSelection: false)
+            tableView.scrollRowToVisible(currentRow)
             shouldPerformActionOnSelection = true
         }
     }
@@ -120,6 +121,7 @@ extension SearchViewController: MenuCommandRespondingViewController {
         if canSelectRow(at: currentRow) {
             shouldPerformActionOnSelection = false
             tableView.selectRowIndexes([currentRow], byExtendingSelection: false)
+            tableView.scrollRowToVisible(currentRow)
             shouldPerformActionOnSelection = true
         }
     }
