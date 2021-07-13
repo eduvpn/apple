@@ -35,3 +35,13 @@ extension AddServerViewController: AuthorizingViewController {
         NSApp.activate(ignoringOtherApps: true)
     }
 }
+
+extension AddServerViewController: MenuCommandRespondingViewController {
+    func canGoBackToServerList() -> Bool {
+        return hasAddedServers && !isBusy
+    }
+
+    func goBackToServerList() {
+        navigationController?.popViewController(animated: true)
+    }
+}
