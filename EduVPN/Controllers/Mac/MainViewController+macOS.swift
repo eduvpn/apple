@@ -158,28 +158,4 @@ extension MainViewController: MenuCommandRespondingViewController {
             }
         }
     }
-
-    func canToggleVPN() -> Bool {
-        return false
-    }
-
-    func toggleVPN() {
-        // Can't toggle VPN while in main screen
-    }
-
-    func canRenewSession() -> Bool {
-        return false
-    }
-
-    func renewSession() {
-        // Can't renew session while in main screen
-    }
-
-    func canGoBackToServerList() -> Bool {
-        return false
-    }
-
-    func goBackToServerList() {
-        // Can't go back to server list while in main screen
-    }
 }

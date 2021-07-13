@@ -294,6 +294,30 @@ protocol MenuCommandRespondingViewController {
     func goBackToServerList()
 }
 
+extension MenuCommandRespondingViewController {
+    func canGoNextServer() -> Bool { return false }
+    func goNextServer() { }
+
+    func canGoPreviousServer() -> Bool { return false }
+    func goPreviousServer() { }
+
+    func actionMenuItemTitle() -> String { return "Select" }
+    func canPerformActionOnServer() -> Bool { return false }
+    func performActionOnServer() { }
+
+    func canDeleteServer() -> Bool { return false }
+    func deleteServer() { }
+
+    func canToggleVPN() -> Bool { return false }
+    func toggleVPN() { }
+
+    func canRenewSession() -> Bool { return false }
+    func renewSession() { }
+
+    func canGoBackToServerList() -> Bool { return false }
+    func goBackToServerList() { }
+}
+
 extension AppDelegate {
     private var topVC: MenuCommandRespondingViewController? {
         environment?.navigationController?.topViewController as? MenuCommandRespondingViewController

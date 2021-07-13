@@ -139,30 +139,6 @@ extension SearchViewController: MenuCommandRespondingViewController {
         }
     }
 
-    func canDeleteServer() -> Bool {
-        return false
-    }
-
-    func deleteServer() {
-        // Can't delete server while in Search screen
-    }
-
-    func canToggleVPN() -> Bool {
-        return false
-    }
-
-    func toggleVPN() {
-        // Can't toggle VPN while in main screen
-    }
-
-    func canRenewSession() -> Bool {
-        return false
-    }
-
-    func renewSession() {
-        // Can't renew session while in main screen
-    }
-
     func canGoBackToServerList() -> Bool {
         return hasAddedServers && !isBusy
     }
