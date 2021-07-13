@@ -93,6 +93,8 @@ final class SearchViewController: ViewController, ParametrizedViewController {
 
         #if os(macOS)
         tableView.refusesFirstResponder = true
+        tableView.action = #selector(onTableClicked)
+        tableView.target = self
         #endif
     }
 

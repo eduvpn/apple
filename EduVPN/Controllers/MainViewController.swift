@@ -91,6 +91,8 @@ class MainViewController: ViewController {
     #if os(macOS)
     override func viewDidLoad() {
         tableView.refusesFirstResponder = true
+        tableView.action = #selector(onTableClicked)
+        tableView.target = self
     }
     #endif
 

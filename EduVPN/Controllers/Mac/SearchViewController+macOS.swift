@@ -82,6 +82,17 @@ extension SearchViewController: AuthorizingViewController {
     }
 }
 
+extension SearchViewController {
+    @objc func onTableClicked() {
+        // If a row is already selected by keyboard, and the user clicks on it,
+        // we should perform the action on the row even if it's already selected.
+        if tableView.clickedRow >= 0 && tableView.selectedRow == tableView.clickedRow {
+            didSelectRow(at: tableView.selectedRow)
+            tableView.selectRowIndexes([], byExtendingSelection: false)
+        }
+    }
+}
+
 extension SearchViewController: MenuCommandResponding {
     func canGoNextServer() -> Bool {
         guard hasResults() else {
