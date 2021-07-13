@@ -65,9 +65,9 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="File" id="bib-Uj-vzu">
                                     <items>
-                                        <menuItem title="Add New Server..." keyEquivalent="n" id="Was-JA-tGl">
+                                        <menuItem title="Add New Server..." keyEquivalent="n" identifier="addNewServer" id="Was-JA-tGl">
                                             <connections>
-                                                <action selector="newDocument:" target="Ady-hI-5gd" id="4Si-XN-c54"/>
+                                                <action selector="addNewServer:" target="Voe-Tx-rLC" id="G2t-JK-4xW"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Import OpenVPN Configuration..." keyEquivalent="i" id="9SY-An-WWD">

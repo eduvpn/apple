@@ -7,6 +7,9 @@
 import Cocoa
 
 protocol MenuCommandResponding {
+    func canAddNewServer() -> Bool
+    func addNewServer()
+
     func canGoNextServer() -> Bool
     func goNextServer()
 
@@ -31,6 +34,9 @@ protocol MenuCommandResponding {
 }
 
 extension MenuCommandResponding {
+    func canAddNewServer() -> Bool { return false }
+    func addNewServer() { }
+
     func canGoNextServer() -> Bool { return false }
     func goNextServer() { }
 

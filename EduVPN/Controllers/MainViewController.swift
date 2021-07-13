@@ -134,6 +134,10 @@ class MainViewController: ViewController {
 
 extension MainViewController: NavigationControllerAddButtonDelegate {
     func addButtonClicked(inNavigationController controller: NavigationController) {
+        showSearchVCOrAddServerVC()
+    }
+
+    func showSearchVCOrAddServerVC() {
         if Config.shared.apiDiscoveryEnabled ?? false {
             let isSecureInternetServerAdded = (environment.persistenceService.secureInternetServer != nil)
             let searchVC = environment.instantiateSearchViewController(

@@ -64,6 +64,14 @@ extension MainViewController {
 }
 
 extension MainViewController: MenuCommandResponding {
+    func canAddNewServer() -> Bool {
+        return true
+    }
+
+    func addNewServer() {
+        showSearchVCOrAddServerVC()
+    }
+
     func canGoNextServer() -> Bool {
         guard tableView.selectedRow >= 0 else {
             return numberOfRows() > 0
