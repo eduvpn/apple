@@ -301,6 +301,10 @@ extension AppDelegate {
 
 extension AppDelegate: NSMenuItemValidation {
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        guard let navigationController = environment?.navigationController,
+              !navigationController.isAnimating else {
+            return false
+        }
         if menuItem.identifier == NSUserInterfaceItemIdentifier("addNewServer") {
             return topVC?.canAddNewServer() ?? false
         } else if menuItem.identifier == NSUserInterfaceItemIdentifier("goNextServer") {
