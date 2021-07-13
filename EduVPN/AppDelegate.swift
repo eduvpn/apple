@@ -306,7 +306,7 @@ extension AppDelegate {
 
 extension AppDelegate: NSMenuItemValidation {
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        if menuItem.keyEquivalent == "n" {
+        if menuItem.identifier == NSUserInterfaceItemIdentifier("addNewServer") {
             return environment?.navigationController?.isToolbarLeftButtonShowsAddServerUI ?? false
         } else if menuItem.identifier == NSUserInterfaceItemIdentifier("goNextServer") {
             return topVC?.canGoNextServer() ?? false
