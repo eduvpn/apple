@@ -287,8 +287,8 @@ protocol MenuCommandRespondingViewController {
     func canToggleVPN() -> Bool
     func toggleVPN()
 
-    func canRenewSession() -> Bool
-    func renewSession()
+    func canActivateSelectProfilePopup() -> Bool
+    func activateSelectProfilePopup()
 
     func canGoBackToServerList() -> Bool
     func goBackToServerList()
@@ -311,8 +311,8 @@ extension MenuCommandRespondingViewController {
     func canToggleVPN() -> Bool { return false }
     func toggleVPN() { }
 
-    func canRenewSession() -> Bool { return false }
-    func renewSession() { }
+    func canActivateSelectProfilePopup() -> Bool { return false }
+    func activateSelectProfilePopup() { }
 
     func canGoBackToServerList() -> Bool { return false }
     func goBackToServerList() { }
@@ -343,8 +343,8 @@ extension AppDelegate {
         topVC?.toggleVPN()
     }
 
-    @IBAction func renewSession(_ sender: Any?) {
-        topVC?.renewSession()
+    @IBAction func activateSelectProfilePopup(_ sender: Any?) {
+        topVC?.activateSelectProfilePopup()
     }
 
     @IBAction func goBackToServerList(_ sender: Any?) {
@@ -367,8 +367,8 @@ extension AppDelegate: NSMenuItemValidation {
             return topVC?.canDeleteServer() ?? false
         } else if menuItem.identifier == NSUserInterfaceItemIdentifier("toggleVPN") {
             return topVC?.canToggleVPN() ?? false
-        } else if menuItem.identifier == NSUserInterfaceItemIdentifier("renewSession") {
-            return topVC?.canRenewSession() ?? false
+        } else if menuItem.identifier == NSUserInterfaceItemIdentifier("selectProfile") {
+            return topVC?.canActivateSelectProfilePopup() ?? false
         } else if menuItem.identifier == NSUserInterfaceItemIdentifier("goBackToServerList") {
             return topVC?.canGoBackToServerList() ?? false
         }
