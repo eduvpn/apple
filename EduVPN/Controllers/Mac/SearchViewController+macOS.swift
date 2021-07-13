@@ -20,6 +20,7 @@ extension SearchViewController: NSTableViewDelegate, NSTableViewDataSource {
 
     func tableViewSelectionDidChange(_ notification: Notification) {
         guard let tableView = notification.object as? NSTableView else { return }
+        guard shouldPerformActionOnSelection else { return }
         if let firstSelectedIndex = tableView.selectedRowIndexes.first {
             didSelectRow(at: firstSelectedIndex)
         }
@@ -78,5 +79,95 @@ extension SearchViewController: AuthorizingViewController {
     func didEndAuthorization() {
         navigationController?.hideAuthorizingMessage()
         NSApp.activate(ignoringOtherApps: true)
+    }
+}
+
+extension SearchViewController: MenuCommandRespondingViewController {
+    func canGoNextServer() -> Bool {
+        let rowCount = numberOfRows()
+        return hasResults() && rowCount > 0 && tableView.selectedRow < (rowCount - 1)
+    }
+
+    func goNextServer() {
+        var currentRow = tableView.selectedRow + 1
+        while currentRow < numberOfRows() && !canSelectRow(at: currentRow) {
+            currentRow += 1
+        }
+        if canSelectRow(at: currentRow) {
+            shouldPerformActionOnSelection = false
+            tableView.selectRowIndexes([currentRow], byExtendingSelection: false)
+            shouldPerformActionOnSelection = true
+        }
+    }
+
+    func canGoPreviousServer() -> Bool {
+        tableView.selectedRow > 1 || canSelectRow(at: 0)
+    }
+
+    func goPreviousServer() {
+        var currentRow = tableView.selectedRow - 1
+        while !canSelectRow(at: currentRow) && currentRow >= 0 {
+            currentRow -= 1
+        }
+        if canSelectRow(at: currentRow) {
+            shouldPerformActionOnSelection = false
+            tableView.selectRowIndexes([currentRow], byExtendingSelection: false)
+            shouldPerformActionOnSelection = true
+        }
+    }
+
+    func actionMenuItemTitle() -> String {
+        return "Add Server..."
+    }
+
+    func canPerformActionOnServer() -> Bool {
+        let currentRow = tableView.selectedRow
+        guard currentRow >= 0 && currentRow < numberOfRows() else {
+            return false
+        }
+        return canSelectRow(at: tableView.selectedRow)
+    }
+
+    func performActionOnServer() {
+        let currentRow = tableView.selectedRow
+        guard currentRow >= 0 && currentRow < numberOfRows() else {
+            return
+        }
+        if canSelectRow(at: currentRow) {
+            didSelectRow(at: currentRow)
+            tableView.selectRowIndexes([], byExtendingSelection: false)
+        }
+    }
+
+    func canDeleteServer() -> Bool {
+        return false
+    }
+
+    func deleteServer() {
+        // Can't delete server while in Search screen
+    }
+
+    func canToggleVPN() -> Bool {
+        return false
+    }
+
+    func toggleVPN() {
+        // Can't toggle VPN while in main screen
+    }
+
+    func canRenewSession() -> Bool {
+        return false
+    }
+
+    func renewSession() {
+        // Can't renew session while in main screen
+    }
+
+    func canGoBackToServerList() -> Bool {
+        return hasAddedServers && !isBusy
+    }
+
+    func goBackToServerList() {
+        navigationController?.popViewController(animated: true)
     }
 }
