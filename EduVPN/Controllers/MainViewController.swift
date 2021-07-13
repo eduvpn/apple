@@ -64,6 +64,10 @@ class MainViewController: ViewController {
     // swiftlint:disable:next identifier_name
     private var shouldRenewSessionWhenConnectionServiceInitialized = false
 
+    #if os(macOS)
+    var shouldPerformActionOnSelection = true
+    #endif
+
     @IBOutlet weak var tableView: TableView!
 
     #if os(iOS)
