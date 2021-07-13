@@ -280,6 +280,18 @@ protocol MenuCommandRespondingViewController {
     func actionMenuItemTitle() -> String
     func canPerformActionOnServer() -> Bool
     func performActionOnServer()
+
+    func canDeleteServer() -> Bool
+    func deleteServer()
+
+    func canToggleVPN() -> Bool
+    func toggleVPN()
+
+    func canRenewSession() -> Bool
+    func renewSession()
+
+    func canGoBackToServerList() -> Bool
+    func goBackToServerList()
 }
 
 extension AppDelegate {
@@ -298,6 +310,22 @@ extension AppDelegate {
     @IBAction func performActionOnServer(_ sender: Any?) {
         topVC?.performActionOnServer()
     }
+
+    @IBAction func deleteServer(_ sender: Any?) {
+        topVC?.deleteServer()
+    }
+
+    @IBAction func toggleVPN(_ sender: Any?) {
+        topVC?.toggleVPN()
+    }
+
+    @IBAction func renewSession(_ sender: Any?) {
+        topVC?.renewSession()
+    }
+
+    @IBAction func goBackToServerList(_ sender: Any?) {
+        topVC?.goBackToServerList()
+    }
 }
 
 extension AppDelegate: NSMenuItemValidation {
@@ -311,6 +339,14 @@ extension AppDelegate: NSMenuItemValidation {
         } else if menuItem.identifier == NSUserInterfaceItemIdentifier("performActionOnServer") {
             menuItem.title = topVC?.actionMenuItemTitle() ?? "Select"
             return topVC?.canPerformActionOnServer() ?? false
+        } else if menuItem.identifier == NSUserInterfaceItemIdentifier("deleteServer") {
+            return topVC?.canDeleteServer() ?? false
+        } else if menuItem.identifier == NSUserInterfaceItemIdentifier("toggleVPN") {
+            return topVC?.canToggleVPN() ?? false
+        } else if menuItem.identifier == NSUserInterfaceItemIdentifier("renewSession") {
+            return topVC?.canRenewSession() ?? false
+        } else if menuItem.identifier == NSUserInterfaceItemIdentifier("goBackToServerList") {
+            return topVC?.canGoBackToServerList() ?? false
         }
         return true
     }

@@ -118,4 +118,68 @@ extension MainViewController: MenuCommandRespondingViewController {
             tableView.selectRowIndexes([], byExtendingSelection: false)
         }
     }
+
+    func canDeleteServer() -> Bool {
+        let currentRow = tableView.selectedRow
+        guard currentRow >= 0 && currentRow < numberOfRows() else {
+            return false
+        }
+        return canDeleteRow(at: currentRow)
+    }
+
+    func deleteServer() {
+        let currentRow = tableView.selectedRow
+        guard currentRow >= 0 && currentRow < numberOfRows() else {
+            return
+        }
+        if canDeleteRow(at: currentRow) {
+            let alert = NSAlert()
+            alert.alertStyle = .warning
+            alert.messageText = NSLocalizedString(
+                "Are you sure you want to delete server “\(displayText(at: currentRow))”?",
+                comment: "macOS alert title to confirm deletion of added server from menu")
+            alert.addButton(withTitle: NSLocalizedString(
+                                "Delete",
+                                comment: "macOS alert button to confirm deletion of added server from menu"))
+            alert.addButton(withTitle: NSLocalizedString(
+                                "Cancel",
+                                comment: "macOS alert button to confirm deletion of added server from menu"))
+            if let window = NSApp.windows.first {
+                alert.beginSheetModal(for: window) { result in
+                    if case .alertFirstButtonReturn = result {
+                        self.deleteRow(at: currentRow)
+                    }
+                }
+            } else {
+                let result = alert.runModal()
+                if case .alertFirstButtonReturn = result {
+                    self.deleteRow(at: currentRow)
+                }
+            }
+        }
+    }
+
+    func canToggleVPN() -> Bool {
+        return false
+    }
+
+    func toggleVPN() {
+        // Can't toggle VPN while in main screen
+    }
+
+    func canRenewSession() -> Bool {
+        return false
+    }
+
+    func renewSession() {
+        // Can't renew session while in main screen
+    }
+
+    func canGoBackToServerList() -> Bool {
+        return false
+    }
+
+    func goBackToServerList() {
+        // Can't go back to server list while in main screen
+    }
 }

@@ -322,29 +322,29 @@
                                                 <action selector="performActionOnServer:" target="Voe-Tx-rLC" id="M2k-Ps-xgD"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Delete" id="e2B-cp-wUS">
+                                        <menuItem title="Delete" identifier="deleteServer" id="e2B-cp-wUS">
                                             <string key="keyEquivalent" base64-UTF8="YES">
 CA
 </string>
                                             <connections>
-                                                <action selector="performClose:" target="Ady-hI-5gd" id="DRC-fY-apF"/>
+                                                <action selector="deleteServer:" target="Voe-Tx-rLC" id="AJw-wJ-Vn2"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="hyf-BU-h6f"/>
-                                        <menuItem title="Toggle VPN" keyEquivalent="t" id="2ss-1Q-5OP">
+                                        <menuItem title="Toggle VPN" keyEquivalent="t" identifier="toggleVPN" id="2ss-1Q-5OP">
                                             <connections>
-                                                <action selector="performClose:" target="Ady-hI-5gd" id="hTL-gc-TaB"/>
+                                                <action selector="toggleVPN:" target="Voe-Tx-rLC" id="eop-IN-iIn"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Renew Session..." keyEquivalent="r" id="oxX-8B-iYR">
+                                        <menuItem title="Renew Session..." keyEquivalent="r" identifier="renewSession" id="oxX-8B-iYR">
                                             <connections>
-                                                <action selector="performClose:" target="Ady-hI-5gd" id="mDO-ar-6VK"/>
+                                                <action selector="renewSession:" target="Voe-Tx-rLC" id="lRh-J3-314"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="9z1-kA-xmY"/>
-                                        <menuItem title="Go Back to Server List" keyEquivalent="" id="ytV-Db-jDo">
+                                        <menuItem title="Go Back to Server List" keyEquivalent="" identifier="goBackToServerList" id="ytV-Db-jDo">
                                             <connections>
-                                                <action selector="performClose:" target="Ady-hI-5gd" id="x1x-GH-KFp"/>
+                                                <action selector="goBackToServerList:" target="Voe-Tx-rLC" id="cOB-GQ-sL7"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -584,13 +584,13 @@ Gw
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView wantsLayer="YES" horizontalHuggingPriority="100" borderType="none" autohidesScrollers="YES" horizontalLineScroll="60" horizontalPageScroll="10" verticalLineScroll="60" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ViX-vU-MfI" userLabel="Table Container View">
-                                <rect key="frame" x="20" y="20" width="2305" height="45"/>
+                                <rect key="frame" x="20" y="20" width="2356" height="59"/>
                                 <clipView key="contentView" drawsBackground="NO" id="Vdj-rZ-nzW">
-                                    <rect key="frame" x="0.0" y="0.0" width="2305" height="45"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="2356" height="59"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="40" usesAutomaticRowHeights="YES" viewBased="YES" floatsGroupRows="NO" id="0Se-xs-SBR">
-                                            <rect key="frame" x="0.0" y="0.0" width="2305" height="334"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="2356" height="334"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="20"/>
                                             <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
