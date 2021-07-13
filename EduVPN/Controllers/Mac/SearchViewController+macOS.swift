@@ -82,7 +82,7 @@ extension SearchViewController: AuthorizingViewController {
     }
 }
 
-extension SearchViewController: MenuCommandRespondingViewController {
+extension SearchViewController: MenuCommandResponding {
     func canGoNextServer() -> Bool {
         guard hasResults() else {
             return false

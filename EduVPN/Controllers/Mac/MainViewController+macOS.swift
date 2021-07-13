@@ -63,7 +63,7 @@ extension MainViewController {
     }
 }
 
-extension MainViewController: MenuCommandRespondingViewController {
+extension MainViewController: MenuCommandResponding {
     func canGoNextServer() -> Bool {
         guard tableView.selectedRow >= 0 else {
             return numberOfRows() > 0

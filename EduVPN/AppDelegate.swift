@@ -271,8 +271,8 @@ extension AppDelegate {
 }
 
 extension AppDelegate {
-    private var topVC: MenuCommandRespondingViewController? {
-        environment?.navigationController?.topViewController as? MenuCommandRespondingViewController
+    private var topVC: MenuCommandResponding? {
+        environment?.navigationController?.topViewController as? MenuCommandResponding
     }
 
     @IBAction func goNextServer(_ sender: Any?) {

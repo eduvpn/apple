@@ -36,7 +36,7 @@ extension AddServerViewController: AuthorizingViewController {
     }
 }
 
-extension AddServerViewController: MenuCommandRespondingViewController {
+extension AddServerViewController: MenuCommandResponding {
     func canGoBackToServerList() -> Bool {
         return hasAddedServers && !isBusy
     }

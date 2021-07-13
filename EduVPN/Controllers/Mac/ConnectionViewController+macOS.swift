@@ -4,7 +4,7 @@
 
 import Cocoa
 
-extension ConnectionViewController: MenuCommandRespondingViewController {
+extension ConnectionViewController: MenuCommandResponding {
     func canToggleVPN() -> Bool {
         return vpnSwitch.isEnabled
     }

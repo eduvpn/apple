@@ -1,12 +1,12 @@
 //
-//  MenuCommandRespondingViewController.swift
+//  MenuCommandResponding.swift
 //  EduVPN
 
 //  Protocol representing the commands in the 'Server' app menu
 
 import Cocoa
 
-protocol MenuCommandRespondingViewController {
+protocol MenuCommandResponding {
     func canGoNextServer() -> Bool
     func goNextServer()
 
@@ -30,7 +30,7 @@ protocol MenuCommandRespondingViewController {
     func goBackToServerList()
 }
 
-extension MenuCommandRespondingViewController {
+extension MenuCommandResponding {
     func canGoNextServer() -> Bool { return false }
     func goNextServer() { }
 
