@@ -17,6 +17,7 @@ enum ServerAPIv3Error: Error {
     case wgVPNConfigMissingInterfaceSection
     case expiresResponseHeaderIsInvalid(String?)
     case unexpectedContentTypeOnConnect(String?)
+    case fireAndForgetCallTimedOut
 }
 
 extension ServerAPIv3Error: AppError {
@@ -34,6 +35,8 @@ extension ServerAPIv3Error: AppError {
             return "Invalid expiration date value"
         case .unexpectedContentTypeOnConnect:
             return "Unexpected content type value"
+        case .fireAndForgetCallTimedOut:
+            return "Disconnect call timed out"
         }
     }
 
@@ -152,7 +155,7 @@ struct ServerAPIv3Handler: ServerAPIHandler {
             Self.fireAndForget(target: target)
             return Promise.value(())
         } else {
-            return Self.fire(target: target)
+            return Self.fire(target: target, timeout: 3 /* seconds */)
         }
     }
 }
@@ -325,7 +328,7 @@ private extension ServerAPIv3Handler {
         var authorizationType: AuthorizationType? { .bearer }
     }
 
-    static func fire(target: FireAndForgetAPITarget) -> Promise<Void> {
+    private static func fire(target: FireAndForgetAPITarget) -> Promise<Void> {
         firstly { () -> Promise<String> in
             if let authState = target.dataStore.authState {
                 return Self.getFreshAccessToken(using: authState, storingChangesTo: target.dataStore)
@@ -350,6 +353,13 @@ private extension ServerAPIv3Handler {
                 }
             }
         }
+    }
+
+    static func fire(target: FireAndForgetAPITarget, timeout: TimeInterval) -> Promise<Void> {
+        let timedPromise = after(seconds: timeout).done {
+            throw ServerAPIv3Error.fireAndForgetCallTimedOut
+        }
+        return race(fire(target: target), timedPromise)
     }
 
     static func fireAndForget(target: FireAndForgetAPITarget) {
