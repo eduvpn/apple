@@ -234,14 +234,14 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
                 beginVPNConfigConnectionFlow()
             }
         } else {
-            disableVPN()
+            disableVPN(shouldFireAndForget: true)
         }
     }
 
     @discardableResult
-    func disableVPN() -> Promise<Void> {
+    func disableVPN(shouldFireAndForget: Bool = true) -> Promise<Void> {
         firstly {
-            viewModel.disableVPN()
+            viewModel.disableVPN(shouldFireAndForget: shouldFireAndForget)
         }.map {
             self.vpnSwitch.isOn = false
         }.recover { error in
@@ -262,7 +262,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
 
     func renewSession() {
         firstly {
-            viewModel.disableVPN()
+            viewModel.disableVPN(shouldFireAndForget: true)
         }.map {
             self.continueServerConnectionFlow(serverAPIOptions: [.ignoreStoredAuthState, .ignoreStoredKeyPair])
         }.catch { error in
