@@ -103,8 +103,9 @@ struct ServerAPIv2Handler: ServerAPIHandler {
 
     static func attemptToRelinquishTunnelConfiguration(
         baseURL: URL, dataStore: PersistenceService.DataStore, session: Moya.Session,
-        profile: Profile) {
+        profile: Profile, shouldFireAndForget: Bool) -> Promise<Void> {
         // Nothing to do
+        return Promise.value(())
     }
 }
 

@@ -134,12 +134,13 @@ class ServerAPIService {
     func attemptToRelinquishTunnelConfiguration(
         apiVersion: ServerInfo.APIVersion,
         baseURL: URL, dataStore: PersistenceService.DataStore,
-        profile: Profile) {
+        profile: Profile, shouldFireAndForget: Bool) -> Promise<Void> {
 
         let serverAPIHandler = Self.serverAPIHandlerType(for: apiVersion)
-        serverAPIHandler.attemptToRelinquishTunnelConfiguration(
+        return serverAPIHandler.attemptToRelinquishTunnelConfiguration(
             baseURL: baseURL, dataStore: dataStore,
-            session: Self.uncachedSession, profile: profile)
+            session: Self.uncachedSession, profile: profile,
+            shouldFireAndForget: shouldFireAndForget)
     }
 }
 
@@ -154,7 +155,7 @@ protocol ServerAPIHandler {
         options: ServerAPIService.Options) -> Promise<ServerAPIService.TunnelConfigurationData>
     static func attemptToRelinquishTunnelConfiguration(
         baseURL: URL, dataStore: PersistenceService.DataStore, session: Moya.Session,
-        profile: Profile)
+        profile: Profile, shouldFireAndForget: Bool) -> Promise<Void>
 }
 
 extension ServerAPIHandler {

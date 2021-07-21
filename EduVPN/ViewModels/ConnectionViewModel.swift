@@ -466,7 +466,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         }
     }
 
-    func disableVPN() -> Promise<Void> {
+    func disableVPN(shouldFireAndForget: Bool) -> Promise<Void> {
         precondition(self.connectionService.isInitialized)
         guard self.connectionService.isVPNEnabled == true else {
             return Promise.value(())
@@ -474,14 +474,17 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         return firstly { () -> Promise<Void> in
             self.internalState = .disableVPNRequested
             return self.connectionService.disableVPN()
-        }.map {
+        }.then { () -> Promise<Void> in
             self.notificationService?.descheduleSessionExpiryNotification()
             if let serverInfoForDisconnectReport = self.serverInfoForDisconnectReport,
-               let profile = self.connectingProfile {
-                self.serverAPIService?.attemptToRelinquishTunnelConfiguration(
+               let profile = self.connectingProfile,
+               let serverAPIService = self.serverAPIService {
+                return serverAPIService.attemptToRelinquishTunnelConfiguration(
                     apiVersion: serverInfoForDisconnectReport.serverAPIVersion,
                     baseURL: serverInfoForDisconnectReport.serverAPIBaseURL,
-                    dataStore: self.dataStore, profile: profile)
+                    dataStore: self.dataStore, profile: profile, shouldFireAndForget: shouldFireAndForget)
+            } else {
+                return Promise.value(())
             }
         }.ensure {
             self.internalState = self.connectionService.isVPNEnabled ? .enabledVPN : .idle

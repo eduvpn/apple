@@ -119,8 +119,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         func handleQuitConfirmationResult(_ result: NSApplication.ModalResponse) {
             if case .alertFirstButtonReturn = result {
-                firstly {
-                    connectionService.disableVPN()
+                firstly { () -> Promise<Void> in
+                    guard let connectionVC = mainViewController?.currentConnectionVC else {
+                        return connectionService.disableVPN()
+                    }
+                    return connectionVC.disableVPN(shouldFireAndForget: false)
                 }.map { _ in
                     NSApp.reply(toApplicationShouldTerminate: true)
                 }.cauterize()
