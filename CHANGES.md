@@ -1,14 +1,17 @@
 # Changelog
 
-## Unreleased
+## 2.2.3
 
+- Support for APIv3 and WireGuard
+- Bugfix: VPN switch is no longer disabled after connecting after first launch
+- Show renew button if we have <1 week to expiry
+- Use "/.well-known/vpn-user-portal" instead of "/info.json"
 - macOS: Status item icons changed
 - iOS: Support for password-based OpenVPN configs
 - macOS: Can press return to connect when prompted for password
 - Rollback prevention for discovery data
 - macOS: Improve HTML page shown after OAuth authentication completes #182
 - Updated dependencies
-- Support for APIv3 and WireGuard
 
 ## 2.2.2
 
