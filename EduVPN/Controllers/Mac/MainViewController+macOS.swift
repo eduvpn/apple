@@ -124,7 +124,7 @@ extension MainViewController: MenuCommandResponding {
     }
 
     func actionMenuItemTitle() -> String {
-        return "Begin Connecting"
+        return "Connect..."
     }
 
     func canPerformActionOnServer() -> Bool {
