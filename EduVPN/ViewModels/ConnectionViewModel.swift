@@ -149,6 +149,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
 
     private enum InternalState: Equatable {
         case idle
+        case gettingServerInfo
         case gettingProfiles
         case configuring
         case enableVPNRequested
@@ -315,11 +316,14 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
               let serverAPIService = serverAPIService else {
             return Promise.value(())
         }
-        return firstly { () -> Promise<([Profile], ServerInfo)> in
+        return firstly { () -> Promise<ServerInfo> in
+            self.internalState = .gettingServerInfo
+            return serverAPIService.getServerInfo(for: server)
+        }.then { serverInfo -> Promise<([Profile], ServerInfo)> in
             self.internalState = .gettingProfiles
             return serverAPIService.getAvailableProfiles(
-                for: server, serverInfo: nil, from: viewController,
-                wayfSkippingInfo: wayfSkippingInfo(), options: [])
+                for: server, serverInfo: serverInfo, from: viewController,
+                wayfSkippingInfo: self.wayfSkippingInfo(), options: [])
         }.then { (profiles, serverInfo) -> Promise<Void> in
             self.profiles = profiles
             switch continuationPolicy {
@@ -367,12 +371,18 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
             return Promise.value(())
         }
 
-        return firstly { () -> Promise<ServerAPIService.TunnelConfigurationData> in
+        return firstly { () -> Promise<ServerInfo> in
+            if let serverInfo = serverInfo {
+                return Promise.value(serverInfo)
+            }
+            self.internalState = .gettingServerInfo
+            return serverAPIService.getServerInfo(for: server)
+        }.then { serverInfo -> Promise<ServerAPIService.TunnelConfigurationData> in
             self.internalState = .configuring
             self.connectingProfile = profile
             return serverAPIService.getTunnelConfigurationData(
                 for: server, serverInfo: serverInfo, profile: profile,
-                from: viewController, wayfSkippingInfo: wayfSkippingInfo(),
+                from: viewController, wayfSkippingInfo: self.wayfSkippingInfo(),
                 options: serverAPIOptions)
         }.then { tunnelConfigData -> Promise<(Date, UUID)> in
             self.internalState = .enableVPNRequested
