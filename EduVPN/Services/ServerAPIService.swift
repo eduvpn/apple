@@ -87,6 +87,10 @@ class ServerAPIService {
                                 authBaseURLString: server.authBaseURLString)
     }
 
+    func cancelGetServerInfo() {
+        serverInfoFetcher.cancelFetch()
+    }
+
     func getAvailableProfiles(for server: ServerInstance, serverInfo: ServerInfo?,
                               from viewController: AuthorizingViewController,
                               wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?,

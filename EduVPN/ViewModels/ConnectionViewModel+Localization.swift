@@ -8,6 +8,7 @@ import Foundation
 extension ConnectionViewModel.ConnectionFlowStatus {
     var localizedText: String {
         switch self {
+        case .gettingServerInfo: return NSLocalizedString("Contacting the server...", comment: "connection flow status")
         case .gettingProfiles: return NSLocalizedString("Getting profiles...", comment: "connection flow status")
         case .configuring: return NSLocalizedString("Configuring...", comment: "connection flow status")
         case .notConnected: return NSLocalizedString("Not connected", comment: "connection flow status")
