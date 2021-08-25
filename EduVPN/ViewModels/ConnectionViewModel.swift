@@ -318,7 +318,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         return firstly { () -> Promise<([Profile], ServerInfo)> in
             self.internalState = .gettingProfiles
             return serverAPIService.getAvailableProfiles(
-                for: server, from: viewController,
+                for: server, serverInfo: nil, from: viewController,
                 wayfSkippingInfo: wayfSkippingInfo(), options: [])
         }.then { (profiles, serverInfo) -> Promise<Void> in
             self.profiles = profiles

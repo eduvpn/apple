@@ -82,13 +82,21 @@ class ServerAPIService {
         }
     }
 
-    func getAvailableProfiles(for server: ServerInstance,
+    func getServerInfo(for server: ServerInstance) -> Promise<ServerInfo> {
+        serverInfoFetcher.fetch(apiBaseURLString: server.apiBaseURLString,
+                                authBaseURLString: server.authBaseURLString)
+    }
+
+    func getAvailableProfiles(for server: ServerInstance, serverInfo: ServerInfo?,
                               from viewController: AuthorizingViewController,
                               wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?,
                               options: Options) -> Promise<([Profile], ServerInfo)> {
-        return firstly {
-            serverInfoFetcher.fetch(apiBaseURLString: server.apiBaseURLString,
-                                    authBaseURLString: server.authBaseURLString)
+        return firstly { () -> Promise<ServerInfo> in
+            if let serverInfo = serverInfo {
+                return Promise.value(serverInfo)
+            }
+            return serverInfoFetcher.fetch(apiBaseURLString: server.apiBaseURLString,
+                                           authBaseURLString: server.authBaseURLString)
         }.then { serverInfo -> Promise<([Profile], ServerInfo)> in
             let dataStore = PersistenceService.DataStore(path: server.localStoragePath)
             let commonInfo = ServerAPIService.CommonAPIRequestInfo(
