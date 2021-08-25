@@ -20,7 +20,7 @@ public extension MoyaProvider {
     }
     
     func requestCancellable(target: Target,
-                            queue: DispatchQueue?,
+                            queue: DispatchQueue? = nil,
                             progress: Moya.ProgressBlock? = nil) -> PendingRequestPromise {
         
         let pending = Promise<Moya.Response>.pending()

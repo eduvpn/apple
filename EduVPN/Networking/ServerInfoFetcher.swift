@@ -54,12 +54,18 @@ class ServerInfoFetcher {
         return Session(configuration: configuration, startRequestsImmediately: false)
     }()
 
+    var inFlightRequests: [Moya.Cancellable] = []
+
     func fetch(baseURLString: DiscoveryData.BaseURLString) -> Promise<ServerInfo> {
         let provider = MoyaProvider<ServerInfoTarget>(session: self.uncachedSession)
-        return firstly {
-            provider.request(target: ServerInfoTarget(try baseURLString.toURL()))
+        return firstly { () -> Promise<Moya.Response> in
+            let (promise, request) = provider.requestCancellable(target: ServerInfoTarget(try baseURLString.toURL()))
+            self.inFlightRequests = [request]
+            return promise
         }.map { response in
             try JSONDecoder().decode(ServerInfo.self, from: response.data)
+        }.ensure {
+            self.inFlightRequests = []
         }
     }
 
@@ -73,10 +79,11 @@ class ServerInfoFetcher {
             let authBaseURL = try authBaseURLString.toURL()
 
             let provider = MoyaProvider<ServerInfoTarget>(session: self.uncachedSession)
-            let apiServerInfoPromise = provider.request(target: ServerInfoTarget(apiBaseURL))
-            let authServerInfoPromise = provider.request(target: ServerInfoTarget(authBaseURL))
+            let (apiPromise, apiRequest) = provider.requestCancellable(target: ServerInfoTarget(apiBaseURL))
+            let (authPromise, authRequest) = provider.requestCancellable(target: ServerInfoTarget(authBaseURL))
+            self.inFlightRequests = [apiRequest, authRequest]
 
-            return when(fulfilled: [apiServerInfoPromise, authServerInfoPromise])
+            return when(fulfilled: [apiPromise, authPromise])
         }.map { responses in
             precondition(responses.count == 2)
             let serverInfos = try responses.map { try JSONDecoder().decode(ServerInfo.self, from: $0.data) }
@@ -92,6 +99,12 @@ class ServerInfoFetcher {
                 authorizationEndpoint: authServerInfo.authorizationEndpoint,
                 tokenEndpoint: authServerInfo.tokenEndpoint,
                 apiBaseURL: apiServerInfo.apiBaseURL)
+        }.ensure {
+            self.inFlightRequests = []
         }
+    }
+
+    func cancelFetch() {
+        _ = inFlightRequests.map { $0.cancel() }
     }
 }
