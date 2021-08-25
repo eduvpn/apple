@@ -37,7 +37,7 @@ extension ServerInfoFetcherError: AppError {
     }
 }
 
-struct ServerInfoFetcher {
+class ServerInfoFetcher {
 
     struct ServerInfoTarget: TargetType, AcceptJson, SimpleGettable {
         var baseURL: URL
@@ -48,14 +48,14 @@ struct ServerInfoFetcher {
         }
     }
 
-    static var uncachedSession: Moya.Session {
+    let uncachedSession: Moya.Session = {
         let configuration = URLSessionConfiguration.default
         configuration.urlCache = nil
         return Session(configuration: configuration, startRequestsImmediately: false)
-    }
+    }()
 
-    static func fetch(baseURLString: DiscoveryData.BaseURLString) -> Promise<ServerInfo> {
-        let provider = MoyaProvider<ServerInfoTarget>(session: Self.uncachedSession)
+    func fetch(baseURLString: DiscoveryData.BaseURLString) -> Promise<ServerInfo> {
+        let provider = MoyaProvider<ServerInfoTarget>(session: self.uncachedSession)
         return firstly {
             provider.request(target: ServerInfoTarget(try baseURLString.toURL()))
         }.map { response in
@@ -63,8 +63,8 @@ struct ServerInfoFetcher {
         }
     }
 
-    static func fetch(apiBaseURLString: DiscoveryData.BaseURLString,
-                      authBaseURLString: DiscoveryData.BaseURLString) -> Promise<ServerInfo> {
+    func fetch(apiBaseURLString: DiscoveryData.BaseURLString,
+               authBaseURLString: DiscoveryData.BaseURLString) -> Promise<ServerInfo> {
         guard apiBaseURLString != authBaseURLString else {
             return fetch(baseURLString: authBaseURLString)
         }
@@ -72,7 +72,7 @@ struct ServerInfoFetcher {
             let apiBaseURL = try apiBaseURLString.toURL()
             let authBaseURL = try authBaseURLString.toURL()
 
-            let provider = MoyaProvider<ServerInfoTarget>(session: Self.uncachedSession)
+            let provider = MoyaProvider<ServerInfoTarget>(session: self.uncachedSession)
             let apiServerInfoPromise = provider.request(target: ServerInfoTarget(apiBaseURL))
             let authServerInfoPromise = provider.request(target: ServerInfoTarget(authBaseURL))
 

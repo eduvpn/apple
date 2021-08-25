@@ -65,10 +65,12 @@ class ServerAPIService {
     }
 
     private let serverAuthService: ServerAuthService
+    private let serverInfoFetcher: ServerInfoFetcher
     private var authStateChangeHandler: AuthStateChangeHandler?
 
     init(serverAuthService: ServerAuthService) {
         self.serverAuthService = serverAuthService
+        self.serverInfoFetcher = ServerInfoFetcher()
     }
 
     private static func serverAPIHandlerType(for apiVersion: ServerInfo.APIVersion) -> ServerAPIHandler.Type {
@@ -85,7 +87,7 @@ class ServerAPIService {
                               wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?,
                               options: Options) -> Promise<([Profile], ServerInfo)> {
         return firstly {
-            ServerInfoFetcher.fetch(apiBaseURLString: server.apiBaseURLString,
+            serverInfoFetcher.fetch(apiBaseURLString: server.apiBaseURLString,
                                     authBaseURLString: server.authBaseURLString)
         }.then { serverInfo -> Promise<([Profile], ServerInfo)> in
             let dataStore = PersistenceService.DataStore(path: server.localStoragePath)
@@ -114,7 +116,7 @@ class ServerAPIService {
             if let serverInfo = serverInfo {
                 return Promise.value(serverInfo)
             }
-            return ServerInfoFetcher.fetch(apiBaseURLString: server.apiBaseURLString,
+            return serverInfoFetcher.fetch(apiBaseURLString: server.apiBaseURLString,
                                            authBaseURLString: server.authBaseURLString)
         }.then { serverInfo -> Promise<TunnelConfigurationData> in
             let dataStore = PersistenceService.DataStore(path: server.localStoragePath)
