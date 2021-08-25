@@ -22,6 +22,11 @@ class NavigationController: NSViewController {
 
     var isToolbarLeftButtonShowsAddServerUI: Bool { !canGoBack }
     var topViewController: ViewController? { children.last }
+    private(set) var isAnimating: Bool = false {
+        didSet {
+            toolbarLeftButton.isEnabled = !isAnimating
+        }
+    }
 
     weak var addButtonDelegate: NavigationControllerAddButtonDelegate?
 
@@ -89,12 +94,12 @@ extension NavigationController: Navigating {
         guard let lastVC = children.last else { return }
 
         addChild(viewController)
-        toolbarLeftButton.isEnabled = false
+        isAnimating = true
         transition(from: lastVC, to: viewController,
                    options: animated ? .slideForward : []) { [weak self] in
             guard let self = self else { return }
             self.updateToolbarLeftButton()
-            self.toolbarLeftButton.isEnabled = true
+            self.isAnimating = false
         }
     }
 
@@ -104,14 +109,14 @@ extension NavigationController: Navigating {
         let lastVC = children[children.count - 1]
         let lastButOneVC = children[children.count - 2]
 
-        toolbarLeftButton.isEnabled = false
+        isAnimating = true
         transition(from: lastVC, to: lastButOneVC,
                    options: animated ? .slideBackward : []) { [weak self] in
             guard let self = self else { return }
             lastVC.removeFromParent()
             self.isUserAllowedToGoBack = true
             self.updateToolbarLeftButton()
-            self.toolbarLeftButton.isEnabled = true
+            self.isAnimating = false
         }
 
         return lastVC

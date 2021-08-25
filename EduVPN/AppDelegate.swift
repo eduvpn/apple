@@ -188,15 +188,6 @@ extension AppDelegate {
         ])
     }
 
-    @objc func newDocument(_ sender: Any) {
-        guard let navigationController = environment?.navigationController else {
-            return
-        }
-        if navigationController.isToolbarLeftButtonShowsAddServerUI {
-            navigationController.toolbarLeftButtonClicked(self)
-        }
-    }
-
     @IBAction func importOpenVPNConfig(_ sender: Any) {
         guard let mainWindow = mainWindow else { return }
         guard let persistenceService = environment?.persistenceService else { return }
@@ -270,10 +261,67 @@ extension AppDelegate {
     }
 }
 
+extension AppDelegate {
+    private var topVC: MenuCommandResponding? {
+        environment?.navigationController?.topViewController as? MenuCommandResponding
+    }
+
+    @IBAction func addNewServer(_ sender: Any?) {
+        topVC?.addNewServer()
+    }
+
+    @IBAction func goNextServer(_ sender: Any?) {
+        topVC?.goNextServer()
+    }
+
+    @IBAction func goPreviousServer(_ sender: Any?) {
+        topVC?.goPreviousServer()
+    }
+
+    @IBAction func performActionOnServer(_ sender: Any?) {
+        topVC?.performActionOnServer()
+    }
+
+    @IBAction func deleteServer(_ sender: Any?) {
+        topVC?.deleteServer()
+    }
+
+    @IBAction func toggleVPN(_ sender: Any?) {
+        topVC?.toggleVPN()
+    }
+
+    @IBAction func activateSelectProfilePopup(_ sender: Any?) {
+        topVC?.activateSelectProfilePopup()
+    }
+
+    @IBAction func goBackToServerList(_ sender: Any?) {
+        topVC?.goBackToServerList()
+    }
+}
+
 extension AppDelegate: NSMenuItemValidation {
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        if menuItem.keyEquivalent == "n" {
-            return environment?.navigationController?.isToolbarLeftButtonShowsAddServerUI ?? false
+        guard let navigationController = environment?.navigationController,
+              !navigationController.isAnimating else {
+            return false
+        }
+        if menuItem.identifier == NSUserInterfaceItemIdentifier("addNewServer") {
+            return topVC?.canAddNewServer() ?? false
+        } else if menuItem.identifier == NSUserInterfaceItemIdentifier("goNextServer") {
+            return topVC?.canGoNextServer() ?? false
+        } else if menuItem.identifier == NSUserInterfaceItemIdentifier("goPreviousServer") {
+            return topVC?.canGoPreviousServer() ?? false
+        } else if menuItem.identifier == NSUserInterfaceItemIdentifier("performActionOnServer") {
+            menuItem.title = topVC?.actionMenuItemTitle() ?? "Select"
+            return topVC?.canPerformActionOnServer() ?? false
+        } else if menuItem.identifier == NSUserInterfaceItemIdentifier("deleteServer") {
+            return topVC?.canDeleteServer() ?? false
+        } else if menuItem.identifier == NSUserInterfaceItemIdentifier("toggleVPN") {
+            return topVC?.canToggleVPN() ?? false
+        } else if menuItem.identifier == NSUserInterfaceItemIdentifier("selectProfile") {
+            return topVC?.canActivateSelectProfilePopup() ?? false
+        } else if menuItem.identifier == NSUserInterfaceItemIdentifier("goBackToServerList") {
+            return topVC?.canGoBackToServerList() ?? false
         }
         return true
     }

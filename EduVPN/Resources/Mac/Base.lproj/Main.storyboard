@@ -65,9 +65,9 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="File" id="bib-Uj-vzu">
                                     <items>
-                                        <menuItem title="Add Server..." keyEquivalent="n" id="Was-JA-tGl">
+                                        <menuItem title="Add New Server..." keyEquivalent="n" identifier="addNewServer" id="Was-JA-tGl">
                                             <connections>
-                                                <action selector="newDocument:" target="Ady-hI-5gd" id="4Si-XN-c54"/>
+                                                <action selector="addNewServer:" target="Voe-Tx-rLC" id="G2t-JK-4xW"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Import OpenVPN Configuration..." keyEquivalent="i" id="9SY-An-WWD">
@@ -302,6 +302,54 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="Server" id="09Y-Xg-G3X" userLabel="Server">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Server" id="NGK-kD-c0a">
+                                    <items>
+                                        <menuItem title="Next" keyEquivalent="" identifier="goNextServer" id="fEQ-K3-WAW">
+                                            <connections>
+                                                <action selector="goNextServer:" target="Voe-Tx-rLC" id="F79-zG-dkb"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Previous" keyEquivalent="" identifier="goPreviousServer" id="jRF-Ty-dfT">
+                                            <connections>
+                                                <action selector="goPreviousServer:" target="Voe-Tx-rLC" id="GsQ-l3-WAN"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="if5-e0-2yS"/>
+                                        <menuItem title="Select..." keyEquivalent="" identifier="performActionOnServer" id="FkG-3m-e4e">
+                                            <connections>
+                                                <action selector="performActionOnServer:" target="Voe-Tx-rLC" id="M2k-Ps-xgD"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Delete" identifier="deleteServer" id="e2B-cp-wUS">
+                                            <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
+                                            <connections>
+                                                <action selector="deleteServer:" target="Voe-Tx-rLC" id="AJw-wJ-Vn2"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="hyf-BU-h6f"/>
+                                        <menuItem title="Toggle VPN" keyEquivalent="t" identifier="toggleVPN" id="2ss-1Q-5OP">
+                                            <connections>
+                                                <action selector="toggleVPN:" target="Voe-Tx-rLC" id="eop-IN-iIn"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Select Profile..." keyEquivalent="l" identifier="selectProfile" id="oxX-8B-iYR">
+                                            <connections>
+                                                <action selector="activateSelectProfilePopup:" target="Voe-Tx-rLC" id="3hv-Ri-ZRA"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="9z1-kA-xmY"/>
+                                        <menuItem title="Go Back to Server List" keyEquivalent="" identifier="goBackToServerList" id="ytV-Db-jDo">
+                                            <connections>
+                                                <action selector="goBackToServerList:" target="Voe-Tx-rLC" id="cOB-GQ-sL7"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
                             <menuItem title="Window" id="aUF-d1-5bR">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">
@@ -372,7 +420,7 @@
                                 <rect key="frame" x="10" y="520" width="400" height="60"/>
                                 <subviews>
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PNs-Y1-pKE" userLabel="Toolbar Logo View">
-                                        <rect key="frame" x="-20" y="12" width="440" height="40"/>
+                                        <rect key="frame" x="132" y="12" width="136" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="R6d-kC-jEw"/>
                                         </constraints>
@@ -536,13 +584,13 @@ Gw
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView wantsLayer="YES" horizontalHuggingPriority="100" borderType="none" autohidesScrollers="YES" horizontalLineScroll="60" horizontalPageScroll="10" verticalLineScroll="60" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ViX-vU-MfI" userLabel="Table Container View">
-                                <rect key="frame" x="20" y="20" width="2152" height="15"/>
+                                <rect key="frame" x="20" y="20" width="2424" height="19"/>
                                 <clipView key="contentView" drawsBackground="NO" id="Vdj-rZ-nzW">
-                                    <rect key="frame" x="0.0" y="0.0" width="2152" height="15"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="2424" height="19"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="40" usesAutomaticRowHeights="YES" viewBased="YES" floatsGroupRows="NO" id="0Se-xs-SBR">
-                                            <rect key="frame" x="0.0" y="0.0" width="2152" height="334"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="2424" height="334"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="20"/>
                                             <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -771,11 +819,11 @@ Gw
                                         </constraints>
                                     </customView>
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AiJ-eh-cZR" userLabel="Top Image">
-                                        <rect key="frame" x="195" y="266" width="90" height="540"/>
+                                        <rect key="frame" x="195" y="327" width="90" height="479"/>
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="SearchScreenTopImage" id="oWj-11-tRC"/>
                                     </imageView>
                                     <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OYQ-UB-7ZA">
-                                        <rect key="frame" x="-2" y="221" width="483" height="33"/>
+                                        <rect key="frame" x="-2" y="282" width="483" height="33"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Find your institute" id="eUs-aO-u69">
                                             <font key="font" size="24" name="OpenSans-Bold"/>
                                             <color key="textColor" name="BoldUITextColor"/>
@@ -783,7 +831,7 @@ Gw
                                         </textFieldCell>
                                     </textField>
                                     <searchField wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="100" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gW1-dp-amy" customClass="SearchField" customModule="eduVPN" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="169" width="479" height="40"/>
+                                        <rect key="frame" x="0.0" y="230" width="479" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="YjK-Nc-dHe"/>
                                         </constraints>
@@ -797,12 +845,12 @@ Gw
                                         </connections>
                                     </searchField>
                                     <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="6lv-tg-3Yq" userLabel="Spinner">
-                                        <rect key="frame" x="224" y="125" width="32" height="32"/>
+                                        <rect key="frame" x="224" y="186" width="32" height="32"/>
                                     </progressIndicator>
                                     <scrollView wantsLayer="YES" horizontalHuggingPriority="100" borderType="none" autohidesScrollers="YES" horizontalLineScroll="60" horizontalPageScroll="10" verticalLineScroll="60" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hge-fJ-m1C">
-                                        <rect key="frame" x="5" y="0.0" width="470" height="113"/>
+                                        <rect key="frame" x="5" y="0.0" width="470" height="174"/>
                                         <clipView key="contentView" drawsBackground="NO" id="73u-Eo-EqN">
-                                            <rect key="frame" x="0.0" y="0.0" width="470" height="113"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="470" height="174"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="40" usesAutomaticRowHeights="YES" viewBased="YES" floatsGroupRows="NO" id="s7r-dP-3wP">
@@ -916,7 +964,7 @@ Gw
                                             <nil key="backgroundColor"/>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="Qqv-vd-gvO">
-                                            <rect key="frame" x="1" y="119" width="223" height="15"/>
+                                            <rect key="frame" x="0.0" y="178" width="470" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="kUF-MN-H8o">
@@ -2358,7 +2406,7 @@ Gw
         <image name="SearchScreenTopImage" width="90" height="79.5"/>
         <image name="SettingsButton" width="20" height="20"/>
         <image name="SettingsButtonSelected" width="20" height="20"/>
-        <image name="TopBarLogo" width="440" height="130"/>
+        <image name="TopBarLogo" width="135.5" height="40"/>
         <image name="buttonCell:any-W4-2O1:alternateImage" width="70" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMSAAGGoF8QD05T
@@ -25288,7 +25336,7 @@ ABDl3AAQ5eEAEOXpAAAAAAAABAEAAAAAAAAAaAAAAAAAAAAAAAAAAAAQ5ew
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="RegularUITextColor">
-            <color red="0.31372549019607843" green="0.31372549019607843" blue="0.31372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.31400001049041748" green="0.31400001049041748" blue="0.31400001049041748" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

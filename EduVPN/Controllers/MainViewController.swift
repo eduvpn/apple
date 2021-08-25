@@ -64,6 +64,10 @@ class MainViewController: ViewController {
     // swiftlint:disable:next identifier_name
     private var shouldRenewSessionWhenConnectionServiceInitialized = false
 
+    #if os(macOS)
+    var shouldPerformActionOnSelection = true
+    #endif
+
     @IBOutlet weak var tableView: TableView!
 
     #if os(iOS)
@@ -81,6 +85,14 @@ class MainViewController: ViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         isViewVisible = false
+    }
+    #endif
+
+    #if os(macOS)
+    override func viewDidLoad() {
+        tableView.refusesFirstResponder = true
+        tableView.action = #selector(onTableClicked)
+        tableView.target = self
     }
     #endif
 
@@ -124,6 +136,10 @@ class MainViewController: ViewController {
 
 extension MainViewController: NavigationControllerAddButtonDelegate {
     func addButtonClicked(inNavigationController controller: NavigationController) {
+        showSearchVCOrAddServerVC()
+    }
+
+    func showSearchVCOrAddServerVC() {
         if Config.shared.apiDiscoveryEnabled ?? false {
             let isSecureInternetServerAdded = (environment.persistenceService.secureInternetServer != nil)
             let searchVC = environment.instantiateSearchViewController(
