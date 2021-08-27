@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- macOS: Support keyboard navigation
+- Make fetching of info.json cancellable #415
+
 ## 2.2.3
 
 - Support for APIv3 and WireGuard
