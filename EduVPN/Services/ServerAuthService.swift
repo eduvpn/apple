@@ -6,6 +6,7 @@
 import Foundation
 import AppAuth
 import Moya
+import Alamofire
 import PromiseKit
 
 #if os(iOS)
@@ -133,8 +134,11 @@ class ServerAuthService {
         if case ServerAuthServiceError.userCancelledWhenFetchingServerInfo = error {
             return true
         }
-        #if os(iOS)
         let underlyingError = (error as NSError).userInfo[NSUnderlyingErrorKey] as? Error
+        if case Alamofire.AFError.explicitlyCancelled = (underlyingError ?? error) {
+            return true
+        }
+        #if os(iOS)
         if case ASWebAuthenticationSessionError.canceledLogin = (underlyingError ?? error) {
             return true
         }
