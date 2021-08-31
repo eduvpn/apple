@@ -588,7 +588,7 @@ private extension ConnectionViewModel {
 
     func updateStatusDetail() {
         statusDetail = { () -> StatusDetail in
-            if internalState == .gettingProfiles || internalState == .configuring {
+            if internalState == .gettingServerInfo || internalState == .gettingProfiles || internalState == .configuring {
                 return .none
             }
             if (connectableInstance is ServerInstance) &&
@@ -626,7 +626,7 @@ private extension ConnectionViewModel {
                 // Make space for the expanded connection info
                 return .none
             }
-            if internalState == .gettingProfiles || internalState == .configuring {
+            if internalState == .gettingServerInfo || internalState == .gettingProfiles || internalState == .configuring {
                 return .spinner
             }
             if (certificateStatus?.shouldShowRenewSessionButton ?? false) && internalState == .enabledVPN {
