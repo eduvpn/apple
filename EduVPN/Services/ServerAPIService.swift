@@ -65,10 +65,12 @@ class ServerAPIService {
     }
 
     private let serverAuthService: ServerAuthService
+    private let serverInfoFetcher: ServerInfoFetcher
     private var authStateChangeHandler: AuthStateChangeHandler?
 
     init(serverAuthService: ServerAuthService) {
         self.serverAuthService = serverAuthService
+        self.serverInfoFetcher = ServerInfoFetcher()
     }
 
     private static func serverAPIHandlerType(for apiVersion: ServerInfo.APIVersion) -> ServerAPIHandler.Type {
@@ -80,13 +82,25 @@ class ServerAPIService {
         }
     }
 
-    func getAvailableProfiles(for server: ServerInstance,
+    func getServerInfo(for server: ServerInstance) -> Promise<ServerInfo> {
+        serverInfoFetcher.fetch(apiBaseURLString: server.apiBaseURLString,
+                                authBaseURLString: server.authBaseURLString)
+    }
+
+    func cancelGetServerInfo() {
+        serverInfoFetcher.cancelFetch()
+    }
+
+    func getAvailableProfiles(for server: ServerInstance, serverInfo: ServerInfo?,
                               from viewController: AuthorizingViewController,
                               wayfSkippingInfo: ServerAuthService.WAYFSkippingInfo?,
                               options: Options) -> Promise<([Profile], ServerInfo)> {
-        return firstly {
-            ServerInfoFetcher.fetch(apiBaseURLString: server.apiBaseURLString,
-                                    authBaseURLString: server.authBaseURLString)
+        return firstly { () -> Promise<ServerInfo> in
+            if let serverInfo = serverInfo {
+                return Promise.value(serverInfo)
+            }
+            return serverInfoFetcher.fetch(apiBaseURLString: server.apiBaseURLString,
+                                           authBaseURLString: server.authBaseURLString)
         }.then { serverInfo -> Promise<([Profile], ServerInfo)> in
             let dataStore = PersistenceService.DataStore(path: server.localStoragePath)
             let commonInfo = ServerAPIService.CommonAPIRequestInfo(
@@ -114,7 +128,7 @@ class ServerAPIService {
             if let serverInfo = serverInfo {
                 return Promise.value(serverInfo)
             }
-            return ServerInfoFetcher.fetch(apiBaseURLString: server.apiBaseURLString,
+            return serverInfoFetcher.fetch(apiBaseURLString: server.apiBaseURLString,
                                            authBaseURLString: server.authBaseURLString)
         }.then { serverInfo -> Promise<TunnelConfigurationData> in
             let dataStore = PersistenceService.DataStore(path: server.localStoragePath)

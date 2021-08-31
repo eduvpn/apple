@@ -591,7 +591,7 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
         _ model: ConnectionViewModel, statusChanged status: ConnectionViewModel.ConnectionFlowStatus) {
         connectionStatusImageView.image = { () -> Image? in
             switch status {
-            case .notConnected, .gettingProfiles, .configuring:
+            case .notConnected, .gettingServerInfo, .gettingProfiles, .configuring:
                 return Image(named: "StatusNotConnected")
             case .connecting, .reconnecting, .disconnecting:
                 return Image(named: "StatusConnecting")

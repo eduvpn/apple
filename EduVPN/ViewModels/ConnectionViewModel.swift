@@ -71,6 +71,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
 
     enum ConnectionFlowStatus {
         case notConnected
+        case gettingServerInfo
         case gettingProfiles
         case configuring
         case connecting
@@ -149,6 +150,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
 
     private enum InternalState: Equatable {
         case idle
+        case gettingServerInfo
         case gettingProfiles
         case configuring
         case enableVPNRequested
@@ -315,11 +317,14 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
               let serverAPIService = serverAPIService else {
             return Promise.value(())
         }
-        return firstly { () -> Promise<([Profile], ServerInfo)> in
+        return firstly { () -> Promise<ServerInfo> in
+            self.internalState = .gettingServerInfo
+            return serverAPIService.getServerInfo(for: server)
+        }.then { serverInfo -> Promise<([Profile], ServerInfo)> in
             self.internalState = .gettingProfiles
             return serverAPIService.getAvailableProfiles(
-                for: server, from: viewController,
-                wayfSkippingInfo: wayfSkippingInfo(), options: [])
+                for: server, serverInfo: serverInfo, from: viewController,
+                wayfSkippingInfo: self.wayfSkippingInfo(), options: [])
         }.then { (profiles, serverInfo) -> Promise<Void> in
             self.profiles = profiles
             switch continuationPolicy {
@@ -367,12 +372,18 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
             return Promise.value(())
         }
 
-        return firstly { () -> Promise<ServerAPIService.TunnelConfigurationData> in
+        return firstly { () -> Promise<ServerInfo> in
+            if let serverInfo = serverInfo {
+                return Promise.value(serverInfo)
+            }
+            self.internalState = .gettingServerInfo
+            return serverAPIService.getServerInfo(for: server)
+        }.then { serverInfo -> Promise<ServerAPIService.TunnelConfigurationData> in
             self.internalState = .configuring
             self.connectingProfile = profile
             return serverAPIService.getTunnelConfigurationData(
                 for: server, serverInfo: serverInfo, profile: profile,
-                from: viewController, wayfSkippingInfo: wayfSkippingInfo(),
+                from: viewController, wayfSkippingInfo: self.wayfSkippingInfo(),
                 options: serverAPIOptions)
         }.then { tunnelConfigData -> Promise<(Date, UUID)> in
             self.internalState = .enableVPNRequested
@@ -467,6 +478,10 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
     }
 
     func disableVPN(shouldFireAndForget: Bool) -> Promise<Void> {
+        if self.internalState == .gettingServerInfo {
+            self.serverAPIService?.cancelGetServerInfo()
+            return Promise.value(())
+        }
         precondition(self.connectionService.isInitialized)
         guard self.connectionService.isVPNEnabled == true else {
             return Promise.value(())
@@ -553,6 +568,7 @@ private extension ConnectionViewModel {
     func updateStatus() {
         status = { () -> ConnectionFlowStatus in
             switch (internalState, connectionStatus) {
+            case (.gettingServerInfo, _): return .gettingServerInfo
             case (.gettingProfiles, _): return .gettingProfiles
             case (.configuring, _): return .configuring
             case (.enableVPNRequested, .invalid),
@@ -572,7 +588,7 @@ private extension ConnectionViewModel {
 
     func updateStatusDetail() {
         statusDetail = { () -> StatusDetail in
-            if internalState == .gettingProfiles || internalState == .configuring {
+            if internalState == .gettingServerInfo || internalState == .gettingProfiles || internalState == .configuring {
                 return .none
             }
             if (connectableInstance is ServerInstance) &&
@@ -590,11 +606,12 @@ private extension ConnectionViewModel {
 
     func updateVPNSwitchState() {
         vpnSwitchState = { () -> VPNSwitchState in
-            let isSwitchEnabled = (internalState == .idle || internalState == .enabledVPN ||
+            let isSwitchEnabled = (
+                internalState == .idle || internalState == .gettingServerInfo || internalState == .enabledVPN ||
                 connectionStatus == .connecting)
             let isSwitchOn = { () -> Bool in
                 switch self.internalState {
-                case .configuring, .enableVPNRequested: return true
+                case .gettingServerInfo, .gettingProfiles, .configuring, .enableVPNRequested: return true
                 case .disableVPNRequested: return false
                 default: return self.connectionService.isVPNEnabled
                 }
@@ -609,7 +626,7 @@ private extension ConnectionViewModel {
                 // Make space for the expanded connection info
                 return .none
             }
-            if internalState == .gettingProfiles || internalState == .configuring {
+            if internalState == .gettingServerInfo || internalState == .gettingProfiles || internalState == .configuring {
                 return .spinner
             }
             if (certificateStatus?.shouldShowRenewSessionButton ?? false) && internalState == .enabledVPN {

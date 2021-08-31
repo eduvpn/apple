@@ -6,6 +6,7 @@
 import Foundation
 import AppAuth
 import Moya
+import Alamofire
 import PromiseKit
 
 #if os(iOS)
@@ -28,6 +29,7 @@ class ServerAuthService {
 
     private let configRedirectURL: URL // For iOS
     private let configClientId: String // For macOS
+    private let serverInfoFetcher: ServerInfoFetcher
 
     private var currentAuthFlow: OIDExternalUserAgentSession?
 
@@ -49,6 +51,7 @@ class ServerAuthService {
     init(configRedirectURL: URL, configClientId: String) {
         self.configRedirectURL = configRedirectURL
         self.configClientId = configClientId
+        self.serverInfoFetcher = ServerInfoFetcher()
     }
 
     func startAuth(baseURLString: DiscoveryData.BaseURLString,
@@ -59,7 +62,7 @@ class ServerAuthService {
             isUserCancelled = true
         })
         return firstly {
-            ServerInfoFetcher.fetch(baseURLString: baseURLString)
+            serverInfoFetcher.fetch(baseURLString: baseURLString)
         }.then { serverInfo -> Promise<AuthState> in
             if isUserCancelled {
                 throw ServerAuthServiceError.userCancelledWhenFetchingServerInfo
@@ -131,8 +134,11 @@ class ServerAuthService {
         if case ServerAuthServiceError.userCancelledWhenFetchingServerInfo = error {
             return true
         }
-        #if os(iOS)
         let underlyingError = (error as NSError).userInfo[NSUnderlyingErrorKey] as? Error
+        if case Alamofire.AFError.explicitlyCancelled = (underlyingError ?? error) {
+            return true
+        }
+        #if os(iOS)
         if case ASWebAuthenticationSessionError.canceledLogin = (underlyingError ?? error) {
             return true
         }

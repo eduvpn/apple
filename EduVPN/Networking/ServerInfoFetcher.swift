@@ -37,7 +37,7 @@ extension ServerInfoFetcherError: AppError {
     }
 }
 
-struct ServerInfoFetcher {
+class ServerInfoFetcher {
 
     struct ServerInfoTarget: TargetType, AcceptJson, SimpleGettable {
         var baseURL: URL
@@ -48,23 +48,29 @@ struct ServerInfoFetcher {
         }
     }
 
-    static var uncachedSession: Moya.Session {
+    let uncachedSession: Moya.Session = {
         let configuration = URLSessionConfiguration.default
         configuration.urlCache = nil
         return Session(configuration: configuration, startRequestsImmediately: false)
-    }
+    }()
 
-    static func fetch(baseURLString: DiscoveryData.BaseURLString) -> Promise<ServerInfo> {
-        let provider = MoyaProvider<ServerInfoTarget>(session: Self.uncachedSession)
-        return firstly {
-            provider.request(target: ServerInfoTarget(try baseURLString.toURL()))
+    var inFlightRequests: [Moya.Cancellable] = []
+
+    func fetch(baseURLString: DiscoveryData.BaseURLString) -> Promise<ServerInfo> {
+        let provider = MoyaProvider<ServerInfoTarget>(session: self.uncachedSession)
+        return firstly { () -> Promise<Moya.Response> in
+            let (promise, request) = provider.requestCancellable(target: ServerInfoTarget(try baseURLString.toURL()))
+            self.inFlightRequests = [request]
+            return promise
         }.map { response in
             try JSONDecoder().decode(ServerInfo.self, from: response.data)
+        }.ensure {
+            self.inFlightRequests = []
         }
     }
 
-    static func fetch(apiBaseURLString: DiscoveryData.BaseURLString,
-                      authBaseURLString: DiscoveryData.BaseURLString) -> Promise<ServerInfo> {
+    func fetch(apiBaseURLString: DiscoveryData.BaseURLString,
+               authBaseURLString: DiscoveryData.BaseURLString) -> Promise<ServerInfo> {
         guard apiBaseURLString != authBaseURLString else {
             return fetch(baseURLString: authBaseURLString)
         }
@@ -72,11 +78,12 @@ struct ServerInfoFetcher {
             let apiBaseURL = try apiBaseURLString.toURL()
             let authBaseURL = try authBaseURLString.toURL()
 
-            let provider = MoyaProvider<ServerInfoTarget>(session: Self.uncachedSession)
-            let apiServerInfoPromise = provider.request(target: ServerInfoTarget(apiBaseURL))
-            let authServerInfoPromise = provider.request(target: ServerInfoTarget(authBaseURL))
+            let provider = MoyaProvider<ServerInfoTarget>(session: self.uncachedSession)
+            let (apiPromise, apiRequest) = provider.requestCancellable(target: ServerInfoTarget(apiBaseURL))
+            let (authPromise, authRequest) = provider.requestCancellable(target: ServerInfoTarget(authBaseURL))
+            self.inFlightRequests = [apiRequest, authRequest]
 
-            return when(fulfilled: [apiServerInfoPromise, authServerInfoPromise])
+            return when(fulfilled: [apiPromise, authPromise])
         }.map { responses in
             precondition(responses.count == 2)
             let serverInfos = try responses.map { try JSONDecoder().decode(ServerInfo.self, from: $0.data) }
@@ -92,6 +99,12 @@ struct ServerInfoFetcher {
                 authorizationEndpoint: authServerInfo.authorizationEndpoint,
                 tokenEndpoint: authServerInfo.tokenEndpoint,
                 apiBaseURL: apiServerInfo.apiBaseURL)
+        }.ensure {
+            self.inFlightRequests = []
         }
+    }
+
+    func cancelFetch() {
+        _ = inFlightRequests.map { $0.cancel() }
     }
 }
