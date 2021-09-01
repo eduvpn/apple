@@ -184,7 +184,17 @@ private extension SearchViewModel {
         let hasTwoOrMoreDots = searchQuery.filter { $0 == "." }.count >= 2
         if hasTwoOrMoreDots {
             var url = searchQuery.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
-            if !url.hasPrefix("https://") {
+            if url.hasPrefix("https://") {
+                // Do nothing
+            } else if url.hasPrefix("http://") {
+                // Replace http with https
+                url.removeFirst("http://".count)
+                url = "https://" + url
+            } else if url.firstIndex(of: ":") != nil {
+                // If scheme is neither http nor https, reject it
+                return []
+            } else {
+                // If there's no scheme, add the https scheme
                 url = "https://" + url
             }
             if !url.hasSuffix("/") {
