@@ -33,6 +33,7 @@ class ServerAPIService {
     struct TunnelConfigurationData {
         let vpnConfig: VPNConfiguration
         let expiresAt: Date
+        let authenticationTime: Date?
         let serverAPIBaseURL: URL
         let serverAPIVersion: ServerInfo.APIVersion
     }
@@ -189,6 +190,7 @@ extension ServerAPIHandler {
                     wayfSkippingInfo: commonInfo.wayfSkippingInfo)
                 .then { authState -> Promise<String> in
                     commonInfo.dataStore.authState = authState
+                    commonInfo.dataStore.authenticationTime = Date()
                     return self.getFreshAccessToken(using: authState, storingChangesTo: commonInfo.dataStore)
                 }
             default:

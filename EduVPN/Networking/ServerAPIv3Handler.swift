@@ -125,12 +125,15 @@ struct ServerAPIv3Handler: ServerAPIHandler {
                 throw ServerAPIv3Error.expiresResponseHeaderIsInvalid(expiresString)
             }
 
+            let authenticationTime = commonInfo.dataStore.authenticationTime
+
             switch responseData.contentTypeResponseHeader {
             case "application/x-openvpn-profile":
                 let configLines = configString.split(separator: "\n").map { String($0) }
                 return ServerAPIService.TunnelConfigurationData(
                     vpnConfig: .openVPNConfig(configLines),
                     expiresAt: expiresDate,
+                    authenticationTime: authenticationTime,
                     serverAPIBaseURL: commonInfo.serverInfo.apiBaseURL,
                     serverAPIVersion: commonInfo.serverInfo.apiVersion)
             case "application/x-wireguard-profile":
@@ -138,6 +141,7 @@ struct ServerAPIv3Handler: ServerAPIHandler {
                 return ServerAPIService.TunnelConfigurationData(
                     vpnConfig: .wireGuardConfig(updatedConfigString),
                     expiresAt: expiresDate,
+                    authenticationTime: authenticationTime,
                     serverAPIBaseURL: commonInfo.serverInfo.apiBaseURL,
                     serverAPIVersion: commonInfo.serverInfo.apiVersion)
             default:
