@@ -8,11 +8,12 @@ import Foundation
 class CertificateExpiryHelper {
 
     enum CertificateStatus: Equatable {
-        case validFor(timeInterval: TimeInterval)
+        case validFor(timeInterval: TimeInterval, canRenew: Bool)
         case expired
     }
 
     let expiresAt: Date
+    let authenticatedAt: Date?
 
     private let handler: (CertificateStatus) -> Void
 
@@ -24,10 +25,11 @@ class CertificateExpiryHelper {
         }
     }
 
-    init(expiresAt: Date, handler: @escaping (CertificateStatus) -> Void) {
+    init(expiresAt: Date, authenticatedAt: Date?, handler: @escaping (CertificateStatus) -> Void) {
         self.expiresAt = expiresAt
+        self.authenticatedAt = authenticatedAt
         self.handler = handler
-        self.refreshTimes = Self.computeRefreshTimes(from: Date(), to: expiresAt)
+        self.refreshTimes = Self.computeRefreshTimes(from: Date(), to: expiresAt, authenticatedAt: authenticatedAt)
         self.scheduleNextRefresh()
     }
 
@@ -49,17 +51,38 @@ private extension CertificateExpiryHelper {
         static let tillWhichToShowMinutesSeconds: Int = 0
     }
 
-    static func computeRefreshTimes(from startDate: Date, to endDate: Date) -> [(refreshAt: Date, state: CertificateStatus)] {
+    static let browserSessionValidity: TimeInterval = 60 * 32 // 32 minutes
+
+    static func computeRefreshTimes(from startDate: Date,
+                                    to endDate: Date,
+                                    authenticatedAt: Date?) -> [(refreshAt: Date, state: CertificateStatus)] {
         let endingTimeInterval = endDate.timeIntervalSince(startDate)
+        let canRenewTimeInterval = authenticatedAt?.addingTimeInterval(browserSessionValidity).timeIntervalSince(startDate)
 
         var refreshTimes: [(refreshAt: Date, state: CertificateStatus)] = []
         var currentTimeInterval: TimeInterval = 0
+        var isAddedRenewalTime = false
 
         while currentTimeInterval < endingTimeInterval {
-            let timeRemaining = endingTimeInterval - currentTimeInterval
+
+            var canRenew = true
+            if let canRenewTimeInterval = canRenewTimeInterval {
+                canRenew = currentTimeInterval >= canRenewTimeInterval
+                if currentTimeInterval > canRenewTimeInterval && !isAddedRenewalTime {
+                    refreshTimes.append(
+                        (refreshAt: Date(timeInterval: canRenewTimeInterval, since: startDate),
+                         state: .validFor(timeInterval: endingTimeInterval - canRenewTimeInterval, canRenew: canRenew))
+                    )
+                }
+                if canRenew {
+                    isAddedRenewalTime = true
+                }
+            }
+
             refreshTimes.append(
                 (refreshAt: Date(timeInterval: currentTimeInterval, since: startDate),
-                 state: .validFor(timeInterval: timeRemaining)))
+                 state: .validFor(timeInterval: endingTimeInterval - currentTimeInterval,
+                                  canRenew: canRenew)))
 
             let secondsRemaining = Int(endingTimeInterval - currentTimeInterval)
             if secondsRemaining > NumberOfSeconds.tillWhichToShowDaysHours {
@@ -129,7 +152,7 @@ extension CertificateExpiryHelper.CertificateStatus {
 
     var localizedText: String {
         switch self {
-        case .validFor(let timeInterval):
+        case .validFor(let timeInterval, _):
             let localizedTimeLeftString: String?
             if timeInterval > TimeInterval(CertificateExpiryHelper.NumberOfSeconds.tillWhichToShowDaysHours) {
                 localizedTimeLeftString = Self.daysHoursFormatter.string(from: timeInterval)
@@ -156,10 +179,11 @@ extension CertificateExpiryHelper.CertificateStatus {
 
     var shouldShowRenewSessionButton: Bool {
         switch self {
-        case .validFor(let timeRemaining):
+        case .validFor(let timeRemaining, let canRenew):
             // Show renewal button if session expires in
-            // less than a week.
-            return timeRemaining < (60 * 60 * 24 * 7)
+            // less than a week. But don't show it in the
+            // first 30 mins after authenticating.
+            return canRenew && timeRemaining < (60 * 60 * 24 * 7)
         case .expired:
             return true
         }
@@ -169,10 +193,12 @@ extension CertificateExpiryHelper.CertificateStatus {
 /*
 // To test this helper as a script, uncomment and run:
 // $ xcrun swift /path/to/this/file.swift | less
-let certificateExpiryHelper = CertificateExpiryHelper(validFrom: Date(timeIntervalSinceNow: -30), expiryDate:
-    Date(timeIntervalSinceNow: (60 * 60 * 11.5)), handler: { _ in })
+let certificateExpiryHelper = CertificateExpiryHelper(
+    expiresAt: Date(timeIntervalSinceNow: (60 * 60 * 11.0)),
+    authenticatedAt: Date(timeIntervalSinceNow: -1 * 20 * 60),
+    handler: { _ in })
 print("\(certificateExpiryHelper.refreshTimes.count) refresh times from: \(Date())")
 for (refreshAt, state) in certificateExpiryHelper.refreshTimes {
-    print("    At \(refreshAt): [\(state.localizedText)]   [\(state.shouldShowRenewSessionButton)]")
+    print("    At \(refreshAt) (\(refreshAt.timeIntervalSince1970)): [\(state.localizedText)]   [\(state.shouldShowRenewSessionButton)]")
 }
 */

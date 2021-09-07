@@ -265,6 +265,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                 .first(where: { $0.profileId == preConnectionState.selectedProfileId })
             certificateExpiryHelper = CertificateExpiryHelper(
                 expiresAt: preConnectionState.sessionExpiresAt,
+                authenticatedAt: preConnectionState.sessionAuthenticatedAt,
                 handler: { [weak self] certificateStatus in
                     self?.certificateStatus = certificateStatus
                 })
@@ -385,11 +386,13 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                 for: server, serverInfo: serverInfo, profile: profile,
                 from: viewController, wayfSkippingInfo: self.wayfSkippingInfo(),
                 options: serverAPIOptions)
-        }.then { tunnelConfigData -> Promise<(Date, UUID)> in
+        }.then { tunnelConfigData -> Promise<(Date, Date?, UUID)> in
             self.internalState = .enableVPNRequested
             let expiresAt = tunnelConfigData.expiresAt
+            let authenticatedAt = tunnelConfigData.authenticationTime
             self.certificateExpiryHelper = CertificateExpiryHelper(
                 expiresAt: expiresAt,
+                authenticatedAt: authenticatedAt,
                 handler: { [weak self] certificateStatus in
                     self?.certificateStatus = certificateStatus
                 })
@@ -401,7 +404,8 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                 server: server,
                 profiles: self.profiles ?? [],
                 selectedProfileId: profile.profileId,
-                sessionExpiresAt: tunnelConfigData.expiresAt,
+                sessionExpiresAt: expiresAt,
+                sessionAuthenticatedAt: authenticatedAt,
                 serverAPIBaseURL: tunnelConfigData.serverAPIBaseURL,
                 serverAPIVersion: tunnelConfigData.serverAPIVersion,
                 attemptId: connectionAttemptId)
@@ -414,16 +418,16 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                     credentials: nil,
                     shouldDisableVPNOnError: true,
                     shouldPreventAutomaticConnections: false)
-                    .map { (expiresAt, connectionAttemptId) }
+                    .map { (expiresAt, authenticatedAt, connectionAttemptId) }
             case .wireGuardConfig(let configString):
                 return self.connectionService.enableVPN(
                     wireGuardConfig: configString,
                     serverName: serverInfo?.apiBaseURL.host ?? "",
                     connectionAttemptId: connectionAttemptId,
                     shouldDisableVPNOnError: true)
-                    .map { (expiresAt, connectionAttemptId) }
+                    .map { (expiresAt, authenticatedAt, connectionAttemptId) }
             }
-        }.then { (expiresAt, connectionAttemptId) -> Promise<Void> in
+        }.then { (expiresAt, authenticatedAt, connectionAttemptId) -> Promise<Void> in
             self.internalState = self.connectionService.isVPNEnabled ? .enabledVPN : .idle
             guard let notificationService = self.notificationService else {
                 return Promise.value(())
