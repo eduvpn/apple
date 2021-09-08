@@ -2,8 +2,9 @@
 
 ## Unreleased
 
-- macOS: Support keyboard navigation
+- macOS: Support keyboard navigation #331
 - Make fetching of info.json cancellable #415
+- Handle wrong scheme when pasting a custom server URL #407
 
 ## 2.2.3
 
