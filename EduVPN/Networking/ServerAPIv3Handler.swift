@@ -104,8 +104,9 @@ struct ServerAPIv3Handler: ServerAPIHandler {
         let publicKey = privateKey.publicKey.base64Key
 
         return firstly {
-            Self.makeRequest(
-                target: .connect(commonInfo, profile: profile, publicKey: publicKey),
+            return Self.makeRequest(
+                target: .connect(commonInfo, profile: profile, publicKey: publicKey,
+                                 isTCPOnly: UserDefaults.standard.forceTCP),
                 decodeAs: ConnectResponse.self,
                 options: options)
         }.map { responseData -> ServerAPIService.TunnelConfigurationData in
@@ -163,13 +164,13 @@ struct ServerAPIv3Handler: ServerAPIHandler {
 private extension ServerAPIv3Handler {
     enum ServerAPITarget: TargetType, AcceptJson, AccessTokenAuthorizable {
         case info(ServerAPIService.CommonAPIRequestInfo)
-        case connect(ServerAPIService.CommonAPIRequestInfo, profile: Profile, publicKey: String)
+        case connect(ServerAPIService.CommonAPIRequestInfo, profile: Profile, publicKey: String, isTCPOnly: Bool)
         case disconnect(ServerAPIService.CommonAPIRequestInfo, profile: Profile)
 
         var commonInfo: ServerAPIService.CommonAPIRequestInfo {
             switch self {
             case .info(let commonInfo): return commonInfo
-            case .connect(let commonInfo, _, _): return commonInfo
+            case .connect(let commonInfo, _, _, _): return commonInfo
             case .disconnect(let commonInfo, _): return commonInfo
             }
         }
@@ -197,11 +198,12 @@ private extension ServerAPIv3Handler {
             switch self {
             case .info:
                 return .requestPlain
-            case .connect(_, let profile, let publicKey):
+            case .connect(_, let profile, let publicKey, let isTCPOnly):
                 return .requestParameters(
                     parameters: [
                         "profile_id": profile.profileId,
                         "public_key": publicKey,
+                        "tcp_only": isTCPOnly ? "on" : "off"
                     ],
                     encoding: URLEncoding.httpBody)
             case .disconnect(_, let profile):
@@ -248,7 +250,7 @@ private extension ServerAPIv3Handler {
             } else {
                 let successStatusCodes = (200...299)
                 guard successStatusCodes.contains(response.statusCode) else {
-                    if case .connect(_, let profile, _) = target,
+                    if case .connect(_, let profile, _, _) = target,
                        let errorResponse = try? JSONDecoder().decode(ProfileConfigErrorResponse.self, from: response.data) {
                         throw ServerAPIv3Error.errorGettingProfileConfig(
                             profile: profile, serverError: errorResponse.errorMessage)
