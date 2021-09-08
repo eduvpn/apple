@@ -433,7 +433,8 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                 return Promise.value(())
             }
             return notificationService.attemptSchedulingSessionExpiryNotification(
-                expiryDate: expiresAt, connectionAttemptId: connectionAttemptId, from: viewController)
+                expiryDate: expiresAt, authenticationDate: authenticatedAt,
+                connectionAttemptId: connectionAttemptId, from: viewController)
                 .map { _ in }
         }.ensure {
             self.internalState = self.connectionService.isVPNEnabled ? .enabledVPN : .idle
@@ -551,7 +552,9 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
            let expiryDate = certificateExpiryHelper?.expiresAt,
            let notificationService = notificationService {
             return notificationService.scheduleSessionExpiryNotification(
-                expiryDate: expiryDate, connectionAttemptId: connectionAttemptId)
+                expiryDate: expiryDate,
+                authenticationDate: certificateExpiryHelper?.authenticatedAt,
+                connectionAttemptId: connectionAttemptId)
         }
         return Guarantee<Bool>.value(false)
     }
