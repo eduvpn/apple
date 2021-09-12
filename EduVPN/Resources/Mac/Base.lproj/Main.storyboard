@@ -1550,15 +1550,15 @@ Gw
         <scene sceneID="ckC-DZ-do5">
             <objects>
                 <viewController storyboardIdentifier="Preferences" id="46m-sg-SJs" userLabel="Preferences View Controller" customClass="PreferencesViewController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="d4H-Ro-nuV">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="691"/>
+                    <view key="view" misplaced="YES" id="d4H-Ro-nuV">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="690"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yI9-CM-5gZ">
-                                <rect key="frame" x="20" y="20" width="410" height="651"/>
+                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yI9-CM-5gZ">
+                                <rect key="frame" x="20" y="20" width="410" height="556"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Rjv-VU-vqt">
-                                        <rect key="frame" x="-2" y="618" width="414" height="33"/>
+                                        <rect key="frame" x="-2" y="523" width="414" height="33"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Preferences" id="8ia-lI-dqX">
                                             <font key="font" size="24" name="OpenSans-Bold"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1566,10 +1566,10 @@ Gw
                                         </textFieldCell>
                                     </textField>
                                     <box horizontalHuggingPriority="100" verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="GMI-07-EVu">
-                                        <rect key="frame" x="0.0" y="599" width="410" height="5"/>
+                                        <rect key="frame" x="0.0" y="508" width="410" height="5"/>
                                     </box>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bZ6-la-8zq">
-                                        <rect key="frame" x="-2" y="566" width="179" height="19"/>
+                                        <rect key="frame" x="-2" y="479" width="179" height="19"/>
                                         <buttonCell key="cell" type="check" title="Connect using TCP only" bezelStyle="regularSquare" imagePosition="left" inset="2" id="t0F-zx-2Sp">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" size="14" name="OpenSans-Regular"/>
@@ -1579,18 +1579,18 @@ Gw
                                         </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="F1W-bg-sSw" userLabel="UseTCP info">
-                                        <rect key="frame" x="16" y="512" width="396" height="38"/>
+                                        <rect key="frame" x="16" y="431" width="396" height="36"/>
                                         <textFieldCell key="cell" selectable="YES" title="Changes to this option will take effect from the next connection onwards. Applies to OpenVPN connections only." id="rqy-tm-oLB">
-                                            <font key="font" size="14" name="OpenSans-Regular"/>
+                                            <font key="font" size="13" name="OpenSans-Regular"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
                                     <box horizontalHuggingPriority="100" verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="Xq3-ya-gMs">
-                                        <rect key="frame" x="0.0" y="493" width="410" height="5"/>
+                                        <rect key="frame" x="0.0" y="416" width="410" height="5"/>
                                     </box>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HMt-Bk-EIQ">
-                                        <rect key="frame" x="-2" y="460" width="300" height="19"/>
+                                        <rect key="frame" x="-2" y="387" width="300" height="19"/>
                                         <buttonCell key="cell" type="check" title="Notify when the session is about to expire" bezelStyle="regularSquare" imagePosition="left" inset="2" id="qUc-Jr-rVi">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" size="14" name="OpenSans-Regular"/>
@@ -1600,18 +1600,18 @@ Gw
                                         </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Oi4-NS-aHo" userLabel="Notification info">
-                                        <rect key="frame" x="16" y="406" width="396" height="38"/>
+                                        <rect key="frame" x="16" y="339" width="396" height="36"/>
                                         <textFieldCell key="cell" selectable="YES" title="If enabled, a notification is triggered 30 mins before session expiry." id="Xc0-6z-lDX">
-                                            <font key="font" size="14" name="OpenSans-Regular"/>
+                                            <font key="font" size="13" name="OpenSans-Regular"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
                                     <box horizontalHuggingPriority="100" verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="2Ow-MZ-6TT">
-                                        <rect key="frame" x="0.0" y="387" width="410" height="5"/>
+                                        <rect key="frame" x="0.0" y="324" width="410" height="5"/>
                                     </box>
                                     <customView horizontalHuggingPriority="100" verticalHuggingPriority="800" translatesAutoresizingMaskIntoConstraints="NO" id="HhY-AU-L8g" userLabel="Connect log container">
-                                        <rect key="frame" x="0.0" y="341" width="410" height="32"/>
+                                        <rect key="frame" x="0.0" y="282" width="410" height="32"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="aEb-MM-aWn">
                                                 <rect key="frame" x="-2" y="7" width="326" height="19"/>
@@ -1642,13 +1642,13 @@ Gw
                                         </constraints>
                                     </customView>
                                     <box horizontalHuggingPriority="100" verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="NeP-ch-ODB">
-                                        <rect key="frame" x="0.0" y="322" width="410" height="5"/>
+                                        <rect key="frame" x="0.0" y="267" width="410" height="5"/>
                                     </box>
                                     <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="750" verticalHuggingPriority="750" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Shm-Uu-Maq">
-                                        <rect key="frame" x="0.0" y="289" width="256" height="19"/>
+                                        <rect key="frame" x="0.0" y="237" width="256" height="20"/>
                                         <subviews>
-                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BB1-ZH-rOd">
-                                                <rect key="frame" x="-2" y="0.0" width="161" height="19"/>
+                                            <button verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BB1-ZH-rOd">
+                                                <rect key="frame" x="-2" y="0.0" width="161" height="20"/>
                                                 <buttonCell key="cell" type="check" title="Show in menu bar in" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="vXs-mm-f1r">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" size="14" name="OpenSans-Regular"/>
@@ -1658,7 +1658,7 @@ Gw
                                                 </connections>
                                             </button>
                                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eSN-zi-Pkx">
-                                                <rect key="frame" x="161" y="-4" width="99" height="24"/>
+                                                <rect key="frame" x="161" y="-4" width="99" height="25"/>
                                                 <popUpButtonCell key="cell" type="push" title="Grayscale" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="xAu-PG-WQW" id="j8u-kX-JuG">
                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="menu"/>
@@ -1684,7 +1684,7 @@ Gw
                                         </customSpacing>
                                     </stackView>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5mk-S8-qPc">
-                                        <rect key="frame" x="-2" y="254" width="114" height="19"/>
+                                        <rect key="frame" x="-2" y="206" width="114" height="19"/>
                                         <buttonCell key="cell" type="check" title="Show in Dock" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="lxj-3d-HUJ">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" size="14" name="OpenSans-Regular"/>
@@ -1694,10 +1694,10 @@ Gw
                                         </connections>
                                     </button>
                                     <box horizontalHuggingPriority="100" verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="kvx-08-oca">
-                                        <rect key="frame" x="0.0" y="235" width="410" height="5"/>
+                                        <rect key="frame" x="0.0" y="191" width="410" height="5"/>
                                     </box>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0ht-iC-Bc3">
-                                        <rect key="frame" x="-2" y="202" width="126" height="19"/>
+                                        <rect key="frame" x="-2" y="162" width="126" height="19"/>
                                         <buttonCell key="cell" type="check" title="Launch at login" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="gLp-0o-Odu">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" size="14" name="OpenSans-Regular"/>
@@ -1707,13 +1707,13 @@ Gw
                                         </connections>
                                     </button>
                                     <box horizontalHuggingPriority="100" verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="STQ-ap-m2r">
-                                        <rect key="frame" x="0.0" y="183" width="410" height="5"/>
+                                        <rect key="frame" x="0.0" y="147" width="410" height="5"/>
                                     </box>
                                     <customView horizontalHuggingPriority="100" verticalHuggingPriority="800" translatesAutoresizingMaskIntoConstraints="NO" id="Iiq-Kh-SJK" userLabel="Reset app container">
-                                        <rect key="frame" x="0.0" y="137" width="410" height="32"/>
+                                        <rect key="frame" x="0.0" y="105" width="410" height="32"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="X1G-dU-mU6">
-                                                <rect key="frame" x="-2" y="7" width="321" height="19"/>
+                                                <rect key="frame" x="-2" y="7" width="319" height="19"/>
                                                 <textFieldCell key="cell" selectable="YES" title="Reset application" id="mKg-sL-xvk">
                                                     <font key="font" size="14" name="OpenSans-Regular"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1721,8 +1721,8 @@ Gw
                                                 </textFieldCell>
                                             </textField>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EoO-KX-vwU">
-                                                <rect key="frame" x="320" y="-1" width="95" height="32"/>
-                                                <buttonCell key="cell" type="push" title="Reset app" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nWd-EQ-2BI">
+                                                <rect key="frame" x="318" y="-1" width="97" height="32"/>
+                                                <buttonCell key="cell" type="push" title="Reset App" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nWd-EQ-2BI">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
@@ -1738,15 +1738,15 @@ Gw
                                         </constraints>
                                     </customView>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="FOI-Vg-y74" userLabel="Reset app info">
-                                        <rect key="frame" x="-2" y="83" width="414" height="38"/>
+                                        <rect key="frame" x="-2" y="75" width="391" height="18"/>
                                         <textFieldCell key="cell" selectable="YES" title="Resetting the app removes all user data and resets preferences." id="4sl-uh-tBn">
-                                            <font key="font" size="14" name="OpenSans-Regular"/>
+                                            <font key="font" size="13" name="OpenSans-Regular"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
                                     <box horizontalHuggingPriority="100" verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="T0X-0K-YvG">
-                                        <rect key="frame" x="0.0" y="64" width="410" height="5"/>
+                                        <rect key="frame" x="0.0" y="60" width="410" height="5"/>
                                     </box>
                                     <customView horizontalHuggingPriority="100" translatesAutoresizingMaskIntoConstraints="NO" id="P7w-qm-Tj1" userLabel="Done container">
                                         <rect key="frame" x="0.0" y="0.0" width="410" height="50"/>
