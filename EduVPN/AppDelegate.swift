@@ -144,6 +144,31 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return .terminateLater
     }
 
+    func resetAppAfterConfirming() {
+        let alert = NSAlert()
+        alert.alertStyle = .warning
+
+        alert.messageText = NSLocalizedString(
+            "Are you sure you want to reset the app \(Config.shared.appName)?",
+            comment: "macOS alert title on attempt to reset app")
+        alert.informativeText = NSLocalizedString(
+            "All user data and preferences shall be removed.",
+            comment: "macOS alert text on attempt to reset app")
+        alert.addButton(withTitle: NSLocalizedString(
+                            "Reset App",
+                            comment: "macOS alert button on attempt to reset app"))
+        alert.addButton(withTitle: NSLocalizedString(
+                            "Cancel", comment: "button title"))
+
+        if let window = NSApp.windows.first {
+            alert.beginSheetModal(for: window) { result in
+                if case .alertFirstButtonReturn = result {
+                    AppDataRemover.removeAllData()
+                }
+            }
+        }
+    }
+
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
         guard let connectionService = environment?.connectionService else {
             return .terminateNow
