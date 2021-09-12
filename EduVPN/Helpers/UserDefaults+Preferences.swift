@@ -18,6 +18,25 @@ extension UserDefaults {
     private static let launchAtLoginKey = "launchAtLogin"
     #endif
 
+    func clearPreferences() {
+        var keys = [
+            Self.forceTCPDefaultsKey,
+            Self.shouldNotifyBeforeSessionExpiryKey,
+            Self.hasAskedUserOnNotifyBeforeSessionExpiryKey
+        ]
+        #if os(macOS)
+        keys.append(contentsOf: [
+            Self.showInStatusBarKey,
+            Self.isStatusItemInColorKey,
+            Self.showInDockKey,
+            Self.launchAtLoginKey
+        ])
+        #endif
+        for key in keys {
+            removeObject(forKey: key)
+        }
+    }
+
     var forceTCP: Bool {
         get {
             return bool(forKey: Self.forceTCPDefaultsKey)
