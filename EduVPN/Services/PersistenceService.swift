@@ -220,7 +220,7 @@ extension PersistenceService {
 }
 
 extension PersistenceService {
-    private static var rootURL: URL {
+    static var rootURL: URL {
         guard let applicationSupportDirURL = FileHelper.applicationSupportDirectoryUrl() else {
             fatalError("Can't find application support directory")
         }
