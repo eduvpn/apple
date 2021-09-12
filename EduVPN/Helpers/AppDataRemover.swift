@@ -6,17 +6,11 @@
 import Foundation
 
 class AppDataRemover {
-    static func removeAllData() {
-        removeData()
+    static func removeAllData(persistenceService: PersistenceService?) {
+        persistenceService?.removeAllData()
         removeLegacyData()
         clearCaches()
         resetPreferences()
-    }
-
-    static func removeData() {
-        let fileManager = FileManager.default
-        let dataRoot = PersistenceService.rootURL
-        try? fileManager.removeItem(at: dataRoot)
     }
 
     static func clearCaches() {

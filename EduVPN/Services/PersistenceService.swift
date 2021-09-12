@@ -191,6 +191,14 @@ class PersistenceService {
         }
     }
 
+    func removeAllData() {
+        try? FileManager.default.removeItem(at: Self.rootURL)
+        addedServers.simpleServers = []
+        addedServers.secureInternetServer = nil
+        addedServers.serversMigratedBasedOnFilePathURL = []
+        addedServers.openVPNConfigs = []
+        updateHasServers()
+    }
 }
 
 extension PersistenceService {
@@ -220,7 +228,7 @@ extension PersistenceService {
 }
 
 extension PersistenceService {
-    static var rootURL: URL {
+    private static var rootURL: URL {
         guard let applicationSupportDirURL = FileHelper.applicationSupportDirectoryUrl() else {
             fatalError("Can't find application support directory")
         }

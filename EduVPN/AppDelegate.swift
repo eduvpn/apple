@@ -163,7 +163,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if let window = NSApp.windows.first {
             alert.beginSheetModal(for: window) { result in
                 if case .alertFirstButtonReturn = result {
-                    AppDataRemover.removeAllData()
+                    AppDataRemover.removeAllData(persistenceService: self.environment?.persistenceService)
+                    self.environment?.navigationController?.popToRoot()
+                    self.mainViewController?.pushSearchOrAddVCIfNoEntries()
                 }
             }
         }
