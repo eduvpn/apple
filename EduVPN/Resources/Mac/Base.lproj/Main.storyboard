@@ -1614,7 +1614,7 @@ Gw
                                         <rect key="frame" x="0.0" y="341" width="410" height="32"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="aEb-MM-aWn">
-                                                <rect key="frame" x="-2" y="7" width="328" height="19"/>
+                                                <rect key="frame" x="-2" y="7" width="326" height="19"/>
                                                 <textFieldCell key="cell" selectable="YES" title="Connection log" id="s9g-UM-gxg">
                                                     <font key="font" size="14" name="OpenSans-Regular"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1622,7 +1622,7 @@ Gw
                                                 </textFieldCell>
                                             </textField>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QSX-N3-wdI">
-                                                <rect key="frame" x="327" y="-1" width="90" height="32"/>
+                                                <rect key="frame" x="325" y="-1" width="90" height="32"/>
                                                 <buttonCell key="cell" type="push" title="View Log" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="p8a-zd-5or">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -1636,7 +1636,7 @@ Gw
                                             <constraint firstItem="QSX-N3-wdI" firstAttribute="centerY" secondItem="HhY-AU-L8g" secondAttribute="centerY" id="6dQ-Ap-pXU"/>
                                             <constraint firstItem="aEb-MM-aWn" firstAttribute="leading" secondItem="HhY-AU-L8g" secondAttribute="leading" id="Wmv-3D-ma3"/>
                                             <constraint firstAttribute="height" constant="32" id="XMQ-hX-Oh2"/>
-                                            <constraint firstAttribute="trailing" secondItem="QSX-N3-wdI" secondAttribute="trailing" id="jFc-Fl-Jxl"/>
+                                            <constraint firstAttribute="trailing" secondItem="QSX-N3-wdI" secondAttribute="trailing" constant="2" id="jFc-Fl-Jxl"/>
                                             <constraint firstItem="QSX-N3-wdI" firstAttribute="leading" secondItem="aEb-MM-aWn" secondAttribute="trailing" constant="10" id="tIO-Up-RJb"/>
                                             <constraint firstItem="aEb-MM-aWn" firstAttribute="centerY" secondItem="HhY-AU-L8g" secondAttribute="centerY" id="w3f-rh-bjI"/>
                                         </constraints>
@@ -1713,7 +1713,7 @@ Gw
                                         <rect key="frame" x="0.0" y="137" width="410" height="32"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="100" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="X1G-dU-mU6">
-                                                <rect key="frame" x="-2" y="7" width="323" height="19"/>
+                                                <rect key="frame" x="-2" y="7" width="321" height="19"/>
                                                 <textFieldCell key="cell" selectable="YES" title="Reset application" id="mKg-sL-xvk">
                                                     <font key="font" size="14" name="OpenSans-Regular"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1721,7 +1721,7 @@ Gw
                                                 </textFieldCell>
                                             </textField>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EoO-KX-vwU">
-                                                <rect key="frame" x="322" y="-1" width="95" height="32"/>
+                                                <rect key="frame" x="320" y="-1" width="95" height="32"/>
                                                 <buttonCell key="cell" type="push" title="Reset app" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nWd-EQ-2BI">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -1730,7 +1730,7 @@ Gw
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="82C-Sd-Kwk"/>
-                                            <constraint firstAttribute="trailing" secondItem="EoO-KX-vwU" secondAttribute="trailing" id="MPB-Xj-xKt"/>
+                                            <constraint firstAttribute="trailing" secondItem="EoO-KX-vwU" secondAttribute="trailing" constant="2" id="MPB-Xj-xKt"/>
                                             <constraint firstItem="EoO-KX-vwU" firstAttribute="leading" secondItem="X1G-dU-mU6" secondAttribute="trailing" constant="10" id="hAR-g3-P81"/>
                                             <constraint firstItem="X1G-dU-mU6" firstAttribute="centerY" secondItem="Iiq-Kh-SJK" secondAttribute="centerY" id="qmZ-V8-dw2"/>
                                             <constraint firstItem="X1G-dU-mU6" firstAttribute="leading" secondItem="Iiq-Kh-SJK" secondAttribute="leading" id="uRS-8C-ql1"/>
@@ -1752,7 +1752,7 @@ Gw
                                         <rect key="frame" x="0.0" y="0.0" width="410" height="50"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3lv-xi-BVG">
-                                                <rect key="frame" x="351" y="8" width="66" height="32"/>
+                                                <rect key="frame" x="349" y="8" width="66" height="32"/>
                                                 <buttonCell key="cell" type="push" title="Done" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="txs-Nd-hs6">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -1765,7 +1765,7 @@ Gw
                                         <constraints>
                                             <constraint firstItem="3lv-xi-BVG" firstAttribute="centerY" secondItem="P7w-qm-Tj1" secondAttribute="centerY" id="H5v-vG-sRK"/>
                                             <constraint firstAttribute="height" constant="50" id="N1K-YG-ipt"/>
-                                            <constraint firstAttribute="trailing" secondItem="3lv-xi-BVG" secondAttribute="trailing" id="jfN-KK-rwr"/>
+                                            <constraint firstAttribute="trailing" secondItem="3lv-xi-BVG" secondAttribute="trailing" constant="2" id="jfN-KK-rwr"/>
                                         </constraints>
                                     </customView>
                                 </subviews>
