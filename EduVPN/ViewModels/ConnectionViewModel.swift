@@ -265,6 +265,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                 .first(where: { $0.profileId == preConnectionState.selectedProfileId })
             certificateExpiryHelper = CertificateExpiryHelper(
                 expiresAt: preConnectionState.sessionExpiresAt,
+                authenticatedAt: preConnectionState.sessionAuthenticatedAt,
                 handler: { [weak self] certificateStatus in
                     self?.certificateStatus = certificateStatus
                 })
@@ -385,11 +386,13 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                 for: server, serverInfo: serverInfo, profile: profile,
                 from: viewController, wayfSkippingInfo: self.wayfSkippingInfo(),
                 options: serverAPIOptions)
-        }.then { tunnelConfigData -> Promise<(Date, UUID)> in
+        }.then { tunnelConfigData -> Promise<(Date, Date?, UUID)> in
             self.internalState = .enableVPNRequested
             let expiresAt = tunnelConfigData.expiresAt
+            let authenticatedAt = tunnelConfigData.authenticationTime
             self.certificateExpiryHelper = CertificateExpiryHelper(
                 expiresAt: expiresAt,
+                authenticatedAt: authenticatedAt,
                 handler: { [weak self] certificateStatus in
                     self?.certificateStatus = certificateStatus
                 })
@@ -401,7 +404,8 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                 server: server,
                 profiles: self.profiles ?? [],
                 selectedProfileId: profile.profileId,
-                sessionExpiresAt: tunnelConfigData.expiresAt,
+                sessionExpiresAt: expiresAt,
+                sessionAuthenticatedAt: authenticatedAt,
                 serverAPIBaseURL: tunnelConfigData.serverAPIBaseURL,
                 serverAPIVersion: tunnelConfigData.serverAPIVersion,
                 attemptId: connectionAttemptId)
@@ -414,22 +418,23 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                     credentials: nil,
                     shouldDisableVPNOnError: true,
                     shouldPreventAutomaticConnections: false)
-                    .map { (expiresAt, connectionAttemptId) }
+                    .map { (expiresAt, authenticatedAt, connectionAttemptId) }
             case .wireGuardConfig(let configString):
                 return self.connectionService.enableVPN(
                     wireGuardConfig: configString,
                     serverName: serverInfo?.apiBaseURL.host ?? "",
                     connectionAttemptId: connectionAttemptId,
                     shouldDisableVPNOnError: true)
-                    .map { (expiresAt, connectionAttemptId) }
+                    .map { (expiresAt, authenticatedAt, connectionAttemptId) }
             }
-        }.then { (expiresAt, connectionAttemptId) -> Promise<Void> in
+        }.then { (expiresAt, authenticatedAt, connectionAttemptId) -> Promise<Void> in
             self.internalState = self.connectionService.isVPNEnabled ? .enabledVPN : .idle
             guard let notificationService = self.notificationService else {
                 return Promise.value(())
             }
             return notificationService.attemptSchedulingSessionExpiryNotification(
-                expiryDate: expiresAt, connectionAttemptId: connectionAttemptId, from: viewController)
+                expiryDate: expiresAt, authenticationDate: authenticatedAt,
+                connectionAttemptId: connectionAttemptId, from: viewController)
                 .map { _ in }
         }.ensure {
             self.internalState = self.connectionService.isVPNEnabled ? .enabledVPN : .idle
@@ -547,7 +552,9 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
            let expiryDate = certificateExpiryHelper?.expiresAt,
            let notificationService = notificationService {
             return notificationService.scheduleSessionExpiryNotification(
-                expiryDate: expiryDate, connectionAttemptId: connectionAttemptId)
+                expiryDate: expiryDate,
+                authenticationDate: certificateExpiryHelper?.authenticatedAt,
+                connectionAttemptId: connectionAttemptId)
         }
         return Guarantee<Bool>.value(false)
     }

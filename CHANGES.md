@@ -5,6 +5,8 @@
 - macOS: Support keyboard navigation #331
 - Make fetching of info.json cancellable #415
 - Handle wrong scheme when pasting a custom server URL #407
+- Make "Connect using TCP only" work with APIv3
+- Suppress 'Renew Session' for 30 mins after authentication time #417
 
 ## 2.2.3
 

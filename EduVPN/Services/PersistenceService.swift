@@ -254,6 +254,10 @@ extension PersistenceService {
             rootURL.appendingPathComponent("authState.bin")
         }
 
+        private var authenticationTimeURL: URL {
+            rootURL.appendingPathComponent("authenticationTime.json")
+        }
+
         private var keyPairURL: URL {
             rootURL.appendingPathComponent("keyPair.bin")
         }
@@ -294,6 +298,25 @@ extension PersistenceService {
                     PersistenceService.write(encryptedData, to: authStateURL, atomically: true)
                 } else {
                     removeAuthState()
+                }
+            }
+        }
+
+        var authenticationTime: Date? {
+            get {
+                if let data = try? Data(contentsOf: authenticationTimeURL),
+                   let date = try? JSONDecoder().decode(Date.self, from: data) {
+                    return date
+                }
+                return nil
+            }
+            set(value) {
+                if let data = try? JSONEncoder().encode(value) {
+                    PersistenceService.write(data, to: authenticationTimeURL, atomically: true)
+                } else {
+                    if FileManager.default.fileExists(atPath: authenticationTimeURL.path) {
+                        try? FileManager.default.removeItem(at: authenticationTimeURL)
+                    }
                 }
             }
         }

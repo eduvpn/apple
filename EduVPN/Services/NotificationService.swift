@@ -51,7 +51,7 @@ class NotificationService: NSObject {
     }
 
     func attemptSchedulingSessionExpiryNotification(
-        expiryDate: Date, connectionAttemptId: UUID, from viewController: ViewController) -> Guarantee<Bool> {
+        expiryDate: Date, authenticationDate: Date?, connectionAttemptId: UUID, from viewController: ViewController) -> Guarantee<Bool> {
 
         let userDefaults = UserDefaults.standard
 
@@ -65,7 +65,8 @@ class NotificationService: NSObject {
                     UserDefaults.standard.hasAskedUserOnNotifyBeforeSessionExpiry = true
                     if isUserWantsToBeNotified {
                         return self.scheduleSessionExpiryNotification(
-                            expiryDate: expiryDate, connectionAttemptId: connectionAttemptId)
+                            expiryDate: expiryDate, authenticationDate: authenticationDate,
+                            connectionAttemptId: connectionAttemptId)
                             .map { isAuthorized in
                                 UserDefaults.standard.shouldNotifyBeforeSessionExpiry = isAuthorized
                                 if !isAuthorized {
@@ -81,7 +82,8 @@ class NotificationService: NSObject {
             // User has chosen to be notified.
             // Attempt to schedule notification.
             return scheduleSessionExpiryNotification(
-                expiryDate: expiryDate, connectionAttemptId: connectionAttemptId)
+                expiryDate: expiryDate, authenticationDate: authenticationDate,
+                connectionAttemptId: connectionAttemptId)
         } else {
             // User has chosen to be not notified.
             // Do nothing.
@@ -89,12 +91,14 @@ class NotificationService: NSObject {
         }
     }
 
-    func scheduleSessionExpiryNotification(expiryDate: Date, connectionAttemptId: UUID) -> Guarantee<Bool> {
+    func scheduleSessionExpiryNotification(
+        expiryDate: Date, authenticationDate: Date?, connectionAttemptId: UUID) -> Guarantee<Bool> {
         return Self.requestAuthorization()
             .then { isAuthorized in
                 if isAuthorized {
                     return Self.scheduleSessionExpiryNotification(
-                        expiryDate: expiryDate, connectionAttemptId: connectionAttemptId)
+                        expiryDate: expiryDate, authenticationDate: authenticationDate,
+                        connectionAttemptId: connectionAttemptId)
                 } else {
                     UserDefaults.standard.shouldNotifyBeforeSessionExpiry = false
                     return Guarantee<Bool>.value(false)
@@ -262,18 +266,35 @@ class NotificationService: NSObject {
     }
 
     private static func scheduleSessionExpiryNotification(
-        expiryDate: Date, connectionAttemptId: UUID) -> Guarantee<Bool> {
+        expiryDate: Date, authenticationDate: Date?, connectionAttemptId: UUID) -> Guarantee<Bool> {
 
         os_log("Certificate expires at %{public}@", log: Log.general, type: .debug, expiryDate as NSDate)
 
         let minutesToExpiry = Calendar.current.dateComponents([.minute], from: Date(), to: expiryDate).minute ?? 0
+        let minutesToNotification: Int = {
+            if let authenticationDate = authenticationDate,
+               let minutesFromAuthTime = Calendar.current.dateComponents([.minute], from: authenticationDate, to: Date()).minute {
+                // 30 mins before expiry, but should be at least 32 mins since auth time
+                os_log("Last authenticated %{public}d minutes back", log: Log.general, type: .debug, minutesFromAuthTime)
+                return max((minutesToExpiry - 30), (32 - minutesFromAuthTime))
+            } else {
+                return (minutesToExpiry - 30)
+            }
+        }()
 
-        // Normally, fire the notification 30 mins before expiry. If we're already past
-        // that time, fire it 5 seconds from now.
-        let maxMinutesFromNotificationToExpiry = 30
-        let minSecondsToNotification = 5
-        let secondsToNotification = (minutesToExpiry > maxMinutesFromNotificationToExpiry) ?
-            ((minutesToExpiry - maxMinutesFromNotificationToExpiry) * 60) : minSecondsToNotification
+        let secondsToNotification: Int = {
+            if minutesToNotification >= minutesToExpiry {
+                os_log("Scheduling notification to fire 5 seconds after expiry")
+                let secondsToExpiry = Calendar.current.dateComponents([.second], from: Date(), to: expiryDate).second ?? 0
+                return secondsToExpiry + 5 // 5 seconds after expiry
+            } else if minutesToNotification < 0 {
+                os_log("Scheduling notification to fire 5 seconds from now")
+                return 5 // 5 seconds from now
+            } else {
+                return minutesToNotification * 60
+            }
+        }()
+
         precondition(secondsToNotification > 0)
 
         return addSessionExpiryNotificationRequest(

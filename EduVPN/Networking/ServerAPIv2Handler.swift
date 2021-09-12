@@ -92,9 +92,11 @@ struct ServerAPIv2Handler: ServerAPIHandler {
                 let isUDPAllowed = !UserDefaults.standard.forceTCP
                 let openVPNConfig = try Self.createOpenVPNConfig(
                     profileConfig: profileConfig, isUDPAllowed: isUDPAllowed, keyPair: keyPairData.keyPair)
+                let authenticationTime = commonInfo.dataStore.authenticationTime
                 return ServerAPIService.TunnelConfigurationData(
                     vpnConfig: .openVPNConfig(openVPNConfig),
                     expiresAt: keyPairData.certificateExpiryDate,
+                    authenticationTime: authenticationTime,
                     serverAPIBaseURL: commonInfo.serverInfo.apiBaseURL,
                     serverAPIVersion: commonInfo.serverInfo.apiVersion)
             }

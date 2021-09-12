@@ -21,6 +21,7 @@ struct ConnectionAttempt {
         let profiles: [Profile]
         let selectedProfileId: String
         let sessionExpiresAt: Date
+        let sessionAuthenticatedAt: Date?
         let serverAPIBaseURL: URL
         let serverAPIVersion: ServerInfo.APIVersion
     }
@@ -55,6 +56,7 @@ struct ConnectionAttempt {
     init(server: ServerInstance, profiles: [Profile],
          selectedProfileId: String,
          sessionExpiresAt: Date,
+         sessionAuthenticatedAt: Date?,
          serverAPIBaseURL: URL,
          serverAPIVersion: ServerInfo.APIVersion,
          attemptId: UUID) {
@@ -64,6 +66,7 @@ struct ConnectionAttempt {
                 profiles: profiles,
                 selectedProfileId: selectedProfileId,
                 sessionExpiresAt: sessionExpiresAt,
+                sessionAuthenticatedAt: sessionAuthenticatedAt,
                 serverAPIBaseURL: serverAPIBaseURL,
                 serverAPIVersion: serverAPIVersion))
         self.attemptId = attemptId
@@ -83,6 +86,7 @@ extension ConnectionAttempt.ServerPreConnectionState: Codable {
         case profiles
         case selectedProfileId = "selected_profile_id"
         case sessionExpiresAt = "session_expires_at"
+        case sessionAuthenticatedAt = "session_authenticated_at"
         case serverAPIBaseURL = "api_base_url"
         case serverAPIVersion = "api_version"
     }
