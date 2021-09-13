@@ -7,6 +7,7 @@
 - Handle wrong scheme when pasting a custom server URL #407
 - Make "Connect using TCP only" work with APIv3
 - Suppress 'Renew Session' for 30 mins after authentication time #417
+- macOS: Ability to reset the app #259
 
 ## 2.2.3
 
