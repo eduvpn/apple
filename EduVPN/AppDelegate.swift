@@ -166,6 +166,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     AppDataRemover.removeAllData(persistenceService: self.environment?.persistenceService)
                     self.environment?.navigationController?.popToRoot()
                     self.mainViewController?.pushSearchOrAddVCIfNoEntries()
+                    self.setShowInStatusBarEnabled(
+                        UserDefaults.standard.showInStatusBar,
+                        shouldUseColorIcons: UserDefaults.standard.isStatusItemInColor)
+                    self.setShowInDockEnabled(UserDefaults.standard.showInDock)
+                    self.setLaunchAtLoginEnabled(UserDefaults.standard.launchAtLogin)
                 }
             }
         }
