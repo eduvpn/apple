@@ -14,10 +14,8 @@ class AppDataRemover {
     }
 
     static func clearCaches() {
-        let fileManager = FileManager.default
-        for cacheURL in fileManager.urls(for: .cachesDirectory, in: .userDomainMask) {
-            removeContentsOfDirectory(at: cacheURL, where: { _ in true })
-        }
+        DiscoveryDataFetcher.diskCache.removeAllCachedResponses()
+        URLCache.shared.removeAllCachedResponses()
     }
 
     static func resetPreferences() {
