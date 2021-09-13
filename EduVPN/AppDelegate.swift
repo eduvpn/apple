@@ -152,7 +152,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             "Are you sure you want to reset the app \(Config.shared.appName)?",
             comment: "macOS alert title on attempt to reset app")
         alert.informativeText = NSLocalizedString(
-            "All user data and preferences shall be removed.",
+            "All user data and preferences will be removed.",
             comment: "macOS alert text on attempt to reset app")
         alert.addButton(withTitle: NSLocalizedString(
                             "Reset App",
