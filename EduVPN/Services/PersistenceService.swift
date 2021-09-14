@@ -191,6 +191,14 @@ class PersistenceService {
         }
     }
 
+    func removeAllData() {
+        try? FileManager.default.removeItem(at: Self.rootURL)
+        addedServers.simpleServers = []
+        addedServers.secureInternetServer = nil
+        addedServers.serversMigratedBasedOnFilePathURL = []
+        addedServers.openVPNConfigs = []
+        updateHasServers()
+    }
 }
 
 extension PersistenceService {

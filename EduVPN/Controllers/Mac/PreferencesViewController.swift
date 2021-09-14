@@ -108,6 +108,12 @@ class PreferencesViewController: ViewController, ParametrizedViewController {
         }
     }
 
+    @IBAction func resetAppClicked(_ sender: Any) {
+        guard let appDelegate = NSApp.delegate as? AppDelegate else { return }
+        self.presentingViewController?.dismiss(self)
+        appDelegate.resetAppAfterConfirming()
+    }
+
     @IBAction func doneClicked(_ sender: Any) {
         self.presentingViewController?.dismiss(self)
     }

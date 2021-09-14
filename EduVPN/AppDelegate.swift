@@ -144,6 +144,46 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return .terminateLater
     }
 
+    func resetAppAfterConfirming() {
+        guard let environment = self.environment else {
+            return
+        }
+
+        let alert = NSAlert()
+        alert.alertStyle = .warning
+
+        alert.messageText = NSLocalizedString(
+            "Are you sure you want to reset the app \(Config.shared.appName)?",
+            comment: "macOS alert title on attempt to reset app")
+        alert.informativeText = NSLocalizedString(
+            "All user data and preferences will be removed.",
+            comment: "macOS alert text on attempt to reset app")
+        alert.addButton(withTitle: NSLocalizedString(
+                            "Reset App",
+                            comment: "macOS alert button on attempt to reset app"))
+        alert.addButton(withTitle: NSLocalizedString(
+                            "Cancel", comment: "button title"))
+
+        if let window = NSApp.windows.first {
+            alert.beginSheetModal(for: window) { result in
+                if case .alertFirstButtonReturn = result {
+                    firstly {
+                        environment.connectionService.disableVPN()
+                    }.map {
+                        AppDataRemover.removeAllData(persistenceService: self.environment?.persistenceService)
+                        self.environment?.navigationController?.popToRoot()
+                        self.mainViewController?.pushSearchOrAddVCIfNoEntries()
+                        self.setShowInStatusBarEnabled(
+                            UserDefaults.standard.showInStatusBar,
+                            shouldUseColorIcons: UserDefaults.standard.isStatusItemInColor)
+                        self.setShowInDockEnabled(UserDefaults.standard.showInDock)
+                        self.setLaunchAtLoginEnabled(UserDefaults.standard.launchAtLogin)
+                    }.cauterize()
+                }
+            }
+        }
+    }
+
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
         guard let connectionService = environment?.connectionService else {
             return .terminateNow

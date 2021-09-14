@@ -374,6 +374,10 @@ extension MainViewController {
             break
         }
         viewModel.update()
+        pushSearchOrAddVCIfNoEntries()
+    }
+
+    func pushSearchOrAddVCIfNoEntries() {
         if !environment.persistenceService.hasServers {
             if Config.shared.apiDiscoveryEnabled ?? false {
                 let searchVC = environment.instantiateSearchViewController(
@@ -386,10 +390,9 @@ extension MainViewController {
                     predefinedProvider: Config.shared.predefinedProvider,
                     shouldAutoFocusURLField: false)
                 addServerVC.delegate = self
-                environment.navigationController?.pushViewController(addServerVC, animated: true)
+                environment.navigationController?.pushViewController(addServerVC, animated: false)
             }
         }
-
     }
 }
 
