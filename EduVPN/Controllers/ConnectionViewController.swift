@@ -66,6 +66,8 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         viewModel.status
     }
 
+    var sessionExpiresAt: Date? { viewModel?.sessionExpiresAt }
+
     private var parameters: Parameters!
     private var isRestored: Bool = false
     private var viewModel: ConnectionViewModel!

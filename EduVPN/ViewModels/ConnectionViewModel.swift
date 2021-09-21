@@ -146,6 +146,8 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
 
     var canGoBack: Bool { internalState == .idle }
 
+    var sessionExpiresAt: Date? { certificateExpiryHelper?.expiresAt }
+
     // State of the connection view model
 
     private enum InternalState: Equatable {
