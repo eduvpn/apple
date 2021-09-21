@@ -8,6 +8,7 @@
 - Make "Connect using TCP only" work with APIv3
 - Suppress 'Renew Session' for 30 mins after authentication time #417
 - macOS: Ability to reset the app #259
+- macOS: Show alert on wakeup if session expiry notification was missed #400
 
 ## 2.2.3
 
