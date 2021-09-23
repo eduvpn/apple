@@ -369,7 +369,7 @@ extension NotificationService {
                 return
             }
 
-            if expiryDate.timeIntervalSince(Date()) > 30 * 60 {
+            if expiryDate.timeIntervalSinceNow > 30 * 60 {
                 // There's more than 30 minutes to expiry.
                 // This is unexpected, so we don't show an alert.
                 return
