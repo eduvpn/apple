@@ -85,7 +85,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             NSApp.activate(ignoringOtherApps: true)
         }
 
-        NSWorkspace.shared.notificationCenter.addObserver(
+        _ = NSWorkspace.shared.notificationCenter.addObserver(
             forName: NSWorkspace.didWakeNotification, object: nil,
             queue: OperationQueue.main) { _ in
             if let connectionVC = self.mainViewController?.currentConnectionVC {
