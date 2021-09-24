@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.2.4
 
 - macOS: Support keyboard navigation #331
 - Make fetching of info.json cancellable #415
