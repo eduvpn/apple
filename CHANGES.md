@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Support for minisign pre-hashed signatures #427
+
 ## 2.2.4
 
 - macOS: Support keyboard navigation #331
