@@ -15,6 +15,7 @@ enum SignatureHelperError: LocalizedError {
     case invalidSignature
     case publicKeyIdMismatch
     case unsupportedAlgorithm
+    case legacySignatureNotAllowed
     case invalid
     
     var errorDescription: String? {
@@ -39,6 +40,10 @@ enum SignatureHelperError: LocalizedError {
             return NSLocalizedString(
                 "Unsupported algorithm.",
                 comment: "error message")
+        case .legacySignatureNotAllowed:
+            return NSLocalizedString(
+                "Legacy minisign signature is not allowed",
+                comment: "error message")
         case .invalid:
             return NSLocalizedString("Signature was invalid.", comment: "")
         }
@@ -46,7 +51,9 @@ enum SignatureHelperError: LocalizedError {
 }
 
 struct SignatureHelper {
-    
+
+    static var isLegacySignatureAllowed = true
+
     static func minisignSignatureFromFile(data: Data) throws -> Data {
         if let signatureFileContent = String(data: data, encoding: .utf8) {
             let lines = signatureFileContent.split(separator: "\n")
@@ -77,14 +84,20 @@ struct SignatureHelper {
         guard signatureAlgorithmId == "Ed" || signatureAlgorithmId == "ED" else {
             throw SignatureHelperError.unsupportedAlgorithm
         }
-        
+
+        let isPreHashed: Bool = (signatureAlgorithmId == "ED")
+
+        guard isLegacySignatureAllowed || isPreHashed else {
+            throw SignatureHelperError.legacySignatureNotAllowed
+        }
+
         let publicKey = publicKeyWithMetadata.subdata(in: 10..<42)
         let signature = signatureWithMetadata.subdata(in: 10..<74)
         
         let isVerified: Bool = self.verify(message: Array(data),
                                            publicKey: Array(publicKey),
                                            signature: Array(signature),
-                                           isPreHashed: signatureAlgorithmId == "ED")
+                                           isPreHashed: isPreHashed)
 
         guard isVerified else {
             throw SignatureHelperError.invalid
