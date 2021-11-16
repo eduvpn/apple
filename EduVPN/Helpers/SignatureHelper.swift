@@ -2,7 +2,7 @@
 //  SignatureHelper.swift
 //  EduVPN
 //
-//  Created by Johan Kool on 10/04/2020.
+//  SignatureHelper: Helper to verify minisign signatures.
 //
 
 import Foundation
