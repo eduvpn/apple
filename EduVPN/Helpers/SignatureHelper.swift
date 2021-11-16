@@ -13,7 +13,7 @@ enum SignatureHelperError: LocalizedError {
     case signatureFetchFailed
     case invalidPublicKey
     case invalidSignature
-    case publicKeySignatureMismatch
+    case publicKeyIdMismatch
     case unsupportedAlgorithm
     case invalid
     
@@ -31,9 +31,9 @@ enum SignatureHelperError: LocalizedError {
             return NSLocalizedString(
                 "Invalid signature",
                 comment: "error message")
-        case .publicKeySignatureMismatch:
+        case .publicKeyIdMismatch:
             return NSLocalizedString(
-                "Public key and signature mismatch",
+                "Public key id mismatch",
                 comment: "error message")
         case .unsupportedAlgorithm:
             return NSLocalizedString(
@@ -70,7 +70,7 @@ struct SignatureHelper {
         }
         
         guard publicKeyWithMetadata.subdata(in: 2..<10) == signatureWithMetadata.subdata(in: 2..<10) else {
-            throw SignatureHelperError.publicKeySignatureMismatch
+            throw SignatureHelperError.publicKeyIdMismatch
         }
 
         let signatureAlgorithmId = String(data: signatureWithMetadata.subdata(in: 0..<2), encoding: .utf8)
