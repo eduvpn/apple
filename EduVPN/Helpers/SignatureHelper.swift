@@ -2,7 +2,7 @@
 //  SignatureHelper.swift
 //  EduVPN
 //
-//  Created by Johan Kool on 10/04/2020.
+//  SignatureHelper: Helper to verify minisign signatures.
 //
 
 import Foundation
@@ -13,8 +13,9 @@ enum SignatureHelperError: LocalizedError {
     case signatureFetchFailed
     case invalidPublicKey
     case invalidSignature
-    case publicKeySignatureMismatch
+    case publicKeyIdMismatch
     case unsupportedAlgorithm
+    case legacySignatureNotAllowed
     case invalid
     
     var errorDescription: String? {
@@ -31,13 +32,17 @@ enum SignatureHelperError: LocalizedError {
             return NSLocalizedString(
                 "Invalid signature",
                 comment: "error message")
-        case .publicKeySignatureMismatch:
+        case .publicKeyIdMismatch:
             return NSLocalizedString(
-                "Public key and signature mismatch",
+                "Public key id mismatch",
                 comment: "error message")
         case .unsupportedAlgorithm:
             return NSLocalizedString(
                 "Unsupported algorithm.",
+                comment: "error message")
+        case .legacySignatureNotAllowed:
+            return NSLocalizedString(
+                "Legacy minisign signature is not allowed",
                 comment: "error message")
         case .invalid:
             return NSLocalizedString("Signature was invalid.", comment: "")
@@ -46,7 +51,9 @@ enum SignatureHelperError: LocalizedError {
 }
 
 struct SignatureHelper {
-    
+
+    static var isLegacySignatureAllowed = true
+
     static func minisignSignatureFromFile(data: Data) throws -> Data {
         if let signatureFileContent = String(data: data, encoding: .utf8) {
             let lines = signatureFileContent.split(separator: "\n")
@@ -69,28 +76,29 @@ struct SignatureHelper {
             throw SignatureHelperError.invalidSignature
         }
         
-        guard publicKeyWithMetadata.subdata(in: 0..<10) == signatureWithMetadata.subdata(in: 0..<10) else {
-            throw SignatureHelperError.publicKeySignatureMismatch
+        guard publicKeyWithMetadata.subdata(in: 2..<10) == signatureWithMetadata.subdata(in: 2..<10) else {
+            throw SignatureHelperError.publicKeyIdMismatch
         }
-        
-        guard publicKeyWithMetadata.subdata(in: 0..<2) == "Ed".data(using: .utf8) else {
+
+        let signatureAlgorithmId = String(data: signatureWithMetadata.subdata(in: 0..<2), encoding: .utf8)
+        guard signatureAlgorithmId == "Ed" || signatureAlgorithmId == "ED" else {
             throw SignatureHelperError.unsupportedAlgorithm
         }
-        
+
+        let isPreHashed: Bool = (signatureAlgorithmId == "ED")
+
+        guard isLegacySignatureAllowed || isPreHashed else {
+            throw SignatureHelperError.legacySignatureNotAllowed
+        }
+
         let publicKey = publicKeyWithMetadata.subdata(in: 10..<42)
         let signature = signatureWithMetadata.subdata(in: 10..<74)
         
-        let isVerified: Bool
-        
-        if #available(iOS 13.0, macOS 10.15, *) {
-            let cryptoKey = try Curve25519.Signing.PublicKey(rawRepresentation: publicKey)
-            isVerified = cryptoKey.isValidSignature(signature, for: data)
-        } else {
-            isVerified = self.verify(message: Array(data),
-                                     publicKey: Array(publicKey),
-                                     signature: Array(signature))
-        }
-        
+        let isVerified: Bool = self.verify(message: Array(data),
+                                           publicKey: Array(publicKey),
+                                           signature: Array(signature),
+                                           isPreHashed: isPreHashed)
+
         guard isVerified else {
             throw SignatureHelperError.invalid
         }
@@ -109,15 +117,37 @@ struct SignatureHelper {
 
     private typealias Bytes = [UInt8]
     
-    private static func verify(message: Bytes, publicKey: Bytes, signature: Bytes) -> Bool {
+    private static func verify(message: Bytes, publicKey: Bytes, signature: Bytes, isPreHashed: Bool) -> Bool {
         guard publicKey.count == 32 else {
             return false
         }
-        
-        return 0 == crypto_sign_verify_detached(signature,
-                                                message,
-                                                UInt64(message.count),
-                                                publicKey)
+
+        let data: Bytes = {
+            if isPreHashed {
+                let hashLength = Int(crypto_generichash_BYTES_MAX)
+                var hash = Bytes(repeating: 0, count: hashLength)
+                crypto_generichash(&hash, hashLength, message, UInt64(message.count), [], 0)
+                return hash
+            } else {
+                return message
+            }
+        }()
+
+        if #available(iOS 13.0, macOS 10.15, *) {
+            // Use CryptoKit
+            do {
+                let cryptoKey = try Curve25519.Signing.PublicKey(rawRepresentation: publicKey)
+                return cryptoKey.isValidSignature(signature, for: data)
+            } catch {
+                return false
+            }
+        } else {
+            // Use libsodium
+            return 0 == crypto_sign_verify_detached(signature,
+                                                    data,
+                                                    UInt64(data.count),
+                                                    publicKey)
+        }
     }
     
 }
