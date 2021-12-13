@@ -97,10 +97,9 @@ class PreferencesViewController: ViewController, ParametrizedViewController {
     }
 
     @IBAction func viewLogClicked(_ sender: Any) {
-        let connectionService = parameters.environment.connectionService
-        guard connectionService.isInitialized else { return }
+        let loggingService = parameters.environment.loggingService
         firstly {
-            connectionService.getConnectionLog()
+            loggingService.getLog()
         }.map { log in
             try self.showLog(log)
         }.catch { error in
