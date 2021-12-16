@@ -155,6 +155,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
             self.viewModel = ConnectionViewModel(
                 server: server,
                 connectionService: parameters.environment.connectionService,
+                loggingService: parameters.environment.loggingService,
                 notificationService: parameters.environment.notificationService,
                 serverDisplayInfo: parameters.serverDisplayInfo,
                 serverAPIService: parameters.environment.serverAPIService,
@@ -165,6 +166,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
             self.viewModel = ConnectionViewModel(
                 vpnConfigInstance: vpnConfigInstance,
                 connectionService: parameters.environment.connectionService,
+                loggingService: parameters.environment.loggingService,
                 serverDisplayInfo: parameters.serverDisplayInfo,
                 restoringPreConnectionState: vpnConfigPreConnectionState)
         } else {

@@ -42,7 +42,7 @@ class LoggingService {
     func appLog(_ message: String) {
         let timestamp = dateFormatter.string(from: Date())
         let line = "\(timestamp) \(message)"
-        NSLog("\(line)\n")
+        NSLog(message)
         if logLines.count >= maxLogLines {
             logLines.removeFirst()
         }
