@@ -153,6 +153,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return .terminateLater
     }
 
+    private func silentlyStopVPNAndQuit(
+        connectionService: ConnectionServiceProtocol) -> NSApplication.TerminateReply {
+
+        firstly { () -> Promise<Void> in
+            guard let connectionVC = mainViewController?.currentConnectionVC else {
+                return connectionService.disableVPN()
+            }
+            return connectionVC.disableVPN(shouldFireAndForget: false)
+        }.map { _ in
+            NSApp.reply(toApplicationShouldTerminate: true)
+        }.cauterize()
+
+        return .terminateLater
+    }
+
     func resetAppAfterConfirming() {
         guard let environment = self.environment else {
             return
@@ -193,6 +208,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
+    private func isQuittingForLogoutShutdownOrRestart() -> Bool {
+        guard let event = NSAppleEventManager.shared().currentAppleEvent else {
+            return false
+        }
+        guard let reasonCode = event.attributeDescriptor(forKeyword: kAEQuitReason) else {
+            return false
+        }
+        switch reasonCode.enumCodeValue {
+        case kAELogOut, kAEReallyLogOut,
+             kAEShowShutdownDialog, kAEShutDown,
+             kAEShowRestartDialog, kAERestart:
+            return true
+        default:
+            return false
+        }
+    }
+
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
         guard let connectionService = environment?.connectionService else {
             return .terminateNow
@@ -202,7 +234,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             return .terminateNow
         }
 
-        return showAlertConfirmingStopVPNAndQuit(connectionService: connectionService)
+        if isQuittingForLogoutShutdownOrRestart() {
+            return silentlyStopVPNAndQuit(connectionService: connectionService)
+        } else {
+            return showAlertConfirmingStopVPNAndQuit(connectionService: connectionService)
+        }
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
