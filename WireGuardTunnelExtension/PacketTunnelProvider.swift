@@ -43,6 +43,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         self.logger = logger
 
         logger.log("Starting WireGuard tunnel")
+        logger.logAppVersion()
 
         guard let tunnelConfiguration = try? TunnelConfiguration(fromWgQuickConfig: wgQuickConfig) else {
             logger.log("WireGuard config not parseable")

@@ -80,4 +80,12 @@ class Logger {
             lines = []
         }
     }
+
+    func logAppVersion() {
+        var appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown version"
+        if let appBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
+            appVersion += " (\(appBuild))"
+        }
+        log("App version: \(appVersion)")
+    }
 }
