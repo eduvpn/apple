@@ -319,12 +319,8 @@ private extension ConnectionService {
         }
         return Promise { resolver in
             do {
-                #if os(macOS)
                 let startTunnelOptions = StartTunnelOptions(isStartedByApp: true)
                 try tunnelManager.session.startTunnel(options: startTunnelOptions.options)
-                #else
-                try tunnelManager.session.startTunnel()
-                #endif
             } catch {
                 throw error
             }

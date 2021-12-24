@@ -52,7 +52,6 @@ enum WireGuardProviderConfigurationKeys: String {
     case appGroup
 }
 
-#if os(macOS)
 struct StartTunnelOptions {
     static let isStartedByAppKey = "isStartedByApp"
 
@@ -80,6 +79,7 @@ struct StartTunnelOptions {
     }
 }
 
+#if os(macOS)
 extension NETunnelProviderProtocol {
     struct SharedKeys {
         // If set, the tunnel connects only when triggered from the app.
