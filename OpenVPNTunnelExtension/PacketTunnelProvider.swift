@@ -44,6 +44,12 @@ class PacketTunnelProvider: OpenVPNTunnelProvider {
         }
         #endif
 
+        var appVersionString = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown version"
+        if let appBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
+            appVersionString += " (\(appBuild))"
+        }
+        appVersion = appVersionString
+
         super.startTunnel(options: options) { [weak self] error in
             if startTunnelOptions.isStartedByApp {
                 self?.rewriteLog(useDiskLog: error != nil)
