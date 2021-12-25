@@ -326,6 +326,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
             return Promise.value(())
         }
         self.log("Beginning connection flow for server '\(server.apiBaseURLString.urlString)'")
+        self.loggingService.logAppVersion()
         return firstly { () -> Promise<ServerInfo> in
             self.internalState = .gettingServerInfo
             self.log("Getting server info for server '\(server.apiBaseURLString.urlString)'")
@@ -394,6 +395,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                 return Promise.value(serverInfo)
             }
             self.internalState = .gettingServerInfo
+            self.loggingService.logAppVersion()
             self.log("Getting server info for server '\(server.apiBaseURLString.urlString)'")
             return serverAPIService.getServerInfo(for: server)
         }.then { serverInfo -> Promise<ServerAPIService.TunnelConfigurationData> in

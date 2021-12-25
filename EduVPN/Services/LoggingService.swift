@@ -39,10 +39,12 @@ class LoggingService {
         self.dateFormatter = dateFormatter
     }
 
-    func appLog(_ message: String) {
+    func appLog(_ message: String, printToConsole: Bool = true) {
         let timestamp = dateFormatter.string(from: Date())
         let line = "\(timestamp) \(message)"
-        NSLog(message)
+        if printToConsole {
+            NSLog(message)
+        }
         if logLines.count >= maxLogLines {
             logLines.removeFirst()
         }
@@ -50,6 +52,14 @@ class LoggingService {
             logLines.append(appLogStarter)
         }
         logLines.append(line)
+    }
+
+    func logAppVersion() {
+        var appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown version"
+        if let appBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
+            appVersion += " (\(appBuild))"
+        }
+        appLog("App version: \(appVersion)", printToConsole: false)
     }
 
     func flushLogToDisk() {
