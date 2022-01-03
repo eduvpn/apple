@@ -194,7 +194,7 @@ private extension StatusItemController {
 
     func updateStatusItemImage() {
         guard let statusItem = statusItem else { return }
-        statusItem.button?.image = {
+        let image: NSImage? = {
             switch flowStatus {
             case .notConnected, .gettingServerInfo, .gettingProfiles, .configuring:
                 return shouldUseColorIcons ?
@@ -210,6 +210,8 @@ private extension StatusItemController {
                     NSImage(named: "StatusItemGrayscaleConnected")
             }
         }()
+        image?.isTemplate = !shouldUseColorIcons
+        statusItem.button?.image = image
     }
 }
 
