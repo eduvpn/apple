@@ -179,11 +179,10 @@ extension CertificateExpiryHelper.CertificateStatus {
 
     var shouldShowRenewSessionButton: Bool {
         switch self {
-        case .validFor(let timeRemaining, let canRenew):
-            // Show renewal button if session expires in
-            // less than a week. But don't show it in the
-            // first 30 mins after authenticating.
-            return canRenew && timeRemaining < (60 * 60 * 24 * 7)
+        case .validFor(_, let canRenew):
+            // Don't show renewal button in the first 30 mins after authenticating.
+            // Show it all other times.
+            return canRenew
         case .expired:
             return true
         }
