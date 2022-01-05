@@ -39,7 +39,9 @@ jobs:
     - name: List available Xcode versions
       run: ls /Applications | grep Xcode
     - name: Select Xcode
-      run: sudo xcode-select -switch /Applications/Xcode_12.3.app && /usr/bin/xcodebuild -version
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest-stable
     - name: Prepare Developer.xcconfig
       run: cp Config/iOS/Developer.xcconfig.eduvpn-template Config/iOS/Developer.xcconfig
     - name: Prepare config.json
@@ -54,7 +56,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Select Xcode
-      run: sudo xcode-select -switch /Applications/Xcode_12.3.app
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest-stable
     - name: Prepare Developer-macos.xcconfig
       run: cp Config/Mac/Developer-macos.xcconfig.eduvpn-template Config/Mac/Developer-macos.xcconfig
     - name: Prepare config.json
