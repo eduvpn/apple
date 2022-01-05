@@ -27,13 +27,12 @@ class LogViewController: ViewController, ParametrizedViewController {
     }
 
     private func loadLog() {
-        let connectionService = parameters.environment.connectionService
-        guard connectionService.isInitialized else { return }
+        let loggingService = parameters.environment.loggingService
         firstly {
-            connectionService.getConnectionLog()
+            loggingService.getLog()
         }.map { [weak self] log in
             if let textView = self?.textView {
-                textView.text = log
+                textView.text = log ?? ""
             }
         }.cauterize()
     }

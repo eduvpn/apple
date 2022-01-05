@@ -12,9 +12,16 @@ struct ServerInfo: Decodable {
     typealias BaseURL = URL
     typealias OAuthEndpoint = URL
 
-    enum APIVersion: String, Codable {
+    enum APIVersion: String, Codable, CustomStringConvertible {
         case apiv2 = "http://eduvpn.org/api#2"
         case apiv3 = "http://eduvpn.org/api#3"
+
+        var description: String {
+            switch self {
+            case .apiv2: return "APIv2"
+            case .apiv3: return "APIv3"
+            }
+        }
     }
 
     var apiVersion: APIVersion

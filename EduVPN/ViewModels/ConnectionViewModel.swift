@@ -219,6 +219,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
 
     private let connectableInstance: ConnectableInstance
     private let connectionService: ConnectionServiceProtocol
+    private let loggingService: LoggingService
     private let notificationService: NotificationService?
     private let serverDisplayInfo: ServerDisplayInfo
 
@@ -237,6 +238,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
 
     init(server: ServerInstance,
          connectionService: ConnectionServiceProtocol,
+         loggingService: LoggingService,
          notificationService: NotificationService,
          serverDisplayInfo: ServerDisplayInfo,
          serverAPIService: ServerAPIService,
@@ -245,6 +247,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
 
         self.connectableInstance = server
         self.connectionService = connectionService
+        self.loggingService = loggingService
         self.notificationService = notificationService
         self.serverDisplayInfo = serverDisplayInfo
         self.serverAPIService = serverAPIService
@@ -280,11 +283,13 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
 
     init(vpnConfigInstance: VPNConfigInstance,
          connectionService: ConnectionServiceProtocol,
+         loggingService: LoggingService,
          serverDisplayInfo: ServerDisplayInfo,
          restoringPreConnectionState: ConnectionAttempt.VPNConfigPreConnectionState?) {
 
         self.connectableInstance = vpnConfigInstance
         self.connectionService = connectionService
+        self.loggingService = loggingService
         self.notificationService = nil
         self.serverDisplayInfo = serverDisplayInfo
         self.serverAPIService = nil
@@ -320,16 +325,25 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
               let serverAPIService = serverAPIService else {
             return Promise.value(())
         }
+        self.log("Beginning connection flow for server '\(server.apiBaseURLString.urlString)'")
+        self.loggingService.logAppVersion()
         return firstly { () -> Promise<ServerInfo> in
             self.internalState = .gettingServerInfo
+            self.log("Getting server info for server '\(server.apiBaseURLString.urlString)'")
             return serverAPIService.getServerInfo(for: server)
         }.then { serverInfo -> Promise<([Profile], ServerInfo)> in
             self.internalState = .gettingProfiles
+            self.log("Getting available profiles in server '\(serverInfo.apiBaseURL)' using \(serverInfo.apiVersion)")
             return serverAPIService.getAvailableProfiles(
                 for: server, serverInfo: serverInfo, from: viewController,
                 wayfSkippingInfo: self.wayfSkippingInfo(), options: [])
+        }.recover { error -> Promise<([Profile], ServerInfo)> in
+            self.log(error)
+            self.flushLogToDisk()
+            throw error
         }.then { (profiles, serverInfo) -> Promise<Void> in
             self.profiles = profiles
+            self.log("Got available profiles: \(profiles.map { $0.profileId }.joined(separator: ", "))")
             switch continuationPolicy {
             case .continueWithSingleOrLastUsedProfile:
                 let singleProfile = (profiles.count == 1 ? profiles[0] : nil)
@@ -375,19 +389,27 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
             return Promise.value(())
         }
 
+        self.log("Continuing connection flow for server '\(server.apiBaseURLString.urlString)' for profile id '\(profile.profileId)'")
         return firstly { () -> Promise<ServerInfo> in
             if let serverInfo = serverInfo {
                 return Promise.value(serverInfo)
             }
             self.internalState = .gettingServerInfo
+            self.loggingService.logAppVersion()
+            self.log("Getting server info for server '\(server.apiBaseURLString.urlString)'")
             return serverAPIService.getServerInfo(for: server)
         }.then { serverInfo -> Promise<ServerAPIService.TunnelConfigurationData> in
             self.internalState = .configuring
             self.connectingProfile = profile
+            self.log("Getting tunnel config from API base URL '\(serverInfo.apiBaseURL)' using \(serverInfo.apiVersion)")
             return serverAPIService.getTunnelConfigurationData(
                 for: server, serverInfo: serverInfo, profile: profile,
                 from: viewController, wayfSkippingInfo: self.wayfSkippingInfo(),
                 options: serverAPIOptions)
+        }.recover { error -> Promise<ServerAPIService.TunnelConfigurationData> in
+            self.log(error)
+            self.flushLogToDisk()
+            throw error
         }.then { tunnelConfigData -> Promise<(Date, Date?, UUID)> in
             self.internalState = .enableVPNRequested
             let expiresAt = tunnelConfigData.expiresAt
@@ -414,6 +436,8 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
             self.delegate?.connectionViewModel(self, willAttemptToConnect: connectionAttempt)
             switch tunnelConfigData.vpnConfig {
             case .openVPNConfig(let configLines):
+                self.log("Got OpenVPN tunnel config expiring at \(expiresAt)")
+                self.flushLogToDisk()
                 return self.connectionService.enableVPN(
                     openVPNConfig: configLines,
                     connectionAttemptId: connectionAttemptId,
@@ -422,6 +446,8 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                     shouldPreventAutomaticConnections: false)
                     .map { (expiresAt, authenticatedAt, connectionAttemptId) }
             case .wireGuardConfig(let configString):
+                self.log("Got WireGuard tunnel config expiring at \(expiresAt)")
+                self.flushLogToDisk()
                 return self.connectionService.enableVPN(
                     wireGuardConfig: configString,
                     serverName: serverInfo?.apiBaseURL.host ?? "",
@@ -559,6 +585,22 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                 connectionAttemptId: connectionAttemptId)
         }
         return Guarantee<Bool>.value(false)
+    }
+
+    private func log(_ message: String) {
+        self.loggingService.appLog(message)
+    }
+
+    private func log(_ error: Error) {
+        if let alertDetail = error.alertDetail {
+            self.log("Error: \(error.alertSummary)\n\(alertDetail)")
+        } else {
+            self.log("Error: \(error.alertSummary)")
+        }
+    }
+
+    private func flushLogToDisk() {
+        self.loggingService.flushLogToDisk()
     }
 }
 

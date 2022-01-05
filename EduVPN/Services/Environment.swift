@@ -20,8 +20,9 @@ class Environment {
     let serverAuthService: ServerAuthService
     let persistenceService: PersistenceService
     let serverAPIService: ServerAPIService
-    let connectionService: ConnectionServiceProtocol
     let notificationService: NotificationService
+    let connectionService: ConnectionServiceProtocol
+    let loggingService: LoggingService
 
     init(navigationController: NavigationController) {
         self.navigationController = navigationController
@@ -40,10 +41,13 @@ class Environment {
         self.notificationService = NotificationService()
 
         #if targetEnvironment(simulator)
-        self.connectionService = MockConnectionService()
+        let connectionService = MockConnectionService()
         #else
-        self.connectionService = ConnectionService()
+        let connectionService = ConnectionService()
         #endif
+        self.connectionService = connectionService
+
+        self.loggingService = LoggingService(connectionService: connectionService)
     }
 
     func instantiateSearchViewController(

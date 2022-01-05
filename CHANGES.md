@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Support for minisign pre-hashed signatures #427
+- Add server API events to the log #424
 
 ## 2.2.4
 

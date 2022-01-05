@@ -279,7 +279,7 @@ extension ConnectionService {
 extension ConnectionService {
     func getConnectionLog() -> Promise<String?> {
         guard let tunnelManager = tunnelManager else {
-            fatalError("ConnectionService not initialized yet")
+            return .value(nil)
         }
         guard tunnelManager.connection.status != .disconnecting else {
             // If the tunnel is disconnecting, it might be writing to the log
@@ -319,12 +319,8 @@ private extension ConnectionService {
         }
         return Promise { resolver in
             do {
-                #if os(macOS)
                 let startTunnelOptions = StartTunnelOptions(isStartedByApp: true)
                 try tunnelManager.session.startTunnel(options: startTunnelOptions.options)
-                #else
-                try tunnelManager.session.startTunnel()
-                #endif
             } catch {
                 throw error
             }

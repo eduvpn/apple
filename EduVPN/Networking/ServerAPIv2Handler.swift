@@ -53,7 +53,8 @@ extension ServerAPIv2Error: AppError {
             """
         case .errorGettingProfileConfig(let profile, let serverError):
             return """
-            Requested profile: \(profile.displayName.stringForCurrentLanguage())
+            Requested profile name: \(profile.displayName.stringForCurrentLanguage())
+            Requested profile id: \(profile.profileId)
             Server error: \(serverError)
             """
         default:
