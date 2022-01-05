@@ -43,12 +43,17 @@ jobs:
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: latest-stable
+      - name: Install Go
+        run: brew install go@1.16
       - name: Prepare Developer.xcconfig
         run: cp Config/iOS/Developer.xcconfig.eduvpn-template Config/iOS/Developer.xcconfig
       - name: Prepare config.json
         run: cp Config/iOS/config-eduvpn_new_discovery.json Config/iOS/config.json
       - name: Build for Generic iOS device
-        run: xcodebuild build -scheme EduVPN-iOS -workspace EduVPN.xcworkspace -sdk iphoneos -destination generic/platform=iOS -skip-testing EduVPN-UITests-iOS -allowProvisioningUpdates CODE_SIGNING_ALLOWED=NO
+        run: |
+          export PATH="/usr/local/opt/go@1.16/bin:/opt/homebrew/opt/go@1.16/bin:$PATH"
+          go version
+          xcodebuild build -scheme EduVPN-iOS -workspace EduVPN.xcworkspace -sdk iphoneos -destination generic/platform=iOS -skip-testing EduVPN-UITests-iOS -allowProvisioningUpdates CODE_SIGNING_ALLOWED=NO
 
   build-macos:
     name: Build macOS target
@@ -64,5 +69,10 @@ jobs:
         run: cp Config/Mac/Developer-macos.xcconfig.eduvpn-template Config/Mac/Developer-macos.xcconfig
       - name: Prepare config.json
         run: cp Config/Mac/config-eduvpn_new_discovery.json Config/Mac/config.json
+      - name: Install Go
+        run: brew install go@1.16
       - name: Run MacOS build
-        run: xcodebuild build -scheme EduVPN-macOS -workspace EduVPN.xcworkspace -destination 'platform=macOS' CODE_SIGNING_ALLOWED=NO
+        run: |
+          export PATH="/usr/local/opt/go@1.16/bin:/opt/homebrew/opt/go@1.16/bin:$PATH"
+          go version
+          xcodebuild build -scheme EduVPN-macOS -workspace EduVPN.xcworkspace -destination 'platform=macOS' CODE_SIGNING_ALLOWED=NO
