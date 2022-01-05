@@ -12,17 +12,17 @@ on:
 
 jobs:
   remind:
-    name: Changelog Reminder
+    name: Check for Changelog
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Changelog Reminder
-      uses: peterjgrainger/action-changelog-reminder@v1.2.0
-      with:
-        changelog_regex: '/CHANGES.md'
-        customPrMessage: 'Make sure to keep CHANGES.md up to date!'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+     - name: Checkout
+       uses: actions/checkout@v2
+     - name: Check for update to CHANGES.md
+       uses: brettcannon/check-for-changed-files@v1
+       with:
+         file-pattern: "CHANGES.md"
+         failure-message: "CHANGES.md is not updated"
+
   SwiftLint:
     runs-on: ubuntu-latest
     steps:
