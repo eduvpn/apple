@@ -11,7 +11,7 @@ on:
       - master
 
 jobs:
-  remind:
+  check-for-changelog:
     name: Check for Changelog
     runs-on: ubuntu-latest
     steps:
@@ -26,42 +26,43 @@ jobs:
   SwiftLint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: GitHub Action for SwiftLint
-      uses: norio-nomura/action-swiftlint@3.0.1
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: GitHub Action for SwiftLint
+        uses: norio-nomura/action-swiftlint@3.0.1
 
   build-ios:
     name: Build iOS target
     runs-on: macOS-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: List available Xcode versions
-      run: ls /Applications | grep Xcode
-    - name: Select Xcode
-      uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: latest-stable
-    - name: Prepare Developer.xcconfig
-      run: cp Config/iOS/Developer.xcconfig.eduvpn-template Config/iOS/Developer.xcconfig
-    - name: Prepare config.json
-      run: cp Config/iOS/config-eduvpn_new_discovery.json Config/iOS/config.json
-    - name: Build for Generic iOS device
-      run: xcodebuild build -scheme EduVPN-iOS -workspace EduVPN.xcworkspace -sdk iphoneos -destination generic/platform=iOS -skip-testing EduVPN-UITests-iOS -allowProvisioningUpdates CODE_SIGNING_ALLOWED=NO
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: List available Xcode versions
+        run: ls /Applications | grep Xcode
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+      - name: Prepare Developer.xcconfig
+        run: cp Config/iOS/Developer.xcconfig.eduvpn-template Config/iOS/Developer.xcconfig
+      - name: Prepare config.json
+        run: cp Config/iOS/config-eduvpn_new_discovery.json Config/iOS/config.json
+      - name: Build for Generic iOS device
+        run: xcodebuild build -scheme EduVPN-iOS -workspace EduVPN.xcworkspace -sdk iphoneos -destination generic/platform=iOS -skip-testing EduVPN-UITests-iOS -allowProvisioningUpdates CODE_SIGNING_ALLOWED=NO
 
   build-macos:
     name: Build macOS target
     runs-on: macOS-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Select Xcode
-      uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: latest-stable
-    - name: Prepare Developer-macos.xcconfig
-      run: cp Config/Mac/Developer-macos.xcconfig.eduvpn-template Config/Mac/Developer-macos.xcconfig
-    - name: Prepare config.json
-      run: cp Config/Mac/config-eduvpn_new_discovery.json Config/Mac/config.json
-    - name: Run MacOS build
-      run: xcodebuild build -scheme EduVPN-macOS -workspace EduVPN.xcworkspace -destination 'platform=macOS' CODE_SIGNING_ALLOWED=NO
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+      - name: Prepare Developer-macos.xcconfig
+        run: cp Config/Mac/Developer-macos.xcconfig.eduvpn-template Config/Mac/Developer-macos.xcconfig
+      - name: Prepare config.json
+        run: cp Config/Mac/config-eduvpn_new_discovery.json Config/Mac/config.json
+      - name: Run MacOS build
+        run: xcodebuild build -scheme EduVPN-macOS -workspace EduVPN.xcworkspace -destination 'platform=macOS' CODE_SIGNING_ALLOWED=NO
