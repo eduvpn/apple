@@ -169,13 +169,11 @@ private extension ServerAPIv3Handler {
     enum ServerAPITarget: TargetType, AcceptJson, AccessTokenAuthorizable {
         case info(ServerAPIService.CommonAPIRequestInfo)
         case connect(ServerAPIService.CommonAPIRequestInfo, profile: Profile, publicKey: String, isTCPOnly: Bool)
-        case disconnect(ServerAPIService.CommonAPIRequestInfo)
 
         var commonInfo: ServerAPIService.CommonAPIRequestInfo {
             switch self {
             case .info(let commonInfo): return commonInfo
             case .connect(let commonInfo, _, _, _): return commonInfo
-            case .disconnect(let commonInfo): return commonInfo
             }
         }
 
@@ -185,14 +183,13 @@ private extension ServerAPIv3Handler {
             switch self {
             case .info: return "/info"
             case .connect: return "/connect"
-            case .disconnect: return "/disconnect"
             }
         }
 
         var method: Moya.Method {
             switch self {
             case .info: return .get
-            case .connect, .disconnect: return .post
+            case .connect: return .post
             }
         }
 
@@ -210,8 +207,6 @@ private extension ServerAPIv3Handler {
                         "tcp_only": isTCPOnly ? "on" : "off"
                     ],
                     encoding: URLEncoding.httpBody)
-            case .disconnect:
-                return .requestPlain
             }
         }
 
