@@ -11,53 +11,68 @@ on:
       - master
 
 jobs:
-  remind:
-    name: Changelog Reminder
+  check-for-changelog:
+    name: Check for Changelog
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: Changelog Reminder
-      uses: peterjgrainger/action-changelog-reminder@v1.2.0
-      with:
-        changelog_regex: '/CHANGES.md'
-        customPrMessage: 'Make sure to keep CHANGES.md up to date!'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+     - name: Checkout
+       uses: actions/checkout@v2
+     - name: Check for update to CHANGES.md
+       uses: brettcannon/check-for-changed-files@v1
+       with:
+         file-pattern: "CHANGES.md"
+         failure-message: "CHANGES.md is not updated"
+
   SwiftLint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: GitHub Action for SwiftLint
-      uses: norio-nomura/action-swiftlint@3.0.1
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: GitHub Action for SwiftLint
+        uses: norio-nomura/action-swiftlint@3.0.1
 
   build-ios:
     name: Build iOS target
     runs-on: macOS-latest
-
     steps:
-    - uses: actions/checkout@v1
-    - name: List available Xcode versions
-      run: ls /Applications | grep Xcode
-    - name: Select Xcode
-      run: sudo xcode-select -switch /Applications/Xcode_12.3.app && /usr/bin/xcodebuild -version
-    - name: Prepare Developer.xcconfig
-      run: cp Config/iOS/Developer.xcconfig.eduvpn-template Config/iOS/Developer.xcconfig
-    - name: Prepare config.json
-      run: cp Config/iOS/config-eduvpn_new_discovery.json Config/iOS/config.json
-    - name: Build for Generic iOS device
-      run: xcodebuild build -scheme EduVPN-iOS -workspace EduVPN.xcworkspace -destination 'platform=iOS Simulator,name=iPhone 12,OS=14.3' -skip-testing EduVPN-UITests-iOS | xcpretty && exit ${PIPESTATUS[0]}
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: List available Xcode versions
+        run: ls /Applications | grep Xcode
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+      - name: Install Go
+        run: brew install go@1.16
+      - name: Prepare Developer.xcconfig
+        run: cp Config/iOS/Developer.xcconfig.eduvpn-template Config/iOS/Developer.xcconfig
+      - name: Prepare config.json
+        run: cp Config/iOS/config-eduvpn_new_discovery.json Config/iOS/config.json
+      - name: Build for Generic iOS device
+        run: |
+          export PATH="/usr/local/opt/go@1.16/bin:/opt/homebrew/opt/go@1.16/bin:$PATH"
+          go version
+          xcodebuild build -scheme EduVPN-iOS -workspace EduVPN.xcworkspace -sdk iphoneos -destination generic/platform=iOS -skip-testing EduVPN-UITests-iOS -allowProvisioningUpdates CODE_SIGNING_ALLOWED=NO
 
   build-macos:
     name: Build macOS target
     runs-on: macOS-latest
-
     steps:
-    - uses: actions/checkout@v1
-    - name: Select Xcode
-      run: sudo xcode-select -switch /Applications/Xcode_12.3.app
-    - name: Prepare Developer-macos.xcconfig
-      run: cp Config/Mac/Developer-macos.xcconfig.eduvpn-template Config/Mac/Developer-macos.xcconfig
-    - name: Prepare config.json
-      run: cp Config/Mac/config-eduvpn_new_discovery.json Config/Mac/config.json
-    - name: Run MacOS build
-      run: xcodebuild build -scheme EduVPN-macOS -workspace EduVPN.xcworkspace -destination 'platform=macOS' CODE_SIGNING_ALLOWED=NO | xcpretty && exit ${PIPESTATUS[0]}
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+      - name: Prepare Developer-macos.xcconfig
+        run: cp Config/Mac/Developer-macos.xcconfig.eduvpn-template Config/Mac/Developer-macos.xcconfig
+      - name: Prepare config.json
+        run: cp Config/Mac/config-eduvpn_new_discovery.json Config/Mac/config.json
+      - name: Install Go
+        run: brew install go@1.16
+      - name: Run MacOS build
+        run: |
+          export PATH="/usr/local/opt/go@1.16/bin:/opt/homebrew/opt/go@1.16/bin:$PATH"
+          go version
+          xcodebuild build -scheme EduVPN-macOS -workspace EduVPN.xcworkspace -destination 'platform=macOS' CODE_SIGNING_ALLOWED=NO
