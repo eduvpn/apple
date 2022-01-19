@@ -155,8 +155,7 @@ struct ServerAPIv3Handler: ServerAPIHandler {
         baseURL: URL, dataStore: PersistenceService.DataStore, session: Moya.Session,
         profile: Profile, shouldFireAndForget: Bool) -> Promise<Void> {
         let target: FireAndForgetAPITarget = .disconnect(
-            baseURL: baseURL, dataStore: dataStore, session: session,
-            profile: profile)
+            baseURL: baseURL, dataStore: dataStore, session: session)
         if shouldFireAndForget {
             Self.fireAndForget(target: target)
             return Promise.value(())
@@ -170,13 +169,11 @@ private extension ServerAPIv3Handler {
     enum ServerAPITarget: TargetType, AcceptJson, AccessTokenAuthorizable {
         case info(ServerAPIService.CommonAPIRequestInfo)
         case connect(ServerAPIService.CommonAPIRequestInfo, profile: Profile, publicKey: String, isTCPOnly: Bool)
-        case disconnect(ServerAPIService.CommonAPIRequestInfo, profile: Profile)
 
         var commonInfo: ServerAPIService.CommonAPIRequestInfo {
             switch self {
             case .info(let commonInfo): return commonInfo
             case .connect(let commonInfo, _, _, _): return commonInfo
-            case .disconnect(let commonInfo, _): return commonInfo
             }
         }
 
@@ -186,14 +183,13 @@ private extension ServerAPIv3Handler {
             switch self {
             case .info: return "/info"
             case .connect: return "/connect"
-            case .disconnect: return "/disconnect"
             }
         }
 
         var method: Moya.Method {
             switch self {
             case .info: return .get
-            case .connect, .disconnect: return .post
+            case .connect: return .post
             }
         }
 
@@ -209,12 +205,6 @@ private extension ServerAPIv3Handler {
                         "profile_id": profile.profileId,
                         "public_key": publicKey,
                         "tcp_only": isTCPOnly ? "on" : "off"
-                    ],
-                    encoding: URLEncoding.httpBody)
-            case .disconnect(_, let profile):
-                return .requestParameters(
-                    parameters: [
-                        "profile_id": profile.profileId,
                     ],
                     encoding: URLEncoding.httpBody)
             }
@@ -287,23 +277,23 @@ private extension ServerAPIv3Handler {
 private extension ServerAPIv3Handler {
     enum FireAndForgetAPITarget: TargetType, AcceptJson, AccessTokenAuthorizable {
         case disconnect(baseURL: URL, dataStore: PersistenceService.DataStore,
-                        session: Moya.Session, profile: Profile)
+                        session: Moya.Session)
 
         var dataStore: PersistenceService.DataStore {
             switch self {
-            case .disconnect(_, let dataStore, _, _): return dataStore
+            case .disconnect(_, let dataStore, _): return dataStore
             }
         }
 
         var session: Moya.Session {
             switch self {
-            case .disconnect(_, _, let session, _): return session
+            case .disconnect(_, _, let session): return session
             }
         }
 
         var baseURL: URL {
             switch self {
-            case .disconnect(let baseURL, _, _, _): return baseURL
+            case .disconnect(let baseURL, _, _): return baseURL
             }
         }
 
@@ -323,12 +313,8 @@ private extension ServerAPIv3Handler {
 
         var task: Task {
             switch self {
-            case .disconnect(_, _, _, let profile):
-                return .requestParameters(
-                    parameters: [
-                        "profile_id": profile.profileId,
-                    ],
-                    encoding: URLEncoding.httpBody)
+            case .disconnect:
+                return .requestPlain
             }
         }
 
