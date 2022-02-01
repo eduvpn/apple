@@ -5,9 +5,9 @@
 
 import Foundation
 
-class CertificateExpiryHelper {
+class SessionExpiryHelper {
 
-    enum CertificateStatus: Equatable {
+    enum SessionStatus: Equatable {
         case validFor(timeInterval: TimeInterval, canRenew: Bool)
         case expired
     }
@@ -18,7 +18,7 @@ class CertificateExpiryHelper {
     let authenticatedAt: Date?
     let canRenewAfter: Date?
 
-    private let handler: (CertificateStatus) -> Void
+    private let handler: (SessionStatus) -> Void
 
     fileprivate var refreshTimes: [Date]
 
@@ -28,7 +28,7 @@ class CertificateExpiryHelper {
         }
     }
 
-    init(expiresAt: Date, authenticatedAt: Date?, handler: @escaping (CertificateStatus) -> Void) {
+    init(expiresAt: Date, authenticatedAt: Date?, handler: @escaping (SessionStatus) -> Void) {
         self.expiresAt = expiresAt
         self.authenticatedAt = authenticatedAt
         self.canRenewAfter = authenticatedAt?.addingTimeInterval(browserSessionValidity)
@@ -42,7 +42,7 @@ class CertificateExpiryHelper {
     }
 }
 
-private extension CertificateExpiryHelper {
+private extension SessionExpiryHelper {
     struct NumberOfSeconds {
         static let inADay: Int = 60 * 60 * 24
         static let inAnHour: Int = 60 * 60
@@ -116,7 +116,7 @@ private extension CertificateExpiryHelper {
         self.timer = timer
     }
 
-    static func status(at date: Date, expiryDate: Date, canRenewAfter: Date?) -> CertificateStatus {
+    static func status(at date: Date, expiryDate: Date, canRenewAfter: Date?) -> SessionStatus {
         let timeToExpiry = expiryDate.timeIntervalSince(date)
         if timeToExpiry >= 0 {
             let canRenew: Bool = {
@@ -132,7 +132,7 @@ private extension CertificateExpiryHelper {
     }
 }
 
-extension CertificateExpiryHelper.CertificateStatus {
+extension SessionExpiryHelper.SessionStatus {
     static let daysHoursFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.day, .hour]
@@ -169,11 +169,11 @@ extension CertificateExpiryHelper.CertificateStatus {
         switch self {
         case .validFor(let timeInterval, _):
             let localizedTimeLeftString: String?
-            if timeInterval > TimeInterval(CertificateExpiryHelper.NumberOfSeconds.tillWhichToShowDaysHours) {
+            if timeInterval > TimeInterval(SessionExpiryHelper.NumberOfSeconds.tillWhichToShowDaysHours) {
                 localizedTimeLeftString = Self.daysHoursFormatter.string(from: timeInterval)
-            } else if timeInterval > TimeInterval(CertificateExpiryHelper.NumberOfSeconds.tillWhichToShowHoursMinutes) {
+            } else if timeInterval > TimeInterval(SessionExpiryHelper.NumberOfSeconds.tillWhichToShowHoursMinutes) {
                 localizedTimeLeftString = Self.hoursMinutesFormatter.string(from: timeInterval)
-            } else if timeInterval > TimeInterval(CertificateExpiryHelper.NumberOfSeconds.tillWhichToShowMinutesOnly) {
+            } else if timeInterval > TimeInterval(SessionExpiryHelper.NumberOfSeconds.tillWhichToShowMinutesOnly) {
                 localizedTimeLeftString = Self.minutesOnlyFormatter.string(from: timeInterval)
             } else {
                 localizedTimeLeftString = Self.minutesSecondsFormatter.string(from: timeInterval)
@@ -207,14 +207,14 @@ extension CertificateExpiryHelper.CertificateStatus {
 /*
 // To test this helper as a script, uncomment and run:
 // $ xcrun swift /path/to/this/file.swift | less
-let certificateExpiryHelper = CertificateExpiryHelper(
+let helper = SessionExpiryHelper(
     expiresAt: Date(timeIntervalSinceNow: (60 * 60 * 11.0)),
     authenticatedAt: Date(timeIntervalSinceNow: -1 * 20 * 60),
     handler: { _ in })
-print("\(certificateExpiryHelper.refreshTimes.count) refresh times from: \(Date())")
-for refreshAt in certificateExpiryHelper.refreshTimes {
-    let status = CertificateExpiryHelper.status(
-        at: refreshAt, expiryDate: certificateExpiryHelper.expiresAt, canRenewAfter: certificateExpiryHelper.canRenewAfter)
+print("\(helper.refreshTimes.count) refresh times from: \(Date())")
+for refreshAt in helper.refreshTimes {
+    let status = SessionExpiryHelper.status(
+        at: refreshAt, expiryDate: helper.expiresAt, canRenewAfter: helper.canRenewAfter)
     print("    At \(refreshAt) (\(refreshAt.timeIntervalSince1970)): [\(status.localizedText)]   [\(status.shouldShowRenewSessionButton)]")
 }
 */
