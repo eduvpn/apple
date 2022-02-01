@@ -110,10 +110,24 @@ private extension SessionExpiryHelper {
             guard let self = self else { return }
             let status = Self.status(at: Date(), expiryDate: self.expiresAt, canRenewAfter: self.canRenewAfter)
             self.handler(status)
+            self.pruneRefreshTimesInThePast()
             self.scheduleNextRefresh()
         }
         RunLoop.main.add(timer, forMode: .common)
         self.timer = timer
+    }
+
+    func pruneRefreshTimesInThePast() {
+        let now = Date()
+        var pastRefreshTimeCount = 0
+        for time in refreshTimes {
+            if time < now {
+                pastRefreshTimeCount += 1
+            } else {
+                break
+            }
+        }
+        refreshTimes.removeFirst(pastRefreshTimeCount)
     }
 
     static func status(at date: Date, expiryDate: Date, canRenewAfter: Date?) -> SessionStatus {
