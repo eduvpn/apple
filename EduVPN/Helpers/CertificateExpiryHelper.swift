@@ -12,12 +12,15 @@ class CertificateExpiryHelper {
         case expired
     }
 
+    let browserSessionValidity: TimeInterval = 60 * 32 // 32 minutes
+
     let expiresAt: Date
     let authenticatedAt: Date?
+    let canRenewAfter: Date?
 
     private let handler: (CertificateStatus) -> Void
 
-    fileprivate var refreshTimes: [(refreshAt: Date, state: CertificateStatus)]
+    fileprivate var refreshTimes: [Date]
 
     private var timer: Timer? {
         didSet(oldValue) {
@@ -28,8 +31,9 @@ class CertificateExpiryHelper {
     init(expiresAt: Date, authenticatedAt: Date?, handler: @escaping (CertificateStatus) -> Void) {
         self.expiresAt = expiresAt
         self.authenticatedAt = authenticatedAt
+        self.canRenewAfter = authenticatedAt?.addingTimeInterval(browserSessionValidity)
         self.handler = handler
-        self.refreshTimes = Self.computeRefreshTimes(from: Date(), to: expiresAt, authenticatedAt: authenticatedAt)
+        self.refreshTimes = Self.computeRefreshTimes(from: Date(), to: expiresAt, canRenewAfter: canRenewAfter)
         self.scheduleNextRefresh()
     }
 
@@ -55,11 +59,11 @@ private extension CertificateExpiryHelper {
 
     static func computeRefreshTimes(from startDate: Date,
                                     to endDate: Date,
-                                    authenticatedAt: Date?) -> [(refreshAt: Date, state: CertificateStatus)] {
+                                    canRenewAfter: Date?) -> [Date] {
         let endingTimeInterval = endDate.timeIntervalSince(startDate)
-        let canRenewTimeInterval = authenticatedAt?.addingTimeInterval(browserSessionValidity).timeIntervalSince(startDate)
+        let canRenewTimeInterval = canRenewAfter?.timeIntervalSince(startDate)
 
-        var refreshTimes: [(refreshAt: Date, state: CertificateStatus)] = []
+        var refreshTimes: [Date] = []
         var currentTimeInterval: TimeInterval = 0
         var isAddedRenewalTime = false
 
@@ -69,20 +73,14 @@ private extension CertificateExpiryHelper {
             if let canRenewTimeInterval = canRenewTimeInterval {
                 canRenew = currentTimeInterval >= canRenewTimeInterval
                 if currentTimeInterval > canRenewTimeInterval && !isAddedRenewalTime {
-                    refreshTimes.append(
-                        (refreshAt: Date(timeInterval: canRenewTimeInterval, since: startDate),
-                         state: .validFor(timeInterval: endingTimeInterval - canRenewTimeInterval, canRenew: canRenew))
-                    )
+                    refreshTimes.append(Date(timeInterval: canRenewTimeInterval, since: startDate))
                 }
                 if canRenew {
                     isAddedRenewalTime = true
                 }
             }
 
-            refreshTimes.append(
-                (refreshAt: Date(timeInterval: currentTimeInterval, since: startDate),
-                 state: .validFor(timeInterval: endingTimeInterval - currentTimeInterval,
-                                  canRenew: canRenew)))
+            refreshTimes.append(Date(timeInterval: currentTimeInterval, since: startDate))
 
             let secondsRemaining = Int(endingTimeInterval - currentTimeInterval)
             if secondsRemaining > NumberOfSeconds.tillWhichToShowDaysHours {
@@ -96,7 +94,8 @@ private extension CertificateExpiryHelper {
             }
         }
 
-        refreshTimes.append((refreshAt: endDate, state: .expired))
+        refreshTimes.append(endDate)
+        refreshTimes.append(endDate.addingTimeInterval(1)) // To be really sure we go to the expired state
         return refreshTimes
     }
 
@@ -106,14 +105,30 @@ private extension CertificateExpiryHelper {
             self.timer = nil
             return
         }
-        let (refreshAt, state) = refreshTimes.removeFirst()
+        let refreshAt = refreshTimes.removeFirst()
         let timer = Timer(fire: refreshAt, interval: 0, repeats: false) { [weak self] _ in
             guard let self = self else { return }
-            self.handler(state)
+            let status = Self.status(at: Date(), expiryDate: self.expiresAt, canRenewAfter: self.canRenewAfter)
+            self.handler(status)
             self.scheduleNextRefresh()
         }
         RunLoop.main.add(timer, forMode: .common)
         self.timer = timer
+    }
+
+    static func status(at date: Date, expiryDate: Date, canRenewAfter: Date?) -> CertificateStatus {
+        let timeToExpiry = expiryDate.timeIntervalSince(date)
+        if timeToExpiry >= 0 {
+            let canRenew: Bool = {
+                if let canRenewAfter = canRenewAfter {
+                    return date > canRenewAfter
+                }
+                return true
+            }()
+            return .validFor(timeInterval: timeToExpiry, canRenew: canRenew)
+        } else {
+            return .expired
+        }
     }
 }
 
@@ -197,7 +212,9 @@ let certificateExpiryHelper = CertificateExpiryHelper(
     authenticatedAt: Date(timeIntervalSinceNow: -1 * 20 * 60),
     handler: { _ in })
 print("\(certificateExpiryHelper.refreshTimes.count) refresh times from: \(Date())")
-for (refreshAt, state) in certificateExpiryHelper.refreshTimes {
-    print("    At \(refreshAt) (\(refreshAt.timeIntervalSince1970)): [\(state.localizedText)]   [\(state.shouldShowRenewSessionButton)]")
+for refreshAt in certificateExpiryHelper.refreshTimes {
+    let status = CertificateExpiryHelper.status(
+        at: refreshAt, expiryDate: certificateExpiryHelper.expiresAt, canRenewAfter: certificateExpiryHelper.canRenewAfter)
+    print("    At \(refreshAt) (\(refreshAt.timeIntervalSince1970)): [\(status.localizedText)]   [\(status.shouldShowRenewSessionButton)]")
 }
 */
