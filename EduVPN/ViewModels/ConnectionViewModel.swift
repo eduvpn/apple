@@ -538,6 +538,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
             self.internalState = self.connectionService.isVPNEnabled ? .enabledVPN : .idle
             if self.internalState == .idle {
                 self.connectingProfile = nil
+                self.certificateExpiryHelper = nil
             }
         }
     }
