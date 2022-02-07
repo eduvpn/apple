@@ -82,7 +82,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
 
     enum StatusDetail {
         case none
-        case sessionStatus(CertificateExpiryHelper.CertificateStatus)
+        case sessionStatus(SessionExpiryHelper.SessionStatus)
         case noProfilesAvailable
     }
 
@@ -146,7 +146,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
 
     var canGoBack: Bool { internalState == .idle }
 
-    var sessionExpiresAt: Date? { certificateExpiryHelper?.expiresAt }
+    var sessionExpiresAt: Date? { sessionExpiryHelper?.expiresAt }
 
     // State of the connection view model
 
@@ -189,7 +189,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         }
     }
 
-    private var certificateStatus: CertificateExpiryHelper.CertificateStatus? {
+    private var sessionStatus: SessionExpiryHelper.SessionStatus? {
         didSet {
             self.updateStatusDetail()
             self.updateAdditionalControl()
@@ -202,7 +202,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         }
     }
 
-    private var certificateExpiryHelper: CertificateExpiryHelper? {
+    private var sessionExpiryHelper: SessionExpiryHelper? {
         didSet {
             self.updateStatusDetail()
             self.updateAdditionalControl()
@@ -268,11 +268,11 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
             profiles = preConnectionState.profiles
             connectingProfile = preConnectionState.profiles
                 .first(where: { $0.profileId == preConnectionState.selectedProfileId })
-            certificateExpiryHelper = CertificateExpiryHelper(
+            sessionExpiryHelper = SessionExpiryHelper(
                 expiresAt: preConnectionState.sessionExpiresAt,
                 authenticatedAt: preConnectionState.sessionAuthenticatedAt,
-                handler: { [weak self] certificateStatus in
-                    self?.certificateStatus = certificateStatus
+                handler: { [weak self] sessionStatus in
+                    self?.sessionStatus = sessionStatus
                 })
             serverInfoForDisconnectReport = ServerInfoForDisconnectReport(
                 serverAPIBaseURL: preConnectionState.serverAPIBaseURL,
@@ -414,11 +414,11 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
             self.internalState = .enableVPNRequested
             let expiresAt = tunnelConfigData.expiresAt
             let authenticatedAt = tunnelConfigData.authenticationTime
-            self.certificateExpiryHelper = CertificateExpiryHelper(
+            self.sessionExpiryHelper = SessionExpiryHelper(
                 expiresAt: expiresAt,
                 authenticatedAt: authenticatedAt,
-                handler: { [weak self] certificateStatus in
-                    self?.certificateStatus = certificateStatus
+                handler: { [weak self] sessionStatus in
+                    self?.sessionStatus = sessionStatus
                 })
             self.serverInfoForDisconnectReport = ServerInfoForDisconnectReport(
                 serverAPIBaseURL: tunnelConfigData.serverAPIBaseURL,
@@ -538,6 +538,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
             self.internalState = self.connectionService.isVPNEnabled ? .enabledVPN : .idle
             if self.internalState == .idle {
                 self.connectingProfile = nil
+                self.sessionExpiryHelper = nil
             }
         }
     }
@@ -577,11 +578,11 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         guard connectionService.isVPNEnabled else { return Guarantee<Bool>.value(false) }
         guard connectableInstance is ServerInstance else { return Guarantee<Bool>.value(false) }
         if let connectionAttemptId = connectionService.connectionAttemptId,
-           let expiryDate = certificateExpiryHelper?.expiresAt,
+           let expiryDate = sessionExpiryHelper?.expiresAt,
            let notificationService = notificationService {
             return notificationService.scheduleSessionExpiryNotification(
                 expiryDate: expiryDate,
-                authenticationDate: certificateExpiryHelper?.authenticatedAt,
+                authenticationDate: sessionExpiryHelper?.authenticatedAt,
                 connectionAttemptId: connectionAttemptId)
         }
         return Guarantee<Bool>.value(false)
@@ -647,8 +648,8 @@ private extension ConnectionViewModel {
                 return .noProfilesAvailable
             }
             if internalState == .enabledVPN {
-                if let certificateStatus = certificateStatus {
-                    return .sessionStatus(certificateStatus)
+                if let sessionStatus = sessionStatus {
+                    return .sessionStatus(sessionStatus)
                 }
             }
             return .none
@@ -680,7 +681,7 @@ private extension ConnectionViewModel {
             if internalState == .gettingServerInfo || internalState == .gettingProfiles || internalState == .configuring {
                 return .spinner
             }
-            if (certificateStatus?.shouldShowRenewSessionButton ?? false) && internalState == .enabledVPN {
+            if (sessionStatus?.shouldShowRenewSessionButton ?? false) && internalState == .enabledVPN {
                 return .renewSessionButton
             }
             if internalState == .idle, let profiles = profiles, profiles.count > 1 {

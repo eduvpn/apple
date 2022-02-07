@@ -4,6 +4,7 @@
 
 - Support for minisign pre-hashed signatures #427
 - Add server API events to the log #424
+- Show 'Renew Session' whenever it's possible to renew #430
 
 ## 2.2.4
 
