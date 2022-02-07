@@ -145,7 +145,14 @@
 		6FBFEF1624C2DCEE00A9D1D4 /* OpenSans-Regular.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6FBFEF0F24C2DCA900A9D1D4 /* OpenSans-Regular.ttf */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		6FC0639127B0F0DC00AE25D9 /* TunnelKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6FC0639027B0F0DC00AE25D9 /* TunnelKit */; };
 		6FC0639327B0F0DC00AE25D9 /* TunnelKitOpenVPN in Frameworks */ = {isa = PBXBuildFile; productRef = 6FC0639227B0F0DC00AE25D9 /* TunnelKitOpenVPN */; };
-		6FC0639527B0F0DC00AE25D9 /* TunnelKitOpenVPNAppExtension in Frameworks */ = {isa = PBXBuildFile; productRef = 6FC0639427B0F0DC00AE25D9 /* TunnelKitOpenVPNAppExtension */; };
+		6FC0639727B0F43A00AE25D9 /* TunnelKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6FC0639627B0F43A00AE25D9 /* TunnelKit */; };
+		6FC0639927B0F43A00AE25D9 /* TunnelKitOpenVPN in Frameworks */ = {isa = PBXBuildFile; productRef = 6FC0639827B0F43A00AE25D9 /* TunnelKitOpenVPN */; };
+		6FC0639B27B0F43A00AE25D9 /* TunnelKitOpenVPNAppExtension in Frameworks */ = {isa = PBXBuildFile; productRef = 6FC0639A27B0F43A00AE25D9 /* TunnelKitOpenVPNAppExtension */; };
+		6FC0639D27B0F50200AE25D9 /* TunnelKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6FC0639C27B0F50200AE25D9 /* TunnelKit */; };
+		6FC0639F27B0F50200AE25D9 /* TunnelKitOpenVPN in Frameworks */ = {isa = PBXBuildFile; productRef = 6FC0639E27B0F50200AE25D9 /* TunnelKitOpenVPN */; };
+		6FC063A127B0F50200AE25D9 /* TunnelKitOpenVPNAppExtension in Frameworks */ = {isa = PBXBuildFile; productRef = 6FC063A027B0F50200AE25D9 /* TunnelKitOpenVPNAppExtension */; };
+		6FC063A327B0F52900AE25D9 /* TunnelKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6FC063A227B0F52900AE25D9 /* TunnelKit */; };
+		6FC063A527B0F52900AE25D9 /* TunnelKitOpenVPN in Frameworks */ = {isa = PBXBuildFile; productRef = 6FC063A427B0F52900AE25D9 /* TunnelKitOpenVPN */; };
 		6FC27AC824B9550D006FA648 /* ServerAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC27AC724B9550C006FA648 /* ServerAPIService.swift */; };
 		6FCC5EF424B8579D00C6BC80 /* LanguageMappedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCC5EF324B8579D00C6BC80 /* LanguageMappedString.swift */; };
 		6FCC5EF624B85D6700C6BC80 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCC5EF524B85D6700C6BC80 /* ServerResponse.swift */; };
@@ -587,6 +594,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				340F956E22B7119600835D56 /* NetworkExtension.framework in Frameworks */,
+				6FC0639927B0F43A00AE25D9 /* TunnelKitOpenVPN in Frameworks */,
+				6FC0639B27B0F43A00AE25D9 /* TunnelKitOpenVPNAppExtension in Frameworks */,
+				6FC0639727B0F43A00AE25D9 /* TunnelKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -595,6 +605,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A901C1E20C882FB000C1BF0 /* NetworkExtension.framework in Frameworks */,
+				6FC0639F27B0F50200AE25D9 /* TunnelKitOpenVPN in Frameworks */,
+				6FC063A127B0F50200AE25D9 /* TunnelKitOpenVPNAppExtension in Frameworks */,
+				6FC0639D27B0F50200AE25D9 /* TunnelKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -630,7 +643,6 @@
 			files = (
 				6F750C8524975A4300AF2C04 /* NetworkExtension.framework in Frameworks */,
 				60F43EFF1E3D73A73DE4BE86 /* Pods_EduVPN_macOS.framework in Frameworks */,
-				6FC0639527B0F0DC00AE25D9 /* TunnelKitOpenVPNAppExtension in Frameworks */,
 				6F66DB16265E1F8E006974CF /* WireGuardKit in Frameworks */,
 				6FC0639127B0F0DC00AE25D9 /* TunnelKit in Frameworks */,
 				6FC0639327B0F0DC00AE25D9 /* TunnelKitOpenVPN in Frameworks */,
@@ -644,6 +656,8 @@
 				6F750D1124975B9B00AF2C04 /* NetworkExtension.framework in Frameworks */,
 				EFFC28B0ADE95DCC0D02CFDC /* Pods_EduVPN_iOS.framework in Frameworks */,
 				6F6BB662265E59660093D4CC /* WireGuardKit in Frameworks */,
+				6FC063A327B0F52900AE25D9 /* TunnelKit in Frameworks */,
+				6FC063A527B0F52900AE25D9 /* TunnelKitOpenVPN in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1311,6 +1325,11 @@
 			dependencies = (
 			);
 			name = "OpenVPNTunnelExtension-macOS";
+			packageProductDependencies = (
+				6FC0639627B0F43A00AE25D9 /* TunnelKit */,
+				6FC0639827B0F43A00AE25D9 /* TunnelKitOpenVPN */,
+				6FC0639A27B0F43A00AE25D9 /* TunnelKitOpenVPNAppExtension */,
+			);
 			productName = "EduVPNTunnelExtension-macOS";
 			productReference = 349D85C222B706A4006E9540 /* OpenVPNTunnelExtension-macOS.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1329,6 +1348,11 @@
 			dependencies = (
 			);
 			name = "OpenVPNTunnelExtension-iOS";
+			packageProductDependencies = (
+				6FC0639C27B0F50200AE25D9 /* TunnelKit */,
+				6FC0639E27B0F50200AE25D9 /* TunnelKitOpenVPN */,
+				6FC063A027B0F50200AE25D9 /* TunnelKitOpenVPNAppExtension */,
+			);
 			productName = EduVPNTunnelExtension;
 			productReference = 4A901C1120C87511000C1BF0 /* OpenVPNTunnelExtension-iOS.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1424,7 +1448,6 @@
 				6F66DB15265E1F8E006974CF /* WireGuardKit */,
 				6FC0639027B0F0DC00AE25D9 /* TunnelKit */,
 				6FC0639227B0F0DC00AE25D9 /* TunnelKitOpenVPN */,
-				6FC0639427B0F0DC00AE25D9 /* TunnelKitOpenVPNAppExtension */,
 			);
 			productName = "EduVPN-macOS";
 			productReference = 6F750C9624975A4300AF2C04 /* eduVPN.app */;
@@ -1453,6 +1476,8 @@
 			name = "EduVPN-iOS";
 			packageProductDependencies = (
 				6F6BB661265E59660093D4CC /* WireGuardKit */,
+				6FC063A227B0F52900AE25D9 /* TunnelKit */,
+				6FC063A427B0F52900AE25D9 /* TunnelKitOpenVPN */,
 			);
 			productName = EduVPN;
 			productReference = 6F750D2124975B9B00AF2C04 /* eduVPN.app */;
@@ -3493,10 +3518,45 @@
 			package = 6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */;
 			productName = TunnelKitOpenVPN;
 		};
-		6FC0639427B0F0DC00AE25D9 /* TunnelKitOpenVPNAppExtension */ = {
+		6FC0639627B0F43A00AE25D9 /* TunnelKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */;
+			productName = TunnelKit;
+		};
+		6FC0639827B0F43A00AE25D9 /* TunnelKitOpenVPN */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */;
+			productName = TunnelKitOpenVPN;
+		};
+		6FC0639A27B0F43A00AE25D9 /* TunnelKitOpenVPNAppExtension */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */;
 			productName = TunnelKitOpenVPNAppExtension;
+		};
+		6FC0639C27B0F50200AE25D9 /* TunnelKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */;
+			productName = TunnelKit;
+		};
+		6FC0639E27B0F50200AE25D9 /* TunnelKitOpenVPN */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */;
+			productName = TunnelKitOpenVPN;
+		};
+		6FC063A027B0F50200AE25D9 /* TunnelKitOpenVPNAppExtension */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */;
+			productName = TunnelKitOpenVPNAppExtension;
+		};
+		6FC063A227B0F52900AE25D9 /* TunnelKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */;
+			productName = TunnelKit;
+		};
+		6FC063A427B0F52900AE25D9 /* TunnelKitOpenVPN */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */;
+			productName = TunnelKitOpenVPN;
 		};
 /* End XCSwiftPackageProductDependency section */
 
