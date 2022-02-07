@@ -180,10 +180,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/AppAuth-macOS/AppAuth.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Moya-macOS/Moya.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PromiseKit-macOS/PromiseKit.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/SwiftyBeaver-macOS/SwiftyBeaver.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/TunnelKit-macOS/TunnelKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/libsodium-macOS/libsodium.framework"
-  install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/openssl/openssl.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/ASN1Decoder-macOS/ASN1Decoder.framework"
@@ -191,10 +188,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/AppAuth-macOS/AppAuth.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Moya-macOS/Moya.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PromiseKit-macOS/PromiseKit.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/SwiftyBeaver-macOS/SwiftyBeaver.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/TunnelKit-macOS/TunnelKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/libsodium-macOS/libsodium.framework"
-  install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/openssl/openssl.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

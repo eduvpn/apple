@@ -435,15 +435,15 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B6BFCE9ED340999FBC90746A547B1E9A /* AppAuth-macOS-umbrella.h in Headers */,
 				B5424A6BF715D577F309890A909844C5 /* AppAuth.h in Headers */,
+				B6BFCE9ED340999FBC90746A547B1E9A /* AppAuth-macOS-umbrella.h in Headers */,
 				1DCF1FD91E00FFBD3FD1CCE2B77ED3AC /* AppAuthCore.h in Headers */,
 				4DE90483345719A0B3D680816164EDFC /* OIDAuthorizationRequest.h in Headers */,
 				C67C57177022EA225863A2137A46CE3A /* OIDAuthorizationResponse.h in Headers */,
-				21134BA1A9C8C5AA9956EC460481B25A /* OIDAuthorizationService+Mac.h in Headers */,
 				25B57F4DF402ADFCE0C2674D6283A177 /* OIDAuthorizationService.h in Headers */,
-				900841C0D1BF9EB316D12C4C49251EF8 /* OIDAuthState+Mac.h in Headers */,
+				21134BA1A9C8C5AA9956EC460481B25A /* OIDAuthorizationService+Mac.h in Headers */,
 				9A9791DFBF5C6CF9492E6D81B4345F39 /* OIDAuthState.h in Headers */,
+				900841C0D1BF9EB316D12C4C49251EF8 /* OIDAuthState+Mac.h in Headers */,
 				FA219CBEABAFE754704DD09B059649F4 /* OIDAuthStateChangeDelegate.h in Headers */,
 				442F53A4FA1474693BEC424BEA4D96F4 /* OIDAuthStateErrorDelegate.h in Headers */,
 				BF7F7536C81987D81BD57CBC09850DBD /* OIDClientMetadataParameters.h in Headers */,
@@ -480,15 +480,15 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7144CCD663D3B4CF8CD0EBE6CC90F1A9 /* AppAuth-iOS-umbrella.h in Headers */,
 				51BCC52ED4E0393DB23B5C41AF37D6BB /* AppAuth.h in Headers */,
+				7144CCD663D3B4CF8CD0EBE6CC90F1A9 /* AppAuth-iOS-umbrella.h in Headers */,
 				9B1D78E41682E89B97FA391A6318418A /* AppAuthCore.h in Headers */,
 				F3D533AFA2840DD5C90AA944185CA7FD /* OIDAuthorizationRequest.h in Headers */,
 				B36FDEE02B9668ABC05B3138C2A47F2C /* OIDAuthorizationResponse.h in Headers */,
-				9BCDB06676F4ACA56C3C94782402B4B9 /* OIDAuthorizationService+IOS.h in Headers */,
 				F8969EF97F64ACA6BD94D270D8EB5AB3 /* OIDAuthorizationService.h in Headers */,
-				647AFE84850B679D817D2745D31B42F5 /* OIDAuthState+IOS.h in Headers */,
+				9BCDB06676F4ACA56C3C94782402B4B9 /* OIDAuthorizationService+IOS.h in Headers */,
 				FA0E927D89E676DF12578661D227FF29 /* OIDAuthState.h in Headers */,
+				647AFE84850B679D817D2745D31B42F5 /* OIDAuthState+IOS.h in Headers */,
 				7151B8C7E0BC20DEBD588B2EC86C6944 /* OIDAuthStateChangeDelegate.h in Headers */,
 				C34697052C1DAB1300F67E0686DA7E1A /* OIDAuthStateErrorDelegate.h in Headers */,
 				72315E803FDAFEBE72F9E3EFA0CFA3D7 /* OIDClientMetadataParameters.h in Headers */,
@@ -565,8 +565,8 @@
 		CCE04A66A9630D02B6DA11237AE4E168 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1100;
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1240;
 			};
 			buildConfigurationList = CF9EC65B070BA085EAC0E2A967DE3DE9 /* Build configuration list for PBXProject "AppAuth" */;
 			compatibilityVersion = "Xcode 11.0";
@@ -612,10 +612,10 @@
 				F5B2BE0A9BAB6B6427BE7D3491A56F2C /* AppAuth-iOS-dummy.m in Sources */,
 				D5048888666D45B95AB862E2131F983E /* OIDAuthorizationRequest.m in Sources */,
 				125406641BD1FFD55B2371998566F690 /* OIDAuthorizationResponse.m in Sources */,
-				7BEB69232A0F1C54AEBC4F69C87FBE68 /* OIDAuthorizationService+IOS.m in Sources */,
 				1B92D53CEABD706D4469DBABF372DA69 /* OIDAuthorizationService.m in Sources */,
-				B194E0D6CF705BE80E15A447AD1F0685 /* OIDAuthState+IOS.m in Sources */,
+				7BEB69232A0F1C54AEBC4F69C87FBE68 /* OIDAuthorizationService+IOS.m in Sources */,
 				385697E8D032EBF63AA50263C2BAA91C /* OIDAuthState.m in Sources */,
+				B194E0D6CF705BE80E15A447AD1F0685 /* OIDAuthState+IOS.m in Sources */,
 				645C740FF10875CC41AFAB99F5341CB9 /* OIDClientMetadataParameters.m in Sources */,
 				2FF695044BBCC83C2F0AF44DF02DC592 /* OIDEndSessionRequest.m in Sources */,
 				2FC7141DDF2081A7EE824D07EA202415 /* OIDEndSessionResponse.m in Sources */,
@@ -648,10 +648,10 @@
 				6080DA8AC6D6B50BB2B03F4B0B9AE0AE /* AppAuth-macOS-dummy.m in Sources */,
 				470850B5DA7EB9BD7EC260877A9B7230 /* OIDAuthorizationRequest.m in Sources */,
 				2ECBE116986402C3F2FB8A719273C22B /* OIDAuthorizationResponse.m in Sources */,
-				279BD7F07CA0042C47A8192CF80B1B3D /* OIDAuthorizationService+Mac.m in Sources */,
 				AD873CA97A5C27903A393FE38E6BF99E /* OIDAuthorizationService.m in Sources */,
-				91F1817218BE6DE413AFB8C660EFC4ED /* OIDAuthState+Mac.m in Sources */,
+				279BD7F07CA0042C47A8192CF80B1B3D /* OIDAuthorizationService+Mac.m in Sources */,
 				6679A20265429B3E704F9C6899D77206 /* OIDAuthState.m in Sources */,
+				91F1817218BE6DE413AFB8C660EFC4ED /* OIDAuthState+Mac.m in Sources */,
 				08EB998A03E93872EE21A7F8EFB1D0E7 /* OIDClientMetadataParameters.m in Sources */,
 				E88DF364295A95DD04A59716407F2B02 /* OIDEndSessionRequest.m in Sources */,
 				7F68518E9F73180159B08CA74CBDA5B7 /* OIDEndSessionResponse.m in Sources */,

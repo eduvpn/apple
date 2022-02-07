@@ -12,23 +12,7 @@ PODS:
     - Moya/Core (= 14.0.0)
   - Moya/Core (14.0.0):
     - Alamofire (~> 5.0)
-  - OpenSSL-Apple (1.1.1j.11)
   - PromiseKit/CorePromise (6.13.1)
-  - SwiftyBeaver (1.9.4)
-  - TunnelKit (3.3.2):
-    - TunnelKit/Protocols/OpenVPN (= 3.3.2)
-  - TunnelKit/AppExtension (3.3.2):
-    - SwiftyBeaver
-    - TunnelKit/Core
-  - TunnelKit/Core (3.3.2):
-    - SwiftyBeaver
-  - TunnelKit/Manager (3.3.2):
-    - SwiftyBeaver
-  - TunnelKit/Protocols/OpenVPN (3.3.2):
-    - OpenSSL-Apple (~> 1.1.1h.10)
-    - TunnelKit/AppExtension
-    - TunnelKit/Core
-    - TunnelKit/Manager
 
 DEPENDENCIES:
   - AppAuth (from `https://github.com/openid/AppAuth-iOS.git`)
@@ -36,7 +20,6 @@ DEPENDENCIES:
   - libsodium
   - Moya
   - PromiseKit/CorePromise
-  - TunnelKit (from `https://github.com/passepartoutvpn/tunnelkit.git`)
 
 SPEC REPOS:
   trunk:
@@ -44,23 +27,16 @@ SPEC REPOS:
     - ASN1Decoder
     - libsodium
     - Moya
-    - OpenSSL-Apple
     - PromiseKit
-    - SwiftyBeaver
 
 EXTERNAL SOURCES:
   AppAuth:
     :git: https://github.com/openid/AppAuth-iOS.git
-  TunnelKit:
-    :git: https://github.com/passepartoutvpn/tunnelkit.git
 
 CHECKOUT OPTIONS:
   AppAuth:
     :commit: e191b1beadf3041259652e6e464eaceff16e5fbb
     :git: https://github.com/openid/AppAuth-iOS.git
-  TunnelKit:
-    :commit: f4b2cb12276526cba1a7270cf5875085e099fc6d
-    :git: https://github.com/passepartoutvpn/tunnelkit.git
 
 SPEC CHECKSUMS:
   Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
@@ -68,11 +44,8 @@ SPEC CHECKSUMS:
   ASN1Decoder: 6e08dce02e8e54da30524376e3b5f691d9b94764
   libsodium: 9a8faa5ef2fa0d2d57bd7f7d79bf8fb7c1a9f0ea
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
-  OpenSSL-Apple: bb7c9715a259404de040f5359ed3b3170cedf8d6
   PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
-  SwiftyBeaver: 576177b2c5c94b3aedd5993914e91271a0524e88
-  TunnelKit: efebe7db85bdb4ea89fb3af569d4bb7321e7b65d
 
-PODFILE CHECKSUM: 28130ca852d1e81e8f6c1b68324f7bb4ff8df0fc
+PODFILE CHECKSUM: c3e5893693c92d0d5741315bc1d54a3c97847e44
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.2
