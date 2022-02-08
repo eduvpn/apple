@@ -4,7 +4,7 @@
 //
 
 import Foundation
-import TunnelKit
+import TunnelKitOpenVPNCore
 
 enum OpenVPNConfigImportHelperError: Error {
     case openVPNConfigUnreadable
@@ -36,7 +36,7 @@ extension OpenVPNConfigImportHelperError: AppError {
     }
 }
 
-extension TunnelKit.ConfigurationError: AppError {
+extension TunnelKitOpenVPNCore.ConfigurationError: AppError {
     var summary: String {
         switch self {
         case .malformed(let option):

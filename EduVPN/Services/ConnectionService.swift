@@ -7,7 +7,9 @@ import Foundation
 import NetworkExtension
 import PromiseKit
 import TunnelKit
+import TunnelKitOpenVPN
 import os.log
+import TunnelKitOpenVPNManager
 
 protocol ConnectionServiceInitializationDelegate: AnyObject {
     func connectionService(
@@ -399,28 +401,30 @@ private extension ConnectionService {
         }.filter {
             !$0.isEmpty
         }
+
         let parseResult = try OpenVPN.ConfigurationParser.parsed(fromLines: filteredLines)
 
         var configBuilder = parseResult.configuration.builder()
         configBuilder.tlsSecurityLevel = 3 // See https://github.com/eduvpn/apple/issues/89
 
-        var providerConfigBuilder = OpenVPNTunnelProvider.ConfigurationBuilder(sessionConfiguration: configBuilder.build())
+        var providerConfigBuilder = OpenVPNProvider.ConfigurationBuilder(sessionConfiguration: configBuilder.build())
         providerConfigBuilder.masksPrivateData = false
         providerConfigBuilder.shouldDebug = true
 
         let providerConfig = providerConfigBuilder.build()
 
-        if let credentials = credentials {
-            let keychain = Keychain(group: appGroup)
-            try keychain.set(
-                password: credentials.password, for: credentials.userName,
-                context: openVPNTunnelBundleId)
-        }
+        let openVPNCredentials: OpenVPN.Credentials? = {
+            if let credentials = credentials {
+                return OpenVPN.Credentials(credentials.userName, credentials.password)
+            }
+            return nil
+        }()
+
         let tunnelProviderProtocolConfig = try providerConfig.generatedTunnelProtocol(
             withBundleIdentifier: openVPNTunnelBundleId,
             appGroup: appGroup,
             context: openVPNTunnelBundleId,
-            username: credentials?.userName)
+            credentials: openVPNCredentials)
         tunnelProviderProtocolConfig.connectionAttemptId = connectionAttemptId
         #if os(macOS)
         tunnelProviderProtocolConfig.shouldPreventAutomaticConnections = shouldPreventAutomaticConnections
