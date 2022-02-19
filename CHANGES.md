@@ -5,6 +5,9 @@
 - Support for minisign pre-hashed signatures #427
 - Add server API events to the log #424
 - Show 'Renew Session' whenever it's possible to renew #430
+- Update TunnelKit
+  - Use TunnelKit as Swift Package Manager package
+  - Avoid writing client certificate and private key to disk
 
 ## 2.2.4
 

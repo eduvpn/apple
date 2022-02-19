@@ -3,7 +3,10 @@
 //  EduVPNTunnelExtension-macOS
 //
 
-import TunnelKit
+import TunnelKitOpenVPNAppExtension
+import TunnelKitOpenVPNManager
+import TunnelKitOpenVPNCore
+import TunnelKitAppExtension
 import NetworkExtension
 import SwiftyBeaver
 
@@ -69,10 +72,10 @@ class PacketTunnelProvider: OpenVPNTunnelProvider {
         switch code {
         case .getTransferredByteCount:
             super.handleAppMessage(
-                OpenVPNTunnelProvider.Message.dataCount.data,
+                OpenVPNProvider.Message.dataCount.data,
                 completionHandler: completionHandler)
         case .getNetworkAddresses:
-            super.handleAppMessage(OpenVPNTunnelProvider.Message.serverConfiguration.data) { data in
+            super.handleAppMessage(OpenVPNProvider.Message.serverConfiguration.data) { data in
                 guard let data = data else {
                     completionHandler?(nil)
                     return
@@ -90,7 +93,7 @@ class PacketTunnelProvider: OpenVPNTunnelProvider {
             }
         case .getLog:
             super.handleAppMessage(
-                OpenVPNTunnelProvider.Message.requestLog.data,
+                OpenVPNProvider.Message.requestLog.data,
                 completionHandler: completionHandler)
         }
     }
@@ -111,7 +114,7 @@ private extension PacketTunnelProvider {
         let debugLogFilename = "debug.log"
         guard let tunnelProtocol = protocolConfiguration as? NETunnelProviderProtocol,
            let providerConfiguration = tunnelProtocol.providerConfiguration,
-           let appGroup = try? Configuration.appGroup(from: providerConfiguration),
+              let appGroup = try? OpenVPNProvider.Configuration.appGroup(from: providerConfiguration),
            let parentURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroup) else {
                return
         }

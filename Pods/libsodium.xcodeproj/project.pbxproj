@@ -939,12 +939,12 @@
 				253EC22FC3F6A4E7270F6124B7B7E079 /* stream_salsa208_ref.c */,
 				8168C9CA26D7703D726F99878BAAEFE4 /* stream_xchacha20.c */,
 				7DECE0CD0853D9F0B202E9E141855777 /* stream_xsalsa20.c */,
-				321B4B0067406052D791BE59FECC51E9 /* u0.h */,
 				D3200C6EBA94F6F975E61581554B14CD /* u0.h */,
+				321B4B0067406052D791BE59FECC51E9 /* u0.h */,
 				1183EED0878B8AA62AD8FA62480F31F1 /* u1.h */,
 				AEA88CF460C4CDE48CAB5A3ECC76B216 /* u1.h */,
-				E3533F4AA169CD491D6CE75281D7059E /* u4.h */,
 				FE14EE5CA18CEB326645F98E2C21C943 /* u4.h */,
+				E3533F4AA169CD491D6CE75281D7059E /* u4.h */,
 				BBA604B23EEA6D05F5A254E9E3F5C038 /* u8.h */,
 				B7BAFBA6FDD314E72D5483822EC1CD17 /* u8.h */,
 				2D2FEF38712F6CD16805BF22033917ED /* utils.c */,
@@ -1033,9 +1033,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D559D4C32E262524298A149589FBF6D7 /* argon2.h in Headers */,
 				9A7D22C6EA02602EC9AE9B0B71271CE2 /* argon2-core.h in Headers */,
 				098AEBBBE7881B06DFD17C1368EFD458 /* argon2-encoding.h in Headers */,
-				D559D4C32E262524298A149589FBF6D7 /* argon2.h in Headers */,
 				FF94DBC8A6832D42C3EB1E4BDB7A153B /* base.h in Headers */,
 				B6BA5DF30027403547F2EB00F1B5E984 /* base2.h in Headers */,
 				78082D15F0001588E68945975DBFB9FE /* blake2.h in Headers */,
@@ -1142,10 +1142,10 @@
 				27272565C82847C4C6E0B36082A28DFC /* sse2_64_32.h in Headers */,
 				38EEABC99A91AAF9A3861C08C5A2339A /* stream_chacha20.h in Headers */,
 				CD14E02AEDA39F44FD0A6DAF77692296 /* stream_salsa20.h in Headers */,
-				4BE341E2A251AE02E803D9DFF68A9B24 /* u0.h in Headers */,
 				D314FCD046EA240E26890A699BD88E7A /* u0.h in Headers */,
-				A36BB42E66BFCF5C204FAEBF4231E635 /* u1.h in Headers */,
+				4BE341E2A251AE02E803D9DFF68A9B24 /* u0.h in Headers */,
 				E5C9B538718DE33BC33D179C3FF45D15 /* u1.h in Headers */,
+				A36BB42E66BFCF5C204FAEBF4231E635 /* u1.h in Headers */,
 				B73A5CB4DA5AB710E1F09611D2EE8898 /* u4.h in Headers */,
 				1D0C4AC046137637868335AFA02962D0 /* u4.h in Headers */,
 				33909831088AD5B904BBAA7902EFF19C /* u8.h in Headers */,
@@ -1160,9 +1160,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADB5A7A85671C715467FF0A76FF7B671 /* argon2.h in Headers */,
 				8C51F41CBE8020570D291F0FED16573E /* argon2-core.h in Headers */,
 				A224DB98A2915059CCF88E31162DCEEC /* argon2-encoding.h in Headers */,
-				ADB5A7A85671C715467FF0A76FF7B671 /* argon2.h in Headers */,
 				8135EEA415CF829296FDCE6ED5CFBD01 /* base.h in Headers */,
 				D88C47DD111AC9BAB47D4769B80F5E72 /* base2.h in Headers */,
 				A6739F4BC065ADD7D35086B29D79186B /* blake2.h in Headers */,
@@ -1269,10 +1269,10 @@
 				46429F13994C2047FB93AC9BD99CCE4B /* sse2_64_32.h in Headers */,
 				042E0C019DF5B571EFC10A6E2EA3E7DC /* stream_chacha20.h in Headers */,
 				66E7B98523F9FAFA1DB86796DE9785A8 /* stream_salsa20.h in Headers */,
-				20DAC206B3F4D259175C8BC33A3C0A1E /* u0.h in Headers */,
 				C7B94CB1474F1E57C182F3AD8CD10263 /* u0.h in Headers */,
-				F85C7C25637DC7ED3DA43F4FB6BE21D0 /* u1.h in Headers */,
+				20DAC206B3F4D259175C8BC33A3C0A1E /* u0.h in Headers */,
 				84D0F1AB4C8DAAB9BA4F7EE2198ED321 /* u1.h in Headers */,
+				F85C7C25637DC7ED3DA43F4FB6BE21D0 /* u1.h in Headers */,
 				F5B25B4C1D83CD6B2DAB57F52CF2B3C3 /* u4.h in Headers */,
 				D08D0AA65103BBA321159515632BBF67 /* u4.h in Headers */,
 				0EE04B3AADACC3F99522DAE783C0235B /* u8.h in Headers */,
@@ -1328,8 +1328,8 @@
 		97D3E26AD56E9ADE843712C6EF9C8765 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1100;
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1240;
 			};
 			buildConfigurationList = 89A91FB348F42AA5CB279040680DBDE5 /* Build configuration list for PBXProject "libsodium" */;
 			compatibilityVersion = "Xcode 11.0";
@@ -1376,11 +1376,11 @@
 				1638A8DD70013F2135A14A1F61035465 /* aead_chacha20poly1305.c in Sources */,
 				79CC8522CD9284C892D7939ED1963D28 /* aead_xchacha20poly1305.c in Sources */,
 				3110C96FE8632F64E3A1C1E1CA552391 /* afternm_aes128ctr.c in Sources */,
+				B86E141A8A3A1CB6F1CD6EB9C1B0A54C /* argon2.c in Sources */,
 				93C7F4F7F505509E2B37EEE6DF1885DF /* argon2-core.c in Sources */,
 				7ED410362D6AE652CFCBF257157BAD74 /* argon2-encoding.c in Sources */,
 				256EF4EAAAE5F64491AF88B22E013F81 /* argon2-fill-block-ref.c in Sources */,
 				CF88502C8EB922E814E67FEFFB2E3C49 /* argon2-fill-block-ssse3.c in Sources */,
-				B86E141A8A3A1CB6F1CD6EB9C1B0A54C /* argon2.c in Sources */,
 				448A4DDDC95991F61A35EBB544ED5BBE /* auth_hmacsha256.c in Sources */,
 				D4DA1081DDB1332CC458CD7090549E7D /* auth_hmacsha512.c in Sources */,
 				1B406CF207D4D8B1BB7EC159ED25EE52 /* auth_hmacsha512256.c in Sources */,
@@ -1489,11 +1489,11 @@
 				417B597FC1C9492251F0012FF098F735 /* aead_chacha20poly1305.c in Sources */,
 				2E5C5872BEF5132FBCFCC190C04841CE /* aead_xchacha20poly1305.c in Sources */,
 				E5EB093241C9DD7949C7C155FEC365C2 /* afternm_aes128ctr.c in Sources */,
+				459C1F350273C345AEA22EF77228E548 /* argon2.c in Sources */,
 				422C8CF48703B5A7FA2C09AE36210143 /* argon2-core.c in Sources */,
 				ECDB05DF63071E53FC3CA73BC9B35667 /* argon2-encoding.c in Sources */,
 				788DECF29369F96C899D38EBCBC0647A /* argon2-fill-block-ref.c in Sources */,
 				85490E3ADA18F96C10C0ABE1BCC985EC /* argon2-fill-block-ssse3.c in Sources */,
-				459C1F350273C345AEA22EF77228E548 /* argon2.c in Sources */,
 				AF76DD6ADB6D9C6B12E74F74F6D146D2 /* auth_hmacsha256.c in Sources */,
 				A6AB857C40E8AE5EC189B627F0704762 /* auth_hmacsha512.c in Sources */,
 				85CA6C40308E675FB31B6E43C5E8F7ED /* auth_hmacsha512256.c in Sources */,
