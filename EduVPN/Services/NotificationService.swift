@@ -29,7 +29,7 @@ class NotificationService: NSObject {
         UNUserNotificationCenter.current()
     }
 
-    private static let sessionExpiryNotificationId = "SessionExpiryNotification"
+    private static let sessionAboutToExpireNotificationId = "SessionAboutToExpireNotification"
     private static let authorizationOptions: UNAuthorizationOptions = [.alert, .sound]
 
     override init() {
@@ -331,7 +331,7 @@ class NotificationService: NSObject {
         content.categoryIdentifier = NotificationCategory.certificateExpiry.rawValue
 
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(secondsToNotification), repeats: false)
-        let request = UNNotificationRequest(identifier: sessionExpiryNotificationId, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: sessionAboutToExpireNotificationId, content: content, trigger: trigger)
 
         return Guarantee<Bool> { callback in
             notificationCenter.add(request) { error in
@@ -363,7 +363,7 @@ extension NotificationService {
                 return
             }
 
-            if requests.contains(where: { $0.identifier == Self.sessionExpiryNotificationId }) {
+            if requests.contains(where: { $0.identifier == Self.sessionAboutToExpireNotificationId }) {
                 // Notification is yet to appear.
                 // No need to show any alert on device wakeup.
                 return
