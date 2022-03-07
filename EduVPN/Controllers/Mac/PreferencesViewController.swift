@@ -81,7 +81,7 @@ class PreferencesViewController: ViewController, ParametrizedViewController {
         let mainVC = parameters.mainVC
         if isSessionExpiryNotificationChecked {
             firstly {
-                notificationService.enableSessionExpiryNotification(from: self)
+                notificationService.enableSessionExpiryNotifications(from: self)
             }.done { isEnabled in
                 if isEnabled {
                     mainVC.scheduleSessionExpiryNotificationOnActiveVPN()
@@ -91,8 +91,8 @@ class PreferencesViewController: ViewController, ParametrizedViewController {
                 }
             }
         } else {
-            notificationService.disableSessionExpiryNotification()
-            notificationService.descheduleSessionExpiryNotification()
+            notificationService.disableSessionExpiryNotifications()
+            notificationService.descheduleSessionExpiryNotifications()
         }
     }
 

@@ -267,7 +267,7 @@ extension MainViewController: ConnectionServiceInitializationDelegate {
 
         case .vpnDisabled:
             environment.persistenceService.removeLastConnectionAttempt()
-            environment.notificationService.descheduleSessionExpiryNotification()
+            environment.notificationService.descheduleSessionExpiryNotifications()
         }
     }
 }

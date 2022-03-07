@@ -53,7 +53,7 @@ class NotificationService: NSObject {
         }
     }
 
-    func attemptSchedulingSessionExpiryNotification(
+    func attemptSchedulingSessionExpiryNotifications(
         expiryDate: Date, authenticationDate: Date?, connectionAttemptId: UUID, from viewController: ViewController) -> Guarantee<Bool> {
 
         let userDefaults = UserDefaults.standard
@@ -67,7 +67,7 @@ class NotificationService: NSObject {
                 .then { isUserWantsToBeNotified in
                     UserDefaults.standard.hasAskedUserOnNotifyBeforeSessionExpiry = true
                     if isUserWantsToBeNotified {
-                        return self.scheduleSessionExpiryNotification(
+                        return self.scheduleSessionExpiryNotifications(
                             expiryDate: expiryDate, authenticationDate: authenticationDate,
                             connectionAttemptId: connectionAttemptId)
                             .map { isAuthorized in
@@ -84,7 +84,7 @@ class NotificationService: NSObject {
         } else if userDefaults.shouldNotifyBeforeSessionExpiry {
             // User has chosen to be notified.
             // Attempt to schedule notification.
-            return scheduleSessionExpiryNotification(
+            return scheduleSessionExpiryNotifications(
                 expiryDate: expiryDate, authenticationDate: authenticationDate,
                 connectionAttemptId: connectionAttemptId)
         } else {
@@ -94,12 +94,12 @@ class NotificationService: NSObject {
         }
     }
 
-    func scheduleSessionExpiryNotification(
+    func scheduleSessionExpiryNotifications(
         expiryDate: Date, authenticationDate: Date?, connectionAttemptId: UUID) -> Guarantee<Bool> {
         return Self.requestAuthorization()
             .then { isAuthorized in
                 if isAuthorized {
-                    return Self.scheduleSessionExpiryNotification(
+                    return Self.scheduleSessionExpiryNotifications(
                         expiryDate: expiryDate, authenticationDate: authenticationDate,
                         connectionAttemptId: connectionAttemptId)
                 } else {
@@ -109,12 +109,12 @@ class NotificationService: NSObject {
             }
     }
 
-    func descheduleSessionExpiryNotification() {
+    func descheduleSessionExpiryNotifications() {
         Self.notificationCenter.removeAllPendingNotificationRequests()
         os_log("Certificate expiry notifications descheduled", log: Log.general, type: .debug)
     }
 
-    func enableSessionExpiryNotification(from viewController: ViewController) -> Guarantee<Bool> {
+    func enableSessionExpiryNotifications(from viewController: ViewController) -> Guarantee<Bool> {
         firstly {
             Self.requestAuthorization()
         }.map { isAuthorized in
@@ -128,7 +128,7 @@ class NotificationService: NSObject {
         }
     }
 
-    func disableSessionExpiryNotification() {
+    func disableSessionExpiryNotifications() {
         UserDefaults.standard.shouldNotifyBeforeSessionExpiry = false
     }
 
@@ -268,7 +268,7 @@ class NotificationService: NSObject {
         #endif
     }
 
-    private static func scheduleSessionExpiryNotification(
+    private static func scheduleSessionExpiryNotifications(
         expiryDate: Date, authenticationDate: Date?, connectionAttemptId: UUID) -> Guarantee<Bool> {
 
         os_log("Certificate expires at %{public}@", log: Log.general, type: .debug, expiryDate as NSDate)
