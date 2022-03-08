@@ -546,6 +546,52 @@ private extension ConnectionViewController {
         }
     }
 
+    private func showSessionExpiredAlert() {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .none
+        formatter.timeStyle = .short
+        let dateString = formatter.string(from: Date())
+
+        let alertTitle = NSLocalizedString("Your VPN session has expired", comment: "alert title")
+        let alertDetail = NSLocalizedString("Session expired at \(dateString)", comment: "alert detail")
+
+        #if os(macOS)
+
+        let alert = NSAlert()
+        alert.alertStyle = .warning
+        alert.messageText = alertTitle
+        alert.informativeText = alertDetail
+        alert.addButton(withTitle: NSLocalizedString("Renew Session", comment: "button title"))
+        alert.addButton(withTitle: NSLocalizedString("Ignore", comment: "button title"))
+        if let window = self.view.window {
+            NSApp.activate(ignoringOtherApps: true)
+            alert.beginSheetModal(for: window) { result in
+                if case .alertFirstButtonReturn = result {
+                    self.renewSession()
+                }
+            }
+        }
+
+        #elseif os(iOS)
+
+        let alert = UIAlertController()
+        alert.title = alertTitle
+        alert.message = alertDetail
+        let refreshAction = UIAlertAction(
+            title: NSLocalizedString("Renew Session", comment: "button title"),
+            style: .default,
+            handler: { _ in
+                self.renewSession()
+            })
+        let cancelAction = UIAlertAction(
+            title: NSLocalizedString("Ignore", comment: "button title"),
+            style: .cancel)
+        alert.addAction(refreshAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
+
+        #endif
+    }
 }
 
 extension ConnectionViewController: ConnectionViewModelDelegate {
@@ -833,6 +879,10 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
             self.promptForConnectionTimeVPNConfigPassword(credentials: credentials)
         }
         #endif
+    }
+
+    func connectionViewModelSessionExpired(_ model: ConnectionViewModel) {
+        showSessionExpiredAlert()
     }
 }
 

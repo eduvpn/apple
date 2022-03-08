@@ -45,6 +45,8 @@ protocol ConnectionViewModelDelegate: AnyObject {
     func connectionViewModel(
         _ model: ConnectionViewModel,
         didBeginConnectingWithCredentials credentials: Credentials?, shouldAskForPassword: Bool)
+    func connectionViewModelSessionExpired(
+        _ model: ConnectionViewModel)
 }
 
 class ConnectionViewModel { // swiftlint:disable:this type_body_length
@@ -190,9 +192,17 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
     }
 
     private var sessionStatus: SessionExpiryHelper.SessionStatus? {
-        didSet {
+        didSet(oldValue) {
             self.updateStatusDetail()
             self.updateAdditionalControl()
+            if let newValue = sessionStatus, let oldValue = oldValue {
+                switch (oldValue, newValue) {
+                case (.validFor, .expired):
+                    self.delegate?.connectionViewModelSessionExpired(self)
+                default:
+                    break
+                }
+            }
         }
     }
 

@@ -299,7 +299,7 @@ class NotificationService: NSObject {
             }
         }()
 
-        let secondsTillHasExpiredNotification = max(secondsToExpiry, 5)
+        let secondsTillHasExpiredNotification = max(secondsToExpiry, 0) + 2
 
         precondition(secondsTillAboutToExpireNotification > 0)
         precondition(secondsTillHasExpiredNotification > 0)
@@ -498,6 +498,14 @@ extension NotificationService: UNUserNotificationCenterDelegate {
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert, .sound])
+        if notification.request.identifier == Self.sessionAboutToExpireNotificationId {
+            if #available(macOS 11.0, iOS 14.0, *) {
+                completionHandler([.list, .banner])
+            } else {
+                completionHandler([.alert, .sound])
+            }
+        } else {
+            completionHandler([])
+        }
     }
 }
