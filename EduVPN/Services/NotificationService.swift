@@ -508,4 +508,4 @@ extension NotificationService: UNUserNotificationCenterDelegate {
             completionHandler([])
         }
     }
-}
+} // swiftlint:disable:this file_length
