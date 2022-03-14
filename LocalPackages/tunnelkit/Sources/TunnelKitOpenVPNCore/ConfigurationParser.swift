@@ -96,9 +96,9 @@ extension OpenVPN {
             
             static let ifconfig6 = NSRegularExpression("^ifconfig-ipv6 +[\\da-fA-F:]+/\\d+ [\\da-fA-F:]+")
             
-            static let route = NSRegularExpression("^route +[\\d\\.]+( +[\\d\\.]+){0,2}")
+            static let route = NSRegularExpression("^route +[\\d\\.]+( +[\\d\\.]+){0,2}( (vpn_gateway|net_gateway))?")
             
-            static let route6 = NSRegularExpression("^route-ipv6 +[\\da-fA-F:]+/\\d+( +[\\da-fA-F:]+){0,2}")
+            static let route6 = NSRegularExpression("^route-ipv6 +[\\da-fA-F:]+/\\d+( +[\\da-fA-F:]+){0,2}( (vpn_gateway_ipv6|net_gateway_ipv6))?")
             
             static let gateway = NSRegularExpression("^route-gateway +[\\d\\.]+")
             
@@ -240,6 +240,8 @@ extension OpenVPN {
             var optGateway4Arguments: [String]?
             var optRoutes4: [(String, String, String?)] = [] // address, netmask, gateway
             var optRoutes6: [(String, UInt8, String?)] = [] // destination, prefix, gateway
+            var optExcludedRoutes4: [(String, String, String?)] = [] // address, netmask, gateway
+            var optExcludedRoutes6: [(String, UInt8, String?)] = [] // destination, prefix, gateway
             var optDNSServers: [String]?
             var optDomain: String?
             var optSearchDomains: [String]?
@@ -557,7 +559,11 @@ extension OpenVPN {
                     if gateway == "vpn_gateway" {
                         gateway = nil
                     }
-                    optRoutes4.append((address, mask, gateway))
+                    if gateway == "net_gateway" {
+                        optExcludedRoutes4.append((address, mask, gateway))
+                    } else {
+                        optRoutes4.append((address, mask, gateway))
+                    }
                 }
                 Regex.route6.enumerateArguments(in: line) {
                     let routeEntryArguments = $0
@@ -575,7 +581,11 @@ extension OpenVPN {
                     if gateway == "vpn_gateway" {
                         gateway = nil
                     }
-                    optRoutes6.append((destination, prefix, gateway))
+                    if gateway == "net_gateway_ipv6" {
+                        optExcludedRoutes6.append((destination, prefix, gateway))
+                    } else {
+                        optRoutes6.append((destination, prefix, gateway))
+                    }
                 }
                 Regex.gateway.enumerateArguments(in: line) {
                     optGateway4Arguments = $0
@@ -788,12 +798,14 @@ extension OpenVPN {
                     defaultGateway4 = ifconfig4Arguments[1]
                 }
                 let routes4 = optRoutes4.map { IPv4Settings.Route($0.0, $0.1, $0.2 ?? defaultGateway4) }
+                let excludedRoutes4 = optExcludedRoutes4.map { IPv4Settings.Route($0.0, $0.1, nil) }
 
                 sessionBuilder.ipv4 = IPv4Settings(
                     address: address4,
                     addressMask: addressMask4,
                     defaultGateway: defaultGateway4,
-                    routes: routes4
+                    routes: routes4,
+                    excludedRoutes: excludedRoutes4
                 )
             }
             
@@ -812,12 +824,14 @@ extension OpenVPN {
                 let address6 = address6Components[0]
                 let defaultGateway6 = ifconfig6Arguments[1]
                 let routes6 = optRoutes6.map { IPv6Settings.Route($0.0, $0.1, $0.2 ?? defaultGateway6) }
+                let excludedRoutes6 = optExcludedRoutes6.map { IPv6Settings.Route($0.0, $0.1, nil) }
                 
                 sessionBuilder.ipv6 = IPv6Settings(
                     address: address6,
                     addressPrefixLength: addressPrefix6,
                     defaultGateway: defaultGateway6,
-                    routes: routes6
+                    routes: routes6,
+                    excludedRoutes: excludedRoutes6
                 )
             }
             
