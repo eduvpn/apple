@@ -142,6 +142,7 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
 
     #if os(macOS)
     var presentedPasswordEntryVC: PasswordEntryViewController?
+    var isSessionExpiryAlertBeingShown: Bool = false
     #endif
 
     func initializeParameters(_ parameters: Parameters) {
@@ -565,9 +566,13 @@ private extension ConnectionViewController {
         alert.addButton(withTitle: NSLocalizedString("Ignore", comment: "button title"))
         if let window = self.view.window {
             NSApp.activate(ignoringOtherApps: true)
-            alert.beginSheetModal(for: window) { result in
-                if case .alertFirstButtonReturn = result {
-                    self.renewSession()
+            if !isSessionExpiryAlertBeingShown {
+                isSessionExpiryAlertBeingShown = true
+                alert.beginSheetModal(for: window) { result in
+                    self.isSessionExpiryAlertBeingShown = false
+                    if case .alertFirstButtonReturn = result {
+                        self.renewSession()
+                    }
                 }
             }
         }
