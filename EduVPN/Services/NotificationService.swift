@@ -412,74 +412,18 @@ class NotificationService: NSObject {
 }
 
 extension NotificationService {
-    #if os(macOS)
-    func showSessionExpiryAlertOnDeviceWakeUp(connectionVC: ConnectionViewController) {
-        Self.notificationCenter.getPendingNotificationRequests { requests in
+    func isSessionExpiryNotificationsEnabled() -> Bool {
+        return UserDefaults.standard.shouldNotifyBeforeSessionExpiry
+    }
 
-            guard let expiryDate = connectionVC.sessionExpiresAt else {
-                // Maybe there's no active eduVPN server VPN connection.
-                // Nothing to do.
-                return
-            }
-
-            if !UserDefaults.standard.shouldNotifyBeforeSessionExpiry {
-                // Notifications are turned off.
-                // Nothing to do.
-                return
-            }
-
-            if requests.contains(where: { $0.identifier == Self.sessionAboutToExpireNotificationId }) {
-                // Notification is yet to appear.
-                // No need to show any alert on device wakeup.
-                return
-            }
-
-            if expiryDate.timeIntervalSinceNow > 30 * 60 {
-                // There's more than 30 minutes to expiry.
-                // This is unexpected, so we don't show an alert.
-                return
-            }
-
-            let alertAfterSeconds = 5
-            let alertTime = Date().addingTimeInterval(TimeInterval(alertAfterSeconds))
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(alertAfterSeconds)) {
-                let formatter = DateFormatter()
-                formatter.dateStyle = .none
-                formatter.timeStyle = .short
-
-                let alert = NSAlert()
-                if alertTime > expiryDate {
-                    alert.messageText = NSLocalizedString("Your VPN session has expired", comment: "macOS alert title")
-                    alert.informativeText = String(
-                        format: NSLocalizedString(
-                            "Session expired at %@",
-                            comment: "macOS alert detail"),
-                        formatter.string(from: expiryDate))
-                } else {
-                    alert.messageText = NSLocalizedString("Your VPN session is expiring", comment: "macOS alert title")
-                    alert.informativeText = String(
-                        format: NSLocalizedString(
-                            "Session expires at %@",
-                            comment: "macOS alert detail"),
-                        formatter.string(from: expiryDate))
-                }
-
-                alert.addButton(withTitle: NSLocalizedString("Renew Session", comment: "alert button title"))
-                alert.addButton(withTitle: NSLocalizedString("Ignore", comment: "button title"))
-
-                NSApp.activate(ignoringOtherApps: true)
-                if let window = connectionVC.view.window {
-                    alert.beginSheetModal(for: window) { result in
-                        if case .alertFirstButtonReturn = result {
-                            connectionVC.renewSession()
-                        }
-                    }
-                }
+    func isSessionAboutToExpireNotificationPending() -> Guarantee<Bool> {
+        return Guarantee<Bool> { callback in
+            Self.notificationCenter.getPendingNotificationRequests { requests in
+                let isPending = requests.contains(where: { $0.identifier == Self.sessionAboutToExpireNotificationId })
+                callback(isPending)
             }
         }
     }
-    #endif
 }
 
 extension NotificationService: UNUserNotificationCenterDelegate {
@@ -508,4 +452,4 @@ extension NotificationService: UNUserNotificationCenterDelegate {
             completionHandler([])
         }
     }
-} // swiftlint:disable:this file_length
+}
