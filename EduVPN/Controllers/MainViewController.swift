@@ -280,6 +280,10 @@ extension MainViewController: NotificationServiceDelegate {
             shouldRenewSessionWhenConnectionServiceInitialized = true
         }
     }
+
+    func notificationServiceSuppressedSessionAboutToExpireNotification(_ notificationService: NotificationService) {
+        currentConnectionVC?.showSessionAboutToExpireAlert()
+    }
 }
 
 extension MainViewController {

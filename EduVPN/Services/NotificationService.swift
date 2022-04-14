@@ -10,6 +10,7 @@ import PromiseKit
 import os.log
 
 protocol NotificationServiceDelegate: AnyObject {
+    func notificationServiceSuppressedSessionAboutToExpireNotification(_ notificationService: NotificationService)
     func notificationServiceDidReceiveRenewSessionRequest(_ notificationService: NotificationService)
 }
 
@@ -446,7 +447,7 @@ extension NotificationService: UNUserNotificationCenterDelegate {
             if #available(macOS 11.0, iOS 14.0, *) {
                 completionHandler([.list, .banner])
             } else {
-                completionHandler([.alert, .sound])
+                self.delegate?.notificationServiceSuppressedSessionAboutToExpireNotification(self)
             }
         } else {
             completionHandler([])

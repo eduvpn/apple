@@ -369,6 +369,10 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     func goBack() {
         parameters.environment.navigationController?.popViewController(animated: true)
     }
+
+    func showSessionAboutToExpireAlert() {
+        showSessionExpiryAlert(afterDelay: true)
+    }
 }
 
 #if os(iOS)
@@ -568,7 +572,8 @@ private extension ConnectionViewController {
 
     // swiftlint:disable:next function_body_length
     private func showSessionExpiryAlert(afterDelay isDelayed: Bool = false) {
-
+        // Shows either session-about-to-expire alert, or the session-has-expired alert
+        // depending on the current time, and the expiry time.
         guard let expiryDate = sessionExpiresAt else {
             // Maybe there's no active eduVPN server VPN connection.
             // Nothing to do.
