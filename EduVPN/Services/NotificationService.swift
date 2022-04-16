@@ -290,8 +290,9 @@ class NotificationService: NSObject {
 
         let secondsTillAboutToExpireNotification: Int = {
             if minutesTillAboutToExpireNotification >= minutesToExpiry {
-                os_log("Scheduling 'Session about to expire' notification to fire 5 seconds after expiry")
-                return secondsToExpiry + 5 // 5 seconds after expiry
+                let halfTime = (secondsToExpiry / 2) + 1
+                os_log("Scheduling 'Session about to expire' notification to fire in %{public}d seconds even though browser auth might not have expired by then because we assume this is a test server.", log: Log.general, type: .debug, halfTime)
+                return halfTime
             } else if minutesTillAboutToExpireNotification < 0 {
                 os_log("Scheduling 'Session about to expire' notification to fire 5 seconds from now")
                 return 5 // 5 seconds from now
