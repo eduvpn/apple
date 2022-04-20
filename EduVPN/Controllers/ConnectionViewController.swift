@@ -662,7 +662,7 @@ private extension ConnectionViewController {
             alert.addAction(cancelAction)
             if !self.isSessionExpiryAlertBeingShown {
                 self.isSessionExpiryAlertBeingShown = true
-                present(alert, animated: true, completion: nil)
+                self.present(alert, animated: true, completion: nil)
             }
 
             #endif
