@@ -445,11 +445,11 @@ extension NotificationService: UNUserNotificationCenterDelegate {
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         if notification.request.identifier == Self.sessionAboutToExpireNotificationId {
-            if #available(macOS 11.0, iOS 14.0, *) {
-                completionHandler([.list, .banner])
-            } else {
+            // if #available(macOS 11.0, iOS 14.0, *) {
+            //     completionHandler([.list, .banner])
+            // } else {
                 self.delegate?.notificationServiceSuppressedSessionAboutToExpireNotification(self)
-            }
+            // }
         } else {
             completionHandler([])
         }

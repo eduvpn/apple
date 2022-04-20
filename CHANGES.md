@@ -8,6 +8,8 @@
 - Update TunnelKit
   - Use TunnelKit as Swift Package Manager package
   - Avoid writing client certificate and private key to disk
+- Notify on session expiry #442
+- Avoid staggered alerts related to session expiry #445
 
 ## 2.2.4
 
