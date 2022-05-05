@@ -278,14 +278,16 @@ class NotificationService: NSObject {
         let secondsToExpiry = Calendar.current.dateComponents([.second], from: Date(), to: expiryDate).second ?? 0
 
         let minutesTillAboutToExpireNotification: Int = {
-            if let authenticationDate = authenticationDate,
-               let minutesFromAuthTime = Calendar.current.dateComponents([.minute], from: authenticationDate, to: Date()).minute {
-                // 30 mins before expiry, but should be at least 32 mins since auth time
-                os_log("Last authenticated %{public}d minutes back", log: Log.general, type: .debug, minutesFromAuthTime)
-                return max((minutesToExpiry - 30), (32 - minutesFromAuthTime))
-            } else {
-                return (minutesToExpiry - 30)
-            }
+            // normalNotificationTime is 30 mins before expiry
+            let normalNotificationTime = minutesToExpiry - 30
+            guard let authenticationDate = authenticationDate,
+                  let minutesFromAuthTime = Calendar.current.dateComponents([.minute], from: authenticationDate, to: Date()).minute else {
+                      return normalNotificationTime
+                  }
+            os_log("Last authenticated %{public}d minutes back", log: Log.general, type: .debug, minutesFromAuthTime)
+            // 30 mins before expiry, but should be at least 32 mins since auth time
+            let afterBrowserSessionExpires = 30 /* browser session time */ - 2 /* buffer */ - minutesFromAuthTime
+            return max(normalNotificationTime, afterBrowserSessionExpires)
         }()
 
         let secondsTillAboutToExpireNotification: Int = {
