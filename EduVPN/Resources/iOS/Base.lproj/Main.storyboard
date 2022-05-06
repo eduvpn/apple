@@ -23,7 +23,7 @@
             <objects>
                 <navigationController id="ZYg-AK-nsP" customClass="NavigationController" customModule="eduVPN" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="TzF-nK-Efm">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -801,7 +801,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect using TCP only" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Axm-hd-YwD">
-                                                    <rect key="frame" x="16" y="11" width="225" height="22"/>
+                                                    <rect key="frame" x="16" y="12.5" width="225" height="19"/>
                                                     <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="16"/>
                                                     <color key="textColor" name="RegularUITextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -824,7 +824,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Notifications" footerTitle="If enabled, a notification is triggered 30 mins before session expiry, and when the session expires." id="3s3-yP-DD1">
+                            <tableViewSection headerTitle="Notifications" footerTitle="If enabled, a notification is triggered 1 hour before session expiry, and when the session expires." id="3s3-yP-DD1">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="43.5" id="VZ3-o9-efz">
                                         <rect key="frame" x="0.0" y="187" width="320" height="43.5"/>
@@ -834,7 +834,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notify before session expiry" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HSr-1W-y5a">
-                                                    <rect key="frame" x="16" y="11" width="225" height="22"/>
+                                                    <rect key="frame" x="16" y="12.5" width="225" height="19"/>
                                                     <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="16"/>
                                                     <color key="textColor" name="RegularUITextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -860,7 +860,7 @@
                             <tableViewSection headerTitle="Logging" id="UOS-N7-Rcv">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="ybG-3O-5od">
-                                        <rect key="frame" x="0.0" y="317" width="320" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="303" width="320" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ybG-3O-5od" id="84I-6v-Tn8">
                                             <rect key="frame" x="0.0" y="0.0" width="294.5" height="43.5"/>
@@ -881,7 +881,7 @@
                             <tableViewSection headerTitle="Import" id="RsF-JL-0Za">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="43.5" id="JVz-gK-yTg">
-                                        <rect key="frame" x="0.0" y="410.5" width="320" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="396.5" width="320" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JVz-gK-yTg" id="ppR-Rf-pES">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -906,21 +906,21 @@
                             <tableViewSection headerTitle="About" footerTitle="For license information, please see the source code." id="zZ8-eL-KFl">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="clE-jt-jh6" detailTextLabel="6Vz-Gx-mbB" style="IBUITableViewCellStyleValue1" id="2bw-6y-6xS">
-                                        <rect key="frame" x="0.0" y="511.5" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="497.5" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2bw-6y-6xS" id="gCV-zU-1zY">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="App name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="clE-jt-jh6">
-                                                    <rect key="frame" x="16" y="11" width="76.5" height="22"/>
+                                                    <rect key="frame" x="16" y="13" width="74" height="19"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="16"/>
                                                     <color key="textColor" name="RegularUITextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Version number" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6Vz-Gx-mbB">
-                                                    <rect key="frame" x="183.5" y="11" width="120.5" height="22"/>
+                                                    <rect key="frame" x="192" y="13" width="112" height="19"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="16"/>
                                                     <color key="textColor" name="RegularUITextColor"/>
@@ -930,21 +930,21 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="Zsk-gl-9Hv" detailTextLabel="AyI-A2-tvn" style="IBUITableViewCellStyleValue1" id="4tU-D4-oc1">
-                                        <rect key="frame" x="0.0" y="555.5" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="541.5" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4tU-D4-oc1" id="8ys-ct-SxW">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" text="Source code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Zsk-gl-9Hv">
-                                                    <rect key="frame" x="16" y="11" width="92" height="22"/>
+                                                    <rect key="frame" x="16" y="13" width="91" height="19"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="16"/>
                                                     <color key="textColor" name="RegularUITextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" text="https://github.com/eduvpn/apple" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" id="AyI-A2-tvn">
-                                                    <rect key="frame" x="114" y="11" width="190" height="22"/>
+                                                    <rect key="frame" x="113" y="13" width="191" height="19"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="16"/>
                                                     <color key="textColor" systemColor="systemBlueColor"/>
