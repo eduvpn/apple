@@ -3452,8 +3452,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://git.zx2c4.com/wireguard-apple/";
 			requirement = {
-				kind = revision;
-				revision = 13b720442d47b67a18d6841aa34569633a22b458;
+				kind = exactVersion;
+				version = "1.0.15-26";
 			};
 		};
 		6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */ = {
