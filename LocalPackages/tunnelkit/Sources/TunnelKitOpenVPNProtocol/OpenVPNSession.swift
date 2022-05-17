@@ -1162,16 +1162,27 @@ public class OpenVPNSession: Session {
             controlChannel.addSentDataCount(encryptedPackets.flatCount)
             let writeLink = link
             link?.writePackets(encryptedPackets) { [weak self] (error) in
-                guard self?.link === writeLink else {
+                guard let self = self else {
+                    return
+                }
+                guard self.link === writeLink else {
                     log.warning("Ignoring write from outdated LINK")
                     return
                 }
                 if let error = error {
-                    log.error("Data: Failed LINK write during send data: \(error)")
-                    self?.deferStop(.shutdown, OpenVPNError.failedLinkWrite)
-                    return
+                    if let posixError = error as? POSIXError, posixError.code == POSIXErrorCode.ENOBUFS {
+                        log.debug("Data: Encountered ENOBUFS while sending. Will retry after 1 second.")
+                        self.queue.asyncAfter(deadline: .now() + .milliseconds(1000)) {
+                            self.sendDataPackets(packets, onSuccess: onSuccess)
+                        }
+                    } else {
+                        log.error("Data: Failed LINK write during send data: \(error)")
+                        self.deferStop(.shutdown, OpenVPNError.failedLinkWrite)
+                    }
+                } else {
+                    // Trigger getting of more to-be-sent-out packets from the TUN interface
+                    onSuccess()
                 }
-                onSuccess()
 //              log.verbose("Data: \(encryptedPackets.count) packets successfully written to LINK")
             }
         } catch let e {
