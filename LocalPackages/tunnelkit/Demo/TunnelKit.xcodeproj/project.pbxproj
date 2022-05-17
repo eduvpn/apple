@@ -1,0 +1,1056 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 52;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0E05418725A2334500EFC5FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E05414B25A231D500EFC5FF /* AppDelegate.swift */; };
+		0E05418825A2334500EFC5FF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E05414425A231D500EFC5FF /* ViewController.swift */; };
+		0E05418925A2334500EFC5FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E05414525A231D500EFC5FF /* Assets.xcassets */; };
+		0E05418A25A2334900EFC5FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E05414825A231D500EFC5FF /* Main.storyboard */; };
+		0E05418B25A2334900EFC5FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E05414625A231D500EFC5FF /* LaunchScreen.storyboard */; };
+		0E0541A125A2343500EFC5FF /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0541A025A2343500EFC5FF /* NetworkExtension.framework */; };
+		0E0541A925A2343500EFC5FF /* TunnelKitDemoTunnel-iOS.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0E05419F25A2343500EFC5FF /* TunnelKitDemoTunnel-iOS.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		0E0541D125A2354500EFC5FF /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E05413825A231D500EFC5FF /* PacketTunnelProvider.swift */; };
+		0E0541D825A2355000EFC5FF /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E05413425A231D500EFC5FF /* Configuration.swift */; };
+		0E05425825A2392E00EFC5FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E05414125A231D500EFC5FF /* AppDelegate.swift */; };
+		0E05425925A2392E00EFC5FF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E05413C25A231D500EFC5FF /* ViewController.swift */; };
+		0E05426125A2393300EFC5FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E05413D25A231D500EFC5FF /* Assets.xcassets */; };
+		0E05426925A2393B00EFC5FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E05413E25A231D500EFC5FF /* Main.storyboard */; };
+		0E05427825A239C600EFC5FF /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0541A025A2343500EFC5FF /* NetworkExtension.framework */; };
+		0E05428025A239C600EFC5FF /* TunnelKitDemoTunnel-macOS.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0E05427725A239C600EFC5FF /* TunnelKitDemoTunnel-macOS.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		0E0542B925A23A8100EFC5FF /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E05413425A231D500EFC5FF /* Configuration.swift */; };
+		0E0542C225A23A8400EFC5FF /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E05413825A231D500EFC5FF /* PacketTunnelProvider.swift */; };
+		0E1108AC1F77B9F900A92462 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1108AB1F77B9F900A92462 /* AppDelegate.swift */; };
+		0E1108AE1F77B9F900A92462 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1108AD1F77B9F900A92462 /* ViewController.swift */; };
+		0E1108B11F77B9F900A92462 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E1108AF1F77B9F900A92462 /* Main.storyboard */; };
+		0E1108B31F77B9F900A92462 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E1108B21F77B9F900A92462 /* Assets.xcassets */; };
+		0E1108B61F77B9F900A92462 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E1108B41F77B9F900A92462 /* LaunchScreen.storyboard */; };
+		0E80FA5127396F5F000F5A45 /* TunnelKitOpenVPNAppExtension in Frameworks */ = {isa = PBXBuildFile; productRef = 0E80FA5027396F5F000F5A45 /* TunnelKitOpenVPNAppExtension */; };
+		0E80FA5327396F66000F5A45 /* TunnelKitOpenVPNAppExtension in Frameworks */ = {isa = PBXBuildFile; productRef = 0E80FA5227396F66000F5A45 /* TunnelKitOpenVPNAppExtension */; };
+		0EFD5B312727250500C7D5FD /* TunnelKitOpenVPN in Frameworks */ = {isa = PBXBuildFile; productRef = 0EFD5B302727250500C7D5FD /* TunnelKitOpenVPN */; };
+		0EFD5B332727250B00C7D5FD /* TunnelKitOpenVPN in Frameworks */ = {isa = PBXBuildFile; productRef = 0EFD5B322727250B00C7D5FD /* TunnelKitOpenVPN */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0E0541A725A2343500EFC5FF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E17D7F01F730D9F009EE129 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0E05419E25A2343500EFC5FF;
+			remoteInfo = Tunnel;
+		};
+		0E05427E25A239C600EFC5FF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E17D7F01F730D9F009EE129 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0E05427625A239C600EFC5FF;
+			remoteInfo = Tunnel;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0E0541AD25A2343500EFC5FF /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				0E0541A925A2343500EFC5FF /* TunnelKitDemoTunnel-iOS.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E05428425A239C600EFC5FF /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				0E05428025A239C600EFC5FF /* TunnelKitDemoTunnel-macOS.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E05438525A240E400EFC5FF /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E05438825A240E900EFC5FF /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0ECAF84C246697DA00D8266A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0E05413025A231D500EFC5FF /* DemoTunnel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DemoTunnel.entitlements; sourceTree = "<group>"; };
+		0E05413225A231D500EFC5FF /* DemoTunnel.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DemoTunnel.plist; sourceTree = "<group>"; };
+		0E05413425A231D500EFC5FF /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		0E05413825A231D500EFC5FF /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
+		0E05413925A231D500EFC5FF /* DemoTunnel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DemoTunnel.entitlements; sourceTree = "<group>"; };
+		0E05413C25A231D500EFC5FF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0E05413D25A231D500EFC5FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0E05413F25A231D500EFC5FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0E05414025A231D500EFC5FF /* Demo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Demo.entitlements; sourceTree = "<group>"; };
+		0E05414125A231D500EFC5FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		0E05414225A231D500EFC5FF /* Demo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Demo.plist; sourceTree = "<group>"; };
+		0E05414425A231D500EFC5FF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0E05414525A231D500EFC5FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0E05414725A231D500EFC5FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		0E05414925A231D500EFC5FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0E05414A25A231D500EFC5FF /* Demo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Demo.entitlements; sourceTree = "<group>"; };
+		0E05414B25A231D500EFC5FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		0E05414C25A231D500EFC5FF /* Demo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Demo.plist; sourceTree = "<group>"; };
+		0E05416925A232FD00EFC5FF /* TunnelKitDemo-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TunnelKitDemo-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E05419F25A2343500EFC5FF /* TunnelKitDemoTunnel-iOS.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "TunnelKitDemoTunnel-iOS.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E0541A025A2343500EFC5FF /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
+		0E05422C25A236EB00EFC5FF /* TunnelKitDemo-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TunnelKitDemo-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E05427725A239C600EFC5FF /* TunnelKitDemoTunnel-macOS.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "TunnelKitDemoTunnel-macOS.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E1108A91F77B9F900A92462 /* TunnelKitHost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TunnelKitHost.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E1108AB1F77B9F900A92462 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		0E1108AD1F77B9F900A92462 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0E1108B01F77B9F900A92462 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0E1108B21F77B9F900A92462 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0E1108B51F77B9F900A92462 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		0E1108B71F77B9F900A92462 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0E26B05627272767008FB1E7 /* tunnelkit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = tunnelkit; path = ..; sourceTree = "<group>"; };
+		0E411B9F2271FA3300E0852C /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/lib/libresolv.tbd; sourceTree = DEVELOPER_DIR; };
+		0E411BA12271FA3C00E0852C /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		0E85A25B202CCA3D0059E9F9 /* Host.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Host.entitlements; sourceTree = "<group>"; };
+		44612F27B9EF890AF8B926DB /* Pods_ios_TunnelKit_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_TunnelKit_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		488FA71CA2DC38D2FDF7D1D8 /* Pods_ios_TunnelKitDemoTunnel_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_TunnelKitDemoTunnel_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4EF702DD650A65FCBA51506A /* Pods_macos_TunnelKit_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_macos_TunnelKit_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		501B04C95D9A457FFA483C3B /* Pods_macos_TunnelKitDemo_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_macos_TunnelKitDemo_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A49801900FA52CE67047623B /* Pods_macos_TunnelKitDemoTunnel_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_macos_TunnelKitDemoTunnel_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B24169970F957D36C9D0765C /* Pods_ios_TunnelKitDemo_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_TunnelKitDemo_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C34F78A0C56932A2127E6C81 /* Pods_ios_TunnelKitTests_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_TunnelKitTests_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D383BA02D6881FDBEF55562A /* Pods_macos_TunnelKitTests_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_macos_TunnelKitTests_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3B8B90F61D2F5537A5C0691 /* Pods_ios_TunnelKitHost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_TunnelKitHost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0E05416625A232FD00EFC5FF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0EFD5B332727250B00C7D5FD /* TunnelKitOpenVPN in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E05419C25A2343500EFC5FF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E0541A125A2343500EFC5FF /* NetworkExtension.framework in Frameworks */,
+				0E80FA5127396F5F000F5A45 /* TunnelKitOpenVPNAppExtension in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E05422925A236EB00EFC5FF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0EFD5B312727250500C7D5FD /* TunnelKitOpenVPN in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E05427425A239C600EFC5FF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E80FA5327396F66000F5A45 /* TunnelKitOpenVPNAppExtension in Frameworks */,
+				0E05427825A239C600EFC5FF /* NetworkExtension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E1108A61F77B9F900A92462 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0E05412B25A231D500EFC5FF /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				0E05414325A231D500EFC5FF /* iOS */,
+				0E05413B25A231D500EFC5FF /* macOS */,
+				0E05413225A231D500EFC5FF /* DemoTunnel.plist */,
+				0E05413425A231D500EFC5FF /* Configuration.swift */,
+				0E05413825A231D500EFC5FF /* PacketTunnelProvider.swift */,
+			);
+			path = Demo;
+			sourceTree = "<group>";
+		};
+		0E05413B25A231D500EFC5FF /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				0E05414025A231D500EFC5FF /* Demo.entitlements */,
+				0E05413025A231D500EFC5FF /* DemoTunnel.entitlements */,
+				0E05414225A231D500EFC5FF /* Demo.plist */,
+				0E05414125A231D500EFC5FF /* AppDelegate.swift */,
+				0E05413C25A231D500EFC5FF /* ViewController.swift */,
+				0E05413D25A231D500EFC5FF /* Assets.xcassets */,
+				0E05413E25A231D500EFC5FF /* Main.storyboard */,
+			);
+			path = macOS;
+			sourceTree = "<group>";
+		};
+		0E05414325A231D500EFC5FF /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				0E05414A25A231D500EFC5FF /* Demo.entitlements */,
+				0E05413925A231D500EFC5FF /* DemoTunnel.entitlements */,
+				0E05414C25A231D500EFC5FF /* Demo.plist */,
+				0E05414B25A231D500EFC5FF /* AppDelegate.swift */,
+				0E05414425A231D500EFC5FF /* ViewController.swift */,
+				0E05414525A231D500EFC5FF /* Assets.xcassets */,
+				0E05414625A231D500EFC5FF /* LaunchScreen.storyboard */,
+				0E05414825A231D500EFC5FF /* Main.storyboard */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		0E1108AA1F77B9F900A92462 /* Host */ = {
+			isa = PBXGroup;
+			children = (
+				0E85A25B202CCA3D0059E9F9 /* Host.entitlements */,
+				0E1108AB1F77B9F900A92462 /* AppDelegate.swift */,
+				0E1108AD1F77B9F900A92462 /* ViewController.swift */,
+				0E1108AF1F77B9F900A92462 /* Main.storyboard */,
+				0E1108B21F77B9F900A92462 /* Assets.xcassets */,
+				0E1108B41F77B9F900A92462 /* LaunchScreen.storyboard */,
+				0E1108B71F77B9F900A92462 /* Info.plist */,
+			);
+			path = Host;
+			sourceTree = "<group>";
+		};
+		0E17D7EF1F730D9F009EE129 = {
+			isa = PBXGroup;
+			children = (
+				0EFD5B28272723F000C7D5FD /* Packages */,
+				0E05412B25A231D500EFC5FF /* Demo */,
+				0E1108AA1F77B9F900A92462 /* Host */,
+				0E17D7FA1F730D9F009EE129 /* Products */,
+				1B27D1F0B446D5907FAF40E1 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		0E17D7FA1F730D9F009EE129 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0E1108A91F77B9F900A92462 /* TunnelKitHost.app */,
+				0E05416925A232FD00EFC5FF /* TunnelKitDemo-iOS.app */,
+				0E05419F25A2343500EFC5FF /* TunnelKitDemoTunnel-iOS.appex */,
+				0E05422C25A236EB00EFC5FF /* TunnelKitDemo-macOS.app */,
+				0E05427725A239C600EFC5FF /* TunnelKitDemoTunnel-macOS.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0EFD5B28272723F000C7D5FD /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				0E26B05627272767008FB1E7 /* tunnelkit */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		1B27D1F0B446D5907FAF40E1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0E411B9F2271FA3300E0852C /* libresolv.tbd */,
+				0E411BA12271FA3C00E0852C /* libresolv.tbd */,
+				0E0541A025A2343500EFC5FF /* NetworkExtension.framework */,
+				44612F27B9EF890AF8B926DB /* Pods_ios_TunnelKit_iOS.framework */,
+				D3B8B90F61D2F5537A5C0691 /* Pods_ios_TunnelKitHost.framework */,
+				C34F78A0C56932A2127E6C81 /* Pods_ios_TunnelKitTests_iOS.framework */,
+				4EF702DD650A65FCBA51506A /* Pods_macos_TunnelKit_macOS.framework */,
+				D383BA02D6881FDBEF55562A /* Pods_macos_TunnelKitTests_macOS.framework */,
+				B24169970F957D36C9D0765C /* Pods_ios_TunnelKitDemo_iOS.framework */,
+				488FA71CA2DC38D2FDF7D1D8 /* Pods_ios_TunnelKitDemoTunnel_iOS.framework */,
+				501B04C95D9A457FFA483C3B /* Pods_macos_TunnelKitDemo_macOS.framework */,
+				A49801900FA52CE67047623B /* Pods_macos_TunnelKitDemoTunnel_macOS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0E05416825A232FD00EFC5FF /* TunnelKitDemo-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0E05417A25A2330100EFC5FF /* Build configuration list for PBXNativeTarget "TunnelKitDemo-iOS" */;
+			buildPhases = (
+				0E05416525A232FD00EFC5FF /* Sources */,
+				0E05416625A232FD00EFC5FF /* Frameworks */,
+				0E05416725A232FD00EFC5FF /* Resources */,
+				0E0541AD25A2343500EFC5FF /* Embed App Extensions */,
+				0E05438525A240E400EFC5FF /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0E0541A825A2343500EFC5FF /* PBXTargetDependency */,
+			);
+			name = "TunnelKitDemo-iOS";
+			packageProductDependencies = (
+				0EFD5B322727250B00C7D5FD /* TunnelKitOpenVPN */,
+			);
+			productName = Demo;
+			productReference = 0E05416925A232FD00EFC5FF /* TunnelKitDemo-iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0E05419E25A2343500EFC5FF /* TunnelKitDemoTunnel-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0E0541AA25A2343500EFC5FF /* Build configuration list for PBXNativeTarget "TunnelKitDemoTunnel-iOS" */;
+			buildPhases = (
+				0E05419B25A2343500EFC5FF /* Sources */,
+				0E05419C25A2343500EFC5FF /* Frameworks */,
+				0E05419D25A2343500EFC5FF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "TunnelKitDemoTunnel-iOS";
+			packageProductDependencies = (
+				0E80FA5027396F5F000F5A45 /* TunnelKitOpenVPNAppExtension */,
+			);
+			productName = Tunnel;
+			productReference = 0E05419F25A2343500EFC5FF /* TunnelKitDemoTunnel-iOS.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		0E05422B25A236EB00EFC5FF /* TunnelKitDemo-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0E05423B25A236EE00EFC5FF /* Build configuration list for PBXNativeTarget "TunnelKitDemo-macOS" */;
+			buildPhases = (
+				0E05422825A236EB00EFC5FF /* Sources */,
+				0E05422925A236EB00EFC5FF /* Frameworks */,
+				0E05422A25A236EB00EFC5FF /* Resources */,
+				0E05428425A239C600EFC5FF /* Embed App Extensions */,
+				0E05438825A240E900EFC5FF /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0E05427F25A239C600EFC5FF /* PBXTargetDependency */,
+			);
+			name = "TunnelKitDemo-macOS";
+			packageProductDependencies = (
+				0EFD5B302727250500C7D5FD /* TunnelKitOpenVPN */,
+			);
+			productName = Demo;
+			productReference = 0E05422C25A236EB00EFC5FF /* TunnelKitDemo-macOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0E05427625A239C600EFC5FF /* TunnelKitDemoTunnel-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0E05428125A239C600EFC5FF /* Build configuration list for PBXNativeTarget "TunnelKitDemoTunnel-macOS" */;
+			buildPhases = (
+				0E05427325A239C600EFC5FF /* Sources */,
+				0E05427425A239C600EFC5FF /* Frameworks */,
+				0E05427525A239C600EFC5FF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "TunnelKitDemoTunnel-macOS";
+			packageProductDependencies = (
+				0E80FA5227396F66000F5A45 /* TunnelKitOpenVPNAppExtension */,
+			);
+			productName = Tunnel;
+			productReference = 0E05427725A239C600EFC5FF /* TunnelKitDemoTunnel-macOS.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		0E1108A81F77B9F900A92462 /* TunnelKitHost */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0E1108B81F77B9F900A92462 /* Build configuration list for PBXNativeTarget "TunnelKitHost" */;
+			buildPhases = (
+				0E1108A51F77B9F900A92462 /* Sources */,
+				0E1108A61F77B9F900A92462 /* Frameworks */,
+				0E1108A71F77B9F900A92462 /* Resources */,
+				0ECAF84C246697DA00D8266A /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TunnelKitHost;
+			productName = PIATunnelHost;
+			productReference = 0E1108A91F77B9F900A92462 /* TunnelKitHost.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0E17D7F01F730D9F009EE129 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1230;
+				LastUpgradeCheck = 1230;
+				ORGANIZATIONNAME = "Davide De Rosa";
+				TargetAttributes = {
+					0E05416825A232FD00EFC5FF = {
+						CreatedOnToolsVersion = 12.3;
+						ProvisioningStyle = Automatic;
+					};
+					0E05419E25A2343500EFC5FF = {
+						CreatedOnToolsVersion = 12.3;
+						ProvisioningStyle = Automatic;
+					};
+					0E05422B25A236EB00EFC5FF = {
+						CreatedOnToolsVersion = 12.3;
+						ProvisioningStyle = Automatic;
+					};
+					0E05427625A239C600EFC5FF = {
+						CreatedOnToolsVersion = 12.3;
+						ProvisioningStyle = Automatic;
+					};
+					0E1108A81F77B9F900A92462 = {
+						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 1020;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = 0E17D7F31F730D9F009EE129 /* Build configuration list for PBXProject "TunnelKit" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0E17D7EF1F730D9F009EE129;
+			productRefGroup = 0E17D7FA1F730D9F009EE129 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0E1108A81F77B9F900A92462 /* TunnelKitHost */,
+				0E05416825A232FD00EFC5FF /* TunnelKitDemo-iOS */,
+				0E05422B25A236EB00EFC5FF /* TunnelKitDemo-macOS */,
+				0E05419E25A2343500EFC5FF /* TunnelKitDemoTunnel-iOS */,
+				0E05427625A239C600EFC5FF /* TunnelKitDemoTunnel-macOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0E05416725A232FD00EFC5FF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E05418A25A2334900EFC5FF /* Main.storyboard in Resources */,
+				0E05418B25A2334900EFC5FF /* LaunchScreen.storyboard in Resources */,
+				0E05418925A2334500EFC5FF /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E05419D25A2343500EFC5FF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E05422A25A236EB00EFC5FF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E05426125A2393300EFC5FF /* Assets.xcassets in Resources */,
+				0E05426925A2393B00EFC5FF /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E05427525A239C600EFC5FF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E1108A71F77B9F900A92462 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E1108B61F77B9F900A92462 /* LaunchScreen.storyboard in Resources */,
+				0E1108B31F77B9F900A92462 /* Assets.xcassets in Resources */,
+				0E1108B11F77B9F900A92462 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0E05416525A232FD00EFC5FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E0541D825A2355000EFC5FF /* Configuration.swift in Sources */,
+				0E05418825A2334500EFC5FF /* ViewController.swift in Sources */,
+				0E05418725A2334500EFC5FF /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E05419B25A2343500EFC5FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E0541D125A2354500EFC5FF /* PacketTunnelProvider.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E05422825A236EB00EFC5FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E0542B925A23A8100EFC5FF /* Configuration.swift in Sources */,
+				0E05425825A2392E00EFC5FF /* AppDelegate.swift in Sources */,
+				0E05425925A2392E00EFC5FF /* ViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E05427325A239C600EFC5FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E0542C225A23A8400EFC5FF /* PacketTunnelProvider.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E1108A51F77B9F900A92462 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E1108AE1F77B9F900A92462 /* ViewController.swift in Sources */,
+				0E1108AC1F77B9F900A92462 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0E0541A825A2343500EFC5FF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0E05419E25A2343500EFC5FF /* TunnelKitDemoTunnel-iOS */;
+			targetProxy = 0E0541A725A2343500EFC5FF /* PBXContainerItemProxy */;
+		};
+		0E05427F25A239C600EFC5FF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0E05427625A239C600EFC5FF /* TunnelKitDemoTunnel-macOS */;
+			targetProxy = 0E05427E25A239C600EFC5FF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		0E05413E25A231D500EFC5FF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0E05413F25A231D500EFC5FF /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		0E05414625A231D500EFC5FF /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0E05414725A231D500EFC5FF /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		0E05414825A231D500EFC5FF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0E05414925A231D500EFC5FF /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		0E1108AF1F77B9F900A92462 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0E1108B01F77B9F900A92462 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		0E1108B41F77B9F900A92462 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0E1108B51F77B9F900A92462 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0E05417B25A2330100EFC5FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = Demo/iOS/Demo.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DTDYD63ZX9;
+				INFOPLIST_FILE = "$(SRCROOT)/Demo/iOS/Demo.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.algoritmico.ios.TunnelKit.Demo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0E05417C25A2330100EFC5FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = Demo/iOS/Demo.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DTDYD63ZX9;
+				INFOPLIST_FILE = "$(SRCROOT)/Demo/iOS/Demo.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.algoritmico.ios.TunnelKit.Demo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		0E0541AB25A2343500EFC5FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = Demo/iOS/DemoTunnel.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DTDYD63ZX9;
+				INFOPLIST_FILE = "$(SRCROOT)/Demo/DemoTunnel.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.algoritmico.ios.TunnelKit.Demo.Tunnel;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0E0541AC25A2343500EFC5FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = Demo/iOS/DemoTunnel.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DTDYD63ZX9;
+				INFOPLIST_FILE = "$(SRCROOT)/Demo/DemoTunnel.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.algoritmico.ios.TunnelKit.Demo.Tunnel;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		0E05423925A236EE00EFC5FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = Demo/macOS/Demo.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = DTDYD63ZX9;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Demo/macOS/Demo.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.algoritmico.macos.TunnelKit.Demo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		0E05423A25A236EE00EFC5FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = Demo/macOS/Demo.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = DTDYD63ZX9;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Demo/macOS/Demo.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.algoritmico.macos.TunnelKit.Demo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		0E05428225A239C600EFC5FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = Demo/macOS/DemoTunnel.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DTDYD63ZX9;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Demo/DemoTunnel.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.algoritmico.macos.TunnelKit.Demo.Tunnel;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		0E05428325A239C600EFC5FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = Demo/macOS/DemoTunnel.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DTDYD63ZX9;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Demo/DemoTunnel.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.algoritmico.macos.TunnelKit.Demo.Tunnel;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		0E1108B91F77B9F900A92462 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Host/Host.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DTDYD63ZX9;
+				INFOPLIST_FILE = "$(SRCROOT)/Host/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.algoritmico.ios.TunnelKitHost;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0E1108BA1F77B9F900A92462 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Host/Host.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DTDYD63ZX9;
+				INFOPLIST_FILE = "$(SRCROOT)/Host/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.algoritmico.ios.TunnelKitHost;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		0E17D7FF1F730D9F009EE129 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 902;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		0E17D8001F730D9F009EE129 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 902;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 4.2;
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0E05417A25A2330100EFC5FF /* Build configuration list for PBXNativeTarget "TunnelKitDemo-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E05417B25A2330100EFC5FF /* Debug */,
+				0E05417C25A2330100EFC5FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0E0541AA25A2343500EFC5FF /* Build configuration list for PBXNativeTarget "TunnelKitDemoTunnel-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E0541AB25A2343500EFC5FF /* Debug */,
+				0E0541AC25A2343500EFC5FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0E05423B25A236EE00EFC5FF /* Build configuration list for PBXNativeTarget "TunnelKitDemo-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E05423925A236EE00EFC5FF /* Debug */,
+				0E05423A25A236EE00EFC5FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0E05428125A239C600EFC5FF /* Build configuration list for PBXNativeTarget "TunnelKitDemoTunnel-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E05428225A239C600EFC5FF /* Debug */,
+				0E05428325A239C600EFC5FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0E1108B81F77B9F900A92462 /* Build configuration list for PBXNativeTarget "TunnelKitHost" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E1108B91F77B9F900A92462 /* Debug */,
+				0E1108BA1F77B9F900A92462 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0E17D7F31F730D9F009EE129 /* Build configuration list for PBXProject "TunnelKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E17D7FF1F730D9F009EE129 /* Debug */,
+				0E17D8001F730D9F009EE129 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0E80FA5027396F5F000F5A45 /* TunnelKitOpenVPNAppExtension */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TunnelKitOpenVPNAppExtension;
+		};
+		0E80FA5227396F66000F5A45 /* TunnelKitOpenVPNAppExtension */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TunnelKitOpenVPNAppExtension;
+		};
+		0EFD5B302727250500C7D5FD /* TunnelKitOpenVPN */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TunnelKitOpenVPN;
+		};
+		0EFD5B322727250B00C7D5FD /* TunnelKitOpenVPN */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TunnelKitOpenVPN;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 0E17D7F01F730D9F009EE129 /* Project object */;
+}
