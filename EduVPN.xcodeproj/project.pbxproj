@@ -405,6 +405,7 @@
 		6F36A79A24B6ED5D00BA8F5E /* SearchViewController+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController+macOS.swift"; sourceTree = "<group>"; };
 		6F36A79C24B6F5BA00BA8F5E /* MainViewController+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+macOS.swift"; sourceTree = "<group>"; };
 		6F3BD00527476FA0005E5CB2 /* LoggingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingService.swift; sourceTree = "<group>"; };
+		6F3FF138283426BB00D10F7E /* tunnelkit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = tunnelkit; path = LocalPackages/tunnelkit; sourceTree = "<group>"; };
 		6F49FAA9263C1A54005DB8D3 /* EduVPN-macOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EduVPN-macOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		6F49FAAA263C1A55005DB8D3 /* OAuthRedirectHTTPHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthRedirectHTTPHandler.h; sourceTree = "<group>"; };
 		6F49FAAB263C1A55005DB8D3 /* OAuthRedirectHTTPHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthRedirectHTTPHandler.m; sourceTree = "<group>"; };
@@ -782,6 +783,7 @@
 		4AAC1F6D1F2D0E3400DD0252 = {
 			isa = PBXGroup;
 			children = (
+				6F3FF137283426BB00D10F7E /* Packages */,
 				4AE763A923DA4D1F00A98BCC /* .github */,
 				C75B2CA5236311D100D700EC /* README.md */,
 				C75B2CA4236311D100D700EC /* CHANGES.md */,
@@ -905,6 +907,14 @@
 				6F3073562689B8000083EEEF /* Shared.swift */,
 			);
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		6F3FF137283426BB00D10F7E /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				6F3FF138283426BB00D10F7E /* tunnelkit */,
+			);
+			name = Packages;
 			sourceTree = "<group>";
 		};
 		6F49FAA8263C1A18005DB8D3 /* Mac */ = {
