@@ -10,6 +10,7 @@ import PromiseKit
 import os.log
 
 protocol NotificationServiceDelegate: AnyObject {
+    func notificationServiceSuppressedSessionAboutToExpireNotification(_ notificationService: NotificationService)
     func notificationServiceDidReceiveRenewSessionRequest(_ notificationService: NotificationService)
 }
 
@@ -29,7 +30,9 @@ class NotificationService: NSObject {
         UNUserNotificationCenter.current()
     }
 
-    private static let sessionExpiryNotificationId = "SessionExpiryNotification"
+    private static let sessionAboutToExpireNotificationId = "SessionAboutToExpireNotification"
+    private static let sessionHasExpiredNotificationId = "SessionHasExpiredNotification"
+
     private static let authorizationOptions: UNAuthorizationOptions = [.alert, .sound]
 
     override init() {
@@ -51,7 +54,7 @@ class NotificationService: NSObject {
         }
     }
 
-    func attemptSchedulingSessionExpiryNotification(
+    func attemptSchedulingSessionExpiryNotifications(
         expiryDate: Date, authenticationDate: Date?, connectionAttemptId: UUID, from viewController: ViewController) -> Guarantee<Bool> {
 
         let userDefaults = UserDefaults.standard
@@ -65,7 +68,7 @@ class NotificationService: NSObject {
                 .then { isUserWantsToBeNotified in
                     UserDefaults.standard.hasAskedUserOnNotifyBeforeSessionExpiry = true
                     if isUserWantsToBeNotified {
-                        return self.scheduleSessionExpiryNotification(
+                        return self.scheduleSessionExpiryNotifications(
                             expiryDate: expiryDate, authenticationDate: authenticationDate,
                             connectionAttemptId: connectionAttemptId)
                             .map { isAuthorized in
@@ -82,7 +85,7 @@ class NotificationService: NSObject {
         } else if userDefaults.shouldNotifyBeforeSessionExpiry {
             // User has chosen to be notified.
             // Attempt to schedule notification.
-            return scheduleSessionExpiryNotification(
+            return scheduleSessionExpiryNotifications(
                 expiryDate: expiryDate, authenticationDate: authenticationDate,
                 connectionAttemptId: connectionAttemptId)
         } else {
@@ -92,12 +95,12 @@ class NotificationService: NSObject {
         }
     }
 
-    func scheduleSessionExpiryNotification(
+    func scheduleSessionExpiryNotifications(
         expiryDate: Date, authenticationDate: Date?, connectionAttemptId: UUID) -> Guarantee<Bool> {
         return Self.requestAuthorization()
             .then { isAuthorized in
                 if isAuthorized {
-                    return Self.scheduleSessionExpiryNotification(
+                    return Self.scheduleSessionExpiryNotifications(
                         expiryDate: expiryDate, authenticationDate: authenticationDate,
                         connectionAttemptId: connectionAttemptId)
                 } else {
@@ -107,12 +110,12 @@ class NotificationService: NSObject {
             }
     }
 
-    func descheduleSessionExpiryNotification() {
+    func descheduleSessionExpiryNotifications() {
         Self.notificationCenter.removeAllPendingNotificationRequests()
         os_log("Certificate expiry notifications descheduled", log: Log.general, type: .debug)
     }
 
-    func enableSessionExpiryNotification(from viewController: ViewController) -> Guarantee<Bool> {
+    func enableSessionExpiryNotifications(from viewController: ViewController) -> Guarantee<Bool> {
         firstly {
             Self.requestAuthorization()
         }.map { isAuthorized in
@@ -126,7 +129,7 @@ class NotificationService: NSObject {
         }
     }
 
-    func disableSessionExpiryNotification() {
+    func disableSessionExpiryNotifications() {
         UserDefaults.standard.shouldNotifyBeforeSessionExpiry = false
     }
 
@@ -266,44 +269,68 @@ class NotificationService: NSObject {
         #endif
     }
 
-    private static func scheduleSessionExpiryNotification(
+    private static func scheduleSessionExpiryNotifications(
         expiryDate: Date, authenticationDate: Date?, connectionAttemptId: UUID) -> Guarantee<Bool> {
 
         os_log("Certificate expires at %{public}@", log: Log.general, type: .debug, expiryDate as NSDate)
 
         let minutesToExpiry = Calendar.current.dateComponents([.minute], from: Date(), to: expiryDate).minute ?? 0
-        let minutesToNotification: Int = {
-            if let authenticationDate = authenticationDate,
-               let minutesFromAuthTime = Calendar.current.dateComponents([.minute], from: authenticationDate, to: Date()).minute {
-                // 30 mins before expiry, but should be at least 32 mins since auth time
-                os_log("Last authenticated %{public}d minutes back", log: Log.general, type: .debug, minutesFromAuthTime)
-                return max((minutesToExpiry - 30), (32 - minutesFromAuthTime))
-            } else {
-                return (minutesToExpiry - 30)
-            }
+        let secondsToExpiry = Calendar.current.dateComponents([.second], from: Date(), to: expiryDate).second ?? 0
+
+        let minutesTillAboutToExpireNotification: Int = {
+            // normalNotificationTime is 1 hour before expiry
+            let normalNotificationTime = minutesToExpiry - 60
+            guard let authenticationDate = authenticationDate,
+                  let minutesFromAuthTime = Calendar.current.dateComponents([.minute], from: authenticationDate, to: Date()).minute else {
+                      return normalNotificationTime
+                  }
+            os_log("Last authenticated %{public}d minutes back", log: Log.general, type: .debug, minutesFromAuthTime)
+            // 1 hour before expiry, but should be at least 32 mins since auth time
+            let afterBrowserSessionExpires = 30 /* browser session time */ - 2 /* buffer */ - minutesFromAuthTime
+            return max(normalNotificationTime, afterBrowserSessionExpires)
         }()
 
-        let secondsToNotification: Int = {
-            if minutesToNotification >= minutesToExpiry {
-                os_log("Scheduling notification to fire 5 seconds after expiry")
-                let secondsToExpiry = Calendar.current.dateComponents([.second], from: Date(), to: expiryDate).second ?? 0
-                return secondsToExpiry + 5 // 5 seconds after expiry
-            } else if minutesToNotification < 0 {
-                os_log("Scheduling notification to fire 5 seconds from now")
+        let secondsTillAboutToExpireNotification: Int = {
+            if minutesTillAboutToExpireNotification >= minutesToExpiry {
+                let halfTime = (secondsToExpiry / 2) + 1
+                os_log("Scheduling 'Session about to expire' notification to fire in %{public}d seconds even though browser auth might not have expired by then because we assume this is a test server.", log: Log.general, type: .debug, halfTime)
+                return halfTime
+            } else if minutesTillAboutToExpireNotification < 0 {
+                os_log("Scheduling 'Session about to expire' notification to fire 5 seconds from now")
                 return 5 // 5 seconds from now
             } else {
-                return minutesToNotification * 60
+                return minutesTillAboutToExpireNotification * 60
             }
         }()
 
-        precondition(secondsToNotification > 0)
+        let secondsTillHasExpiredNotification = max(secondsToExpiry, 0) + 2
 
-        return addSessionExpiryNotificationRequest(
-            expiryDate: expiryDate,
-            secondsToNotification: secondsToNotification)
+        precondition(secondsTillAboutToExpireNotification > 0)
+        precondition(secondsTillHasExpiredNotification > 0)
+
+        if secondsTillHasExpiredNotification - secondsTillAboutToExpireNotification > 6 {
+            // Schedule both about-to-expire and has-expired notifications
+            return firstly {
+                self.addSessionAboutToExpireNotificationRequest(
+                    expiryDate: expiryDate,
+                    secondsToNotification: secondsTillAboutToExpireNotification)
+            }.then { isAddedAboutToExpireNotification in
+                return self.addSessionHasExpiredNotificationRequest(
+                    expiryDate: expiryDate,
+                    secondsToNotification: secondsTillHasExpiredNotification)
+                    .map { isAddedHasExpiredNotification in
+                        return (isAddedAboutToExpireNotification && isAddedHasExpiredNotification)
+                    }
+            }
+        } else {
+            // Schedule only has-expired notification
+            return self.addSessionHasExpiredNotificationRequest(
+                expiryDate: expiryDate,
+                secondsToNotification: secondsTillHasExpiredNotification)
+        }
     }
 
-    private static func addSessionExpiryNotificationRequest(
+    private static func addSessionAboutToExpireNotificationRequest(
         expiryDate: Date,
         secondsToNotification: Int) -> Guarantee<Bool> {
 
@@ -331,14 +358,56 @@ class NotificationService: NSObject {
         content.categoryIdentifier = NotificationCategory.certificateExpiry.rawValue
 
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(secondsToNotification), repeats: false)
-        let request = UNNotificationRequest(identifier: sessionExpiryNotificationId, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: sessionAboutToExpireNotificationId, content: content, trigger: trigger)
 
         return Guarantee<Bool> { callback in
             notificationCenter.add(request) { error in
                 if let error = error {
-                    os_log("Error scheduling session expiry notification: %{public}@", log: Log.general, type: .error, error.localizedDescription)
+                    os_log("Error scheduling 'Session about to expire' notification: %{public}@", log: Log.general, type: .error, error.localizedDescription)
                 } else {
-                    os_log("Session expiry notification scheduled to fire in %{public}d seconds", log: Log.general, type: .debug, secondsToNotification)
+                    os_log("'Session about to expire' notification scheduled to fire in %{public}d seconds", log: Log.general, type: .debug, secondsToNotification)
+                }
+                callback(error == nil)
+            }
+        }
+    }
+
+    private static func addSessionHasExpiredNotificationRequest(
+        expiryDate: Date,
+        secondsToNotification: Int) -> Guarantee<Bool> {
+
+        let content = UNMutableNotificationContent()
+        content.title = NSString.localizedUserNotificationString(
+            forKey: "Your VPN session has expired",
+            arguments: nil)
+
+        // We're not using localizedUserNotificationString below becuse:
+        //   - we need the timestamp to be as per the current locale and
+        //     consistent with language of the body string
+        //   - when arguments: is not nil, the notifications don't seem to fire.
+        //     See: https://openradar.appspot.com/43007245
+        let formatter = DateFormatter()
+        formatter.dateStyle = .none
+        formatter.timeStyle = .short
+        content.body = String(
+            format: NSLocalizedString(
+                "Session expired at %@",
+                comment: "macOS user notification detail"),
+            formatter.string(from: expiryDate))
+
+        content.sound = UNNotificationSound.default
+
+        content.categoryIdentifier = NotificationCategory.certificateExpiry.rawValue
+
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(secondsToNotification), repeats: false)
+        let request = UNNotificationRequest(identifier: sessionHasExpiredNotificationId, content: content, trigger: trigger)
+
+        return Guarantee<Bool> { callback in
+            notificationCenter.add(request) { error in
+                if let error = error {
+                    os_log("Error scheduling 'Session has expired' notification: %{public}@", log: Log.general, type: .error, error.localizedDescription)
+                } else {
+                    os_log("'Session has expired' notification scheduled to fire in %{public}d seconds", log: Log.general, type: .debug, secondsToNotification)
                 }
                 callback(error == nil)
             }
@@ -347,74 +416,18 @@ class NotificationService: NSObject {
 }
 
 extension NotificationService {
-    #if os(macOS)
-    func showSessionExpiryAlertOnDeviceWakeUp(connectionVC: ConnectionViewController) {
-        Self.notificationCenter.getPendingNotificationRequests { requests in
+    func isSessionExpiryNotificationsEnabled() -> Bool {
+        return UserDefaults.standard.shouldNotifyBeforeSessionExpiry
+    }
 
-            guard let expiryDate = connectionVC.sessionExpiresAt else {
-                // Maybe there's no active eduVPN server VPN connection.
-                // Nothing to do.
-                return
-            }
-
-            if !UserDefaults.standard.shouldNotifyBeforeSessionExpiry {
-                // Notifications are turned off.
-                // Nothing to do.
-                return
-            }
-
-            if requests.contains(where: { $0.identifier == Self.sessionExpiryNotificationId }) {
-                // Notification is yet to appear.
-                // No need to show any alert on device wakeup.
-                return
-            }
-
-            if expiryDate.timeIntervalSinceNow > 30 * 60 {
-                // There's more than 30 minutes to expiry.
-                // This is unexpected, so we don't show an alert.
-                return
-            }
-
-            let alertAfterSeconds = 5
-            let alertTime = Date().addingTimeInterval(TimeInterval(alertAfterSeconds))
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(alertAfterSeconds)) {
-                let formatter = DateFormatter()
-                formatter.dateStyle = .none
-                formatter.timeStyle = .short
-
-                let alert = NSAlert()
-                if alertTime > expiryDate {
-                    alert.messageText = NSLocalizedString("Your VPN session has expired", comment: "macOS alert title")
-                    alert.informativeText = String(
-                        format: NSLocalizedString(
-                            "Session expired at %@",
-                            comment: "macOS alert detail"),
-                        formatter.string(from: expiryDate))
-                } else {
-                    alert.messageText = NSLocalizedString("Your VPN session is expiring", comment: "macOS alert title")
-                    alert.informativeText = String(
-                        format: NSLocalizedString(
-                            "Session expires at %@",
-                            comment: "macOS alert detail"),
-                        formatter.string(from: expiryDate))
-                }
-
-                alert.addButton(withTitle: NSLocalizedString("Renew Session", comment: "alert button title"))
-                alert.addButton(withTitle: NSLocalizedString("Ignore", comment: "button title"))
-
-                NSApp.activate(ignoringOtherApps: true)
-                if let window = connectionVC.view.window {
-                    alert.beginSheetModal(for: window) { result in
-                        if case .alertFirstButtonReturn = result {
-                            connectionVC.renewSession()
-                        }
-                    }
-                }
+    func isSessionAboutToExpireNotificationPending() -> Guarantee<Bool> {
+        return Guarantee<Bool> { callback in
+            Self.notificationCenter.getPendingNotificationRequests { requests in
+                let isPending = requests.contains(where: { $0.identifier == Self.sessionAboutToExpireNotificationId })
+                callback(isPending)
             }
         }
     }
-    #endif
 }
 
 extension NotificationService: UNUserNotificationCenterDelegate {
@@ -433,6 +446,14 @@ extension NotificationService: UNUserNotificationCenterDelegate {
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert, .sound])
+        if notification.request.identifier == Self.sessionAboutToExpireNotificationId {
+            // if #available(macOS 11.0, iOS 14.0, *) {
+            //     completionHandler([.list, .banner])
+            // } else {
+                self.delegate?.notificationServiceSuppressedSessionAboutToExpireNotification(self)
+            // }
+        } else {
+            completionHandler([])
+        }
     }
 }
