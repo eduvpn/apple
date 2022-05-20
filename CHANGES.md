@@ -8,6 +8,7 @@
 - Update TunnelKit
   - Use TunnelKit as Swift Package Manager package
   - Avoid writing client certificate and private key to disk
+  - Not upstreamed: Handle ENOBUFS errors
 - Notify on session expiry #442
 - Avoid staggered alerts related to session expiry #445
 
