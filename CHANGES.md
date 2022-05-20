@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 3.0.0
 
 - Support for minisign pre-hashed signatures #427
 - Add server API events to the log #424
