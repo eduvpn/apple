@@ -142,7 +142,10 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
 
     #if os(macOS)
     var presentedPasswordEntryVC: PasswordEntryViewController?
+    var deviceWakeupObservationToken: NSObjectProtocol?
     #endif
+
+    var isSessionExpiryAlertBeingShown: Bool = false
 
     func initializeParameters(_ parameters: Parameters) {
         guard self.parameters == nil else {
@@ -202,7 +205,24 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         #elseif os(iOS)
         vpnSwitch.accessibilityIdentifier = "Connection"
         #endif
+
+        #if os(macOS)
+        deviceWakeupObservationToken = NSWorkspace.shared.notificationCenter.addObserver(
+            forName: NSWorkspace.didWakeNotification, object: nil,
+            queue: OperationQueue.main) { _ in
+                self.showSessionExpiryAlert(afterDelay: true)
+        }
+        #endif
     }
+
+    #if os(macOS)
+    deinit {
+        if let deviceWakeupObservationToken = deviceWakeupObservationToken {
+            NSWorkspace.shared.notificationCenter.removeObserver(deviceWakeupObservationToken)
+        }
+        deviceWakeupObservationToken = nil
+    }
+    #endif
 
     #if os(macOS)
     @IBAction func vpnSwitchToggled(_ sender: Any) {
@@ -348,6 +368,10 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
 
     func goBack() {
         parameters.environment.navigationController?.popViewController(animated: true)
+    }
+
+    func showSessionAboutToExpireAlert() {
+        showSessionExpiryAlert(afterDelay: true)
     }
 }
 
@@ -546,6 +570,104 @@ private extension ConnectionViewController {
         }
     }
 
+    // swiftlint:disable:next function_body_length
+    private func showSessionExpiryAlert(afterDelay isDelayed: Bool = false) {
+        // Shows either session-about-to-expire alert, or the session-has-expired alert
+        // depending on the current time, and the expiry time.
+        guard let expiryDate = sessionExpiresAt else {
+            // Maybe there's no active eduVPN server VPN connection.
+            // Nothing to do.
+            return
+        }
+
+        let notificationService = self.parameters.environment.notificationService
+        guard notificationService.isSessionExpiryNotificationsEnabled() else {
+            // Notifications are turned off.
+            // Nothing to do.
+            return
+        }
+
+        if expiryDate.timeIntervalSinceNow > 30 * 60 {
+            // There's more than 30 minutes to expiry.
+            // This is unexpected, so we don't show an alert.
+            return
+        }
+
+        let alertAfter: DispatchTimeInterval = .seconds(isDelayed ? 5 : 0)
+        DispatchQueue.main.asyncAfter(deadline: .now() + alertAfter) {
+            let formatter = DateFormatter()
+            formatter.dateStyle = .none
+            formatter.timeStyle = .short
+            let expiryDateString = formatter.string(from: expiryDate)
+
+            let alertTitle: String
+            let alertDetail: String
+
+            if Date() > expiryDate {
+                alertTitle = NSLocalizedString("Your VPN session has expired", comment: "alert title")
+                alertDetail = String(
+                    format: NSLocalizedString(
+                        "Session expired at %@",
+                        comment: "alert detail"),
+                    expiryDateString)
+            } else {
+                alertTitle = NSLocalizedString("Your VPN session is expiring", comment: "alert title")
+                alertDetail = String(
+                    format: NSLocalizedString(
+                        "Session expires at %@",
+                        comment: "alert detail"),
+                    expiryDateString)
+            }
+
+            #if os(macOS)
+
+            let alert = NSAlert()
+            alert.alertStyle = .warning
+            alert.messageText = alertTitle
+            alert.informativeText = alertDetail
+            alert.addButton(withTitle: NSLocalizedString("Renew Session", comment: "button title"))
+            alert.addButton(withTitle: NSLocalizedString("Ignore", comment: "button title"))
+            if let window = self.view.window {
+                NSApp.activate(ignoringOtherApps: true)
+                if !self.isSessionExpiryAlertBeingShown {
+                    self.isSessionExpiryAlertBeingShown = true
+                    alert.beginSheetModal(for: window) { result in
+                        self.isSessionExpiryAlertBeingShown = false
+                        if case .alertFirstButtonReturn = result {
+                            self.renewSession()
+                        }
+                    }
+                }
+            }
+
+            #elseif os(iOS)
+
+            let alert = UIAlertController()
+            alert.title = alertTitle
+            alert.message = alertDetail
+            let refreshAction = UIAlertAction(
+                title: NSLocalizedString("Renew Session", comment: "button title"),
+                style: .default,
+                handler: { _ in
+                    self.isSessionExpiryAlertBeingShown = false
+                    self.renewSession()
+                })
+            let cancelAction = UIAlertAction(
+                title: NSLocalizedString("Ignore", comment: "button title"),
+                style: .cancel,
+                handler: { _ in
+                    self.isSessionExpiryAlertBeingShown = false
+                })
+            alert.addAction(refreshAction)
+            alert.addAction(cancelAction)
+            if !self.isSessionExpiryAlertBeingShown {
+                self.isSessionExpiryAlertBeingShown = true
+                self.present(alert, animated: true, completion: nil)
+            }
+
+            #endif
+        }
+    }
 }
 
 extension ConnectionViewController: ConnectionViewModelDelegate {
@@ -833,6 +955,10 @@ extension ConnectionViewController: ConnectionViewModelDelegate {
             self.promptForConnectionTimeVPNConfigPassword(credentials: credentials)
         }
         #endif
+    }
+
+    func connectionViewModelSessionExpired(_ model: ConnectionViewModel) {
+        showSessionExpiryAlert()
     }
 }
 

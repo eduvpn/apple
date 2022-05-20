@@ -267,7 +267,7 @@ extension MainViewController: ConnectionServiceInitializationDelegate {
 
         case .vpnDisabled:
             environment.persistenceService.removeLastConnectionAttempt()
-            environment.notificationService.descheduleSessionExpiryNotification()
+            environment.notificationService.descheduleSessionExpiryNotifications()
         }
     }
 }
@@ -279,6 +279,10 @@ extension MainViewController: NotificationServiceDelegate {
         } else {
             shouldRenewSessionWhenConnectionServiceInitialized = true
         }
+    }
+
+    func notificationServiceSuppressedSessionAboutToExpireNotification(_ notificationService: NotificationService) {
+        currentConnectionVC?.showSessionAboutToExpireAlert()
     }
 }
 
