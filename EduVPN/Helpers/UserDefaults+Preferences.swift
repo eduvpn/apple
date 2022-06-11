@@ -11,6 +11,7 @@ extension UserDefaults {
     private static let shouldNotifyBeforeSessionExpiryKey = "shouldNotifyBeforeSessionExpiry"
     // swiftlint:disable:next identifier_name
     private static let hasAskedUserOnNotifyBeforeSessionExpiryKey = "hasAskedUserOnNotifyBeforeSessionExpiry"
+    private static let isPrivacyDisclaimerAcceptedKey = "isPrivacyDisclaimerAccepted"
     #if os(macOS)
     private static let showInStatusBarKey = "showInStatusBar"
     private static let isStatusItemInColorKey = "isStatusItemInColor"
@@ -61,6 +62,15 @@ extension UserDefaults {
         }
         set {
             set(newValue, forKey: Self.hasAskedUserOnNotifyBeforeSessionExpiryKey)
+        }
+    }
+
+    var isPrivacyDisclaimerAccepted: Bool {
+        get {
+            return bool(forKey: Self.isPrivacyDisclaimerAcceptedKey)
+        }
+        set {
+            set(newValue, forKey: Self.isPrivacyDisclaimerAcceptedKey)
         }
     }
 
