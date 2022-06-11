@@ -58,6 +58,10 @@ class NavigationController: NSViewController {
             NSLocalizedString("Preferences", comment: "Preferences accessibility label"))
     }
 
+    override func viewDidAppear() {
+        showDisclaimerIfNotAcceptedYet()
+    }
+
     @IBAction func toolbarPreferencesClicked(_ sender: Any) {
         presentPreferences()
     }
@@ -213,6 +217,10 @@ class NavigationController: UINavigationController {
         updateTopNavigationItem()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        showDisclaimerIfNotAcceptedYet()
+    }
+
     override func pushViewController(_ viewController: ViewController, animated: Bool) {
         super.pushViewController(viewController, animated: animated)
         updateTopNavigationItem()
@@ -315,3 +323,12 @@ extension NavigationController {
     }
 }
 #endif
+
+extension NavigationController {
+    func showDisclaimerIfNotAcceptedYet() {
+        let userDefaults = UserDefaults.standard
+        if !userDefaults.isPrivacyDisclaimerAccepted {
+            showDisclaimer(onAccepted: { userDefaults.isPrivacyDisclaimerAccepted = true })
+        }
+    }
+}
