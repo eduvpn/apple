@@ -285,5 +285,17 @@ extension NavigationController {
         alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
     }
+
+    func showDisclaimer(onAccepted: @escaping () -> Void) {
+        let config = PrivacyDisclaimerConfig.shared
+        let title = config.title + "\n"
+        let text = config.text
+        let acceptAction = UIAlertAction(title: NSLocalizedString("Accept", comment: "disclaimer button title"),
+                                         style: .default,
+                                         handler: { _ in onAccepted() })
+        let alert = UIAlertController(title: title, message: text, preferredStyle: .actionSheet)
+        alert.addAction(acceptAction)
+        present(alert, animated: true, completion: nil)
+    }
 }
 #endif
