@@ -1,18 +1,18 @@
 //
-//  PrivacyDisclaimerConfig.swift
+//  PrivacyStatementConfig.swift
 //  EduVPN
 //
 
 import Foundation
 
-struct PrivacyDisclaimerConfig: Decodable {
+struct PrivacyStatementConfig: Decodable {
 
-    static var shared: PrivacyDisclaimerConfig = {
-        guard let url = Bundle.main.url(forResource: "privacy_disclaimer_config", withExtension: "json") else {
+    static var shared: PrivacyStatementConfig = {
+        guard let url = Bundle.main.url(forResource: "privacy_statement", withExtension: "json") else {
             fatalError("This is very much hard coded. If this ever fails. It SHOULD crash.")
         }
         do {
-            return try JSONDecoder().decode(PrivacyDisclaimerConfig.self, from: Data(contentsOf: url))
+            return try JSONDecoder().decode(PrivacyStatementConfig.self, from: Data(contentsOf: url))
         } catch {
             fatalError("Failed to load config \(url) due to error: \(error)")
         }

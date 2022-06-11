@@ -171,7 +171,7 @@ extension NavigationController {
     }
 
     func showDisclaimer(onAccepted: @escaping () -> Void) {
-        let config = PrivacyDisclaimerConfig.shared
+        let config = PrivacyStatementConfig.shared
         let alert = NSAlert()
         alert.messageText = config.title
         alert.informativeText = config.text
@@ -311,7 +311,7 @@ extension NavigationController {
     }
 
     func showDisclaimer(onAccepted: @escaping () -> Void) {
-        let config = PrivacyDisclaimerConfig.shared
+        let config = PrivacyStatementConfig.shared
         let title = config.title + "\n"
         let text = config.text
         let acceptAction = UIAlertAction(title: NSLocalizedString("Accept", comment: "disclaimer button title"),
