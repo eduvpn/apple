@@ -165,6 +165,22 @@ extension NavigationController {
             alert.runModal()
         }
     }
+
+    func showDisclaimer(onAccepted: @escaping () -> Void) {
+        let config = PrivacyDisclaimerConfig.shared
+        let alert = NSAlert()
+        alert.messageText = config.title
+        alert.informativeText = config.text
+        alert.addButton(withTitle: NSLocalizedString("Accept", comment: "disclaimer button title"))
+        NSApp.activate(ignoringOtherApps: true)
+        if let window = view.window {
+            alert.beginSheetModal(for: window) { result in
+                if case .alertFirstButtonReturn = result {
+                    onAccepted()
+                }
+            }
+        }
+    }
 }
 
 #elseif os(iOS)
