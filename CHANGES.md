@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Show privacy statement on launch #454
+
 ## 3.0.0
 
 - Support for minisign pre-hashed signatures #427
