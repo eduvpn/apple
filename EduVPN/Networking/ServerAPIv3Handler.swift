@@ -204,7 +204,7 @@ private extension ServerAPIv3Handler {
                     parameters: [
                         "profile_id": profile.profileId,
                         "public_key": publicKey,
-                        "tcp_only": isTCPOnly ? "on" : "off"
+                        "prefer_tcp": isTCPOnly ? "yes" : "no"
                     ],
                     encoding: URLEncoding.httpBody)
             }
