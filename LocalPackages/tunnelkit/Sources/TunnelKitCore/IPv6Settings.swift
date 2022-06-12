@@ -38,9 +38,9 @@ public struct IPv6Settings: Codable, CustomStringConvertible {
         public let prefixLength: UInt8
         
         /// The address of the gateway (uses default gateway if not set).
-        public let gateway: String
+        public let gateway: String?
         
-        public init(_ destination: String, _ prefixLength: UInt8?, _ gateway: String) {
+        public init(_ destination: String, _ prefixLength: UInt8?, _ gateway: String?) {
             self.destination = destination
             self.prefixLength = prefixLength ?? 3
             self.gateway = gateway
@@ -49,7 +49,11 @@ public struct IPv6Settings: Codable, CustomStringConvertible {
         // MARK: CustomStringConvertible
         
         public var description: String {
-            return "{\(destination.maskedDescription)/\(prefixLength) \(gateway.maskedDescription)}"
+            if let gateway = gateway {
+                return "{\(destination.maskedDescription)/\(prefixLength) \(gateway.maskedDescription)}"
+            } else {
+                return "{\(destination.maskedDescription)/\(prefixLength)}"
+            }
         }
     }
     
@@ -64,17 +68,19 @@ public struct IPv6Settings: Codable, CustomStringConvertible {
     
     /// The additional routes.
     public let routes: [Route]
+    public let excludedRoutes: [Route]
     
-    public init(address: String, addressPrefixLength: UInt8, defaultGateway: String, routes: [Route]) {
+    public init(address: String, addressPrefixLength: UInt8, defaultGateway: String, routes: [Route], excludedRoutes: [Route]) {
         self.address = address
         self.addressPrefixLength = addressPrefixLength
         self.defaultGateway = defaultGateway
         self.routes = routes
+        self.excludedRoutes = excludedRoutes
     }
 
     // MARK: CustomStringConvertible
     
     public var description: String {
-        return "addr \(address.maskedDescription)/\(addressPrefixLength) gw \(defaultGateway.maskedDescription) routes \(routes.map { $0.maskedDescription })"
+        return "addr \(address.maskedDescription)/\(addressPrefixLength) gw \(defaultGateway.maskedDescription) routes \(routes.map { $0.maskedDescription }) excluding \(excludedRoutes.map { $0.maskedDescription })"
     }
 }
