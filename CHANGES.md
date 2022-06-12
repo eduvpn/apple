@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- APIv3: Use prefer_tcp, fix accept header for '/connect'
+
 ## 3.0.0
 
 - Support for minisign pre-hashed signatures #427
