@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Support for net_gateway / net_gateway_ipv6 in OpenVPN #440
+
 ## 3.0.0
 
 - Support for minisign pre-hashed signatures #427
