@@ -49,6 +49,8 @@ jobs:
         run: cp Config/iOS/Developer.xcconfig.eduvpn-template Config/iOS/Developer.xcconfig
       - name: Prepare config.json
         run: cp Config/iOS/config-eduvpn_new_discovery.json Config/iOS/config.json
+      - name: Prepare privacy_statement.json
+        run: cp Config/iOS/privacy_statement-eduvpn.json Config/iOS/privacy_statement.json
       - name: Build for Generic iOS device
         run: |
           export PATH="/usr/local/opt/go@1.16/bin:/opt/homebrew/opt/go@1.16/bin:$PATH"
@@ -69,6 +71,8 @@ jobs:
         run: cp Config/Mac/Developer-macos.xcconfig.eduvpn-template Config/Mac/Developer-macos.xcconfig
       - name: Prepare config.json
         run: cp Config/Mac/config-eduvpn_new_discovery.json Config/Mac/config.json
+      - name: Prepare privacy_statement.json
+        run: cp Config/Mac/privacy_statement-eduvpn.json Config/Mac/privacy_statement.json
       - name: Install Go
         run: brew install go@1.16
       - name: Run MacOS build
