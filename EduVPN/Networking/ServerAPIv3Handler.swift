@@ -166,7 +166,7 @@ struct ServerAPIv3Handler: ServerAPIHandler {
 }
 
 private extension ServerAPIv3Handler {
-    enum ServerAPITarget: TargetType, AcceptJson, AccessTokenAuthorizable {
+    enum ServerAPITarget: TargetType, AccessTokenAuthorizable {
         case info(ServerAPIService.CommonAPIRequestInfo)
         case connect(ServerAPIService.CommonAPIRequestInfo, profile: Profile, publicKey: String, isTCPOnly: Bool)
 
@@ -207,6 +207,15 @@ private extension ServerAPIv3Handler {
                         "prefer_tcp": isTCPOnly ? "yes" : "no"
                     ],
                     encoding: URLEncoding.httpBody)
+            }
+        }
+
+        var headers: [String: String]? {
+            switch self {
+            case .info:
+                return ["Accept": "application/json"]
+            case .connect:
+                return ["Accept": "application/x-openvpn-profile, application/x-wireguard-profile"]
             }
         }
 
