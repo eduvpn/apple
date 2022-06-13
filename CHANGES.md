@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Fix when 'Renew Session' button is shown #460
+
 ## 3.0.0
 
 - Support for minisign pre-hashed signatures #427
