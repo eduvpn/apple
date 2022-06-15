@@ -152,6 +152,10 @@ class MainViewModel {
         }
         return []
     }
+
+    func secureInternetHeaderRowIndex() -> Int? {
+        return rows.firstIndex(of: .secureInternetServerSectionHeader)
+    }
 }
 
 extension MainViewModel {
