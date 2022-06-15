@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Update list of available secure internet servers on startup #447
+
 ## 3.0.0
 
 - Support for minisign pre-hashed signatures #427
