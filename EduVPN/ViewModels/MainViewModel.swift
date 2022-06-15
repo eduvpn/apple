@@ -115,21 +115,20 @@ class MainViewModel {
         if let serverDiscoveryService = serverDiscoveryService {
             isDiscoveryEnabled = true
             serverDiscoveryService.delegate = self
+            // If we have a cached version, use that. If not, use
+            // the file included in the app bundle.
+            // Then, schedule a download from the server.
             firstly {
                 serverDiscoveryService.getServers(from: .cache)
-            }.catch { _ in
-                // If there's no data in the cache, get it from the file
-                // included in the app bundle. Then schedule a download
-                // from the server.
-                firstly {
-                    serverDiscoveryService.getServers(from: .appBundle)
-                }.then { _ in
-                    serverDiscoveryService.getServers(from: .server)
-                }.catch { error in
-                    os_log("Error loading discovery data for main listing: %{public}@",
-                           log: Log.general, type: .error,
-                           error.localizedDescription)
-                }
+                    .recover { _ in
+                        serverDiscoveryService.getServers(from: .appBundle)
+                    }
+            }.then { _ in
+                serverDiscoveryService.getServers(from: .server)
+            }.catch { error in
+                os_log("Error loading discovery data for main listing: %{public}@",
+                       log: Log.general, type: .error,
+                       error.localizedDescription)
             }
         } else {
             isDiscoveryEnabled = false
