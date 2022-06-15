@@ -100,6 +100,7 @@ class MainViewModel {
     }
 
     let persistenceService: PersistenceService
+    let serverDiscoveryService: ServerDiscoveryService?
     let isDiscoveryEnabled: Bool
     var instituteAccessServersMap: [DiscoveryData.BaseURLString: DiscoveryData.InstituteAccessServer] = [:]
     var secureInternetServersMap: [DiscoveryData.BaseURLString: DiscoveryData.SecureInternetServer] = [:]
@@ -108,9 +109,20 @@ class MainViewModel {
 
     var isEmpty: Bool { rows.isEmpty }
 
+    private var timer: Timer? {
+        didSet(oldValue) {
+            oldValue?.invalidate()
+        }
+    }
+
+    deinit {
+        self.timer = nil // invalidate
+    }
+
     init(persistenceService: PersistenceService,
          serverDiscoveryService: ServerDiscoveryService?) {
         self.persistenceService = persistenceService
+        self.serverDiscoveryService = serverDiscoveryService
 
         if let serverDiscoveryService = serverDiscoveryService {
             isDiscoveryEnabled = true
@@ -136,6 +148,26 @@ class MainViewModel {
                 self.update()
             }
         }
+        periodicallyUpdateServerListFromServer()
+    }
+
+    func updateServerListFromServer() {
+        if let serverDiscoveryService = serverDiscoveryService {
+            serverDiscoveryService.getServers(from: .server)
+                .cauterize()
+        }
+    }
+
+    func periodicallyUpdateServerListFromServer() {
+        let timer = Timer(timeInterval: 60 * 60 /*1 hour in seconds*/, repeats: true) { [weak self] _ in
+            guard let self = self else { return }
+            if let serverDiscoveryService = self.serverDiscoveryService {
+                serverDiscoveryService.getServers(from: .server)
+                    .cauterize()
+            }
+        }
+        RunLoop.main.add(timer, forMode: .common)
+        self.timer = timer
     }
 
     func numberOfRows() -> Int {
