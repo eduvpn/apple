@@ -610,6 +610,7 @@ extension OpenVPNTunnelProvider: OpenVPNSessionDelegate {
         var ipv4Settings: NEIPv4Settings?
         if let ipv4 = options.ipv4 {
             var routes: [NEIPv4Route] = []
+            var excludedRoutes: [NEIPv4Route] = []
 
             // route all traffic to VPN?
             if isIPv4Gateway {
@@ -628,17 +629,25 @@ extension OpenVPNTunnelProvider: OpenVPNSessionDelegate {
                 let ipv4Route = NEIPv4Route(destinationAddress: r.destination, subnetMask: r.mask)
                 ipv4Route.gatewayAddress = r.gateway
                 routes.append(ipv4Route)
-                log.info("Routing.IPv4: Adding route \(r.destination.maskedDescription)/\(r.mask) -> \(r.gateway)")
+                log.info("Routing.IPv4: Adding route \(r.destination.maskedDescription)/\(r.mask) -> \(r.gateway ?? "-")")
             }
-            
+
+            for r in ipv4.excludedRoutes {
+                let ipv4Route = NEIPv4Route(destinationAddress: r.destination, subnetMask: r.mask)
+                ipv4Route.gatewayAddress = nil
+                excludedRoutes.append(ipv4Route)
+                log.info("Routing.IPv4: Excluding route \(r.destination.maskedDescription)/\(r.mask)")
+            }
+
             ipv4Settings = NEIPv4Settings(addresses: [ipv4.address], subnetMasks: [ipv4.addressMask])
             ipv4Settings?.includedRoutes = routes
-            ipv4Settings?.excludedRoutes = []
+            ipv4Settings?.excludedRoutes = excludedRoutes
         }
 
         var ipv6Settings: NEIPv6Settings?
         if let ipv6 = options.ipv6 {
             var routes: [NEIPv6Route] = []
+            var excludedRoutes: [NEIPv6Route] = []
 
             // route all traffic to VPN?
             if isIPv6Gateway {
@@ -657,12 +666,19 @@ extension OpenVPNTunnelProvider: OpenVPNSessionDelegate {
                 let ipv6Route = NEIPv6Route(destinationAddress: r.destination, networkPrefixLength: r.prefixLength as NSNumber)
                 ipv6Route.gatewayAddress = r.gateway
                 routes.append(ipv6Route)
-                log.info("Routing.IPv6: Adding route \(r.destination.maskedDescription)/\(r.prefixLength) -> \(r.gateway)")
+                log.info("Routing.IPv6: Adding route \(r.destination.maskedDescription)/\(r.prefixLength) -> \(r.gateway ?? "-")")
+            }
+
+            for r in ipv6.excludedRoutes {
+                let ipv6Route = NEIPv6Route(destinationAddress: r.destination, networkPrefixLength: r.prefixLength as NSNumber)
+                ipv6Route.gatewayAddress = nil
+                excludedRoutes.append(ipv6Route)
+                log.info("Routing.IPv6: Excluding route \(r.destination.maskedDescription)/\(r.prefixLength)")
             }
 
             ipv6Settings = NEIPv6Settings(addresses: [ipv6.address], networkPrefixLengths: [ipv6.addressPrefixLength as NSNumber])
             ipv6Settings?.includedRoutes = routes
-            ipv6Settings?.excludedRoutes = []
+            ipv6Settings?.excludedRoutes = excludedRoutes
         }
 
         // shut down if default gateway is not attainable

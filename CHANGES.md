@@ -5,6 +5,7 @@
 - Show privacy statement on launch #454
 - Update list of available secure internet servers on startup #447
 - APIv3: Use prefer_tcp, fix accept header for '/connect'
+- Support for net_gateway / net_gateway_ipv6 in OpenVPN #440
 
 ## 3.0.0
 

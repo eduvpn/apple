@@ -38,9 +38,9 @@ public struct IPv4Settings: Codable, CustomStringConvertible {
         public let mask: String
         
         /// The address of the gateway (uses default gateway if not set).
-        public let gateway: String
+        public let gateway: String?
         
-        public init(_ destination: String, _ mask: String?, _ gateway: String) {
+        public init(_ destination: String, _ mask: String?, _ gateway: String?) {
             self.destination = destination
             self.mask = mask ?? "255.255.255.255"
             self.gateway = gateway
@@ -49,7 +49,11 @@ public struct IPv4Settings: Codable, CustomStringConvertible {
         // MARK: CustomStringConvertible
         
         public var description: String {
-            return "{\(destination.maskedDescription)/\(mask) \(gateway.maskedDescription)}"
+            if let gateway = gateway {
+                return "{\(destination.maskedDescription)/\(mask) \(gateway.maskedDescription)}"
+            } else {
+                return "{\(destination.maskedDescription)/\(mask)}"
+            }
         }
     }
     
@@ -64,17 +68,19 @@ public struct IPv4Settings: Codable, CustomStringConvertible {
     
     /// The additional routes.
     public let routes: [Route]
+    public let excludedRoutes: [Route]
     
-    public init(address: String, addressMask: String, defaultGateway: String, routes: [Route]) {
+    public init(address: String, addressMask: String, defaultGateway: String, routes: [Route], excludedRoutes: [Route]) {
         self.address = address
         self.addressMask = addressMask
         self.defaultGateway = defaultGateway
         self.routes = routes
+        self.excludedRoutes = excludedRoutes
     }
     
     // MARK: CustomStringConvertible
     
     public var description: String {
-        return "addr \(address.maskedDescription) netmask \(addressMask) gw \(defaultGateway.maskedDescription) routes \(routes.map { $0.maskedDescription })"
+        return "addr \(address.maskedDescription) netmask \(addressMask) gw \(defaultGateway.maskedDescription) routes \(routes.map { $0.maskedDescription }) excluding \(excludedRoutes.map { $0.maskedDescription })"
     }
 }
