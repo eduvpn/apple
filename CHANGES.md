@@ -4,6 +4,7 @@
 
 - Show privacy statement on launch #454
 - Update list of available secure internet servers on startup #447
+- APIv3: Use prefer_tcp, fix accept header for '/connect'
 
 ## 3.0.0
 
