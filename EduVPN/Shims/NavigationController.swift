@@ -58,6 +58,10 @@ class NavigationController: NSViewController {
             NSLocalizedString("Preferences", comment: "Preferences accessibility label"))
     }
 
+    override func viewDidAppear() {
+        showDisclaimerIfNotAcceptedYet()
+    }
+
     @IBAction func toolbarPreferencesClicked(_ sender: Any) {
         presentPreferences()
     }
@@ -165,6 +169,22 @@ extension NavigationController {
             alert.runModal()
         }
     }
+
+    func showDisclaimer(onAccepted: @escaping () -> Void) {
+        let config = PrivacyStatementConfig.shared
+        let alert = NSAlert()
+        alert.messageText = config.title
+        alert.informativeText = config.text
+        alert.addButton(withTitle: NSLocalizedString("Accept", comment: "disclaimer button title"))
+        NSApp.activate(ignoringOtherApps: true)
+        if let window = view.window {
+            alert.beginSheetModal(for: window) { result in
+                if case .alertFirstButtonReturn = result {
+                    onAccepted()
+                }
+            }
+        }
+    }
 }
 
 #elseif os(iOS)
@@ -195,6 +215,10 @@ class NavigationController: UINavigationController {
 
     override func viewDidLoad() {
         updateTopNavigationItem()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        showDisclaimerIfNotAcceptedYet()
     }
 
     override func pushViewController(_ viewController: ViewController, animated: Bool) {
@@ -285,5 +309,26 @@ extension NavigationController {
         alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
     }
+
+    func showDisclaimer(onAccepted: @escaping () -> Void) {
+        let config = PrivacyStatementConfig.shared
+        let title = config.title + "\n"
+        let text = config.text
+        let acceptAction = UIAlertAction(title: NSLocalizedString("Accept", comment: "disclaimer button title"),
+                                         style: .default,
+                                         handler: { _ in onAccepted() })
+        let alert = UIAlertController(title: title, message: text, preferredStyle: .actionSheet)
+        alert.addAction(acceptAction)
+        present(alert, animated: true, completion: nil)
+    }
 }
 #endif
+
+extension NavigationController {
+    func showDisclaimerIfNotAcceptedYet() {
+        let userDefaults = UserDefaults.standard
+        if !userDefaults.isPrivacyDisclaimerAccepted {
+            showDisclaimer(onAccepted: { userDefaults.isPrivacyDisclaimerAccepted = true })
+        }
+    }
+}
