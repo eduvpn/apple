@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Show privacy statement on launch #454
+- Update list of available secure internet servers on startup #447
 
 ## 3.0.0
 

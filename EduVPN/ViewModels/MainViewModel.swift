@@ -100,6 +100,7 @@ class MainViewModel {
     }
 
     let persistenceService: PersistenceService
+    let serverDiscoveryService: ServerDiscoveryService?
     let isDiscoveryEnabled: Bool
     var instituteAccessServersMap: [DiscoveryData.BaseURLString: DiscoveryData.InstituteAccessServer] = [:]
     var secureInternetServersMap: [DiscoveryData.BaseURLString: DiscoveryData.SecureInternetServer] = [:]
@@ -108,28 +109,38 @@ class MainViewModel {
 
     var isEmpty: Bool { rows.isEmpty }
 
+    private var timer: Timer? {
+        didSet(oldValue) {
+            oldValue?.invalidate()
+        }
+    }
+
+    deinit {
+        self.timer = nil // invalidate
+    }
+
     init(persistenceService: PersistenceService,
          serverDiscoveryService: ServerDiscoveryService?) {
         self.persistenceService = persistenceService
+        self.serverDiscoveryService = serverDiscoveryService
 
         if let serverDiscoveryService = serverDiscoveryService {
             isDiscoveryEnabled = true
             serverDiscoveryService.delegate = self
+            // If we have a cached version, use that. If not, use
+            // the file included in the app bundle.
+            // Then, schedule a download from the server.
             firstly {
                 serverDiscoveryService.getServers(from: .cache)
-            }.catch { _ in
-                // If there's no data in the cache, get it from the file
-                // included in the app bundle. Then schedule a download
-                // from the server.
-                firstly {
-                    serverDiscoveryService.getServers(from: .appBundle)
-                }.then { _ in
-                    serverDiscoveryService.getServers(from: .server)
-                }.catch { error in
-                    os_log("Error loading discovery data for main listing: %{public}@",
-                           log: Log.general, type: .error,
-                           error.localizedDescription)
-                }
+                    .recover { _ in
+                        serverDiscoveryService.getServers(from: .appBundle)
+                    }
+            }.then { _ in
+                serverDiscoveryService.getServers(from: .server)
+            }.catch { error in
+                os_log("Error loading discovery data for main listing: %{public}@",
+                       log: Log.general, type: .error,
+                       error.localizedDescription)
             }
         } else {
             isDiscoveryEnabled = false
@@ -137,6 +148,26 @@ class MainViewModel {
                 self.update()
             }
         }
+        periodicallyUpdateServerListFromServer()
+    }
+
+    func updateServerListFromServer() {
+        if let serverDiscoveryService = serverDiscoveryService {
+            serverDiscoveryService.getServers(from: .server)
+                .cauterize()
+        }
+    }
+
+    func periodicallyUpdateServerListFromServer() {
+        let timer = Timer(timeInterval: 60 * 60 /*1 hour in seconds*/, repeats: true) { [weak self] _ in
+            guard let self = self else { return }
+            if let serverDiscoveryService = self.serverDiscoveryService {
+                serverDiscoveryService.getServers(from: .server)
+                    .cauterize()
+            }
+        }
+        RunLoop.main.add(timer, forMode: .common)
+        self.timer = timer
     }
 
     func numberOfRows() -> Int {
@@ -152,6 +183,10 @@ class MainViewModel {
             return [sectionHeaderIndex, sectionHeaderIndex + 1]
         }
         return []
+    }
+
+    func secureInternetHeaderRowIndex() -> Int? {
+        return rows.firstIndex(of: .secureInternetServerSectionHeader)
     }
 }
 

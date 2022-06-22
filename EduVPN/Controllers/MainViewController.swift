@@ -412,6 +412,7 @@ extension MainViewController: MainViewModelDelegate {
             isTableViewInitialized = true
             return
         }
+        reloadSecureInternetAvailableServers()
         if changes.deletedIndices.isEmpty && changes.insertions.isEmpty {
             return
         }
@@ -432,5 +433,12 @@ extension MainViewController {
         guard let tableView = tableView else { return }
         let indices = self.viewModel.secureInternetRowIndices()
         tableView.reloadRows(indices: indices)
+    }
+
+    func reloadSecureInternetAvailableServers() {
+        guard let tableView = tableView else { return }
+        if let index = self.viewModel.secureInternetHeaderRowIndex() {
+            tableView.reloadRows(indices: [index])
+        }
     }
 }
