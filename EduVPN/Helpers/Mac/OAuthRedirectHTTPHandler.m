@@ -63,7 +63,7 @@ static NSString *const kHTMLPageTemplate = @""
 static NSString *const kStringsAuthorizationComplete[] =
     {
         @"Authorization Successful",
-        @"The client authorized succesfully",
+        @"The client has been authorized successfully",
         @"You can now close this tab."
     };
 
