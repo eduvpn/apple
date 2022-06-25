@@ -113,6 +113,12 @@ class PreferencesViewController: ViewController, ParametrizedViewController {
         appDelegate.resetAppAfterConfirming()
     }
 
+    @IBAction func viewPrivacyStatementClicked(_ sender: Any) {
+        guard let navigationController = parameters.environment.navigationController else { return }
+        self.presentingViewController?.dismiss(self)
+        navigationController.showDisclaimer(onAccepted: {})
+    }
+
     @IBAction func doneClicked(_ sender: Any) {
         self.presentingViewController?.dismiss(self)
     }
