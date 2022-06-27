@@ -310,7 +310,7 @@ extension NavigationController {
         present(alert, animated: true, completion: nil)
     }
 
-    func showDisclaimer(onAccepted: @escaping () -> Void) {
+    func showDisclaimer(onAccepted: @escaping () -> Void, from fromVC: UIViewController? = nil) {
         let config = PrivacyStatementConfig.shared
         let title = config.title + "\n"
         let text = config.text
@@ -319,7 +319,7 @@ extension NavigationController {
                                          handler: { _ in onAccepted() })
         let alert = UIAlertController(title: title, message: text, preferredStyle: .actionSheet)
         alert.addAction(acceptAction)
-        present(alert, animated: true, completion: nil)
+        (fromVC ?? self).present(alert, animated: true, completion: nil)
     }
 }
 #endif

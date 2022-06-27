@@ -108,6 +108,10 @@ extension SettingsViewController {
             return indexPath
         }
         if indexPath.section == 4 && indexPath.row == 1 {
+            // This is a 'Privacy statement' row
+            return indexPath
+        }
+        if indexPath.section == 4 && indexPath.row == 2 {
             // This is a 'Source code' row
             return indexPath
         }
@@ -115,12 +119,18 @@ extension SettingsViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 2 && indexPath.row == 0 {
             // This is a 'Connection Log' row
             let logVC = parameters.environment.instantiateLogViewController()
             navigationController?.pushViewController(logVC, animated: true)
         }
         if indexPath.section == 4 && indexPath.row == 1 {
+            // This is a 'Privacy statement' row
+            guard let navigationController = parameters.environment.navigationController else { return }
+            navigationController.showDisclaimer(onAccepted: {}, from: self)
+        }
+        if indexPath.section == 4 && indexPath.row == 2 {
             // This is a 'Source code' row
             if let sourceCodeURL = URL(string: "https://github.com/eduvpn/apple") {
                 let safariVC = SFSafariViewController(url: sourceCodeURL)
