@@ -1,13 +1,5 @@
 # Changelog
 
-## Unreleased
-
-- Show privacy statement on launch #454
-- Allow access to privacy statement from Settings / Preferences
-- Update list of available secure internet servers on startup #447
-- APIv3: Use prefer_tcp, fix accept header for '/connect'
-- Support for net_gateway / net_gateway_ipv6 in OpenVPN #440
-
 ## 3.0.0
 
 - Support for minisign pre-hashed signatures #427
@@ -19,6 +11,11 @@
   - Not upstreamed: Handle ENOBUFS errors
 - Notify on session expiry #442
 - Avoid staggered alerts related to session expiry #445
+- Show privacy statement on launch #454
+- Allow access to privacy statement from Settings / Preferences
+- Update list of available secure internet servers on startup #447
+- APIv3: Use prefer_tcp, fix accept header for '/connect'
+- Support for net_gateway / net_gateway_ipv6 in OpenVPN #440
 
 ## 2.2.4
 
