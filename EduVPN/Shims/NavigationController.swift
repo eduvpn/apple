@@ -317,7 +317,7 @@ extension NavigationController {
         let acceptAction = UIAlertAction(title: NSLocalizedString("Accept", comment: "disclaimer button title"),
                                          style: .default,
                                          handler: { _ in onAccepted() })
-        let alert = UIAlertController(title: title, message: text, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: title, message: text, preferredStyle: .alert)
         alert.addAction(acceptAction)
         (fromVC ?? self).present(alert, animated: true, completion: nil)
     }
