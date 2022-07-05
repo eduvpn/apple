@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Ensure app works on the iPad
+- Ensure Settings and Help buttons are visible on the iPad
+
 ## 3.0.0
 
 - Support for minisign pre-hashed signatures #427
