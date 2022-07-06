@@ -8,7 +8,7 @@ import Foundation
 class SessionExpiryHelper {
 
     enum SessionStatus: Equatable {
-        case validFor(timeInterval: TimeInterval, canRenew: Bool)
+        case validFor(total: TimeInterval, remaining: TimeInterval, canRenew: Bool)
         case expired
     }
 
@@ -20,6 +20,7 @@ class SessionExpiryHelper {
 
     private let handler: (SessionStatus) -> Void
 
+    fileprivate var sessionDuration: TimeInterval
     fileprivate var refreshTimes: [Date]
 
     private var timer: Timer? {
@@ -33,6 +34,7 @@ class SessionExpiryHelper {
         self.authenticatedAt = authenticatedAt
         self.canRenewAfter = authenticatedAt?.addingTimeInterval(browserSessionValidity)
         self.handler = handler
+        self.sessionDuration = expiresAt.timeIntervalSince(authenticatedAt ?? Date())
         self.refreshTimes = Self.computeRefreshTimes(from: Date(), to: expiresAt, canRenewAfter: canRenewAfter)
         self.scheduleNextRefresh()
     }
@@ -108,7 +110,7 @@ private extension SessionExpiryHelper {
         let refreshAt = refreshTimes.removeFirst()
         let timer = Timer(fire: refreshAt, interval: 0, repeats: false) { [weak self] _ in
             guard let self = self else { return }
-            let status = Self.status(at: Date(), expiryDate: self.expiresAt, canRenewAfter: self.canRenewAfter)
+            let status = Self.status(at: Date(), expiryDate: self.expiresAt, sessionDuration: self.sessionDuration, canRenewAfter: self.canRenewAfter)
             self.handler(status)
             self.pruneRefreshTimesInThePast()
             self.scheduleNextRefresh()
@@ -130,7 +132,7 @@ private extension SessionExpiryHelper {
         refreshTimes.removeFirst(pastRefreshTimeCount)
     }
 
-    static func status(at date: Date, expiryDate: Date, canRenewAfter: Date?) -> SessionStatus {
+    static func status(at date: Date, expiryDate: Date, sessionDuration: TimeInterval, canRenewAfter: Date?) -> SessionStatus {
         let timeToExpiry = expiryDate.timeIntervalSince(date)
         if timeToExpiry >= 0 {
             let canRenew: Bool = {
@@ -139,7 +141,7 @@ private extension SessionExpiryHelper {
                 }
                 return true
             }()
-            return .validFor(timeInterval: timeToExpiry, canRenew: canRenew)
+            return .validFor(total: sessionDuration, remaining: timeToExpiry, canRenew: canRenew)
         } else {
             return .expired
         }
@@ -181,7 +183,7 @@ extension SessionExpiryHelper.SessionStatus {
 
     var localizedText: String {
         switch self {
-        case .validFor(let timeInterval, _):
+        case .validFor(_, let timeInterval, _):
             let localizedTimeLeftString: String?
             if timeInterval > TimeInterval(SessionExpiryHelper.NumberOfSeconds.tillWhichToShowDaysHours) {
                 localizedTimeLeftString = Self.daysHoursFormatter.string(from: timeInterval)
@@ -208,10 +210,18 @@ extension SessionExpiryHelper.SessionStatus {
 
     var shouldShowRenewSessionButton: Bool {
         switch self {
-        case .validFor(_, let canRenew):
-            // Don't show renewal button in the first 30 mins after authenticating.
-            // Show it all other times.
-            return canRenew
+        case .validFor(let total, let remaining, let canRenew):
+            let oneDayInSeconds = TimeInterval(24 * 60 * 60)
+            if total < (30 * 60) {
+                // Total duration is less than 30 mins, so it's most likely a test server.
+                // Ignore the rule about 30 mins should have passed since session start.
+                return remaining < (0.25 * total)
+            }
+            return (canRenew && // At least 30 minutes have passed since the session start
+                    // The session expiry will occur within 24 hours
+                    remaining < oneDayInSeconds &&
+                    // If the total session duration is less than 24 hours, at least 75% of the total session duration MUST have passed
+                    (total >= oneDayInSeconds || remaining < (0.25 * total)))
         case .expired:
             return true
         }
