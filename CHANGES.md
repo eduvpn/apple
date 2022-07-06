@@ -3,6 +3,8 @@
 ## Unreleased
 
 - Fix when 'Renew Session' button is shown #460
+- Ensure app works on the iPad
+- Ensure Settings and Help buttons are visible on the iPad
 
 ## 3.0.0
 
