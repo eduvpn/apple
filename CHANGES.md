@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 3.0.1
 
 - Fix when 'Renew Session' button is shown #460
 - Ensure app works on the iPad
