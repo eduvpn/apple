@@ -12,8 +12,22 @@ enum TunnelMessageCode: UInt8 {
     case getTransferredByteCount = 0 // Returns TransferredByteCount as Data
     case getNetworkAddresses = 1 // Returns [String] as JSON
     case getLog = 2 // Returns UTF-8 string
+    case getConnectedDate = 3 // Returns UInt64 as Data
 
     var data: Data { Data([rawValue]) }
+}
+
+extension Date {
+    func toData() -> Data {
+        var secondsSince1970 = UInt64(self.timeIntervalSince1970)
+        let data: Data = withUnsafeBytes(of: &secondsSince1970) { Data($0) }
+        return data
+    }
+
+    init(fromData data: Data) {
+        let secondsSince1970: UInt64 = data.withUnsafeBytes { $0.load(as: UInt64.self) }
+        self = Date(timeIntervalSince1970: TimeInterval(secondsSince1970))
+    }
 }
 
 struct TransferredByteCount: Codable {
