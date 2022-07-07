@@ -93,6 +93,13 @@ class MockConnectionService: ConnectionServiceProtocol {
         return .value(TransferredByteCount(inbound: 0, outbound: 0))
     }
 
+    func getConnectedDate() -> Guarantee<Date?> {
+        guard isInitialized else {
+            fatalError("ConnectionService not initialized yet")
+        }
+        return .value(connectedDate)
+    }
+
     func getConnectionLog() -> Promise<String?> {
         guard isInitialized else {
             fatalError("ConnectionService not initialized yet")
