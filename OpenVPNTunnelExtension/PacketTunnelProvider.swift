@@ -18,9 +18,11 @@ enum PacketTunnelProviderError: Error {
 
 class PacketTunnelProvider: OpenVPNTunnelProvider {
 
-    #if os(macOS)
+    var connectedDate: Date?
+
     override var reasserting: Bool {
         didSet {
+            #if os(macOS)
             if reasserting {
                 if let tunnelProtocol = protocolConfiguration as? NETunnelProviderProtocol {
                     if tunnelProtocol.shouldPreventAutomaticConnections {
@@ -28,9 +30,14 @@ class PacketTunnelProvider: OpenVPNTunnelProvider {
                     }
                 }
             }
+            #endif
+            if reasserting {
+                connectedDate = nil
+            } else {
+                connectedDate = Date()
+            }
         }
     }
-    #endif
 
     override func startTunnel(options: [String: NSObject]? = nil, completionHandler: @escaping (Error?) -> Void) {
         let startTunnelOptions = StartTunnelOptions(options: options ?? [:])
@@ -57,6 +64,7 @@ class PacketTunnelProvider: OpenVPNTunnelProvider {
             if startTunnelOptions.isStartedByApp {
                 self?.rewriteLog(useDiskLog: error != nil)
             }
+            self?.connectedDate = Date()
             completionHandler(error)
         }
     }
@@ -95,6 +103,8 @@ class PacketTunnelProvider: OpenVPNTunnelProvider {
             super.handleAppMessage(
                 OpenVPNProvider.Message.requestLog.data,
                 completionHandler: completionHandler)
+        case .getConnectedDate:
+            completionHandler?(self.connectedDate?.toData())
         }
     }
 }

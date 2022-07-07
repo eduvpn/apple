@@ -72,7 +72,6 @@ protocol ConnectionServiceProtocol: AnyObject {
     var connectionStatus: NEVPNStatus { get }
     var isVPNEnabled: Bool { get }
     var connectionAttemptId: UUID? { get }
-    var connectedDate: Date? { get }
     var vpnProtocol: VPNProtocol? { get }
 
     func enableVPN(openVPNConfig: [String], connectionAttemptId: UUID,
@@ -86,6 +85,7 @@ protocol ConnectionServiceProtocol: AnyObject {
     func getNetworkAddresses() -> Guarantee<[String]>
     func getTransferredByteCount() -> Guarantee<TransferredByteCount>
     func getConnectionLog() -> Promise<String?>
+    func getConnectedDate() -> Guarantee<Date?>
 }
 
 class ConnectionService: ConnectionServiceProtocol {
@@ -274,6 +274,22 @@ extension ConnectionService {
             os_log("Error getting data count from tunnel: %{public}@",
                    log: Log.general, type: .error, error.localizedDescription)
             return Guarantee.value(TransferredByteCount(inbound: 0, outbound: 0))
+        }
+    }
+
+    func getConnectedDate() -> Guarantee<Date?> {
+        guard let tunnelManager = tunnelManager else {
+            fatalError("ConnectionService not initialized yet")
+        }
+        return firstly {
+            tunnelManager.sendProviderMessage(
+                TunnelMessageCode.getConnectedDate.data)
+        }.map { data in
+            Date(fromData: data)
+        }.recover { error in
+            os_log("Error getting connected date from tunnel: %{public}@",
+                   log: Log.general, type: .error, error.localizedDescription)
+            return Guarantee.value(nil)
         }
     }
 }

@@ -16,17 +16,9 @@ class ConnectionInfoHelper {
         let addresses: String
     }
 
-    private var networkAddresses: [String] = [] {
-        didSet {
-            self.update()
-        }
-    }
-
-    private var transferredByteCount: TransferredByteCount? {
-        didSet {
-            self.update()
-        }
-    }
+    private var connectedDate: Date? = nil
+    private var networkAddresses: [String] = []
+    private var transferredByteCount: TransferredByteCount?
 
     private let connectionService: ConnectionServiceProtocol
     private let handler: (ConnectionInfo) -> Void
@@ -56,13 +48,18 @@ class ConnectionInfoHelper {
         self.update()
 
         firstly {
+            self.connectionService.getConnectedDate()
+        }.then { connectedDate in
             self.connectionService.getNetworkAddresses()
-        }.map { networkAddresses in
-            self.networkAddresses = networkAddresses
-        }.then {
+                .map { (connectedDate, $0) }
+        }.then { (connectedDate, networkAddresses) in
             self.connectionService.getTransferredByteCount()
-        }.done { transferredByteCount in
+                .map { (connectedDate, networkAddresses, $0) }
+        }.done { (connectedDate, networkAddresses, transferredByteCount) in
+            self.connectedDate = connectedDate
+            self.networkAddresses = networkAddresses
             self.transferredByteCount = transferredByteCount
+            self.update()
         }
 
         let timer = Timer(timeInterval: 1 /*second*/, repeats: true) { [weak self] _ in
@@ -75,17 +72,23 @@ class ConnectionInfoHelper {
                 self.connectionService.getTransferredByteCount()
             }.done { transferredByteCount in
                 self.transferredByteCount = transferredByteCount
+                self.update()
             }
         }
         RunLoop.main.add(timer, forMode: .common)
         self.timer = timer
     }
 
-    func refreshNetworkAddress() {
+    func refreshAfterConnectOrReconnect() {
         firstly {
+            self.connectionService.getConnectedDate()
+        }.then { connectedDate in
             self.connectionService.getNetworkAddresses()
-        }.done { networkAddresses in
+                .map { (connectedDate, $0) }
+        }.done { (connectedDate, networkAddresses) in
+            self.connectedDate = connectedDate
             self.networkAddresses = networkAddresses
+            self.update()
         }
     }
 }
@@ -105,7 +108,7 @@ private extension ConnectionInfoHelper {
     }()
 
     private var connectedDuration: String? {
-        guard let connectedDate = connectionService.connectedDate else { return nil }
+        guard let connectedDate = self.connectedDate else { return nil }
         return Self.durationFormatter.string(from: connectedDate, to: Date())
     }
 

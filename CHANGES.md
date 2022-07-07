@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Make connected time consistent with transferred data count #319
+
 ## 3.0.1
 
 - Fix when 'Renew Session' button is shown #460

@@ -10,11 +10,8 @@ class StatusItemConnectionInfoHelper {
     private let connectionService: ConnectionServiceProtocol
     private let handler: (String) -> Void
 
-    private var transferredByteCount: TransferredByteCount? {
-        didSet {
-            self.update()
-        }
-    }
+    private var connectedDate: Date?
+    private var transferredByteCount: TransferredByteCount?
 
     private var timer: Timer? {
         didSet(oldValue) {
@@ -33,9 +30,14 @@ class StatusItemConnectionInfoHelper {
 
     func startUpdating() {
         firstly {
+            self.connectionService.getConnectedDate()
+        }.then { connectedDate in
             self.connectionService.getTransferredByteCount()
-        }.done { transferredByteCount in
+                .map { (connectedDate, $0) }
+        }.done { connectedDate, transferredByteCount in
+            self.connectedDate = connectedDate
             self.transferredByteCount = transferredByteCount
+            self.update()
         }
 
         let timer = Timer(timeInterval: 1 /*second*/, repeats: true) { [weak self] _ in
@@ -45,9 +47,14 @@ class StatusItemConnectionInfoHelper {
                 return
             }
             firstly {
+                self.connectionService.getConnectedDate()
+            }.then { connectedDate in
                 self.connectionService.getTransferredByteCount()
-            }.done { transferredByteCount in
+                    .map { (connectedDate, $0) }
+            }.done { connectedDate, transferredByteCount in
+                self.connectedDate = connectedDate
                 self.transferredByteCount = transferredByteCount
+                self.update()
             }
         }
         RunLoop.main.add(timer, forMode: .common)
@@ -70,7 +77,7 @@ private extension StatusItemConnectionInfoHelper {
     }()
 
     private var connectedDuration: String? {
-        guard let connectedDate = connectionService.connectedDate else { return nil }
+        guard let connectedDate = self.connectedDate else { return nil }
         return Self.durationFormatter.string(from: connectedDate, to: Date())
     }
 
