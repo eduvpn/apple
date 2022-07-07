@@ -16,6 +16,7 @@ class ConnectionInfoHelper {
         let addresses: String
     }
 
+    private var connectedDate: Date? = nil
     private var networkAddresses: [String] = []
     private var transferredByteCount: TransferredByteCount?
 
@@ -47,11 +48,15 @@ class ConnectionInfoHelper {
         self.update()
 
         firstly {
+            self.connectionService.getConnectedDate()
+        }.then { connectedDate in
             self.connectionService.getNetworkAddresses()
-        }.then { networkAddresses in
+                .map { (connectedDate, $0) }
+        }.then { (connectedDate, networkAddresses) in
             self.connectionService.getTransferredByteCount()
-                .map { (networkAddresses, $0) }
-        }.done { (networkAddresses, transferredByteCount) in
+                .map { (connectedDate, networkAddresses, $0) }
+        }.done { (connectedDate, networkAddresses, transferredByteCount) in
+            self.connectedDate = connectedDate
             self.networkAddresses = networkAddresses
             self.transferredByteCount = transferredByteCount
             self.update()
@@ -74,10 +79,14 @@ class ConnectionInfoHelper {
         self.timer = timer
     }
 
-    func refreshNetworkAddress() {
+    func refreshAfterConnectOrReconnect() {
         firstly {
+            self.connectionService.getConnectedDate()
+        }.then { connectedDate in
             self.connectionService.getNetworkAddresses()
-        }.done { networkAddresses in
+                .map { (connectedDate, $0) }
+        }.done { (connectedDate, networkAddresses) in
+            self.connectedDate = connectedDate
             self.networkAddresses = networkAddresses
             self.update()
         }
@@ -99,7 +108,7 @@ private extension ConnectionInfoHelper {
     }()
 
     private var connectedDuration: String? {
-        guard let connectedDate = connectionService.connectedDate else { return nil }
+        guard let connectedDate = self.connectedDate else { return nil }
         return Self.durationFormatter.string(from: connectedDate, to: Date())
     }
 

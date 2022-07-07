@@ -728,7 +728,7 @@ extension ConnectionViewModel: ConnectionServiceStatusDelegate {
     func connectionService(_ service: ConnectionServiceProtocol, connectionStatusChanged status: NEVPNStatus) {
         connectionStatus = status
         if status == .connected {
-            connectionInfoHelper?.refreshNetworkAddress()
+            connectionInfoHelper?.refreshAfterConnectOrReconnect()
         }
         if status == .disconnected {
             connectionInfoHelper = nil
