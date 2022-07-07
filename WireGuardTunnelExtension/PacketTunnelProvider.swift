@@ -15,6 +15,8 @@ enum PacketTunnelProviderError: Error {
 
 class PacketTunnelProvider: NEPacketTunnelProvider {
 
+    var connectedDate: Date?
+
     // Logging
     var logger: Logger?
     var tunnelConfiguration: TunnelConfiguration?
@@ -59,6 +61,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                 let interfaceName = self.adapter.interfaceName ?? "unknown"
                 logger.log("Tunnel interface is \(interfaceName)")
             }
+            self.connectedDate = Date()
             completionHandler(adapterError)
         }
     }
@@ -114,6 +117,8 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                 data.append("\n".data(using: .utf8) ?? Data())
             }
             completionHandler?(data)
+        case .getConnectedDate:
+            completionHandler?(connectedDate?.toData())
         }
     }
 }
