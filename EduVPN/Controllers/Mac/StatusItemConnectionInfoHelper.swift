@@ -10,11 +10,7 @@ class StatusItemConnectionInfoHelper {
     private let connectionService: ConnectionServiceProtocol
     private let handler: (String) -> Void
 
-    private var transferredByteCount: TransferredByteCount? {
-        didSet {
-            self.update()
-        }
-    }
+    private var transferredByteCount: TransferredByteCount?
 
     private var timer: Timer? {
         didSet(oldValue) {
@@ -36,6 +32,7 @@ class StatusItemConnectionInfoHelper {
             self.connectionService.getTransferredByteCount()
         }.done { transferredByteCount in
             self.transferredByteCount = transferredByteCount
+            self.update()
         }
 
         let timer = Timer(timeInterval: 1 /*second*/, repeats: true) { [weak self] _ in
@@ -48,6 +45,7 @@ class StatusItemConnectionInfoHelper {
                 self.connectionService.getTransferredByteCount()
             }.done { transferredByteCount in
                 self.transferredByteCount = transferredByteCount
+                self.update()
             }
         }
         RunLoop.main.add(timer, forMode: .common)
