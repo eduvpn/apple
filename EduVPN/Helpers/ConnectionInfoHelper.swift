@@ -16,17 +16,8 @@ class ConnectionInfoHelper {
         let addresses: String
     }
 
-    private var networkAddresses: [String] = [] {
-        didSet {
-            self.update()
-        }
-    }
-
-    private var transferredByteCount: TransferredByteCount? {
-        didSet {
-            self.update()
-        }
-    }
+    private var networkAddresses: [String] = []
+    private var transferredByteCount: TransferredByteCount?
 
     private let connectionService: ConnectionServiceProtocol
     private let handler: (ConnectionInfo) -> Void
@@ -57,12 +48,13 @@ class ConnectionInfoHelper {
 
         firstly {
             self.connectionService.getNetworkAddresses()
-        }.map { networkAddresses in
-            self.networkAddresses = networkAddresses
-        }.then {
+        }.then { networkAddresses in
             self.connectionService.getTransferredByteCount()
-        }.done { transferredByteCount in
+                .map { (networkAddresses, $0) }
+        }.done { (networkAddresses, transferredByteCount) in
+            self.networkAddresses = networkAddresses
             self.transferredByteCount = transferredByteCount
+            self.update()
         }
 
         let timer = Timer(timeInterval: 1 /*second*/, repeats: true) { [weak self] _ in
@@ -75,6 +67,7 @@ class ConnectionInfoHelper {
                 self.connectionService.getTransferredByteCount()
             }.done { transferredByteCount in
                 self.transferredByteCount = transferredByteCount
+                self.update()
             }
         }
         RunLoop.main.add(timer, forMode: .common)
@@ -86,6 +79,7 @@ class ConnectionInfoHelper {
             self.connectionService.getNetworkAddresses()
         }.done { networkAddresses in
             self.networkAddresses = networkAddresses
+            self.update()
         }
     }
 }
