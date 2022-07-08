@@ -139,6 +139,10 @@ open class OpenVPNTunnelProvider: NEPacketTunnelProvider {
     
     private var shouldReconnect = false
 
+    // MARK: NWPathMonitor usage
+
+    private var pathMonitor: AnyObject?
+
     // MARK: NEPacketTunnelProvider (XPC queue)
     
     open override var reasserting: Bool {
@@ -513,9 +517,31 @@ extension OpenVPNTunnelProvider: GenericSocketDelegate {
     }
     
     public func socketHasBetterPath(_ socket: GenericSocket) {
+        if #available(macOS 10.14, iOS 12.0, *) {
+            if let pathMonitor = self.pathMonitor as? NWPathMonitor {
+                log.debug("Socket has better path. Path status: \(pathMonitor.currentPath.status). Interfaces: \(pathMonitor.currentPath.availableInterfaces)")
+                if pathMonitor.currentPath.isValid {
+                    log.debug("Path computed to be valid")
+                } else {
+                    log.debug("Path computed to be invalid -- possibly spurious better path call")
+                }
+            }
+        }
         log.debug("Stopping tunnel due to a new better path")
         logCurrentSSID()
         session?.reconnect(error: OpenVPNProviderError.networkChanged)
+    }
+}
+
+@available(macOS 10.14, iOS 12.0, *)
+extension Network.NWPath {
+    var isValid: Bool {
+        guard status == .satisfied else { return false }
+        guard let primaryInterface = availableInterfaces.first else { return false }
+        if primaryInterface.type == .other && primaryInterface.name.hasPrefix("u") {
+            return false
+        }
+        return true
     }
 }
 
@@ -578,6 +604,13 @@ extension OpenVPNTunnelProvider: OpenVPNSessionDelegate {
             log.info("Tunnel interface is now UP")
             
             session.setTunnel(tunnel: NETunnelInterface(impl: self.packetFlow))
+
+            if #available(macOS 10.14, iOS 12.0, *) {
+                log.debug("Setting up path monitor")
+                let pathMonitor = NWPathMonitor()
+                pathMonitor.start(queue: self.tunnelQueue)
+                self.pathMonitor = pathMonitor
+            }
 
             self.pendingStartHandler?(nil)
             self.pendingStartHandler = nil
