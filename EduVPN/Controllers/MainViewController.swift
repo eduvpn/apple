@@ -73,6 +73,30 @@ class MainViewController: ViewController {
     #if os(iOS)
     private var isViewVisible = false
     private var hasPendingUpdates = false
+    private var shouldRenewSessionOnAppDidBecomeActive = false
+    private var isAppInForeground = false {
+        didSet {
+            if isAppInForeground && shouldRenewSessionOnAppDidBecomeActive {
+                attemptToInitiateRenewSession()
+            }
+        }
+    }
+
+    private var appForegroundObservationToken: AnyObject?
+    private var appBackgroundObservationToken: AnyObject?
+
+    override func viewDidLoad() {
+        appForegroundObservationToken = NotificationCenter.default.addObserver(
+            forName: UIApplication.didBecomeActiveNotification, object: nil,
+            queue: OperationQueue.main) { [weak self] _ in
+                self?.isAppInForeground = true
+        }
+        appBackgroundObservationToken = NotificationCenter.default.addObserver(
+            forName: UIApplication.willResignActiveNotification, object: nil,
+            queue: OperationQueue.main) { [weak self] _ in
+                self?.isAppInForeground = false
+        }
+    }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -274,11 +298,28 @@ extension MainViewController: ConnectionServiceInitializationDelegate {
 
 extension MainViewController: NotificationServiceDelegate {
     func notificationServiceDidReceiveRenewSessionRequest(_ notificationService: NotificationService) {
+        attemptToInitiateRenewSession()
+    }
+
+    func attemptToInitiateRenewSession() {
+        #if os(macOS)
         if isConnectionServiceInitialized {
             currentConnectionVC?.renewSession()
         } else {
             shouldRenewSessionWhenConnectionServiceInitialized = true
         }
+        #elseif os(iOS)
+        if isAppInForeground {
+            shouldRenewSessionOnAppDidBecomeActive = false
+            if isConnectionServiceInitialized {
+                currentConnectionVC?.renewSession()
+            } else {
+                shouldRenewSessionWhenConnectionServiceInitialized = true
+            }
+        } else {
+            shouldRenewSessionOnAppDidBecomeActive = true
+        }
+        #endif
     }
 
     func notificationServiceSuppressedSessionAboutToExpireNotification(_ notificationService: NotificationService) {
