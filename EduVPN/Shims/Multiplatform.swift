@@ -76,11 +76,12 @@ extension TableView {
         return dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! T
     }
 
-    func performUpdates(deletedIndices: [Int], insertedIndices: [Int]) {
+    func performUpdates(deletedIndices: [Int], insertedIndices: [Int], updatedIndices: [Int]) {
         UIView.setAnimationsEnabled(false)
         beginUpdates()
         deleteRows(at: deletedIndices.map { IndexPath(row: $0, section: 0) }, with: .none)
         insertRows(at: insertedIndices.map { IndexPath(row: $0, section: 0) }, with: .none)
+        reloadRows(at: updatedIndices.map { IndexPath(row: $0, section: 0) }, with: .none)
         endUpdates()
         UIView.setAnimationsEnabled(true)
     }
@@ -192,11 +193,16 @@ extension TableView {
         return cellView as! T // swiftlint:disable:this force_cast
     }
 
-    func performUpdates(deletedIndices: [Int], insertedIndices: [Int]) {
-        beginUpdates()
-        removeRows(at: IndexSet(deletedIndices), withAnimation: [])
-        insertRows(at: IndexSet(insertedIndices), withAnimation: [])
-        endUpdates()
+    func performUpdates(deletedIndices: [Int], insertedIndices: [Int], updatedIndices: [Int]) {
+        if !deletedIndices.isEmpty || !insertedIndices.isEmpty {
+            beginUpdates()
+            removeRows(at: IndexSet(deletedIndices), withAnimation: [])
+            insertRows(at: IndexSet(insertedIndices), withAnimation: [])
+            endUpdates()
+        }
+        if !updatedIndices.isEmpty {
+            reloadData(forRowIndexes: IndexSet(updatedIndices), columnIndexes: IndexSet([0]))
+        }
     }
 
     func reloadRows(indices: [Int]) {
