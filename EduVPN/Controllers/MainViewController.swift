@@ -453,19 +453,21 @@ extension MainViewController: MainViewModelDelegate {
             isTableViewInitialized = true
             return
         }
-        reloadSecureInternetAvailableServers()
-        if changes.deletedIndices.isEmpty && changes.insertions.isEmpty {
-            return
+        if !changes.deletedIndices.isEmpty || !changes.insertions.isEmpty {
+            delegate?.mainViewControllerAddedServersListChanged(self)
         }
-        delegate?.mainViewControllerAddedServersListChanged(self)
         #if os(iOS)
         guard isViewVisible else {
             hasPendingUpdates = true
             return
         }
         #endif
+        // Always assume secureInternetHeaderRow is updated because the
+        // country list might have changed.
+        let updatedIndices = [self.viewModel.secureInternetHeaderRowIndex()].compactMap { $0 }
         tableView.performUpdates(deletedIndices: changes.deletedIndices,
-                                 insertedIndices: changes.insertions.map { $0.0 })
+                                 insertedIndices: changes.insertions.map { $0.0 },
+                                 updatedIndices: updatedIndices)
     }
 }
 
@@ -474,12 +476,5 @@ extension MainViewController {
         guard let tableView = tableView else { return }
         let indices = self.viewModel.secureInternetRowIndices()
         tableView.reloadRows(indices: indices)
-    }
-
-    func reloadSecureInternetAvailableServers() {
-        guard let tableView = tableView else { return }
-        if let index = self.viewModel.secureInternetHeaderRowIndex() {
-            tableView.reloadRows(indices: [index])
-        }
     }
 }
