@@ -132,6 +132,7 @@ class PersistenceService {
         }
         addedServers.secureInternetServer = nil
         Self.saveToFile(addedServers: addedServers)
+        updateHasServers()
     }
 
     func addOpenVPNConfiguration(_ instance: OpenVPNConfigInstance) {
