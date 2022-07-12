@@ -1,9 +1,9 @@
 # Changelog
 
-## Unreleased
+## 3.0.2
 
 - Make connected time consistent with transferred data count #319
-- Attempt to fix ASWebAuthenticationSession failure when clicking
+- Fix ASWebAuthenticationSession failure when clicking
   on a session expiry notification #469
 - When deleting a single secure internet server, app
   should automatically show the search screen
