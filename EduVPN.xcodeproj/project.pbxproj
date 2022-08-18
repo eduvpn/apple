@@ -177,6 +177,20 @@
 		6FEF313524A4908F0026C786 /* Common.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FEF313324A48FB10026C786 /* Common.xcassets */; };
 		6FEF313B24A717570026C786 /* ServerAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF313A24A717570026C786 /* ServerAuthService.swift */; };
 		6FEF313D24A746AD0026C786 /* AuthState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF313C24A746AD0026C786 /* AuthState.swift */; };
+		6FEF3F2028ADD638005E65CB /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 6FEF3F1F28ADD638005E65CB /* AppAuth */; };
+		6FEF3F2228ADD638005E65CB /* AppAuthCore in Frameworks */ = {isa = PBXBuildFile; productRef = 6FEF3F2128ADD638005E65CB /* AppAuthCore */; };
+		6FEF3F2528ADD67D005E65CB /* ASN1Decoder in Frameworks */ = {isa = PBXBuildFile; productRef = 6FEF3F2428ADD67D005E65CB /* ASN1Decoder */; };
+		6FEF3F2828ADDBEF005E65CB /* Clibsodium in Frameworks */ = {isa = PBXBuildFile; productRef = 6FEF3F2728ADDBEF005E65CB /* Clibsodium */; };
+		6FEF3F2A28ADDBEF005E65CB /* Sodium in Frameworks */ = {isa = PBXBuildFile; productRef = 6FEF3F2928ADDBEF005E65CB /* Sodium */; };
+		6FEF3F2D28ADDE08005E65CB /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 6FEF3F2C28ADDE08005E65CB /* Moya */; };
+		6FEF3F3028ADE1F7005E65CB /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6FEF3F2F28ADE1F7005E65CB /* PromiseKit */; };
+		6FEF3F3228ADE267005E65CB /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 6FEF3F3128ADE267005E65CB /* AppAuth */; };
+		6FEF3F3428ADE267005E65CB /* AppAuthCore in Frameworks */ = {isa = PBXBuildFile; productRef = 6FEF3F3328ADE267005E65CB /* AppAuthCore */; };
+		6FEF3F3628ADE26F005E65CB /* ASN1Decoder in Frameworks */ = {isa = PBXBuildFile; productRef = 6FEF3F3528ADE26F005E65CB /* ASN1Decoder */; };
+		6FEF3F3828ADE277005E65CB /* Clibsodium in Frameworks */ = {isa = PBXBuildFile; productRef = 6FEF3F3728ADE277005E65CB /* Clibsodium */; };
+		6FEF3F3A28ADE277005E65CB /* Sodium in Frameworks */ = {isa = PBXBuildFile; productRef = 6FEF3F3928ADE277005E65CB /* Sodium */; };
+		6FEF3F3C28ADE27B005E65CB /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 6FEF3F3B28ADE27B005E65CB /* Moya */; };
+		6FEF3F3E28ADE281005E65CB /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6FEF3F3D28ADE281005E65CB /* PromiseKit */; };
 		6FF5524928551B4B0044BA84 /* PrivacyStatementConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF5524828551B4B0044BA84 /* PrivacyStatementConfig.swift */; };
 		6FF5524A28551B4B0044BA84 /* PrivacyStatementConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF5524828551B4B0044BA84 /* PrivacyStatementConfig.swift */; };
 		6FF5524C28551C770044BA84 /* privacy_statement.json in Resources */ = {isa = PBXBuildFile; fileRef = 6FF5524B28551C770044BA84 /* privacy_statement.json */; };
@@ -613,11 +627,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6FEF3F2028ADD638005E65CB /* AppAuth in Frameworks */,
+				6FEF3F3028ADE1F7005E65CB /* PromiseKit in Frameworks */,
 				6F750C8524975A4300AF2C04 /* NetworkExtension.framework in Frameworks */,
 				60F43EFF1E3D73A73DE4BE86 /* Pods_EduVPN_macOS.framework in Frameworks */,
+				6FEF3F2228ADD638005E65CB /* AppAuthCore in Frameworks */,
+				6FEF3F2528ADD67D005E65CB /* ASN1Decoder in Frameworks */,
+				6FEF3F2D28ADDE08005E65CB /* Moya in Frameworks */,
+				6FEF3F2A28ADDBEF005E65CB /* Sodium in Frameworks */,
 				6F66DB16265E1F8E006974CF /* WireGuardKit in Frameworks */,
 				6FC0639127B0F0DC00AE25D9 /* TunnelKit in Frameworks */,
 				6FC0639327B0F0DC00AE25D9 /* TunnelKitOpenVPN in Frameworks */,
+				6FEF3F2828ADDBEF005E65CB /* Clibsodium in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -625,11 +646,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6FEF3F3228ADE267005E65CB /* AppAuth in Frameworks */,
+				6FEF3F3E28ADE281005E65CB /* PromiseKit in Frameworks */,
 				6F750D1124975B9B00AF2C04 /* NetworkExtension.framework in Frameworks */,
 				EFFC28B0ADE95DCC0D02CFDC /* Pods_EduVPN_iOS.framework in Frameworks */,
+				6FEF3F3428ADE267005E65CB /* AppAuthCore in Frameworks */,
+				6FEF3F3628ADE26F005E65CB /* ASN1Decoder in Frameworks */,
+				6FEF3F3C28ADE27B005E65CB /* Moya in Frameworks */,
+				6FEF3F3A28ADE277005E65CB /* Sodium in Frameworks */,
 				6F6BB662265E59660093D4CC /* WireGuardKit in Frameworks */,
 				6FC063A327B0F52900AE25D9 /* TunnelKit in Frameworks */,
 				6FC063A527B0F52900AE25D9 /* TunnelKitOpenVPN in Frameworks */,
+				6FEF3F3828ADE277005E65CB /* Clibsodium in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1388,6 +1416,13 @@
 				6F66DB15265E1F8E006974CF /* WireGuardKit */,
 				6FC0639027B0F0DC00AE25D9 /* TunnelKit */,
 				6FC0639227B0F0DC00AE25D9 /* TunnelKitOpenVPN */,
+				6FEF3F1F28ADD638005E65CB /* AppAuth */,
+				6FEF3F2128ADD638005E65CB /* AppAuthCore */,
+				6FEF3F2428ADD67D005E65CB /* ASN1Decoder */,
+				6FEF3F2728ADDBEF005E65CB /* Clibsodium */,
+				6FEF3F2928ADDBEF005E65CB /* Sodium */,
+				6FEF3F2C28ADDE08005E65CB /* Moya */,
+				6FEF3F2F28ADE1F7005E65CB /* PromiseKit */,
 			);
 			productName = "EduVPN-macOS";
 			productReference = 6F750C9624975A4300AF2C04 /* eduVPN.app */;
@@ -1418,6 +1453,13 @@
 				6F6BB661265E59660093D4CC /* WireGuardKit */,
 				6FC063A227B0F52900AE25D9 /* TunnelKit */,
 				6FC063A427B0F52900AE25D9 /* TunnelKitOpenVPN */,
+				6FEF3F3128ADE267005E65CB /* AppAuth */,
+				6FEF3F3328ADE267005E65CB /* AppAuthCore */,
+				6FEF3F3528ADE26F005E65CB /* ASN1Decoder */,
+				6FEF3F3728ADE277005E65CB /* Clibsodium */,
+				6FEF3F3928ADE277005E65CB /* Sodium */,
+				6FEF3F3B28ADE27B005E65CB /* Moya */,
+				6FEF3F3D28ADE281005E65CB /* PromiseKit */,
 			);
 			productName = EduVPN;
 			productReference = 6F750D2124975B9B00AF2C04 /* eduVPN.app */;
@@ -1577,6 +1619,11 @@
 			packageReferences = (
 				6F0CF434264E8AAF00E90529 /* XCRemoteSwiftPackageReference "wireguard-apple" */,
 				6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */,
+				6FEF3F1E28ADD638005E65CB /* XCRemoteSwiftPackageReference "AppAuth-iOS" */,
+				6FEF3F2328ADD67D005E65CB /* XCRemoteSwiftPackageReference "ASN1Decoder" */,
+				6FEF3F2628ADDBEF005E65CB /* XCRemoteSwiftPackageReference "swift-sodium" */,
+				6FEF3F2B28ADDE08005E65CB /* XCRemoteSwiftPackageReference "Moya" */,
+				6FEF3F2E28ADE1F7005E65CB /* XCRemoteSwiftPackageReference "PromiseKit" */,
 			);
 			productRefGroup = 4AAC1F771F2D0E3400DD0252 /* Products */;
 			projectDirPath = "";
@@ -3408,6 +3455,46 @@
 				version = 4.0.3;
 			};
 		};
+		6FEF3F1E28ADD638005E65CB /* XCRemoteSwiftPackageReference "AppAuth-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/openid/AppAuth-iOS.git";
+			requirement = {
+				kind = exactVersion;
+				version = 1.5.0;
+			};
+		};
+		6FEF3F2328ADD67D005E65CB /* XCRemoteSwiftPackageReference "ASN1Decoder" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/filom/ASN1Decoder.git";
+			requirement = {
+				kind = exactVersion;
+				version = 1.8.0;
+			};
+		};
+		6FEF3F2628ADDBEF005E65CB /* XCRemoteSwiftPackageReference "swift-sodium" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jedisct1/swift-sodium";
+			requirement = {
+				kind = exactVersion;
+				version = 0.9.1;
+			};
+		};
+		6FEF3F2B28ADDE08005E65CB /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya.git";
+			requirement = {
+				kind = exactVersion;
+				version = 15.0.0;
+			};
+		};
+		6FEF3F2E28ADE1F7005E65CB /* XCRemoteSwiftPackageReference "PromiseKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mxcl/PromiseKit";
+			requirement = {
+				kind = exactVersion;
+				version = 6.9.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -3485,6 +3572,76 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */;
 			productName = TunnelKitOpenVPN;
+		};
+		6FEF3F1F28ADD638005E65CB /* AppAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FEF3F1E28ADD638005E65CB /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuth;
+		};
+		6FEF3F2128ADD638005E65CB /* AppAuthCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FEF3F1E28ADD638005E65CB /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuthCore;
+		};
+		6FEF3F2428ADD67D005E65CB /* ASN1Decoder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FEF3F2328ADD67D005E65CB /* XCRemoteSwiftPackageReference "ASN1Decoder" */;
+			productName = ASN1Decoder;
+		};
+		6FEF3F2728ADDBEF005E65CB /* Clibsodium */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FEF3F2628ADDBEF005E65CB /* XCRemoteSwiftPackageReference "swift-sodium" */;
+			productName = Clibsodium;
+		};
+		6FEF3F2928ADDBEF005E65CB /* Sodium */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FEF3F2628ADDBEF005E65CB /* XCRemoteSwiftPackageReference "swift-sodium" */;
+			productName = Sodium;
+		};
+		6FEF3F2C28ADDE08005E65CB /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FEF3F2B28ADDE08005E65CB /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
+		6FEF3F2F28ADE1F7005E65CB /* PromiseKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FEF3F2E28ADE1F7005E65CB /* XCRemoteSwiftPackageReference "PromiseKit" */;
+			productName = PromiseKit;
+		};
+		6FEF3F3128ADE267005E65CB /* AppAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FEF3F1E28ADD638005E65CB /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuth;
+		};
+		6FEF3F3328ADE267005E65CB /* AppAuthCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FEF3F1E28ADD638005E65CB /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuthCore;
+		};
+		6FEF3F3528ADE26F005E65CB /* ASN1Decoder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FEF3F2328ADD67D005E65CB /* XCRemoteSwiftPackageReference "ASN1Decoder" */;
+			productName = ASN1Decoder;
+		};
+		6FEF3F3728ADE277005E65CB /* Clibsodium */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FEF3F2628ADDBEF005E65CB /* XCRemoteSwiftPackageReference "swift-sodium" */;
+			productName = Clibsodium;
+		};
+		6FEF3F3928ADE277005E65CB /* Sodium */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FEF3F2628ADDBEF005E65CB /* XCRemoteSwiftPackageReference "swift-sodium" */;
+			productName = Sodium;
+		};
+		6FEF3F3B28ADE27B005E65CB /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FEF3F2B28ADDE08005E65CB /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
+		6FEF3F3D28ADE281005E65CB /* PromiseKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FEF3F2E28ADE1F7005E65CB /* XCRemoteSwiftPackageReference "PromiseKit" */;
+			productName = PromiseKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 
