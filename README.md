@@ -35,14 +35,8 @@ The exact behavior is defined in the script [set_build_number.sh](Scripts/set_bu
 
 ## Dependencies
 
-### CocoaPods
+Dependencies are included as Swift Packages and managed through Xcode. We build against exact versions / commits of dependencies to keep it predictable.
 
-Most dependencies are managed with CocoaPods. But this repository is set up in such a way that you do not need CocoaPods to build this project, only when updating dependencies.
-Dependencies are defined in a [Podfile](https://github.com/eduvpn/ios/blob/master/Podfile), exact versions are 'locked' in [Podfile.lock](https://github.com/eduvpn/ios/blob/master/Podfile.lock). All dependencies defined in the Podfile are committed to this repository.
-
-### Swift Package Manager
-
-WireGuardKit alone is managed with Swift Package Manager, tied to either a specific version or commit.
 
 ## Building
 
