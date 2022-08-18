@@ -8,6 +8,7 @@
 import Foundation
 import PromiseKit
 import os.log
+import AppKit
 
 protocol ConnectionViewControllerDelegate: AnyObject {
     func connectionViewController(

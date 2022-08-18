@@ -21,7 +21,6 @@
 //  limitations under the License.
 
 #import "OAuthRedirectHTTPHandler.h"
-#import "OIDLoopbackHTTPServer.h"
 
 static NSString *const kHTMLPageTemplate = @""
     "<!DOCTYPE html>"

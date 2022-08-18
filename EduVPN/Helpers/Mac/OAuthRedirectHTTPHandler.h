@@ -6,10 +6,11 @@
 #ifndef OAuthRedirectHTTPHandler_h
 #define OAuthRedirectHTTPHandler_h
 
-#ifdef TARGET_OS_OSX
+#ifndef TARGET_OS_IOS
 
 #import <Foundation/Foundation.h>
 #import "macOS/OIDRedirectHTTPHandler.h"
+#import "macOS/LoopbackHTTPServer/OIDLoopbackHTTPServer.h"
 
 @interface OAuthRedirectHTTPHandler: OIDRedirectHTTPHandler
 @end

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import libsodium
+import Clibsodium
 import CryptoKit
 
 enum SignatureHelperError: LocalizedError {
