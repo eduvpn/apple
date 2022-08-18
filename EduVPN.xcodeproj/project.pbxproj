@@ -1389,7 +1389,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6F750C9324975A4300AF2C04 /* Build configuration list for PBXNativeTarget "EduVPN-macOS" */;
 			buildPhases = (
-				6F750C2F24975A4300AF2C04 /* [CP] Check Pods Manifest.lock */,
 				6F750C3024975A4300AF2C04 /* Copy Resources */,
 				6F750C3124975A4300AF2C04 /* Swiftlint */,
 				C7DB4B64247FC198009932B1 /* Sources */,
@@ -1397,7 +1396,6 @@
 				6F750C8724975A4300AF2C04 /* Resources */,
 				6F750C8D24975A4300AF2C04 /* Set Build Number */,
 				6F750C8E24975A4300AF2C04 /* Embed App Extensions */,
-				6F750C9024975A4300AF2C04 /* [CP] Embed Pods Frameworks */,
 				6F750C9124975A4300AF2C04 /* CopyFiles */,
 				6FBFEF1424C2DCC200A9D1D4 /* CopyFiles */,
 			);
@@ -1428,7 +1426,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6F750D1E24975B9B00AF2C04 /* Build configuration list for PBXNativeTarget "EduVPN-iOS" */;
 			buildPhases = (
-				6F750CC024975B9B00AF2C04 /* [CP] Check Pods Manifest.lock */,
 				6F750CC124975B9B00AF2C04 /* Copy Resources */,
 				6F750CC224975B9B00AF2C04 /* Swiftlint */,
 				C7DB4C1E248060F5009932B1 /* Sources */,
@@ -1436,7 +1433,6 @@
 				6F750D1324975B9B00AF2C04 /* Resources */,
 				6F750D1A24975B9B00AF2C04 /* Set build number */,
 				6F750D1B24975B9B00AF2C04 /* Embed App Extensions */,
-				6F750D1D24975B9B00AF2C04 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1762,28 +1758,6 @@
 			shellPath = /bin/sh;
 			shellScript = "$SRCROOT/Scripts/set_build_number.sh\n";
 		};
-		6F750C2F24975A4300AF2C04 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-EduVPN-macOS-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		6F750C3024975A4300AF2C04 /* Copy Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1838,56 +1812,6 @@
 			shellPath = /bin/sh;
 			shellScript = "$SRCROOT/Scripts/set_build_number.sh\n";
 		};
-		6F750C9024975A4300AF2C04 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-EduVPN-macOS/Pods-EduVPN-macOS-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/ASN1Decoder-macOS/ASN1Decoder.framework",
-				"${BUILT_PRODUCTS_DIR}/Alamofire-macOS/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/AppAuth-macOS/AppAuth.framework",
-				"${BUILT_PRODUCTS_DIR}/Moya-macOS/Moya.framework",
-				"${BUILT_PRODUCTS_DIR}/PromiseKit-macOS/PromiseKit.framework",
-				"${BUILT_PRODUCTS_DIR}/libsodium-macOS/libsodium.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ASN1Decoder.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libsodium.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EduVPN-macOS/Pods-EduVPN-macOS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6F750CC024975B9B00AF2C04 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-EduVPN-iOS-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		6F750CC124975B9B00AF2C04 /* Copy Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1933,34 +1857,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "$SRCROOT/Scripts/set_build_number.sh\n";
-		};
-		6F750D1D24975B9B00AF2C04 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-EduVPN-iOS/Pods-EduVPN-iOS-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/ASN1Decoder-iOS/ASN1Decoder.framework",
-				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/AppAuth-iOS/AppAuth.framework",
-				"${BUILT_PRODUCTS_DIR}/Moya-iOS/Moya.framework",
-				"${BUILT_PRODUCTS_DIR}/PromiseKit-iOS/PromiseKit.framework",
-				"${BUILT_PRODUCTS_DIR}/libsodium-iOS/libsodium.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ASN1Decoder.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libsodium.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EduVPN-iOS/Pods-EduVPN-iOS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		6FE09C1E268F1EC90049203C /* Set Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
