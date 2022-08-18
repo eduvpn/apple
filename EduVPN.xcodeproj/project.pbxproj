@@ -16,7 +16,6 @@
 		4A901C1E20C882FB000C1BF0 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ABFF78820C71E7200638480 /* NetworkExtension.framework */; };
 		4AAC1F8F1F2D0E3400DD0252 /* EduVPNTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC1F8E1F2D0E3400DD0252 /* EduVPNTests.swift */; };
 		4AD5688D238491FA00EC0ABD /* FileServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD5688C238491FA00EC0ABD /* FileServiceTests.swift */; };
-		60F43EFF1E3D73A73DE4BE86 /* Pods_EduVPN_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 289E1AA639A97FBDB5D2CE6D /* Pods_EduVPN_macOS.framework */; };
 		6F05E64224D0A6AA008292F6 /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F05E64124D0A6AA008292F6 /* ErrorHandling.swift */; };
 		6F0CF436264E8AAF00E90529 /* WireGuardKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6F0CF435264E8AAF00E90529 /* WireGuardKit */; };
 		6F116CAD2534585800C73797 /* MockConnectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F116CAC2534585700C73797 /* MockConnectionService.swift */; };
@@ -239,7 +238,6 @@
 		C7DB4C3C248060F5009932B1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B37247FBD52009932B1 /* MainViewController.swift */; };
 		C7DB4C40248060F5009932B1 /* Moya+ResponseHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4C01248053D8009932B1 /* Moya+ResponseHandling.swift */; };
 		C7DB4C7724806512009932B1 /* eduVPN_2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4C7524806511009932B1 /* eduVPN_2.xcdatamodeld */; };
-		EFFC28B0ADE95DCC0D02CFDC /* Pods_EduVPN_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60326C2AC52B9FAED8B0FA88 /* Pods_EduVPN_iOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -627,10 +625,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F750C8524975A4300AF2C04 /* NetworkExtension.framework in Frameworks */,
 				6FEF3F2028ADD638005E65CB /* AppAuth in Frameworks */,
 				6FEF3F3028ADE1F7005E65CB /* PromiseKit in Frameworks */,
-				6F750C8524975A4300AF2C04 /* NetworkExtension.framework in Frameworks */,
-				60F43EFF1E3D73A73DE4BE86 /* Pods_EduVPN_macOS.framework in Frameworks */,
 				6FEF3F2228ADD638005E65CB /* AppAuthCore in Frameworks */,
 				6FEF3F2528ADD67D005E65CB /* ASN1Decoder in Frameworks */,
 				6FEF3F2D28ADDE08005E65CB /* Moya in Frameworks */,
@@ -646,10 +643,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F750D1124975B9B00AF2C04 /* NetworkExtension.framework in Frameworks */,
 				6FEF3F3228ADE267005E65CB /* AppAuth in Frameworks */,
 				6FEF3F3E28ADE281005E65CB /* PromiseKit in Frameworks */,
-				6F750D1124975B9B00AF2C04 /* NetworkExtension.framework in Frameworks */,
-				EFFC28B0ADE95DCC0D02CFDC /* Pods_EduVPN_iOS.framework in Frameworks */,
 				6FEF3F3428ADE267005E65CB /* AppAuthCore in Frameworks */,
 				6FEF3F3628ADE26F005E65CB /* ASN1Decoder in Frameworks */,
 				6FEF3F3C28ADE27B005E65CB /* Moya in Frameworks */,
