@@ -355,9 +355,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		289E1AA639A97FBDB5D2CE6D /* Pods_EduVPN_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EduVPN_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		340F956C22B7118C00835D56 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/NetworkExtension.framework; sourceTree = DEVELOPER_DIR; };
-		34186CE42296D971009B4121 /* ASN1Decoder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ASN1Decoder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		342B9C91228ECBB200C006D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		342B9C93228ECBB600C006D7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LoginItemHelper-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -372,8 +370,6 @@
 		349D85C422B706A4006E9540 /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
 		349D85C622B706A4006E9540 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		349D85C722B706A4006E9540 /* OpenVPNTunnelExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OpenVPNTunnelExtension.entitlements; sourceTree = "<group>"; };
-		42AACF0AF7EEF11AF60D3848 /* Pods_eduVPN_2_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_eduVPN_2_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		49C0BE5C3A383FD0FDAB53DB /* Pods_EduVPN.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EduVPN.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A3E78DB236B692A009CE595 /* config-appforce1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-appforce1.json"; sourceTree = "<group>"; };
 		4A3E78DC236B694A009CE595 /* Developer.xcconfig.appforce1-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer.xcconfig.appforce1-template"; sourceTree = "<group>"; };
 		4A79CE5D2281DDD800ABAA8E /* AppVersion.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = AppVersion.xcconfig; sourceTree = "<group>"; };
@@ -391,7 +387,6 @@
 		4AC84CAD236B6E2000932B89 /* Developer-macOS.xcconfig.appforce1-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer-macOS.xcconfig.appforce1-template"; sourceTree = "<group>"; };
 		4AD5688C238491FA00EC0ABD /* FileServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileServiceTests.swift; sourceTree = "<group>"; };
 		4AE763AB23DA4D1F00A98BCC /* main.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = main.yml; sourceTree = "<group>"; };
-		60326C2AC52B9FAED8B0FA88 /* Pods_EduVPN_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EduVPN_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F05E64124D0A6AA008292F6 /* ErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
 		6F116CAC2534585700C73797 /* MockConnectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockConnectionService.swift; sourceTree = "<group>"; };
 		6F12815125C3E6050078E734 /* TestServerCredentialsiOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestServerCredentialsiOS.swift; sourceTree = "<group>"; };
@@ -491,9 +486,6 @@
 		6FFC4064266E392000835B43 /* TunnelConfiguration+WgQuickConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TunnelConfiguration+WgQuickConfig.swift"; sourceTree = "<group>"; };
 		6FFC4088266F51D200835B43 /* String+ArrayConversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+ArrayConversion.swift"; sourceTree = "<group>"; };
 		6FFD421C254977240093533C /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		7A3DB98EF527A814CF83B588 /* Pods_LetsConnect_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LetsConnect_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		86675C4E6B65866BEEF5D45B /* Pods_LoginItemHelper_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LoginItemHelper_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8DF6FBC3DE5E99987402741C /* Pods_eduVPN_2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_eduVPN_2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7230D8A2363248900B9C691 /* copy_resources_macos.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = copy_resources_macos.sh; sourceTree = "<group>"; };
 		C730CD6223746B4900C21AF9 /* Development-macOS-LoginItemHelper.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Development-macOS-LoginItemHelper.xcconfig"; sourceTree = "<group>"; };
 		C730CD6323746B4900C21AF9 /* Release-macOS-LoginItemHelper.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-macOS-LoginItemHelper.xcconfig"; sourceTree = "<group>"; };
@@ -685,17 +677,9 @@
 			isa = PBXGroup;
 			children = (
 				340F956C22B7118C00835D56 /* NetworkExtension.framework */,
-				34186CE42296D971009B4121 /* ASN1Decoder.framework */,
 				342B9C93228ECBB600C006D7 /* Security.framework */,
 				342B9C91228ECBB200C006D7 /* Foundation.framework */,
 				4ABFF78820C71E7200638480 /* NetworkExtension.framework */,
-				7A3DB98EF527A814CF83B588 /* Pods_LetsConnect_macOS.framework */,
-				86675C4E6B65866BEEF5D45B /* Pods_LoginItemHelper_macOS.framework */,
-				42AACF0AF7EEF11AF60D3848 /* Pods_eduVPN_2_iOS.framework */,
-				8DF6FBC3DE5E99987402741C /* Pods_eduVPN_2.framework */,
-				49C0BE5C3A383FD0FDAB53DB /* Pods_EduVPN.framework */,
-				289E1AA639A97FBDB5D2CE6D /* Pods_EduVPN_macOS.framework */,
-				60326C2AC52B9FAED8B0FA88 /* Pods_EduVPN_iOS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
