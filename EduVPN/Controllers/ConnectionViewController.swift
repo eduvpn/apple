@@ -8,7 +8,12 @@
 import Foundation
 import PromiseKit
 import os.log
+
+#if os(macOS)
 import AppKit
+#elseif os(iOS)
+import UIKit
+#endif
 
 protocol ConnectionViewControllerDelegate: AnyObject {
     func connectionViewController(
