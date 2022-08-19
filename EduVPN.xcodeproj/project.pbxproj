@@ -3259,56 +3259,56 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://git.zx2c4.com/wireguard-apple/";
 			requirement = {
-				kind = exactVersion;
-				version = "1.0.15-26";
+				kind = revision;
+				revision = 10da5cfdef362889b438cfbeff867a74e6d717fd;
 			};
 		};
 		6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/passepartoutvpn/tunnelkit";
 			requirement = {
-				kind = exactVersion;
-				version = 4.0.3;
+				kind = revision;
+				revision = b88f490b82d7b11310d0f36dc41c5478f753966c;
 			};
 		};
 		6FEF3F1E28ADD638005E65CB /* XCRemoteSwiftPackageReference "AppAuth-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/openid/AppAuth-iOS.git";
 			requirement = {
-				kind = exactVersion;
-				version = 1.5.0;
+				kind = revision;
+				revision = 33660c271c961f8ce1084cc13f2ea8195e864f7d;
 			};
 		};
 		6FEF3F2328ADD67D005E65CB /* XCRemoteSwiftPackageReference "ASN1Decoder" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/filom/ASN1Decoder.git";
 			requirement = {
-				kind = exactVersion;
-				version = 1.8.0;
+				kind = revision;
+				revision = 65953a42a0f039f53c73e48fd88c02809f7db607;
 			};
 		};
 		6FEF3F2628ADDBEF005E65CB /* XCRemoteSwiftPackageReference "swift-sodium" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jedisct1/swift-sodium";
 			requirement = {
-				kind = exactVersion;
-				version = 0.9.1;
+				kind = revision;
+				revision = 4f9164a0a2c9a6a7ff53a2833d54a5c79c957342;
 			};
 		};
 		6FEF3F2B28ADDE08005E65CB /* XCRemoteSwiftPackageReference "Moya" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Moya/Moya.git";
 			requirement = {
-				kind = exactVersion;
-				version = 15.0.0;
+				kind = revision;
+				revision = 9b906860e3c3c09032879465c471e6375829593f;
 			};
 		};
 		6FEF3F2E28ADE1F7005E65CB /* XCRemoteSwiftPackageReference "PromiseKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mxcl/PromiseKit";
 			requirement = {
-				kind = exactVersion;
-				version = 6.9.0;
+				kind = revision;
+				revision = cfea84ff08fae26c0ccd4fdcc0fb3c577bcb5e2c;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
