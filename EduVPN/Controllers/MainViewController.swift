@@ -7,6 +7,12 @@ import Foundation
 import os.log
 import PromiseKit
 
+#if os(macOS)
+import AppKit
+#elseif os(iOS)
+import UIKit
+#endif
+
 protocol MainViewControllerDelegate: AnyObject {
     func mainViewControllerAddedServersListChanged(
         _ viewController: MainViewController)

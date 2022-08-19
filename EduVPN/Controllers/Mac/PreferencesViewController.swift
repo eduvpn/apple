@@ -5,6 +5,7 @@
 
 import Foundation
 import PromiseKit
+import AppAuth
 
 enum PreferencesViewControllerError: Error {
     case noLogAvailable

@@ -5,6 +5,7 @@
 
 import Moya
 import PromiseKit
+import Foundation
 
 extension Moya.Response {
     

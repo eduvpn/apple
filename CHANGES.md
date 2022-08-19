@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Move project to use Swift Package Manager instead of Cocoapods #95
+
 ## 3.0.2
 
 - Make connected time consistent with transferred data count #319

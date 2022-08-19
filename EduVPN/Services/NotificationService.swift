@@ -8,6 +8,11 @@ import Foundation
 import UserNotifications
 import PromiseKit
 import os.log
+#if os(macOS)
+import AppKit
+#elseif os(iOS)
+import UIKit
+#endif
 
 protocol NotificationServiceDelegate: AnyObject {
     func notificationServiceSuppressedSessionAboutToExpireNotification(_ notificationService: NotificationService)

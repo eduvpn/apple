@@ -16,7 +16,7 @@ class ConnectionInfoHelper {
         let addresses: String
     }
 
-    private var connectedDate: Date? = nil
+    private var connectedDate: Date?
     private var networkAddresses: [String] = []
     private var transferredByteCount: TransferredByteCount?
 

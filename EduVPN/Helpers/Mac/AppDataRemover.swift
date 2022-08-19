@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import CoreData
 
 class AppDataRemover {
     static func removeAllData(persistenceService: PersistenceService?) {
