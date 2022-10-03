@@ -408,7 +408,7 @@ public class OpenVPNSession: Session {
 
     // Ruby: tun_loop
     private func loopTunnel() {
-        tunnel?.setReadHandler(queue: queue) { [weak self] (newPackets, error, onSuccess) in
+        tunnel?.setReadHandler(queue: queue) { [weak self] (newPackets, error) in
             if let error = error {
                 log.error("Failed TUN read: \(error)")
                 return
@@ -416,7 +416,7 @@ public class OpenVPNSession: Session {
 
             if let packets = newPackets, !packets.isEmpty {
 //                log.verbose("Received \(packets.count) packets from TUN")
-                self?.receiveTunnel(packets: packets, onSuccess: onSuccess)
+                self?.receiveTunnel(packets: packets)
             }
         }
     }
@@ -523,12 +523,12 @@ public class OpenVPNSession: Session {
     }
     
     // Ruby: recv_tun
-    private func receiveTunnel(packets: [Data], onSuccess: @escaping () -> Void) {
+    private func receiveTunnel(packets: [Data]) {
         guard shouldHandlePackets() else {
             log.warning("Discarding \(packets.count) TUN packets (should not handle)")
             return
         }
-        sendDataPackets(packets, onSuccess: onSuccess)
+        sendDataPackets(packets)
     }
     
     // Ruby: ping
@@ -547,7 +547,7 @@ public class OpenVPNSession: Session {
         // is keep-alive enabled?
         if let _ = keepAliveInterval {
             log.debug("Send ping")
-            sendDataPackets([OpenVPN.DataPacket.pingString], onSuccess: {})
+            sendDataPackets([OpenVPN.DataPacket.pingString])
             lastPing.outbound = Date()
         }
 
@@ -1169,7 +1169,7 @@ public class OpenVPNSession: Session {
     }
     
     // Ruby: send_data_pkt
-    private func sendDataPackets(_ packets: [Data], onSuccess: @escaping () -> Void) {
+    private func sendDataPackets(_ packets: [Data]) {
         guard let key = currentKey else {
             return
         }
@@ -1186,18 +1186,19 @@ public class OpenVPNSession: Session {
             controlChannel.addSentDataCount(encryptedPackets.flatCount)
             let writeLink = link
             link?.writePackets(encryptedPackets) { [weak self] (error) in
-                guard self?.link === writeLink else {
-                    log.warning("Ignoring write from outdated LINK")
-                    return
+                self?.queue.sync {
+                    guard self?.link === writeLink else {
+                        log.warning("Ignoring write from outdated LINK")
+                        return
+                    }
+                    if let error = error {
+                        log.error("Data: Failed LINK write during send data: \(error)")
+                        log.debug("Initiating shutdown")
+                        self?.deferStop(.shutdown, OpenVPNError.failedLinkWrite)
+                        return
+                    }
+//                    log.verbose("Data: \(encryptedPackets.count) packets successfully written to LINK")
                 }
-                if let error = error {
-                    log.error("Data: Failed LINK write during send data: \(error)")
-                    log.debug("Initiating shutdown")
-                    self?.deferStop(.shutdown, OpenVPNError.failedLinkWrite)
-                    return
-                }
-                onSuccess()
-//              log.verbose("Data: \(encryptedPackets.count) packets successfully written to LINK")
             }
         } catch let e {
             guard !e.isOpenVPNError() else {

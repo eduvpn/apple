@@ -47,9 +47,8 @@ public protocol TunnelInterface {
 
      - Parameter queue: The queue where to invoke the handler on.
      - Parameter handler: The handler invoked whenever an array of `Data` packets is received, with an optional `Error` in case a network failure occurs.
-                          The handler also receives a closure that the handler should call on successful completion of handling the read.
      */
-    func setReadHandler(queue: DispatchQueue, _ handler: @escaping ([Data]?, Error?, @escaping () -> Void) -> Void)
+    func setReadHandler(queue: DispatchQueue, _ handler: @escaping ([Data]?, Error?) -> Void)
 
     /**
      Writes a packet to the interface.
