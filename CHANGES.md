@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 3.0.3
 
 - Move project to use Swift Package Manager instead of Cocoapods #95
 - Revert ENOBUFS fix
