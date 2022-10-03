@@ -57,16 +57,17 @@ public class NETunnelInterface: TunnelInterface {
     
     // MARK: IOInterface
     
-    public func setReadHandler(queue: DispatchQueue, _ handler: @escaping ([Data]?, Error?, @escaping () -> Void) -> Void) {
+    public func setReadHandler(queue: DispatchQueue, _ handler: @escaping ([Data]?, Error?) -> Void) {
         loopReadPackets(queue, handler)
     }
     
-    private func loopReadPackets(_ queue: DispatchQueue, _ handler: @escaping ([Data]?, Error?, @escaping () -> Void) -> Void) {
+    private func loopReadPackets(_ queue: DispatchQueue, _ handler: @escaping ([Data]?, Error?) -> Void) {
 
         // WARNING: runs in NEPacketTunnelFlow queue
         impl?.readPackets { [weak self] (packets, protocols) in
-            handler(packets, nil) {
+            queue.sync {
                 self?.loopReadPackets(queue, handler)
+                handler(packets, nil)
             }
         }
     }
