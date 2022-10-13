@@ -63,3 +63,10 @@ typedef NS_ENUM(NSInteger, OpenVPNErrorCode) {
 static inline NSError *OpenVPNErrorWithCode(OpenVPNErrorCode code) {
     return [NSError errorWithDomain:OpenVPNErrorDomain code:code userInfo:nil];
 }
+
+static inline NSError *OpenVPNErrorWithCodeAndMessage(OpenVPNErrorCode code,
+                                                      NSString *errorSource, NSString *errorMessage) {
+    return [NSError errorWithDomain:OpenVPNErrorDomain
+                               code:code
+                           userInfo:@{@"errorSource": errorSource, @"errorMessage": errorMessage}];
+}

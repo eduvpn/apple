@@ -35,13 +35,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <openssl/err.h>
 
 #define TUNNEL_CRYPTO_SUCCESS(ret) (ret > 0)
 #define TUNNEL_CRYPTO_TRACK_STATUS(ret) if (ret > 0) ret =
 #define TUNNEL_CRYPTO_RETURN_STATUS(ret)\
 if (ret <= 0) {\
     if (error) {\
-        *error = OpenVPNErrorWithCode(OpenVPNErrorCodeCryptoEncryption);\
+        NSString *errorString = [NSString stringWithUTF8String:ERR_error_string(ERR_get_error(), NULL)];\
+        *error = OpenVPNErrorWithCodeAndMessage(OpenVPNErrorCodeCryptoEncryption, @"OpenSSL", errorString);\
     }\
     return NO;\
 }\
