@@ -292,6 +292,10 @@ static const NSInteger CryptoAEADTagLength = 16;
     
     const int capacity = headerLength + PacketIdLength + (int)[self.crypto encryptionCapacityWithLength:packetLength];
     NSMutableData *encryptedPacket = [[NSMutableData alloc] initWithLength:capacity];
+    if (encryptedPacket == NULL) {
+        *error = OpenVPNErrorWithCode(OpenVPNErrorCodeCryptoOutOfMemory);
+        return nil;
+    }
     uint8_t *ptr = encryptedPacket.mutableBytes;
     NSInteger encryptedPacketLength = INT_MAX;
 
