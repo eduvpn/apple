@@ -128,14 +128,31 @@ static const NSInteger CryptoAEADTagLength = 16;
     int x = 0;
     int code = 1;
 
+    NSString *currentOpenSSLCall = @"None";
+
     assert(flags->adLength >= PacketIdLength);
     memcpy(self.cipherIVEnc, flags->iv, MIN(flags->ivLength, self.cipherIVLength));
 
-    TUNNEL_CRYPTO_TRACK_STATUS(code) EVP_CipherInit(self.cipherCtxEnc, NULL, NULL, self.cipherIVEnc, -1);
-    TUNNEL_CRYPTO_TRACK_STATUS(code) EVP_CipherUpdate(self.cipherCtxEnc, NULL, &x, flags->ad, (int)flags->adLength);
-    TUNNEL_CRYPTO_TRACK_STATUS(code) EVP_CipherUpdate(self.cipherCtxEnc, dest + CryptoAEADTagLength, &l1, bytes, (int)length);
-    TUNNEL_CRYPTO_TRACK_STATUS(code) EVP_CipherFinal_ex(self.cipherCtxEnc, dest + CryptoAEADTagLength + l1, &l2);
-    TUNNEL_CRYPTO_TRACK_STATUS(code) EVP_CIPHER_CTX_ctrl(self.cipherCtxEnc, EVP_CTRL_GCM_GET_TAG, CryptoAEADTagLength, dest);
+    if (code > 0) {
+        currentOpenSSLCall = @"EVP_CipherInit";
+        code = EVP_CipherInit(self.cipherCtxEnc, NULL, NULL, self.cipherIVEnc, -1);
+    }
+    if (code > 0) {
+        currentOpenSSLCall = @"EVP_CipherUpdate (AEAD)";
+        code = EVP_CipherUpdate(self.cipherCtxEnc, NULL, &x, flags->ad, (int)flags->adLength);
+    }
+    if (code > 0) {
+        currentOpenSSLCall = @"EVP_CipherUpdate (Data)";
+        code = EVP_CipherUpdate(self.cipherCtxEnc, dest + CryptoAEADTagLength, &l1, bytes, (int)length);
+    }
+    if (code > 0) {
+        currentOpenSSLCall = @"EVP_CipherFinal_ex";
+        code = EVP_CipherFinal_ex(self.cipherCtxEnc, dest + CryptoAEADTagLength + l1, &l2);
+    }
+    if (code > 0) {
+        currentOpenSSLCall = @"EVP_CIPHER_CTX_ctrl (EVP_CTRL_GCM_GET_TAG)";
+        code = EVP_CIPHER_CTX_ctrl(self.cipherCtxEnc, EVP_CTRL_GCM_GET_TAG, CryptoAEADTagLength, dest);
+    }
 
     *destLength = CryptoAEADTagLength + l1 + l2;
 
@@ -145,7 +162,15 @@ static const NSInteger CryptoAEADTagLength = 16;
 //    NSLog(@">>> ENC tag: %@", [NSData dataWithBytes:dest length:CryptoAEADTagLength]);
 //    NSLog(@">>> ENC dest: %@", [NSData dataWithBytes:dest + CryptoAEADTagLength length:*destLength - CryptoAEADTagLength]);
 
-    TUNNEL_CRYPTO_RETURN_STATUS(code)
+    if (code <= 0) {
+        if (error) {
+            NSString *errorString = [NSString stringWithUTF8String:ERR_error_string(ERR_get_error(), NULL)];
+            *error = OpenVPNErrorWithCodeAndInfo(OpenVPNErrorCodeCryptoEncryption, @"OpenSSL", errorString, @"CryptoAEAD", currentOpenSSLCall);
+        }
+        return NO;
+    }
+
+    return YES;
 }
 
 - (id<DataPathEncrypter>)dataPathEncrypter

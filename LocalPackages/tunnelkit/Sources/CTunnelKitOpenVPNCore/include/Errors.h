@@ -70,3 +70,13 @@ static inline NSError *OpenVPNErrorWithCodeAndMessage(OpenVPNErrorCode code,
                                code:code
                            userInfo:@{@"errorSource": errorSource, @"errorMessage": errorMessage}];
 }
+
+static inline NSError *OpenVPNErrorWithCodeAndInfo(OpenVPNErrorCode code,
+                                                      NSString *errorSource, NSString *errorMessage, NSString *cryptoMethod, NSString *failingCall) {
+    return [NSError errorWithDomain:OpenVPNErrorDomain
+                               code:code
+                           userInfo:@{@"errorSource": errorSource,
+                                      @"errorMessage": errorMessage,
+                                      @"cryptoMethod": cryptoMethod,
+                                      @"failingCall": failingCall}];
+}
