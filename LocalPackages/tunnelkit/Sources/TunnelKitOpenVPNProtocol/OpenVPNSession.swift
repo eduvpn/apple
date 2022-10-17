@@ -1223,8 +1223,16 @@ public class OpenVPNSession: Session {
             }
         } catch let e {
             guard !e.isOpenVPNError() else {
-                log.debug("Initiating shutdown")
-                deferStop(.shutdown, e)
+                if let openVPNError = e as? OpenVPNError, openVPNError.openVPNErrorCode() == OpenVPNErrorCode.cryptoEncryption {
+                    log.debug("Data: While encrypting packets, encountered OpenVPNError CryptoEncryption (\(e))")
+                    log.debug("Will retry after 2 seconds")
+                    self.queue.asyncAfter(deadline: .now() + .milliseconds(2000)) {
+                        self.sendDataPackets(packets, onSuccess: onSuccess)
+                    }
+                } else {
+                    log.debug("Initiating shutdown")
+                    deferStop(.shutdown, e)
+                }
                 return
             }
             log.debug("Initiating reconnect")
