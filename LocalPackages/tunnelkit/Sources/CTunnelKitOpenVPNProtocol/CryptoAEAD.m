@@ -120,6 +120,113 @@ static const NSInteger CryptoAEADTagLength = 16;
     [self prepareIV:self.cipherIVEnc withHMACKey:hmacKey];
 }
 
+struct evp_cipher_st {
+    int nid;
+    int block_size;
+    /* Default value for variable length ciphers */
+    int key_len;
+    int iv_len;
+    /* Various flags */
+    unsigned long flags;
+    /* init key */
+    int (*init) (EVP_CIPHER_CTX *ctx, const unsigned char *key,
+                 const unsigned char *iv, int enc);
+    /* encrypt/decrypt data */
+    int (*do_cipher) (EVP_CIPHER_CTX *ctx, unsigned char *out,
+                      const unsigned char *in, size_t inl);
+    /* cleanup ctx */
+    int (*cleanup) (EVP_CIPHER_CTX *);
+    /* how big ctx->cipher_data needs to be */
+    int ctx_size;
+    /* Populate a ASN1_TYPE with parameters */
+    int (*set_asn1_parameters) (EVP_CIPHER_CTX *, ASN1_TYPE *);
+    /* Get parameters from a ASN1_TYPE */
+    int (*get_asn1_parameters) (EVP_CIPHER_CTX *, ASN1_TYPE *);
+    /* Miscellaneous operations */
+    int (*ctrl) (EVP_CIPHER_CTX *, int type, int arg, void *ptr);
+    /* Application data */
+    void *app_data;
+} /* EVP_CIPHER */ ;
+
+struct evp_cipher_ctx_st {
+    const EVP_CIPHER *cipher;
+    ENGINE *engine;             /* functional reference if 'cipher' is
+                                 * ENGINE-provided */
+    int encrypt;                /* encrypt or decrypt */
+    int buf_len;                /* number we have left */
+    unsigned char oiv[EVP_MAX_IV_LENGTH]; /* original iv */
+    unsigned char iv[EVP_MAX_IV_LENGTH]; /* working iv */
+    unsigned char buf[EVP_MAX_BLOCK_LENGTH]; /* saved partial block */
+    int num;                    /* used by cfb/ofb/ctr mode */
+    /* FIXME: Should this even exist? It appears unused */
+    void *app_data;             /* application stuff */
+    int key_len;                /* May change for variable length cipher */
+    unsigned long flags;        /* Various flags */
+    void *cipher_data;          /* per EVP data */
+    int final_used;
+    int block_mask;
+    unsigned char final[EVP_MAX_BLOCK_LENGTH]; /* possible final block */
+} /* EVP_CIPHER_CTX */ ;
+
+int EVP_EncryptFinal_ex_modified(EVP_CIPHER_CTX *ctx, unsigned char *out, int *outl, NSMutableString *callLog)
+{
+    int n, ret;
+    unsigned int i, b, bl;
+    
+    [callLog appendString:@"1-"];
+
+    /* Prevent accidental use of decryption context when encrypting */
+    if (!ctx->encrypt) {
+        [callLog appendString:@"2-"];
+        EVPerr(EVP_F_EVP_ENCRYPTFINAL_EX, EVP_R_INVALID_OPERATION);
+        return 0;
+    }
+
+    if (ctx->cipher->flags & EVP_CIPH_FLAG_CUSTOM_CIPHER) {
+        ret = ctx->cipher->do_cipher(ctx, out, NULL, 0);
+        [callLog appendString: [NSString stringWithFormat:@"3.(ret=%d)-", ret]];
+        if (ret < 0)
+            return 0;
+        else
+            *outl = ret;
+        return 1;
+    }
+
+    b = ctx->cipher->block_size;
+    OPENSSL_assert(b <= sizeof(ctx->buf));
+    [callLog appendString: [NSString stringWithFormat:@"4.(b=%d)-", b]];
+    if (b == 1) {
+        *outl = 0;
+        return 1;
+    }
+    bl = ctx->buf_len;
+    [callLog appendString: [NSString stringWithFormat:@"5.(bl=%d)-", bl]];
+    if (ctx->flags & EVP_CIPH_NO_PADDING) {
+        [callLog appendString: @"6-"];
+        if (bl) {
+            [callLog appendString: @"7-"];
+            EVPerr(EVP_F_EVP_ENCRYPTFINAL_EX,
+                   EVP_R_DATA_NOT_MULTIPLE_OF_BLOCK_LENGTH);
+            return 0;
+        }
+        *outl = 0;
+        return 1;
+    }
+
+    [callLog appendString: @"8-"];
+    n = b - bl;
+    for (i = bl; i < b; i++)
+        ctx->buf[i] = n;
+    ret = ctx->cipher->do_cipher(ctx, out, ctx->buf, b);
+
+    [callLog appendString: [NSString stringWithFormat:@"9.(ret=%d)-", ret]];
+
+    if (ret)
+        *outl = b;
+
+    return ret;
+}
+
 - (BOOL)encryptBytes:(const uint8_t *)bytes length:(NSInteger)length dest:(uint8_t *)dest destLength:(NSInteger *)destLength flags:(const CryptoFlags * _Nullable)flags error:(NSError * _Nullable __autoreleasing * _Nullable)error
 {
     NSParameterAssert(flags);
@@ -129,6 +236,7 @@ static const NSInteger CryptoAEADTagLength = 16;
     int code = 1;
 
     NSString *currentOpenSSLCall = @"None";
+    NSMutableString *callLog = [[NSMutableString alloc] initWithString:@""];
 
     assert(flags->adLength >= PacketIdLength);
     memcpy(self.cipherIVEnc, flags->iv, MIN(flags->ivLength, self.cipherIVLength));
@@ -146,8 +254,8 @@ static const NSInteger CryptoAEADTagLength = 16;
         code = EVP_CipherUpdate(self.cipherCtxEnc, dest + CryptoAEADTagLength, &l1, bytes, (int)length);
     }
     if (code > 0) {
-        currentOpenSSLCall = @"EVP_CipherFinal_ex";
-        code = EVP_CipherFinal_ex(self.cipherCtxEnc, dest + CryptoAEADTagLength + l1, &l2);
+        currentOpenSSLCall = @"EVP_EncryptFinal_ex_modified";
+        code = EVP_EncryptFinal_ex_modified(self.cipherCtxEnc, dest + CryptoAEADTagLength + l1, &l2, callLog);
     }
     if (code > 0) {
         currentOpenSSLCall = @"EVP_CIPHER_CTX_ctrl (EVP_CTRL_GCM_GET_TAG)";
@@ -165,7 +273,7 @@ static const NSInteger CryptoAEADTagLength = 16;
     if (code <= 0) {
         if (error) {
             NSString *errorString = [NSString stringWithUTF8String:ERR_error_string(ERR_get_error(), NULL)];
-            *error = OpenVPNErrorWithCodeAndInfo(OpenVPNErrorCodeCryptoEncryption, @"OpenSSL", errorString, @"CryptoAEAD", currentOpenSSLCall);
+            *error = OpenVPNErrorWithCodeAndInfo(OpenVPNErrorCodeCryptoEncryption, @"OpenSSL", errorString, @"CryptoAEAD", currentOpenSSLCall, callLog);
         }
         return NO;
     }
