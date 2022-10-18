@@ -1223,8 +1223,9 @@ public class OpenVPNSession: Session {
             }
         } catch let e {
             guard !e.isOpenVPNError() else {
-                if let openVPNError = e as? OpenVPNError, openVPNError.openVPNErrorCode() == OpenVPNErrorCode.cryptoEncryption {
-                    log.debug("Data: While encrypting packets, encountered OpenVPNError CryptoEncryption (\(e))")
+                if let openVPNError = e as? OpenVPNError {
+                    log.debug("Data: While encrypting packets, encountered OpenVPNError (\(e))")
+                    log.debug("Error code: \(String(describing: openVPNError.openVPNErrorCode())); Crypto error code: \(OpenVPNErrorCode.cryptoEncryption)")
                     log.debug("Will retry after 2 seconds")
                     self.queue.asyncAfter(deadline: .now() + .milliseconds(2000)) {
                         self.sendDataPackets(packets, onSuccess: onSuccess)
