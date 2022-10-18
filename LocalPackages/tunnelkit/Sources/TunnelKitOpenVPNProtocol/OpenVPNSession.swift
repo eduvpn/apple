@@ -1222,10 +1222,9 @@ public class OpenVPNSession: Session {
 //              log.verbose("Data: \(encryptedPackets.count) packets successfully written to LINK")
             }
         } catch let e {
-            guard !e.isOpenVPNError() else {
-                if let openVPNError = e as? OpenVPNError {
+            if e.isOpenVPNError() {
+                if OpenVPNErrorCode(rawValue: (e as NSError).code) == OpenVPNErrorCode.cryptoEncryption {
                     log.debug("Data: While encrypting packets, encountered OpenVPNError (\(e))")
-                    log.debug("Error code: \(String(describing: openVPNError.openVPNErrorCode())); Crypto error code: \(OpenVPNErrorCode.cryptoEncryption)")
                     log.debug("Will retry after 2 seconds")
                     self.queue.asyncAfter(deadline: .now() + .milliseconds(2000)) {
                         self.sendDataPackets(packets, onSuccess: onSuccess)
@@ -1234,10 +1233,10 @@ public class OpenVPNSession: Session {
                     log.debug("Initiating shutdown")
                     deferStop(.shutdown, e)
                 }
-                return
+            } else {
+                log.debug("Initiating reconnect")
+                deferStop(.reconnect, e)
             }
-            log.debug("Initiating reconnect")
-            deferStop(.reconnect, e)
         }
     }
     
