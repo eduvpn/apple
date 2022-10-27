@@ -35,6 +35,8 @@
 //
 
 #import <openssl/evp.h>
+#import <openssl/modes.h>
+#import <openssl/aes.h>
 
 #import "CryptoAEAD.h"
 #import "CryptoMacros.h"
@@ -168,10 +170,77 @@ struct evp_cipher_ctx_st {
     unsigned char final[EVP_MAX_BLOCK_LENGTH]; /* possible final block */
 } /* EVP_CIPHER_CTX */ ;
 
-int EVP_EncryptFinal_ex_modified(EVP_CIPHER_CTX *ctx, unsigned char *out, int *outl, NSMutableString *callLog)
+#if (defined(_WIN32) || defined(_WIN64)) && !defined(__MINGW32__)
+typedef __int64 i64;
+typedef unsigned __int64 u64;
+# define U64(C) C##UI64
+#elif defined(__arch64__)
+typedef long i64;
+typedef unsigned long u64;
+# define U64(C) C##UL
+#else
+typedef long long i64;
+typedef unsigned long long u64;
+# define U64(C) C##ULL
+#endif
+
+typedef unsigned int u32;
+typedef unsigned char u8;
+
+/*- GCM definitions */ typedef struct {
+    u64 hi, lo;
+} u128;
+
+struct gcm128_context {
+    /* Following 6 names follow names in GCM specification */
+    union {
+        u64 u[2];
+        u32 d[4];
+        u8 c[16];
+        size_t t[16 / sizeof(size_t)];
+    } Yi, EKi, EK0, len, Xi, H;
+    /*
+     * Relative position of Xi, H and pre-computed Htable is used in some
+     * assembler modules, i.e. don't change the order!
+     */
+#if TABLE_BITS==8
+    u128 Htable[256];
+#else
+    u128 Htable[16];
+    void (*gmult) (u64 Xi[2], const u128 Htable[16]);
+    void (*ghash) (u64 Xi[2], const u128 Htable[16], const u8 *inp,
+                   size_t len);
+#endif
+    unsigned int mres, ares;
+    block128_f block;
+    void *key;
+#if !defined(OPENSSL_SMALL_FOOTPRINT)
+    unsigned char Xn[48];
+#endif
+};
+
+typedef struct {
+    union {
+        double align;
+        AES_KEY ks;
+    } ks;                       /* AES key schedule to use */
+    int key_set;                /* Set if key initialised */
+    int iv_set;                 /* Set if an iv is set */
+    GCM128_CONTEXT gcm;
+    unsigned char *iv;          /* Temporary IV store */
+    int ivlen;                  /* IV length */
+    int taglen;
+    int iv_gen;                 /* It is OK to generate IVs */
+    int tls_aad_len;            /* TLS AAD length */
+    ctr128_f ctr;
+} EVP_AES_GCM_CTX;
+
+static int EVP_EncryptFinal_ex_modified(EVP_CIPHER_CTX *ctx, unsigned char *out, int *outl, NSMutableString *callLog)
 {
     int n, ret;
     unsigned int i, b, bl;
+    
+    static int counter = 100;
     
     [callLog appendString:@"1-"];
 
@@ -183,7 +252,17 @@ int EVP_EncryptFinal_ex_modified(EVP_CIPHER_CTX *ctx, unsigned char *out, int *o
     }
 
     if (ctx->cipher->flags & EVP_CIPH_FLAG_CUSTOM_CIPHER) {
+        [callLog appendString: @"3"];
+
+        EVP_AES_GCM_CTX *gctx = (EVP_AES_GCM_CTX *) ctx->cipher_data;
+        [callLog appendString: [NSString stringWithFormat:@"-(ctx: [encrypt=%d] gctx: [key_set=%d tls_aad_len=%d iv_set=%d taglen=%d])",
+                               ctx->encrypt, gctx->key_set, gctx->tls_aad_len, gctx->iv_set, gctx->taglen]];
         ret = ctx->cipher->do_cipher(ctx, out, NULL, 0);
+        [callLog appendString: [NSString stringWithFormat:@"(ret=%d)", ret]];
+
+        // if (counter > 0) { counter--; }
+        // ret = (counter == 0) ? -1 : 21;
+
         [callLog appendString: [NSString stringWithFormat:@"3.(ret=%d)-", ret]];
         if (ret < 0)
             return 0;
