@@ -160,7 +160,9 @@ public class OpenVPNSession: Session {
     private var lastPing: BidirectionalState<Date>
     
     private(set) var isStopping: Bool
-    
+
+    private var isWaitingForSendBufferSpace: Bool
+
     /// The optional reason why the session stopped.
     public private(set) var stopError: Error?
     
@@ -202,7 +204,8 @@ public class OpenVPNSession: Session {
         isRenegotiating = false
         lastPing = BidirectionalState(withResetValue: Date.distantPast)
         isStopping = false
-        
+        isWaitingForSendBufferSpace = false
+
         if let tlsWrap = configuration.tlsWrap {
             switch tlsWrap.strategy {
             case .auth:
@@ -391,8 +394,14 @@ public class OpenVPNSession: Session {
                 return
             }
             if let error = error {
-                log.error("Failed LINK read: \(error)")
-                
+
+                if self?.isWaitingForSendBufferSpace ?? false,
+                   let posixError = error as? POSIXError, posixError.code == POSIXErrorCode.ENOBUFS {
+                    // Suppress logging this error
+                } else {
+                    log.error("Failed LINK read: \(error)")
+                }
+
                 // XXX: why isn't the tunnel shutting down at this point?
                 return
             }
@@ -1196,7 +1205,9 @@ public class OpenVPNSession: Session {
                 if let error = error {
                     if let posixError = error as? POSIXError, posixError.code == POSIXErrorCode.ENOBUFS {
                         log.debug("Data: Encountered ENOBUFS while sending. Will retry after 1 second.")
+                        self.isWaitingForSendBufferSpace = true
                         self.queue.asyncAfter(deadline: .now() + .milliseconds(1000)) {
+                            self.isWaitingForSendBufferSpace = false
                             self.sendDataPackets(packets, onSuccess: onSuccess)
                         }
                     } else {
