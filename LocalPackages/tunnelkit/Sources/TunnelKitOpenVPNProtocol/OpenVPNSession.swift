@@ -537,7 +537,16 @@ public class OpenVPNSession: Session {
             log.warning("Discarding \(packets.count) TUN packets (should not handle)")
             return
         }
-        sendDataPackets(packets, onSuccess: onSuccess)
+        // Use the session's queue to send the data packets, so that
+        // the data packets get encrypted in the same queue as the ping
+        // packets. Both the data packets and the ping packets use the
+        // same crypto context, so they should be in the same queue.
+        // We can't run it async because we have to ask for more
+        // packets from the OS only after we're done with the previous
+        // batch.
+        self.queue.sync {
+            self.sendDataPackets(packets, onSuccess: onSuccess)
+        }
     }
     
     // Ruby: ping
