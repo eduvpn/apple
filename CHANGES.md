@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Bring back ENOBUFS fix
+- Avoid crypto errors (103) while sending packets #481
+
 ## 3.0.3
 
 - Move project to use Swift Package Manager instead of Cocoapods #95

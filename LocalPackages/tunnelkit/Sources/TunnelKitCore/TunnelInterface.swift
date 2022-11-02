@@ -37,8 +37,33 @@
 import Foundation
 
 /// Represents a specific I/O interface meant to work at the tunnel layer (e.g. VPN).
-public protocol TunnelInterface: IOInterface {
+public protocol TunnelInterface {
 
     /// When `true`, interface survives sessions.
     var isPersistent: Bool { get }
+
+    /**
+     Sets the handler for incoming packets. This only needs to be set once.
+
+     - Parameter queue: The queue where to invoke the handler on.
+     - Parameter handler: The handler invoked whenever an array of `Data` packets is received, with an optional `Error` in case a network failure occurs.
+                          The handler also receives a closure that the handler should call on successful completion of handling the read.
+     */
+    func setReadHandler(queue: DispatchQueue, _ handler: @escaping ([Data]?, Error?, @escaping () -> Void) -> Void)
+
+    /**
+     Writes a packet to the interface.
+
+     - Parameter packet: The `Data` packet to write.
+     - Parameter completionHandler: Invoked on write completion, with an optional `Error` in case a network failure occurs.
+     */
+    func writePacket(_ packet: Data, completionHandler: ((Error?) -> Void)?)
+
+    /**
+     Writes some packets to the interface.
+
+     - Parameter packets: The array of `Data` packets to write.
+     - Parameter completionHandler: Invoked on write completion, with an optional `Error` in case a network failure occurs.
+     */
+    func writePackets(_ packets: [Data], completionHandler: ((Error?) -> Void)?)
 }

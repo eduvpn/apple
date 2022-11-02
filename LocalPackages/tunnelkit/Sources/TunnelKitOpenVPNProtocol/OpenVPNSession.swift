@@ -160,7 +160,9 @@ public class OpenVPNSession: Session {
     private var lastPing: BidirectionalState<Date>
     
     private(set) var isStopping: Bool
-    
+
+    private var isWaitingForSendBufferSpace: Bool
+
     /// The optional reason why the session stopped.
     public private(set) var stopError: Error?
     
@@ -202,7 +204,8 @@ public class OpenVPNSession: Session {
         isRenegotiating = false
         lastPing = BidirectionalState(withResetValue: Date.distantPast)
         isStopping = false
-        
+        isWaitingForSendBufferSpace = false
+
         if let tlsWrap = configuration.tlsWrap {
             switch tlsWrap.strategy {
             case .auth:
@@ -391,8 +394,14 @@ public class OpenVPNSession: Session {
                 return
             }
             if let error = error {
-                log.error("Failed LINK read: \(error)")
-                
+
+                if self?.isWaitingForSendBufferSpace ?? false,
+                   let posixError = error as? POSIXError, posixError.code == POSIXErrorCode.ENOBUFS {
+                    // Suppress logging this error
+                } else {
+                    log.error("Failed LINK read: \(error)")
+                }
+
                 // XXX: why isn't the tunnel shutting down at this point?
                 return
             }
@@ -408,7 +417,7 @@ public class OpenVPNSession: Session {
 
     // Ruby: tun_loop
     private func loopTunnel() {
-        tunnel?.setReadHandler(queue: queue) { [weak self] (newPackets, error) in
+        tunnel?.setReadHandler(queue: queue) { [weak self] (newPackets, error, onSuccess) in
             if let error = error {
                 log.error("Failed TUN read: \(error)")
                 return
@@ -416,7 +425,7 @@ public class OpenVPNSession: Session {
 
             if let packets = newPackets, !packets.isEmpty {
 //                log.verbose("Received \(packets.count) packets from TUN")
-                self?.receiveTunnel(packets: packets)
+                self?.receiveTunnel(packets: packets, onSuccess: onSuccess)
             }
         }
     }
@@ -523,12 +532,21 @@ public class OpenVPNSession: Session {
     }
     
     // Ruby: recv_tun
-    private func receiveTunnel(packets: [Data]) {
+    private func receiveTunnel(packets: [Data], onSuccess: @escaping () -> Void) {
         guard shouldHandlePackets() else {
             log.warning("Discarding \(packets.count) TUN packets (should not handle)")
             return
         }
-        sendDataPackets(packets)
+        // Use the session's queue to send the data packets, so that
+        // the data packets get encrypted in the same queue as the ping
+        // packets. Both the data packets and the ping packets use the
+        // same crypto context, so they should be in the same queue.
+        // We can't run it async because we have to ask for more
+        // packets from the OS only after we're done with the previous
+        // batch.
+        self.queue.sync {
+            self.sendDataPackets(packets, onSuccess: onSuccess)
+        }
     }
     
     // Ruby: ping
@@ -547,7 +565,7 @@ public class OpenVPNSession: Session {
         // is keep-alive enabled?
         if let _ = keepAliveInterval {
             log.debug("Send ping")
-            sendDataPackets([OpenVPN.DataPacket.pingString])
+            sendDataPackets([OpenVPN.DataPacket.pingString], onSuccess: {})
             lastPing.outbound = Date()
         }
 
@@ -1169,7 +1187,7 @@ public class OpenVPNSession: Session {
     }
     
     // Ruby: send_data_pkt
-    private func sendDataPackets(_ packets: [Data]) {
+    private func sendDataPackets(_ packets: [Data], onSuccess: @escaping () -> Void) {
         guard let key = currentKey else {
             return
         }
@@ -1186,19 +1204,31 @@ public class OpenVPNSession: Session {
             controlChannel.addSentDataCount(encryptedPackets.flatCount)
             let writeLink = link
             link?.writePackets(encryptedPackets) { [weak self] (error) in
-                self?.queue.sync {
-                    guard self?.link === writeLink else {
-                        log.warning("Ignoring write from outdated LINK")
-                        return
-                    }
-                    if let error = error {
+                guard let self = self else {
+                    return
+                }
+                guard self.link === writeLink else {
+                    log.warning("Ignoring write from outdated LINK")
+                    return
+                }
+                if let error = error {
+                    if let posixError = error as? POSIXError, posixError.code == POSIXErrorCode.ENOBUFS {
+                        log.debug("Data: Encountered ENOBUFS while sending. Will retry after 1 second.")
+                        self.isWaitingForSendBufferSpace = true
+                        self.queue.asyncAfter(deadline: .now() + .milliseconds(1000)) {
+                            self.isWaitingForSendBufferSpace = false
+                            self.sendDataPackets(packets, onSuccess: onSuccess)
+                        }
+                    } else {
                         log.error("Data: Failed LINK write during send data: \(error)")
                         log.debug("Initiating shutdown")
-                        self?.deferStop(.shutdown, OpenVPNError.failedLinkWrite)
-                        return
+                        self.deferStop(.shutdown, OpenVPNError.failedLinkWrite)
                     }
-//                    log.verbose("Data: \(encryptedPackets.count) packets successfully written to LINK")
+                } else {
+                    // Trigger getting of more to-be-sent-out packets from the TUN interface
+                    onSuccess()
                 }
+//              log.verbose("Data: \(encryptedPackets.count) packets successfully written to LINK")
             }
         } catch let e {
             guard !e.isOpenVPNError() else {
