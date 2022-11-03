@@ -4,6 +4,7 @@
 
 - Bring back ENOBUFS fix
 - Avoid crypto errors (103) while sending packets #481
+- Fix no-internet issues #485
 
 ## 3.0.3
 
