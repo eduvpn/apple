@@ -503,6 +503,7 @@ extension OpenVPNTunnelProvider: GenericSocketDelegate {
                 // give up if shouldReconnect cleared in the meantime
                 guard self.shouldReconnect else {
                     log.warning("Reconnection flag was cleared in the meantime")
+                    self.disposeTunnel(error: shutdownError)
                     return
                 }
 
