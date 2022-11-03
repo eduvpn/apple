@@ -489,7 +489,8 @@ extension OpenVPNTunnelProvider: GenericSocketDelegate {
         // fallback: UDP is connection-less, treat negotiation timeout as socket timeout
         if didTimeoutNegotiation {
             guard tryNextEndpoint() else {
-                // disposeTunnel
+                // If there are no more endpoints, cancel the tunnel
+                disposeTunnel(error: shutdownError)
                 return
             }
         }
