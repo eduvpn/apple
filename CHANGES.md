@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 3.0.4
 
 - Bring back ENOBUFS fix
 - Avoid crypto errors (103) while sending packets #481
