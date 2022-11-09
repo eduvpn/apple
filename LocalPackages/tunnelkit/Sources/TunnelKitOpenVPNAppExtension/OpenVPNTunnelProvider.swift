@@ -490,6 +490,7 @@ extension OpenVPNTunnelProvider: GenericSocketDelegate {
         if didTimeoutNegotiation {
             guard tryNextEndpoint() else {
                 // If there are no more endpoints, cancel the tunnel
+                log.debug("Disposing tunnel")
                 disposeTunnel(error: shutdownError)
                 return
             }
@@ -515,6 +516,7 @@ extension OpenVPNTunnelProvider: GenericSocketDelegate {
         }
 
         // shut down
+        log.debug("Disposing tunnel")
         disposeTunnel(error: shutdownError)
     }
     
