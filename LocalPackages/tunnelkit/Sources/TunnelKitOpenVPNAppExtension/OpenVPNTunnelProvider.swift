@@ -331,6 +331,7 @@ open class OpenVPNTunnelProvider: NEPacketTunnelProvider {
         log.info("Sleep signal received")
         if let socket = socket, !socket.isShutdown {
             log.debug("Shutting down socket")
+            session?.sendExitNotificationIfApplicable(completion: nil)
             socket.shutdown()
             pendingSleepHandler = completionHandler
         } else {
