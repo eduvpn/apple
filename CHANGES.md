@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Handle sleep-wake cycles better #491
+
 ## 3.0.4
 
 - Bring back ENOBUFS fix
