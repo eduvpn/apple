@@ -135,6 +135,8 @@ open class OpenVPNTunnelProvider: NEPacketTunnelProvider {
     
     private var pendingStopHandler: (() -> Void)?
     
+    private var pendingSleepHandler: (() -> Void)?
+
     private var isCountingData = false
     
     private var shouldReconnect = false
@@ -321,12 +323,20 @@ open class OpenVPNTunnelProvider: NEPacketTunnelProvider {
     // MARK: Wake/Sleep (debugging placeholders)
 
     open override func wake() {
-        log.verbose("Wake signal received")
+        log.info("Wake signal received")
+        self.connectTunnel()
     }
     
     open override func sleep(completionHandler: @escaping () -> Void) {
-        log.verbose("Sleep signal received")
-        completionHandler()
+        log.info("Sleep signal received")
+        if let socket = socket, !socket.isShutdown {
+            log.debug("Shutting down socket")
+            session?.sendExitNotificationIfApplicable(completion: nil)
+            socket.shutdown()
+            pendingSleepHandler = completionHandler
+        } else {
+            completionHandler()
+        }
     }
     
     // MARK: Connection (tunnel queue)
@@ -486,10 +496,20 @@ extension OpenVPNTunnelProvider: GenericSocketDelegate {
         // clean up
         finishTunnelDisconnection(error: shutdownError)
 
+        if let pendingSleepHandler = self.pendingSleepHandler {
+            // If we shutdown the tunnel because we're going to sleep,
+            // just call the sleep completion handler. Don't exit the process.
+            log.debug("Calling pending sleep handler")
+            self.pendingSleepHandler = nil
+            pendingSleepHandler()
+            return
+        }
+
         // fallback: UDP is connection-less, treat negotiation timeout as socket timeout
         if didTimeoutNegotiation {
             guard tryNextEndpoint() else {
                 // If there are no more endpoints, cancel the tunnel
+                log.debug("Disposing tunnel")
                 disposeTunnel(error: shutdownError)
                 return
             }
@@ -515,6 +535,7 @@ extension OpenVPNTunnelProvider: GenericSocketDelegate {
         }
 
         // shut down
+        log.debug("Disposing tunnel")
         disposeTunnel(error: shutdownError)
     }
     

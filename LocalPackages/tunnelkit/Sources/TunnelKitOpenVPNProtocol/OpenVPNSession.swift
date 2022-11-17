@@ -1287,7 +1287,48 @@ public class OpenVPNSession: Session {
     private func shouldHandlePackets() -> Bool {
         return !isStopping && !keys.isEmpty
     }
-    
+
+    public func sendExitNotificationIfApplicable(completion: ((Bool) -> Void)?) {
+        // send exit notification iff socket is unreliable (normally UDP)
+
+        guard let currentKey = currentKey else {
+            log.debug("No current key")
+            completion?(false)
+            return
+        }
+
+        guard let link = link else {
+            log.debug("No link interface. Skipping writing packets for exit notification.")
+            completion?(false)
+            return
+        }
+
+        guard !link.isReliable else {
+            completion?(false)
+            log.debug("Link interface is reliable. Skipping writing packets for exit notification.")
+            return
+        }
+
+        do {
+            guard let packets = try currentKey.encrypt(packets: [OpenVPN.OCCPacket.exit.serialized()]) else {
+                completion?(false)
+                return
+            }
+            log.debug("Attempting to write packets for exit notification")
+            link.writePackets(packets) { [weak self] (error) in
+                log.debug("Done writing packets for exit notification (Error: \(error?.localizedDescription ?? "None"))")
+                if let completion = completion {
+                    self?.queue.sync {
+                        completion(true)
+                    }
+                }
+            }
+        } catch {
+            log.debug("Unable to write packets for exit notification (Error: \(error))")
+            completion?(false)
+        }
+    }
+
     private func deferStop(_ method: StopMethod, _ error: Error?) {
         log.debug("Stop method: \(method); Error: \(error?.localizedDescription ?? "None")")
         guard !isStopping else {
@@ -1295,7 +1336,7 @@ public class OpenVPNSession: Session {
         }
         isStopping = true
 
-        let completion = { [weak self] in
+        sendExitNotificationIfApplicable { [weak self] _ in
             switch method {
             case .shutdown:
                 self?.doShutdown(error: error)
@@ -1304,29 +1345,6 @@ public class OpenVPNSession: Session {
             case .reconnect:
                 self?.doReconnect(error: error)
             }
-        }
-
-        // shut down after sending exit notification if socket is unreliable (normally UDP)
-        if let link = link, !link.isReliable {
-            do {
-                guard let packets = try currentKey?.encrypt(packets: [OpenVPN.OCCPacket.exit.serialized()]) else {
-                    completion()
-                    return
-                }
-                log.debug("Attempting to write packets for exit notification")
-                link.writePackets(packets) { [weak self] (error) in
-                    log.debug("Done writing packets for exit notification (Error: \(error?.localizedDescription ?? "None"))")
-                    self?.queue.sync {
-                        completion()
-                    }
-                }
-            } catch {
-                log.debug("Unable to write packets for exit notification (Error: \(error))")
-                completion()
-            }
-        } else {
-            log.debug("Skipping writing packets for exit notification")
-            completion()
         }
     }
     
