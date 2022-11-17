@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 3.0.5
 
 - Handle sleep-wake cycles better #491
 
