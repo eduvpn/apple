@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- iOS: Add 'Copy Log' button in log view
+
 ## 3.0.5
 
 - Handle sleep-wake cycles better #491
