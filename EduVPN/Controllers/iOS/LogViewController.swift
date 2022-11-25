@@ -23,6 +23,10 @@ class LogViewController: ViewController, ParametrizedViewController {
     }
 
     override func viewDidLoad() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: NSLocalizedString("Copy Log", comment: ""),
+            style: .plain,
+            target: self, action: #selector(copyLogTapped(_:)))
         loadLog()
     }
 
@@ -35,5 +39,10 @@ class LogViewController: ViewController, ParametrizedViewController {
                 textView.text = log ?? ""
             }
         }.cauterize()
+    }
+
+    @objc func copyLogTapped(_ sender: Any) {
+        let pasteboard = UIPasteboard.general
+        pasteboard.string = textView.text
     }
 }
