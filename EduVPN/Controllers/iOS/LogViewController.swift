@@ -14,6 +14,7 @@ class LogViewController: ViewController, ParametrizedViewController {
     private var parameters: Parameters!
 
     @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var announcementView: UIView!
 
     func initializeParameters(_ parameters: Parameters) {
         guard self.parameters == nil else {
@@ -23,6 +24,8 @@ class LogViewController: ViewController, ParametrizedViewController {
     }
 
     override func viewDidLoad() {
+        announcementView.isHidden = true
+        announcementView.layer.cornerRadius = 15
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: NSLocalizedString("Copy Log", comment: ""),
             style: .plain,
@@ -44,5 +47,25 @@ class LogViewController: ViewController, ParametrizedViewController {
     @objc func copyLogTapped(_ sender: Any) {
         let pasteboard = UIPasteboard.general
         pasteboard.string = textView.text
+        showTransientAnnouncement()
+    }
+
+    private func showTransientAnnouncement() {
+        // Show and hide the announcement that says "Copied"
+        announcementView.isHidden = false
+        announcementView.alpha = 0.0
+        UIView.animate(
+            withDuration: 0.6,
+            animations: { [weak announcementView] in
+            announcementView?.alpha = 0.6
+            }, completion: { [weak announcementView] _ in
+                UIView.animate(
+                    withDuration: 0.6,
+                    animations: { [weak announcementView] in
+                        announcementView?.alpha = 0
+                    }, completion: { [weak announcementView] _ in
+                        announcementView?.isHidden = true
+                    })
+            })
     }
 }
