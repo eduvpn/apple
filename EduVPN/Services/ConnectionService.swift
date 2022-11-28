@@ -10,6 +10,7 @@ import TunnelKit
 import TunnelKitOpenVPN
 import os.log
 import TunnelKitOpenVPNManager
+import TunnelKitManager
 
 protocol ConnectionServiceInitializationDelegate: AnyObject {
     func connectionService(
@@ -422,25 +423,23 @@ private extension ConnectionService {
 
         var configBuilder = parseResult.configuration.builder()
         configBuilder.tlsSecurityLevel = 3 // See https://github.com/eduvpn/apple/issues/89
+        let config = configBuilder.build()
 
-        var providerConfigBuilder = OpenVPNProvider.ConfigurationBuilder(sessionConfiguration: configBuilder.build())
-        providerConfigBuilder.masksPrivateData = false
-        providerConfigBuilder.shouldDebug = true
+        var providerConfig = OpenVPN.ProviderConfiguration(Config.shared.appName, appGroup: appGroup, configuration: config)
+        providerConfig.masksPrivateData = false
+        providerConfig.shouldDebug = true
+        providerConfig.username = credentials?.userName
 
-        let providerConfig = providerConfigBuilder.build()
-
-        let openVPNCredentials: OpenVPN.Credentials? = {
-            if let credentials = credentials {
-                return OpenVPN.Credentials(credentials.userName, credentials.password)
+        let neExtra: NetworkExtensionExtra? = try {
+            guard let credentials = credentials else {
+                return nil
             }
-            return nil
+            let keychain = Keychain(group: appGroup)
+            var neExtra = NetworkExtensionExtra()
+            neExtra.passwordReference = try keychain.set(password: credentials.password, for: credentials.userName, context: openVPNTunnelBundleId)
+            return neExtra
         }()
-
-        let tunnelProviderProtocolConfig = try providerConfig.generatedTunnelProtocol(
-            withBundleIdentifier: openVPNTunnelBundleId,
-            appGroup: appGroup,
-            context: openVPNTunnelBundleId,
-            credentials: openVPNCredentials)
+        let tunnelProviderProtocolConfig = try providerConfig.asTunnelProtocol(withBundleIdentifier: openVPNTunnelBundleId, extra: neExtra)
         tunnelProviderProtocolConfig.connectionAttemptId = connectionAttemptId
         #if os(macOS)
         tunnelProviderProtocolConfig.shouldPreventAutomaticConnections = shouldPreventAutomaticConnections
