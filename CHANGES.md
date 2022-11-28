@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 3.0.6
 
 - iOS: Add 'Copy Log' button in log view
 
