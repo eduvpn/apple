@@ -30,8 +30,8 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
     override func startTunnel(options: [String: NSObject]?, completionHandler: @escaping (Error?) -> Void) {
         guard let protocolConfiguration = self.protocolConfiguration as? NETunnelProviderProtocol,
               let providerConfiguration = protocolConfiguration.providerConfiguration,
-              let wgQuickConfig = providerConfiguration[WireGuardProviderConfigurationKeys.wireGuardConfig.rawValue] as? String,
-              let appGroup = providerConfiguration[WireGuardProviderConfigurationKeys.appGroup.rawValue] as? String else {
+              let wgQuickConfig = providerConfiguration[ProviderConfigurationKeys.wireGuardConfig.rawValue] as? String,
+              let appGroup = providerConfiguration[ProviderConfigurationKeys.appGroup.rawValue] as? String else {
             NSLog("Invalid provider configuration for the WireGuard tunnel")
             completionHandler(PacketTunnelProviderError.savedProtocolConfigurationIsInvalid)
             return

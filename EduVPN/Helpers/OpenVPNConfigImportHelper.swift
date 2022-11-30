@@ -36,7 +36,7 @@ extension OpenVPNConfigImportHelperError: AppError {
     }
 }
 
-extension TunnelKitOpenVPNCore.ConfigurationError: AppError {
+extension OpenVPN.ConfigurationError: AppError {
     var summary: String {
         switch self {
         case .malformed(let option):

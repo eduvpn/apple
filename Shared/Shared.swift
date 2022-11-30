@@ -61,8 +61,9 @@ struct TransferredByteCount: Codable {
     }
 }
 
-enum WireGuardProviderConfigurationKeys: String {
-    case wireGuardConfig
+enum ProviderConfigurationKeys: String {
+    case wireGuardConfig // wg-quick format
+    case tunnelKitOpenVPNProviderConfig // json format
     case appGroup
 }
 
