@@ -103,4 +103,39 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
     override func sleep(completionHandler: @escaping () -> Void) {
         adapter.sleep(completionHandler: completionHandler)
     }
+
+    override func handleAppMessage(_ messageData: Data, completionHandler: ((Data?) -> Void)? = nil) {
+        guard messageData.count == 1, let code = TunnelMessageCode(rawValue: messageData[0]) else {
+            completionHandler?(nil)
+            return
+        }
+
+        switch code {
+        case .getTransferredByteCount:
+            guard let dataCount = adapter.dataCount() else {
+                completionHandler?(nil)
+                return
+            }
+            let transferred = TransferredByteCount(inbound: UInt64(dataCount.received), outbound: UInt64(dataCount.sent))
+            completionHandler?(transferred.data)
+        case .getNetworkAddresses:
+            guard let serverConfiguration = adapter.serverConfiguration() else {
+                completionHandler?(nil)
+                return
+            }
+            var addresses: [String] = []
+            if let ipv4Address = serverConfiguration.ipv4?.address {
+                addresses.append(ipv4Address)
+            }
+            if let ipv6Address = serverConfiguration.ipv6?.address {
+                addresses.append(ipv6Address)
+            }
+            let encoder = JSONEncoder()
+            completionHandler?(try? encoder.encode(addresses))
+        case .getLog:
+            completionHandler?(nil)
+        case .getConnectedDate:
+            completionHandler?(connectedDate?.toData())
+        }
+    }
 }
