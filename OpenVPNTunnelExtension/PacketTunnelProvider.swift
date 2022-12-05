@@ -25,6 +25,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
     private lazy var adapter = OpenVPNAdapter(with: self)
 
     var connectedDate: Date?
+    var logger: Logger?
 
     override var reasserting: Bool {
         didSet {
@@ -49,7 +50,8 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         guard let protocolConfiguration = self.protocolConfiguration as? NETunnelProviderProtocol,
               let providerConfiguration = protocolConfiguration.providerConfiguration,
               let providerConfigJson = providerConfiguration[ProviderConfigurationKeys.tunnelKitOpenVPNProviderConfig.rawValue] as? Data,
-              let providerConfig = try? JSONDecoder().decode(OpenVPN.ProviderConfiguration.self, from: providerConfigJson) else {
+              let providerConfig = try? JSONDecoder().decode(OpenVPN.ProviderConfiguration.self, from: providerConfigJson),
+              let appGroup = providerConfiguration[ProviderConfigurationKeys.appGroup.rawValue] as? String else {
             NSLog("Invalid provider configuration for the OpenVPN tunnel")
             completionHandler(PacketTunnelProviderError.savedProtocolConfigurationIsInvalid)
             return
@@ -67,6 +69,24 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         }
 #endif
 
+        // Setup logging
+
+        let logger = Logger(appGroup: appGroup,
+                            logSeparator: "--- EOF ---",
+                            isStartedByApp: startTunnelOptions.isStartedByApp,
+                            logFileName: "debug.log")
+        self.logger = logger
+
+        logger.log("Starting OpenVPN tunnel")
+        logger.logAppVersion()
+
+        let loggerDestination = LoggerDestination(logger: logger)
+        loggerDestination.minLevel = .debug
+        loggerDestination.format = "$Dyyyy-MM-dd HH:mm:ss.SSS$d $L $N.$F:$l - $M"
+        SwiftyBeaver.addDestination(loggerDestination)
+
+        // Set credentials
+
         let credentials: OpenVPN.Credentials?
         if let username = protocolConfiguration.username, let passwordReference = protocolConfiguration.passwordReference {
             guard let password = try? Keychain.password(forReference: passwordReference) else {
@@ -77,6 +97,8 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         } else {
             credentials = nil
         }
+
+        // Start the tunnel
 
         var appVersionString = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown version"
         if let appBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
@@ -133,9 +155,32 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             let encoder = JSONEncoder()
             completionHandler?(try? encoder.encode(addresses))
         case .getLog:
-            completionHandler?(nil)
+            var data = Data()
+            for line in (logger?.lines ?? []) {
+                data.append(line.data(using: .utf8) ?? Data())
+                data.append("\n".data(using: .utf8) ?? Data())
+            }
+            completionHandler?(data)
         case .getConnectedDate:
             completionHandler?(connectedDate?.toData())
         }
+    }
+}
+
+class LoggerDestination: BaseDestination {
+    private let logger: Logger
+
+    init(logger: Logger) {
+        self.logger = logger
+        super.init()
+    }
+
+    override open func send(_ level: SwiftyBeaver.Level, msg: String, thread: String,
+                            file: String, function: String, line: Int, context: Any? = nil) -> String? {
+        if let formattedString = super.send(level, msg: msg, thread: thread, file: file, function: function, line: line, context: context) {
+            logger.log(formattedString)
+            return formattedString
+        }
+        return nil
     }
 }
