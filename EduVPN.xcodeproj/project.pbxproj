@@ -38,6 +38,8 @@
 		6F21F4172689B3B700C157E1 /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349D85C422B706A4006E9540 /* PacketTunnelProvider.swift */; };
 		6F25F8D2269D763F00FA8FAB /* ConnectionViewController+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F25F8D1269D763F00FA8FAB /* ConnectionViewController+macOS.swift */; };
 		6F25F8D4269DE3BB00FA8FAB /* MenuCommandResponding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F25F8D3269DE3BB00FA8FAB /* MenuCommandResponding.swift */; };
+		6F2E5171293DE10A0058F069 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F21F40926899B7A00C157E1 /* Logger.swift */; };
+		6F2E5173293DE10A0058F069 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F21F40926899B7A00C157E1 /* Logger.swift */; };
 		6F305A59254AA6C60067E744 /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F305A58254AA6C50067E744 /* LogViewController.swift */; };
 		6F3073572689B8000083EEEF /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3073562689B8000083EEEF /* Shared.swift */; };
 		6F3073582689B8070083EEEF /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3073562689B8000083EEEF /* Shared.swift */; };
@@ -839,6 +841,7 @@
 			isa = PBXGroup;
 			children = (
 				6F3073562689B8000083EEEF /* Shared.swift */,
+				6F21F40926899B7A00C157E1 /* Logger.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -945,7 +948,6 @@
 				6FFC4064266E392000835B43 /* TunnelConfiguration+WgQuickConfig.swift */,
 				6F30735D2689E0530083EEEF /* TunnelConfiguration+UapiConfig.swift */,
 				6FFC4088266F51D200835B43 /* String+ArrayConversion.swift */,
-				6F21F40926899B7A00C157E1 /* Logger.swift */,
 			);
 			path = WireGuardTunnelExtension;
 			sourceTree = "<group>";
@@ -1929,6 +1931,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F3073582689B8070083EEEF /* Shared.swift in Sources */,
+				6F2E5171293DE10A0058F069 /* Logger.swift in Sources */,
 				349D85C522B706A4006E9540 /* PacketTunnelProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1938,6 +1941,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F30735B2689B8130083EEEF /* Shared.swift in Sources */,
+				6F2E5173293DE10A0058F069 /* Logger.swift in Sources */,
 				6F21F4172689B3B700C157E1 /* PacketTunnelProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
