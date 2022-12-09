@@ -8,6 +8,11 @@
 import Foundation
 import NetworkExtension
 
+enum VPNProtocol: String {
+    case openVPN = "OpenVPN"
+    case wireGuard = "WireGuard"
+}
+
 enum TunnelMessageCode: UInt8 {
     case getTransferredByteCount = 0 // Returns TransferredByteCount as Data
     case getNetworkAddresses = 1 // Returns [String] as JSON
@@ -114,6 +119,16 @@ extension NETunnelProviderProtocol {
             let boolNumber = NSNumber(value: value)
             providerConfiguration?[SharedKeys.shouldPreventAutomaticConnectionsKey] = boolNumber
         }
+    }
+    
+    var vpnProtocol: VPNProtocol? {
+        if providerConfiguration?[ProviderConfigurationKeys.wireGuardConfig.rawValue] != nil {
+            return .wireGuard
+        }
+        if providerConfiguration?[ProviderConfigurationKeys.tunnelKitOpenVPNProviderConfig.rawValue] != nil {
+            return .openVPN
+        }
+        return nil
     }
 }
 #endif

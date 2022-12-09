@@ -59,11 +59,6 @@ struct Credentials {
     let password: String
 }
 
-enum VPNProtocol: String {
-    case openVPN = "OpenVPN"
-    case wireGuard = "WireGuard"
-}
-
 protocol ConnectionServiceProtocol: AnyObject {
 
     var initializationDelegate: ConnectionServiceInitializationDelegate? { get set }
@@ -103,15 +98,7 @@ class ConnectionService: ConnectionServiceProtocol {
     var connectedDate: Date? { tunnelManager?.session.connectedDate }
 
     var vpnProtocol: VPNProtocol? {
-        let providerProtocol = tunnelManager?.protocolConfiguration as? NETunnelProviderProtocol
-        switch providerProtocol?.providerBundleIdentifier {
-        case Self.openVPNTunnelBundleId:
-            return .openVPN
-        case Self.wireGuardTunnelBundleId:
-            return .wireGuard
-        default:
-            return nil
-        }
+        return (tunnelManager?.protocolConfiguration as? NETunnelProviderProtocol)?.vpnProtocol
     }
 
     private var statusObservationToken: AnyObject?
@@ -393,12 +380,8 @@ private extension ConnectionService {
         return appId
     }
 
-    static var openVPNTunnelBundleId: String {
-        return "\(appBundleId).OpenVPNTunnelExtension"
-    }
-
-    static var wireGuardTunnelBundleId: String {
-        return "\(appBundleId).WireGuardTunnelExtension"
+    static var tunnelExtensionBundleId: String {
+        return "\(appBundleId).TunnelExtension"
     }
 
     static var appGroup: String {
@@ -430,7 +413,7 @@ private extension ConnectionService {
         let providerConfigJson = try JSONEncoder().encode(providerConfig)
 
         let protocolConfiguration = NETunnelProviderProtocol()
-        protocolConfiguration.providerBundleIdentifier = openVPNTunnelBundleId
+        protocolConfiguration.providerBundleIdentifier = tunnelExtensionBundleId
         protocolConfiguration.serverAddress = {
             guard let firstRemote = providerConfig.configuration.remotes?.first else {
                 return "unspecified"
@@ -439,7 +422,7 @@ private extension ConnectionService {
         }()
         if let credentials = credentials {
             let keychain = Keychain(group: appGroup)
-            let passwordReference = try keychain.set(password: credentials.password, for: credentials.userName, context: openVPNTunnelBundleId)
+            let passwordReference = try keychain.set(password: credentials.password, for: credentials.userName, context: tunnelExtensionBundleId)
             protocolConfiguration.username = credentials.userName
             protocolConfiguration.passwordReference = passwordReference
         }
@@ -462,7 +445,7 @@ private extension ConnectionService {
     static func tunnelProtocolConfiguration(
         wireGuardConfig: String, serverName: String, connectionAttemptId: UUID) -> NETunnelProviderProtocol {
         let protocolConfiguration = NETunnelProviderProtocol()
-        protocolConfiguration.providerBundleIdentifier = wireGuardTunnelBundleId
+        protocolConfiguration.providerBundleIdentifier = tunnelExtensionBundleId
         protocolConfiguration.serverAddress = serverName
         protocolConfiguration.providerConfiguration = [
             ProviderConfigurationKeys.wireGuardConfig.rawValue: wireGuardConfig,

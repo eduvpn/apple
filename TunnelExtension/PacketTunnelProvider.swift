@@ -1,77 +1,120 @@
 //
 //  PacketTunnelProvider.swift
-//  WireGuardTunnelExtension-macOS
+//  TunnelExtension
 //
 //  Copyright © 2020-2021 The Commons Conservancy. All rights reserved.
 //
 
 import NetworkExtension
-import WireGuardKit
 
 enum PacketTunnelProviderError: Error {
     case savedProtocolConfigurationIsInvalid
-    case wireGuardAdapterError(WireGuardAdapterError)
+    case adapterError(Error)
+
+#if os(macOS)
+    case connectionAttemptFromOSNotAllowed
+#endif
+}
+
+protocol TunnelAdapterInterface: AnyObject {
+    func start(packetTunnelProvider: NEPacketTunnelProvider, options: StartTunnelOptions, completionHandler: @escaping (Error?) -> Void)
+    func stop(completionHandler: @escaping (Error?) -> Void)
+    func wake()
+    func sleep(completionHandler: @escaping () -> Void)
+    func getTransferredByteCount(completionHandler: @escaping (TransferredByteCount?) -> Void)
+    func networkAddresses() -> [String]?
 }
 
 class PacketTunnelProvider: NEPacketTunnelProvider {
 
+    var adapterInterface: TunnelAdapterInterface?
+    var logger: Logger?
     var connectedDate: Date?
 
-    // Logging
-    var logger: Logger?
-    var tunnelConfiguration: TunnelConfiguration?
-
-    private lazy var adapter: WireGuardAdapter = {
-        return WireGuardAdapter(with: self) { _, message in
-            self.logger?.log(message)
+    override var reasserting: Bool {
+        didSet {
+            #if os(macOS)
+            if reasserting {
+                if let tunnelProtocol = protocolConfiguration as? NETunnelProviderProtocol {
+                    if tunnelProtocol.shouldPreventAutomaticConnections {
+                        stopTunnel(with: .none, completionHandler: {})
+                    }
+                }
+            }
+            #endif
+            if reasserting {
+                connectedDate = nil
+            } else {
+                connectedDate = Date()
+            }
         }
-    }()
+    }
 
     override func startTunnel(options: [String: NSObject]?, completionHandler: @escaping (Error?) -> Void) {
         guard let protocolConfiguration = self.protocolConfiguration as? NETunnelProviderProtocol,
               let providerConfiguration = protocolConfiguration.providerConfiguration,
-              let wgQuickConfig = providerConfiguration[ProviderConfigurationKeys.wireGuardConfig.rawValue] as? String,
               let appGroup = providerConfiguration[ProviderConfigurationKeys.appGroup.rawValue] as? String else {
-            NSLog("Invalid provider configuration for the WireGuard tunnel")
+            NSLog("Invalid provider configuration for the tunnel")
             completionHandler(PacketTunnelProviderError.savedProtocolConfigurationIsInvalid)
             return
         }
 
         let startTunnelOptions = StartTunnelOptions(options: options ?? [:])
+
+#if os(macOS)
+        if !startTunnelOptions.isStartedByApp {
+            if protocolConfiguration.shouldPreventAutomaticConnections {
+                Darwin.sleep(3) // Prevent rapid connect-disconnect cycles
+                completionHandler(PacketTunnelProviderError.connectionAttemptFromOSNotAllowed)
+                return
+            }
+        }
+#endif
+
         let logger = Logger(appGroup: appGroup,
                             logSeparator: "--- EOF ---",
                             isStartedByApp: startTunnelOptions.isStartedByApp,
                             logFileName: "debug.log")
+        logger.logAppVersion()
         self.logger = logger
 
-        logger.log("Starting WireGuard tunnel")
-        logger.logAppVersion()
-
-        guard let tunnelConfiguration = try? TunnelConfiguration(fromWgQuickConfig: wgQuickConfig) else {
-            logger.log("WireGuard config not parseable")
+        let adapterInterface: TunnelAdapterInterface
+        if let wgQuickConfig = providerConfiguration[ProviderConfigurationKeys.wireGuardConfig.rawValue] as? String {
+            guard let wgAdapterInterface = WireGuardAdapterInterface(wgQuickConfig: wgQuickConfig, logger: logger) else {
+                logger.log("WireGuard config not parseable")
+                completionHandler(PacketTunnelProviderError.savedProtocolConfigurationIsInvalid)
+                return
+            }
+            adapterInterface = wgAdapterInterface
+        } else if let tunnelKitConfigJson = providerConfiguration[ProviderConfigurationKeys.tunnelKitOpenVPNProviderConfig.rawValue] as? Data {
+            guard let openVPNAdapterInterface = OpenVPNAdapterInterface(tunnelKitConfigJson: tunnelKitConfigJson, credentials: nil /*TODO*/, logger: logger) else {
+                logger.log("TunnelKit OpenVPN provider config (JSON) not parseable")
+                completionHandler(PacketTunnelProviderError.savedProtocolConfigurationIsInvalid)
+                return
+            }
+            adapterInterface = openVPNAdapterInterface
+        } else {
+            logger.log("No VPN config is available")
             completionHandler(PacketTunnelProviderError.savedProtocolConfigurationIsInvalid)
             return
         }
-        self.tunnelConfiguration = tunnelConfiguration
+        self.adapterInterface = adapterInterface
 
-        adapter.start(tunnelConfiguration: tunnelConfiguration) { adapterError in
-            if let adapterError = adapterError {
-                logger.log("WireGuard adapter error: \(adapterError.localizedDescription)")
-            } else {
-                let interfaceName = self.adapter.interfaceName ?? "unknown"
-                logger.log("Tunnel interface is \(interfaceName)")
+        adapterInterface.start(packetTunnelProvider: self, options: startTunnelOptions) { error in
+            if let error = error {
+                logger.log("Error while starting tunnel: \(error.localizedDescription)")
             }
             self.connectedDate = Date()
-            completionHandler(adapterError)
+            completionHandler(error)
         }
     }
 
     override func stopTunnel(with reason: NEProviderStopReason, completionHandler: @escaping () -> Void) {
         logger?.log("Stopping tunnel")
 
-        adapter.stop { error in
+        adapterInterface?.stop { error in
             if let error = error {
-                NSLog("Failed to stop WireGuard adapter: \(error.localizedDescription)")
+                NSLog("Failed to stop adapter: \(error.localizedDescription)")
             }
             self.logger?.flushToDisk()
             completionHandler()
@@ -83,6 +126,14 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         }
     }
 
+    override func wake() {
+        adapterInterface?.wake()
+    }
+
+    override func sleep(completionHandler: @escaping () -> Void) {
+        adapterInterface?.sleep(completionHandler: completionHandler)
+    }
+
     override func handleAppMessage(_ messageData: Data, completionHandler: ((Data?) -> Void)? = nil) {
         guard messageData.count == 1, let code = TunnelMessageCode(rawValue: messageData[0]) else {
             completionHandler?(nil)
@@ -91,23 +142,14 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
 
         switch code {
         case .getTransferredByteCount:
-            adapter.getRuntimeConfiguration { settings in
-                guard let settings = settings,
-                      let runtimeConfig = try? TunnelConfiguration(fromUapiConfig: settings, basedOn: self.tunnelConfiguration) else {
-                    completionHandler?(nil)
-                    return
-                }
-                let rxBytesTotal = runtimeConfig.peers.reduce(0) { $0 + ($1.rxBytes ?? 0) }
-                let txBytesTotal = runtimeConfig.peers.reduce(0) { $0 + ($1.txBytes ?? 0) }
-                let transferred = TransferredByteCount(inbound: rxBytesTotal, outbound: txBytesTotal)
-                completionHandler?(transferred.data)
+            adapterInterface?.getTransferredByteCount { transferredByteCount in
+                completionHandler?(transferredByteCount?.data)
             }
         case .getNetworkAddresses:
-            guard let tunnelConfiguration = self.tunnelConfiguration else {
+            guard let addresses = adapterInterface?.networkAddresses() else {
                 completionHandler?(nil)
                 return
             }
-            let addresses: [String] = tunnelConfiguration.interface.addresses.map { "\($0.address)" }
             let encoder = JSONEncoder()
             completionHandler?(try? encoder.encode(addresses))
         case .getLog:
