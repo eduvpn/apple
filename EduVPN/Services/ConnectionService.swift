@@ -427,7 +427,6 @@ private extension ConnectionService {
 
         var providerConfig = OpenVPN.ProviderConfiguration(Config.shared.appName, appGroup: appGroup, configuration: config)
         providerConfig.masksPrivateData = false
-        providerConfig.shouldDebug = true
         let providerConfigJson = try JSONEncoder().encode(providerConfig)
 
         let protocolConfiguration = NETunnelProviderProtocol()
