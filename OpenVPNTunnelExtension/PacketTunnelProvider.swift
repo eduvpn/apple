@@ -6,6 +6,7 @@
 import TunnelKitOpenVPNAppExtension
 import TunnelKitOpenVPNManager
 import TunnelKitOpenVPNCore
+import TunnelKitCore
 import TunnelKitAppExtension
 import TunnelKitManager
 import NetworkExtension
@@ -84,6 +85,8 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         loggerDestination.minLevel = .debug
         loggerDestination.format = "$Dyyyy-MM-dd HH:mm:ss.SSS$d $L $N.$F:$l - $M"
         SwiftyBeaver.addDestination(loggerDestination)
+
+        CoreConfiguration.masksPrivateData = providerConfig.masksPrivateData
 
         // Set credentials
 
