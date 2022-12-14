@@ -38,6 +38,8 @@
 		6F21F4172689B3B700C157E1 /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349D85C422B706A4006E9540 /* PacketTunnelProvider.swift */; };
 		6F25F8D2269D763F00FA8FAB /* ConnectionViewController+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F25F8D1269D763F00FA8FAB /* ConnectionViewController+macOS.swift */; };
 		6F25F8D4269DE3BB00FA8FAB /* MenuCommandResponding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F25F8D3269DE3BB00FA8FAB /* MenuCommandResponding.swift */; };
+		6F2E5171293DE10A0058F069 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F21F40926899B7A00C157E1 /* Logger.swift */; };
+		6F2E5173293DE10A0058F069 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F21F40926899B7A00C157E1 /* Logger.swift */; };
 		6F305A59254AA6C60067E744 /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F305A58254AA6C50067E744 /* LogViewController.swift */; };
 		6F3073572689B8000083EEEF /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3073562689B8000083EEEF /* Shared.swift */; };
 		6F3073582689B8070083EEEF /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3073562689B8000083EEEF /* Shared.swift */; };
@@ -404,7 +406,6 @@
 		6F36A79A24B6ED5D00BA8F5E /* SearchViewController+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController+macOS.swift"; sourceTree = "<group>"; };
 		6F36A79C24B6F5BA00BA8F5E /* MainViewController+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+macOS.swift"; sourceTree = "<group>"; };
 		6F3BD00527476FA0005E5CB2 /* LoggingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingService.swift; sourceTree = "<group>"; };
-		6F3FF138283426BB00D10F7E /* tunnelkit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = tunnelkit; path = LocalPackages/tunnelkit; sourceTree = "<group>"; };
 		6F49FAA9263C1A54005DB8D3 /* EduVPN-macOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EduVPN-macOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		6F49FAAA263C1A55005DB8D3 /* OAuthRedirectHTTPHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthRedirectHTTPHandler.h; sourceTree = "<group>"; };
 		6F49FAAB263C1A55005DB8D3 /* OAuthRedirectHTTPHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthRedirectHTTPHandler.m; sourceTree = "<group>"; };
@@ -840,6 +841,7 @@
 			isa = PBXGroup;
 			children = (
 				6F3073562689B8000083EEEF /* Shared.swift */,
+				6F21F40926899B7A00C157E1 /* Logger.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -847,7 +849,6 @@
 		6F3FF137283426BB00D10F7E /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				6F3FF138283426BB00D10F7E /* tunnelkit */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -947,7 +948,6 @@
 				6FFC4064266E392000835B43 /* TunnelConfiguration+WgQuickConfig.swift */,
 				6F30735D2689E0530083EEEF /* TunnelConfiguration+UapiConfig.swift */,
 				6FFC4088266F51D200835B43 /* String+ArrayConversion.swift */,
-				6F21F40926899B7A00C157E1 /* Logger.swift */,
 			);
 			path = WireGuardTunnelExtension;
 			sourceTree = "<group>";
@@ -1931,6 +1931,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F3073582689B8070083EEEF /* Shared.swift in Sources */,
+				6F2E5171293DE10A0058F069 /* Logger.swift in Sources */,
 				349D85C522B706A4006E9540 /* PacketTunnelProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1940,6 +1941,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F30735B2689B8130083EEEF /* Shared.swift in Sources */,
+				6F2E5173293DE10A0058F069 /* Logger.swift in Sources */,
 				6F21F4172689B3B700C157E1 /* PacketTunnelProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2373,7 +2375,7 @@
 				DEVELOPMENT_TEAM = "$(DEVELOPMENT_TEAM)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = OpenVPNTunnelExtension/iOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2403,7 +2405,7 @@
 				DEVELOPMENT_TEAM = "$(DEVELOPMENT_TEAM)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = OpenVPNTunnelExtension/iOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2700,7 +2702,7 @@
 				DEVELOPMENT_TEAM = "$(DEVELOPMENT_TEAM)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = WireGuardTunnelExtension/iOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2732,7 +2734,7 @@
 				DEVELOPMENT_TEAM = "$(DEVELOPMENT_TEAM)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = WireGuardTunnelExtension/iOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2887,7 +2889,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "$(DEVELOPMENT_TEAM)";
 				INFOPLIST_FILE = EduVPN/Resources/iOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2925,7 +2927,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "$(DEVELOPMENT_TEAM)";
 				INFOPLIST_FILE = EduVPN/Resources/iOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3265,10 +3267,10 @@
 		};
 		6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/passepartoutvpn/tunnelkit";
+			repositoryURL = "https://github.com/eduvpn/tunnelkit.git";
 			requirement = {
 				kind = revision;
-				revision = b88f490b82d7b11310d0f36dc41c5478f753966c;
+				revision = ddb080576489835ea1061e6679d30e1a20f9cf6f;
 			};
 		};
 		6FEF3F1E28ADD638005E65CB /* XCRemoteSwiftPackageReference "AppAuth-iOS" */ = {

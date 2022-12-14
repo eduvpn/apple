@@ -10,6 +10,7 @@ import TunnelKit
 import TunnelKitOpenVPN
 import os.log
 import TunnelKitOpenVPNManager
+import TunnelKitManager
 
 protocol ConnectionServiceInitializationDelegate: AnyObject {
     func connectionService(
@@ -422,33 +423,40 @@ private extension ConnectionService {
 
         var configBuilder = parseResult.configuration.builder()
         configBuilder.tlsSecurityLevel = 3 // See https://github.com/eduvpn/apple/issues/89
+        let config = configBuilder.build()
 
-        var providerConfigBuilder = OpenVPNProvider.ConfigurationBuilder(sessionConfiguration: configBuilder.build())
-        providerConfigBuilder.masksPrivateData = false
-        providerConfigBuilder.shouldDebug = true
+        var providerConfig = OpenVPN.ProviderConfiguration(Config.shared.appName, appGroup: appGroup, configuration: config)
+        providerConfig.masksPrivateData = false
+        let providerConfigJson = try JSONEncoder().encode(providerConfig)
 
-        let providerConfig = providerConfigBuilder.build()
-
-        let openVPNCredentials: OpenVPN.Credentials? = {
-            if let credentials = credentials {
-                return OpenVPN.Credentials(credentials.userName, credentials.password)
+        let protocolConfiguration = NETunnelProviderProtocol()
+        protocolConfiguration.providerBundleIdentifier = openVPNTunnelBundleId
+        protocolConfiguration.serverAddress = {
+            guard let firstRemote = providerConfig.configuration.remotes?.first else {
+                return "unspecified"
             }
-            return nil
+            return "\(firstRemote.address):\(firstRemote.proto.port)"
         }()
+        if let credentials = credentials {
+            let keychain = Keychain(group: appGroup)
+            let passwordReference = try keychain.set(password: credentials.password, for: credentials.userName, context: openVPNTunnelBundleId)
+            protocolConfiguration.username = credentials.userName
+            protocolConfiguration.passwordReference = passwordReference
+        }
+        protocolConfiguration.providerConfiguration = [
+            ProviderConfigurationKeys.tunnelKitOpenVPNProviderConfig.rawValue: providerConfigJson,
+            ProviderConfigurationKeys.appGroup.rawValue: appGroup
+        ]
 
-        let tunnelProviderProtocolConfig = try providerConfig.generatedTunnelProtocol(
-            withBundleIdentifier: openVPNTunnelBundleId,
-            appGroup: appGroup,
-            context: openVPNTunnelBundleId,
-            credentials: openVPNCredentials)
-        tunnelProviderProtocolConfig.connectionAttemptId = connectionAttemptId
-        #if os(macOS)
-        tunnelProviderProtocolConfig.shouldPreventAutomaticConnections = shouldPreventAutomaticConnections
-        #elseif os(iOS)
+        protocolConfiguration.connectionAttemptId = connectionAttemptId
+
+#if os(macOS)
+        protocolConfiguration.shouldPreventAutomaticConnections = shouldPreventAutomaticConnections
+#elseif os(iOS)
         precondition(shouldPreventAutomaticConnections == false)
-        #endif
+#endif
 
-        return tunnelProviderProtocolConfig
+        return protocolConfiguration
     }
 
     static func tunnelProtocolConfiguration(
@@ -457,8 +465,8 @@ private extension ConnectionService {
         protocolConfiguration.providerBundleIdentifier = wireGuardTunnelBundleId
         protocolConfiguration.serverAddress = serverName
         protocolConfiguration.providerConfiguration = [
-            WireGuardProviderConfigurationKeys.wireGuardConfig.rawValue: wireGuardConfig,
-            WireGuardProviderConfigurationKeys.appGroup.rawValue: appGroup
+            ProviderConfigurationKeys.wireGuardConfig.rawValue: wireGuardConfig,
+            ProviderConfigurationKeys.appGroup.rawValue: appGroup
         ]
         protocolConfiguration.connectionAttemptId = connectionAttemptId
         return protocolConfiguration
