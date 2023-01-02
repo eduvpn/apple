@@ -40,9 +40,20 @@ class OpenVPNAdapterInterface: TunnelAdapterInterface {
 
     private var adapter: OpenVPNAdapter?
 
-    convenience init?(tunnelKitConfigJson: Data, credentials: OpenVPN.Credentials?, logger: Logger) {
+    convenience init?(tunnelKitConfigJson: Data, username: String?, passwordReference: Data?, logger: Logger) {
         guard let providerConfig = try? JSONDecoder().decode(OpenVPN.ProviderConfiguration.self, from: tunnelKitConfigJson) else {
             return nil
+        }
+        let credentials: OpenVPN.Credentials?
+        if let username = username, let passwordReference = passwordReference {
+            guard let password = try? Keychain.password(forReference: passwordReference) else {
+                logger.log("Unable to access password from keychain using password reference")
+                credentials = nil
+                return nil
+            }
+            credentials = OpenVPN.Credentials(username, password)
+        } else {
+            credentials = nil
         }
         self.init(configuration: providerConfig, credentials: credentials, logger: logger)
     }

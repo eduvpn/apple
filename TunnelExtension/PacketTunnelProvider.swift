@@ -98,7 +98,10 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                 completionHandler(PacketTunnelProviderError.savedProtocolConfigurationIsInvalid)
                 return
             }
-            guard let openVPNAdapterInterface = OpenVPNAdapterInterface(tunnelKitConfigJson: tunnelKitConfigJson, credentials: nil /*TODO*/, logger: logger) else {
+            guard let openVPNAdapterInterface = OpenVPNAdapterInterface(tunnelKitConfigJson: tunnelKitConfigJson,
+                                                                        username: protocolConfiguration.username,
+                                                                        passwordReference: protocolConfiguration.passwordReference,
+                                                                        logger: logger) else {
                 logger.log("TunnelKit OpenVPN provider config (JSON) not parseable")
                 completionHandler(PacketTunnelProviderError.savedProtocolConfigurationIsInvalid)
                 return
