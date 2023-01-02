@@ -103,7 +103,6 @@ struct StartTunnelOptions {
     }
 }
 
-#if os(macOS)
 extension NETunnelProviderProtocol {
 
     // shouldPreventAutomaticConnections:
@@ -111,6 +110,7 @@ extension NETunnelProviderProtocol {
     // When TunnelKit tries to reconnect, or when the OS triggers a
     // connection because of on-demand, the connection fails early.
 
+#if os(macOS)
     var shouldPreventAutomaticConnections: Bool {
         get {
             if let boolNumber = providerConfiguration?[ProviderConfigurationKeys.shouldPreventAutomaticConnections.rawValue] as? NSNumber {
@@ -123,6 +123,7 @@ extension NETunnelProviderProtocol {
             providerConfiguration?[ProviderConfigurationKeys.shouldPreventAutomaticConnections.rawValue] = boolNumber
         }
     }
+#endif
 
     // vpnProtocol:
     // The VPN protocol used. Either .wireGuard or .openVPN.
@@ -134,4 +135,3 @@ extension NETunnelProviderProtocol {
         return VPNProtocol(rawValue: vpnProtocolString)
     }
 }
-#endif

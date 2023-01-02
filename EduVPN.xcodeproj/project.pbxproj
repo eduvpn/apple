@@ -124,6 +124,14 @@
 		6F939F3F25C7D02C001887BA /* PasswordEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F939F3E25C7D02C001887BA /* PasswordEntryViewController.swift */; };
 		6F95FF94296297E70090643F /* OpenVPNAdapterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F95FF93296297E70090643F /* OpenVPNAdapterInterface.swift */; };
 		6F95FF972962988A0090643F /* WireGuardAdapterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F95FF962962988A0090643F /* WireGuardAdapterInterface.swift */; };
+		6F95FF982962EF820090643F /* WireGuardAdapterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F95FF962962988A0090643F /* WireGuardAdapterInterface.swift */; };
+		6F95FF992962EF820090643F /* TunnelConfiguration+WgQuickConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFC4064266E392000835B43 /* TunnelConfiguration+WgQuickConfig.swift */; };
+		6F95FF9A2962EF820090643F /* TunnelConfiguration+UapiConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F30735D2689E0530083EEEF /* TunnelConfiguration+UapiConfig.swift */; };
+		6F95FF9B2962EF820090643F /* String+ArrayConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFC4088266F51D200835B43 /* String+ArrayConversion.swift */; };
+		6F95FF9C2962EF820090643F /* OpenVPNAdapterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F95FF93296297E70090643F /* OpenVPNAdapterInterface.swift */; };
+		6F95FF9E2962EF9D0090643F /* TunnelKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6F95FF9D2962EF9D0090643F /* TunnelKit */; };
+		6F95FFA02962EF9D0090643F /* TunnelKitOpenVPN in Frameworks */ = {isa = PBXBuildFile; productRef = 6F95FF9F2962EF9D0090643F /* TunnelKitOpenVPN */; };
+		6F95FFA22962EF9D0090643F /* TunnelKitOpenVPNAppExtension in Frameworks */ = {isa = PBXBuildFile; productRef = 6F95FFA12962EF9D0090643F /* TunnelKitOpenVPNAppExtension */; };
 		6F96BB53252C51090023EB1D /* SearchViewController+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F96BB52252C51080023EB1D /* SearchViewController+iOS.swift */; };
 		6F9CE541261802F10065E4BA /* CredentialsViewController+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9CE540261802F10065E4BA /* CredentialsViewController+macOS.swift */; };
 		6F9CE54B2618064A0065E4BA /* CredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F885F7B25C1740D00CABF4E /* CredentialsViewController.swift */; };
@@ -555,6 +563,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F95FFA22962EF9D0090643F /* TunnelKitOpenVPNAppExtension in Frameworks */,
+				6F95FFA02962EF9D0090643F /* TunnelKitOpenVPN in Frameworks */,
+				6F95FF9E2962EF9D0090643F /* TunnelKit in Frameworks */,
 				6F6BB660265E59410093D4CC /* WireGuardKit in Frameworks */,
 				6F6BB621265E58BF0093D4CC /* NetworkExtension.framework in Frameworks */,
 			);
@@ -1254,6 +1265,9 @@
 			name = "TunnelExtension-iOS";
 			packageProductDependencies = (
 				6F6BB65F265E59410093D4CC /* WireGuardKit */,
+				6F95FF9D2962EF9D0090643F /* TunnelKit */,
+				6F95FF9F2962EF9D0090643F /* TunnelKitOpenVPN */,
+				6F95FFA12962EF9D0090643F /* TunnelKitOpenVPNAppExtension */,
 			);
 			productName = "WireGuardTunnelExtension-iOS";
 			productReference = 6F6BB620265E58BF0093D4CC /* TunnelExtension-iOS.appex */;
@@ -1757,6 +1771,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F95FF982962EF820090643F /* WireGuardAdapterInterface.swift in Sources */,
+				6F95FF992962EF820090643F /* TunnelConfiguration+WgQuickConfig.swift in Sources */,
+				6F95FF9A2962EF820090643F /* TunnelConfiguration+UapiConfig.swift in Sources */,
+				6F95FF9B2962EF820090643F /* String+ArrayConversion.swift in Sources */,
+				6F95FF9C2962EF820090643F /* OpenVPNAdapterInterface.swift in Sources */,
 				6F30735C2689B8130083EEEF /* Shared.swift in Sources */,
 				6FE06300266E36FB003FF2F8 /* PacketTunnelProvider.swift in Sources */,
 				6F21F40B26899B7A00C157E1 /* Logger.swift in Sources */,
@@ -2990,6 +3009,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6F0CF434264E8AAF00E90529 /* XCRemoteSwiftPackageReference "wireguard-apple" */;
 			productName = WireGuardKit;
+		};
+		6F95FF9D2962EF9D0090643F /* TunnelKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */;
+			productName = TunnelKit;
+		};
+		6F95FF9F2962EF9D0090643F /* TunnelKitOpenVPN */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */;
+			productName = TunnelKitOpenVPN;
+		};
+		6F95FFA12962EF9D0090643F /* TunnelKitOpenVPNAppExtension */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */;
+			productName = TunnelKitOpenVPNAppExtension;
 		};
 		6FC0639027B0F0DC00AE25D9 /* TunnelKit */ = {
 			isa = XCSwiftPackageProductDependency;
