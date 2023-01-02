@@ -7,13 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		340F956E22B7119600835D56 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340F956C22B7118C00835D56 /* NetworkExtension.framework */; };
 		342B9CB4228ED01400C006D7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CAF228ED01400C006D7 /* main.m */; };
 		342B9CB5228ED01400C006D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 342B9CB0228ED01400C006D7 /* Assets.xcassets */; };
 		342B9CB7228ED01400C006D7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CB2228ED01400C006D7 /* AppDelegate.m */; };
 		342B9CBB228ED02E00C006D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 342B9CB9228ED02E00C006D7 /* Main.storyboard */; };
-		349D85C522B706A4006E9540 /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349D85C422B706A4006E9540 /* PacketTunnelProvider.swift */; };
-		4A901C1E20C882FB000C1BF0 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ABFF78820C71E7200638480 /* NetworkExtension.framework */; };
 		4AAC1F8F1F2D0E3400DD0252 /* EduVPNTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAC1F8E1F2D0E3400DD0252 /* EduVPNTests.swift */; };
 		4AD5688D238491FA00EC0ABD /* FileServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD5688C238491FA00EC0ABD /* FileServiceTests.swift */; };
 		6F05E64224D0A6AA008292F6 /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F05E64124D0A6AA008292F6 /* ErrorHandling.swift */; };
@@ -35,20 +32,15 @@
 		6F1A1C0124EE8EDB0040D6A2 /* SupportContactTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1A1C0024EE8EDB0040D6A2 /* SupportContactTextView.swift */; };
 		6F21F40A26899B7A00C157E1 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F21F40926899B7A00C157E1 /* Logger.swift */; };
 		6F21F40B26899B7A00C157E1 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F21F40926899B7A00C157E1 /* Logger.swift */; };
-		6F21F4172689B3B700C157E1 /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349D85C422B706A4006E9540 /* PacketTunnelProvider.swift */; };
 		6F25F8D2269D763F00FA8FAB /* ConnectionViewController+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F25F8D1269D763F00FA8FAB /* ConnectionViewController+macOS.swift */; };
 		6F25F8D4269DE3BB00FA8FAB /* MenuCommandResponding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F25F8D3269DE3BB00FA8FAB /* MenuCommandResponding.swift */; };
-		6F2E5171293DE10A0058F069 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F21F40926899B7A00C157E1 /* Logger.swift */; };
-		6F2E5173293DE10A0058F069 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F21F40926899B7A00C157E1 /* Logger.swift */; };
 		6F2E51792941BE060058F069 /* TunnelKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6F2E51782941BE060058F069 /* TunnelKit */; };
 		6F2E517B2941BE0A0058F069 /* TunnelKitOpenVPN in Frameworks */ = {isa = PBXBuildFile; productRef = 6F2E517A2941BE0A0058F069 /* TunnelKitOpenVPN */; };
 		6F2E517D2941BE0F0058F069 /* TunnelKitOpenVPNAppExtension in Frameworks */ = {isa = PBXBuildFile; productRef = 6F2E517C2941BE0F0058F069 /* TunnelKitOpenVPNAppExtension */; };
 		6F305A59254AA6C60067E744 /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F305A58254AA6C50067E744 /* LogViewController.swift */; };
 		6F3073572689B8000083EEEF /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3073562689B8000083EEEF /* Shared.swift */; };
-		6F3073582689B8070083EEEF /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3073562689B8000083EEEF /* Shared.swift */; };
 		6F3073592689B80E0083EEEF /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3073562689B8000083EEEF /* Shared.swift */; };
 		6F30735A2689B8110083EEEF /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3073562689B8000083EEEF /* Shared.swift */; };
-		6F30735B2689B8130083EEEF /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3073562689B8000083EEEF /* Shared.swift */; };
 		6F30735C2689B8130083EEEF /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3073562689B8000083EEEF /* Shared.swift */; };
 		6F30735E2689E0530083EEEF /* TunnelConfiguration+UapiConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F30735D2689E0530083EEEF /* TunnelConfiguration+UapiConfig.swift */; };
 		6F36A71D24B454AB00BA8F5E /* CountryFlags.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F36A71C24B454AA00BA8F5E /* CountryFlags.xcassets */; };
@@ -117,10 +109,8 @@
 		6F71FBBE249CCE9E0010D0FE /* DiscoveryDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F71FBBC249CCE980010D0FE /* DiscoveryDataFetcher.swift */; };
 		6F750C8524975A4300AF2C04 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340F956C22B7118C00835D56 /* NetworkExtension.framework */; };
 		6F750C8924975A4300AF2C04 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = C75B2CB42363138200D700EC /* config.json */; };
-		6F750C8F24975A4300AF2C04 /* OpenVPNTunnelExtension-macOS.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 349D85C222B706A4006E9540 /* OpenVPNTunnelExtension-macOS.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6F750C9224975A4300AF2C04 /* LoginItemHelper-macOS.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6F750D1124975B9B00AF2C04 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ABFF78820C71E7200638480 /* NetworkExtension.framework */; };
-		6F750D1C24975B9B00AF2C04 /* OpenVPNTunnelExtension-iOS.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4A901C1120C87511000C1BF0 /* OpenVPNTunnelExtension-iOS.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6F7B63F02500FD7300FB154A /* StatusItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7B63EF2500FD7300FB154A /* StatusItemController.swift */; };
 		6F7B63F225022AAE00FB154A /* LaunchAtLoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7B63F125022AAE00FB154A /* LaunchAtLoginHelper.swift */; };
 		6F7B643E2502A18D00FB154A /* ConnectionInfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7B643D2502A18C00FB154A /* ConnectionInfoHeaderView.swift */; };
@@ -150,12 +140,6 @@
 		6FBFEF1624C2DCEE00A9D1D4 /* OpenSans-Regular.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6FBFEF0F24C2DCA900A9D1D4 /* OpenSans-Regular.ttf */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		6FC0639127B0F0DC00AE25D9 /* TunnelKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6FC0639027B0F0DC00AE25D9 /* TunnelKit */; };
 		6FC0639327B0F0DC00AE25D9 /* TunnelKitOpenVPN in Frameworks */ = {isa = PBXBuildFile; productRef = 6FC0639227B0F0DC00AE25D9 /* TunnelKitOpenVPN */; };
-		6FC0639727B0F43A00AE25D9 /* TunnelKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6FC0639627B0F43A00AE25D9 /* TunnelKit */; };
-		6FC0639927B0F43A00AE25D9 /* TunnelKitOpenVPN in Frameworks */ = {isa = PBXBuildFile; productRef = 6FC0639827B0F43A00AE25D9 /* TunnelKitOpenVPN */; };
-		6FC0639B27B0F43A00AE25D9 /* TunnelKitOpenVPNAppExtension in Frameworks */ = {isa = PBXBuildFile; productRef = 6FC0639A27B0F43A00AE25D9 /* TunnelKitOpenVPNAppExtension */; };
-		6FC0639D27B0F50200AE25D9 /* TunnelKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6FC0639C27B0F50200AE25D9 /* TunnelKit */; };
-		6FC0639F27B0F50200AE25D9 /* TunnelKitOpenVPN in Frameworks */ = {isa = PBXBuildFile; productRef = 6FC0639E27B0F50200AE25D9 /* TunnelKitOpenVPN */; };
-		6FC063A127B0F50200AE25D9 /* TunnelKitOpenVPNAppExtension in Frameworks */ = {isa = PBXBuildFile; productRef = 6FC063A027B0F50200AE25D9 /* TunnelKitOpenVPNAppExtension */; };
 		6FC063A327B0F52900AE25D9 /* TunnelKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6FC063A227B0F52900AE25D9 /* TunnelKit */; };
 		6FC063A527B0F52900AE25D9 /* TunnelKitOpenVPN in Frameworks */ = {isa = PBXBuildFile; productRef = 6FC063A427B0F52900AE25D9 /* TunnelKitOpenVPN */; };
 		6FC27AC824B9550D006FA648 /* ServerAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC27AC724B9550C006FA648 /* ServerAPIService.swift */; };
@@ -273,20 +257,6 @@
 			remoteGlobalIDString = 6F6BB638265E58FD0093D4CC;
 			remoteInfo = "WireGuardGoBridge-iOS";
 		};
-		6F750C2E24975A4300AF2C04 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4AAC1F6E1F2D0E3400DD0252 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 349D85C122B706A4006E9540;
-			remoteInfo = "EduVPNTunnelExtension-macOS";
-		};
-		6F750CBF24975B9B00AF2C04 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4AAC1F6E1F2D0E3400DD0252 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4A901C1020C87511000C1BF0;
-			remoteInfo = EduVPNTunnelExtension;
-		};
 		C79B63DC258A08FB00C054CC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4AAC1F6E1F2D0E3400DD0252 /* Project object */;
@@ -317,7 +287,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				6F750C8F24975A4300AF2C04 /* OpenVPNTunnelExtension-macOS.appex in Embed App Extensions */,
 				6F66DAD7265E1E4D006974CF /* TunnelExtension-macOS.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -339,7 +308,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				6F750D1C24975B9B00AF2C04 /* OpenVPNTunnelExtension-iOS.appex in Embed App Extensions */,
 				6F6BB629265E58BF0093D4CC /* TunnelExtension-iOS.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -370,15 +338,9 @@
 		342B9CB1228ED01400C006D7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		342B9CB2228ED01400C006D7 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		342B9CBA228ED02E00C006D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		349D85C222B706A4006E9540 /* OpenVPNTunnelExtension-macOS.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "OpenVPNTunnelExtension-macOS.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		349D85C422B706A4006E9540 /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
-		349D85C622B706A4006E9540 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		349D85C722B706A4006E9540 /* OpenVPNTunnelExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OpenVPNTunnelExtension.entitlements; sourceTree = "<group>"; };
 		4A3E78DB236B692A009CE595 /* config-appforce1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-appforce1.json"; sourceTree = "<group>"; };
 		4A3E78DC236B694A009CE595 /* Developer.xcconfig.appforce1-template */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Developer.xcconfig.appforce1-template"; sourceTree = "<group>"; };
 		4A79CE5D2281DDD800ABAA8E /* AppVersion.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = AppVersion.xcconfig; sourceTree = "<group>"; };
-		4A901C1120C87511000C1BF0 /* OpenVPNTunnelExtension-iOS.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "OpenVPNTunnelExtension-iOS.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4A901C1520C87512000C1BF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4AAC1F8A1F2D0E3400DD0252 /* EduVPNTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EduVPNTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AAC1F8E1F2D0E3400DD0252 /* EduVPNTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EduVPNTests.swift; sourceTree = "<group>"; };
 		4AAC1F901F2D0E3400DD0252 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -397,7 +359,6 @@
 		6F12816E25C3F6900078E734 /* TestServerCredentialsmacOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestServerCredentialsmacOS.swift; sourceTree = "<group>"; };
 		6F1A1C0024EE8EDB0040D6A2 /* SupportContactTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportContactTextView.swift; sourceTree = "<group>"; };
 		6F21F40926899B7A00C157E1 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
-		6F21F4162689B2E900C157E1 /* OpenVPNTunnelExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OpenVPNTunnelExtension.entitlements; sourceTree = "<group>"; };
 		6F25F8D1269D763F00FA8FAB /* ConnectionViewController+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConnectionViewController+macOS.swift"; sourceTree = "<group>"; };
 		6F25F8D3269DE3BB00FA8FAB /* MenuCommandResponding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCommandResponding.swift; sourceTree = "<group>"; };
 		6F305A58254AA6C50067E744 /* LogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
@@ -570,28 +531,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		349D85BF22B706A4006E9540 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				340F956E22B7119600835D56 /* NetworkExtension.framework in Frameworks */,
-				6FC0639927B0F43A00AE25D9 /* TunnelKitOpenVPN in Frameworks */,
-				6FC0639B27B0F43A00AE25D9 /* TunnelKitOpenVPNAppExtension in Frameworks */,
-				6FC0639727B0F43A00AE25D9 /* TunnelKit in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4A901C0E20C87511000C1BF0 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4A901C1E20C882FB000C1BF0 /* NetworkExtension.framework in Frameworks */,
-				6FC0639F27B0F50200AE25D9 /* TunnelKitOpenVPN in Frameworks */,
-				6FC063A127B0F50200AE25D9 /* TunnelKitOpenVPNAppExtension in Frameworks */,
-				6FC0639D27B0F50200AE25D9 /* TunnelKit in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4AAC1F871F2D0E3400DD0252 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -714,16 +653,6 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		349D85C322B706A4006E9540 /* OpenVPNTunnelExtension */ = {
-			isa = PBXGroup;
-			children = (
-				6F21F4142689B27B00C157E1 /* Mac */,
-				6F21F4152689B28000C157E1 /* iOS */,
-				349D85C422B706A4006E9540 /* PacketTunnelProvider.swift */,
-			);
-			path = OpenVPNTunnelExtension;
-			sourceTree = "<group>";
-		};
 		4AAC1F6D1F2D0E3400DD0252 = {
 			isa = PBXGroup;
 			children = (
@@ -741,7 +670,6 @@
 				342B9C9A228ECFDB00C006D7 /* LoginItemHelper-macOS */,
 				C79B63C8258A08C200C054CC /* EduVPN-UITests-macOS */,
 				C75B2CA62363122900D700EC /* Scripts */,
-				349D85C322B706A4006E9540 /* OpenVPNTunnelExtension */,
 				6F66DAD0265E1E4C006974CF /* TunnelExtension */,
 				4AAC1F771F2D0E3400DD0252 /* Products */,
 				26B4255A0C7DB00763783EF6 /* Frameworks */,
@@ -752,9 +680,7 @@
 			isa = PBXGroup;
 			children = (
 				4AAC1F8A1F2D0E3400DD0252 /* EduVPNTests.xctest */,
-				4A901C1120C87511000C1BF0 /* OpenVPNTunnelExtension-iOS.appex */,
 				342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */,
-				349D85C222B706A4006E9540 /* OpenVPNTunnelExtension-macOS.appex */,
 				6F750C9624975A4300AF2C04 /* eduVPN.app */,
 				6F750D2124975B9B00AF2C04 /* eduVPN.app */,
 				C7B4392A2580CE4D00FEB2B1 /* EduVPN-Tests-iOS.xctest */,
@@ -790,24 +716,6 @@
 				4AE763AB23DA4D1F00A98BCC /* main.yml */,
 			);
 			path = workflows;
-			sourceTree = "<group>";
-		};
-		6F21F4142689B27B00C157E1 /* Mac */ = {
-			isa = PBXGroup;
-			children = (
-				349D85C622B706A4006E9540 /* Info.plist */,
-				349D85C722B706A4006E9540 /* OpenVPNTunnelExtension.entitlements */,
-			);
-			path = Mac;
-			sourceTree = "<group>";
-		};
-		6F21F4152689B28000C157E1 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				6F21F4162689B2E900C157E1 /* OpenVPNTunnelExtension.entitlements */,
-				4A901C1520C87512000C1BF0 /* Info.plist */,
-			);
-			path = iOS;
 			sourceTree = "<group>";
 		};
 		6F305A5A254B65770067E744 /* Mac */ = {
@@ -1284,52 +1192,6 @@
 			productReference = 342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		349D85C122B706A4006E9540 /* OpenVPNTunnelExtension-macOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 349D85CD22B706A4006E9540 /* Build configuration list for PBXNativeTarget "OpenVPNTunnelExtension-macOS" */;
-			buildPhases = (
-				349D85BE22B706A4006E9540 /* Sources */,
-				349D85BF22B706A4006E9540 /* Frameworks */,
-				349D85C022B706A4006E9540 /* Resources */,
-				C7FDFA7223A0F968006D9FF9 /* Set Build Number */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "OpenVPNTunnelExtension-macOS";
-			packageProductDependencies = (
-				6FC0639627B0F43A00AE25D9 /* TunnelKit */,
-				6FC0639827B0F43A00AE25D9 /* TunnelKitOpenVPN */,
-				6FC0639A27B0F43A00AE25D9 /* TunnelKitOpenVPNAppExtension */,
-			);
-			productName = "EduVPNTunnelExtension-macOS";
-			productReference = 349D85C222B706A4006E9540 /* OpenVPNTunnelExtension-macOS.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
-		4A901C1020C87511000C1BF0 /* OpenVPNTunnelExtension-iOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4A901C1C20C87512000C1BF0 /* Build configuration list for PBXNativeTarget "OpenVPNTunnelExtension-iOS" */;
-			buildPhases = (
-				4A901C0D20C87511000C1BF0 /* Sources */,
-				4A901C0E20C87511000C1BF0 /* Frameworks */,
-				4A901C0F20C87511000C1BF0 /* Resources */,
-				4AD2A84221E6A22500C78B37 /* Set build number */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "OpenVPNTunnelExtension-iOS";
-			packageProductDependencies = (
-				6FC0639C27B0F50200AE25D9 /* TunnelKit */,
-				6FC0639E27B0F50200AE25D9 /* TunnelKitOpenVPN */,
-				6FC063A027B0F50200AE25D9 /* TunnelKitOpenVPNAppExtension */,
-			);
-			productName = EduVPNTunnelExtension;
-			productReference = 4A901C1120C87511000C1BF0 /* OpenVPNTunnelExtension-iOS.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 		4AAC1F891F2D0E3400DD0252 /* EduVPNTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4AAC1F961F2D0E3400DD0252 /* Build configuration list for PBXNativeTarget "EduVPNTests" */;
@@ -1414,7 +1276,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				6F750C2D24975A4300AF2C04 /* PBXTargetDependency */,
 				6F66DAD6265E1E4D006974CF /* PBXTargetDependency */,
 			);
 			name = "EduVPN-macOS";
@@ -1449,7 +1310,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				6F750CBE24975B9B00AF2C04 /* PBXTargetDependency */,
 				6F6BB628265E58BF0093D4CC /* PBXTargetDependency */,
 			);
 			name = "EduVPN-iOS";
@@ -1537,39 +1397,6 @@
 						CreatedOnToolsVersion = 10.2.1;
 						ProvisioningStyle = Automatic;
 					};
-					349D85C122B706A4006E9540 = {
-						CreatedOnToolsVersion = 10.2.1;
-						ProvisioningStyle = Automatic;
-						SystemCapabilities = {
-							com.apple.ApplicationGroups.Mac = {
-								enabled = 1;
-							};
-							com.apple.Keychain = {
-								enabled = 1;
-							};
-							com.apple.NetworkExtensions = {
-								enabled = 1;
-							};
-							com.apple.Sandbox = {
-								enabled = 1;
-							};
-						};
-					};
-					4A901C1020C87511000C1BF0 = {
-						CreatedOnToolsVersion = 9.4;
-						ProvisioningStyle = Automatic;
-						SystemCapabilities = {
-							com.apple.ApplicationGroups.iOS = {
-								enabled = 1;
-							};
-							com.apple.Keychain = {
-								enabled = 1;
-							};
-							com.apple.NetworkExtensions.iOS = {
-								enabled = 1;
-							};
-						};
-					};
 					4AAC1F891F2D0E3400DD0252 = {
 						CreatedOnToolsVersion = 8.3.3;
 						LastSwiftMigration = 1010;
@@ -1634,13 +1461,11 @@
 			projectRoot = "";
 			targets = (
 				6F750C2C24975A4300AF2C04 /* EduVPN-macOS */,
-				349D85C122B706A4006E9540 /* OpenVPNTunnelExtension-macOS */,
 				6F66DACD265E1E4C006974CF /* TunnelExtension-macOS */,
 				6F66DAEF265E1E9D006974CF /* WireGuardGoBridge-macOS */,
 				C79B63C6258A08C200C054CC /* EduVPN-UITests-macOS */,
 				342B9C98228ECFDB00C006D7 /* LoginItemHelper-macOS */,
 				6F750CBD24975B9B00AF2C04 /* EduVPN-iOS */,
-				4A901C1020C87511000C1BF0 /* OpenVPNTunnelExtension-iOS */,
 				6F6BB61F265E58BF0093D4CC /* TunnelExtension-iOS */,
 				6F6BB638265E58FD0093D4CC /* WireGuardGoBridge-iOS */,
 				C7B439492580D0F000FEB2B1 /* EduVPN-UITests-iOS */,
@@ -1657,20 +1482,6 @@
 			files = (
 				342B9CBB228ED02E00C006D7 /* Main.storyboard in Resources */,
 				342B9CB5228ED01400C006D7 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		349D85C022B706A4006E9540 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4A901C0F20C87511000C1BF0 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1752,24 +1563,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4AD2A84221E6A22500C78B37 /* Set build number */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Set build number";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "$SRCROOT/Scripts/set_build_number.sh\n";
-		};
 		6F750C3024975A4300AF2C04 /* Copy Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1906,24 +1699,6 @@
 			shellPath = /bin/sh;
 			shellScript = "$SRCROOT/Scripts/set_build_number.sh\n";
 		};
-		C7FDFA7223A0F968006D9FF9 /* Set Build Number */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Set Build Number";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "$SRCROOT/Scripts/set_build_number.sh\n";
-		};
 		C7FDFA7323A0F980006D9FF9 /* Set Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1951,26 +1726,6 @@
 			files = (
 				342B9CB7228ED01400C006D7 /* AppDelegate.m in Sources */,
 				342B9CB4228ED01400C006D7 /* main.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		349D85BE22B706A4006E9540 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6F3073582689B8070083EEEF /* Shared.swift in Sources */,
-				6F2E5171293DE10A0058F069 /* Logger.swift in Sources */,
-				349D85C522B706A4006E9540 /* PacketTunnelProvider.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4A901C0D20C87511000C1BF0 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6F30735B2689B8130083EEEF /* Shared.swift in Sources */,
-				6F2E5173293DE10A0058F069 /* Logger.swift in Sources */,
-				6F21F4172689B3B700C157E1 /* PacketTunnelProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2214,16 +1969,6 @@
 			target = 6F6BB638265E58FD0093D4CC /* WireGuardGoBridge-iOS */;
 			targetProxy = 6F6BB65D265E59340093D4CC /* PBXContainerItemProxy */;
 		};
-		6F750C2D24975A4300AF2C04 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 349D85C122B706A4006E9540 /* OpenVPNTunnelExtension-macOS */;
-			targetProxy = 6F750C2E24975A4300AF2C04 /* PBXContainerItemProxy */;
-		};
-		6F750CBE24975B9B00AF2C04 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4A901C1020C87511000C1BF0 /* OpenVPNTunnelExtension-iOS */;
-			targetProxy = 6F750CBF24975B9B00AF2C04 /* PBXContainerItemProxy */;
-		};
 		C79B63DD258A08FB00C054CC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 6F750C2C24975A4300AF2C04 /* EduVPN-macOS */;
@@ -2325,125 +2070,6 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		349D85CB22B706A4006E9540 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C75B2CBB2363138200D700EC /* Development-macOS-OpenVPNTunnelExtension.xcconfig */;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = OpenVPNTunnelExtension/Mac/OpenVPNTunnelExtension.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_HARDENED_RUNTIME = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = OpenVPNTunnelExtension/Mac/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@executable_path/../../../../Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID).OpenVPNTunnelExtension";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		349D85CC22B706A4006E9540 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C75B2CAE2363138200D700EC /* Release-macOS-OpenVPNTunnelExtension.xcconfig */;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = OpenVPNTunnelExtension/Mac/OpenVPNTunnelExtension.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_HARDENED_RUNTIME = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = OpenVPNTunnelExtension/Mac/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@executable_path/../../../../Frameworks",
-				);
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID).OpenVPNTunnelExtension";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
-		4A901C1A20C87512000C1BF0 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4ABCCBE621E528260020CB6D /* Development-OpenVPNTunnelExtension.xcconfig */;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = OpenVPNTunnelExtension/iOS/OpenVPNTunnelExtension.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "$(DEVELOPMENT_TEAM)";
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = OpenVPNTunnelExtension/iOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID).OpenVPNTunnelExtension";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		4A901C1B20C87512000C1BF0 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4ABCCBE521E528140020CB6D /* Release-OpenVPNTunnelExtension.xcconfig */;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = OpenVPNTunnelExtension/iOS/OpenVPNTunnelExtension.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "$(DEVELOPMENT_TEAM)";
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = OpenVPNTunnelExtension/iOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID).OpenVPNTunnelExtension";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -3164,24 +2790,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		349D85CD22B706A4006E9540 /* Build configuration list for PBXNativeTarget "OpenVPNTunnelExtension-macOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				349D85CB22B706A4006E9540 /* Debug */,
-				349D85CC22B706A4006E9540 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4A901C1C20C87512000C1BF0 /* Build configuration list for PBXNativeTarget "OpenVPNTunnelExtension-iOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4A901C1A20C87512000C1BF0 /* Debug */,
-				4A901C1B20C87512000C1BF0 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		4AAC1F711F2D0E3400DD0252 /* Build configuration list for PBXProject "EduVPN" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -3392,36 +3000,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */;
 			productName = TunnelKitOpenVPN;
-		};
-		6FC0639627B0F43A00AE25D9 /* TunnelKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */;
-			productName = TunnelKit;
-		};
-		6FC0639827B0F43A00AE25D9 /* TunnelKitOpenVPN */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */;
-			productName = TunnelKitOpenVPN;
-		};
-		6FC0639A27B0F43A00AE25D9 /* TunnelKitOpenVPNAppExtension */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */;
-			productName = TunnelKitOpenVPNAppExtension;
-		};
-		6FC0639C27B0F50200AE25D9 /* TunnelKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */;
-			productName = TunnelKit;
-		};
-		6FC0639E27B0F50200AE25D9 /* TunnelKitOpenVPN */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */;
-			productName = TunnelKitOpenVPN;
-		};
-		6FC063A027B0F50200AE25D9 /* TunnelKitOpenVPNAppExtension */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */;
-			productName = TunnelKitOpenVPNAppExtension;
 		};
 		6FC063A227B0F52900AE25D9 /* TunnelKit */ = {
 			isa = XCSwiftPackageProductDependency;
