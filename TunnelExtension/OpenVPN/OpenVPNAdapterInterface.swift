@@ -42,6 +42,7 @@ class OpenVPNAdapterInterface: TunnelAdapterInterface {
 
     convenience init?(tunnelKitConfigJson: Data, username: String?, passwordReference: Data?, logger: Logger) {
         guard let providerConfig = try? JSONDecoder().decode(OpenVPN.ProviderConfiguration.self, from: tunnelKitConfigJson) else {
+            logger.log("Unable to decode provider config JSON")
             return nil
         }
         let credentials: OpenVPN.Credentials?

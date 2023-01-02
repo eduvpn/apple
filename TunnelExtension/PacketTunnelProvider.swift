@@ -87,7 +87,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                 return
             }
             guard let wgAdapterInterface = WireGuardAdapterInterface(wgQuickConfig: wgQuickConfig, logger: logger) else {
-                logger.log("WireGuard config not parseable")
+                logger.log("Cannot create WireGuardAdapterInterface")
                 completionHandler(PacketTunnelProviderError.savedProtocolConfigurationIsInvalid)
                 return
             }
@@ -102,7 +102,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                                                                         username: protocolConfiguration.username,
                                                                         passwordReference: protocolConfiguration.passwordReference,
                                                                         logger: logger) else {
-                logger.log("TunnelKit OpenVPN provider config (JSON) not parseable")
+                logger.log("Cannot create OpenVPNAdapterInterface")
                 completionHandler(PacketTunnelProviderError.savedProtocolConfigurationIsInvalid)
                 return
             }

@@ -16,6 +16,7 @@ class WireGuardAdapterInterface: TunnelAdapterInterface {
 
     convenience init?(wgQuickConfig: String, logger: Logger) {
         guard let tunnelConfiguration = try? TunnelConfiguration(fromWgQuickConfig: wgQuickConfig) else {
+            logger.log("Unable to parse wg-quick config")
             return nil
         }
         self.init(configuration: tunnelConfiguration, logger: logger)
