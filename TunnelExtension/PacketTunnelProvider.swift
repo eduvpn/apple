@@ -79,21 +79,32 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         self.logger = logger
 
         let adapterInterface: TunnelAdapterInterface
-        if let wgQuickConfig = providerConfiguration[ProviderConfigurationKeys.wireGuardConfig.rawValue] as? String {
+        switch protocolConfiguration.vpnProtocol {
+        case .wireGuard:
+            guard let wgQuickConfig = providerConfiguration[ProviderConfigurationKeys.wireGuardConfig.rawValue] as? String else {
+                logger.log("WireGuard config not available")
+                completionHandler(PacketTunnelProviderError.savedProtocolConfigurationIsInvalid)
+                return
+            }
             guard let wgAdapterInterface = WireGuardAdapterInterface(wgQuickConfig: wgQuickConfig, logger: logger) else {
                 logger.log("WireGuard config not parseable")
                 completionHandler(PacketTunnelProviderError.savedProtocolConfigurationIsInvalid)
                 return
             }
             adapterInterface = wgAdapterInterface
-        } else if let tunnelKitConfigJson = providerConfiguration[ProviderConfigurationKeys.tunnelKitOpenVPNProviderConfig.rawValue] as? Data {
+        case .openVPN:
+            guard let tunnelKitConfigJson = providerConfiguration[ProviderConfigurationKeys.tunnelKitOpenVPNProviderConfig.rawValue] as? Data else {
+                logger.log("TunnelKit OpenVPN provider config (JSON) not available")
+                completionHandler(PacketTunnelProviderError.savedProtocolConfigurationIsInvalid)
+                return
+            }
             guard let openVPNAdapterInterface = OpenVPNAdapterInterface(tunnelKitConfigJson: tunnelKitConfigJson, credentials: nil /*TODO*/, logger: logger) else {
                 logger.log("TunnelKit OpenVPN provider config (JSON) not parseable")
                 completionHandler(PacketTunnelProviderError.savedProtocolConfigurationIsInvalid)
                 return
             }
             adapterInterface = openVPNAdapterInterface
-        } else {
+        default:
             logger.log("No VPN config is available")
             completionHandler(PacketTunnelProviderError.savedProtocolConfigurationIsInvalid)
             return

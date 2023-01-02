@@ -427,6 +427,7 @@ private extension ConnectionService {
             protocolConfiguration.passwordReference = passwordReference
         }
         protocolConfiguration.providerConfiguration = [
+            ProviderConfigurationKeys.vpnProtocol.rawValue: VPNProtocol.openVPN.rawValue,
             ProviderConfigurationKeys.tunnelKitOpenVPNProviderConfig.rawValue: providerConfigJson,
             ProviderConfigurationKeys.appGroup.rawValue: appGroup
         ]
@@ -448,6 +449,7 @@ private extension ConnectionService {
         protocolConfiguration.providerBundleIdentifier = tunnelExtensionBundleId
         protocolConfiguration.serverAddress = serverName
         protocolConfiguration.providerConfiguration = [
+            ProviderConfigurationKeys.vpnProtocol.rawValue: VPNProtocol.wireGuard.rawValue,
             ProviderConfigurationKeys.wireGuardConfig.rawValue: wireGuardConfig,
             ProviderConfigurationKeys.appGroup.rawValue: appGroup
         ]
