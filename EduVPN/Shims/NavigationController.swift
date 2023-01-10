@@ -59,7 +59,11 @@ class NavigationController: NSViewController {
     }
 
     override func viewDidAppear() {
+        #if DEVELOPER_ID_DISTRIBUTION
+        #else
+        // Show disclaimer only for the app distributed through the Mac App Store
         showDisclaimerIfNotAcceptedYet()
+        #endif
     }
 
     @IBAction func toolbarPreferencesClicked(_ sender: Any) {
