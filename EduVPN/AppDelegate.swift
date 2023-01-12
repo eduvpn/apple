@@ -41,6 +41,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItemController: StatusItemController?
     var mainViewController: MainViewController?
 
+    #if DEVELOPER_ID_DISTRIBUTION
+    var systemExtensionHelper: SystemExtensionHelper?
+    #endif
+
     func applicationWillFinishLaunching(_ notification: Notification) {
         if UserDefaults.standard.showInDock {
             NSApp.setActivationPolicy(.regular)
@@ -86,6 +90,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         self.mainWindow = window
+
+#if DEVELOPER_ID_DISTRIBUTION
+            let systemExtensionHelper = SystemExtensionHelper()
+            systemExtensionHelper.beginSystemExtensionInstallation()
+            self.systemExtensionHelper = systemExtensionHelper
+#endif
     }
 
     private static func replaceAppNameInMenuItems(in menu: NSMenu?) {
