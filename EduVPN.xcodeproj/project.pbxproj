@@ -601,6 +601,8 @@
 		6FBFEF0F24C2DCA900A9D1D4 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		6FC27AC724B9550C006FA648 /* ServerAPIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerAPIService.swift; sourceTree = "<group>"; };
 		6FCA844E296E9190006DD80E /* SystemExtensionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SystemExtensionHelper.swift; path = SystemExtensionHelper.swift; sourceTree = "<group>"; };
+		6FCA8451296FCFEB006DD80E /* Release-macOS-DeveloperID.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Release-macOS-DeveloperID.xcconfig"; path = "Release-macOS-DeveloperID.xcconfig"; sourceTree = "<group>"; };
+		6FCA8452296FCFEB006DD80E /* Development-macOS-DeveloperID.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Development-macOS-DeveloperID.xcconfig"; path = "Development-macOS-DeveloperID.xcconfig"; sourceTree = "<group>"; };
 		6FCC5EF324B8579D00C6BC80 /* LanguageMappedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageMappedString.swift; sourceTree = "<group>"; };
 		6FCC5EF524B85D6700C6BC80 /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResponse.swift; sourceTree = "<group>"; };
 		6FCCC576249E25F100F0F5A3 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
@@ -1043,9 +1045,11 @@
 				C75B2CB72363138200D700EC /* Development-macOS.xcconfig */,
 				6F66DB7B265E5096006974CF /* Development-macOS-TunnelExtension.xcconfig */,
 				C730CD6223746B4900C21AF9 /* Development-macOS-LoginItemHelper.xcconfig */,
+				6FCA8452296FCFEB006DD80E /* Development-macOS-DeveloperID.xcconfig */,
 				C75B2CB92363138200D700EC /* Release-macOS.xcconfig */,
 				6F66DB7C265E5096006974CF /* Release-macOS-TunnelExtension.xcconfig */,
 				C730CD6323746B4900C21AF9 /* Release-macOS-LoginItemHelper.xcconfig */,
+				6FCA8451296FCFEB006DD80E /* Release-macOS-DeveloperID.xcconfig */,
 				C75B2CBF2363138200D700EC /* AppVersion-macOS.xcconfig */,
 			);
 			path = Mac;
@@ -3095,7 +3099,7 @@
 		};
 		6F950025296547930090643F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C75B2CB72363138200D700EC /* Development-macOS.xcconfig */;
+			baseConfigurationReference = 6FCA8452296FCFEB006DD80E /* Development-macOS-DeveloperID.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -3141,7 +3145,7 @@
 		};
 		6F950026296547930090643F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C75B2CB92363138200D700EC /* Release-macOS.xcconfig */;
+			baseConfigurationReference = 6FCA8451296FCFEB006DD80E /* Release-macOS-DeveloperID.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;

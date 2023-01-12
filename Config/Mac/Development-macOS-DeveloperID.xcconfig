@@ -1,0 +1,12 @@
+//
+//  Development.xcconfig
+//  eduVPN
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+#include "Developer-macOS.xcconfig"
+#include "AppVersion-macOS.xcconfig"
+
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEVELOPER_ID_DISTRIBUTION
