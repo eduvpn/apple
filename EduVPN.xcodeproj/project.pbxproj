@@ -579,7 +579,7 @@
 		6F8AEE7825E6D507001A603B /* StatusItemConnectionInfoHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemConnectionInfoHelper.swift; sourceTree = "<group>"; };
 		6F939F3E25C7D02C001887BA /* PasswordEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordEntryViewController.swift; sourceTree = "<group>"; };
 		6F950027296547930090643F /* eduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6F95002D296689810090643F /* $(APP_ID).TunnelExtension.systemextension */ = {isa = PBXFileReference; explicitFileType = "wrapper.system-extension"; includeInIndex = 0; name = "$(APP_ID).TunnelExtension.systemextension"; path = "$(APP_ID).TunnelExtension.systemextension"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F95002D296689810090643F /* $(APP_ID).TunnelExtension.systemextension */ = {isa = PBXFileReference; explicitFileType = "wrapper.system-extension"; includeInIndex = 0; name = "$(APP_ID).TunnelExtension.systemextension"; path = "net.roopc.eduVPN-macOS-DeveloperId.TunnelExtension.systemextension"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F950032296689810090643F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		6F950034296689810090643F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6F950035296689810090643F /* TunnelExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TunnelExtension.entitlements; sourceTree = "<group>"; };
@@ -1103,6 +1103,15 @@
 			path = WireGuard;
 			sourceTree = "<group>";
 		};
+		6FAD277C29711B3300577685 /* AppExtension */ = {
+			isa = PBXGroup;
+			children = (
+				6F66DAD3265E1E4D006974CF /* Info.plist */,
+				6F66DAD4265E1E4D006974CF /* TunnelExtension.entitlements */,
+			);
+			path = AppExtension;
+			sourceTree = "<group>";
+		};
 		6FBFEF0D24C2DC8C00A9D1D4 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -1115,9 +1124,8 @@
 		6FE062FD266E3699003FF2F8 /* Mac */ = {
 			isa = PBXGroup;
 			children = (
+				6FAD277C29711B3300577685 /* AppExtension */,
 				6F95003D29668A060090643F /* SystemExtension */,
-				6F66DAD3265E1E4D006974CF /* Info.plist */,
-				6F66DAD4265E1E4D006974CF /* TunnelExtension.entitlements */,
 			);
 			path = Mac;
 			sourceTree = "<group>";
@@ -2725,13 +2733,13 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = TunnelExtension/Mac/TunnelExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = TunnelExtension/Mac/AppExtension/TunnelExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = TunnelExtension/Mac/Info.plist;
+				INFOPLIST_FILE = TunnelExtension/Mac/AppExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -2756,13 +2764,13 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = TunnelExtension/Mac/TunnelExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = TunnelExtension/Mac/AppExtension/TunnelExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = TunnelExtension/Mac/Info.plist;
+				INFOPLIST_FILE = TunnelExtension/Mac/AppExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
