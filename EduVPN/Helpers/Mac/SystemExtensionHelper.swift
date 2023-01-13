@@ -45,16 +45,16 @@ extension SystemExtensionHelper: OSSystemExtensionRequestDelegate {
             hideAlertAskingToEnableSystemExtensions()
         } else if result == .willCompleteAfterReboot {
             NSLog("System Extension: Loading requires reboot")
-            showAlertSayingSystemExtensionsIsDisabled(error: SystemExtensionHelperError.rebootRequiredError)
+            showAlertOnSystemExtensionError(error: SystemExtensionHelperError.rebootRequiredError)
         } else {
             NSLog("System Extension: OSSystemExtensionRequest code = \(result.rawValue)")
-            showAlertSayingSystemExtensionsIsDisabled(error: SystemExtensionHelperError.unknownError)
+            showAlertOnSystemExtensionError(error: SystemExtensionHelperError.unknownError)
         }
     }
 
     func request(_ request: OSSystemExtensionRequest, didFailWithError error: Error) {
         NSLog("System Extension: Error: \(error)")
-        showAlertSayingSystemExtensionsIsDisabled(error: error)
+        showAlertOnSystemExtensionError(error: error)
     }
 }
 
@@ -103,7 +103,7 @@ private extension SystemExtensionHelper {
         }
     }
 
-    func showAlertSayingSystemExtensionsIsDisabled(error: Error) {
+    func showAlertOnSystemExtensionError(error: Error) {
 
         hideAlertAskingToEnableSystemExtensions()
 
@@ -111,11 +111,11 @@ private extension SystemExtensionHelper {
         alert.alertStyle = .critical
 
         alert.messageText = NSLocalizedString(
-            "Failed to install System Extension",
+            "Error installing System Extension",
             comment: "macOS alert title on failure to install System Extension")
         alert.informativeText = String(
             format: NSLocalizedString(
-                "Unable to install System Extension.\n\nError: %@",
+                "Unable to install System Extension.\nError: %@",
                 comment: "macOS alert text on failure to install System Extension"),
             error.localizedDescription)
         alert.addButton(withTitle: NSLocalizedString(
