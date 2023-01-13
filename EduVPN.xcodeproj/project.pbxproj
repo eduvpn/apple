@@ -579,8 +579,7 @@
 		6F8AEE7825E6D507001A603B /* StatusItemConnectionInfoHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemConnectionInfoHelper.swift; sourceTree = "<group>"; };
 		6F939F3E25C7D02C001887BA /* PasswordEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordEntryViewController.swift; sourceTree = "<group>"; };
 		6F950027296547930090643F /* eduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6F95002D296689810090643F /* $(APP_ID).TunnelExtension.systemextension */ = {isa = PBXFileReference; explicitFileType = "wrapper.system-extension"; includeInIndex = 0; path = "$(APP_ID).TunnelExtension.systemextension"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6F950030296689810090643F /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
+		6F95002D296689810090643F /* $(APP_ID).TunnelExtension.systemextension */ = {isa = PBXFileReference; explicitFileType = "wrapper.system-extension"; includeInIndex = 0; name = "$(APP_ID).TunnelExtension.systemextension"; path = "$(APP_ID).TunnelExtension.systemextension"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F950032296689810090643F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		6F950034296689810090643F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6F950035296689810090643F /* TunnelExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TunnelExtension.entitlements; sourceTree = "<group>"; };
@@ -600,9 +599,9 @@
 		6FBFEF0E24C2DCA900A9D1D4 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		6FBFEF0F24C2DCA900A9D1D4 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		6FC27AC724B9550C006FA648 /* ServerAPIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerAPIService.swift; sourceTree = "<group>"; };
-		6FCA844E296E9190006DD80E /* SystemExtensionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SystemExtensionHelper.swift; path = SystemExtensionHelper.swift; sourceTree = "<group>"; };
-		6FCA8451296FCFEB006DD80E /* Release-macOS-DeveloperID.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Release-macOS-DeveloperID.xcconfig"; path = "Release-macOS-DeveloperID.xcconfig"; sourceTree = "<group>"; };
-		6FCA8452296FCFEB006DD80E /* Development-macOS-DeveloperID.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Development-macOS-DeveloperID.xcconfig"; path = "Development-macOS-DeveloperID.xcconfig"; sourceTree = "<group>"; };
+		6FCA844E296E9190006DD80E /* SystemExtensionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemExtensionHelper.swift; sourceTree = "<group>"; };
+		6FCA8451296FCFEB006DD80E /* Release-macOS-DeveloperID.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-macOS-DeveloperID.xcconfig"; sourceTree = "<group>"; };
+		6FCA8452296FCFEB006DD80E /* Development-macOS-DeveloperID.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Development-macOS-DeveloperID.xcconfig"; sourceTree = "<group>"; };
 		6FCC5EF324B8579D00C6BC80 /* LanguageMappedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageMappedString.swift; sourceTree = "<group>"; };
 		6FCC5EF524B85D6700C6BC80 /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResponse.swift; sourceTree = "<group>"; };
 		6FCCC576249E25F100F0F5A3 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
@@ -879,7 +878,6 @@
 				C79B63C8258A08C200C054CC /* EduVPN-UITests-macOS */,
 				C75B2CA62363122900D700EC /* Scripts */,
 				6F66DAD0265E1E4C006974CF /* TunnelExtension */,
-				6F95002F296689810090643F /* TunnelSystemExtension-macOS */,
 				4AAC1F771F2D0E3400DD0252 /* Products */,
 				26B4255A0C7DB00763783EF6 /* Frameworks */,
 			);
@@ -1074,14 +1072,6 @@
 				6F66DAD1265E1E4C006974CF /* PacketTunnelProvider.swift */,
 			);
 			path = TunnelExtension;
-			sourceTree = "<group>";
-		};
-		6F95002F296689810090643F /* TunnelSystemExtension-macOS */ = {
-			isa = PBXGroup;
-			children = (
-				6F950030296689810090643F /* PacketTunnelProvider.swift */,
-			);
-			path = "TunnelSystemExtension-macOS";
 			sourceTree = "<group>";
 		};
 		6F95003D29668A060090643F /* SystemExtension */ = {
