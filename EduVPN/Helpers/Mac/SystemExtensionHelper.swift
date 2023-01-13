@@ -5,7 +5,7 @@
 
 #if DEVELOPER_ID_DISTRIBUTION
 
-import Foundation
+import Cocoa
 import SystemExtensions
 
 enum SystemExtensionHelperError: String, Error {
