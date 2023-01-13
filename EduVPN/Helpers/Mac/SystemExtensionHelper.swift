@@ -19,7 +19,7 @@ class SystemExtensionHelper: NSObject {
     func beginSystemExtensionInstallation() {
         NSLog("beginSystemExtensionInstallation")
         guard let appId = Bundle.main.bundleIdentifier else { fatalError("missing bundle id") }
-        let tunnelExtensionBundleId = "\(appId).TunnelSystemExtension"
+        let tunnelExtensionBundleId = "\(appId).TunnelExtension"
         let request = OSSystemExtensionRequest.activationRequest(
             forExtensionWithIdentifier: tunnelExtensionBundleId,
             queue: DispatchQueue.main)
