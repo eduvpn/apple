@@ -121,7 +121,7 @@
 		6F71FBBE249CCE9E0010D0FE /* DiscoveryDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F71FBBC249CCE980010D0FE /* DiscoveryDataFetcher.swift */; };
 		6F750C8524975A4300AF2C04 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340F956C22B7118C00835D56 /* NetworkExtension.framework */; };
 		6F750C8924975A4300AF2C04 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = C75B2CB42363138200D700EC /* config.json */; };
-		6F750C9224975A4300AF2C04 /* LoginItemHelper-macOS.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6F750C9224975A4300AF2C04 /* LoginItemHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 342B9C99228ECFDB00C006D7 /* LoginItemHelper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6F750D1124975B9B00AF2C04 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ABFF78820C71E7200638480 /* NetworkExtension.framework */; };
 		6F7B63F02500FD7300FB154A /* StatusItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7B63EF2500FD7300FB154A /* StatusItemController.swift */; };
 		6F7B63F225022AAE00FB154A /* LaunchAtLoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7B63F125022AAE00FB154A /* LaunchAtLoginHelper.swift */; };
@@ -160,7 +160,7 @@
 		6F950019296547930090643F /* privacy_statement.json in Resources */ = {isa = PBXBuildFile; fileRef = 6FF5524D28551CAC0044BA84 /* privacy_statement.json */; };
 		6F95001A296547930090643F /* organization_list.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F59A58724F51DEB00560155 /* organization_list.json */; };
 		6F95001B296547930090643F /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = C75B2CB42363138200D700EC /* config.json */; };
-		6F950020296547930090643F /* LoginItemHelper-macOS.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6F950020296547930090643F /* LoginItemHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 342B9C99228ECFDB00C006D7 /* LoginItemHelper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6F950022296547930090643F /* OpenSans-Bold.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6FBFEF0E24C2DCA900A9D1D4 /* OpenSans-Bold.ttf */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		6F950023296547930090643F /* OpenSans-Regular.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6FBFEF0F24C2DCA900A9D1D4 /* OpenSans-Regular.ttf */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		6F95002E296689810090643F /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340F956C22B7118C00835D56 /* NetworkExtension.framework */; };
@@ -440,7 +440,7 @@
 			dstPath = Contents/Library/LoginItems;
 			dstSubfolderSpec = 1;
 			files = (
-				6F750C9224975A4300AF2C04 /* LoginItemHelper-macOS.app in CopyFiles */,
+				6F750C9224975A4300AF2C04 /* LoginItemHelper.app in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,7 +461,7 @@
 			dstPath = Contents/Library/LoginItems;
 			dstSubfolderSpec = 1;
 			files = (
-				6F950020296547930090643F /* LoginItemHelper-macOS.app in CopyFiles */,
+				6F950020296547930090643F /* LoginItemHelper.app in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,7 +504,7 @@
 		340F956C22B7118C00835D56 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/NetworkExtension.framework; sourceTree = DEVELOPER_DIR; };
 		342B9C91228ECBB200C006D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		342B9C93228ECBB600C006D7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
-		342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LoginItemHelper-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		342B9C99228ECFDB00C006D7 /* LoginItemHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LoginItemHelper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		342B9CAD228ED01300C006D7 /* LoginItemHelper.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = LoginItemHelper.entitlements; sourceTree = "<group>"; };
 		342B9CAE228ED01400C006D7 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		342B9CAF228ED01400C006D7 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -899,7 +899,7 @@
 			isa = PBXGroup;
 			children = (
 				4AAC1F8A1F2D0E3400DD0252 /* EduVPNTests.xctest */,
-				342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */,
+				342B9C99228ECFDB00C006D7 /* LoginItemHelper.app */,
 				6F750C9624975A4300AF2C04 /* eduVPN.app */,
 				6F750D2124975B9B00AF2C04 /* eduVPN.app */,
 				C7B4392A2580CE4D00FEB2B1 /* EduVPN-Tests-iOS.xctest */,
@@ -1429,7 +1429,7 @@
 			);
 			name = "LoginItemHelper-macOS";
 			productName = "LoginItemHelper-macOS";
-			productReference = 342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */;
+			productReference = 342B9C99228ECFDB00C006D7 /* LoginItemHelper.app */;
 			productType = "com.apple.product-type.application";
 		};
 		4AAC1F891F2D0E3400DD0252 /* EduVPNTests */ = {
@@ -2597,7 +2597,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID).LoginItemHelper";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "LoginItemHelper";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -2622,7 +2622,7 @@
 				INFOPLIST_FILE = "LoginItemHelper-macOS/Info.plist";
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID).LoginItemHelper";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "LoginItemHelper";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
