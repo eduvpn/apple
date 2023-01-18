@@ -399,6 +399,20 @@
 			remoteGlobalIDString = 6F95002C296689810090643F;
 			remoteInfo = "TunnelSystemExtension-macOS";
 		};
+		6FA518042977C25D0030468D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4AAC1F6E1F2D0E3400DD0252 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 342B9C98228ECFDB00C006D7;
+			remoteInfo = "LoginItemHelper-macOS";
+		};
+		6FA518062977C2660030468D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4AAC1F6E1F2D0E3400DD0252 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6FA517F62977BDE90030468D;
+			remoteInfo = "LoginItemHelper-macOS-DeveloperID";
+		};
 		C79B63DC258A08FB00C054CC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4AAC1F6E1F2D0E3400DD0252 /* Project object */;
@@ -504,7 +518,7 @@
 		340F956C22B7118C00835D56 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/NetworkExtension.framework; sourceTree = DEVELOPER_DIR; };
 		342B9C91228ECBB200C006D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		342B9C93228ECBB600C006D7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
-		342B9C99228ECFDB00C006D7 /* LoginItemHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LoginItemHelper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		342B9C99228ECFDB00C006D7 /* LoginItemHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoginItemHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		342B9CAD228ED01300C006D7 /* LoginItemHelper.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = LoginItemHelper.entitlements; sourceTree = "<group>"; };
 		342B9CAE228ED01400C006D7 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		342B9CAF228ED01400C006D7 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -1520,6 +1534,7 @@
 			);
 			dependencies = (
 				6F66DAD6265E1E4D006974CF /* PBXTargetDependency */,
+				6FA518052977C25D0030468D /* PBXTargetDependency */,
 			);
 			name = "EduVPN-macOS";
 			packageProductDependencies = (
@@ -1614,6 +1629,7 @@
 			);
 			dependencies = (
 				6F950037296689810090643F /* PBXTargetDependency */,
+				6FA518072977C2660030468D /* PBXTargetDependency */,
 			);
 			name = "EduVPN-macOS-DeveloperID";
 			packageProductDependencies = (
@@ -2525,6 +2541,16 @@
 			target = 6F95002C296689810090643F /* TunnelExtension-macOS-DeveloperID */;
 			targetProxy = 6F950036296689810090643F /* PBXContainerItemProxy */;
 		};
+		6FA518052977C25D0030468D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 342B9C98228ECFDB00C006D7 /* LoginItemHelper-macOS */;
+			targetProxy = 6FA518042977C25D0030468D /* PBXContainerItemProxy */;
+		};
+		6FA518072977C2660030468D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6FA517F62977BDE90030468D /* LoginItemHelper-macOS-DeveloperID */;
+			targetProxy = 6FA518062977C2660030468D /* PBXContainerItemProxy */;
+		};
 		C79B63DD258A08FB00C054CC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 6F750C2C24975A4300AF2C04 /* EduVPN-macOS */;
@@ -2597,7 +2623,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID).LoginItemHelper";
-				PRODUCT_NAME = "LoginItemHelper";
+				PRODUCT_NAME = LoginItemHelper;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -2622,7 +2648,7 @@
 				INFOPLIST_FILE = "LoginItemHelper-macOS/Info.plist";
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID).LoginItemHelper";
-				PRODUCT_NAME = "LoginItemHelper";
+				PRODUCT_NAME = LoginItemHelper;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
