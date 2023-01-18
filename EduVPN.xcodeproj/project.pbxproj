@@ -579,7 +579,7 @@
 		6F8AEE7825E6D507001A603B /* StatusItemConnectionInfoHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemConnectionInfoHelper.swift; sourceTree = "<group>"; };
 		6F939F3E25C7D02C001887BA /* PasswordEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordEntryViewController.swift; sourceTree = "<group>"; };
 		6F950027296547930090643F /* eduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6F95002D296689810090643F /* $(APP_ID).TunnelExtension.systemextension */ = {isa = PBXFileReference; explicitFileType = "wrapper.system-extension"; includeInIndex = 0; name = "$(APP_ID).TunnelExtension.systemextension"; path = "net.roopc.eduVPN-macOS-DeveloperId.TunnelExtension.systemextension"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F95002D296689810090643F /* $(APP_ID).TunnelExtension.systemextension */ = {isa = PBXFileReference; explicitFileType = "wrapper.system-extension"; includeInIndex = 0; path = "$(APP_ID).TunnelExtension.systemextension"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F950032296689810090643F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		6F950034296689810090643F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6F950035296689810090643F /* TunnelExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TunnelExtension.entitlements; sourceTree = "<group>"; };
@@ -1559,9 +1559,9 @@
 			productReference = 6F750D2124975B9B00AF2C04 /* eduVPN.app */;
 			productType = "com.apple.product-type.application";
 		};
-		6F95002C296689810090643F /* TunnelSystemExtension-macOS */ = {
+		6F95002C296689810090643F /* TunnelExtension-macOS-DeveloperID */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6F95003C296689810090643F /* Build configuration list for PBXNativeTarget "TunnelSystemExtension-macOS" */;
+			buildConfigurationList = 6F95003C296689810090643F /* Build configuration list for PBXNativeTarget "TunnelExtension-macOS-DeveloperID" */;
 			buildPhases = (
 				6F950029296689810090643F /* Sources */,
 				6F95002A296689810090643F /* Frameworks */,
@@ -1572,7 +1572,7 @@
 			dependencies = (
 				6F5CF77629679AB100C310EB /* PBXTargetDependency */,
 			);
-			name = "TunnelSystemExtension-macOS";
+			name = "TunnelExtension-macOS-DeveloperID";
 			packageProductDependencies = (
 				6F5CF7662966CCD600C310EB /* WireGuardKit */,
 				6F5CF7682966CCD600C310EB /* TunnelKit */,
@@ -1757,7 +1757,7 @@
 				6F66DACD265E1E4C006974CF /* TunnelExtension-macOS */,
 				6F66DAEF265E1E9D006974CF /* WireGuardGoBridge-macOS */,
 				6F95FFA3296547930090643F /* EduVPN-macOS-DeveloperID */,
-				6F95002C296689810090643F /* TunnelSystemExtension-macOS */,
+				6F95002C296689810090643F /* TunnelExtension-macOS-DeveloperID */,
 				342B9C98228ECFDB00C006D7 /* LoginItemHelper-macOS */,
 				C79B63C6258A08C200C054CC /* EduVPN-UITests-macOS */,
 				6F750CBD24975B9B00AF2C04 /* EduVPN-iOS */,
@@ -2454,7 +2454,7 @@
 		};
 		6F950037296689810090643F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6F95002C296689810090643F /* TunnelSystemExtension-macOS */;
+			target = 6F95002C296689810090643F /* TunnelExtension-macOS-DeveloperID */;
 			targetProxy = 6F950036296689810090643F /* PBXContainerItemProxy */;
 		};
 		C79B63DD258A08FB00C054CC /* PBXTargetDependency */ = {
@@ -3524,7 +3524,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6F95003C296689810090643F /* Build configuration list for PBXNativeTarget "TunnelSystemExtension-macOS" */ = {
+		6F95003C296689810090643F /* Build configuration list for PBXNativeTarget "TunnelExtension-macOS-DeveloperID" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6F95003A296689810090643F /* Debug */,
