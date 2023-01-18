@@ -607,6 +607,7 @@
 		6F9CE540261802F10065E4BA /* CredentialsViewController+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CredentialsViewController+macOS.swift"; sourceTree = "<group>"; };
 		6F9CE555261806A90065E4BA /* CredentialsViewController+iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CredentialsViewController+iOS.swift"; sourceTree = "<group>"; };
 		6FA518022977BDE90030468D /* LoginItemHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoginItemHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FA518082977C6580030468D /* TunnelExtension_Release.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TunnelExtension_Release.entitlements; sourceTree = "<group>"; };
 		6FA8089424E6A75C00E7D924 /* MigrationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MigrationHelper.swift; sourceTree = "<group>"; };
 		6FA808AE24EBBD1F00E7D924 /* ConnectionAttempt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionAttempt.swift; sourceTree = "<group>"; };
 		6FADF82624ADF2E600B75E8D /* ServerInfoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerInfoFetcher.swift; sourceTree = "<group>"; };
@@ -1107,6 +1108,7 @@
 				6F950032296689810090643F /* main.swift */,
 				6F950034296689810090643F /* Info.plist */,
 				6F950035296689810090643F /* TunnelExtension.entitlements */,
+				6FA518082977C6580030468D /* TunnelExtension_Release.entitlements */,
 			);
 			path = SystemExtension;
 			sourceTree = "<group>";
@@ -3245,7 +3247,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = EduVPN/Resources/Mac/eduVPN_DeveloperID.entitlements;
+				CODE_SIGN_ENTITLEMENTS = EduVPN/Resources/Mac/eduVPN_DeveloperID_Release.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -3325,7 +3327,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = TunnelExtension/Mac/SystemExtension/TunnelExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = TunnelExtension/Mac/SystemExtension/TunnelExtension_Release.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
