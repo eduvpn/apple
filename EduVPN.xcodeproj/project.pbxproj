@@ -165,7 +165,7 @@
 		6F950023296547930090643F /* OpenSans-Regular.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6FBFEF0F24C2DCA900A9D1D4 /* OpenSans-Regular.ttf */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		6F95002E296689810090643F /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340F956C22B7118C00835D56 /* NetworkExtension.framework */; };
 		6F950033296689810090643F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F950032296689810090643F /* main.swift */; };
-		6F950038296689810090643F /* $(APP_ID).TunnelExtension.systemextension in Embed System Extensions */ = {isa = PBXBuildFile; fileRef = 6F95002D296689810090643F /* $(APP_ID).TunnelExtension.systemextension */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6F950038296689810090643F /* net.roopc.eduVPN-mac-developerid.TunnelExtension.systemextension in Embed System Extensions */ = {isa = PBXBuildFile; fileRef = 6F95002D296689810090643F /* net.roopc.eduVPN-mac-developerid.TunnelExtension.systemextension */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6F95FF94296297E70090643F /* OpenVPNAdapterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F95FF93296297E70090643F /* OpenVPNAdapterInterface.swift */; };
 		6F95FF972962988A0090643F /* WireGuardAdapterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F95FF962962988A0090643F /* WireGuardAdapterInterface.swift */; };
 		6F95FF982962EF820090643F /* WireGuardAdapterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F95FF962962988A0090643F /* WireGuardAdapterInterface.swift */; };
@@ -496,7 +496,7 @@
 			dstPath = "$(SYSTEM_EXTENSIONS_FOLDER_PATH)";
 			dstSubfolderSpec = 16;
 			files = (
-				6F950038296689810090643F /* $(APP_ID).TunnelExtension.systemextension in Embed System Extensions */,
+				6F950038296689810090643F /* net.roopc.eduVPN-mac-developerid.TunnelExtension.systemextension in Embed System Extensions */,
 			);
 			name = "Embed System Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -577,8 +577,6 @@
 		6F66DAD1265E1E4C006974CF /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
 		6F66DAD3265E1E4D006974CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6F66DAD4265E1E4D006974CF /* TunnelExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TunnelExtension.entitlements; sourceTree = "<group>"; };
-		6F66DB7B265E5096006974CF /* Development-macOS-TunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Development-macOS-TunnelExtension.xcconfig"; sourceTree = "<group>"; };
-		6F66DB7C265E5096006974CF /* Release-macOS-TunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-macOS-TunnelExtension.xcconfig"; sourceTree = "<group>"; };
 		6F66DB7D265E50BB006974CF /* Release-TunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-TunnelExtension.xcconfig"; sourceTree = "<group>"; };
 		6F66DB7E265E50BB006974CF /* Development-TunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Development-TunnelExtension.xcconfig"; sourceTree = "<group>"; };
 		6F6BB620265E58BF0093D4CC /* TunnelExtension-iOS.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "TunnelExtension-iOS.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -597,7 +595,7 @@
 		6F8AEE7825E6D507001A603B /* StatusItemConnectionInfoHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemConnectionInfoHelper.swift; sourceTree = "<group>"; };
 		6F939F3E25C7D02C001887BA /* PasswordEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordEntryViewController.swift; sourceTree = "<group>"; };
 		6F950027296547930090643F /* eduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6F95002D296689810090643F /* $(APP_ID).TunnelExtension.systemextension */ = {isa = PBXFileReference; explicitFileType = "wrapper.system-extension"; includeInIndex = 0; path = "$(APP_ID).TunnelExtension.systemextension"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F95002D296689810090643F /* net.roopc.eduVPN-mac-developerid.TunnelExtension.systemextension */ = {isa = PBXFileReference; explicitFileType = "wrapper.system-extension"; includeInIndex = 0; path = "net.roopc.eduVPN-mac-developerid.TunnelExtension.systemextension"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F950032296689810090643F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		6F950034296689810090643F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6F950035296689810090643F /* TunnelExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TunnelExtension.entitlements; sourceTree = "<group>"; };
@@ -649,8 +647,6 @@
 		6FFC4088266F51D200835B43 /* String+ArrayConversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+ArrayConversion.swift"; sourceTree = "<group>"; };
 		6FFD421C254977240093533C /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C7230D8A2363248900B9C691 /* copy_resources_macos.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = copy_resources_macos.sh; sourceTree = "<group>"; };
-		C730CD6223746B4900C21AF9 /* Development-macOS-LoginItemHelper.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Development-macOS-LoginItemHelper.xcconfig"; sourceTree = "<group>"; };
-		C730CD6323746B4900C21AF9 /* Release-macOS-LoginItemHelper.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-macOS-LoginItemHelper.xcconfig"; sourceTree = "<group>"; };
 		C75B2CA3236311D100D700EC /* CODE_OF_CONDUCT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CODE_OF_CONDUCT.md; sourceTree = "<group>"; };
 		C75B2CA4236311D100D700EC /* CHANGES.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGES.md; sourceTree = "<group>"; };
 		C75B2CA5236311D100D700EC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -923,7 +919,7 @@
 				6F66DACE265E1E4C006974CF /* TunnelExtension-macOS.appex */,
 				6F6BB620265E58BF0093D4CC /* TunnelExtension-iOS.appex */,
 				6F950027296547930090643F /* eduVPN.app */,
-				6F95002D296689810090643F /* $(APP_ID).TunnelExtension.systemextension */,
+				6F95002D296689810090643F /* net.roopc.eduVPN-mac-developerid.TunnelExtension.systemextension */,
 				6FA518022977BDE90030468D /* LoginItemHelper.app */,
 			);
 			name = Products;
@@ -1069,12 +1065,8 @@
 				C75B2CB22363138200D700EC /* Developer-macOS.xcconfig.johan-template */,
 				4AC84CAD236B6E2000932B89 /* Developer-macOS.xcconfig.appforce1-template */,
 				C75B2CB72363138200D700EC /* Development-macOS.xcconfig */,
-				6F66DB7B265E5096006974CF /* Development-macOS-TunnelExtension.xcconfig */,
-				C730CD6223746B4900C21AF9 /* Development-macOS-LoginItemHelper.xcconfig */,
 				6FCA8452296FCFEB006DD80E /* Development-macOS-DeveloperID.xcconfig */,
 				C75B2CB92363138200D700EC /* Release-macOS.xcconfig */,
-				6F66DB7C265E5096006974CF /* Release-macOS-TunnelExtension.xcconfig */,
-				C730CD6323746B4900C21AF9 /* Release-macOS-LoginItemHelper.xcconfig */,
 				6FCA8451296FCFEB006DD80E /* Release-macOS-DeveloperID.xcconfig */,
 				C75B2CBF2363138200D700EC /* AppVersion-macOS.xcconfig */,
 			);
@@ -1610,7 +1602,7 @@
 				6F5CF76C2966CCD600C310EB /* TunnelKitOpenVPNAppExtension */,
 			);
 			productName = "TunnelSystemExtension-macOS";
-			productReference = 6F95002D296689810090643F /* $(APP_ID).TunnelExtension.systemextension */;
+			productReference = 6F95002D296689810090643F /* net.roopc.eduVPN-mac-developerid.TunnelExtension.systemextension */;
 			productType = "com.apple.product-type.system-extension";
 		};
 		6F95FFA3296547930090643F /* EduVPN-macOS-DeveloperID */ = {
@@ -2608,7 +2600,7 @@
 /* Begin XCBuildConfiguration section */
 		342B9CAB228ECFDD00C006D7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C730CD6223746B4900C21AF9 /* Development-macOS-LoginItemHelper.xcconfig */;
+			baseConfigurationReference = C75B2CB72363138200D700EC /* Development-macOS.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -2634,7 +2626,7 @@
 		};
 		342B9CAC228ECFDD00C006D7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C730CD6323746B4900C21AF9 /* Release-macOS-LoginItemHelper.xcconfig */;
+			baseConfigurationReference = C75B2CB92363138200D700EC /* Release-macOS.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -2823,7 +2815,7 @@
 		};
 		6F66DAD8265E1E4D006974CF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6F66DB7B265E5096006974CF /* Development-macOS-TunnelExtension.xcconfig */;
+			baseConfigurationReference = C75B2CB72363138200D700EC /* Development-macOS.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -2854,7 +2846,7 @@
 		};
 		6F66DAD9265E1E4D006974CF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6F66DB7C265E5096006974CF /* Release-macOS-TunnelExtension.xcconfig */;
+			baseConfigurationReference = C75B2CB92363138200D700EC /* Release-macOS.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -2924,7 +2916,7 @@
 		};
 		6F6BB62A265E58BF0093D4CC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6F66DB7E265E50BB006974CF /* Development-TunnelExtension.xcconfig */;
+			baseConfigurationReference = 4ABCCBE421E527B50020CB6D /* Development.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -2957,7 +2949,7 @@
 		};
 		6F6BB62B265E58BF0093D4CC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6F66DB7D265E50BB006974CF /* Release-TunnelExtension.xcconfig */;
+			baseConfigurationReference = 4ABCCBE321E527A40020CB6D /* Release.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -3283,7 +3275,7 @@
 		};
 		6F95003A296689810090643F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6F66DB7B265E5096006974CF /* Development-macOS-TunnelExtension.xcconfig */;
+			baseConfigurationReference = 6FCA8452296FCFEB006DD80E /* Development-macOS-DeveloperID.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -3321,7 +3313,7 @@
 		};
 		6F95003B296689810090643F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6F66DB7C265E5096006974CF /* Release-macOS-TunnelExtension.xcconfig */;
+			baseConfigurationReference = 6FCA8451296FCFEB006DD80E /* Release-macOS-DeveloperID.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -3358,7 +3350,7 @@
 		};
 		6FA518002977BDE90030468D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C730CD6223746B4900C21AF9 /* Development-macOS-LoginItemHelper.xcconfig */;
+			baseConfigurationReference = 6FCA8452296FCFEB006DD80E /* Development-macOS-DeveloperID.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -3384,7 +3376,7 @@
 		};
 		6FA518012977BDE90030468D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C730CD6323746B4900C21AF9 /* Release-macOS-LoginItemHelper.xcconfig */;
+			baseConfigurationReference = 6FCA8451296FCFEB006DD80E /* Release-macOS-DeveloperID.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
