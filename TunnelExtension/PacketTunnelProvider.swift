@@ -134,8 +134,12 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             completionHandler()
 
             #if os(macOS)
+            #if DEVELOPER_ID_DISTRIBUTION
+            // The System Extension can live on after the tunnel stops
+            #else
             // HACK: We have to kill the tunnel process ourselves because of a macOS bug
             exit(0)
+            #endif
             #endif
         }
     }
