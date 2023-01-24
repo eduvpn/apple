@@ -5,6 +5,7 @@
 //  Copyright © 2021 The Commons Conservancy. All rights reserved.
 
 import Foundation
+import OSLog
 
 class Logger {
     let maxLinesInMemory = 1000
@@ -13,6 +14,7 @@ class Logger {
 
     private(set) var lines: [String]
     private let dateFormatter: DateFormatter
+    private let oslog: OSLog
 
     init(appGroup: String, logSeparator: String, isStartedByApp: Bool, logFileName: String) {
         let parentURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroup)
@@ -43,6 +45,16 @@ class Logger {
 
         dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
+
+        var bundleIdComponents = (Bundle.main.bundleIdentifier ?? "UnknownBundleId").split(separator: ".")
+        if bundleIdComponents.last == "TunnelExtension" {
+            bundleIdComponents.removeLast()
+            let appBundleId = String(bundleIdComponents.joined(separator: "."))
+            oslog = OSLog(subsystem: appBundleId, category: "Tunnel")
+        } else {
+            let appBundleId = String(bundleIdComponents.joined(separator: "."))
+            oslog = OSLog(subsystem: appBundleId, category: "App")
+        }
     }
 
     private static func indexOfTrailingAppLog(in lines: [String], appSeparator: String, otherSeparators: [String]) -> Int? {
@@ -61,7 +73,7 @@ class Logger {
     func log(_ message: String) {
         let timestamp = dateFormatter.string(from: Date())
         let line = "\(timestamp) \(message)"
-        NSLog("\(line)\n")
+        os_log("%{public}@", log: oslog, type: .info, message)
         if lines.count >= maxLinesInMemory {
             lines.removeFirst()
         }
