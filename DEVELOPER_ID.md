@@ -235,10 +235,10 @@ expires.
         cd dev_id_release
         ~~
 
-	&lt;username&gt; should be the Apple ID that controls the developer
+	    &lt;username&gt; should be the Apple ID that controls the developer
         account for this app.
 
-	&lt;password&gt; should be the password for that Apple ID. If 2FA is
+	    &lt;password&gt; should be the password for that Apple ID. If 2FA is
         enabled for this Apple ID, you will need to generate an app-specific password
         at [appleid.apple.com](https://appleid.apple.com) (Sign In > App-specific
         Passwords) and specify that password.
@@ -277,4 +277,10 @@ Xcode conveniently (for e.g. to launch the app from Xcode), we should:
 The `systemextensionsctl` command can be useful during development:
 
   - `systemextensionsctl list` shows the installation status of the System Extension
-  - `systemextensionsctl reset` uninstalls all System Extensions
+  - `systemextensionsctl reset` uninstalls all System Extensions. If you want to uninstall our system extension, you should remove the VPN config from Settings > Network before doing that.
+
+## Known Issues
+
+  - If the System Extension is uninstalled while the VPN config in Network Settings is intact, then the tunnel doesn't get started anymore. To fix it, quit the eduVPN / Let's Connect app, remove the VPN config from Network Settings, uninstall the System Extension, and restart the Mac.
+
+    Users are not expected to run `systemextensionsctl` commands, so this is acceptable.
