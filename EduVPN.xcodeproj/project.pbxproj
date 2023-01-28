@@ -59,6 +59,8 @@
 		6F54C92D25E033EE00A42C8F /* AddServerViewController+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F54C92C25E033EE00A42C8F /* AddServerViewController+macOS.swift */; };
 		6F54C93825E0359200A42C8F /* AddServerViewController+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F54C93725E0359200A42C8F /* AddServerViewController+iOS.swift */; };
 		6F54C9E725E2D6A500A42C8F /* MainViewController+StatusItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F54C9E625E2D6A500A42C8F /* MainViewController+StatusItem.swift */; };
+		6F56439D2983690B00A514DF /* LogViewHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F56439C2983690B00A514DF /* LogViewHelpViewController.swift */; };
+		6F56439E2983690B00A514DF /* LogViewHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F56439C2983690B00A514DF /* LogViewHelpViewController.swift */; };
 		6F57338724CD1570008912D4 /* SessionExpiryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F57338624CD1570008912D4 /* SessionExpiryHelper.swift */; };
 		6F5820F826EE036800906397 /* AppDataRemover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5820F726EE036800906397 /* AppDataRemover.swift */; };
 		6F59A58824F51DEB00560155 /* server_list.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F59A58624F51DEB00560155 /* server_list.json */; };
@@ -563,6 +565,7 @@
 		6F54C92C25E033EE00A42C8F /* AddServerViewController+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddServerViewController+macOS.swift"; sourceTree = "<group>"; };
 		6F54C93725E0359200A42C8F /* AddServerViewController+iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddServerViewController+iOS.swift"; sourceTree = "<group>"; };
 		6F54C9E625E2D6A500A42C8F /* MainViewController+StatusItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MainViewController+StatusItem.swift"; sourceTree = "<group>"; };
+		6F56439C2983690B00A514DF /* LogViewHelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewHelpViewController.swift; sourceTree = "<group>"; };
 		6F57338624CD1570008912D4 /* SessionExpiryHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionExpiryHelper.swift; sourceTree = "<group>"; };
 		6F5820F726EE036800906397 /* AppDataRemover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDataRemover.swift; sourceTree = "<group>"; };
 		6F59A58624F51DEB00560155 /* server_list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = server_list.json; sourceTree = "<group>"; };
@@ -966,6 +969,7 @@
 				6F9CE540261802F10065E4BA /* CredentialsViewController+macOS.swift */,
 				6F25F8D1269D763F00FA8FAB /* ConnectionViewController+macOS.swift */,
 				6F25F8D3269DE3BB00FA8FAB /* MenuCommandResponding.swift */,
+				6F56439C2983690B00A514DF /* LogViewHelpViewController.swift */,
 			);
 			path = Mac;
 			sourceTree = "<group>";
@@ -2286,6 +2290,7 @@
 				6F95FFF0296547930090643F /* NavigationController.swift in Sources */,
 				6F95FFF1296547930090643F /* FileHelper.swift in Sources */,
 				6F95FFF2296547930090643F /* MainViewController+macOS.swift in Sources */,
+				6F56439E2983690B00A514DF /* LogViewHelpViewController.swift in Sources */,
 				6F95FFF3296547930090643F /* Multiplatform.swift in Sources */,
 				6F95FFF4296547930090643F /* SessionExpiryHelper.swift in Sources */,
 				6F95FFF5296547930090643F /* StatusItemController.swift in Sources */,
@@ -2406,6 +2411,7 @@
 				6FCCC577249E25F100F0F5A3 /* NavigationController.swift in Sources */,
 				C7DB4BD424803B99009932B1 /* FileHelper.swift in Sources */,
 				6F36A79D24B6F5BA00BA8F5E /* MainViewController+macOS.swift in Sources */,
+				6F56439D2983690B00A514DF /* LogViewHelpViewController.swift in Sources */,
 				C7DB4B9B247FC23D009932B1 /* Multiplatform.swift in Sources */,
 				6F57338724CD1570008912D4 /* SessionExpiryHelper.swift in Sources */,
 				6F7B63F02500FD7300FB154A /* StatusItemController.swift in Sources */,

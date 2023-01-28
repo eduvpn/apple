@@ -145,6 +145,12 @@ extension NavigationController {
         presentedPreferencesVC = preferencesVC
         presentAsSheet(preferencesVC)
     }
+
+    func presentLogViewHelp() {
+        guard let environment = environment else { return }
+        let logViewHelpVC = environment.instantiateLogViewHelpViewController()
+        presentAsSheet(logViewHelpVC)
+    }
 }
 
 extension NavigationController {
