@@ -28,11 +28,11 @@ brew install swiftlint go
 
 Go version 1.16 is required.
 
-## Building
+## Setting up Config Files
 
 ### eduVPN
 
-To build the app, run:
+Before building the app, run:
 ```
 $ cp Config/Mac/config-eduvpn_new_discovery.json Config/Mac/config.json
 $ cp Config/Mac/privacy_statement-eduvpn.json Config/Mac/privacy_statement.json
@@ -40,11 +40,11 @@ $ cp Config/Mac/Developer-macOS.xcconfig.eduvpn-template Config/Mac/Developer-ma
 $ vim Config/Mac/Developer-macOS.xcconfig # Edit as reqd.
 ```
 
-Then, open `EduVPN.xcworkspace` in Xcode and build the 'EduVPN-macOS-DeveloperID' target.
+Then, we can open `EduVPN.xcworkspace` in Xcode and build the 'EduVPN-macOS-DeveloperID' target.
 
 ### Let's Connect
 
-To build the app, run:
+Before building the app, run:
 ```
 $ cp Config/Mac/config-letsconnect_new_discovery.json Config/Mac/config.json
 $ cp Config/Mac/privacy_statement-letsconnect.json Config/Mac/privacy_statement.json
@@ -52,7 +52,7 @@ $ cp Config/Mac/Developer-macOS.xcconfig.letsconnect-template Config/Mac/Develop
 $ vim Config/Mac/Developer-macOS.xcconfig # Edit as reqd.
 ```
 
-Then, open `EduVPN.xcworkspace` in Xcode and build the 'EduVPN-macOS-DeveloperID' target.
+Then, we can open `EduVPN.xcworkspace` in Xcode and build the 'EduVPN-macOS-DeveloperID' target.
 
 ## Distribution
 
@@ -75,21 +75,22 @@ installers that we want to distribute.
  1. Developer ID Application Certificate
 
       - Click on _Certificates_, then on _+_ to add a certificate. Choose _Developer ID Application_.
-      - Choose _G2 Sub-CA_ profile
+      - Choose the latest applicable _Profile Type_ (currently _G2 Sub-CA_)
       - Create a Certificate Signing Request on your Mac as specified in the page and upload it
       - _Download_ the created certificate
       - Open "Keychain Access.app", choose the default keychain, and drag the downloaded certificate file to install it in the default keychain
-      - In the Keychain Access app window, double-click on the installed certificate to view it -- note down the expiry date somewhere
+      - In the Keychain Access app window, double-click on the installed certificate to view it
+          - Make a note of the expiry date -- we'll need that later
 
  2. Developer ID Installer Certificate
 
       - Click on _Certificates_, then on _+_ to add a certificate. Choose _Developer ID Installer_.
-      - Choose _G2 Sub-CA_ profile
+      - Choose the latest applicable _Profile Type_ (currently _G2 Sub-CA_)
       - Create a Certificate Signing Request on your Mac as specified in the page and upload it
       - _Download_ the certificate
       - Open "Keychain Access.app", choose the default keychain, and drag the downloaded certificate file to install it
-      - In the Keychain Access app, double-click on the installed certificate to view it -- note down expiry date somewhere
-
+      - In the Keychain Access app, double-click on the installed certificate to view it
+          - Make a note of the expiry date and the Common Name -- we'll need these later
 
 Developer ID Application Certificates and Developer ID Installer Certificates
 are valid for 5 years from when they were created.
@@ -108,33 +109,42 @@ and declare what capabilities they should be allowed to have.
 
  1. App
 
-      - Click on _Identifiers_, choose _App IDs_, click on _Continue_
+      - Click on _Identifiers_, then on _+_ to add an identifier, choose _App IDs_, click on _Continue_
       - Select _App_ type, click on _Continue_
-      - Enter a _Bundle ID_, say "com.example.app"
-      - Ensure _Explicit_ is checked next to the Bundle ID
+      - Enter the _Bundle ID_ used as `APP_ID` in Config/Mac/Developer-macOS.xcconfig, say "com.example.app"
+      - Ensure _Explicit_ is checked next to _Bundle ID_
       - Enter a _Description_ (you can use spaces instead of special characters)
       - Under _Capabilities_, choose _Network Extensions_ and _System Extension_
       - Click on _Continue_, then _Register_
 
  2. Tunnel Extension
 
-      - Click on _Identifiers_, choose _App IDs_, click on _Continue_
+      - Click on _Identifiers_, then on _+_ to add an identifier, choose _App IDs_, click on _Continue_
       - Select _App_ type, click on _Continue_
-      - Enter _Bundle ID_ with a "TunnelExtension" suffix, say "com.example.app.TunnelExtension"
-      - Ensure _Explicit_ is checked next to the Bundle ID
+      - Enter the _Bundle ID_ as `APP_ID` with a "TunnelExtension" suffix, say "com.example.app.TunnelExtension"
+      - Ensure _Explicit_ is checked next to _Bundle ID_
       - Enter a _Description_ (you can use spaces instead of special characters)
       - Under _Capabilities_, choose _Network Extensions_
       - Click on _Continue_, then _Register_
 
  3. Login Item Helper
 
-      - Click on _Identifiers_, choose _App IDs_, click on _Continue_
+      - Click on _Identifiers_, then on _+_ to add an identifier, choose _App IDs_, click on _Continue_
       - Select _App_ type, click on _Continue_
-      - Enter _Bundle ID_ with a "LoginItemHelper" suffix, say "com.example.app.LoginItemHelper"
-      - Ensure _Explicit_ is checked next to the Bundle ID
+      - Enter the _Bundle ID_ as `APP_ID` with a "LoginItemHelper" suffix, say "com.example.app.LoginItemHelper"
+      - Ensure _Explicit_ is checked next to _Bundle ID_
       - Enter a _Description_ (you can use spaces instead of special characters)
       - Don't tick anything under _Capabilities_
       - Click on _Continue_, then _Register_
+
+
+Sometimes, you might get an error saying:
+
+> An App ID with Identifier 'identifier' is not available. Please enter a different string.
+
+This happens if the identifier is already registered. Xcode might have
+registered it on our behalf -- in that case, check if the already registered
+identifier has the required capabilities.
 
 #### Profiles
 
@@ -147,23 +157,23 @@ ties the bundle id to a Developer ID Application Certificate.
       - Ensure Profile Type is _Mac_, choose the _App ID_ created earlier (you can type to search), and click on _Continue_
       - Choose the _Developer ID Application_ certificate created earlier (you will have to choose by expiry date), click on _Continue_
       - Enter a _Provisioning Profile Name_, say "eduVPN Developer ID App 01 Jan 2023"
-      - Click on _Generate_, then on _Download_. Save the file somewhere (say "eduVPN_dev_id_app.provisionprofile").
+      - Click on _Generate_, then on _Download_. Save the file somewhere (say "eduVPN_Developer_ID_App_01_Jan_2023.provisionprofile").
 
  2. Tunnel Extension
 
       - Click on _Profiles_, then on _+_ to add a profile, choose _Developer ID_ under _Distribution_, then click on _Continue_
       - Ensure Profile Type is _Mac_, choose the _Bundle ID_ with a "TunnelExtension" suffix created earlier (you can type to search), and click on _Continue_
       - Choose the _Developer ID Application_ certificate created earlier (you will have to choose by expiry date), click on _Continue_
-      - Enter a _Provisioning Profile Name_, say "eduVPN Developer ID Tunnel Extension 01 Jan 2023"
-      - Click on _Generate_, then on _Download_. Save the file somewhere (say "eduVPN_dev_id_tunnelextension.provisionprofile").
+      - Enter a _Provisioning Profile Name_, say "eduVPN Developer ID Tunnel 01 Jan 2023"
+      - Click on _Generate_, then on _Download_. Save the file somewhere (say "eduVPN_Developer_ID_Tunnel_01_Jan_2023.provisionprofile").
 
  3. Tunnel Extension
 
       - Click on _Profiles_, then on _+_ to add a profile, choose _Developer ID_ under _Distribution_, then click on _Continue_
       - Ensure Profile Type is _Mac_, choose the _Bundle ID_ with a "LoginItemHelper" suffix created earlier (you can type to search), and click on _Continue_
       - Choose the _Developer ID Application_ certificate created earlier (you will have to choose by expiry date), click on _Continue_
-      - Enter a _Provisioning Profile Name_, say "eduVPN Developer ID Login Item Helper 01 Jan 2023"
-      - Click on _Generate_, then on _Download_. Save the file somewhere (say "eduVPN_dev_id_loginitemhelper.provisionprofile").
+      - Enter a _Provisioning Profile Name_, say "eduVPN Developer ID LoginItemHelper 01 Jan 2023"
+      - Click on _Generate_, then on _Download_. Save the file somewhere (say "eduVPN_Developer_ID_LoginItemHelper_01_Jan_2023.provisionprofile").
 
 The provisioning profiles are valid for 18 years from the time they are
 generated. The installed app will stop working when the provisioning profile
@@ -171,40 +181,46 @@ expires.
 
 ### Making a Release
 
- 1. In Xcode, open the Projects and Targets pane
+ 1. Open `EduVPN.xcworkspace` in Xcode. The following instructions are made for Xcode 14.
+
+ 2. In Xcode, open the Projects and Targets pane
 
       - Open the project in Xcode
       - In the Project Navigator (keyboard shortcut: Cmd+1), select "EduVPN" at the top left
 
- 2. Setup app's provisioing profile
+ 3. Import provisioning profiles into Xcode
 
-      - Select the _EduVPN-macOS-DeveloperID_ target
-      - Select the _Signing & Capabilities_ tab, and under that, the _Release_ tab
-      - Ensure _Automatically manage signing_ is not checked
-      - Under _macOS_, choose a _Provisioning Profile_. You can use _Import Profile..._ to import the downloaded profile (say "eduVPN_dev_id_app.provisionprofile"), or choose an already imported profile.
+      - Setup app's provisioning profile
 
- 3. Setup tunnel extension's provisioning profile
+          - Select the _EduVPN-macOS-DeveloperID_ target
+          - Select the _Signing & Capabilities_ tab, and under that, the _Release_ tab
+          - Ensure _Automatically manage signing_ is not checked
+          - Under _macOS_, choose a _Provisioning Profile_. You can use _Import Profile..._ to import the downloaded profile (say "eduVPN_dev_id_app.provisionprofile"), or choose an already imported profile.
 
-      - Select the _TunnelExtension-macOS-DeveloperID_ target
-      - Select the _Signing & Capabilities_ tab, and under that, the _Release_ tab
-      - Ensure _Automatically manage signing_ is not checked
-      - Under _macOS_, choose a _Provisioning Profile_. You can use _Import Profile..._ to import the downloaded profile (say "eduVPN_dev_id_tunnelextension.provisionprofile"), or choose an already imported profile.
+      - Setup tunnel extension's provisioning profile
 
- 4. Setup login item helper's provisioning profile
+          - Select the _TunnelExtension-macOS-DeveloperID_ target
+          - Select the _Signing & Capabilities_ tab, and under that, the _Release_ tab
+          - Ensure _Automatically manage signing_ is not checked
+          - Under _macOS_, choose a _Provisioning Profile_. You can use _Import Profile..._ to import the downloaded profile (say "eduVPN_dev_id_tunnelextension.provisionprofile"), or choose an already imported profile.
 
-      - Select the _LoginItemHelper-macOS-DeveloperID_ target
-      - Select the _Signing & Capabilities_ tab, and under that, the _Release_ tab
-      - Ensure _Automatically manage signing_ is not checked
-      - Under _macOS_, choose a _Provisioning Profile_. You can use _Import Profile..._ to import the downloaded profile (say "eduVPN_dev_id_loginitemhelper.provisionprofile"), or choose an already imported profile.
+      - Setup login item helper's provisioning profile
 
- 5. Create the archive
+          - Select the _LoginItemHelper-macOS-DeveloperID_ target
+          - Select the _Signing & Capabilities_ tab, and under that, the _Release_ tab
+          - Ensure _Automatically manage signing_ is not checked
+          - Under _macOS_, choose a _Provisioning Profile_. You can use _Import Profile..._ to import the downloaded profile (say "eduVPN_dev_id_loginitemhelper.provisionprofile"), or choose an already imported profile.
 
-      - At the top of the window, select _EduVPN-macOS-DeveloperID_ > _My Mac_
+    Xcode keeps the imported provisioning profiles at `~/Library/MobileDevice/Provisioning Profiles`. In case you want to clear out all imported profiles and start over, you can quit Xcode, delete everything in that location, and open Xcode again.
+
+ 6. Create the archive
+
+      - In the middle of the top of the Xcode window, select _EduVPN-macOS-DeveloperID_ > _My Mac_
       - In the Xcode menu, choose _Product_ > _Clean Build Folder_
-      - In the Xcode menu, choose _Product_ > _Archive_
+      - In the Xcode menu, choose _Product_ > _Archive_ (Ignore the popup "ad" about Xcode Cloud)
       - Once the archive is created, Xcode will open its Organizer window, with the created archive selected
 
- 6. Create the notarized app bundle
+ 7. Create the notarized app bundle
 
       - Ensure that the created archive is selected in the Organizer window
       - Click on _Distribute App_
@@ -217,15 +233,21 @@ expires.
          - If the "Distribute App" modal window (that you used to upload the app for notarization) is still open, click on _Export_ to export the app. Else, select the archive in the Organizer window (status should be "Ready to Distribute"), and click on _Export Notarized App_ in the right-side inspector pane.
          - Save the app bundle somewhere (say "dev_id_release/eduVPN.app")
 
- 7. Create the installer package
+ 8. Create the installer package
 
       - Edit the installer creation script
-
-        Ensure that the variables at the top are all correct.
 
         ~~~
         vim Scripts/create_eduvpn_installer_macos.sh
         ~~~
+
+        Ensure that the variables at the top are all correct:
+	  - APP_VERSION: The app version
+          - MIN_MACOS_VERSION: The min macOS version
+          - EDUVPN_APP_NAME / LETSCONNECT_APP_NAME: The app name -- the name used for the dot-app file
+          - EDUVPN_APP_ID / LETSCONNECT_APP_ID: The app id
+          - EDUVPN_DEVELOPMENT_TEAM / LETSCONNECT_DEVELOPMENT_TEAM: The development team that controls the app distribution
+          - EDUVPN_INSTALLER_CERTIFICATE_CN / LETSCONNECT_INSTALLER_CERTIFICATE_CN: The Common Name of the Developer ID Installer Certificates installed in the Keychain
 
       - Run the installer creation script
 
@@ -235,27 +257,40 @@ expires.
         cd dev_id_release
         ~~
 
-	    &lt;username&gt; should be the Apple ID that controls the developer
+        &lt;username&gt; should be the Apple ID that controls the developer
         account for this app.
 
-	    &lt;password&gt; should be the password for that Apple ID. If 2FA is
+        &lt;password&gt; should be the password for that Apple ID. If 2FA is
         enabled for this Apple ID, you will need to generate an app-specific password
         at [appleid.apple.com](https://appleid.apple.com) (Sign In > App-specific
-        Passwords) and specify that password.
+        Passwords > + > &lt;enter some name&gt;) and specify that password.
 
           - For eduVPN:
 
             ~~~
-            bash Scripts/create_eduvpn_installer_macos.sh -n eduvpn -u <username> -p <password>
+            bash path-to-source-code/Scripts/create_eduvpn_installer_macos.sh -n eduvpn -u <username> -p <password>
             ~~~
 
           - For Let's Connect:
 
             ~~~
-            bash Scripts/create_eduvpn_installer_macos.sh -n letsconnect -u <username> -p <password>
+            bash path-to-source-code/Scripts/create_eduvpn_installer_macos.sh -n letsconnect -u <username> -p <password>
             ~~~
 
         The notarized installer package will be created in the same directory.
+
+	The script requires a working internet connection to work, and can take
+	a few minutes to complete.
+
+ 9. Try installing from the installer package
+
+    If you already have the app in /Applications installed through the Mac App Store, you should remove that.
+
+    You can install the package by double-clicking on the package file from Finder, or using the `installer` command:
+
+    ~~~
+    sudo installer -verbose -target "/Volumes/Macintosh HD" -pkg <package-file>
+    ~~~
 
 ## Development
 
