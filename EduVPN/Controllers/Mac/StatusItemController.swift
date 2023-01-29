@@ -360,7 +360,7 @@ private extension StatusItemController {
     }
 
     @objc func aboutMenuItemClicked() {
-        NSApp.orderFrontStandardAboutPanel(self)
+        (NSApp.delegate as? AppDelegate)?.showAboutPanel(self)
     }
 
     @objc func quitMenuItemClicked() {
