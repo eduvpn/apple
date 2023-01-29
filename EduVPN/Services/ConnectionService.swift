@@ -420,12 +420,6 @@ private extension ConnectionService {
             }
             return "\(firstRemote.address):\(firstRemote.proto.port)"
         }()
-        if let credentials = credentials {
-            let keychain = Keychain(group: appGroup)
-            let passwordReference = try keychain.set(password: credentials.password, for: credentials.userName, context: tunnelExtensionBundleId)
-            protocolConfiguration.username = credentials.userName
-            protocolConfiguration.passwordReference = passwordReference
-        }
         protocolConfiguration.providerConfiguration = [
             ProviderConfigurationKeys.vpnProtocol.rawValue: VPNProtocol.openVPN.rawValue,
             ProviderConfigurationKeys.tunnelKitOpenVPNProviderConfig.rawValue: providerConfigJson,
@@ -433,6 +427,19 @@ private extension ConnectionService {
         ]
 
         protocolConfiguration.connectionAttemptId = connectionAttemptId
+
+        if let credentials = credentials {
+            protocolConfiguration.username = credentials.userName
+#if DEVELOPER_ID_DISTRIBUTION
+            // We can't share the Keychain with the System Extension, so we pass the password directly
+            protocolConfiguration.providerConfiguration?[ProviderConfigurationKeys.password.rawValue] = credentials.password
+#else
+            // We use pass the password to the App Extension through the Keychain
+            let keychain = Keychain(group: appGroup)
+            let passwordReference = try keychain.set(password: credentials.password, for: credentials.userName, context: tunnelExtensionBundleId)
+            protocolConfiguration.passwordReference = passwordReference
+#endif
+        }
 
 #if os(macOS)
         protocolConfiguration.shouldPreventAutomaticConnections = shouldPreventAutomaticConnections

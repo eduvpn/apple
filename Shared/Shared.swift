@@ -73,6 +73,7 @@ enum ProviderConfigurationKeys: String {
     case appGroup
 #if os(macOS)
     case shouldPreventAutomaticConnections // Bool as NSNumber
+    case password
 #endif
 }
 

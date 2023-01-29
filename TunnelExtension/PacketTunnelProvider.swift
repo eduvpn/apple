@@ -98,9 +98,18 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                 completionHandler(PacketTunnelProviderError.savedProtocolConfigurationIsInvalid)
                 return
             }
+
+            var credentials: OpenVPNAdapterInterface.Credentials? = nil
+            if let username = protocolConfiguration.username {
+                if let passwordReference = protocolConfiguration.passwordReference {
+                    credentials = OpenVPNAdapterInterface.Credentials.keychainReference(username, passwordReference)
+                } else if let password = providerConfiguration[ProviderConfigurationKeys.password.rawValue] as? String {
+                    credentials = OpenVPNAdapterInterface.Credentials.plaintextPassword(username, password)
+                }
+            }
+
             guard let openVPNAdapterInterface = OpenVPNAdapterInterface(tunnelKitConfigJson: tunnelKitConfigJson,
-                                                                        username: protocolConfiguration.username,
-                                                                        passwordReference: protocolConfiguration.passwordReference,
+                                                                        credentials: credentials,
                                                                         logger: logger) else {
                 logger.log("Cannot create OpenVPNAdapterInterface")
                 completionHandler(PacketTunnelProviderError.savedProtocolConfigurationIsInvalid)

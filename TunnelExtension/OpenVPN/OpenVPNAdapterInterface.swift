@@ -16,6 +16,21 @@ import SwiftyBeaver
 
 class OpenVPNAdapterInterface: TunnelAdapterInterface {
 
+    enum Credentials {
+        case plaintextPassword(String, String)
+        case keychainReference(String, Data)
+
+        func openVPNCredentials() throws -> OpenVPN.Credentials? {
+            switch self {
+            case .plaintextPassword(let username, let password):
+                return OpenVPN.Credentials(username, password)
+            case .keychainReference(let username, let keychainReference):
+                let password = try Keychain.password(forReference: keychainReference)
+                return OpenVPN.Credentials(username, password)
+            }
+        }
+    }
+
     class LoggerDestination: BaseDestination {
         private let logger: Logger
 
@@ -40,23 +55,24 @@ class OpenVPNAdapterInterface: TunnelAdapterInterface {
 
     private var adapter: OpenVPNAdapter?
 
-    convenience init?(tunnelKitConfigJson: Data, username: String?, passwordReference: Data?, logger: Logger) {
+    convenience init?(tunnelKitConfigJson: Data, credentials: Credentials?, logger: Logger) {
         guard let providerConfig = try? JSONDecoder().decode(OpenVPN.ProviderConfiguration.self, from: tunnelKitConfigJson) else {
             logger.log("Unable to decode provider config JSON")
             return nil
         }
-        let credentials: OpenVPN.Credentials?
-        if let username = username, let passwordReference = passwordReference {
-            guard let password = try? Keychain.password(forReference: passwordReference) else {
+
+        var openVPNCredentials: OpenVPN.Credentials? = nil
+        do {
+            openVPNCredentials = try credentials?.openVPNCredentials()
+        } catch {
+            if case KeychainError.notFound = error {
                 logger.log("Unable to access password from keychain using password reference")
-                credentials = nil
-                return nil
+            } else {
+                logger.log("Error getting OpenVPN credentials: \(error)")
             }
-            credentials = OpenVPN.Credentials(username, password)
-        } else {
-            credentials = nil
         }
-        self.init(configuration: providerConfig, credentials: credentials, logger: logger)
+
+        self.init(configuration: providerConfig, credentials: openVPNCredentials, logger: logger)
     }
 
     init(configuration: OpenVPN.ProviderConfiguration, credentials: OpenVPN.Credentials?, logger: Logger) {
