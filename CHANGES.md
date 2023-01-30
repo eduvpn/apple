@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- iOS: Fix crash when deleting servers #503
+
 ## 3.0.6
 
 - iOS: Add 'Copy Log' button in log view

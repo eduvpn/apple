@@ -102,6 +102,7 @@ class MainViewController: ViewController {
             queue: OperationQueue.main) { [weak self] _ in
                 self?.isAppInForeground = false
         }
+        isViewVisible = true
     }
 
     override func viewDidAppear(_ animated: Bool) {
