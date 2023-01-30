@@ -71,9 +71,9 @@ enum ProviderConfigurationKeys: String {
     case wireGuardConfig // wg-quick format
     case tunnelKitOpenVPNProviderConfig // json format
     case appGroup
+    case password
 #if os(macOS)
     case shouldPreventAutomaticConnections // Bool as NSNumber
-    case password
 #endif
 }
 
