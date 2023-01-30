@@ -259,6 +259,7 @@ extension AppDelegate {
     }
 
     @IBAction func showAboutPanel(_ sender: Any?) {
+        NSApp.activate(ignoringOtherApps: true)
         NSApp.orderFrontStandardAboutPanel(options: [
             .credits: sourceRepositoryLinkMessage
         ])

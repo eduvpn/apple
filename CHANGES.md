@@ -3,6 +3,7 @@
 ## Unreleased
 
 - iOS: Fix crash when deleting servers #503
+- macOS: Fix showing About panel from status item menu #497
 
 ## 3.0.6
 
