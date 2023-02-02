@@ -23,7 +23,7 @@ enum PacketTunnelProviderError: Error {
 
 class PacketTunnelProvider: NEPacketTunnelProvider {
 
-    private lazy var adapter = OpenVPNAdapter(with: self)
+    private lazy var adapter = OpenVPNAdapter(with: self, flushLogHandler: { self.logger?.flushToDisk() })
 
     var connectedDate: Date?
     var logger: Logger?
@@ -122,11 +122,20 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
     }
 
     override func wake() {
-        adapter.wake()
+#if os(iOS)
+        // Nothing to do
+#else
+        adapter.resume()
+#endif
     }
 
     override func sleep(completionHandler: @escaping () -> Void) {
-        adapter.sleep(completionHandler: completionHandler)
+#if os(iOS)
+        // Nothing to do
+        completionHandler()
+#else
+        adapter.pause(completionHandler: completionHandler)
+#endif
     }
 
     override func handleAppMessage(_ messageData: Data, completionHandler: ((Data?) -> Void)? = nil) {
