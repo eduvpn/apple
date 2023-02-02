@@ -109,6 +109,18 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         }
         adapter.appVersion = appVersionString
 
+        if !startTunnelOptions.isStartedByApp {
+            adapter.authFailShutdownHandler = { [weak self] in
+                // Using deprecated call because there's no alternative
+                self?.displayMessage(
+                    """
+                    VPN authentication failed. You can re-authenticate your VPN
+                    connection in the app by turning it off, and then back on.
+                    """,
+                    completionHandler: { _ in })
+            }
+        }
+
         adapter.start(providerConfiguration: providerConfig, credentials: credentials, completionHandler: completionHandler)
     }
 
