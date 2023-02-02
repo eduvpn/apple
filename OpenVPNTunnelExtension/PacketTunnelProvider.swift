@@ -23,7 +23,7 @@ enum PacketTunnelProviderError: Error {
 
 class PacketTunnelProvider: NEPacketTunnelProvider {
 
-    private lazy var adapter = OpenVPNAdapter(with: self, flushLogHandler: { self.logger?.flushToDisk() })
+    private lazy var adapter = OpenVPNAdapter(with: self)
 
     var connectedDate: Date?
     var logger: Logger?
@@ -108,6 +108,8 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             appVersionString += " (\(appBuild))"
         }
         adapter.appVersion = appVersionString
+
+        adapter.flushLogHandler = { logger.flushToDisk() }
 
         if !startTunnelOptions.isStartedByApp {
             adapter.authFailShutdownHandler = { [weak self] in
