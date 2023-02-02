@@ -122,11 +122,20 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
     }
 
     override func wake() {
+#if os(iOS)
+        // Nothing to do
+#else
         adapter.resume()
+#endif
     }
 
     override func sleep(completionHandler: @escaping () -> Void) {
+#if os(iOS)
+        // Nothing to do
+        completionHandler()
+#else
         adapter.pause(completionHandler: completionHandler)
+#endif
     }
 
     override func handleAppMessage(_ messageData: Data, completionHandler: ((Data?) -> Void)? = nil) {
