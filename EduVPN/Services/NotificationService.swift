@@ -121,7 +121,7 @@ class NotificationService: NSObject {
     }
 
     func enableSessionExpiryNotifications(from viewController: ViewController) -> Guarantee<Bool> {
-        firstly {
+        return firstly {
             Self.requestAuthorization()
         }.map { isAuthorized in
             if isAuthorized {
