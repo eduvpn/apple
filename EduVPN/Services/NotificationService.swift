@@ -40,6 +40,8 @@ class NotificationService: NSObject {
 
     private static let authorizationOptions: UNAuthorizationOptions = [.alert, .sound]
 
+    private var pleaseAllowNotificationsAlert: NSAlert?
+
     override init() {
         super.init()
         Self.notificationCenter.delegate = self
@@ -73,10 +75,12 @@ class NotificationService: NSObject {
                 .then { isUserWantsToBeNotified in
                     UserDefaults.standard.hasAskedUserOnNotifyBeforeSessionExpiry = true
                     if isUserWantsToBeNotified {
+                        self.showPleaseAllowNotificationsAlert(from: viewController)
                         return self.scheduleSessionExpiryNotifications(
                             expiryDate: expiryDate, authenticationDate: authenticationDate,
                             connectionAttemptId: connectionAttemptId)
-                            .map { isAuthorized in
+                            .map { [weak self] isAuthorized in
+                                self?.hidePleaseAllowNotificationsAlert()
                                 UserDefaults.standard.shouldNotifyBeforeSessionExpiry = isAuthorized
                                 if !isAuthorized {
                                     Self.showNotificationsDisabledAlert(from: viewController)
@@ -151,6 +155,31 @@ class NotificationService: NSObject {
             hiddenPreviewsBodyPlaceholder: "",
             options: [])
         Self.notificationCenter.setNotificationCategories([certificateExpiryCategory])
+    }
+
+    private func showPleaseAllowNotificationsAlert(from viewController: ViewController) {
+        let alert = NSAlert()
+        alert.alertStyle = .informational
+        alert.messageText = NSLocalizedString("Please Allow Notifications", comment: "Alert title asking user to see the macOS notification")
+        alert.informativeText = NSLocalizedString(
+            """
+            If you see a notification about “\(Config.shared.appName)” Notifications \
+            at the top-right of the screen, please click on "Options > Allow" \
+            in that notification to allow notifications from this app.
+            """, comment: "Alert text asking user to see the macOS notification")
+        pleaseAllowNotificationsAlert = alert
+        if let window = viewController.view.window {
+            alert.beginSheetModal(for: window) { [weak self] _ in
+                self?.pleaseAllowNotificationsAlert = nil
+            }
+        }
+    }
+
+    private func hidePleaseAllowNotificationsAlert() {
+        if let alert = pleaseAllowNotificationsAlert,
+           let window = NSApp.windows.first {
+            window.endSheet(alert.window)
+        }
     }
 
     private static func requestAuthorization() -> Guarantee<Bool> {
