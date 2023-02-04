@@ -40,7 +40,9 @@ class NotificationService: NSObject {
 
     private static let authorizationOptions: UNAuthorizationOptions = [.alert, .sound]
 
+    #if os(macOS)
     private var pleaseAllowNotificationsAlert: NSAlert?
+    #endif
 
     override init() {
         super.init()
@@ -75,12 +77,16 @@ class NotificationService: NSObject {
                 .then { isUserWantsToBeNotified in
                     UserDefaults.standard.hasAskedUserOnNotifyBeforeSessionExpiry = true
                     if isUserWantsToBeNotified {
+                        #if os(macOS)
                         self.showPleaseAllowNotificationsAlert(from: viewController)
+                        #endif
                         return self.scheduleSessionExpiryNotifications(
                             expiryDate: expiryDate, authenticationDate: authenticationDate,
                             connectionAttemptId: connectionAttemptId)
                             .map { [weak self] isAuthorized in
+                                #if os(macOS)
                                 self?.hidePleaseAllowNotificationsAlert()
+                                #endif
                                 UserDefaults.standard.shouldNotifyBeforeSessionExpiry = isAuthorized
                                 if !isAuthorized {
                                     Self.showNotificationsDisabledAlert(from: viewController)
@@ -157,6 +163,7 @@ class NotificationService: NSObject {
         Self.notificationCenter.setNotificationCategories([certificateExpiryCategory])
     }
 
+    #if os(macOS)
     private func showPleaseAllowNotificationsAlert(from viewController: ViewController) {
         let alert = NSAlert()
         alert.alertStyle = .informational
@@ -181,6 +188,7 @@ class NotificationService: NSObject {
             window.endSheet(alert.window)
         }
     }
+    #endif
 
     private static func requestAuthorization() -> Guarantee<Bool> {
         os_log("Requesting authorization for notifications", log: Log.general, type: .info)
