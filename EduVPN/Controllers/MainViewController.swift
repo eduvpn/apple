@@ -132,28 +132,23 @@ class MainViewController: ViewController {
     }
 
     func pushConnectionVC(connectableInstance: ConnectableInstance,
-                          preConnectionState: ConnectionAttempt.PreConnectionState?,
-                          continuationPolicy: ConnectionViewModel.FlowContinuationPolicy,
-                          shouldRenewSessionOnRestoration: Bool = false) {
+                          postLoadAction: ConnectionViewController.PostLoadAction) {
         if let currentConnectionVC = currentConnectionVC,
-           currentConnectionVC.connectableInstance.isEqual(to: connectableInstance),
-           preConnectionState == nil {
-            currentConnectionVC.beginConnectionFlow(continuationPolicy: continuationPolicy)
+           currentConnectionVC.connectableInstance.isEqual(to: connectableInstance) {
+            if case .beginConnectionFlow(let continuationPolicy) = postLoadAction {
+                currentConnectionVC.beginConnectionFlow(continuationPolicy: continuationPolicy)
+            }
         } else {
             let serverDisplayInfo = viewModel.serverDisplayInfo(for: connectableInstance)
             let authURLTemplate = viewModel.authURLTemplate(for: connectableInstance)
             let connectionVC = environment.instantiateConnectionViewController(
                 connectableInstance: connectableInstance,
                 serverDisplayInfo: serverDisplayInfo,
-                initialConnectionFlowContinuationPolicy: continuationPolicy,
                 authURLTemplate: authURLTemplate,
-                restoringPreConnectionState: preConnectionState)
+                postLoadAction: postLoadAction)
             connectionVC.delegate = self
             environment.navigationController?.popToRoot()
             environment.navigationController?.pushViewController(connectionVC, animated: true)
-            if preConnectionState != nil && shouldRenewSessionOnRestoration {
-                connectionVC.renewSession()
-            }
         }
     }
 
@@ -280,21 +275,20 @@ extension MainViewController: ConnectionServiceInitializationDelegate {
 
             let connectableInstance = lastConnectionAttempt.connectableInstance
             let preConnectionState = lastConnectionAttempt.preConnectionState
-            if connectableInstance is ServerInstance {
-                precondition(lastConnectionAttempt.preConnectionState.serverState != nil)
-            } else if connectableInstance is VPNConfigInstance {
-                precondition(lastConnectionAttempt.preConnectionState.vpnConfigState != nil)
+
+            let postLoadAction: ConnectionViewController.PostLoadAction
+            if (connectableInstance is ServerInstance && preConnectionState.serverState != nil) ||
+                (connectableInstance is VPNConfigInstance && preConnectionState.vpnConfigState != nil) {
+                postLoadAction = .restoreAlreadyConnectedState(
+                    preConnectionState: preConnectionState,
+                    shouldRenewSession: shouldRenewSessionWhenConnectionServiceInitialized)
+                pushConnectionVC(connectableInstance: connectableInstance, postLoadAction: postLoadAction)
             } else {
                 os_log("VPN is enabled at launch, but unable to identify the server from the info in last_connection_attempt.json. Disabling VPN.",
                        log: Log.general, type: .debug)
                 environment.connectionService.disableVPN()
                     .cauterize()
             }
-            pushConnectionVC(
-                connectableInstance: connectableInstance,
-                preConnectionState: preConnectionState,
-                continuationPolicy: .doNotContinue,
-                shouldRenewSessionOnRestoration: shouldRenewSessionWhenConnectionServiceInitialized)
 
         case .vpnDisabled:
             environment.persistenceService.removeLastConnectionAttempt()
@@ -394,9 +388,9 @@ extension MainViewController {
 
         let row = viewModel.row(at: index)
         if let connectableInstance = row.connectableInstance {
-            pushConnectionVC(connectableInstance: connectableInstance,
-                             preConnectionState: nil,
-                             continuationPolicy: .continueWithSingleOrLastUsedProfile)
+            pushConnectionVC(
+                connectableInstance: connectableInstance,
+                postLoadAction: .beginConnectionFlow(continuationPolicy: .continueWithSingleOrLastUsedProfile))
         }
     }
 

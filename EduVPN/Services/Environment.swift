@@ -70,14 +70,12 @@ class Environment {
 
     func instantiateConnectionViewController(
         connectableInstance: ConnectableInstance, serverDisplayInfo: ServerDisplayInfo,
-        initialConnectionFlowContinuationPolicy: ConnectionViewModel.FlowContinuationPolicy,
         authURLTemplate: String? = nil,
-        restoringPreConnectionState: ConnectionAttempt.PreConnectionState? = nil) -> ConnectionViewController {
+        postLoadAction: ConnectionViewController.PostLoadAction) -> ConnectionViewController {
         let parameters = ConnectionViewController.Parameters(
             environment: self, connectableInstance: connectableInstance, serverDisplayInfo: serverDisplayInfo,
             authURLTemplate: authURLTemplate,
-            initialConnectionFlowContinuationPolicy: initialConnectionFlowContinuationPolicy,
-            restoringPreConnectionState: restoringPreConnectionState)
+            postLoadAction: postLoadAction)
         return instantiate(ConnectionViewController.self, identifier: "Connection", parameters: parameters)
     }
 
