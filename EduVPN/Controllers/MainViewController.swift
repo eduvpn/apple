@@ -69,6 +69,8 @@ class MainViewController: ViewController {
     private var isConnectionServiceInitialized = false
     // swiftlint:disable:next identifier_name
     private var shouldRenewSessionWhenConnectionServiceInitialized = false
+    // swiftlint:disable:next identifier_name
+    private var shouldReconnectWhenConnectionServiceInitialized = false
 
     #if os(macOS)
     var shouldPerformActionOnSelection = true
@@ -150,6 +152,36 @@ class MainViewController: ViewController {
             environment.navigationController?.popToRoot()
             environment.navigationController?.pushViewController(connectionVC, animated: true)
         }
+    }
+
+    func reconnectLastUsedConnectionWhenPossible() {
+        if isConnectionServiceInitialized {
+            reconnectLastUsedConnection()
+        } else {
+            shouldReconnectWhenConnectionServiceInitialized = true
+        }
+    }
+
+    @discardableResult
+    private func reconnectLastUsedConnection() -> Bool {
+        if let lastConnectionAttempt = environment.persistenceService.loadLastConnectionAttempt() {
+            let connectableInstance = lastConnectionAttempt.connectableInstance
+            let preConnectionState = lastConnectionAttempt.preConnectionState
+            if (connectableInstance is ServerInstance && preConnectionState.serverState != nil) ||
+                (connectableInstance is VPNConfigInstance && preConnectionState.vpnConfigState != nil) {
+                if let lastConnectedProfileId = lastConnectionAttempt.preConnectionState.serverState?.selectedProfileId {
+                    pushConnectionVC(
+                        connectableInstance: connectableInstance,
+                        postLoadAction: .beginConnectionFlow(continuationPolicy: .continueWithProfile(profileId: lastConnectedProfileId)))
+                } else {
+                    pushConnectionVC(
+                        connectableInstance: connectableInstance,
+                        postLoadAction: .beginConnectionFlow(continuationPolicy: .doNotContinue))
+                }
+                return true
+            }
+        }
+        return false
     }
 
     func scheduleSessionExpiryNotificationOnActiveVPN() -> Guarantee<Bool> {
@@ -291,6 +323,11 @@ extension MainViewController: ConnectionServiceInitializationDelegate {
             }
 
         case .vpnDisabled:
+            if shouldReconnectWhenConnectionServiceInitialized {
+                if reconnectLastUsedConnection() {
+                    return
+                }
+            }
             environment.persistenceService.removeLastConnectionAttempt()
             environment.notificationService.descheduleSessionExpiryNotifications()
         }
