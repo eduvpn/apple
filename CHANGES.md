@@ -6,6 +6,7 @@
 - macOS: Fix showing About panel from status item menu #497
 - iOS: Prevent disconnect / connect cycles when device is locked #493
 - Avoid endless retry after authentication is revoked #494
+- Avoid using cached token endpoints from OIDAuthState #487
 
 ## 3.0.6
 
