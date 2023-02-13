@@ -118,7 +118,6 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         case continueWithProfile(profileId: String)
         case continueWithAnyProfile
         case doNotContinue
-        case notApplicable
     }
 
     private(set) var header: Header {
@@ -386,7 +385,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                 return self.continueServerConnectionFlow(
                     profile: profile, from: viewController,
                     serverInfo: serverInfo)
-            case .doNotContinue, .notApplicable:
+            case .doNotContinue:
                 self.internalState = .idle
                 return Promise.value(())
             }
