@@ -259,7 +259,8 @@ private extension ServerAPIv3Handler {
                         throw ServerAPIv3Error.errorGettingProfileConfig(
                             profile: profile, serverError: errorResponse.errorMessage)
                     }
-                    throw ServerAPIv3Error.HTTPFailure(requestURLPath: target.path, response: response)
+                    throw ServerAPIv3Error.HTTPFailure(
+                        requestURLPath: "\(target.baseURL.absoluteString)\(target.path)", response: response)
                 }
                 let data = try T(data: response.data).data
                 let httpResponse = response.response

@@ -202,7 +202,8 @@ private extension ServerAPIv2Handler {
             } else {
                 let successStatusCodes = (200...299)
                 guard successStatusCodes.contains(response.statusCode) else {
-                    throw ServerAPIv2Error.HTTPFailure(requestURLPath: target.path, response: response)
+                    throw ServerAPIv2Error.HTTPFailure(
+                        requestURLPath: "\(target.baseURL.absoluteString)\(target.path)", response: response)
                 }
                 return Promise.value(try T(data: response.data).data)
             }
