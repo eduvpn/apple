@@ -12,6 +12,7 @@ import os.log
 
 enum ServerAPIv3Error: Error {
     case HTTPFailure(requestURLPath: String, response: Moya.Response)
+    case unrecognizedServerResponse(requestURLPath: String, response: Moya.Response, parseError: Error)
     case errorGettingProfileConfig(requestURLPath: String, profile: Profile, serverError: String)
     case VPNConfigHasInvalidEncoding(requestURLPath: String)
     case wgVPNConfigMissingInterfaceSection(requestURLPath: String)
@@ -25,6 +26,8 @@ extension ServerAPIv3Error: AppError {
         switch self {
         case .HTTPFailure:
             return "HTTP request failed"
+        case .unrecognizedServerResponse:
+            return "Unrecognized server response"
         case .errorGettingProfileConfig:
             return "Error getting profile config"
         case .VPNConfigHasInvalidEncoding:
@@ -47,6 +50,17 @@ extension ServerAPIv3Error: AppError {
             Request URL path: \(requestURLPath)
             Response code: \(response.statusCode)
             Response: \(String(data: response.data, encoding: .utf8) ?? "")
+            """
+        case .unrecognizedServerResponse(let requestURLPath, let response, let parseError):
+            var responseString = String(data: response.data, encoding: .utf8) ?? ""
+            if responseString.count > 100 {
+                responseString.removeLast(responseString.count - 100)
+                responseString.append(" ...")
+            }
+            return """
+            Request URL path: \(requestURLPath)
+            Response: \(responseString)
+            Parse error: \(parseError)
             """
         case .errorGettingProfileConfig(let requestURLPath, let profile, let serverError):
             return """
@@ -273,23 +287,29 @@ private extension ServerAPIv3Handler {
                     throw ServerAPIv3Error.HTTPFailure(
                         requestURLPath: "\(target.baseURL.absoluteString)\(target.path)", response: response)
                 }
-                let data = try T(data: response.data).data
-                let httpResponse = response.response
-                let contentType: String?
-                let expires: String?
-                if #available(iOS 13.0, macOS 10.15, *) {
-                    contentType = httpResponse?.value(forHTTPHeaderField: "Content-Type")
-                    expires = httpResponse?.value(forHTTPHeaderField: "Expires")
-                } else {
-                    let allHeaders = httpResponse?.allHeaderFields
-                    contentType = allHeaders?["Content-Type"] as? String
-                    expires = allHeaders?["Expires"] as? String
+                do {
+                    let data = try T(data: response.data).data
+                    let httpResponse = response.response
+                    let contentType: String?
+                    let expires: String?
+                    if #available(iOS 13.0, macOS 10.15, *) {
+                        contentType = httpResponse?.value(forHTTPHeaderField: "Content-Type")
+                        expires = httpResponse?.value(forHTTPHeaderField: "Expires")
+                    } else {
+                        let allHeaders = httpResponse?.allHeaderFields
+                        contentType = allHeaders?["Content-Type"] as? String
+                        expires = allHeaders?["Expires"] as? String
+                    }
+                    let responseData = ResponseData<T>(
+                        data: data,
+                        contentTypeResponseHeader: contentType,
+                        expiresResponseHeader: expires)
+                    return Promise.value(responseData)
+                } catch {
+                    throw ServerAPIv3Error.unrecognizedServerResponse(
+                        requestURLPath: "\(target.baseURL.absoluteString)\(target.path)",
+                        response: response, parseError: error)
                 }
-                let responseData = ResponseData<T>(
-                    data: data,
-                    contentTypeResponseHeader: contentType,
-                    expiresResponseHeader: expires)
-                return Promise.value(responseData)
             }
         }
     }
