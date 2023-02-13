@@ -175,6 +175,10 @@ extension ServerAPIHandler {
             guard let authState = commonInfo.dataStore.authState else {
                 throw ServerAPIServiceError.cannotUseStoredAuthState
             }
+            guard authState.hasSameEndpoints(as: commonInfo.serverInfo) else {
+                os_log("Not using auth state that contains cached incorrect endpoints")
+                throw ServerAPIServiceError.cannotUseStoredAuthState
+            }
             return self.getFreshAccessToken(using: authState, storingChangesTo: commonInfo.dataStore)
         }.recover { error -> Promise<String> in
             os_log("Error getting access token: %{public}@", log: Log.general, type: .error,
