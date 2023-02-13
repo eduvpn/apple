@@ -25,21 +25,21 @@ extension ServerAPIv3Error: AppError {
     var summary: String {
         switch self {
         case .HTTPFailure:
-            return "HTTP request failed"
+            return NSLocalizedString("HTTP request failed", comment: "Server API error")
         case .unrecognizedServerResponse:
-            return "Unrecognized server response"
+            return NSLocalizedString("Unrecognized server response", comment: "Server API error")
         case .errorGettingProfileConfig:
-            return "Error getting profile config"
+            return NSLocalizedString("Error getting profile config", comment: "Server API error")
         case .VPNConfigHasInvalidEncoding:
-            return "VPN config has unrecognized encoding"
+            return NSLocalizedString("VPN config has unrecognized encoding", comment: "Server API error")
         case .wgVPNConfigMissingInterfaceSection:
-            return "WireGuard VPN config is missing its 'Interface' section"
+            return NSLocalizedString("WireGuard VPN config is missing its 'Interface' section", comment: "Server API error")
         case .expiresResponseHeaderIsInvalid:
-            return "Invalid expiration date value"
+            return NSLocalizedString("Invalid expiration date value", comment: "Server API error")
         case .unexpectedContentTypeOnConnect:
-            return "Unexpected content type value"
+            return NSLocalizedString("Unexpected content type value", comment: "Server API error")
         case .fireAndForgetCallTimedOut:
-            return "Disconnect call timed out"
+            return NSLocalizedString("Disconnect call timed out", comment: "Server API error")
         }
     }
 
