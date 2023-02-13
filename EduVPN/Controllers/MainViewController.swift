@@ -156,7 +156,11 @@ class MainViewController: ViewController {
 
     func reconnectLastUsedConnectionWhenPossible() {
         if isConnectionServiceInitialized {
-            reconnectLastUsedConnection()
+            if reconnectLastUsedConnection() {
+                #if os(macOS)
+                (NSApp.delegate as? AppDelegate)?.showMainWindow(self)
+                #endif
+            }
         } else {
             shouldReconnectWhenConnectionServiceInitialized = true
         }
@@ -325,6 +329,9 @@ extension MainViewController: ConnectionServiceInitializationDelegate {
         case .vpnDisabled:
             if shouldReconnectWhenConnectionServiceInitialized {
                 if reconnectLastUsedConnection() {
+                    #if os(macOS)
+                    (NSApp.delegate as? AppDelegate)?.showMainWindow(self)
+                    #endif
                     return
                 }
             }
