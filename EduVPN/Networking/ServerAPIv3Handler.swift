@@ -12,12 +12,12 @@ import os.log
 
 enum ServerAPIv3Error: Error {
     case HTTPFailure(requestURLPath: String, response: Moya.Response)
-    case errorGettingProfileConfig(profile: Profile, serverError: String)
-    case VPNConfigHasInvalidEncoding
-    case wgVPNConfigMissingInterfaceSection
-    case expiresResponseHeaderIsInvalid(String?)
-    case unexpectedContentTypeOnConnect(String?)
-    case fireAndForgetCallTimedOut
+    case errorGettingProfileConfig(requestURLPath: String, profile: Profile, serverError: String)
+    case VPNConfigHasInvalidEncoding(requestURLPath: String)
+    case wgVPNConfigMissingInterfaceSection(requestURLPath: String)
+    case expiresResponseHeaderIsInvalid(requestURLPath: String, value: String?)
+    case unexpectedContentTypeOnConnect(requestURLPath: String, value: String?)
+    case fireAndForgetCallTimedOut(requestURLPath: String)
 }
 
 extension ServerAPIv3Error: AppError {
@@ -44,27 +44,32 @@ extension ServerAPIv3Error: AppError {
         switch self {
         case .HTTPFailure(let requestURLPath, let response):
             return """
-            Request path: \(requestURLPath)
+            Request URL path: \(requestURLPath)
             Response code: \(response.statusCode)
             Response: \(String(data: response.data, encoding: .utf8) ?? "")
             """
-        case .errorGettingProfileConfig(let profile, let serverError):
+        case .errorGettingProfileConfig(let requestURLPath, let profile, let serverError):
             return """
+            Request URL path: \(requestURLPath)
             Requested profile name: \(profile.displayName.stringForCurrentLanguage())
             Requested profile id: \(profile.profileId)
             Server error: \(serverError)
             """
-        case .expiresResponseHeaderIsInvalid(let value):
+        case .VPNConfigHasInvalidEncoding(let requestURLPath):
+            return "VPN config is expected to be in UTF-8 encoding (Request URL path: \(requestURLPath))"
+        case .wgVPNConfigMissingInterfaceSection(let requestURLPath):
+            return "Could not find '[Interface]' in the WireGuard config (Request URL path: \(requestURLPath))"
+        case .expiresResponseHeaderIsInvalid(let requestURLPath, let value):
             if let value = value {
-                return "The 'Expires' HTTP response header value returned was: \(value)"
+                return "The 'Expires' HTTP response header value returned was: \(value). (Request URL path: \(requestURLPath))"
             } else {
-                return "No 'Expires' HTTP response header was returned"
+                return "No 'Expires' HTTP response header was returned. (Request URL path: \(requestURLPath))"
             }
-        case .unexpectedContentTypeOnConnect(let value):
+        case .unexpectedContentTypeOnConnect(let requestURLPath, let value):
             if let value = value {
-                return "The 'Content-Type' HTTP response header value returned was: \(value)"
+                return "The 'Content-Type' HTTP response header value returned was: \(value). (Request URL path: \(requestURLPath))"
             } else {
-                return "No 'Content-Type' HTTP response header was returned"
+                return "No 'Content-Type' HTTP response header was returned. (Request URL path: \(requestURLPath))"
             }
         default:
             return ""
@@ -104,18 +109,21 @@ struct ServerAPIv3Handler: ServerAPIHandler {
         }()
         let publicKey = privateKey.publicKey.base64Key
 
+        let target: ServerAPITarget = .connect(commonInfo, profile: profile, publicKey: publicKey,
+                                                          isTCPOnly: UserDefaults.standard.forceTCP)
         return firstly {
             return Self.makeRequest(
-                target: .connect(commonInfo, profile: profile, publicKey: publicKey,
-                                 isTCPOnly: UserDefaults.standard.forceTCP),
+                target: target,
                 decodeAs: ConnectResponse.self,
                 options: options)
         }.map { responseData -> ServerAPIService.TunnelConfigurationData in
             guard let configString = String(data: responseData.data, encoding: .utf8) else {
-                throw ServerAPIv3Error.VPNConfigHasInvalidEncoding
+                throw ServerAPIv3Error.VPNConfigHasInvalidEncoding(
+                    requestURLPath: "\(target.baseURL.absoluteString)\(target.path)")
             }
             guard let expiresString = responseData.expiresResponseHeader else {
-                throw ServerAPIv3Error.expiresResponseHeaderIsInvalid(nil)
+                throw ServerAPIv3Error.expiresResponseHeaderIsInvalid(
+                    requestURLPath: "\(target.baseURL)\(target.path)", value: nil)
             }
 
             let dateFormatter = DateFormatter()
@@ -123,7 +131,8 @@ struct ServerAPIv3Handler: ServerAPIHandler {
             dateFormatter.dateFormat = "EEE',' dd' 'MMM' 'yyyy HH':'mm':'ss zzz"
             dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
             guard let expiresDate = dateFormatter.date(from: expiresString) else {
-                throw ServerAPIv3Error.expiresResponseHeaderIsInvalid(expiresString)
+                throw ServerAPIv3Error.expiresResponseHeaderIsInvalid(
+                    requestURLPath: "\(target.baseURL)\(target.path)", value: expiresString)
             }
 
             let authenticationTime = commonInfo.dataStore.authenticationTime
@@ -138,7 +147,7 @@ struct ServerAPIv3Handler: ServerAPIHandler {
                     serverAPIBaseURL: commonInfo.serverInfo.apiBaseURL,
                     serverAPIVersion: commonInfo.serverInfo.apiVersion)
             case "application/x-wireguard-profile":
-                let updatedConfigString = try insertPrivateKey(privateKey, in: configString)
+                let updatedConfigString = try insertPrivateKey(privateKey, in: configString, target: target)
                 return ServerAPIService.TunnelConfigurationData(
                     vpnConfig: .wireGuardConfig(updatedConfigString),
                     expiresAt: expiresDate,
@@ -146,7 +155,8 @@ struct ServerAPIv3Handler: ServerAPIHandler {
                     serverAPIBaseURL: commonInfo.serverInfo.apiBaseURL,
                     serverAPIVersion: commonInfo.serverInfo.apiVersion)
             default:
-                throw ServerAPIv3Error.unexpectedContentTypeOnConnect(responseData.contentTypeResponseHeader)
+                throw ServerAPIv3Error.unexpectedContentTypeOnConnect(
+                    requestURLPath: "\(target.baseURL)\(target.path)", value: responseData.contentTypeResponseHeader)
             }
         }
     }
@@ -257,6 +267,7 @@ private extension ServerAPIv3Handler {
                     if case .connect(_, let profile, _, _) = target,
                        let errorResponse = try? JSONDecoder().decode(ProfileConfigErrorResponse.self, from: response.data) {
                         throw ServerAPIv3Error.errorGettingProfileConfig(
+                            requestURLPath: "\(target.baseURL.absoluteString)\(target.path)",
                             profile: profile, serverError: errorResponse.errorMessage)
                     }
                     throw ServerAPIv3Error.HTTPFailure(
@@ -360,7 +371,8 @@ private extension ServerAPIv3Handler {
 
     static func fire(target: FireAndForgetAPITarget, timeout: TimeInterval) -> Promise<Void> {
         let timedPromise = after(seconds: timeout).done {
-            throw ServerAPIv3Error.fireAndForgetCallTimedOut
+            throw ServerAPIv3Error.fireAndForgetCallTimedOut(
+                requestURLPath: "\(target.baseURL)\(target.path)")
         }
         return race(fire(target: target), timedPromise)
     }
@@ -373,10 +385,11 @@ private extension ServerAPIv3Handler {
 private extension ServerAPIv3Handler {
     static func insertPrivateKey(
         _ privateKey: WireGuardKit.PrivateKey,
-        in wgQuickConfig: String) throws -> String {
+        in wgQuickConfig: String, target: ServerAPITarget) throws -> String {
 
         guard let interfaceRange = wgQuickConfig.range(of: "[Interface]") else {
-            throw ServerAPIv3Error.wgVPNConfigMissingInterfaceSection
+            throw ServerAPIv3Error.wgVPNConfigMissingInterfaceSection(
+                requestURLPath: "\(target.baseURL.absoluteString)\(target.path)")
         }
         var config = wgQuickConfig
         config.insert(

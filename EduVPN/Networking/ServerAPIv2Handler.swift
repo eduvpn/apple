@@ -12,9 +12,9 @@ import ASN1Decoder
 import os.log
 
 enum ServerAPIv2Error: Error {
-    case serverProvidedInvalidCertificate
+    case serverProvidedInvalidCertificate(requestURLPath: String)
     case HTTPFailure(requestURLPath: String, response: Moya.Response)
-    case errorGettingProfileConfig(profile: Profile, serverError: String)
+    case errorGettingProfileConfig(requestURLPath: String, profile: Profile, serverError: String)
     case openVPNConfigHasInvalidEncoding
     case openVPNConfigHasNoCertificateAuthority
     case openVPNConfigHasNoRemotes
@@ -43,16 +43,17 @@ extension ServerAPIv2Error: AppError {
 
     var detail: String {
         switch self {
-        case .serverProvidedInvalidCertificate:
-            return "Server provided invalid certificate"
+        case .serverProvidedInvalidCertificate(let requestURLPath):
+            return "Server provided invalid certificate. (Request URL path: \(requestURLPath))"
         case .HTTPFailure(let requestURLPath, let response):
             return """
-            Request path: \(requestURLPath)
+            Request URL path: \(requestURLPath)
             Response code: \(response.statusCode)
             Response: \(String(data: response.data, encoding: .utf8) ?? "")
             """
-        case .errorGettingProfileConfig(let profile, let serverError):
+        case .errorGettingProfileConfig(let requestURLPath, let profile, let serverError):
             return """
+            Request URL path: \(requestURLPath)
             Requested profile name: \(profile.displayName.stringForCurrentLanguage())
             Requested profile id: \(profile.profileId)
             Server error: \(serverError)
@@ -235,8 +236,9 @@ private extension ServerAPIv2Handler {
                 }
         }.recover { error -> Promise<KeyPairData> in
             if case ServerAPIServiceError.cannotUseStoredKeyPair = error {
+                let target: ServerAPITarget = .createKeyPair(commonInfo, displayName: Config.shared.appName)
                 return Self.makeRequest(
-                    target: .createKeyPair(commonInfo, displayName: Config.shared.appName),
+                    target: target,
                     decodeAs: CreateKeyPairResponse.self, options: options)
                     .map { keyPair in
                         commonInfo.dataStore.keyPair = keyPair
@@ -244,7 +246,8 @@ private extension ServerAPIv2Handler {
                             let x509Certificate = try? X509Certificate(data: certificateData),
                             x509Certificate.isCurrentlyValid,
                             let expiresAt = x509Certificate.expiresAt else {
-                                throw ServerAPIv2Error.serverProvidedInvalidCertificate
+                                throw ServerAPIv2Error.serverProvidedInvalidCertificate(
+                                    requestURLPath: "\(target.baseURL)\(target.path)")
                         }
                         return KeyPairData(keyPair: keyPair, certificateExpiryDate: expiresAt)
                     }
@@ -259,12 +262,16 @@ private extension ServerAPIv2Handler {
         profile: Profile,
         options: ServerAPIService.Options) -> Promise<Data> {
 
-        firstly {
-            makeRequest(target: .profileConfig(commonInfo, profile: profile),
+        let target: ServerAPITarget = .profileConfig(commonInfo, profile: profile)
+
+        return firstly {
+            makeRequest(target: target,
                         decodeAs: ProfileConfigResponse.self, options: options)
         }.map { data in
             if let errorResponse = try? JSONDecoder().decode(ProfileConfigErrorResponsev2.self, from: data) {
-                throw ServerAPIv2Error.errorGettingProfileConfig(profile: profile, serverError: errorResponse.errorMessage)
+                throw ServerAPIv2Error.errorGettingProfileConfig(
+                    requestURLPath: "\(target.baseURL.absoluteString)\(target.path)",
+                    profile: profile, serverError: errorResponse.errorMessage)
             }
             return data
         }
