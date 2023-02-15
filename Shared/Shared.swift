@@ -8,6 +8,11 @@
 import Foundation
 import NetworkExtension
 
+enum VPNProtocol: String {
+    case openVPN = "OpenVPN"
+    case wireGuard = "WireGuard"
+}
+
 enum TunnelMessageCode: UInt8 {
     case getTransferredByteCount = 0 // Returns TransferredByteCount as Data
     case getNetworkAddresses = 1 // Returns [String] as JSON
@@ -62,9 +67,13 @@ struct TransferredByteCount: Codable {
 }
 
 enum ProviderConfigurationKeys: String {
+    case vpnProtocol // A value of type VPNProtocol
     case wireGuardConfig // wg-quick format
     case tunnelKitOpenVPNProviderConfig // json format
     case appGroup
+#if os(macOS)
+    case shouldPreventAutomaticConnections // Bool as NSNumber
+#endif
 }
 
 struct StartTunnelOptions {
@@ -94,26 +103,35 @@ struct StartTunnelOptions {
     }
 }
 
-#if os(macOS)
 extension NETunnelProviderProtocol {
-    struct SharedKeys {
-        // If set, the tunnel connects only when triggered from the app.
-        // When TunnelKit tries to reconnect, or when the OS triggers a
-        // connection because of on-demand, the connection fails early.
-        static let shouldPreventAutomaticConnectionsKey = "shouldPreventAutomaticConnections"
-    }
 
+    // shouldPreventAutomaticConnections:
+    // If set, the tunnel connects only when triggered from the app.
+    // When TunnelKit tries to reconnect, or when the OS triggers a
+    // connection because of on-demand, the connection fails early.
+
+#if os(macOS)
     var shouldPreventAutomaticConnections: Bool {
         get {
-            if let boolNumber = providerConfiguration?[SharedKeys.shouldPreventAutomaticConnectionsKey] as? NSNumber {
+            if let boolNumber = providerConfiguration?[ProviderConfigurationKeys.shouldPreventAutomaticConnections.rawValue] as? NSNumber {
                 return boolNumber.boolValue
             }
             return false
         }
         set(value) {
             let boolNumber = NSNumber(value: value)
-            providerConfiguration?[SharedKeys.shouldPreventAutomaticConnectionsKey] = boolNumber
+            providerConfiguration?[ProviderConfigurationKeys.shouldPreventAutomaticConnections.rawValue] = boolNumber
         }
     }
-}
 #endif
+
+    // vpnProtocol:
+    // The VPN protocol used. Either .wireGuard or .openVPN.
+
+    var vpnProtocol: VPNProtocol? {
+        guard let vpnProtocolString = providerConfiguration?[ProviderConfigurationKeys.vpnProtocol.rawValue] as? String else {
+            return nil
+        }
+        return VPNProtocol(rawValue: vpnProtocolString)
+    }
+}
