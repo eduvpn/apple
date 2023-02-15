@@ -220,6 +220,9 @@ expires.
       - In the Xcode menu, choose _Product_ > _Archive_ (Ignore the popup "ad" about Xcode Cloud)
       - Once the archive is created, Xcode will open its Organizer window, with the created archive selected
 
+    In case you see build errors like "Missing package product", please do "File > Packages > Reset Package Caches", and
+    then try archiving.
+
  7. Create the notarized app bundle
 
       - Ensure that the created archive is selected in the Organizer window
