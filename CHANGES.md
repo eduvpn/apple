@@ -7,6 +7,7 @@
 - iOS: Prevent disconnect / connect cycles when device is locked #493
 - Avoid endless retry after authentication is revoked #494
 - Avoid using cached token endpoints from OIDAuthState #487
+- macOS: Point the user to the OS' please-enable-notification prompt #474 
 
 ## 3.0.6
 
