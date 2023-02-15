@@ -32,6 +32,7 @@ class PreferencesViewController: ViewController, ParametrizedViewController {
 
     @IBOutlet weak var useTCPOnlyCheckbox: NSButton!
     @IBOutlet weak var sessionExpiryNotificationCheckbox: NSButton!
+    @IBOutlet weak var notificationMoreInfoLabel: NSTextField!
     @IBOutlet weak var showInStatusBarCheckbox: NSButton!
     @IBOutlet weak var statusBarColorModePopup: NSPopUpButton!
     @IBOutlet weak var showInDockCheckbox: NSButton!
@@ -69,6 +70,13 @@ class PreferencesViewController: ViewController, ParametrizedViewController {
         if !isShowInDockEnabled {
             showInStatusBarCheckbox.isEnabled = false
         }
+
+        notificationMoreInfoLabel.text = NSLocalizedString(
+            """
+            When enabling, if you see a notification about “\(Config.shared.appName)” \
+            Notifications at the top-right of the screen, please click on \
+            "Options > Allow" in that notification to allow notifications from this app.
+            """, comment: "macOS notification additional info in Preferences")
     }
 
     @IBAction func useTCPOnlyCheckboxClicked(_ sender: Any) {
