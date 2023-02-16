@@ -59,11 +59,25 @@
 		6F54C92D25E033EE00A42C8F /* AddServerViewController+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F54C92C25E033EE00A42C8F /* AddServerViewController+macOS.swift */; };
 		6F54C93825E0359200A42C8F /* AddServerViewController+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F54C93725E0359200A42C8F /* AddServerViewController+iOS.swift */; };
 		6F54C9E725E2D6A500A42C8F /* MainViewController+StatusItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F54C9E625E2D6A500A42C8F /* MainViewController+StatusItem.swift */; };
+		6F56439D2983690B00A514DF /* LogViewHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F56439C2983690B00A514DF /* LogViewHelpViewController.swift */; };
+		6F56439E2983690B00A514DF /* LogViewHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F56439C2983690B00A514DF /* LogViewHelpViewController.swift */; };
 		6F57338724CD1570008912D4 /* SessionExpiryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F57338624CD1570008912D4 /* SessionExpiryHelper.swift */; };
 		6F5820F826EE036800906397 /* AppDataRemover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5820F726EE036800906397 /* AppDataRemover.swift */; };
 		6F59A58824F51DEB00560155 /* server_list.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F59A58624F51DEB00560155 /* server_list.json */; };
 		6F59A58924F51DEB00560155 /* organization_list.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F59A58724F51DEB00560155 /* organization_list.json */; };
 		6F59A58B24F67CE500560155 /* OAuthExternalUserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F59A58A24F67CE500560155 /* OAuthExternalUserAgent.swift */; };
+		6F5CF7672966CCD600C310EB /* WireGuardKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6F5CF7662966CCD600C310EB /* WireGuardKit */; };
+		6F5CF7692966CCD600C310EB /* TunnelKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6F5CF7682966CCD600C310EB /* TunnelKit */; };
+		6F5CF76B2966CCD600C310EB /* TunnelKitOpenVPN in Frameworks */ = {isa = PBXBuildFile; productRef = 6F5CF76A2966CCD600C310EB /* TunnelKitOpenVPN */; };
+		6F5CF76D2966CCD600C310EB /* TunnelKitOpenVPNAppExtension in Frameworks */ = {isa = PBXBuildFile; productRef = 6F5CF76C2966CCD600C310EB /* TunnelKitOpenVPNAppExtension */; };
+		6F5CF76E2967990600C310EB /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3073562689B8000083EEEF /* Shared.swift */; };
+		6F5CF76F2967992200C310EB /* WireGuardAdapterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F95FF962962988A0090643F /* WireGuardAdapterInterface.swift */; };
+		6F5CF7702967992200C310EB /* TunnelConfiguration+WgQuickConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFC4064266E392000835B43 /* TunnelConfiguration+WgQuickConfig.swift */; };
+		6F5CF7712967992300C310EB /* TunnelConfiguration+UapiConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F30735D2689E0530083EEEF /* TunnelConfiguration+UapiConfig.swift */; };
+		6F5CF7722967992300C310EB /* String+ArrayConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFC4088266F51D200835B43 /* String+ArrayConversion.swift */; };
+		6F5CF7732967992300C310EB /* OpenVPNAdapterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F95FF93296297E70090643F /* OpenVPNAdapterInterface.swift */; };
+		6F5CF7742967992300C310EB /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F66DAD1265E1E4C006974CF /* PacketTunnelProvider.swift */; };
+		6F5CF77729679C5400C310EB /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F21F40926899B7A00C157E1 /* Logger.swift */; };
 		6F5E6C322522E72F000225C0 /* SectionHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF30FA24A317C00026C786 /* SectionHeaderCell.swift */; };
 		6F5E6C342522E897000225C0 /* MigrationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA8089424E6A75C00E7D924 /* MigrationHelper.swift */; };
 		6F5E6C352522E8A0000225C0 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FADF83024ADF86600B75E8D /* Log.swift */; };
@@ -109,7 +123,7 @@
 		6F71FBBE249CCE9E0010D0FE /* DiscoveryDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F71FBBC249CCE980010D0FE /* DiscoveryDataFetcher.swift */; };
 		6F750C8524975A4300AF2C04 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340F956C22B7118C00835D56 /* NetworkExtension.framework */; };
 		6F750C8924975A4300AF2C04 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = C75B2CB42363138200D700EC /* config.json */; };
-		6F750C9224975A4300AF2C04 /* LoginItemHelper-macOS.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6F750C9224975A4300AF2C04 /* LoginItemHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 342B9C99228ECFDB00C006D7 /* LoginItemHelper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6F750D1124975B9B00AF2C04 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ABFF78820C71E7200638480 /* NetworkExtension.framework */; };
 		6F7B63F02500FD7300FB154A /* StatusItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7B63EF2500FD7300FB154A /* StatusItemController.swift */; };
 		6F7B63F225022AAE00FB154A /* LaunchAtLoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7B63F125022AAE00FB154A /* LaunchAtLoginHelper.swift */; };
@@ -122,6 +136,38 @@
 		6F885F7C25C1740D00CABF4E /* CredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F885F7B25C1740D00CABF4E /* CredentialsViewController.swift */; };
 		6F8AEE7925E6D508001A603B /* StatusItemConnectionInfoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8AEE7825E6D507001A603B /* StatusItemConnectionInfoHelper.swift */; };
 		6F939F3F25C7D02C001887BA /* PasswordEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F939F3E25C7D02C001887BA /* PasswordEntryViewController.swift */; };
+		6F950000296547930090643F /* ServerAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC27AC724B9550C006FA648 /* ServerAPIService.swift */; };
+		6F950001296547930090643F /* ConnectionViewModel+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD5CDA324C678CF00842A74 /* ConnectionViewModel+Localization.swift */; };
+		6F950002296547930090643F /* ConnectionInfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7B643D2502A18C00FB154A /* ConnectionInfoHeaderView.swift */; };
+		6F950003296547930090643F /* UserDefaults+Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE1D12024D02FC3002D3D0C /* UserDefaults+Preferences.swift */; };
+		6F950004296547930090643F /* Moya+ResponseHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4C01248053D8009932B1 /* Moya+ResponseHandling.swift */; };
+		6F950005296547930090643F /* MainSecureInternetSectionHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F36A71E24B5A36E00BA8F5E /* MainSecureInternetSectionHeaderCell.swift */; };
+		6F950006296547930090643F /* OpenVPNConfigCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F885F6F25C14FA500CABF4E /* OpenVPNConfigCredentials.swift */; };
+		6F950008296547930090643F /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340F956C22B7118C00835D56 /* NetworkExtension.framework */; };
+		6F950009296547930090643F /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 6F95FFAB296547930090643F /* AppAuth */; };
+		6F95000A296547930090643F /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6F95FFB5296547930090643F /* PromiseKit */; };
+		6F95000B296547930090643F /* AppAuthCore in Frameworks */ = {isa = PBXBuildFile; productRef = 6F95FFAD296547930090643F /* AppAuthCore */; };
+		6F95000C296547930090643F /* ASN1Decoder in Frameworks */ = {isa = PBXBuildFile; productRef = 6F95FFAE296547930090643F /* ASN1Decoder */; };
+		6F95000D296547930090643F /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 6F95FFB3296547930090643F /* Moya */; };
+		6F95000E296547930090643F /* Sodium in Frameworks */ = {isa = PBXBuildFile; productRef = 6F95FFB2296547930090643F /* Sodium */; };
+		6F95000F296547930090643F /* WireGuardKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6F95FFA6296547930090643F /* WireGuardKit */; };
+		6F950010296547930090643F /* TunnelKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6F95FFA8296547930090643F /* TunnelKit */; };
+		6F950011296547930090643F /* TunnelKitOpenVPN in Frameworks */ = {isa = PBXBuildFile; productRef = 6F95FFAA296547930090643F /* TunnelKitOpenVPN */; };
+		6F950012296547930090643F /* Clibsodium in Frameworks */ = {isa = PBXBuildFile; productRef = 6F95FFB0296547930090643F /* Clibsodium */; };
+		6F950014296547930090643F /* CountryFlags.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F36A71C24B454AA00BA8F5E /* CountryFlags.xcassets */; };
+		6F950015296547930090643F /* Common.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FEF313324A48FB10026C786 /* Common.xcassets */; };
+		6F950016296547930090643F /* server_list.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F59A58624F51DEB00560155 /* server_list.json */; };
+		6F950017296547930090643F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7DB4C6B248064BC009932B1 /* Main.storyboard */; };
+		6F950018296547930090643F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7DB4C6A248064BC009932B1 /* Assets.xcassets */; };
+		6F950019296547930090643F /* privacy_statement.json in Resources */ = {isa = PBXBuildFile; fileRef = 6FF5524D28551CAC0044BA84 /* privacy_statement.json */; };
+		6F95001A296547930090643F /* organization_list.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F59A58724F51DEB00560155 /* organization_list.json */; };
+		6F95001B296547930090643F /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = C75B2CB42363138200D700EC /* config.json */; };
+		6F950020296547930090643F /* LoginItemHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 342B9C99228ECFDB00C006D7 /* LoginItemHelper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6F950022296547930090643F /* OpenSans-Bold.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6FBFEF0E24C2DCA900A9D1D4 /* OpenSans-Bold.ttf */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		6F950023296547930090643F /* OpenSans-Regular.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6FBFEF0F24C2DCA900A9D1D4 /* OpenSans-Regular.ttf */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		6F95002E296689810090643F /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340F956C22B7118C00835D56 /* NetworkExtension.framework */; };
+		6F950033296689810090643F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F950032296689810090643F /* main.swift */; };
+		6F950038296689810090643F /* net.roopc.eduVPN-mac-developerid.TunnelExtension.systemextension in Embed System Extensions */ = {isa = PBXBuildFile; fileRef = 6F95002D296689810090643F /* net.roopc.eduVPN-mac-developerid.TunnelExtension.systemextension */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6F95FF94296297E70090643F /* OpenVPNAdapterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F95FF93296297E70090643F /* OpenVPNAdapterInterface.swift */; };
 		6F95FF972962988A0090643F /* WireGuardAdapterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F95FF962962988A0090643F /* WireGuardAdapterInterface.swift */; };
 		6F95FF982962EF820090643F /* WireGuardAdapterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F95FF962962988A0090643F /* WireGuardAdapterInterface.swift */; };
@@ -132,10 +178,84 @@
 		6F95FF9E2962EF9D0090643F /* TunnelKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6F95FF9D2962EF9D0090643F /* TunnelKit */; };
 		6F95FFA02962EF9D0090643F /* TunnelKitOpenVPN in Frameworks */ = {isa = PBXBuildFile; productRef = 6F95FF9F2962EF9D0090643F /* TunnelKitOpenVPN */; };
 		6F95FFA22962EF9D0090643F /* TunnelKitOpenVPNAppExtension in Frameworks */ = {isa = PBXBuildFile; productRef = 6F95FFA12962EF9D0090643F /* TunnelKitOpenVPNAppExtension */; };
+		6F95FFBA296547930090643F /* LoggingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3BD00527476FA0005E5CB2 /* LoggingService.swift */; };
+		6F95FFBB296547930090643F /* LanguageMappedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCC5EF324B8579D00C6BC80 /* LanguageMappedString.swift */; };
+		6F95FFBC296547930090643F /* ConnectionInfoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE1D11A24CD952C002D3D0C /* ConnectionInfoHelper.swift */; };
+		6F95FFBD296547930090643F /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F05E64124D0A6AA008292F6 /* ErrorHandling.swift */; };
+		6F95FFBE296547930090643F /* OAuthExternalUserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F59A58A24F67CE500560155 /* OAuthExternalUserAgent.swift */; };
+		6F95FFBF296547930090643F /* OAuthRedirectHTTPHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F49FAAB263C1A55005DB8D3 /* OAuthRedirectHTTPHandler.m */; };
+		6F95FFC0296547930090643F /* RowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF30FD24A324E40026C786 /* RowCell.swift */; };
+		6F95FFC1296547930090643F /* AppDataRemover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5820F726EE036800906397 /* AppDataRemover.swift */; };
+		6F95FFC2296547930090643F /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FADF83024ADF86600B75E8D /* Log.swift */; };
+		6F95FFC3296547930090643F /* ServerAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF313A24A717570026C786 /* ServerAuthService.swift */; };
+		6F95FFC4296547930090643F /* StatusItemConnectionInfoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8AEE7825E6D507001A603B /* StatusItemConnectionInfoHelper.swift */; };
+		6F95FFC5296547930090643F /* ServerAPIv2Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF8A351267742AA00E1C22C /* ServerAPIv2Handler.swift */; };
+		6F95FFC6296547930090643F /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3073562689B8000083EEEF /* Shared.swift */; };
+		6F95FFC7296547930090643F /* ConnectionViewModel+SupportContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F50408C254C33C50071AA66 /* ConnectionViewModel+SupportContact.swift */; };
+		6F95FFC8296547930090643F /* (null) in Sources */ = {isa = PBXBuildFile; };
+		6F95FFC9296547930090643F /* AuthState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF313C24A746AD0026C786 /* AuthState.swift */; };
+		6F95FFCA296547930090643F /* ConnectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B5E247FBEE3009932B1 /* ConnectionViewModel.swift */; };
+		6F95FFCB296547930090643F /* PrivacyStatementConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF5524828551B4B0044BA84 /* PrivacyStatementConfig.swift */; };
+		6F95FFCC296547930090643F /* Moya+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4C03248055D6009932B1 /* Moya+Promise.swift */; };
+		6F95FFCD296547930090643F /* ConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B43247FBDF5009932B1 /* ConnectionViewController.swift */; };
+		6F95FFCE296547930090643F /* CredentialsViewController+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9CE540261802F10065E4BA /* CredentialsViewController+macOS.swift */; };
+		6F95FFCF296547930090643F /* OpenVPNConfigImportHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE5668C259089800008D0D3 /* OpenVPNConfigImportHelper.swift */; };
+		6F95FFD0296547930090643F /* ConnectionViewController+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F25F8D1269D763F00FA8FAB /* ConnectionViewController+macOS.swift */; };
+		6F95FFD1296547930090643F /* ServerAPIv3Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F50CEB92679E3C4008A38BA /* ServerAPIv3Handler.swift */; };
+		6F95FFD2296547930090643F /* SearchViewController+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F36A79A24B6ED5D00BA8F5E /* SearchViewController+macOS.swift */; };
+		6F95FFD3296547930090643F /* ConnectableInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FADF82C24ADF6C600B75E8D /* ConnectableInstance.swift */; };
+		6F95FFD4296547930090643F /* ServerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BCD24803A29009932B1 /* ServerInfo.swift */; };
+		6F95FFD5296547930090643F /* CredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F885F7B25C1740D00CABF4E /* CredentialsViewController.swift */; };
+		6F95FFD6296547930090643F /* DiscoveryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F71FBB7249B54490010D0FE /* DiscoveryData.swift */; };
+		6F95FFD7296547930090643F /* PredefinedProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6562A225DA64D100ED3ECC /* PredefinedProvider.swift */; };
+		6F95FFD8296547930090643F /* Moya+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BFA24804C1A009932B1 /* Moya+Extensions.swift */; };
+		6F95FFD9296547930090643F /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FADF82924ADF56F00B75E8D /* PersistenceService.swift */; };
+		6F95FFDA296547930090643F /* ConnectionAttempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA808AE24EBBD1F00E7D924 /* ConnectionAttempt.swift */; };
+		6F95FFDB296547930090643F /* SupportContactTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1A1C0024EE8EDB0040D6A2 /* SupportContactTextView.swift */; };
+		6F95FFDC296547930090643F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B3D247FBDD7009932B1 /* SearchViewController.swift */; };
+		6F95FFDD296547930090643F /* ServerDiscoveryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF30D724A0B8C60026C786 /* ServerDiscoveryService.swift */; };
+		6F95FFDE296547930090643F /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B55247FBEC2009932B1 /* MainViewModel.swift */; };
+		6F95FFDF296547930090643F /* ConnectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBFEF0B24C0680800A9D1D4 /* ConnectionService.swift */; };
+		6F95FFE0296547930090643F /* MockConnectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F116CAC2534585700C73797 /* MockConnectionService.swift */; };
+		6F95FFE1296547930090643F /* MigrationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA8089424E6A75C00E7D924 /* MigrationHelper.swift */; };
+		6F95FFE2296547930090643F /* AddServerViewController+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F54C92C25E033EE00A42C8F /* AddServerViewController+macOS.swift */; };
+		6F95FFE3296547930090643F /* MainViewController+StatusItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F54C9E625E2D6A500A42C8F /* MainViewController+StatusItem.swift */; };
+		6F95FFE4296547930090643F /* SectionHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF30FA24A317C00026C786 /* SectionHeaderCell.swift */; };
+		6F95FFE5296547930090643F /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8835EB24FCD481008F15FF /* MainWindowController.swift */; };
+		6F95FFE6296547930090643F /* ServerInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FADF82624ADF2E600B75E8D /* ServerInfoFetcher.swift */; };
+		6F95FFE7296547930090643F /* ViewModelRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEF30F224A21AFE0026C786 /* ViewModelRow.swift */; };
+		6F95FFE8296547930090643F /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCC5EF524B85D6700C6BC80 /* ServerResponse.swift */; };
+		6F95FFE9296547930090643F /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BB2247FD941009932B1 /* Environment.swift */; };
+		6F95FFEA296547930090643F /* PasswordEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F939F3E25C7D02C001887BA /* PasswordEntryViewController.swift */; };
+		6F95FFEB296547930090643F /* DiscoveryDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F71FBBC249CCE980010D0FE /* DiscoveryDataFetcher.swift */; };
+		6F95FFEC296547930090643F /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FADF82E24ADF85F00B75E8D /* Crypto.swift */; };
+		6F95FFED296547930090643F /* MenuCommandResponding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F25F8D3269DE3BB00FA8FAB /* MenuCommandResponding.swift */; };
+		6F95FFEE296547930090643F /* eduVPN_2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4C7524806511009932B1 /* eduVPN_2.xcdatamodeld */; };
+		6F95FFEF296547930090643F /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BFC24804C84009932B1 /* Config.swift */; };
+		6F95FFF0296547930090643F /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCCC576249E25F100F0F5A3 /* NavigationController.swift */; };
+		6F95FFF1296547930090643F /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BD224803B98009932B1 /* FileHelper.swift */; };
+		6F95FFF2296547930090643F /* MainViewController+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F36A79C24B6F5BA00BA8F5E /* MainViewController+macOS.swift */; };
+		6F95FFF3296547930090643F /* Multiplatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B3A247FBD63009932B1 /* Multiplatform.swift */; };
+		6F95FFF4296547930090643F /* SessionExpiryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F57338624CD1570008912D4 /* SessionExpiryHelper.swift */; };
+		6F95FFF5296547930090643F /* StatusItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7B63EF2500FD7300FB154A /* StatusItemController.swift */; };
+		6F95FFF6296547930090643F /* LaunchAtLoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7B63F125022AAE00FB154A /* LaunchAtLoginHelper.swift */; };
+		6F95FFF7296547930090643F /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B58247FBECC009932B1 /* SearchViewModel.swift */; };
+		6F95FFF8296547930090643F /* SignatureHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4BD324803B99009932B1 /* SignatureHelper.swift */; };
+		6F95FFF9296547930090643F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B6A247FC198009932B1 /* AppDelegate.swift */; };
+		6F95FFFA296547930090643F /* AddServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F65629725D9AEB100ED3ECC /* AddServerViewController.swift */; };
+		6F95FFFB296547930090643F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B37247FBD52009932B1 /* MainViewController.swift */; };
+		6F95FFFC296547930090643F /* Testing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D3BB3E258368F900A37244 /* Testing.swift */; };
+		6F95FFFD296547930090643F /* ServerDisplayInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD5CDA124C467CB00842A74 /* ServerDisplayInfo.swift */; };
+		6F95FFFE296547930090643F /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DB4B46247FBE26009932B1 /* PreferencesViewController.swift */; };
+		6F95FFFF296547930090643F /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F85D3BF25F7FD3B00E8B513 /* NotificationService.swift */; };
 		6F96BB53252C51090023EB1D /* SearchViewController+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F96BB52252C51080023EB1D /* SearchViewController+iOS.swift */; };
 		6F9CE541261802F10065E4BA /* CredentialsViewController+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9CE540261802F10065E4BA /* CredentialsViewController+macOS.swift */; };
 		6F9CE54B2618064A0065E4BA /* CredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F885F7B25C1740D00CABF4E /* CredentialsViewController.swift */; };
 		6F9CE560261807000065E4BA /* CredentialsViewController+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9CE555261806A90065E4BA /* CredentialsViewController+iOS.swift */; };
+		6FA517F82977BDE90030468D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CB2228ED01400C006D7 /* AppDelegate.m */; };
+		6FA517F92977BDE90030468D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 342B9CAF228ED01400C006D7 /* main.m */; };
+		6FA517FC2977BDE90030468D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 342B9CB9228ED02E00C006D7 /* Main.storyboard */; };
+		6FA517FD2977BDE90030468D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 342B9CB0228ED01400C006D7 /* Assets.xcassets */; };
 		6FA8089524E6A75D00E7D924 /* MigrationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA8089424E6A75C00E7D924 /* MigrationHelper.swift */; };
 		6FA808AF24EBBD1F00E7D924 /* ConnectionAttempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA808AE24EBBD1F00E7D924 /* ConnectionAttempt.swift */; };
 		6FADF82724ADF2E600B75E8D /* ServerInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FADF82624ADF2E600B75E8D /* ServerInfoFetcher.swift */; };
@@ -151,6 +271,8 @@
 		6FC063A327B0F52900AE25D9 /* TunnelKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6FC063A227B0F52900AE25D9 /* TunnelKit */; };
 		6FC063A527B0F52900AE25D9 /* TunnelKitOpenVPN in Frameworks */ = {isa = PBXBuildFile; productRef = 6FC063A427B0F52900AE25D9 /* TunnelKitOpenVPN */; };
 		6FC27AC824B9550D006FA648 /* ServerAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC27AC724B9550C006FA648 /* ServerAPIService.swift */; };
+		6FCA844F296E9190006DD80E /* SystemExtensionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCA844E296E9190006DD80E /* SystemExtensionHelper.swift */; };
+		6FCA8450296E9190006DD80E /* SystemExtensionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCA844E296E9190006DD80E /* SystemExtensionHelper.swift */; };
 		6FCC5EF424B8579D00C6BC80 /* LanguageMappedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCC5EF324B8579D00C6BC80 /* LanguageMappedString.swift */; };
 		6FCC5EF624B85D6700C6BC80 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCC5EF524B85D6700C6BC80 /* ServerResponse.swift */; };
 		6FCCC577249E25F100F0F5A3 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCCC576249E25F100F0F5A3 /* NavigationController.swift */; };
@@ -237,6 +359,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		6F5CF77529679AB100C310EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4AAC1F6E1F2D0E3400DD0252 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6F66DAEF265E1E9D006974CF;
+			remoteInfo = "WireGuardGoBridge-macOS";
+		};
 		6F66DAD5265E1E4D006974CF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4AAC1F6E1F2D0E3400DD0252 /* Project object */;
@@ -264,6 +393,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = 6F6BB638265E58FD0093D4CC;
 			remoteInfo = "WireGuardGoBridge-iOS";
+		};
+		6F950036296689810090643F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4AAC1F6E1F2D0E3400DD0252 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6F95002C296689810090643F;
+			remoteInfo = "TunnelSystemExtension-macOS";
+		};
+		6FA518042977C25D0030468D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4AAC1F6E1F2D0E3400DD0252 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 342B9C98228ECFDB00C006D7;
+			remoteInfo = "LoginItemHelper-macOS";
+		};
+		6FA518062977C2660030468D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4AAC1F6E1F2D0E3400DD0252 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6FA517F62977BDE90030468D;
+			remoteInfo = "LoginItemHelper-macOS-DeveloperID";
 		};
 		C79B63DC258A08FB00C054CC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -306,7 +456,7 @@
 			dstPath = Contents/Library/LoginItems;
 			dstSubfolderSpec = 1;
 			files = (
-				6F750C9224975A4300AF2C04 /* LoginItemHelper-macOS.app in CopyFiles */,
+				6F750C9224975A4300AF2C04 /* LoginItemHelper.app in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,6 +469,38 @@
 				6F6BB629265E58BF0093D4CC /* TunnelExtension-iOS.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6F95001F296547930090643F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LoginItems;
+			dstSubfolderSpec = 1;
+			files = (
+				6F950020296547930090643F /* LoginItemHelper.app in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6F950021296547930090643F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Fonts;
+			dstSubfolderSpec = 7;
+			files = (
+				6F950022296547930090643F /* OpenSans-Bold.ttf in CopyFiles */,
+				6F950023296547930090643F /* OpenSans-Regular.ttf in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6F950039296689810090643F /* Embed System Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(SYSTEM_EXTENSIONS_FOLDER_PATH)";
+			dstSubfolderSpec = 16;
+			files = (
+				6F950038296689810090643F /* net.roopc.eduVPN-mac-developerid.TunnelExtension.systemextension in Embed System Extensions */,
+			);
+			name = "Embed System Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		6FBFEF1424C2DCC200A9D1D4 /* CopyFiles */ = {
@@ -338,7 +520,7 @@
 		340F956C22B7118C00835D56 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/NetworkExtension.framework; sourceTree = DEVELOPER_DIR; };
 		342B9C91228ECBB200C006D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		342B9C93228ECBB600C006D7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
-		342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LoginItemHelper-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		342B9C99228ECFDB00C006D7 /* LoginItemHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoginItemHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		342B9CAD228ED01300C006D7 /* LoginItemHelper.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = LoginItemHelper.entitlements; sourceTree = "<group>"; };
 		342B9CAE228ED01400C006D7 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		342B9CAF228ED01400C006D7 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -383,6 +565,7 @@
 		6F54C92C25E033EE00A42C8F /* AddServerViewController+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddServerViewController+macOS.swift"; sourceTree = "<group>"; };
 		6F54C93725E0359200A42C8F /* AddServerViewController+iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddServerViewController+iOS.swift"; sourceTree = "<group>"; };
 		6F54C9E625E2D6A500A42C8F /* MainViewController+StatusItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MainViewController+StatusItem.swift"; sourceTree = "<group>"; };
+		6F56439C2983690B00A514DF /* LogViewHelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewHelpViewController.swift; sourceTree = "<group>"; };
 		6F57338624CD1570008912D4 /* SessionExpiryHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionExpiryHelper.swift; sourceTree = "<group>"; };
 		6F5820F726EE036800906397 /* AppDataRemover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDataRemover.swift; sourceTree = "<group>"; };
 		6F59A58624F51DEB00560155 /* server_list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = server_list.json; sourceTree = "<group>"; };
@@ -397,8 +580,6 @@
 		6F66DAD1265E1E4C006974CF /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
 		6F66DAD3265E1E4D006974CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6F66DAD4265E1E4D006974CF /* TunnelExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TunnelExtension.entitlements; sourceTree = "<group>"; };
-		6F66DB7B265E5096006974CF /* Development-macOS-TunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Development-macOS-TunnelExtension.xcconfig"; sourceTree = "<group>"; };
-		6F66DB7C265E5096006974CF /* Release-macOS-TunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-macOS-TunnelExtension.xcconfig"; sourceTree = "<group>"; };
 		6F66DB7D265E50BB006974CF /* Release-TunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-TunnelExtension.xcconfig"; sourceTree = "<group>"; };
 		6F66DB7E265E50BB006974CF /* Development-TunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Development-TunnelExtension.xcconfig"; sourceTree = "<group>"; };
 		6F6BB620265E58BF0093D4CC /* TunnelExtension-iOS.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "TunnelExtension-iOS.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -406,7 +587,7 @@
 		6F71FBB7249B54490010D0FE /* DiscoveryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryData.swift; sourceTree = "<group>"; };
 		6F71FBBC249CCE980010D0FE /* DiscoveryDataFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveryDataFetcher.swift; sourceTree = "<group>"; };
 		6F750C9624975A4300AF2C04 /* eduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6F750D2124975B9B00AF2C04 /* eduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = eduVPN.app; path = .app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F750D2124975B9B00AF2C04 /* eduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F7B63EF2500FD7300FB154A /* StatusItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusItemController.swift; sourceTree = "<group>"; };
 		6F7B63F125022AAE00FB154A /* LaunchAtLoginHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginHelper.swift; sourceTree = "<group>"; };
 		6F7B643D2502A18C00FB154A /* ConnectionInfoHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionInfoHeaderView.swift; sourceTree = "<group>"; };
@@ -416,11 +597,18 @@
 		6F885F7B25C1740D00CABF4E /* CredentialsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsViewController.swift; sourceTree = "<group>"; };
 		6F8AEE7825E6D507001A603B /* StatusItemConnectionInfoHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemConnectionInfoHelper.swift; sourceTree = "<group>"; };
 		6F939F3E25C7D02C001887BA /* PasswordEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordEntryViewController.swift; sourceTree = "<group>"; };
+		6F950027296547930090643F /* eduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F95002D296689810090643F /* net.roopc.eduVPN-mac-developerid.TunnelExtension.systemextension */ = {isa = PBXFileReference; explicitFileType = "wrapper.system-extension"; includeInIndex = 0; path = "net.roopc.eduVPN-mac-developerid.TunnelExtension.systemextension"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F950032296689810090643F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		6F950034296689810090643F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6F950035296689810090643F /* TunnelExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TunnelExtension.entitlements; sourceTree = "<group>"; };
 		6F95FF93296297E70090643F /* OpenVPNAdapterInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenVPNAdapterInterface.swift; sourceTree = "<group>"; };
 		6F95FF962962988A0090643F /* WireGuardAdapterInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WireGuardAdapterInterface.swift; sourceTree = "<group>"; };
 		6F96BB52252C51080023EB1D /* SearchViewController+iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController+iOS.swift"; sourceTree = "<group>"; };
 		6F9CE540261802F10065E4BA /* CredentialsViewController+macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CredentialsViewController+macOS.swift"; sourceTree = "<group>"; };
 		6F9CE555261806A90065E4BA /* CredentialsViewController+iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CredentialsViewController+iOS.swift"; sourceTree = "<group>"; };
+		6FA518022977BDE90030468D /* LoginItemHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoginItemHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FA518082977C6580030468D /* TunnelExtension_Release.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TunnelExtension_Release.entitlements; sourceTree = "<group>"; };
 		6FA8089424E6A75C00E7D924 /* MigrationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MigrationHelper.swift; sourceTree = "<group>"; };
 		6FA808AE24EBBD1F00E7D924 /* ConnectionAttempt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionAttempt.swift; sourceTree = "<group>"; };
 		6FADF82624ADF2E600B75E8D /* ServerInfoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerInfoFetcher.swift; sourceTree = "<group>"; };
@@ -432,6 +620,9 @@
 		6FBFEF0E24C2DCA900A9D1D4 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		6FBFEF0F24C2DCA900A9D1D4 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		6FC27AC724B9550C006FA648 /* ServerAPIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerAPIService.swift; sourceTree = "<group>"; };
+		6FCA844E296E9190006DD80E /* SystemExtensionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemExtensionHelper.swift; sourceTree = "<group>"; };
+		6FCA8451296FCFEB006DD80E /* Release-macOS-DeveloperID.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-macOS-DeveloperID.xcconfig"; sourceTree = "<group>"; };
+		6FCA8452296FCFEB006DD80E /* Development-macOS-DeveloperID.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Development-macOS-DeveloperID.xcconfig"; sourceTree = "<group>"; };
 		6FCC5EF324B8579D00C6BC80 /* LanguageMappedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageMappedString.swift; sourceTree = "<group>"; };
 		6FCC5EF524B85D6700C6BC80 /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResponse.swift; sourceTree = "<group>"; };
 		6FCCC576249E25F100F0F5A3 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
@@ -459,8 +650,6 @@
 		6FFC4088266F51D200835B43 /* String+ArrayConversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+ArrayConversion.swift"; sourceTree = "<group>"; };
 		6FFD421C254977240093533C /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C7230D8A2363248900B9C691 /* copy_resources_macos.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = copy_resources_macos.sh; sourceTree = "<group>"; };
-		C730CD6223746B4900C21AF9 /* Development-macOS-LoginItemHelper.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Development-macOS-LoginItemHelper.xcconfig"; sourceTree = "<group>"; };
-		C730CD6323746B4900C21AF9 /* Release-macOS-LoginItemHelper.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-macOS-LoginItemHelper.xcconfig"; sourceTree = "<group>"; };
 		C75B2CA3236311D100D700EC /* CODE_OF_CONDUCT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CODE_OF_CONDUCT.md; sourceTree = "<group>"; };
 		C75B2CA4236311D100D700EC /* CHANGES.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGES.md; sourceTree = "<group>"; };
 		C75B2CA5236311D100D700EC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -603,6 +792,43 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6F950007296547930090643F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6F950008296547930090643F /* NetworkExtension.framework in Frameworks */,
+				6F950009296547930090643F /* AppAuth in Frameworks */,
+				6F95000A296547930090643F /* PromiseKit in Frameworks */,
+				6F95000B296547930090643F /* AppAuthCore in Frameworks */,
+				6F95000C296547930090643F /* ASN1Decoder in Frameworks */,
+				6F95000D296547930090643F /* Moya in Frameworks */,
+				6F95000E296547930090643F /* Sodium in Frameworks */,
+				6F95000F296547930090643F /* WireGuardKit in Frameworks */,
+				6F950010296547930090643F /* TunnelKit in Frameworks */,
+				6F950011296547930090643F /* TunnelKitOpenVPN in Frameworks */,
+				6F950012296547930090643F /* Clibsodium in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6F95002A296689810090643F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6F5CF76D2966CCD600C310EB /* TunnelKitOpenVPNAppExtension in Frameworks */,
+				6F5CF76B2966CCD600C310EB /* TunnelKitOpenVPN in Frameworks */,
+				6F5CF7692966CCD600C310EB /* TunnelKit in Frameworks */,
+				6F5CF7672966CCD600C310EB /* WireGuardKit in Frameworks */,
+				6F95002E296689810090643F /* NetworkExtension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6FA517FA2977BDE90030468D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C79B63C4258A08C200C054CC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -687,7 +913,7 @@
 			isa = PBXGroup;
 			children = (
 				4AAC1F8A1F2D0E3400DD0252 /* EduVPNTests.xctest */,
-				342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */,
+				342B9C99228ECFDB00C006D7 /* LoginItemHelper.app */,
 				6F750C9624975A4300AF2C04 /* eduVPN.app */,
 				6F750D2124975B9B00AF2C04 /* eduVPN.app */,
 				C7B4392A2580CE4D00FEB2B1 /* EduVPN-Tests-iOS.xctest */,
@@ -695,6 +921,9 @@
 				C79B63C7258A08C200C054CC /* EduVPN-UITests-macOS.xctest */,
 				6F66DACE265E1E4C006974CF /* TunnelExtension-macOS.appex */,
 				6F6BB620265E58BF0093D4CC /* TunnelExtension-iOS.appex */,
+				6F950027296547930090643F /* eduVPN.app */,
+				6F95002D296689810090643F /* net.roopc.eduVPN-mac-developerid.TunnelExtension.systemextension */,
+				6FA518022977BDE90030468D /* LoginItemHelper.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -740,6 +969,7 @@
 				6F9CE540261802F10065E4BA /* CredentialsViewController+macOS.swift */,
 				6F25F8D1269D763F00FA8FAB /* ConnectionViewController+macOS.swift */,
 				6F25F8D3269DE3BB00FA8FAB /* MenuCommandResponding.swift */,
+				6F56439C2983690B00A514DF /* LogViewHelpViewController.swift */,
 			);
 			path = Mac;
 			sourceTree = "<group>";
@@ -781,6 +1011,7 @@
 				6F5820F726EE036800906397 /* AppDataRemover.swift */,
 				6F49FAAA263C1A55005DB8D3 /* OAuthRedirectHTTPHandler.h */,
 				6F49FAAB263C1A55005DB8D3 /* OAuthRedirectHTTPHandler.m */,
+				6FCA844E296E9190006DD80E /* SystemExtensionHelper.swift */,
 			);
 			path = Mac;
 			sourceTree = "<group>";
@@ -838,11 +1069,9 @@
 				C75B2CB22363138200D700EC /* Developer-macOS.xcconfig.johan-template */,
 				4AC84CAD236B6E2000932B89 /* Developer-macOS.xcconfig.appforce1-template */,
 				C75B2CB72363138200D700EC /* Development-macOS.xcconfig */,
-				6F66DB7B265E5096006974CF /* Development-macOS-TunnelExtension.xcconfig */,
-				C730CD6223746B4900C21AF9 /* Development-macOS-LoginItemHelper.xcconfig */,
+				6FCA8452296FCFEB006DD80E /* Development-macOS-DeveloperID.xcconfig */,
 				C75B2CB92363138200D700EC /* Release-macOS.xcconfig */,
-				6F66DB7C265E5096006974CF /* Release-macOS-TunnelExtension.xcconfig */,
-				C730CD6323746B4900C21AF9 /* Release-macOS-LoginItemHelper.xcconfig */,
+				6FCA8451296FCFEB006DD80E /* Release-macOS-DeveloperID.xcconfig */,
 				C75B2CBF2363138200D700EC /* AppVersion-macOS.xcconfig */,
 			);
 			path = Mac;
@@ -869,6 +1098,17 @@
 			path = TunnelExtension;
 			sourceTree = "<group>";
 		};
+		6F95003D29668A060090643F /* SystemExtension */ = {
+			isa = PBXGroup;
+			children = (
+				6F950032296689810090643F /* main.swift */,
+				6F950034296689810090643F /* Info.plist */,
+				6F950035296689810090643F /* TunnelExtension.entitlements */,
+				6FA518082977C6580030468D /* TunnelExtension_Release.entitlements */,
+			);
+			path = SystemExtension;
+			sourceTree = "<group>";
+		};
 		6F95FF922962919E0090643F /* OpenVPN */ = {
 			isa = PBXGroup;
 			children = (
@@ -888,6 +1128,15 @@
 			path = WireGuard;
 			sourceTree = "<group>";
 		};
+		6FAD277C29711B3300577685 /* AppExtension */ = {
+			isa = PBXGroup;
+			children = (
+				6F66DAD3265E1E4D006974CF /* Info.plist */,
+				6F66DAD4265E1E4D006974CF /* TunnelExtension.entitlements */,
+			);
+			path = AppExtension;
+			sourceTree = "<group>";
+		};
 		6FBFEF0D24C2DC8C00A9D1D4 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -900,8 +1149,8 @@
 		6FE062FD266E3699003FF2F8 /* Mac */ = {
 			isa = PBXGroup;
 			children = (
-				6F66DAD3265E1E4D006974CF /* Info.plist */,
-				6F66DAD4265E1E4D006974CF /* TunnelExtension.entitlements */,
+				6FAD277C29711B3300577685 /* AppExtension */,
+				6F95003D29668A060090643F /* SystemExtension */,
 			);
 			path = Mac;
 			sourceTree = "<group>";
@@ -1192,7 +1441,7 @@
 			);
 			name = "LoginItemHelper-macOS";
 			productName = "LoginItemHelper-macOS";
-			productReference = 342B9C99228ECFDB00C006D7 /* LoginItemHelper-macOS.app */;
+			productReference = 342B9C99228ECFDB00C006D7 /* LoginItemHelper.app */;
 			productType = "com.apple.product-type.application";
 		};
 		4AAC1F891F2D0E3400DD0252 /* EduVPNTests */ = {
@@ -1283,6 +1532,7 @@
 			);
 			dependencies = (
 				6F66DAD6265E1E4D006974CF /* PBXTargetDependency */,
+				6FA518052977C25D0030468D /* PBXTargetDependency */,
 			);
 			name = "EduVPN-macOS";
 			packageProductDependencies = (
@@ -1333,6 +1583,85 @@
 			);
 			productName = EduVPN;
 			productReference = 6F750D2124975B9B00AF2C04 /* eduVPN.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6F95002C296689810090643F /* TunnelExtension-macOS-DeveloperID */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6F95003C296689810090643F /* Build configuration list for PBXNativeTarget "TunnelExtension-macOS-DeveloperID" */;
+			buildPhases = (
+				6F950029296689810090643F /* Sources */,
+				6F95002A296689810090643F /* Frameworks */,
+				6F95002B296689810090643F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6F5CF77629679AB100C310EB /* PBXTargetDependency */,
+			);
+			name = "TunnelExtension-macOS-DeveloperID";
+			packageProductDependencies = (
+				6F5CF7662966CCD600C310EB /* WireGuardKit */,
+				6F5CF7682966CCD600C310EB /* TunnelKit */,
+				6F5CF76A2966CCD600C310EB /* TunnelKitOpenVPN */,
+				6F5CF76C2966CCD600C310EB /* TunnelKitOpenVPNAppExtension */,
+			);
+			productName = "TunnelSystemExtension-macOS";
+			productReference = 6F95002D296689810090643F /* net.roopc.eduVPN-mac-developerid.TunnelExtension.systemextension */;
+			productType = "com.apple.product-type.system-extension";
+		};
+		6F95FFA3296547930090643F /* EduVPN-macOS-DeveloperID */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6F950024296547930090643F /* Build configuration list for PBXNativeTarget "EduVPN-macOS-DeveloperID" */;
+			buildPhases = (
+				6F95FFB7296547930090643F /* Copy Resources */,
+				6F95FFB8296547930090643F /* Swiftlint */,
+				6F95FFB9296547930090643F /* Sources */,
+				6F950007296547930090643F /* Frameworks */,
+				6F950013296547930090643F /* Resources */,
+				6F95001C296547930090643F /* Set Build Number */,
+				6F950039296689810090643F /* Embed System Extensions */,
+				6F95001F296547930090643F /* CopyFiles */,
+				6F950021296547930090643F /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6F950037296689810090643F /* PBXTargetDependency */,
+				6FA518072977C2660030468D /* PBXTargetDependency */,
+			);
+			name = "EduVPN-macOS-DeveloperID";
+			packageProductDependencies = (
+				6F95FFA6296547930090643F /* WireGuardKit */,
+				6F95FFA8296547930090643F /* TunnelKit */,
+				6F95FFAA296547930090643F /* TunnelKitOpenVPN */,
+				6F95FFAB296547930090643F /* AppAuth */,
+				6F95FFAD296547930090643F /* AppAuthCore */,
+				6F95FFAE296547930090643F /* ASN1Decoder */,
+				6F95FFB0296547930090643F /* Clibsodium */,
+				6F95FFB2296547930090643F /* Sodium */,
+				6F95FFB3296547930090643F /* Moya */,
+				6F95FFB5296547930090643F /* PromiseKit */,
+			);
+			productName = "EduVPN-macOS";
+			productReference = 6F950027296547930090643F /* eduVPN.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6FA517F62977BDE90030468D /* LoginItemHelper-macOS-DeveloperID */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6FA517FF2977BDE90030468D /* Build configuration list for PBXNativeTarget "LoginItemHelper-macOS-DeveloperID" */;
+			buildPhases = (
+				6FA517F72977BDE90030468D /* Sources */,
+				6FA517FA2977BDE90030468D /* Frameworks */,
+				6FA517FB2977BDE90030468D /* Resources */,
+				6FA517FE2977BDE90030468D /* Set Build Number */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "LoginItemHelper-macOS-DeveloperID";
+			productName = "LoginItemHelper-macOS";
+			productReference = 6FA518022977BDE90030468D /* LoginItemHelper.app */;
 			productType = "com.apple.product-type.application";
 		};
 		C79B63C6258A08C200C054CC /* EduVPN-UITests-macOS */ = {
@@ -1395,7 +1724,7 @@
 		4AAC1F6E1F2D0E3400DD0252 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1220;
+				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = SURFNet;
 				TargetAttributes = {
@@ -1426,6 +1755,9 @@
 					};
 					6F750CBD24975B9B00AF2C04 = {
 						ProvisioningStyle = Automatic;
+					};
+					6F95002C296689810090643F = {
+						CreatedOnToolsVersion = 13.4.1;
 					};
 					C79B63C6258A08C200C054CC = {
 						CreatedOnToolsVersion = 12.2;
@@ -1469,8 +1801,11 @@
 				6F750C2C24975A4300AF2C04 /* EduVPN-macOS */,
 				6F66DACD265E1E4C006974CF /* TunnelExtension-macOS */,
 				6F66DAEF265E1E9D006974CF /* WireGuardGoBridge-macOS */,
-				C79B63C6258A08C200C054CC /* EduVPN-UITests-macOS */,
 				342B9C98228ECFDB00C006D7 /* LoginItemHelper-macOS */,
+				6F95FFA3296547930090643F /* EduVPN-macOS-DeveloperID */,
+				6F95002C296689810090643F /* TunnelExtension-macOS-DeveloperID */,
+				6FA517F62977BDE90030468D /* LoginItemHelper-macOS-DeveloperID */,
+				C79B63C6258A08C200C054CC /* EduVPN-UITests-macOS */,
 				6F750CBD24975B9B00AF2C04 /* EduVPN-iOS */,
 				6F6BB61F265E58BF0093D4CC /* TunnelExtension-iOS */,
 				6F6BB638265E58FD0093D4CC /* WireGuardGoBridge-iOS */,
@@ -1542,6 +1877,37 @@
 				6F5E6C492522EA13000225C0 /* server_list.json in Resources */,
 				6FE41C4F25418BF6003DCF74 /* OpenSans-Regular.ttf in Resources */,
 				6F5E6C712524399B000225C0 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6F950013296547930090643F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6F950014296547930090643F /* CountryFlags.xcassets in Resources */,
+				6F950015296547930090643F /* Common.xcassets in Resources */,
+				6F950016296547930090643F /* server_list.json in Resources */,
+				6F950017296547930090643F /* Main.storyboard in Resources */,
+				6F950018296547930090643F /* Assets.xcassets in Resources */,
+				6F950019296547930090643F /* privacy_statement.json in Resources */,
+				6F95001A296547930090643F /* organization_list.json in Resources */,
+				6F95001B296547930090643F /* config.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6F95002B296689810090643F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6FA517FB2977BDE90030468D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6FA517FC2977BDE90030468D /* Main.storyboard in Resources */,
+				6FA517FD2977BDE90030468D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1669,6 +2035,78 @@
 			shellPath = /bin/sh;
 			shellScript = "$SRCROOT/Scripts/set_build_number.sh\n";
 		};
+		6F95001C296547930090643F /* Set Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Set Build Number";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$SRCROOT/Scripts/set_build_number.sh\n";
+		};
+		6F95FFB7296547930090643F /* Copy Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$PROJECT_DIR/Scripts/copy_resources_macos.sh\n";
+		};
+		6F95FFB8296547930090643F /* Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Swiftlint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=${PATH}:/usr/local/bin:/opt/homebrew/bin\nif which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed (Run: 'brew install swiftlint')\"\nfi\n";
+		};
+		6FA517FE2977BDE90030468D /* Set Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Set Build Number";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$SRCROOT/Scripts/set_build_number.sh\n";
+		};
 		6FE09C1E268F1EC90049203C /* Set Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1774,6 +2212,117 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6F950029296689810090643F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6F5CF77729679C5400C310EB /* Logger.swift in Sources */,
+				6F5CF76E2967990600C310EB /* Shared.swift in Sources */,
+				6F5CF76F2967992200C310EB /* WireGuardAdapterInterface.swift in Sources */,
+				6F5CF7702967992200C310EB /* TunnelConfiguration+WgQuickConfig.swift in Sources */,
+				6F5CF7712967992300C310EB /* TunnelConfiguration+UapiConfig.swift in Sources */,
+				6F5CF7722967992300C310EB /* String+ArrayConversion.swift in Sources */,
+				6F5CF7732967992300C310EB /* OpenVPNAdapterInterface.swift in Sources */,
+				6F5CF7742967992300C310EB /* PacketTunnelProvider.swift in Sources */,
+				6F950033296689810090643F /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6F95FFB9296547930090643F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6F95FFBA296547930090643F /* LoggingService.swift in Sources */,
+				6F95FFBB296547930090643F /* LanguageMappedString.swift in Sources */,
+				6F95FFBC296547930090643F /* ConnectionInfoHelper.swift in Sources */,
+				6F95FFBD296547930090643F /* ErrorHandling.swift in Sources */,
+				6F95FFBE296547930090643F /* OAuthExternalUserAgent.swift in Sources */,
+				6F95FFBF296547930090643F /* OAuthRedirectHTTPHandler.m in Sources */,
+				6F95FFC0296547930090643F /* RowCell.swift in Sources */,
+				6F95FFC1296547930090643F /* AppDataRemover.swift in Sources */,
+				6F95FFC2296547930090643F /* Log.swift in Sources */,
+				6F95FFC3296547930090643F /* ServerAuthService.swift in Sources */,
+				6F95FFC4296547930090643F /* StatusItemConnectionInfoHelper.swift in Sources */,
+				6F95FFC5296547930090643F /* ServerAPIv2Handler.swift in Sources */,
+				6F95FFC6296547930090643F /* Shared.swift in Sources */,
+				6F95FFC7296547930090643F /* ConnectionViewModel+SupportContact.swift in Sources */,
+				6F95FFC8296547930090643F /* (null) in Sources */,
+				6F95FFC9296547930090643F /* AuthState.swift in Sources */,
+				6F95FFCA296547930090643F /* ConnectionViewModel.swift in Sources */,
+				6F95FFCB296547930090643F /* PrivacyStatementConfig.swift in Sources */,
+				6F95FFCC296547930090643F /* Moya+Promise.swift in Sources */,
+				6F95FFCD296547930090643F /* ConnectionViewController.swift in Sources */,
+				6F95FFCE296547930090643F /* CredentialsViewController+macOS.swift in Sources */,
+				6F95FFCF296547930090643F /* OpenVPNConfigImportHelper.swift in Sources */,
+				6F95FFD0296547930090643F /* ConnectionViewController+macOS.swift in Sources */,
+				6F95FFD1296547930090643F /* ServerAPIv3Handler.swift in Sources */,
+				6F95FFD2296547930090643F /* SearchViewController+macOS.swift in Sources */,
+				6F95FFD3296547930090643F /* ConnectableInstance.swift in Sources */,
+				6F95FFD4296547930090643F /* ServerInfo.swift in Sources */,
+				6F95FFD5296547930090643F /* CredentialsViewController.swift in Sources */,
+				6F95FFD6296547930090643F /* DiscoveryData.swift in Sources */,
+				6F95FFD7296547930090643F /* PredefinedProvider.swift in Sources */,
+				6F95FFD8296547930090643F /* Moya+Extensions.swift in Sources */,
+				6F95FFD9296547930090643F /* PersistenceService.swift in Sources */,
+				6F95FFDA296547930090643F /* ConnectionAttempt.swift in Sources */,
+				6F95FFDB296547930090643F /* SupportContactTextView.swift in Sources */,
+				6FCA8450296E9190006DD80E /* SystemExtensionHelper.swift in Sources */,
+				6F95FFDC296547930090643F /* SearchViewController.swift in Sources */,
+				6F95FFDD296547930090643F /* ServerDiscoveryService.swift in Sources */,
+				6F95FFDE296547930090643F /* MainViewModel.swift in Sources */,
+				6F95FFDF296547930090643F /* ConnectionService.swift in Sources */,
+				6F95FFE0296547930090643F /* MockConnectionService.swift in Sources */,
+				6F95FFE1296547930090643F /* MigrationHelper.swift in Sources */,
+				6F95FFE2296547930090643F /* AddServerViewController+macOS.swift in Sources */,
+				6F95FFE3296547930090643F /* MainViewController+StatusItem.swift in Sources */,
+				6F95FFE4296547930090643F /* SectionHeaderCell.swift in Sources */,
+				6F95FFE5296547930090643F /* MainWindowController.swift in Sources */,
+				6F95FFE6296547930090643F /* ServerInfoFetcher.swift in Sources */,
+				6F95FFE7296547930090643F /* ViewModelRow.swift in Sources */,
+				6F95FFE8296547930090643F /* ServerResponse.swift in Sources */,
+				6F95FFE9296547930090643F /* Environment.swift in Sources */,
+				6F95FFEA296547930090643F /* PasswordEntryViewController.swift in Sources */,
+				6F95FFEB296547930090643F /* DiscoveryDataFetcher.swift in Sources */,
+				6F95FFEC296547930090643F /* Crypto.swift in Sources */,
+				6F95FFED296547930090643F /* MenuCommandResponding.swift in Sources */,
+				6F95FFEE296547930090643F /* eduVPN_2.xcdatamodeld in Sources */,
+				6F95FFEF296547930090643F /* Config.swift in Sources */,
+				6F95FFF0296547930090643F /* NavigationController.swift in Sources */,
+				6F95FFF1296547930090643F /* FileHelper.swift in Sources */,
+				6F95FFF2296547930090643F /* MainViewController+macOS.swift in Sources */,
+				6F56439E2983690B00A514DF /* LogViewHelpViewController.swift in Sources */,
+				6F95FFF3296547930090643F /* Multiplatform.swift in Sources */,
+				6F95FFF4296547930090643F /* SessionExpiryHelper.swift in Sources */,
+				6F95FFF5296547930090643F /* StatusItemController.swift in Sources */,
+				6F95FFF6296547930090643F /* LaunchAtLoginHelper.swift in Sources */,
+				6F95FFF7296547930090643F /* SearchViewModel.swift in Sources */,
+				6F95FFF8296547930090643F /* SignatureHelper.swift in Sources */,
+				6F95FFF9296547930090643F /* AppDelegate.swift in Sources */,
+				6F95FFFA296547930090643F /* AddServerViewController.swift in Sources */,
+				6F95FFFB296547930090643F /* MainViewController.swift in Sources */,
+				6F95FFFC296547930090643F /* Testing.swift in Sources */,
+				6F95FFFD296547930090643F /* ServerDisplayInfo.swift in Sources */,
+				6F95FFFE296547930090643F /* PreferencesViewController.swift in Sources */,
+				6F95FFFF296547930090643F /* NotificationService.swift in Sources */,
+				6F950000296547930090643F /* ServerAPIService.swift in Sources */,
+				6F950001296547930090643F /* ConnectionViewModel+Localization.swift in Sources */,
+				6F950002296547930090643F /* ConnectionInfoHeaderView.swift in Sources */,
+				6F950003296547930090643F /* UserDefaults+Preferences.swift in Sources */,
+				6F950004296547930090643F /* Moya+ResponseHandling.swift in Sources */,
+				6F950005296547930090643F /* MainSecureInternetSectionHeaderCell.swift in Sources */,
+				6F950006296547930090643F /* OpenVPNConfigCredentials.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6FA517F72977BDE90030468D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6FA517F82977BDE90030468D /* AppDelegate.m in Sources */,
+				6FA517F92977BDE90030468D /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C79B63C3258A08C200C054CC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1838,6 +2387,7 @@
 				6FADF82B24ADF57000B75E8D /* PersistenceService.swift in Sources */,
 				6FA808AF24EBBD1F00E7D924 /* ConnectionAttempt.swift in Sources */,
 				6F1A1C0124EE8EDB0040D6A2 /* SupportContactTextView.swift in Sources */,
+				6FCA844F296E9190006DD80E /* SystemExtensionHelper.swift in Sources */,
 				C7DB4B9D247FC23D009932B1 /* SearchViewController.swift in Sources */,
 				6FEF30D824A0B8C60026C786 /* ServerDiscoveryService.swift in Sources */,
 				C7DB4BA1247FC243009932B1 /* MainViewModel.swift in Sources */,
@@ -1861,6 +2411,7 @@
 				6FCCC577249E25F100F0F5A3 /* NavigationController.swift in Sources */,
 				C7DB4BD424803B99009932B1 /* FileHelper.swift in Sources */,
 				6F36A79D24B6F5BA00BA8F5E /* MainViewController+macOS.swift in Sources */,
+				6F56439D2983690B00A514DF /* LogViewHelpViewController.swift in Sources */,
 				C7DB4B9B247FC23D009932B1 /* Multiplatform.swift in Sources */,
 				6F57338724CD1570008912D4 /* SessionExpiryHelper.swift in Sources */,
 				6F7B63F02500FD7300FB154A /* StatusItemController.swift in Sources */,
@@ -1960,6 +2511,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		6F5CF77629679AB100C310EB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6F66DAEF265E1E9D006974CF /* WireGuardGoBridge-macOS */;
+			targetProxy = 6F5CF77529679AB100C310EB /* PBXContainerItemProxy */;
+		};
 		6F66DAD6265E1E4D006974CF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 6F66DACD265E1E4C006974CF /* TunnelExtension-macOS */;
@@ -1979,6 +2535,21 @@
 			isa = PBXTargetDependency;
 			target = 6F6BB638265E58FD0093D4CC /* WireGuardGoBridge-iOS */;
 			targetProxy = 6F6BB65D265E59340093D4CC /* PBXContainerItemProxy */;
+		};
+		6F950037296689810090643F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6F95002C296689810090643F /* TunnelExtension-macOS-DeveloperID */;
+			targetProxy = 6F950036296689810090643F /* PBXContainerItemProxy */;
+		};
+		6FA518052977C25D0030468D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 342B9C98228ECFDB00C006D7 /* LoginItemHelper-macOS */;
+			targetProxy = 6FA518042977C25D0030468D /* PBXContainerItemProxy */;
+		};
+		6FA518072977C2660030468D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6FA517F62977BDE90030468D /* LoginItemHelper-macOS-DeveloperID */;
+			targetProxy = 6FA518062977C2660030468D /* PBXContainerItemProxy */;
 		};
 		C79B63DD258A08FB00C054CC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2035,7 +2606,7 @@
 /* Begin XCBuildConfiguration section */
 		342B9CAB228ECFDD00C006D7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C730CD6223746B4900C21AF9 /* Development-macOS-LoginItemHelper.xcconfig */;
+			baseConfigurationReference = C75B2CB72363138200D700EC /* Development-macOS.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -2052,7 +2623,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID).LoginItemHelper";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = LoginItemHelper;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -2061,7 +2632,7 @@
 		};
 		342B9CAC228ECFDD00C006D7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C730CD6323746B4900C21AF9 /* Release-macOS-LoginItemHelper.xcconfig */;
+			baseConfigurationReference = C75B2CB92363138200D700EC /* Release-macOS.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -2077,7 +2648,7 @@
 				INFOPLIST_FILE = "LoginItemHelper-macOS/Info.plist";
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID).LoginItemHelper";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = LoginItemHelper;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -2250,19 +2821,19 @@
 		};
 		6F66DAD8265E1E4D006974CF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6F66DB7B265E5096006974CF /* Development-macOS-TunnelExtension.xcconfig */;
+			baseConfigurationReference = C75B2CB72363138200D700EC /* Development-macOS.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = TunnelExtension/Mac/TunnelExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = TunnelExtension/Mac/AppExtension/TunnelExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = TunnelExtension/Mac/Info.plist;
+				INFOPLIST_FILE = TunnelExtension/Mac/AppExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -2281,19 +2852,19 @@
 		};
 		6F66DAD9265E1E4D006974CF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6F66DB7C265E5096006974CF /* Release-macOS-TunnelExtension.xcconfig */;
+			baseConfigurationReference = C75B2CB92363138200D700EC /* Release-macOS.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = TunnelExtension/Mac/TunnelExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = TunnelExtension/Mac/AppExtension/TunnelExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = TunnelExtension/Mac/Info.plist;
+				INFOPLIST_FILE = TunnelExtension/Mac/AppExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -2351,7 +2922,7 @@
 		};
 		6F6BB62A265E58BF0093D4CC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6F66DB7E265E50BB006974CF /* Development-TunnelExtension.xcconfig */;
+			baseConfigurationReference = 4ABCCBE421E527B50020CB6D /* Development.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -2384,7 +2955,7 @@
 		};
 		6F6BB62B265E58BF0093D4CC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6F66DB7D265E50BB006974CF /* Release-TunnelExtension.xcconfig */;
+			baseConfigurationReference = 4ABCCBE321E527A40020CB6D /* Release.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -2615,6 +3186,222 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		6F950025296547930090643F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6FCA8452296FCFEB006DD80E /* Development-macOS-DeveloperID.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = EduVPN/Resources/Mac/eduVPN_DeveloperID.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "$(SRCROOT)/EduVPN/Resources/Mac/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"resolv\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"NetworkExtension\"",
+					"-weak_framework",
+					"\"CryptoKit\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID)";
+				PRODUCT_NAME = "$(APP_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "EduVPN/EduVPN-macOS-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		6F950026296547930090643F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6FCA8451296FCFEB006DD80E /* Release-macOS-DeveloperID.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = EduVPN/Resources/Mac/eduVPN_DeveloperID_Release.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "$(SRCROOT)/EduVPN/Resources/Mac/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"resolv\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"NetworkExtension\"",
+					"-weak_framework",
+					"\"CryptoKit\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID)";
+				PRODUCT_NAME = "$(APP_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "EduVPN/EduVPN-macOS-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		6F95003A296689810090643F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6FCA8452296FCFEB006DD80E /* Development-macOS-DeveloperID.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = TunnelExtension/Mac/SystemExtension/TunnelExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TunnelExtension/Mac/SystemExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "TunnelSystemExtension-macOS";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 The Commons Conservancy. All rights reserved.";
+				INFOPLIST_KEY_NSSystemExtensionUsageDescription = "System Extension that implements the tunnel";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = "$(APP_MARKETING_VERSION)";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID).TunnelExtension";
+				PRODUCT_NAME = "$(APP_ID).TunnelExtension";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		6F95003B296689810090643F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6FCA8451296FCFEB006DD80E /* Release-macOS-DeveloperID.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = TunnelExtension/Mac/SystemExtension/TunnelExtension_Release.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TunnelExtension/Mac/SystemExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "TunnelSystemExtension-macOS";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 The Commons Conservancy. All rights reserved.";
+				INFOPLIST_KEY_NSSystemExtensionUsageDescription = "System Extension that implements the tunnel";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = "$(APP_MARKETING_VERSION)";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID).TunnelExtension";
+				PRODUCT_NAME = "$(APP_ID).TunnelExtension";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		6FA518002977BDE90030468D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6FCA8452296FCFEB006DD80E /* Development-macOS-DeveloperID.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "LoginItemHelper-macOS/LoginItemHelper.entitlements";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "LoginItemHelper-macOS/Info.plist";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID).LoginItemHelper";
+				PRODUCT_NAME = LoginItemHelper;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		6FA518012977BDE90030468D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6FCA8451296FCFEB006DD80E /* Release-macOS-DeveloperID.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "LoginItemHelper-macOS/LoginItemHelper.entitlements";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "LoginItemHelper-macOS/Info.plist";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID).LoginItemHelper";
+				PRODUCT_NAME = LoginItemHelper;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -2873,6 +3660,33 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		6F950024296547930090643F /* Build configuration list for PBXNativeTarget "EduVPN-macOS-DeveloperID" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6F950025296547930090643F /* Debug */,
+				6F950026296547930090643F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6F95003C296689810090643F /* Build configuration list for PBXNativeTarget "TunnelExtension-macOS-DeveloperID" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6F95003A296689810090643F /* Debug */,
+				6F95003B296689810090643F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6FA517FF2977BDE90030468D /* Build configuration list for PBXNativeTarget "LoginItemHelper-macOS-DeveloperID" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6FA518002977BDE90030468D /* Debug */,
+				6FA518012977BDE90030468D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C79B63D0258A08C200C054CC /* Build configuration list for PBXNativeTarget "EduVPN-UITests-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -2909,6 +3723,62 @@
 			requirement = {
 				kind = revision;
 				revision = 10da5cfdef362889b438cfbeff867a74e6d717fd;
+			};
+		};
+		6F95FFA7296547930090643F /* XCRemoteSwiftPackageReference "wireguard-apple" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://git.zx2c4.com/wireguard-apple/";
+			requirement = {
+				kind = revision;
+				revision = 10da5cfdef362889b438cfbeff867a74e6d717fd;
+			};
+		};
+		6F95FFA9296547930090643F /* XCRemoteSwiftPackageReference "tunnelkit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/eduvpn/tunnelkit.git";
+			requirement = {
+				kind = revision;
+				revision = ddb080576489835ea1061e6679d30e1a20f9cf6f;
+			};
+		};
+		6F95FFAC296547930090643F /* XCRemoteSwiftPackageReference "AppAuth-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/openid/AppAuth-iOS.git";
+			requirement = {
+				kind = revision;
+				revision = 33660c271c961f8ce1084cc13f2ea8195e864f7d;
+			};
+		};
+		6F95FFAF296547930090643F /* XCRemoteSwiftPackageReference "ASN1Decoder" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/filom/ASN1Decoder.git";
+			requirement = {
+				kind = revision;
+				revision = 65953a42a0f039f53c73e48fd88c02809f7db607;
+			};
+		};
+		6F95FFB1296547930090643F /* XCRemoteSwiftPackageReference "swift-sodium" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jedisct1/swift-sodium";
+			requirement = {
+				kind = revision;
+				revision = 4f9164a0a2c9a6a7ff53a2833d54a5c79c957342;
+			};
+		};
+		6F95FFB4296547930090643F /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya.git";
+			requirement = {
+				kind = revision;
+				revision = 9b906860e3c3c09032879465c471e6375829593f;
+			};
+		};
+		6F95FFB6296547930090643F /* XCRemoteSwiftPackageReference "PromiseKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mxcl/PromiseKit";
+			requirement = {
+				kind = revision;
+				revision = cfea84ff08fae26c0ccd4fdcc0fb3c577bcb5e2c;
 			};
 		};
 		6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */ = {
@@ -2982,6 +3852,26 @@
 			package = 6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */;
 			productName = TunnelKitOpenVPNAppExtension;
 		};
+		6F5CF7662966CCD600C310EB /* WireGuardKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6F0CF434264E8AAF00E90529 /* XCRemoteSwiftPackageReference "wireguard-apple" */;
+			productName = WireGuardKit;
+		};
+		6F5CF7682966CCD600C310EB /* TunnelKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */;
+			productName = TunnelKit;
+		};
+		6F5CF76A2966CCD600C310EB /* TunnelKitOpenVPN */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */;
+			productName = TunnelKitOpenVPN;
+		};
+		6F5CF76C2966CCD600C310EB /* TunnelKitOpenVPNAppExtension */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */;
+			productName = TunnelKitOpenVPNAppExtension;
+		};
 		6F66DB13265E1F5C006974CF /* WireGuardKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6F0CF434264E8AAF00E90529 /* XCRemoteSwiftPackageReference "wireguard-apple" */;
@@ -3016,6 +3906,56 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6FC0638F27B0F0DC00AE25D9 /* XCRemoteSwiftPackageReference "tunnelkit" */;
 			productName = TunnelKitOpenVPNAppExtension;
+		};
+		6F95FFA6296547930090643F /* WireGuardKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6F95FFA7296547930090643F /* XCRemoteSwiftPackageReference "wireguard-apple" */;
+			productName = WireGuardKit;
+		};
+		6F95FFA8296547930090643F /* TunnelKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6F95FFA9296547930090643F /* XCRemoteSwiftPackageReference "tunnelkit" */;
+			productName = TunnelKit;
+		};
+		6F95FFAA296547930090643F /* TunnelKitOpenVPN */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6F95FFA9296547930090643F /* XCRemoteSwiftPackageReference "tunnelkit" */;
+			productName = TunnelKitOpenVPN;
+		};
+		6F95FFAB296547930090643F /* AppAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6F95FFAC296547930090643F /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuth;
+		};
+		6F95FFAD296547930090643F /* AppAuthCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6F95FFAC296547930090643F /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuthCore;
+		};
+		6F95FFAE296547930090643F /* ASN1Decoder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6F95FFAF296547930090643F /* XCRemoteSwiftPackageReference "ASN1Decoder" */;
+			productName = ASN1Decoder;
+		};
+		6F95FFB0296547930090643F /* Clibsodium */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6F95FFB1296547930090643F /* XCRemoteSwiftPackageReference "swift-sodium" */;
+			productName = Clibsodium;
+		};
+		6F95FFB2296547930090643F /* Sodium */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6F95FFB1296547930090643F /* XCRemoteSwiftPackageReference "swift-sodium" */;
+			productName = Sodium;
+		};
+		6F95FFB3296547930090643F /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6F95FFB4296547930090643F /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
+		6F95FFB5296547930090643F /* PromiseKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6F95FFB6296547930090643F /* XCRemoteSwiftPackageReference "PromiseKit" */;
+			productName = PromiseKit;
 		};
 		6FC0639027B0F0DC00AE25D9 /* TunnelKit */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -100,6 +100,11 @@ class Environment {
             configName: configName, userName: userName, initialPassword: initialPassword)
         return instantiate(PasswordEntryViewController.self, identifier: "PasswordEntry", parameters: parameters)
     }
+
+    func instantiateLogViewHelpViewController() -> LogViewHelpViewController {
+        let parameters = LogViewHelpViewController.Parameters(environment: self)
+        return instantiate(LogViewHelpViewController.self, identifier: "LogViewHelp", parameters: parameters)
+    }
     #endif
 
     #if os(iOS)

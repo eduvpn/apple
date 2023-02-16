@@ -41,6 +41,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItemController: StatusItemController?
     var mainViewController: MainViewController?
 
+    #if DEVELOPER_ID_DISTRIBUTION
+    var systemExtensionHelper: SystemExtensionHelper?
+    #endif
+
     func applicationWillFinishLaunching(_ notification: Notification) {
         if UserDefaults.standard.showInDock {
             NSApp.setActivationPolicy(.regular)
@@ -86,6 +90,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         self.mainWindow = window
+
+#if DEVELOPER_ID_DISTRIBUTION
+            let systemExtensionHelper = SystemExtensionHelper()
+            systemExtensionHelper.beginSystemExtensionInstallation()
+            self.systemExtensionHelper = systemExtensionHelper
+#endif
     }
 
     private static func replaceAppNameInMenuItems(in menu: NSMenu?) {
@@ -261,7 +271,7 @@ extension AppDelegate {
     @IBAction func showAboutPanel(_ sender: Any?) {
         NSApp.activate(ignoringOtherApps: true)
         NSApp.orderFrontStandardAboutPanel(options: [
-            .credits: sourceRepositoryLinkMessage
+            .credits: creditsMessage
         ])
     }
 
@@ -406,14 +416,24 @@ extension AppDelegate: NSMenuItemValidation {
 
 extension AppDelegate {
     var sourceRepositoryLink: String { "https://github.com/eduvpn/apple" }
-    var sourceRepositoryLinkMessage: NSAttributedString {
+    var creditsMessage: NSAttributedString {
         let url = URL(string: sourceRepositoryLink)! // swiftlint:disable:this force_unwrapping
         let font = NSFont.systemFont(ofSize: 10, weight: .light)
-        let string = NSMutableAttributedString(
+        let string = NSMutableAttributedString()
+#if DEVELOPER_ID_DISTRIBUTION
+        let developerIDString = NSAttributedString(
+            string: NSLocalizedString(
+                "(Developer ID Version)\n",
+                comment: "macOS about panel message"),
+            attributes: [.font: font])
+        string.append(developerIDString)
+#endif
+        let sourceCodeString = NSMutableAttributedString(
             string: NSLocalizedString(
                 "For source code and licenses, please see: ",
                 comment: "macOS about panel message"),
             attributes: [.font: font])
+        string.append(sourceCodeString)
         let linkedString = NSAttributedString(
             string: sourceRepositoryLink,
             attributes: [.link: url, .font: font])

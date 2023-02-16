@@ -106,6 +106,10 @@ class PreferencesViewController: ViewController, ParametrizedViewController {
     }
 
     @IBAction func viewLogClicked(_ sender: Any) {
+        #if DEVELOPER_ID_DISTRIBUTION
+        self.presentingViewController?.dismiss(self)
+        parameters.environment.navigationController?.presentLogViewHelp()
+        #else
         let loggingService = parameters.environment.loggingService
         firstly {
             loggingService.getLog()
@@ -114,6 +118,7 @@ class PreferencesViewController: ViewController, ParametrizedViewController {
         }.catch { error in
             self.parameters.environment.navigationController?.showAlert(for: error)
         }
+        #endif
     }
 
     @IBAction func resetAppClicked(_ sender: Any) {

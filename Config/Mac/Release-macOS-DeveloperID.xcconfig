@@ -1,5 +1,5 @@
 //
-//  Release-macOS-TunnelExtension.xcconfig
+//  Release.xcconfig
 //  eduVPN
 //
 
@@ -8,3 +8,5 @@
 
 #include "Developer-macOS.xcconfig"
 #include "AppVersion-macOS.xcconfig"
+
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEVELOPER_ID_DISTRIBUTION

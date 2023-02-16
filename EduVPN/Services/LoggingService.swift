@@ -6,6 +6,7 @@
 import Foundation
 import NetworkExtension
 import PromiseKit
+import OSLog
 
 class LoggingService {
 
@@ -30,6 +31,7 @@ class LoggingService {
     private var tunnelLogStarter = "Tunnel:"
 
     private let connectionService: ConnectionService
+    private let oslog: OSLog
 
     init(connectionService: ConnectionService) {
         self.connectionService = connectionService
@@ -37,13 +39,16 @@ class LoggingService {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
         self.dateFormatter = dateFormatter
+
+        var appBundleId = Bundle.main.bundleIdentifier ?? "UnknownBundleId"
+        oslog = OSLog(subsystem: appBundleId, category: "App")
     }
 
     func appLog(_ message: String, printToConsole: Bool = true) {
         let timestamp = dateFormatter.string(from: Date())
         let line = "\(timestamp) \(message)"
         if printToConsole {
-            NSLog(message)
+            os_log("%{public}@", log: oslog, type: .info, message)
         }
         if logLines.count >= maxLogLines {
             logLines.removeFirst()
