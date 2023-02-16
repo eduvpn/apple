@@ -115,9 +115,9 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
     enum FlowContinuationPolicy {
         // After getting the profile list, deciding whether to continue to connect or not
         case continueWithSingleOrLastUsedProfile
+        case continueWithProfile(profileId: String)
         case continueWithAnyProfile
         case doNotContinue
-        case notApplicable
     }
 
     private(set) var header: Header {
@@ -366,6 +366,15 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                 return self.continueServerConnectionFlow(
                     profile: profile, from: viewController,
                     serverInfo: serverInfo)
+            case .continueWithProfile(let chosenProfileId):
+                guard let profile = profiles.first(where: { $0.profileId == chosenProfileId }) else {
+                    self.internalState = .idle
+                    return Promise.value(())
+                }
+                self.delegate?.connectionViewModel(self, willAutomaticallySelectProfileId: profile.profileId)
+                return self.continueServerConnectionFlow(
+                    profile: profile, from: viewController,
+                    serverInfo: serverInfo)
             case .continueWithAnyProfile:
                 let anyProfile = profiles.first(where: { $0.profileId == lastUsedProfileId }) ?? profiles.first
                 guard let profile = anyProfile else {
@@ -376,7 +385,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                 return self.continueServerConnectionFlow(
                     profile: profile, from: viewController,
                     serverInfo: serverInfo)
-            case .doNotContinue, .notApplicable:
+            case .doNotContinue:
                 self.internalState = .idle
                 return Promise.value(())
             }

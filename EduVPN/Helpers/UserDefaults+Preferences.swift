@@ -17,6 +17,7 @@ extension UserDefaults {
     private static let isStatusItemInColorKey = "isStatusItemInColor"
     private static let showInDockKey = "showInDock"
     private static let launchAtLoginKey = "launchAtLogin"
+    private static let shouldReconnectOnLaunchAtLoginKey = "shouldReconnectOnLaunchAtLogin"
     #endif
 
     func clearPreferences() {
@@ -108,6 +109,15 @@ extension UserDefaults {
         }
         set {
             set(newValue, forKey: Self.launchAtLoginKey)
+        }
+    }
+
+    var shouldReconnectOnLaunchAtLogin: Bool {
+        get {
+            return bool(forKey: Self.shouldReconnectOnLaunchAtLoginKey)
+        }
+        set {
+            set(newValue, forKey: Self.shouldReconnectOnLaunchAtLoginKey)
         }
     }
 

@@ -76,8 +76,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             shouldUseColorIcons: UserDefaults.standard.isStatusItemInColor)
         setShowInDockEnabled(UserDefaults.standard.showInDock)
 
-        if LaunchAtLoginHelper.isOpenedOrReopenedByLoginItemHelper() &&
-            UserDefaults.standard.showInStatusBar {
+        let isLauncedAtLogin = LaunchAtLoginHelper.isOpenedOrReopenedByLoginItemHelper()
+
+        if isLauncedAtLogin && UserDefaults.standard.shouldReconnectOnLaunchAtLogin {
+            mainViewController?.reconnectLastUsedConnectionWhenPossible()
+        }
+        UserDefaults.standard.shouldReconnectOnLaunchAtLogin = false
+
+        if isLauncedAtLogin && UserDefaults.standard.showInStatusBar {
             // If we're showing a status item and the app was launched because
             //  the user logged in, don't show the window
             window.close()
@@ -226,6 +232,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         if isQuittingForLogoutShutdownOrRestart() {
+            UserDefaults.standard.shouldReconnectOnLaunchAtLogin = true
             return silentlyStopVPNAndQuit(connectionService: connectionService)
         } else {
             return showAlertConfirmingStopVPNAndQuit(connectionService: connectionService)

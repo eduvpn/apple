@@ -36,8 +36,7 @@ extension MainViewController: StatusItemControllerDelegate {
         }.map {
             self.pushConnectionVC(
                 connectableInstance: connectableInstance,
-                preConnectionState: nil,
-                continuationPolicy: .continueWithAnyProfile)
+                postLoadAction: .beginConnectionFlow(continuationPolicy: .continueWithAnyProfile))
         }.cauterize()
     }
 }

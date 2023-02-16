@@ -51,11 +51,19 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         let connectableInstance: ConnectableInstance
         let serverDisplayInfo: ServerDisplayInfo
         let authURLTemplate: String?
-        let initialConnectionFlowContinuationPolicy: ConnectionViewModel.FlowContinuationPolicy
+        let postLoadAction: PostLoadAction
+    }
 
-        // If restoringPreConnectionState is non-nil, then we're restoring
-        // the UI at app launch for an already-on VPN
-        let restoringPreConnectionState: ConnectionAttempt.PreConnectionState?
+    enum PostLoadAction {
+        // What should happen after this VC is initialized or loaded
+
+        // Begin the connection flow after the view loads
+        case beginConnectionFlow(continuationPolicy: ConnectionViewModel.FlowContinuationPolicy)
+
+        // A VPN is already on. Initialize the ConnectionViewModel with the appropriate state.
+        // This can happen when we detect that the VPN is on at app launch.
+        // If shouldRenewSession, initiate renew session after the view loads.
+        case restoreAlreadyConnectedState(preConnectionState: ConnectionAttempt.PreConnectionState, shouldRenewSession: Bool)
     }
 
     weak var delegate: ConnectionViewControllerDelegate?
@@ -75,7 +83,6 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
     var sessionExpiresAt: Date? { viewModel?.sessionExpiresAt }
 
     private var parameters: Parameters!
-    private var isRestored: Bool = false
     private var viewModel: ConnectionViewModel!
     private var dataStore: PersistenceService.DataStore!
 
@@ -160,7 +167,12 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         self.parameters = parameters
 
         if let server = parameters.connectableInstance as? ServerInstance {
-            let serverPreConnectionState = parameters.restoringPreConnectionState?.serverState
+            let serverPreConnectionState: ConnectionAttempt.ServerPreConnectionState?
+            if case .restoreAlreadyConnectedState(let preConnectionState, _) = parameters.postLoadAction {
+                serverPreConnectionState = preConnectionState.serverState
+            } else {
+                serverPreConnectionState = nil
+            }
             self.viewModel = ConnectionViewModel(
                 server: server,
                 connectionService: parameters.environment.connectionService,
@@ -171,7 +183,12 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
                 authURLTemplate: parameters.authURLTemplate,
                 restoringPreConnectionState: serverPreConnectionState)
         } else if let vpnConfigInstance = parameters.connectableInstance as? VPNConfigInstance {
-            let vpnConfigPreConnectionState = parameters.restoringPreConnectionState?.vpnConfigState
+            let vpnConfigPreConnectionState: ConnectionAttempt.VPNConfigPreConnectionState?
+            if case .restoreAlreadyConnectedState(let preConnectionState, _) = parameters.postLoadAction {
+                vpnConfigPreConnectionState = preConnectionState.vpnConfigState
+            } else {
+                vpnConfigPreConnectionState = nil
+            }
             self.viewModel = ConnectionViewModel(
                 vpnConfigInstance: vpnConfigInstance,
                 connectionService: parameters.environment.connectionService,
@@ -182,11 +199,15 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
             fatalError("Unknown connectable instance: \(parameters.connectableInstance)")
         }
 
-        self.isRestored = (parameters.restoringPreConnectionState != nil)
         self.dataStore = PersistenceService.DataStore(path: parameters.connectableInstance.localStoragePath)
 
         if let server = parameters.connectableInstance as? ServerInstance {
-            let serverPreConnectionState = parameters.restoringPreConnectionState?.serverState
+            let serverPreConnectionState: ConnectionAttempt.ServerPreConnectionState?
+            if case .restoreAlreadyConnectedState(let preConnectionState, _) = parameters.postLoadAction {
+                serverPreConnectionState = preConnectionState.serverState
+            } else {
+                serverPreConnectionState = nil
+            }
             if let serverPreConnectionState = serverPreConnectionState {
                 self.profiles = serverPreConnectionState.profiles
                 self.selectedProfileId = serverPreConnectionState.selectedProfileId
@@ -203,9 +224,16 @@ final class ConnectionViewController: ViewController, ParametrizedViewController
         // to receive updates from the view model
         viewModel.delegate = self
         setupInitialView(viewModel: viewModel)
-        if !isRestored {
-            beginConnectionFlow(continuationPolicy: parameters.initialConnectionFlowContinuationPolicy)
+
+        switch parameters.postLoadAction {
+        case .beginConnectionFlow(let continuationPolicy):
+            beginConnectionFlow(continuationPolicy: continuationPolicy)
+        case .restoreAlreadyConnectedState(_, let shouldRenewSession):
+            if shouldRenewSession {
+                renewSession()
+            }
         }
+
         #if os(macOS)
         vpnSwitch.setAccessibilityIdentifier("Connection")
         #elseif os(iOS)
