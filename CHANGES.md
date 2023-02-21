@@ -9,6 +9,7 @@
 - Avoid using cached token endpoints from OIDAuthState #487
 - macOS: Point the user to the OS' please-enable-notification prompt #474 
 - Improve error alerts #489
+- Fixes excluded routes usage with WireGuard #475
 
 ## 3.0.6
 
