@@ -44,7 +44,7 @@ jobs:
         with:
           xcode-version: latest-stable
       - name: Install Go
-        run: brew install go@1.16
+        run: brew install go@1.19
       - name: Prepare Developer.xcconfig
         run: cp Config/iOS/Developer.xcconfig.eduvpn-template Config/iOS/Developer.xcconfig
       - name: Prepare config.json
@@ -74,7 +74,7 @@ jobs:
       - name: Prepare privacy_statement.json
         run: cp Config/Mac/privacy_statement-eduvpn.json Config/Mac/privacy_statement.json
       - name: Install Go
-        run: brew install go@1.16
+        run: brew install go@1.19
       - name: Run MacOS build
         run: |
           export PATH="/usr/local/opt/go@1.16/bin:/opt/homebrew/opt/go@1.16/bin:$PATH"
