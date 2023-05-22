@@ -16,7 +16,7 @@ enum VPNProtocol: String {
 enum TunnelMessageCode: UInt8 {
     case getTransferredByteCount = 0 // Returns TransferredByteCount as Data
     case getNetworkAddresses = 1 // Returns [String] as JSON
-    case getLog = 2 // Returns UTF-8 string
+    case flushLog = 2 // Returns empty Data()
     case getConnectedDate = 3 // Returns UInt64 as Data
 
     var data: Data { Data([rawValue]) }

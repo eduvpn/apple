@@ -174,13 +174,11 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             }
             let encoder = JSONEncoder()
             completionHandler?(try? encoder.encode(addresses))
-        case .getLog:
-            var data = Data()
-            /*for line in (logger?.lines ?? []) {
-                data.append(line.data(using: .utf8) ?? Data())
-                data.append("\n".data(using: .utf8) ?? Data())
-            }*/
-            completionHandler?(data)
+        case .flushLog:
+            if let logger = logger {
+                logger.flush()
+            }
+            completionHandler?(nil)
         case .getConnectedDate:
             completionHandler?(connectedDate?.toData())
         }

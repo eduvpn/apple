@@ -336,7 +336,6 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
             return Promise.value(())
         }
         self.log("Beginning connection flow for server '\(server.apiBaseURLString.urlString)'")
-        self.loggingService.logAppVersion()
         return firstly { () -> Promise<ServerInfo> in
             self.internalState = .gettingServerInfo
             self.log("Getting server info for server '\(server.apiBaseURLString.urlString)'")
@@ -349,7 +348,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                 wayfSkippingInfo: self.wayfSkippingInfo(), options: [])
         }.recover { error -> Promise<([Profile], ServerInfo)> in
             self.log(error)
-            self.flushLogToDisk()
+            self.closeLogFile()
             throw error
         }.then { (profiles, serverInfo) -> Promise<Void> in
             self.profiles = profiles
@@ -405,7 +404,6 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                 return Promise.value(serverInfo)
             }
             self.internalState = .gettingServerInfo
-            self.loggingService.logAppVersion()
             self.log("Getting server info for server '\(server.apiBaseURLString.urlString)'")
             return serverAPIService.getServerInfo(for: server)
         }.then { serverInfo -> Promise<ServerAPIService.TunnelConfigurationData> in
@@ -418,7 +416,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                 options: serverAPIOptions)
         }.recover { error -> Promise<ServerAPIService.TunnelConfigurationData> in
             self.log(error)
-            self.flushLogToDisk()
+            self.closeLogFile()
             throw error
         }.then { tunnelConfigData -> Promise<(Date, Date?, UUID)> in
             self.internalState = .enableVPNRequested
@@ -447,7 +445,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
             switch tunnelConfigData.vpnConfig {
             case .openVPNConfig(let configLines):
                 self.log("Got OpenVPN tunnel config expiring at \(expiresAt)")
-                self.flushLogToDisk()
+                self.closeLogFile()
                 return self.connectionService.enableVPN(
                     openVPNConfig: configLines,
                     connectionAttemptId: connectionAttemptId,
@@ -457,7 +455,7 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
                     .map { (expiresAt, authenticatedAt, connectionAttemptId) }
             case .wireGuardConfig(let configString):
                 self.log("Got WireGuard tunnel config expiring at \(expiresAt)")
-                self.flushLogToDisk()
+                self.closeLogFile()
                 return self.connectionService.enableVPN(
                     wireGuardConfig: configString,
                     serverName: serverInfo?.apiBaseURL.host ?? "",
@@ -610,8 +608,8 @@ class ConnectionViewModel { // swiftlint:disable:this type_body_length
         }
     }
 
-    private func flushLogToDisk() {
-        self.loggingService.flushLogToDisk()
+    private func closeLogFile() {
+        self.loggingService.closeLogFile()
     }
 }
 
