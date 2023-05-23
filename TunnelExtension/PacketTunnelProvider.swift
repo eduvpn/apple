@@ -178,7 +178,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             if let logger = logger {
                 logger.flush()
             }
-            completionHandler?(nil)
+            completionHandler?(Data())
         case .getConnectedDate:
             completionHandler?(connectedDate?.toData())
         }
