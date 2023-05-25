@@ -76,7 +76,7 @@ class OpenVPNAdapterInterface: TunnelAdapterInterface {
 
         let adapter = OpenVPNAdapter(with: packetTunnelProvider)
 
-        adapter.flushLogHandler = { [weak self] in self?.logger.flushToDisk() }
+        adapter.flushLogHandler = { [weak self] in self?.logger.flush() }
 
         if !options.isStartedByApp {
             adapter.authFailShutdownHandler = { [weak packetTunnelProvider] in

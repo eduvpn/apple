@@ -301,20 +301,24 @@ extension ConnectionService {
             // Ask the tunnel process for the log
             return firstly {
                 tunnelManager.sendProviderMessage(
-                    TunnelMessageCode.getLog.data)
-            }.map { data in
-                return String(data: data, encoding: .utf8)
+                    TunnelMessageCode.flushLog.data)
+            }.map { [weak self] _ in
+                guard let self = self else { return "" }
+                return self.readLogFromDisk()
             }
         default:
-            // Read the log file directly
-            guard let appGroupURL = FileManager.default.containerURL(
-                forSecurityApplicationGroupIdentifier: ConnectionService.appGroup) else {
-                    return Promise.value(nil)
-            }
-            let debugLogURL = appGroupURL.appendingPathComponent("debug.log")
-            let debugLog = try? String(contentsOf: debugLogURL)
-            return Promise.value(debugLog)
+            // Read the log file directly from disk
+            return Promise.value(readLogFromDisk())
         }
+    }
+
+    func readLogFromDisk() -> String {
+        guard let appGroupURL = FileManager.default.containerURL(
+            forSecurityApplicationGroupIdentifier: ConnectionService.appGroup) else {
+                return ""
+        }
+        let debugLogURL = appGroupURL.appendingPathComponent("debug.log")
+        return (try? String(contentsOf: debugLogURL)) ?? ""
     }
 }
 

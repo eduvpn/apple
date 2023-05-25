@@ -8,6 +8,7 @@
 import NetworkExtension
 
 enum PacketTunnelProviderError: Error {
+    case unableToGetSharedLogLocation
     case savedProtocolConfigurationIsInvalid
     case adapterError(Error)
 
@@ -71,10 +72,17 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         }
 #endif
 
-        let logger = Logger(appGroup: appGroup,
-                            logSeparator: "--- EOF ---",
-                            isStartedByApp: startTunnelOptions.isStartedByApp,
-                            logFileName: "debug.log")
+        guard let parentURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroup) else {
+            completionHandler(PacketTunnelProviderError.unableToGetSharedLogLocation)
+            return
+        }
+        let logFileURL = parentURL.appendingPathComponent("debug.log")
+        let tempLogFileURL = parentURL.appendingPathComponent("temp.log")
+        let logger = Logger(appComponent: .tunnelExtension,
+                            logFileURL: logFileURL,
+                            tempFileURL: tempLogFileURL,
+                            shouldTruncateTillLogSeparator: true,
+                            canAppendLogSeparatorOnInit: !startTunnelOptions.isStartedByApp)
         logger.logAppVersion()
         self.logger = logger
 
@@ -130,7 +138,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             if let error = error {
                 NSLog("Failed to stop adapter: \(error.localizedDescription)")
             }
-            self.logger?.flushToDisk()
+            self.logger?.flush()
             completionHandler()
 
             #if os(macOS)
@@ -166,13 +174,11 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             }
             let encoder = JSONEncoder()
             completionHandler?(try? encoder.encode(addresses))
-        case .getLog:
-            var data = Data()
-            for line in (logger?.lines ?? []) {
-                data.append(line.data(using: .utf8) ?? Data())
-                data.append("\n".data(using: .utf8) ?? Data())
+        case .flushLog:
+            if let logger = logger {
+                logger.flush()
             }
-            completionHandler?(data)
+            completionHandler?(Data())
         case .getConnectedDate:
             completionHandler?(connectedDate?.toData())
         }
