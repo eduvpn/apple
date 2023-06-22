@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.8
+
+- Fix tunnel crash that sometimes occurs when OpenVPN tunnel shuts down
+
 ## 3.0.7
 
 - iOS: Fix crash when deleting servers #503
