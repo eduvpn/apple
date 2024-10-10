@@ -47,11 +47,11 @@ class WireGuardAdapterInterface: TunnelAdapterInterface {
     }
 
     func wake() {
-        // Nothing to do
+        logger.log("Waking up")
     }
 
     func sleep(completionHandler: @escaping () -> Void) {
-        // Mothing to do
+        logger.log("Going to sleep")
     }
 
     func getTransferredByteCount(completionHandler: @escaping (TransferredByteCount?) -> Void) {
