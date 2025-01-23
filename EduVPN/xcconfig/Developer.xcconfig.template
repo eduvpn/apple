@@ -1,0 +1,19 @@
+// Developer.xcconfig
+
+// The app name
+// If it has special characters, enclose in "quotes"
+
+APP_NAME = <eduVPN or "Let's Connect">
+
+// Your Apple developer account's Team ID
+
+DEVELOPMENT_TEAM = <team id>
+
+// The bundle identifier of this app, for macOS and iOS
+
+APP_ID_MACOS = net.roopc.eduVPN-macOS
+APP_ID_IOS = net.roopc.eduVPN-iOS
+
+// The group identifier for the macOS app
+
+GROUP_ID_MACOS = "group.$(APP_ID_MACOS)"
