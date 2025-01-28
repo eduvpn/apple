@@ -155,6 +155,25 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXLegacyTarget section */
+		6FC8D2282D48D3E8006107CF /* WireGuardGoBridge-macOS */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "";
+			buildConfigurationList = 6FC8D2292D48D3E9006107CF /* Build configuration list for PBXLegacyTarget "WireGuardGoBridge-macOS" */;
+			buildPhases = (
+			);
+			buildToolPath = $PROJECT_DIR/../Scripts/build_wireguard_go_bridge.sh;
+			buildWorkingDirectory = "";
+			dependencies = (
+			);
+			name = "WireGuardGoBridge-macOS";
+			packageProductDependencies = (
+			);
+			passBuildSettingsInEnvironment = 1;
+			productName = "WireGuardGoBridge-macOS";
+		};
+/* End PBXLegacyTarget section */
+
 /* Begin PBXNativeTarget section */
 		6FC1A4FC2D421C59005DF64E /* EduVPN */ = {
 			isa = PBXNativeTarget;
@@ -244,6 +263,9 @@
 					6FC8D1F12D48D2B5006107CF = {
 						CreatedOnToolsVersion = 16.2;
 					};
+					6FC8D2282D48D3E8006107CF = {
+						CreatedOnToolsVersion = 16.2;
+					};
 				};
 			};
 			buildConfigurationList = 6FC1A4F82D421C59005DF64E /* Build configuration list for PBXProject "EduVPN" */;
@@ -262,6 +284,7 @@
 			targets = (
 				6FC1A4FC2D421C59005DF64E /* EduVPN */,
 				6FC8D1AD2D48CF8E006107CF /* TunnelExtension-macOS */,
+				6FC8D2282D48D3E8006107CF /* WireGuardGoBridge-macOS */,
 				6FC8D1F12D48D2B5006107CF /* TunnelExtension-iOS */,
 			);
 		};
@@ -644,6 +667,35 @@
 			};
 			name = Release;
 		};
+		6FC8D22A2D48D3E9006107CF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEBUGGING_SYMBOLS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = R2NV2FHE22;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		6FC8D22B2D48D3E9006107CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = R2NV2FHE22;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -679,6 +731,15 @@
 			buildConfigurations = (
 				6FC8D1FC2D48D2B5006107CF /* Debug */,
 				6FC8D1FD2D48D2B5006107CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6FC8D2292D48D3E9006107CF /* Build configuration list for PBXLegacyTarget "WireGuardGoBridge-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6FC8D22A2D48D3E9006107CF /* Debug */,
+				6FC8D22B2D48D3E9006107CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
