@@ -275,8 +275,8 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = "$(APP_MARKETING_VERSION)";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos]" = "$(APP_ID_IOS)";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx]" = "$(APP_ID_MACOS)";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID_IOS)";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = "$(APP_ID_MACOS)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos macosx";
@@ -317,8 +317,8 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = "$(APP_MARKETING_VERSION)";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos]" = "$(APP_ID_IOS)";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx]" = "$(APP_ID_MACOS)";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID_IOS)";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = "$(APP_ID_MACOS)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos macosx";
