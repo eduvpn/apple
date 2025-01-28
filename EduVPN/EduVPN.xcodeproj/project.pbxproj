@@ -7,18 +7,64 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6FC044432D48CBB600E80B1C /* App.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 6FC044422D48CBB600E80B1C /* App.xcconfig */; };
+		6FC8D1B12D48CF8E006107CF /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FC8D1B02D48CF8E006107CF /* NetworkExtension.framework */; };
+		6FC8D1B92D48CF8E006107CF /* TunnelExtensionmacOS.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 6FC8D1AE2D48CF8E006107CF /* TunnelExtensionmacOS.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6FC8D1B72D48CF8E006107CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6FC1A4F52D421C59005DF64E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6FC8D1AD2D48CF8E006107CF;
+			remoteInfo = TunnelExtensionmacOS;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6FC8D1BA2D48CF8E006107CF /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				6FC8D1B92D48CF8E006107CF /* TunnelExtensionmacOS.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		6FC044422D48CBB600E80B1C /* App.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = App.xcconfig; path = xcconfig/App.xcconfig; sourceTree = "<group>"; };
 		6FC1A4FD2D421C59005DF64E /* EduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FC8D1AE2D48CF8E006107CF /* TunnelExtensionmacOS.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TunnelExtensionmacOS.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FC8D1B02D48CF8E006107CF /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
+		6FC8D1BF2D48CFB2006107CF /* TunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = TunnelExtension.xcconfig; path = xcconfig/TunnelExtension.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		6FC8D1BD2D48CF8E006107CF /* Exceptions for "TunnelExtensionmacOS" folder in "TunnelExtensionmacOS" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 6FC8D1AD2D48CF8E006107CF /* TunnelExtensionmacOS */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		6FC1A4FF2D421C59005DF64E /* EduVPN */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = EduVPN;
+			sourceTree = "<group>";
+		};
+		6FC8D1B22D48CF8E006107CF /* TunnelExtensionmacOS */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				6FC8D1BD2D48CF8E006107CF /* Exceptions for "TunnelExtensionmacOS" folder in "TunnelExtensionmacOS" target */,
+			);
+			path = TunnelExtensionmacOS;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -31,6 +77,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6FC8D1AB2D48CF8E006107CF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6FC8D1B12D48CF8E006107CF /* NetworkExtension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -38,7 +92,10 @@
 			isa = PBXGroup;
 			children = (
 				6FC044422D48CBB600E80B1C /* App.xcconfig */,
+				6FC8D1BF2D48CFB2006107CF /* TunnelExtension.xcconfig */,
 				6FC1A4FF2D421C59005DF64E /* EduVPN */,
+				6FC8D1B22D48CF8E006107CF /* TunnelExtensionmacOS */,
+				6FC8D1AF2D48CF8E006107CF /* Frameworks */,
 				6FC1A4FE2D421C59005DF64E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -47,8 +104,17 @@
 			isa = PBXGroup;
 			children = (
 				6FC1A4FD2D421C59005DF64E /* EduVPN.app */,
+				6FC8D1AE2D48CF8E006107CF /* TunnelExtensionmacOS.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		6FC8D1AF2D48CF8E006107CF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6FC8D1B02D48CF8E006107CF /* NetworkExtension.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -61,10 +127,12 @@
 				6FC1A4F92D421C59005DF64E /* Sources */,
 				6FC1A4FA2D421C59005DF64E /* Frameworks */,
 				6FC1A4FB2D421C59005DF64E /* Resources */,
+				6FC8D1BA2D48CF8E006107CF /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				6FC8D1B82D48CF8E006107CF /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				6FC1A4FF2D421C59005DF64E /* EduVPN */,
@@ -75,6 +143,28 @@
 			productName = EduVPN;
 			productReference = 6FC1A4FD2D421C59005DF64E /* EduVPN.app */;
 			productType = "com.apple.product-type.application";
+		};
+		6FC8D1AD2D48CF8E006107CF /* TunnelExtensionmacOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6FC8D1BE2D48CF8E006107CF /* Build configuration list for PBXNativeTarget "TunnelExtensionmacOS" */;
+			buildPhases = (
+				6FC8D1AA2D48CF8E006107CF /* Sources */,
+				6FC8D1AB2D48CF8E006107CF /* Frameworks */,
+				6FC8D1AC2D48CF8E006107CF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				6FC8D1B22D48CF8E006107CF /* TunnelExtensionmacOS */,
+			);
+			name = TunnelExtensionmacOS;
+			packageProductDependencies = (
+			);
+			productName = TunnelExtensionmacOS;
+			productReference = 6FC8D1AE2D48CF8E006107CF /* TunnelExtensionmacOS.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -87,6 +177,9 @@
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					6FC1A4FC2D421C59005DF64E = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					6FC8D1AD2D48CF8E006107CF = {
 						CreatedOnToolsVersion = 16.2;
 					};
 				};
@@ -106,6 +199,7 @@
 			projectRoot = "";
 			targets = (
 				6FC1A4FC2D421C59005DF64E /* EduVPN */,
+				6FC8D1AD2D48CF8E006107CF /* TunnelExtensionmacOS */,
 			);
 		};
 /* End PBXProject section */
@@ -115,7 +209,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6FC044432D48CBB600E80B1C /* App.xcconfig in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6FC8D1AC2D48CF8E006107CF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,7 +229,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6FC8D1AA2D48CF8E006107CF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6FC8D1B82D48CF8E006107CF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6FC8D1AD2D48CF8E006107CF /* TunnelExtensionmacOS */;
+			targetProxy = 6FC8D1B72D48CF8E006107CF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		6FC1A50A2D421C5A005DF64E /* Debug */ = {
@@ -330,6 +445,64 @@
 			};
 			name = Release;
 		};
+		6FC8D1BB2D48CF8E006107CF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6FC8D1BF2D48CFB2006107CF /* TunnelExtension.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = TunnelExtensionmacOS/TunnelExtensionmacOS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "$(inherited)";
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TunnelExtensionmacOS/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TunnelExtensionmacOS;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = "$(APP_MARKETING_VERSION)";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID_MACOS).TunnelExtensionmacOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		6FC8D1BC2D48CF8E006107CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6FC8D1BF2D48CFB2006107CF /* TunnelExtension.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = TunnelExtensionmacOS/TunnelExtensionmacOS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "$(inherited)";
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TunnelExtensionmacOS/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TunnelExtensionmacOS;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = "$(APP_MARKETING_VERSION)";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(APP_ID_MACOS).TunnelExtensionmacOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -347,6 +520,15 @@
 			buildConfigurations = (
 				6FC1A50D2D421C5A005DF64E /* Debug */,
 				6FC1A50E2D421C5A005DF64E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6FC8D1BE2D48CF8E006107CF /* Build configuration list for PBXNativeTarget "TunnelExtensionmacOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6FC8D1BB2D48CF8E006107CF /* Debug */,
+				6FC8D1BC2D48CF8E006107CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
