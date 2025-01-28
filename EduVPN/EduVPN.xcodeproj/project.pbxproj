@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6FC1A5A92D4229C3005DF64E /* App.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 6FC1A5A82D4229C3005DF64E /* App.xcconfig */; };
+		6FC044432D48CBB600E80B1C /* App.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 6FC044422D48CBB600E80B1C /* App.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6FC044422D48CBB600E80B1C /* App.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = App.xcconfig; path = xcconfig/App.xcconfig; sourceTree = "<group>"; };
 		6FC1A4FD2D421C59005DF64E /* EduVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EduVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6FC1A5A82D4229C3005DF64E /* App.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = App.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -37,9 +37,9 @@
 		6FC1A4F42D421C59005DF64E = {
 			isa = PBXGroup;
 			children = (
+				6FC044422D48CBB600E80B1C /* App.xcconfig */,
 				6FC1A4FF2D421C59005DF64E /* EduVPN */,
 				6FC1A4FE2D421C59005DF64E /* Products */,
-				6FC1A5A82D4229C3005DF64E /* App.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -115,7 +115,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6FC1A5A92D4229C3005DF64E /* App.xcconfig in Resources */,
+				6FC044432D48CBB600E80B1C /* App.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,7 +248,7 @@
 		};
 		6FC1A50D2D421C5A005DF64E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6FC1A5A82D4229C3005DF64E /* App.xcconfig */;
+			baseConfigurationReference = 6FC044422D48CBB600E80B1C /* App.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -290,7 +290,7 @@
 		};
 		6FC1A50E2D421C5A005DF64E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6FC1A5A82D4229C3005DF64E /* App.xcconfig */;
+			baseConfigurationReference = 6FC044422D48CBB600E80B1C /* App.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
