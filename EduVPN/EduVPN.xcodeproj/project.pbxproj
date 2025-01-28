@@ -296,6 +296,10 @@
 			);
 			mainGroup = 6FC1A4F42D421C59005DF64E;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				6FC2AAD82D48DA8B00BFEB8A /* XCRemoteSwiftPackageReference "wireguard-apple" */,
+				6FC2AAD92D48DE9D00BFEB8A /* XCRemoteSwiftPackageReference "tunnelkit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 6FC1A4FE2D421C59005DF64E /* Products */;
 			projectDirPath = "";
@@ -803,6 +807,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6FC2AAD82D48DA8B00BFEB8A /* XCRemoteSwiftPackageReference "wireguard-apple" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/roop/wireguard-apple.git";
+			requirement = {
+				kind = revision;
+				revision = 1f105ca1f1bcf4522bc5e832abb79e7b7c930d43;
+			};
+		};
+		6FC2AAD92D48DE9D00BFEB8A /* XCRemoteSwiftPackageReference "tunnelkit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/roop/tunnelkit.git";
+			requirement = {
+				kind = revision;
+				revision = edcd6bd96c866d3f401a49a95227012aa4589c1f;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 6FC1A4F52D421C59005DF64E /* Project object */;
 }
