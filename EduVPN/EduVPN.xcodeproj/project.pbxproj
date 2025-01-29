@@ -52,6 +52,16 @@
 		6FC8D1B02D48CF8E006107CF /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		6FC8D1BF2D48CFB2006107CF /* TunnelExtension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = TunnelExtension.xcconfig; path = xcconfig/TunnelExtension.xcconfig; sourceTree = "<group>"; };
 		6FC8D1F22D48D2B5006107CF /* TunnelExtension-iOS.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "TunnelExtension-iOS.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FE9C3B92D49E5F8000E2D4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6FE9C3BA2D49E5F8000E2D4F /* TunnelExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TunnelExtension.entitlements; sourceTree = "<group>"; };
+		6FE9C3BC2D49E5F8000E2D4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6FE9C3BD2D49E5F8000E2D4F /* TunnelExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TunnelExtension.entitlements; sourceTree = "<group>"; };
+		6FE9C3BF2D49E5F8000E2D4F /* OpenVPNAdapterInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenVPNAdapterInterface.swift; sourceTree = "<group>"; };
+		6FE9C3C12D49E5F8000E2D4F /* String+ArrayConversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ArrayConversion.swift"; sourceTree = "<group>"; };
+		6FE9C3C22D49E5F8000E2D4F /* TunnelConfiguration+UapiConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TunnelConfiguration+UapiConfig.swift"; sourceTree = "<group>"; };
+		6FE9C3C32D49E5F8000E2D4F /* TunnelConfiguration+WgQuickConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TunnelConfiguration+WgQuickConfig.swift"; sourceTree = "<group>"; };
+		6FE9C3C42D49E5F8000E2D4F /* WireGuardAdapterInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WireGuardAdapterInterface.swift; sourceTree = "<group>"; };
+		6FE9C3C62D49E5F8000E2D4F /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -128,6 +138,7 @@
 				6FC044422D48CBB600E80B1C /* App.xcconfig */,
 				6FC8D1BF2D48CFB2006107CF /* TunnelExtension.xcconfig */,
 				6FC1A4FF2D421C59005DF64E /* EduVPN */,
+				6FE9C3C72D49E5F8000E2D4F /* TunnelExtension */,
 				6FC8D1B22D48CF8E006107CF /* TunnelExtensionmacOS */,
 				6FC8D1F42D48D2B5006107CF /* TunnelExtensioniOS */,
 				6FC8D1AF2D48CF8E006107CF /* Frameworks */,
@@ -151,6 +162,55 @@
 				6FC8D1B02D48CF8E006107CF /* NetworkExtension.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6FE9C3BB2D49E5F8000E2D4F /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				6FE9C3B92D49E5F8000E2D4F /* Info.plist */,
+				6FE9C3BA2D49E5F8000E2D4F /* TunnelExtension.entitlements */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		6FE9C3BE2D49E5F8000E2D4F /* Mac */ = {
+			isa = PBXGroup;
+			children = (
+				6FE9C3BC2D49E5F8000E2D4F /* Info.plist */,
+				6FE9C3BD2D49E5F8000E2D4F /* TunnelExtension.entitlements */,
+			);
+			path = Mac;
+			sourceTree = "<group>";
+		};
+		6FE9C3C02D49E5F8000E2D4F /* OpenVPN */ = {
+			isa = PBXGroup;
+			children = (
+				6FE9C3BF2D49E5F8000E2D4F /* OpenVPNAdapterInterface.swift */,
+			);
+			path = OpenVPN;
+			sourceTree = "<group>";
+		};
+		6FE9C3C52D49E5F8000E2D4F /* WireGuard */ = {
+			isa = PBXGroup;
+			children = (
+				6FE9C3C12D49E5F8000E2D4F /* String+ArrayConversion.swift */,
+				6FE9C3C22D49E5F8000E2D4F /* TunnelConfiguration+UapiConfig.swift */,
+				6FE9C3C32D49E5F8000E2D4F /* TunnelConfiguration+WgQuickConfig.swift */,
+				6FE9C3C42D49E5F8000E2D4F /* WireGuardAdapterInterface.swift */,
+			);
+			path = WireGuard;
+			sourceTree = "<group>";
+		};
+		6FE9C3C72D49E5F8000E2D4F /* TunnelExtension */ = {
+			isa = PBXGroup;
+			children = (
+				6FE9C3BB2D49E5F8000E2D4F /* iOS */,
+				6FE9C3BE2D49E5F8000E2D4F /* Mac */,
+				6FE9C3C02D49E5F8000E2D4F /* OpenVPN */,
+				6FE9C3C52D49E5F8000E2D4F /* WireGuard */,
+				6FE9C3C62D49E5F8000E2D4F /* PacketTunnelProvider.swift */,
+			);
+			path = TunnelExtension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
